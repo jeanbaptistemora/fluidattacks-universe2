@@ -8482,9 +8482,6 @@
             },
             "146": {
               "label_ast": "AST"
-            },
-            "147": {
-              "label_ast": "AST"
             }
           },
           "153": {
@@ -8512,9 +8509,6 @@
             },
             "180": {
               "label_ast": "AST"
-            },
-            "181": {
-              "label_ast": "AST"
             }
           },
           "160": {
@@ -8533,9 +8527,6 @@
             },
             "174": {
               "label_ast": "AST"
-            },
-            "175": {
-              "label_ast": "AST"
             }
           },
           "166": {
@@ -8543,9 +8534,6 @@
               "label_ast": "AST"
             },
             "169": {
-              "label_ast": "AST"
-            },
-            "170": {
               "label_ast": "AST"
             }
           },
@@ -8696,9 +8684,6 @@
             },
             "267": {
               "label_ast": "AST"
-            },
-            "268": {
-              "label_ast": "AST"
             }
           },
           "272": {
@@ -8782,9 +8767,6 @@
             },
             "308": {
               "label_ast": "AST"
-            },
-            "309": {
-              "label_ast": "AST"
             }
           },
           "31": {
@@ -8842,9 +8824,6 @@
               "label_ast": "AST"
             },
             "334": {
-              "label_ast": "AST"
-            },
-            "335": {
               "label_ast": "AST"
             }
           },
@@ -9000,9 +8979,6 @@
             },
             "425": {
               "label_ast": "AST"
-            },
-            "426": {
-              "label_ast": "AST"
             }
           },
           "431": {
@@ -9051,9 +9027,6 @@
             },
             "442": {
               "label_ast": "AST"
-            },
-            "443": {
-              "label_ast": "AST"
             }
           },
           "448": {
@@ -9077,9 +9050,6 @@
               "label_ast": "AST"
             },
             "459": {
-              "label_ast": "AST"
-            },
-            "460": {
               "label_ast": "AST"
             }
           },
@@ -9198,9 +9168,6 @@
             },
             "513": {
               "label_ast": "AST"
-            },
-            "514": {
-              "label_ast": "AST"
             }
           },
           "519": {
@@ -9233,9 +9200,6 @@
             },
             "528": {
               "label_ast": "AST"
-            },
-            "529": {
-              "label_ast": "AST"
             }
           },
           "534": {
@@ -9248,9 +9212,6 @@
               "label_ast": "AST"
             },
             "539": {
-              "label_ast": "AST"
-            },
-            "540": {
               "label_ast": "AST"
             }
           },
@@ -9306,9 +9267,6 @@
               "label_ast": "AST"
             },
             "570": {
-              "label_ast": "AST"
-            },
-            "571": {
               "label_ast": "AST"
             }
           },
@@ -9535,7 +9493,6 @@
             "label_type": "ArgumentList"
           },
           "143": {
-            "arguments_id": "147",
             "expression": "getRequestURI",
             "expression_id": "146",
             "label_type": "MethodInvocation",
@@ -9548,9 +9505,6 @@
           "146": {
             "label_type": "SymbolLookup",
             "symbol": "getRequestURI"
-          },
-          "147": {
-            "label_type": "ArgumentList"
           },
           "15": {
             "expression": "javax.servlet.annotation.WebServlet",
@@ -9575,7 +9529,6 @@
             "label_type": "ArgumentList"
           },
           "159": {
-            "arguments_id": "181",
             "expression": "getHost",
             "expression_id": "180",
             "label_type": "MethodInvocation",
@@ -9590,14 +9543,12 @@
             "label_type": "ArgumentList"
           },
           "165": {
-            "arguments_id": "175",
             "expression": "toString",
             "expression_id": "174",
             "label_type": "MethodInvocation",
             "object_id": "166"
           },
           "166": {
-            "arguments_id": "170",
             "expression": "getRequestURL",
             "expression_id": "169",
             "label_type": "MethodInvocation",
@@ -9611,22 +9562,13 @@
             "label_type": "SymbolLookup",
             "symbol": "getRequestURL"
           },
-          "170": {
-            "label_type": "ArgumentList"
-          },
           "174": {
             "label_type": "SymbolLookup",
             "symbol": "toString"
           },
-          "175": {
-            "label_type": "ArgumentList"
-          },
           "180": {
             "label_type": "SymbolLookup",
             "symbol": "getHost"
-          },
-          "181": {
-            "label_type": "ArgumentList"
           },
           "187": {
             "arguments_id": "191",
@@ -9778,7 +9720,6 @@
             "variable_type": "javax.servlet.http.Cookie[]"
           },
           "264": {
-            "arguments_id": "268",
             "expression": "getCookies",
             "expression_id": "267",
             "label_type": "MethodInvocation",
@@ -9791,9 +9732,6 @@
           "267": {
             "label_type": "SymbolLookup",
             "symbol": "getCookies"
-          },
-          "268": {
-            "label_type": "ArgumentList"
           },
           "27": {
             "expression": "javax.servlet.http.HttpServletResponse",
@@ -9867,7 +9805,6 @@
             "object_id": "305"
           },
           "305": {
-            "arguments_id": "309",
             "expression": "getName",
             "expression_id": "308",
             "label_type": "MethodInvocation",
@@ -9880,9 +9817,6 @@
           "308": {
             "label_type": "SymbolLookup",
             "symbol": "getName"
-          },
-          "309": {
-            "label_type": "ArgumentList"
           },
           "31": {
             "block_id": "49",
@@ -9933,7 +9867,6 @@
             "label_type": "ArgumentList"
           },
           "331": {
-            "arguments_id": "335",
             "expression": "getValue",
             "expression_id": "334",
             "label_type": "MethodInvocation",
@@ -9946,9 +9879,6 @@
           "334": {
             "label_type": "SymbolLookup",
             "symbol": "getValue"
-          },
-          "335": {
-            "label_type": "ArgumentList"
           },
           "339": {
             "label_type": "Literal",
@@ -10087,7 +10017,6 @@
             "object_id": "422"
           },
           "422": {
-            "arguments_id": "426",
             "expression": "getWriter",
             "expression_id": "425",
             "label_type": "MethodInvocation",
@@ -10100,9 +10029,6 @@
           "425": {
             "label_type": "SymbolLookup",
             "symbol": "getWriter"
-          },
-          "426": {
-            "label_type": "ArgumentList"
           },
           "430": {
             "label_type": "SymbolLookup",
@@ -10142,7 +10068,6 @@
             "object_id": "439"
           },
           "439": {
-            "arguments_id": "443",
             "expression": "encoder",
             "expression_id": "442",
             "label_type": "MethodInvocation",
@@ -10155,9 +10080,6 @@
           "442": {
             "label_type": "SymbolLookup",
             "symbol": "encoder"
-          },
-          "443": {
-            "label_type": "ArgumentList"
           },
           "447": {
             "label_type": "SymbolLookup",
@@ -10183,7 +10105,6 @@
             "object_id": "456"
           },
           "456": {
-            "arguments_id": "460",
             "expression": "encoder",
             "expression_id": "459",
             "label_type": "MethodInvocation",
@@ -10196,9 +10117,6 @@
           "459": {
             "label_type": "SymbolLookup",
             "symbol": "encoder"
-          },
-          "460": {
-            "label_type": "ArgumentList"
           },
           "464": {
             "label_type": "SymbolLookup",
@@ -10305,7 +10223,6 @@
             "label_type": "FieldDeclaration"
           },
           "510": {
-            "arguments_id": "514",
             "expression": "getWriter",
             "expression_id": "513",
             "label_type": "MethodInvocation",
@@ -10318,9 +10235,6 @@
           "513": {
             "label_type": "SymbolLookup",
             "symbol": "getWriter"
-          },
-          "514": {
-            "label_type": "ArgumentList"
           },
           "518": {
             "label_type": "SymbolLookup",
@@ -10348,7 +10262,6 @@
             "object_id": "525"
           },
           "525": {
-            "arguments_id": "529",
             "expression": "encoder",
             "expression_id": "528",
             "label_type": "MethodInvocation",
@@ -10362,9 +10275,6 @@
             "label_type": "SymbolLookup",
             "symbol": "encoder"
           },
-          "529": {
-            "label_type": "ArgumentList"
-          },
           "533": {
             "label_type": "SymbolLookup",
             "symbol": "encodeForHTML"
@@ -10373,7 +10283,6 @@
             "label_type": "ArgumentList"
           },
           "536": {
-            "arguments_id": "540",
             "expression": "getMessage",
             "expression_id": "539",
             "label_type": "MethodInvocation",
@@ -10386,9 +10295,6 @@
           "539": {
             "label_type": "SymbolLookup",
             "symbol": "getMessage"
-          },
-          "540": {
-            "label_type": "ArgumentList"
           },
           "547": {
             "block_id": "549",
@@ -10428,7 +10334,6 @@
             "label_type": "ExecutionBlock"
           },
           "567": {
-            "arguments_id": "571",
             "expression": "close",
             "expression_id": "570",
             "label_type": "MethodInvocation",
@@ -10446,9 +10351,6 @@
           "570": {
             "label_type": "SymbolLookup",
             "symbol": "close"
-          },
-          "571": {
-            "label_type": "ArgumentList"
           },
           "576": {
             "label_type": "Assignment",
@@ -15122,9 +15024,6 @@
             },
             "214": {
               "label_ast": "AST"
-            },
-            "215": {
-              "label_ast": "AST"
             }
           },
           "219": {
@@ -15164,9 +15063,6 @@
               "label_ast": "AST"
             },
             "241": {
-              "label_ast": "AST"
-            },
-            "242": {
               "label_ast": "AST"
             }
           },
@@ -15250,9 +15146,6 @@
               "label_ast": "AST"
             },
             "284": {
-              "label_ast": "AST"
-            },
-            "285": {
               "label_ast": "AST"
             }
           },
@@ -15597,7 +15490,6 @@
             "variable_type": "java.sql.Connection"
           },
           "211": {
-            "arguments_id": "215",
             "expression": "getSqlConnection",
             "expression_id": "214",
             "label_type": "MethodInvocation",
@@ -15610,9 +15502,6 @@
           "214": {
             "label_type": "SymbolLookup",
             "symbol": "getSqlConnection"
-          },
-          "215": {
-            "label_type": "ArgumentList"
           },
           "219": {
             "label_type": "VariableDeclaration",
@@ -15653,7 +15542,6 @@
             "variable_type": "java.sql.ResultSet"
           },
           "238": {
-            "arguments_id": "242",
             "expression": "executeQuery",
             "expression_id": "241",
             "label_type": "MethodInvocation",
@@ -15666,9 +15554,6 @@
           "241": {
             "label_type": "SymbolLookup",
             "symbol": "executeQuery"
-          },
-          "242": {
-            "label_type": "ArgumentList"
           },
           "247": {
             "arguments_id": "251",
@@ -15743,7 +15628,6 @@
             "object_id": "281"
           },
           "281": {
-            "arguments_id": "285",
             "expression": "getWriter",
             "expression_id": "284",
             "label_type": "MethodInvocation",
@@ -15756,9 +15640,6 @@
           "284": {
             "label_type": "SymbolLookup",
             "symbol": "getWriter"
-          },
-          "285": {
-            "label_type": "ArgumentList"
           },
           "289": {
             "label_type": "SymbolLookup",
@@ -25485,9 +25366,6 @@
             },
             "230": {
               "label_ast": "AST"
-            },
-            "231": {
-              "label_ast": "AST"
             }
           },
           "239": {
@@ -25503,9 +25381,6 @@
               "label_ast": "AST"
             },
             "252": {
-              "label_ast": "AST"
-            },
-            "253": {
               "label_ast": "AST"
             }
           },
@@ -25555,9 +25430,6 @@
             },
             "292": {
               "label_ast": "AST"
-            },
-            "293": {
-              "label_ast": "AST"
             }
           },
           "284": {
@@ -25565,9 +25437,6 @@
               "label_ast": "AST"
             },
             "287": {
-              "label_ast": "AST"
-            },
-            "288": {
               "label_ast": "AST"
             }
           },
@@ -25639,9 +25508,6 @@
             },
             "324": {
               "label_ast": "AST"
-            },
-            "325": {
-              "label_ast": "AST"
             }
           },
           "331": {
@@ -25692,9 +25558,6 @@
               "label_ast": "AST"
             },
             "361": {
-              "label_ast": "AST"
-            },
-            "362": {
               "label_ast": "AST"
             }
           },
@@ -25829,9 +25692,6 @@
             },
             "427": {
               "label_ast": "AST"
-            },
-            "428": {
-              "label_ast": "AST"
             }
           },
           "433": {
@@ -25869,9 +25729,6 @@
             },
             "443": {
               "label_ast": "AST"
-            },
-            "444": {
-              "label_ast": "AST"
             }
           },
           "449": {
@@ -25895,9 +25752,6 @@
               "label_ast": "AST"
             },
             "455": {
-              "label_ast": "AST"
-            },
-            "456": {
               "label_ast": "AST"
             }
           },
@@ -25961,9 +25815,6 @@
               "label_ast": "AST"
             },
             "492": {
-              "label_ast": "AST"
-            },
-            "493": {
               "label_ast": "AST"
             }
           },
@@ -26121,9 +25972,6 @@
             },
             "558": {
               "label_ast": "AST"
-            },
-            "559": {
-              "label_ast": "AST"
             }
           },
           "564": {
@@ -26155,9 +26003,6 @@
               "label_ast": "AST"
             },
             "571": {
-              "label_ast": "AST"
-            },
-            "572": {
               "label_ast": "AST"
             }
           },
@@ -26213,9 +26058,6 @@
             },
             "599": {
               "label_ast": "AST"
-            },
-            "600": {
-              "label_ast": "AST"
             }
           },
           "605": {
@@ -26269,9 +26111,6 @@
             },
             "619": {
               "label_ast": "AST"
-            },
-            "620": {
-              "label_ast": "AST"
             }
           },
           "62": {
@@ -26292,9 +26131,6 @@
             },
             "629": {
               "label_ast": "AST"
-            },
-            "630": {
-              "label_ast": "AST"
             }
           },
           "639": {
@@ -26313,9 +26149,6 @@
               "label_ast": "AST"
             },
             "643": {
-              "label_ast": "AST"
-            },
-            "644": {
               "label_ast": "AST"
             }
           },
@@ -26642,7 +26475,6 @@
             "label_type": "ArgumentList"
           },
           "227": {
-            "arguments_id": "231",
             "expression": "getBytes",
             "expression_id": "230",
             "label_type": "MethodInvocation",
@@ -26660,9 +26492,6 @@
             "label_type": "SymbolLookup",
             "symbol": "getBytes"
           },
-          "231": {
-            "label_type": "ArgumentList"
-          },
           "239": {
             "label_type": "VariableDeclaration",
             "value_id": "244",
@@ -26670,7 +26499,6 @@
             "variable_type": "long"
           },
           "244": {
-            "arguments_id": "253",
             "expression": "nextLong",
             "expression_id": "252",
             "label_type": "MethodInvocation",
@@ -26683,9 +26511,6 @@
           "252": {
             "label_type": "SymbolLookup",
             "symbol": "nextLong"
-          },
-          "253": {
-            "label_type": "ArgumentList"
           },
           "257": {
             "label_type": "VariableDeclaration",
@@ -26737,14 +26562,12 @@
             "variable_type": "String"
           },
           "283": {
-            "arguments_id": "293",
             "expression": "getName",
             "expression_id": "292",
             "label_type": "MethodInvocation",
             "object_id": "284"
           },
           "284": {
-            "arguments_id": "288",
             "expression": "getClass",
             "expression_id": "287",
             "label_type": "MethodInvocation",
@@ -26758,15 +26581,9 @@
             "label_type": "SymbolLookup",
             "symbol": "getClass"
           },
-          "288": {
-            "label_type": "ArgumentList"
-          },
           "292": {
             "label_type": "SymbolLookup",
             "symbol": "getName"
-          },
-          "293": {
-            "label_type": "ArgumentList"
           },
           "297": {
             "label_type": "VariableDeclaration",
@@ -26842,7 +26659,6 @@
             "value_type": "number"
           },
           "321": {
-            "arguments_id": "325",
             "expression": "length",
             "expression_id": "324",
             "label_type": "MethodInvocation",
@@ -26856,9 +26672,6 @@
           "324": {
             "label_type": "SymbolLookup",
             "symbol": "length"
-          },
-          "325": {
-            "label_type": "ArgumentList"
           },
           "331": {
             "label_type": "Assignment",
@@ -26913,7 +26726,6 @@
             "variable_type": "javax.servlet.http.Cookie[]"
           },
           "358": {
-            "arguments_id": "362",
             "expression": "getCookies",
             "expression_id": "361",
             "label_type": "MethodInvocation",
@@ -26926,9 +26738,6 @@
           "361": {
             "label_type": "SymbolLookup",
             "symbol": "getCookies"
-          },
-          "362": {
-            "label_type": "ArgumentList"
           },
           "366": {
             "condition_id": "368",
@@ -27052,7 +26861,6 @@
             "label_type": "ArgumentList"
           },
           "424": {
-            "arguments_id": "428",
             "expression": "getName",
             "expression_id": "427",
             "label_type": "MethodInvocation",
@@ -27065,9 +26873,6 @@
           "427": {
             "label_type": "SymbolLookup",
             "symbol": "getName"
-          },
-          "428": {
-            "label_type": "ArgumentList"
           },
           "433": {
             "label_type": "ExecutionBlock"
@@ -27085,7 +26890,6 @@
             "object_id": "440"
           },
           "440": {
-            "arguments_id": "444",
             "expression": "getValue",
             "expression_id": "443",
             "label_type": "MethodInvocation",
@@ -27098,9 +26902,6 @@
           "443": {
             "label_type": "SymbolLookup",
             "symbol": "getValue"
-          },
-          "444": {
-            "label_type": "ArgumentList"
           },
           "448": {
             "label_type": "SymbolLookup",
@@ -27117,7 +26918,6 @@
             "object_id": "452"
           },
           "452": {
-            "arguments_id": "456",
             "expression": "getSession",
             "expression_id": "455",
             "label_type": "MethodInvocation",
@@ -27130,9 +26930,6 @@
           "455": {
             "label_type": "SymbolLookup",
             "symbol": "getSession"
-          },
-          "456": {
-            "label_type": "ArgumentList"
           },
           "460": {
             "label_type": "SymbolLookup",
@@ -27184,7 +26981,6 @@
             "object_id": "489"
           },
           "489": {
-            "arguments_id": "493",
             "expression": "getWriter",
             "expression_id": "492",
             "label_type": "MethodInvocation",
@@ -27200,9 +26996,6 @@
           "492": {
             "label_type": "SymbolLookup",
             "symbol": "getWriter"
-          },
-          "493": {
-            "label_type": "ArgumentList"
           },
           "497": {
             "label_type": "SymbolLookup",
@@ -27331,7 +27124,6 @@
             "label_type": "ArgumentList"
           },
           "555": {
-            "arguments_id": "559",
             "expression": "getRequestURI",
             "expression_id": "558",
             "label_type": "MethodInvocation",
@@ -27344,9 +27136,6 @@
           "558": {
             "label_type": "SymbolLookup",
             "symbol": "getRequestURI"
-          },
-          "559": {
-            "label_type": "ArgumentList"
           },
           "564": {
             "comment": "// i.e., set path to JUST this servlet ",
@@ -27364,7 +27153,6 @@
             "object_id": "568"
           },
           "568": {
-            "arguments_id": "572",
             "expression": "getSession",
             "expression_id": "571",
             "label_type": "MethodInvocation",
@@ -27382,9 +27170,6 @@
           "571": {
             "label_type": "SymbolLookup",
             "symbol": "getSession"
-          },
-          "572": {
-            "label_type": "ArgumentList"
           },
           "576": {
             "label_type": "SymbolLookup",
@@ -27431,7 +27216,6 @@
             "object_id": "596"
           },
           "596": {
-            "arguments_id": "600",
             "expression": "getWriter",
             "expression_id": "599",
             "label_type": "MethodInvocation",
@@ -27449,9 +27233,6 @@
             "label_type": "Literal",
             "value": "1L",
             "value_type": "number"
-          },
-          "600": {
-            "label_type": "ArgumentList"
           },
           "604": {
             "label_type": "SymbolLookup",
@@ -27500,7 +27281,6 @@
             "value_type": "string"
           },
           "616": {
-            "arguments_id": "620",
             "expression": "getName",
             "expression_id": "619",
             "label_type": "MethodInvocation",
@@ -27521,16 +27301,12 @@
             "name": "doGet",
             "parameters_id": "70"
           },
-          "620": {
-            "label_type": "ArgumentList"
-          },
           "624": {
             "label_type": "Literal",
             "value": "\" whose value is: \"",
             "value_type": "string"
           },
           "626": {
-            "arguments_id": "630",
             "expression": "getValue",
             "expression_id": "629",
             "label_type": "MethodInvocation",
@@ -27548,9 +27324,6 @@
             "annotation_ids": [],
             "label_type": "Modifiers"
           },
-          "630": {
-            "label_type": "ArgumentList"
-          },
           "634": {
             "label_type": "Literal",
             "value": "\"<br/>\"",
@@ -27564,7 +27337,6 @@
             "object_id": "640"
           },
           "640": {
-            "arguments_id": "644",
             "expression": "getWriter",
             "expression_id": "643",
             "label_type": "MethodInvocation",
@@ -27577,9 +27349,6 @@
           "643": {
             "label_type": "SymbolLookup",
             "symbol": "getWriter"
-          },
-          "644": {
-            "label_type": "ArgumentList"
           },
           "648": {
             "label_type": "SymbolLookup",

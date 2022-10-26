@@ -68,7 +68,10 @@ def is_insecure_storage(graph: Graph, nid: NId) -> bool:
         {"mail", "user"},
     )
     f_name = graph.nodes[nid]["expression"]
-    al_id = graph.nodes[nid]["arguments_id"]
+
+    al_id = graph.nodes[nid].get("arguments_id")
+    if not al_id:
+        return False
     opc_nid = g.match_ast(graph, al_id)
 
     if "getItem" in f_name.split("."):

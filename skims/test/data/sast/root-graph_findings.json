@@ -1687,9 +1687,6 @@
             },
             "58": {
               "label_ast": "AST"
-            },
-            "59": {
-              "label_ast": "AST"
             }
           },
           "6": {
@@ -1730,9 +1727,6 @@
               "label_ast": "AST"
             },
             "77": {
-              "label_ast": "AST"
-            },
-            "78": {
               "label_ast": "AST"
             }
           },
@@ -1854,7 +1848,6 @@
             "variable_type": "javax.servlet.http.Cookie[]"
           },
           "55": {
-            "arguments_id": "59",
             "expression": "getCookies",
             "expression_id": "58",
             "label_type": "MethodInvocation",
@@ -1867,9 +1860,6 @@
           "58": {
             "label_type": "SymbolLookup",
             "symbol": "getCookies"
-          },
-          "59": {
-            "label_type": "ArgumentList"
           },
           "6": {
             "block_id": "11",
@@ -1901,7 +1891,6 @@
             "label_type": "ArgumentList"
           },
           "74": {
-            "arguments_id": "78",
             "expression": "getValue",
             "expression_id": "77",
             "label_type": "MethodInvocation",
@@ -1914,9 +1903,6 @@
           "77": {
             "label_type": "SymbolLookup",
             "symbol": "getValue"
-          },
-          "78": {
-            "label_type": "ArgumentList"
           },
           "82": {
             "label_type": "Literal",

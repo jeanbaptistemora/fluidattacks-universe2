@@ -26327,9 +26327,6 @@
             },
             "120": {
               "label_ast": "AST"
-            },
-            "121": {
-              "label_ast": "AST"
             }
           },
           "1172": {
@@ -29042,9 +29039,6 @@
             },
             "96": {
               "label_ast": "AST"
-            },
-            "97": {
-              "label_ast": "AST"
             }
           },
           "932": {
@@ -29566,7 +29560,6 @@
             "label_type": "SwitchSection"
           },
           "117": {
-            "arguments_id": "121",
             "expression": "printStackTrace",
             "expression_id": "120",
             "label_type": "MethodInvocation",
@@ -29634,9 +29627,6 @@
           },
           "1207": {
             "label_type": "SwitchSection"
-          },
-          "121": {
-            "label_type": "ArgumentList"
           },
           "1212": {
             "arguments_id": "1216",
@@ -32204,7 +32194,6 @@
             "symbol": "i"
           },
           "93": {
-            "arguments_id": "97",
             "expression": "toString",
             "expression_id": "96",
             "label_type": "MethodInvocation",
@@ -32306,9 +32295,6 @@
           "967": {
             "label_type": "SymbolLookup",
             "symbol": "j"
-          },
-          "97": {
-            "label_type": "ArgumentList"
           },
           "970": {
             "label_type": "ExecutionBlock"
@@ -85348,9 +85334,6 @@
           "1281": {
             "1282": {
               "label_ast": "AST"
-            },
-            "1286": {
-              "label_ast": "AST"
             }
           },
           "1282": {
@@ -85511,9 +85494,6 @@
           },
           "1351": {
             "1352": {
-              "label_ast": "AST"
-            },
-            "1356": {
               "label_ast": "AST"
             }
           },
@@ -85721,9 +85701,6 @@
           "1455": {
             "1456": {
               "label_ast": "AST"
-            },
-            "1457": {
-              "label_ast": "AST"
             }
           },
           "1460": {
@@ -85876,9 +85853,6 @@
           },
           "1550": {
             "1551": {
-              "label_ast": "AST"
-            },
-            "1555": {
               "label_ast": "AST"
             }
           },
@@ -86247,9 +86221,6 @@
           "198": {
             "199": {
               "label_ast": "AST"
-            },
-            "200": {
-              "label_ast": "AST"
             }
           },
           "205": {
@@ -86278,9 +86249,6 @@
           },
           "218": {
             "219": {
-              "label_ast": "AST"
-            },
-            "220": {
               "label_ast": "AST"
             }
           },
@@ -86791,9 +86759,6 @@
           "526": {
             "527": {
               "label_ast": "AST"
-            },
-            "531": {
-              "label_ast": "AST"
             }
           },
           "527": {
@@ -86857,9 +86822,6 @@
           "559": {
             "560": {
               "label_ast": "AST"
-            },
-            "564": {
-              "label_ast": "AST"
             }
           },
           "560": {
@@ -86900,9 +86862,6 @@
           },
           "592": {
             "593": {
-              "label_ast": "AST"
-            },
-            "597": {
               "label_ast": "AST"
             }
           },
@@ -88226,7 +88185,6 @@
             "label_type": "StatementBlock"
           },
           "1281": {
-            "arguments_id": "1286",
             "expression": "express.Router",
             "expression_id": "1282",
             "label_type": "MethodInvocation"
@@ -88244,9 +88202,6 @@
           "1285": {
             "label_type": "SymbolLookup",
             "symbol": "Router"
-          },
-          "1286": {
-            "label_type": "ArgumentList"
           },
           "1291": {
             "arguments_id": "1296",
@@ -88399,7 +88354,6 @@
             "member": "express.Router()"
           },
           "1351": {
-            "arguments_id": "1356",
             "expression": "express.Router",
             "expression_id": "1352",
             "label_type": "MethodInvocation"
@@ -88417,9 +88371,6 @@
           "1355": {
             "label_type": "SymbolLookup",
             "symbol": "Router"
-          },
-          "1356": {
-            "label_type": "ArgumentList"
           },
           "1360": {
             "label_type": "SymbolLookup",
@@ -88626,7 +88577,6 @@
             "symbol": "args"
           },
           "1455": {
-            "arguments_id": "1457",
             "expression": "end",
             "expression_id": "1456",
             "label_type": "MethodInvocation"
@@ -88634,9 +88584,6 @@
           "1456": {
             "label_type": "SymbolLookup",
             "symbol": "end"
-          },
-          "1457": {
-            "label_type": "ArgumentList"
           },
           "1460": {
             "label_type": "Return",
@@ -88799,7 +88746,6 @@
             "label_type": "MethodInvocation"
           },
           "1550": {
-            "arguments_id": "1555",
             "expression": "security.toUTCString",
             "expression_id": "1551",
             "label_type": "MethodInvocation"
@@ -88817,9 +88763,6 @@
           "1554": {
             "label_type": "SymbolLookup",
             "symbol": "toUTCString"
-          },
-          "1555": {
-            "label_type": "ArgumentList"
           },
           "156": {
             "label_type": "SymbolLookup",
@@ -89243,7 +89186,6 @@
             "label_type": "AwaitExpression"
           },
           "198": {
-            "arguments_id": "200",
             "expression": "resolveAfter2Seconds",
             "expression_id": "199",
             "label_type": "MethodInvocation"
@@ -89255,9 +89197,6 @@
           "2": {
             "expression": "\"module-name\"",
             "label_type": "Import"
-          },
-          "200": {
-            "label_type": "ArgumentList"
           },
           "205": {
             "arguments_id": "210",
@@ -89291,7 +89230,6 @@
             "label_type": "Comment"
           },
           "218": {
-            "arguments_id": "220",
             "expression": "asyncCall",
             "expression_id": "219",
             "label_type": "MethodInvocation"
@@ -89299,9 +89237,6 @@
           "219": {
             "label_type": "SymbolLookup",
             "symbol": "asyncCall"
-          },
-          "220": {
-            "label_type": "ArgumentList"
           },
           "224": {
             "comment": "// block",
@@ -89947,7 +89882,6 @@
             "variable": "reader"
           },
           "526": {
-            "arguments_id": "531",
             "expression": "stream.getReader",
             "expression_id": "527",
             "label_type": "MethodInvocation"
@@ -89965,9 +89899,6 @@
           "530": {
             "label_type": "SymbolLookup",
             "symbol": "getReader"
-          },
-          "531": {
-            "label_type": "ArgumentList"
           },
           "535": {
             "block_id": "537",
@@ -89998,7 +89929,6 @@
             "label_type": "AwaitExpression"
           },
           "559": {
-            "arguments_id": "564",
             "expression": "reader.read",
             "expression_id": "560",
             "label_type": "MethodInvocation"
@@ -90016,9 +89946,6 @@
           "563": {
             "label_type": "SymbolLookup",
             "symbol": "read"
-          },
-          "564": {
-            "label_type": "ArgumentList"
           },
           "568": {
             "condition_id": "570",
@@ -90051,7 +89978,6 @@
             "label_type": "StatementBlock"
           },
           "592": {
-            "arguments_id": "597",
             "expression": "reader.releaseLock",
             "expression_id": "593",
             "label_type": "MethodInvocation"
@@ -90069,9 +89995,6 @@
           "596": {
             "label_type": "SymbolLookup",
             "symbol": "releaseLock"
-          },
-          "597": {
-            "label_type": "ArgumentList"
           },
           "603": {
             "comment": "// Fetches data from url and calculates response size using the async generator.",
@@ -138287,9 +138210,6 @@
           "1145": {
             "1146": {
               "label_ast": "AST"
-            },
-            "1150": {
-              "label_ast": "AST"
             }
           },
           "1146": {
@@ -138413,9 +138333,6 @@
           },
           "1225": {
             "1226": {
-              "label_ast": "AST"
-            },
-            "1227": {
               "label_ast": "AST"
             }
           },
@@ -138722,9 +138639,6 @@
           "1401": {
             "1402": {
               "label_ast": "AST"
-            },
-            "1406": {
-              "label_ast": "AST"
             }
           },
           "1402": {
@@ -138793,9 +138707,6 @@
           "1434": {
             "1435": {
               "label_ast": "AST"
-            },
-            "1439": {
-              "label_ast": "AST"
             }
           },
           "1435": {
@@ -138849,9 +138760,6 @@
           },
           "1467": {
             "1468": {
-              "label_ast": "AST"
-            },
-            "1472": {
               "label_ast": "AST"
             }
           },
@@ -140106,9 +140014,6 @@
           "678": {
             "679": {
               "label_ast": "AST"
-            },
-            "680": {
-              "label_ast": "AST"
             }
           },
           "685": {
@@ -140137,9 +140042,6 @@
           },
           "694": {
             "695": {
-              "label_ast": "AST"
-            },
-            "699": {
               "label_ast": "AST"
             }
           },
@@ -140691,7 +140593,6 @@
             "right_id": "1154"
           },
           "1145": {
-            "arguments_id": "1150",
             "expression": "Math.random",
             "expression_id": "1146",
             "label_type": "MethodInvocation"
@@ -140709,9 +140610,6 @@
           "1149": {
             "label_type": "SymbolLookup",
             "symbol": "random"
-          },
-          "1150": {
-            "label_type": "ArgumentList"
           },
           "1154": {
             "label_type": "Literal",
@@ -140835,7 +140733,6 @@
             "label_type": "StatementBlock"
           },
           "1225": {
-            "arguments_id": "1227",
             "expression": "func",
             "expression_id": "1226",
             "label_type": "MethodInvocation"
@@ -140843,9 +140740,6 @@
           "1226": {
             "label_type": "SymbolLookup",
             "symbol": "func"
-          },
-          "1227": {
-            "label_type": "ArgumentList"
           },
           "1232": {
             "label_type": "VariableDeclaration",
@@ -141186,7 +141080,6 @@
             "variable": "reader"
           },
           "1401": {
-            "arguments_id": "1406",
             "expression": "stream.getReader",
             "expression_id": "1402",
             "label_type": "MethodInvocation"
@@ -141204,9 +141097,6 @@
           "1405": {
             "label_type": "SymbolLookup",
             "symbol": "getReader"
-          },
-          "1406": {
-            "label_type": "ArgumentList"
           },
           "141": {
             "label_type": "VariableDeclaration",
@@ -141242,7 +141132,6 @@
             "label_type": "AwaitExpression"
           },
           "1434": {
-            "arguments_id": "1439",
             "expression": "reader.read",
             "expression_id": "1435",
             "label_type": "MethodInvocation"
@@ -141260,9 +141149,6 @@
           "1438": {
             "label_type": "SymbolLookup",
             "symbol": "read"
-          },
-          "1439": {
-            "label_type": "ArgumentList"
           },
           "144": {
             "label_type": "Object"
@@ -141299,7 +141185,6 @@
             "label_type": "StatementBlock"
           },
           "1467": {
-            "arguments_id": "1472",
             "expression": "reader.releaseLock",
             "expression_id": "1468",
             "label_type": "MethodInvocation"
@@ -141321,9 +141206,6 @@
           "1471": {
             "label_type": "SymbolLookup",
             "symbol": "releaseLock"
-          },
-          "1472": {
-            "label_type": "ArgumentList"
           },
           "1478": {
             "comment": "// Fetches data from url and calculates response size using the async generator.",
@@ -142768,7 +142650,6 @@
             "variable": "userID"
           },
           "678": {
-            "arguments_id": "680",
             "expression": "getIDNumber",
             "expression_id": "679",
             "label_type": "MethodInvocation"
@@ -142780,9 +142661,6 @@
           "68": {
             "label_type": "SymbolLookup",
             "symbol": "name"
-          },
-          "680": {
-            "label_type": "ArgumentList"
           },
           "685": {
             "arguments_id": "690",
@@ -142813,7 +142691,6 @@
             "value_type": "string"
           },
           "694": {
-            "arguments_id": "699",
             "expression": "userID.toUpperCase",
             "expression_id": "695",
             "label_type": "MethodInvocation"
@@ -142831,9 +142708,6 @@
           "698": {
             "label_type": "SymbolLookup",
             "symbol": "toUpperCase"
-          },
-          "699": {
-            "label_type": "ArgumentList"
           },
           "70": {
             "label_type": "Literal",

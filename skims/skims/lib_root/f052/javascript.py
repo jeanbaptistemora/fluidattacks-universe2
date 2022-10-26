@@ -142,9 +142,14 @@ def is_insecure_cipher(graph: Graph, n_id: NId) -> bool:
     crypto2 = {"AES", "RSA"}
 
     n_attrs = graph.nodes[n_id]
+
+    al_id = n_attrs.get("arguments_id")
+    if not al_id:
+        return False
+    call_al = g.match_ast(graph, al_id)
+
     f_name = n_attrs["expression"]
     algo, crypt = split_function_name(f_name)
-    call_al = g.match_ast(graph, n_attrs["arguments_id"])
     is_insecure = False
     if crypt in native_ciphers and (test_node := call_al.get("__0__")):
         is_insecure = eval_insecure_cipher(graph, test_node)
@@ -195,14 +200,16 @@ def eval_insecure_options(graph: Graph, algo_id: NId, options_id: NId) -> bool:
 def is_insecure_key(graph: Graph, n_id: NId) -> bool:
     function1 = {"createECDH"}
     function2 = {"generateKeyPair"}
-
-    f_name = graph.nodes[n_id]["expression"]
-    _, key = split_function_name(f_name)
-    al_id = graph.nodes[n_id]["arguments_id"]
-
+    n_attrs = graph.nodes[n_id]
+    al_id = n_attrs.get("arguments_id")
+    if not al_id:
+        return False
     call_al = g.match_ast(graph, al_id)
     algo_node = call_al.get("__0__")
     opt_node = call_al.get("__1__")
+
+    f_name = n_attrs["expression"]
+    _, key = split_function_name(f_name)
 
     if key in function1 and algo_node:
         return eval_insecure_curve(graph, algo_node)

@@ -28,12 +28,14 @@ def search_data_element(
     graph: Graph, path: Path, method_id: NId
 ) -> Optional[NId]:
     n_attrs = graph.nodes[method_id]
-    var_name = graph.nodes[n_attrs["object_id"]].get("symbol")
-    access_id = g.match_ast(graph, n_attrs["arguments_id"]).get("__0__")
+    obj_id = n_attrs.get("object_id")
+    al_id = n_attrs.get("arguments_id")
 
-    if not (var_name and access_id):
+    if not (obj_id and al_id):
         return None
 
+    var_name = graph.nodes[n_attrs["object_id"]].get("symbol") or ""
+    access_id = g.adj_ast(graph, al_id)[0]
     m_path = get_lookup_path(graph, path, method_id)
     access_nid = graph.nodes[access_id]
     if access_nid.get("value_type") == "number":
@@ -58,7 +60,7 @@ def get_element_by_idx(
             n_attrs["label_type"] == "MethodInvocation"
             and (object_id := n_attrs.get("object_id"))
             and graph.nodes[object_id].get("symbol") == var_name
-            and (al_id := n_attrs["arguments_id"])
+            and (al_id := n_attrs.get("arguments_id"))
             and (arg_id := g.match_ast(graph, al_id).get("__0__"))
         ):
             if n_attrs.get("expression") in {"add", "push"}:
@@ -91,7 +93,8 @@ def get_element_by_key(
 
         if (
             graph.nodes[n_attrs["object_id"]].get("symbol") == var_name
-            and (arg_ids := g.adj_ast(graph, n_attrs["arguments_id"]))
+            and (al_id := n_attrs.get("arguments_id"))
+            and (arg_ids := g.adj_ast(graph, al_id))
             and len(arg_ids) >= 2
             and graph.nodes[arg_ids[0]].get("value") == access_key
         ):
