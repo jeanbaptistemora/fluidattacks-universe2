@@ -54,6 +54,16 @@ async def populate() -> bool:
                     start_date="2022-10-21T15:58:31.280182",
                 ),
             ),
+            Enrollment(
+                email="janedoe@fluidattacks.com",
+                enrolled=True,
+                trial=Trial(
+                    completed=False,
+                    extension_date="",
+                    extension_days=0,
+                    start_date="2022-10-22T15:58:31.280182",
+                ),
+            ),
         ],
         "groups": [
             {
@@ -69,6 +79,27 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="janedoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup2",
+                    organization_id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="janedoe@fluidattacks.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -97,11 +128,35 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    country="Colombia",
+                    id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
+                    name="testorg2",
+                    policies=Policies(
+                        modified_by="janedoe@fluidattacks.com",
+                        max_acceptance_days=7,
+                        modified_date="2022-10-21T15:58:31.280182",
+                        vulnerability_grace_period=5,
+                    ),
+                    state=OrganizationState(
+                        modified_by="janedoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
                 email="johndoe@fluidattacks.com",
                 first_name="John",
+                is_registered=True,
+                last_name="Doe",
+            ),
+            Stakeholder(
+                email="janedoe@fluidattacks.com",
+                first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
             ),

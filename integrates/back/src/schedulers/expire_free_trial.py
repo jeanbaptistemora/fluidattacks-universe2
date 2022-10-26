@@ -15,6 +15,7 @@ from dataloaders import (
 from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
+    Trial,
 )
 from db_model.groups.enums import (
     GroupManaged,
@@ -47,13 +48,6 @@ logging.config.dictConfig(LOGGING)
 # Constants
 FREE_TRIAL_DAYS = 21
 LOGGER = logging.getLogger(__name__)
-
-
-def get_days_since(date: str) -> int:
-    return (
-        datetime_utils.get_now()
-        - datetime_utils.get_datetime_from_iso_str(date)
-    ).days
 
 
 async def expire(
@@ -95,8 +89,14 @@ async def expire(
         )
 
 
-def get_remaining_days(enrollment: Enrollment) -> int:
-    trial = enrollment.trial
+def get_days_since(date: str) -> int:
+    return (
+        datetime_utils.get_now()
+        - datetime_utils.get_datetime_from_iso_str(date)
+    ).days
+
+
+def get_remaining_days(trial: Trial) -> int:
     days = (
         trial.extension_days - get_days_since(trial.extension_date)
         if trial.extension_date
@@ -104,6 +104,14 @@ def get_remaining_days(enrollment: Enrollment) -> int:
     )
 
     return max(0, days)
+
+
+def has_expired(trial: Trial) -> bool:
+    return (
+        not trial.completed
+        and trial.start_date != ""
+        and get_remaining_days(trial) == 0
+    )
 
 
 async def main() -> None:
@@ -118,8 +126,6 @@ async def main() -> None:
         tuple(
             expire(loaders, group, enrollment)
             for group, enrollment in zip(groups, enrollments)
-            if not enrollment.trial.completed
-            and enrollment.trial.start_date
-            and get_remaining_days(enrollment) == 0
+            if has_expired(enrollment.trial)
         )
     )

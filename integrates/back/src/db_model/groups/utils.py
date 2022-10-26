@@ -279,9 +279,9 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
 
 def format_state_managed(managed: Union[bool, str]) -> GroupManaged:
     if not managed:
-        return GroupManaged("NOT_MANAGED")
+        return GroupManaged.NOT_MANAGED
     if managed is True:
-        return GroupManaged("MANAGED")
+        return GroupManaged.MANAGED
     return GroupManaged[managed]
 
 
