@@ -9,6 +9,7 @@ function functionAWithConsoleLog() {
         if(c < 5) throw "too low";
         if(c > 10) throw "too high";
         eval('alert("Your query string was ' + unescape(document.location.search) + '");');
+        eval("Your query string is a literal string and it is reasonably safe.") // Compliant
         // eval('alert("Your query string was ' + unescape(document.location.search) + '");');
     }
     catch(err) {

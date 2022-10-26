@@ -10,9 +10,11 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -25,11 +27,21 @@ from utils import (
 )
 
 
+def is_argument_literal(graph: Graph, n_id: NId) -> bool:
+    if (args := g.match_ast(graph, n_id)) and (
+        len(args) == 1
+        and graph.nodes[args.get("__0__")]["label_type"] == "Literal"
+    ):
+        return True
+    return False
+
+
 def uses_eval(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_USES_EVAL
+    sensitive_methods = {"eval", "Function"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -44,7 +56,10 @@ def uses_eval(
                 graph.nodes,
                 predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
-                if graph.nodes[member].get("expression") == "eval":
+                if (args_id := graph.nodes[member].get("arguments_id")) and (
+                    graph.nodes[member].get("expression") in sensitive_methods
+                    and not is_argument_literal(graph, args_id)
+                ):
                     yield shard, member
 
     return get_vulnerabilities_from_n_ids(

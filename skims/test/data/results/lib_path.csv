@@ -29957,16 +29957,16 @@ F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,11,676,skims,143
    9 |         if(c < 5) throw ""too low"";
   10 |         if(c > 10) throw ""too high"";
 > 11 |         eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
-  12 |         // eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
-  13 |     }
-  14 |     catch(err) {
-  15 |         // a comment
-  16 |         /* a comment */
-  17 |         /*
-  18 |             a comment
-  19 |         */
-  20 |     }
-  21 | }
+  12 |         eval(""Your query string is a literal string and it is reasonably safe."") // Compliant
+  13 |         // eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
+  14 |     }
+  15 |     catch(err) {
+  16 |         // a comment
+  17 |         /* a comment */
+  18 |         /*
+  19 |             a comment
+  20 |         */
+  21 |     }
      ^ Col 0
 ",javascript.js_uses_eval
 F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
