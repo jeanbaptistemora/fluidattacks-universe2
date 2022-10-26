@@ -4,12 +4,8 @@
 
 # pylint: disable=invalid-name
 """
-From deleted groups, remove unneeded root related items.
-The following root related facets won't be archived:
-    machine_git_root_execution
-    root_environment_secret
-    root_environment_url
-    root_secret
+From deleted groups, archive roots metadata in redshift and
+remove all items from vms.
 
 Execution Time:
 Finalization Time:
@@ -26,10 +22,19 @@ from dataloaders import (
 from db_model import (
     roots as roots_model,
 )
+from db_model.roots.get import (
+    get_group_roots_items,
+)
+from dynamodb.types import (
+    Item,
+)
 import logging
 import logging.config
 from organizations import (
     domain as orgs_domain,
+)
+from redshift import (
+    roots as redshift_roots,
 )
 from settings import (
     LOGGING,
@@ -43,37 +48,30 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def _process_root(
-    group_name: str,
-    root_id: str,
+    item: Item,
 ) -> None:
-    await roots_model.remove_root_machine_executions(root_id=root_id)
-    await roots_model.remove_root_environment_urls(root_id=root_id)
-    await roots_model.remove_root_secrets(root_id=root_id)
-    LOGGER_CONSOLE.info(
-        "Root processed",
-        extra={"extra": {"group_name": group_name, "root_id": root_id}},
-    )
+    root_id = item["pk"].split("#")[1]
+    await redshift_roots.insert_root(item=item)
+    await roots_model.remove(root_id=root_id)
 
 
 async def _process_group(
-    loaders: Dataloaders,
     group_name: str,
     progress: float,
 ) -> None:
-    roots = await loaders.group_roots.load(group_name)
+    items = await get_group_roots_items(group_name=group_name)
+    if not items:
+        return
     await collect(
-        tuple(
-            _process_root(group_name=group_name, root_id=root.id)
-            for root in roots
-        ),
-        workers=8,
+        tuple(_process_root(item) for item in items),
+        workers=1,
     )
     LOGGER_CONSOLE.info(
         "Group processed",
         extra={
             "extra": {
                 "group_name": group_name,
-                "len(items)": len(roots),
+                "len(items)": len(items),
                 "progress": round(progress, 2),
             }
         },
@@ -91,13 +89,12 @@ async def main() -> None:
     await collect(
         tuple(
             _process_group(
-                loaders=loaders,
                 group_name=group_name,
                 progress=count / len(deleted_group_names),
             )
             for count, group_name in enumerate(deleted_group_names)
         ),
-        workers=4,
+        workers=1,
     )
 
 

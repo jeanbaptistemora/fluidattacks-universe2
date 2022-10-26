@@ -85,6 +85,32 @@ async def get_root_item(*, group_name: str, root_id: str) -> Item:
     return item
 
 
+async def get_group_roots_items(*, group_name: str) -> tuple[Item, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_metadata"],
+        values={"name": group_name},
+    )
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(
+            TABLE.facets["git_root_metadata"],
+            TABLE.facets["ip_root_metadata"],
+            TABLE.facets["url_root_metadata"],
+        ),
+        index=index,
+        table=TABLE,
+    )
+
+    return tuple(response.items)
+
+
 async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
     primary_keys = tuple(
         keys.build_key(
