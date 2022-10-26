@@ -48,6 +48,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.types import (
+    Item,
+)
 from itertools import (
     chain,
 )
@@ -63,6 +66,23 @@ from typing import (
     Optional,
     Tuple,
 )
+
+
+async def get_root_item(*, group_name: str, root_id: str) -> Item:
+    facet = TABLE.facets["git_root_metadata"]
+    primary_key = keys.build_key(
+        facet=facet,
+        values={"name": group_name, "uuid": root_id},
+    )
+    item = await operations.get_item(
+        facets=(facet,),
+        key=primary_key,
+        table=TABLE,
+    )
+    if not item:
+        raise RootNotFound()
+
+    return item
 
 
 async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
