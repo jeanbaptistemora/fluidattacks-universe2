@@ -535,6 +535,14 @@
       "title": "148. Use of an insecure channel - FTP"
     }
   },
+  "F149": {
+    "EN": {
+      "title": "149. Use of an insecure channel - SMTP"
+    },
+    "ES": {
+      "title": "149. Use of an insecure channel - SMTP"
+    }
+  },
   "F152": {
     "EN": {
       "title": "152. Insecure or unset HTTP headers - X-Frame Options"

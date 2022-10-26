@@ -631,6 +631,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.crypto,
         requirements=[181],
     )
+    F149: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F149",
+        cwe=319,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[181],
+    )
     F152: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F152",
@@ -4585,4 +4592,12 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F015,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    XML_NETWORK_SSL_DISABLED = MethodInfo(
+        file_name="conf_files",
+        name="xml_network_ssl_disabled",
+        module="lib_path",
+        finding=FindingEnum.F149,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
