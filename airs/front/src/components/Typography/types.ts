@@ -28,16 +28,4 @@ interface ISize {
   lineHeight: string;
 }
 
-const FontStyles: Record<TStyle, string> = {
-  i: "italic",
-  no: "normal",
-};
-
-const FontWeights: Record<TWeight, number> = {
-  bold: 7,
-  regular: 4,
-  semibold: 6,
-};
-
 export type { ISize, ITypographyProps, Nums1To4, TSize, TStyle, TWeight };
-export { FontStyles, FontWeights };
