@@ -258,7 +258,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                 }
                 id={"tblURLRoots"}
                 onRowClick={
-                  permissions.can("api_mutations_update_url_root_mutate")
+                  permissions.can("api_resolvers_git_root_secrets_resolve")
                     ? handleRowClick
                     : undefined
                 }
