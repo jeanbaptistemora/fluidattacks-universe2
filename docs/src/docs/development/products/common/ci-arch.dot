@@ -7,11 +7,12 @@ digraph common {
   labelloc="t"
   compound="true"
   // concentrate="true"
-  ranksep="2.0"
-  splines="line"
-  scale="scalexy"
+  rankdir="LR"
+  ranksep="4.0"
+  nodesep="0.5"
+  overlap="scalexy"
 
-  node[style="filled"]
+  node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]
 
   subgraph cluster_aws {
@@ -20,7 +21,7 @@ digraph common {
     node[fillcolor="0.1 0.5 1.0"]
 
     subgraph cluster_aws_dynamodb {
-      label="common-ci-cache"
+      label="DynamoDB"
 
       aws_dynamodb_terraform_state_lock[label="terraform_state_lock" width="3.0" shape="cylinder"]
     }

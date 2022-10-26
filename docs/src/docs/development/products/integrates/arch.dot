@@ -6,11 +6,13 @@ digraph integates {
   label="Integrates Architecture"
   labelloc="t"
   compound="true"
+  // concentrate="true"
   rankdir="LR"
   ranksep="6.0"
-  scale="scalexy"
+  nodesep="1.0"
+  overlap="scalexy"
 
-  node[style="filled"]
+  node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]
 
   subgraph cluster_aws {

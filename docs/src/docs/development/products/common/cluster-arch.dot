@@ -8,9 +8,11 @@ digraph common {
   compound="true"
   // concentrate="true"
   rankdir="LR"
-  scale="scalexy"
+  ranksep="4.0"
+  nodesep="0.5"
+  overlap="scalexy"
 
-  node[style="filled"]
+  node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]
 
   subgraph cluster_aws {

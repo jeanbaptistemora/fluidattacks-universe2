@@ -10,7 +10,7 @@ digraph sorts {
   rankdir="LR"
   ranksep="4.0"
   nodesep="2.0"
-  scale="scalexy"
+  overlap="scalexy"
 
   node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]

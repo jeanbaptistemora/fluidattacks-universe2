@@ -7,11 +7,12 @@ digraph observes {
   labelloc="t"
   compound="true"
   concentrate="true"
-  ranksep="10.0"
   rankdir="LR"
-  scale="scalexy"
+  ranksep="6.0"
+  nodesep="1.0"
+  overlap="scalexy"
 
-  node[style="filled"]
+  node[style="filled" margin="0.8,0.0"]
   graph[style="dashed,rounded"]
 
   subgraph cluster_aws {
