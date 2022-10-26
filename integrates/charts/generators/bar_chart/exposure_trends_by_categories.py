@@ -258,7 +258,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         axis=dict(
             rotated=True,
             x=dict(
-                categories=categories,
+                categories=[category.name for category in categories_trend],
                 type="category",
                 tick=dict(
                     rotate=0,
