@@ -4323,7 +4323,6 @@
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
-  retry: 2
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never

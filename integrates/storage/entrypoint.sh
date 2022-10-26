@@ -25,7 +25,7 @@ function serve {
     "${bucket_paths_by_branch[@]}"
     "${bucket_paths_by_root[@]}"
   )
-  local host='127.0.0.1'
+  local host='0.0.0.0'
   local port='9000'
   local state_path='.Storage'
   local bill_date

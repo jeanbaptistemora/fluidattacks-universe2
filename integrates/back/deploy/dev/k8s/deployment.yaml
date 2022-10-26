@@ -101,6 +101,14 @@ spec:
             allowPrivilegeEscalation: false
             privileged: false
             readOnlyRootFilesystem: false
+          readinessProbe:
+            tcpSocket:
+              port: 28022
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 10
+            timeoutSeconds: 60
         - name: storage
           image: ghcr.io/fluidattacks/makes:22.11
           imagePullPolicy: Always
@@ -125,3 +133,11 @@ spec:
             allowPrivilegeEscalation: false
             privileged: false
             readOnlyRootFilesystem: false
+          readinessProbe:
+            tcpSocket:
+              port: 29000
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 10
+            timeoutSeconds: 60
