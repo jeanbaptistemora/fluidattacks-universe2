@@ -165,6 +165,7 @@ async def _rebase_vulnerability_integrates(
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
 ) -> None:
+    local_vars = locals()
     with suppress(
         InvalidVulnerabilityAlreadyExists,
     ):
@@ -183,8 +184,12 @@ async def _rebase_vulnerability_integrates(
             VulnerabilityPathDoesNotExistInToeLines,
             LineDoesNotExistInTheLinesOfCodeRange,
             VulnerabilityUrlFieldDoNotExistInToeInputs,
-        ) as ex:
-            LOGGER.exception(ex)
+        ) as exception:
+            local_vars.pop("loaders", None)
+            LOGGER.error(
+                "Failed to rebase vulnerability in integrates",
+                extra=dict(extra={"exception": exception, **local_vars}),
+            )
 
 
 async def rebase_root(
