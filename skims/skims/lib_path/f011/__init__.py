@@ -12,6 +12,7 @@ from lib_path.f011.gem import (
 )
 from lib_path.f011.go import (
     go_mod,
+    go_sum,
 )
 from lib_path.f011.maven import (
     maven_gradle,
@@ -52,6 +53,11 @@ def run_gem_gemfile_lock(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_go_mod(content: str, path: str) -> Vulnerabilities:
     return go_mod(content, path)
+
+
+@SHIELD_BLOCKING
+def run_go_sum(content: str, path: str) -> Vulnerabilities:
+    return go_sum(content, path)
 
 
 @SHIELD_BLOCKING
