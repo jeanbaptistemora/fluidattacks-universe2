@@ -24,6 +24,7 @@
       command = value.command;
       definition = value.awsRole;
       environment = value.environment;
+      tags = value.tags;
       includePositionalArgsInName = false;
       memory = sizes.${value.size}.memory;
       parallel = value.parallel;
