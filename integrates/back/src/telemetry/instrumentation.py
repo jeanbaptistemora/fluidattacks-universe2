@@ -20,9 +20,6 @@ from opentelemetry.exporter.otlp.proto.grpc.exporter import (
 from opentelemetry.instrumentation.aiohttp_client import (  # type: ignore
     AioHttpClientInstrumentor,
 )
-from opentelemetry.instrumentation.redis import (  # type: ignore
-    RedisInstrumentor,
-)
 from opentelemetry.instrumentation.requests import (  # type: ignore
     RequestsInstrumentor,
 )
@@ -97,6 +94,5 @@ def instrument(app: Starlette) -> None:
 
     AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()
-    RedisInstrumentor().instrument()
     RequestsInstrumentor().instrument()
     StarletteInstrumentor.instrument_app(app)
