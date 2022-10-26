@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import _ from "lodash";
 import React from "react";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -16,11 +17,16 @@ import {
 import { Col, Row } from "components/Layout";
 
 interface IFilter<IData extends object> {
-  filterFn?: string;
+  filterFn?:
+    | "caseInsensitive"
+    | "caseSensitive"
+    | "includesInArray"
+    | "includesInsensitive"
+    | "includesSensitive";
   id: string;
   key: keyof IData | ((arg0: object) => boolean);
   label?: string;
-  rangeValues?: [string | undefined, string | undefined];
+  rangeValues?: [string, string];
   selectOptions?: string[];
   type: "dateRange" | "number" | "numberRange" | "select" | "text";
   value?: string;
@@ -31,22 +37,82 @@ interface IFiltersProps<IData extends object> {
   setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
 }
 
-const useFilter = <IData extends Record<string, unknown>>(
+const useFilters = <IData extends object>(
   data: IData[],
   filters: IFilter<IData>[]
 ): IData[] => {
-  function checkAllFilters(dataPoint: IData): boolean {
-    filters.forEach((filter): boolean => {
-      if (typeof filter.key === "function") {
-        return filter.key(dataPoint);
-      } else if (filter.value === "") {
-        return true;
+  function handleTextSelectCases(
+    dataPoint: IData,
+    filter: IFilter<IData>
+  ): boolean {
+    if (typeof filter.key === "function") return filter.key(dataPoint);
+    if (filter.value === "" || filter.value === undefined) return true;
+
+    switch (filter.filterFn) {
+      case "caseSensitive":
+        return String(dataPoint[filter.key]) === filter.value;
+
+      case "includesSensitive":
+        return String(dataPoint[filter.key]).includes(filter.value);
+
+      case "includesInsensitive":
+        return String(dataPoint[filter.key])
+          .toLowerCase()
+          .includes(filter.value.toLowerCase());
+
+      case "includesInArray": {
+        const array: unknown[] = JSON.parse(String(dataPoint[filter.key]));
+
+        return array.includes(filter.value);
       }
 
-      return dataPoint[filter.key] === filter.value;
-    });
+      case "caseInsensitive":
+      default:
+        return (
+          String(dataPoint[filter.key]).toLowerCase() ===
+          filter.value.toLowerCase()
+        );
+    }
+  }
 
-    return true;
+  function handleNumberCase(dataPoint: IData, filter: IFilter<IData>): boolean {
+    if (typeof filter.key === "function") return filter.key(dataPoint);
+
+    return _.isEmpty(filter.value)
+      ? true
+      : String(dataPoint[filter.key]) === filter.value;
+  }
+
+  function checkAllFilters(dataPoint: IData): boolean {
+    return filters.every((filter): boolean => {
+      if (typeof filter.key === "function") return filter.key(dataPoint);
+      switch (filter.type) {
+        case "text":
+        case "select":
+          return handleTextSelectCases(dataPoint, filter);
+
+        case "number":
+          return handleNumberCase(dataPoint, filter);
+
+        case "numberRange": {
+          if (filter.rangeValues === undefined) return true;
+          const isLower = _.isEmpty(filter.rangeValues[0])
+            ? true
+            : parseInt(String(dataPoint[filter.key]), 10) <=
+              parseInt(filter.rangeValues[0], 10);
+
+          const isHigher = _.isEmpty(filter.rangeValues[1])
+            ? true
+            : parseInt(String(dataPoint[filter.key]), 10) >=
+              parseInt(filter.rangeValues[1], 10);
+
+          return isLower && isHigher;
+        }
+
+        default:
+          return true;
+      }
+    });
   }
 
   return data.filter((entry: IData): boolean => checkAllFilters(entry));
@@ -101,10 +167,7 @@ const Filters = <IData extends object>({
                   name: filter.id,
                   onBlur: (): void => undefined,
                   onChange: onValueChangeHandler(filter.id),
-                  value:
-                    filter.rangeValues?.[0] === undefined
-                      ? ""
-                      : String(filter.rangeValues[0]),
+                  value: filter.value === undefined ? "" : String(filter.value),
                 }}
                 form={{ errors: {}, touched: {} }}
                 label={filter.label}
@@ -234,4 +297,4 @@ const Filters = <IData extends object>({
 };
 
 export type { IFilter };
-export { Filters, useFilter };
+export { Filters, useFilters };
