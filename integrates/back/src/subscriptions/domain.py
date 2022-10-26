@@ -214,13 +214,6 @@ async def subscribe(
     subject: str,
     email: str,
 ) -> None:
-    if frequency == SubscriptionFrequency.NEVER:
-        await unsubscribe(
-            entity=entity,
-            subject=subject,
-            email=email,
-        )
-        return
 
     await subscriptions_model.add(
         subscription=Subscription(
@@ -230,25 +223,13 @@ async def subscribe(
             subject=subject,
         )
     )
-    await _send_mail_analytics(
-        frequency=frequency,
-        entity=entity,
-        subject=subject,
-        email=email,
-    )
-
-
-async def unsubscribe(
-    *,
-    entity: SubscriptionEntity,
-    subject: str,
-    email: str,
-) -> None:
-    await subscriptions_model.remove(
-        entity=entity,
-        subject=subject,
-        email=email,
-    )
+    if frequency != SubscriptionFrequency.NEVER:
+        await _send_mail_analytics(
+            frequency=frequency,
+            entity=entity,
+            subject=subject,
+            email=email,
+        )
 
 
 async def remove(
@@ -308,17 +289,21 @@ async def _process_subscription(
 
 async def trigger_subscriptions_analytics() -> None:
     """Process subscriptions given a frequency from a related scheduler."""
+    # Never: Unsubscribed yet still a stakeholder in the entity
     # Hourly:  Supported but not in use by any subscription
     # Daily:   Monday to Friday @ 10:00 UTC (5:00 GMT-5)
     # Weekly:  Mondays @ 10:00 UTC (5:00 GMT-5)
     # Monthly: First of month @ 10:00 UTC (5:00 GMT-5)
     frequency = SubscriptionFrequency[str(sys.argv[2]).upper()]
-    subscriptions = await get_all_subscriptions(frequency=frequency)
-    LOGGER.info(
-        "Subscriptions loaded",
-        extra={"extra": {"length": len(subscriptions), "period": frequency}},
-    )
-    await collect(
-        _process_subscription(subscription=subscription)
-        for subscription in subscriptions
-    )
+    if frequency != SubscriptionFrequency.NEVER:
+        subscriptions = await get_all_subscriptions(frequency=frequency)
+        LOGGER.info(
+            "Subscriptions loaded",
+            extra={
+                "extra": {"length": len(subscriptions), "period": frequency}
+            },
+        )
+        await collect(
+            _process_subscription(subscription=subscription)
+            for subscription in subscriptions
+        )

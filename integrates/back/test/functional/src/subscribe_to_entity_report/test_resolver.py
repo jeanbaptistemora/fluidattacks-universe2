@@ -84,7 +84,8 @@ async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
     result_query = await get_query(
         email=email,
     )
+    expected_subscriptions[0]["frequency"] = "NEVER"
     assert (
         result_query["data"]["me"]["subscriptionsToEntityReport"]
-        == expected_subscriptions[-1:]
+        == expected_subscriptions
     )
