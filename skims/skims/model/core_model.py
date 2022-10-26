@@ -2157,7 +2157,15 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="iam_has_privileges_over_iam",
         module="dast",
-        finding=FindingEnum.F281,
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_KMS_HAS_MASTER_KEYS_EXPOSED_TO_EVERYONE = MethodInfo(
+        file_name="aws",
+        name="kms_has_master_keys_exposed_to_everyone",
+        module="dast",
+        finding=FindingEnum.F325,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
