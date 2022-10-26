@@ -129,8 +129,8 @@ async def test_should_mutate_successfully(populate: bool) -> None:
 
     wheres = [
         vulnerabilities[0]["where"],
-        vulnerabilities[1]["where"],
-        vulnerabilities[2]["where"],
+        vulnerabilities[1]["where"][len("test123/") :],
+        vulnerabilities[2]["where"][len("test123/") :],
     ]
 
     assert finding["data"]["finding"]["where"] == str.join(", ", wheres)
@@ -180,8 +180,8 @@ async def test_should_mutate_successfully(populate: bool) -> None:
     ]
     wheres_updated = [
         vulnerabilities_updated[0]["where"],
-        vulnerabilities_updated[1]["where"],
-        vulnerabilities_updated[2]["where"],
+        vulnerabilities_updated[1]["where"][len("groupnick/") :],
+        vulnerabilities_updated[2]["where"][len("groupnick/") :],
     ]
 
     assert finding_updated["data"]["finding"]["where"] == str.join(
