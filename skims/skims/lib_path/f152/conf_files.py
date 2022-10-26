@@ -33,7 +33,8 @@ def xml_x_frame_options(content: str, path: str) -> Vulnerabilities:
             if (
                 isinstance(tag, Tag)
                 and tag.name == "add"
-                and tag.attrs.get("name").lower() == "x-frame-options"
+                and (tag_value := tag.attrs.get("name"))
+                and tag_value.lower() == "x-frame-options"
             ):
                 line_no: int = tag.sourceline
                 col_no: int = tag.sourcepos
