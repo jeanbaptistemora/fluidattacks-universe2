@@ -1,0 +1,7 @@
+---
+lib_path.f149.xml_network_ssl_disabled:
+  en: Ensure network tag has its enableSsl attribute
+    set to true to avoid the transmission of not encrypted data.
+  es: Asegúrese de tener el atributo enableSsl con valor true
+    en la etiqueta network para prevenir la transmisión de datos
+    sin encriptar.
