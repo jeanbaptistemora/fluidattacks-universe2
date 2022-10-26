@@ -20,12 +20,12 @@ export const Value: React.FC<{ value: number | string | undefined }> = ({
 
   return (
     <React.StrictMode>
-      <span
+      <div
         className={"f5 lh-title ma0 pr1-l ws-pre-wrap"}
         style={{ color: "#8f8fa3" }}
       >
         {isEmpty ? t("searchFindings.tabVuln.notApplicable") : value}
-      </span>
+      </div>
     </React.StrictMode>
   );
 };

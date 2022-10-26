@@ -27,9 +27,9 @@ export const Detail: React.FC<{
 }): JSX.Element => {
   return (
     <React.StrictMode>
-      <div className={"flex flex-row  justify-start items-end ma0 pv1"}>
+      <div className={" justify-start items-end ma0 pv1"}>
         {_.isUndefined(label) ? undefined : (
-          <div>
+          <div style={{ minWidth: "85px" }}>
             <Label>{label}</Label>&nbsp;
           </div>
         )}
