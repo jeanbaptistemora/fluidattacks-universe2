@@ -4,8 +4,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 /* eslint-disable react/forbid-component-props */
+
 import "tachyons";
 import { Parameters } from "@storybook/api";
+import { DocsPage } from "./DocsPage";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -15,6 +17,14 @@ const parameters: Parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    page: DocsPage,
+    source: {
+      state: "open",
+      type: "dynamic",
+    },
+  },
+  viewMode: "docs",
 };
 
 export { parameters };
