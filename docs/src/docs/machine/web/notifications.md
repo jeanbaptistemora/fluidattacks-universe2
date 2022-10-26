@@ -437,18 +437,6 @@ in the following month.
 
 ![Deprecation Notice](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083676/docs/web/notifications/api_deprecation_notice.png)
 
-### Free trial start
-
-This notification will be
-sent to new users who have
-completed the enrollment,
-i.e.,
-when the user completes the
-process of creating the repository,
-the organization and the group.
-
-![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1664470209/docs/web/notifications/free_trail.png)
-
 ### Missing registered environments
 
 If you are a User Manager
@@ -462,6 +450,81 @@ registered in a group.
 
 ![Missing Environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173395/docs/web/notifications/missing_reg_environmt.png)
 
+## Exclusive Free Trial notifications
+
+### Free trial start
+
+This notification will be
+sent to new users who have
+completed the enrollment,
+i.e.,
+when the user completes the
+process of creating the repository,
+the organization and the group.
+
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1664470209/docs/web/notifications/free_trail.png)
+
+### Abandoned trial
+
+If you are a user who started the ARM
+[free trial registration](/machine/web/self-enrollment)
+you will receive this notification
+reminding you that you are just a
+few steps away from completing
+the **self-enrollment** where you can use
+and enjoy all the benefits of the
+platform free of charge for 21 days.
+
+![Abandoned trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1666783386/docs/web/notifications/abandoned_free_trail.png)
+
+### Add repositories
+
+If you are a user who successfully
+completed the ARM [free trial registration](/machine/web/self-enrollment)
+you will receive this notification
+telling you that you can add more
+[repositories](/machine/web/groups/scope/roots)
+for vulnerability scanning of these.
+
+![Add repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1666783857/docs/web/notifications/add_repositories.png)
+
+## Add stakeholders
+
+If you are a user who completed the ARM
+[free trial registration](/machine/web/self-enrollment)
+successfully,
+you will receive this notification
+informing you that you can add more
+team members or co-workers who
+can use the platform to review
+vulnerabilities and contribute to
+vulnerability fixes.
+
+![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1666784358/docs/web/notifications/add_stakeholders.png)
+
+### Analytics notification
+
+This notification will be sent to
+you if you are a user who has completed
+the ARM [free trial registration](/machine/web/self-enrollment)
+letting you know what information
+you can find in the ARM
+[Analytics](/machine/web/analytics),
+encouraging you to explore this section.
+
+![Analytics notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1666784705/docs/web/notifications/analytics_free_trail.png)
+
+### Define treatments
+
+This notification will be sent to
+you if you are a user who has completed
+the ARM [free trial registration](/machine/web/self-enrollment)
+encouraging you to apply the
+different [treatments](/machine/web/vulnerabilities/management/treatments)
+to your vulnerabilities to orderly
+manage them.
+
+![Define treatments](https://res.cloudinary.com/fluid-attacks/image/upload/v1666785236/docs/web/notifications/define_treatments.png)
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
