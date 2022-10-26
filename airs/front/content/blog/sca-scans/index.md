@@ -1,0 +1,331 @@
+---
+slug: sca-scans/
+title: Software Composition Analysis Scans
+date: 2022-10-26
+subtitle: What is SCA, and what can we get from it?
+category: philosophy
+tags: cybersecurity, security-testing, software, company
+image: https://res.cloudinary.com/fluid-attacks/image/upload/v1666821717/blog/sca-scans/cover_sca_scans.webp
+alt: Photo by Dan Freeman on Unsplash
+description: After reading this blog post, you will understand what Software Composition Analysis (SCA) is and what we can obtain from SCA scans.
+keywords: Software Composition Analysis, Sca, Open Source Components, Open Source Software, Sca Scans, Dependencies, Security Testing, Pentesting, Ethical Hacking
+author: Felipe Ruiz
+writer: fruiz
+name: Felipe Ruiz
+about1: Cybersecurity Editor
+source: https://unsplash.com/photos/VAWqURK_Th0
+---
+
+Speed in the ever-evolving software development industry is crucial.
+Teams of developers respond to the pressure
+to deliver high-quality products
+in the shortest possible time.
+This is for their companies
+to remain dynamic and competitive in their market.
+Today,
+as support for this accelerated development of,
+for example,
+applications,
+developers have many other people's creations at their disposal.
+The applications in demand can be increasingly complex,
+so starting from scratch and recreating all the work of others
+(now an "outdated" practice)
+could be seen as a pipe dream.
+
+Over the years,
+communities of developers
+have been collaboratively creating and refining code packages
+or blocks with different functionalities
+(e.g., user interface construction,
+data analysis, cryptographic operations).
+These open-source components
+(e.g., libraries, container images, modules)
+can then be used continuously and for free
+to build new projects.
+They help reduce not only time
+but also monetary costs
+(such as those from purchasing proprietary software)
+and offer opportunities for innovation and community support.
+
+Recently it [has been stated that](https://www.darkreading.com/application-security/dependency-problems-increase-for-open-source-components)
+"the average software application
+depends on more than 500 open-source libraries and components".
+And the fact is that many times,
+the libraries used in the applications bring with them other dependencies.
+There are direct and transitive dependencies.
+The latter are the necessary components
+for the components directly linked to the application.
+It has also been said that,
+nowadays,
+almost all existing applications make use of these resources,
+and it has even been estimated that
+open-source code constitutes more than 75% or 80% of the code
+of the average application.
+[As we once shared](../vulns-triage-synopsys/)
+in this blog,
+proprietary code ends up serving more
+as an assembler and function invoker.
+(For more details on open-source software,
+[read this post](../look-inside-oss/).)
+
+However,
+several issues arise with the growth of the open-source ecosystem
+and the extensive use that applications make of these resources.
+Many developers and companies don't pay enough attention
+to which components they are using.
+They can easily lose track of the material
+they have in their products
+and the associated dependencies.
+The management of dependency trees is becoming more complex,
+and the exposure to risk increases
+as components are introduced into applications.
+The latter is due to the existence of bugs and vulnerabilities
+within these resources.
+Many organizations do not take into account the quality and security flaws
+that may be present in open-source components.
+This is where the process we focus on in this post comes in:
+[Software Composition Analysis](../../categories/sca/)
+(SCA).
+(By the way,
+to know what to consider when choosing open-source code to use,
+[read this post](../choosing-open-source/)).
+
+## Software Composition Analysis definition
+
+SCA is a scanning methodology
+for the assessment of software applications.
+In this,
+automated tools focus on
+checking an application's open-source components and dependencies.
+They can report not only which components have been implemented
+but also their security status
+and possible license conflicts.
+So,
+when you sensibly incorporate scanning by SCA tools
+into your software development lifecycle (SDLC),
+you are looking to guarantee that
+software borrowed from other development groups
+is being used correctly
+and represents security for both your application
+and software supply chain.
+
+## What can we get from SCA scans?
+
+As we said,
+SCA scans can report the application's open-source components.
+Specifically,
+the tools can generate a "**software bill of materials**" (SBOM).
+This is an inventory,
+a detailed list of resources and dependencies.
+An SBOM is typically expected to provide each component's name,
+version, file path or location in the scanned app,
+release date, source, checksum and license information,
+among other data.
+SBOMs can be generated by scanning manifest files
+(files with metadata for a set of files)
+or build artifacts
+(to apply binary fingerprinting).
+Even a mixture of both approaches can be used
+for more precise reports.
+Achieving this will depend on the capabilities of the SCA tools.
+SBOMs are usually delivered as text files
+in JSON, XML, or similar formats.
+
+After SBOM,
+one of the objectives of SCA scans
+can be to help detect **license conflicts**.
+The idea is that the application's owner can solve them
+and avoid future legal disputes,
+such as those related to compromised intellectual property.
+The SCA,
+in this case,
+identifies the open-source software licenses
+associated with the components being used within the application
+for comparison with the policies of the organization involved.
+Although access to the source code of those resources is free,
+its use may be limited by some restrictions.
+Licenses for open-source code may vary in their requirements
+for rights such as copy, modification and redistribution.
+
+We know that there are hundreds of open-source licenses
+that have unique requirements for people
+who plan to use the resources for personal or commercial purposes.
+There are also licenses
+with a wide variety of requirements within them.
+They can be so many that it comes to be considered
+a ["negative aspect](https://en.wikipedia.org/wiki/Open-source_software)
+of the open-source movement
+because it is often difficult to understand
+the legal implications of the differences between licenses."
+The most common types of licenses in open source are those
+categorized as permissive.
+These tend to manage fewer restrictions on the use of components.
+They often do not require monetary or intellectual compensation
+and,
+therefore,
+represent a low risk.
+On the other hand,
+the riskiest,
+especially for commercial use,
+are the so-called reciprocal or copyleft licenses.
+Here some compensation for the use of the code is required.
+
+For example,
+to a "closed-source" company,
+the license of an open-source component could be requesting that,
+by using that resource,
+its application also should be of public source code.
+Another request could be that
+the company's changes to the component
+should also be made available
+for inclusion in the original community project.
+The management of such a resource could be problematic for the company.
+Hence the usefulness of checking compatibility
+between the company's policies
+and the requirements of the open-source components it uses.
+The company can recognize which requirements to meet and how
+and,
+if necessary,
+which completely incompatible resources to discard.
+
+One of the fundamental objectives in SCA scans,
+which,
+in fact,
+is the one we pay most attention to at `Fluid Attacks`,
+is **vulnerability detection**.
+Specifically,
+what we have here is a correlation of components
+with databases of known security vulnerabilities,
+such as the National Vulnerability Database ([NVD](https://nvd.nist.gov/))
+and the Common Vulnerabilities and Exposures ([CVE](../../compliance/cve/)).
+The tool identifies the specific versions of the components used
+in the application
+and,
+as a product of the comparison with the databases,
+points out in them the associated or corresponding vulnerabilities.
+Depending on the configurations,
+some tools can report whether such vulnerabilities are exploitable.
+There are tools that even provide recommendations
+for vulnerability remediation.
+
+It is problematic when a tool does not report all known vulnerabilities.
+This can happen when it does not consider vulnerabilities
+in both direct and transitive dependencies.
+We speak here of false negatives.
+Consequently,
+for instance,
+remediation could concentrate on vulnerabilities
+within the first layers of the dependency tree.
+Another drawback may be the limited accuracy of the tools.
+Some of them may fail to flag vulnerabilities,
+sometimes reporting benign components as affected.
+We speak here of false positives.
+
+Since no one should blindly trust the results of the tools,
+human intervention here is always advisable,
+as in other security testing processes.
+For false positives,
+there are verification exercises.
+For false negatives,
+there is manual detection.
+However,
+it is always prudent to broaden the tool's scope
+beyond a few databases.
+There are vulnerability advisories
+(as well as evidence of exploits)
+that can be found in many other sites and databases.
+(Note,
+this is something threat actors also know.)
+The more of these the SCA tool has in its repertoire as sources,
+the better.
+(A research team is ideal support for these and other tools).
+
+When a vulnerability in open source code is publicly reported,
+as was the case recently with "[Text4Shell](https://www.linkedin.com/feed/update/urn:li:activity:6990675889344630784)"
+(similar to the notorious "[Log4Shell](../log4shell/)")
+in the Apache Commons Text library,
+it is not long before means of exploitation are also published
+and become effective.
+The team in charge of an SCA tool must ensure that
+it can identify this vulnerability as soon as possible.
+Ideally,
+an SCA tool should keep up to date with new vulnerabilities emerging.
+After accurate SCA scanning with the updated tool,
+a company will be able to know if its application uses the affected component
+(if it didn't already know).
+It will see if the resource has such a vulnerability
+and what it must do to remediate it.
+(In the case of Text4Shell,
+this is resolved with the update
+delivered by the Apache Software Foundation.)
+The sooner the company discovers all this,
+the better for the remediation task
+and reducing its risk exposure.
+
+## SCA scans with Fluid Attacks
+
+At `Fluid Attacks`,
+we recognize the importance of early and continuous implementation
+of SCA scans.
+**We focus primarily on helping you
+identify security vulnerabilities
+in your open-source components.**
+We have several public sources for vulnerability detection.
+In addition,
+we are always looking to keep up to date
+with new security issues as they arise.
+For this,
+we are supported by our security research team.
+
+At `Fluid Attacks`,
+we are part of an expansive modern DevSecOps culture,
+and we help you in its [implementation](../how-to-implement-devsecops/).
+We can then put our SCA tool into action
+from the beginning and during the phases of your SDLC,
+keeping pace with your developers.
+We seek to reduce obstacles
+that prevent fast and secure software development
+as much as possible.
+Every time your team adds new components,
+you can ask for an assessment
+and receive SCA reports with evidence and recommendations.
+You get all these reports on our Attack Resistance Management platform ([ARM](https://app.fluidattacks.com/)).
+There,
+you can understand,
+manage and prioritize the vulnerabilities to be remediated.
+
+To complement the work of SCA scans,
+we have automated [SAST](../../categories/sast/)
+and [DAST](../../categories/dast/)
+and [manual penetration testing](../solutions/penetration-testing/).
+Some time ago,
+we published here a post
+where you can know the differences between [SAST, DAST and SCA](../differences-between-sast-sca-dast/).
+Generally speaking,
+while SCA focuses on vulnerabilities
+in the open-source software components you use,
+SAST pays specific attention to vulnerabilities in the source code
+your developers write for your application.
+DAST,
+meanwhile,
+looks at the running application
+to detect vulnerabilities in its functionalities and operations.
+On the other hand,
+[manual pentesting](../what-is-manual-penetration-testing/)
+focuses on more complex issues
+that the tools miss,
+including,
+for example,
+business logic flaws.
+In fact,
+the manual work of our ethical hackers
+also allows the verification of the tools' results
+and the detection of zero-day vulnerabilities,
+thus seeking to avoid false positives
+and false negatives in final reports.
+
+If you are interested in detecting vulnerabilities
+with our SAST, DAST and SCA tools,
+we invite you to subscribe to our [21-day free trial](../../free-trial/).
+If you have any questions,
+do not hesitate to [contact us](../../contact-us/).
