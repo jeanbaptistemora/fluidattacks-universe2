@@ -618,6 +618,17 @@ vulnerabilities reported in that time.
 
 ![Trial ending soon](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790815/docs/web/notifications/trial_ending.png)
 
+### Upgrade squad
+
+You will receive an email notifying
+you of the squad plan benefits
+for our ARM,
+inviting our new users to include
+this plan in the vulnerability
+validation of their software.
+
+![Squad](https://res.cloudinary.com/fluid-attacks/image/upload/v1666791130/docs/web/notifications/upgrade_squad.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
