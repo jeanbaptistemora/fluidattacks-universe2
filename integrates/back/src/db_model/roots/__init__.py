@@ -10,6 +10,7 @@ from .add import (
     add_secret,
 )
 from .remove import (
+    remove,
     remove_environment_url,
     remove_environment_url_secret,
     remove_root_environment_urls,
@@ -33,6 +34,7 @@ __all__ = [
     "add_root_environment_url",
     "add_secret",
     # remove
+    "remove",
     "remove_environment_url",
     "remove_environment_url_secret",
     "remove_root_environment_urls",
