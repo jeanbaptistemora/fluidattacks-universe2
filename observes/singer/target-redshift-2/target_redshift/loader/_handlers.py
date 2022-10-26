@@ -166,6 +166,7 @@ class SingerHandler:
                 tar.table_id,
                 tar.table,
                 from_flist(p),
+                1000,
             )
             + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
         )

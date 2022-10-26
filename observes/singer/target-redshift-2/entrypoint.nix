@@ -49,8 +49,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   redshift-client = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-      rev = "4e506bb85a8a4609329aa1d6d8e85bfa7817e6ea";
-      ref = "refs/tags/v0.9.2";
+      rev = "1644320c6877376cd80900d8d3d7e4457fdb54e9";
+      ref = "refs/tags/v1.1.1";
     };
   in
     import src {
