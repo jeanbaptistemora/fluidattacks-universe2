@@ -99,6 +99,7 @@ from vulnerabilities.types import (
     ToolItem,
     Treatments,
     Verifications,
+    VulnerabilityDescriptionToUpdate,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -1014,4 +1015,26 @@ async def get_last_reattack_date(
             if verification.status == VulnerabilityVerificationStatus.VERIFIED
         ),
         None,
+    )
+
+
+async def update_description(
+    loaders: Dataloaders,
+    vulnerability_id: str,
+    description: VulnerabilityDescriptionToUpdate,
+    stakeholder_email: str,
+) -> None:
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
+        vulnerability_id
+    )
+
+    await vulns_model.update_historic_entry(
+        current_value=vulnerability,
+        entry=vulnerability.state._replace(
+            modified_by=stakeholder_email,
+            modified_date=datetime_utils.get_iso_date(),
+            source=description.source or vulnerability.state.source,
+        ),
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
     )

@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from db_model.enums import (
+    Source,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -33,6 +36,10 @@ class Verifications(NamedTuple):
     requested: int
     on_hold: int
     verified: int
+
+
+class VulnerabilityDescriptionToUpdate(NamedTuple):
+    source: Optional[Source]
 
 
 ToolItem = dict[str, str]
