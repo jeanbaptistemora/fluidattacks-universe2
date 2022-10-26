@@ -33,7 +33,7 @@
       por medio de sentencias
       o procedimientos parametrizados.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       An open query that could get injected to get sensitive information
@@ -247,7 +247,7 @@
       en procesar la información.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application contains queries that retrieve possible large amounts of information without any limits
@@ -354,7 +354,7 @@
       en procesar la información.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application contains queries that retrieve possible large amounts of information without any limits
@@ -468,7 +468,7 @@
       usados para generar el comando
       y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       ```c {3,7,15}
@@ -568,7 +568,7 @@
       de identificadores de usuario.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application uses a resource with unrestricted access or not correctly configured restrictions
@@ -687,7 +687,7 @@
       tenga una sesión iniciada.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       No authentication restrictions provided for a given cloud resource
@@ -773,7 +773,7 @@
       por usuarios legítimos.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Vulnerable request that could be potentially handled by the application, it defines a set value for a cookie session which would be shared among all the subdomains. It is also using a GET request to change state data
@@ -852,7 +852,7 @@
       para evitar los ataques más comunes
       de inyección de scripts.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       A method that generates web content does not properly validate the client input, so an XSS attack could be executed
@@ -1053,7 +1053,7 @@
       que estén debidamente cifrados
       o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Sensitive access keys and passwords can be seen as plain text in the source code
@@ -1167,7 +1167,7 @@
       y envía la aplicación
       por medio de listas blancas.
     threat: Atacante autorizado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are some clases in the applicatin that do not have any validation for the inputs
@@ -1261,7 +1261,7 @@
       a las versiones recomendadas
       por el fabricante.
     threat: Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Example importing dependencies with known vulnerabilities
@@ -1415,7 +1415,7 @@
       o alternativamente usar
       la función escape(String) del framework.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application performsa query statement without validating input data
@@ -1496,7 +1496,7 @@
       utilizando objetos de sesión.
     threat: >
       Usuario autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The roles defined have excessive privileges which could be easily exploited by an attacker
@@ -1573,7 +1573,7 @@
     threat: >
       Cualquier cliente de la organización
       autorizado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application allows to change a password only with the plain security code, which could be compromised or easily exploited
@@ -1749,7 +1749,7 @@
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
       Atacante sin autorización desde red adyacente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       #### Examples with insecure TLS protocol configuration on resources
@@ -1975,7 +1975,7 @@
       o por el método HTTP POST.
     threat: >
       Atacante anónimo desde una red adyacente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Example using an insecurely generated decode for the application
@@ -2046,7 +2046,7 @@
       solo a personal autorizado
       y con las credenciales respectivas.
     threat: Atacante anónimo desde red local.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       A shared folder that does not require authentication credentials
@@ -2109,7 +2109,7 @@
       Evitar almacenar información sensible
       en archivos temporales o en caché.
     threat: Atacante autenticado desde la red local.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses functionalities like local storage to save sensitive data like a user password
@@ -2190,7 +2190,7 @@
     threat: >
       Atacante anónimo con acceso al código fuente
       desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application saves sensitive data as plain text
@@ -2294,7 +2294,7 @@
       para evitar los ataques
       mas comunes de inyección.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       ```c {3,7,15}
@@ -2386,7 +2386,7 @@
     threat: >
       Atacante anónimo en red adyacente
       ejecutando un ataque de hombre en el medio.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some insecure channels are used to deploy the application
@@ -2550,7 +2550,7 @@
       y servicios administrativos
       siguiendo el principio de mínimo privilegio.
     threat: Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Some example of resources configured  with large range number of ports available
@@ -2737,7 +2737,7 @@
       y TLS o configurar un firewall
       para cifrar las llamadas.
     threat: Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Insecure resource configuration (No tls)
@@ -2810,7 +2810,7 @@
       para usuarios existentes y no existentes.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application sets different response messages that differ based on the user status
@@ -2914,7 +2914,7 @@
       antes de subirlo al servidor.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application uploads a file without validating data types
@@ -2990,7 +2990,7 @@
     threat: >
       Atacante autenticado con acceso
       local al servidor.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses temp files to store credentials
@@ -3080,7 +3080,7 @@
       para limitar el máximo tamaño
       de archivos permitido.
     threat: Atacante autorizado desde Internet.
-  category: Manipulate System
+  category: System Manipulation
   examples:
     non_compliant: |
       There is no server side validation of file size before uploading it to the server
@@ -3204,7 +3204,7 @@
     threat: >
       Atacante anónimo desde red adyacente
       ejecutando un ataque de sniffing.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The user Id is sent through the url parameters
@@ -3286,7 +3286,7 @@
       Atacante desde Internet
       con acceso a cualquiera
       de los roles mal configurados.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Resource with unrestricted access or not correctly configured restrictions
@@ -3564,7 +3564,7 @@
       por el dueño de la cuenta.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not validate the user is authorized to reset the password
@@ -3832,7 +3832,7 @@
     threat: >
       Atacante anónimo con acceso local
       al navegador de la víctima.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Incorrectly configured viewState Encryption
@@ -3919,7 +3919,7 @@
       no expongan ningún nombre o versión.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The system potentially exposes technical information through the use of functions like printStackTrace
@@ -4031,7 +4031,7 @@
       sólo a las personas indicadas.
     threat: >
       Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is a method in the application that displays userInformation without verifying proper credentials
@@ -4098,7 +4098,7 @@
       que los usuarios que intentan acceder a
       cierta información se encuentren autenticados.
     threat: Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       In this case, the userId is used to access sensitive session information, without verifying cookies
@@ -4171,7 +4171,7 @@
       Restringir el acceso al recurso /_vti_bin
       para usuarios no autorizados.
     threat: Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The WSDL does not restrict access to the vti_bin resource
@@ -4343,7 +4343,7 @@
       los correspondientes atributos de seguridad
       cuando se generan las cookies.
     threat: Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Incorrectly configured cookie settings
@@ -4615,7 +4615,7 @@
       o listas blancas para evitar inyecciones.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application does not verify some inputs on the server side
@@ -4712,7 +4712,7 @@
       Atacante sin autorización
       desde Internet
       con acceso a el APK.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code was not obfuscated before compiling
@@ -4799,7 +4799,7 @@
       que corren en dicho puerto.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Incorrectly configure a resource to not filter information by restricting ports
@@ -4892,7 +4892,7 @@
       Atacante sin autorización
       con un dispositivo rooteado
       y el APK instalado.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A not recommended method to check for rooting could be testing for test-keys, which is correlated but does not guarantee root access
@@ -5097,7 +5097,7 @@
     threat: >
       Atacante autenticado desde Internet
       con acceso a los hashes.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Weak hashing algorithm used
@@ -5171,7 +5171,7 @@
       criptográficamente seguros.
     threat: >
       Atacante anónimo desde red interna.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Examples with an insecure encryption library
@@ -5393,7 +5393,7 @@
       explícitamente permitidos.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The administrative consoles do not have any access restrictions
@@ -5495,7 +5495,7 @@
     threat: >
       Atacante sin autorización
       con el APK instalado en un dispositivo.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application manifest does not allow backup
@@ -5569,7 +5569,7 @@
       o conectarse a estos de forma anónima.
     threat: >
       Atacante anónimo desde red adyacente.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       A service is configured to allow anonymous authentication
@@ -5693,7 +5693,7 @@
       de conexión absoluto.
     threat: >
       Atacante anónimo con acceso local.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Tha application has an http header poorly configured
@@ -5777,7 +5777,7 @@
     threat: >
       Atacante sin autorización
       desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has debugging enabled on the AndroidManifest
@@ -5849,7 +5849,7 @@
     threat: >
       Atacante local autorizado
       con acceso a los logs.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are passwords and user ids stored in the log files
@@ -5929,7 +5929,7 @@
       que ya esté definido en el archivo known_hosts.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application allows connections to arbitrary insecure hosts
@@ -6019,7 +6019,7 @@
       con datos no sanitizados.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Some fragments can be inserted into the application without server side verification
@@ -6110,7 +6110,7 @@
       en otra ubicación.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       After a successful login, the application does not delete existing user sessions
@@ -6204,7 +6204,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are some inputs used to redirect the user without validation
@@ -6292,7 +6292,7 @@
     threat: >
       Atacante anónimo
       desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The http headers shown an incorrectly set up clock
@@ -6374,7 +6374,7 @@
       para prevenir caché a nivel de campos.
     threat: >
       Atacante anónimo desde red local.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are forms in the application that allow for auto-complete functionalities, also the application does not use meta tags to disable browsers cache
@@ -6501,7 +6501,7 @@
       en logs debidamente protegidos
     threat: >
       Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are console functions in the production code
@@ -6640,7 +6640,7 @@
       sin mucho gasto computacional.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       An improper sorting algorithm is an example of improper resource allocation
@@ -6728,7 +6728,7 @@
     threat: >
       Atacante anónimo desde red local
       con acceso a una sesión desatendida.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not define a secure limit of inactivity before expiring user session
@@ -6820,7 +6820,7 @@
       no sea leído por un OCR.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is an insecure configuration of the captcha functionality
@@ -6983,7 +6983,7 @@
     threat: >
       Atacante no autorizado de la red
       adyacente que realiza un MitM.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The port property of the resource is not set to a secure value
@@ -7193,7 +7193,7 @@
       funciones o métodos repetidos.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is duplicate code with the same functionality in a production stage
@@ -7281,7 +7281,7 @@
       y roles autenticados y autorizados.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is a publicly accessible sensitive resource
@@ -7437,7 +7437,7 @@
       Atacante local sin autorización
       propietario de una aplicación de terceros
       instalada en el dispositivo.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows external content providers with an export and Uri permissions set to true
@@ -7539,7 +7539,7 @@
     threat: >
       Atacante anónimo desde Internet
       con acceso a un token de sesión.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The log out functionality of the application does not delete the session tokens
@@ -7627,7 +7627,7 @@
     threat: >
       Atacante desde Internet ejecutando
       un ataque MitM.
-  category: Manipulate System
+  category: System Manipulation
   examples:
     non_compliant: |
       There is a switch with port-security disabled
@@ -7787,7 +7787,7 @@
       y empaquetado de proyectos.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are some undeclared dependencies in the code
@@ -7861,7 +7861,7 @@
       por usuarios autenticados y autorizados.
     threat: >
       Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some sensitive information (Password) in returned in plain text values
@@ -7975,7 +7975,7 @@
       de la autenticación
       de los recursos críticos.
     threat: Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Some resources do not allow multi-factor authentication
@@ -8057,7 +8057,7 @@
       (Políticas).
     threat: >
       Atacante anónimo desde red local.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The files are deleted without making changes to their content, which could still allow for information to be retrieved
@@ -8136,7 +8136,7 @@
       por medio de listas blancas.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application does not sanitize input content, which could allow for xml code injection
@@ -8322,7 +8322,7 @@
     threat: >
       Atacante con acceso físico
       o virtual al navegador de la víctima.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Password and session ids are stored in the client side using tools like local storage
@@ -8467,7 +8467,7 @@
       por atacantes.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has a functionality to block user accounts based on number of login tries
@@ -8545,7 +8545,7 @@
     threat: >
       Atacante no autenticado desde
       Internet en la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not have proper functionality to unsubscribe from email notifications
@@ -8632,7 +8632,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application mixes insecure unvalidated data and insecure id generating method to set critical data
@@ -8710,7 +8710,7 @@
       al generar el archivo exportado.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       An input csv file is not correctly validated before uploading into the application system
@@ -8799,7 +8799,7 @@
       de guardarlas en el log.
     threat: >
       Atacante autenticado desde Internet.
-  category: Manipulate System
+  category: System Manipulation
   examples:
     non_compliant: |
       Some of the logs use unsanitized input
@@ -8882,7 +8882,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente ejecutando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are insecure cipher algorithms used in the application
@@ -9042,7 +9042,7 @@
       y manejar el resto desde el servidor.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are hidden fields in the application forms that could be manipulated
@@ -9123,7 +9123,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       CBC algorithms could be forced in feasible time
@@ -9211,7 +9211,7 @@
       ni regenerados si la aplicación
       espera un valor único.
     threat: Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A verification code that should only be used once is stored inside the user data
@@ -9285,7 +9285,7 @@
       con las propiedades esperadas.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       Input data is not correctly sanitized
@@ -9454,7 +9454,7 @@
       el almacenamiento solo a las carpetas destinadas.
     threat: >
       Atacante anónimo desde red externa.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       User input is not validated before opening a file
@@ -9534,7 +9534,7 @@
     threat: >
       Atacante autenticado desde Internet
       con acceso al bucket.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are unencrypted resources that store sensitive data
@@ -9802,7 +9802,7 @@
       Atacante en cualquier escenario
       que llegue a modificar o borrar la
       información de las bases de datos.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is a resource configure without deletion prevention policies and safeguards
@@ -9876,7 +9876,7 @@
       solo pueda estar asociado
       y/o representar una cuenta.
     threat: Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is no verification for duplicate emails
@@ -9972,7 +9972,7 @@
     threat: >
       Atacante no autenticado
       desde Internet.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       Unconfigured signing keys for the apk
@@ -10057,7 +10057,7 @@
       que mitigue el riesgo de infección
       con software malicioso.
     threat: Atacante interno no autorizado.
-  category: Manipulate System
+  category: System Manipulation
   examples:
     non_compliant: |
       Coding examples do not apply to physical vulnerabilities
@@ -10132,7 +10132,7 @@
       partícipes de las consultas.
     threat: >
       Atacante no autorizado en Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       //The application uses unsanitized user input to make a query and display possible harmful information
@@ -10212,7 +10212,7 @@
       generadas dinámicamente.
     threat: >
       Atacante anónimo desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input to make NoSQL sentences without validation
@@ -10296,7 +10296,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses dynamic user inputs to make LDAP sentences
@@ -10393,7 +10393,7 @@
       en espacios de tiempo definidos.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not restrict the number of requests performed by a single user
@@ -10463,7 +10463,7 @@
       pertenezcan un Database Subnet Group.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are some resources which use the pre defined security group or do not define one
@@ -10586,7 +10586,7 @@
       en los delimitadores
       entre las peticiones.
     threat: Atacante no autorizado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Different header configurations between front-end and back end servers allow a potential attacker to infiltrate the backend server by sending a request to the front end that is ultimately interpreted by the back end
@@ -10676,7 +10676,7 @@
     threat: >
       Atacante externo con acceso
       a la aplicación.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application uses an unbounded buffer reader
@@ -10772,7 +10772,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are some unsanitized inputs used to perform queries
@@ -10867,7 +10867,7 @@
       haya sido modificado por alguien
       no autorizado.
     threat: Atacante externo autentificado.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The app does not correctly define the type of some variables
@@ -11025,7 +11025,7 @@
       que puede realizar un mismo host
       en espacios de tiempo definidos.
     threat: Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There is no limit to the number of request which could overload the server
@@ -11102,7 +11102,7 @@
       Cargar la misma cantidad de frames en todos
       los casos de carga de la aplicación.
     threat: Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The app provides a different ftps when a query is successful than when the login has failed because of a delay in getting the data
@@ -11231,7 +11231,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Master branch of the repository stores binary files or unverifiable files.
@@ -11293,7 +11293,7 @@
       aplicables para el sistema.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: __empty__
     compliant: __empty__
@@ -11351,7 +11351,7 @@
     threat: >
       Atacante con acceso al repositorio
       desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Metadata of a file stores sensitive information, like location or credentials
@@ -11454,7 +11454,7 @@
     threat: >
       Atacante anónimo con acceso a la
       aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Incorrectly declared dependencies inside the source code
@@ -11543,7 +11543,7 @@
       por el servidor.
     threat: >
       Atacante anónimo desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       Use unsanitized parameters to perform queries to the server
@@ -11630,7 +11630,7 @@
       como retardos de tiempo.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is no limit set in the email delivery configuration setting of the application
@@ -11733,7 +11733,7 @@
       de archivos arbitrarios en el servidor.
     threat: >
       - Atacante no autorizado desde red local.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application includes a reference to a local path that could be altered by the user
@@ -11827,7 +11827,7 @@
       o de forma atómica.
     threat: >
       Atacante anónimo en el sistema.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       If the input comes in an unexpected order, the application can not fulfill the requirements
@@ -11939,7 +11939,7 @@
       al cargar los directorios.
     threat: >
       Atacante externo con acceso a la aplicación.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are some server configuration settings that allow directories to be listed
@@ -12021,7 +12021,7 @@
     threat: >
       Atacante externo con
       acceso a la aplicación.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There are no network isolation methods configured, so an attack in one of the networks could potentially affect all others
@@ -12112,7 +12112,7 @@
       tipos de datos que se introducen
       pero evitar que se interpreten.
     threat: Usuario autorizado de la intranet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application includes functions that could be penetrated because of type confusion
@@ -12201,7 +12201,7 @@
       Atacante con autorización
       desde internet
       ejecutando un ataque XSS.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The http headers do not correctly define the Set-Cookie attribute
@@ -12273,7 +12273,7 @@
     threat: >
       Atacante desde Internet
       ejecutando un ataque CSRF.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The http headers do not correctly define the Same-Site attribute
@@ -12353,7 +12353,7 @@
       Atacante sin autorización
       desde red adyacente
       ejecutando un MitM.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The http headers do not correctly define the Set-Cookie field
@@ -12658,7 +12658,7 @@
       desde red adyacente
       que haya comprometido
       una llave privada.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some insecure encryption algorithms are included in the server configuration
@@ -13090,7 +13090,7 @@
       y generar métodos para accederlos.
     threat: >
       Usuario autorizado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are some public fields defined inside some classes of the application
@@ -13175,7 +13175,7 @@
       con un manejo adecuado de la excepción presentada.
     threat: >
       Atacante autenticado en la aplicación desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are some try sentences without their respective catch to handle exceptions
@@ -13251,7 +13251,7 @@
     threat: >
       Atacante externo con valores válidos
       para el parámetro radicadoHours.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application only verifies a valid token to allow access to users sensitive information
@@ -13347,7 +13347,7 @@
       Usuario no autorizado obteniendo la clave
       de cifrado directamente del repositorio de
       la aplicación o de un archivo de la aplicación.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The API jeys are stored in plain text value inside the code
@@ -13429,7 +13429,7 @@
       entrada de datos del usuario.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application uses the eval function with unvalidated user inputs
@@ -13534,7 +13534,7 @@
       de una o dos clases.
     threat: >
       Atacante no autorizado con acceso al código.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are static imports used in the application
@@ -13605,7 +13605,7 @@
     threat: >
       Atacante autenticado desde Internet
       con permisos de edición en el código.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are functionalities in the code high a cyclomatic complexity higher than recommended values
@@ -13699,7 +13699,7 @@
       por medio de sentencias
       o procedimientos parametrizados.
     threat: Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses unsanitized user inputs to perform queries
@@ -13785,7 +13785,7 @@
       seguros como TLSv1.2 o Superior.
     threat: >
       Atacante interno sin autenticar.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Ther is an insecure protocol set when perfoming a connection
@@ -13866,7 +13866,7 @@
       por ejemplo: SFTP.
     threat: >
       Atacante anónimo desde red adyacente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses unsafe communication channels like FTP to establish connections
@@ -13966,7 +13966,7 @@
       protocolos seguros de SSL.
     threat: >
       Atacante interno no autorizado.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses unsafe communication  SMTP channels to establish connections
@@ -14059,7 +14059,7 @@
     threat: >
       Atacante anónimo en la red
       interna ejecutando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses unsafe communication  channels, like the useSslProtocol without a defined Context
@@ -14141,7 +14141,7 @@
       canal de comunicación cifrado.
     threat: >
       Atacante anónimo desde red adyacente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses an insecure channel to transmit data
@@ -14394,7 +14394,7 @@
       - Aplicación del privilegio mínimo.
     threat: >
       Anonymous attacker from an intranet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application contains possible harmful time-delay query
@@ -14486,7 +14486,7 @@
     threat: >
       Atacante interno autenticado
       en la aplicación.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application contains possible harmful queries
@@ -14649,7 +14649,7 @@
       la base de datos.
     threat: >
       Usuario no autorizado en red local.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       A resource does not have proper network segments
@@ -14824,7 +14824,7 @@
       confiables para acceder al servicio.
     threat: >
       Usuario autorizado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The credentials to access azure services are found stored in the source code
@@ -14942,7 +14942,7 @@
     threat: >
       Atacante con acceso a la
       aplicación desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There are poorly configured access roles found in the application
@@ -15051,7 +15051,7 @@
       de permisos 0600.
     threat: >
       Atacante autenticado con acceso local al servidor.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application creates temporary files in a default path
@@ -15248,7 +15248,7 @@
       revelar funciones vulnerables.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code was not obfuscated
@@ -15346,7 +15346,7 @@
       con acceso a la lógica de
       la aplicación, puede ver los
       binarios y ver el código fuente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       A function that recreates a sensistive part of the business model can be accesed by an attacker
@@ -15434,7 +15434,7 @@
       Firmar el certificado con SHA2 o superior.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application has an insecure algorithm for the certificate signature
@@ -15508,7 +15508,7 @@
       recomendados como Request Validation.
     threat: >
       Atacante anónimo desde internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not request validation mode
@@ -15588,7 +15588,7 @@
       a él los usuarios autorizados.
     threat: >
       Atacante externo con credenciales.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       An AWS resource is configured to be publicly accesible with editing permissions
@@ -15670,7 +15670,7 @@
     threat: >
       Usuario del dominio no autorizado con
       credenciales válidas en la red interna.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A Kerberoast service uses the default security group configuration
@@ -15773,7 +15773,7 @@
       y certificados están instalados y funcionan.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A service is configured with poor security protocols, such as ssl
@@ -15909,7 +15909,7 @@
       - Cambiar contraseñas por defecto.
     threat: >
       Atacante autenticado desde intranet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A service is configured with a default password
@@ -15980,7 +15980,7 @@
     threat: >
       Atacante autenticado desde Internet
       con acceso al código fuente.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Cipher key directly stored on the source code
@@ -16078,7 +16078,7 @@
       e inteligencia periódicamente.
     threat: >
       Atacante interno en la red.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Some anti virus tools in the network are not up to date or poorly configured
@@ -16211,7 +16211,7 @@
       accedido por usuarios autorizados.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is a vulnerable service, configured for public access
@@ -16286,7 +16286,7 @@
     threat: >
       Atacante anónimo con acceso local al
       dispositivo de un usuario.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The allowBackup option is set to true in the app manifest
@@ -16360,7 +16360,7 @@
     threat: >
       Atacante sin autenticar con acceso
       físico al dispositivo móvil.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The allowBackup option is set to true in the app manifest
@@ -16444,7 +16444,7 @@
     threat: >
       Atacante externo no autorizado con un servicio
       que permite la subida de archivos.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A service is wrongly configured to not requiring client certificates
@@ -16516,7 +16516,7 @@
       recursivo en el servidor.
     threat: >
       Atacante anónimo desde red interna.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The DNS servers allow recursive settings
@@ -16585,7 +16585,7 @@
       accedido por usuarios autorizados.
     threat: >
       Atacante externo sin credenciales.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is a resource with an SSH configuration allowing any address
@@ -16674,7 +16674,7 @@
     threat: >
       Atacante anónimo con acceso a una instancia
       de EC2 desde una red interna.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are services with the default security groups configured
@@ -16768,7 +16768,7 @@
       RC4 en el servidor.
     threat: >
       Atacante anónimo en la Intranet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The server allows a RC4 cipher suite
@@ -16836,7 +16836,7 @@
       Deshabilitar SMBv1 y usar la versión SMBv3.
     threat: >
       Atacante interno autenticado.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The SMBv1 version is used by the application
@@ -16903,7 +16903,7 @@
       evitar ataques de retransmisión SMTP.
     threat: >
       Atacante anónimo de Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are unsafe smtp ports opened
@@ -16979,7 +16979,7 @@
       línea con las mejores prácticas de seguridad de AWS.
     threat: >
       Usuario de Internet no autorizado con credenciales.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The dynamo db service does not have restricted access configuration
@@ -17144,7 +17144,7 @@
       que se ejecutan en modo depuración.
     threat: >
       Atacante externo con acceso a la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Debugging mode is active in a production environment
@@ -17215,7 +17215,7 @@
       de campos en la aplicación.
     threat: >
       Atacante externo con acceso a la aplicación.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application performs a query with unvalidated user input
@@ -17294,7 +17294,7 @@
       de campos en la aplicación.
     threat: >
       Atacante en Internet con acceso al servicio.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The x-amzn-RequestId header is set by a potentially unsafe unverified input
@@ -17401,7 +17401,7 @@
       los datos ingresados por el usuario.
     threat: >
       Atacante anónimo desde intranet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -17486,7 +17486,7 @@
       accedido por usuarios autorizados.
     threat: >
       Atacante anónimo desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -17563,7 +17563,7 @@
       a partir de entradas manipuladas por el usuario.
     threat: >
       Atacante autenticado desde Internet
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -17637,7 +17637,7 @@
       restringir el acceso a objetos a usuarios autorizados.
     threat: >
       Atacante externo no autorizado con ID de proceso.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -17729,7 +17729,7 @@
     threat: >
       Atacante externo con acceso a Internet
       y con un token válido.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses an unsafe method to generate session cookies
@@ -17836,7 +17836,7 @@
       de campos en la aplicación.
     threat: >
       Atacante desde intranet con acceso a la aplicación.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -17931,7 +17931,7 @@
       campos en la aplicación.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18006,7 +18006,7 @@
       de dominios confiables permitidos.
     threat: >
       Atacante anónimo desde una red adyacente.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18082,7 +18082,7 @@
       límite de caracteres.
     threat: >
       Atacante autorizado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18157,7 +18157,7 @@
       campos en la aplicación.
     threat: >
       Usuario autorizado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18240,7 +18240,7 @@
       ingresan antes de procesar la petición recibida.
     threat: >
       Usuario no autorizado con acceso a la aplicación.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18315,7 +18315,7 @@
       cuando sean modificados, se cancele la petición.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application does not validate the transaction values after they were modified
@@ -18415,7 +18415,7 @@
       rutas absolutas de estas.
     threat: >
       Usuario autenticado en Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18497,7 +18497,7 @@
     threat: >
       Atacante anónimo desde Internet utilizando
       usuarios enumerados.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application uses user input without server side validation
@@ -18582,7 +18582,7 @@
       utilizadas
     threat: >
       Atacante interno no autorizado.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has an expression that does not correctly track exceptions and errors
@@ -18672,7 +18672,7 @@
       a usuarios autenticados y autorizados.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows unauthorized users to access sensitive information
@@ -18763,7 +18763,7 @@
       tipo de autenticación.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       An S3 AWS service allows the source code to be downloaded by anyone
@@ -18840,7 +18840,7 @@
       Restringir el acceso de los buckets públicos del sistema.
     threat: >
       Anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       An S3 AWS bucket has public permissions to allow deletion of files
@@ -18962,7 +18962,7 @@
       campos en la aplicación.
     threat: >
       Usuario autorizado desde Internet.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application does not validate input data on the server side
@@ -19048,7 +19048,7 @@
       del tailgating.
     threat: >
       Atacante anónimo entrando en la sucursal.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There are no code examples for physical vulnerabilities
@@ -19111,7 +19111,7 @@
       en el aplicativo.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There are no specific protection methods in the application to detect external hooks and stop the runtime
@@ -19186,7 +19186,7 @@
       en el archivo res/xml/network_security_config.xml
     threat: >
       Ataque anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not define any SSLPining mechanisms in the security configuration xml file
@@ -19266,7 +19266,7 @@
       las configuraciones del antivirus y DLP.
     threat: >
       Atacante interno no autorizado.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       A resource storing sensitive information (Like the antivirus configuration) has unsafe restriction policies
@@ -19338,7 +19338,7 @@
       recomendados para las aplicaciones móviles.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Source code does not sufficiently check if the app is being run on an emulator
@@ -19433,7 +19433,7 @@
       acceder tenga una sesión iniciada.
     threat: >
       Atacante anónimo desde internet con un token válido.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There are methods in the code that allow the facil recognition features to be bypassed in some scenarios
@@ -19527,7 +19527,7 @@
       realizar funciones sin mucho gasto computacional.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Complex regular expressions can cause a server overload
@@ -19631,7 +19631,7 @@
       hacia el servicio de seguridad.
     threat: >
       Usuario no autorizado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The cloudfare uses the server as the default ingress
@@ -19714,7 +19714,7 @@
       el lado del servidor.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The jwt token response includes password and username
@@ -19820,7 +19820,7 @@
     threat: >
       Atacante no autorizado con acesso a la
       información de la empresa.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Example with a weak password configuration
@@ -19911,7 +19911,7 @@
       las personas indicadas.
     threat: >
       Atacante interno con acceso al código fuente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The JFrog credential are stored directly in the source code
@@ -19983,7 +19983,7 @@
       sea accesible sólo a personas indicadas.
     threat: >
       Atacante interno con acceso al código fuente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is a file in the source code that stores the employee information
@@ -20079,7 +20079,7 @@
       a las personas indicadas.
     threat: >
       Atacante externo con acceso a token válido.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Credit card numbers are passed as plain text to variable that can be accessed
@@ -20162,7 +20162,7 @@
       cifrar la transmisión en esta capa.
     threat: >
       Atacante anónimo en red local.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Secure transport encryption is disabled
@@ -20253,7 +20253,7 @@
       personas indicadas y desde segmentos autorizados.
     threat: >
       Atacante interno con credenciales Redis.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server configuration does not enable protected mode
@@ -20331,7 +20331,7 @@
       usuario en el token de sesión.
     threat: >
       Atacante externo con acceso a los tokens.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The response token includes sensitive information as plain text
@@ -20416,7 +20416,7 @@
       personas indicadas.
     threat: >
       Atacante interno con acceso al código.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application includes functionality that could allow an unauthorized user to access sensitive data
@@ -20552,7 +20552,7 @@
     threat: >
       Atacante autorizado con las credenciales
       obtenidas desde el código fuente, en Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code shows the db credentials directly
@@ -20656,7 +20656,7 @@
     threat: >
       Atacante externo con acceso a
       la información empresarial.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Access keys directly stored in the source code
@@ -20740,7 +20740,7 @@
       sea accesible sólo a las personas indicadas.
     threat: >
       Atacante con acceso a código.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code shows the db credentials directly
@@ -20854,7 +20854,7 @@
     threat: >
       Atacante externo con acceso y permisos sobre
       la base de datos y arquitectura del servicio.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Configuration and credentials directly stored in the source code
@@ -20944,7 +20944,7 @@
       no deben corresponder con la realidad.
     threat: >
       Atacante con acceso al código fuente de la aplicación.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is a file in the source code that stores the employee information
@@ -21053,7 +21053,7 @@
     threat: >
       Atacante anónimo desde Internet realizando
       un ataque man-in-the-middle.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The NAC policy is based on MAC
@@ -21136,7 +21136,7 @@
       sea accesible sólo a las personas indicadas.
     threat: >
       Atacante externo no autenticado en la aplicación.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are credentials stored on the source code as plain text
@@ -21228,7 +21228,7 @@
     threat: >
       Usuario no autenticado en la
       aplicación desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are Power BI credentials stored in the source code
@@ -21308,7 +21308,7 @@
       no contengan información confidencial
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application attaches user credentials to the response of a db query
@@ -21401,7 +21401,7 @@
       sobre la cantidad de mensajes enviados.
     threat: >
       Atacante externo con acceso al código.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The email delivery configuration does not set a time-delay limit
@@ -21479,7 +21479,7 @@
       usados como nombres y versiones.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is information in the code that displays the ng-version of the system
@@ -21562,7 +21562,7 @@
       determinar la existencia de vulnerabilidades.
     threat: >
       Atacante interno con acceso al código fuente.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       After decompiling an unreferenced binary file in the source code, sensitive information was found
@@ -21628,7 +21628,7 @@
       y almacenarlas en logs debidamente protegidos
     threat: >
       Atacante autenticado desde Internet
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses stacktrace functions that could potentially print sensitive information
@@ -21708,7 +21708,7 @@
       no contengan ningún nombre o versión.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The http responses include the system versions and names
@@ -21780,7 +21780,7 @@
       a usuarios y roles autorizados.
     threat: >
       Usuario no autorizado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code includes direct access to SourceMap files
@@ -21901,7 +21901,7 @@
     threat: >
       Atacante local autenticado con
       acceso a la consola del servidor.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code contains printing functions that could potentially disclose sensitive information
@@ -21980,7 +21980,7 @@
     threat: >
       Un atacante anónimo desde la red de Internet
       realiza una consulta de introspección.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application has introspection queries that could potentially leak the GraphQL Schema Structure
@@ -22050,7 +22050,7 @@
       enviar información técnica.
     threat: >
       Atacante autorizado desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application uses response messages that include sensitive information
@@ -22147,7 +22147,7 @@
       al generado por el sistema.
     threat: >
       Atacante no autorizado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application updates user credentials without validating the confirmation code
@@ -22225,7 +22225,7 @@
     threat: >
       Atacante no autorizado con probabilidad de que
       se salte el proceso de autenticación.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The system does not define any authentication mechanisms
@@ -22322,7 +22322,7 @@
       para aplicar el protocolo de autenticación.
     threat: >
       Atacante interno sin autenticar
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application uses an unsafe encryption method as authentication protocol
@@ -22411,7 +22411,7 @@
       les tiene una autenticación para ser accedidos.
     threat: >
       Usuario no autorizado desde red interna.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows access to sensitive data without requiring user credentials
@@ -22501,7 +22501,7 @@
       acceder tenga una sesión iniciada.
     threat: >
       Atacante interno no autorizado.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows access to BIOS without verifying permissions and secure authentication
@@ -22578,7 +22578,7 @@
       políticas de la organización.
     threat: >
       Atacante interno sin autorización realizando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application unsafely saves a hash number that could be accessed through user credentials
@@ -22656,7 +22656,7 @@
       de acuerdo a las políticas de la organización.
     threat: >
       Atacante sin autenticar con acceso al dispositivo.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       A resource is insecurely configured with the credentials stored in the code
@@ -22794,7 +22794,7 @@
       de acuerdo a las políticas de la organización.
     threat: >
       Atacante con acceso al código desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some sensitive resources have their access credentials exposed in the source code
@@ -22896,7 +22896,7 @@
       cualquier información sensible.
     threat: >
       Un atacante con acceso al código desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The LDAP service has the access credentials stored in the source code
@@ -22971,7 +22971,7 @@
     threat: >
       Atacante autenticado desde Internet
       con acceso al código fuente
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some credentials are stored as plain text in the source code
@@ -23047,7 +23047,7 @@
       de discos definidas desde el código.
     threat: >
       Atacante autenticado con acceso local a la máquina.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Some storing services are unencrypted
@@ -23191,7 +23191,7 @@
       de acuerdo a las políticas de la organización.
     threat: >
       Atacante externo con acceso al código fuente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Password are stored in plain text in the source code
@@ -23276,7 +23276,7 @@
       a él los usuarios autorizados.
     threat: >
       Atacante interno con acceso al VPC.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is an insecure range of ports enabled on the service
@@ -23371,7 +23371,7 @@
       superficie de ataque.
     threat: >
       Atacante anónimo desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is a wildcard passrole that could potentially expose all resources
@@ -23441,7 +23441,7 @@
       Filtrar la información que se recibe por los pagos.
     threat: >
       Atacante con acceso a la aplicación desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application only checks the CC number before accesing a list of them
@@ -23516,7 +23516,7 @@
     threat: >
       Atacante desde red interna sin autenticación
       con hashes de usuarios del dominio.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The server configuration has LM hash storing allowed, which makes it vulnerable to brut force attacks
@@ -23586,7 +23586,7 @@
       exista protección en contra de borrado accidental.
     threat: >
       Atacante con acceso a la consola AWS.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have any protection against deletion
@@ -23714,7 +23714,7 @@
       protección de la terminación.
     threat: >
       Atacante externo con credenciales de AWS.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have any protection against deletion
@@ -23821,7 +23821,7 @@
     threat: >
       Atacante con acceso a la consola de AWS
       que modifica o borra información.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have any protection against deletion
@@ -23915,7 +23915,7 @@
       con puntos de recuperación en el tiempo.
     threat: >
       Atacante en Internet con acceso a la consola AWS.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have any protection against deletion
@@ -24039,7 +24039,7 @@
       y fstack-protector-all.
     threat: >
       Atacante interno con acceso al IPA.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has insecure configuration for binary file compilation
@@ -24119,7 +24119,7 @@
       Usar algoritmos considerados criptograficámente seguros.
     threat: >
       Atacante anónimo desde intranet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure DSA cipher algorithm
@@ -24199,7 +24199,7 @@
     threat: >
       Atacante no autorizado desde red
       interna ejecutando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure SHA1 cipher algorithm
@@ -24281,7 +24281,7 @@
     threat: >
       Atacante autentificado desde Internet con
       hashes de BD comprometidos.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure MD5 cipher algorithm
@@ -24368,7 +24368,7 @@
     threat: >
       Atacante no autorizado desde red
       interna ejecutando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure DES cipher algorithm
@@ -24455,7 +24455,7 @@
       RSA/NONE/OAEPwithSHA-256andMGF1Padding.
     threat: >
       Atacante con acceso al código.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure AES cipher algorithm
@@ -24546,7 +24546,7 @@
       como usuario por defecto.
     threat: >
       Atacante autenticado con acceso local al contenedor.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The container is insecurely configured. There is no command to create a group or user
@@ -24623,7 +24623,7 @@
     threat: >
       Atacante autenticado con acceso local al PoD
       o contenedor.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not enable safe security policies allowing privileged execution
@@ -24788,7 +24788,7 @@
       en todos los campos de entrada para evitar ataques XSS.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application uses the insecure setJavaScriptEnabled method
@@ -24853,7 +24853,7 @@
       Utilizar algoritmos seguros como AES o RSA.
     threat: >
       Usuario no autorizado con acceso al código.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource uses the blowfish insecure encryption algorithm
@@ -24939,7 +24939,7 @@
       que realiza la petición tenga los permisos suficientes.
     threat: >
       Usuario autenticado desde internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The server side of the application does not validate user permissions before creating a file
@@ -25020,7 +25020,7 @@
       configuraciones de otros usuarios dentro de la misma.
     threat: >
       Atacante con acceso a la aplicación desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The server side of the application does not validate user permissions before changing passwords
@@ -25094,7 +25094,7 @@
     threat: >
       Atacante anónimo desde red adyacente
       ejecutando un MitM.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application sends potential sensitive information without masking
@@ -25167,7 +25167,7 @@
       sean los mismos que se le han solicitado al usuario.
     threat: >
       Atacante autenticado en Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not perform server side validation to confirm the field the user is trying to change
@@ -25269,7 +25269,7 @@
     threat: >
       Atacante externo con acceso a la
       información de los empleados.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application does not verify user credentials before allowing editing access
@@ -25350,7 +25350,7 @@
       políticas de la organización.
     threat: >
       Atacante no autorizado con acceso físico al dispositivo.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       A resource has the access credentials insecurely stored in the source code
@@ -25438,7 +25438,7 @@
       por actores maliciosos.
     threat: >
       Atacante no autorizado con acceso local a la máquina.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application includes the jwt access token in the url response
@@ -25594,7 +25594,7 @@
       las entradas de las clases de prueba.
     threat: >
       Atacante no autorizado desde internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application includes code that could potentially generate a null pointer exception
@@ -25674,7 +25674,7 @@
       si ha sido modificada.
     threat: >
       Atacante con acceso a la APK.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Source code could be executed after vulnerable adjustments because of an incorrectly implemented integrity check
@@ -25772,7 +25772,7 @@
       después de un inicio de sesión exitoso.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not update the user cookie after a login
@@ -25886,7 +25886,7 @@
     threat: >
       Atacante anónimo desde red adyacente
       ejecutando un MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The AWS resource does not enable secure transport configuration
@@ -26013,7 +26013,7 @@
       criptográficamente seguros.
     threat: >
       Atacante autorizado desde la red interna.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server uses the insecure ECB encryption algorithm
@@ -26109,7 +26109,7 @@
       consultada por un usuario.
     threat: >
       Atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application does not verify the session token before allowing access to sensitive information
@@ -26202,7 +26202,7 @@
     threat: >
       Atacante con acceso al código
       fuente desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The server could have a user class that stores the passwords in Base64
@@ -26290,7 +26290,7 @@
       siguiendo las buenas practicas de seguridad.
     threat: >
       Atacante interno en el mismo segmento de red.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The info.plist file has some insecure parameters
@@ -26380,7 +26380,7 @@
       utilizando objetos de sesión.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows an unauthorized user to edit unique identification
@@ -26490,7 +26490,7 @@
     threat: >
       Usuario no autorizado con acceso a la
       información corporativa.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application grants access to sensitive information without verifying authorization credentials
@@ -26579,7 +26579,7 @@
     threat: >
       Usuario autorizado desde internet con acceso
       al número de producto encriptado.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application grants access to sensitive information without verifying authorization credentials
@@ -26661,7 +26661,7 @@
       archivos que pueden ser accedidos por terceros.
     threat: >
       Atacante externo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The source code contains a file that could potentially display system logs
@@ -26737,7 +26737,7 @@
       información técnica.
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       Due to a missconfiguration in one of the web pages of the app, the http header returns the ip address of the server
@@ -26833,7 +26833,7 @@
       sea accesible sólo a las personas indicadas.
     threat: >
       Un atacante autenticado desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There is a method in the application that includes sensitive data in the response
@@ -26926,7 +26926,7 @@
       como privadas.
     threat: >
       Atacante no autorizado con acceso a la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application uses static variable declaration when not strictly necessary
@@ -27008,7 +27008,7 @@
       Cryptographic Key Generation.
     threat: >
       Atacantea anónimo en red adyancente.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are shared key pairs for several sensitive resources
@@ -27080,7 +27080,7 @@
     threat: >
       Usuario no autorizado con acceso a
       la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The OTP service is insecurely configured to allow default access
@@ -27162,7 +27162,7 @@
     threat: >
       Usuario no autorizado desde Internet
       con acceso a la sesión de un usuario.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       After a password change, the application does not delete existing user sessions
@@ -27325,7 +27325,7 @@
       de sentencias parametrizadas o procedimientos almacenados.
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are unvalidated SQL queries that use input data
@@ -27425,7 +27425,7 @@
       intente acceder tenga una sesión iniciada.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application allows to redirect the user to a private page without checking the authorization
@@ -27503,7 +27503,7 @@
       les tiene una autenticación para ser accedidos.
     threat: >
       Atacante anónimo desde intranet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The JFrog service has a default access configuration to edit
@@ -27585,7 +27585,7 @@
       - Establecer notificaciones de umbrales de bloqueo de cuentas.
     threat: >
       Atacante anónimo con accesso a credenciales desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The authentication mechanism of the azure resource can be bypassed due to a wrong configuration
@@ -27705,7 +27705,7 @@
       al loguearse desde una nueva ubicación.
     threat: >
       Actor malicioso desde intranet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not verify if the user already has a session opened before signing in
@@ -27787,7 +27787,7 @@
       reutilizar en futuras peticiones.
     threat: >
       Atacante desde Internet con un token de sesión.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not verify if the user token has expired
@@ -27882,7 +27882,7 @@
       y StringBuilder o SyncronizedList).
     threat: >
       Usuario anónimo con acceso a la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application uses an ineficcient method to store user posts that could consume many computer resources
@@ -27956,7 +27956,7 @@
       de campos en la aplicación.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There is unvalidated/unsanitized input data being handled by the application
@@ -28041,7 +28041,7 @@
       los permisos necesarios para acceder.
     threat: >
       Usuario no autorizado desde red local.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application only checks userId before allowing access to sensitive information
@@ -28137,7 +28137,7 @@
       los permisos necesarios para hacerlo.
     threat: >
       Usuario autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application only checks userId before allowing access to sensitive information
@@ -28220,7 +28220,7 @@
       obtener ninguna información de ella.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The server configuration for the default index pages is activated
@@ -28378,7 +28378,7 @@
     threat: >
       Atacante desde Internet con acceso a
       la aplicación de GLIA.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application shows user sensitive information in the registration process without using some form of secure id validation
@@ -28454,7 +28454,7 @@
       StricktHostKeyChecking en JSch.
     threat: >
       Atacante externo no autorizado.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The JSch has the StrictHostKeyChecking disabled
@@ -28519,7 +28519,7 @@
       accedido por usuarios autorizados.
     threat: >
       Atacante sin autorización desde internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has the V1 signature enabled
@@ -28584,7 +28584,7 @@
       detectar certificados inválidos.
     threat: >
       Atacante sin autorización desde intranet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application manifest misconfigures the allowed certificates
@@ -28641,7 +28641,7 @@
       Configurar correctamente el servidor MySQL.
     threat: >
       Usuario de Internet con credenciales.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The db server allows editing permissions for unauthorized users
@@ -28739,7 +28739,7 @@
     threat: >
       Atacante autorizado usando las credenciales
       que yacen en el código fuente desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The search cloud service is not securely restricted
@@ -28815,7 +28815,7 @@
       StringBuilder o SyncronizedList).
     threat: >
       Atacante con acceso a la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has unsafe methods that could affect application performance
@@ -28886,7 +28886,7 @@
       explícita inmediatamente después de su uso.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application includes a function that leaves an opened socket
@@ -29054,7 +29054,7 @@
       cuentas y grupos lógicos en una aplicación.
     threat: >
       Usuario no autorizado con accesso a información sensible.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has misconfigured role access credentials
@@ -29141,7 +29141,7 @@
     threat: >
       Atacante interno con acceso a las
       configuraciones de servicios.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is sensitive information store as plain text
@@ -29228,7 +29228,7 @@
       campos en la aplicación.
     threat: >
       Atacante no autorizado en Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There is unvalidated input data handled by the application
@@ -29396,7 +29396,7 @@
       de un ataque XML entrante.
     threat: >
       Atacante anónimo desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The XML unmarshaller displays sensitive information without validating credentials
@@ -29516,7 +29516,7 @@
     threat: >
       Atacante externo autorizado con privilegios
       para añadir usuarios.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not properly check user permissions before accesing sensitive information
@@ -29605,7 +29605,7 @@
       los roles que lo necesitan.
     threat: >
       Atacante desde internet con acceso a las máquinas.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Unnecesary privileges are given by the use of a wildcard "*"
@@ -29753,7 +29753,7 @@
       accedido por usuarios autorizados.
     threat: >
       Atacante interno con acceso al artifactory.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The code has a dependency imported which stores sensitive credentials
@@ -29828,7 +29828,7 @@
       imágenes de perfil conduzcan a imágenes válidas.
     threat: >
       Atacante con acceso a la aplicación desde Internet.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application does not validate user input on the server side
@@ -29905,7 +29905,7 @@
       en el proceso de cierre de sesión.
     threat: >
       Atacante autenticado desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Closing a session without validating the email belongs to the same user and token
@@ -30112,7 +30112,7 @@
       través de los errores HTTP (500 o 404).
     threat: >
       Atacante anónimo desde Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The http responses include sensitive information like users id, or provide different status codes when the user does not exist
@@ -30186,7 +30186,7 @@
     threat: >
       Atacante anónimo en red adyacente ejecutando
       un ataque man-in-the-middle.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The service uses an insecure encryption method (CBC)
@@ -30266,7 +30266,7 @@
       Siguiendo las prácticas recomendadas
     threat: >
       Atacante en internet con acceso a la consola de AWS.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The EC2 instance has an insecure configuration, it has the disable api termination set to true
@@ -30433,7 +30433,7 @@
       fuentes de secretos protegidas.
     threat: >
       Atacante interno con acceso a configuraciones de servicios.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Some resources have their credentials stored in the code
@@ -30538,7 +30538,7 @@
       el recurso VersioningConfiguration.
     threat: >
       Atacante en Internet con acceso a los Buckets de S3.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are services without the versioning configuration resource configured
@@ -30642,7 +30642,7 @@
       de la organización.
     threat: >
       Atacante con acceso a la aplicación desde internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application does not validate the user permissions to access the information
@@ -30729,7 +30729,7 @@
       por usuarios legítimos.
     threat: >
       Atacante desde Internet sin autenticación.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The same header is included in the payments after processing which could be exploited by an attacker
@@ -30805,7 +30805,7 @@
       Generar el Salt con una función segura de hashing.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The service configuration uses an insecure hashing function
@@ -30881,7 +30881,7 @@
       recomendados como Request Validation.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The requestValidationMode is not correctly configured
@@ -30944,7 +30944,7 @@
       ingresen caracteres especiales.
     threat: >
       Atacante anónimo desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application updates user information with inputs without validating data on the server side
@@ -31034,7 +31034,7 @@
       - Validar que el token generado sea usado en una sola ocasión.
     threat: >
       Atacante externo autenticado.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application includes functionality that allows multiple token codes to be send without ending the user session
@@ -31125,7 +31125,7 @@
       javascript en ambientes de producción.
     threat: >
       Usuario anónimo en Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application includes common debugging functions in the production code
@@ -31232,7 +31232,7 @@
     threat: >
       Usuario con acceso al tráfico de la víctima
       (ataque man-in-the-middle).
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The http responses of the application use the g-zip content-encoding
@@ -31302,7 +31302,7 @@
       se transformen en entradas estáticas a las llamadas Call().
     threat: >
       Atacante autenticado desde Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are functionalities using unvalidated input data to build system commands
@@ -31403,7 +31403,7 @@
       Eliminar el código usado durante las pruebas.
     threat: >
       Atacante anónimo desde Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There is a functionality that allows breaching due to a missconfiguration of the source code
@@ -31478,7 +31478,7 @@
       operando de acuerdo al principio de mínimo privilegio
     threat: >
       Atacante autenticado con acceso local a la aplicación.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application manifest sets unsafe permissions not necessary for its functionality
@@ -31595,7 +31595,7 @@
       Configurar el launchMode con la opción de singleInstance.
     threat: >
       Usuario no autorizado con acceso a la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application manifest allows launchMode with the singletask Option
@@ -31663,7 +31663,7 @@
       mejores prácticas recomendadas.
     threat: >
       Atacante anónimo desde una red adyacente.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not define a secure limit for expiration of certificates
@@ -31745,7 +31745,7 @@
       entorno para proteger información sensible.
     threat: >
       Atacante anónimo consulta la página de login.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are scripts being used that contain plain text access keys
@@ -31825,7 +31825,7 @@
       técnicos del evento.
     threat: >
       Atacante sin autorización desde intranet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Application does not correctly check if certificate is invalid or has expired and allows insecure connections
@@ -31901,7 +31901,7 @@
       existentes y no existentes.
     threat: >
       Atacante externo con acceso a integrates.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The application sets different response messages that differ based on the finding status
@@ -32006,7 +32006,7 @@
       de acuerdo con las políticas de la organización.
     threat: >
       El atacante externo puede ejecutar las pipelines.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application contains functionality that displays sensitive information without hashing
@@ -32097,7 +32097,7 @@
       de firma, signature).
     threat: >
       Atacante no autorizado con acceso a un token.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application does not verify the jwt signature
@@ -32191,7 +32191,7 @@
     threat: >
       Atacante desde Internet con token de sesión
       válido para subir archivos.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application uploads files without verifying the content
@@ -32288,7 +32288,7 @@
     threat: >
       Atacante anónimo desde Internet con acceso de
       escritura a un recurso utilizado por la aplicación.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application does not perform server side validation of the input data
@@ -32365,7 +32365,7 @@
       emails para el campo txtEmail.
     threat: >
       Atacante en Internet autenticado.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not perform server side validation of some input data
@@ -32452,7 +32452,7 @@
       se está demorando mucho en procesar la información.
     threat: >
       Atacante autenticado en la aplicación.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application performs potentially large queries without setting a timeout limit
@@ -32524,7 +32524,7 @@
       Configurar de manera segura DocumentBuilderFactory.
     threat: >
       Atacante autorizado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The DocumentBuilderFactory does not have a secure configuration
@@ -32612,7 +32612,7 @@
       configuración cifrados o variables de entorno.
     threat: >
       Atacante externo con acceso al código fuente.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The API key is stored in plain text in the source code
@@ -32734,7 +32734,7 @@
       code exposed in web applications.
     threat: >
       Unauthorized user from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The source code has been stored without using any form of obfuscation
@@ -32811,7 +32811,7 @@
       Remove web services and files that exposes technical information.
     threat: >
       Anonymous attacker from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The source code includes code to debug the php.ini configuration files
@@ -32888,7 +32888,7 @@
     threat: >
       Attacker with an account creation
       invitation from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The resource has a weak password configuration settings
@@ -33012,7 +33012,7 @@
       by following the recommended best practices.
     threat: >
       Anonymous attacker from the Internet
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The resource has weak password configuration settings
@@ -33106,7 +33106,7 @@
       critical functionalities in the back-end.
     threat: >
       Unauthorized external attacker.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The OTP functionality sends an insecure temporary password
@@ -33207,7 +33207,7 @@
       para evitar conflictos en los atributos de seguridad.
     threat: >
       Atacante anónimo desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are nested transparency annotations in the source code
@@ -33285,7 +33285,7 @@
       - Change the compromised access credentials.
     threat: >
       Authenticated user from Internet with access to the source code.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       A file found in the git history has sensitive information like API Keys
@@ -33370,7 +33370,7 @@
       - Implement safe values for StricktHostKeyChecking configuration.
     threat: >
       Anonymous attacker from the Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The application does not enable Strict Host Key Checking
@@ -33453,7 +33453,7 @@
       to the current role.
     threat: >
       Authenticated attacker from the Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       The user input is not validated on the server side, which could potentially allow all users to be deleted
@@ -33541,7 +33541,7 @@
       function is not eliminated.
     threat: >
       User authenticated from the Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There is a functionality to bypass the verification of the user credentials and accees sensitive information
@@ -33622,7 +33622,7 @@
       script injection attacks.
     threat: >
       Unauthorized attacker from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       The application takes user input without validating it on the server side
@@ -33693,7 +33693,7 @@
     threat: >
       Anonymous attacker on adjacent network
       running a MitM.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource uses an insecure http configuration
@@ -33827,7 +33827,7 @@
       connections only come from certain points in the network.
     threat: >
       Anonymous attacker from adjacent network.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The db service uses an insecure encryption algorithm
@@ -33915,7 +33915,7 @@
     threat: >
       An attacker access to the application and can debug it, will
       be able to get sensitive information stored in a device.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       Debug functions like printStackTrace are present in production code
@@ -34006,7 +34006,7 @@
       the entire application process.
     threat: >
       Authorized attacker from the Internet.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       There is a functionality on the code that allows the user to bypass the authorization verification
@@ -34101,7 +34101,7 @@
       Anonymous attacker performing an analysis of the final
       core binary to determine its source code, algorithms
       and resources embedded within the app to execute dubious actions.
-  category: Subvert Access
+  category: Access Subversion
   examples:
     non_compliant: |
       A simple example showing a possible obfuscation procedure
@@ -34208,7 +34208,7 @@
       Attacker may impersonate one of the device
       communication endpoints or set itself as a
       man in the middle (MitM) between them.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The application allow sconnection to bluetooth device without any authentication
@@ -34323,7 +34323,7 @@
     threat: >
       An attacker from an adjacent network
       performing a sniffing attack.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource uses insecure encryption algorithms
@@ -34406,7 +34406,7 @@
     threat: >
       Authorized attacker from the Internet
       with access to the application.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are some imports declarations not used in the model
@@ -34475,7 +34475,7 @@
     threat: >
       Anonymous attacker from Internet
       with write access to the provider releases.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are docker dependencies not pinned
@@ -34551,7 +34551,7 @@
     threat: >
       Anonymous attacker from Internet
       with write access to the provider releases.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are unpinned terraform dependencies
@@ -34650,7 +34650,7 @@
       both the front and back ends of the application.
     threat: >
       Attacker without credentials from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not validate credentials on the back end
@@ -34727,7 +34727,7 @@
       validations always on the server side.
     threat: >
       Anonymous attacker from the Internet.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       There is code present on the front end that generates the OTP
@@ -34823,7 +34823,7 @@
       necessary for the correct operation of the application.
     threat: >
       Attacker authenticated in the application from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       A module includes a wildcard export
@@ -34893,7 +34893,7 @@
       according to the organizations policies.
     threat: >
       Attacker with access to source code from the Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       There are sensitive credentials stored in the source code
@@ -34975,7 +34975,7 @@
       application load cases.
     threat: >
       Attacker on the Internet sending malicious links.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The app provides a different ftps when a query is successful than when the login has failed because of a delay in getting the data
@@ -35084,7 +35084,7 @@
       cannot be reused.
     threat: >
       Anonymous attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The OTP generated is not expired after the user uses it to sign in for the first time
@@ -35222,7 +35222,7 @@
       Sign the application JAR files using a trusted key.
     threat: >
       Anonymous attacker from Internet with access to the JAR Files.
-  category: Manipulate Data
+  category: Data Manipulation
   examples:
     non_compliant: |
       The source code has .jar files that were not signed before runtime, please check to verify before compiling
@@ -35287,7 +35287,7 @@
       such as _proto_ in the system objects.
     threat: >
       Authenticated attacker from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       There are functionalities that can be overwritten due to insecure coding practices
@@ -35377,7 +35377,7 @@
       from the application source code.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are unused properties in the code
@@ -35465,7 +35465,7 @@
       and access rules are active and cannot be bypassed.
     threat: >
       Anonymous attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The firewall configuration allows insecure port connections through its configuration files
@@ -35575,7 +35575,7 @@
       - Reemplazar componentes que estén obsoletos
       o cuenten con vulnerabilidades Zero Day.
     threat: Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       Example importing a dependency with known vulnerabilities such as xmldom
@@ -35669,7 +35669,7 @@
       en todas las instancias de CloudTrail.
     threat: >
       Atacante autenticado desde Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not enable log file validation
@@ -35771,7 +35771,7 @@
     threat: >
       Authenticated attacker from the Internet
       with access to the source code.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application uses insecure encryption algorithms
@@ -35852,7 +35852,7 @@
       for all the service keys.
     threat: >
       Anonymous attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not enable automatic key rotation within allowable limits
@@ -36079,7 +36079,7 @@
       and validate them through the implementation of isValidFragment.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are unverified inputs that are used to put fragments into the application
@@ -36161,7 +36161,7 @@
     threat: >
       Authenticated attacker from the Internet
       who succeeded to compromise a resource.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are sensitive resources in the application that do not have notification mechanisms in case of changes
@@ -36233,7 +36233,7 @@
       in all the EC2, ELB and S3 instances.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have the logging property set
@@ -36383,7 +36383,7 @@
       by setting the expiration_date property.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The azure secrets do not have an expiration date or limit set
@@ -36463,7 +36463,7 @@
       by enabling logging for read, write and delete requests.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not enable logging for sensitive requests
@@ -36610,7 +36610,7 @@
       Attacker without credentials from
       the same network segment as an
       application user.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application manifest has usesCleartextTraffic set to true
@@ -36710,7 +36710,7 @@
       or whitelists before passing the parameters to critical functions.
     threat: >
       Authenticated local attacker with access to the machine.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are functionalities that execute a command without checking or treating user input
@@ -36791,7 +36791,7 @@
       for example an access mode 0600
     threat: >
       Anonymous attacker with local access to the machine
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The access modes are too permissive
@@ -36881,7 +36881,7 @@
     threat: >
       Anonymous attacker with local access
       to one or more EFS instances
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource does not have encryption correctly set up
@@ -36976,7 +36976,7 @@
       by setting the property _Encrypted_ to _true_
     threat: >
       Anonymous attacker with local access to a EBS instance
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource does not have an encryption mechanism correctly configured
@@ -37220,7 +37220,7 @@
     threat: >
       Authenticated attacker from the Internet
       with access to the Database
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       The resource is not using server side encryption
@@ -37322,7 +37322,7 @@
        of the package manager.
     threat: >
       Anonymous attacker from the Internet
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There is configuration to upload the package without the organization id
@@ -37408,7 +37408,7 @@
       Enable the encryption using KMS Customer Controlled Keys (CMK)
     threat: >
       Authenticated attacker from the Internet with access to the service
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource has unsafe KMS configuration
@@ -37514,7 +37514,7 @@
     threat: >
       Authenticated attacker from the Internet
       with write permissions in the vault
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The resource does not have any protection against deletion enabled
@@ -37598,7 +37598,7 @@
       and their respective integrity hashes
     threat: >
       Anonymous attacker from local machine
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not verify on the server side the inputs before a file upload
@@ -37679,7 +37679,7 @@
       since its default value is true
     threat: >
       Anonymoous attacker from the Internet
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application has the EnableHeaderchecking disabled
@@ -37758,7 +37758,7 @@
       Specify a valid group policy identifier when generating the service SAS.
     threat: >
       Authenticated attacker from the Internet
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The service SAS does not specify any group policy identifier
@@ -37861,7 +37861,7 @@
       in all the system imputs
     threat: >
       Authenticated attacker from the Internet
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not perform any server side validation for user inputs
@@ -37950,7 +37950,7 @@
       validating that the requester is the account owner.
     threat: >
       Authenticated attacker from the Internet
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The application does not validate the account owner is the same resetting the password
@@ -38028,7 +38028,7 @@
       Instead, use the COPY command
     threat: >
       Authenticated local attacker with access to the container
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The Docker service performs an insecure use of the ADD command
@@ -38106,7 +38106,7 @@
       set the desired audit log path.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       The Kubernetes configuration does not set a log file configuration
@@ -38193,7 +38193,7 @@
       requests.
     threat: >
       Attacker without authentication from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       ```python
@@ -38277,7 +38277,7 @@
       Ensure that the curves used are safe for both ECDLP and ECC in general.
     threat: >
       Unauthenticated attacker from the Internet.
-  category: Collect Information
+  category: Information Collection
   examples:
     non_compliant: |
       ```yaml
@@ -38342,7 +38342,7 @@
       Encourage the use of sandboxing.
     threat: >
       Unauthenticated attacker from the Internet.
-  category: Inject Unexpected
+  category: Unexpected Injection
   examples:
     non_compliant: |
       ```yaml
@@ -38409,7 +38409,7 @@
       accesses.
     threat: >
       Authenticated attacker from the Internet.
-  category: Abuse Functionality
+  category: Functionality Abuse
   examples:
     non_compliant: |
       There are system.exit() in the code
@@ -38482,16 +38482,16 @@
       accessing application installation packages.
     threat: >
       Unprivileged attacker from the internet impersonating the application.
-  category: Manipulate System
+  category: System Manipulation
   examples:
     non_compliant: |
-      
+
       ```
       NA
 
       ```
     compliant: |
-      
+
       ```
       NA
 

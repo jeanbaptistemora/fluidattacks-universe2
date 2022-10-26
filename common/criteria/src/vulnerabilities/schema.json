@@ -16,14 +16,14 @@
         "es": { "$ref": "#/definitions/language" },
         "category": {
           "oneOf": [
-            { "type": "string", "pattern": "^Collect Information$" },
-            { "type": "string", "pattern": "^Inject Unexpected$" },
+            { "type": "string", "pattern": "^Information Collection$" },
+            { "type": "string", "pattern": "^Unexpected Injection$" },
             { "type": "string", "pattern": "^Deceptive Interactions$" },
-            { "type": "string", "pattern": "^Abuse Functionality$" },
+            { "type": "string", "pattern": "^Functionality Abuse$" },
             { "type": "string", "pattern": "^Probabilistic Techniques$" },
-            { "type": "string", "pattern": "^Subvert Access$" },
-            { "type": "string", "pattern": "^Manipulate Data$" },
-            { "type": "string", "pattern": "^Manipulate System$" },
+            { "type": "string", "pattern": "^Access Subversion$" },
+            { "type": "string", "pattern": "^Data Manipulation$" },
+            { "type": "string", "pattern": "^System Manipulation$" },
             { "type": "string", "pattern": "^Protocol Manipulation$" }
           ]
         },
