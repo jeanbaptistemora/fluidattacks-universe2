@@ -32601,6 +32601,29 @@ F405,lines,namespace/skims/test/data/lib_path/f405/bash.sh,9,732,skims,405. Exce
 > 9 | chmod 754 myfile
     ^ Col 0
 ",bash.excessive_privileges_for_others
+F405,lines,namespace/skims/test/data/lib_path/f405/test.com,15,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/test.com,"
+   1 | # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   2 | #
+   3 | # SPDX-License-Identifier: MPL-2.0
+   4 |
+   5 | # shellcheck shell=bash
+   6 |
+   7 | case 'SunOS':
+   8 |     if (-e /net/hermes/scrb) then
+   9 | #                  NRLSSC
+  10 |       setenv S     /net/hermes/scrb/${user}/$P
+  11 |       setenv W     /net/hermes/scrb/metzger/force/$N
+  12 |     else
+  13 | #                  NAVO MSRC
+  14 |       mkdir        /scr/${user}
+> 15 |       chmod 754   /scr/${user}
+  16 |       chmod 750   /scr/${user}
+  17 |       setenv S     /scr/${user}/$P
+  18 |       setenv W     /u/home/metzger/force/$N
+  19 |     endif
+  20 |     breaksw
+     ^ Col 0
+",bash.excessive_privileges_for_others
 F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
  in namespace/skims/test/data/lib_path/f380/Dockerfile","
    1 | # Insecure

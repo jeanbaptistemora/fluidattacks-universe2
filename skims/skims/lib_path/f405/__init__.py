@@ -34,7 +34,7 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if file_extension == "sh" or file_name == "Dockerfile":
+    if file_extension in ("sh", "com") or file_name == "Dockerfile":
         results = (
             *results,
             run_excessive_privileges_for_others(content_generator(), path),
