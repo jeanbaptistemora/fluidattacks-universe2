@@ -162,7 +162,6 @@ run each command in a different terminal.
 
 ```sh
 universe $ m . /integrates/back
-universe $ m . /integrates/cache
 universe $ m . /dynamoDb/skims
 universe $ m . /integrates/storage
 ```

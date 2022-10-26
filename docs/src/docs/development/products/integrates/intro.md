@@ -99,8 +99,6 @@ and its [API](/machine/api).
    - [OpenSearch by Amazon Web Services (AWS)](/development/stack/aws/opensearch)
      (previously known as ElasticSearch)
      as a search provider.
-   - [ElastiCache by Amazon Web Services (AWS)](/development/stack/aws/redis)
-     as an in-memory, intranet, and therefore low-latency volatile database.
    - [S3 by Amazon Web Services (AWS)](/development/stack/aws/s3):
      - As a durable file system,
      - As an ephemeral file system whose objects are deleted after some time.
@@ -148,7 +146,6 @@ Run each of the following commands in different terminals:
 
 ```sh
 universe $ m . /integrates/back
-universe $ m . /integrates/cache
 universe $ m . /integrates/db
 universe $ m . /integrates/front
 universe $ m . /integrates/storage

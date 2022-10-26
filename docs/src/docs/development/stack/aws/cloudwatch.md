@@ -7,8 +7,8 @@ slug: /development/stack/aws/cloudwatch
 
 ## Rationale
 
-We use [CloudWatch][CLOUDWATCH]
-for monitoring our entire [AWS][AWS] infrastructure.
+We use [CloudWatch][cloudwatch]
+for monitoring our entire [AWS][aws] infrastructure.
 We can monitor our applications,
 react to performance changes within them,
 optimize resource utilization,
@@ -21,7 +21,7 @@ are the following:
   Once we start creating infrastructure,
   CloudWatch begins to monitor it.
 - It integrates seamlessly with most AWS services.
-  Some examples are [EC2][EC2],
+  Some examples are [EC2][ec2],
   [S3](/development/stack/aws/s3/),
   and
   [DynamoDB](/development/stack/aws/dynamodb/introduction/).
@@ -52,8 +52,7 @@ are the following:
 
 ## Alternatives
 
-> **Note:**
-> [GCP Cloud Monitoring](https://cloud.google.com/monitoring)
+> **Note:** > [GCP Cloud Monitoring](https://cloud.google.com/monitoring)
 > and [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview)
 > are alternatives
 > that did not exist at the time we migrated to the cloud.
@@ -61,9 +60,9 @@ are the following:
 
 ## Usage
 
-We use [CloudWatch][CLOUDWATCH] for monitoring
+We use [CloudWatch][cloudwatch] for monitoring
 
-- [EC2][EC2]
+- [EC2][ec2]
   instance performance;
 - [EBS](/development/stack/aws/ebs/)
   disk usage and performance;
@@ -73,8 +72,6 @@ We use [CloudWatch][CLOUDWATCH] for monitoring
   load balancer performance;
 - [Redshift](/development/stack/aws/redshift/)
   database usage and performance;
-- [Redis cache cluster](/development/stack/aws/redis/)
-  usage and performance;
 - [DynamoDB](/development/stack/aws/dynamodb/introduction/)
   tables usage and performance;
 - [SQS](https://aws.amazon.com/sqs/)
@@ -82,7 +79,7 @@ We use [CloudWatch][CLOUDWATCH] for monitoring
 - [ECS](https://aws.amazon.com/ecs/)
   cluster resource reservation and utilization,
   and
-- [Lambda][LAMBDA]
+- [Lambda][lambda]
   invocations, errors, duration, among others.
 
 We do not use CloudWatch for
@@ -90,9 +87,9 @@ We do not use CloudWatch for
 - [synthetic monitoring](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html)
   (we use [Checkly](https://www.checklyhq.com/) instead);
 - [ServiceLens](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ServiceLens.html)
-  (it only supports [Lambda][LAMBDA] functions,
+  (it only supports [Lambda][lambda] functions,
   [API Gateway](https://aws.amazon.com/api-gateway/),
-  and [Java-based](https://en.wikipedia.org/wiki/Java_(programming_language))
+  and [Java-based](<https://en.wikipedia.org/wiki/Java_(programming_language)>)
   applications);
 - [Contributor Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights.html)
   (we use [Cloudflare](/development/stack/cloudflare/) instead);
@@ -100,14 +97,14 @@ We do not use CloudWatch for
   (we use [New Relic](https://newrelic.com/);
   pending review);
 - [Lambda Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights.html)
-  (we currently use [Lambda][LAMBDA]
+  (we currently use [Lambda][lambda]
   for a few non-critical tasks);
 - [CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html)
   (it could increase visibility
-  for [EC2][EC2] machines;
+  for [EC2][ec2] machines;
   pending review);
 - [CloudWatch Application Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-application-insights.html)
-  (it only supports [Java-based](https://en.wikipedia.org/wiki/Java_(programming_language))
+  (it only supports [Java-based](<https://en.wikipedia.org/wiki/Java_(programming_language)>)
   applications),
   or
 - writing our [alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
@@ -117,13 +114,13 @@ We do not use CloudWatch for
 
 ## Guidelines
 
-- You can access the [CloudWatch][CLOUDWATCH] console
+- You can access the [CloudWatch][cloudwatch] console
   after [authenticating to AWS](/development/stack/aws#guidelines).
 - You can watch CloudWatch metrics
   from the monitoring section
-  of each [AWS][AWS] service.
+  of each [AWS][aws] service.
 
-[AWS]: /development/stack/aws/
-[CLOUDWATCH]: https://aws.amazon.com/cloudwatch/
-[LAMBDA]: /development/stack/aws/lambda/
-[EC2]: /development/stack/aws/ec2/
+[aws]: /development/stack/aws/
+[cloudwatch]: https://aws.amazon.com/cloudwatch/
+[lambda]: /development/stack/aws/lambda/
+[ec2]: /development/stack/aws/ec2/
