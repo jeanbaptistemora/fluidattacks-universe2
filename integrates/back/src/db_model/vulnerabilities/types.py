@@ -156,6 +156,7 @@ VulnerabilityHistoricEntry = Union[
 
 
 class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_closing_date: Optional[str] = None
     unreliable_efficacy: Optional[Decimal] = None
     unreliable_last_reattack_date: Optional[str] = None
     unreliable_last_reattack_requester: Optional[str] = None

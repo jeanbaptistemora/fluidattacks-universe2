@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint:disable=too-many-lines
+
 from aioextensions import (
     collect,
     schedule,
@@ -285,6 +286,22 @@ async def get_by_finding_and_vuln_ids(
     if len(filtered_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
     return filtered_vulns
+
+
+async def get_closing_date(
+    vulnerability: Vulnerability,
+) -> Optional[str]:
+    """Get the closing date in ISO8601 UTC format."""
+    current_closing_date = (
+        vulnerability.unreliable_indicators.unreliable_closing_date
+    )
+    if current_closing_date:
+        return current_closing_date
+
+    if vulnerability.state.status is VulnerabilityStateStatus.CLOSED:
+        return vulnerability.state.modified_date
+
+    return None
 
 
 async def get_grouped_vulnerabilities_info(

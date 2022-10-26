@@ -213,6 +213,7 @@ def format_unreliable_indicators(
     item: Item,
 ) -> VulnerabilityUnreliableIndicators:
     return VulnerabilityUnreliableIndicators(
+        unreliable_closing_date=item.get("unreliable_closing_date", None),
         unreliable_efficacy=item.get("unreliable_efficacy", None),
         unreliable_last_reattack_date=item.get(
             "unreliable_last_reattack_date", None

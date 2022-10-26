@@ -369,6 +369,11 @@ async def update_vulnerability_unreliable_indicators(
     )
     indicators: dict[EntityAttr, Any] = {}
 
+    if EntityAttr.closing_date in attrs_to_update:
+        indicators[EntityAttr.closing_date] = vulns_domain.get_closing_date(
+            vulnerability
+        )
+
     if EntityAttr.efficacy in attrs_to_update:
         indicators[EntityAttr.efficacy] = vulns_domain.get_efficacy(
             loaders, vulnerability
@@ -403,6 +408,7 @@ async def update_vulnerability_unreliable_indicators(
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators_to_udpate = VulnerabilityUnreliableIndicatorsToUpdate(
+        unreliable_closing_date=result.get(EntityAttr.closing_date),
         unreliable_efficacy=result.get(EntityAttr.efficacy),
         unreliable_last_reattack_date=result.get(
             EntityAttr.last_reattack_date

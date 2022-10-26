@@ -164,6 +164,14 @@ ENTITIES = {
             EntityId.ids,
         },
         attrs={
+            EntityAttr.closing_date: dict(
+                dependencies={
+                    EntityDependency.deactivate_root,
+                    EntityDependency.move_root,
+                    EntityDependency.upload_file,
+                    EntityDependency.verify_vulnerabilities_request,
+                }
+            ),
             EntityAttr.efficacy: dict(
                 dependencies={
                     EntityDependency.deactivate_root,
