@@ -1450,6 +1450,11 @@ type Mutation {
     """
     vulnerabilitySpecific: String!
   ): SimplePayload!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/04/26.
+      """
+    )
 
   "Updates Vulnerability description"
   updateVulnerabilityDescription(
