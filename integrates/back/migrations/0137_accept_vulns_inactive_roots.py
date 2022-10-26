@@ -26,9 +26,6 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
 )
-from redis_cluster.operations import (
-    redis_del_by_deps,
-)
 from roots import (
     dal as roots_dal,
 )
@@ -115,15 +112,6 @@ async def main() -> None:
             if finding_modified:
                 await collect(
                     (
-                        redis_del_by_deps(
-                            "update_vulnerabilities_treatment",
-                            finding_id=finding["finding_id"],
-                            group_name=group,
-                        ),
-                        redis_del_by_deps(
-                            "handle_vulnerabilities_acceptance",
-                            finding_id=finding["finding_id"],
-                        ),
                         update_unreliable_indicators_by_deps(
                             EntityDep.update_vulnerabilities_treatment,
                             finding_id=finding["finding_id"],
