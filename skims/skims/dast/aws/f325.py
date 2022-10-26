@@ -56,7 +56,7 @@ async def iam_has_privileges_over_iam(
         parameters={"Scope": "Local", "OnlyAttached": True},
     )
     policies = response.get("Policies", []) if response else []
-    method = core_model.MethodsEnum.AWS_IAM_HAS_PROVILEGES_OVER_IAM
+    method = core_model.MethodsEnum.AWS_IAM_HAS_PRIVILEGES_OVER_IAM
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
@@ -118,7 +118,85 @@ async def iam_has_privileges_over_iam(
     return vulns
 
 
+def iterate_kms_has_master_keys_exposed_to_everyone(
+    key_policy: Dict[str, Any], alias: Dict[str, Any]
+) -> List[Location]:
+    locations: List[Location] = []
+    for index, item in enumerate(key_policy["Statement"]):
+        if item["Principal"]["AWS"] == "*" and "Condition" not in item:
+            locations = [
+                *locations,
+                Location(
+                    access_patterns=(f"/Statement/{index}/Principal/AWS",),
+                    arn=(f"{alias['AliasArn']}"),
+                    values=(item["Principal"]["AWS"],),
+                    description=t(
+                        "src.lib_path.f325."
+                        "kms_key_has_master_keys_exposed_to_everyone"
+                    ),
+                ),
+            ]
+    return locations
+
+
+async def kms_has_master_keys_exposed_to_everyone(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="kms",
+        function="list_aliases",
+    )
+    aliases = response.get("Aliases", []) if response else []
+    method = core_model.MethodsEnum.AWS_KMS_HAS_MASTER_KEYS_EXPOSED_TO_EVERYONE
+    vulns: core_model.Vulnerabilities = ()
+    if aliases:
+        for alias in aliases:
+            with suppress(KeyError):
+                list_key_policies: Dict[str, Any] = await run_boto3_fun(
+                    credentials,
+                    service="kms",
+                    function="list_key_policies",
+                    parameters={
+                        "KeyId": alias["TargetKeyId"],
+                    },
+                )
+                policy_names = list_key_policies.get("PolicyNames", {})
+                for policy in policy_names:
+                    get_key_policy: Dict[str, Any] = await run_boto3_fun(
+                        credentials,
+                        service="kms",
+                        function="get_key_policy",
+                        parameters={
+                            "KeyId": alias["TargetKeyId"],
+                            "PolicyName": policy,
+                        },
+                    )
+                    key_string = get_key_policy["Policy"]
+                    key_policy = ast.literal_eval(key_string)
+
+                    locations = (
+                        iterate_kms_has_master_keys_exposed_to_everyone(
+                            key_policy, alias
+                        )
+                    )
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=(method),
+                            aws_response=key_policy,
+                        ),
+                    )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (iam_has_privileges_over_iam,)
+] = (
+    kms_has_master_keys_exposed_to_everyone,
+    iam_has_privileges_over_iam,
+)

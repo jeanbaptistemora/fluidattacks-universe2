@@ -2153,7 +2153,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
-    AWS_IAM_HAS_PROVILEGES_OVER_IAM = MethodInfo(
+    AWS_IAM_HAS_PRIVILEGES_OVER_IAM = MethodInfo(
         file_name="aws",
         name="iam_has_privileges_over_iam",
         module="dast",
