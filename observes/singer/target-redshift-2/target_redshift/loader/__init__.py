@@ -13,7 +13,7 @@ from ._handlers import (
 from ._s3_loader import (
     S3Handler,
 )
-from ._strategy import (
+from .strategy import (
     LoadingStrategy,
 )
 from fa_purity import (

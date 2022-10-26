@@ -2,6 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from __future__ import (
+    annotations,
+)
+
+from ._core import (
+    LoadingStrategy,
+    LoadProcedure,
+)
 from dataclasses import (
     dataclass,
 )
@@ -14,13 +22,10 @@ from redshift_client.id_objs import (
 from redshift_client.schema.client import (
     SchemaClient,
 )
-from typing import (
-    Callable,
-)
 
 
 @dataclass(frozen=True)
-class LoadingStrategy:
+class RecreateAllStrategy:
     _target: SchemaId
     _client: SchemaClient
 
@@ -51,7 +56,11 @@ class LoadingStrategy:
         )
         return drop_backup + rename_old + rename_loading
 
-    def main(self, procedure: Callable[[SchemaId], Cmd[None]]) -> Cmd[None]:
+    def main(self, procedure: LoadProcedure) -> Cmd[None]:
         recreate = self._client.recreate_cascade(self._loading_schema)
         upload = procedure(self._loading_schema)
         return recreate + upload + self._post_upload()
+
+    @property
+    def strategy(self) -> LoadingStrategy:
+        return LoadingStrategy.new(self.main)

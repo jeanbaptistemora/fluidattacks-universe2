@@ -37,8 +37,11 @@ from target_redshift import (
     loader,
 )
 from target_redshift.loader import (
-    LoadingStrategy,
     S3Handler,
+)
+from target_redshift.loader.strategy import (
+    LoadingStrategy,
+    RecreateAllStrategy,
 )
 from typing import (
     NoReturn,
@@ -97,7 +100,9 @@ def from_s3(
         client = new_client(conn, LOG)
         schema_client = client.map(SchemaClient)
         table_client = client.map(TableClient)
-        strategy = schema_client.map(lambda s: LoadingStrategy(_schema, s))
+        strategy: Cmd[LoadingStrategy] = schema_client.map(
+            lambda s: RecreateAllStrategy(_schema, s).strategy
+        )
 
         def _upload(target: SchemaId) -> Cmd[None]:
             handler = client.bind(
