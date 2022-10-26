@@ -1,0 +1,100 @@
+// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+//
+// SPDX-License-Identifier: MPL-2.0
+
+digraph sorts {
+  label="Sorts Architecture"
+  labelloc="t"
+  compound="true"
+  // concentrate="true"
+  rankdir="LR"
+  scale="scalexy"
+
+  node[style="filled"]
+  graph[style="dashed,rounded"]
+
+  subgraph cluster_aws {
+    label="AWS"
+    bgcolor="0.1 0.1 1.0"
+    node[fillcolor="0.1 0.5 1.0"]
+
+    subgraph cluster_aws_s3 {
+      label="S3"
+
+      subgraph cluster_aws_s3_sorts {
+        label="sorts"
+
+        cluster_aws_s3_sorts[label="" style="invis"]
+        aws_s3_sorts_features[label="/features"]
+        aws_s3_sorts_training[label="/training"]
+      }
+    }
+  }
+
+  subgraph cluster_common_compute {
+    label="Compute"
+
+    cluster_common_compute[label="" style="invis"]
+
+    subgraph cluster_common_compute_schedules {
+      label="Schedules"
+
+      common_compute_schedules_sorts_association_rules[label="/sorts/association-rules/bin"]
+      common_compute_schedules_sorts_association_execute[label="/sorts/association-execute"]
+      common_compute_schedules_sorts_execute[label="/sorts/execute"]
+      common_compute_schedules_sorts_training_and_tune[label="/sorts/training-and-tune"]
+    }
+  }
+
+  subgraph cluster_gitlab {
+    label="GitLab"
+    bgcolor="0.8 0.1 1.0"
+    node[fillcolor="0.8 0.5 1.0"]
+
+    subgraph cluster_gitlab_git {
+      label="Git"
+
+      subgraph cluster_gitlab_sorts {
+        label="/sorts"
+
+        gitlab_sorts[label="Source Code"]
+      }
+    }
+
+    subgraph cluster_gitlab_ci {
+      label="CI"
+
+      subgraph cluster_gitlab_ci_schedules {
+        label="Schedules"
+
+        subgraph cluster_gitlab_ci_schedules_1 {
+          label="Featurization Pipeline"
+
+          gitlab_ci_schedules_sorts_extract_features[label="/sorts/extract-features"]
+          gitlab_ci_schedules_sorts_merge_features[label="/sorts/merge-features"]
+        }
+      }
+    }
+  }
+
+  subgraph cluster_melts {
+    label="Melts"
+    bgcolor="0.0 0.0 0.95"
+
+    melts_cli[label="CLI"]
+  }
+
+  node[fillcolor="0.0 0.0 0.8"]
+  end_user[label="End User"]
+  developer[label="Developer"]
+
+  edge[color="0.8 1.0 1.0"]
+  gitlab_ci_schedules_sorts_extract_features -> aws_s3_sorts_features[label="upload CSV"]
+  gitlab_ci_schedules_sorts_extract_features -> melts_cli[label="uses"]
+  gitlab_ci_schedules_sorts_extract_features -> gitlab_ci_schedules_sorts_merge_features[label="and then"]
+  gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_features[label="download CSV"]
+  gitlab_ci_schedules_sorts_merge_features -> aws_s3_sorts_training[label="upload CSV"]
+
+  edge[color="0.0 0.0 0.0"]
+  developer -> gitlab_sorts[]
+}

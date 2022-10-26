@@ -25,7 +25,7 @@ End Users are given the option to configure what checks run.
    to get information about a Merge Request
    and the associated Pipelines and Git Commits to it,
    and then performs checks over the information.
-1. Melts is distributed to the End Users
+1. Reviews is distributed to the End Users
    using [Makes](/development/stack/makes).
 
 :::tip
@@ -57,5 +57,5 @@ Just run:
 universe $ m . /reviews
 ```
 
-This will build and run the Melts CLI application,
+This will build and run the Reviews CLI application,
 including the changes you've made to the source code.
