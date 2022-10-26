@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 import {
@@ -15,10 +15,10 @@ import {
 } from "components/Input/Formik";
 import { Col, Row } from "components/Layout";
 
-interface IFilter {
+interface IFilter<IData extends object> {
   filterFn?: string;
   id: string;
-  key: string | ((arg0: object) => boolean);
+  key: keyof IData | ((arg0: object) => boolean);
   label?: string;
   rangeValues?: [string | undefined, string | undefined];
   selectOptions?: string[];
@@ -27,23 +27,20 @@ interface IFilter {
 }
 
 interface IFiltersProps<IData extends object> {
-  data: IData[];
-  filters: IFilter[];
-  setData: Dispatch<SetStateAction<IData[]>>;
-  setFilters: Dispatch<SetStateAction<IFilter[]>>;
+  filters: IFilter<IData>[];
+  setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Filters = <IData extends Record<string, any>>({
-  data,
-  filters,
-  setData,
-  setFilters,
-}: IFiltersProps<IData>): JSX.Element => {
+const useFilter = <IData extends Record<string, unknown>>(
+  data: IData[],
+  filters: IFilter<IData>[]
+): IData[] => {
   function checkAllFilters(dataPoint: IData): boolean {
     filters.forEach((filter): boolean => {
-      if (typeof filter.key !== "string") {
+      if (typeof filter.key === "function") {
         return filter.key(dataPoint);
+      } else if (filter.value === "") {
+        return true;
       }
 
       return dataPoint[filter.key] === filter.value;
@@ -52,21 +49,19 @@ export const Filters = <IData extends Record<string, any>>({
     return true;
   }
 
-  useEffect((): void => {
-    setData(
-      data.filter((entry: IData): boolean => {
-        return checkAllFilters(entry);
-      })
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, filters]);
+  return data.filter((entry: IData): boolean => checkAllFilters(entry));
+};
 
+const Filters = <IData extends object>({
+  filters,
+  setFilters,
+}: IFiltersProps<IData>): JSX.Element => {
   function onValueChangeHandler(
     id: string
   ): (event: React.ChangeEvent<HTMLInputElement>) => void {
     return (event: React.ChangeEvent<HTMLInputElement>): void => {
       setFilters(
-        filters.map((filter): IFilter => {
+        filters.map((filter): IFilter<IData> => {
           if (filter.id === id) {
             return {
               ...filter,
@@ -82,7 +77,7 @@ export const Filters = <IData extends Record<string, any>>({
 
   return (
     <React.Fragment>
-      {filters.map((filter: IFilter): JSX.Element => {
+      {filters.map((filter: IFilter<IData>): JSX.Element => {
         switch (filter.type) {
           case "text": {
             return (
@@ -237,3 +232,6 @@ export const Filters = <IData extends Record<string, any>>({
     </React.Fragment>
   );
 };
+
+export type { IFilter };
+export { Filters, useFilter };
