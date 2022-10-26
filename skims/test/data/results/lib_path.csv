@@ -32871,7 +32871,7 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   35 | }
      ^ Col 0
 ",terraform.tfm_azure_storage_logging_disabled
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -32895,7 +32895,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,2,7
   21 |             - NET_ADMIN
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -32919,7 +32919,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.jso
   21 |         ""securityContext"": {
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -32939,7 +32939,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,2,
   17 |         allowPrivilegeEscalation: false
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -32963,7 +32963,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.js
   21 |           ""readOnlyRootFilesystem"": true,
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -32985,7 +32985,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yam
   19 |         allowPrivilegeEscalation: false
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -33009,7 +33009,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yam
   21 |           ""seccompProfile"": {
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -33028,7 +33028,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,2,778
   16 |         allowPrivilegeEscalation: false
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -33052,7 +33052,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,
   21 |           ""runAsNonRoot"": false,
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -33076,7 +33076,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only
   21 |         - containerPort: 8080
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -33100,7 +33100,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only
   21 |           ""readOnlyRootFilesystem"": false,
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -33124,7 +33124,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   21 |       image: nickchase/rss-php-nginxv1
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -33148,7 +33148,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   21 |         ""securityContext"": {
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -33172,7 +33172,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   21 |     - name: rss-reader
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
@@ -33196,7 +33196,7 @@ F419,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   21 |           ""allowPrivilegeEscalation"": true,
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,1,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,1,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,"
 >  1 | apiVersion: v1
    2 | kind: Service
    3 | metadata:
@@ -33215,7 +33215,7 @@ F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml
   16 |       targetPort: 9377
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Service"",
@@ -33239,7 +33239,7 @@ F419,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml
   21 |         ""port"": 443,
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,"
+F419,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,"
    1 | ---
 >  2 | apiVersion: v1
    3 | kind: Pod
@@ -33257,7 +33257,7 @@ F419,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,2,7
   15 |   image: gcr.io/google_containers/kube-apiserver-amd64:v1.6.0
      ^ Col 0
 ",kubernetes.k8s_check_audit_flag
-F419,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Log functionality not enabled in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,"
+F419,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,2,778,skims,419. Traceability Loss - Kubernetes,Ensure the --audit-log-path argument is set. in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,"
    1 | {
 >  2 |   ""apiVersion"": ""v1"",
    3 |   ""kind"": ""Pod"",
