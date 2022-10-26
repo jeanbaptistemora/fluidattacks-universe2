@@ -87,13 +87,10 @@ class GitRootState(NamedTuple):
     url: str
     credential_id: Optional[str] = None
     environment_urls: List[str] = []
-    download_url: Optional[str] = None
     git_environment_urls: List[RootEnvironmentUrl] = []
     gitignore: List[str] = []
     other: Optional[str] = None
     reason: Optional[str] = None
-    secrets: List[Secret] = []
-    upload_url: Optional[str] = None
     use_vpn: bool = False
 
 

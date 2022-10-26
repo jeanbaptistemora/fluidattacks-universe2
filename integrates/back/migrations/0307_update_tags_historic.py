@@ -1,0 +1,256 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+# type: ignore
+
+# pylint: disable=invalid-name
+"""
+update tags field to historic state
+
+Execution Time:
+Finalization Time:
+"""
+
+from aioextensions import (
+    collect,
+    run,
+)
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_exceptions import (
+    GroupNotFound,
+)
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model import (
+    TABLE,
+)
+from db_model.groups.enums import (
+    GroupStateStatus,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+)
+from db_model.groups.utils import (
+    serialize_sets,
+)
+from db_model.organizations.utils import (
+    remove_org_id_prefix,
+)
+from dynamodb import (
+    keys,
+    operations,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
+from itertools import (
+    chain,
+)
+import logging
+import logging.config
+from organizations.domain import (
+    get_group_names,
+    iterate_organizations,
+)
+from settings import (
+    LOGGING,
+)
+import simplejson as json
+import time
+
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
+
+
+async def update_metadata(
+    *,
+    group_name: str,
+    organization_id: str,
+    state: GroupState,
+) -> None:
+    key_structure = TABLE.primary_key
+    state_item = json.loads(json.dumps(state, default=serialize_sets))
+    state_item = {
+        key: None if not value and value is not False else value
+        for key, value in state_item.items()
+        if value is not None
+    }
+
+    try:
+        primary_key = keys.build_key(
+            facet=TABLE.facets["group_metadata"],
+            values={
+                "name": group_name,
+                "organization_id": remove_org_id_prefix(organization_id),
+            },
+        )
+        item = {"state": state_item}
+        condition_expression = Attr(
+            key_structure.partition_key
+        ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=item,
+            key=primary_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise GroupNotFound() from ex
+
+
+async def process_historic_state(
+    group_name: str,
+    state: GroupState,
+) -> None:
+    key_structure = TABLE.primary_key
+    state_item = json.loads(json.dumps(state, default=serialize_sets))
+    state_item = {
+        key: None if not value and value is not False else value
+        for key, value in state_item.items()
+        if value is not None
+    }
+    historic_state_key = keys.build_key(
+        facet=TABLE.facets["group_historic_state"],
+        values={
+            "name": group_name,
+            "iso8601utc": state.modified_date,
+        },
+    )
+    historic_item = {
+        key_structure.partition_key: historic_state_key.partition_key,
+        key_structure.sort_key: historic_state_key.sort_key,
+        **state_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["group_historic_state"],
+        item=historic_item,
+        table=TABLE,
+    )
+
+
+async def process_group(
+    loaders: Dataloaders,
+    group_name: str,
+    progress: float,
+) -> None:
+    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
+        group_name
+    )
+    group: Group = await loaders.group.load(group_name)
+    if group.tags is None:
+        return
+
+    await collect(
+        tuple(
+            process_historic_state(
+                group_name=group_name,
+                state=GroupState(
+                    comments=state.comments,
+                    modified_date=state.modified_date,
+                    has_machine=state.has_machine,
+                    has_squad=state.has_squad,
+                    managed=state.managed,
+                    justification=state.justification,
+                    modified_by=state.modified_by,
+                    payment_id=state.payment_id,
+                    pending_deletion_date=state.pending_deletion_date,
+                    service=state.service,
+                    status=state.status,
+                    tags=group.tags,
+                    tier=state.tier,
+                    type=state.type,
+                ),
+            )
+            for state in historic
+            if state.tags != group.tags
+        ),
+        workers=2,
+    )
+
+    if group.tags != group.state.tags:
+        await update_metadata(
+            group_name=group_name,
+            organization_id=group.organization_id,
+            state=GroupState(
+                comments=group.state.comments,
+                modified_date=group.state.modified_date,
+                has_machine=group.state.has_machine,
+                has_squad=group.state.has_squad,
+                managed=group.state.managed,
+                justification=group.state.justification,
+                modified_by=group.state.modified_by,
+                payment_id=group.state.payment_id,
+                pending_deletion_date=group.state.pending_deletion_date,
+                service=group.state.service,
+                status=group.state.status,
+                tags=group.tags,
+                tier=group.state.tier,
+                type=group.state.type,
+            ),
+        )
+
+    LOGGER_CONSOLE.info(
+        "Group processed",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "progress": round(progress, 2),
+            }
+        },
+    )
+
+
+async def main() -> None:
+    loaders: Dataloaders = get_new_context()
+    all_organization_ids = {"ORG#unknown"}
+    async for organization in iterate_organizations():
+        all_organization_ids.add(organization.id)
+
+    all_group_names: list[str] = list(
+        sorted(
+            tuple(
+                chain.from_iterable(
+                    await collect(
+                        tuple(
+                            get_group_names(loaders, organization_id)
+                            for organization_id in all_organization_ids
+                        ),
+                        workers=32,
+                    )
+                )
+            )
+        )
+    )
+    LOGGER_CONSOLE.info(
+        "All groups",
+        extra={"extra": {"groups_len": len(all_group_names)}},
+    )
+    await collect(
+        tuple(
+            process_group(
+                loaders=loaders,
+                group_name=group_name,
+                progress=count / len(set(all_group_names)),
+            )
+            for count, group_name in enumerate(set(all_group_names))
+        ),
+        workers=2,
+    )
+
+
+if __name__ == "__main__":
+    execution_time = time.strftime(
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC"
+    )
+    run(main())
+    finalization_time = time.strftime(
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC"
+    )
+    print(f"{execution_time}\n{finalization_time}")

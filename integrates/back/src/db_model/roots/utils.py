@@ -54,9 +54,6 @@ def format_git_state(state: Item) -> GitRootState:
         reason=state.get("reason"),
         status=RootStatus[state["status"]],
         url=state["url"],
-        download_url=None,
-        secrets=[],
-        upload_url=None,
         use_vpn=state.get("use_vpn", False),
     )
 

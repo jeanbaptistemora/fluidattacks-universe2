@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 25, 2022, 04:20 PM",
+    "DateLastModified": "Oct 26, 2022, 03:48 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -997,6 +997,14 @@
         {
           "AttributeName": "estimated_days_to_full_compliance",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "use_vpn",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "payment_id",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -3282,10 +3290,10 @@
           ],
           "NonKeyAttributes": [
             "email",
+            "modified_date",
             "subject",
             "entity",
-            "frequency",
-            "modified_date"
+            "frequency"
           ],
           "DataAccess": {
             "MySql": {}
@@ -15489,6 +15497,7 @@
           "NonKeyAttributes": [
             "type",
             "status",
+            "tags",
             "modified_date",
             "modified_by",
             "comments",
@@ -15499,7 +15508,7 @@
             "service",
             "tier",
             "managed",
-            "tags"
+            "payment_id"
           ],
           "DataAccess": {
             "MySql": {}
@@ -21034,7 +21043,9 @@
             "includes_health_check",
             "modified_by",
             "nickname",
-            "other"
+            "other",
+            "credential_id",
+            "use_vpn"
           ],
           "DataAccess": {
             "MySql": {}

@@ -6,8 +6,10 @@
 """
 Exploratory search of missing historic state attributes by using format_state
 
-Execution Time:
-Finalization Time:
+First Execution Time:    2022-10-26 at 02:45:23 UTC
+First Finalization Time: 2022-10-26 at 02:54:37 UTC
+Second Execution Time:    2022-10-26 at 16:43:16 UTC
+Second Finalization Time: 2022-10-26 at 16:51:45 UTC
 """
 from aioextensions import (
     collect,
@@ -96,7 +98,7 @@ async def process_root(*, root: Root) -> None:  # noqa: MC0001
                 format_git_state(state)
             except IndexError as exc:
                 LOGGER_CONSOLE.info(
-                    "Working on root",
+                    "Working on git root",
                     extra={
                         "extra": {
                             "ex": exc,
