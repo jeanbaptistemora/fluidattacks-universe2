@@ -25,6 +25,9 @@ from db_model import (
 from db_model.roots.get import (
     get_group_roots_items,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from dynamodb.types import (
     Item,
 )
@@ -33,6 +36,7 @@ import logging.config
 from organizations import (
     domain as orgs_domain,
 )
+import psycopg2
 from redshift import (
     roots as redshift_roots,
 )
@@ -47,12 +51,19 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-async def _process_root(
+async def _remove_root(
     item: Item,
 ) -> None:
     root_id = item["pk"].split("#")[1]
-    await redshift_roots.insert_root(item=item)
     await roots_model.remove(root_id=root_id)
+
+
+@retry_on_exceptions(
+    exceptions=(psycopg2.OperationalError,),
+    sleep_seconds=1,
+)
+async def _archive_root_items(items: tuple[Item, ...]) -> None:
+    await redshift_roots.insert_batch_roots(items=items)
 
 
 async def _process_group(
@@ -62,9 +73,10 @@ async def _process_group(
     items = await get_group_roots_items(group_name=group_name)
     if not items:
         return
+    await _archive_root_items(items=items)
     await collect(
-        tuple(_process_root(item) for item in items),
-        workers=1,
+        tuple(_remove_root(item) for item in items),
+        workers=16,
     )
     LOGGER_CONSOLE.info(
         "Group processed",
