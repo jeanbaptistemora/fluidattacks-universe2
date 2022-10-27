@@ -6,8 +6,14 @@ from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
     InvalidVulnerabilityAlreadyExists,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     vulnerabilities as vulns_model,
+)
+from db_model.enums import (
+    Source,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -15,6 +21,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityMetadataToUpdate,
+    VulnerabilityState,
 )
 import logging
 from newutils.vulnerabilities import (
@@ -132,7 +139,24 @@ async def rebase(
                 raise exc
 
     validate_where(vulnerability_where)
+    vulns_states: Tuple[
+        VulnerabilityState
+    ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
+    last_state = vulns_states[-1]._replace(
+        commit=vulnerability_commit,
+        specific=vulnerability_specific,
+        where=vulnerability_where,
+        modified_date=datetime.now().isoformat(),
+        modified_by="rebase@fluidattacks.com",
+        source=Source.ASM,
+    )
 
+    await vulns_model.update_historic_entry(
+        current_value=current_vuln,
+        finding_id=finding_id,
+        vulnerability_id=vulnerability_id,
+        entry=last_state,
+    )
     await vulns_model.update_metadata(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,

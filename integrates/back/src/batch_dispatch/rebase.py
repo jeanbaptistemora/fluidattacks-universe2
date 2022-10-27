@@ -225,6 +225,10 @@ async def rebase_root(
         )
         for rebase_result, vuln in all_rebase
         if rebase_result
+        and (
+            rebase_result.path != vuln.where
+            or str(rebase_result.line) != vuln.specific
+        )
     ]
     await collect(futures)
 
