@@ -17,6 +17,7 @@ from model import (
     core_model,
 )
 from model.core_model import (
+    HTTPProperties,
     LocalesEnum,
     MethodsEnum,
 )
@@ -92,6 +93,10 @@ def build_vulnerabilities(
                         column=location.column,
                         line=location.line,
                     ),
+                ),
+                http_properties=HTTPProperties(
+                    has_redirect=ctx.url.has_redirect,
+                    original_url=ctx.url.original_url,
                 ),
             ),
         )

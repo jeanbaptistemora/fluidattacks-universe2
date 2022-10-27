@@ -1219,9 +1219,15 @@ class SkimsConfig(NamedTuple):
     commit: Optional[str]
 
 
+class HTTPProperties(NamedTuple):
+    has_redirect: bool
+    original_url: str
+
+
 class SkimsVulnerabilityMetadata(NamedTuple):
     cwe: Tuple[int, ...]
     description: str
+    http_properties: Optional[HTTPProperties]
     snippet: str
     source_method: str
     developer: DeveloperEnum

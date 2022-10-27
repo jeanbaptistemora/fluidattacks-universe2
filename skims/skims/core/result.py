@@ -172,6 +172,30 @@ def _format_were(were: str) -> Union[int, str]:
         return were
 
 
+def _get_vuln_properties(
+    vulnerability: core_model.Vulnerability, rule_id: str
+) -> Dict[str, Any]:
+    properties: Dict[str, Any] = {}
+    if (
+        vulnerability.skims_metadata.technique == core_model.TechniqueEnum.SCA
+        and (sca_info := _get_sca_info(vulnerability.what))
+    ):
+        properties = sca_info
+    elif (
+        (
+            vulnerability.skims_metadata.source_method
+            == "python.pip_incomplete_dependencies_list"
+        )
+        and rule_id == "120"
+        and (dependency_info := _get_missing_dependency(vulnerability.what))
+    ):
+        properties = dependency_info
+    elif vulnerability.skims_metadata.http_properties:
+        properties = vulnerability.skims_metadata.http_properties._asdict()
+
+    return properties
+
+
 def _get_sarif(
     config: core_model.SkimsConfig,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
@@ -230,31 +254,7 @@ def _get_sarif(
         for vulnerability in store.iterate():
             # remove F from findings
             rule_id = vulnerability.finding.name.replace("F", "")
-            properties = {}
-            if (
-                (vulnerability.skims_metadata)
-                and (
-                    vulnerability.skims_metadata.technique
-                    == core_model.TechniqueEnum.SCA
-                )
-                and (sca_info := _get_sca_info(vulnerability.what))
-            ):
-                properties = sca_info
-
-            if (
-                (vulnerability.skims_metadata)
-                and (
-                    vulnerability.skims_metadata.source_method
-                    == "python.pip_incomplete_dependencies_list"
-                )
-                and (rule_id == "120")
-                and (
-                    dependency_info := _get_missing_dependency(
-                        vulnerability.what
-                    )
-                )
-            ):
-                properties = dependency_info
+            properties = _get_vuln_properties(vulnerability, rule_id)
 
             result = sarif_om.Result(
                 rule_id=rule_id,

@@ -6,6 +6,7 @@ from ctx import (
     CTX,
 )
 from model.core_model import (
+    HTTPProperties,
     MethodsEnum,
     SkimsVulnerabilityMetadata,
     Vulnerability,
@@ -28,10 +29,12 @@ def build_metadata(
     method: MethodsEnum,
     description: str,
     snippet: str,
+    http_properties: Optional[HTTPProperties] = None,
 ) -> SkimsVulnerabilityMetadata:
     return SkimsVulnerabilityMetadata(
         cwe=(method.value.get_cwe(),),
         description=description,
+        http_properties=http_properties,
         snippet=snippet,
         source_method=method.value.get_name(),
         developer=method.value.developer,

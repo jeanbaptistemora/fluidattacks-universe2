@@ -124,6 +124,7 @@ def _side_effects() -> None:
     for factory in (  # type: ignore
         core_model.ExecutionQueueConfig,
         core_model.FindingMetadata,
+        core_model.HTTPProperties,
         core_model.SkimsVulnerabilityMetadata,
         core_model.Vulnerability,
         cvss3_model.Score,

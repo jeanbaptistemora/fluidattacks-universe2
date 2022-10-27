@@ -104,14 +104,18 @@ async def get_url(
 ) -> Optional[URLContext]:
     async with create_session() as session:  # type: ignore
         if response := await request(session, "GET", url):
-            url = str(response.url)  # Update with the redirected URL
+            redirect_url = str(response.url)  # Update with the redirected URL
+
+            has_redirect: bool = redirect_url != url
+            if not url.endswith("/") and redirect_url == f"{url}/":
+                has_redirect = False
 
             content_raw = await response.content.read(1048576)
             content = content_raw.decode("latin-1")
             soup = bs4.BeautifulSoup(content, features="html.parser")
 
             return URLContext(
-                components=urllib.parse.urlparse(url),
+                components=urllib.parse.urlparse(redirect_url),
                 content=content,
                 custom_f023=await request(
                     session,
@@ -121,15 +125,17 @@ async def get_url(
                         "Host": "fluidattacks.com",
                     },
                 ),
+                has_redirect=has_redirect,
                 headers_raw=response.headers,  # type: ignore
                 is_html=is_html(content, soup),
+                original_url=url,
                 soup=soup,
                 timestamp_ntp=(
                     datetime.now().timestamp() + ntp_offset
                     if ntp_offset
                     else None
                 ),
-                url=url,
+                url=redirect_url,
             )
 
     return None

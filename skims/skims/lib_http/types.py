@@ -19,8 +19,10 @@ class URLContext(NamedTuple):
     components: ParseResult
     content: str
     custom_f023: Optional[aiohttp.ClientResponse]
+    has_redirect: bool
     headers_raw: Dict[str, str]
     is_html: bool
+    original_url: str
     soup: bs4.BeautifulSoup
     timestamp_ntp: Optional[float]
     url: str

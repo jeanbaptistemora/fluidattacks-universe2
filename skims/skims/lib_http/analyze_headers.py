@@ -105,6 +105,10 @@ def _create_vulns(
                     value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
+                http_properties=core_model.HTTPProperties(
+                    has_redirect=ctx.url_ctx.has_redirect,
+                    original_url=ctx.url_ctx.original_url,
+                ),
             ),
         )
         for location in locations.locations
