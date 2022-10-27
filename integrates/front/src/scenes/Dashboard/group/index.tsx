@@ -55,12 +55,8 @@ import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/S
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
 import { GroupVulnerabilitiesView } from "scenes/Dashboard/containers/GroupVulnerabilitiesView";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import type {
-  IGetOrganizationId,
-  IOrganizationPermission,
-} from "scenes/Dashboard/containers/OrganizationContent/types";
+import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { ToeContent } from "scenes/Dashboard/containers/ToeContent";
-import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -116,23 +112,6 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
-  const { data: orgPerms } = useQuery<IOrganizationPermission>(
-    GET_ORG_LEVEL_PERMISSIONS,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((permissionsError: GraphQLError): void => {
-          Logger.error(
-            "Couldn't load group-level permissions",
-            permissionsError
-          );
-        });
-      },
-      skip: orgData === undefined,
-      variables: {
-        identifier: orgData?.organizationId.id,
-      },
-    }
-  );
   const { data } = useQuery<IGetEventStatus>(GET_GROUP_EVENT_STATUS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -180,13 +159,13 @@ const GroupContent: React.FC = (): JSX.Element => {
               </Button>
               {t("group.accessDenied.moreInfo")}
             </Text>
-            {orgPerms?.organization.userRole === "customer_manager" ? (
+            <Can I={"api_mutations_update_group_managed_mutate"}>
               <div className={"flex justify-center"}>
                 <Button onClick={continueAccess} variant={"primary"}>
                   {t("group.accessDenied.btn")}
                 </Button>
               </div>
-            ) : undefined}
+            </Can>
           </Card>
           <HelpModal onClose={close} open={show} />
         </div>

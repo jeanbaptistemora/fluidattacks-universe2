@@ -12,6 +12,9 @@ import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupContent } from ".";
+import { GET_GROUP_DATA } from "../containers/GroupSettingsView/queries";
+import type { IGroupData } from "../containers/GroupSettingsView/Services/types";
+import type { IGetOrganizationId } from "../containers/OrganizationContent/types";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
@@ -109,5 +112,80 @@ describe("groupContent", (): void => {
         numberOfLinksWithPermissions
       );
     });
+  });
+
+  it("should prevent access under review", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const orgMock: MockedResponse<IGetOrganizationId> = {
+      request: {
+        query: GET_ORGANIZATION_ID,
+        variables: {
+          organizationName: "testorg",
+        },
+      },
+      result: {
+        data: {
+          organizationId: {
+            id: "ORG#f0c74b3e-bce4-4946-ba63-cb7e113ee817",
+            name: "testorg",
+          },
+        },
+      },
+    };
+    const groupMock: MockedResponse<IGroupData> = {
+      request: {
+        query: GET_GROUP_DATA,
+        variables: {
+          groupName: "testgroup",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            businessId: "",
+            businessName: "",
+            description: "",
+            hasForces: true,
+            hasMachine: true,
+            hasSquad: false,
+            language: "",
+            managed: "UNDER_REVIEW",
+            organization: { name: "" },
+            service: "",
+            sprintDuration: "",
+            sprintStartDate: "",
+            subscription: "",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/testorg/groups/testgroup/vulns"]}>
+        <MockedProvider mocks={[orgMock, groupMock]}>
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "has_squad" }])}
+          >
+            <authzPermissionsContext.Provider
+              value={
+                new PureAbility([
+                  { action: "api_mutations_update_group_managed_mutate" },
+                ])
+              }
+            >
+              <Route
+                component={GroupContent}
+                path={"/orgs/:organizationName/groups/:groupName/vulns"}
+              />
+            </authzPermissionsContext.Provider>
+          </authzGroupContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await expect(
+      screen.findByText("group.accessDenied.title")
+    ).resolves.toBeInTheDocument();
   });
 });
