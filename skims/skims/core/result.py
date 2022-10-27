@@ -190,8 +190,6 @@ def _get_vuln_properties(
         and (dependency_info := _get_missing_dependency(vulnerability.what))
     ):
         properties = dependency_info
-    elif vulnerability.skims_metadata.http_properties:
-        properties = vulnerability.skims_metadata.http_properties._asdict()
 
     return properties
 
@@ -297,6 +295,12 @@ def _get_sarif(
                     "stream": vulnerability.stream,
                     "technique": (
                         vulnerability.skims_metadata.technique.value
+                    ),
+                    **(
+                        vulnerability.skims_metadata.http_properties._asdict()
+                        if vulnerability.skims_metadata.http_properties
+                        is not None
+                        else {}
                     ),
                 },
             )
