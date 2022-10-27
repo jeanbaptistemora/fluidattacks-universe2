@@ -9406,6 +9406,30 @@ F176,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,7,16,skims,176. In
   10 |     chmod 754 testfile
      ^ Col 0
 ",docker.container_using_sshpass
+F418,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,11,16,skims,418. Insecure service configuration - Docker,Using the ADD command to automatically extract files to the destination directory adds the risk of exploiting vulnerabilities such as zip bombs and Zip Slip that could then be activated automatically. in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,"
+   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+   2 |
+   3 | WORKDIR /usr/src/app
+   4 |
+   5 | COPY --chown=node:node package*.json ./
+   6 | RUN npm i
+   7 | COPY --chown=node:node . .
+   8 | USER node
+   9 |
+  10 | ADD out /opt/microservicio
+> 11 | ADD . .
+  12 |
+  13 | FROM node:16-alpine As build
+  14 | WORKDIR /usr/src/app
+  15 | COPY --chown=node:node package*.json ./
+  16 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  17 | COPY --chown=node:node . .
+  18 |
+  19 | RUN npm run build
+  20 |
+  21 | ENV NODE_ENV production
+     ^ Col 0
+",docker.docker_using_add_command
 F418,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,Using the ADD command to automatically extract files to the destination directory adds the risk of exploiting vulnerabilities such as zip bombs and Zip Slip that could then be activated automatically. in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 |
@@ -9417,17 +9441,17 @@ F418,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dock
    8 | USER node
    9 |
 > 10 | ADD out /opt/microservicio
-  11 |
-  12 | FROM node:16-alpine As build
-  13 | WORKDIR /usr/src/app
-  14 | COPY --chown=node:node package*.json ./
-  15 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-  16 | COPY --chown=node:node . .
-  17 |
-  18 | RUN npm run build
-  19 |
-  20 | ENV NODE_ENV production
-  21 |
+  11 | ADD . .
+  12 |
+  13 | FROM node:16-alpine As build
+  14 | WORKDIR /usr/src/app
+  15 | COPY --chown=node:node package*.json ./
+  16 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  17 | COPY --chown=node:node . .
+  18 |
+  19 | RUN npm run build
+  20 |
+  21 | ENV NODE_ENV production
      ^ Col 0
 ",docker.docker_using_add_command
 F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
@@ -32917,9 +32941,8 @@ F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,26,749,skims,380. 
   36 | RUN apt update
      ^ Col 0
 ",docker.unpinned_docker_image
-F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,12,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
+F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile,13,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
  in namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dockerfile","
-   2 |
    3 | WORKDIR /usr/src/app
    4 |
    5 | COPY --chown=node:node package*.json ./
@@ -32928,18 +32951,19 @@ F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dock
    8 | USER node
    9 |
   10 | ADD out /opt/microservicio
-  11 |
-> 12 | FROM node:16-alpine As build
-  13 | WORKDIR /usr/src/app
-  14 | COPY --chown=node:node package*.json ./
-  15 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-  16 | COPY --chown=node:node . .
-  17 |
-  18 | RUN npm run build
-  19 |
-  20 | ENV NODE_ENV production
-  21 |
-  22 | RUN npm i --only=production && npm cache clean --force
+  11 | ADD . .
+  12 |
+> 13 | FROM node:16-alpine As build
+  14 | WORKDIR /usr/src/app
+  15 | COPY --chown=node:node package*.json ./
+  16 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  17 | COPY --chown=node:node . .
+  18 |
+  19 | RUN npm run build
+  20 |
+  21 | ENV NODE_ENV production
+  22 |
+  23 | RUN npm i --only=production && npm cache clean --force
      ^ Col 0
 ",docker.unpinned_docker_image
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"

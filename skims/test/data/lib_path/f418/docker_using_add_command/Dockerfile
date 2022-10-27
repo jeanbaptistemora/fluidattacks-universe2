@@ -8,6 +8,7 @@ COPY --chown=node:node . .
 USER node
 
 ADD out /opt/microservicio
+ADD . .
 
 FROM node:16-alpine As build
 WORKDIR /usr/src/app

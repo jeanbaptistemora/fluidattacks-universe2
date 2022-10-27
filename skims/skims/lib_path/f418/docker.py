@@ -65,7 +65,7 @@ def docker_port_22_exposed(content: str, path: str) -> Vulnerabilities:
 def docker_using_add_command(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
-            if re.match(r"^ADD[ \t]+\w", line):
+            if re.match(r"^ADD[ \t]+.", line):
                 yield (line_number, 0)
 
     return get_vulnerabilities_from_iterator_blocking(
