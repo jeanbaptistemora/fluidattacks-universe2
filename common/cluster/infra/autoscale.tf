@@ -14,6 +14,14 @@ resource "helm_release" "metrics_server" {
 
 # Cluster autoscaler
 
+data "aws_autoscaling_group" "main" {
+  for_each = toset(
+    module.cluster.eks_managed_node_groups_autoscaling_group_names
+  )
+
+  name = each.key
+}
+
 resource "aws_iam_policy" "autoscaler" {
   name_prefix = "common-cluster-autoscaler"
 
@@ -30,13 +38,21 @@ resource "aws_iam_policy" "autoscaler" {
             "autoscaling:DescribeTags",
             "ec2:DescribeInstanceTypes",
             "ec2:DescribeLaunchTemplateVersions",
-            "autoscaling:SetDesiredCapacity",
-            "autoscaling:TerminateInstanceInAutoScalingGroup",
             "ec2:DescribeInstanceTypes",
             "eks:DescribeNodegroup",
             "cloudwatch:GetMetricData",
           ]
           Resource = ["*"]
+        },
+        {
+          Effect = "Allow"
+          Action = [
+            "autoscaling:SetDesiredCapacity",
+            "autoscaling:TerminateInstanceInAutoScalingGroup",
+          ]
+          Resource = [
+            for _, asg in data.aws_autoscaling_group.main : asg.arn
+          ]
         },
       ]
     }
