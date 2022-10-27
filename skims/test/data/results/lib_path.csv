@@ -32855,6 +32855,81 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,749,skims,338. Ins
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,13,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+   3 | @Bean(name = ""multipartResolver"")
+   4 | public CommonsMultipartResolver multipartResolver() {
+   5 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+   6 |   multipartResolver.setMaxUploadSize(657600);
+   7 |   return multipartResolver;
+   8 | }
+   9 |
+  10 |
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+> 13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+  22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+     ^ Col 0
+",java.java_upload_size_limit
+F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,28,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+  13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+  22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+  24 | }
+  25 |
+  26 | @Bean
+  27 | public MultipartConfigElement multipartConfigElement() {
+> 28 |   MultipartConfigFactory factory = new MultipartConfigFactory(); // Sensitive, no limit by default
+  29 |   return factory.createMultipartConfig();
+  30 | }
+  31 | }
+     ^ Col 0
+",java.java_upload_size_limit
+F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,22,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+  13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+> 22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+  24 | }
+  25 |
+  26 | @Bean
+  27 | public MultipartConfigElement multipartConfigElement() {
+  28 |   MultipartConfigFactory factory = new MultipartConfigFactory(); // Sensitive, no limit by default
+  29 |   return factory.createMultipartConfig();
+  30 | }
+  31 | }
+     ^ Col 0
+",java.java_upload_size_limit
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Traceability Loss - Azure,"Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
  in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","
   12 |     storage_account_access_key_is_secondary = true
