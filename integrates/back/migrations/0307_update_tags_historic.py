@@ -7,8 +7,10 @@
 """
 update tags field to historic state
 
-Execution Time:
-Finalization Time:
+First Execution Time:     2022-10-27 at 04:53:24 UTC
+First Finalization Time:  2022-10-27 at 04:57:50 UTC
+Second Execution Time:    2022-10-27 at 05:00:12 UTC
+Second Finalization Time: 2022-10-27 at 05:05:46 UTC
 """
 
 from aioextensions import (
@@ -18,18 +20,12 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from custom_exceptions import (
-    GroupNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model import (
     TABLE,
-)
-from db_model.groups.enums import (
-    GroupStateStatus,
 )
 from db_model.groups.types import (
     Group,
@@ -92,9 +88,7 @@ async def update_metadata(
             },
         )
         item = {"state": state_item}
-        condition_expression = Attr(
-            key_structure.partition_key
-        ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
+        condition_expression = Attr(key_structure.partition_key).exists()
         await operations.update_item(
             condition_expression=condition_expression,
             item=item,
@@ -102,7 +96,9 @@ async def update_metadata(
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
-        raise GroupNotFound() from ex
+        LOGGER_CONSOLE.info(
+            "An error", extra={"extra": {"Exception": ex, "group": group_name}}
+        )
 
 
 async def process_historic_state(
