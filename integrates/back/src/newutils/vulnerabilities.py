@@ -28,6 +28,7 @@ from custom_exceptions import (
 from datetime import (
     date as datetype,
     datetime,
+    timezone,
 )
 from db_model.enums import (
     Source,
@@ -671,7 +672,7 @@ async def validate_requested_verification(
                 and root.cloning.commit == vulnerability.commit
                 and root.cloning.commit_date
                 and (
-                    datetime.now()
+                    datetime.now(timezone.utc)
                     - datetime.fromisoformat(root.cloning.commit_date)
                 ).seconds
                 > (3600 * 20)

@@ -1767,7 +1767,7 @@ async def finish_machine_execution(
             job_id,
             stopped_at=datetime_utils.get_as_str(stop_date),
             findings_executed=kwargs.pop("findings_executed", []),
-            status=kwargs.pop("status", "SUCCESS"),
+            status=kwargs.pop("status", "SUCCESS").upper(),
         )
     except ClientError:
         LOGGER.warning(

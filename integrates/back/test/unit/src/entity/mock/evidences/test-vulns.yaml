@@ -20,7 +20,7 @@ lines:
       name: tool-1
       impact: direct
   - line: '345'
-    commit_hash: e17059d1e17059d1e17059d1e17059d1e17059d1
+    commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
     repo_nickname: universe
     path: path/to/file3.ext
     state: closed
