@@ -435,6 +435,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.apk,
         requirements=[183],
     )
+    F083: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F083",
+        cwe=611,
+        execution_queue=ExecutionQueue.injection,
+        requirements=[173],
+    )
     F085: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F085",
@@ -3164,6 +3171,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F082,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.APK,
+    )
+    JS_XML_PARSER = MethodInfo(
+        file_name="javascript",
+        name="js_xml_parser",
+        module="lib_root",
+        finding=FindingEnum.F083,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     JS_CLIENT_STORAGE = MethodInfo(
         file_name="javascript",

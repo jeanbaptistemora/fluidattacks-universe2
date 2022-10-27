@@ -319,6 +319,14 @@
       "title": "082. Insecurely deleted files"
     }
   },
+  "F083": {
+    "EN": {
+      "title": "083. XML injection (XXE)"
+    },
+    "ES": {
+      "title": "083. XML injection (XXE)"
+    }
+  },
   "F085": {
     "EN": {
       "title": "085. Sensitive data stored in client-side storage"
