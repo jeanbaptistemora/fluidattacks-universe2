@@ -25,6 +25,6 @@ def search(args: SearchArgs) -> Iterator[SearchResult]:
             build_ctx(args.graph, args.n_id, types={"Parameter"})
 
         for c_id in g.adj_ctx(args.graph, args.n_id):
-            if args.symbol == args.graph.nodes[c_id]["variable"]:
+            if args.symbol == args.graph.nodes[c_id].get("variable"):
                 yield True, c_id
                 break

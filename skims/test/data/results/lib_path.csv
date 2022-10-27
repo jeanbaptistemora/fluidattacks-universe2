@@ -22038,6 +22038,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,sk
   21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
      ^ Col 1
 ",java.java_insecure_cipher_ssl
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,"
+   6 |  unsafe1(plainText: string, key: string) {
+   7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+> 16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+  22 |       mode: CryptoJS.mode.GCM,
+  23 |     });
+  24 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  25 |   }
+  26 |
+     ^ Col 0
+",typescript.tsx_insecure_aes_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,"
+   1 | import * as CryptoJS from 'crypto-js';
+   2 |
+   3 | export class EncryptionService {
+   4 |   constructor() {}
+   5 |
+   6 |  unsafe1(plainText: string, key: string) {
+>  7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+  16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+     ^ Col 0
+",typescript.tsx_insecure_ciphers
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
    1 | using System;
    2 | using System.IO;

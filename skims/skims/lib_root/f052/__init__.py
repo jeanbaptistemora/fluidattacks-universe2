@@ -37,6 +37,10 @@ from lib_root.f052.kotlin import (
     kotlin_insecure_hash,
     kotlin_insecure_key,
 )
+from lib_root.f052.typescript import (
+    tsx_insecure_aes_cipher,
+    tsx_insecure_ciphers,
+)
 from model import (
     core_model,
     graph_model,
@@ -70,4 +74,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, kotlin_insecure_cipher),
     (FINDING, kotlin_insecure_hash),
     (FINDING, kotlin_insecure_key),
+    (FINDING, tsx_insecure_aes_cipher),
+    (FINDING, tsx_insecure_ciphers),
 )

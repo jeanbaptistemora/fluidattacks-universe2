@@ -11,6 +11,9 @@ from symbolic_eval.f052.member_access.c_sharp import (
 from symbolic_eval.f052.member_access.javascript import (
     js_insecure_cipher,
 )
+from symbolic_eval.f052.member_access.typescript import (
+    tsx_insecure_aes_cipher,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -23,6 +26,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_MANAGED_SECURE_MODE: cs_managed_secure_mode,
     MethodsEnum.JS_INSECURE_CIPHER: js_insecure_cipher,
+    MethodsEnum.TSX_INSECURE_AES_CIPHER: tsx_insecure_aes_cipher,
 }
 
 
