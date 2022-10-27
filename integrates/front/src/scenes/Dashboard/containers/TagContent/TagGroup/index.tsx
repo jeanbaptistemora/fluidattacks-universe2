@@ -26,7 +26,13 @@ interface IPortfolio {
   };
 }
 
-const TagsGroup: React.FC = (): JSX.Element => {
+interface IPortfolioViewProps {
+  organizationId: string;
+}
+
+const TagsGroup: React.FC<IPortfolioViewProps> = ({
+  organizationId,
+}: IPortfolioViewProps): JSX.Element => {
   const { t } = useTranslation();
   const { tagName } = useParams<{ tagName: string }>();
   const { data } = useQuery<IPortfolio>(PORTFOLIO_GROUP_QUERY, {
@@ -36,7 +42,7 @@ const TagsGroup: React.FC = (): JSX.Element => {
         Logger.error("An error occurred loading tag groups", error);
       });
     },
-    variables: { tag: tagName },
+    variables: { organizationId, tag: tagName },
   });
   const { push } = useHistory();
 

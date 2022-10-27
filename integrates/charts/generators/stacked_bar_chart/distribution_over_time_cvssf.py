@@ -41,9 +41,8 @@ from datetime import (
 from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
-from typing import (
-    List,
-    Tuple,
+from decimal import (
+    Decimal,
 )
 
 
@@ -55,9 +54,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
     group_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group)
     )
-    data: List[GroupDocumentData] = []
-    data_monthly: List[GroupDocumentData] = []
-    data_yearly: List[GroupDocumentData] = []
+    data: list[GroupDocumentData] = []
+    data_monthly: list[GroupDocumentData] = []
+    data_yearly: list[GroupDocumentData] = []
 
     group_over_time = [
         elements[-12:]
@@ -83,9 +82,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     opened=opened["y"],
                     date=get_min_date_unformatted(accepted["x"]),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -107,9 +106,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     opened=opened["y"],
                     date=translate_date(accepted["x"]),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -131,9 +130,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
                     opened=opened["y"],
                     date=get_min_date_formatted(accepted["x"]),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -188,10 +187,10 @@ async def get_group_document(  # pylint: disable=too-many-locals
 
 
 async def get_many_groups_document(
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
 ) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
-    group_documents: Tuple[RiskOverTime, ...] = await collect(
+    group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
     )

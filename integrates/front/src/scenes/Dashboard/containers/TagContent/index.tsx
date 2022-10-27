@@ -81,11 +81,9 @@ const TagContent: React.FC = (): JSX.Element => {
                     organizationId={data.organizationId.id}
                   />
                 </Route>
-                <Route
-                  component={TagsGroup}
-                  exact={true}
-                  path={`${path}/groups`}
-                />
+                <Route exact={true} path={`${path}/groups`}>
+                  <TagsGroup organizationId={data.organizationId.id} />
+                </Route>
                 <Redirect to={`${path}/analytics`} />
               </Switch>
             </TabContent>
