@@ -83,6 +83,41 @@ const useFilters = <IData extends object>(
       : String(dataPoint[filter.key]) === filter.value;
   }
 
+  function handleNumberRangeCase(
+    dataPoint: IData,
+    filter: IFilter<IData>
+  ): boolean {
+    if (typeof filter.key === "function") return filter.key(dataPoint);
+    if (filter.rangeValues === undefined) return true;
+    const currentNumber = parseInt(String(dataPoint[filter.key]), 10);
+    const isLower = _.isEmpty(filter.rangeValues[0])
+      ? true
+      : currentNumber <= parseInt(filter.rangeValues[0], 10);
+
+    const isHigher = _.isEmpty(filter.rangeValues[1])
+      ? true
+      : currentNumber >= parseInt(filter.rangeValues[1], 10);
+
+    return isLower && isHigher;
+  }
+
+  function handleDateRangeCase(
+    dataPoint: IData,
+    filter: IFilter<IData>
+  ): boolean {
+    if (typeof filter.key === "function") return filter.key(dataPoint);
+    if (filter.rangeValues === undefined) return true;
+    const currentDate = Date.parse(String(dataPoint[filter.key]));
+    const isHigher = _.isEmpty(filter.rangeValues[0])
+      ? true
+      : currentDate >= parseInt(filter.rangeValues[0], 10);
+    const isLower = _.isEmpty(filter.rangeValues[1])
+      ? true
+      : currentDate <= parseInt(filter.rangeValues[1], 10);
+
+    return isHigher && isLower;
+  }
+
   function checkAllFilters(dataPoint: IData): boolean {
     return filters.every((filter): boolean => {
       if (typeof filter.key === "function") return filter.key(dataPoint);
@@ -94,20 +129,11 @@ const useFilters = <IData extends object>(
         case "number":
           return handleNumberCase(dataPoint, filter);
 
-        case "numberRange": {
-          if (filter.rangeValues === undefined) return true;
-          const isLower = _.isEmpty(filter.rangeValues[0])
-            ? true
-            : parseInt(String(dataPoint[filter.key]), 10) <=
-              parseInt(filter.rangeValues[0], 10);
+        case "numberRange":
+          return handleNumberRangeCase(dataPoint, filter);
 
-          const isHigher = _.isEmpty(filter.rangeValues[1])
-            ? true
-            : parseInt(String(dataPoint[filter.key]), 10) >=
-              parseInt(filter.rangeValues[1], 10);
-
-          return isLower && isHigher;
-        }
+        case "dateRange":
+          return handleDateRangeCase(dataPoint, filter);
 
         default:
           return true;
