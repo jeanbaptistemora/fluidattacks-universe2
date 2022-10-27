@@ -2835,25 +2835,25 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TSX_HAS_DEBUGGER_STATEMENT = MethodInfo(
+    TS_HAS_DEBUGGER_STATEMENT = MethodInfo(
         file_name="typescript",
-        name="tsx_has_debugger_statement",
+        name="ts_has_debugger_statement",
         module="lib_root",
         finding=FindingEnum.F183,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TSX_INSECURE_CIPHERS = MethodInfo(
+    TS_INSECURE_CIPHERS = MethodInfo(
         file_name="typescript",
-        name="tsx_insecure_ciphers",
+        name="ts_insecure_ciphers",
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TSX_INSECURE_AES_CIPHER = MethodInfo(
+    TS_INSECURE_AES_CIPHER = MethodInfo(
         file_name="typescript",
-        name="tsx_insecure_aes_cipher",
+        name="ts_insecure_aes_cipher",
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.FABIO_LAGOS,
@@ -3491,7 +3491,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TSX_UNSAFE_HTTP_XSS_PROTECTION = MethodInfo(
+    TS_UNSAFE_HTTP_XSS_PROTECTION = MethodInfo(
         file_name="typescript",
         name="typescript_unsafe_http_xss_protection",
         module="lib_root",
@@ -3499,7 +3499,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TSX_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
+    TS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
         file_name="typescript",
         name="typescript_unsafe_http_xframe_options",
         module="lib_root",

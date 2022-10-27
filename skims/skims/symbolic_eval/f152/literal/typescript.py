@@ -8,7 +8,7 @@ from symbolic_eval.types import (
 )
 
 
-def tsx_insecure_http_headers(
+def ts_insecure_http_headers(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False

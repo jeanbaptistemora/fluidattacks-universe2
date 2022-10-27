@@ -6,7 +6,7 @@ lib_path.conf_files.has_x_xss_protection_header:
   es: >-
     Asegúrese de que su paquete o archivo fuente de Web.config
     elimine los encabezados 'X-XSS-Protection'.
-lib_root.f135.tsx_unsafe_http_xss_protection:
+lib_root.f135.ts_unsafe_http_xss_protection:
   en: >
     Ensure that the HttpHeaders constructor
     suppresses 'X-XSS-Protection' headers.

@@ -47,12 +47,12 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def tsx_insecure_ciphers(
+def ts_insecure_ciphers(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TSX_INSECURE_CIPHERS
-    danger_algos = {"DES", "RC4"}
+    method = MethodsEnum.TS_INSECURE_CIPHERS
+    danger_algos = {"DES", "RC4", "RSA"}
     danger_m = {"encrypt", "decrypt"}
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -80,11 +80,11 @@ def tsx_insecure_ciphers(
     )
 
 
-def tsx_insecure_aes_cipher(
+def ts_insecure_aes_cipher(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TSX_INSECURE_AES_CIPHER
+    method = MethodsEnum.TS_INSECURE_AES_CIPHER
     crypto_algo = {"AES"}
     danger_m = {"encrypt", "decrypt"}
 

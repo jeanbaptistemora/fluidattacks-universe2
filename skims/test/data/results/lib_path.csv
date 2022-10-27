@@ -22083,7 +22083,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,sk
   21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
      ^ Col 1
 ",java.java_insecure_cipher_ssl
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,"
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,"
    6 |  unsafe1(plainText: string, key: string) {
    7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
    8 |       mode: CryptoJS.mode.ECB,
@@ -22106,8 +22106,8 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,16,310,s
   25 |   }
   26 |
      ^ Col 0
-",typescript.tsx_insecure_aes_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,"
+",typescript.ts_insecure_aes_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,"
    1 | import * as CryptoJS from 'crypto-js';
    2 |
    3 | export class EncryptionService {
@@ -22130,7 +22130,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.tsx,7,310,sk
   20 |  safe(plainText: string, key: string) {
   21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
      ^ Col 0
-",typescript.tsx_insecure_ciphers
+",typescript.ts_insecure_ciphers
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
    1 | using System;
    2 | using System.IO;
@@ -29485,10 +29485,10 @@ F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12
   14 |
      ^ Col 1
 ",c_sharp.c_sharp_xpath_injection
-F135,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.tsx,9,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.tsx","
+F135,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts,9,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts","
    1 | import { HttpHeaders } from '@angular/common/http';
-   2 | import Observable from '../types.tsx';
+   2 | import Observable from '../types.ts';
    3 |
    4 | type LoginModel ={};
    5 | export class AppComponent {
@@ -31481,10 +31481,10 @@ F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
-F152,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.tsx,9,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
- in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.tsx","
+F152,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts,9,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
+ in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts","
    1 | import { HttpHeaders } from '@angular/common/http';
-   2 | import Observable from '../types.tsx';
+   2 | import Observable from '../types.ts';
    3 |
    4 | type LoginModel ={};
    5 | export class AppComponent {

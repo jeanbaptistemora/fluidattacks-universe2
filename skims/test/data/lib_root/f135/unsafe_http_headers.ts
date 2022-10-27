@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import Observable from '../types.tsx';
+import Observable from '../types.ts';
 
 type LoginModel ={};
 export class AppComponent {

@@ -10,7 +10,7 @@ from symbolic_eval.types import (
 DANGER_MODES = {"ecb", "ofb", "cfb", "cbc"}
 
 
-def tsx_insecure_aes_cipher(
+def ts_insecure_aes_cipher(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False

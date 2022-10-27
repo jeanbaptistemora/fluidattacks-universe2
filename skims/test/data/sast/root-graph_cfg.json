@@ -137838,7 +137838,7 @@
         },
         "language": "tsx"
       },
-      "path": "skims/test/data/sast/test_cfg.tsx",
+      "path": "skims/test/data/sast/test_cfg.ts",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -142948,6 +142948,6 @@
     "skims/test/data/sast/test_cfg.go": 1,
     "skims/test/data/sast/test_cfg.js": 2,
     "skims/test/data/sast/test_cfg.kt": 3,
-    "skims/test/data/sast/test_cfg.tsx": 4
+    "skims/test/data/sast/test_cfg.ts": 4
   }
 }

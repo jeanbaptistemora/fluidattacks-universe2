@@ -44,7 +44,7 @@ def insecure_http_headers(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TSX_UNSAFE_HTTP_XSS_PROTECTION
+    method = MethodsEnum.TS_UNSAFE_HTTP_XSS_PROTECTION
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -61,7 +61,7 @@ def insecure_http_headers(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f135.tsx_unsafe_http_xss_protection",
+        desc_key="lib_root.f135.ts_unsafe_http_xss_protection",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

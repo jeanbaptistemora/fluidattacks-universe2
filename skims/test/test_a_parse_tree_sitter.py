@@ -58,7 +58,7 @@ from utils.encodings import (
                 "skims/test/data/sast/test_cfg.js",
                 "skims/test/data/sast/test_cfg.go",
                 "skims/test/data/sast/test_cfg.kt",
-                "skims/test/data/sast/test_cfg.tsx",
+                "skims/test/data/sast/test_cfg.ts",
             ),
             "cfg",
         ),

@@ -44,7 +44,7 @@ def insecure_header_xframe_options(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TSX_UNSAFE_HTTP_X_FRAME_OPTIONS
+    method = MethodsEnum.TS_UNSAFE_HTTP_X_FRAME_OPTIONS
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -61,7 +61,7 @@ def insecure_header_xframe_options(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f152.tsx_unsafe_http_xframe_options",
+        desc_key="lib_root.f152.ts_unsafe_http_xframe_options",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
