@@ -33,37 +33,51 @@ def ssl_id2ssl_name(ssl_id: SSLVersionId) -> str:
 
 class SnippetConstructor:
     # pylint: disable=unused-argument, no-self-use
-    def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_server(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "Server: ---"
 
-    def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_versions(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "Available TLS versions: ---"
 
     def get_intention_title(self) -> str:
         return "------------------------- Intention --------------------------"
 
-    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_intention(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "NONE"
 
     def get_request_title(self) -> str:
         return "-------------------------- Request ---------------------------"
 
-    def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_request(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "NONE"
 
-    def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_response_title(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "-------------------------- Response --------------------------"
 
-    def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_response(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "NONE"
 
     def get_conclusion_title(self) -> str:
         return "------------------------- Conclusion -------------------------"
 
-    def get_conclusion(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_conclusion(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return "NONE"
 
-    def construct(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def construct(self, ssl_vulnerability: SSLVulnerability) -> str:  # NOSONAR
         server = self.get_server(ssl_vulnerability)
         versions = self.get_versions(ssl_vulnerability)
         intention_title = self.get_intention_title()
@@ -130,7 +144,9 @@ class SnippetConstructorEN(SnippetConstructor):
             f"Hash: {ssl_hash}"
         )
 
-    def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_response_title(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return (
             "---------------------"
             "Response obtained from server"
@@ -226,7 +242,9 @@ class SnippetConstructorES(SnippetConstructor):
             f"Hash: {ssl_hash}"
         )
 
-    def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
+    def get_response_title(
+        self, ssl_vulnerability: SSLVulnerability  # NOSONAR
+    ) -> str:
         return (
             "--------------------"
             "Respuesta obtenida del servidor"

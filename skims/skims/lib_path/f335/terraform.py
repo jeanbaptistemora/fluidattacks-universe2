@@ -29,13 +29,14 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
+    List,
     Union,
 )
 
 
 def _s3_has_versioning(
     bucket: AWSS3Bucket,
-    versioning_configs: Iterator[AWSS3VersionConfig],
+    versioning_configs: List[AWSS3VersionConfig],
 ) -> bool:
     for versioning_config in versioning_configs:
         if (
@@ -55,6 +56,7 @@ def _tfm_aws_s3_versioning_disabled(
     bucket_iterator: Iterator[AWSS3Bucket],
     versioning_iterator: Iterator[AWSS3VersionConfig],
 ) -> Iterator[Union[AWSS3Bucket, Attribute]]:
+    versioning_configs = list(versioning_iterator)
     for bucket in bucket_iterator:
         if versioning := get_argument(
             body=bucket.data,
@@ -65,7 +67,7 @@ def _tfm_aws_s3_versioning_disabled(
             )
             if versioning_enabled and versioning_enabled.val is False:
                 yield versioning_enabled
-        elif not _s3_has_versioning(bucket, versioning_iterator):
+        elif not _s3_has_versioning(bucket, versioning_configs):
             yield bucket
 
 

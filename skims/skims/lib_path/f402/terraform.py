@@ -26,6 +26,18 @@ from typing import (
 )
 
 
+def _tfm_get_queue_vulns(queue_props: Any) -> Iterator[Any]:
+    if logging_attr := get_block_block(queue_props, "logging"):
+        attrs = [
+            get_block_attribute(logging_attr, req)
+            for req in ["delete", "read", "write"]
+        ]
+        if not all((req.val if req else False for req in attrs)):
+            yield logging_attr
+    else:
+        yield queue_props
+
+
 def _tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -34,15 +46,7 @@ def _tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
             key="queue_properties",
             body=resource.data,
         ):
-            if logging_attr := get_block_block(queue_props, "logging"):
-                attrs = [
-                    get_block_attribute(logging_attr, req)
-                    for req in ["delete", "read", "write"]
-                ]
-                if not all((req.val if req else False for req in attrs)):
-                    yield logging_attr
-            else:
-                yield queue_props
+            yield from _tfm_get_queue_vulns(queue_props)
         else:
             yield resource
 

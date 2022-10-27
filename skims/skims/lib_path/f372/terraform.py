@@ -46,39 +46,33 @@ from typing import (
 )
 
 
+def _tfm_get_vulns_from_block(
+    resource: Any,
+    key_str: str,
+) -> Iterator[Union[Any, Node]]:
+    key_cond = "viewer_protocol_policy"
+    if get_argument(
+        key=key_str,
+        body=resource.data,
+    ):
+        for attr in iterate_block_attributes(
+            get_argument(body=resource.data, key=key_str)
+        ):
+            if attr.key == key_cond and attr.val == "allow-all":
+                yield attr
+
+
 def _tfm_content_over_http_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
         if isinstance(resource, AWSCloudfrontDistribution):
-            if get_argument(
-                key="default_cache_behavior",
-                body=resource.data,
-            ):
-                for attr in iterate_block_attributes(
-                    get_argument(
-                        body=resource.data, key="default_cache_behavior"
-                    )
-                ):
-                    if (
-                        attr.key == "viewer_protocol_policy"
-                        and attr.val == "allow-all"
-                    ):
-                        yield attr
-            if get_argument(
-                key="ordered_cache_behavior",
-                body=resource.data,
-            ):
-                for attr in iterate_block_attributes(
-                    get_argument(
-                        body=resource.data, key="ordered_cache_behavior"
-                    )
-                ):
-                    if (
-                        attr.key == "viewer_protocol_policy"
-                        and attr.val == "allow-all"
-                    ):
-                        yield attr
+            yield from _tfm_get_vulns_from_block(
+                resource, "default_cache_behavior"
+            )
+            yield from _tfm_get_vulns_from_block(
+                resource, "ordered_cache_behavior"
+            )
 
 
 def _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(

@@ -35,10 +35,10 @@ class SSLSnippetLine(Enum):
 
 
 class TLSVersionId(Enum):
-    tlsv1_0: TLSVersion = TLSVersion.TLSv1
-    tlsv1_1: TLSVersion = TLSVersion.TLSv1_1
-    tlsv1_2: TLSVersion = TLSVersion.TLSv1_2
-    tlsv1_3: TLSVersion = TLSVersion.TLSv1_3
+    tlsv1_0: int = TLSVersion.TLSv1
+    tlsv1_1: int = TLSVersion.TLSv1_1
+    tlsv1_2: int = TLSVersion.TLSv1_2
+    tlsv1_3: int = TLSVersion.TLSv1_3
 
 
 class SSLHandshakeRecord(Enum):

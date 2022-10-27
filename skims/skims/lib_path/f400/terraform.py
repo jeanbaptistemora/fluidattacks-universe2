@@ -42,6 +42,8 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
+    List,
+    Tuple,
     Union,
 )
 
@@ -58,6 +60,36 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
             yield resource
 
 
+def _tfm_get_conditions(
+    bucket: AWSS3Bucket,
+    logging_iterator: List[AWSS3LogginConfig],
+) -> Tuple[bool, bool]:
+    has_logging: bool = False
+    is_log_bucket: bool = False
+    for logging_config in logging_iterator:
+        if (
+            bucket.name is not None
+            and bucket.tf_reference is not None
+            and (
+                logging_config.target
+                in (bucket.name, f"{bucket.tf_reference}.id")
+            )
+        ):
+            is_log_bucket = True
+            break
+        if (
+            bucket.name is not None
+            and bucket.tf_reference is not None
+            and (
+                logging_config.bucket
+                in (bucket.name, f"{bucket.tf_reference}.id")
+            )
+        ):
+            has_logging = True
+            break
+    return (has_logging, is_log_bucket)
+
+
 def _tfm_s3_buckets_logging_disabled(
     bucket_iterator: Iterator[AWSS3Bucket],
     logging_iterator: Iterator[AWSS3LogginConfig],
@@ -66,29 +98,9 @@ def _tfm_s3_buckets_logging_disabled(
     for bucket in bucket_iterator:
         logging = get_argument(body=bucket.data, key="logging")
         if not logging:
-            has_logging: bool = False
-            is_log_bucket: bool = False
-            for logging_config in logging_configs:
-                if (
-                    bucket.name is not None
-                    and bucket.tf_reference is not None
-                    and (
-                        logging_config.target
-                        in (bucket.name, f"{bucket.tf_reference}.id")
-                    )
-                ):
-                    is_log_bucket = True
-                    break
-                if (
-                    bucket.name is not None
-                    and bucket.tf_reference is not None
-                    and (
-                        logging_config.bucket
-                        in (bucket.name, f"{bucket.tf_reference}.id")
-                    )
-                ):
-                    has_logging = True
-                    break
+            has_logging, is_log_bucket = _tfm_get_conditions(
+                bucket, logging_configs
+            )
             if not has_logging and not is_log_bucket:
                 yield bucket
 
