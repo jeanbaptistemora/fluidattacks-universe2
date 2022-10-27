@@ -20,6 +20,7 @@ def format_subscription_item(subscription: Subscription) -> Item:
         "entity": subscription.entity,
         "frequency": subscription.frequency,
         "subject": subscription.subject,
+        "modified_date": subscription.modified_date,
     }
 
 
@@ -29,4 +30,5 @@ def format_subscriptions(item: Item) -> Subscription:
         entity=SubscriptionEntity[item["entity"]],
         frequency=SubscriptionFrequency[item["frequency"]],
         subject=item["subject"],
+        modified_date=item.get("modified_date", None),
     )

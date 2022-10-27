@@ -8,6 +8,7 @@ from db_model.subscriptions.enums import (
 )
 from typing import (
     NamedTuple,
+    Optional,
 )
 
 
@@ -15,4 +16,11 @@ class Subscription(NamedTuple):
     email: str
     entity: SubscriptionEntity
     frequency: SubscriptionFrequency
+    subject: str
+    modified_date: Optional[str] = None
+
+
+class SubscriptionHistoricRequest(NamedTuple):
+    email: str
+    entity: SubscriptionEntity
     subject: str

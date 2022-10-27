@@ -11,21 +11,20 @@ from .types import (
 from .utils import (
     format_subscription_item,
 )
+from db_model import (
+    TABLE,
+)
 from dynamodb import (
     keys,
     operations,
-)
-from dynamodb.model import (
-    TABLE,
 )
 
 
 async def add(*, subscription: Subscription) -> None:
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
-    facet = TABLE.facets["stakeholder_subscription"]
     subscription_key = keys.build_key(
-        facet=facet,
+        facet=TABLE.facets["stakeholder_subscription"],
         values={
             "email": subscription.email,
             "entity": subscription.entity.lower(),
@@ -39,15 +38,33 @@ async def add(*, subscription: Subscription) -> None:
             "frequency": subscription.frequency.lower(),
         },
     )
-    item = {
+    subscription_item = {
         key_structure.partition_key: subscription_key.partition_key,
         key_structure.sort_key: subscription_key.sort_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         **format_subscription_item(subscription),
     }
-    await operations.put_item(
-        facet=facet,
-        item=item,
-        table=TABLE,
+
+    historic_subscription_key = keys.build_key(
+        facet=TABLE.facets["stakeholder_historic_subscription"],
+        values={
+            "email": subscription.email,
+            "entity": subscription.entity.lower(),
+            "subject": subscription.subject,
+            # The modified date will always exist here
+            "iso8601utc": subscription.modified_date
+            if subscription.modified_date
+            else "",
+        },
+    )
+
+    historic_subscription_item = {
+        key_structure.partition_key: historic_subscription_key.partition_key,
+        key_structure.sort_key: historic_subscription_key.sort_key,
+        **format_subscription_item(subscription),
+    }
+
+    await operations.batch_put_item(
+        items=(subscription_item, historic_subscription_item), table=TABLE
     )

@@ -221,6 +221,7 @@ async def subscribe(
             entity=entity,
             frequency=frequency,
             subject=subject,
+            modified_date=datetime_utils.get_iso_date(),
         )
     )
     if frequency != SubscriptionFrequency.NEVER:

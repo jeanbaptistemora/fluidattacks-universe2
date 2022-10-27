@@ -50,12 +50,14 @@ async def test_update() -> None:
         entity=SubscriptionEntity.ORGANIZATION,
         frequency=SubscriptionFrequency.WEEKLY,
         subject="test_report_subject",
+        modified_date="2022-10-27T20:07:57+00:00",
     )
     test_data_2 = Subscription(
         email="test_user_email2@test.com",
         entity=SubscriptionEntity.GROUP,
         frequency=SubscriptionFrequency.MONTHLY,
         subject="test_report_subject2",
+        modified_date="2022-10-27T20:07:57+00:00",
     )
     await add(subscription=test_data_1)
     await add(subscription=test_data_2)
@@ -68,6 +70,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.HOURLY,
             subject="unittesting",
+            modified_date="2022-02-22T20:07:57+00:00",
         ),
     )
     assert await get_all_subscriptions(
@@ -78,6 +81,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.DAILY,
             subject="unittesting",
+            modified_date="2022-05-22T20:07:57+00:00",
         ),
     )
     assert await get_all_subscriptions(
@@ -88,6 +92,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.ORGANIZATION,
             frequency=SubscriptionFrequency.WEEKLY,
             subject="test_report_subject",
+            modified_date="2022-10-27T20:07:57+00:00",
         ),
     )
     assert await get_all_subscriptions(
@@ -98,12 +103,14 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.MONTHLY,
             subject="oneshottest",
+            modified_date="2022-03-22T20:07:57+00:00",
         ),
         Subscription(
             email="test_user_email2@test.com",
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.MONTHLY,
             subject="test_report_subject2",
+            modified_date="2022-10-27T20:07:57+00:00",
         ),
     )
 
@@ -115,6 +122,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.ORGANIZATION,
             frequency=SubscriptionFrequency.WEEKLY,
             subject="test_report_subject",
+            modified_date="2022-10-27T20:07:57+00:00",
         ),
     )
     assert await loaders.stakeholder_subscriptions.load(test_data_2.email) == (
@@ -123,6 +131,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.MONTHLY,
             subject="test_report_subject2",
+            modified_date="2022-10-27T20:07:57+00:00",
         ),
     )
     assert await loaders.stakeholder_subscriptions.load(
@@ -133,6 +142,7 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.HOURLY,
             subject="unittesting",
+            modified_date="2022-02-22T20:07:57+00:00",
         ),
     )
     assert await loaders.stakeholder_subscriptions.load(
@@ -143,11 +153,13 @@ async def test_update() -> None:
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.MONTHLY,
             subject="oneshottest",
+            modified_date="2022-03-22T20:07:57+00:00",
         ),
         Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
             frequency=SubscriptionFrequency.DAILY,
             subject="unittesting",
+            modified_date="2022-05-22T20:07:57+00:00",
         ),
     )
