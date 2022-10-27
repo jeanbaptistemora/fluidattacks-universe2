@@ -119,16 +119,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
           validationSchema={validations}
         >
           <Form>
-            <Input
-              name={"name"}
-              placeholder={t(`${tPath}name`)}
-              required={true}
-            />
-            <Select
-              label={t(`${tPath}country`)}
-              name={"country"}
-              required={true}
-            >
+            <Input label={t(`${tPath}name`)} name={"name"} />
+            <div style={{ padding: "7px" }} />
+            <Select label={t(`${tPath}country`)} name={"country"}>
               <option value={""}>{""}</option>
               {countries.map(
                 (country): JSX.Element => (
