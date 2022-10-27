@@ -25,7 +25,7 @@ from redshift_client.schema.client import (
 
 
 @dataclass(frozen=True)
-class RecreateAllStrategy:
+class RecreateAll:
     _target: SchemaId
     _client: SchemaClient
 

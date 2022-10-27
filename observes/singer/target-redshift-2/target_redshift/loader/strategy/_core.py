@@ -32,6 +32,8 @@ class _Patch(Generic[_T]):
 
 @dataclass(frozen=True)
 class LoadingStrategy:
+    """Wraps a loading operation (over a schema) with custom pre and post upload operations"""
+
     _main: _Patch[Callable[[LoadProcedure], Cmd[None]]]
 
     @staticmethod

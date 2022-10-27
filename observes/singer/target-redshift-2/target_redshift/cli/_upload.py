@@ -36,7 +36,7 @@ from target_redshift.loader import (
 )
 from target_redshift.loader.strategy import (
     LoadingStrategy,
-    RecreateAllStrategy,
+    Strategies,
 )
 from typing import (
     NoReturn,
@@ -96,10 +96,9 @@ def destroy_and_upload(
 
     def _main(conn: DbConnection) -> Cmd[None]:
         client = new_client(conn, LOG)
-        schema_client = client.map(SchemaClient)
         table_client = client.map(TableClient)
-        strategy: Cmd[LoadingStrategy] = schema_client.map(
-            lambda s: RecreateAllStrategy(_schema, s).strategy
+        strategy: Cmd[LoadingStrategy] = client.map(
+            lambda s: Strategies(s).recreate_all_schema(_schema)
         )
         options = SingerHandlerOptions(
             truncate,

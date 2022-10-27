@@ -38,7 +38,7 @@ from typing import (
 
 
 @dataclass(frozen=True)
-class RecreatePerStreamStrategy:
+class RecreatePerStream:
     _target: SchemaId
     _client: SchemaClient
     _client_2: TableClient
