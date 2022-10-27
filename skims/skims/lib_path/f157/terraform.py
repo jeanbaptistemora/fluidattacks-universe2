@@ -57,22 +57,28 @@ def _tfm_azure_unrestricted_access_network_segments_iterate(
             yield resource
 
 
+def _tfm_azure_storage_vulns(
+    resource: Any,
+) -> Iterator[Any]:
+    if network_rules := get_argument(
+        key="network_rules",
+        body=resource.data,
+    ):
+        default_action = get_block_attribute(
+            block=network_rules, key="default_action"
+        )
+        if default_action and default_action.val.lower() != "deny":
+            yield default_action
+    else:
+        yield resource
+
+
 def _tfm_azure_sa_default_network_access_iterate_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
         if isinstance(resource, AzurermStorageAccount):
-            if network_rules := get_argument(
-                key="network_rules",
-                body=resource.data,
-            ):
-                default_action = get_block_attribute(
-                    block=network_rules, key="default_action"
-                )
-                if default_action and default_action.val.lower() != "deny":
-                    yield default_action
-            else:
-                yield resource
+            yield from _tfm_azure_storage_vulns(resource)
         elif isinstance(resource, AzurermStorageAccountNetworkRules):
             default_action = get_attribute(
                 body=resource.data, key="default_action"

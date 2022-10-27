@@ -89,6 +89,20 @@ def _k8s_check_run_as_user(
             yield as_user
 
 
+def _k8s_check_ctx_seccomp(
+    ctx: Any,
+) -> Iterator[Any]:
+    if sec_prof := ctx.inner.get("seccompProfile"):
+        if (
+            prof_type := sec_prof.inner.get("type")
+        ) and prof_type.data.lower() == "unconfined":
+            yield prof_type
+        elif not sec_prof.inner.get("type"):
+            yield sec_prof
+    else:
+        yield ctx
+
+
 def _k8s_check_seccomp_profile(
     template: Any,
 ) -> Iterator[Any]:
@@ -98,26 +112,10 @@ def _k8s_check_seccomp_profile(
         and template.raw.get("apiVersion")
         and (ctx := template.inner.get("securityContext"))
     ):
-        if sec_prof := ctx.inner.get("seccompProfile"):
-            if (
-                prof_type := sec_prof.inner.get("type")
-            ) and prof_type.data.lower() == "unconfined":
-                yield prof_type
-            elif not sec_prof.inner.get("type"):
-                yield sec_prof
-        else:
-            yield ctx
+        yield from _k8s_check_ctx_seccomp(ctx)
     else:
         for ctx in iter_security_context(template, False):
-            if sec_prof := ctx.inner.get("seccompProfile"):
-                if (
-                    prof_type := sec_prof.inner.get("type")
-                ) and prof_type.data.lower() == "unconfined":
-                    yield prof_type
-                elif not sec_prof.inner.get("type"):
-                    yield sec_prof
-            else:
-                yield ctx
+            yield from _k8s_check_ctx_seccomp(ctx)
 
 
 def _k8s_check_privileged_used(

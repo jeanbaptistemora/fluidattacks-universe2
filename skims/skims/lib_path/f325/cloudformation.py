@@ -248,11 +248,7 @@ def _check_assume_role_policies(
 ) -> Iterator[Node]:
     statements = assume_role_policy.inner.get("Statement")
     for stmt in statements.data if statements else []:
-        not_princ = stmt.inner.get("NotPrincipal")
-        actions = stmt.inner.get("Action")
-        effect = stmt.inner.get("Effect")
-
-        if effect.raw != "Allow":
+        if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
             continue
 
         if not_actions := stmt.inner.get("NotAction"):
@@ -269,45 +265,42 @@ def _check_assume_role_policies(
                 line=get_line_by_extension(not_princ.start_line, file_ext),
             )
 
-        if actions:
+        if actions := stmt.inner.get("Action"):
             yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+
+
+def _yield_nodes_from_stmt(stmt: Any, file_ext: str) -> Iterator[Node]:
+    if not_actions := stmt.inner.get("NotAction"):
+        yield AWSIamManagedPolicy(
+            column=not_actions.start_column,
+            data=not_actions.data,
+            line=get_line_by_extension(not_actions.start_line, file_ext),
+        ) if isinstance(not_actions.raw, List) else not_actions
+
+    if not_resource := stmt.inner.get("NotResource"):
+        yield AWSIamManagedPolicy(
+            column=not_resource.start_column,
+            data=not_resource.data,
+            line=get_line_by_extension(not_resource.start_line, file_ext),
+        ) if isinstance(not_resource.raw, List) else not_resource
+
+    if actions := stmt.inner.get("Action"):
+        yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+
+    if resources := stmt.inner.get("Resource"):
+        yield from get_wildcard_nodes_for_resources(
+            actions, resources, WILDCARD_RESOURCE
+        )
 
 
 def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
     for policy in policies.data if policies else []:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
         for stmt in statements.data if statements else []:
-            effect = stmt.inner.get("Effect")
-            resources = stmt.inner.get("Resource")
-            actions = stmt.inner.get("Action")
-
-            if effect.raw != "Allow":
+            if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
                 continue
 
-            if not_actions := stmt.inner.get("NotAction"):
-                yield AWSIamManagedPolicy(
-                    column=not_actions.start_column,
-                    data=not_actions.data,
-                    line=get_line_by_extension(
-                        not_actions.start_line, file_ext
-                    ),
-                ) if isinstance(not_actions.raw, List) else not_actions
-
-            if not_resource := stmt.inner.get("NotResource"):
-                yield AWSIamManagedPolicy(
-                    column=not_resource.start_column,
-                    data=not_resource.data,
-                    line=get_line_by_extension(
-                        not_resource.start_line, file_ext
-                    ),
-                ) if isinstance(not_resource.raw, List) else not_resource
-
-            if actions:
-                yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
-            if resources:
-                yield from get_wildcard_nodes_for_resources(
-                    actions, resources, WILDCARD_RESOURCE
-                )
+            yield from _yield_nodes_from_stmt(stmt, file_ext)
 
 
 def _has_admin_access(managed_policies: Node) -> Iterator[Node]:

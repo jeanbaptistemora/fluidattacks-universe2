@@ -33,11 +33,28 @@ from typing import (
 )
 
 
+def _s3_has_versioning(
+    bucket: AWSS3Bucket,
+    versioning_configs: Iterator[AWSS3VersionConfig],
+) -> bool:
+    for versioning_config in versioning_configs:
+        if (
+            bucket.name is not None
+            and bucket.tf_reference is not None
+            and (
+                versioning_config.bucket
+                in (bucket.name, f"{bucket.tf_reference}.id")
+            )
+            and versioning_config.status == S3VersioningEnum.ENABLED
+        ):
+            return True
+    return False
+
+
 def _tfm_aws_s3_versioning_disabled(
     bucket_iterator: Iterator[AWSS3Bucket],
     versioning_iterator: Iterator[AWSS3VersionConfig],
 ) -> Iterator[Union[AWSS3Bucket, Attribute]]:
-    versioning_configs = list(versioning_iterator)
     for bucket in bucket_iterator:
         if versioning := get_argument(
             body=bucket.data,
@@ -48,22 +65,8 @@ def _tfm_aws_s3_versioning_disabled(
             )
             if versioning_enabled and versioning_enabled.val is False:
                 yield versioning_enabled
-        else:
-            has_versioning: bool = False
-            for versioning_config in versioning_configs:
-                if (
-                    bucket.name is not None
-                    and bucket.tf_reference is not None
-                    and (
-                        versioning_config.bucket
-                        in (bucket.name, f"{bucket.tf_reference}.id")
-                    )
-                    and versioning_config.status == S3VersioningEnum.ENABLED
-                ):
-                    has_versioning = True
-                    break
-            if not has_versioning:
-                yield bucket
+        elif not _s3_has_versioning(bucket, versioning_iterator):
+            yield bucket
 
 
 def tfm_aws_s3_versioning_disabled(

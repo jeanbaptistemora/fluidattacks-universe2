@@ -45,6 +45,16 @@ def _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
                 yield elem
 
 
+def _tfm_get_vulns_from_device(
+    device: Any,
+) -> Iterator[Any]:
+    if encrypted_attr := get_block_attribute(block=device, key="encrypted"):
+        if encrypted_attr.val is False:
+            yield encrypted_attr
+    else:
+        yield device
+
+
 def _tfm_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -53,24 +63,12 @@ def _tfm_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
             key="root_block_device",
             body=resource.data,
         ):
-            if root_encrypted_attr := get_block_attribute(
-                block=root_device, key="encrypted"
-            ):
-                if root_encrypted_attr.val is False:
-                    yield root_encrypted_attr
-            else:
-                yield root_device
+            yield from _tfm_get_vulns_from_device(root_device)
         if ebs_device := get_argument(
             key="ebs_block_device",
             body=resource.data,
         ):
-            if ebs_encrypted_attr := get_block_attribute(
-                block=ebs_device, key="encrypted"
-            ):
-                if ebs_encrypted_attr.val is False:
-                    yield ebs_encrypted_attr
-            else:
-                yield ebs_device
+            yield from _tfm_get_vulns_from_device(ebs_device)
 
 
 def _tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
