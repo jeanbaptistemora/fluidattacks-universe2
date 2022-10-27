@@ -13842,6 +13842,22 @@
                   "modified_date": {
                     "S": "2019-01-20T22:00:00+00:00"
                   },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-groups"
+                      },
+                      {
+                        "S": "another-tag"
+                      },
+                      {
+                        "S": "test-updates"
+                      },
+                      {
+                        "S": "test-tag"
+                      }
+                    ]
+                  },
                   "type": {
                     "S": "ONESHOT"
                   },
@@ -14019,6 +14035,19 @@
                   },
                   "type": {
                     "S": "CONTINUOUS"
+                  },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-groups"
+                      },
+                      {
+                        "S": "test-updates"
+                      },
+                      {
+                        "S": "test-tag"
+                      }
+                    ]
                   },
                   "status": {
                     "S": "ACTIVE"
@@ -14276,6 +14305,16 @@
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
                   },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "another-tag"
+                      },
+                      {
+                        "S": "test-tag"
+                      }
+                    ]
+                  },
                   "type": {
                     "S": "CONTINUOUS"
                   },
@@ -14351,6 +14390,13 @@
                   },
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-nogroups"
+                      }
+                    ]
                   },
                   "type": {
                     "S": "CONTINUOUS"
@@ -14428,6 +14474,13 @@
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
                   },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-newgroups"
+                      }
+                    ]
+                  },
                   "type": {
                     "S": "CONTINUOUS"
                   },
@@ -14503,6 +14556,13 @@
                   },
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "another-tag"
+                      }
+                    ]
                   },
                   "type": {
                     "S": "CONTINUOUS"
@@ -14582,6 +14642,13 @@
                   },
                   "type": {
                     "S": "CONTINUOUS"
+                  },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-newgroups"
+                      }
+                    ]
                   },
                   "status": {
                     "S": "ACTIVE"
@@ -14728,6 +14795,13 @@
                   "type": {
                     "S": "CONTINUOUS"
                   },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-nogroups"
+                      }
+                    ]
+                  },
                   "status": {
                     "S": "ACTIVE"
                   }
@@ -14872,6 +14946,13 @@
                   },
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "tags": {
+                    "L": [
+                      {
+                        "S": "test-nogroups"
+                      }
+                    ]
                   },
                   "type": {
                     "S": "CONTINUOUS"
@@ -15033,6 +15114,22 @@
               },
               "status": {
                 "S": "ACTIVE"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  },
+                  {
+                    "S": "another-tag"
+                  },
+                  {
+                    "S": "test-updates"
+                  },
+                  {
+                    "S": "test-tag"
+                  }
+                ]
               }
             },
             {
@@ -15062,6 +15159,19 @@
               },
               "modified_date": {
                 "S": "2018-03-08T00:43:18+00:00"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  },
+                  {
+                    "S": "test-updates"
+                  },
+                  {
+                    "S": "test-tag"
+                  }
+                ]
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -15171,6 +15281,16 @@
               "type": {
                 "S": "CONTINUOUS"
               },
+              "tags": {
+                "L": [
+                  {
+                    "S": "another-tag"
+                  },
+                  {
+                    "S": "test-tag"
+                  }
+                ]
+              },
               "status": {
                 "S": "ACTIVE"
               }
@@ -15206,6 +15326,13 @@
               "type": {
                 "S": "CONTINUOUS"
               },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-nogroups"
+                  }
+                ]
+              },
               "status": {
                 "S": "ACTIVE"
               }
@@ -15237,6 +15364,13 @@
               },
               "modified_date": {
                 "S": "2020-05-20T22:00:00+00:00"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-newgroups"
+                  }
+                ]
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -15272,6 +15406,13 @@
               },
               "modified_date": {
                 "S": "2020-05-20T22:00:00+00:00"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "another-tag"
+                  }
+                ]
               },
               "type": {
                 "S": "CONTINUOUS"
@@ -15313,6 +15454,13 @@
               },
               "status": {
                 "S": "ACTIVE"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-newgroups"
+                  }
+                ]
               }
             },
             {
@@ -15368,6 +15516,13 @@
               },
               "modified_by": {
                 "S": "unknown"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-nogroups"
+                  }
+                ]
               },
               "has_machine": {
                 "BOOL": false
@@ -15450,6 +15605,13 @@
               },
               "modified_date": {
                 "S": "2020-05-20T22:00:00+00:00"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-nogroups"
+                  }
+                ]
               },
               "type": {
                 "S": "CONTINUOUS"

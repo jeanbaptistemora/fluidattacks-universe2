@@ -118,7 +118,6 @@ class Group(NamedTuple):
     policies: Optional[Policies] = None
     sprint_duration: int = 1
     sprint_start_date: str = ""
-    tags: Optional[set[str]] = None
 
 
 class GroupMetadataToUpdate(NamedTuple):
@@ -132,4 +131,3 @@ class GroupMetadataToUpdate(NamedTuple):
     language: Optional[GroupLanguage] = None
     sprint_duration: Optional[int] = None
     sprint_start_date: Optional[str] = None
-    tags: Optional[set[str]] = None

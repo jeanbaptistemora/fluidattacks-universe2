@@ -85,7 +85,6 @@ def format_group(item: Item) -> Group:
             "sprint_start_date", get_first_day_iso_date()
         ),
         state=format_state(item["state"]),
-        tags=set(item["tags"]) if item.get("tags") else None,
     )
 
 
@@ -268,7 +267,6 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         if metadata.files is not None
         else None,
         "language": metadata.language.value if metadata.language else None,
-        "tags": metadata.tags,
     }
     return {
         key: None if not value else value

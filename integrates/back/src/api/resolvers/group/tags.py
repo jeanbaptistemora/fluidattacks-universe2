@@ -17,4 +17,4 @@ async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
 ) -> Optional[list[str]]:
-    return list(parent.tags) if parent.tags else None
+    return list(parent.state.tags) if parent.state.tags else None

@@ -129,7 +129,7 @@ async def get_group_indicators_and_tags(
         "max_severity"
     ) or await groups_domain.get_max_severity(loaders, group.name)
 
-    filtered_indicators["tag"] = group.tags or {}
+    filtered_indicators["tag"] = group.state.tags or {}
     filtered_indicators["name"] = group.name
     return filtered_indicators
 
@@ -216,7 +216,8 @@ async def update_portfolios() -> None:
         tag_groups: tuple[Group, ...] = tuple(
             group
             for group in org_groups
-            if group.state.status == GroupStateStatus.ACTIVE and group.tags
+            if group.state.status == GroupStateStatus.ACTIVE
+            and group.state.tags
         )
         updated_tags = await update_organization_indicators(
             loaders, org_name, tag_groups

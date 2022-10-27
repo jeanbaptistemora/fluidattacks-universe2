@@ -191,7 +191,7 @@ async def _has_repeated_tags(
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
         group: Group = await loaders.group.load(group_name)
-        existing_tags = group.tags
+        existing_tags = group.state.tags
         all_tags = list(existing_tags or {}) + tags
         has_repeated_tags = len(all_tags) != len(set(all_tags))
     return has_repeated_tags
@@ -1650,23 +1650,16 @@ async def add_tags(
     group: Group,
     tags_to_add: set[str],
 ) -> None:
-    updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
-    await collect(
-        (
-            update_metadata(
-                group_name=group.name,
-                metadata=GroupMetadataToUpdate(
-                    tags=updated_tags,
-                ),
-                organization_id=group.organization_id,
-            ),
-            update_group_tags(
-                loaders=loaders,
-                group_name=group.name,
-                email=email,
-                updated_tags=updated_tags,
-            ),
-        )
+    updated_tags = (
+        group.state.tags.union(tags_to_add)
+        if group.state.tags
+        else tags_to_add
+    )
+    await update_group_tags(
+        loaders=loaders,
+        group_name=group.name,
+        email=email,
+        updated_tags=updated_tags,
     )
     schedule(
         send_mail_portfolio_report(
@@ -1687,24 +1680,15 @@ async def remove_tag(
     group: Group,
     tag_to_remove: str,
 ) -> None:
-    if group.tags:
-        group.tags.remove(tag_to_remove)
-        await collect(
-            (
-                update_metadata(
-                    group_name=group.name,
-                    metadata=GroupMetadataToUpdate(
-                        tags=group.tags,
-                    ),
-                    organization_id=group.organization_id,
-                ),
-                update_group_tags(
-                    loaders=loaders,
-                    group_name=group.name,
-                    email=email,
-                    updated_tags=group.tags,
-                ),
-            )
+    if group.state.tags:
+        updated_tags: set[str] = {
+            tag for tag in group.state.tags if tag != tag_to_remove
+        }
+        await update_group_tags(
+            loaders=loaders,
+            group_name=group.name,
+            email=email,
+            updated_tags=updated_tags,
         )
         schedule(
             send_mail_portfolio_report(

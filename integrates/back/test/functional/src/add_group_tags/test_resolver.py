@@ -37,8 +37,8 @@ async def test_add_group_tags(
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
-    if group.tags:
-        assert tag_to_add not in group.tags
+    if group.state.tags:
+        assert tag_to_add not in group.state.tags
 
     result: dict[str, Any] = await get_result(
         user=email,
@@ -51,11 +51,9 @@ async def test_add_group_tags(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
-    if group.tags and group.state.tags:
-        assert tag_to_add in group.tags
+    if group.state.tags:
         assert tag_to_add in group.state.tags
     else:
-        assert group.tags is None
         assert group.state.tags is None
 
 

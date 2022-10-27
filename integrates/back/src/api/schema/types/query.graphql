@@ -168,6 +168,8 @@ type Query {
   tag(
     "Content of the tag to be queried e.g. test-projects"
     tag: String!
+    "ID of the organization, if applicable"
+    organizationId: String
   ): Tag
 
   "Get the url for the unfulfilled standard report"

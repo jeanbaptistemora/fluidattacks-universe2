@@ -39,6 +39,9 @@ from organizations import (
 from tags import (
     domain as tags_domain,
 )
+from typing import (
+    Optional,
+)
 
 
 @require_login
@@ -47,6 +50,7 @@ async def resolve(
 ) -> Portfolio:
     loaders: Dataloaders = info.context.loaders
     tag_name: str = kwargs["tag"].lower()
+    organization_id: Optional[str] = kwargs.get("organizationId", None)
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     user_group_names: list[
@@ -68,9 +72,35 @@ async def resolve(
         raise TagNotFound()
 
     group: Group = await loaders.group.load(user_group_names_filtered[0])
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
-    )
+    organization: Organization
+    org_group_names_filtered: list[str]
+    allowed_tags: list[str]
+    portfolio: Portfolio
+    if organization_id:
+        organization = await loaders.organization.load(organization_id)
+        org_group_names_filtered = [
+            group_name
+            for group_name in user_group_names_filtered
+            if group_name
+            in await orgs_domain.get_group_names(loaders, organization.id)
+        ]
+
+        allowed_tags = await tags_domain.filter_allowed_tags(
+            loaders, organization.name, org_group_names_filtered
+        )
+
+        if tag_name not in allowed_tags:
+            raise TagNotFound()
+
+        portfolio = await loaders.portfolio.load(
+            PortfolioRequest(
+                organization_name=organization.name, portfolio_id=tag_name
+            )
+        )
+
+        return portfolio
+
+    organization = await loaders.organization.load(group.organization_id)
     org_group_names_filtered = [
         group_name
         for group_name in user_group_names_filtered
@@ -78,14 +108,14 @@ async def resolve(
         in await orgs_domain.get_group_names(loaders, organization.id)
     ]
 
-    allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
+    allowed_tags = await tags_domain.filter_allowed_tags(
         loaders, organization.name, org_group_names_filtered
     )
 
     if tag_name not in allowed_tags:
         raise TagNotFound()
 
-    portfolio: Portfolio = await loaders.portfolio.load(
+    portfolio = await loaders.portfolio.load(
         PortfolioRequest(
             organization_name=organization.name, portfolio_id=tag_name
         )

@@ -48,7 +48,7 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     email: str = user_info["user_email"]
 
-    if await groups_domain.is_valid(loaders, group_name) and group.tags:
+    if await groups_domain.is_valid(loaders, group_name) and group.state.tags:
         await groups_domain.remove_tag(
             loaders=loaders,
             email=email,

@@ -48,8 +48,8 @@ async def filter_allowed_tags(
     all_tags = {
         str(tag).lower()
         for group in groups
-        if group.tags
-        for tag in group.tags
+        if group.state.tags
+        for tag in group.state.tags
     }
     are_tags_allowed = await collect(
         is_tag_allowed(loaders, groups, organization_name, tag)
@@ -108,7 +108,8 @@ async def is_tag_allowed(
     user_groups_tag = [
         group.name
         for group in user_groups
-        if group.tags and tag in [p_tag.lower() for p_tag in group.tags]
+        if group.state.tags
+        and tag in [p_tag.lower() for p_tag in group.state.tags]
     ]
     return any(group in user_groups_tag for group in all_groups_tag)
 
