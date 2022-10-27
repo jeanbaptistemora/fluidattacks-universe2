@@ -2835,6 +2835,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TSX_HAS_DEBUGGER_STATEMENT = MethodInfo(
+        file_name="typescript",
+        name="tsx_has_debugger_statement",
+        module="lib_root",
+        finding=FindingEnum.F183,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TSX_INSECURE_CIPHERS = MethodInfo(
         file_name="typescript",
         name="tsx_insecure_ciphers",
