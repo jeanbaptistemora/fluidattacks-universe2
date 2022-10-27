@@ -4,107 +4,16 @@
 
 "Components affected during an Event"
 enum AffectedComponents {
-  "Client test station"
-  CLIENT_STATION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Compilation error"
-  COMPILE_ERROR
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Group documentation"
-  DOCUMENTATION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Fluid test station"
-  FLUID_STATION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Internet connectivity"
-  INTERNET_CONNECTION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Local connectivity"
-  LOCAL_CONNECTION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Other component(s)"
-  OTHER
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Source code"
-  SOURCE_CODE
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
   "Test data"
   TEST_DATA
-  "Altered Target of Evaluation"
-  TOE_ALTERATION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
   "Target of Evaluation credentials"
   TOE_CREDENTIALS
-  "Target of Evaluation exclusion"
-  TOE_EXCLUSSION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
-  "Target of Evaluation location (IP, URL)"
-  TOE_LOCATION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
   "Target of Evaluation privileges"
   TOE_PRIVILEGES
-  "Altered Target of Evaluation"
-  TOE_UNACCESSIBLE
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
   "Unavailable Target of Evaluation"
   TOE_UNAVAILABLE
   "Unstable Target of Evaluation"
   TOE_UNSTABLE
-  "VPN connectivity"
-  VPN_CONNECTION
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/10/26.
-      """
-    )
 }
 
 "Billing subscription type enum definition"
