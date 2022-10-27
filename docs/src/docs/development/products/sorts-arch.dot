@@ -147,6 +147,7 @@ digraph sorts {
   common_compute_schedules_sorts_association_execute -> observes_aws_redshift_observes[]
   common_compute_schedules_sorts_execute -> integrates_api[label="prioritize attack surface"]
   common_compute_schedules_sorts_execute -> observes_aws_redshift_observes[label="get association data"]
+  common_compute_schedules_sorts_execute -> melts_cli[label="uses"]
   common_compute_schedules_sorts_training_and_tune -> observes_aws_redshift_observes[label="upload training stats"]
   common_compute_schedules_sorts_training_and_tune -> aws_sagemaker[label="train many models"]
   common_compute_schedules_sorts_training_and_tune -> aws_s3_sorts_training_output[label="best model"]

@@ -39,7 +39,7 @@ None at the moment, Sorts is yet an experimental project.
    and intervene in the pipeline if something doesn't go as planned.
 
 1. The source data is taken from the vulnerabilities at [Integrates](/development/integrates)
-   that human hackers are Fluid Attacks have found,
+   that human hackers at Fluid Attacks have found,
    which contain information
    like the [type of vulnerability](/criteria/vulnerabilities/),
    the name of the source code repository in which it was found,
@@ -68,7 +68,15 @@ None at the moment, Sorts is yet an experimental project.
      and uploaded to the same bucket,
      but in a constant location.
 
-   This "Best Model" is the output of the pipeline.
+   This Best Model is the output of the pipeline.
+
+1. `/sorts/execute`:
+   Takes the "Best Model" and uses it to prioritize the files
+   at [Integrates](/development/integrates).
+1. `/sorts/association*`:
+   This is an attempt to make Sorts recommend
+   the [type of vulnerability](/criteria/vulnerabilities/)
+   that a file may contain as well.
 
 :::tip
 You can right-click on the image below
