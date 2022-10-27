@@ -6,7 +6,6 @@ from datetime import (
     datetime,
 )
 from jobs_scheduler.cron.core import (
-    AnyTime,
     Cron,
     CronItem,
     DaysRange,
@@ -14,12 +13,11 @@ from jobs_scheduler.cron.core import (
 
 
 def match_cron_item(item: CronItem, value: int) -> bool:
-    if isinstance(item, AnyTime):
-        return True
-    if isinstance(item, (range, tuple)):
-        return value in item
-    elem: int = item
-    return elem == value
+    return item.transform(
+        lambda items: value in items,
+        lambda items: value in items,
+        True,
+    )
 
 
 def _cron_weekday(time: datetime) -> int:

@@ -3,40 +3,66 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from fa_purity.result import (
-    Result,
+    ResultE,
 )
 from jobs_scheduler.cron.core import (
-    AnyTime,
     Cron,
     CronDraft,
     CronItem,
     Days,
     DaysRange,
-    InvalidCron,
-    new_cron,
 )
 from typing import (
+    FrozenSet,
     Union,
 )
 
 
+def _to_cron(item: CronItem | int) -> CronItem:
+    if isinstance(item, CronItem):
+        return item
+    return CronItem.from_values(item)
+
+
 def weekly(
-    minute: CronItem, hour: CronItem, week_day: CronItem
-) -> Result[Cron, InvalidCron]:
-    return new_cron(CronDraft(minute, hour, AnyTime(), AnyTime(), week_day))
+    minute: CronItem | int,
+    hour: CronItem | int,
+    week_days: Union[FrozenSet[Days], DaysRange],
+) -> ResultE[Cron]:
+    _week_days: DaysRange | CronItem = (
+        week_days
+        if isinstance(week_days, DaysRange)
+        else CronItem.from_values(frozenset(w.value for w in week_days))
+    )
+    return Cron.new_cron(
+        CronDraft(
+            _to_cron(minute),
+            _to_cron(hour),
+            CronItem.any(),
+            CronItem.any(),
+            _week_days,
+        )
+    )
 
 
-def work_days(minute: CronItem, hour: CronItem) -> Result[Cron, InvalidCron]:
-    days = DaysRange(Days.MON, Days.FRI)
-    return new_cron(CronDraft(minute, hour, AnyTime(), AnyTime(), days))
+def work_days(minute: CronItem | int, hour: CronItem | int) -> ResultE[Cron]:
+    days = DaysRange.new(Days.MON, Days.FRI)
+    return days.bind(
+        lambda d: Cron.new_cron(
+            CronDraft(
+                _to_cron(minute),
+                _to_cron(hour),
+                CronItem.any(),
+                CronItem.any(),
+                d,
+            )
+        )
+    )
 
 
-def week_days(
-    minute: CronItem, hour: CronItem, days: Union[CronItem, DaysRange]
-) -> Result[Cron, InvalidCron]:
-    return new_cron(CronDraft(minute, hour, AnyTime(), AnyTime(), days))
-
-
-__all__ = [
-    "new_cron",
-]
+def behind_work_days(minute: CronItem | int, hour: CronItem | int) -> Cron:
+    return weekly(
+        _to_cron(minute),
+        _to_cron(hour),
+        DaysRange.new(Days.SUN, Days.THU).unwrap(),
+    ).unwrap()

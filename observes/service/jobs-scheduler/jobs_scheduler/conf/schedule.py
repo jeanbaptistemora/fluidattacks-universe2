@@ -13,53 +13,55 @@ from jobs_scheduler.conf.job import (
     Job,
 )
 from jobs_scheduler.cron.core import (
-    AnyTime,
     Cron,
     CronItem,
     Days,
     DaysRange,
 )
 from jobs_scheduler.cron.factory import (
-    week_days,
+    behind_work_days,
     weekly,
     work_days,
 )
 
-
-def behind_work_days(minute: CronItem, hour: CronItem) -> Cron:
-    return week_days(minute, hour, DaysRange(Days.SUN, Days.THU)).unwrap()
-
-
-ANY = AnyTime()
+ANY = CronItem.any()
 SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
     {
         work_days(ANY, ANY).unwrap(): (Job.REPORT_FAILS,),
-        weekly(ANY, 0, 6).unwrap(): (Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE,),
+        weekly(ANY, 0, frozenset([Days.SAT])).unwrap(): (
+            Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE,
+        ),
         work_days(ANY, 3).unwrap(): (Job.DYNAMO_INTEGRATES_MAIN,),
         behind_work_days(ANY, 23): (Job.MAILCHIMP_ETL, Job.MANDRILL_ETL),
         work_days(ANY, 0).unwrap(): (
             Job.MIRROR,
             Job.REPORT_CANCELLED,
         ),
-        weekly(ANY, 3, 1).unwrap(): (
+        weekly(ANY, 3, DaysRange.new(Days.MON, Days.THU).unwrap()).unwrap(): (
             Job.ANNOUNCEKIT,
             Job.BUGSNAG,
             Job.CHECKLY,
             Job.DELIGHTED,
         ),
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),
-        work_days(ANY, range(7, 19, 1)).unwrap(): (
+        work_days(ANY, CronItem.from_range(range(7, 19, 1))).unwrap(): (
             Job.GITLAB_PRODUCT,
             Job.GITLAB_CHALLENGES,
             Job.GITLAB_DEFAULT,
             Job.GITLAB_SERVICES,
         ),
-        work_days(ANY, (11, 18)).unwrap(): (Job.FORMSTACK,),
-        week_days(
-            ANY, range(0, 16, 5), DaysRange(Days.MON, Days.SAT)
+        work_days(ANY, CronItem.from_values(frozenset([11, 18]))).unwrap(): (
+            Job.FORMSTACK,
+        ),
+        weekly(
+            ANY,
+            CronItem.from_range(range(0, 16, 5)),
+            DaysRange.new(Days.MON, Days.SAT).unwrap(),
         ).unwrap(): (Job.DYNAMO_FORCES,),
-        week_days(
-            ANY, range(5, 19, 3), DaysRange(Days.MON, Days.SAT)
+        weekly(
+            ANY,
+            CronItem.from_range(range(5, 19, 3)),
+            DaysRange.new(Days.MON, Days.SAT).unwrap(),
         ).unwrap(): (Job.DYNAMO_INTEGRATES,),
     }
 )
