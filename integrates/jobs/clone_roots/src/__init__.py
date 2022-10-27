@@ -584,7 +584,9 @@ async def main() -> None:
     roots = [
         root
         for root in roots_data
-        if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
+        if root
+        and root["state"] == "ACTIVE"
+        and root["nickname"] in root_nicknames
     ]
     roots_update_ok = [
         await update_root_mirror(
