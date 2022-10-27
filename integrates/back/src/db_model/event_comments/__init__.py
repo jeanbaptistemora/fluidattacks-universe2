@@ -7,9 +7,11 @@ from .add import (
 )
 from .remove import (
     remove,
+    remove_event_comments,
 )
 
 __all__ = [
     "add",
     "remove",
+    "remove_event_comments",
 ]
