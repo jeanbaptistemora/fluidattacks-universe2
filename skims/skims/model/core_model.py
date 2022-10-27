@@ -2808,6 +2808,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TSX_INSECURE_CIPHERS = MethodInfo(
+        file_name="typescript",
+        name="tsx_insecure_ciphers",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TSX_INSECURE_AES_CIPHER = MethodInfo(
+        file_name="typescript",
+        name="tsx_insecure_aes_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     KT_INSECURE_CIPHER = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_cipher",
