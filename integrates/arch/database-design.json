@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 26, 2022, 03:48 PM",
+    "DateLastModified": "Oct 27, 2022, 02:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -30488,17 +30488,17 @@
               },
               "unreliable_indicators": {
                 "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "1"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
                   "unreliable_last_reattack_requester": {
                     "S": "integratesuser@gmail.com"
                   },
                   "unreliable_last_requested_reattack_date": {
                     "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "unreliable_reattack_cycles": {
+                    "N": "1"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
                   },
                   "unreliable_efficacy": {
                     "N": "0"
@@ -30771,6 +30771,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-09-13T16:05:05+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -31038,6 +31041,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-09-13T15:09:02+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -31750,6 +31756,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-09-13T16:28:20+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -32284,6 +32293,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-09-13T14:03:05+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -32373,6 +32385,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-09-16T14:40:37+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -32842,6 +32857,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-01-15T20:59:16+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -32931,17 +32949,17 @@
               },
               "unreliable_indicators": {
                 "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "1"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
                   "unreliable_last_reattack_requester": {
                     "S": "integratesuser@gmail.com"
                   },
                   "unreliable_last_requested_reattack_date": {
                     "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "unreliable_reattack_cycles": {
+                    "N": "1"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
                   },
                   "unreliable_efficacy": {
                     "N": "0"
@@ -33194,6 +33212,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-01-15T20:59:16+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -33314,17 +33335,17 @@
               },
               "unreliable_indicators": {
                 "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "1"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
                   "unreliable_last_reattack_requester": {
                     "S": "integratesuser@gmail.com"
                   },
                   "unreliable_last_requested_reattack_date": {
                     "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "unreliable_reattack_cycles": {
+                    "N": "1"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
                   },
                   "unreliable_efficacy": {
                     "N": "0"
@@ -33553,6 +33574,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
@@ -33746,6 +33770,9 @@
                   },
                   "unreliable_source": {
                     "S": "ASM"
+                  },
+                  "unreliable_closing_date": {
+                    "S": "2020-02-19T15:42:04+00:00"
                   },
                   "unreliable_last_reattack_date": {
                     "S": "2020-02-19T15:41:04+00:00"
@@ -33972,6 +33999,9 @@
               },
               "unreliable_indicators": {
                 "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-08-07T13:45:48+00:00"
+                  },
                   "unreliable_reattack_cycles": {
                     "N": "0"
                   },
