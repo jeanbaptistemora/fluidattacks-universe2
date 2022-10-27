@@ -11,6 +11,8 @@ import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import _ from "lodash";
 import React, { Fragment } from "react";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { navigate } from "gatsby";
 
 const getEnvironment = () => {
   if (_.isUndefined(window)) {
@@ -51,6 +53,17 @@ const BugsnagErrorBoundary = _.isUndefined(reactPlugin)
   ? Fragment
   : reactPlugin.createErrorBoundary(React);
 
+const onRedirectCallback = (appState) => {
+  navigate(appState?.returnTo || "/", { replace: true });
+};
+
 export const wrapRootElement = ({ element }) => (
-  <BugsnagErrorBoundary>{element}</BugsnagErrorBoundary>
+  <Auth0Provider
+    domain={process.env.AUTH0_DOMAIN}
+    clientId={process.env.AUTH0_CLIENT_ID}
+    redirectUri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <BugsnagErrorBoundary>{element}</BugsnagErrorBoundary>
+  </Auth0Provider>
 );

@@ -37,6 +37,7 @@ const AdviseCards: React.FC = (): JSX.Element => {
               cveid
               date
               description
+              encrypted
               slug
               title
               severity
@@ -52,10 +53,12 @@ const AdviseCards: React.FC = (): JSX.Element => {
   );
 
   const listOfCards = adviseInfo.map((advisePage): JSX.Element => {
-    const { authors, codename, cveid, date, severity, slug, title } =
+    const { authors, codename, cveid, date, encrypted, severity, slug, title } =
       advisePage.node.frontmatter;
 
-    return (
+    return encrypted === "yes" ? (
+      <div />
+    ) : (
       <AdvisoryCardContainer key={codename}>
         <Badge
           bgColor={"#dddde3"}

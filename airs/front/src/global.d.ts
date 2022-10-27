@@ -33,6 +33,7 @@ interface IQueryData {
         defaux: string;
         definition: string;
         description: string;
+        encrypted: string;
         image: string;
         keywords: string;
         modified: string;
@@ -102,6 +103,7 @@ interface IData {
             date: string;
             definition: string;
             description: string;
+            encrypted: string;
             filter: string;
             image: string;
             partner: string;
