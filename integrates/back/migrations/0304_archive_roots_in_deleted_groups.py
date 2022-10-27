@@ -22,7 +22,7 @@ from dataloaders import (
 from db_model import (
     roots as roots_model,
 )
-from db_model.roots.get import (
+from db_model.roots.get import (  # type: ignore
     get_group_roots_items,
 )
 from decorators import (
