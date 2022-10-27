@@ -50,8 +50,8 @@ async def add(
         )
 
 
-async def remove(comment_id: str, event_id: str) -> None:
-    await event_comments_model.remove(comment_id=comment_id, event_id=event_id)
+async def remove_comments(event_id: str) -> None:
+    await event_comments_model.remove_event_comments(event_id=event_id)
 
 
 async def get_comments(

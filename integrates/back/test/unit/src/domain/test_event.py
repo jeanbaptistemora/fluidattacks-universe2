@@ -296,6 +296,7 @@ async def test_validate_evidence_invalid_file_size() -> None:
 async def test_mask_event() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900971"
+    group_name = "unittesting"
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_as_str(datetime_utils.get_now())
@@ -335,7 +336,7 @@ async def test_mask_event() -> None:
     assert len(await loaders.event_comments.load(event_id)) >= 1
     assert len(await events_domain.search_evidence(evidence_prefix)) >= 1
 
-    await events_domain.mask(loaders, event_id)
+    await events_domain.mask(event_id, group_name)
 
     new_loaders = get_new_context()
     assert len(await new_loaders.event_comments.load(event_id)) == 0

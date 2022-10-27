@@ -322,29 +322,18 @@ async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     return await authz.has_access_to_group(loaders, email, event.group_name)
 
 
-async def mask(loaders: Any, event_id: str) -> None:
-    event: Event = await loaders.event.load(event_id)
-    group_name = event.group_name
-
-    event_comments: tuple[
-        EventComment, ...
-    ] = await loaders.event_comments.load(event_id)
+async def mask(event_id: str, group_name: str) -> None:
     mask_events_coroutines = [
-        event_comments_domain.remove(comment.id, event_id)
-        for comment in event_comments
+        event_comments_domain.remove_comments(event_id),
+        events_model.update_metadata(
+            event_id=event_id,
+            group_name=group_name,
+            metadata=EventMetadataToUpdate(
+                client="Masked",
+                description="Masked",
+            ),
+        ),
     ]
-    mask_events_coroutines.extend(
-        [
-            events_model.update_metadata(
-                event_id=event_id,
-                group_name=group_name,
-                metadata=EventMetadataToUpdate(
-                    client="Masked",
-                    description="Masked",
-                ),
-            )
-        ]
-    )
     evidence_prefix = f"{group_name}/{event_id}"
     list_evidences = await search_evidence(evidence_prefix)
     mask_events_coroutines.extend(

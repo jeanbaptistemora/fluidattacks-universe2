@@ -17,18 +17,6 @@ from dynamodb.types import (
 )
 
 
-async def remove(*, comment_id: str, event_id: str) -> None:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["event_comment"],
-        values={
-            "id": comment_id,
-            "event_id": event_id,
-        },
-    )
-
-    await operations.delete_item(key=primary_key, table=TABLE)
-
-
 async def remove_event_comments(
     *,
     event_id: str,
