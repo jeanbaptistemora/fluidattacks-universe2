@@ -151,22 +151,24 @@ def test_go_mod() -> None:
         encoding="latin-1",
     ) as file_handle:
         file_contents: str = file_handle.read(-1)
-    resolv_deps_fun = go_mod.__wrapped__  # type: ignore
     content: List[str] = file_contents.splitlines()
-    generator_dep: Iterator[DependencyType] = resolv_deps_fun(
-        file_contents, path
-    )
+    generator_dep = go_mod.__wrapped__(file_contents, path)  # type: ignore
     assertion: bool = True
-    lines_deps = [*range(5, 29), *range(32, 87)]
-    for line_num in lines_deps:
-        version: str = content[line_num].strip().split()[1][1:]
+    for line_num in [*range(5, 29), *range(32, 87)]:
+        dep_splitted_info = content[line_num].strip().split()
+        pkg_name: str = dep_splitted_info[0]
+        version: str = dep_splitted_info[1][1:]
 
         try:
-            line, item = itemgetter("line", "item")(next(generator_dep)[1])
+            next_dep = next(generator_dep)
+            pkg_item = itemgetter("item")(next_dep[0])
+            line, item = itemgetter("line", "item")(next_dep[1])
         except StopIteration:
             assertion = not assertion
             break
-        equal_props: bool = version == item and line_num + 1 == line
+        equal_props: bool = (
+            pkg_item in pkg_name and version == item and line_num + 1 == line
+        )
         if not equal_props:
             assertion = not assertion
             break
