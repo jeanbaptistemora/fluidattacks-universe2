@@ -41,14 +41,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      announcementBar: {
-        id: 'support_us',
-        content:
-          'Try Continuous Hacking for FREE: find your applications\' vulnerabilities and control the remediation process on our platform. <a target="_blank" rel="noopener noreferrer" href="https://fluidattacks.com/free-trial/"><button>Start your 21-day free trial</button></a>',
-        backgroundColor: '#bf0b1a',
-        textColor: '#fff',
-        isCloseable: false,
-      },
       matomo: {
         matomoUrl: "https://fluidattacks.matomo.cloud/",
         siteId: "2",
@@ -94,6 +86,11 @@ const config = {
             activeBasePath: "development/",
             label: "Development",
             position: "right",
+          },
+          {
+            type: 'html',
+            position: 'right',
+            value: '<a target="_blank" rel="noopener noreferrer" href="https://fluidattacks.com/free-trial/"><button class="trial-button">Start your free trial</button></a>',
           },
         ],
       },

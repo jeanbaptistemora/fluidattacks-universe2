@@ -66,25 +66,18 @@
   text-decoration: none;
 }
 
-div[class^='announcementBar'] {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  font-family: 'Roboto', sans-serif !important;
-  font-size: 16px;
-  height: auto;
-  justify-content: center;
-}
-
-div[class^='announcementBar'] button {
-  background-color: #fff;
+.trial-button{
+  background-color: #bf0b1a;
   border: 0;
   border-radius: 4px;
-  color: #bf0b1a;
+  color: #fff;
   cursor: pointer;
   font-size: 16px;
-  margin: 10px;
   padding: 10px 16px;
+}
+
+.trial-button:hover{
+  background-color: #da1e28;
 }
 
 div[class^='announcementBar'] button:hover {
