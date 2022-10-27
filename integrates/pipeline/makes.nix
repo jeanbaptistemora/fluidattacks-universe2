@@ -19,6 +19,7 @@
     stage = "analytics";
   };
   functionalTests = [
+    ["abandoned_trial_notification"]
     ["accept_legal"]
     ["acknowledge_concurrent_session"]
     ["activate_root"]

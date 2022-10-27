@@ -54,6 +54,7 @@ from typing import (
 
 # Constants
 TEST_GROUPS: set[str] = {
+    "abandoned_trial_notification",
     "accept_legal",
     "acknowledge_concurrent_session",
     "activate_root",
