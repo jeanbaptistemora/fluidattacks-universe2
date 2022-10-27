@@ -12,6 +12,7 @@ from .enums import (
 )
 from .types import (
     Subscription,
+    SubscriptionHistoricRequest,
 )
 from .utils import (
     format_subscriptions,
@@ -89,7 +90,7 @@ async def _get_historic_subscription(
     subject: str,
 ) -> tuple[Subscription, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["stakeholder_subscription"],
+        facet=TABLE.facets["stakeholder_historic_subscription"],
         values={
             "email": email,
             "entity": entity.lower(),
@@ -123,13 +124,13 @@ class StakeholderHistoricSubscriptionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self,
-        emails: Iterable[str],
-        entities: Iterable[SubscriptionEntity],
-        subjects: Iterable[str],
+        requests: Iterable[SubscriptionHistoricRequest],
     ) -> tuple[tuple[Subscription, ...], ...]:
         return await collect(
             _get_historic_subscription(
-                email=email, entity=entity, subject=subject
+                email=request.email,
+                entity=request.entity,
+                subject=request.subject,
             )
-            for email, entity, subject in zip(emails, entities, subjects)
+            for request in requests
         )
