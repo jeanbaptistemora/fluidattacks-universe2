@@ -154,9 +154,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   field={
                     <Value
                       value={
-                        vulnerability.currentState === "closed"
-                          ? data.vulnerability.lastStateDate.split(" ")[0]
-                          : ""
+                        _.isNull(data.vulnerability.closingDate)
+                          ? ""
+                          : data.vulnerability.closingDate.split(" ")[0]
                       }
                     />
                   }

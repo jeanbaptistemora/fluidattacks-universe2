@@ -5,6 +5,7 @@
  */
 
 interface IVulnInfoAttr {
+  closingDate: string | null;
   commitHash: string | null;
   cycles: string;
   efficacy: string;

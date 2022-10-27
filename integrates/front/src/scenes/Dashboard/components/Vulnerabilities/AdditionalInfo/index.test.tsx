@@ -74,6 +74,7 @@ describe("AdditionalInfo", (): void => {
       data: {
         vulnerability: {
           __typename: "Vulnerability",
+          closingDate: "2020-09-05 03:23:23",
           commitHash: null,
           cycles: "1",
           efficacy: "0",
