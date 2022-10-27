@@ -65,6 +65,7 @@
     tap.gitlab
     tap.mandrill
     target.s3
+    target.redshift_2
   ];
   _if_exists = attrs: key: gitlabExtra:
     if builtins.hasAttr key attrs
