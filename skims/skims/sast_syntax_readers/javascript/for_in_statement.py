@@ -3,18 +3,21 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepLoop,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
 )
+from typing import (
+    Iterator,
+)
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     left_id = args.graph.nodes[args.n_id]["label_field_left"]
     left_data = args.graph.nodes[left_id]
     if left_data["label_type"] != "identifier":

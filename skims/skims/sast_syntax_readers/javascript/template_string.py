@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
     SyntaxStepSymbolLookup,
     SyntaxStepTemplateString,
 )
@@ -13,11 +13,12 @@ from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
 from typing import (
+    Iterator,
     List,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     pattern = re.compile(r"\$\{([a-zA-z_]*)\}")
     text = args.graph.nodes[args.n_id]["label_text"]
     result: List[str] = pattern.findall(text)

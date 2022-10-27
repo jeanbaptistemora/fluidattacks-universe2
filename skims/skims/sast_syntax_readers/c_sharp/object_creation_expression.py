@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepMeta,
     SyntaxStepObjectInstantiation,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
@@ -13,12 +13,15 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
+from typing import (
+    Iterator,
+)
 from utils.graph.text_nodes import (
     node_to_str,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     l_arg = "label_field_arguments"
     l_init = "label_field_initializer"
     l_type = "label_field_type"

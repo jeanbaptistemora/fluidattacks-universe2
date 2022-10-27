@@ -6,7 +6,7 @@ from model import (
     graph_model,
 )
 from model.graph_model import (
-    SyntaxStepsLazy,
+    SyntaxStep,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
@@ -15,12 +15,15 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
+from typing import (
+    Iterator,
+)
 from utils.graph.text_nodes import (
     node_to_str,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     constructor_id = node_attrs["label_field_constructor"]
     constructor = args.graph.nodes[constructor_id]

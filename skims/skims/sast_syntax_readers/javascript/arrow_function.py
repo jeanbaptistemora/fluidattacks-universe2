@@ -6,16 +6,19 @@ from model import (
     graph_model,
 )
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
+from typing import (
+    Iterator,
+)
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
 
     arguments = []

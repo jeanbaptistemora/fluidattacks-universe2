@@ -6,19 +6,22 @@ from .common import (
     get_var_type,
 )
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     # Methods have an extra parameter_list object, but we only need the one
     # that describes the arguments received by the function
     label_type = args.graph.nodes[args.n_id]["label_type"]
@@ -31,7 +34,9 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         yield from function_declaration_parameter(args.fork_n_id(p_id))
 
 
-def function_declaration_parameter(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def function_declaration_parameter(
+    args: SyntaxReaderArgs,
+) -> Iterator[SyntaxStep]:
     match = g.match_ast(args.graph, args.n_id, "identifier", "__0__")
     var_name_id = match["identifier"]
     var_type = get_var_type(args.fork_n_id(str(match["__0__"])))

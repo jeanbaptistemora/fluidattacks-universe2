@@ -3,18 +3,21 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepLoop,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 
 
 def reader(
     args: SyntaxReaderArgs,
-) -> SyntaxStepsLazy:
+) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     initializer_id = node_attrs["label_field_initializer"]
     condition_id = node_attrs["label_field_condition"]

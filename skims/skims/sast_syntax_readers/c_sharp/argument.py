@@ -3,20 +3,23 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepMeta,
     SyntaxStepNamedArgument,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     first_child, *other_childs = g.adj_ast(args.graph, args.n_id)
 
     if other_childs:

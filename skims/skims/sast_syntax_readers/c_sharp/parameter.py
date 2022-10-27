@@ -3,14 +3,17 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepDefaultParameter,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
@@ -20,7 +23,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node = args.graph.nodes[args.n_id]
     childs = g.adj_ast(args.graph, args.n_id)
 

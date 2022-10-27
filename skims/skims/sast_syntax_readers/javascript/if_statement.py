@@ -6,14 +6,17 @@ from model import (
     graph_model,
 )
 from model.graph_model import (
-    SyntaxStepsLazy,
+    SyntaxStep,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
+from typing import (
+    Iterator,
+)
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     consequence_id = node_attrs["label_field_consequence"]
     alternative_id = node_attrs.get("label_field_alternative")

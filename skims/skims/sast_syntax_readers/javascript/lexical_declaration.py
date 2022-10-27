@@ -3,16 +3,19 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
-    SyntaxStepsLazy,
+    SyntaxStep,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     match = g.match_ast(args.graph, args.n_id, "variable_declarator")
     yield from args.generic(args.fork_n_id(str(match["variable_declarator"])))

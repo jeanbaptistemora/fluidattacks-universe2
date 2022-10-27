@@ -3,16 +3,19 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
     SyntaxStepTernary,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
+from typing import (
+    Iterator,
+)
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     yield SyntaxStepTernary(
         meta=SyntaxStepMeta.default(

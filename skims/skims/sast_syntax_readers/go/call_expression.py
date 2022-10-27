@@ -4,10 +4,10 @@
 
 from model.graph_model import (
     CurrentInstance,
+    SyntaxStep,
     SyntaxStepMeta,
     SyntaxStepMethodInvocation,
     SyntaxStepMethodInvocationChain,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
@@ -16,12 +16,15 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
+from typing import (
+    Iterator,
+)
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     match = g.match_ast(
         args.graph,
         args.n_id,

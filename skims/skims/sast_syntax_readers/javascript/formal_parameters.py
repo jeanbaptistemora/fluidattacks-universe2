@@ -3,20 +3,23 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     parameters = (
         node
         for node in g.adj_ast(args.graph, args.n_id)[1:-1]
@@ -26,7 +29,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         yield from _yield_parameter(args.fork_n_id(parameter))
 
 
-def _yield_parameter(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def _yield_parameter(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     if node_attrs["label_type"] == "identifier":
         yield SyntaxStepDeclaration(
