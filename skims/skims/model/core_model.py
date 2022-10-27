@@ -4676,3 +4676,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    BASH_IMAGE_HAS_DIGEST = MethodInfo(
+        file_name="bash",
+        name="bash_image_has_digest",
+        module="lib_path",
+        finding=FindingEnum.F380,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
