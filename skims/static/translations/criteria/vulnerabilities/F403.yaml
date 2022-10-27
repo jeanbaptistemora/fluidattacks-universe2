@@ -1,0 +1,8 @@
+---
+lib_path.f403.insecure_configuration:
+  en: >
+    Ensure your application doesn't have android:usesCleartextTraffic
+    set to true, in order to prevent the reading of not encrypted resources.
+  es: >
+    Asegúrese de que su aplicación no tiene android:usesCleartextTraffic
+    con valor true, con el fin de evitar la lectura de recursos no encryptados.

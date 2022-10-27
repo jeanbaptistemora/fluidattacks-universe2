@@ -1044,6 +1044,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[75, 376, 377, 378],
     )
+    F403: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F403",
+        cwe=319,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[130, 138, 140],
+    )
     F405: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F405",
@@ -4614,6 +4621,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F015,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    XML_INSECURE_CONFIGURATION = MethodInfo(
+        file_name="conf_files",
+        name="xml_insecure_configuration",
+        module="lib_path",
+        finding=FindingEnum.F403,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     XML_NETWORK_SSL_DISABLED = MethodInfo(
         file_name="conf_files",

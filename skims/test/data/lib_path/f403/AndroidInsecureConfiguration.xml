@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Must Fail -->
+
+<widget xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- Vuln 1 -->
+  <application android:usesCleartextTraffic="true" />
+  <!-- Vuln 2 -->
+  <domain-config cleartextTrafficPermitted="true">
+    <any-other-tag></any-other-tag>
+  </domain-config>
+  <!-- Vuln 3 -->
+  <base-config cleartextTrafficPermitted="true">
+    <any-other-tag></any-other-tag>
+  </base-config>
+  <!-- Vuln 4 -->
+  <preferance name="android-usesCleartextTraffic" value="true" />
+</widget>
+
+<!-- Must not Fail -->
+<widget xmlns:android="http://schemas.android.com/apk/res/android">
+  <application android:usesCleartextTraffic="false" />
+  <domain-config cleartextTrafficPermitted="false">
+    <any-other-tag></any-other-tag>
+  </domain-config>
+  <base-config cleartextTrafficPermitted="false">
+    <any-other-tag></any-other-tag>
+  </base-config>
+  <preferance name="android-usesCleartextTraffic" value="false" />
+</widget>
