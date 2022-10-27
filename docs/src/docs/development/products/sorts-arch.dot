@@ -131,6 +131,7 @@ digraph sorts {
 
   edge[color="0.1 1.0 1.0"]
   aws_sagemaker -> aws_s3_sorts_training_output[label="store model results"]
+  aws_sagemaker  -> aws_s3_sorts_training[label="read training data"]
 
   edge[color="0.8 1.0 1.0"]
   github_fluidattacks_ai_extension_azuredevops -> aws_s3_sorts_training_output[label="copy paste"]
