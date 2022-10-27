@@ -783,6 +783,14 @@
       "title": "277. Weak credential policy - Password Expiration"
     }
   },
+  "F279": {
+    "EN": {
+      "title": "279. Root detection control bypass"
+    },
+    "ES": {
+      "title": "279. Root detection control bypass"
+    }
+  },
   "F281": {
     "EN": {
       "title": "281. Use of an insecure channel - AWS"
