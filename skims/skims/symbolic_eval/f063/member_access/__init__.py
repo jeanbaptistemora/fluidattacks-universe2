@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f063.member_access.c_sharp import (
     cs_open_redirect,
 )
+from symbolic_eval.f063.member_access.javascript import (
+    js_insecure_path_traversal,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_OPEN_REDIRECT: cs_open_redirect,
+    MethodsEnum.JS_PATH_TRAVERSAL: js_insecure_path_traversal,
 }
 
 

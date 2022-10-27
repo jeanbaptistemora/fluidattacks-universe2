@@ -6,3 +6,7 @@ lib_root.f063.c_sharp_open_redirect:
   en: Potentially untrusted HTTP request input reaches an HTTP response redirect.
   es: La entrada de una solicitud HTTP potencialmente no confiable llega a una redirección
     de respuesta HTTP.
+lib_root.f063.js_insecure_path_traversal:
+  en: User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname.
+  es: Los datos proporcionados por el usuario no se desinfectan, neutralizan o validan correctamente
+    para elementos especiales dentro del nombre de ruta.

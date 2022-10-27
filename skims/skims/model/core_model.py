@@ -2997,6 +2997,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_PATH_TRAVERSAL = MethodInfo(
+        file_name="javascript",
+        name="js_insecure_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     DATE = MethodInfo(
         file_name="analyze_headers",
         name="date",

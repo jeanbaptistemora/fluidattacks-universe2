@@ -10459,6 +10459,27 @@ F098,lines,namespace/skims/test/data/lib_root/f098/path_injection.cs,10,22,skims
   13 | }
      ^ Col 0
 ",c_sharp.c_sharp_path_injection
+F063,lines,namespace/skims/test/data/lib_root/f063/insecure_path_traversal.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/insecure_path_traversal.js","
+   1 | const fs = require('fs');
+   2 | const pathmodule = require('path');
+   3 |
+   4 | function safePathInjection(req, res) {
+   5 |   const reqPath = __dirname + req.query.filename; // user-controlled path
+   6 |   const resolvedPath = pathmodule.resolve(reqPath); // resolve will resolve ""../""
+   7 |
+   8 |   if (resolvedPath.startsWith(__dirname + '/uploads')) { // the requested filename cannot be retrieved outside of the ""/u
+   9 |     let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); // Compliant
+  10 |   }
+  11 | }
+  12 |
+  13 | function unsafePathInjection(req, res) {
+  14 |
+  15 |   const reqPath = __dirname + req.query.filename; // user-controlled path
+  16 |
+> 17 |   let data = fs.readFileSync(reqPath, { encoding: 'utf8', flag: 'r' }); // Noncompliant
+  18 | }
+     ^ Col 0
+",javascript.js_insecure_path_traversal
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,23,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
  in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml","
   13 |         Statement:
