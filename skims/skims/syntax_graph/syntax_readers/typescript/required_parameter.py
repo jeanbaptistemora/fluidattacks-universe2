@@ -11,23 +11,22 @@ from syntax_graph.syntax_nodes.parameter import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from utils.graph import (
-    adj_ast,
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    childs_id = adj_ast(
-        args.ast_graph,
-        args.n_id,
+    n_attrs = args.ast_graph.nodes[args.n_id]
+
+    pattern_id = n_attrs.get("label_field_pattern") or n_attrs.get(
+        "label_field_name"
     )
+    var_name = node_to_str(args.ast_graph, pattern_id) if pattern_id else None
 
-    ignore_types = {"?", ",", "="}
+    type_id = n_attrs.get("label_field_type")
+    var_type = None
+    if type_id:
+        var_type = node_to_str(args.ast_graph, type_id).replace(":", "")
 
-    valid_childs = [
-        child
-        for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] not in ignore_types
-    ]
-
-    return build_parameter_node(args, None, None, iter(valid_childs))
+    return build_parameter_node(args, var_name, var_type, None)

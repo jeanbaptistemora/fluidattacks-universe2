@@ -29283,7 +29283,7 @@
             "symbol": "counter"
           },
           "1033": {
-            "condition_id": "1035",
+            "condition_id": "1037",
             "label_type": "If",
             "true_id": "1042"
           },
@@ -29694,7 +29694,7 @@
             "label_type": "ExecutionBlock"
           },
           "1247": {
-            "condition_id": "1249",
+            "condition_id": "1251",
             "label_type": "If",
             "true_id": "1256"
           },
@@ -29815,7 +29815,7 @@
             "label_type": "ExecutionBlock"
           },
           "1304": {
-            "condition_id": "1306",
+            "condition_id": "1308",
             "label_type": "If",
             "true_id": "1313"
           },
@@ -30017,7 +30017,7 @@
             "label_type": "ExecutionBlock"
           },
           "1397": {
-            "condition_id": "1399",
+            "condition_id": "1401",
             "label_type": "If",
             "true_id": "1413"
           },
@@ -30310,7 +30310,7 @@
             "label_type": "ExecutionBlock"
           },
           "1527": {
-            "condition_id": "1529",
+            "condition_id": "1531",
             "label_type": "If",
             "true_id": "1544"
           },
@@ -30782,7 +30782,7 @@
             "symbol": "n"
           },
           "226": {
-            "condition_id": "228",
+            "condition_id": "230",
             "label_type": "If",
             "true_id": "232"
           },
@@ -30900,7 +30900,7 @@
             "symbol": "i"
           },
           "280": {
-            "condition_id": "282",
+            "condition_id": "284",
             "false_id": "300",
             "label_type": "If",
             "true_id": "286"
@@ -31153,7 +31153,7 @@
             "symbol": "counter"
           },
           "388": {
-            "condition_id": "390",
+            "condition_id": "392",
             "false_id": "407",
             "label_type": "If",
             "true_id": "400"
@@ -31256,7 +31256,7 @@
             "value_type": "string"
           },
           "433": {
-            "condition_id": "435",
+            "condition_id": "437",
             "label_type": "If",
             "true_id": "442"
           },
@@ -31309,7 +31309,7 @@
             "value_type": "string"
           },
           "460": {
-            "condition_id": "462",
+            "condition_id": "464",
             "false_id": "483",
             "label_type": "If",
             "true_id": "469"
@@ -31359,7 +31359,7 @@
             "value_type": "string"
           },
           "483": {
-            "condition_id": "485",
+            "condition_id": "487",
             "false_id": "506",
             "label_type": "If",
             "true_id": "492"
@@ -31618,7 +31618,7 @@
             "symbol": "i"
           },
           "608": {
-            "condition_id": "610",
+            "condition_id": "612",
             "label_type": "If",
             "true_id": "617"
           },
@@ -32088,7 +32088,7 @@
             "symbol": "counter"
           },
           "88": {
-            "condition_id": "90",
+            "condition_id": "92",
             "label_type": "If",
             "true_id": "103"
           },
@@ -32333,7 +32333,7 @@
             "label_type": "ExecutionBlock"
           },
           "990": {
-            "condition_id": "992",
+            "condition_id": "994",
             "label_type": "If",
             "true_id": "999"
           },
@@ -138155,14 +138155,6 @@
               "label_ast": "AST"
             }
           },
-          "1103": {
-            "1104": {
-              "label_ast": "AST"
-            },
-            "1107": {
-              "label_ast": "AST"
-            }
-          },
           "1123": {
             "1128": {
               "label_ast": "AST"
@@ -138237,51 +138229,6 @@
               "label_ast": "AST"
             }
           },
-          "1162": {
-            "1163": {
-              "label_ast": "AST"
-            },
-            "1166": {
-              "label_ast": "AST"
-            }
-          },
-          "1166": {
-            "1168": {
-              "label_ast": "AST"
-            },
-            "1171": {
-              "label_ast": "AST"
-            }
-          },
-          "1173": {
-            "1174": {
-              "label_ast": "AST"
-            },
-            "1177": {
-              "label_ast": "AST"
-            }
-          },
-          "1177": {
-            "1178": {
-              "label_ast": "AST"
-            },
-            "1188": {
-              "label_ast": "AST"
-            }
-          },
-          "1178": {
-            "1180": {
-              "label_ast": "AST"
-            }
-          },
-          "1180": {
-            "1181": {
-              "label_ast": "AST"
-            },
-            "1184": {
-              "label_ast": "AST"
-            }
-          },
           "1193": {
             "1198": {
               "label_ast": "AST"
@@ -138306,22 +138253,6 @@
           },
           "1208": {
             "1210": {
-              "label_ast": "AST"
-            }
-          },
-          "1210": {
-            "1211": {
-              "label_ast": "AST"
-            },
-            "1214": {
-              "label_ast": "AST"
-            }
-          },
-          "1214": {
-            "1215": {
-              "label_ast": "AST"
-            },
-            "1220": {
               "label_ast": "AST"
             }
           },
@@ -138351,11 +138282,6 @@
           },
           "1238": {
             "1240": {
-              "label_ast": "AST"
-            }
-          },
-          "1240": {
-            "1241": {
               "label_ast": "AST"
             }
           },
@@ -138614,11 +138540,6 @@
               "label_ast": "AST"
             }
           },
-          "1391": {
-            "1392": {
-              "label_ast": "AST"
-            }
-          },
           "1394": {
             "1396": {
               "label_ast": "AST",
@@ -138782,11 +138703,6 @@
           },
           "1483": {
             "1485": {
-              "label_ast": "AST"
-            }
-          },
-          "1485": {
-            "1486": {
               "label_ast": "AST"
             }
           },
@@ -139540,14 +139456,6 @@
               "label_ast": "AST"
             }
           },
-          "306": {
-            "307": {
-              "label_ast": "AST"
-            },
-            "311": {
-              "label_ast": "AST"
-            }
-          },
           "319": {
             "321": {
               "label_ast": "AST",
@@ -139870,14 +139778,6 @@
               "label_ast": "AST"
             }
           },
-          "581": {
-            "582": {
-              "label_ast": "AST"
-            },
-            "586": {
-              "label_ast": "AST"
-            }
-          },
           "591": {
             "593": {
               "label_ast": "AST"
@@ -139901,22 +139801,6 @@
               "label_ast": "AST"
             },
             "612": {
-              "label_ast": "AST"
-            }
-          },
-          "605": {
-            "606": {
-              "label_ast": "AST"
-            },
-            "610": {
-              "label_ast": "AST"
-            }
-          },
-          "612": {
-            "613": {
-              "label_ast": "AST"
-            },
-            "617": {
               "label_ast": "AST"
             }
           },
@@ -139982,14 +139866,6 @@
           },
           "647": {
             "649": {
-              "label_ast": "AST"
-            }
-          },
-          "649": {
-            "650": {
-              "label_ast": "AST"
-            },
-            "654": {
               "label_ast": "AST"
             }
           },
@@ -140068,14 +139944,6 @@
           },
           "710": {
             "712": {
-              "label_ast": "AST"
-            }
-          },
-          "712": {
-            "713": {
-              "label_ast": "AST"
-            },
-            "716": {
               "label_ast": "AST"
             }
           },
@@ -140305,21 +140173,6 @@
               "label_ast": "AST"
             }
           },
-          "866": {
-            "867": {
-              "label_ast": "AST"
-            }
-          },
-          "869": {
-            "870": {
-              "label_ast": "AST"
-            }
-          },
-          "872": {
-            "873": {
-              "label_ast": "AST"
-            }
-          },
           "876": {
             "879": {
               "label_ast": "AST",
@@ -140357,22 +140210,6 @@
               "label_ast": "AST"
             },
             "906": {
-              "label_ast": "AST"
-            }
-          },
-          "899": {
-            "900": {
-              "label_ast": "AST"
-            },
-            "904": {
-              "label_ast": "AST"
-            }
-          },
-          "906": {
-            "909": {
-              "label_ast": "AST"
-            },
-            "912": {
               "label_ast": "AST"
             }
           },
@@ -140535,15 +140372,9 @@
             "label_type": "ParameterList"
           },
           "1103": {
-            "label_type": "Parameter"
-          },
-          "1104": {
-            "label_type": "SymbolLookup",
-            "symbol": "fancy"
-          },
-          "1107": {
-            "label_type": "SymbolLookup",
-            "symbol": "T"
+            "label_type": "Parameter",
+            "variable": "fancy",
+            "variable_type": "T"
           },
           "1123": {
             "label_type": "VariableDeclaration",
@@ -140626,57 +140457,14 @@
             "label_type": "ParameterList"
           },
           "1162": {
-            "label_type": "Parameter"
-          },
-          "1163": {
-            "label_type": "SymbolLookup",
-            "symbol": "eventType"
-          },
-          "1166": {
-            "arguments_id": "1170",
-            "constructor_id": "1167",
-            "label_type": "NewExpression"
-          },
-          "1168": {
-            "label_type": "Literal",
-            "value": "\"keyboard\"",
-            "value_type": "string"
-          },
-          "1171": {
-            "label_type": "Literal",
-            "value": "\"mouse\"",
-            "value_type": "string"
+            "label_type": "Parameter",
+            "variable": "eventType",
+            "variable_type": "\"keyboard\"|\"mouse\""
           },
           "1173": {
-            "label_type": "Parameter"
-          },
-          "1174": {
-            "label_type": "SymbolLookup",
-            "symbol": "handler"
-          },
-          "1177": {
-            "arguments_id": "1187",
-            "constructor_id": "1178",
-            "label_type": "NewExpression"
-          },
-          "1178": {
-            "label_type": "ParameterList"
-          },
-          "1180": {
-            "label_type": "Parameter"
-          },
-          "1181": {
-            "label_type": "SymbolLookup",
-            "symbol": "event"
-          },
-          "1184": {
-            "label_type": "SymbolLookup",
-            "symbol": "InputEvent"
-          },
-          "1188": {
-            "label_type": "Literal",
-            "value": "void",
-            "value_type": "null"
+            "label_type": "Parameter",
+            "variable": "handler",
+            "variable_type": "(eventInputEvent)=>void"
           },
           "1190": {
             "label_type": "StatementBlock"
@@ -140710,24 +140498,9 @@
             "label_type": "ParameterList"
           },
           "1210": {
-            "label_type": "Parameter"
-          },
-          "1211": {
-            "label_type": "SymbolLookup",
-            "symbol": "func"
-          },
-          "1214": {
-            "arguments_id": "1219",
-            "constructor_id": "1215",
-            "label_type": "NewExpression"
-          },
-          "1215": {
-            "label_type": "ParameterList"
-          },
-          "1220": {
-            "label_type": "Literal",
-            "value": "void",
-            "value_type": "null"
+            "label_type": "Parameter",
+            "variable": "func",
+            "variable_type": "()=>void"
           },
           "1222": {
             "label_type": "StatementBlock"
@@ -140756,11 +140529,8 @@
             "label_type": "ParameterList"
           },
           "1240": {
-            "label_type": "Parameter"
-          },
-          "1241": {
-            "label_type": "SymbolLookup",
-            "symbol": "e"
+            "label_type": "Parameter",
+            "variable": "e"
           },
           "1244": {
             "arguments_id": "1249",
@@ -141065,11 +140835,8 @@
             "label_type": "ParameterList"
           },
           "1391": {
-            "label_type": "Parameter"
-          },
-          "1392": {
-            "label_type": "SymbolLookup",
-            "symbol": "stream"
+            "label_type": "Parameter",
+            "variable": "stream"
           },
           "1394": {
             "label_type": "StatementBlock"
@@ -141221,11 +140988,8 @@
             "label_type": "ParameterList"
           },
           "1485": {
-            "label_type": "Parameter"
-          },
-          "1486": {
-            "label_type": "SymbolLookup",
-            "symbol": "url"
+            "label_type": "Parameter",
+            "variable": "url"
           },
           "1488": {
             "label_type": "StatementBlock"
@@ -142078,21 +141842,14 @@
             "label_type": "ParameterList"
           },
           "306": {
-            "label_type": "Parameter"
-          },
-          "307": {
-            "label_type": "SymbolLookup",
-            "symbol": "error"
+            "label_type": "Parameter",
+            "variable": "error",
+            "variable_type": "unknown"
           },
           "31": {
             "label_type": "Literal",
             "value": "\"Sabrina\"",
             "value_type": "string"
-          },
-          "311": {
-            "label_type": "Literal",
-            "value": "unknown",
-            "value_type": "null"
           },
           "319": {
             "label_type": "StatementBlock"
@@ -142504,16 +142261,9 @@
             "label_type": "ParameterList"
           },
           "581": {
-            "label_type": "Parameter"
-          },
-          "582": {
-            "label_type": "SymbolLookup",
-            "symbol": "diameter"
-          },
-          "586": {
-            "label_type": "Literal",
-            "value": "number",
-            "value_type": "number"
+            "label_type": "Parameter",
+            "variable": "diameter",
+            "variable_type": "number"
           },
           "591": {
             "label_type": "Object"
@@ -142537,28 +142287,14 @@
             "label_type": "ParameterList"
           },
           "605": {
-            "label_type": "Parameter"
-          },
-          "606": {
-            "label_type": "SymbolLookup",
-            "symbol": "diameter"
-          },
-          "610": {
-            "label_type": "Literal",
-            "value": "number",
-            "value_type": "number"
+            "label_type": "Parameter",
+            "variable": "diameter",
+            "variable_type": "number"
           },
           "612": {
-            "label_type": "Parameter"
-          },
-          "613": {
-            "label_type": "SymbolLookup",
-            "symbol": "useInches"
-          },
-          "617": {
-            "label_type": "Literal",
-            "value": "boolean",
-            "value_type": "bool"
+            "label_type": "Parameter",
+            "variable": "useInches",
+            "variable_type": "boolean"
           },
           "62": {
             "arguments_id": "82",
@@ -142621,19 +142357,12 @@
             "label_type": "ParameterList"
           },
           "649": {
-            "label_type": "Parameter"
+            "label_type": "Parameter",
+            "variable": "arg",
+            "variable_type": "string"
           },
           "65": {
             "label_type": "Object"
-          },
-          "650": {
-            "label_type": "SymbolLookup",
-            "symbol": "arg"
-          },
-          "654": {
-            "label_type": "Literal",
-            "value": "string",
-            "value_type": "string"
           },
           "662": {
             "label_type": "MethodDeclaration",
@@ -142729,15 +142458,9 @@
             "label_type": "ParameterList"
           },
           "712": {
-            "label_type": "Parameter"
-          },
-          "713": {
-            "label_type": "SymbolLookup",
-            "symbol": "action"
-          },
-          "716": {
-            "label_type": "SymbolLookup",
-            "symbol": "MouseAction"
+            "label_type": "Parameter",
+            "variable": "action",
+            "variable_type": "MouseAction"
           },
           "719": {
             "label_type": "StatementBlock"
@@ -142992,25 +142715,16 @@
             "label_type": "ParameterList"
           },
           "866": {
-            "label_type": "Parameter"
-          },
-          "867": {
-            "label_type": "SymbolLookup",
-            "symbol": "ball"
+            "label_type": "Parameter",
+            "variable": "ball"
           },
           "869": {
-            "label_type": "Parameter"
-          },
-          "870": {
-            "label_type": "SymbolLookup",
-            "symbol": "_index"
+            "label_type": "Parameter",
+            "variable": "_index"
           },
           "872": {
-            "label_type": "Parameter"
-          },
-          "873": {
-            "label_type": "SymbolLookup",
-            "symbol": "_balls"
+            "label_type": "Parameter",
+            "variable": "_balls"
           },
           "876": {
             "label_type": "StatementBlock"
@@ -143051,26 +142765,14 @@
             "label_type": "ParameterList"
           },
           "899": {
-            "label_type": "Parameter"
-          },
-          "900": {
-            "label_type": "SymbolLookup",
-            "symbol": "id"
-          },
-          "904": {
-            "label_type": "Literal",
-            "value": "number",
-            "value_type": "number"
+            "label_type": "Parameter",
+            "variable": "id",
+            "variable_type": "number"
           },
           "906": {
-            "label_type": "Parameter"
-          },
-          "909": {
-            "label_type": "SymbolLookup",
-            "symbol": "args"
-          },
-          "912": {
-            "label_type": "ArrayInitializer"
+            "label_type": "Parameter",
+            "variable": "...args",
+            "variable_type": "[...number[]]"
           },
           "929": {
             "arguments_id": "931",
