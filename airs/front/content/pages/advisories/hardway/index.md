@@ -30,8 +30,8 @@ template: advisory
 
 |                       |                                                                                                                             |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------|
-| **Kind**              | Cross-site request forgery                                                                                                  |
-| **Rule**              | [007. Cross-site request forgery](https://docs.fluidattacks.com/criteria/vulnerabilities/007)                               |
+| **Kind**              | Reflected cross-site scripting (XSS)                                                                                        |
+| **Rule**              | [008. Reflected cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/008)                     |
 | **Remote**            | Yes                                                                                                                         |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H                                                                                |
 | **CVSSv3 Base Score** | 8.8                                                                                                                         |
