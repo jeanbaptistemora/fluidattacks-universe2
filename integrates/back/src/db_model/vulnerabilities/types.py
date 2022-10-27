@@ -119,6 +119,7 @@ class VulnerabilityEdge(NamedTuple):
 class VulnerabilitiesConnection(NamedTuple):
     edges: Tuple[VulnerabilityEdge, ...]
     page_info: PageInfo
+    total: Optional[int] = None
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):

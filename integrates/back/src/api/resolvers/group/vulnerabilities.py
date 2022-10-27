@@ -10,7 +10,6 @@ from db_model.vulnerabilities.types import (
     VulnerabilityEdge,
 )
 from db_model.vulnerabilities.utils import (
-    filter_non_zero_risk_confirmed,
     format_vulnerability,
 )
 from graphql import (
@@ -50,6 +49,7 @@ async def resolve(
         after=after,
         exact_filters={"group_name": parent.name},
         must_filters=must_filters,
+        must_not_filters=[{"zero_risk.status": "CONFIRMED"}],
         index="vulnerabilities",
         limit=first,
         query=query,
@@ -58,8 +58,8 @@ async def resolve(
     draft_ids = tuple(
         draft.id for draft in await loaders.group_drafts.load(parent.name)
     )
-    vulnerabilities = filter_non_zero_risk_confirmed(
-        tuple(format_vulnerability(result) for result in results.items)
+    vulnerabilities = tuple(
+        format_vulnerability(result) for result in results.items
     )
 
     return VulnerabilitiesConnection(
@@ -72,4 +72,5 @@ async def resolve(
             if vulnerability.finding_id not in draft_ids
         ),
         page_info=results.page_info,
+        total=results.total,
     )
