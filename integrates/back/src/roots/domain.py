@@ -67,9 +67,6 @@ from db_model.roots.enums import (
     RootStatus,
     RootType,
 )
-from db_model.roots.get import (
-    get_root_item,
-)
 from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
@@ -118,9 +115,6 @@ from organizations import (
 )
 import pytz
 import re
-from redshift import (
-    roots as redshift_roots,
-)
 from roots import (
     utils as roots_utils,
     validations,
@@ -1844,6 +1838,4 @@ async def remove_root(
         root=root,
         email=email,
     )
-    item = await get_root_item(group_name=group_name, root_id=root.id)
-    await redshift_roots.insert_root(item=item)
     await roots_model.remove(root_id=root.id)
