@@ -18,9 +18,9 @@ function main {
       GATSBY_ALGOLIA_APP_ID \
       GATSBY_ALGOLIA_SEARCH_KEY \
       ALGOLIA_ADMIN_KEY \
-      AUTH0_DOMAIN \
-      AUTH0_CLIENT_ID \
-      AUTH0_CALLBACK \
+      GATSBY_AUTH0_DOMAIN \
+      GATSBY_AUTH0_CLIENT_ID \
+      GATSBY_AUTH0_CALLBACK \
     && pushd "${src}" \
     && rm -rf node_modules \
     && copy __argAirsNpm__ node_modules \
