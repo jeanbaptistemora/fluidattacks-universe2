@@ -289,7 +289,7 @@ async def _process_subscription(
 
 async def trigger_subscriptions_analytics() -> None:
     """Process subscriptions given a frequency from a related scheduler."""
-    # Never: Unsubscribed yet still a stakeholder in the entity
+    # Never:   Unsubscribed yet still a stakeholder in the entity
     # Hourly:  Supported but not in use by any subscription
     # Daily:   Monday to Friday @ 10:00 UTC (5:00 GMT-5)
     # Weekly:  Mondays @ 10:00 UTC (5:00 GMT-5)

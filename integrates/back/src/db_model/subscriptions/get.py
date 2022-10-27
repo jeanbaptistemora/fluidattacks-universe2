@@ -7,6 +7,7 @@ from .constants import (
     SUBSCRIPTIONS_PREFIX,
 )
 from .enums import (
+    SubscriptionEntity,
     SubscriptionFrequency,
 )
 from .types import (
@@ -81,6 +82,33 @@ async def get_all_subscriptions(
     return tuple(format_subscriptions(item) for item in response.items)
 
 
+async def _get_historic_subscription(
+    *,
+    email: str,
+    entity: SubscriptionEntity,
+    subject: str,
+) -> tuple[Subscription, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["stakeholder_subscription"],
+        values={
+            "email": email,
+            "entity": entity.lower(),
+            "subject": subject,
+        },
+    )
+    key_structure = TABLE.primary_key
+    condition_expression = Key(key_structure.partition_key).eq(
+        primary_key.partition_key
+    ) & Key(key_structure.sort_key).begins_with(SUBSCRIPTIONS_PREFIX)
+    response = await operations.query(
+        condition_expression=condition_expression,
+        facets=(TABLE.facets["stakeholder_historic_subscription"],),
+        table=TABLE,
+    )
+
+    return tuple(format_subscriptions(item) for item in response.items)
+
+
 class StakeholderSubscriptionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -88,4 +116,20 @@ class StakeholderSubscriptionsLoader(DataLoader):
     ) -> tuple[tuple[Subscription, ...], ...]:
         return await collect(
             _get_stakeholder_subscriptions(email=email) for email in emails
+        )
+
+
+class StakeholderHistoricSubscriptionLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self,
+        emails: Iterable[str],
+        entities: Iterable[SubscriptionEntity],
+        subjects: Iterable[str],
+    ) -> tuple[tuple[Subscription, ...], ...]:
+        return await collect(
+            _get_historic_subscription(
+                email=email, entity=entity, subject=subject
+            )
+            for email, entity, subject in zip(emails, entities, subjects)
         )
