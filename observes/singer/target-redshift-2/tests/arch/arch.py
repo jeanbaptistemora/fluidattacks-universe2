@@ -32,7 +32,10 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "_truncate",
     ),
     "target_redshift.loader.strategy": (
-        "_recreate_all",
+        (
+            "_recreate_all",
+            "_per_stream",
+        ),
         "_core",
     ),
     "target_redshift.data_schema": (
