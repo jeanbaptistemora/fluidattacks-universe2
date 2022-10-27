@@ -54,6 +54,7 @@ from syntax_graph.syntax_readers.typescript import (
     array as typescript_array,
     as_expression as typescript_as_expression,
     class_body as typescript_class_body,
+    debugger_statement as typescript_debugger_statement,
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
@@ -168,6 +169,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "comment",
         },
         syntax_reader=javascript_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "debugger_statement",
+        },
+        syntax_reader=typescript_debugger_statement.reader,
     ),
     Dispatcher(
         applicable_types={

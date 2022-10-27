@@ -82,6 +82,7 @@ DISPATCHERS: Dispatchers = (
             "CatchDeclaration",
             "Continue",
             "Comment",
+            "Debugger",
             "ElementAccess",
             "FieldAccess",
             "FieldDeclaration",
