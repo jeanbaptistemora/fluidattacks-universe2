@@ -8,6 +8,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -167,6 +168,78 @@ describe("groupContent", (): void => {
           <authzGroupContext.Provider
             value={new PureAbility([{ action: "has_squad" }])}
           >
+            <authzPermissionsContext.Provider value={new PureAbility([])}>
+              <Route
+                component={GroupContent}
+                path={"/orgs/:organizationName/groups/:groupName/vulns"}
+              />
+            </authzPermissionsContext.Provider>
+          </authzGroupContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await expect(
+      screen.findByText("group.accessDenied.title")
+    ).resolves.toBeInTheDocument();
+    expect(
+      screen.queryByText("group.accessDenied.btn")
+    ).not.toBeInTheDocument();
+  });
+
+  it("should allow dismissing", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const orgMock: MockedResponse<IGetOrganizationId> = {
+      request: {
+        query: GET_ORGANIZATION_ID,
+        variables: {
+          organizationName: "testorg",
+        },
+      },
+      result: {
+        data: {
+          organizationId: {
+            id: "ORG#f0c74b3e-bce4-4946-ba63-cb7e113ee817",
+            name: "testorg",
+          },
+        },
+      },
+    };
+    const groupMock: MockedResponse<IGroupData> = {
+      request: {
+        query: GET_GROUP_DATA,
+        variables: {
+          groupName: "testgroup",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            businessId: "",
+            businessName: "",
+            description: "",
+            hasForces: true,
+            hasMachine: true,
+            hasSquad: false,
+            language: "",
+            managed: "UNDER_REVIEW",
+            organization: { name: "" },
+            service: "",
+            sprintDuration: "",
+            sprintStartDate: "",
+            subscription: "",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/testorg/groups/testgroup/vulns"]}>
+        <MockedProvider mocks={[orgMock, groupMock]}>
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "has_squad" }])}
+          >
             <authzPermissionsContext.Provider
               value={
                 new PureAbility([
@@ -184,8 +257,14 @@ describe("groupContent", (): void => {
       </MemoryRouter>
     );
 
+    const continueAccess = await screen.findByText("group.accessDenied.btn");
+
+    expect(continueAccess).toBeInTheDocument();
+
+    await userEvent.click(continueAccess);
+
     await expect(
-      screen.findByText("group.accessDenied.title")
+      screen.findByText("group.tabs.findings.text")
     ).resolves.toBeInTheDocument();
   });
 });
