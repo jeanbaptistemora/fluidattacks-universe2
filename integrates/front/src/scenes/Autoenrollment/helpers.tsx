@@ -130,6 +130,12 @@ const handleValidationError = (
           type: "error",
         });
         break;
+      case "Exception - The URL is not valid":
+        setMessages({
+          message: t("group.scope.git.errors.invalid"),
+          type: "error",
+        });
+        break;
       default:
         setMessages({
           message: t("groupAlerts.errorTextsad"),

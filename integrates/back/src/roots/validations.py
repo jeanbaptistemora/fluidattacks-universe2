@@ -72,7 +72,11 @@ async def validate_git_access(
     branch: str,
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret],
 ) -> None:
-    url = roots_utils.format_git_repo_url(url)
+    try:
+        url = roots_utils.format_git_repo_url(url)
+    except LocationParseError as ex:
+        raise InvalidUrl() from ex
+
     if isinstance(secret, SshSecret):
         secret = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(secret.key)
