@@ -90,13 +90,12 @@ const useFilters = <IData extends object>(
     if (typeof filter.key === "function") return filter.key(dataPoint);
     if (filter.rangeValues === undefined) return true;
     const currentNumber = parseInt(String(dataPoint[filter.key]), 10);
-    const isLower = _.isEmpty(filter.rangeValues[0])
+    const isHigher = _.isEmpty(filter.rangeValues[0])
       ? true
-      : currentNumber <= parseInt(filter.rangeValues[0], 10);
-
-    const isHigher = _.isEmpty(filter.rangeValues[1])
+      : currentNumber >= parseInt(filter.rangeValues[0], 10);
+    const isLower = _.isEmpty(filter.rangeValues[1])
       ? true
-      : currentNumber >= parseInt(filter.rangeValues[1], 10);
+      : currentNumber <= parseInt(filter.rangeValues[1], 10);
 
     return isLower && isHigher;
   }
@@ -110,10 +109,10 @@ const useFilters = <IData extends object>(
     const currentDate = Date.parse(String(dataPoint[filter.key]));
     const isHigher = _.isEmpty(filter.rangeValues[0])
       ? true
-      : currentDate >= parseInt(filter.rangeValues[0], 10);
+      : currentDate >= Date.parse(filter.rangeValues[0]);
     const isLower = _.isEmpty(filter.rangeValues[1])
       ? true
-      : currentDate <= parseInt(filter.rangeValues[1], 10);
+      : currentDate <= Date.parse(filter.rangeValues[1]);
 
     return isHigher && isLower;
   }
@@ -148,6 +147,30 @@ const Filters = <IData extends object>({
   filters,
   setFilters,
 }: IFiltersProps<IData>): JSX.Element => {
+  function onRangeValueChangeHandler(
+    id: string,
+    position: 0 | 1
+  ): (event: React.ChangeEvent<HTMLInputElement>) => void {
+    return (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setFilters(
+        filters.map((filter): IFilter<IData> => {
+          const value: [string, string] =
+            position === 0
+              ? [event.target.value, filter.rangeValues?.[1] ?? ""]
+              : [filter.rangeValues?.[0] ?? "", event.target.value];
+          if (filter.id === id) {
+            return {
+              ...filter,
+              rangeValues: value,
+            };
+          }
+
+          return filter;
+        })
+      );
+    };
+  }
+
   function onValueChangeHandler(
     id: string
   ): (event: React.ChangeEvent<HTMLInputElement>) => void {
@@ -209,7 +232,7 @@ const Filters = <IData extends object>({
                     field={{
                       name: filter.id,
                       onBlur: (): void => undefined,
-                      onChange: onValueChangeHandler(filter.id),
+                      onChange: onRangeValueChangeHandler(filter.id, 0),
                       value:
                         filter.rangeValues?.[0] === undefined
                           ? ""
@@ -226,7 +249,7 @@ const Filters = <IData extends object>({
                     field={{
                       name: filter.id,
                       onBlur: (): void => undefined,
-                      onChange: onValueChangeHandler(filter.id),
+                      onChange: onRangeValueChangeHandler(filter.id, 1),
                       value:
                         filter.rangeValues?.[1] === undefined
                           ? ""
@@ -273,13 +296,11 @@ const Filters = <IData extends object>({
                     field={{
                       name: filter.id,
                       onBlur: (): void => undefined,
-                      onChange: onValueChangeHandler(filter.id),
+                      onChange: onRangeValueChangeHandler(filter.id, 0),
                       value:
                         filter.rangeValues?.[0] === undefined
                           ? ""
-                          : new Date(filter.rangeValues[0])
-                              .toISOString()
-                              .split("T")[0],
+                          : filter.rangeValues[0],
                     }}
                     form={{ errors: {}, touched: {} }}
                     label={filter.label}
@@ -291,13 +312,11 @@ const Filters = <IData extends object>({
                     field={{
                       name: filter.id,
                       onBlur: (): void => undefined,
-                      onChange: onValueChangeHandler(filter.id),
+                      onChange: onRangeValueChangeHandler(filter.id, 1),
                       value:
                         filter.rangeValues?.[1] === undefined
                           ? ""
-                          : new Date(filter.rangeValues[1])
-                              .toISOString()
-                              .split("T")[0],
+                          : filter.rangeValues[1],
                     }}
                     form={{ errors: {}, touched: {} }}
                     label={""}
