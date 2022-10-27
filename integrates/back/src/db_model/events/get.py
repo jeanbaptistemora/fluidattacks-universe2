@@ -33,9 +33,59 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.types import (
+    Item,
+)
 from typing import (
     Iterable,
 )
+
+
+async def get_event_item(*, event_id: str) -> Item:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_metadata"],
+        values={"id": event_id},
+    )
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["event_metadata"],),
+        limit=1,
+        table=TABLE,
+    )
+
+    if not response.items:
+        raise EventNotFound()
+
+    return response.items[0]
+
+
+async def get_group_events_items(
+    *,
+    group_name: str,
+) -> tuple[Item, ...]:
+    facet = TABLE.facets["event_metadata"]
+    primary_key = keys.build_key(
+        facet=facet,
+        values={"name": group_name},
+    )
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    condition_expression = Key(key_structure.partition_key).eq(
+        primary_key.sort_key
+    ) & Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+    response = await operations.query(
+        condition_expression=condition_expression,
+        facets=(TABLE.facets["event_metadata"],),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(response.items)
 
 
 async def _get_event(*, event_id: str) -> Event:

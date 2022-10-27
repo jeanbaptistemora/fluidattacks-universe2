@@ -35,6 +35,7 @@ def format_row_metadata(
         group_name=item["group_name"],
         hacker=item["hacker"],
         root_id=item.get("root_id"),
+        solution_reason=item["state"].get("reason"),
         solving_date=datetime.fromisoformat(unreliable_solving_date)
         if unreliable_solving_date
         else None,

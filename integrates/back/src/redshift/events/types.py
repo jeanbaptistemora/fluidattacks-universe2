@@ -23,6 +23,7 @@ class MetadataTableRow:
     group_name: str
     hacker: str
     root_id: Optional[str]
+    solution_reason: Optional[str]
     solving_date: Optional[datetime]
     status: str
     type: str

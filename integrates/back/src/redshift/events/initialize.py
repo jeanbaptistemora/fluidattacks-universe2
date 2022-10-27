@@ -31,6 +31,7 @@ async def _initialize_metadata_table() -> None:
                 group_name VARCHAR,
                 hacker VARCHAR,
                 root_id VARCHAR,
+                solution_reason VARCHAR,
                 solving_date TIMESTAMPTZ,
                 status VARCHAR,
                 type VARCHAR,
