@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 27, 2022, 02:08 PM",
+    "DateLastModified": "Oct 28, 2022, 03:18 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -19911,7 +19911,7 @@
                         "S": "2020-03-11T15:57:45+00:00"
                       },
                       "file_name": {
-                        "S": "unittesting_418900971_evidence_image_1.png"
+                        "S": "unittesting_484763304_evidence_image_1.png"
                       }
                     }
                   },
@@ -20136,6 +20136,66 @@
                   },
                   "modified_date": {
                     "S": "2021-05-25T14:36:27+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
+              }
+            },
+            {
+              "group_name": {
+                "S": "deletegroup"
+              },
+              "description": {
+                "S": "Testing this event removal"
+              },
+              "unreliable_indicators": {
+                "M": {}
+              },
+              "type": {
+                "S": "DATA_UPDATE_REQUIRED"
+              },
+              "created_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "event_date": {
+                "S": "2022-10-27T00:00:00+00:00"
+              },
+              "sk": {
+                "S": "GROUP#deletegroup"
+              },
+              "client": {
+                "S": "Fluid Attacks"
+              },
+              "pk_2": {
+                "S": "GROUP#asgard"
+              },
+              "created_date": {
+                "S": "2022-10-28T00:00:00+00:00"
+              },
+              "id": {
+                "S": "48192579"
+              },
+              "pk": {
+                "S": "EVENT#48192579"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2022-10-28T00:00:00+00:01"
                   },
                   "status": {
                     "S": "CREATED"
@@ -20552,6 +20612,40 @@
               },
               "status": {
                 "S": "SOLVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-10-28T00:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "EVENT#48192579"
+              },
+              "modified_date": {
+                "S": "2022-10-28T00:00:00+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-10-28T00:00:00+00:01"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "EVENT#48192579"
+              },
+              "modified_date": {
+                "S": "2022-10-28T00:00:00+00:01"
+              },
+              "status": {
+                "S": "CREATED"
               }
             }
           ],

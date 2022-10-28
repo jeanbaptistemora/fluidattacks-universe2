@@ -1349,9 +1349,10 @@ async def remove_resources(
     )
     await collect(
         tuple(
-            events_domain.mask(event.id, group_name) for event in group_events
+            events_domain.remove_event(event.id, group_name)
+            for event in group_events
         ),
-        workers=16,
+        workers=4,
     )
     await mask_comments(loaders, group_name)
     await mask_files(loaders, group_name)

@@ -12,6 +12,7 @@ from back.test.unit.src.utils import (
 )
 from custom_exceptions import (
     EventAlreadyClosed,
+    EventNotFound,
     InvalidCommentParent,
     InvalidFileSize,
     InvalidFileType,
@@ -293,10 +294,10 @@ async def test_validate_evidence_invalid_file_size() -> None:
 
 
 @pytest.mark.changes_db
-async def test_mask_event() -> None:
+async def test_remove_event() -> None:
     loaders: Dataloaders = get_new_context()
-    event_id = "418900971"
-    group_name = "unittesting"
+    event_id = "48192579"
+    group_name = "deletegroup"
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_as_str(datetime_utils.get_now())
@@ -330,16 +331,17 @@ async def test_mask_event() -> None:
             uploaded_file,
             datetime_utils.get_now(),
         )
-    evidence_prefix = f"unittesting/{event_id}"
+    evidence_prefix = f"{group_name}/{event_id}"
 
     loaders = get_new_context()
     assert len(await loaders.event_comments.load(event_id)) >= 1
     assert len(await events_domain.search_evidence(evidence_prefix)) >= 1
+    assert await loaders.event.load(event_id)
 
-    await events_domain.mask(event_id, group_name)
+    await events_domain.remove_event(event_id, group_name)
 
     new_loaders = get_new_context()
     assert len(await new_loaders.event_comments.load(event_id)) == 0
     assert len(await events_domain.search_evidence(evidence_prefix)) == 0
-    event: Event = await new_loaders.event.load(event_id)
-    assert event.description == "Masked"
+    with pytest.raises(EventNotFound):
+        await new_loaders.event.load(event_id)
