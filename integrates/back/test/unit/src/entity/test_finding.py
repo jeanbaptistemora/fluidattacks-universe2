@@ -85,27 +85,33 @@ async def test_finding_age() -> None:
 async def test_finding() -> None:
     """Check for finding query."""
     expected_vuln = {
-        "id": "0a848781-b6a4-422e-95fa-692151e6a98z",
-        "findingId": "422286126",
-        "where": "test/data/lib_path/f060/csharp.cs",
-        "specific": "12",
-        "historicState": [
+        "edges": [
             {
-                "date": "2020-01-03 12:46:10",
-                "hacker": "unittest@fluidattacks.com",
-                "source": "asm",
-                "state": "open",
+                "node": {
+                    "id": "0a848781-b6a4-422e-95fa-692151e6a98z",
+                    "findingId": "422286126",
+                    "where": "test/data/lib_path/f060/csharp.cs",
+                    "specific": "12",
+                    "historicState": [
+                        {
+                            "date": "2020-01-03 12:46:10",
+                            "hacker": "unittest@fluidattacks.com",
+                            "source": "asm",
+                            "state": "open",
+                        }
+                    ],
+                    "tag": "",
+                    "severity": None,
+                    "remediated": False,
+                    "verification": None,
+                    "currentState": "open",
+                    "hacker": "unittest@fluidattacks.com",
+                    "source": "asm",
+                    "vulnerabilityType": "lines",
+                    "zeroRisk": None,
+                }
             }
-        ],
-        "tag": "",
-        "severity": None,
-        "remediated": False,
-        "verification": None,
-        "currentState": "open",
-        "hacker": "unittest@fluidattacks.com",
-        "source": "asm",
-        "vulnerabilityType": "lines",
-        "zeroRisk": None,
+        ]
     }
     expected_tracking = [
         {
@@ -195,26 +201,30 @@ async def test_finding() -> None:
           currentState
           verified
           minTimeToRemediate
-          vulnerabilities {
-            id
-            findingId
-            where
-            specific
-            historicState {
-              date
-              hacker
-              source
-              state
+          vulnerabilitiesConnection {
+            edges {
+                node {
+                  id
+                  findingId
+                  where
+                  specific
+                  historicState {
+                    date
+                    hacker
+                    source
+                    state
+                  }
+                  tag
+                  severity
+                  remediated
+                  verification
+                  currentState
+                  hacker
+                  source
+                  vulnerabilityType
+                  zeroRisk
+                }
             }
-            tag
-            severity
-            remediated
-            verification
-            currentState
-            hacker
-            source
-            vulnerabilityType
-            zeroRisk
           }
           __typename
       }
@@ -258,13 +268,12 @@ async def test_finding() -> None:
     assert result["data"]["finding"]["state"] == "open"
     assert "lastVulnerability" in result["data"]["finding"]
     assert "historicState" in result["data"]["finding"]
-    assert "vulnerabilities" in result["data"]["finding"]
+    assert "vulnerabilitiesConnection" in result["data"]["finding"]
     assert "minTimeToRemediate" in result["data"]["finding"]
-    assert result["data"]["finding"]["vulnerabilities"][-1] == expected_vuln
-    for field, value in result["data"]["finding"]["vulnerabilities"][
-        -1
-    ].items():
-        assert value == expected_vuln[field]
+    print(result["data"]["finding"]["vulnerabilitiesConnection"])
+    assert (
+        result["data"]["finding"]["vulnerabilitiesConnection"] == expected_vuln
+    )
 
 
 @pytest.mark.changes_db

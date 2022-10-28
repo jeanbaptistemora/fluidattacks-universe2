@@ -98,8 +98,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     hacker: str = "test1@gmail.com"
     current_state: str = "APPROVED"
     verified: bool = False
-    open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
-    closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     title: str = "001. SQL injection - C Sharp SQL API"
     description: str = "I just have updated the description"
@@ -220,15 +218,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
         result["data"]["finding"]["minTimeToRemediate"]
         == min_time_to_remediate
     )
-    assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
-    vuln_ids: List[str] = [
-        vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
-    ]
-    assert open_vuln in vuln_ids
-    assert closed_vuln in vuln_ids
-    assert result["data"]["finding"]["zeroRisk"] == [
-        {"id": "7771bc87-8633-4a4a-8d8e-7dae0ca57e7a"}
-    ]
     assert result["data"]["finding"]["where"] == where
     assert result["data"]["finding"]["vulnerabilitiesConnection"] == {
         "edges": [

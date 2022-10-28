@@ -102,9 +102,6 @@ async def get_result(
                         open
                     }}
                     verified
-                    vulnerabilities {{
-                        id
-                    }}
                 }}
                 success
             }}

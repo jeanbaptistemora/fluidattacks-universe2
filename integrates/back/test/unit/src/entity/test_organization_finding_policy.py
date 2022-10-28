@@ -90,11 +90,15 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {
             finding(identifier: $findingId) {
-                vulnerabilities(state: "open") {
-                    tag
-                    historicTreatment {
-                        user
-                        treatment
+                vulnerabilitiesConnection(state: OPEN) {
+                    edges{
+                        node{
+                            tag
+                            historicTreatment {
+                                user
+                                treatment
+                            }
+                        }
                     }
                 }
             }
@@ -103,9 +107,12 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     vulns_data = {"query": vulns_query, "variables": {"findingId": finding_id}}
     result = await _get_result_async(vulns_data)
     assert "errors" not in result
-    vulns = result["data"]["finding"]["vulnerabilities"]
-    assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
-    assert vulns[0]["tag"] == ""
+    vulns = result["data"]["finding"]["vulnerabilitiesConnection"]
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
+        == "NEW"
+    )
+    assert vulns["edges"][0]["node"]["tag"] == ""
 
     tags = ["password", "session"]
     add_mutation = """
@@ -188,12 +195,16 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     vulns_data = {"query": vulns_query, "variables": {"findingId": finding_id}}
     result = await _get_result_async(vulns_data)
     assert "errors" not in result
-    vulns = result["data"]["finding"]["vulnerabilities"]
+    vulns = result["data"]["finding"]["vulnerabilitiesConnection"]
     assert (
-        vulns[0]["historicTreatment"][-1]["treatment"] == "ACCEPTED_UNDEFINED"
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
+        == "ACCEPTED_UNDEFINED"
     )
-    assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
-    assert vulns[0]["tag"] == ", ".join(tags)
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["user"]
+        == approver_user
+    )
+    assert vulns["edges"][0]["node"]["tag"] == ", ".join(tags)
 
 
 @pytest.mark.changes_db
@@ -204,11 +215,15 @@ async def test_deactivate_org_finding_policy() -> None:
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {
             finding(identifier: $findingId) {
-                vulnerabilities(state: "open") {
-                    tag
-                    historicTreatment {
-                        user
-                        treatment
+                vulnerabilitiesConnection(state: OPEN) {
+                    edges{
+                        node{
+                            tag
+                            historicTreatment {
+                                user
+                                treatment
+                            }
+                        }
                     }
                 }
             }
@@ -217,9 +232,12 @@ async def test_deactivate_org_finding_policy() -> None:
     vulns_data = {"query": vulns_query, "variables": {"findingId": finding_id}}
     result = await _get_result_async(vulns_data)
     assert "errors" not in result
-    vulns = result["data"]["finding"]["vulnerabilities"]
-    assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
-    assert vulns[0]["tag"] == ""
+    vulns = result["data"]["finding"]["vulnerabilitiesConnection"]
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
+        == "NEW"
+    )
+    assert vulns["edges"][0]["node"]["tag"] == ""
 
     add_mutation = """
         mutation AddOrganizationFindingPolicy(
@@ -294,12 +312,16 @@ async def test_deactivate_org_finding_policy() -> None:
     vulns_data = {"query": vulns_query, "variables": {"findingId": finding_id}}
     result = await _get_result_async(vulns_data)
     assert "errors" not in result
-    vulns = result["data"]["finding"]["vulnerabilities"]
+    vulns = result["data"]["finding"]["vulnerabilitiesConnection"]
     assert (
-        vulns[0]["historicTreatment"][-1]["treatment"] == "ACCEPTED_UNDEFINED"
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
+        == "ACCEPTED_UNDEFINED"
     )
-    assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
-    assert vulns[0]["tag"] == ""
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["user"]
+        == approver_user
+    )
+    assert vulns["edges"][0]["node"]["tag"] == ""
 
     deactivate_mutation = """
         mutation DeactivateOrganizationFindingPolicy(
@@ -343,10 +365,16 @@ async def test_deactivate_org_finding_policy() -> None:
     vulns_data = {"query": vulns_query, "variables": {"findingId": finding_id}}
     result = await _get_result_async(vulns_data)
     assert "errors" not in result
-    vulns = result["data"]["finding"]["vulnerabilities"]
-    assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
-    assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
-    assert vulns[0]["tag"] == ""
+    vulns = result["data"]["finding"]["vulnerabilitiesConnection"]
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
+        == "NEW"
+    )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatment"][-1]["user"]
+        == approver_user
+    )
+    assert vulns["edges"][0]["node"]["tag"] == ""
 
 
 @pytest.mark.changes_db

@@ -141,9 +141,6 @@ async def get_result(
                     verified
                 }}
                 verified
-                vulnerabilities {{
-                    id
-                }}
                 vulnerabilitiesConnection {{
                     edges {{
                         node {{
@@ -155,9 +152,6 @@ async def get_result(
                         hasNextPage
                     }}
                 }}
-                vulnerabilitiesToReattack {{
-                    id
-                }}
                 vulnerabilitiesToReattackConnection {{
                     edges {{
                         node {{
@@ -168,9 +162,6 @@ async def get_result(
                         endCursor
                         hasNextPage
                     }}
-                }}
-                zeroRisk {{
-                    id
                 }}
                 zeroRiskConnection {{
                     edges {{

@@ -33,12 +33,9 @@ from api.resolvers.finding import (
     treatment_summary,
     verification_summary,
     verified,
-    vulnerabilities,
     vulnerabilities_connection,
-    vulnerabilities_to_reattack,
     vulnerabilities_to_reattack_connection,
     where,
-    zero_risk,
     zero_risk_connection,
 )
 from ariadne import (
@@ -74,17 +71,12 @@ FINDING.set_field("tracking", tracking.resolve)
 FINDING.set_field("treatmentSummary", treatment_summary.resolve)
 FINDING.set_field("verificationSummary", verification_summary.resolve)
 FINDING.set_field("verified", verified.resolve)
-FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
 FINDING.set_field(
     "vulnerabilitiesConnection", vulnerabilities_connection.resolve
-)
-FINDING.set_field(
-    "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
 FINDING.set_field(
     "vulnerabilitiesToReattackConnection",
     vulnerabilities_to_reattack_connection.resolve,
 )
 FINDING.set_field("where", where.resolve)
-FINDING.set_field("zeroRisk", zero_risk.resolve)
 FINDING.set_field("zeroRiskConnection", zero_risk_connection.resolve)
