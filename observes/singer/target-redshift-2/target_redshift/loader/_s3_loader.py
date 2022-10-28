@@ -141,6 +141,3 @@ class S3Handler:
             self.handle_schema,
             lambda _: raise_exception(NotImplementedError()),
         )
-
-    def loader(self) -> SingerLoader:
-        return SingerLoader.new(self.handle)

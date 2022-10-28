@@ -204,6 +204,3 @@ class SingerHandler:
             ),
             lambda _: raise_exception(NotImplementedError()),
         )
-
-    def loader(self, state: MutableTableMap) -> SingerLoader:
-        return SingerLoader.new(lambda p: self.handle(state, p))

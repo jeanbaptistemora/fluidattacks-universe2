@@ -12,6 +12,9 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
 )
+from redshift_client.id_objs import (
+    SchemaId,
+)
 from target_redshift.grouper import (
     PackagedSinger,
 )
@@ -31,13 +34,13 @@ class _Patch(Generic[_T]):
 
 @dataclass(frozen=True)
 class SingerLoader:
-    """Wraps a loading operation (over a schema) with custom pre and post upload operations"""
-
-    _procedure: _Patch[Callable[[PackagedSinger], Cmd[None]]]
+    _procedure: _Patch[Callable[[SchemaId, PackagedSinger], Cmd[None]]]
 
     @staticmethod
-    def new(procedure: Callable[[PackagedSinger], Cmd[None]]) -> SingerLoader:
+    def new(
+        procedure: Callable[[SchemaId, PackagedSinger], Cmd[None]]
+    ) -> SingerLoader:
         return SingerLoader(_Patch(procedure))
 
-    def handle(self, msg: PackagedSinger) -> Cmd[None]:
-        return self._procedure.inner(msg)
+    def handle(self, schema: SchemaId, msg: PackagedSinger) -> Cmd[None]:
+        return self._procedure.inner(schema, msg)

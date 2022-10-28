@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._core import (
+    SingerLoader,
+)
 from ._handlers import (
     MutableTableMap,
     SingerHandler,
@@ -40,6 +43,9 @@ import sys
 from target_redshift.grouper import (
     group_records,
 )
+from target_redshift.loader._loaders import (
+    Loaders,
+)
 
 
 def _stdin_buffer() -> Cmd[TextIOWrapper]:
@@ -57,10 +63,9 @@ def main(
     data: Stream[SingerMessage] = unsafe_from_cmd(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
-    schemas = MutableTableMap({})
-    loader = SingerHandler(schema, client, options).loader(schemas)
+    loader = Loaders.common_loader(client, options)
     commands = data.transform(lambda d: group_records(d, limit)).map(
-        loader.handle
+        lambda p: loader.handle(schema, p)
     )
     return consume(commands)
 
@@ -82,6 +87,8 @@ def from_s3(
 
 
 __all__ = [
+    "SingerLoader",
     "SingerHandlerOptions",
     "S3Handler",
+    "Loaders",
 ]
