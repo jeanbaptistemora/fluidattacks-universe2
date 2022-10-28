@@ -3515,6 +3515,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_USES_INNERHTML = MethodInfo(
+        file_name="typescript",
+        name="ts_uses_innerhtml",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_USES_EVAL = MethodInfo(
         file_name="javascript",
         name="js_uses_eval",
