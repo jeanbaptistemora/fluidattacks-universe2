@@ -25326,54 +25326,6 @@ F148,lines,namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs,8,319,
   15 |
      ^ Col 7
 ",c_sharp.cs_insecure_channel
-F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,11,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
-   1 | import java.net.URI;
-   2 | import java.net.URISyntaxException;
-   3 | import java.util.Map;
-   4 | import java.util.Properties;
-   5 | import java.time.Duration;
-   6 |
-   7 | public class MainApplication implements CommandLineRunner {
-   8 |
-   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-  10 |         http.csrf().ignoringAntMatchers(""/route/"");
-> 11 |         http.csrf().disable()
-  12 |             .headers(headerCustomizer -> {
-  13 |                 headerCustomizer.xssProtection().disable();
-  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
-  15 |                 headerCustomizer.hsts()
-  16 |                     .includeSubdomains(true)
-  17 |                     .maxAge(Duration.ofDays(365));
-  18 |             });
-  19 |         return http.build();
-  20 |     }
-  21 | }
-     ^ Col 0
-",java.csrf_protections_disabled
-F332,lines,namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,10,319,skims,332. Use of insecure channel - Source code,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f332/csrf_protections_disabled.java,"
-   1 | import java.net.URI;
-   2 | import java.net.URISyntaxException;
-   3 | import java.util.Map;
-   4 | import java.util.Properties;
-   5 | import java.time.Duration;
-   6 |
-   7 | public class MainApplication implements CommandLineRunner {
-   8 |
-   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-> 10 |         http.csrf().ignoringAntMatchers(""/route/"");
-  11 |         http.csrf().disable()
-  12 |             .headers(headerCustomizer -> {
-  13 |                 headerCustomizer.xssProtection().disable();
-  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
-  15 |                 headerCustomizer.hsts()
-  16 |                     .includeSubdomains(true)
-  17 |                     .maxAge(Duration.ofDays(365));
-  18 |             });
-  19 |         return http.build();
-  20 |     }
-  21 | }
-     ^ Col 0
-",java.csrf_protections_disabled
 F149,lines,namespace/skims/test/data/lib_path/f149/webVuln.config,5,319,skims,149. Use of an insecure channel - SMTP,Ensure network tag has its enableSsl attribute set to true to avoid the transmission of not encrypted data. in namespace/skims/test/data/lib_path/f149/webVuln.config,"
    1 | <configuration>
    2 |   <system.net>
@@ -26139,6 +26091,54 @@ F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. I
   13 | }
      ^ Col 0
 ",query.query_f034
+F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,11,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+  10 |         http.csrf().ignoringAntMatchers(""/route/"");
+> 11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",java.csrf_protections_disabled
+F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,10,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+> 10 |         http.csrf().ignoringAntMatchers(""/route/"");
+  11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",java.csrf_protections_disabled
 F086,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,28,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
   13 |    </div>

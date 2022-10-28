@@ -14,6 +14,7 @@ from ctx import (
 from lib_root import (
     f001,
     f004,
+    f007,
     f009,
     f011,
     f012,
@@ -50,7 +51,6 @@ from lib_root import (
     f239,
     f309,
     f320,
-    f332,
     f338,
     f350,
     f354,
@@ -93,6 +93,7 @@ from utils.logs import (
 QUERIES: graph_model.Queries = (
     *f001.QUERIES,
     *f004.QUERIES,
+    *f007.QUERIES,
     *f009.QUERIES,
     *f011.QUERIES,
     *f012.QUERIES,
@@ -129,7 +130,6 @@ QUERIES: graph_model.Queries = (
     *f239.QUERIES,
     *f309.QUERIES,
     *f320.QUERIES,
-    *f332.QUERIES,
     *f338.QUERIES,
     *f350.QUERIES,
     *f354.QUERIES,

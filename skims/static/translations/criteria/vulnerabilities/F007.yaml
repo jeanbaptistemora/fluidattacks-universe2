@@ -1,0 +1,4 @@
+---
+lib_root.f007.csrf_protections_disabled:
+  en: Disabling of protection mechanism against CSRF attacks
+  es: Deshabilitación de mecanismo de protección en contra de ataques de CSRF

@@ -55,7 +55,7 @@ def csrf_protections_disabled(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f332.csrf_protections_disabled",
+        desc_key="lib_root.f007.csrf_protections_disabled",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=core_model.MethodsEnum.JAVA_CSRF_PROTECTIONS_DISABLED,

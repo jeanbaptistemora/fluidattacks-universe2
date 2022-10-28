@@ -148,6 +148,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[173, 265],
     )
+    F007: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F007",
+        cwe=352,
+        execution_queue=ExecutionQueue.xss,
+        requirements=[29, 174],
+    )
     F008: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F008",
@@ -1410,6 +1417,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F004,
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
+        file_name="java",
+        name="csrf_protections_disabled",
+        module="lib_root",
+        finding=FindingEnum.F007,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     QUERY_F008 = MethodInfo(
         file_name="query",
@@ -4145,14 +4160,6 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
-        file_name="java",
-        name="csrf_protections_disabled",
-        module="lib_root",
-        finding=FindingEnum.F332,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     KUBERNETES_INSECURE_PORT = MethodInfo(
