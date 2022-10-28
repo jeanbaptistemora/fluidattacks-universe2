@@ -3380,6 +3380,22 @@ export const enTranslations: ResourceKey = {
       titleSuccess: "Success",
     },
     tabVuln: {
+      additionalInfo: {
+        buttons: {
+          cancel: {
+            text: "Cancel",
+            tooltip: "Cancel changes",
+          },
+          edit: {
+            text: "Edit",
+            tooltip: "Edit vulnerability",
+          },
+          save: {
+            text: "Save",
+            tooltip: "Save changes",
+          },
+        },
+      },
       alerts: {
         acceptanceNotRequested: "Indefinite acceptance is not requested",
         acceptanceSuccess: "Indefinite acceptance has been handled",
