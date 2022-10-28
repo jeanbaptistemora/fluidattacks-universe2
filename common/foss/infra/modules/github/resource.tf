@@ -15,12 +15,19 @@ resource "github_branch_default" "default" {
 }
 
 resource "github_branch_protection" "main" {
-  allows_force_pushes    = false
-  allows_deletions       = false
-  enforce_admins         = false
-  pattern                = "main"
-  repository_id          = github_repository.repo.node_id
-  require_signed_commits = false
+  allows_force_pushes             = false
+  allows_deletions                = false
+  enforce_admins                  = true
+  pattern                         = "main"
+  repository_id                   = github_repository.repo.node_id
+  require_conversation_resolution = true
+  require_signed_commits          = false
+
+  required_pull_request_reviews {
+    dismiss_stale_reviews           = true
+    required_approving_review_count = 2
+  }
+
   required_status_checks {
     strict   = false
     contexts = []
