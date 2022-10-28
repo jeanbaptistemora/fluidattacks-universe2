@@ -177,7 +177,7 @@ def test_go_mod() -> None:
 
 
 @pytest.mark.skims_test_group("unittesting")
-def test_go_sum() -> None:
+def test_go_sum() -> None:  # pylint: disable=too-many-locals
     path: str = "skims/test/data/lib_path/f011/go.sum"
     with open(
         path,
@@ -192,14 +192,20 @@ def test_go_sum() -> None:
     )
     assertion: bool = True
     for line_num, line_info in enumerate(content, 1):
-        version: str = line_info.split()[1][1:]
+        dep_info = line_info.split()
+        pkg_name: str = dep_info[0]
+        version: str = dep_info[1][1:]
 
         try:
-            line, item = itemgetter("line", "item")(next(generator_dep)[1])
+            next_dep = next(generator_dep)
+            item_name = itemgetter("item")(next_dep[0])
+            line, item = itemgetter("line", "item")(next_dep[1])
         except StopIteration:
             assertion = not assertion
             break
-        equal_props: bool = item in version and line_num == line
+        equal_props: bool = (
+            item_name in pkg_name and item in version and line_num == line
+        )
         if not equal_props:
             assertion = not assertion
             break
