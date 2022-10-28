@@ -9,11 +9,10 @@ from syntax_graph.syntax_nodes.package_declaration import (
     build_package_declaration_node,
 )
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast_d,
+    match_ast,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -21,10 +20,9 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_id = match_ast_d(args.ast_graph, args.n_id, "scoped_identifier")
-    if not c_id:
-        raise MissingCaseHandling(
-            f"Bad package expression handling in {args.n_id}"
-        )
-    expression = node_to_str(args.ast_graph, c_id)
+    childs = match_ast(args.ast_graph, args.n_id)
+    if c_id := childs.get("__1__"):
+        expression = node_to_str(args.ast_graph, c_id)
+    else:
+        expression = "packageimport"
     return build_package_declaration_node(args, expression)

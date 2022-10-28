@@ -149,6 +149,8 @@ def _get_metadata_class_fields(
                 "variable_declarator",
                 ";",
             )
+            if not match["modifiers"]:
+                continue
             match_static = g.match_ast(
                 graph, str(match["modifiers"]), "static"
             )

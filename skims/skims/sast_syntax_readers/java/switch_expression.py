@@ -25,7 +25,11 @@ from utils import (
 def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     node_attrs = args.graph.nodes[args.n_id]
     switch_condition_id = node_attrs["label_field_condition"]
-    switch_groups = g.adj_ast(args.graph, node_attrs["label_field_body"])[1:-1]
+    switch_groups = g.match_ast_group_d(
+        args.graph,
+        node_attrs["label_field_body"],
+        "switch_block_statement_group",
+    )
 
     label_syntax: List[
         Union[SyntaxStepSwitchLabelDefault, SyntaxStepSwitchLabelCase]
