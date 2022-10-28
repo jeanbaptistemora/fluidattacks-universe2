@@ -142,6 +142,8 @@ const About = [
       "about/compare/snyk",
       "about/compare/shiftleft",
       "about/compare/kiuwan",
+      "about/compare/nowsecure",
+      "about/compare/detectify",
     ],
   },
 ];
