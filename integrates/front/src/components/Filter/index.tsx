@@ -160,6 +160,17 @@ const Filters = <IData extends object>({
     setOpen(false);
   }, []);
 
+  function resetFiltersHandler(): (event: React.FormEvent) => void {
+    return (event: React.FormEvent): void => {
+      setFilters(
+        filters.map((filter: IFilter<IData>): IFilter<IData> => {
+          return { ...filter, rangeValues: ["", ""], value: "" };
+        })
+      );
+      event.stopPropagation();
+    };
+  }
+
   function onRangeValueChangeHandler(
     id: string,
     position: 0 | 1
@@ -373,6 +384,13 @@ const Filters = <IData extends object>({
               }
             }
           })}
+          <Row>
+            <Col>
+              <Button onClick={resetFiltersHandler} variant={"secondary"}>
+                {"Clear filters"}
+              </Button>
+            </Col>
+          </Row>
         </React.Fragment>
       </SidePanel>
     </React.Fragment>
