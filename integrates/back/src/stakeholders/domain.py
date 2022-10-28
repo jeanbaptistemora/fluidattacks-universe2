@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from aioextensions import (
+    collect,
+)
 import authz
 from authz.validations import (
     validate_role_fluid_reqs,
@@ -27,10 +30,12 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.stakeholders.types import (
+    NotificationsPreferences,
     Stakeholder,
     StakeholderAccessToken,
     StakeholderMetadataToUpdate,
     StakeholderPhone,
+    StakeholderState,
     StakeholderTours,
 )
 from group_access import (
@@ -193,6 +198,29 @@ async def update_last_login(email: str) -> None:
             last_login_date=datetime_utils.get_iso_date(),
         ),
         email=email,
+    )
+
+
+async def update_notification_preferences(
+    email: str, preferences: NotificationsPreferences
+) -> None:
+    await collect(
+        (
+            stakeholders_model.update_metadata(
+                metadata=StakeholderMetadataToUpdate(
+                    notifications_preferences=preferences,
+                ),
+                email=email,
+            ),
+            stakeholders_model.update_state(
+                user_email=email,
+                state=StakeholderState(
+                    notifications_preferences=preferences,
+                    modified_date=datetime_utils.get_iso_date(),
+                    modified_by=email,
+                ),
+            ),
+        )
     )
 
 

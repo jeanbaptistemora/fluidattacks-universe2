@@ -138,7 +138,10 @@ def get_last_state(
     state: VulnerabilityState,
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
-    if datetime.fromisoformat(state.modified_date) <= last_day:
+    if (
+        datetime.fromisoformat(state.modified_date).timestamp()
+        <= last_day.timestamp()
+    ):
         return state
 
     return None

@@ -3078,6 +3078,7 @@
             "role",
             "pk_2",
             "sk_2",
+            "state",
             "notifications_preferences",
             "first_name",
             "last_name",
@@ -36751,6 +36752,22 @@
             "findings_executed",
             "created_at",
             "queue"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "stakeholder_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#email",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "notifications_preferences"
           ],
           "DataAccess": {
             "MySql": {}

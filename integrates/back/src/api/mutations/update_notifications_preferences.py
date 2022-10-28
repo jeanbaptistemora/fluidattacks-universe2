@@ -11,12 +11,8 @@ from ariadne.utils import (
 from custom_exceptions import (
     InvalidCvssField,
 )
-from db_model import (
-    stakeholders as stakeholders_model,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
-    StakeholderMetadataToUpdate,
 )
 from db_model.stakeholders.utils import (
     format_notifications_preferences,
@@ -30,6 +26,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     token as token_utils,
+)
+from stakeholders.domain import (
+    update_notification_preferences,
 )
 from typing import (
     Any,
@@ -64,12 +63,11 @@ async def mutate(
             {"parameters": {"min_severity": Decimal(cvss)}}
         )
 
-    await stakeholders_model.update_metadata(
+    await update_notification_preferences(
         email=user_email,
-        metadata=StakeholderMetadataToUpdate(
-            notifications_preferences=format_notifications_preferences(
-                notifications_preferences
-            )
+        preferences=format_notifications_preferences(
+            notifications_preferences
         ),
     )
+
     return SimplePayload(success=True)

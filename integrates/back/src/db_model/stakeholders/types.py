@@ -51,6 +51,14 @@ class StakeholderTours(NamedTuple):
     new_root: bool = False
 
 
+class StakeholderState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    notifications_preferences: NotificationsPreferences = (
+        NotificationsPreferences()
+    )
+
+
 class Stakeholder(NamedTuple):
     email: str
     access_token: Optional[StakeholderAccessToken] = None
@@ -68,6 +76,7 @@ class Stakeholder(NamedTuple):
     role: Optional[str] = None
     session_key: Optional[str] = None
     session_token: Optional[StakeholderSessionToken] = None
+    state: Optional[StakeholderState] = None
     tours: StakeholderTours = StakeholderTours()
 
 

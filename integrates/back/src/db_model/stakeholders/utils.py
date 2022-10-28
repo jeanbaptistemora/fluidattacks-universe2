@@ -13,6 +13,7 @@ from .types import (
     StakeholderMetadataToUpdate,
     StakeholderPhone,
     StakeholderSessionToken,
+    StakeholderState,
     StakeholderTours,
     StateSessionType,
 )
@@ -92,6 +93,23 @@ def format_notifications_preferences(
     )
 
 
+def format_state(item: Optional[Item]) -> StakeholderState:
+    if item:
+        return StakeholderState(
+            modified_by=item["modified_by"],
+            modified_date=item["modified_date"],
+            notifications_preferences=format_notifications_preferences(
+                item.get("notifications_preferences")
+            ),
+        )
+
+    return StakeholderState(
+        modified_by="",
+        modified_date="",
+        notifications_preferences=format_notifications_preferences(item),
+    )
+
+
 def format_phone(item: Item) -> StakeholderPhone:
     return StakeholderPhone(
         calling_country_code=item["calling_country_code"],
@@ -123,6 +141,7 @@ def format_stakeholder(item: Item) -> Stakeholder:
             item.get("notifications_preferences")
         ),
         phone=format_phone(item["phone"]) if item.get("phone") else None,
+        state=format_state(item.get("state")),
         registration_date=item.get("registration_date"),
         role=item.get("role"),
         session_key=item.get("session_key"),

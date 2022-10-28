@@ -9,8 +9,12 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.stakeholders import (
+    get_historic_state,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderState,
 )
 from decimal import (
     Decimal,
@@ -57,3 +61,23 @@ async def test_update_notification_preferences(
         stakeholder.notifications_preferences.parameters.min_severity
         == Decimal("6.7")
     )
+    assert stakeholder.state is not None
+    assert (
+        "REMEDIATE_FINDING"
+        in stakeholder.state.notifications_preferences.email
+    )
+    assert (
+        "REMEDIATE_FINDING" in stakeholder.state.notifications_preferences.sms
+    )
+    assert (
+        "REMINDER_NOTIFICATION"
+        in stakeholder.state.notifications_preferences.sms
+    )
+    assert (
+        stakeholder.state.notifications_preferences.parameters.min_severity
+        == Decimal("6.7")
+    )
+    historic_state: tuple[StakeholderState, ...] = await get_historic_state(
+        email=email
+    )
+    assert stakeholder.state == historic_state[-1]

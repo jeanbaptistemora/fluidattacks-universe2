@@ -5,8 +5,12 @@
 from .constants import (
     ALL_STAKEHOLDERS_INDEX_METADATA,
 )
+from .types import (
+    StakeholderState,
+)
 from .utils import (
     format_stakeholder,
+    format_state,
 )
 from aiodataloader import (
     DataLoader,
@@ -72,6 +76,27 @@ async def _get_stakeholder_items(
     )
 
     return await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+
+async def get_historic_state(*, email: str) -> tuple[StakeholderState, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["stakeholder_historic_state"],
+        values={
+            "email": email,
+        },
+    )
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["stakeholder_historic_state"],),
+        table=TABLE,
+    )
+
+    return tuple(format_state(state) for state in response.items)
 
 
 async def _get_stakeholders_no_fallback(
