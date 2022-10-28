@@ -77,7 +77,7 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
             </BannerContainer>
             <AdviseCards />
             <AdvisoriesContainer>
-              <h4 className={"f3 c-fluid-bk roboto"}>{`${translate.t(
+              <h4 className={"f3 c-fluid-bk poppins"}>{`${translate.t(
                 "advisories.disclosurePhrase"
               )} `}</h4>
               <Link to={"/advisories/policy"}>

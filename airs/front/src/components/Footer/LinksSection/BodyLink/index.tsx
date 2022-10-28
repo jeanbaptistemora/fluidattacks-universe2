@@ -15,7 +15,7 @@ interface IProps {
 
 const bodyLinkStyles: string = `
   c-black-gray
-  roboto
+  poppins
   f6
   fw4
   no-underline

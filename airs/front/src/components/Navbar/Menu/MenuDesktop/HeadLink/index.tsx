@@ -18,7 +18,7 @@ const headLinksStyles: string = `
   c-fluid-bk
   f3
   hv-fluid-rd
-  roboto
+  poppins
   no-underline
   nowrap
 `;

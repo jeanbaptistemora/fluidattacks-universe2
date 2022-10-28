@@ -60,7 +60,7 @@ const CardTitle = styled.p.attrs({
     f2
     c-fluid-bk
     fw6
-    neue
+    poppins
     lh-solid
     ma0
     tc
@@ -73,7 +73,7 @@ const CardParagraph = styled.p.attrs({
     pb4
     mb3
     c-black-gray
-    roboto
+    poppins
     ma0
   `,
 })<{ isOpen: boolean }>`
@@ -103,7 +103,7 @@ const CardItem = styled.div.attrs({
     pb3
     mb3
     c-black-gray
-    roboto
+    poppins
     ma0
     tl
   `,
@@ -125,7 +125,7 @@ const MachineButton = styled.button.attrs({
     t-all-3-eio
     bc-fluid-red
     ba
-    roboto
+    poppins
     justify-center
     bw1
     w-100

@@ -19,7 +19,7 @@ const Container = styled.div.attrs({
 
 const ProductParagraph = styled.p.attrs({
   className: `
-    roboto
+    poppins
     ma0
     mv4
     center

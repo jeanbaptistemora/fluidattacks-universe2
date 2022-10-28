@@ -29,7 +29,7 @@ const ServiceParagraph = styled.p.attrs({
   className: `
     f3
     c-gray-154
-    roboto
+    poppins
     ma0
     mt3
     center
@@ -76,7 +76,7 @@ const CycleTitle = styled.p.attrs({
     f3
     white
     fw6
-    neue
+    poppins
     lh-solid
     ma0
   `,
@@ -95,7 +95,7 @@ const CycleParagraph = styled.p.attrs({
     f5
     f4-ns
     c-gray-154
-    roboto
+    poppins
     lh-15
     mt3
     mb5

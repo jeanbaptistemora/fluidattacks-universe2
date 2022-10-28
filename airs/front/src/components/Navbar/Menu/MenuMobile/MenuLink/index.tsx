@@ -22,7 +22,7 @@ const MenuLinkStyles: string = `
   fw4
   no-underline
   menu-txt-trans
-  roboto
+  poppins
 `;
 
 const closeMenu = (): void => {

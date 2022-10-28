@@ -11,7 +11,7 @@ const ButtonContainer = styled.div.attrs({
     flex
     relative
     pointer
-    roboto
+    poppins
   `,
 })<{ isRight: boolean }>`
   width: 50px;

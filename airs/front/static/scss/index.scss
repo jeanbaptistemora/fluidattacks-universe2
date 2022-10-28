@@ -42,7 +42,7 @@ $gray-36: rgba(36, 37, 45, 1);
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 // Allignments
@@ -155,7 +155,7 @@ body {
 .display-none { display: none; }
 
 // Fonts
-.roboto { font-family: 'Roboto', sans-serif; }
+.poppins { font-family: 'Poppins', sans-serif; }
 .neue { font-family: neue-haas-grotesk-display, sans-serif; }
 
 // Font Sizes
@@ -303,8 +303,8 @@ body {
   .cover-s { background-size: cover; }
   .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
-  .w-blog-card { width: 21.875rem; }
-  .h-blog-card { min-height: 25rem; }
+  .w-blog-card { width: 100%; }
+  .h-blog-card { min-height: auto; }
   .w-100-s { width: 100%; }
   .w-products { width: 20rem; }
 
@@ -398,7 +398,7 @@ body {
     border-radius: 4px;
     color: $fluid-black;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -832,7 +832,7 @@ body {
 
 .breadcrumb {
   background-color: $fluid-black;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding-bottom: 0;
   padding-top: 0;
 }

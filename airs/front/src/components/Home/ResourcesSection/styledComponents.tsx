@@ -25,7 +25,7 @@ const TitleContainer = styled.div.attrs({
 
 const BlackParagraph = styled.p.attrs({
   className: `
-    neue
+    poppins
     f3
     c-fluid-bk
     lh-copy

@@ -65,7 +65,7 @@ const CardContainer = styled.div.attrs({
 const CardTitle = styled.p.attrs({
   className: `
     white
-    roboto
+    poppins
     f1
     mb1
     fw7
@@ -78,7 +78,7 @@ const CardText = styled.p.attrs({
     b
     mt0
     f5
-    roboto
+    poppins
   `,
 })<{ gray: boolean }>`
   color: ${({ gray }): string => (gray ? "#a5a5b6" : "#f4f4f6")};

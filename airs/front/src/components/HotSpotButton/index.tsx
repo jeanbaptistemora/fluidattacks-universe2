@@ -31,7 +31,7 @@ const HotSpotButton: React.FC<IHotspotButton> = ({
     <React.Fragment>
       <ButtonContainer
         data-background-color={"black"}
-        data-class={"roboto"}
+        data-class={"poppins"}
         data-effect={"solid"}
         data-for={id}
         data-tip={tooltipMessage}

@@ -36,7 +36,7 @@ const CardContainer = styled.div.attrs({
 const CardTitle = styled.p.attrs({
   className: `
     white
-    roboto
+    poppins
     f3
     mb1
     fw7

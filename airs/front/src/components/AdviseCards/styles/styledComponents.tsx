@@ -24,7 +24,7 @@ const CardTitle = styled.p.attrs({
   className: `
     f4
     c-fluid-bk
-    roboto
+    poppins
     b
     mt3
     mb0
@@ -37,11 +37,12 @@ const CardSubtitle = styled.p.attrs({
   className: `
     b
     f4
-    roboto
+    poppins
     mb0
   `,
 })`
   color: #787891;
+  min-height: 90px;
 `;
 
 const CardDescriptionContainer = styled.div.attrs({
@@ -53,7 +54,7 @@ const CardDescriptionContainer = styled.div.attrs({
 const CardDescription = styled.p.attrs({
   className: `
     f5
-    roboto
+    poppins
     ma0
   `,
 })`

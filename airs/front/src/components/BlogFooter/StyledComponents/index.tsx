@@ -71,7 +71,7 @@ const RedButton: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
-    roboto
+    poppins
     w-auto-l
     w-100
     h-100

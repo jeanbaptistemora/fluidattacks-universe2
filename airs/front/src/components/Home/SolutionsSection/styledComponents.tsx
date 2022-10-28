@@ -50,7 +50,7 @@ const CardTitle = styled.h1.attrs({
     b
     lh-solid
     mt2
-    roboto
+    poppins
     mb2
   `,
 })``;
@@ -62,7 +62,7 @@ const CardDescription = styled.p.attrs({
     fw3
     f5
     mt1
-    roboto
+    poppins
   `,
 })`
   min-height: 120px;

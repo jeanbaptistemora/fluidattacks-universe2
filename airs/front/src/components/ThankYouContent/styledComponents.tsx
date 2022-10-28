@@ -34,7 +34,7 @@ const TitleDiv: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-  roboto
+  poppins
   c-fluid-bk
   f2
   fw7
@@ -56,7 +56,7 @@ const ContentInnerDiv: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-  roboto
+  poppins
   f4
   c-fluid-bk
   fw3

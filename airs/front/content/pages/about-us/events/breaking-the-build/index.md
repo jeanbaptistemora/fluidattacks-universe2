@@ -58,7 +58,7 @@ we have been able to reach the following average rates:
 target="_blank">
 <div class="fl w-100 w-50-l pa2">
 <div class="outline-transparent bg-button-red hv-bg-fluid-rd pointer white pv3
-fw7 f3 t-all-3-eio br2 bc-fluid-red ba roboto tc">
+fw7 f3 t-all-3-eio br2 bc-fluid-red ba poppins tc">
 <div>Production deployment frequency</div>
 <div>70/day</div>
 </div>
@@ -68,7 +68,7 @@ fw7 f3 t-all-3-eio br2 bc-fluid-red ba roboto tc">
 target="_blank">
 <div class="fl w-100 w-50-l pa2">
 <div class="outline-transparent bg-button-red hv-bg-fluid-rd pointer white pv3
-fw7 f3 t-all-3-eio br2 bc-fluid-red ba roboto tc">
+fw7 f3 t-all-3-eio br2 bc-fluid-red ba poppins tc">
 <div>Deployment success</div>
 <div>99.99%</div>
 </div>

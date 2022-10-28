@@ -181,7 +181,7 @@ const NavbarSubcategory: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     mt4
     fadein
   `,
@@ -206,7 +206,7 @@ const CopyrightParagraph: StyledComponent<
     b
     f6
     fw2
-    roboto
+    poppins
     pv3
     mv0
   `,
@@ -270,7 +270,7 @@ const FooterInfoLink: StyledComponent<
     f6
     fw2
     mt2
-    roboto
+    poppins
     no-underline
     hv-fluid-dkred
   `,
@@ -293,7 +293,7 @@ const Badge = styled.span.attrs({
     pv2
     ph3
     ma0
-    roboto
+    poppins
   `,
 })<{ bgColor: string; color: string }>`
   background-color: ${({ bgColor }): string => bgColor};
@@ -334,7 +334,7 @@ const ArticleTitle: StyledComponent<
     fw7
     f1
     f-5-l
-    roboto
+    poppins
     tc
   `,
 })``;
@@ -347,7 +347,7 @@ const ArticleContainer: StyledComponent<
     mw-1366
     ph-body
     center
-    roboto
+    poppins
     ph4-l
     ph3
     pt5-l
@@ -364,7 +364,7 @@ const CareersFaqContainer: StyledComponent<
     mw-900
     ph-body
     center
-    roboto
+    poppins
     ph4-l
     ph3
     pt5-l
@@ -377,7 +377,7 @@ const FaqContainer = styled.div.attrs({
   className: `
     ph-body
     center
-    roboto
+    poppins
     bg-gray-244
     ph4-l
     ph3
@@ -441,7 +441,7 @@ const BannerTitle: StyledComponent<
     white
     fw7
     f1
-    neue
+    poppins
     tc
     ma0
   `,
@@ -452,7 +452,7 @@ const PageContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     mw-1366
     ph-body
     center
@@ -466,7 +466,7 @@ const BigPageContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     mw-1920
     ph-body
     center
@@ -525,7 +525,7 @@ const NewRegularRedButton: StyledComponent<
     br2
     bc-fluid-red
     ba
-    roboto
+    poppins
     justify-center
     bw1
   `,
@@ -549,7 +549,7 @@ const PhantomRegularRedButton: StyledComponent<
     t-all-3-eio
     br2
     ba
-    roboto
+    poppins
     justify-center
     bw1
   `,
@@ -586,7 +586,7 @@ const BannerSubtitle: StyledComponent<
     white
     f5
     fw4
-    roboto
+    poppins
     tc
     ma0
   `,
@@ -615,7 +615,7 @@ const MarkedTitle: StyledComponent<
     c-fluid-bk
     f1-ns
     f2
-    neue
+    poppins
     ml3
   `,
 })``;
@@ -647,7 +647,7 @@ const BlogItemTitle: StyledComponent<
 > = styled.h1.attrs({
   className: `
     tc
-    roboto
+    poppins
     pv4
   `,
 })``;
@@ -657,7 +657,7 @@ const BlogItemListContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     ml6-l
     ml4-m
   `,
@@ -804,7 +804,7 @@ const RadioLabel: StyledComponent<
     c-black-gray
     f4-ns
     f5
-    roboto
+    poppins
     no-underline
     fw3
     hv-fluid-black
@@ -827,11 +827,11 @@ const CardsContainer1200: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     internal
     mw-1200
     center
-    roboto
+    poppins
     ph4-l
     ph3
     pt5-l
@@ -858,7 +858,7 @@ const AdvisoryContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     internal
     internal-advisory
     mw-900
@@ -894,12 +894,12 @@ const BlogArticleContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     internal
     mw-900
     ml-auto
     mr-auto
-    roboto
+    poppins
     bg-white
     ph4-l
     ph3
@@ -912,7 +912,7 @@ const BlogArticleTitle: StyledComponent<
   Record<string, unknown>
 > = styled.h1.attrs({
   className: `
-    roboto
+    poppins
     tc
   `,
 })``;
@@ -934,7 +934,7 @@ const ComplianceContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     mw-1366
     ph-body
     center
@@ -980,7 +980,7 @@ const ErrorTitle: StyledComponent<
   Record<string, unknown>
 > = styled.h1.attrs({
   className: `
-    neue
+    poppins
     c-fluid-bk
     f-error
     fw7
@@ -995,7 +995,7 @@ const ErrorDescription: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    neue
+    poppins
     c-fluid-bk
     f2
     fw7
@@ -1100,7 +1100,7 @@ const ListItemLabel: StyledComponent<
     c-fluid-bk
     fw4
     t-color-2
-    roboto
+    poppins
   `,
 })``;
 
@@ -1155,7 +1155,7 @@ const BannerH2Title: StyledComponent<
     white
     fw7
     f1
-    neue
+    poppins
     tc
     ma0
   `,

@@ -50,7 +50,7 @@ const CardItem = styled.div.attrs({
     pb3
     mb3
     c-black-gray
-    roboto
+    poppins
     ma0
     tl
   `,
@@ -61,7 +61,7 @@ const MachineHead = styled.div.attrs({
     white
     f4
     dib
-    roboto
+    poppins
     w-100
     mh3
     center

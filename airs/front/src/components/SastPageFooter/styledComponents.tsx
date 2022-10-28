@@ -18,7 +18,7 @@ const LanguagesListContainer: StyledComponent<
   pv5
   v-top
   mb5
-  roboto
+  poppins
 `,
 })``;
 
@@ -39,7 +39,7 @@ const ListColumn: StyledComponent<
 > = styled.ul.attrs({
   className: `
   list
-  roboto
+  poppins
   f5
   dib-l
   ph4
@@ -58,7 +58,7 @@ const SastParagraph: StyledComponent<
 > = styled.div.attrs({
   className: `
     center
-    roboto
+    poppins
     f3-l
     f4
     lh-2

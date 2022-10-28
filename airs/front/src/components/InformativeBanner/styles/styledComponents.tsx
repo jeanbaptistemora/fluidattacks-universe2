@@ -68,7 +68,7 @@ const BannerButton = styled.button.attrs({
     t-all-3-eio
     br2
     ba
-    roboto
+    poppins
     mv1
   `,
 })`
@@ -79,7 +79,7 @@ const BannerTitle = styled.p.attrs({
   className: `
     white
     fw7
-    roboto
+    poppins
     lh-solid
     f3
     mv3-l
@@ -91,7 +91,7 @@ const BannerSubtitle = styled.p.attrs({
   className: `
     white
     fw4
-    roboto
+    poppins
     lh-solid
     f3
     mv3-l

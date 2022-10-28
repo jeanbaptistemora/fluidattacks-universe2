@@ -47,7 +47,7 @@ const TextContainer = styled.div.attrs({
 
 const Text = styled.p.attrs({
   className: `
-    roboto
+    poppins
     ma0
   `,
 })`

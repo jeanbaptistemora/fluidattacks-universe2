@@ -42,7 +42,7 @@ const getWidth = (width?: string): string => {
 
 const Title = styled.p.attrs({
   className: `
-    neue
+    poppins
     fw7
     lh-solid
   `,
@@ -67,7 +67,7 @@ const Title = styled.p.attrs({
 
 const Paragraph = styled.p.attrs({
   className: `
-    roboto
+    poppins
     lh-15
     center
   `,

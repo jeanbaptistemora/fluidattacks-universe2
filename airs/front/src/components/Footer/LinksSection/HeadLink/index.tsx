@@ -16,7 +16,7 @@ interface IProps {
 const headLinksStyles: string = `
   c-fluid-gray
   f4
-  roboto
+  poppins
   fw4
   mt0-l
   no-underline

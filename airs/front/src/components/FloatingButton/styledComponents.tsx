@@ -11,7 +11,7 @@ const FloatButton = styled.div.attrs({
     f5
     br2
     dib
-    roboto
+    poppins
     pointer
     t-all-3-eio
   `,

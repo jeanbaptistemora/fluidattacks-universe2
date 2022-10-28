@@ -33,7 +33,7 @@ const NavbarItems: React.FC = (): JSX.Element => {
   };
 
   return (
-    <NavbarList className={"roboto"} id={"navbar_list"}>
+    <NavbarList className={"poppins"} id={"navbar_list"}>
       <div className={"w-auto flex flex-nowrap"}>
         <Menu />
         <li>

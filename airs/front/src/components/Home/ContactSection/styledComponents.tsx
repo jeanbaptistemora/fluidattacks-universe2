@@ -19,7 +19,7 @@ const Container = styled.div.attrs({
 
 const WhiteTitle = styled.p.attrs({
   className: `
-    neue
+    poppins
     f3
     white
     lh-copy

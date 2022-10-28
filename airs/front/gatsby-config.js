@@ -21,7 +21,7 @@ module.exports = {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ["Roboto:400,700"],
+          families: ["Poppins:400,700"],
         },
       },
     },

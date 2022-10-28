@@ -131,7 +131,7 @@ const MenuDesktopSectionList: StyledComponent<
     f5
     fw7
     ph0
-    mh4
+    mh3
     mb4
     overlay-menu-col
   `,
@@ -180,7 +180,7 @@ const BlackWeightedParagraph: StyledComponent<
     f5
     fw6
     c-fluid-bk
-    roboto
+    poppins
   `,
 })``;
 

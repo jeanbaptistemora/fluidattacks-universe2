@@ -71,7 +71,7 @@ const CardTitle: StyledComponent<
     b
     lh-solid
     mt2
-    roboto
+    poppins
     h-resources-card
   `,
 })``;
@@ -131,7 +131,7 @@ const LittleRegularRedButton: StyledComponent<
     br2
     bc-fluid-red
     ba
-    roboto
+    poppins
     mb4
   `,
 })``;
@@ -162,7 +162,7 @@ const FilterButton = styled.button.attrs({
     ph3
     pv2
     mv2
-    roboto
+    poppins
     pointer
     b--transparent
   `,
@@ -189,7 +189,7 @@ const MenuList = styled.div.attrs({
 
 const CardsContainer = styled.div.attrs({
   className: `
-    roboto
+    poppins
     flex-ns
     flex-wrap-ns
     justify-around

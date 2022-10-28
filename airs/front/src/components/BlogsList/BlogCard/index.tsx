@@ -12,6 +12,7 @@ import { decode } from "he";
 import { utc } from "moment";
 import React from "react";
 
+import { PhantomRegularRedButton } from "../../../styles/styledComponents";
 import {
   CardButtonContainer,
   CardDate,
@@ -62,7 +63,9 @@ export const BlogCard: React.FC<IProps> = ({
               }
               to={`/blog/${blogLink}`}
             >
-              <button className={"button-white w-80"}>{"Read post"}</button>
+              <PhantomRegularRedButton className={"w-90"}>
+                {"Read post"}
+              </PhantomRegularRedButton>
             </Link>
           </CardButtonContainer>
         </PostInfo>

@@ -34,7 +34,7 @@ const PlansTitle = styled.p.attrs({
     f2
     c-fluid-bk
     fw6
-    neue
+    poppins
     lh-solid
     ma0
     tc
@@ -59,7 +59,7 @@ const PlansParagraph = styled.p.attrs({
   className: `
     f5
     c-black-gray
-    roboto
+    poppins
     ma0
     mt3
     tc

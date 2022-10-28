@@ -12,7 +12,7 @@ const BlogMainDiv: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    roboto
+    poppins
     flex-ns
     flex-wrap-ns
     justify-around
@@ -67,7 +67,9 @@ const CardTitle: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs(
     mt2
   `,
   }
-)``;
+)`
+  min-height: 48px;
+`;
 
 const CardSubTitle: StyledComponent<
   "p",
@@ -124,17 +126,16 @@ const CardDescription: StyledComponent<
     mb0
     overflow-hidden
   `,
-})``;
+})`
+  min-height: 100px;
+`;
 
 const CardButtonContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    absolute
-    bottom-2
-    right-0
-    left-0
+    pv4
     tc
   `,
 })``;
@@ -152,7 +153,7 @@ const CardButton: StyledComponent<
     white
     pv2
     ph4
-    roboto
+    poppins
     fw7
     f5
     dib
@@ -172,7 +173,7 @@ const LoadMoreButton: StyledComponent<
     hv-card
     t-all-3-eio
     w-100
-    roboto
+    poppins
     pv2
     tc
     outline-transparent
