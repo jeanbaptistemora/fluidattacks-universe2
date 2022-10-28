@@ -3,11 +3,15 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from custom_exceptions import (
+    InvalidSource,
     InvalidStream,
     InvalidVulnCommitHash,
     InvalidVulnerabilityAlreadyExists,
     InvalidVulnSpecific,
     InvalidVulnWhere,
+)
+from db_model.enums import (
+    Source,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -92,3 +96,14 @@ def validate_stream(
 def validate_where(where: str) -> None:
     if not re.match("^[^=/]+.+$", where):
         raise InvalidVulnWhere.new()
+
+
+def validate_source(source: Source) -> None:
+    if source not in {
+        Source.ANALYST,
+        Source.CUSTOMER,
+        Source.DETERMINISTIC,
+        Source.ESCAPE,
+        Source.MACHINE,
+    }:
+        raise InvalidSource()
