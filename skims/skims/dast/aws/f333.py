@@ -92,7 +92,67 @@ async def ec2_has_terminate_shutdown_behavior(
     return vulns
 
 
+def iterate_ec2_has_associate_public_ip_address(
+    instance: Dict[str, Any], instances: Dict[str, Any]
+) -> List[Location]:
+    locations: List[Location] = []
+    for index, interface in enumerate(instance["NetworkInterfaces"]):
+        if "Association" in interface and interface["Association"]["PublicIp"]:
+            locations = [
+                *locations,
+                Location(
+                    access_patterns=(
+                        (
+                            f"/NetworkInterfaces/{index}"
+                            "/Association/PublicIp"
+                        ),
+                    ),
+                    arn=(
+                        f"arn:aws:ec2::{instances['OwnerId']}:"
+                        f"instance-id/{instance['InstanceId']}"
+                    ),
+                    values=(interface["Association"]["PublicIp"],),
+                    description=t(
+                        "lib_path.f333.cfn_ec2_associate_public_ip_address"
+                    ),
+                ),
+            ]
+    return locations
+
+
+async def ec2_has_associate_public_ip_address(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_instances",
+    )
+    reservations = response.get("Reservations", []) if response else []
+    method = core_model.MethodsEnum.AWS_EC2_HAS_ASSOCIATE_PUBLIC_IP_ADDRESS
+    vulns: core_model.Vulnerabilities = ()
+    if reservations:
+        for instances in reservations:
+            for instance in instances["Instances"]:
+                locations = iterate_ec2_has_associate_public_ip_address(
+                    instance, instances
+                )
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(method),
+                        aws_response=instance,
+                    ),
+                )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (ec2_has_terminate_shutdown_behavior,)
+] = (
+    ec2_has_terminate_shutdown_behavior,
+    ec2_has_associate_public_ip_address,
+)
