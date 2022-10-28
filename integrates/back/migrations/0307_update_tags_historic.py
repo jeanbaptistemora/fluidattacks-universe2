@@ -19,6 +19,10 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    Key,
+)
+from custom_exceptions import (
+    GroupNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -65,19 +69,35 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
+async def _get_group(*, group_name: str) -> dict:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_metadata"],
+        values={"name": group_name},
+    )
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["group_metadata"],),
+        limit=1,
+        table=TABLE,
+    )
+
+    if not response.items:
+        raise GroupNotFound()
+
+    return response.items[0]
+
+
 async def update_metadata(
     *,
     group_name: str,
     organization_id: str,
-    state: GroupState,
 ) -> None:
     key_structure = TABLE.primary_key
-    state_item = json.loads(json.dumps(state, default=serialize_sets))
-    state_item = {
-        key: None if not value and value is not False else value
-        for key, value in state_item.items()
-        if value is not None
-    }
 
     try:
         primary_key = keys.build_key(
@@ -87,7 +107,7 @@ async def update_metadata(
                 "organization_id": remove_org_id_prefix(organization_id),
             },
         )
-        item = {"state": state_item}
+        item = {"tags": None}
         condition_expression = Attr(key_structure.partition_key).exists()
         await operations.update_item(
             condition_expression=condition_expression,
@@ -128,6 +148,39 @@ async def process_historic_state(
         facet=TABLE.facets["group_historic_state"],
         item=historic_item,
         table=TABLE,
+    )
+
+
+async def _process_group(
+    *,
+    group_name: str,
+    progress: float,
+) -> None:
+    group: dict = await _get_group(group_name=group_name)
+
+    if group.get("tags", None):
+        LOGGER_CONSOLE.info(
+            "Removing tags from group metadata",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "organization_id": group["organization_id"],
+                    "tags": group["state"].get("tags"),
+                }
+            },
+        )
+        await update_metadata(
+            group_name=group["name"], organization_id=group["organization_id"]
+        )
+
+    LOGGER_CONSOLE.info(
+        "Group processed",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "progress": round(progress, 2),
+            }
+        },
     )
 
 
@@ -174,22 +227,6 @@ async def process_group(
         await update_metadata(
             group_name=group_name,
             organization_id=group.organization_id,
-            state=GroupState(
-                comments=group.state.comments,
-                modified_date=group.state.modified_date,
-                has_machine=group.state.has_machine,
-                has_squad=group.state.has_squad,
-                managed=group.state.managed,
-                justification=group.state.justification,
-                modified_by=group.state.modified_by,
-                payment_id=group.state.payment_id,
-                pending_deletion_date=group.state.pending_deletion_date,
-                service=group.state.service,
-                status=group.state.status,
-                tags=group.tags,
-                tier=group.state.tier,
-                type=group.state.type,
-            ),
         )
 
     LOGGER_CONSOLE.info(
@@ -230,8 +267,7 @@ async def main() -> None:
     )
     await collect(
         tuple(
-            process_group(
-                loaders=loaders,
+            _process_group(
                 group_name=group_name,
                 progress=count / len(set(all_group_names)),
             )
