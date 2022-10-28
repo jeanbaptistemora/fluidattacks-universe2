@@ -84,6 +84,7 @@ describe("AdditionalInfo", (): void => {
           lastTreatmentDate: "2019-07-05 09:56:40",
           reportDate: "",
           severity: "1",
+          source: "escape",
           stream: null,
           treatment: "IN_PROGRESS",
           treatmentAcceptanceDate: "",

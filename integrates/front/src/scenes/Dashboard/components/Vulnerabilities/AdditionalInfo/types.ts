@@ -4,6 +4,28 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { IVulnRowAttr } from "../types";
+
+interface IAdditionalInfoProps {
+  canRetrieveHacker: boolean;
+  canSeeSource: boolean;
+  vulnerability: IVulnRowAttr;
+}
+
+interface IFormValues {
+  source: string;
+}
+
+interface IGetVulnAdditionalInfoAttr {
+  vulnerability: IVulnInfoAttr;
+}
+
+interface IUpdateVulnerabilityDescriptionAttr {
+  updateVulnerabilityDescription: {
+    success: boolean;
+  };
+}
+
 interface IVulnInfoAttr {
   closingDate: string | null;
   commitHash: string | null;
@@ -26,17 +48,9 @@ interface IVulnInfoAttr {
   vulnerabilityType: string;
 }
 
-interface IGetVulnAdditionalInfoAttr {
-  vulnerability: IVulnInfoAttr;
-}
-
-interface IUpdateVulnerabilityDescriptionAttr {
-  updateVulnerabilityDescription: {
-    success: boolean;
-  };
-}
-
 export type {
+  IAdditionalInfoProps,
+  IFormValues,
   IGetVulnAdditionalInfoAttr,
   IUpdateVulnerabilityDescriptionAttr,
   IVulnInfoAttr,

@@ -3381,6 +3381,9 @@ export const enTranslations: ResourceKey = {
     },
     tabVuln: {
       additionalInfo: {
+        alerts: {
+          updatedDetails: "The vulnerability details have been updated",
+        },
         buttons: {
           cancel: {
             text: "Cancel",
@@ -3520,6 +3523,13 @@ export const enTranslations: ResourceKey = {
           "Filter vulnerabilities based on the treatment they were given",
         verification: "Last reattack",
         vulnerability: "Vulnerability",
+        vulnerabilitySource: {
+          ANALYST: "Analyst",
+          CUSTOMER: "Customer",
+          DETERMINISTIC: "Deterministic",
+          ESCAPE: "Escape",
+          MACHINE: "Machine",
+        },
         vulnerabilityType: {
           inputs: "app",
           lines: "code",

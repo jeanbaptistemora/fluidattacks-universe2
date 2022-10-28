@@ -22,12 +22,14 @@ interface IActionButtonsProps {
   isEditing: boolean;
   isPristine: boolean;
   onEdit: () => void;
+  onUpdate: () => void;
 }
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   isEditing,
   isPristine,
   onEdit,
+  onUpdate,
 }: IActionButtonsProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -41,7 +43,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               "searchFindings.tabVuln.additionalInfo.buttons.save.tooltip"
             )}
           >
-            <Button disabled={isPristine} type={"submit"} variant={"primary"}>
+            <Button
+              disabled={isPristine}
+              onClick={onUpdate}
+              variant={"primary"}
+            >
               <FontAwesomeIcon icon={faRotateRight} />
               &nbsp;
               {t("searchFindings.tabVuln.additionalInfo.buttons.save.text")}

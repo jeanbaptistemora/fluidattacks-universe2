@@ -36,7 +36,7 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
 const UPDATE_VULNERABILITY_DESCRIPTION: DocumentNode = gql`
   mutation UpdateVulnerabilityDescription(
     $source: VulnerabilitySource!
-    $vulnerabilityId: String!
+    $vulnerabilityId: ID!
   ) {
     updateVulnerabilityDescription(
       source: $source
