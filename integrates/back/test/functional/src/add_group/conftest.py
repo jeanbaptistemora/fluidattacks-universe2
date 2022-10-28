@@ -75,6 +75,22 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    country="Colombia",
+                    id="56f222da-c912-4441-a015-36ec2aad58fc",
+                    name="trialorg2",
+                    policies=Policies(
+                        modified_by="janedoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="janedoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "groups": [
             {
@@ -151,12 +167,25 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "object": "ORG#54b37c94-ebd4-416d-97b3-dee412fc2a1d",
                 "role": "user_manager",
             },
+            {
+                "level": "organization",
+                "subject": "janedoe@fluidattacks.com",
+                "object": "ORG#56f222da-c912-4441-a015-36ec2aad58fc",
+                "role": "user_manager",
+            },
         ],
         "stakeholders": [
             *generic_data["db_data"]["stakeholders"],
             Stakeholder(
                 email="johndoe@fluidattacks.com",
                 first_name="John",
+                is_registered=True,
+                last_name="Doe",
+                role="user_manager",
+            ),
+            Stakeholder(
+                email="janedoe@fluidattacks.com",
+                first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
                 role="user_manager",

@@ -134,3 +134,47 @@ async def test_only_one_group_during_trial(populate: bool) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == TrialRestriction().args[0]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_group")
+@pytest.mark.parametrize(
+    ["has_squad", "has_machine", "service", "subscription"],
+    [
+        # No services
+        [False, False, GroupService.WHITE, GroupSubscriptionType.CONTINUOUS],
+        [False, False, GroupService.BLACK, GroupSubscriptionType.CONTINUOUS],
+        [False, False, GroupService.WHITE, GroupSubscriptionType.ONESHOT],
+        [False, False, GroupService.BLACK, GroupSubscriptionType.ONESHOT],
+        # Both services
+        [True, True, GroupService.WHITE, GroupSubscriptionType.CONTINUOUS],
+        [True, True, GroupService.BLACK, GroupSubscriptionType.CONTINUOUS],
+        [True, True, GroupService.WHITE, GroupSubscriptionType.ONESHOT],
+        [True, True, GroupService.BLACK, GroupSubscriptionType.ONESHOT],
+        # Machine only except white+continuous
+        [False, True, GroupService.BLACK, GroupSubscriptionType.CONTINUOUS],
+        [False, True, GroupService.WHITE, GroupSubscriptionType.ONESHOT],
+        [False, True, GroupService.BLACK, GroupSubscriptionType.ONESHOT],
+    ],
+)
+async def test_restrict_services_during_trial(
+    populate: bool,
+    has_squad: bool,
+    has_machine: bool,
+    service: GroupService,
+    subscription: GroupSubscriptionType,
+) -> None:
+    assert populate
+    org_name: str = "trialorg2"
+    group_name: str = "trialgroup2"
+    result: dict[str, Any] = await get_result(
+        user="janedoe@fluidattacks.com",
+        org=org_name,
+        group=group_name,
+        has_squad=has_squad,
+        has_machine=has_machine,
+        service=service.value,
+        subscription=subscription.value,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == TrialRestriction().args[0]
