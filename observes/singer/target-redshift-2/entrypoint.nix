@@ -22,8 +22,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
-      rev = "d87febb01c00d8a3d0f770b16cf9c4a46eeb4b15";
-      ref = "refs/tags/v1.23.0";
+      rev = "7ec586458c8a1e46093816e62354bd5253f429b5";
+      ref = "refs/tags/v1.25.1";
     };
   in
     import src {

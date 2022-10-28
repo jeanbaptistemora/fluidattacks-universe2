@@ -31,6 +31,9 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result.transform import (
     all_ok,
 )
+from fa_purity.utils import (
+    raise_exception,
+)
 from fa_singer_io.singer import (
     SingerRecord,
     SingerSchema,
@@ -192,16 +195,16 @@ class SingerHandler:
     def handle(
         self, state: MutableTableMap, item: PackagedSinger
     ) -> Cmd[None]:
-        if isinstance(item, SingerSchema):
-            _item = item  # dummy var for fixing mypy error
-            return state.freeze().bind(
-                lambda t: self.create_table(_item)
-                + state.update(self.update_stream_tables(t, _item))
-            )
-        if isinstance(item, SingerState):
-            raise NotImplementedError()
-        _item_2 = item
-        return state.freeze().bind(lambda t: self.record_handler(t, _item_2))
+        return item.map(
+            lambda records: state.freeze().bind(
+                lambda t: self.record_handler(t, records)
+            ),
+            lambda schema: state.freeze().bind(
+                lambda t: self.create_table(schema)
+                + state.update(self.update_stream_tables(t, schema))
+            ),
+            lambda _: raise_exception(NotImplementedError()),
+        )
 
     def loader(self, state: MutableTableMap) -> SingerLoader:
         return SingerLoader.new(lambda p: self.handle(state, p))

@@ -2,6 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from __future__ import (
+    annotations,
+)
+
+from dataclasses import (
+    dataclass,
+)
 from fa_purity import (
     PureIter,
     Stream,
@@ -15,6 +22,10 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.stream.factory import (
     unsafe_from_cmd,
 )
+from fa_purity.union import (
+    Coproduct,
+    CoproductFactory,
+)
 from fa_singer_io.singer import (
     SingerMessage,
     SingerRecord,
@@ -22,12 +33,44 @@ from fa_singer_io.singer import (
     SingerState,
 )
 from typing import (
+    Callable,
     Iterable,
     List,
-    Union,
+    TypeVar,
 )
 
-PackagedSinger = Union[SingerSchema, PureIter[SingerRecord], SingerState]
+_T = TypeVar("_T")
+
+
+@dataclass(frozen=True)
+class PackagedSinger:
+    _inner: Coproduct[
+        PureIter[SingerRecord], Coproduct[SingerSchema, SingerState]
+    ]
+
+    @staticmethod
+    def new(
+        item: PureIter[SingerRecord] | SingerSchema | SingerState,
+    ) -> PackagedSinger:
+        factory: CoproductFactory[
+            SingerSchema, SingerState
+        ] = CoproductFactory()
+        factory_2: CoproductFactory[
+            PureIter[SingerRecord], Coproduct[SingerSchema, SingerState]
+        ] = CoproductFactory()
+        if isinstance(item, SingerSchema):
+            return PackagedSinger(factory_2.inr(factory.inl(item)))
+        if isinstance(item, SingerState):
+            return PackagedSinger(factory_2.inr(factory.inr(item)))
+        return PackagedSinger(factory_2.inl(item))
+
+    def map(
+        self,
+        t1: Callable[[PureIter[SingerRecord]], _T],
+        t2: Callable[[SingerSchema], _T],
+        t3: Callable[[SingerState], _T],
+    ) -> _T:
+        return self._inner.map(t1, lambda c: c.map(t2, t3))
 
 
 def _group(
@@ -37,16 +80,16 @@ def _group(
     for item in items:
         if isinstance(item, (SingerSchema, SingerState)):
             if accumulator:
-                yield from_flist(freeze(accumulator))
+                yield PackagedSinger.new(from_flist(freeze(accumulator)))
                 accumulator = []
-            yield item
+            yield PackagedSinger.new(item)
         else:
             accumulator.append(item)
             if len(accumulator) >= size:
-                yield from_flist(freeze(accumulator))
+                yield PackagedSinger.new(from_flist(freeze(accumulator)))
                 accumulator = []
     if accumulator:
-        yield from_flist(freeze(accumulator))
+        yield PackagedSinger.new(from_flist(freeze(accumulator)))
         accumulator = []
 
 
