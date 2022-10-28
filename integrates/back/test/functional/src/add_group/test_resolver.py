@@ -7,6 +7,7 @@ from . import (
 )
 from custom_exceptions import (
     InvalidGroupName,
+    TrialRestriction,
 )
 from dataloaders import (
     Dataloaders,
@@ -120,3 +121,16 @@ async def test_add_group_fail(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_group")
+async def test_only_one_group_during_trial(populate: bool) -> None:
+    assert populate
+    org_name: str = "trialorg"
+    group_name: str = "trialgroup2"
+    result: dict[str, Any] = await get_result(
+        user="johndoe@fluidattacks.com", org=org_name, group=group_name
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == TrialRestriction().args[0]

@@ -86,9 +86,7 @@ async def populate() -> bool:
                     name="testorg",
                     policies=Policies(
                         modified_by="johndoe@fluidattacks.com",
-                        max_acceptance_days=7,
                         modified_date="2022-10-21T15:58:31.280182",
-                        vulnerability_grace_period=5,
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@fluidattacks.com",

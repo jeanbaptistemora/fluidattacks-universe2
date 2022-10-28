@@ -179,9 +179,7 @@ async def populate() -> bool:
                     name="testorg",
                     policies=Policies(
                         modified_by="johndoe@fluidattacks.com",
-                        max_acceptance_days=7,
                         modified_date="2022-10-21T15:58:31.280182",
-                        vulnerability_grace_period=5,
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@fluidattacks.com",
@@ -197,9 +195,7 @@ async def populate() -> bool:
                     name="testorg2",
                     policies=Policies(
                         modified_by="janedoe@fluidattacks.com",
-                        max_acceptance_days=7,
                         modified_date="2022-10-21T15:58:31.280182",
-                        vulnerability_grace_period=5,
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@fluidattacks.com",
@@ -215,9 +211,7 @@ async def populate() -> bool:
                     name="testorg3",
                     policies=Policies(
                         modified_by="uiguaran@fluidattacks.com",
-                        max_acceptance_days=7,
                         modified_date="2022-10-21T15:58:31.280182",
-                        vulnerability_grace_period=5,
                     ),
                     state=OrganizationState(
                         modified_by="uiguaran@fluidattacks.com",
@@ -233,9 +227,7 @@ async def populate() -> bool:
                     name="testorg4",
                     policies=Policies(
                         modified_by="abuendia@fluidattacks.com",
-                        max_acceptance_days=7,
                         modified_date="2022-10-21T15:58:31.280182",
-                        vulnerability_grace_period=5,
                     ),
                     state=OrganizationState(
                         modified_by="abuendia@fluidattacks.com",

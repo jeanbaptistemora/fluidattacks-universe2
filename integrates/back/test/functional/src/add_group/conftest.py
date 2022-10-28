@@ -25,6 +25,9 @@ from db_model.organizations.types import (
     Organization,
     OrganizationState,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.types import (
     Policies,
 )
@@ -52,6 +55,22 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=OrganizationState(
                         modified_by=generic_data["global_vars"]["user_email"],
                         modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+            {
+                "organization": Organization(
+                    country="Colombia",
+                    id="54b37c94-ebd4-416d-97b3-dee412fc2a1d",
+                    name="trialorg",
+                    policies=Policies(
+                        modified_by="johndoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="johndoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
                         status=OrganizationStateStatus.ACTIVE,
                     ),
                 ),
@@ -102,6 +121,46 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     sprint_start_date="2022-06-06T00:00:00",
                 ),
             },
+            {
+                "group": Group(
+                    created_by="johndoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="trialgroup1",
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="johndoe@fluidattacks.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+        ],
+        "policies": [
+            *generic_data["db_data"]["policies"],
+            {
+                "level": "organization",
+                "subject": "johndoe@fluidattacks.com",
+                "object": "ORG#54b37c94-ebd4-416d-97b3-dee412fc2a1d",
+                "role": "user_manager",
+            },
+        ],
+        "stakeholders": [
+            *generic_data["db_data"]["stakeholders"],
+            Stakeholder(
+                email="johndoe@fluidattacks.com",
+                first_name="John",
+                is_registered=True,
+                last_name="Doe",
+                role="user_manager",
+            ),
         ],
     }
     return await db.populate({**generic_data["db_data"], **data})
