@@ -39953,7 +39953,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.kylin:
   21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
      ^ Col 0
 ",maven.maven_sbt
-F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-api v2.2) [CVE-2021-44832, CVE-2021-45105, GHSA-p6xc-xr62-6r2g]",4,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-api at version 2.2 with ['CVE-2021-44832', 'CVE-2021-45105', 'GHSA-p6xc-xr62-6r2g'] in namespace/skims/test/data/lib_path/f011/build.sbt","
+F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (org.apache.logging.log4j:log4j-api v2.2) [CVE-2021-45105, GHSA-p6xc-xr62-6r2g]",4,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.logging.log4j:log4j-api at version 2.2 with ['CVE-2021-45105', 'GHSA-p6xc-xr62-6r2g'] in namespace/skims/test/data/lib_path/f011/build.sbt","
    1 | def libraries = Seq(
    2 |   ""com.typesafe.slick""        %% ""slick""          % slickVersion,
    3 |   ""com.typesafe.slick""        %% ""slick-hikaricp"" % slickVersion,

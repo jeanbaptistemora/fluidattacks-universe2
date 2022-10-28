@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.kotlin.common import (
     get_var_id_type,
@@ -15,6 +15,7 @@ from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
 from typing import (
+    Iterator,
     Set,
 )
 from utils import (
@@ -22,7 +23,7 @@ from utils import (
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     match = g.match_ast(
         args.graph,
         args.n_id,

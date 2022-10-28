@@ -4,9 +4,9 @@
 
 from model.graph_model import (
     NId,
+    SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.kotlin.common import (
     get_var_id_type,
@@ -15,6 +15,7 @@ from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
 from typing import (
+    Iterator,
     Tuple,
 )
 from utils import (
@@ -22,7 +23,7 @@ from utils import (
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     label_type = args.graph.nodes[args.n_id]["label_type"]
     params_ids: Tuple[NId, ...] = tuple()
     if label_type == "function_declaration":

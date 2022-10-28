@@ -3,20 +3,23 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from model.graph_model import (
+    SyntaxStep,
     SyntaxStepAttributeAccess,
     SyntaxStepMeta,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
+)
+from typing import (
+    Iterator,
 )
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     match = g.match_ast(args.graph, args.n_id, "navigation_suffix")
     attribute = g.get_ast_childs(
         args.graph, str(match["navigation_suffix"]), "simple_identifier"

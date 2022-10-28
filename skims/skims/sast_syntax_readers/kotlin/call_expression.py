@@ -4,9 +4,9 @@
 
 from model.graph_model import (
     CurrentInstance,
+    SyntaxStep,
     SyntaxStepMeta,
     SyntaxStepMethodInvocation,
-    SyntaxStepsLazy,
 )
 from sast_syntax_readers.kotlin.common import (
     get_composite_name,
@@ -15,12 +15,15 @@ from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
 )
+from typing import (
+    Iterator,
+)
 from utils import (
     graph as g,
 )
 
 
-def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
+def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
     match = g.match_ast(
         args.graph,
         args.n_id,
