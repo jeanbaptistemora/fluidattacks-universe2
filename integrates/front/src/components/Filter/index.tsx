@@ -4,10 +4,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
+import { Button } from "components/Button";
 import {
   FormikDate,
   FormikInput,
@@ -15,6 +18,7 @@ import {
   FormikSelect,
 } from "components/Input/Formik";
 import { Col, Row } from "components/Layout";
+import { SidePanel } from "components/SidePanel";
 
 interface IFilter<IData extends object> {
   filterFn?:
@@ -147,6 +151,15 @@ const Filters = <IData extends object>({
   filters,
   setFilters,
 }: IFiltersProps<IData>): JSX.Element => {
+  const [open, setOpen] = useState(false);
+
+  const openPanel = useCallback((): void => {
+    setOpen(true);
+  }, []);
+  const closePanel = useCallback((): void => {
+    setOpen(false);
+  }, []);
+
   function onRangeValueChangeHandler(
     id: string,
     position: 0 | 1
@@ -192,151 +205,176 @@ const Filters = <IData extends object>({
 
   return (
     <React.Fragment>
-      {filters.map((filter: IFilter<IData>): JSX.Element => {
-        switch (filter.type) {
-          case "text": {
-            return (
-              <FormikInput
-                field={{
-                  name: filter.id,
-                  onBlur: (): void => undefined,
-                  onChange: onValueChangeHandler(filter.id),
-                  value: filter.value ?? "",
-                }}
-                form={{ errors: {}, touched: {} }}
-                label={filter.label}
-                name={filter.id}
-              />
-            );
-          }
-          case "number": {
-            return (
-              <FormikNumber
-                field={{
-                  name: filter.id,
-                  onBlur: (): void => undefined,
-                  onChange: onValueChangeHandler(filter.id),
-                  value: filter.value === undefined ? "" : String(filter.value),
-                }}
-                form={{ errors: {}, touched: {} }}
-                label={filter.label}
-                name={filter.id}
-              />
-            );
-          }
-          case "numberRange": {
-            return (
-              <Row>
-                <Col lg={50} md={50}>
-                  <FormikNumber
-                    field={{
-                      name: filter.id,
-                      onBlur: (): void => undefined,
-                      onChange: onRangeValueChangeHandler(filter.id, 0),
-                      value:
-                        filter.rangeValues?.[0] === undefined
-                          ? ""
-                          : String(filter.rangeValues[0]),
-                    }}
-                    form={{ errors: {}, touched: {} }}
-                    label={filter.label}
-                    name={filter.id}
-                    placeholder={"Min"}
-                  />
-                </Col>
-                <Col lg={50} md={50}>
-                  <FormikNumber
-                    field={{
-                      name: filter.id,
-                      onBlur: (): void => undefined,
-                      onChange: onRangeValueChangeHandler(filter.id, 1),
-                      value:
-                        filter.rangeValues?.[1] === undefined
-                          ? ""
-                          : String(filter.rangeValues[1]),
-                    }}
-                    form={{ errors: {}, touched: {} }}
-                    label={""}
-                    name={filter.id}
-                    placeholder={"Max"}
-                  />
-                </Col>
-              </Row>
-            );
-          }
-          case "select": {
-            return (
-              <FormikSelect
-                field={{
-                  name: filter.id,
-                  onBlur: (): void => undefined,
-                  onChange: onValueChangeHandler(filter.id),
-                  value: filter.value ?? "",
-                }}
-                form={{ errors: {}, touched: {} }}
-                label={filter.label}
-                name={filter.id}
-              >
-                <option value={""}>{"All"}</option>
-                {filter.selectOptions?.map(
-                  (value): JSX.Element => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  )
-                )}
-              </FormikSelect>
-            );
-          }
-          case "dateRange": {
-            return (
-              <Row>
-                <Col lg={50} md={50}>
-                  <FormikDate
-                    field={{
-                      name: filter.id,
-                      onBlur: (): void => undefined,
-                      onChange: onRangeValueChangeHandler(filter.id, 0),
-                      value:
-                        filter.rangeValues?.[0] === undefined
-                          ? ""
-                          : filter.rangeValues[0],
-                    }}
-                    form={{ errors: {}, touched: {} }}
-                    label={filter.label}
-                    name={filter.id}
-                  />
-                </Col>
-                <Col lg={50} md={50}>
-                  <FormikDate
-                    field={{
-                      name: filter.id,
-                      onBlur: (): void => undefined,
-                      onChange: onRangeValueChangeHandler(filter.id, 1),
-                      value:
-                        filter.rangeValues?.[1] === undefined
-                          ? ""
-                          : filter.rangeValues[1],
-                    }}
-                    form={{ errors: {}, touched: {} }}
-                    label={""}
-                    name={filter.id}
-                  />
-                </Col>
-              </Row>
-            );
-          }
-          default: {
-            return (
-              <div>
-                {
-                  "you shouldn't be seeing this message, please inform if you do"
-                }
-              </div>
-            );
-          }
-        }
-      })}
+      <Button id={"filter-config"} onClick={openPanel} variant={"ghost"}>
+        <div style={{ width: "55px" }} />
+        <FontAwesomeIcon icon={faFilter} />
+        &nbsp;
+        {"Filter"}
+      </Button>
+      <SidePanel onClose={closePanel} open={open}>
+        <React.Fragment>
+          {filters.map((filter: IFilter<IData>): JSX.Element => {
+            switch (filter.type) {
+              case "text": {
+                return (
+                  <Row>
+                    <Col>
+                      <FormikInput
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onValueChangeHandler(filter.id),
+                          value: filter.value ?? "",
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={filter.label}
+                        name={filter.id}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }
+              case "number": {
+                return (
+                  <Row>
+                    <Col>
+                      <FormikNumber
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onValueChangeHandler(filter.id),
+                          value:
+                            filter.value === undefined
+                              ? ""
+                              : String(filter.value),
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={filter.label}
+                        name={filter.id}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }
+              case "numberRange": {
+                return (
+                  <Row>
+                    <Col lg={50} md={50}>
+                      <FormikNumber
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onRangeValueChangeHandler(filter.id, 0),
+                          value:
+                            filter.rangeValues?.[0] === undefined
+                              ? ""
+                              : String(filter.rangeValues[0]),
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={filter.label}
+                        name={filter.id}
+                        placeholder={"Min"}
+                      />
+                    </Col>
+                    <Col lg={50} md={50}>
+                      <FormikNumber
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onRangeValueChangeHandler(filter.id, 1),
+                          value:
+                            filter.rangeValues?.[1] === undefined
+                              ? ""
+                              : String(filter.rangeValues[1]),
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={""}
+                        name={filter.id}
+                        placeholder={"Max"}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }
+              case "select": {
+                return (
+                  <Row>
+                    <Col>
+                      <FormikSelect
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onValueChangeHandler(filter.id),
+                          value: filter.value ?? "",
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={filter.label}
+                        name={filter.id}
+                      >
+                        <option value={""}>{"All"}</option>
+                        {filter.selectOptions?.map(
+                          (value): JSX.Element => (
+                            <option key={value} value={value}>
+                              {value}
+                            </option>
+                          )
+                        )}
+                      </FormikSelect>
+                    </Col>
+                  </Row>
+                );
+              }
+              case "dateRange": {
+                return (
+                  <Row>
+                    <Col lg={50} md={50}>
+                      <FormikDate
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onRangeValueChangeHandler(filter.id, 0),
+                          value:
+                            filter.rangeValues?.[0] === undefined
+                              ? ""
+                              : filter.rangeValues[0],
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={filter.label}
+                        name={filter.id}
+                      />
+                    </Col>
+                    <Col lg={50} md={50}>
+                      <FormikDate
+                        field={{
+                          name: filter.id,
+                          onBlur: (): void => undefined,
+                          onChange: onRangeValueChangeHandler(filter.id, 1),
+                          value:
+                            filter.rangeValues?.[1] === undefined
+                              ? ""
+                              : filter.rangeValues[1],
+                        }}
+                        form={{ errors: {}, touched: {} }}
+                        label={""}
+                        name={filter.id}
+                      />
+                    </Col>
+                  </Row>
+                );
+              }
+              default: {
+                return (
+                  <div>
+                    {
+                      "you shouldn't be seeing this message, please inform if you do"
+                    }
+                  </div>
+                );
+              }
+            }
+          })}
+        </React.Fragment>
+      </SidePanel>
     </React.Fragment>
   );
 };
