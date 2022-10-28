@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._core import (
+    SingerLoader,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -16,6 +19,9 @@ from fa_purity.frozen import (
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from fa_purity.utils import (
+    raise_exception,
 )
 from fa_singer_io.singer import (
     SingerSchema,
@@ -37,6 +43,9 @@ from redshift_client.sql_client.primitive import (
 )
 from redshift_client.sql_client.query import (
     dynamic_query,
+)
+from target_redshift.grouper import (
+    PackagedSinger,
 )
 from typing import (
     Dict,
@@ -122,3 +131,16 @@ class S3Handler:
         )
         upload = start + self._upload(schema, data_file) + end
         return self._exist(data_file).bind(lambda b: upload if b else skip)
+
+    def handle(self, item: PackagedSinger) -> Cmd[None]:
+        ignored_records = Cmd.from_cmd(
+            lambda: LOG.warning("S3 loader ignores supplied singer records")
+        )
+        return item.map(
+            lambda _: ignored_records,
+            self.handle_schema,
+            lambda _: raise_exception(NotImplementedError()),
+        )
+
+    def loader(self) -> SingerLoader:
+        return SingerLoader.new(self.handle)

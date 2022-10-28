@@ -37,7 +37,6 @@ from fa_purity.utils import (
 from fa_singer_io.singer import (
     SingerRecord,
     SingerSchema,
-    SingerState,
 )
 import logging
 from pathos.threading import ThreadPool  # type: ignore[import]
@@ -60,11 +59,11 @@ from target_redshift.data_schema import (
 from target_redshift.errors import (
     MissingKey,
 )
+from target_redshift.grouper import (
+    PackagedSinger,
+)
 from target_redshift.loader import (
     _truncate,
-)
-from target_redshift.loader._grouper import (
-    PackagedSinger,
 )
 from typing import (
     cast,

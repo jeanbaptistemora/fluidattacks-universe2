@@ -20,14 +20,14 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_redshift": (
         "cli",
         ("loader", "strategy"),
-        "data_schema",
+        ("data_schema", "grouper"),
         "errors",
         "_logger",
     ),
     "target_redshift.loader": (
         ("_handlers", "_s3_loader"),
         "_core",
-        ("_truncate", "_grouper"),
+        "_truncate",
     ),
     "target_redshift.strategy": (
         ("_recreate_all", "_per_stream"),

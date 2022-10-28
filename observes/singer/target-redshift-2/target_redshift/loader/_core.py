@@ -12,7 +12,7 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
 )
-from target_redshift.loader._grouper import (
+from target_redshift.grouper import (
     PackagedSinger,
 )
 from typing import (

@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._grouper import (
-    group_records,
-)
 from ._handlers import (
     MutableTableMap,
     SingerHandler,
@@ -40,6 +37,9 @@ from redshift_client.table.client import (
     TableClient,
 )
 import sys
+from target_redshift.grouper import (
+    group_records,
+)
 
 
 def _stdin_buffer() -> Cmd[TextIOWrapper]:
