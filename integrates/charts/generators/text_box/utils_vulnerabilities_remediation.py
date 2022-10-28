@@ -125,7 +125,10 @@ def get_current_sprint_state(
     state: VulnerabilityState,
     sprint_start_date: datetime,
 ) -> Optional[VulnerabilityState]:
-    if datetime.fromisoformat(state.modified_date) >= sprint_start_date:
+    if (
+        datetime.fromisoformat(state.modified_date).timestamp()
+        >= sprint_start_date.timestamp()
+    ):
         return state
 
     return None
