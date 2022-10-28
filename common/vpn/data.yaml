@@ -12,7 +12,25 @@ VPN_DATA_RAW:
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:y6osvcoU9xLT0Ev1xS81,iv:YG5SRFJ2KUUDKdudIKdIRKKRzXHM9WxAI2B/IaPQO3I=,tag:qOjiTvUXaimYcrs/wlv/Lg==,type:str]
       dns: []
-      routes: []
+      routes:
+        - ENC[AES256_GCM,data://35lYyMjZijYWQ=,iv:B0lFea3tmSOLJ5ER/uO9zH/iH50EmPgiprN2JrD1Hxo=,tag:3tF7l583StA6tsqkDqbM7A==,type:str]
+        - ENC[AES256_GCM,data:42CT+odPzP8zEKc=,iv:hzfNPAmu164QmIg3jTYRhmR54kMSkf/86tsQZk5fE1U=,tag:Gqa0QGW7BxP5mwHH1LjpNw==,type:str]
+        - ENC[AES256_GCM,data:HgAKFuXbyy3HzYo=,iv:64J5xXZTnoIbR6Kr+Fj3T7jM4ASYyDKSlY/hhb0Iev8=,tag:IlGhH1RW9i17LCnScITGjA==,type:str]
+        - ENC[AES256_GCM,data:s0oeHtRQ0E3NFN8=,iv:N/yTKzgeE7T+16l86bR+U1KAicRZPNjpmrZbinDATg0=,tag:AmaRYbL8xuV4BdB0gvvTGw==,type:str]
+        - ENC[AES256_GCM,data:WqnrfaBWstwLPpNDAqo=,iv:6xeE98GfxHnaN2QRiHMG1+EAp+nLZP+HLgsJCez8ITU=,tag:sZ3xGxmXH7pfugOPVYIYNQ==,type:str]
+        - ENC[AES256_GCM,data:Bc8OjZm/aMmSlKTVnms=,iv:PWl/2U7dCyZfOE6ov1OOEuDjCPy65kc2I1af8EvK66E=,tag:Jy309+gKFMpxijzByUA43Q==,type:str]
+        - ENC[AES256_GCM,data:88rlPvGmj0BDqONJUISu,iv:+FvkvoFjN3KpE3svxtxQqgI8dDoEJxgtloL/KZQQdjE=,tag:gDn++KqWthewFUIdmeD0Bw==,type:str]
+        - ENC[AES256_GCM,data:KSnaj7rN7ya8gkO2dltw,iv:Dx5fvfDAY3138w5Yn+OwcMzleLX7pXAQGkSjL0jxbh8=,tag:tGhHWPtXi9DzZpOgsRREFQ==,type:str]
+        - ENC[AES256_GCM,data:4gjcbm7sLHPCAze+Lel3,iv:uxTPTTUL7cGBuR4NHzXpmVEDHAuvqPa131SeBJlLQYU=,tag:ys826jYtX3bZpkRQN7SXrg==,type:str]
+        - ENC[AES256_GCM,data:A2ozT7J797UhDheaDyE=,iv:PvnUjwzJlhXHExWr5eHMXhuB8d2UJnInC/3W6Hf1kJ8=,tag:t2+a8tM0vFAvtOntakEVYQ==,type:str]
+        - ENC[AES256_GCM,data:hFQli6jO4lsLKIrMwphc,iv:5Uy4toSwDfvfKScZML7f4FUE9Dbn1TewaWgeUB1O54I=,tag:QLUVuJCSTi7Ig076S7bjkQ==,type:str]
+        - ENC[AES256_GCM,data:vFsKQEjUVMfdj+lG2W4D,iv:Yg/TR5TF30QkD3Re79RXJinLM+KHlKcVC55t92G3/Lw=,tag:iKFlTE3msFKc5/sKNL/mlQ==,type:str]
+        - ENC[AES256_GCM,data:GETjCl3mM5Q8i3rZJvo=,iv:pIwvfr3GOlK7Oa3PVrG6A9YCEsYSGBiPJP+a14DGKN8=,tag:3/m7HfWd2Qb79zM4So5uHg==,type:str]
+        - ENC[AES256_GCM,data:sdY080Ezifv75leplgw=,iv:ttd2YcUXkvFVt+ZdKFi7nj0VTxUXn1CTABVl3f72IVs=,tag:VRTi8vheu4y4IranwAcOlQ==,type:str]
+        - ENC[AES256_GCM,data:Wj323XWaLvdYk2TBOZ0=,iv:+XalwLfpm3xMeNrLwIzcZe3Lcxn66V8hk5Z8aJFGWOU=,tag:Fy1MzsHwkubuZHFhI/2jGw==,type:str]
+        - ENC[AES256_GCM,data:xxG1Z/91JJI1yJhkhTTq,iv:JI8AE7o3Za3hZzptNICev9ddNi4T3OSnXoPTkZwZ/tc=,tag:oOEiI0qSng/5w27CIi8M/Q==,type:str]
+        - ENC[AES256_GCM,data:XPY7ZYYbAg2seNgCD/xk,iv:CiE0DTa9UNGCwfWv186AktCvi8GLtrgbA3egmCoewlI=,tag:wUeimuLmwe+/0E6rB7ip4Q==,type:str]
+        - ENC[AES256_GCM,data:PG7kgOCCpKCzntq4pm97,iv:lsmci1BzH++XjcOjcCENoBG4iuY1cJky63SloyR0FGk=,tag:uSaeZK6ji+QMF7ij6wbkVw==,type:str]
     - id: ENC[AES256_GCM,data:L+I1G6HvCYg=,iv:0x8g2F6MgR6aXS5NgbFgtPjgChKxFD55tcc1eiF9lzo=,tag:GlKKvANsRadklzUlY7modw==,type:str]
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:7RaAHPoTkx9Hf+gUatc=,iv:bS8GOahBmtg/FVs8dwmZJUk/ogBGl9y1YyTj5cpn2aI=,tag:kTeaYBVyLW3IPJRZ+nc0gw==,type:str]
@@ -238,8 +256,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-10-28T14:43:09Z"
-    mac: ENC[AES256_GCM,data:IDLur/vmNSd6W4y5wJzafb01Zoe8812FGYMuFDMkUYiw9NgSpbUPbiDENorD8IQ7m28Lwyz3Bz+ytdzDgpOc+wYc2qlfo4pNZv5PlLhL69Cr5aAlPebBLa90LSgbMInyfNmuUJ6AEnJdHeW4YU1kKqjXMzCuDBXM5hwORHL8l1s=,iv:QsTzV4CFEb42tdaWkwtUV36IUq9qT7NZVlOrTazKM3U=,tag:PhJQLRHugxQI4YYwrNo6JQ==,type:str]
+    lastmodified: "2022-10-28T15:13:42Z"
+    mac: ENC[AES256_GCM,data:yz2GgMFk2JYswvVHfXvyHiabSHZXCuJlAveP9OEKbkp93Mg35RyQjs2xWOKTwxDhKPZNSRP4Wy3dVKAV304MJFYeLVrjOebmTwf5rBtD/DGaamA2V+ZG3FQ1N+Vv8WCZlyaMYhAOe7H/IntAyVJSd6t2UKXXQ3WMeteahp6+pog=,iv:zM0+izp9MUJIEgzokqffW452bnRCPwdtnAZCa08ydu0=,tag:l+hOdJwznaA01Ww8fMOp6w==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
