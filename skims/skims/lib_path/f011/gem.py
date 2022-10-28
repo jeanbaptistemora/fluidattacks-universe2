@@ -20,7 +20,7 @@ from parse_gemfile import (
 import re
 from typing import (
     Iterator,
-    List,
+    Optional,
     Pattern,
 )
 
@@ -32,7 +32,7 @@ NOT_PROD_DEP: Pattern[str] = re.compile(
 )
 NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
 GEM_LOCK_DEP: Pattern[str] = re.compile(
-    r"^\s+(?P<gem>(?P<name>\S+[^:])(\s+\(.+\))?)$"
+    r"^(?P<indent>\s+)(?P<gem>[^\s]*)\s\([^\d]*(?P<version>.*)\)$"
 )
 
 
@@ -65,20 +65,21 @@ def gem_gemfile(  # NOSONAR
 @pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE_LOCK)
 def gem_gemfile_lock(content: str, path: str) -> Iterator[DependencyType]:
     line_gem: bool = False
-    match_arr: List[str] = []
+    dep_indent: Optional[int] = None
     for line_number, line in enumerate(content.splitlines(), 1):
         if line.startswith("GEM"):
             line_gem = True
         elif not line_gem:
             continue
         elif matched := re.match(GEM_LOCK_DEP, line):
-            pkg_info = matched.group("gem")
-            pkg_name = pkg_info.replace("(= ", "(")
-            if pkg_name in match_arr:
+            indent = len(matched.group("indent"))
+            if dep_indent is None:
+                dep_indent = indent
+            if indent != dep_indent:
                 continue
-            match_arr.append(pkg_name)
-            line = GemfileParser.preprocess(pkg_info)
-            product, version = parse_line(line, gem_file=False)
-            yield format_pkg_dep(product, version, line_number, line_number)
-        elif not line or not line.startswith(" "):
-            break
+
+            pkg_name = matched.group("gem")
+            pkg_version = matched.group("version")
+            yield format_pkg_dep(
+                pkg_name, pkg_version, line_number, line_number
+            )

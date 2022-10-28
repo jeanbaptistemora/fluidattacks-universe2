@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f011.gem import (
     gem_gemfile,
-    gem_gemfile_lock,
 )
 from lib_path.f011.go import (
     go_mod,
@@ -57,45 +56,6 @@ def test_gem_gemfile() -> None:
                 break
             equal_props: bool = pkg_name == item and line_num + 1 == line
             if not equal_props:
-                assertion = not assertion
-                break
-
-    assert assertion
-
-
-@pytest.mark.skims_test_group("unittesting")
-def test_gem_gemfile_lock() -> None:
-    gem_lock_dep: Pattern[str] = re.compile(
-        r"(?P<gem>(?P<name>[\w\-]+)\s?(\(.*\))?)"
-    )
-    path: str = "skims/test/data/lib_path/f011/Gemfile.lock"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
-    content: List[str] = file_contents.splitlines()
-    gemfile_lock_fun = gem_gemfile_lock.__wrapped__  # type: ignore
-    generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
-        file_contents, path
-    )
-    pkg_names_arr: List[str] = []
-    assertion: bool = True
-
-    for line_num in range(22, 219):
-        if matched := re.search(gem_lock_dep, content[line_num]):
-            pkg_name: str = matched.group("name")
-            gem_info: str = matched.group("gem").replace("(= ", "(")
-            if gem_info in pkg_names_arr:
-                continue
-            pkg_names_arr.append(gem_info)
-            try:
-                line, item = itemgetter("line", "item")(next(generator_gem)[0])
-            except StopIteration:
-                assertion = not assertion
-                break
-            if pkg_name != item or line_num + 1 != line:
                 assertion = not assertion
                 break
 

@@ -39224,148 +39224,52 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0)
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v=7.0.2.3) [CVE-2022-23633],24,937,skims,011. Use of software with known vulnerabilities,Use of actionpack at version =7.0.2.3 with ['CVE-2022-23633'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
-   14 |       bcrypt (~> 3.0)
-   15 |       orm_adapter (~> 0.1)
-   16 |       railties (>= 4.1.0)
-   17 |       responders
-   18 |       warden (~> 1.2.3)
-   19 |
-   20 | GEM
-   21 |   remote: https://rubygems.org/
-   22 |   specs:
-   23 |     actioncable (7.0.2.3)
->  24 |       actionpack (= 7.0.2.3)
-   25 |       activesupport (= 7.0.2.3)
-   26 |       nio4r (~> 2.0)
-   27 |       websocket-driver (>= 0.6.1)
-   28 |     actionmailbox (7.0.2.3)
-   29 |       actionpack (= 7.0.2.3)
-   30 |       activejob (= 7.0.2.3)
-   31 |       activerecord (= 7.0.2.3)
-   32 |       activestorage (= 7.0.2.3)
-   33 |       activesupport (= 7.0.2.3)
-   34 |       mail (>= 2.7.1)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v>=5.0) [CVE-2020-8164, CVE-2020-8166, CVE-2020-8185, CVE-2020-8264, CVE-2021-22881, CVE-2021-22885, CVE-2021-22902, CVE-2021-22903, CVE-2021-22904, CVE-2021-22942, CVE-2021-44528, CVE-2022-22577, CVE-2022-23633, CVE-2022-27777, GHSA-2rqw-v265-jf8c, GHSA-35mm-cc6r-8fjp, GHSA-5hq2-xf89-9jxq, GHSA-7wjx-3g7j-8584, GHSA-8727-m6gj-mc37, GHSA-8877-prq4-9xfw, GHSA-c6qr-h5vq-59jc, GHSA-g8ww-46x2-2p65, GHSA-hjg4-8q5f-x6fm, GHSA-jp5v-5gx4-jmj9, GHSA-mm33-5vfq-3mm3, GHSA-qphc-hf5q-v8fc, GHSA-wh98-p28r-vrc9]",197,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version >=5.0 with ['CVE-2020-8164', 'CVE-2020-8166', 'CVE-2020-8185', 'CVE-2020-8264', 'CVE-2021-22881', 'CVE-2021-22885', 'CVE-2021-22902', 'CVE-2021-22903', 'CVE-2021-22904', 'CVE-2021-22942', 'CVE-2021-44528', 'CVE-2022-22577', 'CVE-2022-23633', 'CVE-2022-27777', 'GHSA-2rqw-v265-jf8c', 'GHSA-35mm-cc6r-8fjp', 'GHSA-5hq2-xf89-9jxq', 'GHSA-7wjx-3g7j-8584', 'GHSA-8727-m6gj-mc37', 'GHSA-8877-prq4-9xfw', 'GHSA-c6qr-h5vq-59jc', 'GHSA-g8ww-46x2-2p65', 'GHSA-hjg4-8q5f-x6fm', 'GHSA-jp5v-5gx4-jmj9', 'GHSA-mm33-5vfq-3mm3', 'GHSA-qphc-hf5q-v8fc', 'GHSA-wh98-p28r-vrc9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-  190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-  193 |     rake (13.0.6)
-  194 |     rdoc (6.4.0)
-  195 |       psych (>= 4.0.0)
-  196 |     responders (3.0.1)
-> 197 |       actionpack (>= 5.0)
-  198 |       railties (>= 5.0)
-  199 |     rexml (3.2.5)
-  200 |     ruby-openid (2.9.2)
-  201 |     ruby2_keywords (0.0.5)
-  202 |     sqlite3 (1.4.2)
-  203 |     stringio (3.0.1)
-  204 |     strscan (3.0.1)
-  205 |     thor (1.2.1)
-  206 |     timecop (0.9.5)
-  207 |     timeout (0.2.0)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v=7.0.2.3) [GHSA-3hhc-qp5v-9p2j],31,937,skims,011. Use of software with known vulnerabilities,Use of activerecord at version =7.0.2.3 with ['GHSA-3hhc-qp5v-9p2j'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
-   21 |   remote: https://rubygems.org/
-   22 |   specs:
-   23 |     actioncable (7.0.2.3)
-   24 |       actionpack (= 7.0.2.3)
-   25 |       activesupport (= 7.0.2.3)
-   26 |       nio4r (~> 2.0)
-   27 |       websocket-driver (>= 0.6.1)
-   28 |     actionmailbox (7.0.2.3)
-   29 |       actionpack (= 7.0.2.3)
-   30 |       activejob (= 7.0.2.3)
->  31 |       activerecord (= 7.0.2.3)
-   32 |       activestorage (= 7.0.2.3)
-   33 |       activesupport (= 7.0.2.3)
-   34 |       mail (>= 2.7.1)
-   35 |       net-imap
-   36 |       net-pop
-   37 |       net-smtp
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633],48,937,skims,011. Use of software with known vulnerabilities,Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
    38 |     actionmailer (7.0.2.3)
    39 |       actionpack (= 7.0.2.3)
    40 |       actionview (= 7.0.2.3)
    41 |       activejob (= 7.0.2.3)
+   42 |       activesupport (= 7.0.2.3)
+   43 |       mail (~> 2.5, >= 2.5.4)
+   44 |       net-imap
+   45 |       net-pop
+   46 |       net-smtp
+   47 |       rails-dom-testing (~> 2.0)
+>  48 |     actionpack (7.0.2.3)
+   49 |       actionview (= 7.0.2.3)
+   50 |       activesupport (= 7.0.2.3)
+   51 |       rack (~> 2.0, >= 2.2.0)
+   52 |       rack-test (>= 0.6.3)
+   53 |       rails-dom-testing (~> 2.0)
+   54 |       rails-html-sanitizer (~> 1.0, >= 1.2.0)
+   55 |     actiontext (7.0.2.3)
+   56 |       actionpack (= 7.0.2.3)
+   57 |       activerecord (= 7.0.2.3)
+   58 |       activestorage (= 7.0.2.3)
       ^ Col 0
 ",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activesupport v>=4.2.0) [CVE-2018-3779, CVE-2020-8165, GHSA-2p68-f74v-9wc6, GHSA-35c4-f3rq-f9g3, GHSA-j96r-xvjq-r9pg, GHSA-vxvp-4xwc-jpp6]",182,937,skims,011. Use of software with known vulnerabilities,"Use of activesupport at version >=4.2.0 with ['CVE-2018-3779', 'CVE-2020-8165', 'GHSA-2p68-f74v-9wc6', 'GHSA-35c4-f3rq-f9g3', 'GHSA-j96r-xvjq-r9pg', 'GHSA-vxvp-4xwc-jpp6'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  172 |       actiontext (= 7.0.2.3)
-  173 |       actionview (= 7.0.2.3)
-  174 |       activejob (= 7.0.2.3)
-  175 |       activemodel (= 7.0.2.3)
-  176 |       activerecord (= 7.0.2.3)
-  177 |       activestorage (= 7.0.2.3)
-  178 |       activesupport (= 7.0.2.3)
-  179 |       bundler (>= 1.15.0)
-  180 |       railties (= 7.0.2.3)
-  181 |     rails-dom-testing (2.0.3)
-> 182 |       activesupport (>= 4.2.0)
-  183 |       nokogiri (>= 1.6)
-  184 |     rails-html-sanitizer (1.4.2)
-  185 |       loofah (~> 2.3)
-  186 |     railties (7.0.2.3)
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-  190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activesupport v>=5.0) [CVE-2018-3779, CVE-2020-8165, GHSA-2p68-f74v-9wc6]",99,937,skims,011. Use of software with known vulnerabilities,"Use of activesupport at version >=5.0 with ['CVE-2018-3779', 'CVE-2020-8165', 'GHSA-2p68-f74v-9wc6'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   89 |     builder (3.2.4)
-   90 |     concurrent-ruby (1.1.10)
-   91 |     crass (1.0.6)
-   92 |     digest (3.1.0)
-   93 |     erubi (1.10.0)
-   94 |     faraday (2.2.0)
-   95 |       faraday-net_http (~> 2.0)
-   96 |       ruby2_keywords (>= 0.0.4)
-   97 |     faraday-net_http (2.0.2)
-   98 |     globalid (1.0.0)
->  99 |       activesupport (>= 5.0)
-  100 |     hashie (5.0.0)
-  101 |     i18n (1.10.0)
-  102 |       concurrent-ruby (~> 1.0)
-  103 |     jwt (2.3.0)
-  104 |     loofah (2.16.0)
-  105 |       crass (~> 1.0.2)
-  106 |       nokogiri (>= 1.5.9)
-  107 |     mail (2.7.1)
-  108 |       mini_mime (>= 0.1.1)
-  109 |     marcel (1.0.2)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (bundler v>=1.15.0) [CVE-2019-3881, CVE-2020-36327, CVE-2021-43809, GHSA-fj7f-vq84-fh43, GHSA-fp4w-jxhp-m23p, GHSA-g98m-96g9-wfjq]",179,937,skims,011. Use of software with known vulnerabilities,"Use of bundler at version >=1.15.0 with ['CVE-2019-3881', 'CVE-2020-36327', 'CVE-2021-43809', 'GHSA-fj7f-vq84-fh43', 'GHSA-fp4w-jxhp-m23p', 'GHSA-g98m-96g9-wfjq'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  169 |       actionmailbox (= 7.0.2.3)
-  170 |       actionmailer (= 7.0.2.3)
-  171 |       actionpack (= 7.0.2.3)
-  172 |       actiontext (= 7.0.2.3)
-  173 |       actionview (= 7.0.2.3)
-  174 |       activejob (= 7.0.2.3)
-  175 |       activemodel (= 7.0.2.3)
-  176 |       activerecord (= 7.0.2.3)
-  177 |       activestorage (= 7.0.2.3)
-  178 |       activesupport (= 7.0.2.3)
-> 179 |       bundler (>= 1.15.0)
-  180 |       railties (= 7.0.2.3)
-  181 |     rails-dom-testing (2.0.3)
-  182 |       activesupport (>= 4.2.0)
-  183 |       nokogiri (>= 1.6)
-  184 |     rails-html-sanitizer (1.4.2)
-  185 |       loofah (~> 2.3)
-  186 |     railties (7.0.2.3)
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v7.0.2.3) [GHSA-3hhc-qp5v-9p2j],73,937,skims,011. Use of software with known vulnerabilities,Use of activerecord at version 7.0.2.3 with ['GHSA-3hhc-qp5v-9p2j'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+   63 |       activesupport (= 7.0.2.3)
+   64 |       builder (~> 3.1)
+   65 |       erubi (~> 1.4)
+   66 |       rails-dom-testing (~> 2.0)
+   67 |       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+   68 |     activejob (7.0.2.3)
+   69 |       activesupport (= 7.0.2.3)
+   70 |       globalid (>= 0.3.6)
+   71 |     activemodel (7.0.2.3)
+   72 |       activesupport (= 7.0.2.3)
+>  73 |     activerecord (7.0.2.3)
+   74 |       activemodel (= 7.0.2.3)
+   75 |       activesupport (= 7.0.2.3)
+   76 |     activestorage (7.0.2.3)
+   77 |       actionpack (= 7.0.2.3)
+   78 |       activejob (= 7.0.2.3)
+   79 |       activerecord (= 7.0.2.3)
+   80 |       activesupport (= 7.0.2.3)
+   81 |       marcel (~> 1.0)
+   82 |       mini_mime (>= 1.1.0)
+   83 |     activesupport (7.0.2.3)
       ^ Col 0
 ",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-23463, CVE-2021-42392, CVE-2022-23221, GHSA-45hx-wfhj-473x, GHSA-7rpj-hg47-cx62, GHSA-h376-j262-vhq6]",18,937,skims,011. Use of software with known vulnerabilities,"Use of com.h2database:h2 at version 1.4.200 with ['CVE-2021-23463', 'CVE-2021-42392', 'CVE-2022-23221', 'GHSA-45hx-wfhj-473x', 'GHSA-7rpj-hg47-cx62', 'GHSA-h376-j262-vhq6'] in namespace/skims/test/data/lib_path/f011/build.sbt","
@@ -39667,54 +39571,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    89 |       <groupId>org.springframework.security</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (loofah v^2.3) [CVE-2019-15587, GHSA-c3gv-9cxf-6f57]",185,937,skims,011. Use of software with known vulnerabilities,"Use of loofah at version 2.3 with ['CVE-2019-15587', 'GHSA-c3gv-9cxf-6f57'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  175 |       activemodel (= 7.0.2.3)
-  176 |       activerecord (= 7.0.2.3)
-  177 |       activestorage (= 7.0.2.3)
-  178 |       activesupport (= 7.0.2.3)
-  179 |       bundler (>= 1.15.0)
-  180 |       railties (= 7.0.2.3)
-  181 |     rails-dom-testing (2.0.3)
-  182 |       activesupport (>= 4.2.0)
-  183 |       nokogiri (>= 1.6)
-  184 |     rails-html-sanitizer (1.4.2)
-> 185 |       loofah (~> 2.3)
-  186 |     railties (7.0.2.3)
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-  190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-  193 |     rake (13.0.6)
-  194 |     rdoc (6.4.0)
-  195 |       psych (>= 4.0.0)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (mail v^2.5.4) [CVE-2015-9097, GHSA-q86f-fmqf-qrf6]",43,937,skims,011. Use of software with known vulnerabilities,"Use of mail at version 2.5.4 with ['CVE-2015-9097', 'GHSA-q86f-fmqf-qrf6'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   33 |       activesupport (= 7.0.2.3)
-   34 |       mail (>= 2.7.1)
-   35 |       net-imap
-   36 |       net-pop
-   37 |       net-smtp
-   38 |     actionmailer (7.0.2.3)
-   39 |       actionpack (= 7.0.2.3)
-   40 |       actionview (= 7.0.2.3)
-   41 |       activejob (= 7.0.2.3)
-   42 |       activesupport (= 7.0.2.3)
->  43 |       mail (~> 2.5, >= 2.5.4)
-   44 |       net-imap
-   45 |       net-pop
-   46 |       net-smtp
-   47 |       rails-dom-testing (~> 2.0)
-   48 |     actionpack (7.0.2.3)
-   49 |       actionview (= 7.0.2.3)
-   50 |       activesupport (= 7.0.2.3)
-   51 |       rack (~> 2.0, >= 2.2.0)
-   52 |       rack-test (>= 0.6.3)
-   53 |       rails-dom-testing (~> 2.0)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (mini_magick v3.5.0) [CVE-2013-2616, CVE-2019-13574, GHSA-r7j3-vvh2-xrpj, GHSA-w754-gq8r-pf5f]",111,937,skims,011. Use of software with known vulnerabilities,"Use of mini_magick at version 3.5.0 with ['CVE-2013-2616', 'CVE-2019-13574', 'GHSA-r7j3-vvh2-xrpj', 'GHSA-w754-gq8r-pf5f'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
   101 |     i18n (1.10.0)
   102 |       concurrent-ruby (~> 1.0)
@@ -39763,30 +39619,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (mini_magick v4.9.0)
   183 | end
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (multi_xml v^0.5) [CVE-2013-0175, GHSA-pchc-949f-53m5]",140,937,skims,011. Use of software with known vulnerabilities,"Use of multi_xml at version 0.5 with ['CVE-2013-0175', 'GHSA-pchc-949f-53m5'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  130 |       net-protocol
-  131 |       timeout
-  132 |     nio4r (2.5.8)
-  133 |     nokogiri (1.12.5)
-  134 |       mini_portile2 (~> 2.6.1)
-  135 |       racc (~> 1.4)
-  136 |     oauth2 (1.4.9)
-  137 |       faraday (>= 0.17.3, < 3.0)
-  138 |       jwt (>= 1.0, < 3.0)
-  139 |       multi_json (~> 1.3)
-> 140 |       multi_xml (~> 0.5)
-  141 |       rack (>= 1.2, < 3)
-  142 |     omniauth (2.1.0)
-  143 |       hashie (>= 3.4.6)
-  144 |       rack (>= 2.2.3)
-  145 |       rack-protection
-  146 |     omniauth-facebook (9.0.0)
-  147 |       omniauth-oauth2 (~> 1.2)
-  148 |     omniauth-oauth2 (1.7.2)
-  149 |       oauth2 (~> 1.4)
-  150 |       omniauth (>= 1.9, < 3)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (net.minidev:json-smart v1.3.1) [CVE-2021-27568, CVE-2021-31684, GHSA-fg2v-w576-w4v3, GHSA-v528-7hrm-frqp]",19,937,skims,011. Use of software with known vulnerabilities,"Use of net.minidev:json-smart at version 1.3.1 with ['CVE-2021-27568', 'CVE-2021-31684', 'GHSA-fg2v-w576-w4v3', 'GHSA-v528-7hrm-frqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
     9 |   <dependencies>
    10 |     <dependency>
@@ -39859,150 +39691,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (nokogiri v=1.8.1) [
   141 |
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (nokogiri v>=1.2.0) [CVE-2012-6685, CVE-2013-6460, CVE-2013-6461, CVE-2015-1819, CVE-2015-5312, CVE-2015-7499, CVE-2015-8806, CVE-2016-4658, CVE-2017-15412, CVE-2017-16932, CVE-2017-18258, CVE-2017-5029, CVE-2017-9050, CVE-2018-14404, CVE-2018-8048, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5477, CVE-2019-5815, CVE-2020-24977, CVE-2020-26247, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2021-3537, CVE-2021-3541, CVE-2021-41098, CVE-2022-23308, CVE-2022-24836, CVE-2022-29181, GHSA-2qc6-mcvw-92cw, GHSA-2rr5-8q37-2w7h, GHSA-6qvp-r6r3-9p7h, GHSA-6wj9-77wq-jq7p, GHSA-7553-jr98-vx47, GHSA-7hp2-xwpj-95jq, GHSA-7rrm-v45f-jp64, GHSA-882p-jqgm-f45g, GHSA-8c56-cpmw-89x7, GHSA-cgx6-hpwq-fhv5, GHSA-cr5j-953j-xw5p, GHSA-crjr-9rc5-ghw8, GHSA-fq42-c5rg-92c2, GHSA-fr52-4hqw-p27f, GHSA-gx8x-g87m-h5q6, GHSA-jxjr-5h69-qw3w, GHSA-pf6m-fxpq-fg8v, GHSA-v6gp-9mmm-c6p5, GHSA-vr8q-g5c7-m54m, GHSA-xh29-r2w5-wx8m, GHSA-xjqg-9jvg-fgx2, GHSA-xxx9-3xcr-gjj3, OSVDB-118481, USN-3424-1]",213,937,skims,011. Use of software with known vulnerabilities,"Use of nokogiri at version >=1.2.0 with ['CVE-2012-6685', 'CVE-2013-6460', 'CVE-2013-6461', 'CVE-2015-1819', 'CVE-2015-5312', 'CVE-2015-7499', 'CVE-2015-8806', 'CVE-2016-4658', 'CVE-2017-15412', 'CVE-2017-16932', 'CVE-2017-18258', 'CVE-2017-5029', 'CVE-2017-9050', 'CVE-2018-14404', 'CVE-2018-8048', 'CVE-2019-11068', 'CVE-2019-13117', 'CVE-2019-13118', 'CVE-2019-18197', 'CVE-2019-5477', 'CVE-2019-5815', 'CVE-2020-24977', 'CVE-2020-26247', 'CVE-2020-7595', 'CVE-2021-3517', 'CVE-2021-3518', 'CVE-2021-3537', 'CVE-2021-3541', 'CVE-2021-41098', 'CVE-2022-23308', 'CVE-2022-24836', 'CVE-2022-29181', 'GHSA-2qc6-mcvw-92cw', 'GHSA-2rr5-8q37-2w7h', 'GHSA-6qvp-r6r3-9p7h', 'GHSA-6wj9-77wq-jq7p', 'GHSA-7553-jr98-vx47', 'GHSA-7hp2-xwpj-95jq', 'GHSA-7rrm-v45f-jp64', 'GHSA-882p-jqgm-f45g', 'GHSA-8c56-cpmw-89x7', 'GHSA-cgx6-hpwq-fhv5', 'GHSA-cr5j-953j-xw5p', 'GHSA-crjr-9rc5-ghw8', 'GHSA-fq42-c5rg-92c2', 'GHSA-fr52-4hqw-p27f', 'GHSA-gx8x-g87m-h5q6', 'GHSA-jxjr-5h69-qw3w', 'GHSA-pf6m-fxpq-fg8v', 'GHSA-v6gp-9mmm-c6p5', 'GHSA-vr8q-g5c7-m54m', 'GHSA-xh29-r2w5-wx8m', 'GHSA-xjqg-9jvg-fgx2', 'GHSA-xxx9-3xcr-gjj3', 'OSVDB-118481', 'USN-3424-1'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  203 |     stringio (3.0.1)
-  204 |     strscan (3.0.1)
-  205 |     thor (1.2.1)
-  206 |     timecop (0.9.5)
-  207 |     timeout (0.2.0)
-  208 |     tzinfo (2.0.4)
-  209 |       concurrent-ruby (~> 1.0)
-  210 |     warden (1.2.9)
-  211 |       rack (>= 2.0.9)
-  212 |     webrat (0.7.3)
-> 213 |       nokogiri (>= 1.2.0)
-  214 |       rack (>= 1.0)
-  215 |       rack-test (>= 0.5.3)
-  216 |     websocket-driver (0.7.5)
-  217 |       websocket-extensions (>= 0.1.0)
-  218 |     websocket-extensions (0.1.5)
-  219 |     zeitwerk (2.5.4)
-  220 |
-  221 | PLATFORMS
-  222 |   ruby
-  223 |
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (nokogiri v>=1.5.9) [CVE-2013-6460, CVE-2013-6461, CVE-2015-1819, CVE-2015-5312, CVE-2015-7499, CVE-2015-8806, CVE-2016-4658, CVE-2017-15412, CVE-2017-16932, CVE-2017-18258, CVE-2017-5029, CVE-2017-9050, CVE-2018-14404, CVE-2018-8048, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5477, CVE-2019-5815, CVE-2020-24977, CVE-2020-26247, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2021-3537, CVE-2021-3541, CVE-2021-41098, CVE-2022-23308, CVE-2022-24836, CVE-2022-29181, GHSA-2qc6-mcvw-92cw, GHSA-2rr5-8q37-2w7h, GHSA-6qvp-r6r3-9p7h, GHSA-7553-jr98-vx47, GHSA-7hp2-xwpj-95jq, GHSA-7rrm-v45f-jp64, GHSA-882p-jqgm-f45g, GHSA-8c56-cpmw-89x7, GHSA-cgx6-hpwq-fhv5, GHSA-cr5j-953j-xw5p, GHSA-crjr-9rc5-ghw8, GHSA-fq42-c5rg-92c2, GHSA-fr52-4hqw-p27f, GHSA-gx8x-g87m-h5q6, GHSA-jxjr-5h69-qw3w, GHSA-pf6m-fxpq-fg8v, GHSA-v6gp-9mmm-c6p5, GHSA-vr8q-g5c7-m54m, GHSA-xh29-r2w5-wx8m, GHSA-xjqg-9jvg-fgx2, GHSA-xxx9-3xcr-gjj3, OSVDB-118481, USN-3424-1]",106,937,skims,011. Use of software with known vulnerabilities,"Use of nokogiri at version >=1.5.9 with ['CVE-2013-6460', 'CVE-2013-6461', 'CVE-2015-1819', 'CVE-2015-5312', 'CVE-2015-7499', 'CVE-2015-8806', 'CVE-2016-4658', 'CVE-2017-15412', 'CVE-2017-16932', 'CVE-2017-18258', 'CVE-2017-5029', 'CVE-2017-9050', 'CVE-2018-14404', 'CVE-2018-8048', 'CVE-2019-11068', 'CVE-2019-13117', 'CVE-2019-13118', 'CVE-2019-18197', 'CVE-2019-5477', 'CVE-2019-5815', 'CVE-2020-24977', 'CVE-2020-26247', 'CVE-2020-7595', 'CVE-2021-3517', 'CVE-2021-3518', 'CVE-2021-3537', 'CVE-2021-3541', 'CVE-2021-41098', 'CVE-2022-23308', 'CVE-2022-24836', 'CVE-2022-29181', 'GHSA-2qc6-mcvw-92cw', 'GHSA-2rr5-8q37-2w7h', 'GHSA-6qvp-r6r3-9p7h', 'GHSA-7553-jr98-vx47', 'GHSA-7hp2-xwpj-95jq', 'GHSA-7rrm-v45f-jp64', 'GHSA-882p-jqgm-f45g', 'GHSA-8c56-cpmw-89x7', 'GHSA-cgx6-hpwq-fhv5', 'GHSA-cr5j-953j-xw5p', 'GHSA-crjr-9rc5-ghw8', 'GHSA-fq42-c5rg-92c2', 'GHSA-fr52-4hqw-p27f', 'GHSA-gx8x-g87m-h5q6', 'GHSA-jxjr-5h69-qw3w', 'GHSA-pf6m-fxpq-fg8v', 'GHSA-v6gp-9mmm-c6p5', 'GHSA-vr8q-g5c7-m54m', 'GHSA-xh29-r2w5-wx8m', 'GHSA-xjqg-9jvg-fgx2', 'GHSA-xxx9-3xcr-gjj3', 'OSVDB-118481', 'USN-3424-1'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   96 |       ruby2_keywords (>= 0.0.4)
-   97 |     faraday-net_http (2.0.2)
-   98 |     globalid (1.0.0)
-   99 |       activesupport (>= 5.0)
-  100 |     hashie (5.0.0)
-  101 |     i18n (1.10.0)
-  102 |       concurrent-ruby (~> 1.0)
-  103 |     jwt (2.3.0)
-  104 |     loofah (2.16.0)
-  105 |       crass (~> 1.0.2)
-> 106 |       nokogiri (>= 1.5.9)
-  107 |     mail (2.7.1)
-  108 |       mini_mime (>= 0.1.1)
-  109 |     marcel (1.0.2)
-  110 |     method_source (1.0.0)
-  111 |     mini_magick (3.5.0)
-  112 |     mini_mime (1.1.2)
-  113 |     mini_portile2 (2.6.1)
-  114 |     minitest (5.15.0)
-  115 |     mocha (1.13.0)
-  116 |     multi_json (1.15.0)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (nokogiri v>=1.6) [CVE-2013-6460, CVE-2013-6461, CVE-2015-1819, CVE-2015-5312, CVE-2015-7499, CVE-2015-8806, CVE-2016-4658, CVE-2017-15412, CVE-2017-16932, CVE-2017-18258, CVE-2017-5029, CVE-2017-9050, CVE-2018-14404, CVE-2018-8048, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5477, CVE-2019-5815, CVE-2020-24977, CVE-2020-26247, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2021-3537, CVE-2021-3541, CVE-2021-41098, CVE-2022-23308, CVE-2022-24836, CVE-2022-29181, GHSA-2qc6-mcvw-92cw, GHSA-2rr5-8q37-2w7h, GHSA-6qvp-r6r3-9p7h, GHSA-7553-jr98-vx47, GHSA-7hp2-xwpj-95jq, GHSA-7rrm-v45f-jp64, GHSA-882p-jqgm-f45g, GHSA-8c56-cpmw-89x7, GHSA-cgx6-hpwq-fhv5, GHSA-cr5j-953j-xw5p, GHSA-crjr-9rc5-ghw8, GHSA-fq42-c5rg-92c2, GHSA-fr52-4hqw-p27f, GHSA-gx8x-g87m-h5q6, GHSA-jxjr-5h69-qw3w, GHSA-pf6m-fxpq-fg8v, GHSA-v6gp-9mmm-c6p5, GHSA-vr8q-g5c7-m54m, GHSA-xh29-r2w5-wx8m, GHSA-xjqg-9jvg-fgx2, GHSA-xxx9-3xcr-gjj3, OSVDB-118481, USN-3424-1]",183,937,skims,011. Use of software with known vulnerabilities,"Use of nokogiri at version >=1.6 with ['CVE-2013-6460', 'CVE-2013-6461', 'CVE-2015-1819', 'CVE-2015-5312', 'CVE-2015-7499', 'CVE-2015-8806', 'CVE-2016-4658', 'CVE-2017-15412', 'CVE-2017-16932', 'CVE-2017-18258', 'CVE-2017-5029', 'CVE-2017-9050', 'CVE-2018-14404', 'CVE-2018-8048', 'CVE-2019-11068', 'CVE-2019-13117', 'CVE-2019-13118', 'CVE-2019-18197', 'CVE-2019-5477', 'CVE-2019-5815', 'CVE-2020-24977', 'CVE-2020-26247', 'CVE-2020-7595', 'CVE-2021-3517', 'CVE-2021-3518', 'CVE-2021-3537', 'CVE-2021-3541', 'CVE-2021-41098', 'CVE-2022-23308', 'CVE-2022-24836', 'CVE-2022-29181', 'GHSA-2qc6-mcvw-92cw', 'GHSA-2rr5-8q37-2w7h', 'GHSA-6qvp-r6r3-9p7h', 'GHSA-7553-jr98-vx47', 'GHSA-7hp2-xwpj-95jq', 'GHSA-7rrm-v45f-jp64', 'GHSA-882p-jqgm-f45g', 'GHSA-8c56-cpmw-89x7', 'GHSA-cgx6-hpwq-fhv5', 'GHSA-cr5j-953j-xw5p', 'GHSA-crjr-9rc5-ghw8', 'GHSA-fq42-c5rg-92c2', 'GHSA-fr52-4hqw-p27f', 'GHSA-gx8x-g87m-h5q6', 'GHSA-jxjr-5h69-qw3w', 'GHSA-pf6m-fxpq-fg8v', 'GHSA-v6gp-9mmm-c6p5', 'GHSA-vr8q-g5c7-m54m', 'GHSA-xh29-r2w5-wx8m', 'GHSA-xjqg-9jvg-fgx2', 'GHSA-xxx9-3xcr-gjj3', 'OSVDB-118481', 'USN-3424-1'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  173 |       actionview (= 7.0.2.3)
-  174 |       activejob (= 7.0.2.3)
-  175 |       activemodel (= 7.0.2.3)
-  176 |       activerecord (= 7.0.2.3)
-  177 |       activestorage (= 7.0.2.3)
-  178 |       activesupport (= 7.0.2.3)
-  179 |       bundler (>= 1.15.0)
-  180 |       railties (= 7.0.2.3)
-  181 |     rails-dom-testing (2.0.3)
-  182 |       activesupport (>= 4.2.0)
-> 183 |       nokogiri (>= 1.6)
-  184 |     rails-html-sanitizer (1.4.2)
-  185 |       loofah (~> 2.3)
-  186 |     railties (7.0.2.3)
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-  190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-  193 |     rake (13.0.6)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (nokogiri v>=1.8.5) [CVE-2017-9050, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5477, CVE-2019-5815, CVE-2020-24977, CVE-2020-26247, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2021-3537, CVE-2021-3541, CVE-2021-41098, CVE-2022-23308, CVE-2022-24836, CVE-2022-29181, GHSA-2qc6-mcvw-92cw, GHSA-2rr5-8q37-2w7h, GHSA-7553-jr98-vx47, GHSA-7rrm-v45f-jp64, GHSA-cgx6-hpwq-fhv5, GHSA-cr5j-953j-xw5p, GHSA-crjr-9rc5-ghw8, GHSA-fq42-c5rg-92c2, GHSA-gx8x-g87m-h5q6, GHSA-v6gp-9mmm-c6p5, GHSA-vr8q-g5c7-m54m, GHSA-xh29-r2w5-wx8m, GHSA-xxx9-3xcr-gjj3]",61,937,skims,011. Use of software with known vulnerabilities,"Use of nokogiri at version >=1.8.5 with ['CVE-2017-9050', 'CVE-2019-11068', 'CVE-2019-13117', 'CVE-2019-13118', 'CVE-2019-18197', 'CVE-2019-5477', 'CVE-2019-5815', 'CVE-2020-24977', 'CVE-2020-26247', 'CVE-2020-7595', 'CVE-2021-3517', 'CVE-2021-3518', 'CVE-2021-3537', 'CVE-2021-3541', 'CVE-2021-41098', 'CVE-2022-23308', 'CVE-2022-24836', 'CVE-2022-29181', 'GHSA-2qc6-mcvw-92cw', 'GHSA-2rr5-8q37-2w7h', 'GHSA-7553-jr98-vx47', 'GHSA-7rrm-v45f-jp64', 'GHSA-cgx6-hpwq-fhv5', 'GHSA-cr5j-953j-xw5p', 'GHSA-crjr-9rc5-ghw8', 'GHSA-fq42-c5rg-92c2', 'GHSA-gx8x-g87m-h5q6', 'GHSA-v6gp-9mmm-c6p5', 'GHSA-vr8q-g5c7-m54m', 'GHSA-xh29-r2w5-wx8m', 'GHSA-xxx9-3xcr-gjj3'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   51 |       rack (~> 2.0, >= 2.2.0)
-   52 |       rack-test (>= 0.6.3)
-   53 |       rails-dom-testing (~> 2.0)
-   54 |       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-   55 |     actiontext (7.0.2.3)
-   56 |       actionpack (= 7.0.2.3)
-   57 |       activerecord (= 7.0.2.3)
-   58 |       activestorage (= 7.0.2.3)
-   59 |       activesupport (= 7.0.2.3)
-   60 |       globalid (>= 0.6.0)
->  61 |       nokogiri (>= 1.8.5)
-   62 |     actionview (7.0.2.3)
-   63 |       activesupport (= 7.0.2.3)
-   64 |       builder (~> 3.1)
-   65 |       erubi (~> 1.4)
-   66 |       rails-dom-testing (~> 2.0)
-   67 |       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-   68 |     activejob (7.0.2.3)
-   69 |       activesupport (= 7.0.2.3)
-   70 |       globalid (>= 0.3.6)
-   71 |     activemodel (7.0.2.3)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (omniauth v>=1.0 <3.0) [CVE-2015-9284, CVE-2017-18076, CVE-2020-36599, GHSA-9pr6-grf4-x2fr, GHSA-pm55-qfxr-h247, GHSA-ww4x-rwq6-qpgf]",152,937,skims,011. Use of software with known vulnerabilities,"Use of omniauth at version >=1.0 <3.0 with ['CVE-2015-9284', 'CVE-2017-18076', 'CVE-2020-36599', 'GHSA-9pr6-grf4-x2fr', 'GHSA-pm55-qfxr-h247', 'GHSA-ww4x-rwq6-qpgf'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  142 |     omniauth (2.1.0)
-  143 |       hashie (>= 3.4.6)
-  144 |       rack (>= 2.2.3)
-  145 |       rack-protection
-  146 |     omniauth-facebook (9.0.0)
-  147 |       omniauth-oauth2 (~> 1.2)
-  148 |     omniauth-oauth2 (1.7.2)
-  149 |       oauth2 (~> 1.4)
-  150 |       omniauth (>= 1.9, < 3)
-  151 |     omniauth-openid (2.0.1)
-> 152 |       omniauth (>= 1.0, < 3.0)
-  153 |       rack-openid (~> 1.4.0)
-  154 |     orm_adapter (0.5.0)
-  155 |     psych (4.0.3)
-  156 |       stringio
-  157 |     puma (5.4.0)
-  158 |     racc (1.6.0)
-  159 |     rack (2.2.3)
-  160 |     rack-openid (1.4.2)
-  161 |       rack (>= 1.1.0)
-  162 |       ruby-openid (>= 2.1.8)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (omniauth v>=1.9 <3) [CVE-2015-9284, CVE-2020-36599, GHSA-pm55-qfxr-h247, GHSA-ww4x-rwq6-qpgf]",150,937,skims,011. Use of software with known vulnerabilities,"Use of omniauth at version >=1.9 <3 with ['CVE-2015-9284', 'CVE-2020-36599', 'GHSA-pm55-qfxr-h247', 'GHSA-ww4x-rwq6-qpgf'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  140 |       multi_xml (~> 0.5)
-  141 |       rack (>= 1.2, < 3)
-  142 |     omniauth (2.1.0)
-  143 |       hashie (>= 3.4.6)
-  144 |       rack (>= 2.2.3)
-  145 |       rack-protection
-  146 |     omniauth-facebook (9.0.0)
-  147 |       omniauth-oauth2 (~> 1.2)
-  148 |     omniauth-oauth2 (1.7.2)
-  149 |       oauth2 (~> 1.4)
-> 150 |       omniauth (>= 1.9, < 3)
-  151 |     omniauth-openid (2.0.1)
-  152 |       omniauth (>= 1.0, < 3.0)
-  153 |       rack-openid (~> 1.4.0)
-  154 |     orm_adapter (0.5.0)
-  155 |     psych (4.0.3)
-  156 |       stringio
-  157 |     puma (5.4.0)
-  158 |     racc (1.6.0)
-  159 |     rack (2.2.3)
-  160 |     rack-openid (1.4.2)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-servlet v2.6.0) [CVE-2015-5348, GHSA-26v6-w6fw-rh94]",112,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.camel:camel-servlet at version 2.6.0 with ['CVE-2015-5348', 'GHSA-26v6-w6fw-rh94'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
   100 |       <groupId>org.slf4j</groupId>
   101 |       <artifactId>slf4j-simple</artifactId>
@@ -40326,150 +40014,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (puma v=5.1.0) [CVE-
    37 |
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v^2.2.0) [CVE-2020-8184, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-wq4h-7r42-5hrr]",51,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version 2.2.0 with ['CVE-2020-8184', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-wq4h-7r42-5hrr'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   41 |       activejob (= 7.0.2.3)
-   42 |       activesupport (= 7.0.2.3)
-   43 |       mail (~> 2.5, >= 2.5.4)
-   44 |       net-imap
-   45 |       net-pop
-   46 |       net-smtp
-   47 |       rails-dom-testing (~> 2.0)
-   48 |     actionpack (7.0.2.3)
-   49 |       actionview (= 7.0.2.3)
-   50 |       activesupport (= 7.0.2.3)
->  51 |       rack (~> 2.0, >= 2.2.0)
-   52 |       rack-test (>= 0.6.3)
-   53 |       rails-dom-testing (~> 2.0)
-   54 |       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-   55 |     actiontext (7.0.2.3)
-   56 |       actionpack (= 7.0.2.3)
-   57 |       activerecord (= 7.0.2.3)
-   58 |       activestorage (= 7.0.2.3)
-   59 |       activesupport (= 7.0.2.3)
-   60 |       globalid (>= 0.6.0)
-   61 |       nokogiri (>= 1.8.5)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v>=1.0 <3) [CVE-2011-5036, CVE-2012-6109, CVE-2013-0183, CVE-2013-0184, CVE-2013-0262, CVE-2013-0263, CVE-2018-16470, CVE-2018-16471, CVE-2019-16782, CVE-2020-8161, CVE-2020-8184, GHSA-3pxh-h8hw-mj8w, GHSA-5f9h-9pjv-v6j7, GHSA-5r2p-j47h-mhpg, GHSA-85r7-w5mv-c849, GHSA-9vc2-p34x-jhxh, GHSA-h77x-m5q8-c29h, GHSA-hg78-4f6x-99wq, GHSA-hrqr-hxpp-chr3, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-rgr4-9jh5-j4j6, GHSA-wq4h-7r42-5hrr, GHSA-xc85-32mf-xpv8]",166,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version >=1.0 <3 with ['CVE-2011-5036', 'CVE-2012-6109', 'CVE-2013-0183', 'CVE-2013-0184', 'CVE-2013-0262', 'CVE-2013-0263', 'CVE-2018-16470', 'CVE-2018-16471', 'CVE-2019-16782', 'CVE-2020-8161', 'CVE-2020-8184', 'GHSA-3pxh-h8hw-mj8w', 'GHSA-5f9h-9pjv-v6j7', 'GHSA-5r2p-j47h-mhpg', 'GHSA-85r7-w5mv-c849', 'GHSA-9vc2-p34x-jhxh', 'GHSA-h77x-m5q8-c29h', 'GHSA-hg78-4f6x-99wq', 'GHSA-hrqr-hxpp-chr3', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-rgr4-9jh5-j4j6', 'GHSA-wq4h-7r42-5hrr', 'GHSA-xc85-32mf-xpv8'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  156 |       stringio
-  157 |     puma (5.4.0)
-  158 |     racc (1.6.0)
-  159 |     rack (2.2.3)
-  160 |     rack-openid (1.4.2)
-  161 |       rack (>= 1.1.0)
-  162 |       ruby-openid (>= 2.1.8)
-  163 |     rack-protection (2.2.0)
-  164 |       rack
-  165 |     rack-test (1.1.0)
-> 166 |       rack (>= 1.0, < 3)
-  167 |     rails (7.0.2.3)
-  168 |       actioncable (= 7.0.2.3)
-  169 |       actionmailbox (= 7.0.2.3)
-  170 |       actionmailer (= 7.0.2.3)
-  171 |       actionpack (= 7.0.2.3)
-  172 |       actiontext (= 7.0.2.3)
-  173 |       actionview (= 7.0.2.3)
-  174 |       activejob (= 7.0.2.3)
-  175 |       activemodel (= 7.0.2.3)
-  176 |       activerecord (= 7.0.2.3)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v>=1.0) [CVE-2011-5036, CVE-2012-6109, CVE-2013-0183, CVE-2013-0184, CVE-2013-0262, CVE-2013-0263, CVE-2018-16470, CVE-2018-16471, CVE-2019-16782, CVE-2020-8161, CVE-2020-8184, GHSA-3pxh-h8hw-mj8w, GHSA-5f9h-9pjv-v6j7, GHSA-5r2p-j47h-mhpg, GHSA-85r7-w5mv-c849, GHSA-9vc2-p34x-jhxh, GHSA-h77x-m5q8-c29h, GHSA-hg78-4f6x-99wq, GHSA-hrqr-hxpp-chr3, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-rgr4-9jh5-j4j6, GHSA-wq4h-7r42-5hrr, GHSA-xc85-32mf-xpv8]",214,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version >=1.0 with ['CVE-2011-5036', 'CVE-2012-6109', 'CVE-2013-0183', 'CVE-2013-0184', 'CVE-2013-0262', 'CVE-2013-0263', 'CVE-2018-16470', 'CVE-2018-16471', 'CVE-2019-16782', 'CVE-2020-8161', 'CVE-2020-8184', 'GHSA-3pxh-h8hw-mj8w', 'GHSA-5f9h-9pjv-v6j7', 'GHSA-5r2p-j47h-mhpg', 'GHSA-85r7-w5mv-c849', 'GHSA-9vc2-p34x-jhxh', 'GHSA-h77x-m5q8-c29h', 'GHSA-hg78-4f6x-99wq', 'GHSA-hrqr-hxpp-chr3', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-rgr4-9jh5-j4j6', 'GHSA-wq4h-7r42-5hrr', 'GHSA-xc85-32mf-xpv8'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  204 |     strscan (3.0.1)
-  205 |     thor (1.2.1)
-  206 |     timecop (0.9.5)
-  207 |     timeout (0.2.0)
-  208 |     tzinfo (2.0.4)
-  209 |       concurrent-ruby (~> 1.0)
-  210 |     warden (1.2.9)
-  211 |       rack (>= 2.0.9)
-  212 |     webrat (0.7.3)
-  213 |       nokogiri (>= 1.2.0)
-> 214 |       rack (>= 1.0)
-  215 |       rack-test (>= 0.5.3)
-  216 |     websocket-driver (0.7.5)
-  217 |       websocket-extensions (>= 0.1.0)
-  218 |     websocket-extensions (0.1.5)
-  219 |     zeitwerk (2.5.4)
-  220 |
-  221 | PLATFORMS
-  222 |   ruby
-  223 |
-  224 | DEPENDENCIES
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v>=1.1.0) [CVE-2011-5036, CVE-2012-6109, CVE-2013-0183, CVE-2013-0184, CVE-2013-0262, CVE-2013-0263, CVE-2018-16470, CVE-2018-16471, CVE-2019-16782, CVE-2020-8161, CVE-2020-8184, GHSA-3pxh-h8hw-mj8w, GHSA-5f9h-9pjv-v6j7, GHSA-5r2p-j47h-mhpg, GHSA-85r7-w5mv-c849, GHSA-9vc2-p34x-jhxh, GHSA-h77x-m5q8-c29h, GHSA-hg78-4f6x-99wq, GHSA-hrqr-hxpp-chr3, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-rgr4-9jh5-j4j6, GHSA-wq4h-7r42-5hrr, GHSA-xc85-32mf-xpv8]",161,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version >=1.1.0 with ['CVE-2011-5036', 'CVE-2012-6109', 'CVE-2013-0183', 'CVE-2013-0184', 'CVE-2013-0262', 'CVE-2013-0263', 'CVE-2018-16470', 'CVE-2018-16471', 'CVE-2019-16782', 'CVE-2020-8161', 'CVE-2020-8184', 'GHSA-3pxh-h8hw-mj8w', 'GHSA-5f9h-9pjv-v6j7', 'GHSA-5r2p-j47h-mhpg', 'GHSA-85r7-w5mv-c849', 'GHSA-9vc2-p34x-jhxh', 'GHSA-h77x-m5q8-c29h', 'GHSA-hg78-4f6x-99wq', 'GHSA-hrqr-hxpp-chr3', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-rgr4-9jh5-j4j6', 'GHSA-wq4h-7r42-5hrr', 'GHSA-xc85-32mf-xpv8'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  151 |     omniauth-openid (2.0.1)
-  152 |       omniauth (>= 1.0, < 3.0)
-  153 |       rack-openid (~> 1.4.0)
-  154 |     orm_adapter (0.5.0)
-  155 |     psych (4.0.3)
-  156 |       stringio
-  157 |     puma (5.4.0)
-  158 |     racc (1.6.0)
-  159 |     rack (2.2.3)
-  160 |     rack-openid (1.4.2)
-> 161 |       rack (>= 1.1.0)
-  162 |       ruby-openid (>= 2.1.8)
-  163 |     rack-protection (2.2.0)
-  164 |       rack
-  165 |     rack-test (1.1.0)
-  166 |       rack (>= 1.0, < 3)
-  167 |     rails (7.0.2.3)
-  168 |       actioncable (= 7.0.2.3)
-  169 |       actionmailbox (= 7.0.2.3)
-  170 |       actionmailer (= 7.0.2.3)
-  171 |       actionpack (= 7.0.2.3)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v>=1.2 <3) [CVE-2011-5036, CVE-2012-6109, CVE-2013-0183, CVE-2013-0184, CVE-2013-0262, CVE-2013-0263, CVE-2018-16470, CVE-2018-16471, CVE-2019-16782, CVE-2020-8161, CVE-2020-8184, GHSA-3pxh-h8hw-mj8w, GHSA-5f9h-9pjv-v6j7, GHSA-5r2p-j47h-mhpg, GHSA-85r7-w5mv-c849, GHSA-9vc2-p34x-jhxh, GHSA-h77x-m5q8-c29h, GHSA-hg78-4f6x-99wq, GHSA-hrqr-hxpp-chr3, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-rgr4-9jh5-j4j6, GHSA-wq4h-7r42-5hrr, GHSA-xc85-32mf-xpv8]",141,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version >=1.2 <3 with ['CVE-2011-5036', 'CVE-2012-6109', 'CVE-2013-0183', 'CVE-2013-0184', 'CVE-2013-0262', 'CVE-2013-0263', 'CVE-2018-16470', 'CVE-2018-16471', 'CVE-2019-16782', 'CVE-2020-8161', 'CVE-2020-8184', 'GHSA-3pxh-h8hw-mj8w', 'GHSA-5f9h-9pjv-v6j7', 'GHSA-5r2p-j47h-mhpg', 'GHSA-85r7-w5mv-c849', 'GHSA-9vc2-p34x-jhxh', 'GHSA-h77x-m5q8-c29h', 'GHSA-hg78-4f6x-99wq', 'GHSA-hrqr-hxpp-chr3', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-rgr4-9jh5-j4j6', 'GHSA-wq4h-7r42-5hrr', 'GHSA-xc85-32mf-xpv8'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  131 |       timeout
-  132 |     nio4r (2.5.8)
-  133 |     nokogiri (1.12.5)
-  134 |       mini_portile2 (~> 2.6.1)
-  135 |       racc (~> 1.4)
-  136 |     oauth2 (1.4.9)
-  137 |       faraday (>= 0.17.3, < 3.0)
-  138 |       jwt (>= 1.0, < 3.0)
-  139 |       multi_json (~> 1.3)
-  140 |       multi_xml (~> 0.5)
-> 141 |       rack (>= 1.2, < 3)
-  142 |     omniauth (2.1.0)
-  143 |       hashie (>= 3.4.6)
-  144 |       rack (>= 2.2.3)
-  145 |       rack-protection
-  146 |     omniauth-facebook (9.0.0)
-  147 |       omniauth-oauth2 (~> 1.2)
-  148 |     omniauth-oauth2 (1.7.2)
-  149 |       oauth2 (~> 1.4)
-  150 |       omniauth (>= 1.9, < 3)
-  151 |     omniauth-openid (2.0.1)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v>=2.0.9) [CVE-2020-8161, CVE-2020-8184, GHSA-5f9h-9pjv-v6j7, GHSA-hxqx-xwvh-44m2, GHSA-j6w9-fv6q-3q52, GHSA-wq4h-7r42-5hrr]",211,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version >=2.0.9 with ['CVE-2020-8161', 'CVE-2020-8184', 'GHSA-5f9h-9pjv-v6j7', 'GHSA-hxqx-xwvh-44m2', 'GHSA-j6w9-fv6q-3q52', 'GHSA-wq4h-7r42-5hrr'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  201 |     ruby2_keywords (0.0.5)
-  202 |     sqlite3 (1.4.2)
-  203 |     stringio (3.0.1)
-  204 |     strscan (3.0.1)
-  205 |     thor (1.2.1)
-  206 |     timecop (0.9.5)
-  207 |     timeout (0.2.0)
-  208 |     tzinfo (2.0.4)
-  209 |       concurrent-ruby (~> 1.0)
-  210 |     warden (1.2.9)
-> 211 |       rack (>= 2.0.9)
-  212 |     webrat (0.7.3)
-  213 |       nokogiri (>= 1.2.0)
-  214 |       rack (>= 1.0)
-  215 |       rack-test (>= 0.5.3)
-  216 |     websocket-driver (0.7.5)
-  217 |       websocket-extensions (>= 0.1.0)
-  218 |     websocket-extensions (0.1.5)
-  219 |     zeitwerk (2.5.4)
-  220 |
-  221 | PLATFORMS
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rails-html-sanitizer v^1.2.0) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",176,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile","
   163 | end
   164 |
@@ -40494,54 +40038,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rails-html-sanitize
   183 | end
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails-html-sanitizer v^1.2.0) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",54,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   44 |       net-imap
-   45 |       net-pop
-   46 |       net-smtp
-   47 |       rails-dom-testing (~> 2.0)
-   48 |     actionpack (7.0.2.3)
-   49 |       actionview (= 7.0.2.3)
-   50 |       activesupport (= 7.0.2.3)
-   51 |       rack (~> 2.0, >= 2.2.0)
-   52 |       rack-test (>= 0.6.3)
-   53 |       rails-dom-testing (~> 2.0)
->  54 |       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-   55 |     actiontext (7.0.2.3)
-   56 |       actionpack (= 7.0.2.3)
-   57 |       activerecord (= 7.0.2.3)
-   58 |       activestorage (= 7.0.2.3)
-   59 |       activesupport (= 7.0.2.3)
-   60 |       globalid (>= 0.6.0)
-   61 |       nokogiri (>= 1.8.5)
-   62 |     actionview (7.0.2.3)
-   63 |       activesupport (= 7.0.2.3)
-   64 |       builder (~> 3.1)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails-html-sanitizer v^1.2.0) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",67,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-   57 |       activerecord (= 7.0.2.3)
-   58 |       activestorage (= 7.0.2.3)
-   59 |       activesupport (= 7.0.2.3)
-   60 |       globalid (>= 0.6.0)
-   61 |       nokogiri (>= 1.8.5)
-   62 |     actionview (7.0.2.3)
-   63 |       activesupport (= 7.0.2.3)
-   64 |       builder (~> 3.1)
-   65 |       erubi (~> 1.4)
-   66 |       rails-dom-testing (~> 2.0)
->  67 |       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-   68 |     activejob (7.0.2.3)
-   69 |       activesupport (= 7.0.2.3)
-   70 |       globalid (>= 0.3.6)
-   71 |     activemodel (7.0.2.3)
-   72 |       activesupport (= 7.0.2.3)
-   73 |     activerecord (7.0.2.3)
-   74 |       activemodel (= 7.0.2.3)
-   75 |       activesupport (= 7.0.2.3)
-   76 |     activestorage (7.0.2.3)
-   77 |       actionpack (= 7.0.2.3)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails-html-sanitizer v1.4.2) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",184,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.4.2 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
   174 |       activejob (= 7.0.2.3)
   175 |       activemodel (= 7.0.2.3)
@@ -40564,30 +40060,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails-html-san
   192 |       zeitwerk (~> 2.5)
   193 |     rake (13.0.6)
   194 |     rdoc (6.4.0)
-      ^ Col 0
-",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (railties v>=5.0) [CVE-2019-5420, GHSA-m42h-mh85-4qgc]",198,937,skims,011. Use of software with known vulnerabilities,"Use of railties at version >=5.0 with ['CVE-2019-5420', 'GHSA-m42h-mh85-4qgc'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-  190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-  193 |     rake (13.0.6)
-  194 |     rdoc (6.4.0)
-  195 |       psych (>= 4.0.0)
-  196 |     responders (3.0.1)
-  197 |       actionpack (>= 5.0)
-> 198 |       railties (>= 5.0)
-  199 |     rexml (3.2.5)
-  200 |     ruby-openid (2.9.2)
-  201 |     ruby2_keywords (0.0.5)
-  202 |     sqlite3 (1.4.2)
-  203 |     stringio (3.0.1)
-  204 |     strscan (3.0.1)
-  205 |     thor (1.2.1)
-  206 |     timecop (0.9.5)
-  207 |     timeout (0.2.0)
-  208 |     tzinfo (2.0.4)
       ^ Col 0
 ",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rake v>=11.1) [CVE-2020-8130, GHSA-jppv-gw3r-w3q8]",13,937,skims,011. Use of software with known vulnerabilities,"Use of rake at version >=11.1 with ['CVE-2020-8130', 'GHSA-jppv-gw3r-w3q8'] in namespace/skims/test/data/lib_path/f011/Gemfile","
@@ -40614,30 +40086,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rake v>=11.1) [CVE-
    23 | gem ""jsbundling-rails""
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rake v>=12.2) [CVE-2020-8130, GHSA-jppv-gw3r-w3q8]",190,937,skims,011. Use of software with known vulnerabilities,"Use of rake at version >=12.2 with ['CVE-2020-8130', 'GHSA-jppv-gw3r-w3q8'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  180 |       railties (= 7.0.2.3)
-  181 |     rails-dom-testing (2.0.3)
-  182 |       activesupport (>= 4.2.0)
-  183 |       nokogiri (>= 1.6)
-  184 |     rails-html-sanitizer (1.4.2)
-  185 |       loofah (~> 2.3)
-  186 |     railties (7.0.2.3)
-  187 |       actionpack (= 7.0.2.3)
-  188 |       activesupport (= 7.0.2.3)
-  189 |       method_source
-> 190 |       rake (>= 12.2)
-  191 |       thor (~> 1.0)
-  192 |       zeitwerk (~> 2.5)
-  193 |     rake (13.0.6)
-  194 |     rdoc (6.4.0)
-  195 |       psych (>= 4.0.0)
-  196 |     responders (3.0.1)
-  197 |       actionpack (>= 5.0)
-  198 |       railties (>= 5.0)
-  199 |     rexml (3.2.5)
-  200 |     ruby-openid (2.9.2)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rdoc v3.11) [CVE-2012-6708, CVE-2013-0256, CVE-2015-9251, CVE-2019-11358, CVE-2021-31799, GHSA-ggxm-pgc9-g7fp, GHSA-v2r9-c84j-v7xm]",28,937,skims,011. Use of software with known vulnerabilities,"Use of rdoc at version 3.11 with ['CVE-2012-6708', 'CVE-2013-0256', 'CVE-2015-9251', 'CVE-2019-11358', 'CVE-2021-31799', 'GHSA-ggxm-pgc9-g7fp', 'GHSA-v2r9-c84j-v7xm'] in namespace/skims/test/data/lib_path/f011/Gemfile","
    18 | gem ""selenium-webdriver"", "">= 4.0.0""
    19 |
@@ -40686,30 +40134,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (redcarpet v~3.2.3) 
    61 | gem ""connection_pool"", require: false
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (ruby-openid v>=2.1.8) [CVE-2013-1812, CVE-2019-11027, GHSA-6c8p-qphv-668v, GHSA-fqfj-cmh6-hj49]",162,937,skims,011. Use of software with known vulnerabilities,"Use of ruby-openid at version >=2.1.8 with ['CVE-2013-1812', 'CVE-2019-11027', 'GHSA-6c8p-qphv-668v', 'GHSA-fqfj-cmh6-hj49'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  152 |       omniauth (>= 1.0, < 3.0)
-  153 |       rack-openid (~> 1.4.0)
-  154 |     orm_adapter (0.5.0)
-  155 |     psych (4.0.3)
-  156 |       stringio
-  157 |     puma (5.4.0)
-  158 |     racc (1.6.0)
-  159 |     rack (2.2.3)
-  160 |     rack-openid (1.4.2)
-  161 |       rack (>= 1.1.0)
-> 162 |       ruby-openid (>= 2.1.8)
-  163 |     rack-protection (2.2.0)
-  164 |       rack
-  165 |     rack-test (1.1.0)
-  166 |       rack (>= 1.0, < 3)
-  167 |     rails (7.0.2.3)
-  168 |       actioncable (= 7.0.2.3)
-  169 |       actionmailbox (= 7.0.2.3)
-  170 |       actionmailer (= 7.0.2.3)
-  171 |       actionpack (= 7.0.2.3)
-  172 |       actiontext (= 7.0.2.3)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (safetydance v0.7.1) [CVE-2020-7737, GHSA-6m85-wvcr-pgw3]",375,937,skims,011. Use of software with known vulnerabilities,"Use of safetydance at version 0.7.1 with ['CVE-2020-7737', 'GHSA-6m85-wvcr-pgw3'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   365 | safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   366 |   version ""5.2.1""
@@ -40848,30 +40272,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (sqlite3 v^1.4) [GHSA
   150 |   if ENV[""AR_JDBC""]
       ^ Col 0
 ",gem.gem_gemfile
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (websocket-extensions v>=0.1.0) [CVE-2020-7663, GHSA-g6wq-qcwm-j5g2]",217,937,skims,011. Use of software with known vulnerabilities,"Use of websocket-extensions at version >=0.1.0 with ['CVE-2020-7663', 'GHSA-g6wq-qcwm-j5g2'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
-  207 |     timeout (0.2.0)
-  208 |     tzinfo (2.0.4)
-  209 |       concurrent-ruby (~> 1.0)
-  210 |     warden (1.2.9)
-  211 |       rack (>= 2.0.9)
-  212 |     webrat (0.7.3)
-  213 |       nokogiri (>= 1.2.0)
-  214 |       rack (>= 1.0)
-  215 |       rack-test (>= 0.5.3)
-  216 |     websocket-driver (0.7.5)
-> 217 |       websocket-extensions (>= 0.1.0)
-  218 |     websocket-extensions (0.1.5)
-  219 |     zeitwerk (2.5.4)
-  220 |
-  221 | PLATFORMS
-  222 |   ruby
-  223 |
-  224 | DEPENDENCIES
-  225 |   devise!
-  226 |   mocha (~> 1.1)
-  227 |   nokogiri (< 1.13)
-      ^ Col 0
-",gem.gem_gemfile_lock
 F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/package.json","
    1 | {
    2 |   ""name"": ""test"",
