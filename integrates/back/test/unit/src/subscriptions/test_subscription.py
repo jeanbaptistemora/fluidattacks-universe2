@@ -11,6 +11,7 @@ from dataloaders import (
 from db_model.subscriptions import (
     add,
     get_all_subscriptions,
+    remove,
 )
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
@@ -18,6 +19,7 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
+    SubscriptionHistoricRequest,
 )
 from newutils.subscriptions import (
     translate_entity,
@@ -163,3 +165,66 @@ async def test_update() -> None:
             modified_date="2022-05-22T20:07:57+00:00",
         ),
     )
+
+
+@pytest.mark.changes_db
+async def test_historic_sub_add_and_delete() -> None:
+    test_data_1 = Subscription(
+        email="test_user_email@test.com",
+        entity=SubscriptionEntity.ORGANIZATION,
+        frequency=SubscriptionFrequency.WEEKLY,
+        subject="test_report_subject",
+        modified_date="2022-10-27T20:07:57+00:00",
+    )
+    test_data_2 = Subscription(
+        email="test_user_email2@test.com",
+        entity=SubscriptionEntity.GROUP,
+        frequency=SubscriptionFrequency.MONTHLY,
+        subject="test_report_subject2",
+        modified_date="2022-10-27T20:07:57+00:00",
+    )
+    await add(subscription=test_data_1)
+    await add(subscription=test_data_2)
+
+    loaders = get_new_context()
+
+    assert await loaders.stakeholder_historic_subscription.load(
+        SubscriptionHistoricRequest(
+            email=test_data_1.email,
+            entity=test_data_1.entity,
+            subject=test_data_1.subject,
+        )
+    ) == (test_data_1,)
+
+    assert await loaders.stakeholder_historic_subscription.load(
+        SubscriptionHistoricRequest(
+            email=test_data_2.email,
+            entity=test_data_2.entity,
+            subject=test_data_2.subject,
+        )
+    ) == (test_data_2,)
+
+    await remove(
+        email=test_data_1.email,
+        entity=test_data_1.entity,
+        subject=test_data_1.subject,
+    )
+    loaders.stakeholder_historic_subscription.clear_all()
+    assert (
+        await loaders.stakeholder_historic_subscription.load(
+            SubscriptionHistoricRequest(
+                email=test_data_1.email,
+                entity=test_data_1.entity,
+                subject=test_data_1.subject,
+            )
+        )
+        == tuple()
+    )
+
+    assert await loaders.stakeholder_historic_subscription.load(
+        SubscriptionHistoricRequest(
+            email=test_data_2.email,
+            entity=test_data_2.entity,
+            subject=test_data_2.subject,
+        )
+    ) == (test_data_2,)
