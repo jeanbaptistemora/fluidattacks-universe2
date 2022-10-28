@@ -24,6 +24,7 @@ from custom_exceptions import (
     InvalidCommentParent,
     MachineCanNotOperate,
     PermissionDenied,
+    RootNotFound,
     VulnNotFound,
 )
 from dataloaders import (
@@ -124,6 +125,7 @@ from typing import (
     Optional,
     Set,
     Tuple,
+    TypedDict,
     Union,
 )
 from vulnerabilities import (
@@ -138,6 +140,12 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+class VulnsProperties(TypedDict):
+    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
+    severity_score: Decimal
+    severity_level: str
 
 
 async def add_comment(
@@ -697,21 +705,13 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         )
 
 
-async def vulns_properties(
-    loaders: DataLoader,
-    finding_id: str,
-    vulnerabilities: List[Vulnerability],
-    is_closed: bool = False,
-) -> Dict[str, Any]:
-    finding: Finding = await loaders.finding.load(finding_id)
-    vulns_props: dict[str, dict[str, dict[str, Any]]] = {}
-
-    for vuln in vulnerabilities:
-        repo = "Vulnerabilities"
-        if vuln.root_id is not None:
-            root: Root = await loaders.root.load(
-                (finding.group_name, vuln.root_id)
-            )
+async def repo_subtitle(
+    loaders: DataLoader, vuln: Vulnerability, group_name: str
+) -> str:
+    repo = "Vulnerabilities"
+    if vuln.root_id is not None:
+        try:
+            root: Root = await loaders.root.load((group_name, vuln.root_id))
             nickname = (
                 root.state.nickname
                 if isinstance(root.state.nickname, str)
@@ -722,6 +722,22 @@ async def vulns_properties(
                 if isinstance(root.state, (GitRootState, str))
                 else nickname
             )
+        except RootNotFound:
+            repo = "Vulnerabilities"
+    return repo
+
+
+async def vulns_properties(
+    loaders: DataLoader,
+    finding_id: str,
+    vulnerabilities: List[Vulnerability],
+    is_closed: bool = False,
+) -> Dict[str, Any]:
+    finding: Finding = await loaders.finding.load(finding_id)
+    vulns_props: dict[str, dict[str, dict[str, Any]]] = {}
+
+    for vuln in vulnerabilities:
+        repo = await repo_subtitle(loaders, vuln, finding.group_name)
         vuln_dict = vulns_props.get(repo, {})
         if is_closed:
             exposure: Decimal = 4 ** (get_severity_score(finding.severity) - 4)
@@ -761,60 +777,6 @@ async def vulns_properties(
         vulns_props[repo] = dict(sorted(vuln_dict.items()))
 
     return vulns_props
-
-
-async def send_closed_vulnerabilities_report(  # pylint: disable=too-many-locals # noqa: MC0001
-    *,
-    loaders: Any,
-    finding_id: str,
-    closed_vulnerabilities_id: List[str],
-) -> None:
-    finding_vulns_loader = loaders.finding_vulnerabilities_all
-    finding_vulns_loader.clear(finding_id)
-    closed_vulnerabilities: List[Vulnerability] = [
-        vuln
-        for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln.id in closed_vulnerabilities_id
-    ]
-
-    schedule(
-        send_vulnerability_report(
-            loaders=loaders,
-            finding_id=finding_id,
-            vulnerabilities_properties=await vulns_properties(
-                loaders, finding_id, closed_vulnerabilities, is_closed=True
-            ),
-            is_closed=True,
-        )
-    )
-
-
-async def send_vulnerability_report(
-    *,
-    loaders: Any,
-    finding_id: str,
-    vulnerabilities_properties: Dict[str, Any],
-    is_closed: bool = False,
-) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
-    severity_score: Decimal = get_severity_score(finding.severity)
-    severity_level: str = get_severity_level(severity_score)
-    if finding.state.status == FindingStateStatus.APPROVED:
-        schedule(
-            findings_mail.send_mail_vulnerability_report(
-                loaders=loaders,
-                group_name=finding.group_name,
-                finding_title=finding.title,
-                finding_id=finding_id,
-                vulnerabilities_properties=vulnerabilities_properties,
-                responsible=finding.state.modified_by
-                if is_closed
-                else finding.hacker_email,
-                severity_score=severity_score,
-                severity_level=severity_level,
-                is_closed=is_closed,
-            )
-        )
 
 
 async def update_description(
@@ -928,6 +890,27 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
         finding_id,
     )
     if open_vulnerabilities or closed_vulnerabilities:
+        closed_properties: Optional[VulnsProperties] = None
+        if closed_vulnerabilities:
+            finding: Finding = await loaders.finding.load(finding_id)
+            if finding.state.status == FindingStateStatus.APPROVED:
+                closed_properties = VulnsProperties(
+                    vulns_props=await vulns_properties(
+                        loaders,
+                        finding_id,
+                        [
+                            vuln
+                            for vuln in closed_vulnerabilities
+                            if vuln is not None
+                        ],
+                        is_closed=True,
+                    ),
+                    severity_score=get_severity_score(finding.severity),
+                    severity_level=get_severity_level(
+                        get_severity_score(finding.severity)
+                    ),
+                )
+
         await comments_domain.add(
             loaders,
             FindingComment(
@@ -942,6 +925,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
                 content=justification,
                 email=email,
             ),
+            closed_properties=closed_properties,
         )
 
 
@@ -1043,14 +1027,6 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         closed_vulns_ids=closed_vulns_ids,
         vulns_to_close_from_file=vulns_to_close_from_file,
     )
-    if closed_vulns_ids:
-        schedule(
-            send_closed_vulnerabilities_report(
-                loaders=loaders,
-                finding_id=finding_id,
-                closed_vulnerabilities_id=closed_vulns_ids,
-            )
-        )
 
 
 async def get_oldest_no_treatment(

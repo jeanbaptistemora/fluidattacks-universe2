@@ -274,7 +274,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://.com"],
+                        environment_urls=["https://test.com"],
                         git_environment_urls=[
                             RootEnvironmentUrl(
                                 url="https://test.com",

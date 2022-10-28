@@ -25,6 +25,9 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decimal import (
+    Decimal,
+)
 from group_access.domain import (
     get_stakeholders_subscribed_to_consult,
 )
@@ -34,6 +37,18 @@ from itertools import (
 from mailer import (
     findings as findings_mail,
 )
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    TypedDict,
+)
+
+
+class VulnsProperties(TypedDict):
+    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
+    severity_score: Decimal
+    severity_level: str
 
 
 def _fill_vuln_info(
@@ -93,11 +108,29 @@ async def send_finding_consult_mail(
 
 
 async def add(
-    loaders: Dataloaders, comment_data: FindingComment, notify: bool = False
+    loaders: Dataloaders,
+    comment_data: FindingComment,
+    notify: bool = False,
+    closed_properties: Optional[VulnsProperties] = None,
 ) -> None:
     await finding_comments_model.add(finding_comment=comment_data)
     if notify:
         schedule(send_finding_consult_mail(loaders, comment_data))
+    if closed_properties is not None:
+        finding: Finding = await loaders.finding.load(comment_data.finding_id)
+        schedule(
+            findings_mail.send_mail_vulnerability_report(
+                loaders=loaders,
+                group_name=finding.group_name,
+                finding_title=finding.title,
+                finding_id=comment_data.finding_id,
+                vulnerabilities_properties=closed_properties["vulns_props"],
+                responsible=finding.state.modified_by,
+                severity_score=closed_properties["severity_score"],
+                severity_level=closed_properties["severity_level"],
+                is_closed=True,
+            )
+        )
 
 
 async def remove(comment_id: str, finding_id: str) -> None:
