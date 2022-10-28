@@ -20,10 +20,6 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.roots.types import (
-    GitRootState,
-    Root,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -76,7 +72,7 @@ from unreliable_indicators.operations import (
     require_report_vulnerabilities,
     require_finding_access,
 )
-async def mutate(  # pylint: disable=too-many-locals
+async def mutate(
     _: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
@@ -120,21 +116,9 @@ async def mutate(  # pylint: disable=too-many-locals
         vulns_props: dict[str, dict[str, dict[str, str]]] = {}
         for vuln in vulnerabilities:
             if vuln.state.status == VulnerabilityStateStatus.OPEN:
-                repo = "Vulnerabilities"
-                if vuln.root_id is not None:
-                    root: Root = await loaders.root.load(
-                        (group_name, vuln.root_id)
-                    )
-                    nickname = (
-                        root.state.nickname
-                        if isinstance(root.state.nickname, str)
-                        else repo
-                    )
-                    repo = (
-                        f"{nickname}/{root.state.branch}"
-                        if isinstance(root.state, (GitRootState, str))
-                        else nickname
-                    )
+                repo = await findings_domain.repo_subtitle(
+                    loaders, vuln, group_name
+                )
                 vuln_dict = vulns_props.get(repo, {})
                 vuln_dict.update(
                     {
