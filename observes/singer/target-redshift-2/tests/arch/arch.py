@@ -19,6 +19,7 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_redshift": (
         "cli",
+        "emitter",
         ("loader", "strategy"),
         ("data_schema", "grouper"),
         "errors",
