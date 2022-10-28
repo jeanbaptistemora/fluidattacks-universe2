@@ -28,11 +28,11 @@ def uses_innerhtml(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.JS_USES_INNERHTML
+    method = core_model.MethodsEnum.TS_USES_INNERHTML
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVASCRIPT,
+            GraphShardMetadataLanguage.TYPESCRIPT,
         ):
             yield from has_innerhtml(shard)
 

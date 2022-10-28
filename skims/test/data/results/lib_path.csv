@@ -36918,6 +36918,14 @@ F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_innerhtml.js,5,79,ski
 > 5 | main.innerHTML = externalHTML;
     ^ Col 0
 ",javascript.js_uses_innerhtml
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_innerhtml.ts,4,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f371/ts_uses_innerhtml.ts","
+  1 | const rootDiv = document.getElementById('root');
+  2 | const hash = decodeURIComponent(location.hash.substr(1));
+  3 | if (rootDiv != null){
+> 4 |   rootDiv.innerHTML = hash;
+  5 | }
+    ^ Col 0
+",typescript.ts_uses_innerhtml
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
    1 | bda.credentials2.key       = AKIA0000000000000000
    2 | zon.aws.accesskey          = AKIA0000000000000000
