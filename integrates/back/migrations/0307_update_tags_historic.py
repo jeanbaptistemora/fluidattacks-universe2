@@ -158,7 +158,7 @@ async def _process_group(
 ) -> None:
     group: dict = await _get_group(group_name=group_name)
 
-    if group.get("tags", None):
+    if group.get("tags", None) or "tags" in group:
         LOGGER_CONSOLE.info(
             "Removing tags from group metadata",
             extra={

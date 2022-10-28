@@ -163,6 +163,7 @@ TEST_GROUPS: set[str] = {
     "update_organization_policies",
     "update_organization_stakeholder",
     "update_nickname",
+    "update_notification_preferences",
     "update_severity",
     "update_stakeholder_phone",
     "update_toe_input",
