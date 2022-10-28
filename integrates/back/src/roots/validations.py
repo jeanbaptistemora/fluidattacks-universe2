@@ -290,6 +290,7 @@ async def validate_git_root_component(
             or (
                 parsed_component.scheme == parsed_environment_url.scheme
                 and parsed_component.host == parsed_environment_url.host
+                and parsed_component.port == parsed_environment_url.port
             )
             or (
                 environment_url.cloud_name

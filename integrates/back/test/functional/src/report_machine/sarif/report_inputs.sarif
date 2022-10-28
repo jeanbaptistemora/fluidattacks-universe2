@@ -35,8 +35,10 @@
             "text": "session is missing HttpOnly"
           },
           "properties": {
+            "has_redirect": false,
             "kind": "inputs",
             "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "http://localhost:48000/f042_secure_4",
             "source_method": "analyze_headers.set_cookie_httponly",
             "stream": "home,response,headers",
             "technique": "DAST"
@@ -74,8 +76,92 @@
             "text": "session2 is missing HttpOnly"
           },
           "properties": {
+            "has_redirect": false,
             "kind": "inputs",
             "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "http://localhost:48000/f042_secure_5/",
+            "source_method": "analyze_headers.set_cookie_httponly",
+            "stream": "home,response,headers",
+            "technique": "DAST"
+          },
+          "ruleId": "128",
+          "taxa": [
+            {
+              "id": "029",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://localhost:8000/samesite"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | > GET https://localhost:8000/samesite\n   2 | > ...\n   3 |\n   4 | < Server: Werkzeug/2.1.2 Python/3.8.13\n   5 | < Date: Thu, 27 Oct 2022 19:36:59 GMT\n   6 | < Content-Type: text/html; charset=utf-8\n>  7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None\n   8 | < Content-Length: 0\n   9 | < Connection: close\n  10 |\n  11 | * EOF\n     ^ Col 0"
+                  },
+                  "startLine": "session is missing HttpOnly"
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "session is missing HttpOnly"
+          },
+          "properties": {
+            "has_redirect": true,
+            "kind": "inputs",
+            "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "http://localhost:48000/f042_samesite_2",
+            "source_method": "analyze_headers.set_cookie_httponly",
+            "stream": "home,response,headers",
+            "technique": "DAST"
+          },
+          "ruleId": "128",
+          "taxa": [
+            {
+              "id": "029",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://localhost:48000/f042_secure_5/"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | > GET https://localhost:48000/f042_secure_5/\n   2 | > ...\n   3 |\n   4 | < Server: Werkzeug/2.1.2 Python/3.8.13\n   5 | < Date: Fri, 21 Oct 2022 00:25:49 GMT\n   6 | < Content-Type: text/html; charset=utf-8\n   7 | < Set-Cookie: session=test5; Path=/\n   8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/\n>  9 | < Set-Cookie: session2=test52; Path=/\n  10 | < Content-Length: 0\n  11 | < Connection: close\n  12 |\n  13 | * EOF\n     ^ Col 0"
+                  },
+                  "startLine": "session2 is missing HttpOnly"
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "session2 is missing HttpOnly"
+          },
+          "properties": {
+            "has_redirect": false,
+            "kind": "inputs",
+            "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "https://localhost:48000/f042_secure_5/",
             "source_method": "analyze_headers.set_cookie_httponly",
             "stream": "home,response,headers",
             "technique": "DAST"

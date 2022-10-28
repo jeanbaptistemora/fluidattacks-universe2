@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+from custom_exceptions import (
+    InvalidRootComponent,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -367,6 +370,12 @@ async def test_report_inputs(populate: bool) -> None:
         "rb",
     ) as sarif:
         sarif_report = json.load(sarif)
+    with open(
+        "back/test/functional/src/report_machine/sarif/"
+        "invalid_component.sarif",
+        "rb",
+    ) as sarif:
+        invalid_sarif_report = json.load(sarif)
 
     with mock.patch(
         "schedulers.report_machine.get_config",
@@ -381,7 +390,9 @@ async def test_report_inputs(populate: bool) -> None:
         ),
     ), mock.patch(
         "schedulers.report_machine.get_sarif_log",
-        side_effect=mock.AsyncMock(return_value=sarif_report),
+        side_effect=mock.AsyncMock(
+            side_effect=[sarif_report, invalid_sarif_report]
+        ),
     ):
         loaders = get_new_context()
         findings: Tuple[
@@ -406,4 +417,7 @@ async def test_report_inputs(populate: bool) -> None:
         assert f_128.approval is None
 
         f_128_vulns = await loaders.finding_vulnerabilities.load(f_128.id)
-        assert len(f_128_vulns) == 2
+        assert len(f_128_vulns) == 3
+
+        with pytest.raises(InvalidRootComponent):
+            await process_execution("group1_")

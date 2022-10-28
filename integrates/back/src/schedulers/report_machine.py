@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
 # pylint: disable=too-many-lines
 from PIL import (
     Image,
@@ -26,6 +25,7 @@ from contextlib import (
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
+    InvalidRootComponent,
     RepeatedToeInput,
 )
 from dataloaders import (
@@ -141,6 +141,10 @@ from unreliable_indicators.enums import (
 )
 from unreliable_indicators.operations import (
     update_unreliable_indicators_by_deps,
+)
+from urllib.parse import (
+    ParseResult,
+    urlparse,
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,
@@ -469,9 +473,13 @@ def _get_vulns_with_reattack(
 
 
 def _get_input_url(vuln: Dict[str, Any], repo_nickname: str) -> str:
-    url: str = vuln["locations"][0]["physicalLocation"]["artifactLocation"][
-        "uri"
-    ]
+    url: str
+    if vuln["properties"].get("has_redirect", False):
+        url = vuln["properties"]["original_url"]
+    else:
+        url = vuln["locations"][0]["physicalLocation"]["artifactLocation"][
+            "uri"
+        ]
     while url.endswith("/"):
         url = url.rstrip("/")
 
@@ -624,23 +632,55 @@ def _machine_vulns_to_close(
 async def ensure_toe_inputs(
     loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
 ) -> None:
-    for vuln in stream["inputs"]:
-        if vuln["state"] != "open" or vuln["skims_technique"] == "APK":
-            continue
+    vulns_for_toe: List[Dict[str, Any]] = [
+        vuln
+        for vuln in stream["inputs"]
+        if vuln["state"] == "open" and vuln["skims_technique"] != "APK"
+    ]
+    if vulns_for_toe:
+        parsed_toes: List[ParseResult] = [
+            parsed_url
+            for vuln in vulns_for_toe
+            if (parsed_url := urlparse(vuln["url"].split(" ")[0]))
+        ]
 
-        with suppress(RepeatedToeInput):
-            await toe_inputs_domain.add(
-                loaders=loaders,
-                group_name=group_name,
-                component=vuln["url"].split(" ")[0],
-                entry_point="",
-                attributes=ToeInputAttributesToAdd(
-                    be_present=True,
-                    unreliable_root_id=root_id,
-                    has_vulnerabilities=False,
-                    seen_first_time_by="machine@fluidattacks.com",
-                ),
-            )
+        for vuln in vulns_for_toe:
+            url: str = vuln["url"].split(" ")[0]
+            parsed_url = urlparse(url)
+            with suppress(RepeatedToeInput):
+                try:
+                    await toe_inputs_domain.add(
+                        loaders=loaders,
+                        group_name=group_name,
+                        component=url,
+                        entry_point="",
+                        attributes=ToeInputAttributesToAdd(
+                            be_present=True,
+                            unreliable_root_id=root_id,
+                            has_vulnerabilities=False,
+                            seen_first_time_by="machine@fluidattacks.com",
+                        ),
+                    )
+                except InvalidRootComponent as exc:
+                    # Some invalid component may be the same domain
+                    # as a valid component with different scheme,
+                    # since Machine analyzes both the HTTP and HTTPS urls.
+                    # There is no need to break the execution
+                    # if that is the case
+                    if (
+                        len(
+                            [
+                                toe
+                                for toe in parsed_toes
+                                if (
+                                    toe.scheme != parsed_url.scheme
+                                    and toe.netloc == parsed_url.netloc
+                                )
+                            ]
+                        )
+                        == 0
+                    ):
+                        raise exc
 
 
 async def persist_vulnerabilities(  # pylint: disable=too-many-arguments

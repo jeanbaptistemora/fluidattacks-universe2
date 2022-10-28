@@ -1,0 +1,124 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "nickname"
+        }
+      },
+      "results": [
+        {
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://localhost:8000/f042_secure_4"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   1 | > GET http://localhost:8000/f042_secure_4\n   2 | > ...\n   3 |\n   4 | < Server: Werkzeug/2.1.2 Python/3.8.13\n   5 | < Date: Fri, 21 Oct 2022 00:25:49 GMT\n   6 | < Content-Type: text/html; charset=utf-8\n>  7 | < Set-Cookie: session=; Path=/\n   8 | < Content-Length: 0\n   9 | < Connection: close\n  10 |\n  11 | * EOF\n     ^ Col 0"
+                  },
+                  "startLine": "session is missing HttpOnly"
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "session is missing HttpOnly"
+          },
+          "properties": {
+            "has_redirect": false,
+            "kind": "inputs",
+            "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "http://localhost:8000/f042_secure_4",
+            "source_method": "analyze_headers.set_cookie_httponly",
+            "stream": "home,response,headers",
+            "technique": "DAST"
+          },
+          "ruleId": "128",
+          "taxa": [
+            {
+              "id": "029",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": false,
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [
+            {
+              "fullDescription": {
+                "text": "When you have web applications that handle sessions, you can use different attributes to improve the security related to the cookies that handle these sessions. The attributes HttpOnly and Secure prevent the theft of the session cookie by denying the browser visibility and access to it (even when Cross Site Scripting [XSS] attacks are used) and allow the cookie to be sent only when the request is encrypted (using HTTPS). In this manner, session theft is greatly mitigated.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/029",
+              "id": "029",
+              "name": "Cookies with security attributes",
+              "shortDescription": {
+                "text": "The session cookies of web applications must have security attributes (HttpOnly, Secure, SameSite) and prefixes (e.g., __Host-).\n"
+              }
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "The applications cookies are generated without properly setting the HttpOnly attribute.\n"
+              },
+              "help": {
+                "text": "The application must set the HttpOnly attribute in the cookies with sensitive information.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/128#details",
+              "id": "128",
+              "name": "Insecurely generated cookies - HttpOnly",
+              "properties": {
+                "auto_approve": false
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "acuberosatfluid",
+          "repositoryUri": "ssh://git@gitlab.com:fluidattacks/universe.git",
+          "revisionId": "81e8b34ed40dc54b34398bf1c96953ccfe3f91d6"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0"
+}
