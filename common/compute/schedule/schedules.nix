@@ -1587,7 +1587,7 @@
       "/observes/etl/timedoctor/backup"
     ];
 
-    schedule_expression = "cron(0 4 1,15 * ? *)";
+    schedule_expression = "cron(0 4 1 * ? *)";
     size = "nano";
     awsRole = "prod_observes";
     attempts = 4;
