@@ -19,9 +19,6 @@ from mypy_boto3_s3 import (
 from redshift_client.id_objs import (
     SchemaId,
 )
-from redshift_client.schema.client import (
-    SchemaClient,
-)
 from redshift_client.sql_client import (
     new_client,
 )
@@ -39,7 +36,7 @@ from target_redshift import (
 from target_redshift.loader import (
     S3Handler,
 )
-from target_redshift.loader.strategy import (
+from target_redshift.strategy import (
     LoadingStrategy,
     Strategies,
 )

@@ -2,11 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from . import (
-    _truncate,
-)
-from ._grouper import (
-    PackagedSinger,
+from ._core import (
+    SingerLoader,
 )
 from dataclasses import (
     dataclass,
@@ -30,9 +27,6 @@ from fa_purity.json.value.transform import (
 from fa_purity.pure_iter.factory import (
     from_flist,
     pure_map,
-)
-from fa_purity.pure_iter.transform import (
-    consume,
 )
 from fa_purity.result.transform import (
     all_ok,
@@ -63,6 +57,12 @@ from target_redshift.data_schema import (
 from target_redshift.errors import (
     MissingKey,
 )
+from target_redshift.loader import (
+    _truncate,
+)
+from target_redshift.loader._grouper import (
+    PackagedSinger,
+)
 from typing import (
     cast,
     Dict,
@@ -74,10 +74,10 @@ LOG = logging.getLogger(__name__)
 StreamTables = FrozenDict[str, Tuple[TableId, Table]]
 
 
-def _in_threads(cmds: PureIter[Cmd[None]], nodes: int) -> Cmd[None]:
+def _in_threads(commands: PureIter[Cmd[None]], nodes: int) -> Cmd[None]:
     def _action(act: CmdUnwrapper) -> None:
         pool = ThreadPool(nodes=nodes)  # type: ignore[misc]
-        results: Iterable[None] = cast(Iterable[None], pool.imap(lambda c: act.unwrap(c), cmds))  # type: ignore[misc]
+        results: Iterable[None] = cast(Iterable[None], pool.imap(lambda c: act.unwrap(c), commands))  # type: ignore[misc]
         for _ in results:
             # compute ThreadPool jobs
             pass
@@ -94,8 +94,9 @@ def _to_row(table: Table, record: SingerRecord) -> ResultE[RowData]:
             lambda _: Result.success(JsonValue(None), Exception)
             if table.columns[c].nullable
             else Result.failure(
-                MissingKey(f"on non-nullable column `{c.name}`", table)
-            )
+                MissingKey(f"on non-nullable column `{c.name}`", table),
+                JsonValue,
+            ).alt(Exception)
         )
         .bind(lambda x: Unfolder(x).to_any_primitive()),
         table.order,
@@ -161,7 +162,7 @@ class SingerHandler:
             )
             .unwrap()
         ).chunked(self.options.records_per_query)
-        cmds = chunks.map(
+        commands = chunks.map(
             lambda p: self.client.insert(
                 tar.table_id,
                 tar.table,
@@ -170,7 +171,7 @@ class SingerHandler:
             )
             + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
         )
-        return _in_threads(cmds, self.options.pkg_threads)
+        return _in_threads(commands, self.options.pkg_threads)
 
     def record_handler(
         self, table_map: StreamTables, records: PureIter[SingerRecord]
@@ -201,3 +202,6 @@ class SingerHandler:
             raise NotImplementedError()
         _item_2 = item
         return state.freeze().bind(lambda t: self.record_handler(t, _item_2))
+
+    def loader(self, state: MutableTableMap) -> SingerLoader:
+        return SingerLoader.new(lambda p: self.handle(state, p))

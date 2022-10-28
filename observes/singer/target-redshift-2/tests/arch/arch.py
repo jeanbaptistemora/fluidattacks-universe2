@@ -19,17 +19,19 @@ from typing import (
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_redshift": (
         "cli",
-        "loader",
+        ("loader", "strategy"),
         "data_schema",
         "errors",
         "_logger",
     ),
     "target_redshift.loader": (
-        "_handlers",
-        "_grouper",
-        "strategy",
-        "_s3_loader",
-        "_truncate",
+        ("_handlers", "_s3_loader"),
+        "_core",
+        ("_truncate", "_grouper"),
+    ),
+    "target_redshift.strategy": (
+        ("_recreate_all", "_per_stream"),
+        "_core",
     ),
     "target_redshift.loader.strategy": (
         (

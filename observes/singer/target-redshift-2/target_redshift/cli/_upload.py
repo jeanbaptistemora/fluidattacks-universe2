@@ -14,9 +14,6 @@ import logging
 from redshift_client.id_objs import (
     SchemaId,
 )
-from redshift_client.schema.client import (
-    SchemaClient,
-)
 from redshift_client.sql_client import (
     new_client,
 )
@@ -34,7 +31,7 @@ from target_redshift import (
 from target_redshift.loader import (
     SingerHandlerOptions,
 )
-from target_redshift.loader.strategy import (
+from target_redshift.strategy import (
     LoadingStrategy,
     Strategies,
 )

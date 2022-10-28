@@ -13,9 +13,6 @@ from ._handlers import (
 from ._s3_loader import (
     S3Handler,
 )
-from .strategy import (
-    LoadingStrategy,
-)
 from fa_purity import (
     Cmd,
     Stream,
@@ -60,12 +57,12 @@ def main(
     data: Stream[SingerMessage] = unsafe_from_cmd(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
-    handler = SingerHandler(schema, client, options)
     schemas = MutableTableMap({})
-    cmds = data.transform(lambda d: group_records(d, limit)).map(
-        lambda p: handler.handle(schemas, p)
+    loader = SingerHandler(schema, client, options).loader(schemas)
+    commands = data.transform(lambda d: group_records(d, limit)).map(
+        loader.handle
     )
-    return consume(cmds)
+    return consume(commands)
 
 
 def from_s3(
@@ -87,5 +84,4 @@ def from_s3(
 __all__ = [
     "SingerHandlerOptions",
     "S3Handler",
-    "LoadingStrategy",
 ]
