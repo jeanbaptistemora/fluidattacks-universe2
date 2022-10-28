@@ -120,7 +120,12 @@ def save_model(
 
     if best_features:
         training_data: DataFrame = load_training_data(training_dir)
-        train_x, train_y = split_training_data(training_data, best_features)
+        shuffled_training_data = training_data.sample(
+            frac=1, random_state=42
+        ).reset_index(drop=True)
+        train_x, train_y = split_training_data(
+            shuffled_training_data, best_features
+        )
         model_name = type(get_model_instance(model_class)).__name__.lower()
         if "SM_CHANNEL_MODEL" in os.environ:
             local_path = os.environ["SM_CHANNEL_MODEL"]
@@ -152,9 +157,9 @@ def train_model(
 ) -> List[List[str]]:
     all_combinations = get_features_combinations(list(FEATURES_DICTS.keys()))
     training_data: DataFrame = load_training_data(training_dir)
-    shuffled_training_data = training_data.sample(frac=1).reset_index(
-        drop=True
-    )
+    shuffled_training_data = training_data.sample(
+        frac=1, random_state=42
+    ).reset_index(drop=True)
     training_output: List[List[str]] = [RESULT_HEADERS]
 
     # Train the model
@@ -173,9 +178,9 @@ def inc_train_model(
     training_dir: str,
 ) -> List[List[str]]:
     training_data: DataFrame = load_training_data(training_dir)
-    shuffled_training_data = training_data.sample(frac=1).reset_index(
-        drop=True
-    )
+    shuffled_training_data = training_data.sample(
+        frac=1, random_state=42
+    ).reset_index(drop=True)
     training_output: List[List[str]] = [RESULT_HEADERS]
 
     # Incremental training with the best feature combination
