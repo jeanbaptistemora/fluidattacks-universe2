@@ -1,0 +1,8 @@
+---
+src.lib_root.f279.zip_slip_path_injection:
+  en: >
+    The file names in a zip archive are not properly
+    validated and sanitize before accessing them.
+  es: >
+    Los nombres de los archivos en un archivo zip no se validan
+    y desinfectan correctamente antes de acceder a ellos.

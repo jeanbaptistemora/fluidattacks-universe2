@@ -3907,6 +3907,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_ZIP_SLIP_PATH_INJECTION = MethodInfo(
+        file_name="java",
+        name="java_zip_slip_injection",
+        module="lib_root",
+        finding=FindingEnum.F279,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     K8S_CHECK_AUDIT_FLAG = MethodInfo(
         file_name="kubernetes",
         name="k8s_check_audit_flag",
