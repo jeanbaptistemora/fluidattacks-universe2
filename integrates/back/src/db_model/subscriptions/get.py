@@ -12,7 +12,6 @@ from .enums import (
 )
 from .types import (
     Subscription,
-    SubscriptionHistoricRequest,
 )
 from .utils import (
     format_subscriptions,
@@ -124,13 +123,13 @@ class StakeholderHistoricSubscriptionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self,
-        requests: Iterable[SubscriptionHistoricRequest],
+        requests: Iterable[tuple[str, SubscriptionEntity, str]],
     ) -> tuple[tuple[Subscription, ...], ...]:
         return await collect(
             _get_historic_subscription(
-                email=request.email,
-                entity=request.entity,
-                subject=request.subject,
+                email=email,
+                entity=entity,
+                subject=subject,
             )
-            for request in requests
+            for email, entity, subject in requests
         )

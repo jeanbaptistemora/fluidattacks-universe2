@@ -18,9 +18,3 @@ class Subscription(NamedTuple):
     frequency: SubscriptionFrequency
     subject: str
     modified_date: Optional[str] = None
-
-
-class SubscriptionHistoricRequest(NamedTuple):
-    email: str
-    entity: SubscriptionEntity
-    subject: str

@@ -19,7 +19,6 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
-    SubscriptionHistoricRequest,
 )
 from newutils.subscriptions import (
     translate_entity,
@@ -189,18 +188,18 @@ async def test_historic_sub_add_and_delete() -> None:
     loaders = get_new_context()
 
     assert await loaders.stakeholder_historic_subscription.load(
-        SubscriptionHistoricRequest(
-            email=test_data_1.email,
-            entity=test_data_1.entity,
-            subject=test_data_1.subject,
+        (
+            test_data_1.email,
+            test_data_1.entity,
+            test_data_1.subject,
         )
     ) == (test_data_1,)
 
     assert await loaders.stakeholder_historic_subscription.load(
-        SubscriptionHistoricRequest(
-            email=test_data_2.email,
-            entity=test_data_2.entity,
-            subject=test_data_2.subject,
+        (
+            test_data_2.email,
+            test_data_2.entity,
+            test_data_2.subject,
         )
     ) == (test_data_2,)
 
@@ -212,19 +211,19 @@ async def test_historic_sub_add_and_delete() -> None:
     loaders.stakeholder_historic_subscription.clear_all()
     assert (
         await loaders.stakeholder_historic_subscription.load(
-            SubscriptionHistoricRequest(
-                email=test_data_1.email,
-                entity=test_data_1.entity,
-                subject=test_data_1.subject,
+            (
+                test_data_1.email,
+                test_data_1.entity,
+                test_data_1.subject,
             )
         )
         == tuple()
     )
 
     assert await loaders.stakeholder_historic_subscription.load(
-        SubscriptionHistoricRequest(
-            email=test_data_2.email,
-            entity=test_data_2.entity,
-            subject=test_data_2.subject,
+        (
+            test_data_2.email,
+            test_data_2.entity,
+            test_data_2.subject,
         )
     ) == (test_data_2,)

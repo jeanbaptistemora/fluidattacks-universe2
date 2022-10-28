@@ -16,7 +16,6 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
-    SubscriptionHistoricRequest,
 )
 import pytest
 
@@ -115,11 +114,7 @@ async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
     loaders: Dataloaders = get_new_context()
     group_historic_subscriptions = (
         await loaders.stakeholder_historic_subscription.load(
-            SubscriptionHistoricRequest(
-                email=email,
-                entity=SubscriptionEntity.GROUP,
-                subject=group_name,
-            )
+            (email, SubscriptionEntity.GROUP, group_name)
         )
     )
     assert (
