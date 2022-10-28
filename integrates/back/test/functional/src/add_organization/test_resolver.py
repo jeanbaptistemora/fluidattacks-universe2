@@ -7,6 +7,7 @@ from . import (
 )
 from custom_exceptions import (
     OnlyCorporateEmails,
+    TrialRestriction,
 )
 import pytest
 from typing import (
@@ -59,3 +60,14 @@ async def test_personal(populate: bool) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == OnlyCorporateEmails().args[0]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_organization")
+async def test_only_one_org_during_trial(populate: bool) -> None:
+    assert populate
+    result = await get_result(
+        user="johndoe@fluidattacks.com", org="anotherorg"
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == TrialRestriction().args[0]
