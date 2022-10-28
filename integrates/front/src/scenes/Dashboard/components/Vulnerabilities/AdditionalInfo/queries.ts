@@ -33,4 +33,18 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
   }
 `;
 
-export { GET_VULN_ADDITIONAL_INFO };
+const UPDATE_VULNERABILITY_DESCRIPTION: DocumentNode = gql`
+  mutation UpdateVulnerabilityDescription(
+    $source: VulnerabilitySource!
+    $vulnerabilityId: String!
+  ) {
+    updateVulnerabilityDescription(
+      source: $source
+      vulnerabilityId: $vulnerabilityId
+    ) {
+      success
+    }
+  }
+`;
+
+export { GET_VULN_ADDITIONAL_INFO, UPDATE_VULNERABILITY_DESCRIPTION };

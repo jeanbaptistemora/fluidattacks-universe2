@@ -30,4 +30,14 @@ interface IGetVulnAdditionalInfoAttr {
   vulnerability: IVulnInfoAttr;
 }
 
-export type { IGetVulnAdditionalInfoAttr, IVulnInfoAttr };
+interface IUpdateVulnerabilityDescriptionAttr {
+  updateVulnerabilityDescription: {
+    success: boolean;
+  };
+}
+
+export type {
+  IGetVulnAdditionalInfoAttr,
+  IUpdateVulnerabilityDescriptionAttr,
+  IVulnInfoAttr,
+};
