@@ -46,9 +46,10 @@ from typing import (
 
 
 class VulnsProperties(TypedDict):
-    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
-    severity_score: Decimal
+    remaining_exposure: int
     severity_level: str
+    severity_score: Decimal
+    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
 
 
 def _fill_vuln_info(
@@ -126,6 +127,7 @@ async def add(
                 finding_id=comment_data.finding_id,
                 vulnerabilities_properties=closed_properties["vulns_props"],
                 responsible=finding.state.modified_by,
+                remaining_exposure=closed_properties["remaining_exposure"],
                 severity_score=closed_properties["severity_score"],
                 severity_level=closed_properties["severity_level"],
                 is_closed=True,

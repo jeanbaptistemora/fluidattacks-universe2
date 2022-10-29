@@ -143,9 +143,10 @@ LOGGER = logging.getLogger(__name__)
 
 
 class VulnsProperties(TypedDict):
-    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
-    severity_score: Decimal
+    remaining_exposure: int
     severity_level: str
+    severity_score: Decimal
+    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
 
 
 async def add_comment(
@@ -779,6 +780,18 @@ async def vulns_properties(
     return vulns_props
 
 
+def get_remaining_exposure(
+    finding: Finding, closed_vulnerabilities: int
+) -> int:
+    open_vulnerabilities = (
+        finding.unreliable_indicators.unreliable_open_vulnerabilities
+    )
+    return int(
+        (open_vulnerabilities - closed_vulnerabilities)
+        * (4 ** (get_severity_score(finding.severity) - 4))
+    )
+
+
 async def update_description(
     loaders: Any, finding_id: str, description: FindingDescriptionToUpdate
 ) -> None:
@@ -895,6 +908,13 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
             finding: Finding = await loaders.finding.load(finding_id)
             if finding.state.status == FindingStateStatus.APPROVED:
                 closed_properties = VulnsProperties(
+                    remaining_exposure=get_remaining_exposure(
+                        finding, len(closed_vulnerabilities)
+                    ),
+                    severity_level=get_severity_level(
+                        get_severity_score(finding.severity)
+                    ),
+                    severity_score=get_severity_score(finding.severity),
                     vulns_props=await vulns_properties(
                         loaders,
                         finding_id,
@@ -904,10 +924,6 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
                             if vuln is not None
                         ],
                         is_closed=True,
-                    ),
-                    severity_score=get_severity_score(finding.severity),
-                    severity_level=get_severity_level(
-                        get_severity_score(finding.severity)
                     ),
                 )
 

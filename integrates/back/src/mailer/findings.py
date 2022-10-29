@@ -53,6 +53,7 @@ from stakeholders.domain import (
 from typing import (
     Any,
     List,
+    Optional,
 )
 
 
@@ -305,6 +306,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     severity_score: Decimal,
     severity_level: str,
     is_closed: bool = False,
+    remaining_exposure: Optional[int] = None,
 ) -> None:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
@@ -338,6 +340,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         ),
         "vulns_props": vulnerabilities_properties,
         "responsible": responsible,
+        "remaining_exposure": remaining_exposure,
         "severity_score": severity_score,
         "severity_level": severity_level.capitalize(),
         "state": state,
