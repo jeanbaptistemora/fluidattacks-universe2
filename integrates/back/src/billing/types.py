@@ -12,6 +12,22 @@ from typing import (
 )
 
 
+class GroupAuthor(NamedTuple):
+    actor: Optional[str]
+    commit: Optional[str]
+    groups: Optional[str]
+    organization: Optional[str]
+    repository: Optional[str]
+
+
+class OrganizationAuthor(NamedTuple):
+    actor: str
+    commits: set[str]
+    groups: set[str]
+    organization: str
+    repositories: set[str]
+
+
 class Address(NamedTuple):
     line_1: str
     line_2: Optional[str]

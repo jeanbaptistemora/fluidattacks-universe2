@@ -9,6 +9,7 @@ from billing import (
 )
 from billing.types import (
     Customer,
+    GroupAuthor,
     PaymentMethod,
     Price,
     Subscription,
@@ -902,7 +903,7 @@ async def report_subscription_usage(
 
 async def get_authors_data(
     *, date: datetime, group: str
-) -> List[Dict[str, str]]:
+) -> tuple[GroupAuthor, ...]:
     return await dal.get_authors_data(
         date=date,
         group=group,

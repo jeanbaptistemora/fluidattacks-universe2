@@ -6,6 +6,7 @@ from billing import (
     domain as billing_domain,
 )
 from billing.types import (
+    GroupAuthor,
     Price,
 )
 from datetime import (
@@ -46,7 +47,7 @@ async def resolve(
 ) -> dict[str, Any]:
     group_name: str = parent.name
     date: datetime = kwargs.get("date", datetime_utils.get_now())
-    data: list[dict[str, str]] = await billing_domain.get_authors_data(
+    data: tuple[GroupAuthor, ...] = await billing_domain.get_authors_data(
         date=date,
         group=group_name,
     )

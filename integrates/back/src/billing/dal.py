@@ -5,6 +5,7 @@
 from billing.types import (
     Address,
     Customer,
+    GroupAuthor,
     PaymentMethod,
     Price,
     Subscription,
@@ -493,8 +494,8 @@ async def update_subscription(
 
 async def get_authors_data(
     *, date: datetime, group: str
-) -> List[Dict[str, str]]:
-    expected_columns: Dict[str, List[str]] = {
+) -> tuple[GroupAuthor, ...]:
+    expected_columns: dict[str, list[str]] = {
         "actor": ["actor"],
         "groups": ["groups"],
         "commit": ["commit", "sha1"],
@@ -505,7 +506,7 @@ async def get_authors_data(
     )
     buffer_str: io.StringIO = io.StringIO(buffer_object.read().decode())
 
-    return [
+    data: list[dict[str, str]] = [
         {
             column: next(value_generator, "-")
             for column, possible_names in expected_columns.items()
@@ -518,3 +519,14 @@ async def get_authors_data(
         }
         for row in csv.DictReader(buffer_str)
     ]
+
+    return tuple(
+        GroupAuthor(
+            actor=author.get("actor"),
+            commit=author.get("commit"),
+            groups=author.get("groups"),
+            organization=author.get("organization"),
+            repository=author.get("repository"),
+        )
+        for author in data
+    )
