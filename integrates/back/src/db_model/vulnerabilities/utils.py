@@ -107,6 +107,14 @@ def filter_zero_risk(
 
 
 def format_vulnerability(item: Item) -> Vulnerability:
+    # prepare migration to fill the attributes in the state
+    where = item["state"].get("where", item["where"])
+    item["state"]["where"] = where
+    specific = item["state"].get("specific", item["specific"])
+    item["state"]["specific"] = specific
+    commit = item["state"].get("commit", item.get("commit", None))
+    item["state"]["commit"] = commit
+
     state = format_state(item["state"])
     treatment = (
         format_treatment(item["treatment"]) if "treatment" in item else None

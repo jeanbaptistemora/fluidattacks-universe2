@@ -94,7 +94,9 @@ async def test_get_vuln_closing_date() -> None:
             modified_by="test@test.com",
             modified_date="2019-01-08T21:01:26+00:00",
             source=Source.ASM,
+            specific="phone",
             status=VulnerabilityStateStatus.CLOSED,
+            where="https://example.com",
         ),
         type=VulnerabilityType.INPUTS,
         unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -129,7 +131,9 @@ async def test_get_vuln_opening_date() -> None:
             modified_by="",
             modified_date="2019-01-08T21:01:26+00:00",
             source=Source.ASM,
+            specific="",
             status=VulnerabilityStateStatus.OPEN,
+            where="",
         ),
         unreliable_indicators=VulnerabilityUnreliableIndicators(
             unreliable_source=Source.ASM,
@@ -206,7 +210,9 @@ def test_sort_vulnerabilities() -> None:
                 modified_by="",
                 modified_date="",
                 source=Source.ASM,
+                specific="",
                 status=VulnerabilityStateStatus.OPEN,
+                where=where,
             ),
             type=VulnerabilityType.INPUTS,
             unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -229,7 +235,9 @@ def test_sort_vulnerabilities() -> None:
                 modified_by="",
                 modified_date="",
                 source=Source.ASM,
+                specific="",
                 status=VulnerabilityStateStatus.OPEN,
+                where=where,
             ),
             type=VulnerabilityType.INPUTS,
             unreliable_indicators=VulnerabilityUnreliableIndicators(
