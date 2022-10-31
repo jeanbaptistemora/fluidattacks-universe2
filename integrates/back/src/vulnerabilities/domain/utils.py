@@ -33,7 +33,9 @@ import html
 from newutils import (
     datetime as datetime_utils,
 )
-import re
+from newutils.vulnerabilities import (
+    ignore_advisories,
+)
 from typing import (
     Any,
     Dict,
@@ -85,15 +87,6 @@ def get_path_from_integrates_vulnerability(
     if ignore_cve:
         where = ignore_advisories(where)
     return namespace, where
-
-
-def ignore_advisories(where: Optional[str]) -> str:
-    if where is not None and (
-        match := re.search(r"(?P<cve>\s\[.*\])?$", where)
-    ):
-        cve = match.groupdict()["cve"]
-        return where.replace(str(cve), "")
-    return str(where)
 
 
 def get_hash_from_typed(

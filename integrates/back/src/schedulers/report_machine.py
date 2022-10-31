@@ -101,6 +101,9 @@ from newutils.findings import (
 from newutils.string import (
     boxify,
 )
+from newutils.vulnerabilities import (
+    ignore_advisories,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
@@ -148,7 +151,6 @@ from urllib.parse import (
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,
-    ignore_advisories,
 )
 from vulnerability_files.domain import (
     map_vulnerabilities_to_dynamo,

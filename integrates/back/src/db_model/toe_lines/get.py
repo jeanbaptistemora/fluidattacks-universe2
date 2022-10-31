@@ -45,7 +45,7 @@ from typing import (
 )
 
 
-async def _get_toe_lines(request: ToeLinesRequest) -> ToeLines:
+async def get_toe_lines(request: ToeLinesRequest) -> ToeLines:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_lines_metadata"],
         values={
@@ -73,7 +73,7 @@ class ToeLinesLoader(DataLoader):
     async def batch_load_fn(
         self, requests: List[ToeLinesRequest]
     ) -> Tuple[ToeLines, ...]:
-        return await collect(tuple(map(_get_toe_lines, requests)))
+        return await collect(tuple(map(get_toe_lines, requests)))
 
 
 async def _get_toe_lines_by_group(

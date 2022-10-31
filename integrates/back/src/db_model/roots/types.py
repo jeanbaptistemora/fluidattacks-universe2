@@ -184,7 +184,7 @@ class RootMachineExecution(NamedTuple):
     queue: str
     root_id: str
     created_at: str
-    started_at: Optional[str]
+    started_at: Optional[str] = None
     stopped_at: Optional[str] = None
     commit: Optional[str] = None
     success: bool = True

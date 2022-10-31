@@ -814,6 +814,12 @@ def format_vulnerability_zero_risk_item(
     return item
 
 
+def ignore_advisories(where: Optional[str]) -> str:
+    if where is not None:
+        where = re.sub(r"\s\(.*\)(\s\[.*\])?", "", where)
+    return str(where)
+
+
 async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
     loaders: Any,
     group_name: str,
@@ -825,8 +831,7 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
         where = html.unescape(vulnerability.where)
         # There are cases, like SCA vulns, where the `where` attribute
         # has additional information `filename (package) [CVE]`
-        if match := re.match(r"(?P<where>.*)\s\(.*\)(\s\[.*\])?$", where):
-            where = match.groupdict()["where"]
+        where = ignore_advisories(where)
 
         if vulnerability.type == VulnerabilityType.LINES:
             try:
