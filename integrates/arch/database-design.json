@@ -3123,8 +3123,12 @@
               "frequency": {
                 "S": "MONTHLY"
               },
-              "modified_date": {
-                "S": "2022-03-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-03-22T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -3152,8 +3156,12 @@
               "frequency": {
                 "S": "DAILY"
               },
-              "modified_date": {
-                "S": "2022-05-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-05-22T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -3181,8 +3189,12 @@
               "frequency": {
                 "S": "HOURLY"
               },
-              "modified_date": {
-                "S": "2022-02-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-02-22T20:07:57+00:00"
+                  }
+                }
               }
             }
           ],
@@ -3192,7 +3204,7 @@
             "sk_2",
             "subject",
             "entity",
-            "modified_date",
+            "state",
             "frequency"
           ],
           "DataAccess": {
@@ -3225,8 +3237,12 @@
               "frequency": {
                 "S": "WEEKLY"
               },
-              "modified_date": {
-                "S": "2022-01-01T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -3248,8 +3264,12 @@
               "frequency": {
                 "S": "HOURLY"
               },
-              "modified_date": {
-                "S": "2022-02-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-02-22T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -3271,8 +3291,12 @@
               "frequency": {
                 "S": "MONTHLY"
               },
-              "modified_date": {
-                "S": "2022-03-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-03-22T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -3294,14 +3318,18 @@
               "frequency": {
                 "S": "DAILY"
               },
-              "modified_date": {
-                "S": "2022-05-22T20:07:57+00:00"
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-05-22T20:07:57+00:00"
+                  }
+                }
               }
             }
           ],
           "NonKeyAttributes": [
             "email",
-            "modified_date",
+            "state",
             "subject",
             "entity",
             "frequency"

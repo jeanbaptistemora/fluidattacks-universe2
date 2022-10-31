@@ -12,6 +12,10 @@ from typing import (
 )
 
 
+class SubscriptionState(NamedTuple):
+    modified_date: Optional[str] = None
+
+
 class Subscription(NamedTuple):
     email: str
     entity: SubscriptionEntity
