@@ -1402,7 +1402,7 @@
     size = "medium";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 7200;
+    timeout = 2 * 3600;
     parallel = 1;
 
     environment = [
@@ -1411,7 +1411,7 @@
     ];
 
     tags = {
-      "Name" = "observes_etl_code_compute_bills";
+      "Name" = "cancel_stuck_jobs";
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
@@ -1429,7 +1429,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 2;
-    timeout = 3600;
+    timeout = 4 * 3600;
     parallel = 1;
 
     environment = [
@@ -1456,7 +1456,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 10800;
+    timeout = 3 * 3600;
     parallel = 1;
 
     environment = [
@@ -1483,7 +1483,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 10800;
+    timeout = 3 * 3600;
     parallel = 1;
 
     environment = [
@@ -1492,7 +1492,7 @@
     ];
 
     tags = {
-      "Name" = "observes_etl_gitlab_issues";
+      "Name" = "observes_etl_gitlab_ephemeral";
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
@@ -1510,7 +1510,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 2;
-    timeout = 18000;
+    timeout = 5 * 3600;
     parallel = 1;
 
     environment = [
@@ -1537,7 +1537,7 @@
     size = "small";
     awsRole = "prod_observes";
     attempts = 2;
-    timeout = 86400;
+    timeout = 24 * 3600;
     parallel = 1;
 
     environment = [
@@ -1564,7 +1564,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 2;
-    timeout = 18000;
+    timeout = 5 * 3600;
     parallel = 1;
 
     environment = [
@@ -1591,7 +1591,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 4;
-    timeout = 18000;
+    timeout = 5 * 3600;
     parallel = 1;
 
     environment = [
@@ -1618,7 +1618,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 2;
-    timeout = 86400;
+    timeout = 24 * 3600;
     parallel = 1;
 
     environment = [
@@ -1645,7 +1645,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 3600;
+    timeout = 1 * 3600;
     parallel = 1;
 
     environment = [
@@ -1672,7 +1672,7 @@
     size = "nano";
     awsRole = "prod_observes";
     attempts = 1;
-    timeout = 3600;
+    timeout = 1 * 3600;
     parallel = 1;
 
     environment = [

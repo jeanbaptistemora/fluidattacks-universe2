@@ -69,7 +69,7 @@ in {
       name = "announcekit_etl";
       size = "nano";
       attempts = 3;
-      timeout = 43200;
+      timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/announcekit"];
     };
 
@@ -77,7 +77,7 @@ in {
       name = "bugsnag_etl";
       size = "nano";
       attempts = 3;
-      timeout = 43200;
+      timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/bugsnag"];
     };
 
@@ -85,7 +85,7 @@ in {
       name = "checkly_etl";
       size = "nano";
       attempts = 3;
-      timeout = 43200;
+      timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
     };
 
@@ -93,7 +93,7 @@ in {
       name = "delighted_etl";
       size = "nano";
       attempts = 3;
-      timeout = 43200;
+      timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/delighted"];
     };
 
@@ -101,7 +101,7 @@ in {
       name = "formstack_etl";
       size = "small";
       attempts = 3;
-      timeout = 14000;
+      timeout = 4 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
     };
 
@@ -109,7 +109,7 @@ in {
       name = "gitlab_challenges_etl";
       size = "medium";
       attempts = 1;
-      timeout = 3600;
+      timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
     };
 
@@ -117,7 +117,7 @@ in {
       name = "gitlab_default_etl";
       size = "medium";
       attempts = 1;
-      timeout = 3600;
+      timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
     };
 
@@ -125,7 +125,7 @@ in {
       name = "gitlab_product_etl";
       size = "medium";
       attempts = 1;
-      timeout = 3600 * 6;
+      timeout = 6 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
     };
 
@@ -133,7 +133,7 @@ in {
       name = "gitlab_services_etl";
       size = "medium";
       attempts = 1;
-      timeout = 3600;
+      timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
     };
 
@@ -141,7 +141,7 @@ in {
       name = "mailchimp_etl";
       size = "medium";
       attempts = 1;
-      timeout = 864000;
+      timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
     };
 
@@ -149,14 +149,14 @@ in {
       name = "mandrill_etl";
       size = "nano";
       attempts = 1;
-      timeout = 7200;
+      timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
     };
 
     observesCodeEtlMirror = clone_job {
       name = "code_mirror";
       attempts = 3;
-      timeout = 7200;
+      timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/mirror"];
     };
 
@@ -164,7 +164,7 @@ in {
       name = "code_upload";
       size = "nano";
       attempts = 3;
-      timeout = 28800;
+      timeout = 8 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
     };
 
@@ -172,7 +172,7 @@ in {
       name = "dynamo_etl_v2";
       size = "nano";
       attempts = 3;
-      timeout = 7200;
+      timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
     };
 
@@ -180,7 +180,7 @@ in {
       name = "dynamo_etl_v2_big";
       size = "medium";
       attempts = 1;
-      timeout = 172800;
+      timeout = 48 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
     };
 
@@ -188,7 +188,7 @@ in {
       name = "dynamo_etl_parallel";
       size = "large";
       attempts = 1;
-      timeout = 259200;
+      timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
     });
 
@@ -204,7 +204,7 @@ in {
       name = "dynamo_etl_v3_big";
       size = "medium";
       attempts = 1;
-      timeout = 172800;
+      timeout = 48 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
     };
   };
