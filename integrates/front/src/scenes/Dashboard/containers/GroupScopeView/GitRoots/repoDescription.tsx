@@ -91,7 +91,7 @@ const Description = ({
         lastMachineExecutions.specific.findingsExecuted[0].finding
       }`;
     } else if (lastMachineExecutions.specific.stoppedAt !== null) {
-      return `${lastMachineExecutions.specific.findingsExecuted[0].finding} on
+      return `${lastMachineExecutions.specific.findingsExecuted[0]?.finding} on
         ${lastMachineExecutions.specific.stoppedAt}`;
     }
 
