@@ -137,6 +137,85 @@ and use the `useTranslation` hook to access them in the component.
 
 Refer to i18next's documentation for more details.
 
+### Dependencies
+
+The frontend uses [npm][npm] as its package manager.
+
+When adding or updating dependencies,
+keep [this requirement](/criteria/requirements/302) in mind.
+Always make sure to pin the dependency to an exact version,
+as semantic versioning is often unreliable and may cause regressions
+due to unexpected incompatibilities.
+
+Refer to https://github.com/fluidattacks/makes#makenodejslock
+if you need to generate a lock file
+without having Node.js installed on your computer.
+
+### Logging
+
+`console.log` is not allowed per https://eslint.org/docs/latest/rules/no-console
+
+You can use `src/utils/logger.ts`,
+which sends errors and warnings to Bugsnag,
+the bug tracking platform we currently use.
+
+To access Bugsnag, sign in to your Okta account.
+If you can't find the app,
+feel free to request access via help@fluidattacks.com
+
+## Design
+
+Visual consistency and clarity are key to provide users with a good experience.
+This motivation led to the creation of the components library,
+a collection of UI components that can be easily used by developers
+and continuously refined by designers.
+
+You can access it on:
+
+- Production:
+  https://integrates.front.production.fluidattacks.com/trunk/storybook/index.html
+- Developer branch:
+  `integrates.front.development.fluidattacks.com/branch-name/storybook/index.html`
+- Locally:
+  `localhost:6006`, after running `m . /integrates/front storybook`
+
+Most of these components are implementations of the design guidelines
+defined by the Customer Experience team at Fluid Attacks.
+
+## Tooling
+
+Helpful tools that enhance development experience when working on the frontend:
+
+- https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
+- https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm
+- https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+- https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner
+- https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+- https://semver.npmjs.com/
+
+## Troubleshooting
+
+Helpful tips and tricks that have proven useful
+to diagnose issues when working on the frontend:
+
+- How do I do [X]?:
+  Refer to the documentation of the core packages mentioned above.
+  If that doesn't solve it,
+  feel free to reach out for help on the development channel
+  or chat with a domain expert.
+- Why is [X] not working?:
+  Look for error traces on the browser console
+  or use breakpoints to inspect the code
+  and variable values as it runs
+  https://developer.chrome.com/docs/devtools/javascript/breakpoints/.
+- Is the backend returning an error?:
+  Use the network tab to view more details about the request
+  and its response https://developer.chrome.com/docs/devtools/network/.
+- Can't find an element on a test?:
+  Try increasing the [print limit][rtl-debug]
+  to view more details and suggestions
+  or try a snippet on https://testing-playground.com/.
+
 ## Technology stack
 
 - **TypeScript:**
@@ -245,3 +324,5 @@ Refer to i18next's documentation for more details.
 [styled]: https://styled-components.com/
 [tachyons]: https://tachyons.io/
 [i18n]: https://react.i18next.com/
+[npm]: https://www.npmjs.com/
+[rtl-debug]: https://testing-library.com/docs/dom-testing-library/api-debugging/
