@@ -135,10 +135,30 @@ MODEL_HYPERPARAMETERS = {
             0.01, 0.06, scaling_type="Logarithmic"
         ),
     },
+    "histgradientboostingclassifier": {
+        "learning_rate": ContinuousParameter(
+            0.01, 0.1, scaling_type="Logarithmic"
+        ),
+    },
+    "kneighborsclassifier": {
+        "algorithm": CategoricalParameter(
+            ["auto", "ball_tree", "kd_tree", "brute"]
+        ),
+        "n_neighbors": IntegerParameter(4, 9),
+    },
     "lgbmclassifier": {
         "max_depth": IntegerParameter(3, 6),
         "learning_rate": ContinuousParameter(
             0.01, 0.08, scaling_type="Logarithmic"
+        ),
+    },
+    "linearsvc": {
+        "loss": CategoricalParameter(["hinge", "squared_hinge"]),
+        "multi_class": CategoricalParameter(["ovr", "crammer_singer"]),
+    },
+    "logisticregression": {
+        "solver": CategoricalParameter(
+            ["lbfgs", "sag", "saga", "liblinear", "newton-cg"]
         ),
     },
     "mlpclassifier": {
@@ -146,5 +166,16 @@ MODEL_HYPERPARAMETERS = {
             ["relu", "tanh", "identity", "logistic"]
         ),
         "solver": CategoricalParameter(["lbfgs", "sgd", "adam"]),
+    },
+    "randomforestclassifier": {
+        "n_estimators": IntegerParameter(40, 60),
+        "max_depth": IntegerParameter(3, 6),
+    },
+    "xgbclassifier": {
+        "learning_rate": ContinuousParameter(
+            0.01, 0.07, scaling_type="Logarithmic"
+        ),
+        "max_depth": IntegerParameter(3, 5),
+        "min_child_weight": IntegerParameter(3, 6),
     },
 }
