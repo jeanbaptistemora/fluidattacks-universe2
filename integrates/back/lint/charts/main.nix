@@ -10,7 +10,7 @@
   name = "integrates-back-lint-charts";
   nodeJsEnvironment = makeNodeJsEnvironment {
     inherit name;
-    nodeJsVersion = "14";
+    nodeJsVersion = "18";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };
