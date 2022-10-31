@@ -584,6 +584,16 @@ enum VulnerabilityTreatment {
   NEW
 }
 
+"Vulnerability zero risk status"
+enum VulnerabilityZeroRiskStatus {
+  "Confirmed"
+  CONFIRMED
+  "Rejected"
+  REJECTED
+  "Requested"
+  REQUESTED
+}
+
 "Protocol to use in URLRoots enum definition"
 enum URLProtocol {
   "FILE"

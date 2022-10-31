@@ -184,6 +184,8 @@ type Group {
     type: String
     "Reattack verification status for vulnerability"
     verificationStatus: String
+    "Zero risk status for vulnerability"
+    zeroRisk: VulnerabilityZeroRiskStatus
   ): VulnerabilitiesConnection!
   """
   Grace period in days where newly reported vulnerabilities won't break the
