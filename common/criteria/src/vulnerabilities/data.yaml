@@ -38620,3 +38620,83 @@
   metadata:
     en:
       details: __empty__
+'426':
+  en:
+    title: Supply Chain Attack - Kubernetes
+    description: >
+      Kubernetes dependencies are not pinned to an exact digest,
+      making the docker build unable the verify the integrity of the image
+      and allowing a malicious actor to override the used components
+      with malicious components without leaving a trace.
+    impact: >
+      Override depdendencies or component with malicious content.
+    recommendation: >
+      Use mechanisms such as git-commits, or artifacts and hashes
+      to verify the data integrity.
+    threat: >
+      Anonymous attacker from Internet
+      with write access to the provider releases.
+  category: Functionality Abuse
+  examples:
+    non_compliant: |
+      There are docker dependencies not pinned
+      ```Kubernetes
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: <Pod name>
+      spec:
+        containers:
+        - name: <container name>
+          image: ubuntu
+      ```
+    compliant: |
+      All docker dependencies are pinned using secure mechanisms
+      ```docker
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: <Pod name>
+      spec:
+        containers:
+        - name: <container name>
+          image: ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+      ```
+  remediation_time: '15'
+  es:
+    title: Supply Chain Attack - Kubernetes
+    description: >
+      Las dependencias de Kubernetes no están pineadas a un digest específico,
+      haciendo que el proceso de construcción del docker
+      sea incapaz de verificar la integridad de la imagen
+      y permitiendo a un actor malicioso
+      sobreescribir los componentes utilizados
+      con componentes maliciosos
+      sin dejar un rastro.
+    impact: >
+      Sobreescribir dependencias o componentes con contenido malicioso.
+    recommendation: >
+      Utilizar mecanismos como git-commits,
+      o utilizar artefactos y hashes
+      para verificar la integridad de los datos.
+    threat: >
+      Atacante anónimo desde Internet
+      con acceso de escritura a los releasers del proveedor.
+  score:
+    base:
+      attack_vector: N
+      attack_complexity: H
+      privileges_required: N
+      user_interaction: R
+      scope: U
+      confidentiality: N
+      integrity: L
+      availability: N
+    temporal:
+      exploit_code_maturity: U
+      remediation_level: O
+      report_confidence: R
+  requirements: ['266']
+  metadata:
+    en:
+      details: __empty__
