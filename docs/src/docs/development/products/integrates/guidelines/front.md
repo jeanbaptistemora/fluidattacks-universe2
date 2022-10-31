@@ -52,7 +52,7 @@ The frontend uses [ESLint][eslint]
 and [Prettier][prettier]
 to enforce compliance with a defined coding style.
 
-To view and auto-fix linting issues you can run:
+To view and auto-fix linting issues, you can run:
 
 ```bash
   m . /integrates/front/lint
@@ -195,7 +195,7 @@ Helpful tools that enhance development experience when working on the frontend:
 
 ## Troubleshooting
 
-Helpful tips and tricks that have proven useful
+Helpful tips and tricks that have proven to be useful
 to diagnose issues when working on the frontend:
 
 - How do I do [X]?:
@@ -215,100 +215,6 @@ to diagnose issues when working on the frontend:
   Try increasing the [print limit][rtl-debug]
   to view more details and suggestions
   or try a snippet on https://testing-playground.com/.
-
-## Technology stack
-
-- **TypeScript:**
-  A typed superset of JavaScript
-  that compiles to plain JavaScript.
-
-  To learn more,
-  visit the TypeScript documentation page at
-  https://www.typescriptlang.org/docs/handbook/basic-types.html
-
-- **ReactJS:**
-  A JavaScript library
-  for building user interfaces.
-
-  To learn more,
-  visit the documentation page at
-  https://reactjs.org/.
-
-- **Apollo GraphQL Client:**
-  A complete state management library
-  for JavaScript apps
-
-  To learn more,
-  visit the documentation page at
-  https://www.apollographql.com/docs/react/.
-
-- **Webpack:**
-  A static module bundler
-  for modern JavaScript applications
-
-  To learn more,
-  visit the documentation page at
-  https://webpack.js.org/concepts/.
-
-- **Jest:**
-  A JavaScript testing framework
-  worked on full-time
-  by Facebook's JavaScript Foundation team.
-
-  To learn more,
-  visit the documentation page at
-  https://jestjs.io/docs/en/getting-started.
-
-## Development workflow
-
-1. Start the development server
-
-   ```bash
-   m . /integrates/front
-   ```
-
-   The changes will be reflected
-   as you edit and save the code.
-   If it can't be instantly applied,
-   the server will perform a full reload
-   on the page you are working.
-
-   You can read more
-   about this functionality here:
-   https://webpack.js.org/concepts/hot-module-replacement/
-
-1. Lint your code
-
-   ```bash
-   m . /integrates/front/lint
-   ```
-
-   You have the option
-   to lint in real time (with ESLint)
-   and fix on save,
-   by following the next steps:
-
-   - Download the
-     [VScode eslint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-   - Go to settings.json in vscode
-     and add these rules:
-
-     ```json
-     {
-       // This tells the extension to lookup for node_modules in the front directory.
-       "eslint.workingDirectories": ["front"],
-       // This allows you to autofix linting errors on save.
-       "editor.codeActionsOnSave": {
-         "source.fixAll": true
-       }
-     }
-     ```
-
-1. Test your code
-
-   ```bash
-   m . /integrates/front/test
-   ```
 
 [react]: https://reactjs.org/
 [ts]: https://www.typescriptlang.org/
