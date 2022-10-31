@@ -67,7 +67,7 @@ from finding_comments import (
     domain as comments_domain,
 )
 from itertools import (
-    zip_longest,
+    cycle,
 )
 import logging
 import logging.config
@@ -890,7 +890,7 @@ async def verify(
         modified_by = "machine@fluidattacks.com"
     await collect(
         update_metadata_and_state(
-            vulnerability=vuln_to_close,  # type: ignore
+            vulnerability=vuln_to_close,
             new_metadata=VulnerabilityMetadataToUpdate(
                 commit=(
                     close_item.commit
@@ -908,16 +908,17 @@ async def verify(
             new_state=VulnerabilityState(
                 modified_by=modified_by,
                 modified_date=modified_date,
-                source=vuln_to_close.state.source,  # type: ignore
+                source=vuln_to_close.state.source,
                 status=VulnerabilityStateStatus.CLOSED,
                 tool=close_item.state.tool
                 if close_item
-                else vuln_to_close.state.tool,  # type: ignore
+                else vuln_to_close.state.tool,
                 commit=close_item.commit if close_item else None,
             ),
         )
-        for vuln_to_close, close_item in zip_longest(
-            list_closed_vulns, vulns_to_close_from_file, fillvalue=None
+        for vuln_to_close, close_item in zip(
+            list_closed_vulns,
+            vulns_to_close_from_file or cycle([None]),
         )
     )
 
