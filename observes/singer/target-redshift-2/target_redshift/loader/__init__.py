@@ -2,13 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    SingerLoader,
-)
-from ._handlers import (
+from ._common import (
     MutableTableMap,
     SingerHandler,
     SingerHandlerOptions,
+)
+from ._core import (
+    SingerLoader,
 )
 from ._s3_loader import (
     S3Handler,

@@ -27,7 +27,8 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     ),
     "target_redshift.loader": (
         "_loaders",
-        ("_handlers", "_s3_loader"),
+        ("_common", "_s3_loader"),
+        "_handlers_2",
         "_core",
         "_truncate",
     ),
