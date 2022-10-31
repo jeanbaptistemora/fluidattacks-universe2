@@ -114,7 +114,6 @@ def deploy_training_job(model: str, delay: int) -> None:
             precision=result[2],
             recall=result[3],
             f_score=result[4],
-            accuracy=result[5],
             overfit=result[6],
             tuned_parameters=result[7],
             training_time=result[8],
