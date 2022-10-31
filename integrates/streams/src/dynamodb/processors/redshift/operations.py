@@ -16,6 +16,7 @@ import logging
 import psycopg2
 from psycopg2 import (
     extras,
+    sql,
 )
 from psycopg2.extensions import (
     cursor as cursor_cls,
@@ -25,6 +26,7 @@ from typing import (
     Any,
     Iterator,
     Optional,
+    Union,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -63,7 +65,7 @@ def initialize_schema() -> None:
 
 
 def execute(
-    sql_query: str,
+    sql_query: Union[str, sql.Composed],
     sql_vars: Optional[dict[str, Any]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
