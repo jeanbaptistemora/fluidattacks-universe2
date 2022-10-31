@@ -16,6 +16,9 @@ from ._s3_loader import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    Maybe,
+)
 from mypy_boto3_s3 import (
     S3Client,
     S3ServiceResource,
@@ -26,17 +29,24 @@ from redshift_client.sql_client import (
 from redshift_client.table.client import (
     TableClient,
 )
+from target_redshift.loader._handlers_2 import (
+    StateKeeperS3,
+)
 
 
 @dataclass(frozen=True)
 class Loaders:
     @staticmethod
     def common_loader(
-        client: TableClient, options: SingerHandlerOptions
+        client: TableClient,
+        options: SingerHandlerOptions,
+        keeper: Maybe[StateKeeperS3],
     ) -> SingerLoader:
         state = MutableTableMap({})
         return SingerLoader.new(
-            lambda s, p: SingerHandler(s, client, options).handle(state, p)
+            lambda s, p: SingerHandler(s, client, options, keeper).handle(
+                state, p
+            )
         )
 
     @staticmethod

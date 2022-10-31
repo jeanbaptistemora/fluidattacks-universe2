@@ -16,6 +16,7 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 import logging
 from redshift_client.id_objs import (
@@ -65,7 +66,9 @@ class _Upload:
 
     @property
     def loader(self) -> SingerLoader:
-        return Loaders.common_loader(self.client_2, self.options)
+        return Loaders.common_loader(
+            self.client_2, self.options, Maybe.empty()
+        )
 
     @property
     def strategy(

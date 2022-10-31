@@ -15,6 +15,7 @@ from ._s3_loader import (
 )
 from fa_purity import (
     Cmd,
+    Maybe,
     Stream,
 )
 from fa_purity.stream.factory import (
@@ -43,6 +44,9 @@ import sys
 from target_redshift.grouper import (
     group_records,
 )
+from target_redshift.loader import (
+    _handlers_2,
+)
 from target_redshift.loader._loaders import (
     Loaders,
 )
@@ -61,10 +65,10 @@ def from_s3(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
     mock_options = SingerHandlerOptions(True, 1, 1)
-    handler = SingerHandler(schema, client, mock_options)
+    handler = SingerHandler(schema, client, mock_options, Maybe.empty())
     nothing = Cmd.from_cmd(lambda: None)
     return data.map(
-        lambda s: handler.create_table(s) + s3_handler.handle_schema(s)
+        lambda s: handler.schema_handler(s) + s3_handler.handle_schema(s)
         if isinstance(s, SingerSchema)
         else nothing
     ).transform(consume)

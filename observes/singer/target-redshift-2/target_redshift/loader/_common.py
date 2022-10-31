@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    SingerLoader,
-)
 from dataclasses import (
     dataclass,
 )
@@ -31,12 +28,10 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result.transform import (
     all_ok,
 )
-from fa_purity.utils import (
-    raise_exception,
-)
 from fa_singer_io.singer import (
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 import logging
 from pathos.threading import ThreadPool  # type: ignore[import]
@@ -63,7 +58,11 @@ from target_redshift.grouper import (
     PackagedSinger,
 )
 from target_redshift.loader import (
+    _handlers_2,
     _truncate,
+)
+from target_redshift.loader._handlers_2 import (
+    StateKeeperS3,
 )
 from typing import (
     cast,
@@ -137,11 +136,7 @@ class SingerHandler:
     schema: SchemaId
     client: TableClient
     options: SingerHandlerOptions
-
-    def create_table(self, schema: SingerSchema) -> Cmd[None]:
-        table_id = TableId(self.schema, schema.stream)
-        table = extract_table(schema).unwrap()
-        return self.client.new(table_id, table)
+    s3_kepper: Maybe[StateKeeperS3]
 
     def update_stream_tables(
         self, table_map: StreamTables, schema: SingerSchema
@@ -191,6 +186,14 @@ class SingerHandler:
             lambda m: m.map(self._upload_records).unwrap()
         ).transform(lambda x: _in_threads(x, 100))
 
+    def schema_handler(self, schema: SingerSchema) -> Cmd[None]:
+        table_id = TableId(self.schema, schema.stream)
+        return _handlers_2.create_table(self.client, table_id, schema)
+
+    def state_handler(self, state: SingerState) -> Cmd[None]:
+        nothing = Cmd.from_cmd(lambda: None)
+        return self.s3_kepper.map(lambda ss: ss.save(state)).value_or(nothing)
+
     def handle(
         self, state: MutableTableMap, item: PackagedSinger
     ) -> Cmd[None]:
@@ -199,8 +202,8 @@ class SingerHandler:
                 lambda t: self.record_handler(t, records)
             ),
             lambda schema: state.freeze().bind(
-                lambda t: self.create_table(schema)
+                lambda t: self.schema_handler(schema)
                 + state.update(self.update_stream_tables(t, schema))
             ),
-            lambda _: raise_exception(NotImplementedError()),
+            self.state_handler,
         )
