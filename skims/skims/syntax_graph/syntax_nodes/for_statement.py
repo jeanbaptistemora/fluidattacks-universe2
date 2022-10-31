@@ -15,10 +15,10 @@ from typing import (
 
 def build_for_statement_node(
     args: SyntaxGraphArgs,
-    initializer_node: str,
-    condition_node: str,
-    update_node: Optional[str],
-    body_node: str,
+    initializer_node: Optional[NId],
+    condition_node: Optional[NId],
+    update_node: Optional[NId],
+    body_node: NId,
 ) -> NId:
 
     args.syntax_graph.add_node(
@@ -27,17 +27,19 @@ def build_for_statement_node(
         label_type="ForStatement",
     )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(initializer_node)),
-        label_ast="AST",
-    )
+    if initializer_node:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(initializer_node)),
+            label_ast="AST",
+        )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(condition_node)),
-        label_ast="AST",
-    )
+    if condition_node:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(condition_node)),
+            label_ast="AST",
+        )
 
     if update_node:
         args.syntax_graph.add_edge(

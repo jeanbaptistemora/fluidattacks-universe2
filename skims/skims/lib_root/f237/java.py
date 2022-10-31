@@ -48,11 +48,18 @@ def has_print_statements(
                     n_expr in print_methods
                     and (n_args_id := graph.nodes[n_id].get("arguments_id"))
                     and (
-                        args_childs := g.match_ast_group(
-                            graph, n_args_id, "SymbolLookup", depth=-1
+                        args_childs := g.match_ast(
+                            graph,
+                            n_args_id,
+                            "SymbolLookup",
+                            "FieldAccess",
+                            depth=-1,
                         )
                     )
-                    and (args_childs.get("SymbolLookup"))
+                    and (
+                        args_childs.get("SymbolLookup")
+                        or args_childs.get("FieldAccess")
+                    )
                 ):
                     yield shard, n_id
 

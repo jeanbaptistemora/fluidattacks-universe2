@@ -203,9 +203,10 @@ def loop_statement(
 
     # If the predicate holds as `g.TRUE` then enter into the block
     block_name = BLOCK_NAME.get(language) or "block" if language else "block"
-    c_id = g.adj_ast(args.graph, args.n_id, label_type=block_name)[-1]
-    args.graph.add_edge(args.n_id, c_id, **g.TRUE)
-
-    # Recurse into the for block
-    propagate_next_id_from_parent(stack)
-    args.generic(args.fork_n_id(c_id), stack)
+    childs = g.adj_ast(args.graph, args.n_id, label_type=block_name)
+    if len(childs) > 0:
+        c_id = childs[-1]
+        args.graph.add_edge(args.n_id, c_id, **g.TRUE)
+        # Recurse into the for block
+        propagate_next_id_from_parent(stack)
+        args.generic(args.fork_n_id(c_id), stack)

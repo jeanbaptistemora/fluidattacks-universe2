@@ -26,6 +26,12 @@ def build_ternary_operation_node(
 
     args.syntax_graph.add_edge(
         args.n_id,
+        args.generic(args.fork_n_id(condition_id)),
+        label_ast="AST",
+    )
+
+    args.syntax_graph.add_edge(
+        args.n_id,
         args.generic(args.fork_n_id(alternative_id)),
         label_ast="AST",
     )
