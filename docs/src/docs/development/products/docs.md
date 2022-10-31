@@ -39,7 +39,7 @@ Surprising, isn't it?
    just in case a user forgets the `s`.
 1. In order to allow developers to test their changes,
    an ephemeral environment is deployed from their Git branch
-   into [docs-dev.fluidattacks.com/&lt;branch&gt;](https://docs-dev.fluidattacks.com).
+   into `docs-dev.fluidattacks.com/<branch>`.
    So that they can check that everything is OK
    before opening a Merge Request on [GitLab](/development/stack/gitlab).
 

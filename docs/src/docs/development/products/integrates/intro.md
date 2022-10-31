@@ -153,5 +153,5 @@ universe $ m . /integrates/storage
 
 This will launch a replica of
 [app.fluidattacks.com](https://fluidattacks.com)
-and [app.fluidattacks.com/api](https://fluidattacks.com/api)
-on your [localhost:8001](https://localhost:8001).
+and `app.fluidattacks.com/api`
+on your `localhost:8001`.

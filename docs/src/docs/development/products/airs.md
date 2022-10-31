@@ -40,7 +40,7 @@ and is usually the first point of contact people have with our company.
    a Cloudflare Worker adds HTTP security headers like the Content-Security-Policy.
 1. In order to allow developers to test their changes,
    an ephemeral environment is deployed from their Git branch
-   into [web.eph.fluidattacks.com/&lt;branch&gt;](https://web.eph.fluidattacks.com).
+   into `web.eph.fluidattacks.com/<branch>`.
    So that they can check that everything is OK
    before opening a Merge Request on [GitLab](/development/stack/gitlab).
 
