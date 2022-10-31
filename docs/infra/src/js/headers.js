@@ -50,6 +50,8 @@ const redirectMap = new Map([
   ["/criteria/source/345", homeURL,],
   ["/types/", homeURL,],
   ["/types", homeURL,],
+  ["/assets/images/common-arch.dot-23d1c323fd7c4dec12982d13779cfc60.svg/", "https://docs.fluidattacks.com/development/common/"],
+  ["/assets/images/common-arch.dot-23d1c323fd7c4dec12982d13779cfc60.svg", "https://docs.fluidattacks.com/development/common/"],
 ]);
 
 let sanitiseHeaders = {}
