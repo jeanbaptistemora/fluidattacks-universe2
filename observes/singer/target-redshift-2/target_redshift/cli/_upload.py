@@ -2,11 +2,18 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from __future__ import (
+    annotations,
+)
+
 from ._core import (
     CmdContext,
     pass_ctx,
 )
 import click
+from dataclasses import (
+    dataclass,
+)
 from fa_purity import (
     Cmd,
 )
@@ -16,6 +23,7 @@ from redshift_client.id_objs import (
 )
 from redshift_client.sql_client import (
     new_client,
+    SqlClient,
 )
 from redshift_client.sql_client.connection import (
     connect,
@@ -25,11 +33,13 @@ from redshift_client.sql_client.connection import (
 from redshift_client.table.client import (
     TableClient,
 )
-from target_redshift import (
-    loader,
+from target_redshift.emitter import (
+    Emitter,
 )
 from target_redshift.loader import (
+    Loaders,
     SingerHandlerOptions,
+    SingerLoader,
 )
 from target_redshift.strategy import (
     LoadingStrategy,
@@ -43,6 +53,45 @@ from utils_logger_2 import (
 )
 
 LOG = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True)
+class _Upload:
+    client: SqlClient
+    client_2: TableClient
+    options: SingerHandlerOptions
+    target: SchemaId
+    records_limit: int
+
+    @property
+    def loader(self) -> SingerLoader:
+        return Loaders.common_loader(self.client_2, self.options)
+
+    @property
+    def strategy(
+        self,
+    ) -> LoadingStrategy:
+        return Strategies(self.client).recreate_all_schema(self.target)
+
+    def emit(self) -> Cmd[None]:
+        return Emitter(self.loader, self.strategy, self.records_limit).main()
+
+    @staticmethod
+    def from_connection(
+        conn: DbConnection,
+        target: SchemaId,
+        options: SingerHandlerOptions,
+        records_limit: int,
+    ) -> Cmd[_Upload]:
+        client = new_client(conn, LOG)
+        table_client = client.map(TableClient)
+        return client.bind(
+            lambda sql: table_client.map(
+                lambda table: _Upload(
+                    sql, table, options, target, records_limit
+                )
+            )
+        )
 
 
 @click.command()  # type: ignore[misc]
@@ -89,27 +138,17 @@ def destroy_and_upload(
     records_per_query: int,
     threads: int,
 ) -> NoReturn:
-    _schema = SchemaId(schema_name)
-
-    def _main(conn: DbConnection) -> Cmd[None]:
-        client = new_client(conn, LOG)
-        table_client = client.map(TableClient)
-        strategy: Cmd[LoadingStrategy] = client.map(
-            lambda s: Strategies(s).recreate_all_schema(_schema)
-        )
-        options = SingerHandlerOptions(
-            truncate,
-            records_per_query,
-            threads,
-        )
-
-        def _upload(target: SchemaId) -> Cmd[None]:
-            return table_client.bind(
-                lambda t: loader.main(target, t, records_limit, options)
-            )
-
-        return strategy.bind(lambda ls: ls.main(_upload))
+    target = SchemaId(schema_name)
+    options = SingerHandlerOptions(
+        truncate,
+        records_per_query,
+        threads,
+    )
 
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
-    cmd: Cmd[None] = start_session() + connection.bind(_main)
+    cmd: Cmd[None] = start_session() + connection.bind(
+        lambda conn: _Upload.from_connection(
+            conn, target, options, records_limit
+        )
+    ).bind(lambda u: u.emit())
     cmd.compute()

@@ -54,22 +54,6 @@ def _stdin_buffer() -> Cmd[TextIOWrapper]:
     )
 
 
-def main(
-    schema: SchemaId,
-    client: TableClient,
-    limit: int,
-    options: SingerHandlerOptions,
-) -> Cmd[None]:
-    data: Stream[SingerMessage] = unsafe_from_cmd(
-        _stdin_buffer().map(from_file).map(lambda x: iter(x))
-    )
-    loader = Loaders.common_loader(client, options)
-    commands = data.transform(lambda d: group_records(d, limit)).map(
-        lambda p: loader.handle(schema, p)
-    )
-    return consume(commands)
-
-
 def from_s3(
     schema: SchemaId, client: TableClient, s3_handler: S3Handler
 ) -> Cmd[None]:
