@@ -22,8 +22,8 @@ it is important to ensure compatibility.
 
 Helpful resources:
 
-- <https://caniuse.com/>
-- <https://kangax.github.io/compat-table/es6/>
+- https://caniuse.com/
+- https://kangax.github.io/compat-table/es6/
 
 ## Principles
 
@@ -69,6 +69,73 @@ To execute the test cases on your computer, you can run:
 ```bash
   m . /integrates/front/test
 ```
+
+## Core
+
+### State Management
+
+:::note
+State management is a constantly evolving topic in react applications.
+:::
+
+- Transfered state:
+  This makes up the majority of the frontend state.
+  Data loaded from the backend is managed by the [Apollo Client][apollo].
+- Forms: Their ephemeral state is managed by [Formik][formik].
+- Local state:
+  [useState][usestate] and [Context][context] where needed.
+
+### API Client
+
+The frontend uses the [Apollo Client][apollo] to interact with the backend.
+
+You can use the `useQuery` hook to load data
+and the `useMutation` hook to trigger create, update or delete operations.
+
+Refer to Apollo's documentation for more details.
+
+### Forms
+
+The frontend uses [Formik][formik] to power its forms, fields and validations.
+
+Refer to Formik's documentation for more details.
+
+### Routing
+
+The frontend uses [React Router][router] to declare routes and
+manage navigation between them.
+
+You can use the `<Route>` and `<Switch>` components to declare routes,
+the `useParams` hook to get the URL parameters,
+the `<Link>` component for declarative navigation,
+and the `useHistory` hook for imperative navigation.
+
+Refer to React Router's documentation for more details.
+
+### Styling
+
+The frontend uses [styled-components][styled] and
+[Tachyons][tachyons] to create and compose UI styles.
+
+You can declare styled components with the `styled` tag,
+reference tachyons classes,
+and also add custom css as needed.
+
+Refer to styled-components's documentation for more details.
+
+### Internationalization
+
+The frontend uses [i18next][i18n] to manage translations.
+
+While we currently support only English,
+more languages may be added later on,
+making it a good idea to avoid hardcoding texts,
+having them instead as translations.
+
+You can declare your texts in the respective file for the language,
+and use the `useTranslation` hook to access them in the component.
+
+Refer to i18next's documentation for more details.
 
 ## Technology stack
 
@@ -170,3 +237,11 @@ To execute the test cases on your computer, you can run:
 [prettier]: https://prettier.io/
 [jest]: https://jestjs.io/
 [rtl]: https://testing-library.com/docs/react-testing-library/intro/
+[apollo]: https://www.apollographql.com/docs/react/
+[formik]: https://formik.org/
+[usestate]: https://reactjs.org/docs/hooks-state.html
+[context]: https://reactjs.org/docs/context.html
+[router]: https://v5.reactrouter.com/
+[styled]: https://styled-components.com/
+[tachyons]: https://tachyons.io/
+[i18n]: https://react.i18next.com/
