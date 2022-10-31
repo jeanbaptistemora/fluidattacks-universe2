@@ -32,6 +32,7 @@ from opensearchpy.helpers.signer import (
 )
 from typing import (
     Any,
+    cast,
     Optional,
 )
 from urllib.parse import (
@@ -110,7 +111,7 @@ CLIENT_OPTIONS = {
     "verify_certs": FI_ENVIRONMENT == "production",
 }
 CONTEXT_STACK = None
-CLIENT = None
+CLIENT: Optional[AsyncOpenSearch] = None
 
 
 async def search_startup() -> None:
@@ -132,4 +133,4 @@ async def get_client() -> AsyncOpenSearch:
     if CLIENT is None:
         await search_startup()
 
-    return CLIENT  # type: ignore
+    return cast(AsyncOpenSearch, CLIENT)

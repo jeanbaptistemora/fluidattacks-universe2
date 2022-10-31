@@ -8,6 +8,9 @@ from dynamodb.types import (
 from search.client import (
     get_client,
 )
+from search.enums import (
+    Sort,
+)
 from search.types import (
     SearchResponse,
 )
@@ -15,8 +18,6 @@ from typing import (
     Any,
     Optional,
 )
-
-SCROLL_TIME = "10m"
 
 
 async def search(  # pylint: disable=too-many-locals
@@ -95,25 +96,23 @@ async def search(  # pylint: disable=too-many-locals
                 "must_not": [*full_must_not_filters],
             }
         },
-        "sort": [*sort],
+        "sort": [{"_id": {"order": Sort.DESCENDING.value}}, *sort],
     }
-    scroll = None if limit == 0 else SCROLL_TIME
-    response: dict[str, Any] = (
-        await client.scroll(scroll_id=after, scroll=scroll)
-        if after and scroll
-        else await client.search(
-            body=body,
-            index=index,
-            scroll=scroll,
-            size=limit,
-        )
+
+    if after:
+        body["search_after"] = [after]
+
+    response = await client.search(
+        body=body,
+        index=index,
+        size=limit,
     )
     hits: list[dict[str, Any]] = response["hits"]["hits"]
 
     return SearchResponse(
         items=tuple(hit["_source"] for hit in hits),
         page_info=PageInfo(
-            end_cursor=response.get("_scroll_id", ""),
+            end_cursor=hits[-1]["_id"] if hits else "",
             has_next_page=len(hits) > 0,
         ),
         total=response["hits"]["total"]["value"],
