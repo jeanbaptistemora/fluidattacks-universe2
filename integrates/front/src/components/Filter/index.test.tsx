@@ -5,7 +5,7 @@
  */
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 
@@ -307,6 +307,40 @@ describe("Filters", (): void => {
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+  });
+
+  it("should filter number", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        id: "numbertrack",
+        key: "numbertrack",
+        label: "Number Track",
+        type: "number",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("spinbutton", { name: "numbertrack" })
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByRole("spinbutton", { name: "numbertrack" }), {
+      target: { value: "8" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(3);
     });
   });
 });
