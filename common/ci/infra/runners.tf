@@ -17,7 +17,7 @@ locals {
     large = {
       root_size = 10
       replicas  = 1
-      instance  = "m5ad.large"
+      instance  = "m5d.large"
       tags      = ["large"]
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
