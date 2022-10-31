@@ -646,7 +646,7 @@
       "schedulers.machine_queue_all.main"
     ];
 
-    schedule_expression = "cron(0 5 ? * 5 *)";
+    schedule_expression = "cron(0 13 ? * 5 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 3;
