@@ -10,6 +10,9 @@ from .types import (
 from .utils import (
     format_user_access_info,
 )
+from aioextensions import (
+    collect,
+)
 from app import (
     utils,
 )
@@ -33,6 +36,7 @@ from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
     StakeholderMetadataToUpdate,
+    StakeholderState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -177,6 +181,38 @@ async def do_google_login(request: Request) -> Response:
     return await google.authorize_redirect(request, redirect_uri)
 
 
+async def complete_register(
+    *, email: str, first_name: str, last_name: str
+) -> None:
+    today = datetime_utils.get_iso_date()
+    await collect(
+        (
+            stakeholders_model.update_metadata(
+                email=email,
+                metadata=StakeholderMetadataToUpdate(
+                    first_name=first_name,
+                    last_login_date=today,
+                    last_name=last_name,
+                    registration_date=today,
+                    notifications_preferences=NotificationsPreferences(
+                        email=SUBSCRIPTIONS
+                    ),
+                ),
+            ),
+            stakeholders_model.update_state(
+                user_email=email,
+                state=StakeholderState(
+                    notifications_preferences=NotificationsPreferences(
+                        email=SUBSCRIPTIONS
+                    ),
+                    modified_date=today,
+                    modified_by=email,
+                ),
+            ),
+        )
+    )
+
+
 async def handle_user(
     request: Request, response: HTMLResponse, user: Dict[str, str]
 ) -> None:
@@ -201,18 +237,9 @@ async def autoenroll_stakeholder(
         role="user",
         is_register_after_complete=True,
     )
-    today = datetime_utils.get_iso_date()
-    await stakeholders_model.update_metadata(
-        email=email,
-        metadata=StakeholderMetadataToUpdate(
-            first_name=first_name,
-            last_login_date=today,
-            last_name=last_name,
-            registration_date=today,
-            notifications_preferences=NotificationsPreferences(
-                email=SUBSCRIPTIONS
-            ),
-        ),
+
+    await complete_register(
+        email=email, first_name=first_name, last_name=last_name
     )
 
 
@@ -222,18 +249,9 @@ async def invited_stakeholder(
     last_name: str,
 ) -> None:
     await analytics.mixpanel_track(email, "Register")
-    today = datetime_utils.get_iso_date()
-    await stakeholders_model.update_metadata(
-        email=email,
-        metadata=StakeholderMetadataToUpdate(
-            first_name=first_name,
-            last_login_date=today,
-            last_name=last_name,
-            registration_date=today,
-            notifications_preferences=NotificationsPreferences(
-                email=SUBSCRIPTIONS
-            ),
-        ),
+
+    await complete_register(
+        email=email, first_name=first_name, last_name=last_name
     )
 
 
