@@ -13,6 +13,8 @@ and vulnerabilities effectively.
 To access this platform
 you can click [here](https://app.fluidattacks.com).
 
+## Requirements
+
 We support the web browsers
 listed below and,
 in general,
