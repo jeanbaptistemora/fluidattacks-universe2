@@ -343,4 +343,48 @@ describe("Filters", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(3);
     });
   });
+
+  it("should filter number range", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        id: "numberrange",
+        key: "numberrange",
+        label: "Number Range",
+        type: "numberRange",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("spinbutton", { name: "numberrange" })
+      ).toHaveLength(2);
+    });
+
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "numberrange" })[0],
+      {
+        target: { value: "1" },
+      }
+    );
+
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "numberrange" })[1],
+      {
+        target: { value: "5" },
+      }
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(4);
+    });
+  });
 });
