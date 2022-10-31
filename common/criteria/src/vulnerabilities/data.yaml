@@ -38529,3 +38529,94 @@
   metadata:
     en:
       details: __empty__
+'425':
+  en:
+    title: Server side cross-site scripting 
+    description: >
+      It is possible to inject JavaScript code into application fields, causing the server to process
+      and convert these entries into arbitrary JavaScript code extracting information from the server. 
+      This could allow an attacker to compromise the data inside the server. 
+    impact: >
+      - Extracting information from the server.
+    recommendation: >
+      Filter the information that receives and sends the application using white lists.
+    threat: >
+      Unprivileged attacker from the internet impersonating the application.
+  category: Unexpected Injection
+  examples:
+      non_compliant: |
+        There are some clases in the applicatin that do not have any validation for the inputs
+        ```java
+        class ContactForm{
+          public function configure(InputsMeta $inputs){
+            addWidgets(
+              new sfWidgetFormInput($inputs->name),
+              new sfWidgetFormInput($inputs->email),
+              new sfWidgetFormSelect($inputs->subject),
+              new sfWidgetFormTextarea($inputs->message)
+            );
+          }
+        }
+        ```
+      compliant: |
+        The application defines parameters and limitations for input information.
+        ```java
+        class ContactController {
+            /**
+            * @input("name", type = "string", singleLine = true, required = false)
+            * @input("email", type = "email")
+            * @input("subject", type = "string", alternatives = ['Subject A', 'Subject B', 'Subject C'])
+            * @input("message", type = "string", range = [4,])
+            */
+            public function post(Inputs $inputs){
+              //Validates inputs and throw error when they are not included in the allowed and pre defined lists values
+            }
+        }
+  
+        class ContactForm extends sfFormX {
+          public function configure(InputsMeta $inputs){
+            //Bind the form to the input list of the @controller.@method
+            //throws error when the @controller.@method.@input is not defined for a widget
+            $this->addWidgets(
+              new sfWidgetFormInput($inputs->name),
+              new sfWidgetFormInput($inputs->email),
+              new sfWidgetFormSelect($inputs->subject),
+              new sfWidgetFormTextarea($inputs->message)
+            );
+            $this->widgetSchema->setNameFormat('contact[%s]');
+          }
+        }
+  
+        ```
+  remediation_time: '45'
+  es:
+    title: Server side cross-site scripting
+    description: >
+      Es posible inyectar código JavaScript en los campos de la aplicación, haciendo que el servidor
+      procese y conviertas estas entradas en código JavaScript arbitrario extrayendo información del
+      servidor. Esto podría permitir a un atacante comprometer la información que este al interior del
+      servidor. 
+    impact: >
+      - Extraer información del servidor.
+    recommendation: >
+      Filtrar la información que recibe y envía la aplicación utilizando listas blancas.
+    threat: >
+      Atacante autenticado desde internet manipulando los parámetros de la aplicación.
+  score:
+    base:
+      attack_vector: N
+      attack_complexity: L
+      privileges_required: L
+      user_interaction: N
+      scope: C
+      confidentiality: L
+      integrity: N
+      availability: N
+    temporal:
+      exploit_code_maturity: H
+      remediation_level: U
+      report_confidence: R
+  requirements: ['029', '173']
+  metadata:
+    en:
+      details: __empty__
