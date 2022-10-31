@@ -15,12 +15,13 @@ locals {
       ]
     }
     large = {
-      root_size = 35
+      root_size = 10
       replicas  = 1
-      instance  = "m5a.large"
+      instance  = "m5ad.large"
       tags      = ["large"]
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
       ]
     }
   }
