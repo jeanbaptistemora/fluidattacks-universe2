@@ -5,7 +5,8 @@
  */
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 
 import type { IFilter } from ".";
@@ -246,12 +247,18 @@ const TestComponent: React.FC<ITestComponentProps> = ({
 }): JSX.Element => {
   const [filterHelper, setFilterHelper] =
     useState<IFilter<IRandomData>[]>(filters);
-  const filteredData = useFilters(data, filters);
+
+  const filteredData = useFilters(data, filterHelper);
 
   return (
     <React.Fragment>
       <Filters filters={filterHelper} setFilters={setFilterHelper} />
-      <Table columns={columns} data={filteredData} id={"testTable"} />
+      <Table
+        columns={columns}
+        data={filteredData}
+        enableSearchBar={false}
+        id={"testTable"}
+      />
     </React.Fragment>
   );
 };
@@ -262,13 +269,44 @@ describe("Filters", (): void => {
     expect(typeof Filters).toBe("function");
   });
 
-  it("should display the content", (): void => {
+  it("should display button", (): void => {
     expect.hasAssertions();
 
     const filters: IFilter<IRandomData>[] = [];
 
     render(<TestComponent data={dataset} filters={filters} />);
 
-    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+  });
+
+  it("should filter text", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      { id: "name", key: "name", label: "Name", type: "text" },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "name" })
+      ).toBeInTheDocument();
+    });
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "lareina shaffer"
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
   });
 });
