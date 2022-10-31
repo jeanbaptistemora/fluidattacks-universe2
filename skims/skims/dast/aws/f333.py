@@ -149,10 +149,55 @@ async def ec2_has_associate_public_ip_address(
     return vulns
 
 
+async def ec2_iam_instances_without_profile(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_instances"
+    )
+    instances = response.get("Reservations", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+
+    for instance in instances:
+        locations: List[Location] = []
+        for config in instance["Instances"]:
+            if (
+                "IamInstanceProfile" not in config.keys()
+                and config["State"]["Name"] != "terminated"
+            ):
+                locations = [
+                    *locations,
+                    Location(
+                        arn=(
+                            f"arn:aws:ec2::{instance['OwnerId']}:"
+                            f"instance-id/{config['InstanceId']}"
+                        ),
+                        description=t(
+                            "src.lib_path.f333."
+                            "ec2_has_not_an_iam_instance_profile"
+                        ),
+                        values=(),
+                        access_patterns=(),
+                    ),
+                ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(
+                    core_model.MethodsEnum.AWS_EC2_IAM_INSTANCE_WITHOUT_PROFILE
+                ),
+                aws_response=instance,
+            ),
+        )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     ec2_has_terminate_shutdown_behavior,
     ec2_has_associate_public_ip_address,
+    ec2_iam_instances_without_profile,
 )
