@@ -2,6 +2,3 @@
 lib_path.f183.dotnetconfig_has_debug_enabled:
   en: Debug flag is enabled in Web.config.
   es: Debug esta habilitado en Web.config.
-lib_root.f183.ts_has_debugger_statement:
-  en: Debugger statement exists within the code, which enables a debug mode.
-  es: Existe una declaracion debugger, la cual habilita el modo de debugeo.
