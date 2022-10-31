@@ -13,6 +13,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
+    match_ast_group_d,
 )
 
 
@@ -25,10 +26,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "finally_clause",
         "resource_specification",
     )
-    catch_block = childs.get("catch_clause")
+    catch_blocks = match_ast_group_d(args.ast_graph, args.n_id, "catch_clause")
     try_block = childs.get("finally_clause")
     resources_espec = childs.get("resource_specification")
 
     return build_try_statement_node(
-        args, block_node, catch_block, try_block, resources_espec
+        args, block_node, catch_blocks, try_block, resources_espec
     )

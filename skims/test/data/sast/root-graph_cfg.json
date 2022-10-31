@@ -27129,6 +27129,10 @@
             "1589": {
               "label_ast": "AST",
               "label_cfg": "CFG"
+            },
+            "1608": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1579": {
@@ -27195,6 +27199,45 @@
           },
           "1602": {
             "1604": {
+              "label_ast": "AST"
+            }
+          },
+          "1608": {
+            "1611": {
+              "label_ast": "AST"
+            },
+            "1616": {
+              "label_ast": "AST"
+            },
+            "1628": {
+              "label_cfg": "CFG"
+            }
+          },
+          "1611": {
+            "1612": {
+              "label_ast": "AST"
+            }
+          },
+          "1612": {
+            "1613": {
+              "label_ast": "AST"
+            }
+          },
+          "1616": {
+            "1619": {
+              "label_ast": "AST"
+            }
+          },
+          "1619": {
+            "1620": {
+              "label_ast": "AST"
+            },
+            "1621": {
+              "label_ast": "AST"
+            }
+          },
+          "1621": {
+            "1623": {
               "label_ast": "AST"
             }
           },
@@ -30499,9 +30542,44 @@
             "label_type": "SymbolLookup",
             "symbol": "e"
           },
+          "1608": {
+            "block_id": "1616",
+            "label_type": "CatchClause"
+          },
+          "1611": {
+            "label_type": "CatchParameter",
+            "variable_name": "e2"
+          },
+          "1612": {
+            "label_type": "CatchType"
+          },
+          "1613": {
+            "label_type": "SymbolLookup",
+            "symbol": "E2"
+          },
+          "1616": {
+            "label_type": "ExecutionBlock"
+          },
+          "1619": {
+            "arguments_id": "1621",
+            "expression": "log2",
+            "expression_id": "1620",
+            "label_type": "MethodInvocation"
+          },
           "162": {
             "label_type": "SymbolLookup",
             "symbol": "add"
+          },
+          "1620": {
+            "label_type": "SymbolLookup",
+            "symbol": "log2"
+          },
+          "1621": {
+            "label_type": "ArgumentList"
+          },
+          "1623": {
+            "label_type": "SymbolLookup",
+            "symbol": "e"
           },
           "1628": {
             "block_id": "1630",
