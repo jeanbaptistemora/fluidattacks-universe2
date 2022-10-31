@@ -2,19 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import aioboto3
 from aioextensions import (
     collect,
 )
-from batch.types import (
-    PutActionResult,
-)
-from contextlib import (
-    suppress,
-)
 from dataloaders import (
-    Dataloaders,
     get_new_context,
+)
+from db_model.enums import (
+    GitCloningStatus,
 )
 from db_model.groups.types import (
     Group,
@@ -24,139 +19,66 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-)
-from machine.availability import (
-    is_check_available,
+    Root,
 )
 from machine.jobs import (
     FINDINGS,
     queue_job_new,
-    SkimsBatchQueue,
 )
 from organizations import (
     domain as orgs_domain,
 )
 from schedulers.common import (
-    error,
     info,
 )
 from typing import (
-    NamedTuple,
-    Optional,
+    Dict,
+    List,
     Tuple,
 )
 
 
-class RootsByGroup(NamedTuple):
-    roots: list[str]
-    group_name: str
-
-
-class PreparedJob(NamedTuple):
-    group_name: str
-    roots: list[str]
-    last_queue: Optional[float] = 0
-
-
-async def _queue_all_checks(
-    loaders: Dataloaders,
-    group_name: str,
-    finding_codes: tuple[str, ...],
-) -> Optional[PutActionResult]:
-    result = await queue_job_new(
-        dataloaders=loaders,
-        group_name=group_name,
-        finding_codes=finding_codes,
-        queue=SkimsBatchQueue.MEDIUM,
-    )
-    if result:
-        info(
-            "Queued %s with the follow identifier %s",
-            group_name,
-            result.dynamo_pk,
-        )
-    else:
-        error("A queuing error has occurred %s", group_name)
-    return result
-
-
-def _is_check_available(check: str) -> bool:
-    with suppress(NotImplementedError):
-        return is_check_available(check)
-    return False
-
-
-async def _roots_by_group(
-    loaders: Dataloaders,
-    group: Group,
-) -> RootsByGroup:
-    if not group.state.has_machine:
-        return RootsByGroup(
-            group_name=group.name,
-            roots=[],
-        )
-    all_roots: Tuple[GitRoot] = await loaders.group_roots.load(group.name)
-    return RootsByGroup(
-        group_name=group.name,
-        roots=[
-            root.state.nickname
-            for root in all_roots
-            if root.state.status == RootStatus.ACTIVE and root.cloning.commit
-        ],
-    )
-
-
 async def main() -> None:
-    session = aioboto3.Session()
-    loaders: Dataloaders = get_new_context()
-    async with session.client("s3") as s3_client:
-        all_active_group_names = await orgs_domain.get_all_active_group_names(
-            loaders
-        )
-        group_names: list[str] = [
-            prefix["Prefix"].split("/")[0]
-            for response in await collect(
-                s3_client.list_objects(
-                    Bucket="integrates",
-                    Prefix=f"continuous-repositories/{group_name}",
-                    Delimiter="/",
-                    MaxKeys=1,
-                )
-                for group_name in all_active_group_names
-            )
-            for prefix in response.get("CommonPrefixes", [])
-        ]
-    findings = [key for key in FINDINGS.keys() if _is_check_available(key)]
-    _groups_roots: list[RootsByGroup] = await collect(  # type: ignore
-        [
-            _roots_by_group(loaders, group)
-            for group in await loaders.group.load_many(group_names)
-            if group.state.has_machine
-        ]
-    )
-
-    jobs: dict[str, PreparedJob] = {
-        root.group_name: PreparedJob(
-            group_name=root.group_name, roots=root.roots
-        )
-        for root in _groups_roots
-        if root
-    }
-    info("Computing jobs")
-
-    sorted_jobs: list[PreparedJob] = list(
-        sorted(
-            jobs.values(),
-            key=lambda x: x.last_queue or 0,
-        )
-    )
-    all_job_futures = [
-        _queue_all_checks(
-            loaders=loaders,
-            group_name=prepared_job.group_name,
-            finding_codes=tuple(findings),
-        )
-        for prepared_job in sorted_jobs
-        if len(prepared_job.roots) > 0
+    loaders = get_new_context()
+    groups = await orgs_domain.get_all_active_groups(loaders)
+    machine_groups: List[Group] = [
+        group for group in groups if group.state.has_machine is True
     ]
-    await collect(all_job_futures)
+    groups_roots: Tuple[
+        Tuple[Root, ...], ...
+    ] = await loaders.group_roots.load_many(
+        [group.name for group in machine_groups]
+    )
+
+    queue: Dict[str, List[str]] = {}
+    for group, roots in zip(machine_groups, groups_roots):
+        valid_roots: List[str] = [
+            root.state.nickname
+            for root in roots
+            if (
+                isinstance(root, GitRoot)
+                and root.state.status == RootStatus.ACTIVE
+                and root.cloning.status == GitCloningStatus.OK
+            )
+        ]
+        if valid_roots:
+            info(
+                "Queueing %s roots for group %s: [%s]",
+                len(valid_roots),
+                group.name,
+                ", ".join(valid_roots),
+            )
+            queue.update({group.name: valid_roots})
+    finding_codes: List[str] = list(FINDINGS.keys())
+    await collect(
+        (
+            queue_job_new(
+                group_name=group_name,
+                dataloaders=loaders,
+                finding_codes=finding_codes,
+                root=nicknames,
+            )
+            for group_name, nicknames in queue.items()
+        ),
+        workers=20,
+    )
