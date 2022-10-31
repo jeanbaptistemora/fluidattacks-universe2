@@ -3114,6 +3114,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_USES_CONSOLE_LOG = MethodInfo(
+        file_name="typescript",
+        name="ts_uses_console_log",
+        module="lib_root",
+        finding=FindingEnum.F066,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_uses_insecure_security_policy",

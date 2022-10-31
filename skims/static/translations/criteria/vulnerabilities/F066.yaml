@@ -15,6 +15,6 @@ lib_root.f066.has_console_functions:
     (Debug),
     pero utilizarla en ambiente de producción es igual a exponerse a mostrar información
     sensible de la aplicación.
-lib_root.f066.js_uses_console_log:
-  en: console.log() calls in a JavaScript file or directory.
-  es: Se llama a console.log() en un archivo JavaScript o un directorio
+lib_root.f066.generic_uses_console_log:
+  en: console.log() is being invoked in a {lang} file or directory.
+  es: Se esta invocando console.log() en un archivo o un directorio {lang}
