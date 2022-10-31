@@ -1932,6 +1932,7 @@ export const enTranslations: ResourceKey = {
         role: "Role",
         text: "Groups",
         tooltip: "Groups that belong to the organization",
+        vulnerabilities: "Vulnerabilities",
       },
       policies: {
         errors: {

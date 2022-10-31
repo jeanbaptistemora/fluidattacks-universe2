@@ -109,6 +109,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           : group.hasSquad
           ? "Squad"
           : "Machine";
+      const vulnerabilities: string = `${group.openFindings} types found`;
       const eventFormat: string =
         _.isUndefined(group.events) || _.isEmpty(group.events)
           ? "None"
@@ -127,6 +128,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         description,
         eventFormat,
         plan,
+        vulnerabilities,
       };
     });
 
@@ -150,6 +152,11 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       accessorKey: "plan",
       header: t("organization.tabs.groups.plan"),
       meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "vulnerabilities",
+      enableColumnFilter: false,
+      header: t("organization.tabs.groups.vulnerabilities"),
     },
     {
       accessorKey: "userRole",

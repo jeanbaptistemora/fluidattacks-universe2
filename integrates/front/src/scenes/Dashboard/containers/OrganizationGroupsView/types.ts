@@ -10,6 +10,7 @@ interface IGroupData {
   events: {
     eventStatus: string;
   }[];
+  openFindings: number;
   machine: string;
   squad: string;
   service: string;
@@ -19,6 +20,7 @@ interface IGroupData {
   plan: string;
   subscription: string;
   userRole: string;
+  vulnerabilities: string;
 }
 
 interface IOrganizationGroupsProps {
