@@ -53,8 +53,8 @@ async def add(*, subscription: Subscription) -> None:
             "entity": subscription.entity.lower(),
             "subject": subscription.subject,
             # The modified date will always exist here
-            "iso8601utc": subscription.modified_date
-            if subscription.modified_date
+            "iso8601utc": subscription.state.modified_date
+            if subscription.state.modified_date
             else "",
         },
     )

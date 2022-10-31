@@ -8,6 +8,7 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
+    SubscriptionState,
 )
 from dynamodb.types import (
     Item,
@@ -20,7 +21,7 @@ def format_subscription_item(subscription: Subscription) -> Item:
         "entity": subscription.entity,
         "frequency": subscription.frequency,
         "subject": subscription.subject,
-        "state": {"modified_date": subscription.modified_date},
+        "state": {"modified_date": subscription.state.modified_date},
     }
 
 
@@ -30,5 +31,7 @@ def format_subscriptions(item: Item) -> Subscription:
         entity=SubscriptionEntity[item["entity"]],
         frequency=SubscriptionFrequency[item["frequency"]],
         subject=item["subject"],
-        modified_date=item.get("state", {}).get("modified_date"),
+        state=SubscriptionState(
+            modified_date=item.get("state", {}).get("modified_date")
+        ),
     )

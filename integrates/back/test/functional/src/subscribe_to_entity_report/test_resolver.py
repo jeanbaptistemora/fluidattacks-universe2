@@ -16,6 +16,7 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
+    SubscriptionState,
 )
 import pytest
 
@@ -103,12 +104,14 @@ async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
             entity=SubscriptionEntity.GROUP,
             subject=group_name,
             frequency=SubscriptionFrequency.WEEKLY,
+            state=SubscriptionState(modified_date=None),
         ),
         Subscription(
             email=email,
             entity=SubscriptionEntity.GROUP,
             subject=group_name,
             frequency=SubscriptionFrequency.NEVER,
+            state=SubscriptionState(modified_date=None),
         ),
     )
     loaders: Dataloaders = get_new_context()
@@ -129,4 +132,4 @@ async def test_subscribe_to_entity_report(populate: bool, email: str) -> None:
         assert expected_sub.entity == actual_sub.entity
         assert expected_sub.subject == actual_sub.subject
         assert expected_sub.frequency == actual_sub.frequency
-        assert actual_sub.modified_date
+        assert actual_sub.state.modified_date

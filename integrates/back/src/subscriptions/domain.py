@@ -42,6 +42,7 @@ from db_model.subscriptions.enums import (
 )
 from db_model.subscriptions.types import (
     Subscription,
+    SubscriptionState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -221,7 +222,9 @@ async def subscribe(
             entity=entity,
             frequency=frequency,
             subject=subject,
-            modified_date=datetime_utils.get_iso_date(),
+            state=SubscriptionState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
         )
     )
     if frequency != SubscriptionFrequency.NEVER:

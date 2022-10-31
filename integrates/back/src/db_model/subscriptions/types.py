@@ -21,4 +21,4 @@ class Subscription(NamedTuple):
     entity: SubscriptionEntity
     frequency: SubscriptionFrequency
     subject: str
-    modified_date: Optional[str] = None
+    state: SubscriptionState
