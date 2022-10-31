@@ -387,4 +387,40 @@ describe("Filters", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
   });
+
+  it("should filter date range", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        id: "date",
+        key: "date",
+        label: "Date Range",
+        type: "dateRange",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(document.querySelectorAll(`input[name="date"]`)).toHaveLength(2);
+    });
+
+    fireEvent.change(document.querySelectorAll(`input[name="date"]`)[0], {
+      target: { value: "2021-01-01" },
+    });
+
+    fireEvent.change(document.querySelectorAll(`input[name="date"]`)[1], {
+      target: { value: "2022-03-31" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(6);
+    });
+  });
 });
