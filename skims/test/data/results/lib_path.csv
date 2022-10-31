@@ -33149,6 +33149,54 @@ F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dock
   23 | RUN npm i --only=production && npm cache clean --force
      ^ Col 0
 ",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,7,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f380/bash.sh,"
+   1 | #!/bin/bash
+   2 |
+   3 | #Vuln1 oneline
+   4 | docker run -d -p 80:80 ubuntu:xenial -g 'daemon off;'
+   5 |
+   6 | # Vuln2 multiple line
+>  7 | docker run -p 80:80 \
+   8 |   ubuntu:xenial \
+   9 |   -g 'daemon off;'
+  10 |
+  11 | # NotVuln1 one line
+  12 | docker run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89 -g 'daemon off;'
+  13 |
+  14 | # NotVuln2 one line
+  15 | docker run -d -p 80:80 \
+  16 |   ubuntu:21.01-lts@sha256:03042cf8100db386818cee4ff0f2972431a62ed78edbd09ac08accfabbefd818 \
+  17 |   -g 'daemon off;'
+  18 |
+  19 | # Control. Other lines with look alike commands
+  20 | echo run ubuntu:xenial
+  21 | echo run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+     ^ Col 0
+",bash.bash_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,4,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f380/bash.sh,"
+   1 | #!/bin/bash
+   2 |
+   3 | #Vuln1 oneline
+>  4 | docker run -d -p 80:80 ubuntu:xenial -g 'daemon off;'
+   5 |
+   6 | # Vuln2 multiple line
+   7 | docker run -p 80:80 \
+   8 |   ubuntu:xenial \
+   9 |   -g 'daemon off;'
+  10 |
+  11 | # NotVuln1 one line
+  12 | docker run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89 -g 'daemon off;'
+  13 |
+  14 | # NotVuln2 one line
+  15 | docker run -d -p 80:80 \
+  16 |   ubuntu:21.01-lts@sha256:03042cf8100db386818cee4ff0f2972431a62ed78edbd09ac08accfabbefd818 \
+  17 |   -g 'daemon off;'
+  18 |
+  19 | # Control. Other lines with look alike commands
+  20 | echo run ubuntu:xenial
+  21 | echo run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+     ^ Col 0
+",bash.bash_image_has_digest
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
    1 | using System;
    2 | using System.Security;
