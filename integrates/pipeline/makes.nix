@@ -62,6 +62,7 @@
     ["groups_with_forces"]
     ["handle_vulnerabilities_acceptance"]
     ["invalidate_access_token"]
+    ["machine_queue_all"]
     ["me"]
     ["move_root"]
     ["organization"]

@@ -95,6 +95,7 @@ TEST_GROUPS: set[str] = {
     "groups_languages_distribution",
     "groups_with_forces",
     "invalidate_access_token",
+    "machine_queue_all",
     "me",
     "move_root",
     "old",

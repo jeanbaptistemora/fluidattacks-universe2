@@ -1434,6 +1434,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__machine_queue_all:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'machine_queue_all'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__me:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4013,6 +4042,7 @@
     - /integrates/back/test/functional__groups_with_forces
     - /integrates/back/test/functional__handle_vulnerabilities_acceptance
     - /integrates/back/test/functional__invalidate_access_token
+    - /integrates/back/test/functional__machine_queue_all
     - /integrates/back/test/functional__me
     - /integrates/back/test/functional__move_root
     - /integrates/back/test/functional__organization
@@ -4049,7 +4079,6 @@
     - /integrates/back/test/functional__submit_draft
     - /integrates/back/test/functional__submit_organization_finding_policy
     - /integrates/back/test/functional__subscribe_to_entity_report_s3
-    - /integrates/back/test/functional__sync_git_root_s3
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4078,6 +4107,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__sync_git_root_s3
     - /integrates/back/test/functional__toe_inputs
     - /integrates/back/test/functional__toe_lines
     - /integrates/back/test/functional__unfulfilled_standard_report_url_s3
@@ -4117,7 +4147,6 @@
     - /integrates/back/test/functional__update_vulnerabilities_treatment
     - /integrates/back/test/functional__update_vulnerability_commit
     - /integrates/back/test/functional__update_vulnerability_treatment
-    - /integrates/back/test/functional__upload_file
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4146,6 +4175,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__upload_file
     - /integrates/back/test/functional__validate_git_access
     - /integrates/back/test/functional__verify_stakeholder
     - /integrates/back/test/functional__verify_vulnerabilities_request
