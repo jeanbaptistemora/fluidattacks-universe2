@@ -22,7 +22,7 @@ you need to click on the
 **New group** button in the
 main screen of your organization.
 
-![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1649258581/docs/web/groups/general/creation_new_group_option.png)
+![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1667248754/docs/web/groups/general/new_group.png)
 
 A pop-up window will appear
 to set up the characteristics
@@ -30,7 +30,7 @@ of your new group.
 You will be asked to provide
 the following:
 
-- **Name:**
+- **Group name:**
   Enter a name for your group.
   It is recommended to choose a
   short one that is easy to remember.
@@ -43,19 +43,13 @@ the following:
   Select between Continuous
   Hacking and One-Shot Hacking.
 - **Type of testing:**
-  Select between white- and
-  black-box testing.
+  Select between [white-box](/about/glossary/#white-box)
+  and [black-box](https://docs.fluidattacks.com/about/glossary/#black-box)
+  testing.
 - **Report language:**
   Select a language in which
   you would like your reports
   to be.
-- **Include Machine Plan:**
-  Select if you would like
-  to activate Machine Plan,
-  which performs security
-  testing with `Fluid Attack's`
-  automatic security testing
-  tools only.
 - **Include Squad Plan:**
   Select if you would like
   to activate Squad Plan,
@@ -74,13 +68,13 @@ the following:
 
 When you are finished
 setting up your new group,
-you can click **Proceed**.
+you can click **Confirm**.
 The group will be added to
 your group table immediately,
 and you will be all set to
 start working on your project.
 
-![Group Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1649258581/docs/web/groups/general/creation_group_added.png)
+![Group Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1667249840/docs/web/groups/general/added_new_group.png)
 
 ## Group filters
 
@@ -97,7 +91,7 @@ name or plan
 [Squad Plan](/about/faq) or
 [One-Shot](/about/faq/estimation#one-shot-hacking-per-project)).
 
-![Group Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1649259357/docs/web/groups/general/filters_group_tab.png)
+![Group Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1667250616/docs/web/groups/general/group_filtes.png)
 
 ## Group table
 
@@ -113,22 +107,26 @@ ascending or descending) if
 you click on the arrows next
 to each title.
 
-![Group Table Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1649261768/docs/web/groups/general/group_table_window.png)
+You find the following information:
 
-The first column shows you
-the names of the groups.
-The next column gives you the
-short descriptions the groups
-received at their creation.
-In the following two columns,
-you see the plan to which each
-group belongs and your role
-within each of them.
-The last column tells you how
-many unsolved events each group
-has (to learn more about this column,
-we invite you to
-[click here](/machine/web/groups/general#unsolved-events)).
+- **Group name:**
+  The first column shows you
+  the names of the groups.
+- **Description:**
+  The next column gives you the
+  short descriptions the groups
+  received at their creation.
+- **Plan:**
+  You can see the plan to which each
+  group belongs.
+- **Role:**
+  The role within each of them.
+- **Events:**
+  The last column tells you how
+  many unsolved events each group
+  has (to learn more about this column,
+  we invite you to
+  [click here](/machine/web/groups/general#unsolved-events)).
 
 When you enter a group,
 following the link in its name,
@@ -138,7 +136,7 @@ which will vary depending on
 your role and the plan you have
 for that group.
 
-![Group Table Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1649261768/docs/web/groups/general/group_table_column_desc.png)
+![Group Table Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667252083/docs/web/groups/general/group_options.png)
 
 > **NOTE:**
 > You can edit or [remove](/machine/web/groups/delete/) a group
