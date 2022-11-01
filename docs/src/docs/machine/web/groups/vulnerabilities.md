@@ -128,43 +128,14 @@ time activated in the column filter.
 
 ![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1667330719/docs/web/groups/vulnerabilities/filter_vulne.png)
 
-Lastly,
-the option called
-**Release date (range)** offers
-two fields to set a date range
-by which to filter the types of
-vulnerabilities that were
-reported within that time
-at least once.
+### Search bar
 
-## Tracking tab
+The search bar filters the information
+contained in the columns of the table.
 
-Knowing what happened with each
-vulnerability is quite important.
-So, it is essential for your team to
-obtain information such as dates, users
-and justifications for each change in
-the history of your security vulnerabilities.
-For this purpose, there’s the
-**Tracking tab** in the ARM.
-This tab gives you detailed information
-about each vulnerability in your
-software and the treatment each has
-received over time.
-
-You can find the **Tracking tab** in
-two different places.
-One is in each specific vulnerability
-type, where you can have a global overview.
-
-![First Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1643990395/docs/web/groups/vulnerabilities/vulner_first_tracking_tab.png)
-
-The second **Tracking tab** can be accessed
-by first clicking on the **Locations** tab
-in a vulnerability type and then clicking
-on a specific location where the
-vulnerability was found.
-There you can find the tab, which will show
-you individual details on the file you chose.
-
-![Second Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1643990394/docs/web/groups/vulnerabilities/vulner_second_tracking_tab.png)
+:::note
+You can also find in the vulnerability
+view how to generate reports.
+Click [here](/machine/web/groups/reports)
+if you want to know more.
+:::
