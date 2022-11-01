@@ -37,7 +37,7 @@ from organizations import (
     domain as orgs_domain,
 )
 import psycopg2
-from redshift import (
+from redshift import (  # type: ignore
     roots as redshift_roots,
 )
 from settings import (

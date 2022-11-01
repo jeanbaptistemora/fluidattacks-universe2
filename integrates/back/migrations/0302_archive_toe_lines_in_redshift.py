@@ -30,7 +30,7 @@ import logging.config
 from organizations import (
     domain as orgs_domain,
 )
-from redshift import (
+from redshift import (  # type: ignore
     toe_lines as redshift_toe_lines,
 )
 from settings import (

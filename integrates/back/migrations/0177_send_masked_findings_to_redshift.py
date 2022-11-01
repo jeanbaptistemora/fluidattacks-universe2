@@ -62,7 +62,7 @@ from groups import (
 )
 import logging
 import logging.config
-from redshift.findings import (
+from redshift.findings import (  # pylint: disable=import-error
     insert_batch_metadata,
     insert_batch_severity_cvss20,
     insert_batch_severity_cvss31,

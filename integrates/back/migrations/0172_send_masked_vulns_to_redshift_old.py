@@ -85,7 +85,7 @@ from newutils.vulnerabilities import (
     format_vulnerability_zero_risk,
     get_optional,
 )
-from redshift.vulnerabilities import (
+from redshift.vulnerabilities import (  # pylint: disable=import-error
     insert_batch_metadata,
     insert_batch_state,
     insert_batch_treatment,
