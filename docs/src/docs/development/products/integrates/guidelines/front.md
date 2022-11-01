@@ -105,6 +105,83 @@ and [Yup][yup] to declare a validation schema to be checked on submit.
 
 Refer to Formik and Yup's documentation for more details.
 
+### Authorization
+
+:::note
+Authorization is enforced by the backend (authz/model.py),
+this is just a utility to prevent the user
+from running into 'access denied' messages.
+:::
+
+Integrates uses [Attribute-based access control][abac]
+to manage its authorization model,
+and the front uses some utilities from [CASL][casl] to implement it.
+
+You can do [conditional rendering][conditional]
+based on what the user is allowed to access:
+
+```tsx
+import { Can } from "utils/authz/Can";
+
+const DemoComponent = () => {
+  return (
+    <div>
+      <Can I={"do_some_action"}>
+        <p>{"Welcome"}</p>
+      </Can>
+      <Can I={"do_some_action"} not={true}>
+        <p>{"Get outta here"}</p>
+      </Can>
+    </div>
+  );
+};
+```
+
+You can also use it outside JSX
+
+```tsx
+import { useAbility } from "@casl/react";
+import { authzPermissionsContext } from "utils/authz/config";
+
+const DemoComponent = () => {
+  const permissions = useAbility(authzPermissionsContext);
+
+  function handleClick() {
+    if (permissions.can("do_some_action")) {
+      alert("Welcome");
+    } else {
+      alert("Get outta here");
+    }
+  }
+
+  return <button onClick={handleClick}>{"Click me"}</button>;
+};
+```
+
+### Feature preview
+
+In a constantly evolving product,
+it may be useful to conduct [A/B testing][ab].
+
+This strategy allows trying new ideas with a small subset of the users,
+analyzing reception, iterating and improving before releasing them to everyone.
+
+You can do [conditional rendering][conditional] based on user preference:
+
+```tsx
+import { featurePreviewContext } from "utils/featurePreview";
+
+const DemoComponent = () => {
+  const { featurePreview } = useContext(featurePreviewContext);
+
+  if (featurePreview) {
+    return <h1>{"Shiny new view"}</h1>;
+  }
+
+  return <h2>{"Current default view"}</h2>;
+};
+```
+
 ### Routing
 
 The front uses [React Router][router] to declare routes and
@@ -192,6 +269,7 @@ defined by the Customer Experience team at Fluid Attacks.
 
 Helpful tools that enhance development experience when working on the front:
 
+- https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
 - https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
 - https://chrome.google.com/webstore/detail/apollo-client-devtools/jdkknkkbebbapilgoeccciglkfbmbnfm
 - https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
@@ -233,6 +311,10 @@ when diagnosing issues on the front:
 [yup]: https://github.com/jquense/yup#readme
 [usestate]: https://reactjs.org/docs/hooks-state.html
 [context]: https://reactjs.org/docs/context.html
+[abac]: https://en.wikipedia.org/wiki/Attribute-based_access_control
+[casl]: https://casl.js.org/v6/en/package/casl-react
+[ab]: https://en.wikipedia.org/wiki/A/B_testing
+[conditional]: https://reactjs.org/docs/conditional-rendering.html
 [router]: https://v5.reactrouter.com/
 [styled]: https://styled-components.com/
 [tachyons]: https://tachyons.io/
