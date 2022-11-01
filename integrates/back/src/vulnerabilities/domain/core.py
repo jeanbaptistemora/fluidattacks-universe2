@@ -242,12 +242,15 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         raise InvalidRemovalVulnState.new()
 
     deletion_state = VulnerabilityState(
+        commit=vulnerability.state.commit,
         modified_by=email,
         modified_date=datetime_utils.get_iso_date(),
         source=vulnerability.state.source,
+        specific=vulnerability.state.specific,
         status=VulnerabilityStateStatus.DELETED,
         justification=justification,
         tool=vulnerability.state.tool,
+        where=vulnerability.state.where,
     )
     await vulns_model.update_historic_entry(
         current_value=vulnerability,
@@ -906,14 +909,18 @@ async def verify(
                 ),
             ),
             new_state=VulnerabilityState(
+                commit=close_item.commit
+                if close_item
+                else vuln_to_close.commit,
                 modified_by=modified_by,
                 modified_date=modified_date,
                 source=vuln_to_close.state.source,
+                specific=vuln_to_close.specific,
                 status=VulnerabilityStateStatus.CLOSED,
                 tool=close_item.state.tool
                 if close_item
                 else vuln_to_close.state.tool,
-                commit=close_item.commit if close_item else None,
+                where=vuln_to_close.where,
             ),
         )
         for vuln_to_close, close_item in zip(
@@ -949,11 +956,14 @@ async def close_by_exclusion(
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             entry=VulnerabilityState(
+                commit=vulnerability.state.commit,
                 modified_by=modified_by,
                 modified_date=datetime_utils.get_iso_date(),
                 source=vulnerability.state.source,
+                specific=vulnerability.state.specific,
                 status=VulnerabilityStateStatus.CLOSED,
                 justification=StateRemovalJustification.EXCLUSION,
+                where=vulnerability.state.where,
             ),
         )
         if vulns_utils.is_reattack_requested(
