@@ -36,6 +36,10 @@ interface IFilter<IData extends object> {
   value?: string;
 }
 
+interface IFilterComp<IData extends object> extends IFilter<IData> {
+  key: keyof IData;
+}
+
 interface IFiltersProps<IData extends object> {
   filters: IFilter<IData>[];
   setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
@@ -47,9 +51,8 @@ const useFilters = <IData extends object>(
 ): IData[] => {
   function handleTextSelectCases(
     dataPoint: IData,
-    filter: IFilter<IData>
+    filter: IFilterComp<IData>
   ): boolean {
-    if (typeof filter.key === "function") return filter.key(dataPoint);
     if (filter.value === "" || filter.value === undefined) return true;
 
     switch (filter.filterFn) {
@@ -79,9 +82,10 @@ const useFilters = <IData extends object>(
     }
   }
 
-  function handleNumberCase(dataPoint: IData, filter: IFilter<IData>): boolean {
-    if (typeof filter.key === "function") return filter.key(dataPoint);
-
+  function handleNumberCase(
+    dataPoint: IData,
+    filter: IFilterComp<IData>
+  ): boolean {
     return _.isEmpty(filter.value)
       ? true
       : String(dataPoint[filter.key]) === filter.value;
@@ -89,9 +93,8 @@ const useFilters = <IData extends object>(
 
   function handleNumberRangeCase(
     dataPoint: IData,
-    filter: IFilter<IData>
+    filter: IFilterComp<IData>
   ): boolean {
-    if (typeof filter.key === "function") return filter.key(dataPoint);
     if (filter.rangeValues === undefined) return true;
     const currentNumber = parseInt(String(dataPoint[filter.key]), 10);
     const isHigher = _.isEmpty(filter.rangeValues[0])
@@ -106,9 +109,8 @@ const useFilters = <IData extends object>(
 
   function handleDateRangeCase(
     dataPoint: IData,
-    filter: IFilter<IData>
+    filter: IFilterComp<IData>
   ): boolean {
-    if (typeof filter.key === "function") return filter.key(dataPoint);
     if (filter.rangeValues === undefined) return true;
     const currentDate = Date.parse(String(dataPoint[filter.key]));
     const isHigher = _.isEmpty(filter.rangeValues[0])
@@ -126,18 +128,18 @@ const useFilters = <IData extends object>(
       if (typeof filter.key === "function") return filter.key(dataPoint);
       switch (filter.type) {
         case "number":
-          return handleNumberCase(dataPoint, filter);
+          return handleNumberCase(dataPoint, filter as IFilterComp<IData>);
 
         case "numberRange":
-          return handleNumberRangeCase(dataPoint, filter);
+          return handleNumberRangeCase(dataPoint, filter as IFilterComp<IData>);
 
         case "dateRange":
-          return handleDateRangeCase(dataPoint, filter);
+          return handleDateRangeCase(dataPoint, filter as IFilterComp<IData>);
 
         case "text":
         case "select":
         default:
-          return handleTextSelectCases(dataPoint, filter);
+          return handleTextSelectCases(dataPoint, filter as IFilterComp<IData>);
       }
     });
   }
