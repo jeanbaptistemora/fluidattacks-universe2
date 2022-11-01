@@ -11,14 +11,14 @@ from psycopg2 import (
     sql,
 )
 
-METADATA_TABLE: str = f"{SCHEMA_NAME}.events_metadata"
+METADATA_TABLE: str = "events_metadata"
 
 
 def _initialize_metadata_table() -> None:
     execute(
         sql.SQL(
             """
-            CREATE TABLE IF NOT EXISTS {table_name} (
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 created_by VARCHAR,
                 created_date TIMESTAMPTZ,
@@ -40,7 +40,7 @@ def _initialize_metadata_table() -> None:
             )
         """
         ).format(
-            table_name=sql.Identifier(METADATA_TABLE),
+            table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
         ),
     )
 

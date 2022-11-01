@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ..operations import (
+    SCHEMA_NAME,
+)
 from ..queries import (
     SQL_INSERT_HISTORIC,
     SQL_INSERT_METADATA,
@@ -50,7 +53,7 @@ def insert_metadata(
     sql_values = format_row_metadata(item)
     cursor.execute(
         SQL_INSERT_METADATA.substitute(
-            table=METADATA_TABLE,
+            table=f"{SCHEMA_NAME}.{METADATA_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -65,10 +68,10 @@ def insert_metadata_severity(
 ) -> None:
     if item["cvss_version"] == "3.1":
         _fields, values = format_query_fields(SeverityCvss31TableRow)
-        severity_table = SEVERITY_CVSS31_TABLE
+        severity_table = f"{SCHEMA_NAME}.{SEVERITY_CVSS31_TABLE}"
     else:
         _fields, values = format_query_fields(SeverityCvss20TableRow)
-        severity_table = SEVERITY_CVSS20_TABLE
+        severity_table = f"{SCHEMA_NAME}.{SEVERITY_CVSS20_TABLE}"
     sql_values = format_row_severity(item)
     cursor.execute(  # nosec
         SQL_INSERT_METADATA.substitute(
@@ -92,8 +95,8 @@ def insert_historic_state(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=STATE_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{STATE_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -114,8 +117,8 @@ def insert_historic_verification(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=VERIFICATION_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -142,8 +145,8 @@ def insert_historic_verification_vuln_ids(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
-            table_metadata=METADATA_TABLE,
-            table_vulns_ids=VERIFICATION_VULN_IDS_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_VULN_IDS_TABLE}",
             fields=_fields,
             values=values,
         ),

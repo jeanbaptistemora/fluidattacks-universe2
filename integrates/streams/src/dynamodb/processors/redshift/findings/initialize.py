@@ -7,24 +7,23 @@ from ..operations import (
     initialize_schema,
     SCHEMA_NAME,
 )
-import logging
-
-LOGGER = logging.getLogger(__name__)
-METADATA_TABLE: str = f"{SCHEMA_NAME}.findings_metadata"
-STATE_TABLE: str = f"{SCHEMA_NAME}.findings_state"
-SEVERITY_CVSS20_TABLE: str = f"{SCHEMA_NAME}.findings_severity_cvss20"
-SEVERITY_CVSS31_TABLE: str = f"{SCHEMA_NAME}.findings_severity_cvss31"
-VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.findings_verification"
-VERIFICATION_VULN_IDS_TABLE: str = (
-    f"{SCHEMA_NAME}.findings_verification_vuln_ids"
+from psycopg2 import (
+    sql,
 )
+
+METADATA_TABLE: str = "findings_metadata"
+STATE_TABLE: str = "findings_state"
+SEVERITY_CVSS20_TABLE: str = "findings_severity_cvss20"
+SEVERITY_CVSS31_TABLE: str = "findings_severity_cvss31"
+VERIFICATION_TABLE: str = "findings_verification"
+VERIFICATION_VULN_IDS_TABLE: str = "findings_verification_vuln_ids"
 
 
 def _initialize_metadata_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 cvss_version VARCHAR,
                 group_name VARCHAR NOT NULL,
@@ -40,15 +39,18 @@ def _initialize_metadata_table() -> None:
                     id
                 )
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_state_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", STATE_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 modified_by VARCHAR NOT NULL,
@@ -61,17 +63,21 @@ def _initialize_state_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
         """,
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, STATE_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_severity_cvss20_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", SEVERITY_CVSS20_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS20_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 access_complexity DECIMAL(5,3) NOT NULL,
                 access_vector DECIMAL(5,3) NOT NULL,
@@ -92,17 +98,21 @@ def _initialize_severity_cvss20_table() -> None:
                     id
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, SEVERITY_CVSS20_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_severity_cvss31_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", SEVERITY_CVSS31_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS31_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 attack_complexity DECIMAL(4,2) NOT NULL,
                 attack_vector DECIMAL(4,2) NOT NULL,
@@ -131,17 +141,21 @@ def _initialize_severity_cvss31_table() -> None:
                     id
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, SEVERITY_CVSS31_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_verification_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", VERIFICATION_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {VERIFICATION_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 status VARCHAR NOT NULL,
@@ -151,17 +165,21 @@ def _initialize_verification_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, VERIFICATION_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_verification_vuln_ids_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", VERIFICATION_VULN_IDS_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {VERIFICATION_VULN_IDS_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 vulnerability_id VARCHAR NOT NULL,
@@ -172,9 +190,13 @@ def _initialize_verification_vuln_ids_table() -> None:
                     vulnerability_id
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, VERIFICATION_VULN_IDS_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
