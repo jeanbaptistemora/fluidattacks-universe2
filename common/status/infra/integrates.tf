@@ -25,7 +25,7 @@ resource "checkly_check" "integrates_web" {
     await page.goto("https://app.fluidattacks.com");
     const title = await page.title();
 
-    assert.equal(title, "Fluid Attacks");
+    assert.equal(title, "ARM | Fluid Attacks");
     await browser.close();
   EOF
 }
