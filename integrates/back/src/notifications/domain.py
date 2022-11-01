@@ -189,7 +189,7 @@ async def update_group(  # pylint: disable=too-many-locals
             "from": translations[group_state.has_squad],
             "to": translations[has_squad],
         },
-        "Comments": html.escape(comments, quote=True),
+        "Comments": comments,
         "Reason": reason.replace("_", " ").capitalize(),
     }
 
@@ -198,7 +198,7 @@ async def update_group(  # pylint: disable=too-many-locals
     for key, value in group_changes.items():
         description_body += f"- {key}: "
         description_body += (
-            f"{value}\n"
+            f"{html.escape(value, quote=True)}\n"
             if key in ["Comments", "Reason", "Name"]
             else f"\n\tfrom: {value['from']}\n\tto: {value['to']}\n"
         )
