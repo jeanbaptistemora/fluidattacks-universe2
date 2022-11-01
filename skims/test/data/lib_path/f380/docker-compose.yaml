@@ -1,0 +1,22 @@
+---
+version: '3.4'
+
+services:
+  must-fail:
+    image: test/webmvc
+    ports:
+      - 5100:80
+
+  must-fail-a:
+    image: "test/webmvc@${INVALID_DIGEST}"
+      - 5100:80
+
+  must-not-fail:
+    image: test/api@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23ce8f
+    ports:
+      - 5101:80
+
+  must-not-fail-a:
+    image: "test/webmvc@${VALID_DIGEST}"
+    ports:
+      - 5101:80

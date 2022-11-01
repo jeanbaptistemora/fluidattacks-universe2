@@ -3,3 +3,7 @@ lib_path.f380.bash_image_has_digest:
   en: Ensure the specified docker image has a digest.
   es: Asegúrese de estar especificando un digest
     para la imagen de docker.
+lib_path.f380.docker_compose_image_has_digest:
+  en: Ensure the specified docker image has a digest.
+  es: Asegúrese de estar especificando un digest
+    para la imagen de docker.
