@@ -30,23 +30,11 @@
   };
   secretsForEnvFromSops = {
     airsInfraDev = {
-      vars = [
-        "CLOUDFLARE_ACCOUNT_ID"
-        "CLOUDFLARE_API_TOKEN"
-        "AUTH0_CLIENT_SECRET"
-        "GATSBY_AUTH0_DOMAIN"
-        "GATSBY_AUTH0_CLIENT_ID"
-      ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/airs/secrets/dev.yaml";
     };
     airsInfraProd = {
-      vars = [
-        "CLOUDFLARE_ACCOUNT_ID"
-        "CLOUDFLARE_API_TOKEN"
-        "AUTH0_CLIENT_SECRET"
-        "GATSBY_AUTH0_DOMAIN"
-        "GATSBY_AUTH0_CLIENT_ID"
-      ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/airs/secrets/prod.yaml";
     };
   };
@@ -54,9 +42,6 @@
     airsInfra = {
       cloudflareAccountId = "CLOUDFLARE_ACCOUNT_ID";
       cloudflareApiToken = "CLOUDFLARE_API_TOKEN";
-      auth0ClientSecret = "AUTH0_CLIENT_SECRET";
-      auth0ClientDomain = "GATSBY_AUTH0_DOMAIN";
-      auth0ClientId = "GATSBY_AUTH0_CLIENT_ID";
     };
   };
   testTerraform = {

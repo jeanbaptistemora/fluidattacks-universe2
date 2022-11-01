@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-variable "auth0ClientDomain" {}
-variable "auth0ClientId" {}
-variable "auth0ClientSecret" {}
 variable "cloudflareAccountId" {}
 variable "cloudflareApiToken" {}
 
