@@ -51,17 +51,14 @@ from redshift_client.table.core import (
 from target_redshift.data_schema import (
     extract_table,
 )
-from target_redshift.errors import (
-    MissingKey,
-)
 from target_redshift.grouper import (
     PackagedSinger,
 )
 from target_redshift.loader import (
-    _handlers_2,
+    _handlers,
     _truncate,
 )
-from target_redshift.loader._handlers_2 import (
+from target_redshift.loader._handlers import (
     StateKeeperS3,
 )
 from typing import (
@@ -95,7 +92,7 @@ def _to_row(table: Table, record: SingerRecord) -> ResultE[RowData]:
             lambda _: Result.success(JsonValue(None), Exception)
             if table.columns[c].nullable
             else Result.failure(
-                MissingKey(f"on non-nullable column `{c.name}`", table),
+                KeyError(f"on non-nullable column `{c.name}`", table),
                 JsonValue,
             ).alt(Exception)
         )
@@ -188,7 +185,7 @@ class SingerHandler:
 
     def schema_handler(self, schema: SingerSchema) -> Cmd[None]:
         table_id = TableId(self.schema, schema.stream)
-        return _handlers_2.create_table(self.client, table_id, schema)
+        return _handlers.create_table(self.client, table_id, schema)
 
     def state_handler(self, state: SingerState) -> Cmd[None]:
         nothing = Cmd.from_cmd(lambda: None)

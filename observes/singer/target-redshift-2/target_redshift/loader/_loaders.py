@@ -29,7 +29,7 @@ from redshift_client.sql_client import (
 from redshift_client.table.client import (
     TableClient,
 )
-from target_redshift.loader._handlers_2 import (
+from target_redshift.loader._handlers import (
     StateKeeperS3,
 )
 

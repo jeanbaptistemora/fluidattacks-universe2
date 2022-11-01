@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from dataclasses import (
+    dataclass,
+)
 from fa_purity import (
     Cmd,
 )
@@ -22,6 +25,9 @@ from redshift_client.id_objs import (
 from redshift_client.table.client import (
     TableClient,
 )
+from target_redshift._utils import (
+    S3FileObjURI,
+)
 from target_redshift.data_schema import (
     extract_table,
 )
@@ -32,19 +38,21 @@ from tempfile import (
 LOG = logging.getLogger(__name__)
 
 
+@dataclass(frozen=True)
 class StateKeeperS3:
     _client: S3Client
-    _bucket: str
-    _obj_key: str
+    _file: S3FileObjURI
 
     def save(self, state: SingerState) -> Cmd[None]:
         def _action() -> None:
             LOG.info("Uploading new state")
-            LOG.debug("Uploading state to %s/%s", self._bucket, self._obj_key)
+            LOG.debug("Uploading state to %s", self._file)
             with TemporaryFile() as data:
                 data.write(dumps(state.value).encode("UTF-8"))
                 data.seek(0)
-                self._client.upload_fileobj(data, self._bucket, self._obj_key)
+                self._client.upload_fileobj(
+                    data, self._file.bucket, self._file.file_name
+                )
 
         return Cmd.from_cmd(_action)
 

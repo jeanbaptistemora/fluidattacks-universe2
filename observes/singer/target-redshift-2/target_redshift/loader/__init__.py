@@ -45,7 +45,10 @@ from target_redshift.grouper import (
     group_records,
 )
 from target_redshift.loader import (
-    _handlers_2,
+    _handlers,
+)
+from target_redshift.loader._handlers import (
+    StateKeeperS3,
 )
 from target_redshift.loader._loaders import (
     Loaders,
@@ -79,4 +82,5 @@ __all__ = [
     "SingerHandlerOptions",
     "S3Handler",
     "Loaders",
+    "StateKeeperS3",
 ]
