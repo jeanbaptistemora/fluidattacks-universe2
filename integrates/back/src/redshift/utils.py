@@ -2,19 +2,28 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from .operations import (
+    SCHEMA_NAME,
+)
 from dataclasses import (
     fields,
 )
+from psycopg2 import (
+    sql,
+)
 from typing import (
     Any,
-    Tuple,
 )
 
 
-def format_query_fields(table_row_class: Any) -> Tuple[str, str]:
-    _fields = ",".join(tuple(f.name for f in fields(table_row_class)))
-    values = ",".join(tuple(f"%({f.name})s" for f in fields(table_row_class)))
-    return _fields, values
+def format_sql_query(
+    query: str, table_name: str, _fields: list[str]
+) -> sql.Composed:
+    return sql.SQL(query).format(
+        table=sql.Identifier(SCHEMA_NAME, table_name),
+        fields=sql.SQL(", ").join(map(sql.Identifier, _fields)),
+        values=sql.SQL(", ").join(map(sql.Placeholder, _fields)),
+    )
 
 
 def get_query_fields(table_row_class: Any) -> list[str]:

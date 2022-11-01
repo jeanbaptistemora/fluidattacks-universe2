@@ -85,7 +85,7 @@ async def execute(
 
 
 async def execute_many(
-    sql_query: str,
+    sql_query: sql.Composed,
     sql_vars: Optional[List[Dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
@@ -94,7 +94,7 @@ async def execute_many(
 
 
 async def execute_batch(
-    sql_query: str,
+    sql_query: sql.Composed,
     sql_vars: Optional[List[Dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
