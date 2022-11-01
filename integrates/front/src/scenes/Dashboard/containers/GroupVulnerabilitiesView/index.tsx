@@ -14,13 +14,12 @@ import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type { IGroupVulnerabilities } from "./types";
+import { formatVulnerability, isPendingToAcceptance } from "./utils";
 
-import type { IHistoricTreatment } from "../DescriptionView/types";
 import { formatState } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
-import { isPendingToAcceptance } from "../VulnerabilitiesView/utils";
 import { Modal } from "components/Modal";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -30,7 +29,6 @@ import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/U
 import {
   filterOutVulnerabilities,
   filterZeroRisk,
-  formatHistoricTreatment,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
@@ -137,6 +135,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
 
+  // GraphQL operations
   const { data, fetchMore, refetch } = useQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
@@ -144,20 +143,19 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
       variables: { first: 100, groupName, search: "" },
     }
   );
-  const vulnerabilities =
-    data === undefined
-      ? []
-      : data.group.vulnerabilities.edges
-          .map((edge): IVulnRowAttr => edge.node)
-          .map((vulnerability): IVulnRowAttr => {
-            const lastTreatment: IHistoricTreatment =
-              formatHistoricTreatment(vulnerability);
 
-            return {
-              ...vulnerability,
-              historicTreatment: [lastTreatment],
-            };
-          });
+  const { data: vulnsZeroRisk } = useQuery<IGroupVulnerabilities>(
+    GET_GROUP_VULNERABILITIES,
+    {
+      fetchPolicy: "no-cache",
+      variables: { first: 100, groupName, zeroRisk: "REQUESTED" },
+    }
+  );
+
+  const vulnerabilities = data === undefined ? [] : formatVulnerability(data);
+
+  const vulnerabilitiesZeroRisk =
+    vulnsZeroRisk === undefined ? [] : formatVulnerability(vulnsZeroRisk);
 
   const handleNextPage = useCallback(async (): Promise<void> => {
     const pageInfo =
@@ -251,7 +249,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             extraButtons={
               <ActionButtons
                 areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
-                  vulnerabilities
+                  vulnerabilitiesZeroRisk
                 )}
                 areVulnsSelected={
                   remediationModal.selectedVulnerabilities.length > 0
@@ -294,7 +292,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             groupName={groupName}
             handleCloseModal={toggleHandleAcceptanceModal}
             refetchData={refetch}
-            vulns={vulnerabilities}
+            vulns={vulnerabilitiesZeroRisk}
           />
         )}
         {isEditing && (

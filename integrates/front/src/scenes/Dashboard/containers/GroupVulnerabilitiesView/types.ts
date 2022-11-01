@@ -37,6 +37,7 @@ interface IGroupVulnerabilities {
         endCursor: string;
         hasNextPage: boolean;
       };
+      total: number;
     };
   };
 }

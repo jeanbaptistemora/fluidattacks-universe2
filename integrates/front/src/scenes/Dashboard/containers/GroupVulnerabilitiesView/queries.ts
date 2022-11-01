@@ -44,6 +44,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
     $treatment: String
     $stateStatus: String
     $verificationStatus: String
+    $zeroRisk: VulnerabilityZeroRiskStatus
   ) {
     group(groupName: $groupName) {
       name
@@ -54,6 +55,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
         treatment: $treatment
         stateStatus: $stateStatus
         verificationStatus: $verificationStatus
+        zeroRisk: $zeroRisk
       ) {
         edges {
           node {
@@ -70,6 +72,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
           endCursor
           hasNextPage
         }
+        total
       }
     }
   }

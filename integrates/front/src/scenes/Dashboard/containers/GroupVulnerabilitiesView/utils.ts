@@ -4,7 +4,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { IVulnerability } from "./types";
+import type { IGroupVulnerabilities, IVulnerability } from "./types";
+
+import type { IHistoricTreatment } from "../DescriptionView/types";
+import type { IVulnerabilitiesAttr } from "../VulnerabilitiesView/types";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 
 const filterByState = (
   state: string
@@ -34,6 +39,24 @@ const formatVulnAttribute: (state: string) => string = (
   return vulnParameters[state];
 };
 
+const formatVulnerability: (data: IGroupVulnerabilities) => IVulnRowAttr[] = (
+  data: IGroupVulnerabilities
+): IVulnRowAttr[] => {
+  const vulnerabilityFormat = data.group.vulnerabilities.edges
+    .map((edge): IVulnRowAttr => edge.node)
+    .map((vulnerability): IVulnRowAttr => {
+      const lastTreatment: IHistoricTreatment =
+        formatHistoricTreatment(vulnerability);
+
+      return {
+        ...vulnerability,
+        historicTreatment: [lastTreatment],
+      };
+    });
+
+  return vulnerabilityFormat;
+};
+
 const unformatTreatment: (field: string) => string = (
   field: string
 ): string => {
@@ -48,9 +71,17 @@ const unformatTreatment: (field: string) => string = (
   return translationParameters[field.replace(" (Pending approval)", "")];
 };
 
+function isPendingToAcceptance(
+  vulnerabilitiesZeroRisk: IVulnerabilitiesAttr[]
+): boolean {
+  return vulnerabilitiesZeroRisk.length > 0;
+}
+
 export {
   filterByState,
   filterByTreatment,
   formatVulnAttribute,
+  formatVulnerability,
+  isPendingToAcceptance,
   unformatTreatment,
 };
