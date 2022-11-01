@@ -1339,7 +1339,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
-      "schedulers.fix_machine_extecutions.main"
+      "schedulers.fix_machine_executions.main"
     ];
 
     schedule_expression = "cron(0 16 ? * * *)";
