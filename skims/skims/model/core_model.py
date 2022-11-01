@@ -2218,6 +2218,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_HAS_WILDCARD_RESOURCE_IN_WRITE_ACTION = MethodInfo(
+        file_name="aws",
+        name="iam_has_wildcard_resource_on_write_action",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_EC2_HAS_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="aws",
         name="ec2_has_terminate_shutdown_behavior",
