@@ -11,7 +11,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
     "algoliasearch": "4.13.1",
     "animate.css": "4.1.1",
-    "gatsby": "4.21.0",
+    "gatsby": "4.22.0",
     "gatsby-cli": "4.18.0",
     "gatsby-plugin-algolia": "0.26.0",
     "gatsby-plugin-breadcrumb": "12.3.1",
@@ -38,7 +38,7 @@
     "highlight.js": "11.5.1",
     "i18next": "21.8.12",
     "lodash": "4.17.21",
-    "moment": "2.29.3",
+    "moment": "2.29.4",
     "prop-types": "15.8.1",
     "react": "18.1.0",
     "react-animation-on-scroll": "5.1.0",
@@ -115,6 +115,7 @@
     "eslint-import-resolver-typescript": {
       "get-tsconfig": "4.1.0"
     },
+    "got": "11.8.5",
     "immer": "9.0.15",
     "node-fetch": "2.6.7",
     "nth-check": "2.0.1",
@@ -129,7 +130,7 @@
       "react": "18.1.0",
       "react-dom": "18.1.0"
     },
-    "sanitize-html": "2.3.1",
+    "sanitize-html": "2.7.1",
     "trim": "0.0.3",
     "unset-value": "2.0.1",
     "xmlhttprequest-ssl": "2.0.0"
@@ -140,13 +141,13 @@
   },
   "scripts": {
     "build": "gatsby build",
+    "build-storybook": "build-storybook",
     "build:eph": "gatsby build --prefix-paths",
     "clean": "gatsby clean",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
-    "lint:stylelint": "stylelint '**/*.scss' --output-file",
     "lint:eslint": "tsc --noEmit -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "lint:stylelint": "stylelint '**/*.scss' --output-file",
+    "storybook": "start-storybook -p 6006"
   }
 }
