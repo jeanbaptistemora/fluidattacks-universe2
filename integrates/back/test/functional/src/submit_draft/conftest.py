@@ -86,8 +86,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
                     attack_vector_description=(
                         "This is an updated attack vector"
@@ -152,7 +154,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ],
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.CLOSED,
+                        where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:14+00:00",

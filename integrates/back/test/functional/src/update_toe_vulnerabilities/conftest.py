@@ -393,7 +393,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="test1@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.CLOSED,
+                        where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -581,7 +583,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="4646",
                         status=VulnerabilityStateStatus.CLOSED,
+                        where="test3/test.sh",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -620,8 +624,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T01:45:12+00:00",
+                        specific="9999",
                         source=Source.ASM,
                         status=VulnerabilityStateStatus.CLOSED,
+                        where="192.168.1.20",
                     ),
                 ],
                 "historic_verification": [

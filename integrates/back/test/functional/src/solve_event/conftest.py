@@ -314,8 +314,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
                     attack_vector_description=(
                         "This is an updated attack vector"
@@ -388,7 +390,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="machine@fluidattacks.com",
                         modified_date="2022-09-01T00:45:11+00:00",
                         source=Source.MACHINE,
+                        specific="5",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="README.md",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2022-09-01T00:45:11+00:00",
