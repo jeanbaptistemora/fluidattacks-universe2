@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Oct 28, 2022, 03:18 PM",
+    "DateLastModified": "Nov 01, 2022, 04:18 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1066,68 +1066,78 @@
               "pk": {
                 "S": "USER#integratesuser@gmail.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -1189,16 +1199,6 @@
               "pk": {
                 "S": "USER#forces.unittesting@fluidattacks.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": ""
               },
@@ -1250,47 +1250,57 @@
               "pk": {
                 "S": "USER#integratesuser2@gmail.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "integratesuser2@gmail.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -1341,16 +1351,6 @@
               },
               "pk": {
                 "S": "USER#deleteimamura@fluidattacks.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "imamura"
@@ -1416,68 +1416,78 @@
               "pk": {
                 "S": "USER#integratesmanager@fluidattacks.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "integratesmanager@fluidattacks.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -1532,16 +1542,6 @@
               "pk": {
                 "S": "USER#integratesreattacker@fluidattacks.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "Integrates"
               },
@@ -1592,16 +1592,6 @@
               },
               "pk": {
                 "S": "USER#vulnmanager@gmail.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "Vooln"
@@ -1667,68 +1657,78 @@
               "pk": {
                 "S": "USER#integratesmanager@gmail.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -1783,16 +1783,6 @@
               "pk": {
                 "S": "USER#integratesanalyst2@gmail.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "Integrates2"
               },
@@ -1843,16 +1833,6 @@
               },
               "pk": {
                 "S": "USER#integratesreviewer@fluidattacks.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "Integrates"
@@ -1918,68 +1898,78 @@
               "pk": {
                 "S": "USER#continuoushacking@gmail.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "continuoushacking@gmail.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -2030,16 +2020,6 @@
               },
               "pk": {
                 "S": "USER#unittest3"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": ""
@@ -2092,68 +2072,78 @@
               "pk": {
                 "S": "USER#customer_manager@fluidattacks.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-08-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "customer_manager@fluidattacks.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -2208,16 +2198,6 @@
               "pk": {
                 "S": "USER#__adminEmail__"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "Integrates"
               },
@@ -2268,16 +2248,6 @@
               },
               "pk": {
                 "S": "USER#integratesserviceforces@fluidattacks.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "Integrates"
@@ -2330,47 +2300,57 @@
               "pk": {
                 "S": "USER#integratesresourcer@fluidattacks.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "integratesresourcer@fluidattacks.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -2425,68 +2405,78 @@
               "pk": {
                 "S": "USER#unittest2@fluidattacks.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "unittest2@fluidattacks.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -2540,16 +2530,6 @@
               },
               "pk": {
                 "S": "USER#integratesuser2@fluidattacks.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "Integrates"
@@ -2615,16 +2595,6 @@
               "pk": {
                 "S": "USER#integrateshacker@fluidattacks.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "Integrates"
               },
@@ -2689,68 +2659,78 @@
               "pk": {
                 "S": "USER#continuoushack2@gmail.com"
               },
-              "notifications_preferences": {
+              "state": {
                 "M": {
-                  "sms": {
-                    "L": []
+                  "modified_date": {
+                    "S": "2018-02-28T16:54:12+00:00"
                   },
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
+                  "modified_by": {
+                    "S": "continuoushack2@gmail.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
                       },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
                       }
-                    ]
+                    }
                   }
                 }
               },
@@ -2798,16 +2778,6 @@
               },
               "pk": {
                 "S": "USER#unittest2"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": ""
@@ -2857,16 +2827,6 @@
               "pk": {
                 "S": "USER#unittest"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": ""
               },
@@ -2915,16 +2875,6 @@
               "pk": {
                 "S": "USER#nodeleteimamura@fluidattacks.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "imamura"
               },
@@ -2972,16 +2922,6 @@
               },
               "pk": {
                 "S": "USER#org_testuser3@gmail.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
               },
               "first_name": {
                 "S": "Integrates"
@@ -3047,16 +2987,6 @@
               "pk": {
                 "S": "USER#unittest@fluidattacks.com"
               },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
               "first_name": {
                 "S": "Miguel"
               },
@@ -3079,7 +3009,6 @@
             "pk_2",
             "sk_2",
             "state",
-            "notifications_preferences",
             "first_name",
             "last_name",
             "is_concurrent_session",
@@ -3202,9 +3131,9 @@
             "email",
             "pk_2",
             "sk_2",
+            "state",
             "subject",
             "entity",
-            "state",
             "frequency"
           ],
           "DataAccess": {
@@ -36791,10 +36720,680 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "integratesuser@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#integratesuser2@gmail.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#customer_manager@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2018-08-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-08-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "customer_manager@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "continuoushack2@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "integratesresourcer@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#unittest2@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2018-02-28T16:54:12+00:00"
+              },
+              "modified_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "modified_by": {
+                "S": "unittest2@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ],
           "NonKeyAttributes": [
-            "modified_by",
             "modified_date",
+            "modified_by",
             "notifications_preferences"
           ],
           "DataAccess": {

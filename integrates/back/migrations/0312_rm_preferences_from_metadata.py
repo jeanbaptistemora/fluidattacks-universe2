@@ -6,8 +6,8 @@
 """
 remove notification preferences field from stakeholder_metadata
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-11-01 at 20:42:00 UTC
+Finalization Time: 2022-11-01 at 20:42:52 UTC
 """
 
 from aioextensions import (
