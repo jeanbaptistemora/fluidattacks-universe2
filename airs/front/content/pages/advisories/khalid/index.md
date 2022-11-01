@@ -82,6 +82,7 @@ Offensive Team.
 ## References
 
 **Vendor page** <https://github.com/spatie/browsershot>
+
 **Release** <https://github.com/spatie/browsershot/releases/tag/3.57.3>
 
 ## Timeline
