@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ..operations import (
+    SCHEMA_NAME,
+)
 from ..queries import (
     SQL_INSERT_METADATA,
 )
@@ -39,7 +42,7 @@ def insert_code_languages(
         return
     cursor.executemany(  # nosec
         SQL_INSERT_METADATA.substitute(
-            table=CODE_LANGUAGES_TABLE,
+            table=f"{SCHEMA_NAME}.{CODE_LANGUAGES_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -56,7 +59,7 @@ def insert_metadata(
     sql_values = format_row_metadata(item)
     cursor.execute(  # nosec
         SQL_INSERT_METADATA.substitute(
-            table=METADATA_TABLE,
+            table=f"{SCHEMA_NAME}.{METADATA_TABLE}",
             fields=_fields,
             values=values,
         ),

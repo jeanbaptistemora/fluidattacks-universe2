@@ -7,18 +7,19 @@ from ..operations import (
     initialize_schema,
     SCHEMA_NAME,
 )
-import logging
+from psycopg2 import (
+    sql,
+)
 
-LOGGER = logging.getLogger(__name__)
-CODE_LANGUAGES_TABLE: str = f"{SCHEMA_NAME}.roots_code_languages"
-METADATA_TABLE: str = f"{SCHEMA_NAME}.roots_metadata"
+CODE_LANGUAGES_TABLE: str = "roots_code_languages"
+METADATA_TABLE: str = "roots_metadata"
 
 
 def _initialize_code_languages_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", CODE_LANGUAGES_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {CODE_LANGUAGES_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 language VARCHAR,
                 loc INTEGER,
@@ -31,15 +32,18 @@ def _initialize_code_languages_table() -> None:
                     id
                 )
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, CODE_LANGUAGES_TABLE),
+        ),
     )
 
 
 def _initialize_metadata_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 created_date TIMESTAMPTZ,
                 group_name VARCHAR,
@@ -53,7 +57,10 @@ def _initialize_metadata_table() -> None:
                     id
                 )
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
