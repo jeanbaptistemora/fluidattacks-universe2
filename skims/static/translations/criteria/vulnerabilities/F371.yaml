@@ -7,3 +7,6 @@ lib_path.f371.is_header_content_type_missing:
 lib_root.f371.generic_uses_innerhtml:
   en: Use of innerHTML method, which its known as insecure.
   es: Uso de la función innerHTML, la cual es insegura.
+lib_root.f371.bypass_security_trust_url:
+  en: BypassSecurityTrustResourceUrl is used in the Angular sanitizer configuration.
+  es: Se hace uso de bypassSecurityTrustResourceUrl en la configuración del sanitizer de Angular.

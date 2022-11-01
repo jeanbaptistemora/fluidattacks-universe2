@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_root.f371.common import (
+    has_bypass_sec,
     has_innerhtml,
 )
 from lib_sast.types import (
@@ -38,6 +39,29 @@ def uses_innerhtml(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f371.generic_uses_innerhtml",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def ts_bypass_security_trust_url(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.TS_USES_BYPASS_SECURITY_TRUST_URL
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.TYPESCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            for n_id in has_bypass_sec(shard.syntax_graph):
+                yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f371.bypass_security_trust_url",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

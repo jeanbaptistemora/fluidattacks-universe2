@@ -4275,6 +4275,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_USES_BYPASS_SECURITY_TRUST_URL = MethodInfo(
+        file_name="javascript",
+        name="js_use_of_bypass_security_trust_url",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_USES_BYPASS_SECURITY_TRUST_URL = MethodInfo(
+        file_name="javascript",
+        name="js_use_of_bypass_security_trust_url",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_CONTENT_HTTP = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_http",
