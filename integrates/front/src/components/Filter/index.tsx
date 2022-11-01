@@ -378,7 +378,7 @@ const Filters = <IData extends object>({
           })}
           <Row>
             <Col>
-              <Button onClick={resetFiltersHandler} variant={"secondary"}>
+              <Button onClick={resetFiltersHandler()} variant={"secondary"}>
                 {"Clear filters"}
               </Button>
             </Col>

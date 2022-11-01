@@ -310,6 +310,55 @@ describe("Filters", (): void => {
     });
   });
 
+  it("should filter text case sensitive", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        filterFn: "caseSensitive",
+        id: "name",
+        key: "name",
+        label: "Name",
+        type: "text",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "name" })
+      ).toBeInTheDocument();
+    });
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "lareina shaffer"
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(1);
+    });
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear filters" })
+    );
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "Lareina Shaffer"
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+  });
+
   it("should filter number", async (): Promise<void> => {
     expect.hasAssertions();
 
