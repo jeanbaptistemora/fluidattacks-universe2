@@ -10,7 +10,6 @@ from lib_path.f011.gem import (
 )
 from lib_path.f011.go import (
     go_mod,
-    go_sum,
 )
 from lib_path.f393.gem import (
     gem_gemfile_dev,
@@ -128,43 +127,6 @@ def test_go_mod() -> None:
             break
         equal_props: bool = (
             pkg_item in pkg_name and version == item and line_num + 1 == line
-        )
-        if not equal_props:
-            assertion = not assertion
-            break
-
-    assert assertion
-
-
-@pytest.mark.skims_test_group("unittesting")
-def test_go_sum() -> None:  # pylint: disable=too-many-locals
-    path: str = "skims/test/data/lib_path/f011/go.sum"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
-    resolv_deps_fun = go_sum.__wrapped__  # type: ignore
-    content: List[str] = file_contents.splitlines()
-    generator_dep: Iterator[DependencyType] = resolv_deps_fun(
-        file_contents, path
-    )
-    assertion: bool = True
-    for line_num, line_info in enumerate(content, 1):
-        dep_info = line_info.split()
-        pkg_name: str = dep_info[0]
-        version: str = dep_info[1][1:]
-
-        try:
-            next_dep = next(generator_dep)
-            item_name = itemgetter("item")(next_dep[0])
-            line, item = itemgetter("line", "item")(next_dep[1])
-        except StopIteration:
-            assertion = not assertion
-            break
-        equal_props: bool = (
-            item_name in pkg_name and item in version and line_num == line
         )
         if not equal_props:
             assertion = not assertion

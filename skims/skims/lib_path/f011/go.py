@@ -20,9 +20,6 @@ from typing import (
 GO_MOD_DEP: Pattern[str] = re.compile(
     r"\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
-GO_SUM_DEP: Pattern[str] = re.compile(
-    r"(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>[^\s/]+)"
-)
 
 
 # pylint: disable=unused-argument
@@ -39,13 +36,3 @@ def go_mod(content: str, path: str) -> Iterator[DependencyType]:
             yield format_pkg_dep(product, version, line_number, line_number)
         else:
             required = False
-
-
-# pylint: disable=unused-argument
-@pkg_deps_to_vulns(Platform.GO, MethodsEnum.GO_SUM)
-def go_sum(content: str, path: str) -> Iterator[DependencyType]:
-    for line_number, line in enumerate(content.splitlines(), 1):
-        if matched := re.search(GO_SUM_DEP, line):
-            product = matched.group("product")
-            version = matched.group("version")
-            yield format_pkg_dep(product, version, line_number, line_number)
