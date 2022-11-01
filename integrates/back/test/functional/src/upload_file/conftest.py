@@ -433,7 +433,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:43:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:43:11+00:00",
@@ -471,7 +473,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:44:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:44:11+00:00",
@@ -541,7 +545,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     VulnerabilityState(
                         modified_by="hacker@gmail.com",

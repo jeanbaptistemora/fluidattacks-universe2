@@ -182,7 +182,9 @@ async def populate() -> bool:
                         modified_by="test@fluidattacks.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -206,7 +208,9 @@ async def populate() -> bool:
                         modified_by="test@fluidattacks.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.LINES,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -229,7 +233,9 @@ async def populate() -> bool:
                         modified_by="test@fluidattacks.com",
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_source=Source.ASM,

@@ -185,7 +185,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -228,7 +230,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -270,7 +274,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -312,7 +318,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:14+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
