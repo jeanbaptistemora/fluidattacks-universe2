@@ -18,6 +18,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    List,
     NamedTuple,
     Optional,
 )
@@ -62,12 +63,11 @@ async def _queue_sync_git_roots(
 
 async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
     loaders: Dataloaders = get_new_context()
-    group_names = await orgs_domain.get_all_active_group_names(loaders)
-    active_groups = await orgs_domain.get_all_active_groups(loaders)
-    group_names = tuple(
-        group.name for group in active_groups if group.state.has_machine
-    )
-    for group in group_names:
+    groups = await orgs_domain.get_all_active_groups(loaders)
+    machine_groups: List[str] = [
+        group.name for group in groups if group.state.has_machine is True
+    ]
+    for group in machine_groups:
         await _queue_sync_git_roots(
             loaders=loaders,
             user_email="integrates@fluidattacks.com",

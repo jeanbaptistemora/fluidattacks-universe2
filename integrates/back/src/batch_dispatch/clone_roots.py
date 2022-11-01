@@ -6,7 +6,6 @@ from aioextensions import (
     collect,
 )
 from batch.dal import (
-    cancel_batch_job,
     delete_action,
     get_actions_by_name,
     put_action,
@@ -42,6 +41,9 @@ from db_model.credentials.types import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -53,6 +55,9 @@ from db_model.roots.types import (
 )
 from events import (
     domain as events_domain,
+)
+from itertools import (
+    chain,
 )
 import json
 from json import (
@@ -250,40 +255,68 @@ async def _ls_remote_root(
     raise InvalidParameter()
 
 
-async def cancel_current_jobs(
-    *,
-    group_name: str,
-) -> Set[str]:
-    roots_in_current_actions: Set[str] = set()
-    current_jobs = sorted(
-        await get_actions_by_name("clone_roots", group_name),
-        key=lambda x: x.time,
-    )
-    if current_jobs:
-        LOGGER.info(
-            "There are %s jobs in queue for %s",
-            len(current_jobs),
-            group_name,
+def _filter_valid_roots(
+    roots: Tuple[GitRoot, ...], use_vpn: bool
+) -> Tuple[GitRoot, ...]:
+    valid_roots: Tuple[GitRoot, ...] = tuple(
+        root
+        for root in roots
+        if (
+            root.state.status == RootStatus.ACTIVE
+            and root.state.use_vpn == use_vpn
         )
-        current_action = current_jobs[0]
-        current_jobs = current_jobs[1:]
-        roots_in_current_actions = {*current_action.additional_info.split(",")}
+    )
+    if any(root.state.credential_id is None for root in roots):
+        raise CredentialNotFound()
 
-    for action in [item for item in current_jobs if not item.running]:
-        roots_in_current_actions = {
-            *roots_in_current_actions,
-            *action.additional_info.split(","),
-        }
-        await delete_action(dynamodb_pk=action.key)
-        if action.batch_job_id:
-            LOGGER.info(
-                "Canceling batch job %s for %s",
-                action.batch_job_id,
-                group_name,
+    return valid_roots
+
+
+async def _filter_roots_unsolved_events(
+    roots: Tuple[GitRoot, ...], loaders: Dataloaders, group_name: str
+) -> Tuple[GitRoot, ...]:
+    unsolved_events_by_root: Dict[
+        str, Tuple[Event, ...]
+    ] = await events_domain.get_unsolved_events_by_root(loaders, group_name)
+    roots_with_unsolved_events: Tuple[str, ...] = tuple(
+        root.id for root in roots if root.id in unsolved_events_by_root
+    )
+    await collect(
+        [
+            roots_domain.update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                status=GitCloningStatus.FAILED,
+                message="Git root has unsolved events",
             )
-            await cancel_batch_job(job_id=action.batch_job_id)
+            for root_id in roots_with_unsolved_events
+        ]
+    )
 
-    return roots_in_current_actions
+    return tuple(
+        root for root in roots if root.id not in roots_with_unsolved_events
+    )
+
+
+async def _filter_roots_already_in_queue(
+    roots: Tuple[GitRoot, ...], group_name: str
+) -> Tuple[GitRoot, ...]:
+    clone_queue = await get_actions_by_name("clone_roots", group_name)
+    root_nicknames_in_queue = set(
+        chain.from_iterable(
+            [clone_job.additional_info.split(",") for clone_job in clone_queue]
+        )
+    )
+    valid_roots: Tuple[GitRoot, ...] = tuple(
+        root
+        for root in roots
+        if root.state.nickname not in root_nicknames_in_queue
+    )
+    if not valid_roots:
+        raise RootAlreadyCloning()
+
+    return valid_roots
 
 
 async def queue_sync_git_roots(  # pylint: disable=too-many-locals
@@ -301,50 +334,29 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     roots_in_current_actions: Set[str] = set()
 
     # Set repositories to be processed
-    roots = roots or tuple(
-        root
-        for root in await loaders.group_roots.load(group_name)
-        if isinstance(root, GitRoot) and root.state.credential_id is not None
-    )
-    roots = tuple(
-        root
-        for root in roots
-        if root.state.status == RootStatus.ACTIVE
-        and isinstance(root, GitRoot)
-        and (root.state.use_vpn if queue_with_vpn else True)
-    )
-
-    # Validate that all roots has credentials
-    if any(root.state.credential_id is None for root in roots):
-        raise CredentialNotFound()
+    if roots is None:
+        roots = tuple(
+            root
+            for root in await loaders.group_roots.load(group_name)
+            if (
+                isinstance(root, GitRoot)
+                and root.state.credential_id is not None
+            )
+        )
+    valid_roots = _filter_valid_roots(roots, queue_with_vpn)
 
     # Filter repositories with unsolved events for groups without squad
     if not group.state.has_squad and not force:
-        unsolved_events_by_root = (
-            await events_domain.get_unsolved_events_by_root(
-                loaders, group_name
-            )
-        )
-        unsolved_events_roots = tuple(
-            root for root in roots if unsolved_events_by_root.get(root.id)
-        )
-        await collect(
-            [
-                roots_domain.update_root_cloning_status(
-                    loaders=loaders,
-                    group_name=group_name,
-                    root_id=root.id,
-                    status=GitCloningStatus.FAILED,
-                    message="Git root has unsolved events",
-                )
-                for root in unsolved_events_roots
-            ]
-        )
-        roots = tuple(
-            root for root in roots if not unsolved_events_by_root.get(root.id)
+        valid_roots = await _filter_roots_unsolved_events(
+            valid_roots, loaders, group_name
         )
 
-    if not roots:
+    if check_existing_jobs:
+        valid_roots = await _filter_roots_already_in_queue(
+            valid_roots, group_name
+        )
+
+    if not valid_roots:
         return None
 
     # Get repository credentials
@@ -373,33 +385,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         for root in roots
         if root.state.credential_id is not None
     }
-
-    # Check batch jobs
-    current_action: Optional[BatchProcessing] = None
-    roots_in_current_actions = await cancel_current_jobs(group_name=group_name)
-    if current_actions := sorted(
-        await get_actions_by_name("clone_roots", group_name),
-        key=lambda x: x.time,
-    ):
-        current_action = current_actions[0]
-    if (
-        check_existing_jobs
-        and current_action
-        and (
-            not current_action.running
-            and sorted(current_action.additional_info.split(","))
-            == sorted(
-                {
-                    *[
-                        roots_dict[root].state.nickname
-                        for root in credentials_for_roots
-                    ],
-                    *roots_in_current_actions,
-                }
-            )
-        )
-    ):
-        raise RootAlreadyCloning()
 
     # Get last commit for every repository
     last_commits_dict: Dict[str, Optional[str]] = dict(
@@ -508,7 +493,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             additional_info=additional_info,
             queue="clone",
             product_name=Product.INTEGRATES,
-            dynamodb_pk=current_action.key if current_action else None,
+            dynamodb_pk=None,
         )
         if (
             result_clone.batch_job_id
