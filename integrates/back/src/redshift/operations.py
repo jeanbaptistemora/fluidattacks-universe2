@@ -64,17 +64,6 @@ def db_cursor() -> Iterator[cursor_cls]:
         connection.close()
 
 
-async def initialize_schema() -> None:
-    with db_cursor() as cursor:
-        LOGGER.info("Ensuring %s schema exists...", SCHEMA_NAME)
-        await in_thread(
-            cursor.execute,
-            f"""
-                CREATE SCHEMA IF NOT EXISTS {SCHEMA_NAME}
-            """,
-        )
-
-
 async def execute(
     sql_query: sql.Composed,
     sql_vars: Optional[Dict[str, Any]] = None,

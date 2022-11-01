@@ -58,9 +58,13 @@ def initialize_schema() -> None:
     with db_cursor() as cursor:
         LOGGER.info("Ensuring %s schema exists...", SCHEMA_NAME)
         cursor.execute(
-            f"""
-                CREATE SCHEMA IF NOT EXISTS {SCHEMA_NAME}
-            """,
+            sql.SQL(
+                """
+                CREATE SCHEMA IF NOT EXISTS {schema_name}
+            """
+            ).format(
+                schema_name=sql.Identifier(SCHEMA_NAME),
+            ),
         )
 
 
@@ -74,7 +78,7 @@ def execute(
 
 
 def execute_many(
-    sql_query: str,
+    sql_query: Union[str, sql.Composed],
     sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
@@ -83,7 +87,7 @@ def execute_many(
 
 
 def execute_batch(
-    sql_query: str,
+    sql_query: Union[str, sql.Composed],
     sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
