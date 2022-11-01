@@ -21,11 +21,8 @@ class GroupAuthor(NamedTuple):
 
 
 class OrganizationAuthor(NamedTuple):
-    actor: str
-    commits: set[str]
-    groups: set[str]
-    organization: str
-    repositories: set[str]
+    actor: Optional[str]
+    groups: frozenset[Optional[str]]
 
 
 class Address(NamedTuple):

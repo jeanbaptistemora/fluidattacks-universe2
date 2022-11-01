@@ -18,13 +18,13 @@ type Group {
     (year and month)
     """
     date: DateTime
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/05/01.
-      Use the `groupAuthors` field instead.
-      """
-    )
   ): Authors
+  @deprecated(
+    reason: """
+    This field will be removed after 2023/05/01.
+    Use the `groupAuthors` field instead.
+    """
+  )
   "Official business registration number"
   businessId: String
   "Name of the business related to this Group"
@@ -76,13 +76,13 @@ type Group {
     (year and month)
     """
     date: DateTime
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/11/01.
-      It will be renamed to authors again.
-      """
-    )
   ): GroupAuthors
+  @deprecated(
+    reason: """
+    This field will be removed after 2023/11/01.
+    It will be renamed to `authors` again.
+    """
+  )
   "How to access the group ToE"
   groupContext: String
   "State of ARM services. Either true or the Group will be deleted soon"

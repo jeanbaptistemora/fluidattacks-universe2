@@ -3,13 +3,18 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=too-many-locals
+# pylint:disable=too-many-lines
 
+from aioextensions import (
+    collect,
+)
 from billing import (
     dal,
 )
 from billing.types import (
     Customer,
     GroupAuthor,
+    OrganizationAuthor,
     PaymentMethod,
     Price,
     Subscription,
@@ -31,6 +36,7 @@ from custom_exceptions import (
     PaymentMethodAlreadyExists,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -54,6 +60,9 @@ from groups import (
 )
 import logging
 import logging.config
+from more_itertools import (
+    flatten,
+)
 from newutils import (
     datetime as datetime_utils,
     files as files_utils,
@@ -61,6 +70,9 @@ from newutils import (
 )
 from notifications import (
     domain as notifications_domain,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from s3 import (
     operations as s3_ops,
@@ -907,6 +919,43 @@ async def get_group_authors(
     return await dal.get_group_authors(
         date=date,
         group=group,
+    )
+
+
+async def get_organization_authors(
+    *,
+    date: datetime,
+    org_id: str,
+    loaders: Dataloaders,
+) -> tuple[OrganizationAuthor, ...]:
+    org_group_names: tuple[str, ...] = await orgs_domain.get_group_names(
+        loaders=loaders,
+        organization_id=org_id,
+    )
+    group_authors: tuple[GroupAuthor, ...] = tuple(
+        flatten(
+            await collect(
+                [
+                    get_group_authors(date=date, group=group)
+                    for group in org_group_names
+                ]
+            )
+        )
+    )
+    org_actors: frozenset[Optional[str]] = frozenset(
+        author.actor for author in group_authors
+    )
+
+    return tuple(
+        OrganizationAuthor(
+            actor=org_actor,
+            groups=frozenset(
+                author.groups
+                for author in group_authors
+                if author.actor == org_actor
+            ),
+        )
+        for org_actor in org_actors
     )
 
 
