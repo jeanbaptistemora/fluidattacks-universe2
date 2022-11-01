@@ -5,7 +5,13 @@
  */
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 
@@ -269,7 +275,7 @@ describe("Filters", (): void => {
     expect(typeof Filters).toBe("function");
   });
 
-  it("should display button", (): void => {
+  it("should display and test button", async (): Promise<void> => {
     expect.hasAssertions();
 
     const filters: IFilter<IRandomData>[] = [];
@@ -277,6 +283,26 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    expect(
+      screen.getByRole("button", { name: "Clear filters" })
+    ).toBeInTheDocument();
+
+    expect(
+      within(document.querySelectorAll(`aside`)[0]).getByRole("button", {
+        name: "",
+      })
+    ).toBeInTheDocument();
+
+    await userEvent.click(
+      within(document.querySelectorAll(`aside`)[0]).getByRole("button", {
+        name: "",
+      })
+    );
+
     expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
   });
 
