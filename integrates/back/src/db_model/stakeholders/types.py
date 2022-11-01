@@ -76,7 +76,11 @@ class Stakeholder(NamedTuple):
     role: Optional[str] = None
     session_key: Optional[str] = None
     session_token: Optional[StakeholderSessionToken] = None
-    state: Optional[StakeholderState] = None
+    state: StakeholderState = StakeholderState(
+        notifications_preferences=NotificationsPreferences(),
+        modified_by="",
+        modified_date="",
+    )
     tours: StakeholderTours = StakeholderTours()
 
 

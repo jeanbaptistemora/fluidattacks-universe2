@@ -83,7 +83,7 @@ async def send_mail_comment(
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.NEW_COMMENT
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
@@ -133,7 +133,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.EVENT_REPORT
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
 
     event_type_format = {

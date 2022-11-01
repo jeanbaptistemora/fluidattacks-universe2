@@ -7,8 +7,8 @@
 """
 update notification preferences field to historic state
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-10-31 at 22:55:31 UTC
+Finalization Time: 2022-10-31 at 22:57:17 UTC
 """
 
 from aioextensions import (

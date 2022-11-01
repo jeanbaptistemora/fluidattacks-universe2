@@ -78,7 +78,7 @@ async def send_reminder_notification() -> None:
         stakeholder.email
         for stakeholder in inactive_stakeholders
         if Notification.REMINDER_NOTIFICATION
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     }
 
     if inactive_stakeholders_email:

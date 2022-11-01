@@ -40,7 +40,9 @@ async def test_update_notification_preferences(
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
 
     assert stakeholder.email == email
-    assert "ACCESS_GRANTED" in stakeholder.notifications_preferences.email
+    assert (
+        "ACCESS_GRANTED" in stakeholder.state.notifications_preferences.email
+    )
 
     result = await get_result_mutation(
         user=email,

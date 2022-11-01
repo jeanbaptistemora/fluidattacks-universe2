@@ -58,7 +58,9 @@ async def mutate(
             raise InvalidCvssField() from ex
     else:
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-        cvss = stakeholder.notifications_preferences.parameters.min_severity
+        cvss = (
+            stakeholder.state.notifications_preferences.parameters.min_severity
+        )
         notifications_preferences.update(
             {"parameters": {"min_severity": Decimal(cvss)}}
         )

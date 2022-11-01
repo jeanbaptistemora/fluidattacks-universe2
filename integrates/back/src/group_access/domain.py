@@ -255,7 +255,7 @@ async def get_stakeholders_email_by_preferences(
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders_data
-        if notification in stakeholder.notifications_preferences.email
+        if notification in stakeholder.state.notifications_preferences.email
     ]
     return stakeholders_email
 

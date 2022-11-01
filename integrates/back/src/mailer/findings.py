@@ -37,6 +37,7 @@ from db_model.groups.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderState,
 )
 from decimal import (
     Decimal,
@@ -98,7 +99,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.NEW_COMMENT
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
@@ -271,7 +272,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.REMEDIATE_FINDING
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
     mail_context: dict[str, Any] = {
         "group": group_name.lower(),
@@ -292,6 +293,24 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         VERIFY_TAG,
         f"[ARM] New remediation for [{finding_name}] in [{group_name}]",
         "remediate_finding",
+    )
+
+
+def should_send_vulnerability_mail(
+    *,
+    severity_score: Decimal,
+    stakeholder: Stakeholder,
+    group_findings: tuple[Finding, ...],
+) -> bool:
+    state: StakeholderState = stakeholder.state
+    return (
+        Notification.VULNERABILITY_REPORT
+        in state.notifications_preferences.email
+        and (
+            severity_score
+            >= state.notifications_preferences.parameters.min_severity
+            or not group_findings
+        )
     )
 
 
@@ -323,12 +342,10 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
-        if Notification.VULNERABILITY_REPORT
-        in stakeholder.notifications_preferences.email
-        and (
-            severity_score
-            >= stakeholder.notifications_preferences.parameters.min_severity
-            or not group_findings
+        if should_send_vulnerability_mail(
+            severity_score=severity_score,
+            stakeholder=stakeholder,
+            group_findings=group_findings,
         )
     ]
     email_context: dict[str, Any] = {

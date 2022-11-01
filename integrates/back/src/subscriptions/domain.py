@@ -152,7 +152,7 @@ async def _send_mail_analytics(
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     if (
         Notification.CHARTS_REPORT
-        not in stakeholder.notifications_preferences.email
+        not in stakeholder.state.notifications_preferences.email
     ):
         return
 

@@ -71,6 +71,7 @@ from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
     StakeholderMetadataToUpdate,
+    StakeholderState,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -105,6 +106,21 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
                 last_login_date=item.last_login_date,
                 last_name=item.last_name,
                 legal_remember=item.legal_remember,
+                phone=item.phone,
+                registration_date=item.registration_date,
+                role=item.role,
+                tours=item.tours,
+            ),
+        )
+        for item in data
+    )
+
+    await collect(
+        stakeholders_model.update_state(
+            user_email=item.email,
+            state=StakeholderState(
+                modified_by=item.email,
+                modified_date="2022-10-21T15:58:31.280182",
                 notifications_preferences=NotificationsPreferences(
                     email=[
                         "ACCESS_GRANTED",
@@ -127,10 +143,6 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
                         "VULNERABILITY_REPORT",
                     ]
                 ),
-                phone=item.phone,
-                registration_date=item.registration_date,
-                role=item.role,
-                tours=item.tours,
             ),
         )
         for item in data

@@ -418,7 +418,7 @@ async def send_mail_comment(
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.NEW_COMMENT
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")

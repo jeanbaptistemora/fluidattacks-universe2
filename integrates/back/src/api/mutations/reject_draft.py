@@ -89,7 +89,7 @@ async def mutate(
         if (
             requests_utils.get_source_new(info.context) != Source.MACHINE
             and Notification.NEW_DRAFT
-            in stakeholder.notifications_preferences.email
+            in stakeholder.state.notifications_preferences.email
         ):
             finding: Finding = await finding_loader.load(finding_id)
             schedule(

@@ -69,7 +69,10 @@ async def test_remove_stakeholder(
     old_stakeholder: Stakeholder = await old_loaders.stakeholder.load(email)
 
     assert old_stakeholder.email == email
-    assert "ACCESS_GRANTED" in old_stakeholder.notifications_preferences.email
+    assert (
+        "ACCESS_GRANTED"
+        in old_stakeholder.state.notifications_preferences.email
+    )
 
     assert not result_me_query["data"]["me"]["remember"]
     assert result_me_query["data"]["me"]["role"] == "user"

@@ -23,4 +23,4 @@ async def resolve(
         email
     )
 
-    return stakeholder.notifications_preferences
+    return stakeholder.state.notifications_preferences

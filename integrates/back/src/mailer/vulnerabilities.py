@@ -55,7 +55,7 @@ async def send_mail_updated_treatment(
         stakeholder.email
         for stakeholder in stakeholders
         if Notification.UPDATED_TREATMENT
-        in stakeholder.notifications_preferences.email
+        in stakeholder.state.notifications_preferences.email
     ]
     stakeholder_role = await authz.get_group_level_role(
         loaders, modified_by, group_name
