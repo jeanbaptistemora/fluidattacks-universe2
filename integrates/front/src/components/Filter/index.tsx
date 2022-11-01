@@ -32,7 +32,7 @@ interface IFilter<IData extends object> {
   label?: string;
   rangeValues?: [string, string];
   selectOptions?: string[];
-  type: "dateRange" | "number" | "numberRange" | "select" | "text";
+  type?: "dateRange" | "number" | "numberRange" | "select" | "text";
   value?: string;
 }
 
@@ -125,10 +125,6 @@ const useFilters = <IData extends object>(
     return filters.every((filter): boolean => {
       if (typeof filter.key === "function") return filter.key(dataPoint);
       switch (filter.type) {
-        case "text":
-        case "select":
-          return handleTextSelectCases(dataPoint, filter);
-
         case "number":
           return handleNumberCase(dataPoint, filter);
 
@@ -138,8 +134,10 @@ const useFilters = <IData extends object>(
         case "dateRange":
           return handleDateRangeCase(dataPoint, filter);
 
+        case "text":
+        case "select":
         default:
-          return true;
+          return handleTextSelectCases(dataPoint, filter);
       }
     });
   }
@@ -374,13 +372,7 @@ const Filters = <IData extends object>({
                 );
               }
               default: {
-                return (
-                  <div>
-                    {
-                      "you shouldn't be seeing this message, please inform if you do"
-                    }
-                  </div>
-                );
+                return <div />;
               }
             }
           })}
