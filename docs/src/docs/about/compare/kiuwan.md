@@ -1,14 +1,14 @@
 ---
 id: kiuwan
-title: Fluid vs Kiuwan
+title: Fluid Attacks vs Kiuwan
 sidebar_label: Kiuwan
 slug: /about/compare/kiuwan
 ---
 
 Here is a feature comparison
-between Fluid and Kiuwan.
+between Fluid Attacks's Squad plan and Kiuwan.
 
-|                    **Topic**                    |                                                                                                                      **Fluid**                                                                                                                      |                                                                                                                  **ShiftLeft**                                                                                                                  | **Advantage** |
+|                    **Topic**                    |                                                                                                                      **Fluid Attacks**                                                                                                                      |                                                                                                                  **Kiuwan**                                                                                                                  | **Advantage** |
 |:-----------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | Scanners                                        | SAST/DAST/SCA/MPT/RE/IaC                                                                                                                                                                                                                            | SAST/SCA                                                                                                                                                                                                                                        | Fluid         |
 | CI/CD Integrations                              | Git Repos                                                                                                                                                                                                                                           | Plugin for some CI/CD managers                                                                                                                                                                                                                  | Similar       |

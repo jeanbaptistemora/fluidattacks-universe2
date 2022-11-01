@@ -1,14 +1,14 @@
 ---
 id: nowsecure
-title: Fluid vs NowSecure
+title: Fluid Attacks vs NowSecure
 sidebar_label: NowSecure
 slug: /about/compare/nowsecure
 ---
 
 Here is a feature comparison
-between Fluid and NowSecure.
+between Fluid Attacks's Squad plan and NowSecure.
 
-|                    **Topic**                    |                                                                                                                        **Fluid**                                                                                                                       |                                                                                         **NowSecure**                                                                                        | **Advantage** |
+|                    **Topic**                    |                                                                                                                        **Fluid Attacks**                                                                                                                       |                                                                                         **NowSecure**                                                                                        | **Advantage** |
 |:-----------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | Scanners                                        | SAST/DAST/SCA/MPT/RE/IaC                                                                                                                                                                                                                               | MPT/SAST/RE                                                                                                                                                                                  | Fluid         |
 | CI/CD Integrations                              | Git Repos                                                                                                                                                                                                                                              | Plugins for CI managers                                                                                                                                                                      | Similar       |

@@ -1,14 +1,14 @@
 ---
 id: shiftleft
-title: Fluid vs ShiftLeft
+title: Fluid Attacks vs ShiftLeft
 sidebar_label: ShiftLeft
 slug: /about/compare/shiftleft
 ---
 
 Here is a feature comparison
-between Fluid and ShiftLeft.
+between Fluid Attacks's Squad plan and ShiftLeft.
 
-|                    **Topic**                    |                                                                                                                        **Fluid**                                                                                                                        |                                                                                                **ShiftLeft**                                                                                               | **Advantage** |
+|                    **Topic**                    |                                                                                                                        **Fluid Attacks**                                                                                                                        |                                                                                                **ShiftLeft**                                                                                               | **Advantage** |
 |:-----------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | Scanners                                        | SAST/DAST/SCA/MPT/RE/IaC                                                                                                                                                                                                                                | SAST/SCA/Container/Secrets                                                                                                                                                                                 | Fluid         |
 | CI/CD Integrations                              | Git Repos                                                                                                                                                                                                                                               | Scripts, Access tokens                                                                                                                                                                                     | ShiftLeft     |

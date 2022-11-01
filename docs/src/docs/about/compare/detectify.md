@@ -1,14 +1,14 @@
 ---
 id: detectify
-title: Fluid vs Detectify
+title: Fluid Attacks vs Detectify
 sidebar_label: Detectify
 slug: /about/compare/detectify
 ---
 
 Here is a feature comparison
-between Fluid and Detectify.
+between Fluid Attacks's Squad plan and Detectify.
 
-|                    **Topic**                    |                                                                                                                        **Fluid**                                                                                                                       |                                                        **Detectify**                                                        | **Advantage** |
+|                    **Topic**                    |                                                                                                                        **Fluid Attacks**                                                                                                                       |                                                        **Detectify**                                                        | **Advantage** |
 |:-----------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | Scanners                                        | SAST/DAST/SCA/MPT/RE/IaC                                                                                                                                                                                                                               | DAST                                                                                                                        | Fluid         |
 | CI/CD Integrations                              | Git Repos                                                                                                                                                                                                                                              | No                                                                                                                          | Fluid         |

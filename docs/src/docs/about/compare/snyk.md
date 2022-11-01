@@ -1,14 +1,14 @@
 ---
 id: snyk
-title: Fluid vs Snyk
+title: Fluid Attacks vs Snyk
 sidebar_label: Snyk
 slug: /about/compare/snyk
 ---
 
 Here is a feature comparison
-between Fluid and Snyk.
+between Fluid Attacks's Squad plan and Snyk.
 
-|                     **Topic**                    |                                                                                                                        **Fluid**                                                                                                                       |                                                                                         **Snyk**                                                                                         | **Advantage** |
+|                     **Topic**                    |                                                                                                                        **Fluid Attacks**                                                                                                                       |                                                                                         **Snyk**                                                                                         | **Advantage** |
 |:------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | Scanners                                         | SAST/DAST/SCA/MPT/RE/IaC                                                                                                                                                                                                                               | SAST/SCA/IaC/Container                                                                                                                                                                   | Fluid         |
 | CI/CD Integrations                               | Git Repos                                                                                                                                                                                                                                              | Git Repos, CI Managers                                                                                                                                                                   | Snyk          |

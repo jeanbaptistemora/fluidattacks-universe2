@@ -1,15 +1,15 @@
 ---
 id: faraday
-title: Fluid vs Faraday
+title: Fluid Attacks vs Faraday
 sidebar_label: Faraday
 slug: /about/compare/faraday
 ---
 
 Here is a feature comparison
-between Fluid's ARM and the
-Faraday vulnerability manager.
+between Fluid Attacks's Squad plan and
+Faraday.
 
-|                     **Topic**                    |                                                                                                                               **Fluid's ARM**                                                                                                                               |                                                                                              **Faraday Vulnerability Managar**                                                                                              | **Advantage** |
+|                     **Topic**                    |                                                                                                                               **Fluid Attacks**                                                                                                                               |                                                                                              **Faraday**                                                                                              | **Advantage** |
 |:------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
 | On premise                                       | Not available                                                                                                                                                                                                                                                               | Community and Corporate versions run on Linux, Mac, or using Docker to run on Windows.                                                                                                                                      | Faraday       |
 | Saas                                             | Available                                                                                                                                                                                                                                                                   | Available                                                                                                                                                                                                                   | Similar       |
