@@ -3234,6 +3234,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_XML_PARSER = MethodInfo(
+        file_name="typescript",
+        name="ts_xml_parser",
+        module="lib_root",
+        finding=FindingEnum.F083,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_CLIENT_STORAGE = MethodInfo(
         file_name="javascript",
         name="javascript_client_storage",

@@ -41,7 +41,7 @@ def xml_parser(
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f083.js_xml_parser",
+        desc_key="lib_root.f083.generic_xml_parser",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

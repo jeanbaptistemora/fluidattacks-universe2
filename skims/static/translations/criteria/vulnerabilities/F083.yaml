@@ -1,5 +1,5 @@
 ---
-lib_root.f083.js_xml_parser:
+lib_root.f083.generic_xml_parser:
   en: >
     Access to external entities in XML parsing is enabled.
   es: >-
