@@ -901,10 +901,10 @@ async def report_subscription_usage(
     )
 
 
-async def get_authors_data(
+async def get_group_authors(
     *, date: datetime, group: str
 ) -> tuple[GroupAuthor, ...]:
-    return await dal.get_authors_data(
+    return await dal.get_group_authors(
         date=date,
         group=group,
     )

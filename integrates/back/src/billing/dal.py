@@ -112,7 +112,7 @@ async def _get_subscription_usage(
     """Get group squad usage"""
     date: datetime = datetime_utils.get_utc_now()
     return len(
-        await get_authors_data(
+        await get_group_authors(
             date=date,
             group=subscription.group,
         )
@@ -492,7 +492,7 @@ async def update_subscription(
     return result
 
 
-async def get_authors_data(
+async def get_group_authors(
     *, date: datetime, group: str
 ) -> tuple[GroupAuthor, ...]:
     expected_columns: dict[str, list[str]] = {

@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+"GroupAuthor type definition"
+type GroupAuthor {
+  "Author who has contributed"
+  actor: String
+  "Example contribution commit"
+  commit: String
+  "Groups the author has contributed to"
+  groups: String
+  "Organization the author has contributed to"
+  organization: String
+  "Root repository of the contributions"
+  repository: String
+}
+
+"GroupAuthors type definition"
+type GroupAuthors {
+  "Month-to-date spend"
+  currentSpend: Int!
+  "Authors data"
+  data: [GroupAuthor!]!
+  "Total authors"
+  total: Int!
+}

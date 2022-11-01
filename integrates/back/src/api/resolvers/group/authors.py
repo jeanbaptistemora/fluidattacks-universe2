@@ -47,7 +47,7 @@ async def resolve(
 ) -> dict[str, Any]:
     group_name: str = parent.name
     date: datetime = kwargs.get("date", datetime_utils.get_now())
-    data: tuple[GroupAuthor, ...] = await billing_domain.get_authors_data(
+    data: tuple[GroupAuthor, ...] = await billing_domain.get_group_authors(
         date=date,
         group=group_name,
     )

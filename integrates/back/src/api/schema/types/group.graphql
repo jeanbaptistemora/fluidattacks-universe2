@@ -18,6 +18,12 @@ type Group {
     (year and month)
     """
     date: DateTime
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/05/01.
+      Use the `groupAuthors` field instead.
+      """
+    )
   ): Authors
   "Official business registration number"
   businessId: String
@@ -63,6 +69,20 @@ type Group {
   ): [Finding]
   "Current DevSecOps (Forces) token to allow access to your CI/CD pipelines"
   forcesToken: String
+  "Authors that have contributed to the group"
+  groupAuthors(
+    """
+    Selects authors from this Group according to the provided date
+    (year and month)
+    """
+    date: DateTime
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/11/01.
+      It will be renamed to authors again.
+      """
+    )
+  ): GroupAuthors
   "How to access the group ToE"
   groupContext: String
   "State of ARM services. Either true or the Group will be deleted soon"

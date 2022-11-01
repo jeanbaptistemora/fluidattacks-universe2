@@ -39,7 +39,7 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         paymentId
         permissions
         tier
-        authors {
+        groupAuthors {
           currentSpend
           total
         }

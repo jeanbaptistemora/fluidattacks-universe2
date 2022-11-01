@@ -41,6 +41,9 @@ from .forces_executions import (
 from .group import (
     GROUP,
 )
+from .group_authors import (
+    GROUP_AUTHORS,
+)
 from .group_file import (
     GROUP_FILE,
 )
@@ -172,6 +175,7 @@ TYPES: Tuple[ObjectType, ...] = (
     GROUP_COMPLIANCE,
     ENVIRONMENT_URL,
     GROUP,
+    GROUP_AUTHORS,
     GROUP_FILE,
     IPROOT,
     ME,
