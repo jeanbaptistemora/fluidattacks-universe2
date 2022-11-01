@@ -30,17 +30,32 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Optional,
 )
 from utils import (
     graph as g,
 )
 
 
+def has_cannonical_check(graph: Graph, symbol: str) -> Optional[NId]:
+    for node in search_method_invocation_naive(graph, {"getCanonicalPath"}):
+        if (
+            graph.nodes[graph.nodes[node].get("object_id")].get("symbol")
+            == symbol
+        ):
+            return g.pred(graph, node)[0]
+    return None
+
+
 def is_argument_safe(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    rules = {"Canonical", "ZipFile"}
+    symbol = graph.nodes[n_id].get("symbol")
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.triggers == rules:
+        if (
+            evaluation
+            and evaluation.triggers == {"ZipFile"}
+            and (has_cannonical_check(graph, symbol) in path)
+        ):
             return True
     return False
 

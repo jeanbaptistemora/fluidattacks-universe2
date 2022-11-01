@@ -32975,6 +32975,31 @@ F152,lines,namespace/skims/test/data/lib_path/f152/xFrameOptions.config,5,693,sk
   9 | </configuration>
     ^ Col 0
 ",conf_files.xml_x_frame_options
+F279,lines,namespace/skims/test/data/lib_root/f279/zip_slip_injection.java,10,693,skims,279. Root detection control bypass,"The file names in a zip archive are not properly validated and sanitize before accessing them.
+ in namespace/skims/test/data/lib_root/f279/zip_slip_injection.java","
+   1 | import java.io.File;
+   2 | class zip_slip {
+   3 |     public static List<String> zipSlipNoncompliant(ZipFile zipFile) throws IOException {
+   4 |         Enumeration<? extends ZipEntry> entries = zipFile.entries();
+   5 |         List<String> filesContent = new ArrayList<>();
+   6 |
+   7 |         while (entries.hasMoreElements()) {
+   8 |             ZipEntry entry = entries.nextElement();
+   9 |             File file = new File(entry.getName());
+> 10 |             String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8); // Noncompliant
+  11 |             filesContent.add(content);
+  12 |         }
+  13 |
+  14 |         return filesContent;
+  15 |     }
+  16 |
+  17 |     public static List<String> zipSlipCompliant(ZipFile zipFile, String targetDirectory) throws IOException {
+  18 |         Enumeration<? extends ZipEntry> entries = zipFile.entries();
+  19 |         List<String> filesContent = new ArrayList<>();
+  20 |
+  21 |         while (entries.hasMoreElements()) {
+     ^ Col 0
+",java.java_zip_slip_injection
 F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 | ARG DEBIAN_FRONTEND=noninteractive
