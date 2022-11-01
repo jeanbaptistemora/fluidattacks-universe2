@@ -21,6 +21,7 @@ import logging.config
 import psycopg2
 from psycopg2 import (
     extras,
+    sql,
 )
 from psycopg2.extensions import (
     cursor as cursor_cls,
@@ -75,7 +76,7 @@ async def initialize_schema() -> None:
 
 
 async def execute(
-    sql_query: str,
+    sql_query: sql.Composed,
     sql_vars: Optional[Dict[str, Any]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
