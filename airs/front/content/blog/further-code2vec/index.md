@@ -57,7 +57,7 @@ so and an F score of 59%. Not bad but far from ideal, and this is
 consistent with the published results [\[1\]](#r1).
 
 By the way, as this has not been said elsewhere in our [machine learning
-for security series](../categories/machine-learning/), let us take a
+for security series](../tags/machine-learning/), let us take a
 break to clarify those terms above, which all refer to the accuracy of
 any search, and are just as applicable to vulnerability search in our
 context:
