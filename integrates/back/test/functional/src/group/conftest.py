@@ -516,7 +516,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:13+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:14+00:00",
@@ -549,7 +551,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.ASM,
+                        specific="2320",
                         status=VulnerabilityStateStatus.CLOSED,
+                        where="192.168.1.1",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-09T00:45:11+00:00",
@@ -583,7 +587,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.ASM,
+                        specific="2321",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.2",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-09T00:45:11+00:00",
@@ -617,7 +623,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:16+00:00",
                         source=Source.ASM,
+                        specific="2322",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.3",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-09T00:45:11+00:00",

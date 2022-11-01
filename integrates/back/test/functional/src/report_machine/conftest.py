@@ -215,10 +215,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                     evidences=FindingEvidences(
                         evidence5=FindingEvidence(
                             description="evidence5",
@@ -272,9 +276,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -346,9 +356,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=0,
                     unreliable_open_vulnerabilities=1,
-                    unreliable_newest_vulnerability_report_date="2022-10-19T05:00:15+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2022-10-19T05:00:15+00:00",
-                    unreliable_oldest_vulnerability_report_date="2022-10-19T05:00:15+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2022-10-19T05:00:15+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2022-10-19T05:00:15+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2022-10-19T05:00:15+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where=".project",
                 ),
@@ -368,7 +384,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="machine@fluidattacks.com",
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.MACHINE,
+                        specific="52",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="back/src/model/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -400,7 +418,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="machine@fluidattacks.com",
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.MACHINE,
+                        specific="12",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="back/src/controller/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -432,7 +452,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="machine@fluidattacks.com",
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.MACHINE,
+                        specific="64",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="front/index.html",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -464,7 +486,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="machine@fluidattacks.com",
                         modified_date="2018-04-08T00:45:15+00:00",
                         source=Source.MACHINE,
+                        specific="35",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="back/src/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -496,7 +520,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@fluidattacks.com",
                         modified_date="2022-10-19T05:00:20+00:00",
                         source=Source.ASM,
+                        specific="0",
                         status=VulnerabilityStateStatus.OPEN,
+                        where=".project",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date="2022-10-19T05:00:20+00:00",

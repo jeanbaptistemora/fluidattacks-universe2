@@ -183,7 +183,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="test1@gmail.com",
                         modified_date="2018-04-08T00:45:13+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     tags=["tag1", "tag2", "tag3"],
                     treatment=VulnerabilityTreatment(

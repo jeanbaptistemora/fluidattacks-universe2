@@ -91,10 +91,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
@@ -148,9 +152,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -170,7 +180,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -209,7 +221,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -248,7 +262,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -287,7 +303,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
                         source=Source.ASM,
+                        specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
+                        where="192.168.1.20",
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
