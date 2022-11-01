@@ -14,17 +14,18 @@ from typing import (
 
 
 def build_switch_default_node(
-    args: SyntaxGraphArgs, expression: Optional[NId]
+    args: SyntaxGraphArgs, body_id: Optional[NId]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="SwitchDefault",
     )
 
-    if expression:
+    if body_id:
+        args.syntax_graph.nodes[args.n_id]["block_id"] = body_id
         args.syntax_graph.add_edge(
             args.n_id,
-            args.generic(args.fork_n_id(expression)),
+            args.generic(args.fork_n_id(body_id)),
             label_ast="AST",
         )
 

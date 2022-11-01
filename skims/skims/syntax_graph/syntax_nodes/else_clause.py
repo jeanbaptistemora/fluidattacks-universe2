@@ -12,17 +12,17 @@ from syntax_graph.types import (
 
 def build_else_clause_node(
     args: SyntaxGraphArgs,
-    child: NId,
+    body_id: NId,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        block_id=child,
+        block_id=body_id,
         label_type="ElseClause",
     )
 
     args.syntax_graph.add_edge(
         args.n_id,
-        args.generic(args.fork_n_id(child)),
+        args.generic(args.fork_n_id(body_id)),
         label_ast="AST",
     )
 

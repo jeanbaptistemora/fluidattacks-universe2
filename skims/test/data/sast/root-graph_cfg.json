@@ -84960,7 +84960,8 @@
           },
           "1013": {
             "1018": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1018": {
@@ -84986,7 +84987,8 @@
           },
           "1035": {
             "1040": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1040": {
@@ -85012,7 +85014,8 @@
           },
           "1053": {
             "1057": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1057": {
@@ -87635,7 +87638,8 @@
           },
           "959": {
             "964": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "964": {
@@ -87661,7 +87665,8 @@
           },
           "977": {
             "982": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "982": {
@@ -87687,7 +87692,8 @@
           },
           "995": {
             "1000": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           }
         },
@@ -87724,6 +87730,7 @@
             "value_type": "string"
           },
           "1013": {
+            "block_id": "1018",
             "label_type": "SwitchCase",
             "value": "'Cherries'"
           },
@@ -87760,6 +87767,7 @@
             "value": "'Mangoes'"
           },
           "1035": {
+            "block_id": "1040",
             "label_type": "SwitchCase",
             "value": "'Papayas'"
           },
@@ -87796,6 +87804,7 @@
             "value_type": "string"
           },
           "1053": {
+            "block_id": "1057",
             "label_type": "SwitchDefault"
           },
           "1057": {
@@ -90820,6 +90829,7 @@
             "label_type": "SwitchBody"
           },
           "959": {
+            "block_id": "964",
             "label_type": "SwitchCase",
             "value": "'Oranges'"
           },
@@ -90852,6 +90862,7 @@
             "value_type": "string"
           },
           "977": {
+            "block_id": "982",
             "label_type": "SwitchCase",
             "value": "'Apples'"
           },
@@ -90884,6 +90895,7 @@
             "value_type": "string"
           },
           "995": {
+            "block_id": "1000",
             "label_type": "SwitchCase",
             "value": "'Bananas'"
           }
@@ -139054,7 +139066,8 @@
           },
           "1608": {
             "1613": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1613": {
@@ -139080,7 +139093,8 @@
           },
           "1626": {
             "1631": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1631": {
@@ -139106,7 +139120,8 @@
           },
           "1644": {
             "1649": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1649": {
@@ -139132,7 +139147,8 @@
           },
           "1662": {
             "1667": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1667": {
@@ -139158,7 +139174,8 @@
           },
           "1684": {
             "1689": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1689": {
@@ -139184,7 +139201,8 @@
           },
           "1702": {
             "1706": {
-              "label_ast": "AST"
+              "label_ast": "AST",
+              "label_cfg": "CFG"
             }
           },
           "1706": {
@@ -141336,6 +141354,7 @@
             "label_type": "SwitchBody"
           },
           "1608": {
+            "block_id": "1613",
             "label_type": "SwitchCase",
             "value": "'Oranges'"
           },
@@ -141368,6 +141387,7 @@
             "value_type": "string"
           },
           "1626": {
+            "block_id": "1631",
             "label_type": "SwitchCase",
             "value": "'Apples'"
           },
@@ -141400,6 +141420,7 @@
             "value_type": "string"
           },
           "1644": {
+            "block_id": "1649",
             "label_type": "SwitchCase",
             "value": "'Bananas'"
           },
@@ -141432,6 +141453,7 @@
             "value_type": "string"
           },
           "1662": {
+            "block_id": "1667",
             "label_type": "SwitchCase",
             "value": "'Cherries'"
           },
@@ -141468,6 +141490,7 @@
             "value": "'Mangoes'"
           },
           "1684": {
+            "block_id": "1689",
             "label_type": "SwitchCase",
             "value": "'Papayas'"
           },
@@ -141500,6 +141523,7 @@
             "value_type": "string"
           },
           "1702": {
+            "block_id": "1706",
             "label_type": "SwitchDefault"
           },
           "1706": {
@@ -142563,6 +142587,7 @@
             "label_type": "SwitchBody"
           },
           "729": {
+            "block_id": "737",
             "label_type": "SwitchCase",
             "value": "MouseAction.MouseDown"
           },

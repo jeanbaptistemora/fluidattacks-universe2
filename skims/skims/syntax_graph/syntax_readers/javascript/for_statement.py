@@ -9,25 +9,27 @@ from syntax_graph.syntax_nodes.for_statement import (
     build_for_statement_node,
 )
 from syntax_graph.types import (
-    MissingCaseHandling,
     SyntaxGraphArgs,
+)
+from utils.graph import (
+    match_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    node = args.ast_graph.nodes[args.n_id]
-    body_node = node.get("label_field_body")
-    initializer_node = node.get("label_field_initializer") or node.get(
-        "label_field_left"
-    )
-    condition_node = node.get("label_field_condition") or node.get(
-        "label_field_right"
-    )
+    graph = args.ast_graph
+    n_attrs = graph.nodes[args.n_id]
+    body_id = n_attrs["label_field_body"]
+    initializer_id = n_attrs["label_field_initializer"]
+    condition_id = n_attrs["label_field_condition"]
 
-    if not (initializer_node and condition_node and body_node):
-        raise MissingCaseHandling(f"Bad for statement handling in {args.n_id}")
+    if graph.nodes[body_id]["label_type"] == "expression_statement":
+        body_id = match_ast(graph, body_id)["__0__"]
 
-    increment_node = node.get("label_field_increment")
+    if graph.nodes[body_id]["label_type"] == "parenthesized_expression":
+        body_id = match_ast(graph, body_id)["__1__"]
+
+    increment_id = n_attrs.get("label_field_increment")
     return build_for_statement_node(
-        args, initializer_node, condition_node, increment_node, body_node
+        args, initializer_id, condition_id, increment_id, body_id
     )

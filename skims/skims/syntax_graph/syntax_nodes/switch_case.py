@@ -15,7 +15,7 @@ from typing import (
 
 def build_switch_case_node(
     args: SyntaxGraphArgs,
-    expression: Optional[NId],
+    body_id: Optional[NId],
     value: str,
 ) -> NId:
     args.syntax_graph.add_node(
@@ -24,10 +24,11 @@ def build_switch_case_node(
         label_type="SwitchCase",
     )
 
-    if expression:
+    if body_id:
+        args.syntax_graph.nodes[args.n_id]["block_id"] = body_id
         args.syntax_graph.add_edge(
             args.n_id,
-            args.generic(args.fork_n_id(expression)),
+            args.generic(args.fork_n_id(body_id)),
             label_ast="AST",
         )
 

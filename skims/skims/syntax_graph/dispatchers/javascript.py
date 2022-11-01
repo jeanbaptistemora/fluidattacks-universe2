@@ -45,6 +45,7 @@ from syntax_graph.syntax_readers.javascript import (
     switch_case as javascript_switch_case,
     switch_default as javascript_switch_default,
     switch_statement as javascript_switch_statement,
+    ternary_expression as javascript_ternary_expression,
     this as javascript_this,
     throw_statement as javascript_throw_statement,
     try_statement as javascript_try_statement,
@@ -325,6 +326,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "switch_statement",
         },
         syntax_reader=javascript_switch_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "ternary_expression",
+        },
+        syntax_reader=javascript_ternary_expression.reader,
     ),
     Dispatcher(
         applicable_types={

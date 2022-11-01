@@ -18,10 +18,23 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    match = match_ast(args.ast_graph, args.n_id, "else")
+    graph = args.ast_graph
+    match = match_ast(graph, args.n_id, "else")
+    body_id = match.get("__0__")
 
-    if len(match) == 2 and match["else"]:
-        else_child = str(match["__0__"])
-        return build_else_clause_node(args, else_child)
+    if (
+        body_id
+        and graph.nodes[body_id]["label_type"] == "expression_statement"
+    ):
+        body_id = match_ast(graph, body_id).get("__0__")
 
-    raise MissingCaseHandling(f"Bad else handling in {args.n_id}")
+    if (
+        body_id
+        and graph.nodes[body_id]["label_type"] == "parenthesized_expression"
+    ):
+        body_id = match_ast(graph, body_id).get("__1__")
+
+    if not body_id:
+        raise MissingCaseHandling(f"Bad else handling in {args.n_id}")
+
+    return build_else_clause_node(args, body_id)

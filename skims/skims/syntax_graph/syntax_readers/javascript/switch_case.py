@@ -20,9 +20,20 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    value_id = args.ast_graph.nodes[args.n_id]["label_field_value"]
-    case_value = node_to_str(args.ast_graph, value_id)
-    childs = match_ast(args.ast_graph, args.n_id, "expression_statement")
-    expression = childs.get("expression_statement")
+    graph = args.ast_graph
+    value_id = graph.nodes[args.n_id]["label_field_value"]
+    case_value = node_to_str(graph, value_id)
+    childs = match_ast(graph, args.n_id, "case", ":", "break_statement")
+    expr_id = childs.get("__1__")
+    if (
+        expr_id
+        and graph.nodes[expr_id]["label_type"] == "expression_statement"
+    ):
+        expr_id = match_ast(graph, expr_id).get("__0__")
 
-    return build_switch_case_node(args, expression, case_value)
+    if (
+        expr_id
+        and graph.nodes[expr_id]["label_type"] == "parenthesized_expression"
+    ):
+        expr_id = match_ast(graph, expr_id)["__1__"]
+    return build_switch_case_node(args, expr_id, case_value)

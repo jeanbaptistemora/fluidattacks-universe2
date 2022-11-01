@@ -18,7 +18,12 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = match_ast(args.ast_graph, args.n_id)
-    exp_type = str(args.ast_graph.nodes[c_ids["__1__"]]["label_text"])
-    ident_id = str(c_ids["__0__"])
+
+    if type_id := c_ids.get("__1__"):
+        exp_type = args.ast_graph.nodes[type_id].get("label_text")
+    else:
+        exp_type = "UpdateExpression"
+
+    ident_id = c_ids.get("__0__")
 
     return build_update_expression_node(args, exp_type, ident_id)

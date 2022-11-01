@@ -13,15 +13,29 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
+    match_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = adj_ast(args.ast_graph, args.n_id)
+    graph = args.ast_graph
+    c_ids = adj_ast(graph, args.n_id)
 
     if len(c_ids) < 3:
-        expression = None
+        expr_id = None
     else:
-        expression = c_ids[2]
+        expr_id = c_ids[2]
 
-    return build_switch_default_node(args, expression)
+    if (
+        expr_id
+        and graph.nodes[expr_id]["label_type"] == "expression_statement"
+    ):
+        expr_id = match_ast(graph, expr_id).get("__0__")
+
+    if (
+        expr_id
+        and graph.nodes[expr_id]["label_type"] == "parenthesized_expression"
+    ):
+        expr_id = match_ast(graph, expr_id)["__1__"]
+
+    return build_switch_default_node(args, expr_id)
