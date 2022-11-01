@@ -107,6 +107,29 @@ JAVA_STATEMENT = {
     "try_with_resources_statement",
 }
 
+JAVASCRIPT_STATEMENT = {
+    "export_statement",
+    "import_statement",
+    "debugger_statement",
+    "declaration",
+    "statement_block",
+    "expression_statement",
+    "if_statement",
+    "while_statement",
+    "for_statement",
+    "switch_statement",
+    "for_in_statement",
+    "do_statement",
+    "try_statement",
+    "with_statement",
+    "break_statement",
+    "continue_statement",
+    "return_statement",
+    "throw_statement",
+    "empty_statement",
+    "labeled_statement",
+}
+
 TYPESCRIPT_PRIMARY_TYPES = {
     "array_type",
     "conditional_type",

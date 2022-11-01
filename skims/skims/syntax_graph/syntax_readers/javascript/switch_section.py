@@ -6,7 +6,7 @@ from model.graph_model import (
     NId,
 )
 from syntax_graph.constants import (
-    JAVA_STATEMENT,
+    JAVASCRIPT_STATEMENT,
 )
 from syntax_graph.syntax_nodes.switch_section import (
     build_switch_section_node,
@@ -16,7 +16,6 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
-    match_ast,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -25,19 +24,17 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    childs = match_ast(graph, args.n_id, "switch_label")
-    case_id = childs.get("switch_label")
-
-    if case_id:
-        case_expr = node_to_str(graph, case_id)
+    value_id = graph.nodes[args.n_id].get("label_field_value")
+    if value_id:
+        case_value = node_to_str(graph, value_id)
     else:
-        case_expr = "Default"
+        case_value = "Default"
 
     execution_ids = [
         _id
         for _id in adj_ast(graph, args.n_id)
-        if graph.nodes[_id]["label_type"] in JAVA_STATEMENT
+        if graph.nodes[_id]["label_type"] in JAVASCRIPT_STATEMENT
         and graph.nodes[_id]["label_type"] != "break_statement"
     ]
 
-    return build_switch_section_node(args, case_expr, execution_ids)
+    return build_switch_section_node(args, case_value, execution_ids)

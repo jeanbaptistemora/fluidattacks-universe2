@@ -29600,6 +29600,7 @@
             "label_type": "SwitchBody"
           },
           "1166": {
+            "case_expression": "case3",
             "label_type": "SwitchSection"
           },
           "117": {
@@ -29636,9 +29637,11 @@
             "symbol": "e"
           },
           "1184": {
+            "case_expression": "case5",
             "label_type": "SwitchSection"
           },
           "1189": {
+            "case_expression": "case6",
             "label_type": "SwitchSection"
           },
           "1195": {
@@ -29669,6 +29672,7 @@
             "value_type": "string"
           },
           "1207": {
+            "case_expression": "default",
             "label_type": "SwitchSection"
           },
           "1212": {
@@ -31544,6 +31548,7 @@
             "label_type": "SwitchBody"
           },
           "539": {
+            "case_expression": "case1",
             "label_type": "SwitchSection"
           },
           "54": {
@@ -31573,6 +31578,7 @@
             "value_type": "string"
           },
           "557": {
+            "case_expression": "case2",
             "label_type": "SwitchSection"
           },
           "56": {
@@ -31748,6 +31754,7 @@
             "label_type": "Break"
           },
           "638": {
+            "case_expression": "case3",
             "label_type": "SwitchSection"
           },
           "64": {
@@ -31785,6 +31792,7 @@
             "value_type": "string"
           },
           "656": {
+            "case_expression": "default",
             "label_type": "SwitchSection"
           },
           "661": {
@@ -31846,6 +31854,7 @@
             "label_type": "SwitchBody"
           },
           "694": {
+            "case_expression": "case1",
             "label_type": "SwitchSection"
           },
           "70": {
@@ -31877,6 +31886,7 @@
             "value_type": "string"
           },
           "709": {
+            "case_expression": "case2",
             "label_type": "SwitchSection"
           },
           "71": {
@@ -31907,6 +31917,7 @@
             "value_type": "string"
           },
           "724": {
+            "case_expression": "case3",
             "label_type": "SwitchSection"
           },
           "73": {
@@ -31938,6 +31949,7 @@
             "value_type": "string"
           },
           "739": {
+            "case_expression": "default",
             "label_type": "SwitchSection"
           },
           "744": {
@@ -31992,6 +32004,7 @@
             "label_type": "SwitchBody"
           },
           "777": {
+            "case_expression": "case1",
             "label_type": "SwitchSection"
           },
           "78": {
@@ -31999,9 +32012,11 @@
             "label_type": "CatchClause"
           },
           "782": {
+            "case_expression": "case2",
             "label_type": "SwitchSection"
           },
           "787": {
+            "case_expression": "case3",
             "label_type": "SwitchSection"
           },
           "793": {
@@ -32028,6 +32043,7 @@
             "value_type": "string"
           },
           "805": {
+            "case_expression": "case4",
             "label_type": "SwitchSection"
           },
           "81": {
@@ -32035,9 +32051,11 @@
             "variable_name": "e"
           },
           "810": {
+            "case_expression": "case5",
             "label_type": "SwitchSection"
           },
           "815": {
+            "case_expression": "case6",
             "label_type": "SwitchSection"
           },
           "82": {
@@ -32071,6 +32089,7 @@
             "symbol": "IndexException"
           },
           "833": {
+            "case_expression": "default",
             "label_type": "SwitchSection"
           },
           "838": {
@@ -87730,9 +87749,8 @@
             "value_type": "string"
           },
           "1013": {
-            "block_id": "1018",
-            "label_type": "SwitchCase",
-            "value": "'Cherries'"
+            "case_expression": "'Cherries'",
+            "label_type": "SwitchSection"
           },
           "1018": {
             "arguments_id": "1023",
@@ -87763,13 +87781,12 @@
             "value_type": "string"
           },
           "1031": {
-            "label_type": "SwitchCase",
-            "value": "'Mangoes'"
+            "case_expression": "'Mangoes'",
+            "label_type": "SwitchSection"
           },
           "1035": {
-            "block_id": "1040",
-            "label_type": "SwitchCase",
-            "value": "'Papayas'"
+            "case_expression": "'Papayas'",
+            "label_type": "SwitchSection"
           },
           "104": {
             "expression": "\"module-name\"",
@@ -87804,8 +87821,8 @@
             "value_type": "string"
           },
           "1053": {
-            "block_id": "1057",
-            "label_type": "SwitchDefault"
+            "case_expression": "Default",
+            "label_type": "SwitchSection"
           },
           "1057": {
             "arguments_id": "1062",
@@ -90829,9 +90846,8 @@
             "label_type": "SwitchBody"
           },
           "959": {
-            "block_id": "964",
-            "label_type": "SwitchCase",
-            "value": "'Oranges'"
+            "case_expression": "'Oranges'",
+            "label_type": "SwitchSection"
           },
           "964": {
             "arguments_id": "969",
@@ -90862,9 +90878,8 @@
             "value_type": "string"
           },
           "977": {
-            "block_id": "982",
-            "label_type": "SwitchCase",
-            "value": "'Apples'"
+            "case_expression": "'Apples'",
+            "label_type": "SwitchSection"
           },
           "982": {
             "arguments_id": "987",
@@ -90895,9 +90910,8 @@
             "value_type": "string"
           },
           "995": {
-            "block_id": "1000",
-            "label_type": "SwitchCase",
-            "value": "'Bananas'"
+            "case_expression": "'Bananas'",
+            "label_type": "SwitchSection"
           }
         }
       }
@@ -141354,9 +141368,8 @@
             "label_type": "SwitchBody"
           },
           "1608": {
-            "block_id": "1613",
-            "label_type": "SwitchCase",
-            "value": "'Oranges'"
+            "case_expression": "'Oranges'",
+            "label_type": "SwitchSection"
           },
           "1613": {
             "arguments_id": "1618",
@@ -141387,9 +141400,8 @@
             "value_type": "string"
           },
           "1626": {
-            "block_id": "1631",
-            "label_type": "SwitchCase",
-            "value": "'Apples'"
+            "case_expression": "'Apples'",
+            "label_type": "SwitchSection"
           },
           "1631": {
             "arguments_id": "1636",
@@ -141420,9 +141432,8 @@
             "value_type": "string"
           },
           "1644": {
-            "block_id": "1649",
-            "label_type": "SwitchCase",
-            "value": "'Bananas'"
+            "case_expression": "'Bananas'",
+            "label_type": "SwitchSection"
           },
           "1649": {
             "arguments_id": "1654",
@@ -141453,9 +141464,8 @@
             "value_type": "string"
           },
           "1662": {
-            "block_id": "1667",
-            "label_type": "SwitchCase",
-            "value": "'Cherries'"
+            "case_expression": "'Cherries'",
+            "label_type": "SwitchSection"
           },
           "1667": {
             "arguments_id": "1672",
@@ -141486,13 +141496,12 @@
             "value_type": "string"
           },
           "1680": {
-            "label_type": "SwitchCase",
-            "value": "'Mangoes'"
+            "case_expression": "'Mangoes'",
+            "label_type": "SwitchSection"
           },
           "1684": {
-            "block_id": "1689",
-            "label_type": "SwitchCase",
-            "value": "'Papayas'"
+            "case_expression": "'Papayas'",
+            "label_type": "SwitchSection"
           },
           "1689": {
             "arguments_id": "1694",
@@ -141523,8 +141532,8 @@
             "value_type": "string"
           },
           "1702": {
-            "block_id": "1706",
-            "label_type": "SwitchDefault"
+            "case_expression": "Default",
+            "label_type": "SwitchSection"
           },
           "1706": {
             "arguments_id": "1711",
@@ -142587,9 +142596,8 @@
             "label_type": "SwitchBody"
           },
           "729": {
-            "block_id": "737",
-            "label_type": "SwitchCase",
-            "value": "MouseAction.MouseDown"
+            "case_expression": "MouseAction.MouseDown",
+            "label_type": "SwitchSection"
           },
           "73": {
             "label_type": "Object"

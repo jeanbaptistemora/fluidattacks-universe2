@@ -10,27 +10,19 @@ from syntax_graph.types import (
 )
 from typing import (
     List,
-    Optional,
 )
 
 
 def build_switch_section_node(
     args: SyntaxGraphArgs,
-    cases_ids: Optional[List[NId]],
+    case_expr: str,
     execution_ids: List[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
+        case_expression=case_expr,
         label_type="SwitchSection",
     )
-
-    if cases_ids:
-        for case_id in cases_ids:
-            args.syntax_graph.add_edge(
-                args.n_id,
-                args.generic(args.fork_n_id(case_id)),
-                label_ast="AST",
-            )
 
     for statement_id in execution_ids:
         args.syntax_graph.add_edge(

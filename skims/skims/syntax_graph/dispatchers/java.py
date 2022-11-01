@@ -55,10 +55,9 @@ from syntax_graph.syntax_readers.java import (
     resource as java_resource,
     return_statement as java_return_statement,
     string_literal as java_string_literal,
-    switch_block as java_switch_block,
-    switch_block_statement_group as java_switch_block_statement_group,
-    switch_expression as java_switch_expression,
-    switch_label as java_switch_label,
+    switch_block_statement_group as java_switch_section,
+    switch_body as java_switch_body,
+    switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
     this as java_this,
     throw_statement as java_throw_statement,
@@ -403,25 +402,19 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "switch_block",
         },
-        syntax_reader=java_switch_block.reader,
+        syntax_reader=java_switch_body.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_block_statement_group",
         },
-        syntax_reader=java_switch_block_statement_group.reader,
+        syntax_reader=java_switch_section.reader,
     ),
     Dispatcher(
         applicable_types={
             "switch_expression",
         },
-        syntax_reader=java_switch_expression.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "switch_label",
-        },
-        syntax_reader=java_switch_label.reader,
+        syntax_reader=java_switch_statement.reader,
     ),
     Dispatcher(
         applicable_types={

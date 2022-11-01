@@ -37,8 +37,7 @@ from syntax_graph.syntax_readers.javascript import (
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
-    switch_case as javascript_switch_case,
-    switch_default as javascript_switch_default,
+    switch_section as javascript_switch_section,
     switch_statement as javascript_switch_statement,
     this as javascript_this,
     throw_statement as javascript_throw_statement,
@@ -440,14 +439,9 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "switch_case",
-        },
-        syntax_reader=javascript_switch_case.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "switch_default",
         },
-        syntax_reader=javascript_switch_default.reader,
+        syntax_reader=javascript_switch_section.reader,
     ),
     Dispatcher(
         applicable_types={

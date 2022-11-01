@@ -16,15 +16,28 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
+    match_ast,
+)
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
+    childs = match_ast(graph, args.n_id, "case_switch_label")
+    case_id = childs.get("case_switch_label")
+
+    if case_id:
+        case_expr = node_to_str(graph, case_id)
+    else:
+        case_expr = "Default"
+
     execution_ids = [
         _id
         for _id in adj_ast(graph, args.n_id)
         if graph.nodes[_id]["label_type"] in C_SHARP_STATEMENT
+        and graph.nodes[_id]["label_type"] != "break_statement"
     ]
 
-    return build_switch_section_node(args, None, execution_ids)
+    return build_switch_section_node(args, case_expr, execution_ids)

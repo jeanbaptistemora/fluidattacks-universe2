@@ -31,8 +31,6 @@ DISPATCHERS: Dispatchers = (
             "MethodDeclaration",
             "Namespace",
             "SwitchStatement",
-            "SwitchCase",
-            "SwitchDefault",
             "UsingStatement",
             "WhileStatement",
         },
