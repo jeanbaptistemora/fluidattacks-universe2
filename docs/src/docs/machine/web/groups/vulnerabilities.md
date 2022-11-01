@@ -102,13 +102,9 @@ the column filter offers you.
 
 ![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1667322709/docs/web/groups/vulnerabilities/downward_facing_arrow.png)
 
-### Filtering your vulnerabilities table
+## Functionalities
 
-Above the table showing your
-types of vulnerabilities,
-there are three buttons:
-two for filtering and one for
-[generating reports](/machine/web/groups/reports).
+### Columns filter
 
 One way of filtering the
 table is by hiding or
@@ -121,71 +117,16 @@ window to appear,
 from which you can enable
 and disable columns.
 
-![Filtering Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_columns.png)
+![Filtering Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667330341/docs/web/groups/vulnerabilities/columns_filter_vulne.png)
+### Filters
 
-The other way of filtering
-is accessible after clicking
-the **Filters** button.
-This action will make several
-filter options appear,
-corresponding to the variables
-that give columns their names.
+The other way of filtering is
+by clicking the **Filters button**.
+Here you will have the activated
+filters that you have at the same
+time activated in the column filter.
 
-![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_button.png)
-
-The field **Last report** lets
-you filter by the amount of days
-passed since the last time the
-type of vulnerability was detected.
-
-![Filter Last Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_last_report.png)
-
-The field **Type** lets you
-filter by the type of vulnerability.
-The available types are the
-ones listed in the table.
-
-![Filters Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_type.png)
-
-The field **Status** lets you
-filter vulnerabilities by their
-open or closed status.
-Last in that first row is the field
-[Treatment](/machine/web/vulnerabilities/management/treatments),
-which lets you filter by
-treatment options,
-as shown in the
-following screenshot:
-
-![Filters Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/filtering_status.png)
-
-The option called
-**Severity (range)**
-offers two fields,
-one for a minimum and the
-other for a maximum value,
-where you can set a range
-of CVSS scores (that go
-from 0 to 10) by which to
-filter the vulnerabilities.
-
-The field **Age** lets you
-filter based on the days
-elapsed since the type of
-vulnerability was found for
-the first time in your system.
-Next is the field **Locations**,
-which lets you filter by the
-names of the exact locations
-in the repository where the
-vulnerabilities were found.
-Another option is to use
-the field **Reattack**,
-thanks to which you can
-filter vulnerabilities to
-see only either those that
-have a pending reattack or
-those that do not.
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1667330719/docs/web/groups/vulnerabilities/filter_vulne.png)
 
 Lastly,
 the option called
