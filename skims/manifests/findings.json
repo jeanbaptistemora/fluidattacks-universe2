@@ -591,6 +591,14 @@
       "title": "164. Insecure service configuration"
     }
   },
+  "F165": {
+    "EN": {
+      "title": "165. Insecure service configuration - AWS"
+    },
+    "ES": {
+      "title": "165. Insecure service configuration - AWS"
+    }
+  },
   "F176": {
     "EN": {
       "title": "176. Insecure service configuration - SSH"

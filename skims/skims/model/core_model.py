@@ -680,6 +680,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[185, 266],
     )
+    F165: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F165",
+        cwe=16,
+        execution_queue=ExecutionQueue.control,
+        requirements=[185, 265, 266],
+    )
     F176: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F176",
@@ -4158,7 +4165,7 @@ class MethodsEnum(Enum):
         file_name="cloudformation",
         name="cfn_iam_is_role_over_privileged",
         module="lib_path",
-        finding=FindingEnum.F325,
+        finding=FindingEnum.F165,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )

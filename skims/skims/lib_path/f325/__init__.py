@@ -12,7 +12,6 @@ from lib_path.f325.cloudformation import (
     cfn_iam_has_privileges_over_iam,
     cfn_iam_has_wildcard_resource_on_write_action,
     cfn_iam_is_policy_miss_configured,
-    cfn_iam_is_role_over_privileged,
     cfn_kms_key_has_master_keys_exposed_to_everyone,
 )
 from lib_path.f325.conf_files import (
@@ -79,15 +78,6 @@ def run_cfn_iam_has_privileges_over_iam(
 
 
 @SHIELD_BLOCKING
-def run_cfn_iam_is_role_over_privileged(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_is_role_over_privileged(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_iam_has_wildcard_resource_on_write_action(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -149,9 +139,6 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_has_privileges_over_iam(content, path, template),
-                run_cfn_iam_is_role_over_privileged(
-                    content, file_extension, path, template
-                ),
                 run_json_principal_wildcard(content, path, template),
             )
             if file_extension in EXTENSIONS_JSON:

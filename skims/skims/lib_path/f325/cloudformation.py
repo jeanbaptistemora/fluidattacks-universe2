@@ -24,7 +24,6 @@ from model.core_model import (
 from parse_cfn.structure import (
     iter_iam_managed_policies_and_mgd_policies,
     iter_iam_managed_policies_and_roles,
-    iter_iam_roles,
     iter_kms_keys,
 )
 import re
@@ -243,91 +242,6 @@ def _cfn_iam_is_policy_miss_configured_iter_vulns(
             )
 
 
-def _check_assume_role_policies(
-    assume_role_policy: Node, file_ext: str
-) -> Iterator[Node]:
-    statements = assume_role_policy.inner.get("Statement")
-    for stmt in statements.data if statements else []:
-        if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
-            continue
-
-        if not_actions := stmt.inner.get("NotAction"):
-            yield AWSIamManagedPolicy(
-                column=not_actions.start_column,
-                data=not_actions.data,
-                line=get_line_by_extension(not_actions.start_line, file_ext),
-            ) if isinstance(not_actions.raw, List) else not_actions
-
-        if not_princ := stmt.inner.get("NotPrincipal"):
-            yield AWSIamManagedPolicy(  # type: ignore
-                column=not_princ.start_column,
-                data=not_princ.data,
-                line=get_line_by_extension(not_princ.start_line, file_ext),
-            )
-
-        if actions := stmt.inner.get("Action"):
-            yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
-
-
-def _yield_nodes_from_stmt(stmt: Any, file_ext: str) -> Iterator[Node]:
-    if not_actions := stmt.inner.get("NotAction"):
-        yield AWSIamManagedPolicy(
-            column=not_actions.start_column,
-            data=not_actions.data,
-            line=get_line_by_extension(not_actions.start_line, file_ext),
-        ) if isinstance(not_actions.raw, List) else not_actions
-
-    if not_resource := stmt.inner.get("NotResource"):
-        yield AWSIamManagedPolicy(
-            column=not_resource.start_column,
-            data=not_resource.data,
-            line=get_line_by_extension(not_resource.start_line, file_ext),
-        ) if isinstance(not_resource.raw, List) else not_resource
-
-    if actions := stmt.inner.get("Action"):
-        yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
-
-    if resources := stmt.inner.get("Resource"):
-        yield from get_wildcard_nodes_for_resources(
-            actions, resources, WILDCARD_RESOURCE
-        )
-
-
-def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
-    for policy in policies.data if policies else []:
-        statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
-        for stmt in statements.data if statements else []:
-            if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
-                continue
-
-            yield from _yield_nodes_from_stmt(stmt, file_ext)
-
-
-def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
-    if managed_policies:
-        for man_pol in managed_policies.data:
-            # IAM role should not have AdministratorAccess policy
-            if "AdministratorAccess" in man_pol.raw:
-                yield man_pol
-
-
-def _cfn_iam_is_role_over_privileged_iter_vulns(
-    file_ext: str,
-    iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        managed_policies = iam_res.inner.get("ManagedPolicyArns")
-        yield from _has_admin_access(managed_policies)
-
-        policies = iam_res.inner.get("Policies")
-        yield from _check_policy_documents(policies, file_ext)
-
-        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
-            yield from _check_assume_role_policies(
-                assume_role_policy, file_ext
-            )
-
-
 def cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -400,21 +314,4 @@ def cfn_iam_has_privileges_over_iam(
         ),
         path=path,
         method=MethodsEnum.CFN_IAM_PRIVILEGES_OVER_IAM,
-    )
-
-
-def cfn_iam_is_role_over_privileged(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("src.lib_path.f325.iam_is_role_over_privileged"),
-        iterator=get_cloud_iterator(
-            _cfn_iam_is_role_over_privileged_iter_vulns(
-                file_ext=file_ext,
-                iam_iterator=iter_iam_roles(template=template),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED,
     )
