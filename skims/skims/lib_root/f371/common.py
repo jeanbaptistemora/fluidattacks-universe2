@@ -28,13 +28,20 @@ def has_innerhtml(shard: GraphShard) -> Iterable[GraphShardNode]:
 
 def has_bypass_sec(graph: Graph) -> List[str]:
     vuln_nodes: List[str] = []
+    risky_methods = {
+        "bypassSecurityTrustHtml",
+        "bypassSecurityTrustScript",
+        "bypassSecurityTrustStyle",
+        "bypassSecurityTrustUrl",
+        "bypassSecurityTrustResourceUrl",
+    }
     for nid in g.filter_nodes(
         graph,
         graph.nodes,
         predicate=g.pred_has_labels(label_type="MemberAccess"),
     ):
         f_name = graph.nodes[nid]["expression"]
-        if f_name == "bypassSecurityTrustUrl":
+        if f_name in risky_methods:
             vuln_nodes.append(nid)
 
     return vuln_nodes

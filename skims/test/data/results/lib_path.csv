@@ -36791,9 +36791,79 @@ F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,18,78,skims,004. Remo
   25 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
-F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,15,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrustResourceUrl is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
-   1 | import { Component } from ""@angular/core"";
-   2 |
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,18,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
+   3 | @Component({
+   4 |   selector: ""my-app"",
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class Aplication {
+  13 |   constructor(sanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+> 18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |   }
+  23 | }
+     ^ Col 0
+",javascript.js_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,17,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
+   3 | @Component({
+   4 |   selector: ""my-app"",
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class Aplication {
+  13 |   constructor(sanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+> 17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |   }
+  23 | }
+     ^ Col 0
+",javascript.js_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,16,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
+   3 | @Component({
+   4 |   selector: ""my-app"",
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class Aplication {
+  13 |   constructor(sanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+> 16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |   }
+  23 | }
+     ^ Col 0
+",javascript.js_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,15,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
    3 | @Component({
    4 |   selector: ""my-app"",
    5 |   template: `
@@ -36807,14 +36877,113 @@ F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_trust
   13 |   constructor(sanitizer) {
   14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
 > 15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
-  16 |   }
-  17 | }
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |   }
+  23 | }
      ^ Col 0
 ",javascript.js_use_of_bypass_security_trust_url
-F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,15,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrustResourceUrl is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
-   1 | import { Component, OnInit } from '@angular/core';
-   2 |
-   3 | @Component({
+F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,19,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
+   3 | Component({
+   4 |  selector: ""my-app"",
+   5 |  template: `
+   6 |    <h4>An untrusted URL:</h4>
+   7 |    <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |    <h4>A trusted URL:</h4>
+   9 |    <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |  `,
+  11 | )
+  12 | xport class Aplication {
+  13 |  constructor(sanitizer) {
+  14 |    this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |    this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |    this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |    this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |    this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+> 19 |    this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |      this.dangerousUrl
+  21 |    );
+  22 |  }
+  23 |
+     ^ Col 1
+",javascript.js_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,18,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
+   4 |   selector: 'my-app',
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class App {
+  13 |   constructor(private sanitizer: DomSanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+> 18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |
+  23 |   }
+  24 | }
+     ^ Col 0
+",javascript.ts_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,17,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
+   4 |   selector: 'my-app',
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class App {
+  13 |   constructor(private sanitizer: DomSanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+> 17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |
+  23 |   }
+  24 | }
+     ^ Col 0
+",javascript.ts_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,16,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
+   4 |   selector: 'my-app',
+   5 |   template: `
+   6 |     <h4>An untrusted URL:</h4>
+   7 |     <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |     <h4>A trusted URL:</h4>
+   9 |     <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |   `,
+  11 | })
+  12 | export class App {
+  13 |   constructor(private sanitizer: DomSanitizer) {
+  14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+> 16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |
+  23 |   }
+  24 | }
+     ^ Col 0
+",javascript.ts_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,15,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
    4 |   selector: 'my-app',
    5 |   template: `
    6 |     <h4>An untrusted URL:</h4>
@@ -36827,10 +36996,41 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   13 |   constructor(private sanitizer: DomSanitizer) {
   14 |     this.dangerousUrl = 'javascript:alert(""Hi there"")';
 > 15 |     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
-  16 |   }
-  17 | }
+  16 |     this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |     this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |     this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+  19 |     this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |       this.dangerousUrl
+  21 |     );
+  22 |
+  23 |   }
+  24 | }
      ^ Col 0
-",javascript.js_use_of_bypass_security_trust_url
+",javascript.ts_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,19,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
+   4 |  selector: 'my-app',
+   5 |  template: `
+   6 |    <h4>An untrusted URL:</h4>
+   7 |    <p><a class=""e2e-dangerous-url"" [href]=""dangerousUrl"">Click me</a></p>
+   8 |    <h4>A trusted URL:</h4>
+   9 |    <p><a class=""e2e-trusted-url"" [href]=""trustedUrl"">Click me</a></p>
+  10 |  `,
+  11 | )
+  12 | xport class App {
+  13 |  constructor(private sanitizer: DomSanitizer) {
+  14 |    this.dangerousUrl = 'javascript:alert(""Hi there"")';
+  15 |    this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+  16 |    this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+  17 |    this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+  18 |    this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+> 19 |    this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+  20 |      this.dangerousUrl
+  21 |    );
+  22 |
+  23 |  }
+  24 |
+     ^ Col 1
+",javascript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0,79,skims,371. DOM-Based cross-site scripting (XSS),The content-type header or character encoding is not set or is malformed. in namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,"
    1 | <!DOCTYPE html>
    2 | <html>

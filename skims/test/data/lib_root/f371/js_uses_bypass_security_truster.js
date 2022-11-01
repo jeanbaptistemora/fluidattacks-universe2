@@ -13,5 +13,11 @@ export class Aplication {
   constructor(sanitizer) {
     this.dangerousUrl = 'javascript:alert("Hi there")';
     this.trustedUrl = sanitizer.bypassSecurityTrustUrl(this.dangerousUrl);
+    this.trustedHtml = sanitizer.bypassSecurityTrustHtml(this.dangerousUrl);
+    this.trustedScript = sanitizer.bypassSecurityTrustScript(this.dangerousUrl);
+    this.trustedStyle = sanitizer.bypassSecurityTrustStyle(this.dangerousUrl);
+    this.trustedResourceUrl = sanitizer.bypassSecurityTrustResourceUrl(
+      this.dangerousUrl
+    );
   }
 }

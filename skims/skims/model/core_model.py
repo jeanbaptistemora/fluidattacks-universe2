@@ -4293,7 +4293,7 @@ class MethodsEnum(Enum):
     )
     TS_USES_BYPASS_SECURITY_TRUST_URL = MethodInfo(
         file_name="javascript",
-        name="js_use_of_bypass_security_trust_url",
+        name="ts_use_of_bypass_security_trust_url",
         module="lib_root",
         finding=FindingEnum.F371,
         developer=DeveloperEnum.JHON_ROMERO,
@@ -4750,14 +4750,6 @@ class MethodsEnum(Enum):
     BASH_IMAGE_HAS_DIGEST = MethodInfo(
         file_name="bash",
         name="bash_image_has_digest",
-        module="lib_path",
-        finding=FindingEnum.F380,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DOCKER_COMPOSE_IMAGE_HAS_DIGEST = MethodInfo(
-        file_name="docker",
-        name="docker_compose_image_has_digest",
         module="lib_path",
         finding=FindingEnum.F380,
         developer=DeveloperEnum.LUIS_PATINO,

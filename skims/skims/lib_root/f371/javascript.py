@@ -65,7 +65,7 @@ def js_bypass_security_trust_url(
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f371.bypass_security_trust_url",
+        desc_key="lib_root.f371.bypass_security_trust",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
