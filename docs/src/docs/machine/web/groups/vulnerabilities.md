@@ -11,21 +11,26 @@ on one of your group's names.
 
 ## Vulnerabilities Table
 
-In the **Vulnerabilities** section,
-you find a table containing all
-the types of vulnerabilities
+In the Vulnerabilities section,
+you will find a table containing
+all the [types of vulnerabilities](/criteria/vulnerabilities/)
 reported in the selected group.
-This table has nine columns,
-which you can choose to show
-and hide as described below in
-**Filtering your vulnerabilities table**.
+This table includes different columns,
+which you can activate or deactivate
+according to the information you want
+to see using the [columns filter](/machine/web/groups/vulnerabilities/#filtering-your-vulnerabilities-table)
+button.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/vulns_table_1h_m2j4au.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1667322248/docs/web/groups/vulnerabilities/vulnerability_view.png)
+
+In total,
+we have thirteen columns which are
+described below:
 
 - **Type:** The name of the
   type of vulnerability from
-  our standardized set whose
-  characteristics are met by
+  our [standardized set](/criteria/vulnerabilities/)
+  whose characteristics are met by
   the vulnerability found in
   your system.
 - **Age:** The number of days
@@ -76,24 +81,26 @@ and hide as described below in
   due to one of the vulnerabilities
   of this type; otherwise,
   it is just a hyphen.
+- **Assignees:**
+  The name of the assignees the
+  specific vulnerability type.
+- **Release Date:**
+  Date when the typology was reported.
+- **Treatment:**
+  List the treatments that this
+  typology has.
+- **Description:**
+  A definition of the type of
+  vulnerability.
 
 There is also a downward-facing
-arrow on the left of the
-Type column,
+arrow on the left of the Type column,
 which,
 upon click,
-will unfold the description for
-each type of vulnerability
-shown in the table,
-along with extra information.
-Namely,
-whether the type of vulnerability
-is exploitable and the number of
-files grouped by the treatment
-option that has been defined
-for them.
+you will find the information that
+the column filter offers you.
 
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1667322709/docs/web/groups/vulnerabilities/downward_facing_arrow.png)
 
 ### Filtering your vulnerabilities table
 
