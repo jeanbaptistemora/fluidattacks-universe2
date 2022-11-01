@@ -105,6 +105,17 @@ and [Yup][yup] to declare a validation schema to be checked on submit.
 
 Refer to Formik and Yup's documentation for more details.
 
+### Tables
+
+The front uses [TanStack Table][table] to power its data tables,
+fitting them with features such as
+sorting, pagination, column toggling, row expansion, exports and more.
+
+You can use the `<Table>` component,
+from `src/components/Table` to build a table from a dataset and columns.
+
+Refer to TanStack Table's documentation for more details.
+
 ### Authorization
 
 :::note
@@ -236,7 +247,9 @@ without having Node.js installed on your computer.
 
 ### Logging
 
-`console.log` is not allowed per https://eslint.org/docs/latest/rules/no-console
+`console.log` usage is not allowed
+per https://eslint.org/docs/latest/rules/no-console,
+though it can still be used locally for debugging.
 
 You can use `src/utils/logger.ts`,
 which sends errors and warnings to Bugsnag,
@@ -309,12 +322,13 @@ when diagnosing issues on the front:
 [apollo]: https://www.apollographql.com/docs/react/
 [formik]: https://formik.org/
 [yup]: https://github.com/jquense/yup#readme
+[table]: https://tanstack.com/table/v8/docs/guide/introduction
 [usestate]: https://reactjs.org/docs/hooks-state.html
 [context]: https://reactjs.org/docs/context.html
 [abac]: https://en.wikipedia.org/wiki/Attribute-based_access_control
 [casl]: https://casl.js.org/v6/en/package/casl-react
-[ab]: https://en.wikipedia.org/wiki/A/B_testing
 [conditional]: https://reactjs.org/docs/conditional-rendering.html
+[ab]: https://en.wikipedia.org/wiki/A/B_testing
 [router]: https://v5.reactrouter.com/
 [styled]: https://styled-components.com/
 [tachyons]: https://tachyons.io/
