@@ -423,4 +423,39 @@ describe("Filters", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(6);
     });
   });
+
+  it("should filter select", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        id: "color",
+        key: "color",
+        label: "Color",
+        selectOptions: [...new Set(dataset.map((item): string => item.color))],
+        type: "select",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "color" })
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByRole("combobox", { name: "color" }), {
+      target: { value: "red" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(7);
+    });
+  });
 });
