@@ -22,12 +22,14 @@ from db_model import (
 from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
-    StakeholderMetadataToUpdate,
 )
 import logging
 import logging.config
 from settings import (
     LOGGING,
+)
+from stakeholders.domain import (
+    update_notification_preferences,
 )
 import time
 
@@ -40,20 +42,17 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def process_user(user: Stakeholder, progress: float) -> None:
     rm_preferences = ["DAILY_DIGEST", "ROOT_MOVED", "FILE_UPLOADED"]
     if any(
-        item in user.notifications_preferences.email for item in rm_preferences
+        item in user.state.notifications_preferences.email
+        for item in rm_preferences
     ):
         new_preferences = [
             item
-            for item in user.notifications_preferences.email
+            for item in user.state.notifications_preferences.email
             if item not in rm_preferences
         ]
-        await stakeholders_model.update_metadata(
+        await update_notification_preferences(
             email=user.email,
-            metadata=StakeholderMetadataToUpdate(
-                notifications_preferences=NotificationsPreferences(
-                    email=new_preferences
-                )
-            ),
+            preferences=NotificationsPreferences(email=new_preferences),
         )
         LOGGER_CONSOLE.info(
             "User processed",

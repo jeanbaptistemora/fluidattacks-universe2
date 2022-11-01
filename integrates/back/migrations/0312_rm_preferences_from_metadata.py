@@ -4,32 +4,36 @@
 
 # pylint: disable=invalid-name
 """
-Remove daily digest notification preference from stakeholders
-https://gitlab.com/fluidattacks/universe/-/issues/6861
+remove notification preferences field from stakeholder_metadata
 
-Execution Time:    2022-07-22 at 19:33:08 UTC
-Finalization Time: 2022-07-22 at 19:34:19 UTC
+Execution Time:
+Finalization Time:
 """
-
 
 from aioextensions import (
     collect,
     run,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+)
 from db_model import (
-    stakeholders as stakeholders_model,
+    TABLE,
+)
+from db_model.stakeholders import (
+    get_all_stakeholders,
 )
 from db_model.stakeholders.types import (
-    NotificationsPreferences,
     Stakeholder,
+)
+from dynamodb import (
+    keys,
+    operations,
 )
 import logging
 import logging.config
 from settings import (
     LOGGING,
-)
-from stakeholders.domain import (
-    update_notification_preferences,
 )
 import time
 
@@ -39,30 +43,44 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
+async def remove_notification(
+    *,
+    email: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["stakeholder_metadata"],
+        values={
+            "email": email,
+        },
+    )
+    item = {"notifications_preferences": None}
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=item,
+        key=primary_key,
+        table=TABLE,
+    )
+
+
 async def process_user(user: Stakeholder, progress: float) -> None:
-    if "DAILY_DIGEST" in user.state.notifications_preferences.email:
-        new_preferences = [
-            item
-            for item in user.state.notifications_preferences.email
-            if item != "DAILY_DIGEST"
-        ]
-        await update_notification_preferences(
-            email=user.email,
-            preferences=NotificationsPreferences(email=new_preferences),
-        )
-        LOGGER_CONSOLE.info(
-            "User processed",
-            extra={
-                "extra": {
-                    "user email": user.email,
-                    "progress": round(progress, 2),
-                }
-            },
-        )
+    await remove_notification(
+        email=user.email.strip().lower(),
+    )
+    LOGGER_CONSOLE.info(
+        "User processed",
+        extra={
+            "extra": {
+                "user email": user.email,
+                "progress": round(progress, 2),
+            }
+        },
+    )
 
 
 async def main() -> None:
-    all_stakeholders = await stakeholders_model.get_all_stakeholders()
+    all_stakeholders = await get_all_stakeholders()
     LOGGER_CONSOLE.info(
         "Active users",
         extra={"extra": {"users_len": len(all_stakeholders)}},

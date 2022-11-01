@@ -68,9 +68,6 @@ class Stakeholder(NamedTuple):
     last_login_date: Optional[str] = None
     last_name: Optional[str] = None
     legal_remember: bool = False
-    notifications_preferences: NotificationsPreferences = (
-        NotificationsPreferences()
-    )
     phone: Optional[StakeholderPhone] = None
     registration_date: Optional[str] = None
     role: Optional[str] = None
@@ -92,7 +89,6 @@ class StakeholderMetadataToUpdate(NamedTuple):
     last_login_date: Optional[str] = None
     last_name: Optional[str] = None
     legal_remember: Optional[bool] = None
-    notifications_preferences: Optional[NotificationsPreferences] = None
     phone: Optional[StakeholderPhone] = None
     registration_date: Optional[str] = None
     role: Optional[str] = None

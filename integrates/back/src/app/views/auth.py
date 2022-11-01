@@ -194,9 +194,6 @@ async def complete_register(
                     last_login_date=today,
                     last_name=last_name,
                     registration_date=today,
-                    notifications_preferences=NotificationsPreferences(
-                        email=SUBSCRIPTIONS
-                    ),
                 ),
             ),
             stakeholders_model.update_state(
@@ -206,7 +203,7 @@ async def complete_register(
                         email=SUBSCRIPTIONS
                     ),
                     modified_date=today,
-                    modified_by=email,
+                    modified_by=email.strip().lower(),
                 ),
             ),
         )

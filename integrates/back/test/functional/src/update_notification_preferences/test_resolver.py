@@ -55,15 +55,10 @@ async def test_update_notification_preferences(
 
     loaders.stakeholder.clear_all()
     stakeholder = await loaders.stakeholder.load(email)
-    assert "ACCESS_GRANTED" not in stakeholder.notifications_preferences.email
-    assert "REMEDIATE_FINDING" in stakeholder.notifications_preferences.email
-    assert "REMEDIATE_FINDING" in stakeholder.notifications_preferences.sms
-    assert "REMINDER_NOTIFICATION" in stakeholder.notifications_preferences.sms
     assert (
-        stakeholder.notifications_preferences.parameters.min_severity
-        == Decimal("6.7")
+        "ACCESS_GRANTED"
+        not in stakeholder.state.notifications_preferences.email
     )
-    assert stakeholder.state is not None
     assert (
         "REMEDIATE_FINDING"
         in stakeholder.state.notifications_preferences.email

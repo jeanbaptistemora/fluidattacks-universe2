@@ -137,9 +137,6 @@ def format_stakeholder(item: Item) -> Stakeholder:
         last_login_date=item.get("last_login_date"),
         last_name=item.get("last_name"),
         legal_remember=item.get("legal_remember", False),
-        notifications_preferences=format_notifications_preferences(
-            item.get("notifications_preferences")
-        ),
         phone=format_phone(item["phone"]) if item.get("phone") else None,
         state=format_state(item.get("state")),
         registration_date=item.get("registration_date"),

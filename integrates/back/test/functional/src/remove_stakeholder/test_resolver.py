@@ -8,6 +8,9 @@ from . import (
     get_result_mutation,
     get_result_stakeholder_query,
 )
+from back.test.functional.src.update_notification_preferences import (
+    get_result_mutation as put_update_notification_preferences,
+)
 from back.test.functional.src.utils import (
     confirm_deletion,
 )
@@ -21,8 +24,15 @@ from dataloaders import (
 from db_model.enrollment.types import (
     Enrollment,
 )
+from db_model.stakeholders.get import (
+    get_historic_state,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderState,
+)
+from decimal import (
+    Decimal,
 )
 import pytest
 from typing import (
@@ -65,14 +75,27 @@ async def test_remove_stakeholder(
         organization_id=organization_id,
         entity="ORGANIZATION",
     )
+
+    result = await put_update_notification_preferences(
+        user=email,
+        mail=["REMEDIATE_FINDING"],
+        severity=Decimal("6.7"),
+        sms=["REMINDER_NOTIFICATION", "REMEDIATE_FINDING"],
+    )
+    assert "errors" not in result
+    assert result["data"]["updateNotificationsPreferences"]["success"]
     old_loaders: Dataloaders = get_new_context()
     old_stakeholder: Stakeholder = await old_loaders.stakeholder.load(email)
-
+    historic_state: tuple[StakeholderState, ...] = await get_historic_state(
+        email=email
+    )
     assert old_stakeholder.email == email
+    assert old_stakeholder.state is not None
     assert (
-        "ACCESS_GRANTED"
+        "REMEDIATE_FINDING"
         in old_stakeholder.state.notifications_preferences.email
     )
+    assert old_stakeholder.state == historic_state[-1]
 
     assert not result_me_query["data"]["me"]["remember"]
     assert result_me_query["data"]["me"]["role"] == "user"
@@ -94,7 +117,7 @@ async def test_remove_stakeholder(
         is None
     )
 
-    result: Dict[str, Any] = await get_result_mutation(
+    result = await get_result_mutation(
         user=email,
     )
     assert "errors" not in result
@@ -108,6 +131,9 @@ async def test_remove_stakeholder(
     new_loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await new_loaders.stakeholder.load(email)
+
+    historic_state = await get_historic_state(email=email)
+    assert len(historic_state) == 0
 
     new_enrollment: Enrollment = await new_loaders.enrollment.load(email)
     assert new_enrollment.enrolled
