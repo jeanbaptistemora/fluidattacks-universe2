@@ -30,7 +30,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F085: evaluate_symbol_f085
 }
 
-OUTSIDEPATH_TYPES = {"Parameter", "FieldDeclaration"}
+OUTSIDEPATH_TYPES = {"Parameter", "FieldDeclaration", "VariableDeclaration"}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
