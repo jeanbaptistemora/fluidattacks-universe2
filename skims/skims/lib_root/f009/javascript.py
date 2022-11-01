@@ -61,6 +61,7 @@ def crypto_js_credentials(
                     and (al_id := n_attrs.get("arguments_id"))
                     and (child := g.match_ast_d(graph, al_id, "Literal"))
                     and graph.nodes[child]["value_type"] == "string"
+                    and graph.nodes[child]["value"] not in {'""', "''"}
                 ):
                     yield shard, n_id
 
