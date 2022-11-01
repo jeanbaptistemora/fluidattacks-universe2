@@ -27,6 +27,10 @@ const getOldestRequestedReattackDate = (
   return minDate;
 };
 
+const noDate = (finding: IFindingFormatted): IFindingFormatted | undefined => {
+  return finding.oldestReattackRequestedDate === "-" ? undefined : finding;
+};
+
 const formatFindings = (
   findings: ITodoFindingToReattackAttr[]
 ): IFindingFormatted[] => {
@@ -40,7 +44,9 @@ const formatFindings = (
     })
   );
 
-  return _.orderBy(formatted, ["oldestReattackRequestedDate"], ["asc"]);
+  const fmtd = formatted.filter(noDate);
+
+  return _.orderBy(fmtd, ["oldestReattackRequestedDate"], ["asc"]);
 };
 
 export { formatFindings };
