@@ -17,6 +17,16 @@ SQL_INSERT_METADATA = Template(
     """
 )
 
+SQL_INSERT_METADATA_STR = """
+    INSERT INTO {table} ({fields}) SELECT {values}
+    WHERE NOT EXISTS (
+        SELECT id
+        FROM {table}
+        WHERE id = %(id)s
+    )
+    """
+
+
 SQL_INSERT_HISTORIC = Template(
     """
     INSERT INTO ${table_historic} (${fields}) SELECT ${values}
