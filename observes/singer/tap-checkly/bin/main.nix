@@ -4,7 +4,7 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
@@ -15,11 +15,12 @@
   };
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-singer-tap-checkly-env-bin";
+  makeScript {
+    name = "tap-checkly";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = ./entrypoint.sh;
   }
