@@ -6,6 +6,10 @@ sidebar_position: 1
 slug: /criteria/
 ---
 
+<head>
+  <title>Criteria | Fluid Attacks Documentation</title>
+</head>
+
 When it comes to a field as critical as cybersecurity,
 it is always best to be aware of the ideal conditions
 that allow for systems to be as secure as possible

@@ -6,6 +6,10 @@ sidebar_position: 1
 slug: /criteria/requirements/
 ---
 
+<head>
+  <title>Requirements | Criteria | Fluid Attacks Documentation</title>
+</head>
+
 This section allows you to determine
 what is tested and what is not,
 and find out what is considered a vulnerability.
