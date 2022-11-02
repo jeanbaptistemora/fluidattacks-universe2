@@ -47,18 +47,20 @@ def docker_compose_read_only(
     )
 
 
-def docker_port_22_exposed(content: str, path: str) -> Vulnerabilities:
+def docker_port_exposed(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
-            if re.match(r"^EXPOSE[ \t]+22", line):
+            if re.match(r"^EXPOSE[ \t]+22", line) or re.match(
+                r"^EXPOSE[ \t]+80", line
+            ):
                 yield (line_number, 0)
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f418.docker_port_22_exposed",
+        description_key="lib_path.f418.docker_port_exposed",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.DOCKER_PORT_22_EXPOSED,
+        method=MethodsEnum.DOCKER_PORT_EXPOSED,
     )
 
 

@@ -5,7 +5,7 @@ from lib_path.common import (
 )
 from lib_path.f418.docker import (
     docker_compose_read_only,
-    docker_port_22_exposed,
+    docker_port_exposed,
     docker_using_add_command,
 )
 from model.core_model import (
@@ -42,11 +42,11 @@ def run_docker_using_add_command(
 
 
 @SHIELD_BLOCKING
-def run_docker_port_22_exposed(
+def run_docker_port_exposed(
     content: str,
     path: str,
 ) -> Vulnerabilities:
-    return docker_port_22_exposed(
+    return docker_port_exposed(
         content=content,
         path=path,
     )
@@ -78,6 +78,6 @@ def analyze(
         results = (
             *results,
             run_docker_using_add_command(content, path),
-            run_docker_port_22_exposed(content, path),
+            run_docker_port_exposed(content, path),
         )
     return results

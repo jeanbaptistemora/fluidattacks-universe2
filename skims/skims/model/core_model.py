@@ -4714,9 +4714,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    DOCKER_PORT_22_EXPOSED = MethodInfo(
+    DOCKER_PORT_EXPOSED = MethodInfo(
         file_name="docker",
-        name="docker_port_22_exposed",
+        name="docker_port_exposed",
         module="lib_path",
         finding=FindingEnum.F418,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
