@@ -95,7 +95,7 @@ closure:
   packaging: "21.3"
   pandas: 1.3.4
   pathspec: 0.10.1
-  pillow: 9.2.0
+  pillow: 9.3.0
   prompt-toolkit: 3.0.31
   protobuf: 3.20.3
   psycopg2: 2.9.3
@@ -115,7 +115,7 @@ closure:
   python-multipart: 0.0.5
   python3-openid: 3.2.0
   pytz: "2021.3"
-  pyyaml: 5.3.1
+  pyyaml: "6.0"
   requests: 2.28.1
   requests-oauthlib: 1.3.1
   retrying: 1.3.3
@@ -980,33 +980,33 @@ links:
   - name: pathspec-0.10.1.tar.gz
     sha256: 0g9jhhhf3zmrnvzvjjd2yhizsb6i93hmlszb09wixlr1nrhn3kks
     url: https://files.pythonhosted.org/packages/24/9f/a9ae1e6efa11992dba2c4727d94602bd2f6ee5f0dedc29ee2d5d572c20f7/pathspec-0.10.1.tar.gz
-  - name: Pillow-9.2.0-cp39-cp39-macosx_10_10_x86_64.whl
-    sha256: 1z1gpdznd0l09mdjfq0q5ycl6fp1ja06wva3j2691pji4kpw9lhf
-    url: https://files.pythonhosted.org/packages/88/7a/ddfe28b485b623361457d4783007c1f9ba83a87f93e7fec32f64793efb6c/Pillow-9.2.0-cp39-cp39-macosx_10_10_x86_64.whl
-  - name: Pillow-9.2.0-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1nj3dp6f1pmyca4mr62sgmvvh6xhqyx3yzhvkxld30ddw0szilja
-    url: https://files.pythonhosted.org/packages/aa/bc/21097cd891dd2fa02f2b3d767e02e883e026482e59d29975d1bc30024aa3/Pillow-9.2.0-cp39-cp39-macosx_11_0_arm64.whl
-  - name: Pillow-9.2.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1x3z5r1q8b23wi1p6hinmh186clyy7q7zza8nrfq2zjzshrzd67a
-    url: https://files.pythonhosted.org/packages/5b/a4/68e210389f3744043e0ce543d4eb81fe8d7be5462d1c7ac2e59d620991c4/Pillow-9.2.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: Pillow-9.2.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 07693ggz07f16xlyrqvd35mcml4yabkhl0qyl1s6j13d2bhayqbp
-    url: https://files.pythonhosted.org/packages/ae/46/7c11880debb554c06ae0cebf4955611c98634ed4e416a3cd63f4bdb29049/Pillow-9.2.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: Pillow-9.2.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 089ljiz9gzdzfgrj9kwk99m08am0ilc8xrjnw5pjv2m195062m4s
-    url: https://files.pythonhosted.org/packages/c1/d2/169e77ffa99a04f6837ff860b022fa1ea925e698e1c544c58268c8fd2afe/Pillow-9.2.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: Pillow-9.2.0-cp39-cp39-manylinux_2_28_aarch64.whl
-    sha256: 080vnvzfcljg0vhisk46iq3q6p0lv1w5q4d1hqfxjg20k3g7vvas
-    url: https://files.pythonhosted.org/packages/eb/22/fc208ed1631352e473aa9553a86253435667e16676c0c97229d646b1e540/Pillow-9.2.0-cp39-cp39-manylinux_2_28_aarch64.whl
-  - name: Pillow-9.2.0-cp39-cp39-manylinux_2_28_x86_64.whl
-    sha256: 0q6bbi1fl9jilzx4hmccrpmyi2imzfbx2gdzmkz1pprj7x32bdqk
-    url: https://files.pythonhosted.org/packages/01/61/3ff85fb4bb596ce3d223c8fcf93c8df5c12bc8899dfb4fb3cb1c5b20dd5f/Pillow-9.2.0-cp39-cp39-manylinux_2_28_x86_64.whl
-  - name: Pillow-9.2.0-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 195q6agyg2qm7niidywygn3c3i7y5i7sr8fx8iyxjkknx9kdv2l0
-    url: https://files.pythonhosted.org/packages/b5/f7/32fb51c965a5fbf3f368e06c82128c306b5fa2ca13f6ae9ad7ac042eca06/Pillow-9.2.0-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: Pillow-9.2.0.tar.gz
-    sha256: 011wgm1mssjchpva9wsi2a07im9czyjvik137xlp5f0g7vykdrkm
-    url: https://files.pythonhosted.org/packages/8c/92/2975b464d9926dc667020ed1abfa6276e68c3571dcb77e43347e15ee9eed/Pillow-9.2.0.tar.gz
+  - name: Pillow-9.3.0-cp39-cp39-macosx_10_10_x86_64.whl
+    sha256: 1bbwm0dansgczpxwlhrjjcnfwcpcam82ys0cqp7xxypk8dg1kgbk
+    url: https://files.pythonhosted.org/packages/ca/97/9677bf1d97c408779e5940b89675e38a8ebe8bcc9dbae8adfc9e7080a314/Pillow-9.3.0-cp39-cp39-macosx_10_10_x86_64.whl
+  - name: Pillow-9.3.0-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 0dc5cb0hrlam7iq3p0dglam07qh1jc97h731yjazqij8hviqlz0w
+    url: https://files.pythonhosted.org/packages/b9/b8/3e2c23766019a9a03ee26ac6b7af9392aba8574806ce10e5074733987240/Pillow-9.3.0-cp39-cp39-macosx_11_0_arm64.whl
+  - name: Pillow-9.3.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1lrhhc0ylxx30has348jl5d83522cr6hvc6vdsjjxix07bh1h29f
+    url: https://files.pythonhosted.org/packages/af/7f/c5f7a35fd7053a4aee79c41fc4b125281745577c6ce3445e57ed8b4eff56/Pillow-9.3.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: Pillow-9.3.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 0v0l5mgm8kp60v65plm0j2jz5kcny6975q18dkbp991k9drmx4dh
+    url: https://files.pythonhosted.org/packages/5f/1e/8a26e1ff2064b665f3923a727cb9240919cdcdce303e4800729635aefc40/Pillow-9.3.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: Pillow-9.3.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0ny0y0dx724sq56s0vb0ggdvrxk35bnxw509xhv8ynfknnn740xg
+    url: https://files.pythonhosted.org/packages/2f/73/ec6b3e3f6b311cf1468eafc92a890f690a2cacac0cfd0f1bcc2b891d1334/Pillow-9.3.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: Pillow-9.3.0-cp39-cp39-manylinux_2_28_aarch64.whl
+    sha256: 1kdsfhygibr6nrjnd25zig9k96yv09c4rma7kg0w0qh2bdxd4n5d
+    url: https://files.pythonhosted.org/packages/f7/11/763c3992c3e6d00e9f6de81b0d721306757bb7201155d135a16032460943/Pillow-9.3.0-cp39-cp39-manylinux_2_28_aarch64.whl
+  - name: Pillow-9.3.0-cp39-cp39-manylinux_2_28_x86_64.whl
+    sha256: 031qg9b75mq25gz8lvwqa2r6bs6599yw21rb19gglaiia1fbralp
+    url: https://files.pythonhosted.org/packages/db/b0/6438c96e80d4cad5b6381ba774018de9d8eae591d65bdfd80e3ad630928a/Pillow-9.3.0-cp39-cp39-manylinux_2_28_x86_64.whl
+  - name: Pillow-9.3.0-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 0j34w3aa07fjvlai06npdddnx8xamd5bcw3ndsfpwlnqfmr11als
+    url: https://files.pythonhosted.org/packages/ac/0b/cb7ecd88cea2422818057db720966bbb56bbcec3b359f4a5cafdf737d9e5/Pillow-9.3.0-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: Pillow-9.3.0.tar.gz
+    sha256: 03vn7s6rq943knjglm6w82clbmvd8bya1yc0sw402mksalma4df9
+    url: https://files.pythonhosted.org/packages/16/11/da8d395299ca166aa56d9436e26fe8440e5443471de16ccd9a1d06f5993a/Pillow-9.3.0.tar.gz
   - name: prompt_toolkit-3.0.31-py3-none-any.whl
     sha256: 0vd9zx0kw74slz113095wp7mz3ypwnpraj5gln6grw1x2f3g75ln
     url: https://files.pythonhosted.org/packages/26/ec/2ebddd1f0584fec4a6d4b5dc57627254070c3db310f00981bc5de03dd5ab/prompt_toolkit-3.0.31-py3-none-any.whl
@@ -1118,9 +1118,24 @@ links:
   - name: pytz-2021.3.tar.gz
     sha256: 09hk9zpxr26d7xgjfbq6ai1i1naybhlfkln9wka0gbx1425jvbdc
     url: https://files.pythonhosted.org/packages/e3/8e/1cde9d002f48a940b9d9d38820aaf444b229450c0854bdf15305ce4a3d1a/pytz-2021.3.tar.gz
-  - name: PyYAML-5.3.1.tar.gz
-    sha256: 0pb4zvkfxfijkpgd1b86xjsqql97ssf1knbd1v53wkg1qm9cgsmq
-    url: https://files.pythonhosted.org/packages/64/c2/b80047c7ac2478f9501676c988a5411ed5572f35d1beff9cae07d321512c/PyYAML-5.3.1.tar.gz
+  - name: PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 16s47q0nc3rrw8rjp8y6zm1wgs49i2qckj2g0k5kjsc2cmyr6p85
+    url: https://files.pythonhosted.org/packages/f5/6f/b8b4515346af7c33d3b07cd8ca8ea0700ca72e8d7a750b2b87ac0268ca4e/PyYAML-6.0-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: PyYAML-6.0-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 0x61lyvvyxn3g97inyr7156abgnggfsw94hgmbgqpys9dymyl776
+    url: https://files.pythonhosted.org/packages/67/d4/b95266228a25ef5bd70984c08b4efce2c035a4baa5ccafa827b266e3dc36/PyYAML-6.0-cp39-cp39-macosx_11_0_arm64.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 00q8aiqzqz9xjx28aqafp36j7acjr5gp62c99s5b5lafvsg86zfn
+    url: https://files.pythonhosted.org/packages/21/67/b42191239c5650c9e419c4a08a7a022bbf1abf55b0391c380a72c3af5462/PyYAML-6.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 1lvkvj034w5g3gjxjcaqjswmi2zfz742nyimswvs06i7xw8w9a6b
+    url: https://files.pythonhosted.org/packages/77/da/e845437ffe0dffae4e7562faf23a4f264d886431c5d2a2816c853288dc8e/PyYAML-6.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 1h3fnk46bi462hll1299zjwdxa3v6g1h1xcs3p6ylq9b4mbphlj0
+    url: https://files.pythonhosted.org/packages/12/fc/a4d5a7554e0067677823f7265cb3ae22aed8a238560b5133b58cda252dad/PyYAML-6.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: PyYAML-6.0.tar.gz
+    sha256: 18imkjacvpxfgg1lbpraqywx3j7hr5dv99d242byqvrh2jf53yv8
+    url: https://files.pythonhosted.org/packages/36/2b/61d51a2c4f25ef062ae3f74576b01638bebad5e045f747ff12643df63844/PyYAML-6.0.tar.gz
   - name: requests-2.28.1-py3-none-any.whl
     sha256: 0jakwryf077k46wbs525hrkxlyg4prpq6hdc199ganrnl6hs5vwg
     url: https://files.pythonhosted.org/packages/ca/91/6d9b8ccacd0412c08820f72cebaa4f0c0441b5cda699c90f618b6f8a1b42/requests-2.28.1-py3-none-any.whl
