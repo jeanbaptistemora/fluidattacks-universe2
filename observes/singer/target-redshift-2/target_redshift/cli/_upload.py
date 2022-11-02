@@ -168,7 +168,7 @@ def destroy_and_upload(
     truncate: bool,
     records_per_query: int,
     threads: int,
-    state: Optional[str],
+    s3_state: Optional[str],
 ) -> NoReturn:
     target = SchemaId(schema_name)
     options = SingerHandlerOptions(
@@ -177,7 +177,7 @@ def destroy_and_upload(
         threads,
     )
     _state = (
-        Maybe.from_optional(state)
+        Maybe.from_optional(s3_state)
         .map(S3FileObjURI.from_raw)
         .map(lambda r: r.unwrap())
     )
