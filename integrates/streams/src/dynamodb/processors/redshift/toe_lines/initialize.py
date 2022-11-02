@@ -7,17 +7,18 @@ from ..operations import (
     initialize_schema,
     SCHEMA_NAME,
 )
-import logging
+from psycopg2 import (
+    sql,
+)
 
-LOGGER = logging.getLogger(__name__)
-METADATA_TABLE: str = f"{SCHEMA_NAME}.toe_lines_metadata"
+METADATA_TABLE: str = "toe_lines_metadata"
 
 
 def _initialize_metadata_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 attacked_at TIMESTAMPTZ,
                 attacked_by VARCHAR,
@@ -41,7 +42,10 @@ def _initialize_metadata_table() -> None:
                     id
                 )
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
