@@ -39,12 +39,12 @@ class VulnerabilityState(NamedTuple):
     modified_by: str
     modified_date: str
     source: Source
+    specific: str
     status: VulnerabilityStateStatus
+    where: str
     commit: Optional[str] = None
     justification: Optional[StateRemovalJustification] = None
     tool: Optional[VulnerabilityTool] = None
-    specific: Optional[str] = None
-    where: Optional[str] = None
 
 
 class VulnerabilityTreatment(NamedTuple):

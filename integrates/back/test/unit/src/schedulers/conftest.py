@@ -455,10 +455,12 @@ data: Dict[str, List[Any]] = dict(
             modified_date="2019-09-13T13:17:41+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
+            specific="333",
             tool=dict(
                 name="tool-2",
                 impact="INDIRECT",
             ),
+            where="192.168.100.101",
         ),
         dict(
             pk="VULN#0a848781-b6a4-422e-95fa-692151e6a98z",
@@ -467,10 +469,12 @@ data: Dict[str, List[Any]] = dict(
             modified_date="2020-01-03T17:46:10+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
+            specific="12",
             tool=dict(
                 name="tool-2",
                 impact="INDIRECT",
             ),
+            where="test/data/lib_path/f060/csharp.cs",
         ),
         dict(
             pk="VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6",
@@ -479,10 +483,12 @@ data: Dict[str, List[Any]] = dict(
             modified_date="2019-04-08T00:45:15+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
+            specific="8888",
             tool=dict(
                 name="tool-1",
                 impact="INDIRECT",
             ),
+            where="192.168.1.19",
         ),
         dict(
             treatment=dict(
@@ -517,11 +523,13 @@ data: Dict[str, List[Any]] = dict(
                 modified_by="unittest@fluidattacks.com",
                 source="ASM",
                 modified_date="2019-09-13T13:17:41+00:00",
+                specific="333",
+                status="OPEN",
                 tool=dict(
                     name="tool-2",
                     impact="INDIRECT",
                 ),
-                status="OPEN",
+                where="192.168.100.101",
             ),
             sk_2="VULN#15375781-31f2-4953-ac77-f31134225747",
             verification=dict(
@@ -562,11 +570,13 @@ data: Dict[str, List[Any]] = dict(
                 modified_by="unittest@fluidattacks.com",
                 source="ASM",
                 modified_date="2020-01-03T17:46:10+00:00",
+                specific="12",
+                status="OPEN",
                 tool=dict(
                     name="tool-2",
                     impact="INDIRECT",
                 ),
-                status="OPEN",
+                where="test/data/lib_path/f060/csharp.cs",
             ),
             sk_2="VULN#0a848781-b6a4-422e-95fa-692151e6a98z",
         ),
@@ -604,11 +614,13 @@ data: Dict[str, List[Any]] = dict(
                 modified_by="unittest@fluidattacks.com",
                 source="ASM",
                 modified_date="2019-04-08T00:45:15+00:00",
+                specific="8888",
+                status="OPEN",
                 tool=dict(
                     name="tool-1",
                     impact="INDIRECT",
                 ),
-                status="OPEN",
+                where="192.168.1.19",
             ),
             sk_2="VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6",
         ),

@@ -107,14 +107,6 @@ def filter_zero_risk(
 
 
 def format_vulnerability(item: Item) -> Vulnerability:
-    # prepare migration to fill the attributes in the state
-    where = item["state"].get("where", item["where"])
-    item["state"]["where"] = where
-    specific = item["state"].get("specific", item["specific"])
-    item["state"]["specific"] = specific
-    commit = item["state"].get("commit", item.get("commit", None))
-    item["state"]["commit"] = commit
-
     state = format_state(item["state"])
     treatment = (
         format_treatment(item["treatment"]) if "treatment" in item else None
@@ -181,17 +173,17 @@ def format_vulnerability_edge(
 def format_state(item: Item) -> VulnerabilityState:
     tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
+        commit=item.get("commit"),
         justification=StateRemovalJustification[item["justification"]]
         if item.get("justification", None)
         else None,
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
-        commit=item.get("commit"),
         source=Source[item["source"]],
+        specific=item["specific"],
         status=VulnerabilityStateStatus[item["status"]],
         tool=tool,
-        where=item.get("where"),
-        specific=item.get("specific"),
+        where=item["where"],
     )
 
 
