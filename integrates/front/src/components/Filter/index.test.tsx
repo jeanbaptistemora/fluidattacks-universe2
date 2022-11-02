@@ -618,4 +618,25 @@ describe("Filters", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(7);
     });
   });
+
+  it("should filter custom", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    function customFilterFn(data: IRandomData): boolean {
+      return data.color === "brown";
+    }
+
+    const filters: IFilter<IRandomData>[] = [
+      { id: "name", key: customFilterFn },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(6);
+    });
+  });
 });
