@@ -561,6 +561,13 @@ describe("Table", (): void => {
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(8);
     });
+
+    await userEvent.click(screen.getByRole("button", { name: "1" }));
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(11);
+    });
+
+    expect(screen.queryByText("Daria Hays")).toBeInTheDocument();
   });
 
   it("should hide columns", async (): Promise<void> => {

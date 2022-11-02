@@ -9,7 +9,6 @@ import type {
   Column,
   ColumnDef,
   ColumnFiltersState,
-  PaginationState,
   Row,
   RowData,
   SortingState,
@@ -50,8 +49,6 @@ interface ITableProps<TData extends RowData> {
   onNextPage?: () => Promise<void>;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
   onSearch?: (search: string) => void;
-  paginationSetter?: Dispatch<SetStateAction<PaginationState>>;
-  paginationState?: PaginationState;
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
   rowSelectionState?: TData[];
   selectionMode?: "checkbox" | "radio";

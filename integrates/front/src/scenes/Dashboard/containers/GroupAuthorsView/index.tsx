@@ -11,7 +11,6 @@ import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
   ColumnFiltersState,
-  PaginationState,
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -183,13 +182,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     useStoredState<VisibilityState>("tblAuthorsList-visibilityState", {
       invitation: hasInvitationPermissions,
     });
-  const [pagination, setpagination] = useStoredState<PaginationState>(
-    "tblAuthorsList-pagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
-  );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblAuthorsList-sortingState",
     []
@@ -395,8 +387,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         enableColumnFilters={true}
         exportCsv={true}
         id={"tblAuthorsList"}
-        paginationSetter={setpagination}
-        paginationState={pagination}
         sortingSetter={setSorting}
         sortingState={sorting}
       />
