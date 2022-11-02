@@ -48,13 +48,8 @@ from unidiff import (
     PatchedFile,
     PatchSet,
 )
-from urllib3.exceptions import (
-    LocationParseError,
-)
-from urllib3.util.url import (
-    parse_url,
-)
 from urllib.parse import (
+    quote,
     quote_plus,
     urlparse,
 )
@@ -161,12 +156,9 @@ async def ssh_ls_remote(
     credential_key: str,
     branch: str = "HEAD",
 ) -> Optional[str]:
-    try:
-        parsed_url = urlparse(repo_url)
-    except LocationParseError:
-        return None
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
+        parsed_url = urlparse(repo_url)
         raw_root_url = repo_url.replace(f"{parsed_url.scheme}://", "")
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -226,11 +218,19 @@ def _format_https_url(
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
-    parsed_url = parse_url(repo_url)
+
+    parsed_url = urlparse(repo_url)
+    parsed_url = parsed_url._replace(path=quote(parsed_url.path))
+    host = parsed_url.netloc
+    if "@" in host:
+        host = host.split("@")[-1]
+
     if token is not None:
-        url = str(parsed_url._replace(auth=token))
+        url = (parsed_url._replace(netloc=f"{token}@{host}")).geturl()
     elif user is not None and password is not None:
-        url = str(parsed_url._replace(auth=f"{user}:{password}"))
+        url = (
+            parsed_url._replace(netloc=f"{user}:{password}@{host}")
+        ).geturl()
     else:
         raise InvalidParameter()
 
