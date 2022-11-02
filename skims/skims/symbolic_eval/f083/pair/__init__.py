@@ -5,8 +5,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f083.pair.javascript import (
-    js_xml_parser,
+from symbolic_eval.f083.pair.common import (
+    generic_xml_parser,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,8 +18,8 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_XML_PARSER: js_xml_parser,
-    MethodsEnum.TS_XML_PARSER: js_xml_parser,
+    MethodsEnum.JS_XML_PARSER: generic_xml_parser,
+    MethodsEnum.TS_XML_PARSER: generic_xml_parser,
 }
 
 

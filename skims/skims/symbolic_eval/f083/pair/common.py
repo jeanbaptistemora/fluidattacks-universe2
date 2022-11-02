@@ -8,7 +8,7 @@ from symbolic_eval.types import (
 )
 
 
-def js_xml_parser(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def generic_xml_parser(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
     n_attr = args.graph.nodes[args.n_id]
     if (
