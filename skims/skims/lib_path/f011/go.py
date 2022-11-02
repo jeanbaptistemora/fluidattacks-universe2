@@ -14,12 +14,22 @@ from model.core_model import (
 import re
 from typing import (
     Iterator,
+    Match,
     Pattern,
 )
 
 GO_MOD_DEP: Pattern[str] = re.compile(
-    r"\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
+    r"^\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
+GO_REQ_MOD_DEP: Pattern[str] = re.compile(
+    r"require\s(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
+)
+
+
+def get_dep_info(matched: Match[str], line_number: int) -> DependencyType:
+    product = matched.group("product")
+    version = matched.group("version")
+    return format_pkg_dep(product, version, line_number, line_number)
 
 
 # pylint: disable=unused-argument
@@ -27,12 +37,12 @@ GO_MOD_DEP: Pattern[str] = re.compile(
 def go_mod(content: str, path: str) -> Iterator[DependencyType]:
     required: bool = False
     for line_number, line in enumerate(content.splitlines(), 1):
-        if not required:
+        if matched := re.search(GO_REQ_MOD_DEP, line):
+            yield get_dep_info(matched, line_number)
+        elif not required:
             if line.startswith("require"):
                 required = True
         elif matched := re.search(GO_MOD_DEP, line):
-            product = matched.group("product")
-            version = matched.group("version")
-            yield format_pkg_dep(product, version, line_number, line_number)
+            yield get_dep_info(matched, line_number)
         else:
             required = False

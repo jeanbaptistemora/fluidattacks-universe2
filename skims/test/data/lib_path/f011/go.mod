@@ -86,3 +86,6 @@ require (
 	modernc.org/memory v1.4.0 // indirect
 	modernc.org/sqlite v1.19.2 // indirect
 )
+
+require golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
+require golang.org/x/term v0.1.0
