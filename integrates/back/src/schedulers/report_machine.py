@@ -718,6 +718,9 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
             },
             raise_validation=False,
         )
+
+        loaders.finding.clear(finding.id)
+        loaders.finding_vulnerabilities.clear(finding.id)
         return result
     return None
 
@@ -763,6 +766,7 @@ async def upload_evidences(
                 description=evidence_description,
             )
 
+    loaders.finding.clear(finding.id)
     return success
 
 
@@ -936,6 +940,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
     )
 
+    should_update_evidence: bool = False
     if persisted_vulns := await persist_vulnerabilities(
         loaders,
         group_name,
@@ -953,14 +958,8 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         },
         organization,
     ):
+        should_update_evidence = True
         await reattack_future
-        await upload_evidences(loaders, finding, sarif_vulns)
-
-        # Clear cache to take into account recent vulnerabilities
-        # and evidence updates
-        loaders.finding.clear(finding.id)
-        loaders.finding_vulnerabilities.clear(finding.id)
-
         # Update all finding indicators with latest information
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
@@ -969,6 +968,11 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         )
     else:
         reattack_future.close()
+
+    if should_update_evidence or (
+        finding.evidences.evidence5 is None and len(sarif_vulns) > 0
+    ):
+        await upload_evidences(loaders, finding, sarif_vulns)
 
     if await _is_machine_finding(loaders, finding.id) and (
         len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0
