@@ -27,6 +27,8 @@ from syntax_graph.syntax_readers.javascript import (
     if_statement as javascript_if_statement,
     import_node as javascript_import,
     import_statement as javascript_import_statement,
+    jsx_attribute as javascript_jsx_attribute,
+    jsx_element as javascript_jsx_element,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
@@ -90,6 +92,21 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "await_expression",
         },
         syntax_reader=javascript_await_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "jsx_element",
+            "jsx_fragment",
+            "jsx_self_closing_element",
+            "jsx_opening_element",
+        },
+        syntax_reader=javascript_jsx_element.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "jsx_attribute",
+        },
+        syntax_reader=javascript_jsx_attribute.reader,
     ),
     Dispatcher(
         applicable_types={

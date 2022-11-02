@@ -308,3 +308,17 @@ export default function functionName() { /* … */ }
 
 // Aggregating modules
 export { import1 as name1, import2 as name2, /* …, */ nameN } from "module-name";
+
+//JSX element
+const App = () => {
+    const createMarkup = () => {
+      return {
+        __html: "<img onerror='alert();' src='invalid-image' />",
+      };
+    };
+    return (
+      <div>
+        <div data={createMarkup()}/>
+      </div>
+    );
+  };
