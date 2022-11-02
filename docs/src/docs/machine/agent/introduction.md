@@ -48,7 +48,7 @@ among others.
 ![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1667397781/docs/machine/agent/agent_section.png)
 
 In total,
-we have thirteen columns which
+we have seven columns which
 are described below:
 
 - **Date:**
@@ -97,7 +97,10 @@ are described below:
 - **Identifier:**
   Is the Agent's
   run identifier number.
-## Filters
+
+## Functionalities
+
+### Filters
 
 In the
 **DevSecOps** section,
@@ -109,7 +112,7 @@ the search bar.
 
 ![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
 
-## Export button
+### Export button
 
 In the DevSecOps section,
 there is the Export button
@@ -121,6 +124,12 @@ file containing all the
 information in the table
 of this section.
 
+### Search bar
+
+The search bar filters the
+information contained in the
+columns of the table.
+
 ## Execution details
 
 Clicking on any of our
@@ -129,7 +138,7 @@ you will see a pop-up window
 that provides more detailed
 information about that execution.
 
-![Agent Executions](https://res.cloudinary.com/fluid-attacks/image/upload/v1663673720/docs/machine/agent/exec_details.png)
+![Agent Executions](https://res.cloudinary.com/fluid-attacks/image/upload/v1667401361/docs/machine/agent/details.png)
 
 This pop-up window has
 two tabs: **Summary**
