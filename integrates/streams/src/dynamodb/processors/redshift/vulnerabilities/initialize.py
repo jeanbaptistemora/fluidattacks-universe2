@@ -7,21 +7,22 @@ from ..operations import (
     initialize_schema,
     SCHEMA_NAME,
 )
-import logging
+from psycopg2 import (
+    sql,
+)
 
-LOGGER = logging.getLogger(__name__)
-METADATA_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_metadata"
-STATE_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_state"
-TREATMENT_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_treatment"
-VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_verification"
-ZERO_RISK_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_zero_risk"
+METADATA_TABLE: str = "vulnerabilities_metadata"
+STATE_TABLE: str = "vulnerabilities_state"
+TREATMENT_TABLE: str = "vulnerabilities_treatment"
+VERIFICATION_TABLE: str = "vulnerabilities_verification"
+ZERO_RISK_TABLE: str = "vulnerabilities_zero_risk"
 
 
 def _initialize_metadata_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 custom_severity INTEGER,
                 finding_id VARCHAR NOT NULL,
@@ -35,15 +36,18 @@ def _initialize_metadata_table() -> None:
                     id
                 )
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_state_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", STATE_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 modified_by VARCHAR NOT NULL,
@@ -55,17 +59,21 @@ def _initialize_state_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, STATE_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_treatment_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", TREATMENT_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {TREATMENT_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 accepted_until TIMESTAMPTZ,
@@ -77,17 +85,21 @@ def _initialize_treatment_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, TREATMENT_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_verification_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", VERIFICATION_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {VERIFICATION_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 status VARCHAR NOT NULL,
@@ -97,17 +109,21 @@ def _initialize_verification_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, VERIFICATION_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 
 def _initialize_zero_risk_table() -> None:
-    LOGGER.info("Ensuring %s table exists...", ZERO_RISK_TABLE)
     execute(
-        f"""
-            CREATE TABLE IF NOT EXISTS {ZERO_RISK_TABLE} (
+        sql.SQL(
+            """
+            CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
                 modified_date TIMESTAMPTZ NOT NULL,
                 status VARCHAR NOT NULL,
@@ -117,9 +133,13 @@ def _initialize_zero_risk_table() -> None:
                     modified_date
                 ),
                 FOREIGN KEY (id)
-                    REFERENCES {METADATA_TABLE}(id)
+                    REFERENCES {reference_table}(id)
             )
-        """,
+        """
+        ).format(
+            table=sql.Identifier(SCHEMA_NAME, ZERO_RISK_TABLE),
+            reference_table=sql.Identifier(SCHEMA_NAME, METADATA_TABLE),
+        ),
     )
 
 

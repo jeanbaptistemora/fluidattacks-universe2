@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ..operations import (
+    SCHEMA_NAME,
+)
 from ..queries import (
     SQL_INSERT_HISTORIC,
     SQL_INSERT_METADATA,
@@ -47,7 +50,7 @@ def insert_metadata(
     sql_values = format_row_metadata(item)
     cursor.execute(  # nosec
         SQL_INSERT_METADATA.substitute(
-            table=METADATA_TABLE,
+            table=f"{SCHEMA_NAME}.{METADATA_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -67,8 +70,8 @@ def insert_historic_state(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=STATE_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{STATE_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -89,8 +92,8 @@ def insert_historic_treatment(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=TREATMENT_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{TREATMENT_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -111,8 +114,8 @@ def insert_historic_verification(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=VERIFICATION_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_TABLE}",
             fields=_fields,
             values=values,
         ),
@@ -133,8 +136,8 @@ def insert_historic_zero_risk(
     ]
     cursor.executemany(  # nosec
         SQL_INSERT_HISTORIC.substitute(
-            table_metadata=METADATA_TABLE,
-            table_historic=ZERO_RISK_TABLE,
+            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
+            table_historic=f"{SCHEMA_NAME}.{ZERO_RISK_TABLE}",
             fields=_fields,
             values=values,
         ),
