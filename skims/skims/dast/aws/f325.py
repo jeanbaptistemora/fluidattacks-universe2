@@ -6,6 +6,9 @@ import ast
 from contextlib import (
     suppress,
 )
+from dast.aws import (
+    services,
+)
 from dast.aws.types import (
     Location,
 )
@@ -193,10 +196,146 @@ async def kms_has_master_keys_exposed_to_everyone(
     return vulns
 
 
+def resource_all(resource: Any) -> bool:
+    """Check if an action is permitted for any resource."""
+    if isinstance(resource, List):
+        aux = []
+        for i in resource:
+            aux.append(resource_all(i))
+        success = any(aux)
+    elif isinstance(resource, str):
+        success = resource == "*"
+    else:
+        success = any(resource_all(i) for i in dict(resource).values())
+
+    return success
+
+
+def force_list(obj: Any) -> List[Any]:
+    """Wrap the element in a list, or if list, leave it intact."""
+    if not obj:
+        ret = []
+    elif isinstance(obj, List):
+        ret = obj
+    else:
+        ret = [obj]
+    return ret
+
+
+def policy_actions_has_privilege(action: List, privilege: str) -> bool:
+    """Check if an action have a privilege."""
+    write_actions: dict = services.ACTIONS
+    success = False
+    with suppress(KeyError):
+        if action == ["*"]:
+            success = True
+        else:
+            actions = []
+            for act in action:
+                serv, act = act.split(":")
+                if act.startswith("*"):
+                    actions.append(True)
+                else:
+                    act = act[: act.index("*")] if act.endswith("*") else act
+                    actions.append(
+                        act in write_actions.get(serv, {})[privilege]
+                    )
+            success = any(actions)
+    return success
+
+
+def get_locations(
+    policy_statements: List, policy: Dict[str, Any]
+) -> List[Location]:
+    locations: List[Location] = []
+    for index, item in enumerate(policy_statements):
+        item = ast.literal_eval(str(item))
+        if (
+            item["Effect"] == "Allow"
+            and "Resource" in item
+            and resource_all(item["Resource"])
+        ):
+            actions = force_list(item["Action"])
+            if policy_actions_has_privilege(actions, "write"):
+                locations = [
+                    *locations,
+                    Location(
+                        access_patterns=(
+                            f"/{index}/Effect",
+                            f"/{index}/Resource",
+                            f"/{index}/Action",
+                        ),
+                        arn=(f"{policy['Arn']}"),
+                        values=(
+                            item["Effect"],
+                            item["Resource"],
+                            item["Action"],
+                        ),
+                        description=t(
+                            "src.lib_path.f325."
+                            "iam_has_wildcard_resource_on_write_action"
+                        ),
+                    ),
+                ]
+
+    return locations
+
+
+async def iam_has_wildcard_resource_on_write_action(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    method = (
+        core_model.MethodsEnum.AWS_IAM_HAS_WILDCARD_RESOURCE_IN_WRITE_ACTION
+    )
+
+    policies = response.get("Policies", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
+            )
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
+            )
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
+
+            locations = get_locations(policy_statements, policy)
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=policy_statements,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     kms_has_master_keys_exposed_to_everyone,
     iam_has_privileges_over_iam,
+    iam_has_wildcard_resource_on_write_action,
 )
