@@ -4429,6 +4429,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4452,6 +4459,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4475,6 +4489,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4498,6 +4519,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4521,6 +4549,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4544,6 +4579,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4567,6 +4609,13 @@
               },
               "email": {
                 "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4590,6 +4639,13 @@
               },
               "email": {
                 "S": "forces.unittesting@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4613,6 +4669,13 @@
               },
               "email": {
                 "S": "integratesuser2@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4652,6 +4715,13 @@
               },
               "email": {
                 "S": "deleteimamura@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4675,6 +4745,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4698,6 +4775,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4721,6 +4805,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4744,6 +4835,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4767,6 +4865,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4787,6 +4892,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4807,6 +4919,13 @@
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4830,6 +4949,13 @@
               },
               "email": {
                 "S": "integratesreattacker@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4869,6 +4995,13 @@
               },
               "email": {
                 "S": "vulnmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4892,6 +5025,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4915,6 +5055,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4938,6 +5085,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4961,6 +5115,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -4984,6 +5145,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5004,6 +5172,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5024,6 +5199,13 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5047,6 +5229,13 @@
               },
               "email": {
                 "S": "integratesreviewer@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5070,6 +5259,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5093,6 +5289,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5116,6 +5319,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5139,6 +5349,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5162,6 +5379,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5185,6 +5409,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5208,6 +5439,13 @@
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5231,6 +5469,13 @@
               },
               "email": {
                 "S": "customer_manager@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5254,6 +5499,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5277,6 +5529,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5300,6 +5559,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5323,6 +5589,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5346,6 +5619,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5369,6 +5649,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5392,6 +5679,13 @@
               },
               "email": {
                 "S": "__adminEmail__"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5415,6 +5709,13 @@
               },
               "email": {
                 "S": "integratesserviceforces@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5438,6 +5739,13 @@
               },
               "email": {
                 "S": "integratesresourcer@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5461,6 +5769,13 @@
               },
               "email": {
                 "S": "unittest2@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5484,6 +5799,13 @@
               },
               "email": {
                 "S": "integratesuser2@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5504,6 +5826,13 @@
               },
               "email": {
                 "S": "integrateshacker@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5527,6 +5856,13 @@
               },
               "email": {
                 "S": "integrateshacker@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5550,6 +5886,13 @@
               },
               "email": {
                 "S": "integrateshacker@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5573,6 +5916,13 @@
               },
               "email": {
                 "S": "continuoushack2@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5612,6 +5962,13 @@
               },
               "email": {
                 "S": "nodeleteimamura@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5635,6 +5992,13 @@
               },
               "email": {
                 "S": "org_testuser3@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
@@ -5655,6 +6019,13 @@
               },
               "email": {
                 "S": "unittest@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
               }
             }
           ],
@@ -5666,7 +6037,8 @@
             "has_access",
             "invitation",
             "expiration_time",
-            "confirm_deletion"
+            "confirm_deletion",
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
