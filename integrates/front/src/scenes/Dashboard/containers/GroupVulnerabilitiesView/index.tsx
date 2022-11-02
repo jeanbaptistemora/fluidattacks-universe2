@@ -136,19 +136,19 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   }
 
   // GraphQL operations
-  const { data, fetchMore, refetch } = useQuery<IGroupVulnerabilities>(
-    GET_GROUP_VULNERABILITIES,
-    {
-      fetchPolicy: "cache-first",
-      variables: { first: 100, groupName, search: "" },
-    }
-  );
-
   const { data: vulnsZeroRisk } = useQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
       fetchPolicy: "no-cache",
       variables: { first: 100, groupName, zeroRisk: "REQUESTED" },
+    }
+  );
+
+  const { data, fetchMore, refetch } = useQuery<IGroupVulnerabilities>(
+    GET_GROUP_VULNERABILITIES,
+    {
+      fetchPolicy: "cache-first",
+      variables: { first: 100, groupName, search: "" },
     }
   );
 
