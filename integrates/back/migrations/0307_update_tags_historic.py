@@ -11,6 +11,8 @@ First Execution Time:     2022-10-27 at 04:53:24 UTC
 First Finalization Time:  2022-10-27 at 04:57:50 UTC
 Second Execution Time:    2022-10-27 at 05:00:12 UTC
 Second Finalization Time: 2022-10-27 at 05:05:46 UTC
+Remove Tags Execution Time:    2022-11-02 at 04:05:29 UTC
+Remove Tags Finalization Time: 2022-11-02 at 04:06:55 UTC
 """
 
 from aioextensions import (

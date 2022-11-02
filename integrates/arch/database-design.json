@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 01, 2022, 04:18 PM",
+    "DateLastModified": "Nov 02, 2022, 06:07 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -4301,11 +4301,11 @@
           "NonKeyAttributes": [
             "email",
             "role",
+            "state",
             "organization_id",
             "has_access",
             "invitation",
-            "expiration_time",
-            "state"
+            "expiration_time"
           ],
           "DataAccess": {
             "MySql": {}
@@ -14077,22 +14077,6 @@
               "language": {
                 "S": "EN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-groups"
-                  },
-                  {
-                    "S": "another-tag"
-                  },
-                  {
-                    "S": "test-updates"
-                  },
-                  {
-                    "S": "test-tag"
-                  }
-                ]
-              },
               "created_date": {
                 "S": "2019-01-20T22:00:00+00:00"
               },
@@ -14202,19 +14186,6 @@
               },
               "language": {
                 "S": "EN"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-groups"
-                  },
-                  {
-                    "S": "test-updates"
-                  },
-                  {
-                    "S": "test-tag"
-                  }
-                ]
               },
               "files": {
                 "L": [
@@ -14510,16 +14481,6 @@
               "language": {
                 "S": "EN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "another-tag"
-                  },
-                  {
-                    "S": "test-tag"
-                  }
-                ]
-              },
               "files": {
                 "L": [
                   {
@@ -14635,13 +14596,6 @@
               "language": {
                 "S": "EN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-nogroups"
-                  }
-                ]
-              },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
               },
@@ -14717,13 +14671,6 @@
               },
               "language": {
                 "S": "EN"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-newgroups"
-                  }
-                ]
               },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
@@ -14801,13 +14748,6 @@
               "language": {
                 "S": "EN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "another-tag"
-                  }
-                ]
-              },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
               },
@@ -14883,13 +14823,6 @@
               },
               "language": {
                 "S": "EN"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-newgroups"
-                  }
-                ]
               },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
@@ -15035,13 +14968,6 @@
               },
               "language": {
                 "S": "EN"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-nogroups"
-                  }
-                ]
               },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
@@ -15191,13 +15117,6 @@
               "language": {
                 "S": "EN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test-nogroups"
-                  }
-                ]
-              },
               "created_date": {
                 "S": "2020-05-20T22:00:00+00:00"
               },
@@ -15332,7 +15251,6 @@
             "name",
             "description",
             "language",
-            "tags",
             "files",
             "created_date",
             "agent_token",
