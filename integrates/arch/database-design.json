@@ -4312,6 +4312,96 @@
           }
         },
         {
+          "FacetName": "organization_historic_access",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#emailORG#id",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "role": {
+                "S": "user_manager"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.comORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "role": {
+                "S": "user_manager"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.comORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.comORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "email",
+            "role",
+            "state",
+            "organization_id",
+            "has_access",
+            "invitation",
+            "expiration_time"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
           "FacetName": "group_access",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
