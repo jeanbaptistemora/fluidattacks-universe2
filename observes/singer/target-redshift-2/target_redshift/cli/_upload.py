@@ -55,6 +55,7 @@ from target_redshift.strategy import (
     Strategies,
 )
 from typing import (
+    FrozenSet,
     NoReturn,
     Optional,
 )
@@ -73,6 +74,7 @@ class _Upload:
     target: SchemaId
     records_limit: int
     keeper: Maybe[StateKeeperS3]
+    persistent_tables: Maybe[FrozenSet[str]]
 
     @property
     def loader(self) -> SingerLoader:
@@ -82,7 +84,10 @@ class _Upload:
     def strategy(
         self,
     ) -> LoadingStrategy:
-        return Strategies(self.client).recreate_all_schema(self.target)
+        strategies = Strategies(self.client)
+        return self.persistent_tables.map(
+            lambda pt: strategies.recreate_per_stream(self.target, pt)
+        ).value_or(strategies.recreate_all_schema(self.target))
 
     def emit(self) -> Cmd[None]:
         return Emitter(self.loader, self.strategy, self.records_limit).main()
@@ -99,6 +104,7 @@ class _Upload:
         options: SingerHandlerOptions,
         records_limit: int,
         state: Maybe[S3FileObjURI],
+        persistent_tables: Maybe[FrozenSet[str]],
     ) -> Cmd[_Upload]:
         client = new_client(conn, LOG)
         table_client = client.map(TableClient)
@@ -111,7 +117,13 @@ class _Upload:
             lambda sql: table_client.bind(
                 lambda table: keeper.map(
                     lambda k: _Upload(
-                        sql, table, options, target, records_limit, k
+                        sql,
+                        table,
+                        options,
+                        target,
+                        records_limit,
+                        k,
+                        persistent_tables,
                     )
                 )
             )
@@ -160,6 +172,13 @@ class _Upload:
     default=None,
     help="S3 file obj URI to upload the state; e.g. s3://mybucket/folder/state.json",
 )
+@click.option(
+    "--persistent-tables",
+    type=str,
+    required=False,
+    default=None,
+    help="set of table names (separated by comma) that would not be recreated but will also receive new data",
+)
 @pass_ctx
 def destroy_and_upload(
     ctx: CmdContext,
@@ -169,6 +188,7 @@ def destroy_and_upload(
     records_per_query: int,
     threads: int,
     s3_state: Optional[str],
+    persistent_tables: Optional[str],
 ) -> NoReturn:
     target = SchemaId(schema_name)
     options = SingerHandlerOptions(
@@ -181,10 +201,15 @@ def destroy_and_upload(
         .map(S3FileObjURI.from_raw)
         .map(lambda r: r.unwrap())
     )
+    _persistent = (
+        Maybe.from_optional(persistent_tables)
+        .map(lambda raw: frozenset(raw.split(",")))
+        .bind_optional(lambda f: f if f else None)
+    )
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
     cmd: Cmd[None] = start_session() + connection.bind(
         lambda conn: _Upload.from_connection(
-            conn, target, options, records_limit, _state
+            conn, target, options, records_limit, _state, _persistent
         )
     ).bind(lambda u: u.emit())
     cmd.compute()
