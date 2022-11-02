@@ -19,6 +19,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_XML_PARSER: js_xml_parser,
+    MethodsEnum.TS_XML_PARSER: js_xml_parser,
 }
 
 

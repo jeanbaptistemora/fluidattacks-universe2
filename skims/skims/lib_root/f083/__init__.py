@@ -5,10 +5,16 @@
 from lib_root.f083.javascript import (
     xml_parser,
 )
+from lib_root.f083.typescript import (
+    ts_xml_parser,
+)
 from model import (
     core_model,
     graph_model,
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F083
-QUERIES: graph_model.Queries = ((FINDING, xml_parser),)
+QUERIES: graph_model.Queries = (
+    (FINDING, xml_parser),
+    (FINDING, ts_xml_parser),
+)
