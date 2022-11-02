@@ -66,6 +66,7 @@ const Table = <TData extends RowData>({
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
+  size = undefined,
   sortingSetter = undefined,
   sortingState = undefined,
 }: Readonly<ITableProps<TData>>): JSX.Element => {
@@ -252,7 +253,7 @@ const Table = <TData extends RowData>({
       {table.getFilteredRowModel().rows.length > 10 ? (
         <Pagination
           onNextPage={onNextPage}
-          size={table.getFilteredRowModel().rows.length}
+          size={size ?? table.getFilteredRowModel().rows.length}
           table={table}
         />
       ) : undefined}

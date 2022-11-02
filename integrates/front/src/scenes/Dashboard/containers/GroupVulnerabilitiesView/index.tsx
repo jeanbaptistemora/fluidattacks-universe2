@@ -153,6 +153,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   );
 
   const vulnerabilities = data === undefined ? [] : formatVulnerability(data);
+  const size = data?.group.vulnerabilities.total;
 
   const vulnerabilitiesZeroRisk =
     vulnsZeroRisk === undefined ? [] : formatVulnerability(vulnsZeroRisk);
@@ -272,7 +273,8 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             onSearch={handleSearch}
             onVulnSelect={openRemediationModal}
             refetchData={refetch}
-            vulnerabilities={filterZeroRisk(vulnerabilities)}
+            size={size}
+            vulnerabilities={vulnerabilities}
           />
         </div>
         {isOpen && (

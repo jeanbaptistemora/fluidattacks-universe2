@@ -41,6 +41,7 @@ const Pagination = <TData extends RowData>({
   const pageCount = table.getPageCount();
   const { pageIndex, pageSize } = table.getState().pagination;
   const isInLast = pageIndex === pageCount - 2;
+  const lastPage = Math.min(100, size);
 
   const goToNext = useCallback((): void => {
     if (isInLast && onNextPage) {
@@ -59,14 +60,14 @@ const Pagination = <TData extends RowData>({
 
   return (
     <PaginationBox>
-      {[10, 20, 50, Math.min(100, size)]
+      {[10, 20, 50, lastPage]
         .filter((el): boolean => el <= size)
         .map(
           (el: number): JSX.Element => (
             <Button
               key={el}
               onClick={function fn(): void {
-                if (el === size && onNextPage) {
+                if (el === lastPage && onNextPage) {
                   void onNextPage().finally((): void => {
                     table.setPageSize(el);
                   });

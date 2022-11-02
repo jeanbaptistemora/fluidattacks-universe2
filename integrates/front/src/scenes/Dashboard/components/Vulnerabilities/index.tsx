@@ -74,6 +74,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   isRequestingReattack,
   isVerifyingRequest,
   refetchData,
+  size = undefined,
   nonValidOnReattackVulnerabilities,
   vulnerabilities,
   onNextPage = undefined,
@@ -289,6 +290,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             : undefined
         }
         rowSelectionState={selectedVulnerabilities}
+        size={size}
         sortingSetter={setSorting}
         sortingState={sorting}
       />

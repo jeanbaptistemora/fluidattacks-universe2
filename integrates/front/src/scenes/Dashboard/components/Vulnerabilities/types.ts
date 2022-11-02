@@ -85,6 +85,7 @@ interface IVulnComponentProps {
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;
   refetchData: () => void;
+  size?: number;
   nonValidOnReattackVulnerabilities?: IVulnRowAttr[];
   vulnerabilities: IVulnRowAttr[];
   onNextPage?: () => Promise<void>;

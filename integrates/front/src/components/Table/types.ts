@@ -55,6 +55,7 @@ interface ITableProps<TData extends RowData> {
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
   rowSelectionState?: TData[];
   selectionMode?: "checkbox" | "radio";
+  size?: number;
   sortingSetter?: Dispatch<SetStateAction<SortingState>>;
   sortingState?: SortingState;
 }
