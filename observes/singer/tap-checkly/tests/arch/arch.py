@@ -23,7 +23,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "streams",
         "state",
         ("singer", "api"),
-        "objs",
+        ("objs", "_utils"),
     ),
     "tap_checkly.api": (
         ("alert_channels", "checks", "groups", "report"),
