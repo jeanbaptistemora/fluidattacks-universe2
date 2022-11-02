@@ -21,6 +21,7 @@ import { Table } from "components/Table";
 
 interface IRandomData {
   color: string;
+  colors: string[];
   date: string;
   name: string;
   numberrange: number;
@@ -53,6 +54,7 @@ const columns: ColumnDef<IRandomData>[] = [
 const dataset: IRandomData[] = [
   {
     color: "blue",
+    colors: ["orange", "indigo", "blue", "violet"],
     date: "2022-01-20",
     name: "Daria Hays",
     numberrange: 12,
@@ -60,6 +62,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "blue",
+    colors: ["yellow", "green", "blue", "red"],
     date: "2022-06-18",
     name: "Palmer Wilcox",
     numberrange: 12,
@@ -67,6 +70,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["green", "orange", "blue"],
     date: "2023-01-22",
     name: "Merritt Sherman",
     numberrange: 13,
@@ -74,6 +78,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["indigo", "green"],
     date: "2022-08-28",
     name: "Forrest Ortiz",
     numberrange: 7,
@@ -81,6 +86,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: ["blue"],
     date: "2023-08-19",
     name: "April Long",
     numberrange: 6,
@@ -88,6 +94,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: ["orange", "violet", "green"],
     date: "2022-06-20",
     name: "Desirae Bailey",
     numberrange: 9,
@@ -95,6 +102,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "brown",
+    colors: ["green", "yellow", "violet", "indigo", "blue"],
     date: "2023-03-31",
     name: "Kato Soto",
     numberrange: 11,
@@ -102,6 +110,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "brown",
+    colors: ["blue", "indigo", "red", "yellow"],
     date: "2023-07-08",
     name: "Emerald Brennan",
     numberrange: 11,
@@ -109,6 +118,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "black",
+    colors: ["red", "green", "yellow", "blue", "orange"],
     date: "2022-05-12",
     name: "Donovan Woods",
     numberrange: 9,
@@ -116,6 +126,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "black",
+    colors: ["violet", "indigo", "yellow", "orange", "blue"],
     date: "2022-03-07",
     name: "Brandon Hernandez",
     numberrange: 6,
@@ -123,6 +134,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "blue",
+    colors: ["violet", "orange"],
     date: "2023-08-23",
     name: "Phyllis Garrett",
     numberrange: 11,
@@ -130,6 +142,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "blue",
+    colors: ["brown", "orange", "black", "white"],
     date: "2022-06-29",
     name: "Theodore Daniels",
     numberrange: 9,
@@ -137,6 +150,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["red"],
     date: "2023-08-28",
     name: "Coby Delgado",
     numberrange: 12,
@@ -144,6 +158,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["white", "black"],
     date: "2023-06-12",
     name: "Lareina Shaffer",
     numberrange: 14,
@@ -151,6 +166,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: [],
     date: "2023-04-16",
     name: "Arthur Richardson",
     numberrange: 12,
@@ -158,6 +174,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: ["orange"],
     date: "2021-07-30",
     name: "Amber Morgan",
     numberrange: 8,
@@ -165,6 +182,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "brown",
+    colors: ["violet", "black"],
     date: "2021-01-26",
     name: "Justin Clay",
     numberrange: 10,
@@ -172,6 +190,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "brown",
+    colors: ["yellow", "red", "aquamarine"],
     date: "2023-04-01",
     name: "Timothy Powers",
     numberrange: 0,
@@ -179,6 +198,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "black",
+    colors: ["yellow", "lemon"],
     date: "2022-03-24",
     name: "Marshall Massey",
     numberrange: 7,
@@ -186,6 +206,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "black",
+    colors: ["deep blue", "blue", "violet", "aquamarine"],
     date: "2023-05-29",
     name: "Brian Reeves",
     numberrange: 1,
@@ -193,6 +214,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "blue",
+    colors: ["deep blue", "red"],
     date: "2022-10-19",
     name: "Lesley Howard",
     numberrange: 7,
@@ -200,6 +222,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "blue",
+    colors: ["yellow", "blue"],
     date: "2022-06-24",
     name: "Ivor Delgado",
     numberrange: 1,
@@ -207,6 +230,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["lemon", "orange", "white", "deep blue", "aquamarine"],
     date: "2022-08-17",
     name: "Leila William",
     numberrange: 7,
@@ -214,6 +238,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "white",
+    colors: ["transparent", "aquamarine", "chocolate", "deep blue"],
     date: "2023-05-12",
     name: "Steel Dominguez",
     numberrange: 5,
@@ -221,6 +246,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: ["indigo"],
     date: "2023-02-09",
     name: "Beau Vaughn",
     numberrange: 14,
@@ -228,6 +254,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "red",
+    colors: ["aquamarine", "yellow", "lemon", "chocolate"],
     date: "2022-08-04",
     name: "Mannix Bradley",
     numberrange: 15,
@@ -235,6 +262,7 @@ const dataset: IRandomData[] = [
   },
   {
     color: "brown",
+    colors: ["orange", "red", "yellow", "transparent"],
     date: "2023-07-15",
     name: "Dean Zimmerman",
     numberrange: 6,
@@ -616,6 +644,57 @@ describe("Filters", (): void => {
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(7);
+    });
+  });
+
+  it("should filter includes in array", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        filterFn: "includesInArray",
+        id: "colors",
+        key: "colors",
+        label: "Colors",
+        selectOptions: [
+          "red",
+          "orange",
+          "yellow",
+          "green",
+          "blue",
+          "indigo",
+          "violet",
+          "white",
+          "brown",
+          "black",
+          "aquamarine",
+          "deep blue",
+          "chocolate",
+          "transparent",
+        ],
+        type: "select",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "colors" })
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByRole("combobox", { name: "colors" }), {
+      target: { value: "transparent" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(3);
     });
   });
 
