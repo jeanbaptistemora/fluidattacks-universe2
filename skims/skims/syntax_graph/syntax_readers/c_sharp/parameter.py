@@ -11,6 +11,10 @@ from syntax_graph.syntax_nodes.parameter import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from utils.graph import (
+    match_ast,
+    match_ast_d,
+)
 from utils.graph.text_nodes import (
     node_to_str,
 )
@@ -26,4 +30,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     type_id = param_node.get("label_field_type")
     var_type = node_to_str(graph, type_id) if type_id else None
 
-    return build_parameter_node(args, var_name, var_type, None)
+    def_value = None
+    equals_clause = match_ast_d(graph, args.n_id, "equals_value_clause")
+    if equals_clause:
+        def_value = match_ast(graph, equals_clause, "=").get("__0__")
+
+    return build_parameter_node(args, var_name, var_type, def_value)

@@ -40031,7 +40031,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0)
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633],48,937,skims,011. Use of software with known vulnerabilities,Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    38 |     actionmailer (7.0.2.3)
    39 |       actionpack (= 7.0.2.3)
    40 |       actionview (= 7.0.2.3)
@@ -41079,7 +41079,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (sqlite3 v^1.4) [GHSA
   150 |   if ENV[""AR_JDBC""]
       ^ Col 0
 ",gem.gem_gemfile
-F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/package.json","
+F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-crh6-fp67-6883, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-crh6-fp67-6883', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/package.json","
    1 | {
    2 |   ""name"": ""test"",
    3 |   ""version"": ""1.0.0"",
@@ -41100,7 +41100,7 @@ F393,lines,"namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0)
   18 | }
      ^ Col 0
 ",npm.npm_pkg_json
-F393,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-h6q6-9hqw-rwfv]",482,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
+F393,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-crh6-fp67-6883, GHSA-h6q6-9hqw-rwfv]",482,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-crh6-fp67-6883', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f011/yarn.lock","
   465 |   resolved ""https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131""
   466 |   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
   467 |

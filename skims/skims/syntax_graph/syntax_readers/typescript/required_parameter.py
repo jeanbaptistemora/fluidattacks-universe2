@@ -29,4 +29,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if type_id:
         var_type = node_to_str(args.ast_graph, type_id).replace(":", "")
 
-    return build_parameter_node(args, var_name, var_type, None)
+    def_value = n_attrs.get("label_field_value")
+
+    return build_parameter_node(args, var_name, var_type, def_value)

@@ -23,4 +23,6 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = adj_ast(graph, args.n_id)
-    return build_parameter_node(args, None, None, cast(Iterator[str], c_ids))
+    return build_parameter_node(
+        args, None, None, None, cast(Iterator[str], c_ids)
+    )

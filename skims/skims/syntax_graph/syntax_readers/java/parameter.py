@@ -35,5 +35,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = match_ast_group_d(graph, args.n_id, "modifiers")
 
     return build_parameter_node(
-        args, var_name, var_type, cast(Iterator[str], c_ids)
+        args, var_name, var_type, None, cast(Iterator[str], c_ids)
     )
