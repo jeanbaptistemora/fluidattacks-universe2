@@ -273,7 +273,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         assert len(integrates_vulnerabilities) == 1
 
         where_1 = integrates_vulnerabilities[0].where
-        await process_execution("group1")
+        await process_execution("group1_4d3275db-5715-4258-a2d5-dc80c441b062")
         loaders.finding_vulnerabilities.clear(finding_011.id)
         integrates_vulnerabilities_2: Tuple[Vulnerability, ...] = tuple(
             vuln

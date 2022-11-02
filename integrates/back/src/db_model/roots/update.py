@@ -229,7 +229,7 @@ async def finish_machine_execution(
         condition_expression=Attr(key_structure.partition_key).exists(),
         item={
             "stopped_at": stopped_at,
-            "findings_executed": findings_executed,
+            "findings_executed": json.loads(json.dumps(findings_executed)),
             "status": status,
         },
         key=machine_execution_key,

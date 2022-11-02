@@ -32,6 +32,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -57,8 +60,13 @@ from db_model.findings.types import (
 from db_model.roots.enums import (
     RootStatus,
 )
+from db_model.roots.get import (
+    get_machine_executions_by_job_id,
+)
 from db_model.roots.types import (
     GitRoot,
+    MachineFindingResult,
+    RootMachineExecution,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -109,6 +117,10 @@ from organizations_finding_policies import (
 )
 import os
 import random
+from roots.domain import (
+    finish_machine_execution,
+    start_machine_execution,
+)
 from s3.resource import (
     get_s3_resource,
 )
@@ -197,6 +209,7 @@ async def get_config(
         with open(config_path, "rb") as config_file:
             return yaml.safe_load(config_file)
     s3_client = await get_s3_resource()
+    print(f"configs/{execution_id}.yaml")
     with tempfile.NamedTemporaryFile() as temp:
         await s3_client.download_fileobj(
             "skims.data",
@@ -881,7 +894,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     organization: str,
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
-) -> None:
+) -> Optional[MachineFindingResult]:
     sarif_vulns = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
@@ -897,7 +910,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         )
         loaders.group_findings.clear(group_name)
     if not finding:
-        return
+        return None
 
     existing_open_machine_vulns: Tuple[Vulnerability, ...] = tuple(
         vuln
@@ -978,6 +991,94 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0
     ):
         await release_finding(loaders, finding.id, auto_approve)
+    return MachineFindingResult(
+        open=len(new_vulns_to_add["lines"]) + len(new_vulns_to_add["inputs"]),
+        modified=len(existing_vulns_to_close["inputs"])
+        + len(existing_vulns_to_close["lines"]),
+        finding=f"F{vulnerability_id}",
+    )
+
+
+async def get_current_execution(
+    loaders: Dataloaders, execution_id: str
+) -> Optional[RootMachineExecution]:
+    batch_job_id = execution_id.split("_")[1]
+    current_root = await _get_current_root(loaders, execution_id)
+    if not current_root:
+        return None
+    result = await get_machine_executions_by_job_id(
+        job_id=batch_job_id, root_id=current_root.id
+    )
+    if not result:
+        return None
+    return result[0]
+
+
+async def _get_current_root(
+    loaders: Dataloaders, execution_id: str
+) -> Optional[GitRoot]:
+    group_name = execution_id.split("_")[0]
+    batch_job_id = execution_id.split("_")[1]
+    executions: Tuple[
+        RootMachineExecution, ...
+    ] = await get_machine_executions_by_job_id(job_id=batch_job_id)
+    roots_in_execution: Tuple[GitRoot, ...] = await loaders.root.load_many(
+        [(group_name, exc.root_id) for exc in executions]
+    )
+    current_root: Optional[GitRoot] = next(
+        (
+            root
+            for root in roots_in_execution
+            if root.state.nickname in execution_id
+        ),
+        None,
+    )
+    if not current_root:
+        return None
+    return current_root
+
+
+async def _start_machine_execution(
+    loaders: Dataloaders, execution_id: str
+) -> None:
+    batch_job_id = execution_id.split("_")[1]
+    current_root = await _get_current_root(loaders, execution_id)
+    current_execution = await get_current_execution(loaders, execution_id)
+    if not current_root or not current_execution:
+        return
+    if not current_execution.started_at:
+        await start_machine_execution(current_root.id, batch_job_id)
+
+
+async def _finish_machine_execution(
+    loaders: Dataloaders,
+    execution_id: str,
+    findings_executed: Tuple[MachineFindingResult, ...],
+) -> None:
+    batch_job_id = execution_id.split("_")[1]
+    current_root = await _get_current_root(loaders, execution_id)
+    current_execution = await get_current_execution(loaders, execution_id)
+    if not current_root or not current_execution:
+        return
+    result: list[MachineFindingResult] = []
+    for item in current_execution.findings_executed:
+        for _item in findings_executed:
+            if _item and _item.finding == item.finding:
+                new_item = item._replace(
+                    open=item.open + _item.open,
+                    modified=item.modified + _item.modified,
+                )
+                result = [*result, new_item]
+                break
+        else:
+            result = [*result, item]
+
+    await finish_machine_execution(
+        current_root.id,
+        batch_job_id,
+        stopped_at=datetime.now(),
+        findings_executed=result,
+    )
 
 
 async def process_execution(
@@ -991,6 +1092,7 @@ async def process_execution(
     criteria_vulns = criteria_vulns or await get_vulns_file()
     criteria_reqs = criteria_reqs or await get_requirements_file()
     loaders: Dataloaders = get_new_context()
+    await _start_machine_execution(loaders, execution_id)
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(execution_id, config_path)
     try:
@@ -1047,7 +1149,7 @@ async def process_execution(
             (await loaders.group.load(group_name)).organization_id
         )
     ).name
-    await collect(
+    result: Tuple[Optional[MachineFindingResult], ...] = await collect(
         [
             process_criteria_vuln(
                 loaders=loaders,
@@ -1065,6 +1167,9 @@ async def process_execution(
             )
             for vuln_id, finding in rules_finding
         ]
+    )
+    await _finish_machine_execution(
+        loaders, execution_id, tuple(item for item in result if item)
     )
     return True
 

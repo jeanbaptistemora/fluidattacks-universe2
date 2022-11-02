@@ -14,6 +14,9 @@ from boto3.dynamodb.conditions import (
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     RootNotFound,
 )
@@ -261,28 +264,35 @@ async def get_machine_executions(
         facets=(TABLE.facets["machine_git_root_execution"],),
         table=TABLE,
     )
-    return tuple(
-        RootMachineExecution(
-            job_id=item["sk"].split("#")[-1],
-            created_at=item["created_at"],
-            started_at=item.get("started_at"),
-            stopped_at=item.get("stopped_at"),
-            name=item["name"],
-            root_id=item["pk"].split("#")[-1],
-            queue=item["queue"],
-            findings_executed=[
+    result: Tuple[RootMachineExecution, ...] = tuple()
+    for item in response.items:
+        findings = []
+        with suppress(TypeError):
+            findings = [
                 MachineFindingResult(
                     finding=x["finding"],
                     open=x["open"],
                     modified=x.get("modified", 0),
                 )
                 for x in item["findings_executed"]
-            ],
-            commit=item.get("commit"),
-            status=item.get("status"),
-        )
-        for item in response.items
-    )
+            ]
+            result = (
+                *result,
+                RootMachineExecution(
+                    job_id=item["sk"].split("#")[-1],
+                    created_at=item["created_at"],
+                    started_at=item.get("started_at"),
+                    stopped_at=item.get("stopped_at"),
+                    name=item["name"],
+                    root_id=item["pk"].split("#")[-1],
+                    queue=item["queue"],
+                    findings_executed=findings,
+                    commit=item.get("commit"),
+                    status=item.get("status"),
+                ),
+            )
+
+    return result
 
 
 async def get_machine_executions_by_job_id(
@@ -311,7 +321,7 @@ async def get_machine_executions_by_job_id(
         RootMachineExecution(
             job_id=item["sk"].split("#")[-1],
             created_at=item["created_at"],
-            started_at=item["started_at"],
+            started_at=item.get("started_at"),
             stopped_at=item.get("stopped_at"),
             name=item["name"],
             queue=item["queue"],
