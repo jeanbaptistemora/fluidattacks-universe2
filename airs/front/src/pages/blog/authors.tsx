@@ -30,7 +30,7 @@ const AuthorsIndex: React.FC<IQueryData> = ({
       <Seo
         description={t("blog.listDescriptions.authors.description")}
         keywords={t("blog.keywords")}
-        title={`Authors | Fluid Attacks`}
+        title={`Authors | Blog | Fluid Attacks`}
         url={"https://fluidattacks.com/blog/authors/"}
       />
 

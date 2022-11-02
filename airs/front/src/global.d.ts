@@ -34,6 +34,7 @@ interface IQueryData {
         definition: string;
         description: string;
         encrypted: string;
+        headtitle: string;
         image: string;
         keywords: string;
         modified: string;

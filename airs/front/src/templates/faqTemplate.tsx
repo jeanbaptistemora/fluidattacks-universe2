@@ -83,7 +83,7 @@ const FaqIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
         }
         keywords={keywords}
-        title={decode(`${title} | Fluid Attacks`)}
+        title={"FAQ | Fluid Attacks"}
         url={slug}
       />
 

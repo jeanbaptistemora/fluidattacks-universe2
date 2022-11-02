@@ -76,6 +76,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
     category,
     date,
     description,
+    headtitle,
     image,
     keywords,
     modified,
@@ -104,7 +105,11 @@ const BlogsIndex: React.FC<IQueryData> = ({
         description={description}
         image={image.replace(".webp", ".png")}
         keywords={keywords}
-        title={`${decode(title)} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${decode(headtitle)} | Blog | Fluid Attacks`
+            : `${decode(title)} | Blog | Fluid Attacks`
+        }
         url={slug}
       />
       <BlogSeo
@@ -114,7 +119,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
           modified ? utc(modified.toLocaleString()).format("LL") : fDate
         }
         description={description}
-        image={image.replace(".webp", ".png")}
+        image={image.replace(".webp", ".pn g")}
         title={`${decode(title)} | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/${slug}`}
       />
@@ -220,6 +225,7 @@ export const query: StaticQueryDocument = graphql`
         tags
         writer
         title
+        headtitle
       }
     }
   }

@@ -39,7 +39,7 @@ const SystemIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, keywords, slug, title } =
+  const { description, headtitle, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   return (
@@ -50,7 +50,11 @@ const SystemIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619637249/airs/compliance/cover-internal-compliance_clerwf.png"
         }
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${headtitle} | Systems | Fluid Attacks`
+            : `${title} | Systems | Fluid Attacks`
+        }
         url={slug}
       />
 
@@ -95,6 +99,7 @@ export const query: StaticQueryDocument = graphql`
         keywords
         slug
         title
+        headtitle
       }
     }
   }

@@ -1,6 +1,7 @@
 ---
 slug: categories/ptaas/
 title: Penetration Testing as a Service
+headtitle: PTaaS
 description: We offer you PTaaS as a continuous evaluation of systems using automatic and manual techniques and providing real-time vulnerability reports via our platform.
 keywords: PTaaS, Penetration, Testing, Pentesting, Service, Cybersecurity, Vulnerability, Ethical Hacking
 banner: ptaas-bg

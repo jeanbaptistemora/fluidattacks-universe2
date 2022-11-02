@@ -1,6 +1,7 @@
 ---
 slug: careers/faq/
 title: Frequently Asked Questions (FAQ)
+headtitle: FAQ | Careers | Fluid Attacks
 category: careers
 description: Here we present a Frequently Asked Questions (FAQ) section, which intends to guide our candidates through Fluid Attacks' selection process.
 keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Candidates, Pentesting, Ethical Hacking

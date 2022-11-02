@@ -53,7 +53,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
     createElement,
   }).Compiler;
 
-  const { description, keywords, slug, title } =
+  const { description, headtitle, keywords, slug, title } =
     data.markdownRemark.frontmatter;
   const { htmlAst } = data.markdownRemark;
 
@@ -65,7 +65,11 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619634447/airs/bg-advisories_htsqyd.png"
         }
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${headtitle} | Advisories | Fluid Attacks`
+            : `${title} | Advisories | Fluid Attacks`
+        }
         url={slug}
       />
 
@@ -108,6 +112,7 @@ export const query: StaticQueryDocument = graphql`
         keywords
         slug
         title
+        headtitle
       }
     }
   }

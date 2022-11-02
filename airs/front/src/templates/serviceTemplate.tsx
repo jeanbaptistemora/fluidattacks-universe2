@@ -50,7 +50,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, image, keywords, slug, subtext, title } =
+  const { description, headtitle, image, keywords, slug, subtext, title } =
     data.markdownRemark.frontmatter;
 
   const { trackEvent } = useMatomo();
@@ -68,7 +68,11 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
         description={description}
         image={image}
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${headtitle} | Services | Fluid Attacks`
+            : `${title} | Services | Fluid Attacks`
+        }
         url={slug}
       />
       <ServiceSeo
@@ -141,6 +145,7 @@ export const query: StaticQueryDocument = graphql`
         subtext
         image
         title
+        headtitle
       }
     }
   }

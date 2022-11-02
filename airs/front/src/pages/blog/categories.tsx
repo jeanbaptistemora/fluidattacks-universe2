@@ -30,7 +30,7 @@ const CategoriesIndex: React.FC<IQueryData> = ({
       <Seo
         description={t("blog.listDescriptions.categories.description")}
         keywords={t("blog.keywords")}
-        title={`Categories | Fluid Attacks`}
+        title={`Categories | Blog | Fluid Attacks`}
         url={"https://fluidattacks.com/blog/authors/"}
       />
 

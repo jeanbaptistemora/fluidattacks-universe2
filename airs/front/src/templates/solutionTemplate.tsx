@@ -47,7 +47,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, image, keywords, slug, title } =
+  const { description, headtitle, image, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   const { trackEvent } = useMatomo();
@@ -67,7 +67,11 @@ const SolutionIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619630822/airs/solutions/bg-solutions_ylz99o.png"
         }
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${headtitle} | Solutions | Fluid Attacks`
+            : `${title} | Solutions | Fluid Attacks`
+        }
         url={slug}
       />
       <ServiceSeo
@@ -136,6 +140,7 @@ export const query: StaticQueryDocument = graphql`
         slug
         image
         title
+        headtitle
       }
     }
   }

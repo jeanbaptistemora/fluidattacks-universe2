@@ -34,8 +34,16 @@ const CareersFaqIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { banner, description, keywords, slug, subtext, subtitle, title } =
-    data.markdownRemark.frontmatter;
+  const {
+    banner,
+    description,
+    headtitle,
+    keywords,
+    slug,
+    subtext,
+    subtitle,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
 
@@ -147,7 +155,7 @@ const CareersFaqIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
         }
         keywords={keywords}
-        title={decode(`${title} | Fluid Attacks`)}
+        title={headtitle}
         url={slug}
       />
 
@@ -197,6 +205,7 @@ export const query: StaticQueryDocument = graphql`
         keywords
         slug
         title
+        headtitle
       }
     }
   }

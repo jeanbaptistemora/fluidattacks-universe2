@@ -45,8 +45,16 @@ const CategoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, image, keywords, slug, defaux, definition, title } =
-    data.markdownRemark.frontmatter;
+  const {
+    description,
+    headtitle,
+    image,
+    keywords,
+    slug,
+    defaux,
+    definition,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -54,7 +62,11 @@ const CategoryIndex: React.FC<IQueryData> = ({
         description={description}
         image={image.replace(".webp", ".png")}
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={
+          headtitle
+            ? `${headtitle} | Categories | Fluid Attacks`
+            : `${title} | Categories | Fluid Attacks`
+        }
         url={slug}
       />
       <ServiceSeo
@@ -120,6 +132,7 @@ export const query: StaticQueryDocument = graphql`
         keywords
         slug
         title
+        headtitle
       }
     }
   }
