@@ -2,15 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ..operations import (
-    SCHEMA_NAME,
-)
-from ..queries import (
-    SQL_INSERT_HISTORIC,
-    SQL_INSERT_METADATA,
-)
 from ..utils import (
-    format_query_fields,
+    format_sql_query_historic,
+    format_sql_query_metadata,
+    get_query_fields,
 )
 from .initialize import (
     METADATA_TABLE,
@@ -46,14 +41,10 @@ def insert_metadata(
     cursor: cursor_cls,
     item: Item,
 ) -> None:
-    _fields, values = format_query_fields(MetadataTableRow)
+    sql_fields = get_query_fields(MetadataTableRow)
     sql_values = format_row_metadata(item)
-    cursor.execute(  # nosec
-        SQL_INSERT_METADATA.substitute(
-            table=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            fields=_fields,
-            values=values,
-        ),
+    cursor.execute(
+        format_sql_query_metadata(METADATA_TABLE, sql_fields),
         sql_values,
     )
 
@@ -64,17 +55,12 @@ def insert_historic_state(
     vulnerability_id: str,
     historic_state: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(StateTableRow)
+    sql_fields = get_query_fields(StateTableRow)
     sql_values = [
         format_row_state(vulnerability_id, state) for state in historic_state
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{STATE_TABLE}",
-            fields=_fields,
-            values=values,
-        ),
+    cursor.executemany(
+        format_sql_query_historic(STATE_TABLE, METADATA_TABLE, sql_fields),
         sql_values,
     )
 
@@ -85,18 +71,13 @@ def insert_historic_treatment(
     vulnerability_id: str,
     historic_treatment: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(TreatmentTableRow)
+    sql_fields = get_query_fields(TreatmentTableRow)
     sql_values = [
         format_row_treatment(vulnerability_id, treatment)
         for treatment in historic_treatment
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{TREATMENT_TABLE}",
-            fields=_fields,
-            values=values,
-        ),
+    cursor.executemany(
+        format_sql_query_historic(TREATMENT_TABLE, METADATA_TABLE, sql_fields),
         sql_values,
     )
 
@@ -107,17 +88,14 @@ def insert_historic_verification(
     vulnerability_id: str,
     historic_verification: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(VerificationTableRow)
+    sql_fields = get_query_fields(VerificationTableRow)
     sql_values = [
         format_row_verification(vulnerability_id, verification)
         for verification in historic_verification
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_TABLE}",
-            fields=_fields,
-            values=values,
+    cursor.executemany(
+        format_sql_query_historic(
+            VERIFICATION_TABLE, METADATA_TABLE, sql_fields
         ),
         sql_values,
     )
@@ -129,18 +107,13 @@ def insert_historic_zero_risk(
     vulnerability_id: str,
     historic_zero_risk: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(ZeroRiskTableRow)
+    sql_fields = get_query_fields(ZeroRiskTableRow)
     sql_values = [
         format_row_zero_risk(vulnerability_id, zero_risk)
         for zero_risk in historic_zero_risk
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{ZERO_RISK_TABLE}",
-            fields=_fields,
-            values=values,
-        ),
+    cursor.executemany(
+        format_sql_query_historic(ZERO_RISK_TABLE, METADATA_TABLE, sql_fields),
         sql_values,
     )
 
