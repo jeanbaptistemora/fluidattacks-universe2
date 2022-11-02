@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from dynamodb.context import (
-    FI_GOOGLE_CHAT_WEBOOK_URL,
+    FI_GOOGLE_CHAT_WEBHOOK_URL,
     FI_WEBHOOK_POC_KEY,
     FI_WEBHOOK_POC_URL,
 )
@@ -46,7 +46,7 @@ def process_google_chat(records: tuple[Record, ...]) -> None:
             ]
         )
 
-        requests.post(FI_GOOGLE_CHAT_WEBOOK_URL, json={"text": text})
+        requests.post(FI_GOOGLE_CHAT_WEBHOOK_URL, json={"text": text})
 
 
 def process_poc(records: tuple[Record, ...]) -> None:

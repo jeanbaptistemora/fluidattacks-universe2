@@ -20,7 +20,7 @@ from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
     FI_AWS_REGION_NAME,
-    FI_BUGSNAG_ACCESS_TOKEN,
+    FI_BUGSNAG_API_KEY_BACK,
     FI_ENVIRONMENT,
     LOG_LEVEL_BUGSNAG,
     LOG_LEVEL_CONSOLE,
@@ -139,7 +139,7 @@ logging.config.dictConfig(LOGGING)
 
 # bugsnag
 bugsnag.configure(
-    api_key=FI_BUGSNAG_ACCESS_TOKEN,
+    api_key=FI_BUGSNAG_API_KEY_BACK,
     app_version=CI_COMMIT_SHORT_SHA,
     asynchronous=True,
     auto_capture_sessions=True,
@@ -152,7 +152,7 @@ if FI_ENVIRONMENT == "production":
     URL = "https://build.bugsnag.com"
     HEADERS = {"Content-Type": "application/json", "server": "None"}
     PAYLOAD = {
-        "apiKey": FI_BUGSNAG_ACCESS_TOKEN,
+        "apiKey": FI_BUGSNAG_API_KEY_BACK,
         "appVersion": CI_COMMIT_SHORT_SHA,
         "releaseStage": FI_ENVIRONMENT,
         "sourceControl": {

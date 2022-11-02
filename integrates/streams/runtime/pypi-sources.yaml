@@ -1,10 +1,10 @@
----
 closure:
   boto3: 1.24.44
-  botocore: 1.27.73
-  certifi: 2022.9.14
+  botocore: 1.27.96
+  bugsnag: 4.3.0
+  certifi: 2022.9.24
   charset-normalizer: 2.1.1
-  idna: '3.4'
+  idna: "3.4"
   jmespath: 1.0.1
   more-itertools: 8.14.0
   opensearch-py: 2.0.0
@@ -14,6 +14,7 @@ closure:
   s3transfer: 0.6.0
   six: 1.16.0
   urllib3: 1.26.12
+  webob: 1.8.7
 links:
   - name: boto3-1.24.44-py3-none-any.whl
     sha256: 0fs1731swbnhy9lybsbxhz4f5l6mljwh04zn0zd0k8mwd23m22k1
@@ -21,18 +22,24 @@ links:
   - name: boto3-1.24.44.tar.gz
     sha256: 13m0h9wwkbx23r7gmiyvfxqqk7y9nfaiwfn17dc3x6bih8pnvl0r
     url: https://files.pythonhosted.org/packages/2e/6d/cf85550a36487f4f572f463c9ea663d909baf73f0bb36ebe638e1a643b37/boto3-1.24.44.tar.gz
-  - name: botocore-1.27.73-py3-none-any.whl
-    sha256: 18q5ldmwhpa1x90fk5zyzbdsm27c0gz0jjn713qqyps3n7kx350b
-    url: https://files.pythonhosted.org/packages/59/52/771cd6ebc2c1c7b5844791f1ed163f27e19aeb06c3cdadb11c91469f0491/botocore-1.27.73-py3-none-any.whl
-  - name: botocore-1.27.73.tar.gz
-    sha256: 05kkdrzydv3hhcisnrri17kdvh8xx9ya769lsq3q4wnjhigf90g2
-    url: https://files.pythonhosted.org/packages/cb/bb/73b99f5cfe851a24cfaed42ab299657ee77e0eca6c8eb437c63c94108796/botocore-1.27.73.tar.gz
-  - name: certifi-2022.9.14-py3-none-any.whl
-    sha256: 05h5gfqh9cv5nhhcdqnh1y1mdqwrys05qqhvaamc4wmbw4yk8cp2
-    url: https://files.pythonhosted.org/packages/6a/34/cd29f4dd8a23ce45f2b8ce9631ff2d4205fb74eddb412a3dc4fd1e4aa800/certifi-2022.9.14-py3-none-any.whl
-  - name: certifi-2022.9.14.tar.gz
-    sha256: 1mayclnhy5piqgy28qy50xij689v9cmpna7a3p86nbjlp62ki5rn
-    url: https://files.pythonhosted.org/packages/ca/48/88ec470f8b68319b6782ca3a0570789886ad5ca24c1af2f3771699135baa/certifi-2022.9.14.tar.gz
+  - name: botocore-1.27.96-py3-none-any.whl
+    sha256: 1fggvfzlf35dbb2ldy5yrkngy3jwll1b76ia3ccgkwhihnhq26p4
+    url: https://files.pythonhosted.org/packages/f9/73/aa345e22ce21e86fa99e8dc25ab7ae4fd73eedc4c365282c82fa6ba3f66f/botocore-1.27.96-py3-none-any.whl
+  - name: botocore-1.27.96.tar.gz
+    sha256: 1spvs7aqlp9f1ms827xmkd07918g4dcqfh6gc7ir1s22c3pi62pw
+    url: https://files.pythonhosted.org/packages/1d/9e/c3094925ac483e295e694a54665c925f70560b5988603dca597fe099b45d/botocore-1.27.96.tar.gz
+  - name: bugsnag-4.3.0-py3-none-any.whl
+    sha256: 1nzpxc6pays12krcddyv21c1gcjnmp8hqms4m27x3zyrhmfsfk5z
+    url: https://files.pythonhosted.org/packages/ef/f4/1b32463387ffac556744a869b84e9f5191ee1c5ed9ffd7f6191ef6699598/bugsnag-4.3.0-py3-none-any.whl
+  - name: bugsnag-4.3.0.tar.gz
+    sha256: 0dzx70psbkh8rvgjrwjgjz240gp3gqaz84v3bivr4l6yzakq5bpn
+    url: https://files.pythonhosted.org/packages/63/df/4a1d987eae4f60635e8064a37c1f320b6f715d19230f95b8080062f55fb4/bugsnag-4.3.0.tar.gz
+  - name: certifi-2022.9.24-py3-none-any.whl
+    sha256: 10pkhgnxd22ca8c9bc3d207rza6cyrq67qslhd441yb83lps7hch
+    url: https://files.pythonhosted.org/packages/1d/38/fa96a426e0c0e68aabc68e896584b83ad1eec779265a028e156ce509630e/certifi-2022.9.24-py3-none-any.whl
+  - name: certifi-2022.9.24.tar.gz
+    sha256: 056fpl8l6f8p4c087zj1yvsk87n2aff0vinv2abvm9p54h8n170d
+    url: https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz
   - name: charset_normalizer-2.1.1-py3-none-any.whl
     sha256: 17z2zvkvalb66i5hasshq0grsma8afs6hb1mi7yrl9qi35fsgsc3
     url: https://files.pythonhosted.org/packages/db/51/a507c856293ab05cdc1db77ff4bc1268ddd39f29e7dc4919aa497f0adbec/charset_normalizer-2.1.1-py3-none-any.whl
@@ -96,4 +103,10 @@ links:
   - name: urllib3-1.26.12.tar.gz
     sha256: 0km7yj8vmv6qvm3psx37qsvsickd77gyhsijzjbpk6764gs6ra9z
     url: https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz
-python: '3.9'
+  - name: WebOb-1.8.7-py2.py3-none-any.whl
+    sha256: 16zqij909ys74l0fq6wcq8hf8q0rldf8nvwm7gx18719b41y7akk
+    url: https://files.pythonhosted.org/packages/62/9c/e94a9982e9f31fc35cf46cdc543a6c2c26cb7174635b5fd25b0bbc6a7bc0/WebOb-1.8.7-py2.py3-none-any.whl
+  - name: WebOb-1.8.7.tar.gz
+    sha256: 08y3y377s370nzv8wsnbxm8h69n28px49w28wjnwyng53cagakmn
+    url: https://files.pythonhosted.org/packages/c7/45/ee5f034fb4ebe3236fa49e5a4fcbc54444dd22ecf33079cf56f9606d479d/WebOb-1.8.7.tar.gz
+python: "3.9"
