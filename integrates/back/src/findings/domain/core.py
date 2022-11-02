@@ -872,7 +872,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
     )
     commit_msg = f" in commit {commit_hash}" if commit_hash else ""
     observations_msg = (
-        f"\n\nObservations: {observations}" if observations else ""
+        f"\n\nObservations:\n {observations}" if observations else ""
     )
     justification = (
         "A reattack request was executed on "
