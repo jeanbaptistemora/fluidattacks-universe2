@@ -62,6 +62,7 @@ def ts_insecure_ciphers(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
+
             for n_id in g.filter_nodes(
                 graph,
                 nodes=graph.nodes,
@@ -95,6 +96,7 @@ def ts_insecure_aes_cipher(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
+
             for n_id in g.filter_nodes(
                 graph,
                 nodes=graph.nodes,
@@ -109,6 +111,52 @@ def ts_insecure_aes_cipher(
                     and len(g.adj_ast(graph, al_id)) > 2
                     and get_eval_danger(
                         graph, g.adj_ast(graph, al_id)[2], method
+                    )
+                ):
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def ts_insecure_create_cipher(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TS_INSECURE_CREATE_CIPHER
+    danger_m = {
+        "createDecipher",
+        "createCipher",
+        "createDecipheriv",
+        "createCipheriv",
+    }
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.TYPESCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+            ):
+                f_name = graph.nodes[n_id]["expression"]
+                _, crypt = split_function_name(f_name)
+                if (
+                    crypt in danger_m
+                    and (al_id := graph.nodes[n_id].get("arguments_id"))
+                    and (args_ids := g.adj_ast(graph, al_id))
+                    and len(args_ids) > 0
+                    and get_eval_danger(
+                        graph, g.adj_ast(graph, al_id)[0], method
                     )
                 ):
                     yield shard, n_id

@@ -2905,6 +2905,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_INSECURE_CREATE_CIPHER = MethodInfo(
+        file_name="typescript",
+        name="ts_insecure_create_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     KT_INSECURE_CIPHER = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_cipher",
