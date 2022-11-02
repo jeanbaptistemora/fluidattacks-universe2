@@ -158,7 +158,27 @@ exploitability,
 status and type (according
 to the technique that detected it).
 
-![Information Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1663673763/docs/machine/agent/summary.png)
+![Information Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1667413429/docs/machine/agent/sumary.png)
+
+### Summary Table
+
+It has the following columns:
+
+1. **Exploitability:**
+  The exploitability score based
+  on the CVSS.
+1. **Status:**
+  The state reported by the agent.
+1. **Type:**
+  You can find two
+  options:
+  Static Application Security Testing (SAST)
+  and
+  Dynamic Application Security Testing (DAST).
+1. **What and where:**
+  Where exactly is the vulnerability.
+
+#### Columns filter
 
 Clicking on the
 **Columns** button,
@@ -167,21 +187,19 @@ to show or hide columns
 from the table,
 depending on the data
 you want to observe.
+
+![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1651011570/docs/machine/agent/exec_details_columns.png)
+
+#### Filters button
+
 Clicking on the
 **Filters** button,
-you can see some filter
-options for three
-of the columns,
-which you can use to
+you can use to
 restrict the set of
 information visible
 in the table.
-In addition,
-there is a search field
-for locations to the right
-of these two buttons.
 
-![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1651011570/docs/machine/agent/exec_details_columns.png)
+![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1667415359/docs/machine/agent/filters.png)
 
 ### Execution log
 
