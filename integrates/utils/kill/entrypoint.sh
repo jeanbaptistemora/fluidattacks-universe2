@@ -9,9 +9,8 @@ function main {
     3000 # front
     8001 # back
     8022 # dynamodb
-    8080 # back
-    8081 # back
     9000 # storage
+    9200 # opensearch
   )
 
   kill_port "${ports[@]}"

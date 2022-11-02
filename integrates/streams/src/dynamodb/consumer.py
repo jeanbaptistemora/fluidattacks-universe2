@@ -16,9 +16,6 @@ from amazon_kclpy.messages import (
 from amazon_kclpy.v2 import (
     processor,
 )
-from botocore.exceptions import (
-    ClientError,
-)
 from dynamodb.triggers import (
     TRIGGERS,
 )
@@ -27,15 +24,6 @@ from dynamodb.utils import (
 )
 import json
 import logging
-from opensearchpy.exceptions import (
-    OpenSearchException,
-)
-from psycopg2 import (
-    Error as Psycopg2Error,
-)
-from requests.exceptions import (  # type: ignore
-    RequestException,
-)
 from time import (
     sleep,
 )
@@ -98,22 +86,27 @@ class RecordProcessor(processor.RecordProcessorBase):
         )
 
         for trigger in TRIGGERS:
-            try:
-                matching_records = tuple(
-                    record
-                    for record in records
-                    if trigger.records_filter(record)
-                )
+            matching_records = tuple(
+                record for record in records if trigger.records_filter(record)
+            )
 
-                if matching_records:
+            if matching_records:
+                try:
                     trigger.records_processor(matching_records)
-            except (
-                ClientError,
-                OpenSearchException,
-                Psycopg2Error,
-                RequestException,
-            ) as ex:
-                LOGGER.exception(ex)
+                except Exception as ex:
+                    LOGGER.exception(
+                        ex,
+                        extra={
+                            "extra": {
+                                "matching_records": {
+                                    record.sequence_number: record
+                                    for record in matching_records
+                                },
+                                "trigger": trigger.records_processor.__name__,
+                            }
+                        },
+                    )
+                    raise
 
         self.checkpoint(
             process_records_input.checkpointer,
