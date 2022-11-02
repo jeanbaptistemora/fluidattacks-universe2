@@ -14,7 +14,9 @@ from billing import (
 from billing.types import (
     Customer,
     GroupAuthor,
+    GroupAuthors,
     OrganizationAuthor,
+    OrganizationAuthors,
     PaymentMethod,
     Price,
     Subscription,
@@ -48,6 +50,9 @@ from db_model import (
 from db_model.groups.enums import (
     GroupTier,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.organizations.types import (
     DocumentFile,
     Organization,
@@ -71,9 +76,6 @@ from newutils import (
 from notifications import (
     domain as notifications_domain,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from s3 import (
     operations as s3_ops,
 )
@@ -95,8 +97,6 @@ from stripe.error import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
 )
 import uuid
@@ -167,12 +167,12 @@ async def _format_create_subscription_data(
     org_name: str,
     group_name: str,
     trial: bool,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Format create subscription session data according to stripe API"""
-    prices: Dict[str, Price] = await dal.get_prices()
+    prices: dict[str, Price] = await dal.get_prices()
     now: datetime = datetime_utils.get_utc_now()
 
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "customer": org_billing_customer,
         "items": [
             {
@@ -220,8 +220,8 @@ async def _format_create_subscription_data(
 
 async def _has_subscription(
     *,
-    statuses: List[str],
-    subscriptions: List[Subscription],
+    statuses: list[str],
+    subscriptions: list[Subscription],
 ) -> bool:
     for subscription in subscriptions:
         if subscription.status in statuses:
@@ -231,9 +231,9 @@ async def _has_subscription(
 
 async def _get_active_subscription(
     *,
-    subscriptions: List[Subscription],
+    subscriptions: list[Subscription],
 ) -> Optional[Subscription]:
-    result: List[Subscription] = [
+    result: list[Subscription] = [
         subscription
         for subscription in subscriptions
         if subscription.status in ("active", "trialing")
@@ -261,7 +261,7 @@ async def update_subscription(
     ):
         raise BillingCustomerHasNoPaymentMethod()
 
-    subscriptions: List[Subscription] = await dal.get_group_subscriptions(
+    subscriptions: list[Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="all",
@@ -290,7 +290,7 @@ async def update_subscription(
             statuses=["canceled"],
             subscriptions=subscriptions,
         )
-        data: Dict[str, Any] = await _format_create_subscription_data(
+        data: dict[str, Any] = await _format_create_subscription_data(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
@@ -332,7 +332,7 @@ async def customer_payment_methods(
     *,
     org: Organization,
     limit: int = 100,
-) -> List[PaymentMethod]:
+) -> list[PaymentMethod]:
     """Return list of customer's payment methods"""
     # Return empty list if stripe customer does not exist
     payment_methods = []
@@ -341,8 +341,8 @@ async def customer_payment_methods(
         customer: Customer = await dal.get_customer(
             org_billing_customer=org.billing_customer,
         )
-        stripe_payment_methods: List[
-            Dict[str, Any]
+        stripe_payment_methods: list[
+            dict[str, Any]
         ] = await dal.get_customer_payment_methods(
             org_billing_customer=org.billing_customer,
             limit=limit,
@@ -370,7 +370,7 @@ async def customer_payment_methods(
         ]
 
     if org.payment_methods is not None:
-        other_payment_methods: List[
+        other_payment_methods: list[
             OrganizationPaymentMethods
         ] = org.payment_methods
 
@@ -666,7 +666,7 @@ async def create_payment_method(
     result: bool = False
     if business_name == "":
         # get actual payment methods
-        payment_methods: List[PaymentMethod] = await customer_payment_methods(
+        payment_methods: list[PaymentMethod] = await customer_payment_methods(
             org=org,
             limit=1000,
         )
@@ -724,7 +724,7 @@ async def update_payment_method(
         raise InvalidBillingCustomer()
 
     # Raise exception if payment method does not belong to organization
-    payment_methods: List[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = await customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -746,7 +746,7 @@ async def update_payment_method(
             validations.validate_field_length(business_name, 60)
             validations.validate_fields([business_name])
         # get actual payment methods
-        other_payment_methods: List[OrganizationPaymentMethods] = []
+        other_payment_methods: list[OrganizationPaymentMethods] = []
         if org.payment_methods:
             other_payment_methods = org.payment_methods
 
@@ -799,7 +799,7 @@ async def remove_payment_method(
     if org.billing_customer is None:
         raise InvalidBillingCustomer()
 
-    payment_methods: List[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = await customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -819,7 +819,7 @@ async def remove_payment_method(
         == ""
     ):
         # get actual payment methods
-        other_payment_methods: List[OrganizationPaymentMethods] = []
+        other_payment_methods: list[OrganizationPaymentMethods] = []
         if org.payment_methods:
             other_payment_methods = org.payment_methods
 
@@ -854,7 +854,7 @@ async def remove_payment_method(
 
         return True
 
-    subscriptions: List[Subscription] = await dal.get_customer_subscriptions(
+    subscriptions: list[Subscription] = await dal.get_customer_subscriptions(
         org_billing_customer=org.billing_customer,
         limit=1000,
         status="",
@@ -898,7 +898,7 @@ async def report_subscription_usage(
     org_billing_customer: str,
 ) -> bool:
     """Report group squad usage to Stripe"""
-    subscriptions: List[Subscription] = await dal.get_group_subscriptions(
+    subscriptions: list[Subscription] = await dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -913,12 +913,23 @@ async def report_subscription_usage(
     )
 
 
-async def get_group_authors(
-    *, date: datetime, group: str
-) -> tuple[GroupAuthor, ...]:
-    return await dal.get_group_authors(
+async def get_group_authors(*, date: datetime, group: Group) -> GroupAuthors:
+    group_authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
         date=date,
-        group=group,
+        group=group.name,
+    )
+
+    total: int = len(group_authors)
+
+    current_spend: int = 0
+    if group.state.tier == GroupTier.SQUAD:
+        prices: dict[str, Price] = await get_prices()
+        current_spend = int(total * prices["squad"].amount / 100)
+
+    return GroupAuthors(
+        current_spend=current_spend,
+        data=group_authors,
+        total=total,
     )
 
 
@@ -927,17 +938,16 @@ async def get_organization_authors(
     date: datetime,
     org_id: str,
     loaders: Dataloaders,
-) -> tuple[OrganizationAuthor, ...]:
-    org_group_names: tuple[str, ...] = await orgs_domain.get_group_names(
-        loaders=loaders,
-        organization_id=org_id,
+) -> OrganizationAuthors:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        org_id,
     )
     group_authors: tuple[GroupAuthor, ...] = tuple(
         flatten(
             await collect(
                 [
-                    get_group_authors(date=date, group=group)
-                    for group in org_group_names
+                    dal.get_group_authors(date=date, group=group.name)
+                    for group in org_groups
                 ]
             )
         )
@@ -946,7 +956,7 @@ async def get_organization_authors(
         author.actor for author in group_authors
     )
 
-    return tuple(
+    org_authors: tuple[OrganizationAuthor, ...] = tuple(
         OrganizationAuthor(
             actor=org_actor,
             groups=frozenset(
@@ -958,8 +968,23 @@ async def get_organization_authors(
         for org_actor in org_actors
     )
 
+    prices: dict[str, Price] = await get_prices()
+    org_squad_authors: int = 0
+    for group in org_groups:
+        if group.state.tier == GroupTier.SQUAD:
+            for author in org_authors:
+                if group.name in author.groups:
+                    org_squad_authors += 1
+    current_spend: int = int(org_squad_authors * prices["squad"].amount / 100)
 
-async def get_prices() -> Dict[str, Price]:
+    return OrganizationAuthors(
+        current_spend=current_spend,
+        data=org_authors,
+        total=len(org_authors),
+    )
+
+
+async def get_prices() -> dict[str, Price]:
     """Get model prices"""
     return await dal.get_prices()
 

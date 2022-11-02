@@ -6,7 +6,6 @@ from db_model.organizations.types import (
     DocumentFile,
 )
 from typing import (
-    Dict,
     NamedTuple,
     Optional,
 )
@@ -20,9 +19,21 @@ class GroupAuthor(NamedTuple):
     repository: Optional[str]
 
 
+class GroupAuthors(NamedTuple):
+    current_spend: int
+    total: int
+    data: tuple[GroupAuthor, ...]
+
+
 class OrganizationAuthor(NamedTuple):
     actor: Optional[str]
     groups: frozenset[Optional[str]]
+
+
+class OrganizationAuthors(NamedTuple):
+    current_spend: int
+    total: int
+    data: tuple[OrganizationAuthor, ...]
 
 
 class Address(NamedTuple):
@@ -73,4 +84,4 @@ class Subscription(NamedTuple):
     organization: str
     status: str
     type: str
-    items: Dict[str, str]
+    items: dict[str, str]

@@ -6,20 +6,10 @@ from billing import (
     domain as billing_domain,
 )
 from billing.types import (
-    OrganizationAuthor,
-    Price,
-)
-from dataloaders import (
-    Dataloaders,
+    OrganizationAuthors,
 )
 from datetime import (
     datetime,
-)
-from db_model.groups.enums import (
-    GroupTier,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.organizations.types import (
     Organization,
@@ -35,9 +25,6 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Any,
-)
 
 
 @concurrent_decorators(
@@ -48,35 +35,9 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: datetime,
-) -> dict[str, Any]:
-    loaders: Dataloaders = info.context.loaders
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
-        parent.id
-    )
-    date: datetime = kwargs.get("date", datetime_utils.get_now())
-    org_authors: tuple[
-        OrganizationAuthor, ...
-    ] = await billing_domain.get_organization_authors(
-        date=date,
+) -> OrganizationAuthors:
+    return await billing_domain.get_organization_authors(
+        date=kwargs.get("date", datetime_utils.get_now()),
         org_id=parent.id,
-        loaders=loaders,
+        loaders=info.context.loaders,
     )
-
-    total: int = len(org_authors)
-
-    prices: dict[str, Price] = await billing_domain.get_prices()
-    org_squad_authors: int = 0
-    for group in org_groups:
-        for author in org_authors:
-            if (
-                group.name in author.groups
-                and group.state.tier == GroupTier.SQUAD
-            ):
-                org_squad_authors += 1
-    current_spend: int = int(org_squad_authors * prices["squad"].amount / 100)
-
-    return {
-        "current_spend": current_spend,
-        "data": org_authors,
-        "total": total,
-    }
