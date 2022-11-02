@@ -10,12 +10,14 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 
+import { OrganizationAuthors } from "scenes/Dashboard/containers/OrganizationBillingView/Authors";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationBillingView/Groups";
 import { OrganizationPaymentMethods } from "scenes/Dashboard/containers/OrganizationBillingView/PaymentMethods";
 import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
 import type {
   IGetOrganizationBilling,
   IGroupAttr,
+  IOrganizationAuthorAttr,
   IPaymentMethodAttr,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Logger } from "utils/logger";
@@ -56,6 +58,8 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       },
     }
   );
+  const authors: IOrganizationAuthorAttr[] =
+    data === undefined ? [] : data.organization.authors.data;
   const billingPortal: string =
     data === undefined ? "" : data.organization.billingPortal;
   const groups: IGroupAttr[] =
@@ -75,6 +79,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
         onUpdate={refetch}
         paymentMethods={paymentMethods}
       />
+      <OrganizationAuthors authors={authors} />
       <OrganizationPaymentMethods
         onUpdate={refetch}
         organizationId={organizationId}

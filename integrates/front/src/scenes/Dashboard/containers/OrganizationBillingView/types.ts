@@ -9,6 +9,22 @@ interface IGroupAuthors {
   total: number;
 }
 
+interface IOrganizationAuthorAttr {
+  actor: string;
+  groups: string[];
+}
+
+interface IOrganizationAuthors {
+  currentSpend: number;
+  data: IOrganizationAuthorAttr[];
+  total: number;
+}
+
+interface IOrganizationAuthorsTable {
+  actor: string;
+  groups: string;
+}
+
 interface IGroupAttr {
   authors: IGroupAuthors | null;
   forces: string;
@@ -49,6 +65,7 @@ interface IPaymentMethodAttr {
 
 interface IGetOrganizationBilling {
   organization: {
+    authors: IOrganizationAuthors;
     billingPortal: string;
     groups: IGroupAttr[];
     paymentMethods: IPaymentMethodAttr[] | undefined;
@@ -60,4 +77,6 @@ export type {
   IGetOrganizationBilling,
   IGroupAttr,
   IPaymentMethodAttr,
+  IOrganizationAuthorAttr,
+  IOrganizationAuthorsTable,
 };

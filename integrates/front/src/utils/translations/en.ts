@@ -1598,6 +1598,9 @@ export const enTranslations: ResourceKey = {
         tooltip: "Organization status at a glance",
       },
       billing: {
+        authors: {
+          title: "Authors",
+        },
         groups: {
           managed: {
             managed: "Managed",
