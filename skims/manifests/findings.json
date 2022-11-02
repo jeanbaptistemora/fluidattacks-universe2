@@ -1134,5 +1134,13 @@
     "ES": {
       "title": "423. Inappropriate coding practices - System exit"
     }
+  },
+  "F426": {
+    "EN": {
+      "title": "426. Supply Chain Attack - Kubernetes"
+    },
+    "ES": {
+      "title": "426. Supply Chain Attack - Kubernetes"
+    }
   }
 }

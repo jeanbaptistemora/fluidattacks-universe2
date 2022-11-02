@@ -1170,6 +1170,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[164, 167, 72, 327],
     )
+    F426: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F426",
+        cwe=749,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[266],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
@@ -4783,6 +4790,14 @@ class MethodsEnum(Enum):
         name="docker_compose_image_has_digest",
         module="lib_path",
         finding=FindingEnum.F380,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    K8S_IMAGE_HAS_DIGEST = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_image_has_digest",
+        module="lib_path",
+        finding=FindingEnum.F426,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )

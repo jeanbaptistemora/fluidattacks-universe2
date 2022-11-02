@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rss-site
+  labels:
+    app: web
+spec:
+  privileged: true
+  containers:
+    - name: must-fail
+      image: nginx
+      ports:
+        - containerPort: 80
+      securityContext:
+        allowPrivilegeEscalation: false
+    - name: must-fail
+      image: nginx@sha256:notavalidshahash098882
+      ports:
+        - containerPort: 80
+      securityContext:
+        allowPrivilegeEscalation: false
+    - name: must-not-fail
+      image: "nginx@${COULD_BE_A_DIGEST}"
+      ports:
+        - containerPort: 80
+      securityContext:
+        allowPrivilegeEscalation: false
