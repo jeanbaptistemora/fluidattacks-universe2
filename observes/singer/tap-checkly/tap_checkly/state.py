@@ -15,4 +15,6 @@ from fa_purity import (
 
 @dataclass(frozen=True)
 class EtlState:
-    results: Maybe[datetime]  # most recent uploaded check result
+    # check results
+    results_recent: Maybe[datetime]
+    results_oldest: Maybe[datetime]

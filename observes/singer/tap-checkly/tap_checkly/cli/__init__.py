@@ -6,6 +6,9 @@ from ._emitter import (
     Emitter,
 )
 import click
+from datetime import (
+    datetime,
+)
 from fa_purity import (
     Maybe,
 )
@@ -51,7 +54,8 @@ def stream(
         .map(lambda i: (i,))
         .unwrap()
     )
-    emitter = Emitter(EtlState(Maybe.empty()), creds)
+    empty: Maybe[datetime] = Maybe.empty()
+    emitter = Emitter(EtlState(empty, empty), creds)
     emitter.emit_streams(selection).compute()
 
 

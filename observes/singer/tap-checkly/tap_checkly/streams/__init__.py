@@ -59,7 +59,6 @@ from tap_checkly.state import (
     EtlState,
 )
 from typing import (
-    Iterator,
     TypeVar,
 )
 
@@ -73,43 +72,41 @@ def _emit_stream(
     return consume(emissions)
 
 
+def _from_encoder(encoder: ObjEncoder[_T], items: Stream[_T]) -> Cmd[None]:
+    schemas = encoder.schemas.map(
+        lambda s: emitter.emit(sys.stdout, s)
+    ).transform(PIterTransform.consume)
+    return schemas + _emit_stream(items.map(encoder.record).transform(chain))
+
+
 @dataclass(frozen=True)
 class Streams:
     creds: Credentials
     old_date: datetime
     now: datetime
 
-    @staticmethod
-    def _from_encoder(encoder: ObjEncoder[_T], items: Stream[_T]) -> Cmd[None]:
-        schemas = encoder.schemas.map(
-            lambda s: emitter.emit(sys.stdout, s)
-        ).transform(PIterTransform.consume)
-        return schemas + _emit_stream(
-            items.map(encoder.record).transform(chain)
-        )
-
     def alert_chs(self) -> Cmd[None]:
         client = AlertChannelsClient.new(self.creds, 100)
-        return self._from_encoder(encoders.alerts, client.list_all())
+        return _from_encoder(encoders.alerts, client.list_all())
 
     def all_checks(self) -> Cmd[None]:
         client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
-        return self._from_encoder(encoders.checks, client.list_checks())
+        return _from_encoder(encoders.checks, client.list_checks())
 
     def check_reports(self) -> Cmd[None]:
         client = CheckReportClient.new(self.creds)
-        return self._from_encoder(encoders.report, client.reports_stream())
+        return _from_encoder(encoders.report, client.reports_stream())
 
     def check_groups(self) -> Cmd[None]:
         client = CheckGroupClient.new(self.creds, 100)
-        return self._from_encoder(encoders.groups, client.list_all())
+        return _from_encoder(encoders.groups, client.list_all())
 
     def check_status(self) -> Cmd[None]:
         client = CheckStatusClient.new(self.creds, 100)
-        return self._from_encoder(encoders.status, client.list_all())
+        return _from_encoder(encoders.status, client.list_all())
 
     def check_results(self, state: EtlState) -> Cmd[None]:
-        start_date = state.results.value_or(self.old_date)
+        start_date = state.results_oldest.value_or(self.old_date)
         client = ChecksClient.new(self.creds, 100, start_date, self.now)
         return _emit_stream(
             client.list_ids()
