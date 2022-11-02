@@ -126,11 +126,14 @@ locals {
           Action = [
             "batch:CancelJob",
             "batch:SubmitJob",
+            "batch:TagResource",
             "batch:TerminateJob",
+            "batch:UntagResource",
           ]
           Resource = [
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
             "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
           ]
         },
         {
