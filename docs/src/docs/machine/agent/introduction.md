@@ -25,7 +25,7 @@ on the ARM, you can select and configure
 the conditions or policies that the agent
 must validate for breaking the build.
 
-## Table
+## Agent Table
 
 The DevSecOps section has a table
 showing a cumulative record of
@@ -45,30 +45,18 @@ and its exploitability,
 status and location,
 among others.
 
-![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1663616835/docs/machine/agent/agent_table.png)
+![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1667397781/docs/machine/agent/agent_section.png)
 
-## Filters
-
-In the
-**DevSecOps** section,
-there are seven filters
-available for the table.
-You can find them on
-the right side next to
-the search bar.
-
-![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
+In total,
+we have thirteen columns which
+are described below:
 
 - **Date:**
-  Allow you
-  to set a range of dates
-  during which our DevSecOps
-  agent was executed
-  in your pipeline.
+  The date which our DevSecOps agent
+  was executed in your pipeline.
 - **Status:**
-  Filter according
-  to two possible
-  statuses: Vulnerable and Secure.
+  The agent handles the two states:
+  Vulnerable and Secure.
   The **Vulnerable** status is
   given when the agent detects
   at least one open vulnerability.
@@ -80,9 +68,8 @@ the search bar.
   vulnerabilities identified
   by the Agent during the execution.
 - **Strictness:**
-  Lets you select between
-  two applied agent modes: The
-  **Strict** mode denotes that
+  The agent handles the two modes:
+  The **Strict** mode denotes that
   in that execution the agent
   was set to deny the deployment
   to production (break the build)
@@ -96,7 +83,7 @@ the search bar.
   in the pipeline,
   allowing deployment to production.
 - **Type:**
-  You have three
+  You can find three
   options: SAST, DAST and ALL.
   These options correspond
   to what the agent recognized
@@ -105,18 +92,22 @@ the search bar.
   ALL being with both
   SAST and DAST.
 - **Git repository:**
-  In the corresponding field,
-  you can partially or
-  completely enter the name
-  of one of the repositories
+  The name of the repositories
   evaluated by the agent.
-  It will restrict the
-  information in the table
-  to the repositories with
-  that name.
 - **Identifier:**
   Is the Agent's
   run identifier number.
+## Filters
+
+In the
+**DevSecOps** section,
+there are seven filters
+available for the table.
+You can find them on
+the right side next to
+the search bar.
+
+![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1663617023/docs/machine/agent/agent_filters.png)
 
 ## Export button
 
