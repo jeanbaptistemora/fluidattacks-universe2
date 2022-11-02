@@ -23,6 +23,7 @@ from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
     GroupAccessRequest,
+    GroupAccessState,
     GroupConfirmDeletion,
 )
 from db_model.organization_access.types import (
@@ -51,6 +52,9 @@ from mailchimp_transactional.api_client import (
 )
 from mailer.common import (
     send_mail_confirm_deletion,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 from newutils.datetime import (
     get_as_epoch,
@@ -208,6 +212,9 @@ async def confirm_deletion_mail(
         group_name="confirm_deletion",
         metadata=GroupAccessMetadataToUpdate(
             expiration_time=expiration_time,
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
             confirm_deletion=GroupConfirmDeletion(
                 is_used=False,
                 url_token=url_token,

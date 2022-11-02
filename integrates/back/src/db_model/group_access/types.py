@@ -20,12 +20,17 @@ class GroupInvitation(NamedTuple):
     responsibility: Optional[str] = None
 
 
+class GroupAccessState(NamedTuple):
+    modified_date: Optional[str] = None
+
+
 class GroupAccess(NamedTuple):
     email: str
     group_name: str
     confirm_deletion: Optional[GroupConfirmDeletion] = None
     expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
+    state: GroupAccessState = GroupAccessState()
     invitation: Optional[GroupInvitation] = None
     responsibility: Optional[str] = None
     role: Optional[str] = None
@@ -38,6 +43,7 @@ class GroupAccessMetadataToUpdate(NamedTuple):
     invitation: Optional[GroupInvitation] = None
     responsibility: Optional[str] = None
     role: Optional[str] = None
+    state: GroupAccessState = GroupAccessState()
 
 
 class GroupAccessRequest(NamedTuple):

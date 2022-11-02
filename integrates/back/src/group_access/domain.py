@@ -41,6 +41,7 @@ from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
     GroupAccessRequest,
+    GroupAccessState,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -64,11 +65,6 @@ from newutils import (
     datetime as datetime_utils,
     token as token_utils,
 )
-from newutils.datetime import (
-    get_from_epoch,
-    get_minus_delta,
-    get_now,
-)
 from newutils.group_access import (
     format_invitation_state,
 )
@@ -85,6 +81,9 @@ async def add_access(
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
             has_access=True,
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
         ),
     )
     await authz.grant_group_level_role(loaders, email, group_name, role)
@@ -361,9 +360,13 @@ async def update(
 def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     """Validates that new invitations to the same user in the same group/org
     are spaced out by at least one minute to avoid email flooding."""
-    expiration_date: datetime = get_from_epoch(inv_expiration_time)
-    creation_date: datetime = get_minus_delta(date=expiration_date, weeks=1)
-    current_date: datetime = get_now()
+    expiration_date: datetime = datetime_utils.get_from_epoch(
+        inv_expiration_time
+    )
+    creation_date: datetime = datetime_utils.get_minus_delta(
+        date=expiration_date, weeks=1
+    )
+    current_date: datetime = datetime_utils.get_now()
     if current_date - creation_date < timedelta(minutes=1):
         raise RequestedInvitationTooSoon()
     return True

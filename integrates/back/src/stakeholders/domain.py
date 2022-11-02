@@ -21,6 +21,7 @@ from db_model import (
 )
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
+    GroupAccessState,
     GroupInvitation,
 )
 from db_model.groups.types import (
@@ -94,7 +95,10 @@ async def update_information(
                 email=email,
                 group_name=group_name,
                 metadata=GroupAccessMetadataToUpdate(
-                    responsibility=responsibility
+                    responsibility=responsibility,
+                    state=GroupAccessState(
+                        modified_date=datetime_utils.get_iso_date()
+                    ),
                 ),
             )
         else:

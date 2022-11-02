@@ -84,6 +84,7 @@ from db_model.findings.types import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessState,
     GroupInvitation,
 )
 from db_model.groups.constants import (
@@ -238,6 +239,9 @@ async def complete_register_for_group_invitation(
                     responsibility=responsibility,
                 ),
                 responsibility=responsibility,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             ),
         )
     )
@@ -376,6 +380,9 @@ async def add_group(
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
                 has_access=True,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             ),
         )
         # Only Fluid staff can be customer managers
@@ -1071,6 +1078,9 @@ async def invite_to_group(
                 invitation=invitation,
                 responsibility=responsibility,
                 role=role,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             ),
         )
     else:

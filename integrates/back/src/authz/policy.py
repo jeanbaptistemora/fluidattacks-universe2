@@ -27,6 +27,7 @@ from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
     GroupAccessRequest,
+    GroupAccessState,
 )
 from db_model.groups.enums import (
     GroupService,
@@ -44,6 +45,9 @@ from db_model.organization_access.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 from typing import (
     NamedTuple,
@@ -208,7 +212,12 @@ async def grant_group_level_role(
     await group_access_model.update_metadata(
         email=email,
         group_name=group_name,
-        metadata=GroupAccessMetadataToUpdate(role=role),
+        metadata=GroupAccessMetadataToUpdate(
+            role=role,
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
+        ),
     )
     # If there is no user-level role for this user add one
     if not await get_user_level_role(loaders, email):
@@ -270,7 +279,12 @@ async def revoke_group_level_role(
             await group_access_model.update_metadata(
                 email=email,
                 group_name=group_name,
-                metadata=GroupAccessMetadataToUpdate(role=""),
+                metadata=GroupAccessMetadataToUpdate(
+                    role="",
+                    state=GroupAccessState(
+                        modified_date=datetime_utils.get_iso_date()
+                    ),
+                ),
             )
 
 

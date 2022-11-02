@@ -52,6 +52,7 @@ from db_model.findings.types import (
 )
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
+    GroupAccessState,
 )
 from db_model.groups.types import (
     Group,
@@ -84,6 +85,9 @@ from db_model.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 from organizations_finding_policies import (
     dal as dal_policies,
@@ -517,6 +521,9 @@ async def populate_policies(data: list[Any]) -> bool:
                 group_name=policy["object"],
                 metadata=GroupAccessMetadataToUpdate(
                     has_access=True,
+                    state=GroupAccessState(
+                        modified_date=datetime_utils.get_iso_date()
+                    ),
                 ),
             )
             for policy in data

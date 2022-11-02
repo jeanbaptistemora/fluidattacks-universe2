@@ -5,6 +5,7 @@
 from .types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessState,
     GroupConfirmDeletion,
     GroupInvitation,
 )
@@ -39,6 +40,9 @@ def format_group_access(item: Item) -> GroupAccess:
         else None,
         responsibility=item.get("responsibility"),
         role=item.get("role"),
+        state=GroupAccessState(
+            modified_date=item.get("state", {}).get("modified_date")
+        ),
     )
 
 
@@ -68,6 +72,9 @@ def format_metadata_item(
         else None,
         "responsibility": metadata.responsibility,
         "role": metadata.role,
+        "state": {"modified_date": metadata.state.modified_date}
+        if metadata.state.modified_date
+        else None,
     }
     return {
         key: None if not value and value is not False else value
