@@ -6,12 +6,11 @@ from ..operations import (
     SCHEMA_NAME,
 )
 from ..queries import (
-    SQL_INSERT_HISTORIC,
-    SQL_INSERT_METADATA,
     SQL_INSERT_VERIFICATION_VULNS_IDS,
 )
 from ..utils import (
     format_query_fields,
+    format_sql_query_historic,
     format_sql_query_metadata,
     get_query_fields,
 )
@@ -65,18 +64,14 @@ def insert_metadata_severity(
     item: Item,
 ) -> None:
     if item["cvss_version"] == "3.1":
-        _fields, values = format_query_fields(SeverityCvss31TableRow)
-        severity_table = f"{SCHEMA_NAME}.{SEVERITY_CVSS31_TABLE}"
+        sql_fields = get_query_fields(SeverityCvss31TableRow)
+        severity_table = SEVERITY_CVSS31_TABLE
     else:
-        _fields, values = format_query_fields(SeverityCvss20TableRow)
-        severity_table = f"{SCHEMA_NAME}.{SEVERITY_CVSS20_TABLE}"
+        sql_fields = get_query_fields(SeverityCvss20TableRow)
+        severity_table = SEVERITY_CVSS20_TABLE
     sql_values = format_row_severity(item)
-    cursor.execute(  # nosec
-        SQL_INSERT_METADATA.substitute(
-            table=severity_table,
-            fields=_fields,
-            values=values,
-        ),
+    cursor.execute(
+        format_sql_query_metadata(severity_table, sql_fields),
         sql_values,
     )
 
@@ -87,17 +82,12 @@ def insert_historic_state(
     finding_id: str,
     historic_state: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(StateTableRow)
+    sql_fields = get_query_fields(StateTableRow)
     sql_values = [
         format_row_state(finding_id, state) for state in historic_state
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{STATE_TABLE}",
-            fields=_fields,
-            values=values,
-        ),
+    cursor.executemany(
+        format_sql_query_historic(STATE_TABLE, METADATA_TABLE, sql_fields),
         sql_values,
     )
 
@@ -108,17 +98,14 @@ def insert_historic_verification(
     finding_id: str,
     historic_verification: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(VerificationTableRow)
+    sql_fields = get_query_fields(VerificationTableRow)
     sql_values = [
         format_row_verification(finding_id, verification)
         for verification in historic_verification
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_HISTORIC.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_TABLE}",
-            fields=_fields,
-            values=values,
+    cursor.executemany(
+        format_sql_query_historic(
+            VERIFICATION_TABLE, METADATA_TABLE, sql_fields
         ),
         sql_values,
     )

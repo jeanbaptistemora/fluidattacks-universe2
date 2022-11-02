@@ -6,6 +6,7 @@ from .operations import (
     SCHEMA_NAME,
 )
 from .queries import (
+    SQL_INSERT_HISTORIC_STR,
     SQL_INSERT_METADATA_STR,
 )
 from dataclasses import (
@@ -30,6 +31,17 @@ def format_sql_query_metadata(
 ) -> sql.Composed:
     return sql.SQL(SQL_INSERT_METADATA_STR).format(
         table=sql.Identifier(SCHEMA_NAME, table_name),
+        fields=sql.SQL(", ").join(map(sql.Identifier, _fields)),
+        values=sql.SQL(", ").join(map(sql.Placeholder, _fields)),
+    )
+
+
+def format_sql_query_historic(
+    table_historic: str, table_metadata: str, _fields: list[str]
+) -> sql.Composed:
+    return sql.SQL(SQL_INSERT_HISTORIC_STR).format(
+        table_historic=sql.Identifier(SCHEMA_NAME, table_historic),
+        table_metadata=sql.Identifier(SCHEMA_NAME, table_metadata),
         fields=sql.SQL(", ").join(map(sql.Identifier, _fields)),
         values=sql.SQL(", ").join(map(sql.Placeholder, _fields)),
     )
