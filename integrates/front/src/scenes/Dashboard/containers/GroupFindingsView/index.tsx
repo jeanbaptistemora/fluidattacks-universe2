@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
+import { assigneesFormatter } from "./formatters/assigneesFormatter";
 import { locationsFormatter } from "./formatters/locationsFormatter";
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type {
@@ -193,6 +194,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorFn: (row: IFindingAttr): string[] =>
         Array.from(row.locationsInfo.treatmentAssignmentEmails.values()),
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        assigneesFormatter(
+          Array.from(
+            cell.row.original.locationsInfo.treatmentAssignmentEmails.values()
+          )
+        ),
       filterFn: "arrIncludes",
       header: "Assignees",
       meta: { filterType: "select" },
