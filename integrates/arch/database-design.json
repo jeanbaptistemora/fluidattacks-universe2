@@ -6045,6 +6045,116 @@
           }
         },
         {
+          "FacetName": "group_historic_access",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "USER#emailGROUP#name",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "role": {
+                "S": "user_manager"
+              },
+              "group_name": {
+                "S": "asgard"
+              },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.comGROUP#asgard"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "role": {
+                "S": "user"
+              },
+              "group_name": {
+                "S": "sheele"
+              },
+              "responsibility": {
+                "S": ""
+              },
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.comGROUP#sheele"
+              },
+              "email": {
+                "S": "org_testuser3@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2020-01-01T20:07:57+00:00"
+              },
+              "pk": {
+                "S": "USER#unittest@fluidattacks.comGROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "responsibility": {
+                "S": "Tester"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "email",
+            "role",
+            "responsibility",
+            "group_name",
+            "has_access",
+            "invitation",
+            "expiration_time",
+            "confirm_deletion",
+            "state"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
           "FacetName": "portfolio_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "PORTFOLIO#id",
