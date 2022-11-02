@@ -13,13 +13,13 @@ from lib_ssl.types import (
 from model.core_model import (
     LocalesEnum,
 )
-from typing import (
-    Dict,
-)
-from utils.string import (
+from serializers import (
     make_snippet,
     SNIPPETS_COLUMNS,
     SnippetViewport,
+)
+from typing import (
+    Dict,
 )
 
 

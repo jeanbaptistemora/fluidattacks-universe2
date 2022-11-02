@@ -5,14 +5,14 @@
 from more_itertools import (
     chunked,
 )
-from typing import (
-    Dict,
-    Optional,
-)
-from utils.string import (
+from serializers import (
     make_snippet,
     SNIPPETS_COLUMNS,
     SnippetViewport,
+)
+from typing import (
+    Dict,
+    Optional,
 )
 
 

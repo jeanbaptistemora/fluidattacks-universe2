@@ -23,16 +23,16 @@ from sast_symbolic_evaluation.evaluate import (
     PossibleSyntaxStepsForFinding,
     PossibleSyntaxStepsForUntrustedNId,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 from typing import (
     Any,
     Dict,
     Iterator,
     Optional,
     Set,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 from vulnerabilities import (
     build_lines_vuln,

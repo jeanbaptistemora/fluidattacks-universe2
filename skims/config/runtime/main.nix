@@ -39,6 +39,7 @@ in
       ];
       source = [
         outputs."/common/utils/safe-pickle"
+        outputs."/common/utils/serializers"
         outputs."/skims/config/runtime/pypi"
         (makeTemplate {
           replace = {

@@ -57,6 +57,10 @@ from pyparsing import (
 from sca import (
     get_vulnerabilities,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 from typing import (
     Any,
     Callable,
@@ -75,10 +79,6 @@ from utils.fs import (
 from utils.function import (
     shield,
     shield_blocking,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 from vulnerabilities import (
     build_lines_vuln,

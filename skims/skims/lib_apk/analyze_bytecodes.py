@@ -28,16 +28,16 @@ from parse_android_manifest import (
     Locations,
 )
 import re
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 import textwrap
 from typing import (
     Callable,
     Dict,
     List,
     Set,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 
 

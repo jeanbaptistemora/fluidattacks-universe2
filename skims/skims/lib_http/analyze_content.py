@@ -21,6 +21,10 @@ from model.core_model import (
     LocalesEnum,
     MethodsEnum,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 from typing import (
     Any,
     Callable,
@@ -32,10 +36,6 @@ from typing import (
 )
 from urllib.parse import (
     urlparse,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 import viewstate
 from vulnerabilities import (

@@ -19,6 +19,10 @@ from lib_http.types import (
 from model import (
     core_model,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 import textwrap
 from typing import (
     Any,
@@ -27,10 +31,6 @@ from typing import (
     List,
     NamedTuple,
     Union,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 from vulnerabilities import (
     build_inputs_vuln,

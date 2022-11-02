@@ -18,6 +18,10 @@ from model.core_model import (
     AwsCredentials,
     MethodsEnum,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 from typing import (
     Any,
     Dict,
@@ -26,10 +30,6 @@ from typing import (
 )
 from utils.logs import (
     log_exception_blocking,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 from vulnerabilities import (
     build_inputs_vuln,

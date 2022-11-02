@@ -29,16 +29,16 @@ from model.core_model import (
 from parse_android_manifest.types import (
     APKContext,
 )
+from serializers import (
+    make_snippet,
+    SnippetViewport,
+)
 from typing import (
     Any,
     List,
     NamedTuple,
     Optional,
     Union,
-)
-from utils.string import (
-    make_snippet,
-    SnippetViewport,
 )
 from vulnerabilities import (
     build_inputs_vuln,

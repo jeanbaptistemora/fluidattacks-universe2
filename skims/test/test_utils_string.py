@@ -3,11 +3,11 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import pytest
-import textwrap
-from utils.string import (
+from serializers import (
     make_snippet,
     SnippetViewport,
 )
+import textwrap
 
 
 def _dedent(content: str) -> str:
