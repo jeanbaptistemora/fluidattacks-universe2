@@ -111,7 +111,9 @@ our SCA was enabled to detect the critical flaw [Text4Shell](https://cve.mitre.o
 Vulnerable dependencies that go unchecked
 create the risk of suffering supply chain attacks.
 According to [research by the Ponemon institute](https://www.ibm.com/security/data-breach),
-in 2022 the cost of such a compromise is $4.35M on average globally.
+in 2022 the cost of such a compromise is $4.46M on average globally
+(surpassing that of data breaches
+attributed to attacks of all categories).
 
 ### Exploitation and misconfiguration abuse in the cloud
 
@@ -287,7 +289,7 @@ This gives us a risk exposure measure we call [CVSSF](https://try.fluidattacks.c
 As a result,
 visibility becomes greater the riskier vulnerabilities get.
 Our clients get the CVSSF of each detected vulnerability
-on our [Attack Surface Management platform](../../product-overview/) (ARM)
+on our [Attack Resistance Management platform](../../product-overview/) (ARM)
 and make better decisions to prioritize remediation,
 not thinking about numbers, but risk.
 
