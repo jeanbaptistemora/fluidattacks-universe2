@@ -6,7 +6,8 @@ slug: /machine/web/groups/reports
 ---
 
 In the
-**Vulnerabilities** subsection,
+[Vulnerabilities](/machine/web/groups/vulnerabilities)
+section,
 you can request vulnerability
 reports by clicking on the
 **Reports** button that
@@ -14,7 +15,7 @@ appears at the top left,
 as you can see in the
 following screenshot:
 
-![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1662054349/docs/web/groups/reports/report_section.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1667342270/docs/web/groups/reports/reports_view.png)
 
 The available report options
 have either summarized and
@@ -97,7 +98,7 @@ that the access granted
 through the link is only
 available for one hour.
 
-![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_announcement.png)
+![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1667342446/docs/web/groups/reports/technical_report.png)
 
 ## Report Filters
 
@@ -122,8 +123,29 @@ you want to generate,
 finding four different
 filter options:
 
-![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1657731874/docs/web/groups/reports/reports_filter_options.png)
+![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1667385312/docs/web/groups/reports/filters_report.png)
 
+- **Type:**
+  Filter by the name of vulnerability
+  type.
+- **Min release date:**
+  Filter the vulnerabilities with the
+  most recent date when the
+  vulnerability was reported.
+- **Max release date:**
+  Filter vulnerabilities with
+  the oldest date it was reported.
+- **Locations:**
+  The localization of vulnerability.
+- **Last Report:**
+  Filter types by days since the
+  last reported vulnerability.
+- **Min - Max severity:**
+  Filter out vulnerabilities with
+  min and max severity value.
+- **Age:**
+  Filter the typology according
+  to the age it has.
 - **Closing date:**
   Filters closed locations
   with a date equal to or
