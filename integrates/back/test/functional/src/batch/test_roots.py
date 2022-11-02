@@ -50,9 +50,7 @@ from typing import (
 async def test_queue_sync_git_roots_real_ssh_ok(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname6", False)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     loaders: Dataloaders = get_new_context()
     root_1: Root = await loaders.root.load(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
@@ -75,9 +73,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
 async def test_queue_sync_git_roots_real_https_ok(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname8", False)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     loaders: Dataloaders = get_new_context()
     root_1: Root = await loaders.root.load(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
@@ -100,9 +96,7 @@ async def test_queue_sync_git_roots_real_https_ok(
 async def test_queue_sync_git_roots_real_https_same_commit(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname8", True)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=True)
     loaders: Dataloaders = get_new_context()
     await update_root_cloning_status(
         loaders,
@@ -131,9 +125,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
 async def test_queue_sync_git_roots_real_ssh_same_commit(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname6", True)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=True)
     loaders: Dataloaders = get_new_context()
     await update_root_cloning_status(
         loaders,
@@ -179,9 +171,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
             ),
         ),
     )
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname1", False)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     loaders: Dataloaders = get_new_context()
     root_1: Root = await loaders.root.load(
@@ -206,9 +196,7 @@ async def test_queue_sync_git_roots_no_creds(
     root_1: Root = await loaders.root.load(
         ("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname4", False)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     with pytest.raises(CredentialNotFound):
         await clone_roots.queue_sync_git_roots(
@@ -224,9 +212,7 @@ async def test_queue_sync_git_roots_no_creds(
 async def test_queue_sync_git_no_queue(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname1", False)
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     loaders: Dataloaders = get_new_context()
     root_1: GitRoot = await loaders.root.load(
@@ -252,11 +238,7 @@ async def test_queue_sync_git_no_queue(
 async def test_queue_sync_git_roots_cloning(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    mocker.patch.object(
-        roots_domain,
-        "is_in_s3",
-        return_value=("nickname1", False),
-    )
+    mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     mocker.patch.object(
         clone_roots,
         "ssh_ls_remote",
@@ -294,7 +276,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     mocker.patch.object(
         roots_domain,
         "is_in_s3",
-        return_value=("nickname2", True),
+        return_value=True,
     )
 
     loaders: Dataloaders = get_new_context()
@@ -329,7 +311,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     mocker.patch.object(
         roots_domain,
         "is_in_s3",
-        return_value=("nickname2", False),
+        return_value=False,
     )
 
     loaders: Dataloaders = get_new_context()
@@ -359,7 +341,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
     mocker.patch.object(
         roots_domain,
         "is_in_s3",
-        return_value=("nickname1", False),
+        return_value=False,
     )
     mocker.patch.object(
         clone_roots,
@@ -525,7 +507,7 @@ async def test_queue_sync_git_roots(
     mocker.patch.object(
         roots_domain,
         "is_in_s3",
-        return_value=("nickname1", False),
+        return_value=False,
     )
     mocker.patch.object(
         clone_roots,

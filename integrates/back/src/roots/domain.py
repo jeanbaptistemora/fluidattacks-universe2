@@ -1783,16 +1783,13 @@ async def finish_machine_execution(
     return True
 
 
-async def is_in_s3(group_name: str, root_nickname: str) -> tuple[str, bool]:
+async def is_in_s3(group_name: str, root_nickname: str) -> bool:
     bucket_path: str = "continuous-repositories"
-    return (
-        root_nickname,
-        bool(
-            await s3_operations.list_files(
-                bucket=FI_AWS_S3_MAIN_BUCKET,
-                name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
-            )
-        ),
+    return bool(
+        await s3_operations.list_files(
+            bucket=FI_AWS_S3_MAIN_BUCKET,
+            name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
+        )
     )
 
 
