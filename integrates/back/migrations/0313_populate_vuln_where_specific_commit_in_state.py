@@ -5,6 +5,9 @@
 # pylint: disable=invalid-name
 """
 Populate where, specific and commit in the vulnerability historic state
+
+Execution Time: 2022-11-02 at 15:39:09 UTC
+Finalization Time: 2022-11-02 at 18:13:50 UTC
 """
 from aioextensions import (
     collect,
@@ -20,9 +23,6 @@ from botocore.exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from datetime import (
-    datetime,
 )
 from db_model import (
     TABLE,
@@ -111,10 +111,7 @@ async def process_vulnerability(
     historic: tuple[
         VulnerabilityState, ...
     ] = await loaders.vulnerability_historic_state.load(vulnerability.id)
-    sorted_historic = sorted(
-        historic, key=lambda state: datetime.fromisoformat(state.modified_date)
-    )
-    for state in sorted_historic:
+    for state in historic:
         if state.where is not None and state.specific is not None:
             initial_commit = state.commit
             initial_specific = state.specific
@@ -141,7 +138,7 @@ async def process_vulnerability(
     )
     await process_state(
         vulnerability=vulnerability,
-        state=sorted_historic[-1],
+        state=historic[-1],
         commit=vulnerability.commit,
         specific=vulnerability.specific,
         where=vulnerability.where,
@@ -157,7 +154,7 @@ async def process_vulnerability(
                 where=initial_where,
                 is_last_state=False,
             )
-            for state in sorted_historic[:-1]
+            for state in historic[:-1]
         )
     )
 
