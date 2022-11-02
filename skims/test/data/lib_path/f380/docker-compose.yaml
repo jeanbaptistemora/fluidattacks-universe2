@@ -3,20 +3,18 @@ version: '3.4'
 
 services:
   must-fail:
-    image: test/webmvc
-    ports:
-      - 5100:80
-
+    image: the_image
+    environment:
+      - CatalogUrl=http://catalog-api
   must-fail-a:
-    image: "test/webmvc@${INVALID_DIGEST}"
-      - 5100:80
-
+    image: the_image@sha256:0123invalidshahash3210
+    environment:
+      - CatalogUrl=http://catalog-api
   must-not-fail:
-    image: test/api@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23ce8f
-    ports:
-      - 5101:80
-
+    image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+    environment:
+      - CatalogUrl=http://catalog-api
   must-not-fail-a:
-    image: "test/webmvc@${VALID_DIGEST}"
-    ports:
-      - 5101:80
+    image: "the_image@${COULD_BE_A_DIGEST}"
+    environment:
+      - CatalogUrl=http://catalog-api

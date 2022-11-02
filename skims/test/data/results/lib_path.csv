@@ -6889,6 +6889,98 @@ F418,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,4,16,skims
   21 |       - API_NAME=name1
      ^ Col 0
 ",docker.docker_compose_read_only
+F418,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,17,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+> 17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_read_only
+F418,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,13,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+> 13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_read_only
+F418,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,9,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+>  9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_read_only
+F418,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,5,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_read_only
 F418,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,19,16,skims,418. Insecure service configuration - Docker,Property read_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
    9 |       - OrderingUrl=http://ordering-api
   10 |       - BasketUrl=http://basket-api
@@ -17177,6 +17269,98 @@ F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,sk
   27 |       - 5101:80
   28 |     extra_hosts:
   29 |       - CESARDLSURFBOOK:10.0.75.1
+     ^ Col 0
+",docker.docker_compose_without_user
+F266,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,17,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+> 17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_without_user
+F266,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,13,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+> 13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_without_user
+F266,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,9,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+>  9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_without_user
+F266,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
      ^ Col 0
 ",docker.docker_compose_without_user
 F266,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
@@ -33732,6 +33916,78 @@ F380,lines,namespace/skims/test/data/lib_path/f418/docker_using_add_command/Dock
   23 | RUN npm i --only=production && npm cache clean --force
      ^ Col 0
 ",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,18,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+> 18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+  22 |   db:
+  23 |     image: postgres:${POSTGRES_VERSION}
+  24 |     environment:
+  25 |       - API_PASSWORD=pass
+  26 | volumes:
+  27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   webmvc:
+   6 |     image: eshop/webmvc
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+  19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+> 19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+  22 |       - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+  23 |     read_only: true
+  24 |     expose:
+  25 |       - '80'
+  26 |     ports:
+  27 |       - 5101:80
+  28 |     extra_hosts:
+  29 |       - CESARDLSURFBOOK:10.0.75.1
+     ^ Col 0
+",docker.docker_compose_image_has_digest
 F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,7,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f380/bash.sh,"
    1 | #!/bin/bash
    2 |
@@ -33780,6 +34036,100 @@ F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,4,749,skims,380. Supp
   21 | echo run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
      ^ Col 0
 ",bash.bash_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,9,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+>  9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,5,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,5,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   webmvc:
+   6 |     image: eshop/webmvc
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+  19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,19,749,skims,380. Supply Chain Attack - Docker,Ensure the specified docker image has a digest. in namespace/skims/test/data/lib_path/f418/docker_compose_read_only/docker-compose.yaml,"
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+> 19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+  22 |       - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+  23 |     expose:
+  24 |       - '80'
+  25 |     ports:
+  26 |       - 5101:80
+  27 |     extra_hosts:
+  28 |       - CESARDLSURFBOOK:10.0.75.1
+  29 |     depends_on:
+     ^ Col 0
+",docker.docker_compose_image_has_digest
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
    1 | using System;
    2 | using System.Security;
