@@ -16,9 +16,13 @@ from datetime import (
 )
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 from fa_purity.stream.transform import (
     chain,
+)
+from tap_checkly._utils import (
+    DateInterval,
 )
 from tap_checkly.api import (
     Credentials,
@@ -63,7 +67,7 @@ class Streams:
         return _emit.from_encoder(encoders.alerts, client.list_all())
 
     def all_checks(self) -> Cmd[None]:
-        client = ChecksClient.new(self.creds, 100, self.old_date, self.now)
+        client = ChecksClient.new(self.creds, 100)
         return _emit.from_encoder(encoders.checks, client.list_checks())
 
     def check_reports(self) -> Cmd[None]:
@@ -82,17 +86,21 @@ class Streams:
         start_date = state.results.map(lambda d: d.newest).value_or(
             self.old_date
         )
-        client = ChecksClient.new(self.creds, 100, start_date, self.now)
+        end_date = self.now
+        client = ChecksClient.new(self.creds, 100)
+        new_state = EtlState(
+            Maybe.from_value(DateInterval.new(start_date, end_date).unwrap())
+        )
         return _emit.emit_stream(
             client.list_ids()
             .bind(
-                lambda c: client.list_check_results(c).map(
-                    lambda r: IndexedObj(c, r)
-                )
+                lambda c: client.list_check_results(
+                    c, start_date, end_date
+                ).map(lambda r: IndexedObj(c, r))
             )
             .map(encode_result)
             .transform(chain),
-        )
+        ) + _emit.emit_state(new_state)
 
 
 __all__ = [

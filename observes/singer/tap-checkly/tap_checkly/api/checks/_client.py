@@ -47,8 +47,6 @@ from tap_checkly.objs import (
 class ChecksClient:
     _raw: RawClient
     _per_page: int
-    _from_date: datetime
-    _to_date: datetime
 
     def _list_ids(self, page: int) -> Cmd[FrozenList[CheckId]]:
         return self._raw.get_list(
@@ -76,9 +74,11 @@ class ChecksClient:
     def list_checks(self) -> Stream[CheckObj]:
         return _utils.paginate_all(self._list_checks)
 
-    def list_check_results(self, check: CheckId) -> Stream[CheckResultObj]:
+    def list_check_results(
+        self, check: CheckId, _from_date: datetime, _to_date: datetime
+    ) -> Stream[CheckResultObj]:
         _client = CheckResultClient(
-            self._raw, check, self._per_page, self._from_date, self._to_date
+            self._raw, check, self._per_page, _from_date, _to_date
         )
         return _client.list_all()
 
@@ -86,7 +86,5 @@ class ChecksClient:
     def new(
         auth: Credentials,
         per_page: int,
-        from_date: datetime,
-        to_date: datetime,
     ) -> ChecksClient:
-        return ChecksClient(RawClient(auth), per_page, from_date, to_date)
+        return ChecksClient(RawClient(auth), per_page)
