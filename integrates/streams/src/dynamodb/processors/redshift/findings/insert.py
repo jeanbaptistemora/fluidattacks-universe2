@@ -2,16 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ..operations import (
-    SCHEMA_NAME,
-)
-from ..queries import (
-    SQL_INSERT_VERIFICATION_VULNS_IDS,
-)
 from ..utils import (
-    format_query_fields,
     format_sql_query_historic,
     format_sql_query_metadata,
+    format_sql_query_verification_vulns_ids,
     get_query_fields,
 )
 from .initialize import (
@@ -117,7 +111,7 @@ def insert_historic_verification_vuln_ids(
     finding_id: str,
     historic_verification: tuple[Item, ...],
 ) -> None:
-    _fields, values = format_query_fields(VerificationVulnIdsTableRow)
+    sql_fields = get_query_fields(VerificationVulnIdsTableRow)
     sql_values = [
         format_row_verification_vuln_ids(
             finding_id=finding_id,
@@ -128,12 +122,9 @@ def insert_historic_verification_vuln_ids(
         if verification.get("vulnerability_ids")
         for vulnerability_id in verification["vulnerability_ids"]
     ]
-    cursor.executemany(  # nosec
-        SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
-            table_metadata=f"{SCHEMA_NAME}.{METADATA_TABLE}",
-            table_historic=f"{SCHEMA_NAME}.{VERIFICATION_VULN_IDS_TABLE}",
-            fields=_fields,
-            values=values,
+    cursor.executemany(
+        format_sql_query_verification_vulns_ids(
+            VERIFICATION_VULN_IDS_TABLE, METADATA_TABLE, sql_fields
         ),
         sql_values,
     )

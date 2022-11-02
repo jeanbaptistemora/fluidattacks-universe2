@@ -56,19 +56,17 @@ SQL_INSERT_HISTORIC_STR = """
     """
 
 
-SQL_INSERT_VERIFICATION_VULNS_IDS = Template(
-    """
-    INSERT INTO ${table_vulns_ids} (${fields}) SELECT ${values}
+SQL_INSERT_VERIFICATION_VULNS_IDS = """
+    INSERT INTO {table_vulns_ids} ({fields}) SELECT {values}
     WHERE NOT EXISTS (
         SELECT id, modified_date, vulnerability_id
-        FROM ${table_vulns_ids}
+        FROM {table_vulns_ids}
         WHERE id = %(id)s
             and modified_date = %(modified_date)s
             and vulnerability_id = %(vulnerability_id)s
     ) AND EXISTS (
         SELECT id
-        FROM ${table_metadata}
+        FROM {table_metadata}
         WHERE id = %(id)s
     )
     """
-)

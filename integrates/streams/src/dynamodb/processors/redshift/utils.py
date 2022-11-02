@@ -8,6 +8,7 @@ from .operations import (
 from .queries import (
     SQL_INSERT_HISTORIC_STR,
     SQL_INSERT_METADATA_STR,
+    SQL_INSERT_VERIFICATION_VULNS_IDS,
 )
 from dataclasses import (
     fields,
@@ -41,6 +42,19 @@ def format_sql_query_historic(
 ) -> sql.Composed:
     return sql.SQL(SQL_INSERT_HISTORIC_STR).format(
         table_historic=sql.Identifier(SCHEMA_NAME, table_historic),
+        table_metadata=sql.Identifier(SCHEMA_NAME, table_metadata),
+        fields=sql.SQL(", ").join(map(sql.Identifier, _fields)),
+        values=sql.SQL(", ").join(map(sql.Placeholder, _fields)),
+    )
+
+
+def format_sql_query_verification_vulns_ids(
+    table_vulns_ids: str,
+    table_metadata: str,
+    _fields: list[str],
+) -> sql.Composed:
+    return sql.SQL(SQL_INSERT_VERIFICATION_VULNS_IDS).format(
+        table_vulns_ids=sql.Identifier(SCHEMA_NAME, table_vulns_ids),
         table_metadata=sql.Identifier(SCHEMA_NAME, table_metadata),
         fields=sql.SQL(", ").join(map(sql.Identifier, _fields)),
         values=sql.SQL(", ").join(map(sql.Placeholder, _fields)),
