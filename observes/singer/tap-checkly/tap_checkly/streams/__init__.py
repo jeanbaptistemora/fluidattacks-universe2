@@ -8,6 +8,9 @@ from . import (
 from ._objs import (
     SupportedStreams,
 )
+from ._state import (
+    decode as decode_state,
+)
 from dataclasses import (
     dataclass,
 )
@@ -104,5 +107,6 @@ class Streams:
 
 
 __all__ = [
+    "decode_state",
     "SupportedStreams",
 ]

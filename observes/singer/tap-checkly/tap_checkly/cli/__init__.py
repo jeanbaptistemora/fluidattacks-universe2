@@ -6,11 +6,12 @@ from ._emitter import (
     Emitter,
 )
 import click
-from datetime import (
-    datetime,
-)
 from fa_purity import (
+    Cmd,
     Maybe,
+)
+from fa_purity.json.factory import (
+    load,
 )
 from tap_checkly._utils import (
     DateInterval,
@@ -22,6 +23,7 @@ from tap_checkly.state import (
     EtlState,
 )
 from tap_checkly.streams import (
+    decode_state,
     SupportedStreams,
 )
 from typing import (
@@ -33,10 +35,20 @@ from utils_logger.v2 import (
 )
 
 
+def _decode_state(file_path: str) -> Cmd[EtlState]:
+    def _action() -> EtlState:
+        with open(file_path, "r") as file:
+            raw = load(file).unwrap()
+        return decode_state(raw).unwrap()
+
+    return Cmd.from_cmd(_action)
+
+
 @click.command()  # type: ignore[misc]
 @click.option("--api-user", type=str, required=True)  # type: ignore[misc]
 @click.option("--api-key", type=str, required=True)  # type: ignore[misc]
 @click.option("--all-streams", is_flag=True, default=False)  # type: ignore[misc]
+@click.option("--state", type=click.Path(exists=True), default=None)  # type: ignore[misc]
 @click.argument(  # type: ignore[misc]
     "name",
     type=click.Choice(
@@ -46,7 +58,11 @@ from utils_logger.v2 import (
     default=None,
 )
 def stream(
-    name: Optional[str], api_user: str, api_key: str, all_streams: bool
+    name: Optional[str],
+    api_user: str,
+    api_key: str,
+    all_streams: bool,
+    state: Optional[str],
 ) -> NoReturn:
     creds = Credentials(api_user, api_key)
     selection = (
@@ -58,8 +74,15 @@ def stream(
         .unwrap()
     )
     empty: Maybe[DateInterval] = Maybe.empty()
-    emitter = Emitter(EtlState(empty), creds)
-    emitter.emit_streams(selection).compute()
+    _state = (
+        _decode_state(state)
+        if state
+        else Cmd.from_cmd(lambda: EtlState(empty))
+    )
+    cmd: Cmd[None] = _state.bind(
+        lambda s: Emitter(s, creds).emit_streams(selection)
+    )
+    cmd.compute()
 
 
 @click.group()  # type: ignore[misc]
