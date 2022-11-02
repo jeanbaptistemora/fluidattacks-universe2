@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+from __future__ import (
+    annotations,
+)
 
 from dataclasses import (
     dataclass,
@@ -24,7 +27,11 @@ from fa_purity.json.primitive.core import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
+from fa_purity.union import (
+    UnionFactory,
+)
 from typing import (
+    Optional,
     Type,
     TypeVar,
 )
@@ -80,6 +87,26 @@ class ExtendedUnfolder:
             )
         ).map(lambda m: m.bind(lambda x: x))
 
+    def require_json(self, key: str) -> ResultE[JsonObj]:
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(lambda u: u.to_json().alt(Exception))
+        )
+
+    def require_opt_json(self, key: str) -> ResultE[Optional[JsonObj]]:
+        factory: UnionFactory[JsonObj, None] = UnionFactory()
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(
+                lambda u: u.to_json()
+                .map(factory.inl)
+                .lash(lambda _: u.to_none().map(factory.inr))
+                .alt(Exception)
+            )
+        )
+
     def require_primitive(
         self, key: str, prim_type: Type[NotNonePrimTvar]
     ) -> ResultE[NotNonePrimTvar]:
@@ -121,3 +148,26 @@ class ExtendedUnfolder:
             .map(Unfolder)
             .map(lambda u: u.to_primitive(str).alt(Exception).bind(isoparse))
         )
+
+
+@dataclass(frozen=True)
+class _Private:
+    pass
+
+
+@dataclass(frozen=True)
+class DateInterval:
+    _private: _Private
+    oldest: datetime
+    newest: datetime
+
+    @staticmethod
+    def new(oldest: datetime, newest: datetime) -> ResultE[DateInterval]:
+        if newest > oldest:
+            return Result.success(
+                DateInterval(_Private(), oldest, newest), Exception
+            )
+        err = ValueError(
+            f"Invalid DateInterval: oldest > newest. i.e. {oldest} > {newest}"
+        )
+        return Result.failure(err, DateInterval).alt(Exception)

@@ -79,7 +79,9 @@ class Streams:
         return _emit.from_encoder(encoders.status, client.list_all())
 
     def check_results(self, state: EtlState) -> Cmd[None]:
-        start_date = state.results_oldest.value_or(self.old_date)
+        start_date = state.results.map(lambda d: d.newest).value_or(
+            self.old_date
+        )
         client = ChecksClient.new(self.creds, 100, start_date, self.now)
         return _emit.emit_stream(
             client.list_ids()

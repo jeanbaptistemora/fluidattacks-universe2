@@ -2,11 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._utils import (
+    DateInterval,
+)
 from dataclasses import (
     dataclass,
-)
-from datetime import (
-    datetime,
 )
 from fa_purity import (
     Maybe,
@@ -15,6 +15,4 @@ from fa_purity import (
 
 @dataclass(frozen=True)
 class EtlState:
-    # check results
-    results_recent: Maybe[datetime]
-    results_oldest: Maybe[datetime]
+    results: Maybe[DateInterval]  # check results stream

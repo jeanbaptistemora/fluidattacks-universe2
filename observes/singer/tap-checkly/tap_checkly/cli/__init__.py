@@ -12,6 +12,9 @@ from datetime import (
 from fa_purity import (
     Maybe,
 )
+from tap_checkly._utils import (
+    DateInterval,
+)
 from tap_checkly.api import (
     Credentials,
 )
@@ -54,8 +57,8 @@ def stream(
         .map(lambda i: (i,))
         .unwrap()
     )
-    empty: Maybe[datetime] = Maybe.empty()
-    emitter = Emitter(EtlState(empty, empty), creds)
+    empty: Maybe[DateInterval] = Maybe.empty()
+    emitter = Emitter(EtlState(empty), creds)
     emitter.emit_streams(selection).compute()
 
 
