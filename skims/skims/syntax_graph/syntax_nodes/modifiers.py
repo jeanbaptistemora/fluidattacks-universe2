@@ -18,7 +18,6 @@ def build_modifiers_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        annotation_ids=annotation_ids,
         label_type="Modifiers",
     )
 
