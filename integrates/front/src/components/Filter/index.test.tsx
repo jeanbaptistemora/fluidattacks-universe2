@@ -334,6 +334,79 @@ describe("Filters", (): void => {
     expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
   });
 
+  it("should mantain many filters", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        id: "numberrange",
+        key: "numberrange",
+        label: "Number Range",
+        type: "numberRange",
+      },
+      {
+        id: "color",
+        key: "color",
+        label: "Color",
+        selectOptions: [...new Set(dataset.map((item): string => item.color))],
+        type: "select",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("spinbutton", { name: "numberrange" })
+      ).toHaveLength(2);
+    });
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "color" })
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByRole("combobox", { name: "color" }), {
+      target: { value: "blue" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(7);
+    });
+
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "numberrange" })[0],
+      {
+        target: { value: "7" },
+      }
+    );
+
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "numberrange" })[1],
+      {
+        target: { value: "7" },
+      }
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+
+    fireEvent.change(screen.getByRole("combobox", { name: "color" }), {
+      target: { value: "red" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(1);
+    });
+  });
+
   it("should filter text", async (): Promise<void> => {
     expect.hasAssertions();
 

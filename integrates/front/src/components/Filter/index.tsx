@@ -68,7 +68,6 @@ const useFilters = <IData extends object>(
           .includes(filter.value.toLowerCase());
 
       case "includesInArray": {
-        if (!(Symbol.iterator in Object(dataPoint[filter.key]))) return true;
         const array: unknown[] = JSON.parse(
           JSON.stringify(dataPoint[filter.key])
         );
