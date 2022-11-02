@@ -9,6 +9,9 @@ from fa_purity.json import (
     JsonObj,
     JsonValue,
 )
+from fa_singer_io.singer import (
+    SingerState,
+)
 from tap_checkly._utils import (
     ExtendedUnfolder,
 )
@@ -17,7 +20,7 @@ from tap_checkly.state import (
 )
 
 
-def endode(state: EtlState) -> JsonObj:
+def encode(state: EtlState) -> JsonObj:
     return FrozenDict(
         {
             "results_recent": JsonValue(
@@ -32,6 +35,10 @@ def endode(state: EtlState) -> JsonObj:
             ),
         }
     )
+
+
+def encode_state(state: EtlState) -> SingerState:
+    return SingerState(encode(state))
 
 
 def decode(raw: JsonObj) -> ResultE[EtlState]:

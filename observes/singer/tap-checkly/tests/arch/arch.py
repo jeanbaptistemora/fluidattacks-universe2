@@ -60,7 +60,10 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_encoders",
         ("results", "status"),
     ),
-    "tap_checkly.streams": (("_state", "_objs"),),
+    "tap_checkly.streams": (
+        "_emit",
+        ("_state", "_objs"),
+    ),
     "tap_checkly.objs": (
         "_root",
         "_report",
