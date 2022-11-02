@@ -2,22 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from string import (
-    Template,
-)
 
-SQL_INSERT_METADATA = Template(
-    """
-    INSERT INTO ${table} (${fields}) SELECT ${values}
-    WHERE NOT EXISTS (
-        SELECT id
-        FROM ${table}
-        WHERE id = %(id)s
-    )
-    """
-)
-
-SQL_INSERT_METADATA_STR = """
+SQL_INSERT_METADATA = """
     INSERT INTO {table} ({fields}) SELECT {values}
     WHERE NOT EXISTS (
         SELECT id
@@ -27,22 +13,7 @@ SQL_INSERT_METADATA_STR = """
     """
 
 
-SQL_INSERT_HISTORIC = Template(
-    """
-    INSERT INTO ${table_historic} (${fields}) SELECT ${values}
-    WHERE NOT EXISTS (
-        SELECT id, modified_date
-        FROM ${table_historic}
-        WHERE id = %(id)s and modified_date = %(modified_date)s
-    ) AND EXISTS (
-        SELECT id
-        FROM ${table_metadata}
-        WHERE id = %(id)s
-    )
-    """
-)
-
-SQL_INSERT_HISTORIC_STR = """
+SQL_INSERT_HISTORIC = """
     INSERT INTO {table_historic} ({fields}) SELECT {values}
     WHERE NOT EXISTS (
         SELECT id, modified_date
