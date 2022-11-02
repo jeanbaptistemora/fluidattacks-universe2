@@ -16,6 +16,14 @@ resource "aws_s3_bucket" "prod" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "airs_prod" {
+  bucket = aws_s3_bucket.prod.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/fluidattacks.com"
+}
+
 resource "aws_s3_bucket_acl" "prod" {
   bucket = aws_s3_bucket.prod.id
 
@@ -99,6 +107,14 @@ resource "aws_s3_bucket" "dev" {
     "management:type"    = "product"
     "Access"             = "private"
   }
+}
+
+# Bucket logging
+resource "aws_s3_bucket_logging" "airs_dev" {
+  bucket = aws_s3_bucket.dev.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/web.eph.fluidattacks.com"
 }
 
 resource "aws_s3_bucket_acl" "dev" {
