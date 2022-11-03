@@ -487,7 +487,7 @@ async def send_treatment_report_mail(
         managers_email=managers_email,
         modified_by=modified_by,
         modified_date=str(datetime_utils.get_iso_date()),
-        location=old_vuln_values.where,
+        location=old_vuln_values.state.where,
         email_to=users_email,
         is_approved=is_approved,
     )
@@ -624,7 +624,7 @@ async def validate_and_send_notification_request(
                     "Not all the vulns provided have the same assigned hacker"
                 )
     where_str = format_vulnerability_locations(
-        list(vuln.where for vuln in assigned_vulns)
+        list(vuln.state.where for vuln in assigned_vulns)
     )
 
     stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)

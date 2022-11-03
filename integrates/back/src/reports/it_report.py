@@ -397,7 +397,7 @@ class ITReport:
             vulnerabilities_filtered = tuple(
                 vulnerability
                 for vulnerability in vulnerabilities_filtered
-                if vulnerability.where.find(self.location) >= 0
+                if vulnerability.state.where.find(self.location) >= 0
             )
 
         vulnerabilities_historics: tuple[
@@ -823,7 +823,7 @@ class ITReport:
         self.row_values[vuln["Related Finding"]] = finding.title
         self.row_values[vuln["Finding Id"]] = finding.id
         self.row_values[vuln["Vulnerability Id"]] = row.id
-        self.row_values[vuln["Where"]] = row.where
+        self.row_values[vuln["Where"]] = row.state.where
         self.row_values[vuln["Specific"]] = specific
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags

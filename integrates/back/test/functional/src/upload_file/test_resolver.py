@@ -79,7 +79,7 @@ async def _get_vulns(
                 verification_status=vuln.verification.status.value
                 if vuln.verification
                 else None,
-                where=vuln.where,
+                where=vuln.state.where,
             )
             for vuln in finding_vulns
         ),
@@ -216,7 +216,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding_id)
         if vuln.specific == "4646"
-        and vuln.where == "192.168.1.46"
+        and vuln.state.where == "192.168.1.46"
         and vuln.type == VulnerabilityType.PORTS
         and vuln.state.status == VulnerabilityStateStatus.OPEN
     )

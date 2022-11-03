@@ -94,12 +94,14 @@ def get_hash_from_typed(
 ) -> int:
     specific = vuln.specific
     type_ = vuln.type.value
-    where = vuln.where
+    where = vuln.state.where
     if validate_root:
         where = (
-            get_path_from_integrates_vulnerability(vuln.where, vuln.type)[1]
+            get_path_from_integrates_vulnerability(
+                vuln.state.where, vuln.type
+            )[1]
             if vuln.type == VulnerabilityType.INPUTS
-            else vuln.where
+            else vuln.state.where
         )
     if from_yaml:
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290

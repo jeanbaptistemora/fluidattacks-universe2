@@ -78,7 +78,7 @@ async def get_data_one_group(
 
     return Counter(
         tuple(
-            format_where(vulnerability.where)
+            format_where(vulnerability.state.where)
             for vulnerability in vulnerabilities
             if get_datetime_from_iso_str(vulnerability.created_date)
             > date_minus_delta

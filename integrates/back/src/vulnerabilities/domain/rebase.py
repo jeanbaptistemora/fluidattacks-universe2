@@ -84,10 +84,10 @@ async def rebase(
         specific=current_vuln.specific,
         type_=current_vuln.type,
         where=get_path_from_integrates_vulnerability(
-            current_vuln.where, current_vuln.type
+            current_vuln.state.where, current_vuln.type
         )[1]
         if current_vuln.type == VulnerabilityType.INPUTS
-        else current_vuln.where,
+        else current_vuln.state.where,
         root_id=current_vuln.root_id,
     )
     for vuln in finding_vulns_data:
@@ -95,10 +95,10 @@ async def rebase(
             specific=vuln.specific,
             type_=vuln.type,
             where=get_path_from_integrates_vulnerability(
-                vuln.where, vuln.type
+                vuln.state.where, vuln.type
             )[1]
             if vuln.type == VulnerabilityType.INPUTS
-            else vuln.where,
+            else vuln.state.where,
             root_id=vuln.root_id,
         )
         if vuln_hash == current_vuln_hash and vuln.id != current_vuln.id:
@@ -108,13 +108,13 @@ async def rebase(
                     "extra": {
                         "vuln_to_rebase": {
                             "id": current_vuln.id,
-                            "path": current_vuln.where,
+                            "path": current_vuln.state.where,
                             "line": current_vuln.specific,
                             "root_id": current_vuln.root_id,
                         },
                         "vuln_overwrite": {
                             "id": vuln.id,
-                            "path": vuln.where,
+                            "path": vuln.state.where,
                             "line": vuln.specific,
                             "root_id": vuln.root_id,
                         },

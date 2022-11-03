@@ -506,7 +506,7 @@ async def _get_wheres(
         finding_id
     )
     open_vulns = vulns_utils.filter_open_vulns(finding_vulns)
-    wheres: List[str] = list(set(vuln.where for vuln in open_vulns))
+    wheres: List[str] = list(set(vuln.state.where for vuln in open_vulns))
     if limit:
         wheres = wheres[:limit]
     return wheres
@@ -751,8 +751,8 @@ async def vulns_properties(
             )
             vuln_dict.update(
                 {
-                    f"{vuln.where}{vuln.specific}": {
-                        "location": vuln.where,
+                    f"{vuln.state.where}{vuln.specific}": {
+                        "location": vuln.state.where,
                         "specific": vuln.specific,
                         "source": vuln.state.source.value,
                         "assigned": vuln.treatment.assigned
@@ -768,8 +768,8 @@ async def vulns_properties(
         else:
             vuln_dict.update(
                 {
-                    f"{vuln.where}{vuln.specific}": {
-                        "location": vuln.where,
+                    f"{vuln.state.where}{vuln.specific}": {
+                        "location": vuln.state.where,
                         "specific": vuln.specific,
                         "source": vuln.state.source.value,
                     },
@@ -858,7 +858,7 @@ async def get_vuln_nickname(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> str:
-    result: str = f"{vuln.where} ({vuln.specific})"
+    result: str = f"{vuln.state.where} ({vuln.specific})"
     try:
         root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
         if vuln.type == "LINES":

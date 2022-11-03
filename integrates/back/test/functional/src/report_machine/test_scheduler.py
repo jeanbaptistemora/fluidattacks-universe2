@@ -284,7 +284,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         )
         assert len(integrates_vulnerabilities_2) == 1
 
-        where_2 = integrates_vulnerabilities_2[0].where
+        where_2 = integrates_vulnerabilities_2[0].state.where
         assert where_1 == where_2
 
 
@@ -329,7 +329,7 @@ async def test_approval(populate: bool) -> None:
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(f_117.id)
         assert len(f_117_vulns) == 1
-        assert (f_117_vulns[0].where, f_117_vulns[0].specific) == (
+        assert (f_117_vulns[0].state.where, f_117_vulns[0].specific) == (
             ".project",
             "0",
         )
