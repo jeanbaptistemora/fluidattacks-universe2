@@ -2993,6 +2993,9 @@
     - owaspscp.3
     - cwe25.798
     - c2m2.4_1_d
+    - asvs.2_1_5
+    - asvs.2_5_1
+    - asvs.2_6_3
   metadata: {}
 '127':
   en:
@@ -3206,6 +3209,7 @@
     - owaspscp.3
     - owaspmasvs.V4_5
     - siglite.SL_72
+    - asvs.2_6_1
   metadata: {}
 '132':
   en:
@@ -3274,6 +3278,10 @@
     - asvs.2_1_2
     - pci.8_3_6
     - sig.H_3_1_5
+    - asvs.2_1_3
+    - asvs.2_1_4
+    - asvs.2_1_8
+    - asvs.2_1_9
   metadata: {}
 '133':
   en:
@@ -3327,6 +3335,10 @@
     - siglite.SL_72
     - sig.H_3_1_6
     - sig.U_1_9_11
+    - asvs.2_1_3
+    - asvs.2_1_4
+    - asvs.2_1_8
+    - asvs.2_1_9
   metadata: {}
 '134':
   en:
@@ -3779,6 +3791,7 @@
     - pci.2_2_2
     - sig.N_1_13
     - sig.U_1_2_5
+    - asvs.2_5_4
   metadata: {}
 '143':
   en:
@@ -3946,6 +3959,7 @@
     - siglite.SL_34
     - sig.D_6_11
     - sig.D_6_11_2
+    - asvs.1_6_4
   metadata: {}
 '146':
   en:
@@ -4303,6 +4317,9 @@
     - siglite.SL_73
     - sig.H_4
     - sig.I_1_6
+    - asvs.2_2_2
+    - asvs.2_2_7
+    - asvs.2_3_2
   metadata: {}
 '154':
   en:
@@ -6370,6 +6387,7 @@
     - siglite.SL_148
     - sig.H_1_2
     - sig.U_1_2_2
+    - asvs.1_2_2
   metadata: {}
 '189':
   en:
@@ -7163,6 +7181,7 @@
     - bsafss.SI_2-1
     - nist800171.1_17
     - asvs.14_1_5
+    - asvs.1_2_2
   metadata: {}
 '229':
   en:
@@ -7352,6 +7371,9 @@
     - asvs.2_8_7
     - pci.9_4_1
     - sig.F_1_4_2
+    - asvs.2_2_2
+    - asvs.2_2_7
+    - asvs.2_3_2
   metadata: {}
 '232':
   en:
@@ -7392,6 +7414,7 @@
     - ptes.7_4_4_1
     - swiftcsc.3_1
     - sig.D_1_1_2
+    - asvs.2_8_2
   metadata: {}
 '235':
   en:
@@ -7528,6 +7551,7 @@
     - issaf.V_9
     - ptes.5_2_3_2
     - nist800115.4_2
+    - asvs.2_2_1
   metadata: {}
 '238':
   en:
@@ -7600,6 +7624,7 @@
     - asvs.2_5_6
     - siglite.SL_72
     - sig.H_3_7
+    - asvs.2_6_3
   metadata: {}
 '247':
   en:
@@ -8299,6 +8324,7 @@
     - c2m2.7_2_a
     - c2m2.7_2_b
     - siglite.SL_154
+    - asvs.1_14_6
   metadata: {}
 '264':
   en:
@@ -12012,6 +12038,7 @@
     - asvs.14_4_1
     - asvs.14_4_4
     - asvs.14_4_6
+    - asvs.1_12_2
   metadata: {}
 '350':
   en:

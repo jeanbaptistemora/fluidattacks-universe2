@@ -1498,6 +1498,9 @@ asvs:
     '1_2_1':
       title: Authentication architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '1_2_2':
+      title: Authentication architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '1_2_3':
       title: Authentication architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -1522,6 +1525,9 @@ asvs:
     '1_6_3':
       title: Cryptographic architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '1_6_4':
+      title: Cryptographic architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '1_7_2':
       title: Errors, logging and auditing architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -1534,7 +1540,13 @@ asvs:
     '1_9_2':
       title: Communications architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '1_12_2':
+      title: Secure File Upload Architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '1_14_5':
+      title: Configuration architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '1_14_6':
       title: Configuration architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_1_1':
@@ -1543,14 +1555,35 @@ asvs:
     '2_1_2':
       title: Password security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_1_3':
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_1_4':
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_1_5':
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_1_6':
       title: Password security
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_1_7':
       title: Password security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_1_8':
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_1_9':
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_1_10':
       title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_2_1':
+      title: General authenticator security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_2_2':
+      title: General authenticator security
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_2_3':
       title: General authenticator security
@@ -1561,7 +1594,13 @@ asvs:
     '2_2_6':
       title: General authenticator security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_2_7':
+      title: General authenticator security
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_3_1':
+      title: Authenticator lifecycle
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_3_2':
       title: Authenticator lifecycle
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_4_1':
@@ -1579,10 +1618,16 @@ asvs:
     '2_4_5':
       title: Credential storage
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_5_1':
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_5_2':
       title: Credential recovery
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_5_3':
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_5_4':
       title: Credential recovery
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_5_5':
@@ -1591,7 +1636,13 @@ asvs:
     '2_5_6':
       title: Credential recovery
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_6_1':
+      title: Look-up secret verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_6_2':
+      title: Look-up secret verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_6_3':
       title: Look-up secret verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_7_1':
@@ -1610,6 +1661,9 @@ asvs:
       title: Out of band verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_8_1':
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_8_2':
       title: One time verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_8_4':
