@@ -18,7 +18,8 @@ SPDX-License-Identifier: MPL-2.0
 - [ ] Login with your Fluid credentials to your corporate email.
 - [ ] Watch Health & Security videos shared with you.
 - [ ] Register with your Fluid Credentials at timedoctor.com
-      (via invitation link sent to your email).
+      (via invitation link sent to your email). \
+       Note: Time Doctor is not compatible with Ubuntu 22.04
 - [ ] Setup your email signature.
 - [ ] Send the presentation email to people@fluidattacks.com
 - [ ] Send the google sheet with your tentative schedule email to your
