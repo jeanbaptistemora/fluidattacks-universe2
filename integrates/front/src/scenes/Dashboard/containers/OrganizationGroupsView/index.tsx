@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { BaseStep, Tour } from "components/Tour/index";
@@ -29,6 +31,7 @@ import type {
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -145,17 +148,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       accessorKey: "description",
-      enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.description.text"),
     },
     {
       accessorKey: "plan",
       header: t("organization.tabs.groups.plan"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "vulnerabilities",
-      enableColumnFilter: false,
       header: t("organization.tabs.groups.vulnerabilities"),
     },
     {
@@ -165,7 +165,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           defaultValue: "-",
         });
       },
-      enableColumnFilter: false,
       header: t("organization.tabs.groups.role"),
     },
     {
@@ -176,7 +175,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
         return formatLinkHandler(link, text);
       },
-      enableColumnFilter: false,
       header: t("organization.tabs.groups.newGroup.events.text"),
     },
   ];
@@ -185,13 +183,34 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     ? formatGroupData(data.organization.groups)
     : [];
 
+  const [filters, setFilters] = useStoredState<IFilter<IGroupData>[]>(
+    "tblGroupsFilters",
+    [
+      {
+        filterFn: "includesInsensitive",
+        id: "name",
+        key: "name",
+        label: t("organization.tabs.groups.newGroup.name"),
+        type: "text",
+      },
+      {
+        id: "plan",
+        key: "plan",
+        label: t("organization.tabs.groups.plan"),
+        selectOptions: ["Machine", "Oneshot", "Squad"],
+        type: "select",
+      },
+    ]
+  );
+
+  const filteredDataset = useFilters(dataset, filters);
+
   return (
     <StrictMode>
       {_.isUndefined(data) || _.isEmpty(data) ? undefined : (
         <Table
           columns={tableHeaders}
-          data={dataset}
-          enableColumnFilters={true}
+          data={filteredDataset}
           extraButtons={
             <Can do={"api_mutations_add_group_mutate"}>
               <Button
@@ -210,6 +229,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               </Button>
             </Can>
           }
+          filters={<Filters filters={filters} setFilters={setFilters} />}
           id={"tblGroups"}
         />
       )}
