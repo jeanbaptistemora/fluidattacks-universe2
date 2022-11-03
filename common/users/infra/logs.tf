@@ -14,6 +14,15 @@ resource "aws_s3_bucket" "common_logging" {
   }
 }
 
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "common_logging_versioning" {
+  bucket = aws_s3_bucket.common_logging.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_acl" "common_logging" {
   bucket = aws_s3_bucket.common_logging.id
 
