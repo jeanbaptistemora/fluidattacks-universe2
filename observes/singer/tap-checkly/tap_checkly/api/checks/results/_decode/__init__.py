@@ -25,6 +25,7 @@ from tap_checkly.api._utils import (
     switch_maybe,
 )
 from tap_checkly.objs import (
+    CheckId,
     CheckResult,
     CheckResultId,
     CheckResultObj,
@@ -83,7 +84,7 @@ def from_raw_result(raw: JsonObj) -> ResultE[CheckResult]:
         return cast(ResultE[CheckResult], err.container)
 
 
-def from_raw_obj(raw: JsonObj) -> ResultE[CheckResultObj]:
+def from_raw_obj(check_id: CheckId, raw: JsonObj) -> ResultE[CheckResultObj]:
     _id = (
         ExtendedUnfolder(raw)
         .get_required("id")
@@ -91,4 +92,6 @@ def from_raw_obj(raw: JsonObj) -> ResultE[CheckResultObj]:
         .bind(lambda u: u.to_primitive(str).map(CheckResultId).alt(Exception))
     )
     _obj = from_raw_result(raw)
-    return _id.bind(lambda i: _obj.map(lambda obj: IndexedObj(i, obj)))
+    return _id.bind(
+        lambda i: _obj.map(lambda obj: IndexedObj((check_id, i), obj))
+    )

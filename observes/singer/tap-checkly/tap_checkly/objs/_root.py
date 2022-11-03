@@ -28,6 +28,9 @@ from .result import (
 from dataclasses import (
     dataclass,
 )
+from typing import (
+    Tuple,
+)
 
 
 @dataclass(frozen=True)
@@ -45,9 +48,10 @@ class DashboardId:
     raw_id: str
 
 
+# objs paired with its own full id obj
 CheckStatusObj = IndexedObj[CheckId, CheckStatus]
 CheckObj = IndexedObj[CheckId, Check]
 AlertChannelObj = IndexedObj[AlertChannelId, AlertChannel]
-CheckResultObj = IndexedObj[CheckResultId, CheckResult]
+CheckResultObj = IndexedObj[Tuple[CheckId, CheckResultId], CheckResult]
 CheckGroupObj = IndexedObj[CheckGroupId, CheckGroup]
 DashboardObj = IndexedObj[DashboardId, Dashboard]

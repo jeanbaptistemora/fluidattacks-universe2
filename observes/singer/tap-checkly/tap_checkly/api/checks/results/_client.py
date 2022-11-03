@@ -80,7 +80,9 @@ class CheckResultClient:
             ),
         ).map(
             lambda l: all_ok(
-                from_flist(l).map(_decode.from_raw_obj).to_list()
+                from_flist(l)
+                .map(lambda i: _decode.from_raw_obj(self._check, i))
+                .to_list()
             ).unwrap()
         )
 

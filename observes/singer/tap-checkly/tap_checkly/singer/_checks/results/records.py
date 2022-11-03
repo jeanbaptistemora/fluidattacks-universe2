@@ -94,29 +94,27 @@ def encode_result_api(result: ApiCheckResult) -> JsonObj:
     )
 
 
-def encode_result(
-    result: IndexedObj[CheckId, CheckResultObj]
-) -> PureIter[SingerRecord]:
+def encode_result(result: CheckResultObj) -> PureIter[SingerRecord]:
     encoded_obj = from_unfolded_dict(
         freeze(
             {
-                "check_id": result.id_obj.id_str,
-                "result_id": result.obj.id_obj.id_str,
-                "api_result": result.obj.obj.api_result.map(
+                "check_id": result.id_obj[0].id_str,
+                "result_id": result.id_obj[1].id_str,
+                "api_result": result.obj.api_result.map(
                     encode_result_api
                 ).value_or(None),
-                "browser_result": result.obj.obj.browser_result.value_or(None),
-                "attempts": result.obj.obj.attempts,
-                "run_id": result.obj.obj.run_id.id_num,
-                "created_at": result.obj.obj.created_at.isoformat(),
-                "has_errors": result.obj.obj.has_errors,
-                "has_failures": result.obj.obj.has_failures,
-                "is_degraded": result.obj.obj.is_degraded,
-                "over_max_response_time": result.obj.obj.over_max_response_time,
-                "response_time": result.obj.obj.response_time,
-                "run_location": result.obj.obj.run_location,
-                "started_at": result.obj.obj.started_at.isoformat(),
-                "stopped_at": result.obj.obj.stopped_at.isoformat(),
+                "browser_result": result.obj.browser_result.value_or(None),
+                "attempts": result.obj.attempts,
+                "run_id": result.obj.run_id.id_num,
+                "created_at": result.obj.created_at.isoformat(),
+                "has_errors": result.obj.has_errors,
+                "has_failures": result.obj.has_failures,
+                "is_degraded": result.obj.is_degraded,
+                "over_max_response_time": result.obj.over_max_response_time,
+                "response_time": result.obj.response_time,
+                "run_location": result.obj.run_location,
+                "started_at": result.obj.started_at.isoformat(),
+                "stopped_at": result.obj.stopped_at.isoformat(),
             }
         )
     )

@@ -96,11 +96,7 @@ class Streams:
         )
         return _emit.emit_stream(
             client.list_ids()
-            .bind(
-                lambda c: client.list_check_results(
-                    c, start_date, end_date
-                ).map(lambda r: IndexedObj(c, r))
-            )
+            .bind(lambda c: client.list_check_results(c, start_date, end_date))
             .map(encode_result)
             .transform(chain),
         ) + _emit.emit_state(new_state)
