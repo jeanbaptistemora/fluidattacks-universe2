@@ -138,7 +138,6 @@ ENTITIES = {
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
                     EntityDependency.request_vulnerabilities_zero_risk,
-                    EntityDependency.update_nickname,
                     EntityDependency.update_vulnerability_commit,
                     EntityDependency.upload_file,
                     EntityDependency.verify_vulnerabilities_request,

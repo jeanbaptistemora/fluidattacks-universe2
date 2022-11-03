@@ -63,7 +63,6 @@ class EntityDependency(Enum):
     )
     reset_expired_accepted_findings: str = "reset_expired_accepted_findings"
     solve_event: str = "solve_event"
-    update_nickname: str = "update_nickname"
     update_vulnerabilities_treatment: str = "update_vulnerabilities_treatment"
     update_vulnerability_commit: str = "update_vulnerability_commit"
     upload_file: str = "upload_file"

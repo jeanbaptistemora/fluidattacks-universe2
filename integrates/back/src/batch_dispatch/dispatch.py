@@ -37,9 +37,6 @@ from batch_dispatch.remove_roots import (
 from batch_dispatch.report import (
     report,
 )
-from batch_dispatch.update_nickname import (
-    update_nickname,
-)
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
@@ -70,7 +67,6 @@ ACTIONS = {
         remove_roots,
         report,
         rebase,
-        update_nickname,
     ]
 }
 

@@ -8,13 +8,6 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch.dal import (
-    put_action,
-)
-from batch.enums import (
-    Action,
-    Product,
-)
 from batch_dispatch import (
     clone_roots,
 )
@@ -26,7 +19,6 @@ from custom_exceptions import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from decorators import (
     concurrent_decorators,
@@ -37,7 +29,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import json
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -60,12 +51,7 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    group_name: str = str(kwargs["group_name"]).lower()
-    root_id: str = kwargs["id"]
 
-    old_root: Root = await info.context.loaders.root.load(
-        (group_name, root_id)
-    )
     root = await roots_domain.update_git_root(
         info.context.loaders, user_email, **kwargs
     )
@@ -77,26 +63,6 @@ async def mutate(
                 user_email=user_email,
                 group_name=root.group_name,
             )
-
-    nickname: str = kwargs.get("nickname") or old_root.state.nickname
-    if nickname != old_root.state.nickname:
-        await put_action(
-            action=Action.UPDATE_NICKNAME,
-            additional_info=json.dumps(
-                {
-                    "group_name": group_name,
-                    "nickname": nickname,
-                    "old_nickname": old_root.state.nickname,
-                }
-            ),
-            attempt_duration_seconds=3600,
-            entity=root_id,
-            memory=3800,
-            product_name=Product.INTEGRATES,
-            queue="small",
-            subject=user_email,
-            vcpus=2,
-        )
 
     info.context.loaders.root.clear((kwargs["group_name"], kwargs["id"]))
     info.context.loaders.group_roots.clear(kwargs["group_name"])
