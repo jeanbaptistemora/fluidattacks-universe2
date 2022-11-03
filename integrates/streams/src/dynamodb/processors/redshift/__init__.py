@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from .process import (
+    process_events,
     process_findings,
     process_roots,
     process_toe_inputs,
@@ -11,6 +12,7 @@ from .process import (
 )
 
 __all__ = [
+    "process_events",
     "process_findings",
     "process_roots",
     "process_toe_inputs",

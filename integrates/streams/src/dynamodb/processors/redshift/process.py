@@ -4,6 +4,7 @@
 
 
 from . import (
+    events as events_ops,
     findings as findings_ops,
     roots as roots_ops,
     toe_inputs as toe_inputs_ops,
@@ -43,6 +44,20 @@ def _get_items_iterator(
     ]
 
     return itertools.groupby(filtered_items, itemgetter("pk"))
+
+
+def process_events(records: tuple[Record, ...]) -> None:
+    with db_cursor() as cursor:
+        metadata_items: list[Item] = [
+            record.old_image for record in records if record.old_image
+        ]
+        for item in metadata_items:
+            events_ops.insert_metadata(cursor=cursor, item=item)
+            LOGGER.info(
+                "Event metadata stored, group: %s, id: %s",
+                item["sk"].split("#")[1],
+                item["pk"].split("#")[1],
+            )
 
 
 def _process_finding_metadata(cursor: cursor_cls, item: Item) -> None:
