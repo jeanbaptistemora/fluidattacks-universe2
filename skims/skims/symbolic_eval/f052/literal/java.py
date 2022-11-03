@@ -5,6 +5,9 @@
 from contextlib import (
     suppress,
 )
+from symbolic_eval.common import (
+    INSECURE_HASHES,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
@@ -13,7 +16,6 @@ from utils import (
     crypto,
 )
 
-INSECURE_HASHES = {"md2", "md4", "md5", "sha1", "sha-1"}
 SSL_SAFE_METHODS = {
     "tlsv1.2",
     "tlsv1.3",

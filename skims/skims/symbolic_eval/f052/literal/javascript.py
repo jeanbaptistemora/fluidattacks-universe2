@@ -2,12 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from symbolic_eval.common import (
+    INSECURE_HASHES,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-
-INSECURE_HASHES = {"md2", "md4", "md5", "sha1", "sha-1"}
 
 
 def js_insecure_hash(

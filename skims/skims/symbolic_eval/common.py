@@ -17,6 +17,21 @@ HTTP_INPUTS: Set[str] = {
     "Request.ServerVariables",
 }
 
+INSECURE_ALGOS = {
+    "none",
+    "blowfish",
+    "bf",
+    "des",
+    "desede",
+    "rc2",
+    "rc4",
+    "rsa",
+}
+
+INSECURE_MODES = {"ecb", "ofb", "cfb", "cbc"}
+
+INSECURE_HASHES = {"md2", "md4", "md5", "sha1", "sha-1"}
+
 
 def check_http_inputs(args: SymbolicEvalArgs) -> bool:
     ma_attr = args.graph.nodes[args.n_id]

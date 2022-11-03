@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from symbolic_eval.common import (
+    INSECURE_ALGOS,
+    INSECURE_MODES,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-
-DANGER_MODES = {"ecb", "ofb", "cfb", "cbc"}
-
-DANGER_ALGOS = {"blowfish", "bf", "des", "desede", "rc2", "rc4", "rsa"}
 
 
 def ts_insecure_create_cipher(
@@ -19,7 +19,7 @@ def ts_insecure_create_cipher(
     if args.graph.nodes[args.n_id]["value_type"] == "string":
         cipher = args.graph.nodes[args.n_id]["value"][1:-1].lower().split("-")
         args.evaluation[args.n_id] = any(
-            mode in cipher for mode in DANGER_MODES
-        ) or any(algo in cipher for algo in DANGER_ALGOS)
+            mode in cipher for mode in INSECURE_MODES
+        ) or any(algo in cipher for algo in INSECURE_ALGOS)
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

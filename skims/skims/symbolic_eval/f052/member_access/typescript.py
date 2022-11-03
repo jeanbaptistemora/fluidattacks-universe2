@@ -2,12 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from symbolic_eval.common import (
+    INSECURE_MODES,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-
-DANGER_MODES = {"ecb", "ofb", "cfb", "cbc"}
 
 
 def ts_insecure_aes_cipher(
@@ -18,7 +19,7 @@ def ts_insecure_aes_cipher(
 
     if (
         node["member"].lower() == "cryptojs.mode"
-        and node["expression"].lower() in DANGER_MODES
+        and node["expression"].lower() in INSECURE_MODES
     ):
         args.evaluation[args.n_id] = True
 
