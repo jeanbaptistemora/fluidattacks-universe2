@@ -124,7 +124,6 @@
     ["update_group_policies"]
     ["update_group_stakeholder"]
     ["update_ip_root"]
-    ["update_nickname"]
     ["update_notification_preferences"]
     ["update_organization_policies"]
     ["update_organization_stakeholder"]
