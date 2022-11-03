@@ -606,7 +606,7 @@ def get_accepted_vulns(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if datetime.fromisoformat(treatment.modified_date)
+        if datetime_utils.get_datetime_from_iso_str(treatment.modified_date)
         <= datetime_utils.get_from_str(last_day)
     )
     if treatments and treatments[-1].status in accepted_treatments:
@@ -637,23 +637,25 @@ def get_open_vulnerabilities(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if datetime.fromisoformat(treatment.modified_date)
+        if datetime_utils.get_datetime_from_iso_str(treatment.modified_date)
         <= datetime_utils.get_from_str(last_day)
     )
     states = tuple(
         state
         for state in historic_state
-        if datetime.fromisoformat(state.modified_date)
+        if datetime_utils.get_datetime_from_iso_str(state.modified_date)
         <= datetime_utils.get_from_str(last_day)
     )
     if (
         states
-        and datetime.fromisoformat(states[-1].modified_date)
+        and datetime_utils.get_datetime_from_iso_str(states[-1].modified_date)
         <= datetime_utils.get_from_str(last_day)
         and states[-1].status == VulnerabilityStateStatus.OPEN
         and not (
             min_date
-            and datetime.fromisoformat(historic_state[0].modified_date)
+            and datetime_utils.get_datetime_from_iso_str(
+                historic_state[0].modified_date
+            )
             < datetime_utils.get_from_str(min_date)
         )
     ):
@@ -680,17 +682,19 @@ def get_by_time_range(
     states = tuple(
         state
         for state in historic_state
-        if datetime.fromisoformat(state.modified_date)
+        if datetime_utils.get_datetime_from_iso_str(state.modified_date)
         <= datetime_utils.get_from_str(last_day)
     )
     if (
         states
-        and datetime.fromisoformat(states[-1].modified_date)
+        and datetime_utils.get_datetime_from_iso_str(states[-1].modified_date)
         <= datetime_utils.get_from_str(last_day)
         and states[-1].status == status
         and not (
             min_date
-            and datetime.fromisoformat(historic_state[0].modified_date)
+            and datetime_utils.get_datetime_from_iso_str(
+                historic_state[0].modified_date
+            )
             < datetime_utils.get_from_str(min_date)
         )
     ):
@@ -705,7 +709,10 @@ def get_by_time_range(
 def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> str:
     """Get date of the last vulnerabilities"""
     last_date = max(
-        [datetime.fromisoformat(vuln.state.modified_date) for vuln in vulns]
+        [
+            datetime_utils.get_datetime_from_iso_str(vuln.state.modified_date)
+            for vuln in vulns
+        ]
     )
     day_week = last_date.weekday()
     first_day = datetime_utils.get_as_str(
@@ -718,7 +725,10 @@ def get_last_vulnerabilities_date(
     vulns: tuple[Vulnerability, ...],
 ) -> str:
     last_date = max(
-        [datetime.fromisoformat(vuln.state.modified_date) for vuln in vulns]
+        [
+            datetime_utils.get_datetime_from_iso_str(vuln.state.modified_date)
+            for vuln in vulns
+        ]
     )
     day_month: int = int(last_date.strftime("%d"))
     first_day_delta = datetime_utils.get_minus_delta(
@@ -737,7 +747,8 @@ def get_first_week_dates(
 ) -> tuple[str, str]:
     """Get first week vulnerabilities."""
     first_date = min(
-        datetime.fromisoformat(vuln.created_date) for vuln in vulns
+        datetime_utils.get_datetime_from_iso_str(vuln.created_date)
+        for vuln in vulns
     )
     if min_date:
         first_date = min_date
@@ -763,7 +774,7 @@ def get_first_dates(
 ) -> tuple[str, str]:
     first_date = min(
         [
-            datetime.fromisoformat(historic[0].modified_date)
+            datetime_utils.get_datetime_from_iso_str(historic[0].modified_date)
             for historic in historic_states
         ]
     )
@@ -955,7 +966,7 @@ def get_exposed_cvssf(
     states = tuple(
         state
         for state in historic_state
-        if datetime.fromisoformat(state.modified_date)
+        if datetime_utils.get_datetime_from_iso_str(state.modified_date)
         <= datetime_utils.get_from_str(last_day)
     )
     cvssf: Decimal = Decimal("0.0")
@@ -963,7 +974,7 @@ def get_exposed_cvssf(
 
     if (
         states
-        and datetime.fromisoformat(states[-1].modified_date)
+        and datetime_utils.get_datetime_from_iso_str(states[-1].modified_date)
         <= datetime_utils.get_from_str(last_day)
         and states[-1].status == VulnerabilityStateStatus.OPEN
     ):
