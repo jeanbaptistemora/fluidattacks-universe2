@@ -584,6 +584,7 @@ async def update_action_to_dynamodb(*, key: str, **kwargs: Any) -> bool:
     update_attrs = {
         "Key": {"pk": key},
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
+        "ConditionExpression": "attribute_exists(pk)",
     }
 
     if expression_values:
