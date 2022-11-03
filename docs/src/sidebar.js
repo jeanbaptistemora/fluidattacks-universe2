@@ -576,6 +576,11 @@ const Development = [
       "development/stack/ubiquiti",
     ],
   },
+  {
+    type: "category",
+    label: "FAQ",
+    items: ["development/faq/job-titles"],
+  },
 ];
 
 const Machine = [
