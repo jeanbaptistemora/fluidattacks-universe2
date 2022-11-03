@@ -26484,7 +26484,7 @@ F149,lines,namespace/skims/test/data/lib_path/f149/webVuln.config,5,319,skims,14
   15 | </configuration>
      ^ Col 0
 ",conf_files.xml_network_ssl_disabled
-F332,lines,namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set. in namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,"
+F332,lines,namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set to true. in namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,"
    1 | {
    2 |     ""name"": ""holidays-component"",
    3 |     ""version"": ""0.0.0"",
@@ -26498,7 +26498,7 @@ F332,lines,namespace/skims/test/data/lib_path/f236/json_sourcemap_in_build.json,
   11 | }
      ^ Col 0
 ",conf_files.json_check_https_argument
-F332,lines,namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set. in namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,"
+F332,lines,namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,5,319,skims,332. Use of insecure channel - Source code,Ensure the HTTPS argument is set to true. in namespace/skims/test/data/lib_path/f332/json_check_https_argument.json,"
   1 | {
   2 |     ""name"": ""holidays-component"",
   3 |     ""version"": ""0.0.0"",
