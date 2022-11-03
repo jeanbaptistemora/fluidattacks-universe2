@@ -14,6 +14,14 @@ resource "aws_s3_bucket" "sorts_bucket" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "sorts_bucket_logs" {
+  bucket = aws_s3_bucket.sorts_bucket.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/sorts"
+}
+
 resource "aws_s3_bucket_acl" "sorts_bucket" {
   bucket = aws_s3_bucket.sorts_bucket.id
 
