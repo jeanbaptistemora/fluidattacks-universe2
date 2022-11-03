@@ -27400,9 +27400,6 @@
             }
           },
           "17": {
-            "18": {
-              "label_ast": "AST"
-            },
             "23": {
               "label_ast": "AST"
             },
@@ -30722,7 +30719,6 @@
           "17": {
             "block_id": "29",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "18",
             "name": "main",
             "parameters_id": "23"
           },
@@ -30761,9 +30757,6 @@
             "expression_id": "182",
             "label_type": "MethodInvocation",
             "object_id": "180"
-          },
-          "18": {
-            "label_type": "Modifiers"
           },
           "180": {
             "label_type": "SymbolLookup",

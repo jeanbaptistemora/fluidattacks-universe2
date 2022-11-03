@@ -12956,9 +12956,6 @@
             }
           },
           "13": {
-            "14": {
-              "label_ast": "AST"
-            },
             "21": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13029,9 +13026,6 @@
             }
           },
           "177": {
-            "178": {
-              "label_ast": "AST"
-            },
             "185": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13180,9 +13174,6 @@
             }
           },
           "272": {
-            "273": {
-              "label_ast": "AST"
-            },
             "280": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13303,9 +13294,6 @@
             }
           },
           "355": {
-            "356": {
-              "label_ast": "AST"
-            },
             "363": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13467,9 +13455,6 @@
             }
           },
           "450": {
-            "451": {
-              "label_ast": "AST"
-            },
             "458": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13560,9 +13545,6 @@
             }
           },
           "514": {
-            "515": {
-              "label_ast": "AST"
-            },
             "522": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13713,9 +13695,6 @@
             }
           },
           "60": {
-            "61": {
-              "label_ast": "AST"
-            },
             "66": {
               "label_ast": "AST"
             },
@@ -13725,9 +13704,6 @@
             }
           },
           "605": {
-            "606": {
-              "label_ast": "AST"
-            },
             "613": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -13864,9 +13840,6 @@
             }
           },
           "700": {
-            "701": {
-              "label_ast": "AST"
-            },
             "708": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -14014,9 +13987,6 @@
             }
           },
           "783": {
-            "784": {
-              "label_ast": "AST"
-            },
             "791": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -14124,9 +14094,6 @@
             }
           },
           "859": {
-            "860": {
-              "label_ast": "AST"
-            },
             "867": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -14324,7 +14291,6 @@
           "13": {
             "block_id": "21",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "14",
             "name": "createRandom"
           },
           "130": {
@@ -14355,9 +14321,6 @@
           },
           "139": {
             "label_type": "ArgumentList"
-          },
-          "14": {
-            "label_type": "Modifiers"
           },
           "141": {
             "label_type": "SymbolLookup",
@@ -14422,11 +14385,7 @@
           "177": {
             "block_id": "185",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "178",
             "name": "test_01"
-          },
-          "178": {
-            "label_type": "Modifiers"
           },
           "185": {
             "label_type": "ExecutionBlock"
@@ -14575,11 +14534,7 @@
           "272": {
             "block_id": "280",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "273",
             "name": "test_02"
-          },
-          "273": {
-            "label_type": "Modifiers"
           },
           "28": {
             "expression": "nextFloat",
@@ -14710,11 +14665,7 @@
           "355": {
             "block_id": "363",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "356",
             "name": "test_03"
-          },
-          "356": {
-            "label_type": "Modifiers"
           },
           "36": {
             "label_type": "SymbolLookup",
@@ -14886,11 +14837,7 @@
           "450": {
             "block_id": "458",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "451",
             "name": "test_04"
-          },
-          "451": {
-            "label_type": "Modifiers"
           },
           "458": {
             "label_type": "ExecutionBlock"
@@ -14994,11 +14941,7 @@
           "514": {
             "block_id": "522",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "515",
             "name": "test_05"
-          },
-          "515": {
-            "label_type": "Modifiers"
           },
           "522": {
             "label_type": "ExecutionBlock"
@@ -15151,7 +15094,6 @@
           "60": {
             "block_id": "75",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "61",
             "name": "main",
             "parameters_id": "66"
           },
@@ -15162,14 +15104,7 @@
           "605": {
             "block_id": "613",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "606",
             "name": "test_06"
-          },
-          "606": {
-            "label_type": "Modifiers"
-          },
-          "61": {
-            "label_type": "Modifiers"
           },
           "613": {
             "label_type": "ExecutionBlock"
@@ -15313,11 +15248,7 @@
           "700": {
             "block_id": "708",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "701",
             "name": "test_07"
-          },
-          "701": {
-            "label_type": "Modifiers"
           },
           "708": {
             "label_type": "ExecutionBlock"
@@ -15447,11 +15378,7 @@
           "783": {
             "block_id": "791",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "784",
             "name": "test_08"
-          },
-          "784": {
-            "label_type": "Modifiers"
           },
           "791": {
             "label_type": "ExecutionBlock"
@@ -15573,11 +15500,7 @@
           "859": {
             "block_id": "867",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "860",
             "name": "test_09"
-          },
-          "860": {
-            "label_type": "Modifiers"
           },
           "867": {
             "label_type": "ExecutionBlock"
@@ -19264,9 +19187,6 @@
             }
           },
           "127": {
-            "128": {
-              "label_ast": "AST"
-            },
             "135": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -19292,9 +19212,6 @@
             }
           },
           "143": {
-            "144": {
-              "label_ast": "AST"
-            },
             "148": {
               "label_ast": "AST"
             },
@@ -19336,9 +19253,6 @@
             }
           },
           "164": {
-            "165": {
-              "label_ast": "AST"
-            },
             "172": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -19378,9 +19292,6 @@
             }
           },
           "193": {
-            "194": {
-              "label_ast": "AST"
-            },
             "198": {
               "label_ast": "AST"
             },
@@ -19415,9 +19326,6 @@
             }
           },
           "213": {
-            "214": {
-              "label_ast": "AST"
-            },
             "218": {
               "label_ast": "AST"
             },
@@ -19451,9 +19359,6 @@
             }
           },
           "30": {
-            "31": {
-              "label_ast": "AST"
-            },
             "34": {
               "label_ast": "AST"
             },
@@ -19494,9 +19399,6 @@
             }
           },
           "54": {
-            "55": {
-              "label_ast": "AST"
-            },
             "58": {
               "label_ast": "AST"
             },
@@ -19599,9 +19501,6 @@
               "label_ast": "AST",
               "label_cfg": "CFG"
             },
-            "87": {
-              "label_ast": "AST"
-            },
             "90": {
               "label_ast": "AST"
             }
@@ -19683,11 +19582,7 @@
           "127": {
             "block_id": "135",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "128",
             "name": "getName"
-          },
-          "128": {
-            "label_type": "Modifiers"
           },
           "13": {
             "label_type": "VariableDeclaration",
@@ -19711,12 +19606,8 @@
           "143": {
             "block_id": "154",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "144",
             "name": "setName",
             "parameters_id": "148"
-          },
-          "144": {
-            "label_type": "Modifiers"
           },
           "148": {
             "label_type": "ParameterList"
@@ -19754,11 +19645,7 @@
           "164": {
             "block_id": "172",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "165",
             "name": "getUserId"
-          },
-          "165": {
-            "label_type": "Modifiers"
           },
           "172": {
             "label_type": "ExecutionBlock"
@@ -19795,12 +19682,8 @@
           "193": {
             "block_id": "204",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "194",
             "name": "setUserId",
             "parameters_id": "198"
-          },
-          "194": {
-            "label_type": "Modifiers"
           },
           "198": {
             "label_type": "ParameterList"
@@ -19839,12 +19722,8 @@
           "213": {
             "block_id": "224",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "214",
             "name": "setLastName",
             "parameters_id": "218"
-          },
-          "214": {
-            "label_type": "Modifiers"
           },
           "218": {
             "label_type": "ParameterList"
@@ -19882,12 +19761,8 @@
           "30": {
             "block_id": "40",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "31",
             "name": "User",
             "parameters_id": "34"
-          },
-          "31": {
-            "label_type": "Modifiers"
           },
           "34": {
             "label_type": "ParameterList"
@@ -19929,12 +19804,8 @@
           "54": {
             "block_id": "68",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "55",
             "name": "User",
             "parameters_id": "58"
-          },
-          "55": {
-            "label_type": "Modifiers"
           },
           "58": {
             "label_type": "ParameterList"
@@ -19993,12 +19864,8 @@
           "86": {
             "block_id": "104",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "87",
             "name": "User",
             "parameters_id": "90"
-          },
-          "87": {
-            "label_type": "Modifiers"
           },
           "9": {
             "field_type": "String",

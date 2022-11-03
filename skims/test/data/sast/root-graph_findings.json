@@ -1601,9 +1601,6 @@
             }
           },
           "13": {
-            "14": {
-              "label_ast": "AST"
-            },
             "21": {
               "label_ast": "AST"
             },
@@ -1782,12 +1779,8 @@
           "13": {
             "block_id": "36",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "14",
             "name": "doPost",
             "parameters_id": "21"
-          },
-          "14": {
-            "label_type": "Modifiers"
           },
           "2": {
             "expression": "java.io.File",
@@ -4663,9 +4656,6 @@
             }
           },
           "20": {
-            "21": {
-              "label_ast": "AST"
-            },
             "26": {
               "label_ast": "AST"
             },
@@ -5049,12 +5039,8 @@
           "20": {
             "block_id": "32",
             "label_type": "MethodDeclaration",
-            "modifiers_id": "21",
             "name": "main",
             "parameters_id": "26"
-          },
-          "21": {
-            "label_type": "Modifiers"
           },
           "26": {
             "label_type": "ParameterList"

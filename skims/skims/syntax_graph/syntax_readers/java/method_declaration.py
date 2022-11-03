@@ -13,6 +13,8 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
+    match_ast_d,
+    match_ast_group_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -20,18 +22,23 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    n_attrs = args.ast_graph.nodes[args.n_id]
+    graph = args.ast_graph
+    n_attrs = graph.nodes[args.n_id]
     name_id = n_attrs["label_field_name"]
-    name = node_to_str(args.ast_graph, name_id)
+    name = node_to_str(graph, name_id)
 
     block_id = n_attrs.get("label_field_body")
 
     parameters_id = n_attrs["label_field_parameters"]
-    if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
+    if "__0__" not in match_ast(graph, parameters_id, "(", ")"):
         parameters_id = None
 
-    match_childs = match_ast(args.ast_graph, args.n_id, "modifiers")
-    modifiers_id = match_childs.get("modifiers")
+    modifiers_id = match_ast_d(graph, args.n_id, "modifiers")
+    if modifiers_id:
+        annotation_ids = match_ast_group_d(graph, modifiers_id, "annotation")
+        if len(annotation_ids) == 0:
+            modifiers_id = None
+
     children_nid = {
         "modifiers_id": modifiers_id,
         "parameters_id": parameters_id,
