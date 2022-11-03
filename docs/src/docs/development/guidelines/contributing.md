@@ -26,7 +26,7 @@ or to our [Support Email](mailto:help@fluidattacks.com).
 
       Issues are not set in stone,
       make sure you iterate on this as many times as needed,
-      and to edit the issue as you go.
+      and edit the issue as you go.
 
    1. Make sure you enumerate all of the [products](/development/products)
       that will be impacted by the issue.

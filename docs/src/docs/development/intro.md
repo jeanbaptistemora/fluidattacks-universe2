@@ -27,6 +27,10 @@ We also have a [GitHub account][github_fluidattacks]
 where we publish projects
 that are more oriented towards the community
 and less coupled to our model of business.
+However,
+this documentation focuses on the Universe repository.
+The projects on GitHub have separate documentation
+that can be found on each of the respective projects.
 
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
@@ -43,7 +47,7 @@ and less coupled to our model of business.
   live at [docs.fluidattacks.com](https://docs.fluidattacks.com/).
 
 - [Common](/development/common): Owner of critical,
-  or company wide infrastructure and resources,
+  or company-wide infrastructure and resources,
   and owner of the admin account.
 
 - [Integrates](/development/integrates): The Attack Resistance Management platform:
@@ -55,19 +59,19 @@ and less coupled to our model of business.
 - [Forces](/development/forces): The DevSecOps agent.
 - [Sorts](/development/sorts): Machine Learning assisted tool,
   that sorts the list of files in a git repository
-  by probability of it having vulnerabilities.
+  by the probability of it having vulnerabilities.
 
-- [Melts](/development/melts): CLI tool that allow Fluid Attack's security analysts
+- [Melts](/development/melts): CLI tool that allows Fluid Attack's security analysts
   to clone customer git repositories
 
-- [Observes](/development/observes): Company wide data analytics.
+- [Observes](/development/observes): Company-wide data analytics.
 
 - [Reviews](/development/reviews): Small tool we use
   to enforce internal policies at Merge Request time.
 
 ## Our users
 
-We have different kind of users,
+We have different kinds of users,
 we divide them by use case:
 
 - **End Users**:
