@@ -11,6 +11,7 @@ ariadne:
     - asgi-file-uploads
 async-lru: 1.0.2
 Authlib: 0.15.4
+azure-devops: 6.0.0b4
 backports.csv: 1.0.7
 binaryornot: 0.4.4
 bleach: 4.1.0

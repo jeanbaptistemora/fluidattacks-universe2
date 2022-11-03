@@ -15,6 +15,7 @@ closure:
   async-timeout: 4.0.2
   attrs: 22.1.0
   authlib: 0.15.4
+  azure-devops: 6.0.0b4
   backoff: 2.2.1
   backports.csv: 1.0.7
   billiard: 3.6.4.0
@@ -60,6 +61,7 @@ closure:
   httpx: 0.16.1
   hyperlink: 19.0.0
   idna: "2.9"
+  isodate: 0.6.1
   itsdangerous: 1.1.0
   jinja2: 2.11.2
   jmespath: 1.0.1
@@ -73,6 +75,7 @@ closure:
   matplotlib: 3.4.3
   mixpanel: 4.9.0
   more-itertools: 8.4.0
+  msrest: 0.6.21
   multidict: 6.0.2
   numpy: 1.21.2
   oauth2client: 4.1.3
@@ -278,6 +281,9 @@ links:
   - name: Authlib-0.15.4.tar.gz
     sha256: 0r34n8q46zwl8cjwg3vz99il1bn2z928r1667kdf0vxwahjkmprp
     url: https://files.pythonhosted.org/packages/f2/24/09b67e9cffa426f3df4d6a3e12155ea35d3382549fd723e8e1aa40a56006/Authlib-0.15.4.tar.gz
+  - name: azure-devops-6.0.0b4.tar.gz
+    sha256: 1fqfz1ci81zhk67sjzylgp5n3scibixifvqxjza8fl584hmgr94n
+    url: https://files.pythonhosted.org/packages/6c/33/73f396eb50229e681d1dbdf461a9ebdb2320383c4ac4ed697f6af1ed5184/azure-devops-6.0.0b4.tar.gz
   - name: backoff-2.2.1-py3-none-any.whl
     sha256: 1s4n0g5av9lrrbrsd5jybk30vqkcbdypsyz4yxw65q180sd9ymv3
     url: https://files.pythonhosted.org/packages/df/73/b6e24bd22e6720ca8ee9a85a0c4a2971af8497d8f3193fa05390cbd46e09/backoff-2.2.1-py3-none-any.whl
@@ -632,6 +638,12 @@ links:
   - name: idna-2.9.tar.gz
     sha256: 1jxp2pdi8y4asi7ka1zhx3yx09kv8kzj533f0ds7viz49b0x323m
     url: https://files.pythonhosted.org/packages/cb/19/57503b5de719ee45e83472f339f617b0c01ad75cba44aba1e4c97c2b0abd/idna-2.9.tar.gz
+  - name: isodate-0.6.1-py2.py3-none-any.whl
+    sha256: 15pdrf3iq71qfg7hfgvr70mpj5fqkra4ypyk9686aqj1jk7fwl87
+    url: https://files.pythonhosted.org/packages/b6/85/7882d311924cbcfc70b1890780763e36ff0b140c7e51c110fc59a532f087/isodate-0.6.1-py2.py3-none-any.whl
+  - name: isodate-0.6.1.tar.gz
+    sha256: 1sdx4z0x6kv1qxjfi0gd82wfg16wca04q0nb93ba1c78wwfqiia8
+    url: https://files.pythonhosted.org/packages/db/7a/c0a56c7d56c7fa723988f122fa1f1ccf8c5c4ccc48efad0d214b49e5b1af/isodate-0.6.1.tar.gz
   - name: itsdangerous-1.1.0-py2.py3-none-any.whl
     sha256: 0jfp17fv977gv3lm78c4jyyrlpjw5qp65df8k3mkxckw0jr728mi
     url: https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
@@ -788,6 +800,12 @@ links:
   - name: more-itertools-8.4.0.tar.gz
     sha256: 1r8pibxmwndv34wkhrgmdfiwd2bhhfkm8scgkmy5rpvv2v3hriv8
     url: https://files.pythonhosted.org/packages/67/4a/16cb3acf64709eb0164e49ba463a42dc45366995848c4f0cf770f57b8120/more-itertools-8.4.0.tar.gz
+  - name: msrest-0.6.21-py2.py3-none-any.whl
+    sha256: 10ipxqnywh90m70gjbbvzyd2rz7s81j266h1hrlfjc2khhf52h68
+    url: https://files.pythonhosted.org/packages/e8/cc/6c96bfb3d3cf4c3bdedfa6b46503223f4c2a4fa388377697e0f8082a4fed/msrest-0.6.21-py2.py3-none-any.whl
+  - name: msrest-0.6.21.tar.gz
+    sha256: 1n389m3hcsyjskzimq4j71nyw9pjkrp0n5wg1q2c4bfwpv3inrkj
+    url: https://files.pythonhosted.org/packages/bb/2c/e8ac4f491efd412d097d42c9eaf79bcaad698ba17ab6572fd756eb6bd8f8/msrest-0.6.21.tar.gz
   - name: multidict-6.0.2-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 0v00i95i7xfrv962n9xx3mykzaavazy5y0caq51rxdagp22hfjif
     url: https://files.pythonhosted.org/packages/66/ba/5debd35601ccfa76a92fd6cab6d873791d16757142b99384d124ff8275f1/multidict-6.0.2-cp39-cp39-macosx_10_9_universal2.whl
