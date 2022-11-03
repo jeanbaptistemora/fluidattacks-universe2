@@ -1,4 +1,4 @@
 ---
 lib_path.f426.k8s_image_has_digest:
-  en: Ensure the specified docker image has a digest.
-  es: Ensure the specified container image has a digest.
+  en: Ensure the specified container image has a digest.
+  es: Asegúrese de especificar un digest para la imagen del container.
