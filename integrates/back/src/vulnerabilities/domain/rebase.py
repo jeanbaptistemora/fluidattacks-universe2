@@ -6,9 +6,6 @@ from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
     InvalidVulnerabilityAlreadyExists,
 )
-from datetime import (
-    datetime,
-)
 from db_model import (
     vulnerabilities as vulns_model,
 )
@@ -24,6 +21,9 @@ from db_model.vulnerabilities.types import (
     VulnerabilityState,
 )
 import logging
+from newutils import (
+    datetime as datetime_utils,
+)
 from newutils.vulnerabilities import (
     validate_vulnerability_in_toe,
 )
@@ -146,7 +146,7 @@ async def rebase(
         commit=vulnerability_commit,
         specific=vulnerability_specific,
         where=vulnerability_where,
-        modified_date=datetime.now().isoformat(),
+        modified_date=datetime_utils.get_iso_date(),
         modified_by="rebase@fluidattacks.com",
         source=Source.ASM,
     )
