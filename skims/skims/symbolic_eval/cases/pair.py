@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f083.pair import (
     evaluate as evaluate_literal_f083,
 )
+from symbolic_eval.f309.pair import (
+    evaluate as evaluate_literal_f309,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,7 @@ from typing import (
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F083: evaluate_literal_f083,
+    FindingEnum.F309: evaluate_literal_f309,
 }
 
 

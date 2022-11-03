@@ -27,16 +27,16 @@ from typing import (
 )
 
 
-def uses_insecure_jwt_token(
+def ts_insecure_jwt_token(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.JS_INSECURE_JWT_TOKEN
+    method = core_model.MethodsEnum.TS_INSECURE_JWT_TOKEN
     jwt_methods = {"sign", "verify"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVASCRIPT,
+            GraphShardMetadataLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue

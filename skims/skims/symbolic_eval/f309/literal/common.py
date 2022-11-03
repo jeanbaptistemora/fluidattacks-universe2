@@ -11,10 +11,9 @@ from symbolic_eval.types import (
 )
 
 
-def js_uses_insecure_jwt_token(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def insecure_jwt_token(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     value = args.graph.nodes[args.n_id]["value"][1:-1].lower()
     if value in INSECURE_ALGOS:
-        args.evaluation[args.n_id] = True
-        args.triggers.add("unsafealgo")
+        args.triggers.add("unsafealgorithm")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

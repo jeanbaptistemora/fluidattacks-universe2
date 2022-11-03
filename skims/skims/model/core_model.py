@@ -4088,6 +4088,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_INSECURE_JWT_TOKEN = MethodInfo(
+        file_name="typescript",
+        name="ts_insecure_jwt_token",
+        module="lib_root",
+        finding=FindingEnum.F309,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     IMPROPER_CERTIFICATE_VALIDATION = MethodInfo(
         file_name="analyze_bytecodes",
         name="improper_certificate_validation",

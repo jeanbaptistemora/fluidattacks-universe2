@@ -5,7 +5,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f309.literal.common import (
+from symbolic_eval.f309.pair.common import (
     insecure_jwt_token,
 )
 from symbolic_eval.types import (

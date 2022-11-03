@@ -1,27 +1,21 @@
 const jwt = require('jsonwebtoken');
-function nonSecureSign() {
-    // Noncompliant
-    let none_val = "none"
 
-    let token = jwt.sign({ foo: 'bar' }, key, { algorithm: 'none' });
+function unsafejwt() {
+    const sign_config = { algorithm: 'none' };
+    let token = jwt.sign(payload, key, sign_config);
 
-    jwt.verify(token, key, { expiresIn: 360000 * 5, algorithms: ['RS256', 'none'] });
+    let allowed_algos = ['RS256', 'none'];
+    const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+    jwt.verify(token, key, verify_config);
 
-    let token_insecure = jwt.sign({ foo: 'bar' }, key, { algorithm: none_val });
-
-    jwt.verify(token_insecure, key, { expiresIn: 360000 * 5, algorithms: [none_val] });
 }
 
+function safejwt() {
+    let safe_algo = "HS256";
+    let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: "none"});
 
-function secureSign() {
-    // Compliant
-    let alg = "HS256"
+    let allowed_algos = ['RS256'];
+    const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+    jwt.verify(token, key, verify_config);
 
-    let token_secure = jwt.sign({ foo: 'bar' }, key, { algorithm: 'HS256' });
-
-    jwt.verify(token_secure, key, { expiresIn: 360000 * 5, algorithms: ['HS256'] });
-
-    let token_secure_2 = jwt.sign({ foo: 'bar' }, key, { algorithm: alg });
-
-    jwt.verify(token_secure_2, key, { expiresIn: 360000 * 5, algorithms: [alg] });
 }

@@ -22004,100 +22004,52 @@ F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.
   25 |     parameterHeaders.setBasicAuth();
      ^ Col 0
 ",java.java_insecure_authentication
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,10,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
-   2 | function nonSecureSign() {
-   3 |     // Noncompliant
-   4 |     let none_val = ""none""
-   5 |
-   6 |     let token = jwt.sign({ foo: 'bar' }, key, { algorithm: 'none' });
-   7 |
-   8 |     jwt.verify(token, key, { expiresIn: 360000 * 5, algorithms: ['RS256', 'none'] });
-   9 |
-> 10 |     let token_insecure = jwt.sign({ foo: 'bar' }, key, { algorithm: none_val });
-  11 |
-  12 |     jwt.verify(token_insecure, key, { expiresIn: 360000 * 5, algorithms: [none_val] });
-  13 | }
-  14 |
-  15 |
-  16 | function secureSign() {
-  17 |     // Compliant
-  18 |     let alg = ""HS256""
-  19 |
-  20 |     let token_secure = jwt.sign({ foo: 'bar' }, key, { algorithm: 'HS256' });
-  21 |
+   2 |
+   3 | function unsafejwt() {
+   4 |     const sign_config = { algorithm: 'none' };
+   5 |     let token = jwt.sign(payload, key, sign_config);
+   6 |
+   7 |     let allowed_algos = ['RS256', 'none'];
+   8 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+>  9 |     jwt.verify(token, key, verify_config);
+  10 |
+  11 | }
+  12 |
+  13 | function safejwt() {
+  14 |     let safe_algo = ""HS256"";
+  15 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: ""none""});
+  16 |
+  17 |     let allowed_algos = ['RS256'];
+  18 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  19 |     jwt.verify(token, key, verify_config);
+  20 |
+  21 | }
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,5,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
-   2 | function nonSecureSign() {
-   3 |     // Noncompliant
-   4 |     let none_val = ""none""
-   5 |
-   6 |     let token = jwt.sign({ foo: 'bar' }, key, { algorithm: 'none' });
-   7 |
->  8 |     jwt.verify(token, key, { expiresIn: 360000 * 5, algorithms: ['RS256', 'none'] });
-   9 |
-  10 |     let token_insecure = jwt.sign({ foo: 'bar' }, key, { algorithm: none_val });
-  11 |
-  12 |     jwt.verify(token_insecure, key, { expiresIn: 360000 * 5, algorithms: [none_val] });
-  13 | }
-  14 |
-  15 |
-  16 | function secureSign() {
-  17 |     // Compliant
-  18 |     let alg = ""HS256""
-  19 |
-  20 |     let token_secure = jwt.sign({ foo: 'bar' }, key, { algorithm: 'HS256' });
-  21 |
-     ^ Col 0
-",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,6,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
-   1 | const jwt = require('jsonwebtoken');
-   2 | function nonSecureSign() {
-   3 |     // Noncompliant
-   4 |     let none_val = ""none""
-   5 |
->  6 |     let token = jwt.sign({ foo: 'bar' }, key, { algorithm: 'none' });
-   7 |
-   8 |     jwt.verify(token, key, { expiresIn: 360000 * 5, algorithms: ['RS256', 'none'] });
-   9 |
-  10 |     let token_insecure = jwt.sign({ foo: 'bar' }, key, { algorithm: none_val });
-  11 |
-  12 |     jwt.verify(token_insecure, key, { expiresIn: 360000 * 5, algorithms: [none_val] });
-  13 | }
-  14 |
-  15 |
-  16 | function secureSign() {
-  17 |     // Compliant
-  18 |     let alg = ""HS256""
-  19 |
-  20 |     let token_secure = jwt.sign({ foo: 'bar' }, key, { algorithm: 'HS256' });
-  21 |
-     ^ Col 0
-",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
-   2 | function nonSecureSign() {
-   3 |     // Noncompliant
-   4 |     let none_val = ""none""
-   5 |
-   6 |     let token = jwt.sign({ foo: 'bar' }, key, { algorithm: 'none' });
-   7 |
-   8 |     jwt.verify(token, key, { expiresIn: 360000 * 5, algorithms: ['RS256', 'none'] });
-   9 |
-  10 |     let token_insecure = jwt.sign({ foo: 'bar' }, key, { algorithm: none_val });
-  11 |
-> 12 |     jwt.verify(token_insecure, key, { expiresIn: 360000 * 5, algorithms: [none_val] });
-  13 | }
-  14 |
-  15 |
-  16 | function secureSign() {
-  17 |     // Compliant
-  18 |     let alg = ""HS256""
-  19 |
-  20 |     let token_secure = jwt.sign({ foo: 'bar' }, key, { algorithm: 'HS256' });
-  21 |
-  22 |     jwt.verify(token_secure, key, { expiresIn: 360000 * 5, algorithms: ['HS256'] });
+   2 |
+   3 | function unsafejwt() {
+   4 |     const sign_config = { algorithm: 'none' };
+>  5 |     let token = jwt.sign(payload, key, sign_config);
+   6 |
+   7 |     let allowed_algos = ['RS256', 'none'];
+   8 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+   9 |     jwt.verify(token, key, verify_config);
+  10 |
+  11 | }
+  12 |
+  13 | function safejwt() {
+  14 |     let safe_algo = ""HS256"";
+  15 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: ""none""});
+  16 |
+  17 |     let allowed_algos = ['RS256'];
+  18 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  19 |     jwt.verify(token, key, verify_config);
+  20 |
+  21 | }
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
 F052,lines,namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,7,310,skims,052. Insecure encryption algorithm,A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true in namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,"
