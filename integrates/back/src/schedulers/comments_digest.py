@@ -13,8 +13,21 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
+from db_model.events.types import (
+    Event,
+    GroupEventsRequest,
+)
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.group_comments.types import (
+    GroupComment,
 )
 from group_access import (
     domain as group_access_domain,
@@ -30,21 +43,77 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Dict,
     Tuple,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+COMMENTS_AGE = 1
 
 
-def days_to_end(date: str) -> int:
+def days_since_comment(date: str) -> int:
     days = (
-        datetime_utils.get_datetime_from_iso_str(date)
-        - datetime_utils.get_now()
+        datetime_utils.get_now()
+        - datetime_utils.get_datetime_from_iso_str(date)
     ).days
     return days
+
+
+def last_comments(
+    comments: Tuple[Union[GroupComment, EventComment, FindingComment], ...],
+) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    return tuple(
+        comment
+        for comment in comments
+        if days_since_comment(comment.creation_date) <= COMMENTS_AGE
+    )
+
+
+async def group_comments(
+    loaders: Dataloaders, group_name: str
+) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments = await loaders.group_comments.load(group_name)
+    return last_comments(comments)
+
+
+async def event_comments(
+    loaders: Dataloaders, event_id: str
+) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments = await loaders.event_comments.load(event_id)
+    return last_comments(comments)
+
+
+async def group_events_comments(
+    loaders: Dataloaders, group_events: Tuple[Event, ...]
+) -> Dict[str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
+    comments = await collect(
+        [
+            event_comments(loaders, event.id)
+            for event in group_events
+            if event.id
+        ]
+    )
+
+    event_comments_dic = dict(
+        zip([event.id for event in group_events], comments)
+    )
+
+    return {
+        event: event_comment
+        for event, event_comment in event_comments_dic.items()
+        if event_comment
+    }
+
+
+async def finding_comments(
+    loaders: Dataloaders, finding_id: str
+) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments = await loaders.finding_comments.load(finding_id)
+    return last_comments(comments)
 
 
 async def send_comment_digest() -> None:
@@ -62,10 +131,35 @@ async def send_comment_digest() -> None:
 
     if FI_ENVIRONMENT == "development":
         groups_names = tuple(
-            group
-            for group in groups_names
-            if group not in FI_TEST_PROJECTS.split(",")
+            group_name
+            for group_name in groups_names
+            if group_name not in FI_TEST_PROJECTS.split(",")
         )
+
+    groups_comments: Tuple[
+        Tuple[Union[GroupComment, EventComment, FindingComment], ...], ...
+    ] = await collect(
+        [group_comments(loaders, group_name) for group_name in groups_names]
+    )
+
+    groups_events = await loaders.group_events.load_many(
+        [
+            GroupEventsRequest(group_name=group_name)
+            for group_name in groups_names
+        ]
+    )
+
+    events_comments: Tuple[
+        Dict[
+            str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+        ],
+        ...,
+    ] = await collect(
+        [
+            group_events_comments(loaders, group_events)
+            for group_events in groups_events
+        ]
+    )
 
     group_findings: Tuple[
         Tuple[Finding, ...], ...
@@ -76,15 +170,18 @@ async def send_comment_digest() -> None:
             groups_names,
             [
                 {
-                    "email_to": group_emails,
-                    "group_comments": [],
-                    "event_comments": [],
+                    "email_to": email_to,
+                    "group_comments": list(group_comments),
+                    "event_comments": event_comments,
                     "finding_comments": [
                         finding.title for finding in findings
                     ],
                 }
-                for group_emails, findings in zip(
-                    group_stakeholders_email, group_findings
+                for email_to, group_comments, event_comments, findings in zip(
+                    group_stakeholders_email,
+                    groups_comments,
+                    events_comments,
+                    group_findings,
                 )
             ],
         )
