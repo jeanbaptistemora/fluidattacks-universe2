@@ -6,6 +6,9 @@ from aioextensions import (
     schedule,
 )
 import authz
+from custom_exceptions import (
+    RootNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -21,6 +24,9 @@ from db_model.finding_comments.types import (
 from db_model.findings.types import (
     Finding,
     FindingVerification,
+)
+from db_model.roots.types import (
+    Root,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -52,7 +58,21 @@ class VulnsProperties(TypedDict):
     vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
 
 
-def _fill_vuln_info(
+async def get_vuln_nickname(
+    loaders: Dataloaders,
+    vuln: Vulnerability,
+) -> str:
+    try:
+        root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
+        if vuln.type == "LINES":
+            return f"  {root.state.nickname}/{vuln.where}"
+    except RootNotFound:
+        pass
+    return vuln.where
+
+
+async def _fill_vuln_info(
+    loaders: Dataloaders,
     comment: FindingComment,
     vulns_ids: set[str],
     vulns: tuple[Vulnerability, ...],
@@ -60,7 +80,9 @@ def _fill_vuln_info(
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack."""
     selected_vulns = [
-        f"  - {vuln.where}" for vuln in vulns if vuln.id in vulns_ids
+        f"  - {await get_vuln_nickname(loaders, vuln)}"
+        for vuln in vulns
+        if vuln.id in vulns_ids
     ]
     selected_vulns = list(set(selected_vulns))
     wheres = "\n".join(selected_vulns)
@@ -172,7 +194,8 @@ async def get_comments(
         # Loop to add the «Regarding vulnerabilities...» header to comments
         # answering a solicited reattack
         reattack_comments_filled = [
-            _fill_vuln_info(
+            await _fill_vuln_info(
+                loaders,
                 comment,
                 verification.vulnerability_ids,
                 vulns,

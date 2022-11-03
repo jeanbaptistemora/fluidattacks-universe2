@@ -854,6 +854,20 @@ async def update_severity(
     )
 
 
+async def get_vuln_nickname(
+    loaders: Dataloaders,
+    vuln: Vulnerability,
+) -> str:
+    result: str = f"{vuln.where} ({vuln.specific})"
+    try:
+        root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
+        if vuln.type == "LINES":
+            return f"  {root.state.nickname}/{result}"
+    except RootNotFound:
+        pass
+    return result
+
+
 async def add_reattack_justification(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
@@ -879,13 +893,14 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
         f"{justification.replace(' ', ' at ')}{commit_msg}."
     )
     vulns_strs = [
-        f"  - {vuln.where} ({vuln.specific})" for vuln in open_vulnerabilities
+        f"  - {await get_vuln_nickname(loaders, vuln)}"
+        for vuln in open_vulnerabilities
     ]
     if vulns_strs:
         justification += "\n\nOpen vulnerabilities:\n"
         justification += "\n".join(vulns_strs) if vulns_strs else ""
     vulns_strs = [
-        f"  - {vuln.where} ({vuln.specific})"
+        f"  - {await get_vuln_nickname(loaders, vuln)}"
         for vuln in closed_vulnerabilities
     ]
     if vulns_strs:
