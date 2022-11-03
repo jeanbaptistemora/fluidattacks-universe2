@@ -115,3 +115,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "machine_data" {
     }
   }
 }
+
+resource "aws_s3_bucket_versioning" "machine_data" {
+  bucket = aws_s3_bucket.machine_data.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}

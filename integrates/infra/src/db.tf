@@ -187,6 +187,10 @@ resource "aws_dynamodb_table" "integrates_vms_consumer" {
     type = "S"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "integrates_vms_consumer"
     "management:area"    = "cost"
