@@ -474,13 +474,13 @@ def _get_vulns_with_reattack(
         for _vuln in stream["lines"]:
             if _vuln["state"] == state and hash(
                 (_vuln["path"], _vuln["line"])
-            ) == hash((vulnerability.where, vulnerability.specific)):
+            ) == hash((vulnerability.state.where, vulnerability.specific)):
                 result = (*result, vulnerability)
                 break
         for _vuln in stream["inputs"]:
             if _vuln["state"] == state and hash(
                 (_vuln["path"], _vuln["line"])
-            ) == hash((vulnerability.where, vulnerability.specific)):
+            ) == hash((vulnerability.state.where, vulnerability.specific)):
                 result = (*result, vulnerability)
                 break
 
@@ -558,7 +558,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "stream": ",".join(vuln.stream or []),
-                "url": vuln.where,
+                "url": vuln.state.where,
                 "skims_method": vuln.skims_method,
                 "skims_technique": vuln.skims_technique,
                 "developer": vuln.developer,
@@ -571,7 +571,7 @@ def _build_vulnerabilities_stream_from_integrates(
             {
                 "commit_hash": commit or vuln.commit,
                 "line": vuln.specific,
-                "path": vuln.where,
+                "path": vuln.state.where,
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "skims_method": vuln.skims_method,
@@ -611,7 +611,7 @@ def _machine_vulns_to_close(
         if hash(
             (
                 get_path_from_integrates_vulnerability(
-                    vuln.where, vuln.type, True
+                    vuln.state.where, vuln.type, True
                 )[1],
                 vuln.specific,
             )
@@ -622,7 +622,7 @@ def _machine_vulns_to_close(
             path_is_include(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln.where, vuln.type
+                        vuln.state.where, vuln.type
                     )[1]
                 ).split(" ", maxsplit=1)[0],
                 [
@@ -823,7 +823,7 @@ def _filter_vulns_already_reported(
         hash(
             (
                 get_path_from_integrates_vulnerability(
-                    vuln.where, vuln.type, True
+                    vuln.state.where, vuln.type, True
                 )[1],
                 vuln.specific,
             )

@@ -81,7 +81,7 @@ async def send_temporal_treatment_report() -> None:
                         and (end_date := vuln.treatment.accepted_until)
                         and days_to_end(end_date) in [7, 1]
                     ):
-                        where: str = (vuln.where).split("/")[0]
+                        where: str = (vuln.state.where).split("/")[0]
                         locations[where] = {
                             "vuln_count": (
                                 int(locations[where]["vuln_count"]) + 1

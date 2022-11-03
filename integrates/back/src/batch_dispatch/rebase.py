@@ -138,7 +138,7 @@ def _rebase_vulnerability(
             and (
                 result := git_utils.rebase(
                     repo,
-                    path=vulnerability.where,
+                    path=vulnerability.state.where,
                     line=int(vulnerability.specific),
                     rev_a=vulnerability.commit,
                     rev_b="HEAD",
@@ -226,7 +226,7 @@ async def rebase_root(
         for rebase_result, vuln in all_rebase
         if rebase_result
         and (
-            rebase_result.path != vuln.where
+            rebase_result.path != vuln.state.where
             or str(rebase_result.line) != vuln.specific
         )
     ]

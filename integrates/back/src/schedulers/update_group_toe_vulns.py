@@ -115,7 +115,7 @@ async def process_toe_inputs(
             any(
                 # ToeInput is not associated to a root_id
                 # and vulnerability.root_id == toe_input.root_id
-                html.unescape(vulnerability.where).startswith(
+                html.unescape(vulnerability.state.where).startswith(
                     toe_input.component
                 )
                 and html.unescape(vulnerability.specific).startswith(
@@ -171,7 +171,7 @@ async def process_toe_lines(
     for toe_line in group_toe_lines:
         has_vulnerabilities = (
             any(
-                vulnerability.where.startswith(toe_line.filename)
+                vulnerability.state.where.startswith(toe_line.filename)
                 for vulnerability in open_vulnerabilities
                 if vulnerability.type == VulnerabilityType.LINES
             )

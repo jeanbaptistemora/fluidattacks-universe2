@@ -75,9 +75,6 @@ import itertools
 from newutils.datetime import (
     convert_from_iso_str,
 )
-from operator import (
-    attrgetter,
-)
 import re
 from typing import (
     Any,
@@ -264,7 +261,9 @@ async def format_vulnerabilities(
         vuln_type = str(vuln.type.value).lower()
         finding[vuln_type].append(
             {
-                vuln_values[vuln_type]["where"]: html.unescape(vuln.where),
+                vuln_values[vuln_type]["where"]: html.unescape(
+                    vuln.state.where
+                ),
                 vuln_values[vuln_type]["specific"]: (
                     html.unescape(vuln.specific)
                 ),
@@ -297,7 +296,7 @@ def format_where(
     where: str, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> str:
     for vuln in vulnerabilities:
-        where = f"{where}{vuln.where} ({vuln.specific})\n"
+        where = f"{where}{vuln.state.where} ({vuln.specific})\n"
     return where
 
 
@@ -442,7 +441,7 @@ def group_specific(
     grouped_vulns = []
     for key, group_iter in itertools.groupby(
         sorted_by_where,
-        key=lambda vuln: (vuln.where, vuln.commit),
+        key=lambda vuln: (vuln.state.where, vuln.commit),
     ):
         group = list(group_iter)
         specific_grouped = (
@@ -476,7 +475,9 @@ def sort_vulnerabilities(
     item: Tuple[Vulnerability, ...]
 ) -> Tuple[Vulnerability, ...]:
     """Sort a vulnerability by its where field."""
-    return tuple(sorted(item, key=attrgetter("where")))
+    return tuple(
+        sorted(item, key=lambda vulnerability: vulnerability.state.where)
+    )
 
 
 def range_to_list(range_value: str) -> List[str]:
@@ -828,7 +829,7 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
     raises: bool = True,
 ) -> Optional[Vulnerability]:
     if vulnerability.root_id:
-        where = html.unescape(vulnerability.where)
+        where = html.unescape(vulnerability.state.where)
         # There are cases, like SCA vulns, where the `where` attribute
         # has additional information `filename (package) [CVE]`
         where = ignore_advisories(where)

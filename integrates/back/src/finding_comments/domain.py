@@ -65,10 +65,10 @@ async def get_vuln_nickname(
     try:
         root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
         if vuln.type == "LINES":
-            return f"  {root.state.nickname}/{vuln.where}"
+            return f"  {root.state.nickname}/{vuln.state.where}"
     except RootNotFound:
         pass
-    return vuln.where
+    return vuln.state.where
 
 
 async def _fill_vuln_info(

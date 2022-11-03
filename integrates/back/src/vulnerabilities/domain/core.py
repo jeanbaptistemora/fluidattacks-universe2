@@ -331,7 +331,7 @@ async def get_grouped_vulnerabilities_info(
         grouped_ports_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info.where,
+                    where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
@@ -348,7 +348,7 @@ async def get_grouped_vulnerabilities_info(
         grouped_lines_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info.where,
+                    where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
@@ -365,7 +365,7 @@ async def get_grouped_vulnerabilities_info(
         grouped_inputs_vulnerabilities = tuple(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
-                    where=grouped_vulns_info.where,
+                    where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
@@ -920,7 +920,7 @@ async def verify(
                 tool=close_item.state.tool
                 if close_item
                 else vuln_to_close.state.tool,
-                where=vuln_to_close.where,
+                where=vuln_to_close.state.where,
             ),
         )
         for vuln_to_close, close_item in zip(

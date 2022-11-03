@@ -122,8 +122,8 @@ async def mutate(
                 vuln_dict = vulns_props.get(repo, {})
                 vuln_dict.update(
                     {
-                        f"{vuln.where}{vuln.specific}": {
-                            "location": vuln.where,
+                        f"{vuln.state.where}{vuln.specific}": {
+                            "location": vuln.state.where,
                             "specific": vuln.specific,
                             "source": vuln.state.source.value,
                         },
