@@ -38,9 +38,13 @@ resource "aws_opensearch_domain" "integrates" {
   engine_version = "OpenSearch_1.3"
 
   cluster_config {
-    instance_count         = 3
-    instance_type          = "t3.small.search"
-    zone_awareness_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_enabled = true
+    dedicated_master_type    = "m3.medium.search"
+    instance_count           = 3
+    instance_type            = "t3.medium.search"
+    zone_awareness_enabled   = true
+
     zone_awareness_config {
       availability_zone_count = 3
     }

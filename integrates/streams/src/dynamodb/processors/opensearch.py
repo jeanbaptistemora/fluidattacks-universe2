@@ -53,8 +53,8 @@ def _process(records: tuple[Record, ...], index: str) -> None:
             )
             action = {
                 action_name: {
-                    "_index": index,
                     "_id": "#".join([record.pk, record.sk]),
+                    "_index": index,
                 }
             }
             body.append(action)
