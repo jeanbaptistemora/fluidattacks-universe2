@@ -24,6 +24,15 @@ resource "aws_s3_bucket_logging" "docs_prod" {
   target_prefix = "log/docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
 }
 
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "docs_prod_versioning" {
+  bucket = aws_s3_bucket.bucket_prod.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_acl" "prod" {
   bucket = aws_s3_bucket.bucket_prod.id
 
@@ -116,6 +125,15 @@ resource "aws_s3_bucket_logging" "docs_dev" {
 
   target_bucket = "common.logging"
   target_prefix = "log/docs-dev.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
+}
+
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "docs_dev_versioning" {
+  bucket = aws_s3_bucket.bucket_dev.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket_acl" "dev" {
