@@ -20,3 +20,4 @@ class SingerStreams(Enum):
     check_locations = "check_locations"
     check_results = "check_results"
     check_results_api = "check_results_api"
+    check_results_browser = "check_results_browser"

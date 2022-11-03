@@ -31,7 +31,7 @@ _bool_type = JSchemaFactory.from_prim_type(bool)
 _date_type = JSchemaFactory.datetime_schema()
 
 
-def core() -> SingerEncoder[CheckResultObj]:
+def encoder() -> SingerEncoder[CheckResultObj]:
     _mapper: Dict[str, EncodeItem[CheckResultObj]] = {
         "check_id": EncodeItem.new(
             lambda x: x.id_obj[0].id_str,

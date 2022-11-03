@@ -38,7 +38,7 @@ _opt_float_type = JSchemaFactory.opt_prim_type(float)
 ApiCheckResultObj = IndexedObj[Tuple[CheckId, CheckResultId], ApiCheckResult]
 
 
-def core() -> SingerEncoder[ApiCheckResultObj]:
+def encoder() -> SingerEncoder[ApiCheckResultObj]:
     _mapper: Dict[str, EncodeItem[ApiCheckResultObj]] = {
         "check_id": EncodeItem.new(
             lambda x: x.id_obj[0].id_str,
