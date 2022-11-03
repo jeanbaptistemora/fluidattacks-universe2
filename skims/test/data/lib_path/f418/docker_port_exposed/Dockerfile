@@ -20,3 +20,5 @@ ENV NODE_ENV production
 
 RUN npm i --only=production && npm cache clean --force
 USER node
+
+EXPOSE 80

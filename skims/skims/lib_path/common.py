@@ -236,6 +236,40 @@ def get_vulnerabilities_from_iterator_blocking(
     return results
 
 
+def get_vulnerabilities_include_parameter(
+    content: str,
+    description_key: str,
+    iterator: Iterator[Tuple[int, int, str]],
+    path: str,
+    method: core_model.MethodsEnum,
+) -> core_model.Vulnerabilities:
+    results: core_model.Vulnerabilities = tuple(
+        build_lines_vuln(
+            method=method,
+            what=path,
+            where=str(line_no),
+            metadata=build_metadata(
+                method=method,
+                description=(
+                    t(
+                        key=(description_key),
+                        port=param,
+                    )
+                    + f" {t(key='words.in')} "
+                    f"{CTX.config.namespace}/{path}"
+                ),
+                snippet=make_snippet(
+                    content=content,
+                    viewport=SnippetViewport(column=column_no, line=line_no),
+                ),
+            ),
+        )
+        for line_no, column_no, param in iterator
+    )
+
+    return results
+
+
 def get_vulnerabilities_for_incomplete_deps(
     content: str,
     description_key: str,

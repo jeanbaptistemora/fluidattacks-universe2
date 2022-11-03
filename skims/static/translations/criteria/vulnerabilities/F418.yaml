@@ -13,8 +13,8 @@ lib_path.f418.docker_using_add_command:
     Zip Slip que luego podrían activarse automáticamente.
 lib_path.f418.docker_port_exposed:
   en: >-
-    Port 22 or Port 80 is exposed, which are insecure and could lead to more
+    Port {port} is exposed, which is insecure and could lead to more
     complex attacks such as information leaking and enumeration.
   es: >-
-    El puerto 22 o 80 estan expuestos, los cuales son inseguros y podrían
-    llevar a ataques mas complejos como filtración y enumeración de información.
+    El puerto {port} esta expuesto, el cual es inseguro y podría llevar
+    a ataques mas complejos como filtración y enumeración de información.
