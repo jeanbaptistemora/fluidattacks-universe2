@@ -14,6 +14,14 @@ resource "aws_s3_bucket" "machine_data" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "machine_data_logs" {
+  bucket = aws_s3_bucket.machine_data.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/machine.data"
+}
+
 resource "aws_s3_bucket_acl" "machine_data" {
   bucket = aws_s3_bucket.machine_data.id
 
