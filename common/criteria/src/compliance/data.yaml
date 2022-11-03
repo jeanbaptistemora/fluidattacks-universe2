@@ -1492,6 +1492,9 @@ asvs:
   es:
     summary: __empty__
   definitions:
+    '1_1_1':
+      title: Secure Software Development Lifecycle
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '1_2_1':
       title: Authentication architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
