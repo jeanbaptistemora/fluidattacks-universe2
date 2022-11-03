@@ -22,6 +22,14 @@ resource "aws_s3_bucket_logging" "observes_cache_logs" {
   target_prefix = "log/observes.cache"
 }
 
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "observes_cache_versioning" {
+  bucket = aws_s3_bucket.observes_cache.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 
 resource "aws_s3_bucket_acl" "observes_cache" {
   bucket = aws_s3_bucket.observes_cache.id

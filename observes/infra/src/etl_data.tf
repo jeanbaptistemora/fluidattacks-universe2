@@ -22,6 +22,15 @@ resource "aws_s3_bucket_logging" "etl_data_logs" {
   target_prefix = "log/observes.etl-data"
 }
 
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "etl_data_versioning" {
+  bucket = aws_s3_bucket.etl_data.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_acl" "etl_data" {
   bucket = aws_s3_bucket.etl_data.id
 
