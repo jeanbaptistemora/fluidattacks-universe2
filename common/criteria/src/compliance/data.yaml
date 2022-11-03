@@ -1666,7 +1666,16 @@ asvs:
     '2_8_2':
       title: One time verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_8_3':
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '2_8_4':
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_8_5':
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_8_6':
       title: One time verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
     '2_8_7':
@@ -1678,8 +1687,23 @@ asvs:
     '2_9_3':
       title: Cryptographic verifier
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_10_2':
+      title: Service authentication
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_10_3':
+      title: Service authentication
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '2_10_4':
+      title: Service authentication
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '3_1_1':
       title: Fundamental session management security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_2_1':
+      title: Session binding
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_2_2':
+      title: Session binding
       link: https://owasp.org/www-project-application-security-verification-standard/
     '3_2_3':
       title: Session binding
@@ -1693,13 +1717,25 @@ asvs:
     '3_3_2':
       title: Session termination
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_3_3':
+      title: Session termination
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '3_3_4':
       title: Session termination
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_4_1':
+      title: Cookie-based session management
       link: https://owasp.org/www-project-application-security-verification-standard/
     '3_4_2':
       title: Cookie-based session management
       link: https://owasp.org/www-project-application-security-verification-standard/
     '3_4_3':
+      title: Cookie-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_4_4':
+      title: Cookie-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '3_4_5':
       title: Cookie-based session management
       link: https://owasp.org/www-project-application-security-verification-standard/
     '3_5_2':
@@ -1711,11 +1747,29 @@ asvs:
     '3_7_1':
       title: Defenses against session management exploits
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_1_1':
+      title: General access control design
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_1_2':
+      title: General access control design
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '4_1_3':
       title: General access control design
       link: https://owasp.org/www-project-application-security-verification-standard/
     '4_1_5':
       title: General access control design
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_2_1':
+      title: Operation level access control
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_2_2':
+      title: Operation level access control
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_3_1':
+      title: Other access control considerations
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_3_1':
+      title: Other access control considerations
       link: https://owasp.org/www-project-application-security-verification-standard/
     '5_1_1':
       title: Input validation
