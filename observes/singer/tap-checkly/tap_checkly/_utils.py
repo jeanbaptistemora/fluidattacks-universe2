@@ -5,6 +5,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -15,6 +18,7 @@ from dateutil.parser import (
     isoparse as _isoparse,
 )
 from fa_purity import (
+    FrozenList,
     JsonObj,
     JsonValue,
     Maybe,
@@ -27,6 +31,9 @@ from fa_purity.json.primitive.core import (
 from fa_purity.json.value.transform import (
     Unfolder,
 )
+from fa_purity.result.transform import (
+    all_ok,
+)
 from fa_purity.union import (
     UnionFactory,
 )
@@ -36,6 +43,7 @@ from typing import (
     TypeVar,
 )
 
+_T = TypeVar("_T")
 _S = TypeVar("_S")
 _F = TypeVar("_F")
 
@@ -72,6 +80,16 @@ class ExtendedUnfolder:
             .alt(lambda _: KeyError(key))
             .alt(Exception)
         )
+
+    def require(
+        self, key: str, transform: Callable[[Unfolder], ResultE[_T]]
+    ) -> ResultE[_T]:
+        return self.get_required(key).map(Unfolder).bind(transform)
+
+    def optional(
+        self, key: str, transform: Callable[[Unfolder], ResultE[_T]]
+    ) -> ResultE[Maybe[_T]]:
+        return switch_maybe(self.get(key).map(Unfolder).map(transform))
 
     def maybe_primitive(
         self, key: str, prim_type: Type[NotNonePrimTvar]

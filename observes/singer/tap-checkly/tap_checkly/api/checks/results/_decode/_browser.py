@@ -3,12 +3,18 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from fa_purity import (
+    FrozenDict,
+    FrozenList,
     JsonObj,
+    JsonValue,
     Maybe,
     ResultE,
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from fa_purity.result.transform import (
+    all_ok,
 )
 from tap_checkly.api._utils import (
     ExtendedUnfolder,
@@ -19,6 +25,9 @@ from tap_checkly.objs.result import (
     TraceSummary,
     WebVitalMetric,
     WebVitals,
+)
+from typing import (
+    Tuple,
 )
 
 
@@ -72,6 +81,50 @@ def _decode_summary(raw: JsonObj) -> ResultE[TraceSummary]:
                 ).map(
                     lambda user_script: TraceSummary(
                         console, network, document, user_script
+                    )
+                )
+            )
+        )
+    )
+
+
+def _decode_pages(
+    raw: FrozenList[JsonValue],
+) -> ResultE[FrozenDict[str, WebVitals]]:
+    def _decode(j: JsonObj) -> ResultE[Tuple[str, WebVitals]]:
+        unfolder = ExtendedUnfolder(j)
+        return unfolder.require_primitive("url", str).bind(
+            lambda url: unfolder.require_json("webVitals")
+            .bind(_decode_vitals)
+            .map(lambda w: (url, w))
+        )
+
+    return all_ok(
+        tuple(Unfolder(j).to_json().alt(Exception).bind(_decode) for j in raw)
+    ).map(lambda x: FrozenDict(dict(x)))
+
+
+def decode_browser_result(raw: JsonObj) -> ResultE[BrowserCheckResult]:
+    unfolder = ExtendedUnfolder(raw)
+    return unfolder.require_primitive("type", str).bind(
+        lambda framework: unfolder.require(
+            "errors", lambda u: u.to_list_of(str).alt(Exception)
+        ).bind(
+            lambda errors: unfolder.require(
+                "runtimeVersion", lambda u: u.to_primitive(str).alt(Exception)
+            ).bind(
+                lambda runtime: unfolder.require(
+                    "traceSummary",
+                    lambda u: u.to_json().alt(Exception).bind(_decode_summary),
+                ).bind(
+                    lambda trace: unfolder.require(
+                        "pages", lambda u: u.to_list().alt(Exception)
+                    )
+                    .bind(_decode_pages)
+                    .map(
+                        lambda pages: BrowserCheckResult(
+                            framework, errors, runtime, trace, pages
+                        )
                     )
                 )
             )

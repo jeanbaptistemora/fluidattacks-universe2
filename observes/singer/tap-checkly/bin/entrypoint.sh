@@ -4,4 +4,4 @@
 
 # shellcheck shell=bash
 
-target-redshift "${@}"
+tap-checkly "${@}"
