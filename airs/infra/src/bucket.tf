@@ -24,6 +24,15 @@ resource "aws_s3_bucket_logging" "airs_prod" {
   target_prefix = "log/fluidattacks.com"
 }
 
+# Bucket versioning
+resource "aws_s3_bucket_versioning" "airs_prod_versioning" {
+  bucket = aws_s3_bucket.prod.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_acl" "prod" {
   bucket = aws_s3_bucket.prod.id
 
@@ -115,6 +124,15 @@ resource "aws_s3_bucket_logging" "airs_dev" {
 
   target_bucket = "common.logging"
   target_prefix = "log/web.eph.fluidattacks.com"
+}
+
+#Bucket versioning
+resource "aws_s3_bucket_versioning" "airs_dev_versioning" {
+  bucket = aws_s3_bucket.dev.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket_acl" "dev" {
