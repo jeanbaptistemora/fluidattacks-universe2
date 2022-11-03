@@ -265,7 +265,7 @@ async def format_vulnerabilities(
                     vuln.state.where
                 ),
                 vuln_values[vuln_type]["specific"]: (
-                    html.unescape(vuln.specific)
+                    html.unescape(vuln.state.specific)
                 ),
                 "state": str(vuln.state.status.value).lower(),
                 "source": format_source,
@@ -296,7 +296,7 @@ def format_where(
     where: str, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> str:
     for vuln in vulnerabilities:
-        where = f"{where}{vuln.state.where} ({vuln.specific})\n"
+        where = f"{where}{vuln.state.where} ({vuln.state.specific})\n"
     return where
 
 
@@ -445,9 +445,11 @@ def group_specific(
     ):
         group = list(group_iter)
         specific_grouped = (
-            ",".join([vuln.specific for vuln in group])
+            ",".join([vuln.state.specific for vuln in group])
             if vuln_type == VulnerabilityType.INPUTS
-            else get_ranges(sorted([int(vuln.specific) for vuln in group]))
+            else get_ranges(
+                sorted([int(vuln.state.specific) for vuln in group])
+            )
         )
         grouped_vulns.append(
             Vulnerability(
@@ -850,15 +852,15 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
                     ) from exc
                 return None
 
-            if not 0 <= int(vulnerability.specific) <= toe_lines.loc:
+            if not 0 <= int(vulnerability.state.specific) <= toe_lines.loc:
                 if raises:
                     raise LineDoesNotExistInTheLinesOfCodeRange(
-                        line=vulnerability.specific, index=f"{index}"
+                        line=vulnerability.state.specific, index=f"{index}"
                     )
                 return None
 
         if vulnerability.type == VulnerabilityType.INPUTS:
-            specific = html.unescape(vulnerability.specific)
+            specific = html.unescape(vulnerability.state.specific)
             if match_specific := re.match(
                 r"(?P<specific>.*)\s\(.*\)(\s\[.*\])?$", specific
             ):

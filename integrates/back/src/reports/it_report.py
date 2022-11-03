@@ -783,7 +783,7 @@ class ITReport:
         finding_verification: tuple[FindingVerification, ...],
     ) -> None:
         vuln = self.vulnerability
-        specific = row.specific
+        specific = row.state.specific
         if row.type == VulnerabilityType.LINES:
             specific = str(int(specific))
 

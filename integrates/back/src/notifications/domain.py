@@ -422,7 +422,8 @@ async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
         Locations:
         {new_line+new_line.join(
             [
-                f"- {vulnerability.state.where} | {vulnerability.specific}"
+                f"- {vulnerability.state.where} "
+                f"| {vulnerability.state.specific}"
                 for vulnerability in vulnerabilities
             ]
         )}

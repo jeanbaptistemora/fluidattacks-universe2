@@ -118,7 +118,7 @@ async def process_toe_inputs(
                 html.unescape(vulnerability.state.where).startswith(
                     toe_input.component
                 )
-                and html.unescape(vulnerability.specific).startswith(
+                and html.unescape(vulnerability.state.specific).startswith(
                     toe_input.entry_point
                 )
                 for vulnerability in open_vulnerabilities

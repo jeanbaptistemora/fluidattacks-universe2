@@ -751,9 +751,9 @@ async def vulns_properties(
             )
             vuln_dict.update(
                 {
-                    f"{vuln.state.where}{vuln.specific}": {
+                    f"{vuln.state.where}{vuln.state.specific}": {
                         "location": vuln.state.where,
-                        "specific": vuln.specific,
+                        "specific": vuln.state.specific,
                         "source": vuln.state.source.value,
                         "assigned": vuln.treatment.assigned
                         if vuln.treatment
@@ -768,9 +768,9 @@ async def vulns_properties(
         else:
             vuln_dict.update(
                 {
-                    f"{vuln.state.where}{vuln.specific}": {
+                    f"{vuln.state.where}{vuln.state.specific}": {
                         "location": vuln.state.where,
-                        "specific": vuln.specific,
+                        "specific": vuln.state.specific,
                         "source": vuln.state.source.value,
                     },
                 }
@@ -858,7 +858,7 @@ async def get_vuln_nickname(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> str:
-    result: str = f"{vuln.state.where} ({vuln.specific})"
+    result: str = f"{vuln.state.where} ({vuln.state.specific})"
     try:
         root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
         if vuln.type == "LINES":

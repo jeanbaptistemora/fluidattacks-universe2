@@ -474,13 +474,17 @@ def _get_vulns_with_reattack(
         for _vuln in stream["lines"]:
             if _vuln["state"] == state and hash(
                 (_vuln["path"], _vuln["line"])
-            ) == hash((vulnerability.state.where, vulnerability.specific)):
+            ) == hash(
+                (vulnerability.state.where, vulnerability.state.specific)
+            ):
                 result = (*result, vulnerability)
                 break
         for _vuln in stream["inputs"]:
             if _vuln["state"] == state and hash(
                 (_vuln["path"], _vuln["line"])
-            ) == hash((vulnerability.state.where, vulnerability.specific)):
+            ) == hash(
+                (vulnerability.state.where, vulnerability.state.specific)
+            ):
                 result = (*result, vulnerability)
                 break
 
@@ -554,7 +558,7 @@ def _build_vulnerabilities_stream_from_integrates(
     return {
         "inputs": [
             {
-                "field": vuln.specific,  # noqa
+                "field": vuln.state.specific,  # noqa
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
                 "stream": ",".join(vuln.stream or []),
@@ -570,7 +574,7 @@ def _build_vulnerabilities_stream_from_integrates(
         "lines": [
             {
                 "commit_hash": commit or vuln.commit,
-                "line": vuln.specific,
+                "line": vuln.state.specific,
                 "path": vuln.state.where,
                 "repo_nickname": git_root.state.nickname,
                 "state": state,
@@ -613,7 +617,7 @@ def _machine_vulns_to_close(
                 get_path_from_integrates_vulnerability(
                     vuln.state.where, vuln.type, True
                 )[1],
-                vuln.specific,
+                vuln.state.specific,
             )
         )
         not in sarif_hashes
@@ -825,7 +829,7 @@ def _filter_vulns_already_reported(
                 get_path_from_integrates_vulnerability(
                     vuln.state.where, vuln.type, True
                 )[1],
-                vuln.specific,
+                vuln.state.specific,
             )
         )
         for vuln in existing_open_machine_vulns

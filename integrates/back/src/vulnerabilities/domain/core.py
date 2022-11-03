@@ -332,7 +332,7 @@ async def get_grouped_vulnerabilities_info(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
-                    specific=grouped_vulns_info.specific,
+                    specific=grouped_vulns_info.state.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
                     else "",
@@ -349,7 +349,7 @@ async def get_grouped_vulnerabilities_info(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
-                    specific=grouped_vulns_info.specific,
+                    specific=grouped_vulns_info.state.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
                     else "",
@@ -366,7 +366,7 @@ async def get_grouped_vulnerabilities_info(
             map(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
-                    specific=grouped_vulns_info.specific,
+                    specific=grouped_vulns_info.state.specific,
                     commit_hash=grouped_vulns_info.commit
                     if grouped_vulns_info.commit is not None
                     else "",
@@ -915,7 +915,7 @@ async def verify(
                 modified_by=modified_by,
                 modified_date=modified_date,
                 source=vuln_to_close.state.source,
-                specific=vuln_to_close.specific,
+                specific=vuln_to_close.state.specific,
                 status=VulnerabilityStateStatus.CLOSED,
                 tool=close_item.state.tool
                 if close_item

@@ -92,7 +92,7 @@ def get_path_from_integrates_vulnerability(
 def get_hash_from_typed(
     vuln: Vulnerability, from_yaml: bool = False, validate_root: bool = True
 ) -> int:
-    specific = vuln.specific
+    specific = vuln.state.specific
     type_ = vuln.type.value
     where = vuln.state.where
     if validate_root:
