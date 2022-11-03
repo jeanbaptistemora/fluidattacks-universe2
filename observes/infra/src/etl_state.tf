@@ -14,6 +14,14 @@ resource "aws_s3_bucket" "observes_state" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "observes_state_logs" {
+  bucket = aws_s3_bucket.observes_state.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/observes.state"
+}
+
 resource "aws_s3_bucket_acl" "observes_state" {
   bucket = aws_s3_bucket.observes_state.id
 

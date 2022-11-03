@@ -14,6 +14,14 @@ resource "aws_s3_bucket" "etl_data" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "etl_data_logs" {
+  bucket = aws_s3_bucket.etl_data.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/observes.etl-data"
+}
+
 resource "aws_s3_bucket_acl" "etl_data" {
   bucket = aws_s3_bucket.etl_data.id
 

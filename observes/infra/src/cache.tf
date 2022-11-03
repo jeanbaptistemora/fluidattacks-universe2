@@ -14,6 +14,15 @@ resource "aws_s3_bucket" "observes_cache" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "observes_cache_logs" {
+  bucket = aws_s3_bucket.observes_cache.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/observes.cache"
+}
+
+
 resource "aws_s3_bucket_acl" "observes_cache" {
   bucket = aws_s3_bucket.observes_cache.id
 

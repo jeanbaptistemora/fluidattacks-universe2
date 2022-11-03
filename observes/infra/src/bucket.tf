@@ -14,6 +14,15 @@ resource "aws_s3_bucket" "fluidanalytics" {
   }
 }
 
+# Bucket logging
+resource "aws_s3_bucket_logging" "fluidanalytics_logs" {
+  bucket = aws_s3_bucket.fluidanalytics.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/fluidanalytics"
+}
+
+
 resource "aws_s3_bucket_acl" "fluidanalytics" {
   bucket = aws_s3_bucket.fluidanalytics.id
 
