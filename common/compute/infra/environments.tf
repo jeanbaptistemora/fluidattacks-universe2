@@ -58,8 +58,9 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_launch_template" "main" {
-  name     = "compute"
-  key_name = "gitlab"
+  name                                 = "compute"
+  key_name                             = "gitlab"
+  instance_initiated_shutdown_behavior = "terminate"
 
   block_device_mappings {
     device_name = "/dev/xvda"
