@@ -5,6 +5,7 @@
 from lib_root.f371.common import (
     has_bypass_sec,
     has_innerhtml,
+    has_set_inner_html,
 )
 from lib_sast.types import (
     ShardDb,
@@ -70,6 +71,29 @@ def js_bypass_security_trust_url(
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f371.bypass_security_trust",
         desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def js_dangerously_set_innerhtml(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JS_USES_DANGEROUSLY_SET_HTML
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            for n_id in has_set_inner_html(shard.syntax_graph):
+                yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f371.has_dangerously_set_innerhtml",
+        desc_params=dict(lang="Jsx"),
         graph_shard_nodes=n_ids(),
         method=method,
     )

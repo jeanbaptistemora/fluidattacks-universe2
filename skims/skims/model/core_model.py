@@ -4329,6 +4329,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_USES_DANGEROUSLY_SET_HTML = MethodInfo(
+        file_name="javascript",
+        name="js_uses_dangerously_set_html",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_USES_DANGEROUSLY_SET_HTML = MethodInfo(
+        file_name="javascript",
+        name="ts_uses_dangerously_set_html",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_CONTENT_HTTP = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_http",

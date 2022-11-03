@@ -38368,6 +38368,42 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   24 |
      ^ Col 1
 ",javascript.ts_use_of_bypass_security_trust_url
+F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Jsx file. in namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,"
+   1 | import React from ""react"";
+   2 |
+   3 | const App = () => {
+   4 |   const createMarkup = () => {
+   5 |     return {
+   6 |       __html: ""<img onerror='alert();' src='invalid-image' />"",
+   7 |     };
+   8 |   };
+   9 |   return (
+  10 |     <div>
+> 11 |       <div dangerouslySetInnerHTML={createMarkup()}/>
+  12 |     </div>
+  13 |   );
+  14 | };
+  15 | export default App;
+     ^ Col 0
+",javascript.js_uses_dangerously_set_html
+F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Tsx file. in namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,"
+   1 | import React from ""react"";
+   2 |
+   3 | const App = () => {
+   4 |   const createMarkup = () => {
+   5 |     return {
+   6 |       __html: ""<img onerror='alert();' src='invalid-image' />"",
+   7 |     };
+   8 |   };
+   9 |   return (
+  10 |     <div>
+> 11 |       <div dangerouslySetInnerHTML={createMarkup()}/>
+  12 |     </div>
+  13 |   );
+  14 | };
+  15 | export default App;
+     ^ Col 0
+",javascript.ts_uses_dangerously_set_html
 F371,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0,79,skims,371. DOM-Based cross-site scripting (XSS),The content-type header or character encoding is not set or is malformed. in namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,"
    1 | <!DOCTYPE html>
    2 | <html>

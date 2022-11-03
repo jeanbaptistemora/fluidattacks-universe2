@@ -10,3 +10,6 @@ lib_root.f371.generic_uses_innerhtml:
 lib_root.f371.bypass_security_trust:
   en: BypassSecurityTrust is used in the Angular sanitizer configuration.
   es: Se hace uso de bypassSecurityTrust en la configuración del sanitizer de Angular.
+lib_root.f371.has_dangerously_set_innerhtml:
+  en: DangerouslySetInnerHtml is used in {lang} file.
+  es: Se hace uso de DangerouslySetInnerHtml en un archivo {lang} .

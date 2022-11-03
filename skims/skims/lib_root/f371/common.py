@@ -43,3 +43,21 @@ def has_bypass_sec(graph: Graph) -> List[NId]:
             vuln_nodes.append(nid)
 
     return vuln_nodes
+
+
+def has_set_inner_html(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    for nid in g.filter_nodes(
+        graph,
+        graph.nodes,
+        predicate=g.pred_has_labels(label_type="JsxElement"),
+    ):
+        ast_childs = g.match_ast(graph, nid, "VariableDeclaration")
+        child = ast_childs.get("VariableDeclaration")
+        if (
+            child
+            and graph.nodes[child]["variable"] == "dangerouslySetInnerHTML"
+        ):
+            vuln_nodes.append(child)
+
+    return vuln_nodes

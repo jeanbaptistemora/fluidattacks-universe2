@@ -23,6 +23,8 @@ from syntax_graph.syntax_readers.javascript import (
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
+    jsx_attribute as javascript_jsx_attribute,
+    jsx_element as javascript_jsx_element,
     member_expression as javascript_member_expression,
     method_declaration as javascript_method_declaration,
     new_expression as javascript_new_expression,
@@ -473,6 +475,21 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "try_statement",
         },
         syntax_reader=javascript_try_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "jsx_element",
+            "jsx_fragment",
+            "jsx_self_closing_element",
+            "jsx_opening_element",
+        },
+        syntax_reader=javascript_jsx_element.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "jsx_attribute",
+        },
+        syntax_reader=javascript_jsx_attribute.reader,
     ),
     Dispatcher(
         applicable_types={

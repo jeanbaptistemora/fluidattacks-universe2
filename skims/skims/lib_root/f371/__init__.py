@@ -4,10 +4,12 @@
 
 from lib_root.f371.javascript import (
     js_bypass_security_trust_url,
+    js_dangerously_set_innerhtml,
     uses_innerhtml as js_uses_innerhtml,
 )
 from lib_root.f371.typescript import (
     ts_bypass_security_trust_url,
+    ts_dangerously_set_innerhtml,
     uses_innerhtml as ts_uses_innerhtml,
 )
 from model import (
@@ -21,4 +23,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, ts_uses_innerhtml),
     (FINDING, js_bypass_security_trust_url),
     (FINDING, ts_bypass_security_trust_url),
+    (FINDING, js_dangerously_set_innerhtml),
+    (FINDING, ts_dangerously_set_innerhtml),
 )
