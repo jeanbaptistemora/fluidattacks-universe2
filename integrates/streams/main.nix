@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 {
   inputs,
+  libGit,
   makeScript,
   outputs,
   projectPath,
@@ -24,6 +25,7 @@ makeScript {
       inputs.nixpkgs.python39
     ];
     source = [
+      libGit
       outputs."/common/utils/sops"
       outputs."/integrates/streams/runtime"
     ];

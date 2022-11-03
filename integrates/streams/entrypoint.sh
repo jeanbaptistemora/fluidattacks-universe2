@@ -86,9 +86,13 @@ function run_dynamodb_consumer {
 function main {
   export ENVIRONMENT="${1}"
   export AWS_DEFAULT_REGION="us-east-1"
+  export CI_COMMIT_SHA
 
   echo "[INFO] Executing dynamodb streams consumer" \
     && export_secrets "${ENVIRONMENT}" \
+    && if test -z "${CI_COMMIT_SHA:-}"; then
+      CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
+    fi \
     && pushd __argSrc__ \
     && run_dynamodb_consumer integrates_vms \
     && popd \
