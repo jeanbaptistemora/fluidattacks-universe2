@@ -17,6 +17,9 @@ from db_model.vulnerabilities.types import (
 from git import (
     Repo,
 )
+from git.exc import (
+    GitCommandError,
+)
 import os
 from s3.operations import (
     upload_memory_file,
@@ -72,8 +75,10 @@ async def get_snippet(
     vulnerability_state: VulnerabilityState, repo: Repo
 ) -> Optional[str]:
     current_commit = vulnerability_state.commit or "HEAD"
-    content = repo.git.show(f"{current_commit}^^^:{vulnerability_state.where}")
-    with suppress(ValueError):
+    with suppress(GitCommandError, ValueError):
+        content = repo.git.show(
+            f"{current_commit}:{vulnerability_state.where}"
+        )
         return make_snippet(
             content=content,
             viewport=SnippetViewport(0, int(vulnerability_state.specific)),

@@ -61,7 +61,7 @@ async def rebase(
     vulnerability_where: str,
     vulnerability_specific: str,
     vulnerability_type: VulnerabilityType,
-) -> None:
+) -> VulnerabilityState:
     if vulnerability_type != VulnerabilityType.LINES:
         raise ExpectedVulnToBeOfLinesType.new()
 
@@ -166,3 +166,4 @@ async def rebase(
             where=vulnerability_where,
         ),
     )
+    return last_state

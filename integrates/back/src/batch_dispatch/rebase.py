@@ -75,6 +75,11 @@ from typing import (
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
 )
+from vulnerabilities.domain.snippet import (
+    get_snippet,
+    snippet_already_exists,
+    upload_snippet,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -196,9 +201,9 @@ async def _rebase_vulnerability_integrates(
 async def rebase_root(
     loaders: Dataloaders, group_name: str, repo: Repo, git_root: GitRoot
 ) -> None:
-    vulnerabilities = await _get_vulnerabilities_to_rebase(
-        loaders, group_name, git_root
-    )
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
             tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
@@ -208,28 +213,48 @@ async def rebase_root(
                 vulnerabilities,
             )
         )
-    futures = [
-        _rebase_vulnerability_integrates(
-            loaders=loaders,
-            finding_id=vuln.finding_id,
-            finding_vulns_data=tuple(
-                item
-                for item in vulnerabilities
-                if item.finding_id == vuln.finding_id
-            ),
-            vulnerability_commit=rebase_result.rev,
-            vulnerability_id=vuln.id,
-            vulnerability_where=rebase_result.path,
-            vulnerability_specific=str(rebase_result.line),
-            vulnerability_type=vuln.type,
-        )
-        for rebase_result, vuln in all_rebase
-        if rebase_result
-        and (
-            rebase_result.path != vuln.state.where
-            or str(rebase_result.line) != vuln.state.specific
-        )
-    ]
+    await collect(
+        [
+            _rebase_vulnerability_integrates(
+                loaders=loaders,
+                finding_id=vuln.finding_id,
+                finding_vulns_data=tuple(
+                    item
+                    for item in vulnerabilities
+                    if item.finding_id == vuln.finding_id
+                ),
+                vulnerability_commit=rebase_result.rev,
+                vulnerability_id=vuln.id,
+                vulnerability_where=rebase_result.path,
+                vulnerability_specific=str(rebase_result.line),
+                vulnerability_type=vuln.type,
+            )
+            for rebase_result, vuln in all_rebase
+            if rebase_result
+            and (
+                rebase_result.path != vuln.state.where
+                or str(rebase_result.line) != vuln.specific
+            )
+        ]
+    )
+    loaders.vulnerability.clear_all()
+    vulnerabilities = await loaders.vulnerability.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
+    states_with_with_snippet = await collect(
+        [
+            snippet_already_exists(vuln.id, vuln.state.modified_date)
+            for vuln in vulnerabilities
+        ]
+    )
+    futures = []
+    for vuln, has_snippet in zip(vulnerabilities, states_with_with_snippet):
+        if not has_snippet and (
+            snippet := await get_snippet(vuln.state, repo)
+        ):
+            futures.append(
+                upload_snippet(vuln.id, vuln.state.modified_date, snippet)
+            )
     await collect(futures)
 
 
