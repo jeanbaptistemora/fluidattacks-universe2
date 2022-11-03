@@ -15,6 +15,7 @@ from dataloaders import (
 )
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
+    GroupAccessState,
     GroupConfirmDeletion,
 )
 from db_model.stakeholders.types import (
@@ -25,6 +26,7 @@ from group_access import (
 )
 from newutils.datetime import (
     get_as_epoch,
+    get_iso_date,
     get_now_plus_delta,
 )
 from newutils.token import (
@@ -79,6 +81,7 @@ async def confirm_deletion_mail(
                 is_used=False, url_token=url_token
             ),
             expiration_time=expiration_time,
+            state=GroupAccessState(modified_date=get_iso_date()),
         ),
     )
 

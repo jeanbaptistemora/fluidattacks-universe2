@@ -240,6 +240,9 @@ async def update_invited_stakeholder(
                 invitation=new_invitation,
                 responsibility=responsibility,
                 role=role,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             ),
         )
 

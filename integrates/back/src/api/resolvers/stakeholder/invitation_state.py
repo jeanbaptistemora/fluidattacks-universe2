@@ -8,6 +8,7 @@ from dataloaders import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessRequest,
+    GroupAccessState,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -23,6 +24,7 @@ from group_access.domain import (
     exists,
 )
 from newutils import (
+    datetime as datetime_utils,
     token as token_utils,
 )
 from newutils.group_access import (
@@ -53,7 +55,11 @@ async def resolve(
             )
         else:
             group_access = GroupAccess(
-                email=parent.email, group_name=group_name
+                email=parent.email,
+                group_name=group_name,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             )
         group_invitation_state = format_group_invitation_state(
             invitation=group_access.invitation,

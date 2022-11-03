@@ -379,7 +379,13 @@ async def get_stakeholder_role(
     is_registered: bool,
 ) -> str:
     if not await exists(loaders, group_name, email):
-        group_access = GroupAccess(email=email, group_name=group_name)
+        group_access = GroupAccess(
+            email=email,
+            group_name=group_name,
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
+        )
     else:
         group_access = await loaders.group_access.load(
             GroupAccessRequest(group_name=group_name, email=email)

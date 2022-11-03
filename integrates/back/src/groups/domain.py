@@ -1093,6 +1093,9 @@ async def invite_to_group(
                 invitation=invitation,
                 responsibility=responsibility,
                 role=role,
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_iso_date()
+                ),
             ),
         )
     confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
