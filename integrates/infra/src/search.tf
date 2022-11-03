@@ -40,7 +40,7 @@ resource "aws_opensearch_domain" "integrates" {
   cluster_config {
     dedicated_master_count   = 3
     dedicated_master_enabled = true
-    dedicated_master_type    = "m3.medium.search"
+    dedicated_master_type    = "m5.large.search"
     instance_count           = 3
     instance_type            = "t3.medium.search"
     zone_awareness_enabled   = true
