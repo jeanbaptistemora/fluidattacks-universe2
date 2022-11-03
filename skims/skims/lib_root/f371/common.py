@@ -7,11 +7,9 @@ from lib_root.utilities.c_sharp import (
 )
 from model.graph_model import (
     Graph,
-    GraphShard,
-    GraphShardNode,
+    NId,
 )
 from typing import (
-    Iterable,
     List,
 )
 from utils import (
@@ -19,15 +17,15 @@ from utils import (
 )
 
 
-def has_innerhtml(shard: GraphShard) -> Iterable[GraphShardNode]:
-    if shard.syntax_graph is not None:
-        graph = shard.syntax_graph
-        for nid in yield_syntax_graph_member_access(graph, {"innerHTML"}):
-            yield shard, nid
+def has_innerhtml(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    for nid in yield_syntax_graph_member_access(graph, {"innerHTML"}):
+        vuln_nodes.append(nid)
+    return vuln_nodes
 
 
-def has_bypass_sec(graph: Graph) -> List[str]:
-    vuln_nodes: List[str] = []
+def has_bypass_sec(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
     risky_methods = {
         "bypassSecurityTrustHtml",
         "bypassSecurityTrustScript",

@@ -35,7 +35,10 @@ def uses_innerhtml(
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
-            yield from has_innerhtml(shard)
+            if shard.syntax_graph is None:
+                continue
+            for n_id in has_innerhtml(shard.syntax_graph):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f371.generic_uses_innerhtml",

@@ -54,14 +54,13 @@ def has_algorithm_insecure(
     method: core_model.MethodsEnum,
 ) -> bool:
     attrs = {"algorithm", "algorithms"}
-    if args_id := graph.nodes[g.pred(graph, n_id)[0]].get("arguments_id"):
+    parent = g.pred(graph, n_id)[0]
+    if args_id := graph.nodes[parent].get("arguments_id"):
         for node in filter_ast(graph, args_id, {"SymbolLookup"}):
-            if graph.nodes[node]["symbol"] in attrs and (
-                (
-                    test_id := g.match_ast(graph, g.pred(graph, node)[0]).get(
-                        "__1__"
-                    )
-                )
+            if (
+                graph.nodes[node]["symbol"] in attrs
+                and (parent := g.pred(graph, node)[0])
+                and (test_id := g.match_ast(graph, parent).get("__1__"))
                 and is_filter_insecure(graph, test_id, method)
             ):
                 return True
