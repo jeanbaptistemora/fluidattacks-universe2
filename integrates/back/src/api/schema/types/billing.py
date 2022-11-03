@@ -6,6 +6,8 @@
 
 
 from api.resolvers.billing import (
+    group,
+    organization,
     prices,
 )
 from ariadne import (
@@ -13,4 +15,6 @@ from ariadne import (
 )
 
 BILLING: ObjectType = ObjectType("Billing")
+BILLING.set_field("group", group.resolve)
+BILLING.set_field("organization", organization.resolve)
 BILLING.set_field("prices", prices.resolve)

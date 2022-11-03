@@ -25,6 +25,12 @@ class GroupAuthors(NamedTuple):
     data: tuple[GroupAuthor, ...]
 
 
+class Group(NamedTuple):
+    current_spend: int
+    total: int
+    authors: tuple[GroupAuthor, ...]
+
+
 class OrganizationAuthor(NamedTuple):
     actor: Optional[str]
     groups: frozenset[Optional[str]]
@@ -34,6 +40,13 @@ class OrganizationAuthors(NamedTuple):
     current_spend: int
     total: int
     data: tuple[OrganizationAuthor, ...]
+
+
+class Organization(NamedTuple):
+    current_spend: int
+    total: int
+    authors: tuple[OrganizationAuthor, ...]
+    portal: str
 
 
 class Address(NamedTuple):

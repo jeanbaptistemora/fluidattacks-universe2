@@ -8,6 +8,12 @@ from .authors import (
 from .billing import (
     BILLING,
 )
+from .billing_group import (
+    BILLING_GROUP,
+)
+from .billing_organization import (
+    BILLING_ORGANIZATION,
+)
 from .consult import (
     CONSULT,
 )
@@ -157,6 +163,8 @@ from typing import (
 TYPES: Tuple[ObjectType, ...] = (
     AUTHORS,
     BILLING,
+    BILLING_GROUP,
+    BILLING_ORGANIZATION,
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
