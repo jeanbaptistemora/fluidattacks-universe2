@@ -12,6 +12,9 @@ Finalization Time: 2022-08-09 at 16:20:23 UTC
 
 Execution Time:    2022-08-10 at 13:18:44 UTC
 Finalization Time: 2022-08-10 at 13:37:27 UTC
+
+Execution Time:    2022-11-03 at 23:28:48 UTC
+Finalization Time: 2022-11-03 at 23:44:21 UTC
 """
 
 from aioextensions import (
@@ -79,7 +82,7 @@ async def process_vulnerabilities(
     await client.bulk(body=body)
 
 
-async def process_finding(finding: Finding) -> None:
+async def get_vulns(finding: Finding) -> tuple[dict[str, Any]]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding.id},
@@ -98,33 +101,36 @@ async def process_finding(finding: Finding) -> None:
         table=TABLE,
         index=index,
     )
-    vulnerabilities = response.items
-
-    await collect(
-        tuple(
-            process_vulnerabilities(vulns_chunk)
-            for vulns_chunk in chunked(vulnerabilities, 100)
-        )
-    )
-
-    LOGGER.info(
-        "Finding processed",
-        extra={
-            "extra": {
-                "finding_id": finding.id,
-                "vulnerabilities": len(vulnerabilities),
-            }
-        },
-    )
+    return response.items
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
     group_findings: tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
+    vulnerabilities = [
+        vuln
+        for finding_vulns in await collect(
+            tuple(get_vulns(finding) for finding in group_findings),
+        )
+        for vuln in finding_vulns
+    ]
     await collect(
-        tuple(process_finding(finding) for finding in group_findings),
-        workers=1,
+        tuple(
+            process_vulnerabilities(vulns_chunk)
+            for vulns_chunk in chunked(vulnerabilities, 100)
+        ),
+        workers=10,
+    )
+
+    LOGGER.info(
+        "Group processed",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "vulnerabilities": len(vulnerabilities),
+            }
+        },
     )
 
 
@@ -140,7 +146,7 @@ async def main() -> None:
             process_group(loaders, group_name)
             for group_name in active_group_names
         ),
-        workers=2,
+        workers=5,
     )
     await search_shutdown()
 
