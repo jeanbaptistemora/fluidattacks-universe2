@@ -45,6 +45,7 @@ interface ITableProps<TData extends RowData> {
   expandedRow?: (row: Row<TData>) => JSX.Element;
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
+  filters?: JSX.Element;
   id: string;
   onNextPage?: () => Promise<void>;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;

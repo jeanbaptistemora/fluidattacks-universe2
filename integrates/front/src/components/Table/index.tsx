@@ -58,6 +58,7 @@ const Table = <TData extends RowData>({
   expandedRow = undefined,
   exportCsv = false,
   extraButtons = undefined,
+  filters = undefined,
   id,
   onNextPage = undefined,
   onRowClick = undefined,
@@ -231,6 +232,7 @@ const Table = <TData extends RowData>({
             />
           ) : undefined}
           {enableColumnFilters ? <Filters table={table} /> : undefined}
+          {filters}
         </div>
       </div>
       <TableContainer clickable={onRowClick !== undefined}>
