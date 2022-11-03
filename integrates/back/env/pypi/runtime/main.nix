@@ -51,6 +51,7 @@ in
       source = [
         pythonRequirements
         outputs."/common/utils/safe-pickle"
+        outputs."/common/utils/serializers"
       ];
     };
   }
