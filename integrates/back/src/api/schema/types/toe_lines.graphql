@@ -39,6 +39,8 @@ type ToeLines {
   seenAt: DateTime!
   "Priority (IA/ML)"
   sortsRiskLevel: Int!
+  "The last time that Priority was updated"
+  sortsRiskLevelDate: DateTime
   "Sorts suggestions for vulnerabilities"
   sortsSuggestions: [ToeLinesSortSuggestion]
 }

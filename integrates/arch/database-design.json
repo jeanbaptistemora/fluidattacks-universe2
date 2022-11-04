@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 02, 2022, 02:07 PM",
+    "DateLastModified": "Nov 04, 2022, 11:24 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1004,6 +1004,10 @@
         },
         {
           "AttributeName": "payment_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "sorts_risk_level_date",
           "AttributeType": "S"
         }
       ],
@@ -23608,6 +23612,9 @@
               "sorts_risk_level": {
                 "N": "80"
               },
+              "sorts_risk_level_date": {
+                "S": "2021-02-20T05:00:00+00:00"
+              },
               "last_commit": {
                 "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
               },
@@ -23696,6 +23703,9 @@
               },
               "sorts_risk_level": {
                 "N": "80"
+              },
+              "sorts_risk_level_date": {
+                "S": "2021-03-30T05:00:00+00:00"
               },
               "last_commit": {
                 "S": "e17059d1e17059d1e17059d1e17059d1e17059d1"
@@ -23786,6 +23796,9 @@
               "sorts_risk_level": {
                 "N": "0"
               },
+              "sorts_risk_level_date": {
+                "S": "2021-04-10T05:00:00+00:00"
+              },
               "last_commit": {
                 "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
               },
@@ -23862,6 +23875,7 @@
             "loc",
             "seen_first_time_by",
             "sorts_risk_level",
+            "sorts_risk_level_date",
             "group_name",
             "first_attack_at",
             "attacked_lines",

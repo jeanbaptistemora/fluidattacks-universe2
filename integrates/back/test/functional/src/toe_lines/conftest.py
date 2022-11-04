@@ -138,6 +138,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                sorts_risk_level_date=datetime.fromisoformat(
+                    "2021-04-10T05:00:00+00:00"
+                ),
                 sorts_suggestions=[
                     SortsSuggestion(
                         finding_title="027. Insecure file upload",
@@ -169,6 +172,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=80,
+                sorts_risk_level_date=datetime.fromisoformat(
+                    "2021-04-10T05:00:00+00:00"
+                ),
                 sorts_suggestions=[
                     SortsSuggestion(
                         finding_title="083. XML injection (XXE)",
@@ -205,6 +211,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                sorts_risk_level_date=datetime.fromisoformat(
+                    "2021-04-10T05:00:00+00:00"
+                ),
             ),
         ),
     }

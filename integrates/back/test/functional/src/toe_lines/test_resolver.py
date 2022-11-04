@@ -48,6 +48,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,
+                    "sortsRiskLevelDate": "2021-04-10T05:00:00+00:00",
                     "sortsSuggestions": [
                         {
                             "findingTitle": "083. XML injection (XXE)",
@@ -84,6 +85,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
+                    "sortsRiskLevelDate": "2021-04-10T05:00:00+00:00",
                     "sortsSuggestions": [
                         {
                             "findingTitle": "027. Insecure file upload",
@@ -115,6 +117,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
+                    "sortsRiskLevelDate": "2021-04-10T05:00:00+00:00",
                     "sortsSuggestions": None,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"

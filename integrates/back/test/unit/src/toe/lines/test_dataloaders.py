@@ -56,6 +56,9 @@ async def test_get() -> None:
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
         sorts_risk_level=80,
+        sorts_risk_level_date=datetime.fromisoformat(
+            "2021-02-20T05:00:00+00:00"
+        ),
         sorts_suggestions=[
             SortsSuggestion(
                 finding_title="083. XML injection (XXE)", probability=90
@@ -92,6 +95,9 @@ async def test_get() -> None:
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
         seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
         sorts_risk_level=0,
+        sorts_risk_level_date=datetime.fromisoformat(
+            "2021-04-10T05:00:00+00:00"
+        ),
         sorts_suggestions=[
             SortsSuggestion(
                 finding_title="027. Insecure file upload", probability=100
@@ -135,6 +141,9 @@ async def test_get_by_group() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-03-30T05:00:00+00:00"
+                    ),
                     seen_first_time_by=None,
                     sorts_suggestions=[
                         SortsSuggestion(
@@ -182,6 +191,9 @@ async def test_get_by_group() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
                     sorts_suggestions=[
                         SortsSuggestion(
                             finding_title="083. XML injection (XXE)",
@@ -227,6 +239,9 @@ async def test_get_by_group() -> None:
                         "2020-01-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=0,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-04-10T05:00:00+00:00"
+                    ),
                     sorts_suggestions=[
                         SortsSuggestion(
                             finding_title="027. Insecure file upload",
@@ -279,6 +294,9 @@ async def test_get_by_root() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-03-30T05:00:00+00:00"
+                    ),
                     seen_first_time_by=None,
                     sorts_suggestions=[
                         SortsSuggestion(
@@ -326,6 +344,9 @@ async def test_get_by_root() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
                     sorts_suggestions=[
                         SortsSuggestion(
                             finding_title="083. XML injection (XXE)",
@@ -381,6 +402,9 @@ async def test_get_by_root() -> None:
                         "2020-01-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=0,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-04-10T05:00:00+00:00"
+                    ),
                     sorts_suggestions=[
                         SortsSuggestion(
                             finding_title="027. Insecure file upload",

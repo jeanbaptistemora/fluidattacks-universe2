@@ -38,6 +38,7 @@ class ToeLines(NamedTuple):
     root_id: str
     seen_at: datetime
     sorts_risk_level: int
+    sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     sorts_suggestions: Optional[list[SortsSuggestion]] = None
 

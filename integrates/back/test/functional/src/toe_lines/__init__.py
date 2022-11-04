@@ -43,6 +43,7 @@ async def get_result(
                         }}
                         seenAt
                         sortsRiskLevel
+                        sortsRiskLevelDate
                         sortsSuggestions {{
                             findingTitle
                             probability

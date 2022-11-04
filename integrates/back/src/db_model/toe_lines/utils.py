@@ -65,6 +65,11 @@ def format_toe_lines(item: Item) -> ToeLines:
         seen_at=datetime.fromisoformat(item["seen_at"]),
         seen_first_time_by=item.get("seen_first_time_by"),
         sorts_risk_level=int(item["sorts_risk_level"]),
+        sorts_risk_level_date=datetime.fromisoformat(
+            item["sorts_risk_level_date"]
+        )
+        if item.get("sorts_risk_level_date")
+        else None,
         sorts_suggestions=format_toe_lines_sorts_suggestions(
             item["sorts_suggestions"]
         )
@@ -139,6 +144,11 @@ def format_toe_lines_item(
         ),
         "seen_first_time_by": toe_lines.seen_first_time_by,
         "sorts_risk_level": toe_lines.sorts_risk_level,
+        "sorts_risk_level_date": db_model_utils.get_date_as_utc_iso_format(
+            toe_lines.sorts_risk_level_date
+        )
+        if toe_lines.sorts_risk_level_date
+        else None,
         "sorts_suggestions": format_toe_lines_sorts_suggestions_item(
             toe_lines.sorts_suggestions
         )
