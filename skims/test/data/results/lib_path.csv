@@ -22806,7 +22806,7 @@ F052,lines,namespace/skims/test/data/lib_path/f052/javascript.js,6,310,skims,052
   19 | cipher.write(""some clear text data"");
   20 | cipher.end();
      ^ Col 0
-",javascript.javascript_insecure_cipher
+",javascript.javascript_insecure_create_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
    4 | .security.NoSuchAlgorithmException
    5 | .security.spec.ECGenParameterSpec
@@ -23365,7 +23365,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,13,310,
   15 |     });
   16 | }
      ^ Col 0
-",javascript.javascript_insecure_cipher
+",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
    2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
@@ -23384,7 +23384,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,s
   15 |     });
   16 | }
      ^ Col 0
-",javascript.javascript_insecure_cipher
+",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,2,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
 >  2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
@@ -23403,7 +23403,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,2,310,s
   15 |     });
   16 | }
      ^ Col 0
-",javascript.javascript_insecure_cipher
+",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
    1 | using System;
    2 | using System.IO;

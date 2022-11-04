@@ -5,9 +5,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f052.object.common import (
-    insecure_encrypt,
-    insecure_key,
+from symbolic_eval.f052.pair.common import (
+    insecure_mode,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -19,8 +18,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_INSECURE_KEY: insecure_key,
-    MethodsEnum.JS_INSECURE_ENCRYPT: insecure_encrypt,
+    MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
 }
 
 

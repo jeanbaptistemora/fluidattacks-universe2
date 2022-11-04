@@ -2880,6 +2880,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_INSECURE_ENCRYPT = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_encrypt",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_INSECURE_CREATE_CIPHER = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_create_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_INSECURE_KEY = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_key",

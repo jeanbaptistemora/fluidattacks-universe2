@@ -33,7 +33,7 @@ import utils.graph as g
 
 
 def split_function_name(f_names: str) -> Tuple[str, str]:
-    name_l = f_names.split(".")
+    name_l = f_names.lower().split(".")
     if len(name_l) < 2:
         return "", name_l[-1]
     return name_l[-2], name_l[-1]
@@ -52,7 +52,7 @@ def ts_insecure_ciphers(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_CIPHERS
-    danger_algos = {"DES", "RC4", "RSA"}
+    danger_algos = {"des", "rc4", "rsa"}
     danger_m = {"encrypt", "decrypt"}
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -86,7 +86,7 @@ def ts_insecure_aes_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_AES_CIPHER
-    crypto_algo = {"AES"}
+    crypto_algo = {"aes"}
     danger_m = {"encrypt", "decrypt"}
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -129,10 +129,10 @@ def ts_insecure_create_cipher(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_CREATE_CIPHER
     danger_m = {
-        "createDecipher",
-        "createCipher",
-        "createDecipheriv",
-        "createCipheriv",
+        "createdecipher",
+        "createcipher",
+        "createdecipheriv",
+        "createcipheriv",
     }
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -155,9 +155,7 @@ def ts_insecure_create_cipher(
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (args_ids := g.adj_ast(graph, al_id))
                     and len(args_ids) > 0
-                    and get_eval_danger(
-                        graph, g.adj_ast(graph, al_id)[0], method
-                    )
+                    and get_eval_danger(graph, args_ids[0], method)
                 ):
                     yield shard, n_id
 

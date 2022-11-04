@@ -8,11 +8,8 @@ from model.core_model import (
 from symbolic_eval.f052.member_access.c_sharp import (
     cs_managed_secure_mode,
 )
-from symbolic_eval.f052.member_access.javascript import (
-    js_insecure_cipher,
-)
-from symbolic_eval.f052.member_access.typescript import (
-    ts_insecure_aes_cipher,
+from symbolic_eval.f052.member_access.common import (
+    insecure_mode,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -25,8 +22,8 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_MANAGED_SECURE_MODE: cs_managed_secure_mode,
-    MethodsEnum.JS_INSECURE_CIPHER: js_insecure_cipher,
-    MethodsEnum.TS_INSECURE_AES_CIPHER: ts_insecure_aes_cipher,
+    MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
+    MethodsEnum.TS_INSECURE_AES_CIPHER: insecure_mode,
 }
 
 
