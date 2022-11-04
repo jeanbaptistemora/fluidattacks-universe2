@@ -3600,6 +3600,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_USES_EVAL = MethodInfo(
+        file_name="typescript",
+        name="ts_uses_eval",
+        module="lib_root",
+        finding=FindingEnum.F143,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CS_INSECURE_CHANNEL = MethodInfo(
         file_name="c_sharp",
         name="cs_insecure_channel",

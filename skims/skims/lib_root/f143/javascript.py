@@ -63,7 +63,7 @@ def uses_eval(
                     yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f143.js_uses_eval",
+        desc_key="lib_root.f143.uses_eval",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
