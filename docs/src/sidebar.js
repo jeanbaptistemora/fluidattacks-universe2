@@ -452,6 +452,7 @@ const Development = [
       "development/products/sorts",
     ],
   },
+  "development/governance",
   {
     type: "category",
     label: "Guidelines",

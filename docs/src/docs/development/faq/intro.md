@@ -2,8 +2,7 @@
 id: intro
 title: Introduction
 sidebar_label: Introduction
-slug: /development/guidelines
+slug: /development/faq
 ---
 
-This section contains guidelines
-that apply to all products at Fluid Attacks.
+This section contains frequently asked questions.
