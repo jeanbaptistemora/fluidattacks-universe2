@@ -62,7 +62,7 @@ async def upload_snippet(
         f"#{vulnerability_modified_date}"
     )
     with tempfile.NamedTemporaryFile() as snippet_file:
-        snippet_file.write(contents.encode("utf-8"))
+        snippet_file.write(contents.encode("utf-8", errors="ignore"))
         snippet_file.seek(os.SEEK_SET)
         await upload_memory_file(
             FI_AWS_S3_MAIN_BUCKET,
