@@ -30,6 +30,15 @@ function prod_user {
       > "${target}"
 }
 
+function redshift_env_vars {
+  sops_export_vars 'observes/secrets/prod.yaml' \
+    REDSHIFT_DATABASE \
+    REDSHIFT_HOST \
+    REDSHIFT_PORT \
+    REDSHIFT_USER \
+    REDSHIFT_PASSWORD
+}
+
 function json_db_creds {
   local target="${1}"
   sops_export_vars 'observes/secrets/prod.yaml' \

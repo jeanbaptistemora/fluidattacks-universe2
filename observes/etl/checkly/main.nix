@@ -11,8 +11,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."${inputs.observesIndex.tap.checkly.bin}"
-      outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."${inputs.observesIndex.target.redshift.bin}"
+      outputs."${inputs.observesIndex.target.redshift_2.bin}"
     ];
     source = [
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
