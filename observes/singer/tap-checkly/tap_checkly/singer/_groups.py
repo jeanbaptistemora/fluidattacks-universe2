@@ -46,6 +46,7 @@ from typing import (
 )
 
 _str_type = JSchemaFactory.from_prim_type(str)
+_opt_str = JSchemaFactory.opt_prim_type(str)
 _int_type = JSchemaFactory.from_prim_type(int)
 _bool_type = JSchemaFactory.from_prim_type(bool)
 _date_type = JSchemaFactory.datetime_schema()
@@ -99,7 +100,7 @@ def _core_encoder_fx() -> SingerEncoder[CheckGroupObj]:
         ),
         "runtime_id": EncodeItem.new(
             lambda x: x.obj.runtime_id.value_or(None),
-            Property(_str_type, False, False),
+            Property(_opt_str, False, False),
             CheckGroupObj,
         ),
         "use_global_alert_settings": EncodeItem.new(

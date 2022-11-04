@@ -87,7 +87,9 @@ def _core_encoder_fx() -> SingerEncoder[AlertChannelObj]:
             AlertChannelObj,
         ),
     }
-    return SingerEncoder.new(SingerStreams.checks.value, freeze(_mapper))
+    return SingerEncoder.new(
+        SingerStreams.alert_channels.value, freeze(_mapper)
+    )
 
 
 _core_encoder = _core_encoder_fx()

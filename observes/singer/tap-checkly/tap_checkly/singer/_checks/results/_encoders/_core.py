@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from fa_purity import (
+    JsonValue,
+)
 from fa_purity.frozen import (
     freeze,
 )
@@ -27,6 +30,9 @@ from typing import (
 
 _str_type = JSchemaFactory.from_prim_type(str)
 _int_type = JSchemaFactory.from_prim_type(int)
+_big_int_type = JSchemaFactory.from_json(
+    freeze(dict(_int_type.encode()) | {"size": JsonValue("big")})
+).unwrap()
 _bool_type = JSchemaFactory.from_prim_type(bool)
 _date_type = JSchemaFactory.datetime_schema()
 
@@ -50,7 +56,7 @@ def _encoder() -> SingerEncoder[CheckResultObj]:
         ),
         "run_id": EncodeItem.new(
             lambda x: x.obj.run_id.id_num,
-            Property(_int_type, False, False),
+            Property(_big_int_type, False, False),
             CheckResultObj,
         ),
         "created_at": EncodeItem.new(
@@ -80,7 +86,7 @@ def _encoder() -> SingerEncoder[CheckResultObj]:
         ),
         "response_time": EncodeItem.new(
             lambda x: x.obj.response_time,
-            Property(_int_type, False, False),
+            Property(_big_int_type, False, False),
             CheckResultObj,
         ),
         "run_location": EncodeItem.new(
