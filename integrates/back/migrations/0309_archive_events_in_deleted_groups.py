@@ -22,7 +22,7 @@ from dataloaders import (
 from db_model import (
     events as events_model,
 )
-from db_model.events.get import (
+from db_model.events.get import (  # type: ignore
     get_group_events_items,
 )
 from decorators import (

@@ -51,9 +51,6 @@ from db_model.events.enums import (
     EventStateStatus,
     EventType,
 )
-from db_model.events.get import (
-    get_event_item,
-)
 from db_model.events.types import (
     Event,
     EventEvidence,
@@ -120,9 +117,6 @@ from newutils import (
 )
 import pytz
 import random
-from redshift import (
-    events as redshift_events,
-)
 from s3 import (
     operations as s3_ops,
 )
@@ -337,8 +331,6 @@ async def remove_event(event_id: str, group_name: str) -> None:
             event_comments_domain.remove_comments(event_id),
         ]
     )
-    item = await get_event_item(event_id=event_id)
-    await redshift_events.insert_metadata(item=item)
     await events_model.remove(event_id=event_id)
 
 
