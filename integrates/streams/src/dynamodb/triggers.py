@@ -94,10 +94,17 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
-            lambda record: record.pk.startswith("VULN#")
-            and record.sk.startswith("FIN#")
+            lambda record: record.pk.startswith("EVENT#")
+            and record.sk.startswith("GROUP#")
         ),
-        records_processor=opensearch.process_vulns,
+        records_processor=opensearch.process_events,
+    ),
+    Trigger(
+        records_filter=(
+            lambda record: record.pk.startswith("EXEC#")
+            and record.sk.startswith("GROUP#")
+        ),
+        records_processor=opensearch.process_executions,
     ),
     Trigger(
         records_filter=(
@@ -108,10 +115,19 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
-            lambda record: record.pk.startswith("EXEC#")
+            lambda record: record.pk.startswith("VULN#")
+            and record.sk.startswith("FIN#")
+        ),
+        records_processor=opensearch.process_vulns,
+    ),
+    Trigger(
+        records_filter=(
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.event_name == EventName.REMOVE
+            and record.pk.startswith("EVENT#")
             and record.sk.startswith("GROUP#")
         ),
-        records_processor=opensearch.process_executions,
+        records_processor=redshift.process_events,
     ),
     Trigger(
         records_filter=(
@@ -134,14 +150,6 @@ TRIGGERS: tuple[Trigger, ...] = (
         records_filter=(
             lambda record: FI_ENVIRONMENT == "prod"
             and record.event_name == EventName.REMOVE
-            and record.pk.startswith("VULN#")
-        ),
-        records_processor=redshift.process_vulnerabilities,
-    ),
-    Trigger(
-        records_filter=(
-            lambda record: FI_ENVIRONMENT == "prod"
-            and record.event_name == EventName.REMOVE
             and record.pk.startswith("GROUP#")
             and record.sk.startswith("INPUTS#")
         ),
@@ -158,9 +166,10 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
-            lambda record: record.pk.startswith("EVENT#")
-            and record.sk.startswith("GROUP#")
+            lambda record: FI_ENVIRONMENT == "prod"
+            and record.event_name == EventName.REMOVE
+            and record.pk.startswith("VULN#")
         ),
-        records_processor=opensearch.process_events,
+        records_processor=redshift.process_vulnerabilities,
     ),
 )
