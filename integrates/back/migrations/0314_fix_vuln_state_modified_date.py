@@ -7,6 +7,9 @@
 Fix offset-naive datetime in vuln latest state.
 This means some ISO8601dates are missing the timezone info
 and datetime comparison could fail with offset-aware dates.
+
+Execution Time:    2022-11-04 at 19:10:13 UTC
+Finalization Time: 2022-11-04 at 19:25:14 UTC
 """
 from aioextensions import (
     collect,
