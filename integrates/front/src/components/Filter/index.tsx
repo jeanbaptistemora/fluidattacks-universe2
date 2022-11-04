@@ -31,7 +31,7 @@ interface IFilter<IData extends object> {
   key: keyof IData | ((arg0: IData) => boolean);
   label?: string;
   rangeValues?: [string, string];
-  selectOptions?: string[];
+  selectOptions?: { showValue: string; value: string }[] | string[];
   type?: "dateRange" | "number" | "numberRange" | "select" | "text";
   value?: string;
 }
@@ -256,10 +256,7 @@ const Filters = <IData extends object>({
                           name: filter.id,
                           onBlur: (): void => undefined,
                           onChange: onValueChangeHandler(filter.id),
-                          value:
-                            filter.value === undefined
-                              ? ""
-                              : String(filter.value),
+                          value: filter.value ?? "",
                         }}
                         form={{ errors: {}, touched: {} }}
                         label={filter.label}
@@ -278,10 +275,7 @@ const Filters = <IData extends object>({
                           name: filter.id,
                           onBlur: (): void => undefined,
                           onChange: onRangeValueChangeHandler(filter.id, 0),
-                          value:
-                            filter.rangeValues?.[0] === undefined
-                              ? ""
-                              : String(filter.rangeValues[0]),
+                          value: filter.rangeValues?.[0] ?? "",
                         }}
                         form={{ errors: {}, touched: {} }}
                         label={filter.label}
@@ -295,10 +289,7 @@ const Filters = <IData extends object>({
                           name: filter.id,
                           onBlur: (): void => undefined,
                           onChange: onRangeValueChangeHandler(filter.id, 1),
-                          value:
-                            filter.rangeValues?.[1] === undefined
-                              ? ""
-                              : String(filter.rangeValues[1]),
+                          value: filter.rangeValues?.[1] ?? "",
                         }}
                         form={{ errors: {}, touched: {} }}
                         label={""}
@@ -325,13 +316,21 @@ const Filters = <IData extends object>({
                         name={filter.id}
                       >
                         <option value={""}>{"All"}</option>
-                        {filter.selectOptions?.map(
-                          (value): JSX.Element => (
-                            <option key={value} value={value}>
-                              {value}
+                        {filter.selectOptions?.map((option): JSX.Element => {
+                          if (typeof option === "string") {
+                            return (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            );
+                          }
+
+                          return (
+                            <option key={option.value} value={option.value}>
+                              {option.showValue}
                             </option>
-                          )
-                        )}
+                          );
+                        })}
                       </FormikSelect>
                     </Col>
                   </Row>
@@ -346,10 +345,7 @@ const Filters = <IData extends object>({
                           name: filter.id,
                           onBlur: (): void => undefined,
                           onChange: onRangeValueChangeHandler(filter.id, 0),
-                          value:
-                            filter.rangeValues?.[0] === undefined
-                              ? ""
-                              : filter.rangeValues[0],
+                          value: filter.rangeValues?.[0] ?? "",
                         }}
                         form={{ errors: {}, touched: {} }}
                         label={filter.label}
@@ -362,10 +358,7 @@ const Filters = <IData extends object>({
                           name: filter.id,
                           onBlur: (): void => undefined,
                           onChange: onRangeValueChangeHandler(filter.id, 1),
-                          value:
-                            filter.rangeValues?.[1] === undefined
-                              ? ""
-                              : filter.rangeValues[1],
+                          value: filter.rangeValues?.[1] ?? "",
                         }}
                         form={{ errors: {}, touched: {} }}
                         label={""}
