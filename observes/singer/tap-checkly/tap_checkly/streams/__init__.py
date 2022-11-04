@@ -21,9 +21,6 @@ from fa_purity import (
     Cmd,
     Maybe,
 )
-from fa_purity.stream.transform import (
-    chain,
-)
 from tap_checkly._utils import (
     DateInterval,
 )
@@ -45,14 +42,8 @@ from tap_checkly.api.groups import (
 from tap_checkly.api.report import (
     CheckReportClient,
 )
-from tap_checkly.objs import (
-    IndexedObj,
-)
 from tap_checkly.singer import (
     encoders,
-)
-from tap_checkly.singer._checks.results.records import (
-    encode_result,
 )
 from tap_checkly.state import (
     EtlState,
@@ -94,12 +85,12 @@ class Streams:
         new_state = EtlState(
             Maybe.from_value(DateInterval.new(start_date, end_date).unwrap())
         )
-        return _emit.emit_stream(
-            client.list_ids()
-            .bind(lambda c: client.list_check_results(c, start_date, end_date))
-            .map(encode_result)
-            .transform(chain),
-        ) + _emit.emit_state(new_state)
+        items = client.list_ids().bind(
+            lambda c: client.list_check_results(c, start_date, end_date)
+        )
+        return _emit.from_encoder(encoders.results, items) + _emit.emit_state(
+            new_state
+        )
 
 
 __all__ = [
