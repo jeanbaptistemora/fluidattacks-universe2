@@ -74,9 +74,11 @@ async def rebase(
         loaders,
         current_vuln.group_name,
         current_vuln._replace(
-            specific=vulnerability_specific,
-            where=vulnerability_where,
-            commit=vulnerability_commit,
+            state=current_vuln.state._replace(
+                specific=vulnerability_specific,
+                where=vulnerability_where,
+                commit=vulnerability_commit,
+            ),
         ),
         index=0,
     )

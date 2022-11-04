@@ -460,7 +460,15 @@ def group_specific(
                 hacker_email=group[0].hacker_email,
                 id=group[0].id,
                 specific=specific_grouped,
-                state=group[0].state,
+                state=group[0].state._replace(
+                    commit=(
+                        group[0].state.commit[0:7]
+                        if group[0].state.commit is not None
+                        else None
+                    ),
+                    specific=specific_grouped,
+                    where=key[0],
+                ),
                 type=group[0].type,
                 where=key[0],
                 commit=(

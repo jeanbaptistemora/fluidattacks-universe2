@@ -266,7 +266,7 @@ async def test_group_vulnerabilities() -> None:
                 specific="12",
                 status=VulnerabilityStateStatus.OPEN,
                 where="test/data/lib_path/f060/csharp.cs",
-                commit="ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
+                commit="ea871ee",
                 justification=None,
                 tool=VulnerabilityTool(
                     name="tool-2", impact=VulnerabilityToolImpact.INDIRECT

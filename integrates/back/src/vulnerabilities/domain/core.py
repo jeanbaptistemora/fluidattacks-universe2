@@ -333,8 +333,8 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.state.specific,
-                    commit_hash=grouped_vulns_info.commit
-                    if grouped_vulns_info.commit is not None
+                    commit_hash=grouped_vulns_info.state.commit
+                    if grouped_vulns_info.state.commit is not None
                     else "",
                 ),
                 vulns_utils.group_specific(
@@ -350,8 +350,8 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.state.specific,
-                    commit_hash=grouped_vulns_info.commit
-                    if grouped_vulns_info.commit is not None
+                    commit_hash=grouped_vulns_info.state.commit
+                    if grouped_vulns_info.state.commit is not None
                     else "",
                 ),
                 vulns_utils.group_specific(
@@ -367,8 +367,8 @@ async def get_grouped_vulnerabilities_info(
                 lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
                     where=grouped_vulns_info.state.where,
                     specific=grouped_vulns_info.state.specific,
-                    commit_hash=grouped_vulns_info.commit
-                    if grouped_vulns_info.commit is not None
+                    commit_hash=grouped_vulns_info.state.commit
+                    if grouped_vulns_info.state.commit is not None
                     else "",
                 ),
                 vulns_utils.group_specific(
