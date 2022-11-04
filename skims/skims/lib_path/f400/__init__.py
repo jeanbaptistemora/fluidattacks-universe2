@@ -21,7 +21,6 @@ from lib_path.f400.terraform import (
     tfm_ec2_monitoring_disabled,
     tfm_elb_logging_disabled,
     tfm_lambda_tracing_disabled,
-    tfm_s3_buckets_logging_disabled,
     tfm_trails_not_multiregion,
 )
 from model.core_model import (
@@ -111,15 +110,6 @@ def run_tfm_elb_logging_disabled(
 
 
 @SHIELD_BLOCKING
-def run_tfm_s3_buckets_logging_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_s3_buckets_logging_disabled(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_ec2_monitoring_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -194,7 +184,6 @@ def analyze(
         results = (
             *results,
             run_tfm_elb_logging_disabled(content, path, model),
-            run_tfm_s3_buckets_logging_disabled(content, path, model),
             run_tfm_ec2_monitoring_disabled(content, path, model),
             run_tfm_distribution_has_logging_disabled(content, path, model),
             run_tfm_trails_not_multiregion(content, path, model),

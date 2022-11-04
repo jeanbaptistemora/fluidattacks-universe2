@@ -6,8 +6,6 @@ from aws.model import (
     AWSCloudfrontDistribution,
     AWSCTrail,
     AWSLambdaFunction,
-    AWSS3Bucket,
-    AWSS3LogginConfig,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -33,8 +31,6 @@ from parse_hcl2.structure.aws import (
     iter_aws_elb,
     iter_aws_instance,
     iter_aws_lambda_function,
-    iter_s3_buckets,
-    iter_s3_logging_configuration,
 )
 from parse_hcl2.tokens import (
     Attribute,
@@ -42,8 +38,6 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
-    List,
-    Tuple,
     Union,
 )
 
@@ -58,51 +52,6 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
                     yield elem
         else:
             yield resource
-
-
-def _tfm_get_conditions(
-    bucket: AWSS3Bucket,
-    logging_iterator: List[AWSS3LogginConfig],
-) -> Tuple[bool, bool]:
-    has_logging: bool = False
-    is_log_bucket: bool = False
-    for logging_config in logging_iterator:
-        if (
-            bucket.name is not None
-            and bucket.tf_reference is not None
-            and (
-                logging_config.target
-                in (bucket.name, f"{bucket.tf_reference}.id")
-            )
-        ):
-            is_log_bucket = True
-            break
-        if (
-            bucket.name is not None
-            and bucket.tf_reference is not None
-            and (
-                logging_config.bucket
-                in (bucket.name, f"{bucket.tf_reference}.id")
-            )
-        ):
-            has_logging = True
-            break
-    return (has_logging, is_log_bucket)
-
-
-def _tfm_s3_buckets_logging_disabled(
-    bucket_iterator: Iterator[AWSS3Bucket],
-    logging_iterator: Iterator[AWSS3LogginConfig],
-) -> Iterator[Any]:
-    logging_configs = list(logging_iterator)
-    for bucket in bucket_iterator:
-        logging = get_argument(body=bucket.data, key="logging")
-        if not logging:
-            has_logging, is_log_bucket = _tfm_get_conditions(
-                bucket, logging_configs
-            )
-            if not has_logging and not is_log_bucket:
-                yield bucket
 
 
 def _tfm_ec2_monitoring_disabled(
@@ -162,23 +111,6 @@ def tfm_elb_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_ELB_LOGGING_DISABLED,
-    )
-
-
-def tfm_s3_buckets_logging_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.has_logging_disabled",
-        iterator=get_cloud_iterator(
-            _tfm_s3_buckets_logging_disabled(
-                bucket_iterator=iter_s3_buckets(model=model),
-                logging_iterator=iter_s3_logging_configuration(model=model),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_S3_LOGGING_DISABLED,
     )
 
 
