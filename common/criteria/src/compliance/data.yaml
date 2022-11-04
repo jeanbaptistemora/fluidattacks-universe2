@@ -1924,8 +1924,14 @@ asvs:
     '7_1_4':
       title: Log content
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '7_2_2':
+      title: Log processing
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '7_2_4':
       title: Log processing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '7_3_1':
+      title: Log protection
       link: https://owasp.org/www-project-application-security-verification-standard/
     '7_3_3':
       title: Log protection
@@ -1936,6 +1942,12 @@ asvs:
     '7_4_1':
       title: Error handling
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '7_4_2':
+      title: Error handling
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '7_4_3':
+      title: Error handling
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '8_1_1':
       title: General data protection
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -1944,6 +1956,15 @@ asvs:
       link: https://owasp.org/www-project-application-security-verification-standard/
     '8_1_3':
       title: General data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '8_1_4':
+      title: General data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '8_2_1':
+      title: Client-side data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '8_2_1':
+      title: Client-side data protection
       link: https://owasp.org/www-project-application-security-verification-standard/
     '8_2_1':
       title: Client-side data protection
@@ -1963,10 +1984,16 @@ asvs:
     '8_3_5':
       title: Sensitive private data
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '8_3_6':
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '8_3_7':
       title: Sensitive private data
       link: https://owasp.org/www-project-application-security-verification-standard/
     '9_1_1':
+      title: Client communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '9_1_2':
       title: Client communication security
       link: https://owasp.org/www-project-application-security-verification-standard/
     '9_1_3':
@@ -1978,8 +2005,14 @@ asvs:
     '9_2_2':
       title: Server communication security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '9_2_3':
+      title: Server communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '10_1_1':
       title: Code integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '10_2_1':
+      title: Malicious code search
       link: https://owasp.org/www-project-application-security-verification-standard/
     '10_2_3':
       title: Malicious code search
@@ -1988,6 +2021,9 @@ asvs:
       title: Malicious code search
       link: https://owasp.org/www-project-application-security-verification-standard/
     '10_2_5':
+      title: Malicious code search
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '10_2_6':
       title: Malicious code search
       link: https://owasp.org/www-project-application-security-verification-standard/
     '10_3_1':
@@ -2002,7 +2038,19 @@ asvs:
     '11_1_1':
       title: Business logic security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '11_1_2':
+      title: Business logic security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '11_1_3':
+      title: Business logic security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '11_1_4':
+      title: Business logic security
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '12_1_1':
+      title: File upload
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_1_2':
       title: File upload
       link: https://owasp.org/www-project-application-security-verification-standard/
     '12_1_3':
@@ -2014,7 +2062,16 @@ asvs:
     '12_3_1':
       title: File execution
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_3_2':
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '12_3_3':
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_3_4':
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_3_5':
       title: File execution
       link: https://owasp.org/www-project-application-security-verification-standard/
     '12_3_6':

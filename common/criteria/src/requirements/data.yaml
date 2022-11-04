@@ -1066,6 +1066,8 @@
     - cwe25.434
     - asvs.12_1_1
     - asvs.12_1_3
+    - asvs.11_1_4
+    - asvs.12_1_2
   metadata: {}
 '040':
   en:
@@ -1152,6 +1154,8 @@
     - issaf.J_4
     - issaf.Q_16_27
     - owaspscp.12
+    - asvs.10_2_1
+    - asvs.10_2_6
   metadata: {}
 '042':
   en:
@@ -1176,6 +1180,7 @@
   references:
     - capec.165
     - cwe.646
+    - asvs.12_1_2
   metadata: {}
 '043':
   en:
@@ -1203,6 +1208,8 @@
     - owasp10.A5
     - wassec.5_5
     - wassec.6_2_5_7
+    - asvs.11_1_4
+    - asvs.12_3_4
   metadata: {}
 '044':
   en:
@@ -1552,6 +1559,7 @@
     - cwe.15
     - cwe.350
     - cwe.444
+    - asvs.12_3_4
   metadata: {}
 '072':
   en:
@@ -1609,6 +1617,9 @@
     - issaf.E_22
     - issaf.H_14_13
     - issaf.Q_16_34
+    - asvs.11_1_2
+    - asvs.11_1_3
+    - asvs.11_1_4
   metadata: {}
 '075':
   en:
@@ -1755,6 +1766,9 @@
     - sig.M_1_10
     - sig.M_1_14
     - sig.U_1_4
+    - asvs.7_2_2
+    - asvs.7_4_2
+    - asvs.8_1_4
   metadata: {}
 '077':
   en:
@@ -1923,6 +1937,7 @@
     - swiftcsc.6_4
     - asvs.7_3_4
     - c2m2.5_2_c
+    - asvs.7_4_2
   metadata: {}
 '080':
   en:
@@ -1998,6 +2013,7 @@
     - sig.M_1_14
     - sig.U_1_4_2
     - sig.U_1_9_9
+    - asvs.7_3_1
   metadata: {}
 '083':
   en:
@@ -4537,6 +4553,8 @@
     - c2m2.9_4_d
     - siglite.SL_89
     - sig.I_2_1
+    - asvs.10_2_1
+    - asvs.10_2_6
   metadata: {}
 '156':
   en:
@@ -5527,6 +5545,9 @@
     - asvs.5_4_2
     - asvs.5_5_3
     - asvs.5_5_4
+    - asvs.7_3_1
+    - asvs.12_3_2
+    - asvs.12_3_5
   metadata: {}
 '174':
   en:
@@ -5767,6 +5788,8 @@
     - pci.8_2_3
     - asvs.4_2_1
     - asvs.4_3_1
+    - asvs.9_2_3
+    - asvs.12_3_2
   metadata: {}
 '177':
   en:
@@ -6110,6 +6133,7 @@
     - sig.U_1_8_1
     - asvs.6_2_1
     - asvs.6_2_7
+    - asvs.9_1_2
   metadata: {}
 '183':
   en:
@@ -8475,6 +8499,7 @@
     - sig.G_3_4
     - sig.I_1_3_1
     - asvs.4_3_1
+    - asvs.9_2_3
   metadata: {}
 '265':
   en:
@@ -8566,6 +8591,7 @@
     - asvs.5_2_5
     - asvs.5_3_8
     - pci.1_4_3
+    - asvs.12_3_5
   metadata: {}
 '266':
   en:
@@ -8741,6 +8767,8 @@
     - sig.I_2_1
     - sig.I_2_9_4
     - asvs.4_3_1
+    - asvs.12_3_4
+    - asvs.12_3_5
   metadata: {}
 '273':
   en:
@@ -10529,6 +10557,9 @@
     - owaspmasvs.V8_1
     - nist800115.4_2
     - asvs.5_1_2
+    - asvs.11_1_2
+    - asvs.11_1_3
+    - asvs.11_1_4
   metadata: {}
 '328':
   en:
@@ -10661,6 +10692,8 @@
     - asvs.8_2_1
     - c2m2.9_5_b
     - siglite.SL_131
+    - asvs.8_2_1
+    - asvs.8_2_1
   metadata: {}
 '330':
   en:
@@ -11138,6 +11171,7 @@
     - asvs.9_1_3
     - sig.I_3_2_4_1
     - cwe.5
+    - asvs.9_1_2
   metadata: {}
 '337':
   en:
@@ -12117,6 +12151,7 @@
     - asvs.14_4_4
     - asvs.14_4_6
     - asvs.1_12_2
+    - asvs.12_3_4
   metadata: {}
 '350':
   en:
@@ -12146,6 +12181,7 @@
     - cmmc.MP_L2-3_8_1
     - iso27002.7_10
     - iso27002.8_1
+    - asvs.8_3_6
   metadata: {}
 '351':
   en:
@@ -13181,6 +13217,8 @@
     - owaspmasvs.V2_2
     - owaspmasvs.V8_11
     - siglite.SL_131
+    - asvs.8_2_1
+    - asvs.8_2_1
   metadata: {}
 '376':
   en:
@@ -13347,6 +13385,9 @@
     - asvs.1_7_2
     - sig.M_1_14
     - sig.U_1_9_8
+    - asvs.7_2_2
+    - asvs.7_4_3
+    - asvs.8_1_4
   metadata: {}
 '379':
   en:
