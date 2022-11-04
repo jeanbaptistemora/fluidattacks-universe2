@@ -31,7 +31,7 @@ _bool_type = JSchemaFactory.from_prim_type(bool)
 _date_type = JSchemaFactory.datetime_schema()
 
 
-def encoder() -> SingerEncoder[CheckResultObj]:
+def _encoder() -> SingerEncoder[CheckResultObj]:
     _mapper: Dict[str, EncodeItem[CheckResultObj]] = {
         "check_id": EncodeItem.new(
             lambda x: x.id_obj[0].id_str,
@@ -102,3 +102,6 @@ def encoder() -> SingerEncoder[CheckResultObj]:
     return SingerEncoder.new(
         SingerStreams.check_results.value, freeze(_mapper)
     )
+
+
+encoder = _encoder()

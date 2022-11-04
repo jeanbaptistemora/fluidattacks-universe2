@@ -9,6 +9,7 @@ from . import (
     _report,
 )
 from ._checks import (
+    results,
     status,
 )
 from ._core import (
@@ -25,6 +26,7 @@ from tap_checkly.objs import (
     CheckGroupObj,
     CheckObj,
     CheckReport,
+    CheckResultObj,
     CheckStatusObj,
 )
 
@@ -36,6 +38,7 @@ class ObjsEncoders:
     groups: ObjEncoder[CheckGroupObj]
     status: ObjEncoder[CheckStatusObj]
     report: ObjEncoder[CheckReport]
+    results: ObjEncoder[CheckResultObj]
 
 
 encoders = ObjsEncoders(
@@ -44,6 +47,7 @@ encoders = ObjsEncoders(
     _groups.encoder,
     status.encoder,
     _report.encoder,
+    results.encoder,
 )
 
 
