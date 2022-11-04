@@ -67,6 +67,36 @@ def switch_maybe(item: Maybe[Result[_S, _F]]) -> Result[Maybe[_S], _F]:
 class ExtendedUnfolder:
     json: JsonObj
 
+    @staticmethod
+    def to_float(value: JsonValue) -> ResultE[float]:
+        unfolder = Unfolder(value)
+        return (
+            unfolder.to_primitive(float)
+            .alt(Exception)
+            .lash(
+                lambda _: unfolder.to_primitive(int)
+                .map(float)
+                .alt(
+                    lambda e: TypeError(
+                        f"`JsonValue -> float` transform failed i.e. {e}"
+                    )
+                )
+            )
+        )
+
+    @staticmethod
+    def to_optional(
+        value: JsonValue, transform: Callable[[JsonValue], ResultE[_T]]
+    ) -> ResultE[_T | None]:
+        factory: UnionFactory[_T, None] = UnionFactory()
+        unfolder = Unfolder(value)
+        return (
+            unfolder.to_none()
+            .map(factory.inr)
+            .alt(Exception)
+            .lash(lambda _: transform(value).map(factory.inl))
+        )
+
     def unfolder(self) -> Unfolder:
         return Unfolder(JsonValue(self.json))
 
@@ -84,12 +114,30 @@ class ExtendedUnfolder:
     def require(
         self, key: str, transform: Callable[[Unfolder], ResultE[_T]]
     ) -> ResultE[_T]:
-        return self.get_required(key).map(Unfolder).bind(transform)
+        return (
+            self.get_required(key)
+            .map(Unfolder)
+            .bind(transform)
+            .alt(
+                lambda e: TypeError(
+                    f"require `{key}` transform failed i.e. {e}"
+                )
+            )
+            .alt(Exception)
+        )
 
     def optional(
         self, key: str, transform: Callable[[Unfolder], ResultE[_T]]
     ) -> ResultE[Maybe[_T]]:
-        return switch_maybe(self.get(key).map(Unfolder).map(transform))
+        return (
+            switch_maybe(self.get(key).map(Unfolder).map(transform))
+            .alt(
+                lambda e: TypeError(
+                    f"optional `{key}` transform failed i.e. {e}"
+                )
+            )
+            .alt(Exception)
+        )
 
     def maybe_primitive(
         self, key: str, prim_type: Type[NotNonePrimTvar]
@@ -141,16 +189,8 @@ class ExtendedUnfolder:
     def require_float(self, key: str) -> ResultE[float]:
         return (
             self.get_required(key)
-            .map(Unfolder)
-            .bind(
-                lambda u: u.to_primitive(float)
-                .alt(Exception)
-                .lash(
-                    lambda _: u.to_primitive(int)
-                    .map(float)
-                    .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
-                )
-            )
+            .bind(self.to_float)
+            .alt(lambda e: TypeError(f"At `{key}` i.e. {e}"))
         )
 
     def require_datetime(self, key: str) -> ResultE[datetime]:

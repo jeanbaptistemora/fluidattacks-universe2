@@ -8,6 +8,7 @@ from fa_purity import (
     JsonObj,
     JsonValue,
     Maybe,
+    Result,
     ResultE,
 )
 from fa_purity.json.value.transform import (
@@ -31,13 +32,42 @@ from typing import (
 )
 
 
-def _decode_metric(raw: JsonObj) -> ResultE[WebVitalMetric]:
+def _decode_metric(raw: JsonObj) -> ResultE[Maybe[WebVitalMetric]]:
     unfolder = ExtendedUnfolder(raw)
-    return unfolder.require_primitive("score", str).bind(
-        lambda s: unfolder.require_float("value").map(
-            lambda v: WebVitalMetric(s, v)
+    _score = unfolder.optional(
+        "score",
+        lambda u: u.to_optional(lambda uu: uu.to_primitive(str)).alt(
+            Exception
+        ),
+    ).map(lambda m: m.bind(lambda o: Maybe.from_optional(o)))
+    _value = unfolder.optional(
+        "value",
+        lambda u: ExtendedUnfolder.to_optional(
+            u.jval, lambda v: ExtendedUnfolder.to_float(v)
+        ).alt(Exception),
+    ).map(lambda m: m.bind(lambda o: Maybe.from_optional(o)))
+
+    def _from_values(
+        score: Maybe[str], value: Maybe[float]
+    ) -> ResultE[Maybe[WebVitalMetric]]:
+        if score.value_or(None) is None and value.value_or(None) is None:
+            return Result.success(Maybe.empty(WebVitalMetric), Exception)
+        return (
+            score.bind(
+                lambda s: value.map(
+                    lambda v: Maybe.from_value(WebVitalMetric(s, v))
+                )
+            )
+            .to_result()
+            .alt(
+                lambda _: ValueError(
+                    "Only one of `score` or `value` attributes on `WebVitalMetric` is `None`"
+                )
+            )
+            .alt(Exception)
         )
-    )
+
+    return _score.bind(lambda s: _value.bind(lambda v: _from_values(s, v)))
 
 
 def _get_metric(
@@ -47,7 +77,7 @@ def _get_metric(
         unfolder.get(key).map(
             lambda j: Unfolder(j).to_json().alt(Exception).bind(_decode_metric)
         )
-    )
+    ).map(lambda m: m.bind(lambda x: x))
 
 
 def _decode_vitals(raw: JsonObj) -> ResultE[WebVitals]:

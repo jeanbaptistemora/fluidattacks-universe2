@@ -71,6 +71,8 @@ def stream(
         else Maybe.from_optional(name)
         .map(SupportedStreams)
         .map(lambda i: (i,))
+        .to_result()
+        .alt(lambda _: ValueError("Null stream selection"))
         .unwrap()
     )
     empty: Maybe[DateInterval] = Maybe.empty()

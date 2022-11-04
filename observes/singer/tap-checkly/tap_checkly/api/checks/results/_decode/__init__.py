@@ -99,4 +99,8 @@ def from_raw_obj(check_id: CheckId, raw: JsonObj) -> ResultE[CheckResultObj]:
     _obj = from_raw_result(raw)
     return _id.bind(
         lambda i: _obj.map(lambda obj: IndexedObj((check_id, i), obj))
+    ).alt(
+        lambda e: Exception(
+            f"`CheckResultObj` decode failed i.e. {e} with input {raw}"
+        )
     )
