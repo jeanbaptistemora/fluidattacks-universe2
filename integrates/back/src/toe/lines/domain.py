@@ -206,6 +206,9 @@ async def update(
         modified_date=attributes.modified_date,
         seen_at=attributes.seen_at,
         sorts_risk_level=attributes.sorts_risk_level,
+        sorts_risk_level_date=attributes.sorts_risk_level_date
+        if attributes.sorts_risk_level_date is not None
+        else None,
         clean_be_present_until=attributes.be_present is not None
         and be_present_until is None,
         sorts_suggestions=json.loads(json.dumps(attributes.sorts_suggestions))

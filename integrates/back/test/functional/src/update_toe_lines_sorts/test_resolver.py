@@ -19,6 +19,14 @@ from typing import (
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
 @pytest.mark.parametrize(("sorts_risk_level"), ((0), (10), (100)))
 @pytest.mark.parametrize(
+    ("sorts_risk_level_date"),
+    (
+        ("2021-01-20T05:00:00+00:00"),
+        ("2021-02-20T05:00:00+00:00"),
+        ("2021-03-20T05:00:00+00:00"),
+    ),
+)
+@pytest.mark.parametrize(
     ("sorts_suggestions"),
     (
         (
@@ -42,6 +50,7 @@ from typing import (
 async def test_update_toe_lines_sorts(
     populate: bool,
     sorts_risk_level: int,
+    sorts_risk_level_date: str,
     sorts_suggestions: list[dict[str, Any]],
 ) -> None:
     assert populate
@@ -52,6 +61,7 @@ async def test_update_toe_lines_sorts(
         root_nickname="asm_1",
         filename="test2/test.sh",
         sorts_risk_level=sorts_risk_level,
+        sorts_risk_level_date=sorts_risk_level_date,
         sorts_suggestions=sorts_suggestions,
     )
     assert result["data"]["updateToeLinesSorts"]["success"]
@@ -75,6 +85,7 @@ async def test_update_toe_lines_sorts(
                     "root": {"nickname": "universe"},
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
+                    "sortsRiskLevelDate": None,
                     "sortsSuggestions": None,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
@@ -98,6 +109,7 @@ async def test_update_toe_lines_sorts(
                     "root": {"nickname": "asm_1"},
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": sorts_risk_level,
+                    "sortsRiskLevelDate": sorts_risk_level_date,
                     "sortsSuggestions": sorts_suggestions,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
@@ -121,6 +133,7 @@ async def test_update_toe_lines_sorts(
                     "root": {"nickname": "asm_1"},
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
+                    "sortsRiskLevelDate": None,
                     "sortsSuggestions": None,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
@@ -151,6 +164,7 @@ async def test_update_toe_lines_sorts_range_fail(
         root_nickname="asm_1",
         filename="test2/test.sh",
         sorts_risk_level=sorts_risk_level,
+        sorts_risk_level_date="2021-01-20T05:00:00+00:00",
         sorts_suggestions=[],
     )
     assert "errors" in result
@@ -168,6 +182,7 @@ async def test_update_toe_lines_sorts_no_filename(populate: bool) -> None:
         root_nickname="asm_1",
         filename="non_existing_filename",
         sorts_risk_level=10,
+        sorts_risk_level_date="2021-01-20T05:00:00+00:00",
         sorts_suggestions=[],
     )
     assert (

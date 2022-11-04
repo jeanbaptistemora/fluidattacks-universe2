@@ -6,6 +6,7 @@ from custom_exceptions import (
     InvalidLinesOfCode,
     InvalidModifiedDate,
     InvalidSortsRiskLevel,
+    InvalidSortsRiskLevelDate,
     InvalidSortsSuggestions,
 )
 from datetime import (
@@ -35,6 +36,11 @@ def validate_loc(loc: int) -> None:
 def validate_sort_risk_level(value: int) -> None:
     if not 0 <= value <= 100:
         raise InvalidSortsRiskLevel.new()
+
+
+def validate_sorts_risk_level_date(sorts_risk_level_date: datetime) -> None:
+    if sorts_risk_level_date > datetime_utils.get_now():
+        raise InvalidSortsRiskLevelDate()
 
 
 async def validate_sort_suggestions(

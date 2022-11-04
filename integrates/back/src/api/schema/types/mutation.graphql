@@ -1400,6 +1400,8 @@ type Mutation {
     rootNickname: String
     "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
+    "The last time that Priority(sortsRiskLevel) was updated"
+    sortsRiskLevelDate: DateTime
     "List with Sorts suggestions for vulnerabilities in the file"
     sortsSuggestions: [SortsSuggestionInput!]
   ): SimplePayload!

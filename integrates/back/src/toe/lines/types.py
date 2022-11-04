@@ -46,4 +46,5 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     modified_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
+    sorts_risk_level_date: Optional[datetime] = None
     sorts_suggestions: Optional[list[SortsSuggestion]] = None

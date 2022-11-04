@@ -21,6 +21,7 @@ async def get_result(
     root_nickname: str,
     filename: str,
     sorts_risk_level: int,
+    sorts_risk_level_date: str,
     sorts_suggestions: list[dict[str, Any]],
 ) -> dict[str, Any]:
     sorts_suggestions_formatted: str = "".join(
@@ -39,6 +40,7 @@ async def get_result(
                 rootNickname: "{root_nickname}",
                 filename: "{filename}",
                 sortsRiskLevel: {sorts_risk_level},
+                sortsRiskLevelDate: "{sorts_risk_level_date}",
                 sortsSuggestions: [{sorts_suggestions_formatted}]
             ) {{
                 success
@@ -81,6 +83,7 @@ async def query_get(
                         }}
                         seenAt
                         sortsRiskLevel
+                        sortsRiskLevelDate
                         sortsSuggestions {{
                             findingTitle
                             probability

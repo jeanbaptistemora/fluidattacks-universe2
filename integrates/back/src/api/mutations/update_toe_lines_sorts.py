@@ -17,6 +17,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     Root,
 )
@@ -52,6 +55,7 @@ from toe.lines.types import (
 from toe.lines.validations import (
     validate_sort_risk_level,
     validate_sort_suggestions,
+    validate_sorts_risk_level_date,
 )
 from typing import (
     Any,
@@ -85,6 +89,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     root_nickname: str,
     filename: str,
     sorts_risk_level: Optional[int] = None,
+    sorts_risk_level_date: Optional[datetime] = None,
     sorts_suggestions: Optional[list[dict[str, Any]]] = None,
 ) -> SimplePayloadType:
     if sorts_risk_level is None and sorts_suggestions is None:
@@ -92,6 +97,9 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     if sorts_risk_level is not None:
         validate_sort_risk_level(sorts_risk_level)
+
+    if sorts_risk_level_date is not None:
+        validate_sorts_risk_level_date(sorts_risk_level_date)
 
     sorts_suggestions_formatted = None
     if sorts_suggestions is not None:
@@ -115,6 +123,7 @@ async def mutate(  # pylint: disable=too-many-arguments
             toe_lines,
             ToeLinesAttributesToUpdate(
                 sorts_risk_level=sorts_risk_level,
+                sorts_risk_level_date=sorts_risk_level_date,
                 sorts_suggestions=sorts_suggestions_formatted,
             ),
         )
