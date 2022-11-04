@@ -25,7 +25,6 @@ function job_code_mirror {
     && if find "./groups/${group}/fusion/"* -maxdepth 0 -type d; then
       echo '[INFO] Pushing repositories to S3' \
         && USER=nobody melts drills --push-repos "${group}" \
-        && chmod -R 777 groups \
         && rm -r groups
     else
       echo '[WARNING] Unable to clone repositories from source' \
