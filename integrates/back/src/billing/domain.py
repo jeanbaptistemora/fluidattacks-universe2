@@ -933,14 +933,22 @@ async def get_group_authors(*, date: datetime, group: Group) -> GroupBilling:
     )
 
 
-async def get_organization_authors(
+async def get_organization_billing(
     *,
     date: datetime,
-    org_id: str,
+    org: Organization,
     loaders: Dataloaders,
+    user_email: str,
 ) -> OrganizationBilling:
+    portal: str = await customer_portal(
+        org_id=org.id,
+        org_name=org.name,
+        user_email=user_email,
+        org_billing_customer=org.billing_customer,
+    )
+
     org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
-        org_id,
+        org.id,
     )
     group_authors: tuple[GroupAuthor, ...] = tuple(
         flatten(
@@ -980,6 +988,7 @@ async def get_organization_authors(
     return OrganizationBilling(
         current_spend=current_spend,
         authors=org_authors,
+        portal=portal,
         total=len(org_authors),
     )
 

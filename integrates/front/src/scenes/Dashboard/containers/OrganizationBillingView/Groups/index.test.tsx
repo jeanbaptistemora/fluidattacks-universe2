@@ -38,7 +38,7 @@ describe("Organization billing groups view", (): void => {
     const mockedInternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
-      { action: "api_resolvers_organization_billing_portal_resolve" },
+      { action: "api_resolvers_organization_billing_resolve" },
       { action: "see_billing_subscription_type" },
       { action: "see_billing_service_type" },
     ]);
@@ -99,7 +99,7 @@ describe("Organization billing groups view", (): void => {
     const mockedExternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
-      { action: "api_resolvers_organization_billing_portal_resolve" },
+      { action: "api_resolvers_organization_billing_resolve" },
     ]);
     rerender(
       <MemoryRouter initialEntries={["/orgs/okada/billing"]}>
@@ -185,7 +185,7 @@ describe("Organization billing groups view", (): void => {
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
-      { action: "api_resolvers_organization_billing_portal_resolve" },
+      { action: "api_resolvers_organization_billing_resolve" },
       { action: "see_billing_subscription_type" },
       { action: "see_billing_service_type" },
     ]);

@@ -31,12 +31,12 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
       billing {
         currentSpend
         total
+        portal
         authors {
           actor
           groups
         }
       }
-      billingPortal
       groups {
         name
         hasForces

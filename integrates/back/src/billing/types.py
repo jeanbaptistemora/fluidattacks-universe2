@@ -20,9 +20,9 @@ class GroupAuthor(NamedTuple):
 
 
 class GroupBilling(NamedTuple):
+    authors: tuple[GroupAuthor, ...]
     current_spend: int
     total: int
-    authors: tuple[GroupAuthor, ...]
 
 
 class OrganizationAuthor(NamedTuple):
@@ -31,9 +31,10 @@ class OrganizationAuthor(NamedTuple):
 
 
 class OrganizationBilling(NamedTuple):
-    current_spend: int
-    total: int
     authors: tuple[OrganizationAuthor, ...]
+    current_spend: int
+    portal: str
+    total: int
 
 
 class Address(NamedTuple):

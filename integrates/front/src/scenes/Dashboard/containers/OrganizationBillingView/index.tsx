@@ -61,7 +61,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const authors: IOrganizationAuthorAttr[] =
     data === undefined ? [] : data.organization.billing.authors;
   const billingPortal: string =
-    data === undefined ? "" : data.organization.billingPortal;
+    data === undefined ? "" : data.organization.billing.portal;
   const groups: IGroupAttr[] =
     data === undefined ? [] : data.organization.groups;
   const paymentMethods: IPaymentMethodAttr[] =

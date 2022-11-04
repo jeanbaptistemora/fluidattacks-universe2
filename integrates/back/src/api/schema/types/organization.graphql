@@ -19,8 +19,6 @@ type Organization {
     """
     date: DateTime
   ): OrganizationBilling
-  "Portal URL for managing group tiers"
-  billingPortal: String
   "Compliance with the standards in the organization"
   compliance: OrganizationCompliance!
   "Country where the organization is based"

@@ -18,6 +18,7 @@ interface IOrganizationBilling {
   currentSpend: number;
   authors: IOrganizationAuthorAttr[];
   total: number;
+  portal: string;
 }
 
 interface IOrganizationAuthorsTable {
@@ -66,7 +67,6 @@ interface IPaymentMethodAttr {
 interface IGetOrganizationBilling {
   organization: {
     billing: IOrganizationBilling;
-    billingPortal: string;
     groups: IGroupAttr[];
     paymentMethods: IPaymentMethodAttr[] | undefined;
   };
