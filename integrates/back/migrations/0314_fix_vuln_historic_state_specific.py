@@ -5,6 +5,9 @@
 # pylint: disable=invalid-name
 """
 Some specific are numbers or ranges instead of strings in the vulnerabilities
+
+Execution Time: 2022-11-04 at 21:08:48 UTC
+Finalization Time: 2022-11-04 at 22:05:01 UTC
 """
 from aioextensions import (
     collect,
