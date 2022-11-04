@@ -21,5 +21,9 @@ from typing import (
 
 def solve(args: SolverArgs) -> Optional[NId]:
     symbol = args.graph.nodes[args.n_id]["symbol"]
-    search_path = get_lookup_path(args.graph, args.path, args.n_id)
+    try:
+        search_path = get_lookup_path(args.graph, args.path, args.n_id)
+    except ValueError:
+        return None
+
     return definition_search(args.graph, search_path, symbol)

@@ -36,7 +36,10 @@ def search_data_element(
 
     var_name = graph.nodes[n_attrs["object_id"]].get("symbol") or ""
     access_id = g.adj_ast(graph, al_id)[0]
-    m_path = get_lookup_path(graph, path, method_id)
+    try:
+        m_path = get_lookup_path(graph, path, method_id)
+    except ValueError:
+        return None
     access_nid = graph.nodes[access_id]
     if access_nid.get("value_type") == "number":
         with suppress(ValueError):

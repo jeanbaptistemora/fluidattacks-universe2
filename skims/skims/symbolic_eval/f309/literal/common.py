@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from symbolic_eval.common import (
-    INSECURE_ALGOS,
-)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
@@ -13,7 +10,7 @@ from symbolic_eval.types import (
 
 def insecure_jwt_token(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     value = args.graph.nodes[args.n_id]["value"][1:-1].lower()
-    if value in INSECURE_ALGOS:
-        args.triggers.add("unsafealgorithm")
+    if value in {"none", "hs256"}:
+        args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

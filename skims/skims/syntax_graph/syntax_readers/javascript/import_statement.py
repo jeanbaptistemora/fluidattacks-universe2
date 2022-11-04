@@ -18,7 +18,10 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     node = args.ast_graph.nodes[args.n_id]
-    source_id = node["label_field_source"]
+    source_id = node.get("label_field_source")
+    if source_id:
+        import_text = node_to_str(args.ast_graph, source_id)
+    else:
+        import_text = node_to_str(args.ast_graph, args.n_id)
 
-    import_text = node_to_str(args.ast_graph, source_id)
     return build_import_statement_node(args, import_text)
