@@ -22,7 +22,7 @@ import re
 from typing import (
     Iterator,
     Pattern,
-    Tuple,
+    Set,
 )
 
 
@@ -49,6 +49,17 @@ def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
     )
 
 
+def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
+    if isinstance(node.data, dict):
+        for parent, sub_tree in node.data.items():
+            if parent.data == key:
+                nodes.add(sub_tree)
+                return nodes
+            if isinstance(sub_tree, Node):
+                nodes.update(get_values_by_key(sub_tree, key, nodes))
+    return nodes
+
+
 def check_digest(line: str) -> bool:
     env_var_re: Pattern = re.compile(r"\$\{.+\}")
     digest_re: Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
@@ -57,21 +68,14 @@ def check_digest(line: str) -> bool:
 
 def _docker_compose_image_has_digest(
     template: Node,
-) -> Iterator[Tuple[int, int]]:
-    if (
-        isinstance(template, Node)
-        and (template_services := template.inner.get("services"))
-        and isinstance(template_services, Node)
-        and isinstance(template_services.data, dict)
-        and (services_dict := template_services.data.items())
+) -> Iterator[Node]:
+
+    if isinstance(template, Node) and (
+        template_images := get_values_by_key(template, "image", set())
     ):
-        for service, service_data in services_dict:
-            if (
-                isinstance(service_data, Node)
-                and (image := service_data.raw.get("image"))
-                and not check_digest(image)
-            ):
-                yield service
+        for image in template_images:
+            if not check_digest(image.data):
+                yield image
 
 
 def docker_compose_image_has_digest(
