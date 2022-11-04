@@ -91,7 +91,7 @@ class BrowserCheckResult:
 @dataclass(frozen=True)
 class CheckResult:
     api_result: Maybe[ApiCheckResult]
-    browser_result: Maybe[JsonObj]
+    browser_result: Maybe[BrowserCheckResult]
     attempts: int
     run_id: CheckRunId
     created_at: datetime

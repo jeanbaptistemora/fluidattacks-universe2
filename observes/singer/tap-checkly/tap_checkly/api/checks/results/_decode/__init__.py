@@ -4,6 +4,7 @@
 
 from . import (
     _api_result,
+    _browser,
 )
 from dateutil.parser import (
     isoparse,
@@ -53,7 +54,11 @@ def from_raw_result(raw: JsonObj) -> ResultE[CheckResult]:
         )
         browser_result = switch_maybe(
             unfolder.get("browserCheckResult").map(
-                lambda j: Unfolder(j).to_json()
+                lambda j: Unfolder(j)
+                .to_json()
+                .alt(Exception)
+                .bind(_browser.decode_browser_result)
+                .alt(lambda e: Exception(f"At `browserCheckResult` i.e. {e}"))
             )
         )
         result = CheckResult(
