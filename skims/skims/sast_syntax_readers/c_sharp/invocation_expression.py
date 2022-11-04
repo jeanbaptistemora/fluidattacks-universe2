@@ -33,7 +33,8 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
                     args.fork_n_id(args_id),
                 ),
             ),
-            method=args.graph.nodes[expression_id]["label_text"],
+            method=args.graph.nodes[expression_id].get("label_text")
+            or node_to_str(args.graph, args.n_id),
             current_instance=graph_model.CurrentInstance(fields={}),
         )
     elif expression_type == "member_access_expression":

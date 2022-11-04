@@ -7,6 +7,7 @@ namespace WebApplicationDotNetCore.Controllers
     {
         public IActionResult Index()
         {
+            Requires.NotNullOrEmpty(key, nameof(key));
             return View();
         }
 
