@@ -1768,12 +1768,6 @@ asvs:
     '4_3_1':
       title: Other access control considerations
       link: https://owasp.org/www-project-application-security-verification-standard/
-    '4_3_1':
-      title: Other access control considerations
-      link: https://owasp.org/www-project-application-security-verification-standard/
-    '4_3_1':
-      title: Other access control considerations
-      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_1_1':
       title: Input validation
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -1959,12 +1953,6 @@ asvs:
       link: https://owasp.org/www-project-application-security-verification-standard/
     '8_1_4':
       title: General data protection
-      link: https://owasp.org/www-project-application-security-verification-standard/
-    '8_2_1':
-      title: Client-side data protection
-      link: https://owasp.org/www-project-application-security-verification-standard/
-    '8_2_1':
-      title: Client-side data protection
       link: https://owasp.org/www-project-application-security-verification-standard/
     '8_2_1':
       title: Client-side data protection

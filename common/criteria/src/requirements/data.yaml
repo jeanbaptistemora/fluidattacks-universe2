@@ -9961,7 +9961,6 @@
     - pci.8_5_1
     - sig.I_1_20
     - asvs.4_3_1
-    - asvs.4_3_1
   metadata: {}
 '320':
   en:
@@ -10603,7 +10602,6 @@
     - sig.U_1_6_2
     - sig.U_1_9_27
     - asvs.4_3_1
-    - asvs.4_3_1
   metadata: {}
 '329':
   en:
@@ -10692,8 +10690,6 @@
     - asvs.8_2_1
     - c2m2.9_5_b
     - siglite.SL_131
-    - asvs.8_2_1
-    - asvs.8_2_1
   metadata: {}
 '330':
   en:
@@ -13217,7 +13213,6 @@
     - owaspmasvs.V2_2
     - owaspmasvs.V8_11
     - siglite.SL_131
-    - asvs.8_2_1
     - asvs.8_2_1
   metadata: {}
 '376':
