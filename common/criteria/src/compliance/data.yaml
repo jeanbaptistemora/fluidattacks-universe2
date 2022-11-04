@@ -1771,14 +1771,32 @@ asvs:
     '4_3_1':
       title: Other access control considerations
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '4_3_1':
+      title: Other access control considerations
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_1_1':
+      title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_1_2':
       title: Input validation
       link: https://owasp.org/www-project-application-security-verification-standard/
     '5_1_3':
       title: Input validation
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_1_4':
+      title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_1_5':
       title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_2_1':
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_2_2':
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_2_3':
+      title: Sanitization and sandboxing
       link: https://owasp.org/www-project-application-security-verification-standard/
     '5_2_4':
       title: Sanitization and sandboxing
@@ -1789,10 +1807,28 @@ asvs:
     '5_2_6':
       title: Sanitization and sandboxing
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_2_7':
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_2_8':
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_3_1':
       title: Output encoding and injection prevention
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_3_2':
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_3_3':
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_3_4':
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_3_5':
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_3_6':
       title: Output encoding and injection prevention
       link: https://owasp.org/www-project-application-security-verification-standard/
     '5_3_7':
@@ -1810,6 +1846,9 @@ asvs:
     '5_4_1':
       title: Memory, string, and unmanaged code
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_4_2':
+      title: Memory, string, and unmanaged code
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '5_4_3':
       title: Memory, string, and unmanaged code
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -1817,6 +1856,12 @@ asvs:
       title: Deserialization prevention
       link: https://owasp.org/www-project-application-security-verification-standard/
     '5_5_2':
+      title: Deserialization prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_5_3':
+      title: Deserialization prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '5_5_4':
       title: Deserialization prevention
       link: https://owasp.org/www-project-application-security-verification-standard/
     '6_1_1':
@@ -1827,6 +1872,9 @@ asvs:
       link: https://owasp.org/www-project-application-security-verification-standard/
     '6_1_3':
       title: Data classification
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_2_1':
+      title: Algorithms
       link: https://owasp.org/www-project-application-security-verification-standard/
     '6_2_2':
       title: Algorithms
@@ -1843,11 +1891,26 @@ asvs:
     '6_2_6':
       title: Algorithms
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_2_7':
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_2_8':
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '6_3_1':
+      title: Random values
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_3_2':
       title: Random values
       link: https://owasp.org/www-project-application-security-verification-standard/
     '6_3_3':
       title: Random values
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_4_1':
+      title: Secret management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '6_4_2':
+      title: Secret management
       link: https://owasp.org/www-project-application-security-verification-standard/
     '7_1_1':
       title: Log content
