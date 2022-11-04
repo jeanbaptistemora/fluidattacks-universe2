@@ -60,6 +60,9 @@ from newutils import (
     datetime as datetime_utils,
     vulnerabilities as vulns_utils,
 )
+from operator import (
+    attrgetter,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -991,7 +994,6 @@ def get_exposed_cvssf(
 async def get_group_indicators(  # pylint: disable=too-many-locals
     group: Group,
 ) -> GroupUnreliableIndicators:
-    info("Getting group indicator", extra={"group_name": group.name})
     loaders: Dataloaders = get_new_context()
     current_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group.name)
@@ -1108,11 +1110,15 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
     )
 
 
-async def update_group_indicators(group: Group) -> None:
+async def update_group_indicators(group: Group, progress: float) -> None:
     try:
         indicators = await get_group_indicators(group)
         await groups_domain.update_indicators(
             group_name=group.name, indicators=indicators
+        )
+        info(
+            "Group indicators processed",
+            extra={"group_name": group.name, "progress": round(progress, 2)},
         )
     except (ClientError, TypeError, UnavailabilityError) as ex:
         msg = "Error: An error ocurred updating indicators in the database"
@@ -1122,7 +1128,18 @@ async def update_group_indicators(group: Group) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     groups = await orgs_domain.get_all_active_groups(loaders=get_new_context())
-    await collect(map(update_group_indicators, groups), workers=1)
+    groups_sorted_by_name = sorted(groups, key=attrgetter("name"))
+    len_groups_sorted_by_name = len(groups_sorted_by_name)
+    await collect(
+        tuple(
+            update_group_indicators(
+                group=group,
+                progress=count / len_groups_sorted_by_name,
+            )
+            for count, group in enumerate(groups_sorted_by_name)
+        ),
+        workers=1,
+    )
 
 
 async def main() -> None:
