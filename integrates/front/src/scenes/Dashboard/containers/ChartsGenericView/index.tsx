@@ -72,6 +72,53 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
             />
           </Col100>
         </RowCenter>
+        <RowCenter>
+          <Col33>
+            <Graphic
+              bsHeight={80}
+              className={"g3"}
+              documentName={"vulnerabilitiesRemediationCreated"}
+              documentType={"textBox"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"textBox"}
+              infoLink={`${graphInfoLink}common#sprint-exposure-increment`}
+              reportMode={reportMode}
+              subject={subject}
+              title={t("analytics.textBox.remediationCreated.title")}
+            />
+          </Col33>
+          <Col33>
+            <Graphic
+              bsHeight={80}
+              className={"g3"}
+              documentName={"vulnerabilitiesRemediationSolved"}
+              documentType={"textBox"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"textBox"}
+              infoLink={`${graphInfoLink}common#sprint-exposure-decrement`}
+              reportMode={reportMode}
+              subject={subject}
+              title={t("analytics.textBox.remediationSolved.title")}
+            />
+          </Col33>
+          <Col33>
+            <Graphic
+              bsHeight={80}
+              className={"g3"}
+              documentName={"vulnerabilitiesRemediationRemediated"}
+              documentType={"textBox"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"textBox"}
+              infoLink={`${graphInfoLink}common#sprint-exposure-change-overall`}
+              reportMode={reportMode}
+              subject={subject}
+              title={t("analytics.textBox.remediationRemediated.title")}
+            />
+          </Col33>
+        </RowCenter>
         <Col100>
           <div className={"flex flex-wrap justify-between"}>
             <div className={"pr3 w-33 relative"}>
@@ -438,53 +485,6 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
             />
           </Col50>
         </Row>
-        <RowCenter>
-          <Col33>
-            <Graphic
-              bsHeight={80}
-              className={"g3"}
-              documentName={"vulnerabilitiesRemediationCreated"}
-              documentType={"textBox"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"textBox"}
-              infoLink={`${graphInfoLink}common#sprint-exposure-increment`}
-              reportMode={reportMode}
-              subject={subject}
-              title={t("analytics.textBox.remediationCreated.title")}
-            />
-          </Col33>
-          <Col33>
-            <Graphic
-              bsHeight={80}
-              className={"g3"}
-              documentName={"vulnerabilitiesRemediationSolved"}
-              documentType={"textBox"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"textBox"}
-              infoLink={`${graphInfoLink}common#sprint-exposure-decrement`}
-              reportMode={reportMode}
-              subject={subject}
-              title={t("analytics.textBox.remediationSolved.title")}
-            />
-          </Col33>
-          <Col33>
-            <Graphic
-              bsHeight={80}
-              className={"g3"}
-              documentName={"vulnerabilitiesRemediationRemediated"}
-              documentType={"textBox"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"textBox"}
-              infoLink={`${graphInfoLink}common#sprint-exposure-change-overall`}
-              reportMode={reportMode}
-              subject={subject}
-              title={t("analytics.textBox.remediationRemediated.title")}
-            />
-          </Col33>
-        </RowCenter>
         <RowCenter>
           <Col100>
             <Graphic
