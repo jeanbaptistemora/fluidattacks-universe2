@@ -66,7 +66,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   columnFilterState = undefined,
   columnToggle = false,
   columns,
+  enableColumnFilters = true,
   extraButtons = undefined,
+  filters = undefined,
   findingState = "open",
   hideSelectVulnerability,
   isEditing,
@@ -272,13 +274,14 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         columnVisibilityState={columnVisibility}
         columns={[...columns, ...(canRemoveVulns ? deleteColumn : [])]}
         data={formatVulnerabilities(vulnerabilities)}
-        enableColumnFilters={true}
+        enableColumnFilters={enableColumnFilters}
         enableRowSelection={enabledRows}
         extraButtons={
           extraButtons ? (
             <div className={"dib nr0 nr1-l nr1-m pt1"}>{extraButtons}</div>
           ) : undefined
         }
+        filters={filters}
         id={"vulnerabilitiesTable"}
         onNextPage={onNextPage}
         onRowClick={openAdditionalInfoModal}

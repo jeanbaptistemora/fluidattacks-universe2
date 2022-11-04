@@ -20,6 +20,8 @@ import { formatState } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal } from "components/Modal";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -32,7 +34,7 @@ import {
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import { useDebouncedCallback } from "utils/hooks";
+import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { msgError } from "utils/notifications";
 
 const tableColumns: ColumnDef<IVulnRowAttr>[] = [
@@ -49,31 +51,27 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
 
       return formatLinkHandler(link, text);
     },
+    enableColumnFilter: false,
     header: "Type",
-    meta: { filterType: "select" },
   },
   {
     accessorKey: "currentState",
     cell: (cell): JSX.Element => formatState(cell.getValue()),
     header: "Status",
-    meta: { filterType: "select" },
   },
   {
     accessorKey: "treatment",
     header: "Treatment",
-    meta: { filterType: "select" },
   },
   {
     accessorKey: "verification",
     header: "Reattack",
-    meta: { filterType: "select" },
   },
 
   {
     accessorKey: "reportDate",
     enableColumnFilter: false,
     header: "Found",
-    meta: { filterType: "dateRange" },
   },
   {
     accessorFn: (row): number => Number(row.finding?.severityScore),
@@ -83,8 +81,8 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
 
       return formatLinkHandler(link, text);
     },
+    enableColumnFilter: false,
     header: "Severity",
-    meta: { filterType: "numberRange" },
   },
   {
     accessorFn: (): string => "View",
@@ -99,6 +97,35 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   },
 ];
 
+const tableFilters: IFilter<IVulnRowAttr>[] = [
+  {
+    id: "currentState",
+    key: "currentState",
+    label: "Status",
+    selectOptions: ["open", "closed"],
+    type: "select",
+  },
+  {
+    id: "treatment",
+    key: "treatment",
+    label: "Treatment",
+    selectOptions: [
+      { showValue: "In progress", value: "IN_PROGRESS" },
+      { showValue: "New", value: "NEW" },
+      { showValue: "Temporarily accepted", value: "ACCEPTED" },
+      { showValue: "Permanently accepted", value: "ACCEPTED_UNDEFINED" },
+    ],
+    type: "select",
+  },
+  {
+    id: "verification",
+    key: "verification",
+    label: "Reattack",
+    selectOptions: ["Masked", "Requested", "On_hold", "Verified"],
+    type: "select",
+  },
+];
+
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
@@ -106,6 +133,10 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     clearSelected: (): void => undefined,
     selectedVulnerabilities: [],
   });
+  const [vulnFilters, setVulnFilters] = useStoredState<IFilter<IVulnRowAttr>[]>(
+    "vulnerabilitiesTable-columnFilters",
+    tableFilters
+  );
   const [isRequestingVerify, setIsRequestingVerify] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const openRemediationModal = useCallback(
@@ -240,6 +271,8 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     void refetch({ search });
   }, 500);
 
+  const filteredDataset = useFilters(vulnerabilities, vulnFilters);
+
   return (
     <React.StrictMode>
       <React.Fragment>
@@ -247,6 +280,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           <VulnComponent
             columnToggle={true}
             columns={tableColumns}
+            enableColumnFilters={false}
             extraButtons={
               <ActionButtons
                 areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
@@ -266,6 +300,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
                 openModal={toggleModal}
               />
             }
+            filters={
+              <Filters filters={vulnFilters} setFilters={setVulnFilters} />
+            }
             isEditing={isEditing}
             isRequestingReattack={isRequestingVerify}
             isVerifyingRequest={isVerifying}
@@ -274,7 +311,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             onVulnSelect={openRemediationModal}
             refetchData={refetch}
             size={size}
-            vulnerabilities={vulnerabilities}
+            vulnerabilities={filteredDataset}
           />
         </div>
         {isOpen && (

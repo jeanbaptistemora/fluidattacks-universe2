@@ -77,7 +77,9 @@ interface IVulnComponentProps {
   columnFilterState?: ColumnFiltersState;
   columnToggle?: boolean;
   columns: ColumnDef<IVulnRowAttr>[];
+  enableColumnFilters?: boolean;
   extraButtons?: JSX.Element;
+  filters?: JSX.Element;
   findingState?: "closed" | "open";
   hideSelectVulnerability?: boolean;
   isFindingReleased?: boolean;
