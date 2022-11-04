@@ -40,8 +40,14 @@ from organizations import (
     domain as orgs_domain,
 )
 import psycopg2
+from psycopg2.extensions import (
+    cursor as cursor_cls,
+)
 from redshift import (
     events as redshift_events,
+)
+from redshift.operations import (
+    db_cursor,
 )
 from settings import (
     LOGGING,
@@ -73,18 +79,19 @@ async def _remove_event(
     exceptions=(psycopg2.OperationalError,),
     sleep_seconds=1,
 )
-async def _archive_event_items(items: tuple[Item, ...]) -> None:
-    await redshift_events.insert_batch_metadata(items=items)
+def _archive_event_items(cursor: cursor_cls, items: tuple[Item, ...]) -> None:
+    redshift_events.insert_batch_metadata(cursor=cursor, items=items)
 
 
 async def _process_group(
+    cursor: cursor_cls,
     group_name: str,
     progress: float,
 ) -> None:
     items = await get_group_events_items(group_name=group_name)
     if not items:
         return
-    await _archive_event_items(items=items)
+    _archive_event_items(cursor=cursor, items=items)
     await collect(
         tuple(
             _remove_event(group_name=group_name, item=item) for item in items
@@ -111,16 +118,18 @@ async def main() -> None:
         "Deleted groups",
         extra={"extra": {"groups_len": len(deleted_group_names)}},
     )
-    await collect(
-        tuple(
-            _process_group(
-                group_name=group_name,
-                progress=count / len(deleted_group_names),
-            )
-            for count, group_name in enumerate(deleted_group_names)
-        ),
-        workers=1,
-    )
+    with db_cursor() as cursor:
+        await collect(
+            tuple(
+                _process_group(
+                    cursor=cursor,
+                    group_name=group_name,
+                    progress=count / len(deleted_group_names),
+                )
+                for count, group_name in enumerate(deleted_group_names)
+            ),
+            workers=1,
+        )
 
 
 if __name__ == "__main__":

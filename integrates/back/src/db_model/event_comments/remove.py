@@ -37,6 +37,8 @@ async def remove_event_comments(
         table=TABLE,
         index=index,
     )
+    if not response.items:
+        return
     keys_to_delete = set(
         PrimaryKey(
             partition_key=item[TABLE.primary_key.partition_key],
