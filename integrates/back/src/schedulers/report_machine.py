@@ -573,7 +573,7 @@ def _build_vulnerabilities_stream_from_integrates(
         ],
         "lines": [
             {
-                "commit_hash": commit or vuln.commit,
+                "commit_hash": commit or vuln.state.commit,
                 "line": vuln.state.specific,
                 "path": vuln.state.where,
                 "repo_nickname": git_root.state.nickname,

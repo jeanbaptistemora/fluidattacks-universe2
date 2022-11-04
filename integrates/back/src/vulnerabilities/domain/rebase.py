@@ -134,7 +134,7 @@ async def rebase(
         for vuln in finding_vulns_data:
             if (
                 vuln.id == vulnerability_id
-                and vuln.commit == vulnerability_commit
+                and vuln.state.commit == vulnerability_commit
             ):
                 raise exc
 

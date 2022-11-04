@@ -125,7 +125,7 @@ async def _get_vulnerabilities_to_rebase(
         for vulns in findings_vulns
         for vuln in vulns
         if vuln.root_id == git_root.id
-        and vuln.commit is not None
+        and vuln.state.commit is not None
         and vuln.type == VulnerabilityType.LINES
         and vuln.state.status == VulnerabilityStateStatus.OPEN
     )
@@ -137,15 +137,15 @@ def _rebase_vulnerability(
 ) -> Optional[git_utils.RebaseResult]:
     try:
         if (
-            vulnerability.commit
-            and vulnerability.commit
+            vulnerability.state.commit
+            and vulnerability.state.commit
             != "0000000000000000000000000000000000000000"
             and (
                 result := git_utils.rebase(
                     repo,
                     path=vulnerability.state.where,
                     line=int(vulnerability.state.specific),
-                    rev_a=vulnerability.commit,
+                    rev_a=vulnerability.state.commit,
                     rev_b="HEAD",
                 )
             )

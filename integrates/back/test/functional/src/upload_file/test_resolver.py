@@ -67,9 +67,9 @@ async def _get_vulns(
     return sorted(
         (
             dict(
-                commit_hash=vuln.commit,
+                commit_hash=vuln.state.commit,
                 repo_nickname=roots_nickname[vuln.root_id],  # type: ignore
-                specific=vuln.specific,
+                specific=vuln.state.specific,
                 state_status=vuln.state.status.value,
                 stream=vuln.stream,
                 treatment_status=vuln.treatment.status.value

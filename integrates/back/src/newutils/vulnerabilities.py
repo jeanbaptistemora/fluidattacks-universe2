@@ -279,8 +279,8 @@ async def format_vulnerabilities(
                 ),
             }
         )
-        if vuln.commit:
-            finding[vuln_type][-1]["commit_hash"] = vuln.commit
+        if vuln.state.commit:
+            finding[vuln_type][-1]["commit_hash"] = vuln.state.commit
         if vuln.stream:
             finding[vuln_type][-1]["stream"] = ",".join(vuln.stream)
         if vuln.root_id:
@@ -441,7 +441,7 @@ def group_specific(
     grouped_vulns = []
     for key, group_iter in itertools.groupby(
         sorted_by_where,
-        key=lambda vuln: (vuln.state.where, vuln.commit),
+        key=lambda vuln: (vuln.state.where, vuln.state.commit),
     ):
         group = list(group_iter)
         specific_grouped = (
@@ -672,7 +672,7 @@ async def validate_requested_verification(
             )
             if (
                 isinstance(root, GitRoot)
-                and root.cloning.commit == vulnerability.commit
+                and root.cloning.commit == vulnerability.state.commit
                 and root.cloning.commit_date
                 and (
                     datetime.now(timezone.utc)
