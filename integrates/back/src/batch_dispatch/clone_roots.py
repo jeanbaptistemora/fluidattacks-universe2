@@ -432,7 +432,6 @@ async def queue_sync_git_roots(
                 and root.state.credential_id is not None
             )
         )
-
     valid_roots = _filter_active_roots_with_credentials(roots, queue_with_vpn)
     if not group.state.has_squad and not force:
         valid_roots = await _filter_roots_unsolved_events(

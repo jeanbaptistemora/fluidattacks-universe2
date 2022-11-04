@@ -96,6 +96,7 @@ async def mutate(
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
+                queue_with_vpn=kwargs.get("use_vpn", False),
             )
         )
         and (
