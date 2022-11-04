@@ -14,6 +14,7 @@ from model.core_model import (
 import re
 from typing import (
     Iterator,
+    List,
     Match,
     Pattern,
 )
@@ -37,12 +38,18 @@ def get_dep_info(matched: Match[str], line_number: int) -> DependencyType:
 @pkg_deps_to_vulns(Platform.GO, MethodsEnum.GO_MOD)
 def go_mod(content: str, path: str) -> Iterator[DependencyType]:
     required: str = ""
+    replace_list: List[str] = []
     for line_number, line in enumerate(content.splitlines(), 1):
         if matched := re.search(GO_REQ_MOD_DEP, line):
             yield get_dep_info(matched, line_number)
         elif not required:
             if directive := GO_DIRECTIVE.match(line):
                 required = directive.group("directive")
+        elif required == "replace":
+            if line == ")":
+                required = ""
+                continue
+            replace_list.append(line)
         elif matched := re.search(GO_MOD_DEP, line):
             yield get_dep_info(matched, line_number)
         else:
