@@ -2,17 +2,8 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from .authors import (
-    AUTHORS,
-)
 from .billing import (
     BILLING,
-)
-from .billing_group import (
-    BILLING_GROUP,
-)
-from .billing_organization import (
-    BILLING_ORGANIZATION,
 )
 from .consult import (
     CONSULT,
@@ -47,8 +38,8 @@ from .forces_executions import (
 from .group import (
     GROUP,
 )
-from .group_authors import (
-    GROUP_AUTHORS,
+from .group_billing import (
+    GROUP_BILLING,
 )
 from .group_file import (
     GROUP_FILE,
@@ -61,6 +52,9 @@ from .mutation import (
 )
 from .organization import (
     ORGANIZATION,
+)
+from .organization_billing import (
+    ORGANIZATION_BILLING,
 )
 from .organization_compliance import (
     ORGANIZATION_COMPLIANCE,
@@ -161,10 +155,7 @@ from typing import (
 )
 
 TYPES: Tuple[ObjectType, ...] = (
-    AUTHORS,
     BILLING,
-    BILLING_GROUP,
-    BILLING_ORGANIZATION,
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
@@ -183,12 +174,13 @@ TYPES: Tuple[ObjectType, ...] = (
     GROUP_COMPLIANCE,
     ENVIRONMENT_URL,
     GROUP,
-    GROUP_AUTHORS,
+    GROUP_BILLING,
     GROUP_FILE,
     IPROOT,
     ME,
     MUTATION,
     ORGANIZATION,
+    ORGANIZATION_BILLING,
     ORGANIZATION_COMPLIANCE,
     ORGANIZATION_COMPLIANCE_STANDARD,
     PAYMENT_METHOD,

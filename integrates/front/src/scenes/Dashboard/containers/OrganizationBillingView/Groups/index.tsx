@@ -54,7 +54,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   // States
   const defaultCurrentRow: IGroupAttr = {
-    authors: {
+    billing: {
       currentSpend: 0,
       total: 0,
     },
@@ -82,7 +82,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           group.permissions.includes(
             "api_mutations_update_group_managed_mutate"
           )) &&
-        group.authors !== null
+        group.billing !== null
     );
 
   const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
@@ -184,7 +184,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.authors?.total;
+        return row.billing?.total;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
@@ -193,7 +193,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.authors?.currentSpend;
+        return row.billing?.currentSpend;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),

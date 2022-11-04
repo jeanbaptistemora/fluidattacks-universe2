@@ -3,19 +3,19 @@
 # SPDX-License-Identifier: MPL-2.0
 
 "OrganizationAuthor type definition"
-type OrganizationAuthor {
+type OrganizationBillingAuthor {
   "Author who has contributed"
   actor: String
   "Groups the author has contributed to"
   groups: [String]!
 }
 
-"OrganizationAuthors type definition"
-type OrganizationAuthors {
+"OrganizationBilling type definition"
+type OrganizationBilling {
+  "Authors data"
+  authors: [OrganizationBillingAuthor!]!
   "Month-to-date spend"
   currentSpend: Int!
-  "Authors data"
-  data: [OrganizationAuthor!]!
   "Total authors"
   total: Int!
 }

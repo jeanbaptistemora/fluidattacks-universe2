@@ -202,7 +202,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       });
     },
     skip:
-      permissions.cannot("api_resolvers_group_authors_resolve") ||
+      permissions.cannot("api_resolvers_group_billing_resolve") ||
       groupPermissions.can("has_service_black"),
     variables: { date: authorsDate, groupName },
   });
@@ -339,14 +339,16 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       const authorsEmail =
         dataAuthor === undefined
           ? []
-          : dataAuthor.group.authors.data.map((value: IGroupAuthor): string => {
-              const { actor } = value;
-              const place: number = actor.lastIndexOf("<");
+          : dataAuthor.group.billing.authors.map(
+              (value: IGroupAuthor): string => {
+                const { actor } = value;
+                const place: number = actor.lastIndexOf("<");
 
-              return place >= 0
-                ? actor.substring(place + 1, actor.length - 1)
-                : actor;
-            });
+                return place >= 0
+                  ? actor.substring(place + 1, actor.length - 1)
+                  : actor;
+              }
+            );
 
       const authorsNotStakeholder = authorsEmail.filter(
         (value: string): boolean => !emailStakeholder.includes(value)
@@ -372,7 +374,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
     if (dataAuthor !== undefined && dateRange.length > 1) {
       if (
-        dataAuthor.group.authors.data.length === 0 &&
+        dataAuthor.group.billing.authors.length === 0 &&
         authorsDate !== dateRange[1].toISOString()
       ) {
         setAuthorsDate(dateRange[1].toISOString());

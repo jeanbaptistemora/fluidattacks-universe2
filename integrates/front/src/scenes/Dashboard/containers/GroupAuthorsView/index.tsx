@@ -248,7 +248,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     (): IAuthors[] =>
       data === undefined
         ? []
-        : data.group.authors.data.map((value: IGroupAuthor): IAuthors => {
+        : data.group.billing.authors.map((value: IGroupAuthor): IAuthors => {
             const { actor } = value;
             const place: number = actor.lastIndexOf("<");
             const actorEmail =

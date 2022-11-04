@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-interface IGroupAuthors {
+interface IGroupBilling {
   currentSpend: number;
   total: number;
 }
@@ -14,9 +14,9 @@ interface IOrganizationAuthorAttr {
   groups: string[];
 }
 
-interface IOrganizationAuthors {
+interface IOrganizationBilling {
   currentSpend: number;
-  data: IOrganizationAuthorAttr[];
+  authors: IOrganizationAuthorAttr[];
   total: number;
 }
 
@@ -26,7 +26,7 @@ interface IOrganizationAuthorsTable {
 }
 
 interface IGroupAttr {
-  authors: IGroupAuthors | null;
+  billing: IGroupBilling | null;
   forces: string;
   hasForces: boolean;
   hasMachine: boolean;
@@ -65,7 +65,7 @@ interface IPaymentMethodAttr {
 
 interface IGetOrganizationBilling {
   organization: {
-    authors: IOrganizationAuthors;
+    billing: IOrganizationBilling;
     billingPortal: string;
     groups: IGroupAttr[];
     paymentMethods: IPaymentMethodAttr[] | undefined;

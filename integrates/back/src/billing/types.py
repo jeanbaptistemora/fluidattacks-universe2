@@ -19,13 +19,7 @@ class GroupAuthor(NamedTuple):
     repository: Optional[str]
 
 
-class GroupAuthors(NamedTuple):
-    current_spend: int
-    total: int
-    data: tuple[GroupAuthor, ...]
-
-
-class Group(NamedTuple):
+class GroupBilling(NamedTuple):
     current_spend: int
     total: int
     authors: tuple[GroupAuthor, ...]
@@ -36,17 +30,10 @@ class OrganizationAuthor(NamedTuple):
     groups: frozenset[Optional[str]]
 
 
-class OrganizationAuthors(NamedTuple):
-    current_spend: int
-    total: int
-    data: tuple[OrganizationAuthor, ...]
-
-
-class Organization(NamedTuple):
+class OrganizationBilling(NamedTuple):
     current_spend: int
     total: int
     authors: tuple[OrganizationAuthor, ...]
-    portal: str
 
 
 class Address(NamedTuple):

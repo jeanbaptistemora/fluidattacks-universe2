@@ -4,16 +4,6 @@
 
 "Billing type definition"
 type Billing {
-  "Billing information for a group"
-  group(
-    "Name of the group to retrieve"
-    groupName: String!
-  ): BillingGroup
-  "Billing information for an organization"
-  organization(
-    "ID of the organization to retrieve"
-    organizationId: String!
-  ): BillingOrganization
   "Billing prices"
   prices: Prices!
 }

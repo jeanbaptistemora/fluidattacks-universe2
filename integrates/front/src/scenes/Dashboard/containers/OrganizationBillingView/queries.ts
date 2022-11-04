@@ -28,10 +28,10 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
   query GetOrganizationBilling($organizationId: String!) {
     organization(organizationId: $organizationId) {
       name
-      authors {
+      billing {
         currentSpend
         total
-        data {
+        authors {
           actor
           groups
         }
@@ -47,7 +47,7 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         paymentId
         permissions
         tier
-        groupAuthors {
+        billing {
           currentSpend
           total
         }

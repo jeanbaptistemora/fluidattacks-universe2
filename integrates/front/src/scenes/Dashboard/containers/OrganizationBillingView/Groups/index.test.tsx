@@ -52,7 +52,7 @@ describe("Organization billing groups view", (): void => {
                 billingPortal={""}
                 groups={[
                   {
-                    authors: {
+                    billing: {
                       currentSpend: 1,
                       total: 1,
                     },
@@ -110,7 +110,7 @@ describe("Organization billing groups view", (): void => {
                 billingPortal={""}
                 groups={[
                   {
-                    authors: {
+                    billing: {
                       currentSpend: 1,
                       total: 1,
                     },
@@ -199,7 +199,7 @@ describe("Organization billing groups view", (): void => {
                 billingPortal={""}
                 groups={[
                   {
-                    authors: {
+                    billing: {
                       currentSpend: 1,
                       total: 1,
                     },

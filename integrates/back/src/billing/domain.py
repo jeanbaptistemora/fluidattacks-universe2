@@ -14,9 +14,9 @@ from billing import (
 from billing.types import (
     Customer,
     GroupAuthor,
-    GroupAuthors,
+    GroupBilling,
     OrganizationAuthor,
-    OrganizationAuthors,
+    OrganizationBilling,
     PaymentMethod,
     Price,
     Subscription,
@@ -913,7 +913,7 @@ async def report_subscription_usage(
     )
 
 
-async def get_group_authors(*, date: datetime, group: Group) -> GroupAuthors:
+async def get_group_authors(*, date: datetime, group: Group) -> GroupBilling:
     group_authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
         date=date,
         group=group.name,
@@ -926,9 +926,9 @@ async def get_group_authors(*, date: datetime, group: Group) -> GroupAuthors:
         prices: dict[str, Price] = await get_prices()
         current_spend = int(total * prices["squad"].amount / 100)
 
-    return GroupAuthors(
+    return GroupBilling(
         current_spend=current_spend,
-        data=group_authors,
+        authors=group_authors,
         total=total,
     )
 
@@ -938,7 +938,7 @@ async def get_organization_authors(
     date: datetime,
     org_id: str,
     loaders: Dataloaders,
-) -> OrganizationAuthors:
+) -> OrganizationBilling:
     org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
         org_id,
     )
@@ -977,9 +977,9 @@ async def get_organization_authors(
                     org_squad_authors += 1
     current_spend: int = int(org_squad_authors * prices["squad"].amount / 100)
 
-    return OrganizationAuthors(
+    return OrganizationBilling(
         current_spend=current_spend,
-        data=org_authors,
+        authors=org_authors,
         total=len(org_authors),
     )
 

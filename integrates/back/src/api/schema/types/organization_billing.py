@@ -9,4 +9,6 @@ from ariadne import (
     ObjectType,
 )
 
-BILLING_ORGANIZATION: ObjectType = ObjectType("BillingOrganization")
+# None
+
+ORGANIZATION_BILLING = ObjectType("OrganizationBilling")

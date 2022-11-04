@@ -11,14 +11,14 @@ type Organization {
     "Analytics chart type"
     documentType: String!
   ): GenericScalar
-  "Authors that have contributed to the organization"
-  authors(
+  "Billing information for the organization"
+  billing(
     """
-    Selects authors from this Group according to the provided date
+    Get billing information according to the provided date
     (year and month)
     """
     date: DateTime
-  ): OrganizationAuthors
+  ): OrganizationBilling
   "Portal URL for managing group tiers"
   billingPortal: String
   "Compliance with the standards in the organization"

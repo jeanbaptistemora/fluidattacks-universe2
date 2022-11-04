@@ -43,8 +43,8 @@ describe("AuthorsView", (): void => {
       result: {
         data: {
           group: {
-            authors: {
-              data: [
+            billing: {
+              authors: [
                 {
                   actor: "test",
                   commit: "123",

@@ -11,4 +11,4 @@ from ariadne import (
 
 # None
 
-ORGANIZATION_AUTHORS = ObjectType("OrganizationAuthors")
+GROUP_BILLING = ObjectType("GroupBilling")

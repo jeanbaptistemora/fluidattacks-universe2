@@ -4,7 +4,7 @@
 
 from api.resolvers.group import (
     analytics,
-    authors,
+    billing,
     closed_vulnerabilities,
     code_languages,
     compliance,
@@ -62,7 +62,7 @@ from ariadne import (
 
 GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
-GROUP.set_field("authors", authors.resolve)
+GROUP.set_field("billing", billing.resolve)
 GROUP.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
 GROUP.set_field("codeLanguages", code_languages.resolve)
 GROUP.set_field("compliance", compliance.resolve)
@@ -74,7 +74,6 @@ GROUP.set_field("executionsConnections", forces_executions.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
-GROUP.set_field("groupAuthors", authors.resolve)
 GROUP.set_field("groupContext", context.resolve)
 GROUP.set_field("hasAsm", has_asm.resolve)
 GROUP.set_field("hasForces", has_forces.resolve)

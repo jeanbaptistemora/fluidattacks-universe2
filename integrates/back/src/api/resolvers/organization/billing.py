@@ -6,7 +6,7 @@ from billing import (
     domain as billing_domain,
 )
 from billing.types import (
-    OrganizationAuthors,
+    OrganizationBilling,
 )
 from datetime import (
     datetime,
@@ -35,7 +35,7 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: datetime,
-) -> OrganizationAuthors:
+) -> OrganizationBilling:
     return await billing_domain.get_organization_authors(
         date=kwargs.get("date", datetime_utils.get_now()),
         org_id=parent.id,

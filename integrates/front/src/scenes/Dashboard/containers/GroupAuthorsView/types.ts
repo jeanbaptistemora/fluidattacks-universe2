@@ -14,8 +14,8 @@ interface IGroupAuthor {
 
 interface IData {
   group: {
-    authors: {
-      data: IGroupAuthor[];
+    billing: {
+      authors: IGroupAuthor[];
     };
   };
 }

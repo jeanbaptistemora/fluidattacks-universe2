@@ -90,7 +90,7 @@ describe("groupContent", (): void => {
       { action: "api_resolvers_group_consulting_resolve" },
       { action: "api_resolvers_query_stakeholder__resolve_for_group" },
       { action: "api_resolvers_group_drafts_resolve" },
-      { action: "api_resolvers_group_authors_resolve" },
+      { action: "api_resolvers_group_billing_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/orgs/testorg/groups/test/vulns"]}>

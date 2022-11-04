@@ -232,7 +232,7 @@ const GroupContent: React.FC = (): JSX.Element => {
               </Tab>
             </Can>
             <Have I={"has_service_white"}>
-              <Can do={"api_resolvers_group_authors_resolve"}>
+              <Can do={"api_resolvers_group_billing_resolve"}>
                 <Tab
                   id={"authorsTab"}
                   link={`${url}/authors`}
