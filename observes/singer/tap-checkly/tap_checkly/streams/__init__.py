@@ -21,6 +21,7 @@ from fa_purity import (
     Cmd,
     Maybe,
 )
+import logging
 from tap_checkly._utils import (
     DateInterval,
 )
@@ -48,6 +49,8 @@ from tap_checkly.singer import (
 from tap_checkly.state import (
     EtlState,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -81,6 +84,12 @@ class Streams:
             self.old_date
         )
         end_date = self.now
+        msg1 = Cmd.from_cmd(
+            lambda: LOG.info("check_results start date: %s", start_date)
+        )
+        msg2 = Cmd.from_cmd(
+            lambda: LOG.info("check_results end date: %s", end_date)
+        )
         client = ChecksClient.new(self.creds, 100)
         new_state = EtlState(
             Maybe.from_value(DateInterval.new(start_date, end_date).unwrap())
@@ -88,8 +97,11 @@ class Streams:
         items = client.list_ids().bind(
             lambda c: client.list_check_results(c, start_date, end_date)
         )
-        return _emit.from_encoder(encoders.results, items) + _emit.emit_state(
-            new_state
+        return (
+            msg1
+            + msg2
+            + _emit.from_encoder(encoders.results, items)
+            + _emit.emit_state(new_state)
         )
 
 

@@ -62,7 +62,8 @@ class RecreatePerStream:
                 table, TableId(self._backup_schema, table.name)
             )
 
-        return self._client.table_ids(self._target).bind(
+        create_schema = self._client.recreate_cascade(self._backup_schema)
+        return create_schema + self._client.table_ids(self._target).bind(
             lambda tables: consume(pure_map(_migrate, tuple(tables)))
         )
 
@@ -88,8 +89,9 @@ class RecreatePerStream:
 
     def main(self, procedure: LoadProcedure) -> Cmd[None]:
         recreate = self._client.recreate_cascade(self._loading_schema)
+        create_schema = self._client.create(self._target, True)
         upload = procedure(self._loading_schema)
-        _post_upload = self._backup() + self._move_data()
+        _post_upload = self._backup() + create_schema + self._move_data()
         return recreate + upload + _post_upload
 
     @property

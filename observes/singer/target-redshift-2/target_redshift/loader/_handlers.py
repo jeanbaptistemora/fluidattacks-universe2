@@ -51,7 +51,7 @@ class StateKeeperS3:
                 data.write(dumps(state.value).encode("UTF-8"))
                 data.seek(0)
                 self._client.upload_fileobj(
-                    data, self._file.bucket, self._file.file_name
+                    data, self._file.bucket, self._file.file_path
                 )
 
         return Cmd.from_cmd(_action)

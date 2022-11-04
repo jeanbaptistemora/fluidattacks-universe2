@@ -18,15 +18,16 @@ from fa_purity import (
 @dataclass(frozen=True)
 class S3FileObjURI:
     bucket: str
-    file_name: str
+    file_path: str
 
     @staticmethod
     def from_raw(raw: str) -> ResultE[S3FileObjURI]:
         try:
             if raw.startswith("s3://"):
-                _splitted = raw.split("/")
-                bucket = "/".join(_splitted[:-1])
-                obj_file = _splitted[-1]
+                _raw = raw.removeprefix("s3://")
+                _splitted = _raw.split("/")
+                bucket = _splitted[0]
+                obj_file = "/".join(_splitted[1:])
                 if obj_file:
                     return Result.success(
                         S3FileObjURI(bucket, obj_file), Exception
@@ -38,4 +39,4 @@ class S3FileObjURI:
             return Result.failure(err, S3FileObjURI).alt(Exception)
 
     def __repr__(self) -> str:
-        return "/".join([self.bucket, self.file_name])
+        return "/".join([self.bucket, self.file_path])

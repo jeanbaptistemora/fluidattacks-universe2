@@ -27,6 +27,7 @@ function start_etl {
     && tap-checkly stream \
       --api-user "${checkly_api_user}" \
       --api-key "${checkly_api_key}" \
+      --state "${state_dir}/${state_file}" \
       --all-streams \
       > .singer \
     && echo '[INFO] Running target' \
