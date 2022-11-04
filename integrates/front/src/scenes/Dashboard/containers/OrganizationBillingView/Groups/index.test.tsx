@@ -53,8 +53,8 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
+                      currentAuthors: 1,
                       currentSpend: 1,
-                      total: 1,
                     },
                     forces: "",
                     hasForces: true,
@@ -111,8 +111,8 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
+                      currentAuthors: 1,
                       currentSpend: 1,
-                      total: 1,
                     },
                     forces: "",
                     hasForces: true,
@@ -200,8 +200,8 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
+                      currentAuthors: 1,
                       currentSpend: 1,
-                      total: 1,
                     },
                     forces: "",
                     hasForces: true,

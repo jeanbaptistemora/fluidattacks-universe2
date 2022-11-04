@@ -29,8 +29,8 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
     organization(organizationId: $organizationId) {
       name
       billing {
+        currentAuthors
         currentSpend
-        total
         portal
         authors {
           actor
@@ -48,8 +48,8 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         permissions
         tier
         billing {
+          currentAuthors
           currentSpend
-          total
         }
       }
       paymentMethods {

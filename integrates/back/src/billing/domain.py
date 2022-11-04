@@ -919,17 +919,17 @@ async def get_group_authors(*, date: datetime, group: Group) -> GroupBilling:
         group=group.name,
     )
 
-    total: int = len(group_authors)
+    current_authors: int = len(group_authors)
 
     current_spend: int = 0
     if group.state.tier == GroupTier.SQUAD:
         prices: dict[str, Price] = await get_prices()
-        current_spend = int(total * prices["squad"].amount / 100)
+        current_spend = int(current_authors * prices["squad"].amount / 100)
 
     return GroupBilling(
-        current_spend=current_spend,
         authors=group_authors,
-        total=total,
+        current_authors=current_authors,
+        current_spend=current_spend,
     )
 
 
@@ -986,10 +986,10 @@ async def get_organization_billing(
     current_spend: int = int(org_squad_authors * prices["squad"].amount / 100)
 
     return OrganizationBilling(
-        current_spend=current_spend,
         authors=org_authors,
+        current_authors=len(org_authors),
+        current_spend=current_spend,
         portal=portal,
-        total=len(org_authors),
     )
 
 

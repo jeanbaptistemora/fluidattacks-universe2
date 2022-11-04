@@ -55,8 +55,8 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   // States
   const defaultCurrentRow: IGroupAttr = {
     billing: {
+      currentAuthors: 1,
       currentSpend: 0,
-      total: 0,
     },
     forces: "",
     hasForces: false,
@@ -184,7 +184,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.total;
+        return row.billing?.currentAuthors;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),

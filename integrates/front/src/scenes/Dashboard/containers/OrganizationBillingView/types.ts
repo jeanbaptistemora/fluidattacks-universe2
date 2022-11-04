@@ -5,8 +5,8 @@
  */
 
 interface IGroupBilling {
+  currentAuthors: number;
   currentSpend: number;
-  total: number;
 }
 
 interface IOrganizationAuthorAttr {
@@ -15,9 +15,9 @@ interface IOrganizationAuthorAttr {
 }
 
 interface IOrganizationBilling {
-  currentSpend: number;
   authors: IOrganizationAuthorAttr[];
-  total: number;
+  currentAuthors: number;
+  currentSpend: number;
   portal: string;
 }
 

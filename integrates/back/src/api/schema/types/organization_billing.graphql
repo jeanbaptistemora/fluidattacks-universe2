@@ -14,10 +14,10 @@ type OrganizationBillingAuthor {
 type OrganizationBilling {
   "Authors data"
   authors: [OrganizationBillingAuthor!]!
+  "Month-to-date authors"
+  currentAuthors: Int!
   "Month-to-date spend"
   currentSpend: Int!
   "Portal URL for managing group tiers"
-  portal: String
-  "Total authors"
-  total: Int!
+  portal: String!
 }

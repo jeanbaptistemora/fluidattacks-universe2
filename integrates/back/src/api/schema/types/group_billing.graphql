@@ -20,8 +20,8 @@ type GroupBillingAuthor {
 type GroupBilling {
   "Authors data"
   authors: [GroupBillingAuthor!]!
+  "Month-to-date authors"
+  currentAuthors: Int!
   "Month-to-date spend"
   currentSpend: Int!
-  "Total authors"
-  total: Int!
 }
