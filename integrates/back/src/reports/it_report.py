@@ -774,6 +774,28 @@ class ITReport:
                 return verification.modified_by
         return None
 
+    @staticmethod
+    def get_specific(
+        vuln: Vulnerability,
+    ) -> str:
+        specific = vuln.state.specific
+        try:
+            if vuln.type == VulnerabilityType.LINES:
+                specific = str(int(specific))
+        except ValueError as ex:
+            LOGGER.exception(
+                ex,
+                extra=dict(
+                    extra=dict(
+                        finding_id=vuln.finding_id,
+                        group_name=vuln.group_name,
+                        vuln_id=vuln.id,
+                    )
+                ),
+            )
+
+        return specific
+
     async def set_vuln_row(  # pylint: disable=too-many-arguments
         self,
         row: Vulnerability,
@@ -783,9 +805,7 @@ class ITReport:
         finding_verification: tuple[FindingVerification, ...],
     ) -> None:
         vuln = self.vulnerability
-        specific = row.state.specific
-        if row.type == VulnerabilityType.LINES:
-            specific = str(int(specific))
+        specific = self.get_specific(vuln=row)
 
         commit = EMPTY
         if row.commit:
