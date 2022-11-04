@@ -40,7 +40,6 @@ async def resolve(
     }
     results = await search(
         must_filters=[
-            {"verification.status": "REQUESTED"},
             {"unreliable_indicators.unreliable_status": "OPEN"},
         ],
         must_not_filters=[not_zero_requested],
