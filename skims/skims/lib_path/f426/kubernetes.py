@@ -8,6 +8,7 @@ from lib_path.common import (
 )
 from metaloaders.model import (
     Node,
+    Type,
 )
 from model.core_model import (
     MethodsEnum,
@@ -17,11 +18,30 @@ import re
 from typing import (
     Iterator,
     Pattern,
+    Set,
     Tuple,
 )
-from utils.function import (
-    get_node_by_keys,
-)
+
+
+def check_array_of_nodes(node: Node, key: str) -> Set[Node]:
+    match_nodes: Set[Node] = set()
+    for sub_tree in node.data:
+        match_nodes.update(get_values_by_key(sub_tree, key, match_nodes))
+    return match_nodes
+
+
+def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
+    if not isinstance(node.data, dict):
+        return nodes
+    for parent, sub_tree in node.data.items():
+        if parent.data == key:
+            nodes.add(sub_tree)
+            return nodes
+        if isinstance(sub_tree, Node):
+            nodes.update(get_values_by_key(sub_tree, key, nodes))
+        if sub_tree.data_type == Type.ARRAY:
+            nodes.update(check_array_of_nodes(sub_tree, key))
+    return nodes
 
 
 def check_digest(line: str) -> bool:
@@ -36,12 +56,11 @@ def _k8s_image_has_digest(
     if (
         isinstance(template, Node)
         and template.raw.get("apiVersion")
-        and (containers := get_node_by_keys(template, ["spec", "containers"]))
+        and (template_images := get_values_by_key(template, "image", set()))
     ):
-        image_nodes = [
-            container.inner.get("image") for container in containers.data
-        ]
-        vulns = filter(lambda node: not check_digest(node.data), image_nodes)
+        vulns = filter(
+            lambda image: not check_digest(image.data), template_images
+        )
 
         yield from vulns
 

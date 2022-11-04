@@ -35103,6 +35103,48 @@ F380,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/dock
   30 |       - sqldata
      ^ Col 0
 ",docker.docker_compose_image_has_digest
+F426,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,15,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml,"
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   creationTimestamp: null
+   6 |   labels:
+   7 |     component: kube-apiserver
+   8 |     tier: control-plane
+   9 |   name: kube-apiserver
+  10 |   namespace: kube-system
+  11 | spec:
+  12 |   containers:
+  13 |     - command:
+  14 |       - kube-apiserver
+> 15 |   image: gcr.io/google_containers/kube-apiserver-amd64:v1.6.0
+     ^ Col 0
+",kubernetes.k8s_image_has_digest
+F426,lines,namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,21,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f419/k8s_check_audit_flag.yaml.json,"
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""creationTimestamp"": null,
+   6 |     ""labels"": {
+   7 |       ""component"": ""kube-apiserver"",
+   8 |       ""tier"": ""control-plane""
+   9 |     },
+  10 |     ""name"": ""kube-apiserver"",
+  11 |     ""namespace"": ""kube-system""
+  12 |   },
+  13 |   ""spec"": {
+  14 |     ""containers"": [
+  15 |       {
+  16 |         ""command"": [
+  17 |           ""kube-apiserver""
+  18 |         ]
+  19 |       }
+  20 |     ],
+> 21 |     ""image"": ""gcr.io/google_containers/kube-apiserver-amd64:v1.6.0""
+  22 |   }
+  23 | }
+     ^ Col 0
+",kubernetes.k8s_image_has_digest
 F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,12,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,"
    2 | apiVersion: v1
    3 | kind: Pod
