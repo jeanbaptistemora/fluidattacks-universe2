@@ -6,6 +6,9 @@
 """
 From deleted groups, archive events metadata in redshift and
 remove all items from vms.
+
+Execution Time:    2022-11-03 at 20:39:34 UTC
+Finalization Time: 2022-11-03 at 22:02:21 UTC
 """
 
 from aioextensions import (
