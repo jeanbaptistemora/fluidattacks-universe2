@@ -13,6 +13,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.event_comments.types import (
     EventComment,
 )
@@ -31,6 +34,9 @@ from db_model.findings.types import (
 )
 from db_model.group_comments.types import (
     GroupComment,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from group_access import (
     domain as group_access_domain,
@@ -142,15 +148,25 @@ async def finding_comments(
 async def send_comment_digest() -> None:
     loaders: Dataloaders = get_new_context()
     groups_names = await orgs_domain.get_all_active_group_names(loaders)
-    group_stakeholders_email = await collect(
+    groups_stakeholders: Tuple[Tuple[Stakeholder, ...], ...] = await collect(
         [
-            group_access_domain.get_group_stakeholders_emails(
+            group_access_domain.get_group_stakeholders(
                 loaders,
                 group_name,
             )
             for group_name in groups_names
         ]
     )
+
+    group_stakeholders_email = [
+        [
+            stakeholder.email
+            for stakeholder in group_stakeholders
+            if Notification.NEW_COMMENT
+            in stakeholder.state.notifications_preferences.email
+        ]
+        for group_stakeholders in groups_stakeholders
+    ]
 
     if FI_ENVIRONMENT == "development":
         groups_names = tuple(
@@ -219,6 +235,20 @@ async def send_comment_digest() -> None:
             ],
         )
     )
+
+    email_data = {
+        group_name: data
+        for (group_name, data) in email_data.items()
+        if (
+            data["email_to"]
+            and (
+                data["group_comments"]
+                or data["event_comments"]
+                or data["finding_comments"]
+            )
+        )
+    }
+
     LOGGER.info("- Email data to notify: %s", email_data)
 
 
