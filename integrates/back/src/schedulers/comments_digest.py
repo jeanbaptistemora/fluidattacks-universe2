@@ -20,6 +20,9 @@ from db_model.events.types import (
     Event,
     GroupEventsRequest,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -80,32 +83,52 @@ async def group_comments(
     return last_comments(comments)
 
 
-async def event_comments(
-    loaders: Dataloaders, event_id: str
+async def instance_comments(
+    loaders: Dataloaders, instance_id: str, instance_type: str
 ) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
-    comments = await loaders.event_comments.load(event_id)
+    if instance_type == "event":
+        return last_comments(await loaders.event_comments.load(instance_id))
+
+    comments = (
+        await loaders.finding_comments.load((CommentType.COMMENT, instance_id))
+        + await loaders.finding_comments.load(
+            (CommentType.CONSULT, instance_id)
+        )
+        + await loaders.finding_comments.load(
+            (CommentType.VERIFICATION, instance_id)
+        )
+    )
+
     return last_comments(comments)
 
 
-async def group_events_comments(
-    loaders: Dataloaders, group_events: Tuple[Event, ...]
+async def group_instance_comments(
+    loaders: Dataloaders,
+    group_instances: Tuple[Union[Event, Finding], ...],
+    instance_type: str,
 ) -> Dict[str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
     comments = await collect(
         [
-            event_comments(loaders, event.id)
-            for event in group_events
-            if event.id
+            instance_comments(loaders, instance.id, instance_type)
+            for instance in group_instances
+            if instance.id
         ]
     )
 
-    event_comments_dic = dict(
-        zip([event.id for event in group_events], comments)
+    comments_dic = dict(
+        zip(
+            [
+                instance._asdict().get("title", instance.id)
+                for instance in group_instances
+            ],
+            comments,
+        )
     )
 
     return {
-        event: event_comment
-        for event, event_comment in event_comments_dic.items()
-        if event_comment
+        instance: instance_comment
+        for instance, instance_comment in comments_dic.items()
+        if instance_comment
     }
 
 
@@ -156,14 +179,26 @@ async def send_comment_digest() -> None:
         ...,
     ] = await collect(
         [
-            group_events_comments(loaders, group_events)
+            group_instance_comments(loaders, group_events, "event")
             for group_events in groups_events
         ]
     )
 
-    group_findings: Tuple[
+    groups_findings: Tuple[
         Tuple[Finding, ...], ...
     ] = await loaders.group_findings.load_many(groups_names)
+
+    findings_comments: Tuple[
+        Dict[
+            str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+        ],
+        ...,
+    ] = await collect(
+        [
+            group_instance_comments(loaders, group_findings, "finding")
+            for group_findings in groups_findings
+        ]
+    )
 
     email_data = dict(
         zip(
@@ -171,17 +206,15 @@ async def send_comment_digest() -> None:
             [
                 {
                     "email_to": email_to,
-                    "group_comments": list(group_comments),
-                    "event_comments": event_comments,
-                    "finding_comments": [
-                        finding.title for finding in findings
-                    ],
+                    "group_comments": group,
+                    "event_comments": event,
+                    "finding_comments": finding,
                 }
-                for email_to, group_comments, event_comments, findings in zip(
+                for email_to, group, event, finding in zip(
                     group_stakeholders_email,
                     groups_comments,
                     events_comments,
-                    group_findings,
+                    findings_comments,
                 )
             ],
         )
