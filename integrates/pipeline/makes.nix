@@ -18,6 +18,58 @@
     };
     stage = "analytics";
   };
+  backSrcModules = [
+    "analytics"
+    "api"
+    "app"
+    "authz"
+    "azure_repositories"
+    "batch"
+    "batch_dispatch"
+    "billing"
+    "cli"
+    "context"
+    "custom_exceptions"
+    "dataloaders"
+    "db_model"
+    "decorators"
+    "dynamodb"
+    "enrollment"
+    "event_comments"
+    "events"
+    "finding_comments"
+    "findings"
+    "forces"
+    "group_access"
+    "group_comments"
+    "groups"
+    "machine"
+    "mailer"
+    "newutils"
+    "notifications"
+    "organizations"
+    "organizations_finding_policies"
+    "redshift"
+    "remove_stakeholder"
+    "reports"
+    "roots"
+    "s3"
+    "schedulers"
+    "search"
+    "server"
+    "sessions"
+    "settings"
+    "sms"
+    "stakeholders"
+    "subscriptions"
+    "tags"
+    "telemetry"
+    "toe"
+    "unreliable_indicators"
+    "verify"
+    "vulnerabilities"
+    "vulnerability_files"
+  ];
   functionalTests = [
     ["abandoned_trial_notification"]
     ["accept_legal"]
@@ -562,10 +614,14 @@ in {
                 ];
               };
           }
-          {
-            output = "/lintPython/dirOfModules/integrates";
+        ]
+        ++ (builtins.map
+          (module: {
+            output = "/lintPython/dirOfModules/integrates/${module}";
             gitlabExtra = gitlabLint;
-          }
+          })
+          backSrcModules)
+        ++ [
           {
             output = "/lintPython/module/integratesBackCharts";
             gitlabExtra = gitlabLint;
