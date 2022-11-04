@@ -62,6 +62,9 @@ from findings.domain.core import (
 from more_itertools import (
     chunked,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from newutils.validations import (
     validate_sanitized_csv_input,
 )
@@ -87,7 +90,7 @@ def get_last_sprint_start_date(
     end_date: datetime = get_min_iso_date(datetime.now()).astimezone(
         tz=timezone.utc
     )
-    start_date: datetime = datetime.fromisoformat(
+    start_date: datetime = datetime_utils.get_datetime_from_iso_str(
         sprint_start_date
     ).astimezone(tz=timezone.utc)
 
@@ -126,7 +129,9 @@ def get_current_sprint_state(
     sprint_start_date: datetime,
 ) -> Optional[VulnerabilityState]:
     if (
-        datetime.fromisoformat(state.modified_date).timestamp()
+        datetime_utils.get_datetime_from_iso_str(
+            state.modified_date
+        ).timestamp()
         >= sprint_start_date.timestamp()
     ):
         return state
@@ -139,7 +144,9 @@ def get_last_state(
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
     if (
-        datetime.fromisoformat(state.modified_date).timestamp()
+        datetime_utils.get_datetime_from_iso_str(
+            state.modified_date
+        ).timestamp()
         <= last_day.timestamp()
     ):
         return state
