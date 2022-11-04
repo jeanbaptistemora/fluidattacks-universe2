@@ -12,6 +12,10 @@ from aioextensions import (
     collect,
     run,
 )
+from botocore.exceptions import (
+    ConnectTimeoutError,
+    ReadTimeoutError,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -25,6 +29,9 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 import logging
 import logging.config
@@ -53,6 +60,10 @@ def _filter_vulns_by_datetime_str(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ReadTimeoutError, ConnectTimeoutError),
+    sleep_seconds=3,
+)
 async def _process_vuln(
     loaders: Dataloaders,
     group_name: str,
@@ -83,6 +94,10 @@ async def _process_vuln(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ReadTimeoutError, ConnectTimeoutError),
+    sleep_seconds=3,
+)
 async def _process_group(
     loaders: Dataloaders,
     group_name: str,
@@ -137,7 +152,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(group_names)
         ),
-        workers=1,
+        workers=8,
     )
 
 
