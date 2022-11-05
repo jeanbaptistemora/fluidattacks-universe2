@@ -48,19 +48,7 @@ the only variable that affects an application.
 
 ## Governance model
 
-We enforce the model as a "do-ocracy", meaning that:
-
-- No formalities, meaning that the one who does the work is the one who makes
-  decisions.
-
-- Every member is responsible for every part of the code involving its work,
-  which means there are no roles declared, we all are developers, testers,
-  and administrators of the project in a certain way.
-
-By applying this philosophy we enforce a faster way to develop
-our applications, complementing this with strict
-[pipelines](#continuous-deployment) and [micro-changes](#micro-changes)
-to ensure security and availability.
+Please read [this](/development/governance).
 
 ## Infrastructure as Code (IaC)
 
@@ -258,10 +246,10 @@ a developer must do the following:
 1. Change the version in the source code.
 
 1. Run all CI tests on the generated ephemeral environment
-  with the new dependency version.
+   with the new dependency version.
 
 1. Get the change approved by a colleague
-  after running a peer review.
+   after running a peer review.
 
 If all tests and the peer review are passed,
 a new production version with the updated dependency

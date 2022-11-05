@@ -453,12 +453,12 @@ const Development = [
     ],
   },
   "development/governance",
+  "development/contributing",
   {
     type: "category",
     label: "Guidelines",
     items: [
       "development/guidelines/intro",
-      "development/guidelines/contributing",
       "development/guidelines/licensing-and-copyright",
       {
         type: "category",
