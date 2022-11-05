@@ -4318,7 +4318,7 @@
         {
           "FacetName": "organization_historic_access",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "USER#emailORG#id",
+            "PartitionKeyAlias": "USER#email#ORG#id",
             "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
@@ -4330,7 +4330,7 @@
                 "S": "user_manager"
               },
               "pk": {
-                "S": "USER#integratesuser@gmail.comORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+                "S": "USER#integratesuser@gmail.com#ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
               "email": {
                 "S": "integratesuser@gmail.com"
@@ -4354,7 +4354,7 @@
                 "S": "user_manager"
               },
               "pk": {
-                "S": "USER#integratesuser@gmail.comORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+                "S": "USER#integratesuser@gmail.com#ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
               },
               "email": {
                 "S": "integratesuser@gmail.com"
@@ -4375,7 +4375,7 @@
                 "S": "STATE#2020-01-01T20:07:57+00:00"
               },
               "pk": {
-                "S": "USER#integratesuser@gmail.comORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+                "S": "USER#integratesuser@gmail.com#ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
               },
               "email": {
                 "S": "integratesuser@gmail.com"
@@ -6051,7 +6051,7 @@
         {
           "FacetName": "group_historic_access",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "USER#emailGROUP#name",
+            "PartitionKeyAlias": "USER#email#GROUP#name",
             "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
@@ -6072,7 +6072,7 @@
                 "BOOL": true
               },
               "pk": {
-                "S": "USER#integratesuser@gmail.comGROUP#asgard"
+                "S": "USER#integratesuser@gmail.com#GROUP#asgard"
               },
               "email": {
                 "S": "integratesuser@gmail.com"
@@ -6102,7 +6102,7 @@
                 "BOOL": true
               },
               "pk": {
-                "S": "USER#org_testuser3@gmail.comGROUP#sheele"
+                "S": "USER#org_testuser3@gmail.com#GROUP#sheele"
               },
               "email": {
                 "S": "org_testuser3@gmail.com"
@@ -6120,7 +6120,7 @@
                 "S": "STATE#2020-01-01T20:07:57+00:00"
               },
               "pk": {
-                "S": "USER#unittest@fluidattacks.comGROUP#unittesting"
+                "S": "USER#unittest@fluidattacks.com#GROUP#unittesting"
               },
               "has_access": {
                 "BOOL": true

@@ -42,6 +42,7 @@ from db_model.forces.get import (
 )
 from db_model.group_access.get import (
     GroupAccessLoader,
+    GroupHistoricAccessLoader,
     GroupStakeholdersAccessLoader,
     StakeholderGroupsAccessLoader,
 )
@@ -152,6 +153,7 @@ class Dataloaders(NamedTuple):
     root_environment_urls: RootEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
+    group_historic_access: GroupHistoricAccessLoader
     group_comments: GroupCommentsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
@@ -294,6 +296,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         root_environment_urls=RootEnvironmentUrlsLoader(),
         group=group_loader,
         group_access=group_access_loader,
+        group_historic_access=GroupHistoricAccessLoader(),
         group_comments=GroupCommentsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,

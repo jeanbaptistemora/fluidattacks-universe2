@@ -24,6 +24,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.group_access.constants import (
+    STATES_PREFIX,
+)
 from dynamodb import (
     keys,
     operations,
@@ -67,6 +70,29 @@ async def _get_group_access(
         return tuple(response[request] for request in requests)
 
     raise StakeholderNotInGroup()
+
+
+async def _get_historic_group_access(
+    *, request: GroupAccessRequest
+) -> tuple[GroupAccess, ...]:
+    historic_key = keys.build_key(
+        facet=TABLE.facets["group_historic_access"],
+        values={
+            "email": request.email.lower().strip(),
+            "name": request.group_name.lower().strip(),
+        },
+    )
+    key_structure = TABLE.primary_key
+    condition_expression = Key(key_structure.partition_key).eq(
+        historic_key.partition_key
+    ) & Key(key_structure.sort_key).begins_with(STATES_PREFIX)
+    response = await operations.query(
+        condition_expression=condition_expression,
+        facets=(TABLE.facets["group_historic_access"],),
+        table=TABLE,
+    )
+
+    return tuple(format_group_access(item) for item in response.items)
 
 
 async def _get_group_stakeholders_access(
@@ -149,6 +175,19 @@ class GroupAccessLoader(DataLoader):
         self, requests: Iterable[GroupAccessRequest]
     ) -> tuple[GroupAccess, ...]:
         return await _get_group_access(requests=tuple(requests))
+
+
+class GroupHistoricAccessLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[GroupAccessRequest]
+    ) -> tuple[tuple[GroupAccess, ...], ...]:
+        return await collect(
+            tuple(
+                _get_historic_group_access(request=request)
+                for request in requests
+            )
+        )
 
 
 class GroupStakeholdersAccessLoader(DataLoader):
