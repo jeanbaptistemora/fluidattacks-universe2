@@ -155,7 +155,7 @@ when performing a review:
    or maybe the reviewer is seeing something the author doesn't see yet.
    This ["aha" moment](https://www.wordnik.com/words/aha%20moment)
    unlocks learning,
-   and a safe environment to argue is key to good decision making.
+   and a safe environment to argue is key to good decision-making.
 
 1. **Minor improvements or fixes can come later**.
 
@@ -164,11 +164,18 @@ when performing a review:
    go ahead and merge it.
    Just take note somewhere so that the author reminds amending it later.
    Also don't be too picky,
-   specially about things that are subjective like style, formatting,
+   especially about things that are subjective like style, formatting,
    or those that are too minor
    to even pay attention to (like a typo in a comment).
 
-<!--
-OpenSSF requirements:
-How code review is conducted, what is checked, what is acceptable.
--->
+A reviewer must check:
+
+1. That the [contributing steps](#steps) have been followed,
+   not only in the Merge Request, but also in the associated Issue.
+1. That the Merge Request adds more value than what it takes.
+   This is subjective, but the
+   [8 quality characteristics of good software](https://iso25000.com/index.php/en/iso-25000-standards/iso-25010)
+   are a good starting point.
+
+A reviewer should accept a contribution if it's been made
+according to this document.
