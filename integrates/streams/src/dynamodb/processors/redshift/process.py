@@ -139,18 +139,19 @@ def process_toe_inputs(records: tuple[Record, ...]) -> None:
             )
 
 
-def process_toe_lines(records: tuple[Record, ...]) -> None:
-    with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image for record in records if record.old_image
-        ]
-        for item in metadata_items:
-            toe_lines_ops.insert_metadata(cursor=cursor, item=item)
-            LOGGER.info(
-                "Toe lines metadata stored, sk: %s, group: %s",
-                item["sk"],
-                item["group_name"],
-            )
+def _process_toe_lines(
+    cursor: cursor_cls, records: tuple[Record, ...]
+) -> None:
+    metadata_items: list[Item] = [
+        record.old_image for record in records if record.old_image
+    ]
+    for item in metadata_items:
+        toe_lines_ops.insert_metadata(cursor=cursor, item=item)
+        LOGGER.info(
+            "Toe lines metadata stored, sk: %s, group: %s",
+            item["sk"],
+            item["group_name"],
+        )
 
 
 def _process_vulnerability_metadata(cursor: cursor_cls, item: Item) -> None:
@@ -164,36 +165,57 @@ def _process_vulnerability_metadata(cursor: cursor_cls, item: Item) -> None:
         )
 
 
-def process_vulnerabilities(records: tuple[Record, ...]) -> None:
+def _process_vulnerabilities(
+    cursor: cursor_cls, records: tuple[Record, ...]
+) -> None:
+    metadata_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.startswith("FIN#")
+    ]
+    for item in metadata_items:
+        _process_vulnerability_metadata(cursor, item)
+    for key, items in _get_items_iterator(records, "STATE#"):
+        vulns_ops.insert_historic_state(
+            cursor=cursor,
+            vulnerability_id=str(key).split("#")[1],
+            historic_state=tuple(items),
+        )
+    for key, items in _get_items_iterator(records, "TREATMENT#"):
+        vulns_ops.insert_historic_treatment(
+            cursor=cursor,
+            vulnerability_id=str(key).split("#")[1],
+            historic_treatment=tuple(items),
+        )
+    for key, items in _get_items_iterator(records, "VERIFICATION#"):
+        vulns_ops.insert_historic_verification(
+            cursor=cursor,
+            vulnerability_id=str(key).split("#")[1],
+            historic_verification=tuple(items),
+        )
+    for key, items in _get_items_iterator(records, "ZERORISK#"):
+        vulns_ops.insert_historic_zero_risk(
+            cursor=cursor,
+            vulnerability_id=str(key).split("#")[1],
+            historic_zero_risk=tuple(items),
+        )
+
+
+def process_records(records: tuple[Record, ...]) -> None:
     with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image
-            for record in records
-            if record.old_image and record.sk.startswith("FIN#")
-        ]
-        for item in metadata_items:
-            _process_vulnerability_metadata(cursor, item)
-        for key, items in _get_items_iterator(records, "STATE#"):
-            vulns_ops.insert_historic_state(
-                cursor=cursor,
-                vulnerability_id=str(key).split("#")[1],
-                historic_state=tuple(items),
-            )
-        for key, items in _get_items_iterator(records, "TREATMENT#"):
-            vulns_ops.insert_historic_treatment(
-                cursor=cursor,
-                vulnerability_id=str(key).split("#")[1],
-                historic_treatment=tuple(items),
-            )
-        for key, items in _get_items_iterator(records, "VERIFICATION#"):
-            vulns_ops.insert_historic_verification(
-                cursor=cursor,
-                vulnerability_id=str(key).split("#")[1],
-                historic_verification=tuple(items),
-            )
-        for key, items in _get_items_iterator(records, "ZERORISK#"):
-            vulns_ops.insert_historic_zero_risk(
-                cursor=cursor,
-                vulnerability_id=str(key).split("#")[1],
-                historic_zero_risk=tuple(items),
-            )
+        _process_toe_lines(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("GROUP#")
+                    and record.sk.startswith("LINES#"),
+                    records,
+                )
+            ),
+        )
+        _process_vulnerabilities(
+            cursor=cursor,
+            records=tuple(
+                filter(lambda record: record.pk.startswith("VULN#"), records)
+            ),
+        )
