@@ -9,11 +9,8 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.generators.bar_chart.utils import (
-    format_csv_data,
+    format_data_csv,
     generate_all_top_vulnerabilities,
     LIMIT,
 )
@@ -25,6 +22,9 @@ from charts.generators.common.colors import (
 )
 from charts.generators.common.utils import (
     get_finding_name,
+)
+from charts.utils import (
+    CsvData,
 )
 from dataloaders import (
     Dataloaders,
@@ -81,7 +81,7 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> dict:
+def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
     data: list[tuple[str, int]] = counters.most_common()
     merged_data: list[list[Union[int, str]]] = []
     for axis, columns in groupby(
@@ -90,14 +90,15 @@ def format_data(counters: Counter[str]) -> dict:
     ):
         merged_data.append([axis, sum([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:LIMIT]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
+    limited_merged_data = merged_data[:LIMIT]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 [
                     "# Open Vulnerabilities",
-                    *[value for _, value in merged_data],
+                    *[value for _, value in limited_merged_data],
                 ],
             ],
             colors={
@@ -118,7 +119,8 @@ def format_data(counters: Counter[str]) -> dict:
             rotated=True,
             x=dict(
                 categories=[
-                    get_finding_name([str(key)]) for key, _ in merged_data
+                    get_finding_name([str(key)])
+                    for key, _ in limited_merged_data
                 ],
                 type="category",
                 tick=dict(
@@ -135,13 +137,17 @@ def format_data(counters: Counter[str]) -> dict:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in merged_data]
+            [(key, Decimal(value)) for key, value in limited_merged_data]
         ),
     )
+    csv_data = format_data_csv(
+        header_value=json_data["data"]["columns"][0][0],
+        values=[value for _, value in merged_data],
+        categories=[group for group, _ in merged_data],
+        header_title="Type",
+    )
 
-
-def format_csv(document: dict) -> utils.CsvData:
-    return format_csv_data(document=document, header="Type")
+    return (json_data, csv_data)
 
 
 if __name__ == "__main__":
@@ -150,6 +156,5 @@ if __name__ == "__main__":
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
             format_data=format_data,
-            format_csv=format_csv,
         )
     )

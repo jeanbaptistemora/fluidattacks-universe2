@@ -291,19 +291,20 @@ def format_vulnerabilities_by_data(
     counters: Counter[str],
     column: str,
     axis_rotated: bool = False,
-) -> dict:
-    data = counters.most_common()[:LIMIT]
-    max_value = format_value(data)
+) -> tuple[dict, CsvData]:
+    data = counters.most_common()
+    limited_data = data[:LIMIT]
+    max_value = format_value(limited_data)
     max_axis_value: Decimal = (
         get_max_axis(value=max_value)
         if max_value > Decimal("0.0") and not axis_rotated
         else Decimal("0.0")
     )
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
-                [column, *[value for _, value in data]],
+                [column, *[value for _, value in limited_data]],
             ],
             colors={
                 column: VULNERABILITIES_COUNT,
@@ -317,7 +318,7 @@ def format_vulnerabilities_by_data(
         axis=dict(
             rotated=axis_rotated,
             x=dict(
-                categories=[key for key, _ in data],
+                categories=[key for key, _ in limited_data],
                 type="category",
                 **(
                     {}
@@ -378,6 +379,14 @@ def format_vulnerabilities_by_data(
             )
         ),
     )
+    csv_data = format_data_csv(
+        header_value="Occurrences",
+        values=[Decimal(value) for _, value in data],
+        categories=[group for group, _ in data],
+        header_title=column,
+    )
+
+    return (json_data, csv_data)
 
 
 async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
@@ -912,42 +921,41 @@ async def generate_all_top_vulnerabilities(
     get_data_many_groups: Callable[
         [List[str], Dataloaders], Awaitable[Counter[str]]
     ],
-    format_data: Callable[[Counter[str]], Dict[str, Any]],
-    format_csv: Callable[[dict], CsvData],
+    format_data: Callable[[Counter[str]], tuple[dict, CsvData]],
 ) -> None:
     loaders = get_new_context()
     async for group in iterate_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             await get_data_one_group(group, loaders),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="group",
             subject=group,
-            csv_document=format_csv(document),
+            csv_document=csv_document,
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             await get_data_many_groups(list(org_groups), loaders),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv(document),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 await get_data_many_groups(list(groups), loaders),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv(document),
+                csv_document=csv_document,
             )
 
 
@@ -966,5 +974,26 @@ def format_csv_data(
 
     return CsvData(
         headers=[header, alternative if alternative else columns[0][0]],
+        rows=rows,
+    )
+
+
+def format_data_csv(
+    *,
+    header_value: str,
+    values: list[Decimal],
+    categories: list[str],
+    header_title: str = "Group name",
+) -> CsvData:
+    rows: list[list[str]] = []
+    for category, value in zip(categories, values):
+        try:
+            validate_sanitized_csv_input(str(category).rsplit(" - ", 1)[0])
+            rows.append([str(category).rsplit(" - ", 1)[0], str(value)])
+        except UnsanitizedInputFound:
+            rows.append(["", ""])
+
+    return CsvData(
+        headers=[header_title, header_value],
         rows=rows,
     )

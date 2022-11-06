@@ -13,6 +13,7 @@ from charts import (
     utils,
 )
 from charts.generators.bar_chart.utils import (
+    format_data_csv,
     generate_all_top_vulnerabilities,
     LIMIT,
 )
@@ -24,9 +25,6 @@ from charts.generators.common.colors import (
 )
 from charts.generators.common.utils import (
     get_finding_name,
-)
-from custom_exceptions import (
-    UnsanitizedInputFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -49,11 +47,7 @@ from findings import (
 from itertools import (
     groupby,
 )
-from newutils.validations import (
-    validate_sanitized_csv_input,
-)
 from typing import (
-    Any,
     Counter,
     Union,
 )
@@ -115,7 +109,7 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> dict[str, Any]:
+def format_data(counters: Counter[str]) -> tuple[dict, utils.CsvData]:
     data: list[tuple[str, int]] = counters.most_common()
     merged_data: list[list[Union[int, str]]] = []
     for axis, columns in groupby(
@@ -124,16 +118,17 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
     ):
         merged_data.append([axis, sum([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:LIMIT]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
+    limited_merged_data = merged_data[:LIMIT]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 [
                     "Open Exposure",
                     *[
                         utils.format_cvssf_log(Decimal(value))
-                        for _, value in merged_data
+                        for _, value in limited_merged_data
                     ],
                 ],
             ],
@@ -153,7 +148,8 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
             rotated=True,
             x=dict(
                 categories=[
-                    get_finding_name([str(key)]) for key, _ in merged_data
+                    get_finding_name([str(key)])
+                    for key, _ in limited_merged_data
                 ],
                 type="category",
                 tick=dict(
@@ -176,35 +172,29 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
         exposureTrendsByCategories=True,
         keepToltipColor=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in merged_data]
+            [(key, Decimal(value)) for key, value in limited_merged_data]
         ),
         maxValueLog=format_max_value(
             [
                 (key, utils.format_cvssf_log(Decimal(value)))
-                for key, value in merged_data
+                for key, value in limited_merged_data
             ]
         ),
         originalValues=[
-            utils.format_cvssf(Decimal(value)) for _, value in merged_data
+            utils.format_cvssf(Decimal(value))
+            for _, value in limited_merged_data
         ],
     )
 
-
-def format_csv_data(document: dict) -> utils.CsvData:
-    columns: list[list[str]] = document["originalValues"]
-    categories: list[str] = document["axis"]["x"]["categories"]
-    rows: list[list[str]] = []
-    for category, value in zip(categories, tuple(columns)):
-        try:
-            validate_sanitized_csv_input(str(category).rsplit(" - ", 1)[0])
-            rows.append([str(category).rsplit(" - ", 1)[0], str(value)])
-        except UnsanitizedInputFound:
-            rows.append(["", ""])
-
-    return utils.CsvData(
-        headers=["Type", document["data"]["columns"][0][0]],
-        rows=rows,
+    csv_data = format_data_csv(
+        header_value=json_data["data"]["columns"][0][0],
+        values=[
+            utils.format_cvssf(Decimal(value)) for _, value in merged_data
+        ],
+        categories=[group for group, _ in merged_data],
     )
+
+    return (json_data, csv_data)
 
 
 if __name__ == "__main__":
@@ -213,6 +203,5 @@ if __name__ == "__main__":
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
             format_data=format_data,
-            format_csv=format_csv_data,
         )
     )

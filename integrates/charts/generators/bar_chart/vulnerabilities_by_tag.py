@@ -13,7 +13,6 @@ from charts import (
     utils,
 )
 from charts.generators.bar_chart.utils import (
-    format_csv_data,
     format_vulnerabilities_by_data,
 )
 from dataloaders import (
@@ -61,53 +60,46 @@ async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
 
 async def generate_all() -> None:
     column: str = "Tag"
-    header: str = "Occurrences"
     async for group in utils.iterate_groups():
-        document = format_vulnerabilities_by_data(
+        json_document, csv_document = format_vulnerabilities_by_data(
             counters=await get_data_one_group(group),
             column=column,
             axis_rotated=True,
         )
         utils.json_dump(
-            document=document,
+            document=json_document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(
-                document=document, header=column, alternative=header
-            ),
+            csv_document=csv_document,
         )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
-        document = format_vulnerabilities_by_data(
+        json_document, csv_document = format_vulnerabilities_by_data(
             counters=await get_data_many_groups(org_groups),
             column=column,
             axis_rotated=True,
         )
         utils.json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(
-                document=document, header=column, alternative=header
-            ),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            document = format_vulnerabilities_by_data(
+            json_document, csv_document = format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(groups),
                 column=column,
                 axis_rotated=True,
             )
             utils.json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(
-                    document=document, header=column, alternative=header
-                ),
+                csv_document=csv_document,
             )
 
 
