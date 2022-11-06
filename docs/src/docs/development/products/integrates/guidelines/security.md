@@ -65,8 +65,9 @@ can interact with the application
 or supply it with data.
 
 | Identifier |                                              Description                                               |       Trust Levels       |
-| :--------: | :----------------------------------------------------------------------------------------------------: | :----------------------: | --- | ------- | ------------------------------------------------------------------------------ | ------------------------ |
-|   _API_    | The API is intended to be used by anyone, but some endpoints require an API token or an active session | Anonymous, Authenticated |     | _Front_ | The FrontEnd is accessible by anyone, but some views require an active session | Anonymous, Authenticated |
+| :--------: | :----------------------------------------------------------------------------------------------------: | :----------------------: |
+|   _API_    | The API is intended to be used by anyone, but some endpoints require an API token or an active session | Anonymous, Authenticated |
+|  _Front_   |             The FrontEnd is accessible by anyone, but some views require an active session             | Anonymous, Authenticated |
 
 ### Exit Points
 
@@ -80,12 +81,20 @@ Exit points might prove useful when attacking Integrates.
 
 Something an attacker may be interested in:
 
-|  Identifier  |                                Description                                | Trust Levels |
-| :----------: | :-----------------------------------------------------------------------: | :----------: |
-| _Cloudflare_ |                        Domain Name, Firewall, CDN                         |    Admin     |
-|    _Data_    | _AWS Backup_, _AWS CloudWatch_,_AWS DynamoDB_, _AWS OpenSearch_, _AWS S3_ |    Admin     |
-|  _Backups_   |                      Backups of the previous assets                       |    Admin     |
-|  _Secrets_   |                 Credentials and secrets of other services                 |    Admin     |
-|  _AWS IAM_   |                        `prod_integrates` IAM role                         |    Admin     |
+|        Identifier         |                                Description                                |          Trust Levels           |
+| :-----------------------: | :-----------------------------------------------------------------------: | :-----------------------------: |
+|       _Cloudflare_        |                        Domain Name, Firewall, CDN                         |              Admin              |
+|          _Data_           | _AWS Backup_, _AWS CloudWatch_,_AWS DynamoDB_, _AWS OpenSearch_, _AWS S3_ | Anonymous, Authenticated, Admin |
+|         _Backups_         |                      Backups of the previous assets                       |              Admin              |
+|         _Secrets_         |                 Credentials and secrets of other services                 |              Admin              |
+| _AWS IAM prod_integrates_ |                        `prod_integrates` IAM role                         |              Admin              |
 
-###
+### Trust Levels
+
+Access rights that the application recognizes on external entities:
+
+|  Identifier   |                              Description                               |
+| :-----------: | :--------------------------------------------------------------------: |
+|   Anonymous   |                        Any user on the internet                        |
+| Authenticated |          Any user with either an API token or a valid session          |
+|     Admin     | Some Integrates Developer or and instance of _AWS IAM prod_integrates_ |
