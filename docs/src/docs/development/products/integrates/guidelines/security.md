@@ -304,3 +304,43 @@ Access rights that the application recognizes on external entities:
 
    - The API server has different layers of access control,
      allowing a logical division of the data by customer.
+
+## Design Principles
+
+### Least Privilege
+
+Integrates has many roles
+so that every identity can be granted
+one with the minimum amount of permissions.
+
+### Fail-Safe Defaults
+
+The application denies access by default.
+
+### Economy of Mechanism
+
+### Complete Mediation
+
+Authentication tokens only carry the identity of the user,
+and authorization happens many times within one request
+every time a function is executed.
+
+### Open Design
+
+- Integrates is Free and Open Source Software,
+  anyone can read its source code
+  and understand the internals.
+- The technical and user documentation is also public.
+
+### Separation of Privilege
+
+Roles are per user, group, and organization,
+allowing maximum segregation.
+
+### Least Common Mechanism
+
+Almost all storage mechanisms are layered by organization, group, or user,
+and therefore locating them requires specifying this information,
+which creates a logical barrier.
+
+### Psychological Acceptability
