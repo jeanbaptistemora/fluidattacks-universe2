@@ -9,16 +9,18 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.bar_chart.utils import (
+    LIMIT,
+)
 from charts.generators.common.colors import (
     TREATMENT,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
-    format_csv_data,
-)
 from charts.generators.stacked_bar_chart.utils import (
+    format_data_csv,
     MIN_PERCENTAGE,
 )
 from charts.utils import (
+    CsvData,
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
@@ -100,7 +102,9 @@ def get_max_value(counter_values: Iterable[int]) -> int:
     return 1
 
 
-def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
+def format_vulnerabilities_by_data(
+    *, counters: Counter[str]
+) -> tuple[dict, CsvData]:
     translations: dict[str, str] = {
         "ACCEPTED_UNDEFINED": "Permanently accepted",
         "ACCEPTED": "Temporarily accepted",
@@ -115,7 +119,8 @@ def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
             Counter(),
         )
     )
-    data: list[tuple[str, int]] = counter_user.most_common(12)
+    all_data: list[tuple[str, int]] = counter_user.most_common()
+    data: list[tuple[str, int]] = all_data[:LIMIT]
     accepted: list[int] = [counters[f"{user}/ACCEPTED"] for user, _ in data]
     accepted_undefined: list[int] = [
         counters[f"{user}/ACCEPTED_UNDEFINED"] for user, _ in data
@@ -137,7 +142,7 @@ def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
         for value in accepted_undefined
     ]
 
-    return dict(
+    json_data = dict(
         data=dict(
             colors={
                 "Permanently accepted": TREATMENT.more_passive,
@@ -184,6 +189,20 @@ def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
         stackedBarChartYTickFormat=True,
     )
 
+    csv_data = format_data_csv(
+        columns=[
+            "Permanently accepted",
+            "Temporarily accepted",
+        ],
+        values=[
+            [counters[f"{user}/{key}"] for user, _ in all_data]
+            for key, _ in translations.items()
+        ],
+        categories=[key for key, _ in all_data],
+        header="User",
+    )
+    return (json_data, csv_data)
+
 
 async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
@@ -192,39 +211,38 @@ async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
 
 
 async def generate_all() -> None:
-    header: str = "User"
     async for group in iterate_groups():
-        document = format_vulnerabilities_by_data(
+        json_document, csv_document = format_vulnerabilities_by_data(
             counters=await get_data_one_group(group),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_vulnerabilities_by_data(
+        json_document, csv_document = format_vulnerabilities_by_data(
             counters=await get_data_many_groups(org_groups),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_vulnerabilities_by_data(
+            json_document, csv_document = format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(tuple(groups)),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
 
 
