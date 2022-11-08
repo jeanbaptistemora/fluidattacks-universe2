@@ -31435,6 +31435,20 @@ F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,11,676,skims,143
   21 |     }
      ^ Col 0
 ",javascript.js_uses_eval
+F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,3,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+  1 | let input = req.query.input;
+  2 | eval(input); // Noncompliant
+> 3 | (Function(input))(); // Noncompliant
+  4 | (new Function(input))(); // Noncompliant
+    ^ Col 0
+",typescript.ts_uses_eval
+F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,2,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+  1 | let input = req.query.input;
+> 2 | eval(input); // Noncompliant
+  3 | (Function(input))(); // Noncompliant
+  4 | (new Function(input))(); // Noncompliant
+    ^ Col 0
+",typescript.ts_uses_eval
 F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml","
    1 | ---
