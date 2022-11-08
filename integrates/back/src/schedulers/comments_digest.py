@@ -53,7 +53,10 @@ from settings import (
 )
 from typing import (
     Dict,
+    List,
+    Optional,
     Tuple,
+    TypedDict,
     Union,
 )
 
@@ -62,6 +65,19 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 COMMENTS_AGE = 1
+
+
+class CommentsDataType(TypedDict):
+    email_to: Tuple[str, ...]
+    group_comments: Tuple[
+        Union[GroupComment, EventComment, FindingComment], ...
+    ]
+    event_comments: Dict[
+        str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    ]
+    finding_comments: Dict[
+        str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    ]
 
 
 def days_since_comment(date: str) -> int:
@@ -138,11 +154,38 @@ async def group_instance_comments(
     }
 
 
+def unique_emails(
+    comment_data: Dict[str, CommentsDataType],
+    email_list: Tuple[str, ...],
+) -> Tuple[str, ...]:
+    if comment_data:
+        email_list += comment_data.popitem()[1]["email_to"]
+        unique_emails(comment_data, email_list)
+
+    return tuple(set(email_list))
+
+
 async def finding_comments(
     loaders: Dataloaders, finding_id: str
 ) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments = await loaders.finding_comments.load(finding_id)
     return last_comments(comments)
+
+
+def digest_comments(
+    items: Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+) -> List[Dict[str, Optional[str]]]:
+    return [
+        {
+            "date": comment.creation_date,
+            "type": "comment" if comment.parent_id == "0" else "reply",
+            "name": comment.full_name
+            if comment.full_name
+            else comment.email.split("@")[0],
+            "comment": comment.content,
+        }
+        for comment in items
+    ]
 
 
 async def send_comment_digest() -> None:
@@ -158,15 +201,15 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    group_stakeholders_email = [
-        [
+    group_stakeholders_email: Tuple[Tuple[str, ...], ...] = tuple(
+        tuple(
             stakeholder.email
             for stakeholder in group_stakeholders
             if Notification.NEW_COMMENT
             in stakeholder.state.notifications_preferences.email
-        ]
+        )
         for group_stakeholders in groups_stakeholders
-    ]
+    )
 
     if FI_ENVIRONMENT == "development":
         groups_names = tuple(
@@ -216,7 +259,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    email_data = dict(
+    groups_data: Dict[str, CommentsDataType] = dict(
         zip(
             groups_names,
             [
@@ -236,9 +279,9 @@ async def send_comment_digest() -> None:
         )
     )
 
-    email_data = {
+    groups_data = {
         group_name: data
-        for (group_name, data) in email_data.items()
+        for (group_name, data) in groups_data.items()
         if (
             data["email_to"]
             and (
@@ -249,7 +292,28 @@ async def send_comment_digest() -> None:
         )
     }
 
-    LOGGER.info("- Email data to notify: %s", email_data)
+    users_data = {
+        email: {
+            group_name: {
+                "group_comments": digest_comments(data["group_comments"]),
+                "event_comments": {
+                    event_id: digest_comments(comments)
+                    for event_id, comments in data["event_comments"].items()
+                },
+                "finding_comments": {
+                    finding_id: digest_comments(comments)
+                    for finding_id, comments in data[
+                        "finding_comments"
+                    ].items()
+                },
+            }
+            for group_name, data in groups_data.items()
+            if email in data["email_to"]
+        }
+        for email in unique_emails(dict(groups_data), ())
+    }
+
+    LOGGER.info("- Email data to notify: %s", users_data)
 
 
 async def main() -> None:
