@@ -202,6 +202,8 @@ async def add_credentials(
             name=attributes.name,
             secret=secret,
             type=attributes.type,
+            is_pat=bool(attributes.is_pat),
+            azure_organization=attributes.azure_organization,
         ),
     )
     await orgs_validations.validate_credentials_name_in_organization(
@@ -741,6 +743,8 @@ async def update_credentials(
         modified_date=datetime_utils.get_iso_date(),
         name=credentials_name,
         secret=secret,
+        is_pat=bool(attributes.is_pat),
+        azure_organization=attributes.azure_organization,
         type=credentials_type,
     )
     await credentials_model.update_credential_state(

@@ -48,6 +48,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     name="Good SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -60,6 +61,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     name="Bad SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0ggS2V5Cg=="),
+                    is_pat=False,
                 ),
             ),
         ),

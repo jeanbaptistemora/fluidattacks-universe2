@@ -8,6 +8,9 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    InvalidParameter,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -25,6 +28,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
+)
+from newutils.validations import (
+    validate_space_field,
 )
 from organizations import (
     domain as orgs_domain,
@@ -52,6 +58,13 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
+    is_pat: bool = bool(credentials.get("is_pat", False))
+    if is_pat:
+        if "azure_organization" not in credentials:
+            raise InvalidParameter("azure_organization")
+        validate_space_field(credentials["azure_organization"])
+    if not is_pat and "azure_organization" in credentials:
+        raise InvalidParameter("azure_organization")
     await orgs_domain.update_credentials(
         loaders,
         CredentialAttributesToUpdate(
@@ -63,6 +76,10 @@ async def mutate(
             else None,
             user=credentials.get("user"),
             password=credentials.get("password"),
+            is_pat=is_pat,
+            azure_organization=credentials["azure_organization"]
+            if is_pat
+            else None,
         ),
         credentials_id,
         organization_id,

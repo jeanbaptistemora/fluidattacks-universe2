@@ -54,6 +54,10 @@ input NotificationPreferences {
 
 "Credentials definition"
 input CredentialsInput {
+  "Name of the azure organization pat"
+  azureOrganization: String
+  "Whether credential is azure pat"
+  isPat: Boolean
   "SSH key"
   key: String
   "Name of the credential"

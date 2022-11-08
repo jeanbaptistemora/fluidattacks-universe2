@@ -556,6 +556,8 @@ def _format_root_credential_new(
             name=credentials["name"],
             secret=secret,
             type=credential_type,
+            is_pat=False,
+            azure_organization=None,
         ),
     )
 

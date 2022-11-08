@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from api.resolvers.credentials import (
+    azure_organization,
+    is_pat,
     key,
     name,
     organization,
@@ -16,6 +18,8 @@ from ariadne import (
 )
 
 CREDENTIALS = ObjectType("Credentials")
+CREDENTIALS.set_field("azureOrganization", azure_organization.resolve)
+CREDENTIALS.set_field("isPat", is_pat.resolve)
 CREDENTIALS.set_field("key", key.resolve)
 CREDENTIALS.set_field("name", name.resolve)
 CREDENTIALS.set_field("organization", organization.resolve)

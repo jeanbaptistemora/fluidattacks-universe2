@@ -18,6 +18,8 @@ class CredentialAttributesToAdd(NamedTuple):
     type: CredentialType
     user: Optional[str]
     password: Optional[str]
+    is_pat: Optional[bool] = False
+    azure_organization: Optional[str] = None
 
 
 class CredentialAttributesToUpdate(NamedTuple):
@@ -27,3 +29,5 @@ class CredentialAttributesToUpdate(NamedTuple):
     type: Optional[CredentialType]
     user: Optional[str]
     password: Optional[str]
+    is_pat: Optional[bool] = False
+    azure_organization: Optional[str] = None

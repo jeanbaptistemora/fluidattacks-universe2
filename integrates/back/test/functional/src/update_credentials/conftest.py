@@ -50,6 +50,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     name="Ssh key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -62,6 +63,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     name="Token",
                     type=CredentialType.HTTPS,
                     secret=HttpsPatSecret(token="token test"),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -76,6 +78,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     secret=HttpsSecret(
                         user="user test", password="password test"
                     ),
+                    is_pat=False,
                 ),
             ),
         ),

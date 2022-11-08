@@ -222,7 +222,6 @@ async def confirm_deletion_mail(
         ),
     )
     confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
-    print(f"\n\t\t confirm {confirm_access_url}\n")
     mail_to = [email]
     email_context: dict[str, Any] = {
         "email": email,

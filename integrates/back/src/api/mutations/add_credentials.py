@@ -55,10 +55,19 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
+    is_pat: bool = bool(credentials.get("is_pat", False))
     if "name" not in credentials:
         raise InvalidParameter("name")
     if "type" not in credentials:
         raise InvalidParameter("type")
+    if is_pat:
+        if "azure_organization" not in credentials:
+            raise InvalidParameter("azure_organization")
+        validation_utils.validate_space_field(
+            credentials["azure_organization"]
+        )
+    if not is_pat and "azure_organization" in credentials:
+        raise InvalidParameter("azure_organization")
 
     name: str = credentials["name"]
     validation_utils.validate_space_field(name)
@@ -72,6 +81,10 @@ async def mutate(
             type=CredentialType[credentials["type"]],
             user=credentials.get("user"),
             password=credentials.get("password"),
+            is_pat=is_pat,
+            azure_organization=credentials["azure_organization"]
+            if is_pat
+            else None,
         ),
         organization_id,
         user_email,

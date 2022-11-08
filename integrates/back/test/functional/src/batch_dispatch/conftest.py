@@ -93,6 +93,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0gK"),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -105,6 +106,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0gK"),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -117,6 +119,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0gK"),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -131,6 +134,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=SshSecret(
                         key=os.environ["TEST_GITHUB_SSH_PRIVATE_KEY"]
                     ),
+                    is_pat=False,
                 ),
             ),
             Credentials(
@@ -145,6 +149,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=HttpsPatSecret(
                         token=os.environ["TEST_GITHUB_API_TOKEN"]
                     ),
+                    is_pat=False,
                 ),
             ),
         ),

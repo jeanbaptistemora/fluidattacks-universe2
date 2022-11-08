@@ -7,6 +7,7 @@ from db_model.enums import (
 )
 from typing import (
     NamedTuple,
+    Optional,
     Union,
 )
 
@@ -29,7 +30,9 @@ class CredentialsState(NamedTuple):
     modified_date: str
     name: str
     type: CredentialType
+    is_pat: bool
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
+    azure_organization: Optional[str] = None
 
 
 class Credentials(NamedTuple):
