@@ -134,7 +134,7 @@ def main() -> None:
     display_model_hyperparameters(model_name, hyperparameters_to_tune)
     model_class: ModelType = MODELS[model_name]
     model_parameters = {
-        **MODELS_DEFAULTS[model_class],
+        **MODELS_DEFAULTS.get(model_class, {}),
         **hyperparameters_to_tune,
     }
     model: ModelType = model_class(**model_parameters)

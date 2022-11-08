@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from botocore.exceptions import (
+    ClientError,
+)
 import csv
 from joblib import (
     dump,
@@ -121,10 +124,15 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
     with tempfile.TemporaryDirectory() as tmp_dir:
         local_file: str = os.path.join(tmp_dir, results_filename)
         remote_file: str = f"training-output/results/{results_filename}"
-        S3_BUCKET.Object(remote_file).download_file(local_file)
-        with open(local_file, "r", encoding="utf8") as csv_file:
-            csv_reader = csv.reader(csv_file)
-            previous_results.extend(csv_reader)
+        try:
+            S3_BUCKET.Object(remote_file).download_file(local_file)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "404":
+                return []
+        else:
+            with open(local_file, "r", encoding="utf8") as csv_file:
+                csv_reader = csv.reader(csv_file)
+                previous_results.extend(csv_reader)
 
     return previous_results
 
