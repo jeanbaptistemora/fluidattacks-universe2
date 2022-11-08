@@ -5,6 +5,7 @@
       "bbenoist.Nix",
       "bierner.markdown-mermaid",
       "eamodio.gitlens",
+      "firsttris.vscode-jest-runner",
       "GrapeCity.gc-excelviewer",
       "hashicorp.terraform",
       "jkillian.custom-local-formatters",

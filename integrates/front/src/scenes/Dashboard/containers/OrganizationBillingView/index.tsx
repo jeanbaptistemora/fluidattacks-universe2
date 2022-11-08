@@ -12,6 +12,7 @@ import React from "react";
 
 import { OrganizationAuthors } from "scenes/Dashboard/containers/OrganizationBillingView/Authors";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationBillingView/Groups";
+import { OrganizationOverview } from "scenes/Dashboard/containers/OrganizationBillingView/Overview";
 import { OrganizationPaymentMethods } from "scenes/Dashboard/containers/OrganizationBillingView/PaymentMethods";
 import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
 import type {
@@ -62,8 +63,13 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     data === undefined ? [] : data.organization.billing.authors;
   const billingPortal: string =
     data === undefined ? "" : data.organization.billing.portal;
+  const currentAuthors: number =
+    data === undefined ? 0 : data.organization.billing.currentAuthors;
+  const currentSpend: number =
+    data === undefined ? 0 : data.organization.billing.currentSpend;
   const groups: IGroupAttr[] =
     data === undefined ? [] : data.organization.groups;
+  const name: string = data === undefined ? "" : data.organization.name;
   const paymentMethods: IPaymentMethodAttr[] =
     data === undefined ? [] : data.organization.paymentMethods ?? [];
 
@@ -73,6 +79,11 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
 
   return (
     <React.Fragment>
+      <OrganizationOverview
+        currentAuthors={currentAuthors}
+        currentSpend={currentSpend}
+        organizationName={name}
+      />
       <OrganizationGroups
         billingPortal={billingPortal}
         groups={groups}

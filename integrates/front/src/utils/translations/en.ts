@@ -1653,6 +1653,22 @@ export const enTranslations: ResourceKey = {
             },
           },
         },
+        overview: {
+          currentAuthors: {
+            content: "{{currentAuthors}} Authors",
+            info: "Active authors during the current month",
+            title: "Month-To-Date Authors",
+          },
+          currentSpend: {
+            content: "{{currentSpend}} $",
+            info: "Organization spend during the current month",
+            title: "Month-To-Date Spend",
+          },
+          title: {
+            info: "Billing information for {{organizationName}}",
+            text: "Organization overview",
+          },
+        },
         paymentMethods: {
           add: {
             button: "Add",

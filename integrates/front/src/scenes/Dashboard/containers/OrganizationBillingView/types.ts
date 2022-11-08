@@ -68,6 +68,7 @@ interface IGetOrganizationBilling {
   organization: {
     billing: IOrganizationBilling;
     groups: IGroupAttr[];
+    name: string;
     paymentMethods: IPaymentMethodAttr[] | undefined;
   };
 }
