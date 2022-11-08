@@ -6,6 +6,9 @@
 """
 Remove the where, specific and and commit from the vulnerability since it is
 stored in the vulnerability state
+
+Execution Time:    2022-11-08 at 21:28:54 UTC
+Finalization Time: 2022-11-08 at 22:31:20 UTC
 """
 from aioextensions import (
     collect,
@@ -109,7 +112,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
                     get_finding_vulnerabilities(loaders, finding.id)
                     for finding in findings
                 ),
-                workers=1000,
+                workers=500,
             )
         )
     )
@@ -118,7 +121,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
             process_vulnerability(vulnerability)
             for vulnerability in vulnerabilities
         ),
-        workers=1000,
+        workers=500,
     )
     LOGGER_CONSOLE.info(
         "Group processed",
