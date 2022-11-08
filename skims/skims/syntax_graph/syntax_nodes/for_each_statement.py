@@ -11,7 +11,7 @@ from syntax_graph.types import (
 
 
 def build_for_each_statement_node(
-    args: SyntaxGraphArgs, var_node: str, iterable_item: str, block: str
+    args: SyntaxGraphArgs, var_node: NId, iterable_item: NId, block: NId
 ) -> NId:
 
     args.syntax_graph.add_node(

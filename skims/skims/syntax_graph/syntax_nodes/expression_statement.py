@@ -18,7 +18,7 @@ def build_expression_statement_node(
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        label_type="File",
+        label_type="ExpressionStatement",
     )
 
     for c_id in c_ids:

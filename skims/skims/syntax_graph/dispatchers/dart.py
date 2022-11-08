@@ -18,11 +18,13 @@ from syntax_graph.syntax_readers.dart import (
     execution_block as dart_execution_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
+    for_statement as dart_for_statement,
     function_body as dart_function_body,
     function_signature as dart_function_signature,
     getter_signature as dart_getter_signature,
     identifier as dart_identifier,
     identifier_list as dart_identifier_list,
+    if_statement as dart_if_statement,
     import_or_export as dart_import_or_export,
     initialized_identifier as dart_initialized_identifier,
     library_name as dart_library_name,
@@ -38,7 +40,9 @@ from syntax_graph.syntax_readers.dart import (
     selector as dart_selector,
     string_literal as dart_string_literal,
     type_identifier as dart_type_identifier,
+    update_expression as dart_update_expression,
     variable_declaration as dart_variable_declaration,
+    while_statement as dart_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -79,6 +83,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "assignment_expression",
+            "relational_expression",
         },
         syntax_reader=dart_assignment_expression.reader,
     ),
@@ -130,6 +135,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "decimal_integer_literal",
+            "decimal_floating_point_literal",
         },
         syntax_reader=dart_number_literal.reader,
     ),
@@ -146,6 +152,12 @@ DART_DISPATCHERS: Dispatchers = (
             "extension_declaration",
         },
         syntax_reader=dart_extension_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "for_statement",
+        },
+        syntax_reader=dart_for_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -170,6 +182,12 @@ DART_DISPATCHERS: Dispatchers = (
             "identifier",
         },
         syntax_reader=dart_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "if_statement",
+        },
+        syntax_reader=dart_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -234,6 +252,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "postfix_expression",
+        },
+        syntax_reader=dart_update_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "program",
         },
         syntax_reader=dart_program.reader,
@@ -262,6 +286,8 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "string_literal",
+            "list_literal",
+            "set_or_map_literal",
         },
         syntax_reader=dart_string_literal.reader,
     ),
@@ -270,5 +296,11 @@ DART_DISPATCHERS: Dispatchers = (
             "local_variable_declaration",
         },
         syntax_reader=dart_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=dart_while_statement.reader,
     ),
 )
