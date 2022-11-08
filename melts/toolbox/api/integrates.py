@@ -401,6 +401,7 @@ class Queries:
                     cloningStatus {
                         commit
                     }
+                    __typename
                   }
                 }
               }

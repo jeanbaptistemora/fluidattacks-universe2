@@ -69,7 +69,11 @@ def get_git_roots(group: str) -> List[Dict[str, Any]]:
         LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(roots.errors)
         return []
-    return roots.data["group"]["roots"]
+    return [
+        item
+        for item in roots.data["group"]["roots"]
+        if item["__typename"] == "GitRoot"
+    ]
 
 
 def get_git_root_download_url(
