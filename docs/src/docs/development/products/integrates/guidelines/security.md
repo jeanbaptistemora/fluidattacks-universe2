@@ -146,13 +146,19 @@ Access rights that the application recognizes on external entities:
      that the user chooses,
      or controlled by the organization the user works for.
 
-1. An attacker may tamper with an authentication token
-   (session token or API token).
+1. An attacker may claim to be who they are not.
 
    Mitigation:
 
-   - Authentication tokens use signed JWT (JSON Web Tokens),
-     and the signature is validated by the server before trusting its contents.
+   - Unless a cross-site-request-forgery,
+     side-channel attack,
+     or a similar vulnerability exists,
+     an attacker would not be able to impersonate other users.
+
+     This is guaranteed
+     because all users are given an authentication token
+     after they authenticate successfully in the application,
+     which contains (in encrypted form) the user's identity.
 
 1. An Attacker may use an expired authentication token
    to gather information about the user.
@@ -171,6 +177,14 @@ Access rights that the application recognizes on external entities:
    - API tokens can be revoked.
 
 #### Tampering
+
+1. An attacker may tamper with an authentication token
+   (session token or API token).
+
+   Mitigation:
+
+   - Authentication tokens use signed JWT (JSON Web Tokens),
+     and the signature is validated by the server before trusting its contents.
 
 1. An attacker may submit invalid data to the API.
 
@@ -195,7 +209,23 @@ Access rights that the application recognizes on external entities:
    - Only secure communication protocols are accepted by the API server.
    - The Strict-Transport-Security response header is set.
 
+1. An attacker may tamper with the data anyway.
+
+   Mitigation:
+
+   - We have backups for the most important tables in the Database.
+
 #### Repudiation
+
+1. An attacker may repudiate who they are.
+
+   Mitigation:
+
+   - Requests to the API require an authentication token,
+     which includes the user identity
+     and can only be obtained by authenticating first.
+     Therefore, there is a strong claim that the bearer of the authentication token
+     is the identity it claims to be.
 
 1. An attacker may perform destructive actions anyway.
 
@@ -208,5 +238,7 @@ Access rights that the application recognizes on external entities:
 #### Information disclosure
 
 #### Denial of service
+
+1.
 
 #### Elevation of privilege
