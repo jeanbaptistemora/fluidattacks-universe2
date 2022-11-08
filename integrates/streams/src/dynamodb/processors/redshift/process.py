@@ -111,32 +111,32 @@ def process_findings(records: tuple[Record, ...]) -> None:
             _process_finding_verification(cursor, finding_id, list(items))
 
 
-def process_roots(records: tuple[Record, ...]) -> None:
-    with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image for record in records if record.old_image
-        ]
-        for item in metadata_items:
-            roots_ops.insert_root(cursor=cursor, item=item)
-            LOGGER.info(
-                "Root metadata stored, group: %s, id: %s",
-                item["sk"].split("#")[1],
-                item["pk"].split("#")[1],
-            )
+def _process_roots(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
+    metadata_items: list[Item] = [
+        record.old_image for record in records if record.old_image
+    ]
+    for item in metadata_items:
+        roots_ops.insert_root(cursor=cursor, item=item)
+        LOGGER.info(
+            "Root metadata stored, group: %s, id: %s",
+            item["sk"].split("#")[1],
+            item["pk"].split("#")[1],
+        )
 
 
-def process_toe_inputs(records: tuple[Record, ...]) -> None:
-    with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image for record in records if record.old_image
-        ]
-        for item in metadata_items:
-            toe_inputs_ops.insert_metadata(cursor=cursor, item=item)
-            LOGGER.info(
-                "Toe inputs metadata stored, sk: %s, group: %s",
-                item["sk"],
-                item["group_name"],
-            )
+def _process_toe_inputs(
+    cursor: cursor_cls, records: tuple[Record, ...]
+) -> None:
+    metadata_items: list[Item] = [
+        record.old_image for record in records if record.old_image
+    ]
+    for item in metadata_items:
+        toe_inputs_ops.insert_metadata(cursor=cursor, item=item)
+        LOGGER.info(
+            "Toe inputs metadata stored, sk: %s, group: %s",
+            item["sk"],
+            item["group_name"],
+        )
 
 
 def _process_toe_lines(
@@ -203,6 +203,26 @@ def _process_vulnerabilities(
 
 def process_records(records: tuple[Record, ...]) -> None:
     with db_cursor() as cursor:
+        _process_roots(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("ROOT#")
+                    and record.sk.startswith("GROUP#"),
+                    records,
+                )
+            ),
+        )
+        _process_toe_inputs(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("GROUP#")
+                    and record.sk.startswith("INPUTS#"),
+                    records,
+                )
+            ),
+        )
         _process_toe_lines(
             cursor=cursor,
             records=tuple(
