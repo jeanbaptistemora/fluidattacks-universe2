@@ -233,7 +233,7 @@ async def rebase_root(
             if rebase_result
             and (
                 rebase_result.path != vuln.state.where
-                or str(rebase_result.line) != vuln.specific
+                or str(rebase_result.line) != vuln.state.specific
             )
         ]
     )

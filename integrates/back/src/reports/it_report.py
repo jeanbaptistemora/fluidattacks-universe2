@@ -808,8 +808,8 @@ class ITReport:
         specific = self.get_specific(vuln=row)
 
         commit = EMPTY
-        if row.commit:
-            commit = row.commit[0:7]
+        if row.state.commit:
+            commit = row.state.commit[0:7]
 
         tags = EMPTY
         if row.tags:

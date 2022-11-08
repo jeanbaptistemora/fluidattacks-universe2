@@ -356,7 +356,7 @@ async def test_mask_vulnerability() -> None:
     vuln_id = "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.specific == "phone"
+    assert vuln.state.specific == "phone"
     assert vuln.state.where == "https://example.com"
     assert vuln.treatment == VulnerabilityTreatment(
         justification="This is a treatment justification",
