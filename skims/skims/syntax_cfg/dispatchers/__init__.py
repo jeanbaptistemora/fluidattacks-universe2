@@ -84,6 +84,7 @@ DISPATCHERS: Dispatchers = (
             "Comment",
             "Debugger",
             "ElementAccess",
+            "ExpressionStatement",
             "FieldAccess",
             "FieldDeclaration",
             "FinallyClause",

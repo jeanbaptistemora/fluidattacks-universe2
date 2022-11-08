@@ -88990,7 +88990,6 @@
           },
           "1117": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1120",
             "variable_id": "1118"
           },
@@ -89085,7 +89084,6 @@
           },
           "1167": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1170",
             "variable_id": "1168"
           },
@@ -89095,7 +89093,6 @@
           },
           "1170": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1173",
             "variable_id": "1171"
           },
@@ -89105,7 +89102,6 @@
           },
           "1173": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1176",
             "variable_id": "1174"
           },
@@ -89964,7 +89960,6 @@
           },
           "1592": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1599",
             "variable_id": "1593"
           },
@@ -90130,7 +90125,6 @@
           },
           "1670": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1681",
             "variable_id": "1671"
           },
@@ -90639,7 +90633,6 @@
           },
           "321": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "324",
             "variable_id": "322"
           },
@@ -90727,7 +90720,6 @@
           },
           "359": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "365",
             "variable_id": "360"
           },
@@ -90837,7 +90829,6 @@
           },
           "408": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "411",
             "variable_id": "409"
           },
@@ -90965,7 +90956,6 @@
           },
           "467": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "470",
             "variable_id": "468"
           },
@@ -90980,7 +90970,6 @@
           },
           "473": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "476",
             "variable_id": "474"
           },
@@ -91320,7 +91309,6 @@
           },
           "658": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "661",
             "variable_id": "659"
           },
@@ -91464,7 +91452,6 @@
           },
           "725": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "731",
             "variable_id": "726"
           },
@@ -91489,7 +91476,6 @@
           },
           "735": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "741",
             "variable_id": "736"
           },
@@ -91662,7 +91648,6 @@
           },
           "822": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "825",
             "variable_id": "823"
           },
@@ -91832,7 +91817,6 @@
           },
           "902": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "905",
             "variable_id": "903"
           },
@@ -91854,7 +91838,6 @@
           },
           "913": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "916",
             "variable_id": "914"
           },
@@ -141847,7 +141830,6 @@
           },
           "1288": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1291",
             "variable_id": "1289"
           },
@@ -141889,7 +141871,6 @@
           },
           "1309": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1312",
             "variable_id": "1310"
           },
@@ -141970,7 +141951,6 @@
           },
           "1353": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1356",
             "variable_id": "1354"
           },
@@ -141985,7 +141965,6 @@
           },
           "1359": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1362",
             "variable_id": "1360"
           },
@@ -142312,7 +142291,6 @@
           },
           "1534": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1537",
             "variable_id": "1535"
           },
@@ -142756,7 +142734,6 @@
           },
           "1755": {
             "label_type": "Assignment",
-            "operator": null,
             "value_id": "1758",
             "variable_id": "1756"
           },

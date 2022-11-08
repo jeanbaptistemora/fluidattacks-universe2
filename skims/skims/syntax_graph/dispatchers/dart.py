@@ -20,6 +20,8 @@ from syntax_graph.syntax_readers.dart import (
     extension_declaration as dart_extension_declaration,
     for_statement as dart_for_statement,
     function_body as dart_function_body,
+    function_declaration as dart_function_declaration,
+    function_expression as dart_function_expression,
     function_signature as dart_function_signature,
     getter_signature as dart_getter_signature,
     identifier as dart_identifier,
@@ -27,6 +29,7 @@ from syntax_graph.syntax_readers.dart import (
     if_statement as dart_if_statement,
     import_or_export as dart_import_or_export,
     initialized_identifier as dart_initialized_identifier,
+    lambda_expression as dart_lambda_expression,
     library_name as dart_library_name,
     method_declaration as dart_method_declaration,
     method_signature as dart_method_signature,
@@ -37,6 +40,7 @@ from syntax_graph.syntax_readers.dart import (
     parameter_list as dart_parameter_list,
     program as dart_program,
     reserved_word as dart_reserved_word,
+    return_statement as dart_return_statement,
     selector as dart_selector,
     string_literal as dart_string_literal,
     type_identifier as dart_type_identifier,
@@ -84,6 +88,9 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "assignment_expression",
             "relational_expression",
+            "logical_or_expression",
+            "additive_expression",
+            "equality_expression",
         },
         syntax_reader=dart_assignment_expression.reader,
     ),
@@ -141,8 +148,6 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "additive_expression",
-            "equality_expression",
             "expression_statement",
         },
         syntax_reader=dart_expression_statement.reader,
@@ -162,8 +167,21 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "function_body",
+            "function_expression_body",
         },
         syntax_reader=dart_function_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "function_expression",
+        },
+        syntax_reader=dart_function_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "local_function_declaration",
+        },
+        syntax_reader=dart_function_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -206,6 +224,12 @@ DART_DISPATCHERS: Dispatchers = (
             "import_or_export",
         },
         syntax_reader=dart_import_or_export.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "lambda_expression",
+        },
+        syntax_reader=dart_lambda_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -255,6 +279,12 @@ DART_DISPATCHERS: Dispatchers = (
             "postfix_expression",
         },
         syntax_reader=dart_update_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "return_statement",
+        },
+        syntax_reader=dart_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={

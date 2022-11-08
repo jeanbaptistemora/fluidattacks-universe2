@@ -20,7 +20,6 @@ def build_assignment_node(
         args.n_id,
         variable_id=var_id,
         value_id=val_id,
-        operator=operator,
         label_type="Assignment",
     )
 
