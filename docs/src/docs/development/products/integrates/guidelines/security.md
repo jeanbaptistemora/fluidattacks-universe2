@@ -132,3 +132,50 @@ Access rights that the application recognizes on external entities:
 
 1. Now and then, some _Data_ assets
    are replicated by the _Backups_ component.
+
+### Threat Categorization
+
+#### Spoofing
+
+1. An attacker may want to impersonate our users.
+
+   Mitigation:
+
+   - We don't store login credentials but instead use OAuth2,
+     which means that the security of the login is delegated to the provider
+     that the user chooses,
+     or controlled by the organization the user works for.
+
+1. An attacker may tamper with an authentication token
+   (session token or API token).
+
+   Mitigation:
+
+   - Authentication tokens use signed JWT (JSON Web Tokens),
+     and the signature is validated by the server before trusting its contents.
+
+1. An Attacker may use an expired authentication token
+   to gather information about the user.
+
+   Mitigation:
+
+   - The session token payload is encrypted.
+
+1. An attacker may use a left-over session of a user
+   to impersonate that user.
+
+   Mitigation:
+
+   - There is a limit after which the user's session expires.
+   - No concurrent sessions are allowed
+   - API tokens can be revoked.
+
+#### Tampering
+
+#### Repudiation
+
+#### Information disclosure
+
+#### Denial of service
+
+#### Elevation of privilege
