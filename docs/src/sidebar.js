@@ -138,12 +138,14 @@ const About = [
     type: "category",
     label: "Compare",
     items: [
+      "about/compare/checkmarx",
+      "about/compare/crashtest",
+      "about/compare/detectify",
       "about/compare/faraday",
-      "about/compare/snyk",
-      "about/compare/shiftleft",
       "about/compare/kiuwan",
       "about/compare/nowsecure",
-      "about/compare/detectify",
+      "about/compare/shiftleft",
+      "about/compare/snyk",
     ],
   },
 ];
