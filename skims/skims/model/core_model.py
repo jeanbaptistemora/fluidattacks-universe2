@@ -4288,14 +4288,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_AWS_S3_VERSIONING_DISABLED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_s3_versioning_disabled",
-        module="lib_path",
-        finding=FindingEnum.F335,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     JAVA_INSECURE_TRUST_MANAGER = MethodInfo(
         file_name="java",
         name="java_use_insecure_trust_manager",
