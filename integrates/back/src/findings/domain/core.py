@@ -215,19 +215,7 @@ async def remove_finding(
         finding_id=finding.id,
         metadata=metadata,
     )
-
-    comments_and_observations: list[
-        FindingComment
-    ] = await loaders.finding_comments.load(
-        (CommentType.COMMENT, finding.id)
-    ) + await loaders.finding_comments.load(
-        (CommentType.OBSERVATION, finding.id)
-    )
-    await collect(
-        comments_domain.remove(comment.id, finding.id)
-        for comment in comments_and_observations
-    )
-
+    await comments_domain.remove_comments(finding_id=finding_id)
     await remove_vulnerabilities(loaders, finding_id, justification, email)
 
     if (
@@ -534,17 +522,7 @@ def is_deleted(finding: Finding) -> bool:
 async def mask_finding(
     loaders: Dataloaders, finding: Finding, email: str
 ) -> None:
-    comments_and_observations: list[
-        FindingComment
-    ] = await loaders.finding_comments.load(
-        (CommentType.COMMENT, finding.id)
-    ) + await loaders.finding_comments.load(
-        (CommentType.OBSERVATION, finding.id)
-    )
-    await collect(
-        comments_domain.remove(comment.id, finding.id)
-        for comment in comments_and_observations
-    )
+    await comments_domain.remove_comments(finding_id=finding.id)
     list_evidences_files = await findings_storage.search_evidence(
         f"{finding.group_name}/{finding.id}"
     )

@@ -163,6 +163,10 @@ async def remove(comment_id: str, finding_id: str) -> None:
     )
 
 
+async def remove_comments(finding_id: str) -> None:
+    await finding_comments_model.remove_finding_comments(finding_id=finding_id)
+
+
 async def get_comments(
     loaders: Dataloaders,
     group_name: str,
