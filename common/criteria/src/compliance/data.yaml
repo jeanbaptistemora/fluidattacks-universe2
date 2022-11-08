@@ -2074,6 +2074,12 @@ asvs:
     '12_5_1':
       title: File download
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_5_2':
+      title: File download
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '12_6_1':
+      title: SSRF protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '13_1_1':
       title: Generic web service security
       link: https://owasp.org/www-project-application-security-verification-standard/
@@ -2083,10 +2089,40 @@ asvs:
     '13_1_5':
       title: Generic web service security
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_2_1':
+      title: RESTful web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_2_2':
+      title: RESTful web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_2_3':
+      title: RESTful web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_2_5':
+      title: RESTful web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_2_6':
+      title: RESTful web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_3_1':
+      title: SOAP web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '13_3_2':
+      title: SOAP web service
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '13_4_1':
       title: GraphQL
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_1_1':
+      title: Build and deploy
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_1_2':
+      title: Build and deploy
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '14_1_3':
+      title: Build and deploy
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_1_4':
       title: Build and deploy
       link: https://owasp.org/www-project-application-security-verification-standard/
     '14_1_5':
@@ -2098,7 +2134,13 @@ asvs:
     '14_2_2':
       title: Dependency
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_2_3':
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '14_2_4':
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_2_5':
       title: Dependency
       link: https://owasp.org/www-project-application-security-verification-standard/
     '14_2_6':
@@ -2113,11 +2155,26 @@ asvs:
     '14_4_1':
       title: HTTP security headers
       link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_4_2':
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_4_3':
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
     '14_4_4':
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_4_5':
       title: HTTP security headers
       link: https://owasp.org/www-project-application-security-verification-standard/
     '14_4_6':
       title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_4_7':
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    '14_5_1':
+      title: HTTP request header validatio
       link: https://owasp.org/www-project-application-security-verification-standard/
   metadata: {}
 owasp10:

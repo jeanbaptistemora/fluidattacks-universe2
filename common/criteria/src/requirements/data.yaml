@@ -444,6 +444,7 @@
     - asvs.3_4_1
     - asvs.3_4_4
     - asvs.3_4_5
+    - asvs.13_2_3
   metadata: {}
 '030':
   en:
@@ -1104,6 +1105,7 @@
     - cwe25.434
     - nist800115.3_6
     - asvs.12_5_1
+    - asvs.12_5_2
   metadata: {}
 '041':
   en:
@@ -1181,6 +1183,7 @@
     - capec.165
     - cwe.646
     - asvs.12_1_2
+    - asvs.12_5_2
   metadata: {}
 '043':
   en:
@@ -1210,6 +1213,8 @@
     - wassec.6_2_5_7
     - asvs.11_1_4
     - asvs.12_3_4
+    - asvs.12_5_2
+    - asvs.14_4_2
   metadata: {}
 '044':
   en:
@@ -1422,6 +1427,7 @@
     - iso27002.8_25
     - nistssdf.PS_1_1
     - sig.I_1_16
+    - asvs.14_1_1
   metadata: {}
 '062':
   en:
@@ -1560,6 +1566,13 @@
     - cwe.350
     - cwe.444
     - asvs.12_3_4
+    - asvs.13_2_5
+    - asvs.14_1_1
+    - asvs.14_1_4
+    - asvs.14_4_3
+    - asvs.14_4_5
+    - asvs.14_4_7
+    - asvs.14_5_1
   metadata: {}
 '072':
   en:
@@ -4678,6 +4691,7 @@
     - cwe25.416
     - osamm.IR_3
     - asvs.5_5_2
+    - asvs.14_1_2
   metadata: {}
 '158':
   en:
@@ -4741,6 +4755,7 @@
     - c2m2.9_4_d
     - siglite.SL_89
     - sig.I_2_1
+    - asvs.14_1_2
   metadata: {}
 '159':
   en:
@@ -5055,6 +5070,7 @@
     - sig.I_2_1
     - cwe.400
     - cwe.1325
+    - asvs.14_1_2
   metadata: {}
 '167':
   en:
@@ -5548,6 +5564,9 @@
     - asvs.7_3_1
     - asvs.12_3_2
     - asvs.12_3_5
+    - asvs.12_6_1
+    - asvs.13_3_1
+    - asvs.14_5_1
   metadata: {}
 '174':
   en:
@@ -5586,6 +5605,7 @@
     - cwe25.352
     - swiftcsc.2_1
     - pci.6_2_4
+    - asvs.13_2_3
   metadata: {}
 '175':
   en:
@@ -6134,6 +6154,7 @@
     - asvs.6_2_1
     - asvs.6_2_7
     - asvs.9_1_2
+    - asvs.13_2_6
   metadata: {}
 '183':
   en:
@@ -7258,6 +7279,7 @@
     - nist800171.1_17
     - asvs.14_1_5
     - asvs.1_2_2
+    - asvs.13_3_2
   metadata: {}
 '229':
   en:
@@ -8404,6 +8426,7 @@
     - c2m2.7_2_b
     - siglite.SL_154
     - asvs.1_14_6
+    - asvs.14_2_5
   metadata: {}
 '264':
   en:
@@ -8500,6 +8523,7 @@
     - sig.I_1_3_1
     - asvs.4_3_1
     - asvs.9_2_3
+    - asvs.13_4_1
   metadata: {}
 '265':
   en:
@@ -8769,6 +8793,9 @@
     - asvs.4_3_1
     - asvs.12_3_4
     - asvs.12_3_5
+    - asvs.13_2_1
+    - asvs.13_2_5
+    - asvs.14_5_1
   metadata: {}
 '273':
   en:
@@ -10059,6 +10086,7 @@
     - asvs.5_2_7
     - asvs.5_3_6
     - asvs.5_4_2
+    - asvs.14_5_1
   metadata: {}
 '321':
   en:
@@ -10344,6 +10372,7 @@
     - cwe25.918
     - asvs.5_1_5
     - asvs.5_2_6
+    - asvs.12_6_1
   metadata: {}
 '325':
   en:
@@ -10757,6 +10786,7 @@
     - pci.6_4_3
     - siglite.SL_46
     - siglite.SL_110
+    - asvs.14_2_3
   metadata: {}
 '331':
   en:
@@ -11168,6 +11198,7 @@
     - sig.I_3_2_4_1
     - cwe.5
     - asvs.9_1_2
+    - asvs.13_2_6
   metadata: {}
 '337':
   en:
@@ -11650,6 +11681,7 @@
     - asvs.5_3_3
     - asvs.5_3_5
     - asvs.5_3_6
+    - asvs.13_2_2
   metadata: {}
 '343':
   en:
@@ -12148,6 +12180,12 @@
     - asvs.14_4_6
     - asvs.1_12_2
     - asvs.12_3_4
+    - asvs.13_2_5
+    - asvs.14_4_2
+    - asvs.14_4_3
+    - asvs.14_4_5
+    - asvs.14_4_7
+    - asvs.14_5_1
   metadata: {}
 '350':
   en:
