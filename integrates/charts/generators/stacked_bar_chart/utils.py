@@ -875,8 +875,9 @@ def format_stacked_percentages(
 
 def format_stacked_vulnerabilities_data(
     *,
-    limited_data: list[AssignedFormatted],
-) -> dict[str, Any]:
+    all_data: list[AssignedFormatted],
+) -> tuple[dict, CsvData]:
+    limited_data = all_data[:LIMIT]
     percentage_values = [
         format_stacked_percentages(
             values={
@@ -889,7 +890,7 @@ def format_stacked_vulnerabilities_data(
         for user in limited_data
     ]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 ["Closed"]
@@ -994,6 +995,25 @@ def format_stacked_vulnerabilities_data(
             ],
         },
     )
+
+    csv_data = format_data_csv(
+        columns=[
+            "Closed",
+            "Temporarily accepted",
+            "Permanently accepted",
+            "Open",
+        ],
+        values=[
+            [group.closed_vulnerabilities for group in all_data],
+            [group.accepted for group in all_data],
+            [group.accepted_undefined for group in all_data],
+            [group.remaining_open_vulnerabilities for group in all_data],
+        ],
+        categories=[group.user for group in all_data],
+        header="User",
+    )
+
+    return (json_data, csv_data)
 
 
 def limit_data(data: list[RemediatedAccepted]) -> list[RemediatedAccepted]:

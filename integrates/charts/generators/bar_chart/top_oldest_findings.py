@@ -10,7 +10,7 @@ from async_lru import (
     alru_cache,
 )
 from charts.generators.bar_chart.utils import (
-    format_csv_data,
+    format_data_csv,
     LIMIT,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
@@ -23,6 +23,7 @@ from charts.generators.common.utils import (
     get_finding_name,
 )
 from charts.utils import (
+    CsvData,
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
@@ -43,10 +44,7 @@ from itertools import (
     groupby,
 )
 from typing import (
-    Any,
     Counter,
-    List,
-    Tuple,
     Union,
 )
 
@@ -54,7 +52,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     loaders = get_new_context()
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     findings_open_age = await collect(
@@ -80,13 +78,13 @@ async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> dict[str, Any]:
-    data: List[Tuple[str, int]] = [
+def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
+    data: list[tuple[str, int]] = [
         (title, open_age)
         for title, open_age in counters.most_common()
         if open_age > 0
     ]
-    merged_data: List[List[Union[int, str]]] = []
+    merged_data: list[list[Union[int, str]]] = []
 
     for axis, columns in groupby(
         sorted(data, key=lambda x: get_finding_name([x[0]])),
@@ -94,14 +92,15 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
     ):
         merged_data.append([axis, max([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:LIMIT]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
+    limited_merged_data = merged_data[:LIMIT]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 [
                     "Open Age (days)",
-                    *[open_age for _, open_age in merged_data],
+                    *[open_age for _, open_age in limited_merged_data],
                 ],
             ],
             colors={
@@ -120,7 +119,8 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
             rotated=True,
             x=dict(
                 categories=[
-                    get_finding_name([str(title)]) for title, _ in merged_data
+                    get_finding_name([str(title)])
+                    for title, _ in limited_merged_data
                 ],
                 type="category",
                 tick=dict(
@@ -138,36 +138,44 @@ def format_data(counters: Counter[str]) -> dict[str, Any]:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in merged_data]
+            [(key, Decimal(value)) for key, value in limited_merged_data]
         ),
         exposureTrendsByCategories=True,
         keepToltipColor=True,
     )
 
+    csv_data = format_data_csv(
+        header_value=json_data["data"]["columns"][0][0],
+        values=[value for _, value in merged_data],
+        categories=[group for group, _ in merged_data],
+        header_title="Type",
+    )
+
+    return (json_data, csv_data)
+
 
 async def generate_all() -> None:
-    header: str = "Type"
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             counters=await get_data_many_groups(org_groups),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 counters=await get_data_many_groups(groups),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
 
 

@@ -9,17 +9,12 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.bar_chart.utils import (
-    LIMIT,
-)
-from charts.generators.stacked_bar_chart import (  # type: ignore
-    format_csv_data,
-)
 from charts.generators.stacked_bar_chart.utils import (
     AssignedFormatted,
     format_stacked_vulnerabilities_data,
 )
 from charts.utils import (
+    CsvData,
     get_cvssf,
     get_portfolios_groups,
     iterate_groups,
@@ -150,7 +145,7 @@ def format_assigned(
 
 def format_data(
     *, assigned_data: dict[str, list[tuple[Vulnerability, Decimal]]]
-) -> dict:
+) -> tuple[dict, CsvData]:
     data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user=user, vulnerabilities=vulnerabilities)
         for user, vulnerabilities in assigned_data.items()
@@ -166,52 +161,51 @@ def format_data(
             ),
             reverse=True,
         )
-    )[:LIMIT]
+    )
 
-    return format_stacked_vulnerabilities_data(limited_data=limited_data)
+    return format_stacked_vulnerabilities_data(all_data=limited_data)
 
 
 async def generate_all() -> None:
-    header: str = "User"
     loaders: Dataloaders = get_new_context()
     async for group in iterate_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             assigned_data=await get_data_one_group(
                 group=group, loaders=loaders
             ),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             assigned_data=await get_data_many_groups(
                 groups=org_groups, loaders=loaders
             ),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 assigned_data=await get_data_many_groups(
                     groups=tuple(groups), loaders=loaders
                 ),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
 
 
