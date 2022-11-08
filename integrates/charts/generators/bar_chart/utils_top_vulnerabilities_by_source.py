@@ -8,16 +8,15 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.bar_chart import (  # type: ignore
-    format_csv_data,
-)
 from charts.generators.bar_chart.utils import (
+    format_data_csv,
     LIMIT,
 )
 from charts.generators.common.colors import (
     EXPOSURE,
 )
 from charts.utils import (
+    CsvData,
     format_cvssf,
     format_cvssf_log,
     get_cvssf,
@@ -47,15 +46,11 @@ from findings.domain.core import (
     get_severity_score,
 )
 from typing import (
-    Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
 )
 
 
-def format_max_value(data: List[Tuple[str, Decimal]]) -> Decimal:
+def format_max_value(data: list[tuple[str, Decimal]]) -> Decimal:
     if data:
         return data[0][1] if data[0][1] else Decimal("1.0")
     return Decimal("1.0")
@@ -65,12 +60,12 @@ def format_max_value(data: List[Tuple[str, Decimal]]) -> Decimal:
 async def get_data_one_group(
     group: str, loaders: Dataloaders, source: VulnerabilityType
 ) -> Counter[str]:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in findings]
-    findings_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
+    findings_vulns: tuple[
+        tuple[Vulnerability, ...], ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     findings_cvssf = [
         get_cvssf(get_severity_score(finding.severity)) for finding in findings
@@ -92,7 +87,7 @@ async def get_data_one_group(
 
 
 async def get_data_many_groups(
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
     source: VulnerabilityType,
 ) -> Counter[str]:
@@ -107,16 +102,17 @@ async def get_data_many_groups(
 
 def format_data(
     counters: Counter[str], source: VulnerabilityType
-) -> Dict[str, Any]:
+) -> tuple[dict, CsvData]:
     translations = {
         VulnerabilityType.INPUTS: "App",
         VulnerabilityType.LINES: "Code",
         VulnerabilityType.PORTS: "Infra",
     }
-    data: List[Tuple[str, int]] = counters.most_common()[:LIMIT]
+    all_data: list[tuple[str, int]] = counters.most_common()
+    data = all_data[:LIMIT]
     legend: str = f"{translations[source]} open exposure"
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 [
@@ -169,44 +165,52 @@ def format_data(
         keepToltipColor=True,
     )
 
+    csv_data = format_data_csv(
+        header_value=legend,
+        values=[format_cvssf(Decimal(value)) for _, value in all_data],
+        categories=[name for name, _ in all_data],
+        header_title="Type",
+    )
+
+    return (json_data, csv_data)
+
 
 async def generate_all(
     *,
     source: VulnerabilityType,
 ) -> None:
     loaders = get_new_context()
-    header: str = "Type"
     async for group in iterate_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             await get_data_one_group(group, loaders, source), source
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             await get_data_many_groups(org_groups, loaders, source), source
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 await get_data_many_groups(tuple(groups), loaders, source),
                 source,
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
