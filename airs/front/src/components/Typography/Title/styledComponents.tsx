@@ -35,14 +35,14 @@ const variants: Record<TSize, { sizes: ISize; weight: TWeight }> = {
   },
 };
 
-const StyledTitle = styled.p.attrs(
+const StyledTitle = styled.p.attrs<ITypographyProps>(
   ({
     mb = 0,
     ml = 0,
     mr = 0,
     mt = 0,
     size = "medium",
-  }: ITypographyProps): {
+  }): {
     className: string;
   } => ({
     className: `f${variants[size].sizes.fontSize} fw${

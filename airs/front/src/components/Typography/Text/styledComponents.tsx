@@ -28,7 +28,7 @@ const sizes: Record<TSize, ISize> = {
   xs: { fontSize: "7", lineHeight: "22" },
 };
 
-const StyledText = styled.p.attrs(
+const StyledText = styled.p.attrs<ITextProps>(
   ({
     mb = 0,
     ml = 0,
@@ -36,7 +36,7 @@ const StyledText = styled.p.attrs(
     mt = 0,
     size = "medium",
     weight = "regular",
-  }: ITextProps): {
+  }): {
     className: string;
   } => ({
     className: `f${sizes[size].fontSize} fw${fontWeights[weight]} mb${mb} ml${ml} mr${mr} mt${mt}`,
