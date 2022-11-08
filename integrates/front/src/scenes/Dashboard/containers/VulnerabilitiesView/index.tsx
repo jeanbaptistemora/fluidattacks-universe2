@@ -8,17 +8,15 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type {
-  ColumnDef,
-  ColumnFilter,
-  ColumnFiltersState,
-} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
@@ -78,17 +76,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function toggleHandleAcceptanceModal(): void {
     setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
-
-  const [findsFilters, setFindsFilters] = useStoredState<ColumnFiltersState>(
-    "tblFindings-columnFilters",
-    [],
-    localStorage
-  );
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "vulnerabilitiesTable-columnFilters",
-    [],
-    localStorage
-  );
   const [remediationModal, setRemediationModal] = useState<IModalConfig>({
     clearSelected: (): void => undefined,
     selectedVulnerabilities: [],
@@ -216,6 +203,121 @@ export const VulnsView: React.FC = (): JSX.Element => {
         vulnerabilityEdge.node
     );
 
+  const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
+    unformattedVulns.map(
+      (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
+        ...vulnerability,
+        groupName,
+        where:
+          vulnerability.vulnerabilityType === "lines" &&
+          vulnerability.rootNickname !== null &&
+          vulnerability.rootNickname !== "" &&
+          !vulnerability.where.startsWith(`${vulnerability.rootNickname}/`)
+            ? `${vulnerability.rootNickname}/${vulnerability.where}`
+            : vulnerability.where,
+      })
+    ),
+    undefined
+  );
+
+  const [filters, setFilters] = useStoredState<IFilter<IVulnRowAttr>[]>(
+    "vulnerabilitiesTableFilters",
+    [
+      {
+        id: "currentState",
+        key: "currentState",
+        label: t("searchFindings.tabVuln.vulnTable.status"),
+        selectOptions: [
+          { header: t("searchFindings.tabVuln.open"), value: "open" },
+          { header: t("searchFindings.tabVuln.closed"), value: "closed" },
+        ],
+        type: "select",
+        value: "open",
+      },
+      {
+        id: "reportDate",
+        key: "reportDate",
+        label: t("searchFindings.tabVuln.vulnTable.reportDate"),
+        type: "dateRange",
+      },
+      {
+        id: "verification",
+        key: "verification",
+        label: t("searchFindings.tabVuln.vulnTable.reattack"),
+        selectOptions: [
+          { header: t("searchFindings.tabVuln.onHold"), value: "On_hold" },
+          {
+            header: t("searchFindings.tabVuln.requested"),
+            value: "Requested",
+          },
+          {
+            header: t("searchFindings.tabVuln.verified"),
+            value: "Verified",
+          },
+        ],
+        type: "select",
+      },
+      {
+        id: "treatment",
+        key: "treatment",
+        label: t("searchFindings.tabVuln.vulnTable.treatment"),
+        selectOptions: [
+          {
+            header: t("searchFindings.tabDescription.treatment.new"),
+            value: "NEW",
+          },
+          {
+            header: t("searchFindings.tabDescription.treatment.inProgress"),
+            value: "IN_PROGRESS",
+          },
+          {
+            header: t("searchFindings.tabDescription.treatment.accepted"),
+            value: "ACCEPTED",
+          },
+          {
+            header: t(
+              "searchFindings.tabDescription.treatment.acceptedUndefined"
+            ),
+            value: "ACCEPTED_UNDEFINED",
+          },
+        ],
+        type: "select",
+      },
+      {
+        id: "tag",
+        key: "tag",
+        label: t("searchFindings.tabVuln.vulnTable.tags"),
+        type: "text",
+      },
+      {
+        id: "treatmentAcceptanceStatus",
+        key: "treatmentAcceptanceStatus",
+        label: "Treatment Acceptance",
+        selectOptions: (vulns: IVulnRowAttr[]): string[] =>
+          [
+            ...new Set(
+              vulns.map((vuln): string => vuln.treatmentAcceptanceStatus ?? "")
+            ),
+          ].filter(Boolean),
+        type: "select",
+      },
+      {
+        id: "treatmentAssigned",
+        key: "treatmentAssigned",
+        label: "Assignees",
+        selectOptions: (vulns: IVulnRowAttr[]): string[] =>
+          [
+            ...new Set(
+              vulns.map((vuln): string => vuln.treatmentAssigned ?? "")
+            ),
+          ].filter(Boolean),
+        type: "select",
+      },
+    ]
+  );
+
+  const filteredVulnerabilities = useFilters(vulnerabilities, filters);
+
   const [sendNotification] = useMutation<ISendNotificationResultAttr>(
     SEND_VULNERABILITY_NOTIFICATION,
     {
@@ -245,49 +347,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     });
     setIsNotify(false);
   }
-
-  useEffect((): void => {
-    if (
-      columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "currentState"
-      ).length > 0
-    ) {
-      const filtervalue = columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "currentState"
-      )[0].value;
-      if (
-        findsFilters.filter(
-          (element: ColumnFilter): boolean => element.id === "state"
-        ).length > 0
-      ) {
-        setFindsFilters(
-          findsFilters.map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "state") {
-              return { id: "state", value: filtervalue };
-            }
-
-            return element;
-          })
-        );
-      } else {
-        setFindsFilters([...findsFilters, { id: "state", value: filtervalue }]);
-      }
-    } else {
-      setFindsFilters(
-        findsFilters
-          .map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "state") {
-              return { id: "", value: "" };
-            }
-
-            return element;
-          })
-          .filter((element: ColumnFilter): boolean => element.id !== "")
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnFilters]);
-
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
       if (nzrVulnsPageInfo.hasNextPage) {
@@ -310,23 +369,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
-
-  const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
-    unformattedVulns.map(
-      (vulnerability: IVulnRowAttr): IVulnRowAttr => ({
-        ...vulnerability,
-        groupName,
-        where:
-          vulnerability.vulnerabilityType === "lines" &&
-          vulnerability.rootNickname !== null &&
-          vulnerability.rootNickname !== "" &&
-          !vulnerability.where.startsWith(`${vulnerability.rootNickname}/`)
-            ? `${vulnerability.rootNickname}/${vulnerability.where}`
-            : vulnerability.where,
-      })
-    ),
-    undefined
-  );
 
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
   function toggleModal(): void {
@@ -457,9 +499,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <div>
             <div>
               <VulnComponent
-                columnFilterSetter={setColumnFilters}
-                columnFilterState={columnFilters}
                 columns={columns}
+                enableColumnFilters={false}
                 extraButtons={
                   <ActionButtons
                     areVulnerabilitiesPendingToAcceptance={isPendingToAcceptance(
@@ -484,6 +525,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     state={data.finding.state}
                   />
                 }
+                filters={
+                  <Filters
+                    dataset={vulnerabilities}
+                    filters={filters}
+                    setFilters={setFilters}
+                  />
+                }
                 findingState={data.finding.state}
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
@@ -491,7 +539,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}
                 refetchData={refetchVulnsData}
-                vulnerabilities={filterZeroRisk(vulnerabilities)}
+                vulnerabilities={filterZeroRisk(filteredVulnerabilities)}
               />
             </div>
             {setColumn()}

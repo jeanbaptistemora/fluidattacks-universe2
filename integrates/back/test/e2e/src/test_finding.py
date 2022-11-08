@@ -295,7 +295,7 @@ def test_finding_reattack(
     )
 
     # Reattack all vulnerabilities
-    status_filter.select_by_visible_text("open")
+    status_filter.select_by_visible_text("Open")
     start_reattack = utils.wait_for_id(
         driver,
         "start-reattack",

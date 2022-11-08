@@ -695,8 +695,8 @@ describe("Filters", (): void => {
         label: "Color",
         selectOptions: [
           ...new Set(dataset.map((item): string => item.color)),
-        ].map((entry): { showValue: string; value: string } => {
-          return { showValue: entry, value: entry };
+        ].map((entry): { header: string; value: string } => {
+          return { header: entry, value: entry };
         }),
         type: "select",
       },

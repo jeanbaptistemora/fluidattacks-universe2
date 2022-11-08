@@ -8,7 +8,8 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
+
+import type { IFilter, IFilterComp, IFiltersProps } from "./types";
 
 import { Button } from "components/Button";
 import {
@@ -19,31 +20,6 @@ import {
 } from "components/Input/Formik";
 import { Col, Row } from "components/Layout";
 import { SidePanel } from "components/SidePanel";
-
-interface IFilter<IData extends object> {
-  filterFn?:
-    | "caseInsensitive"
-    | "caseSensitive"
-    | "includesInArray"
-    | "includesInsensitive"
-    | "includesSensitive";
-  id: string;
-  key: keyof IData | ((arg0: IData) => boolean);
-  label?: string;
-  rangeValues?: [string, string];
-  selectOptions?: { showValue: string; value: string }[] | string[];
-  type?: "dateRange" | "number" | "numberRange" | "select" | "text";
-  value?: string;
-}
-
-interface IFilterComp<IData extends object> extends IFilter<IData> {
-  key: keyof IData;
-}
-
-interface IFiltersProps<IData extends object> {
-  filters: IFilter<IData>[];
-  setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
-}
 
 const useFilters = <IData extends object>(
   data: IData[],
@@ -150,6 +126,7 @@ const useFilters = <IData extends object>(
 };
 
 const Filters = <IData extends object>({
+  dataset = undefined,
   filters,
   setFilters,
 }: IFiltersProps<IData>): JSX.Element => {
@@ -301,6 +278,11 @@ const Filters = <IData extends object>({
                 );
               }
               case "select": {
+                const options =
+                  typeof filter.selectOptions === "function"
+                    ? filter.selectOptions(dataset ?? [])
+                    : filter.selectOptions;
+
                 return (
                   <Row>
                     <Col>
@@ -316,7 +298,7 @@ const Filters = <IData extends object>({
                         name={filter.id}
                       >
                         <option value={""}>{"All"}</option>
-                        {filter.selectOptions?.map((option): JSX.Element => {
+                        {options?.map((option): JSX.Element => {
                           if (typeof option === "string") {
                             return (
                               <option key={option} value={option}>
@@ -327,7 +309,7 @@ const Filters = <IData extends object>({
 
                           return (
                             <option key={option.value} value={option.value}>
-                              {option.showValue}
+                              {option.header}
                             </option>
                           );
                         })}
