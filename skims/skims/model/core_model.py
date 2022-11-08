@@ -4152,6 +4152,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_DECODE_INSECURE_JWT_TOKEN = MethodInfo(
+        file_name="javascript",
+        name="js_decode_insecure_jwt_token",
+        module="lib_root",
+        finding=FindingEnum.F309,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TS_INSECURE_JWT_TOKEN = MethodInfo(
         file_name="typescript",
         name="ts_insecure_jwt_token",

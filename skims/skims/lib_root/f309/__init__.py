@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from lib_root.f309.javascript import (
+    decode_insecure_jwt_token as js_decode_insecure_jwt_token,
     uses_insecure_jwt_token as js_uses_insecure_jwt_token,
 )
 from lib_root.f309.typescript import (
@@ -15,6 +16,7 @@ from model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F309
 QUERIES: graph_model.Queries = (
+    (FINDING, js_decode_insecure_jwt_token),
     (FINDING, js_uses_insecure_jwt_token),
     (FINDING, ts_insecure_jwt_token),
 )

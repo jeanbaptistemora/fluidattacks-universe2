@@ -22104,6 +22104,30 @@ F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.
   25 |     parameterHeaders.setBasicAuth();
      ^ Col 0
 ",java.java_insecure_authentication
+F309,lines,namespace/skims/test/data/lib_root/f309/decode_insecure_jwt_token.js,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not properly verified before decoding. in namespace/skims/test/data/lib_root/f309/decode_insecure_jwt_token.js,"
+   1 | const jwt = require('jsonwebtoken');
+   2 |
+   3 | function unsafeVerifyJwt() {
+   4 |     // The signature is not verify before decoding
+   5 |     const sign_config = { algorithm: 'RS256'};
+   6 |     let token = jwt.sign(payload, key, sign_config);
+   7 |
+   8 |     let allowed_algos = ['RS256'];
+>  9 |     jwt.decode(token, key, allowed_algos);
+  10 | }
+  11 |
+  12 | function safeVerifyJwt() {
+  13 |     let safe_algo = ""PS384"";
+  14 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo});
+  15 |
+  16 |     let allowed_algos = ['PS384'];
+  17 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  18 |     jwt.verify(token_secure, key, verify_config);
+  19 |
+  20 |     jwt.decode(token_secure, key, allowed_algos);
+  21 | }
+     ^ Col 0
+",javascript.js_decode_insecure_jwt_token
 F309,lines,namespace/skims/test/data/lib_root/f309/insecure_jwt_token.ts,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_jwt_token.ts,"
    1 |
    2 | import jwt from 'jsonwebtoken';

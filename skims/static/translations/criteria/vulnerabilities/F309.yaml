@@ -2,3 +2,6 @@
 lib_root.f309.js_uses_insecure_jwt_token:
   en: Token JWT is not signed with a strong cipher algorithm or not signed at all.
   es: El token JWT no esta firmado con un algoritmo cipher seguro o no se encuentra firmado.
+lib_root.f309.js_decode_insecure_jwt_token:
+  en: Token JWT is not properly verified before decoding.
+  es: El token JWT no es correctamente verificado antes de decodificar.
