@@ -13,4 +13,13 @@ function insecureModes() {
     var miss_encrypt = CryptoJS.AES.encrypt("Message", "Secret Passphrase", {
         padding: CryptoJS.pad.AnsiX923
     });
+
+}
+
+function secureMode() {
+    var safe_mode = CryptoJS.mode.CTR
+    var message = CryptoJS.AES.encrypt("Message", "passphrase", {
+        mode: safe_mode,
+        padding: CryptoJS.pad.AnsiX923
+    });
 }

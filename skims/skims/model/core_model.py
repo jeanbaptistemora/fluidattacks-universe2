@@ -2904,6 +2904,30 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_INSECURE_ECDH_KEY = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_ecdh_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_INSECURE_EC_KEYPAIR = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_ec_keypair",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_INSECURE_RSA_KEYPAIR = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_rsa_keypair",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_INSECURE_KEY = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_key",

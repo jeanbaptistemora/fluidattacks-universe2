@@ -29,10 +29,11 @@ from lib_root.f052.java import (
 )
 from lib_root.f052.javascript import (
     javascript_insecure_create_cipher,
+    javascript_insecure_ec_keypair,
     javascript_insecure_ecdh_key,
     javascript_insecure_encrypt,
     javascript_insecure_hash,
-    javascript_insecure_key_pair,
+    javascript_insecure_rsa_keypair,
 )
 from lib_root.f052.kotlin import (
     kotlin_insecure_cipher,
@@ -49,7 +50,6 @@ from model import (
     graph_model,
 )
 
-# Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_insecure_hash),
@@ -75,7 +75,8 @@ QUERIES: graph_model.Queries = (
     (FINDING, javascript_insecure_encrypt),
     (FINDING, javascript_insecure_hash),
     (FINDING, javascript_insecure_ecdh_key),
-    (FINDING, javascript_insecure_key_pair),
+    (FINDING, javascript_insecure_ec_keypair),
+    (FINDING, javascript_insecure_rsa_keypair),
     (FINDING, kotlin_insecure_cipher),
     (FINDING, kotlin_insecure_hash),
     (FINDING, kotlin_insecure_key),
