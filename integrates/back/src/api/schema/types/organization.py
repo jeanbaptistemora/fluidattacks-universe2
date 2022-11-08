@@ -9,6 +9,7 @@ from api.resolvers.organization import (
     credentials,
     finding_policies,
     groups,
+    integration_repositories,
     max_acceptance_days,
     max_acceptance_severity,
     max_number_acceptances,
@@ -46,6 +47,9 @@ ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)
 ORGANIZATION.set_field("paymentMethods", payment_methods.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
+ORGANIZATION.set_field(
+    "integrationRepositories", integration_repositories.resolve
+)
 ORGANIZATION.set_field("userRole", user_role.resolve)
 ORGANIZATION.set_field("vulnerabilitiesUrl", vulnerabilities_url.resolve)
 ORGANIZATION.set_field(

@@ -2,6 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from azure_repositories.dal import (
+    OrganizationRepositoriesCommitsLoader,
+    OrganizationRepositoriesLoader,
+)
 from collections import (
     defaultdict,
 )
@@ -171,6 +175,10 @@ class Dataloaders(NamedTuple):
     organization_access: OrganizationAccessLoader
     organization_credentials: OrganizationCredentialsLoader
     organization_groups: OrganizationGroupsLoader
+    organization_integration_repositories_commits: (
+        OrganizationRepositoriesCommitsLoader
+    )
+    organization_integration_repositories: OrganizationRepositoriesLoader
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders_access: OrganizationStakeholdersAccessLoader
@@ -322,6 +330,12 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         ),
         organization_unreliable_indicators=(
             OrganizationUnreliableIndicatorsLoader()
+        ),
+        organization_integration_repositories_commits=(
+            OrganizationRepositoriesCommitsLoader()
+        ),
+        organization_integration_repositories=(
+            OrganizationRepositoriesLoader()
         ),
         portfolio=portfolio_loader,
         root=RootLoader(),

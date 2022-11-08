@@ -125,6 +125,9 @@ from api.schema.types.event_evidence_item import (
 from api.schema.types.group_compliance import (
     GROUP_COMPLIANCE,
 )
+from api.schema.types.integration_repositories import (
+    INTEGRATION_REPOSITORIES,
+)
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
@@ -176,6 +179,7 @@ TYPES: Tuple[ObjectType, ...] = (
     GROUP,
     GROUP_BILLING,
     GROUP_FILE,
+    INTEGRATION_REPOSITORIES,
     IPROOT,
     ME,
     MUTATION,

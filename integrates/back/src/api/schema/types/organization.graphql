@@ -31,6 +31,8 @@ type Organization {
   groups: [Group]
   "Identifier of the organization"
   id: String!
+  "Repositories integration within the organization"
+  integrationRepositories: [IntegrationRepositories]
   "Maximum number of calendar days a finding can be temporally accepted"
   maxAcceptanceDays: Int
   "Maximum CVSS 3.1 score in which a finding can be temporally accepted"
