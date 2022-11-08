@@ -6,12 +6,10 @@ from .add import (
     add,
 )
 from .remove import (
-    remove,
     remove_group_comments,
 )
 
 __all__ = [
     "add",
-    "remove",
     "remove_group_comments",
 ]

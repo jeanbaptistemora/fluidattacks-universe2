@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from aioextensions import (
-    collect,
     schedule,
 )
 import authz
@@ -83,12 +82,6 @@ async def add_comment(
         )
 
 
-async def remove_comment(group_name: str, comment_id: str) -> None:
-    await group_comments_model.remove(
-        group_name=group_name, comment_id=comment_id
-    )
-
-
 async def remove_comments(group_name: str) -> None:
     await group_comments_model.remove_group_comments(group_name=group_name)
 
@@ -105,15 +98,3 @@ async def get_comments(
         return comments
 
     return tuple(filter(_is_scope_comment, comments))
-
-
-async def mask_comments(loaders: Dataloaders, group_name: str) -> None:
-    comments: tuple[GroupComment, ...] = await loaders.group_comments.load(
-        group_name
-    )
-    await collect(
-        [
-            remove_comment(comment.group_name, comment.id)
-            for comment in comments
-        ]
-    )
