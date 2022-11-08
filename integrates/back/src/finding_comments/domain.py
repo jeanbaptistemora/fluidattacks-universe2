@@ -157,12 +157,6 @@ async def add(
         )
 
 
-async def remove(comment_id: str, finding_id: str) -> None:
-    await finding_comments_model.remove(
-        comment_id=comment_id, finding_id=finding_id
-    )
-
-
 async def remove_comments(finding_id: str) -> None:
     await finding_comments_model.remove_finding_comments(finding_id=finding_id)
 
