@@ -22,8 +22,8 @@ const Title: React.FC<ITitleProps> = ({
   mt,
   size,
   textAlign,
-}: ITitleProps): JSX.Element => {
-  const MyTitle = (
+}): JSX.Element => {
+  return (
     <StyledTitle
       as={`h${level}`}
       color={color}
@@ -40,8 +40,6 @@ const Title: React.FC<ITitleProps> = ({
       {children}
     </StyledTitle>
   );
-
-  return MyTitle;
 };
 
 export { Title };

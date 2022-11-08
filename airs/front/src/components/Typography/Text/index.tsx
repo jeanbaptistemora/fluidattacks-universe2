@@ -22,8 +22,8 @@ const Text: React.FC<ITextProps> = ({
   size,
   textAlign,
   weight,
-}: ITextProps): JSX.Element => {
-  const MyText = (
+}): JSX.Element => {
+  return (
     <StyledText
       color={color}
       display={display}
@@ -40,8 +40,6 @@ const Text: React.FC<ITextProps> = ({
       {children}
     </StyledText>
   );
-
-  return MyText;
 };
 
 export { Text };
