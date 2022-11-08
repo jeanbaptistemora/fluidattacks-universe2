@@ -13,15 +13,14 @@ from charts.generators.common.colors import (
     RISK,
     TREATMENT,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
-    format_csv_data,
-)
 from charts.generators.stacked_bar_chart.utils import (
+    format_data_csv,
     format_stacked_percentages,
     limit_data,
     RemediatedAccepted,
 )
 from charts.utils import (
+    CsvData,
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
@@ -35,9 +34,6 @@ from db_model.groups.types import (
 )
 from decimal import (
     Decimal,
-)
-from typing import (
-    Any,
 )
 
 
@@ -87,17 +83,18 @@ async def get_data_many_groups(
     return sorted(
         groups_data,
         key=lambda x: (
-            x.closed_vulnerabilities
+            x.open_vulnerabilities
             / (x.closed_vulnerabilities + x.open_vulnerabilities)
             if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
             else 0
         ),
+        reverse=True,
     )
 
 
 def format_data(
     data: list[RemediatedAccepted],
-) -> dict[str, Any]:
+) -> tuple[dict, CsvData]:
     limited_data: list[RemediatedAccepted] = limit_data(data)
     percentage_values = [
         format_stacked_percentages(
@@ -111,7 +108,7 @@ def format_data(
         for group in limited_data
     ]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 ["Closed"]
@@ -213,31 +210,49 @@ def format_data(
         },
     )
 
+    csv_data = format_data_csv(
+        columns=[
+            "Closed",
+            "Temporarily accepted",
+            "Permanently accepted",
+            "Open",
+        ],
+        values=[
+            [group.closed_vulnerabilities for group in data],
+            [group.accepted for group in data],
+            [group.accepted_undefined for group in data],
+            [group.remaining_open_vulnerabilities for group in data],
+        ],
+        categories=[group.group_name for group in data],
+        header="Group name",
+    )
+
+    return (json_data, csv_data)
+
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    header: str = "Group name"
     async for org_id, _, org_group_names in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             data=await get_data_many_groups(loaders, org_group_names),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, group_names in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 data=await get_data_many_groups(loaders, group_names),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
 
 

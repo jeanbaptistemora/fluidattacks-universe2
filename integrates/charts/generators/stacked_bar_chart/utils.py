@@ -15,7 +15,14 @@ from charts.generators.common.utils import (
     get_max_axis,
 )
 from charts.utils import (
+    CsvData,
     format_cvssf,
+)
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    UnsanitizedInputFound,
 )
 from datetime import (
     datetime,
@@ -26,6 +33,9 @@ from decimal import (
 )
 from enum import (
     Enum,
+)
+from newutils.validations import (
+    validate_sanitized_csv_input,
 )
 from pandas import (
     Timestamp,
@@ -1009,3 +1019,35 @@ def limit_data(data: list[RemediatedAccepted]) -> list[RemediatedAccepted]:
             reverse=True,
         )
     )[:LIMIT]
+
+
+def format_data_csv(
+    *,
+    columns: list[str],
+    categories: list[str],
+    values: list[list[Decimal]],
+    header: str,
+) -> CsvData:
+    headers: list[str] = [header] + [""] * len(columns)
+    rows: list[list[str]] = []
+    with suppress(UnsanitizedInputFound):
+        validate_sanitized_csv_input(header, *columns)
+        headers = [header, *columns]
+
+    for index, category in enumerate(categories):
+        temp_row: list[str] = [""]
+        with suppress(UnsanitizedInputFound):
+            validate_sanitized_csv_input(category)
+            temp_row[0] = category
+        for column in values:
+            try:
+                validate_sanitized_csv_input(str(column[index]))
+                temp_row.append(str(column[index]))
+            except UnsanitizedInputFound:
+                temp_row.append("")
+        rows.append(temp_row)
+
+    return CsvData(
+        headers=headers,
+        rows=rows,
+    )

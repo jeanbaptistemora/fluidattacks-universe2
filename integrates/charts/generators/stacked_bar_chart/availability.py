@@ -16,14 +16,13 @@ from charts.generators.pie_chart.availability import (
     EventsAvailability,
     get_data_one_group,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
-    format_csv_data,
-)
 from charts.generators.stacked_bar_chart.utils import (
+    format_data_csv,
     get_percentage,
     MIN_PERCENTAGE,
 )
 from charts.utils import (
+    CsvData,
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
@@ -36,17 +35,6 @@ from decimal import (
     Decimal,
 )
 import operator
-from typing import (
-    Any,
-    Iterable,
-)
-
-
-def get_max_value(counter_values: Iterable[int]) -> int:
-    if counter_values and max(list(counter_values)):
-        return max(list(counter_values))
-
-    return 1
 
 
 def format_availability_percentages(
@@ -87,12 +75,13 @@ def format_availability_percentages(
     return (percentage_values, max_percentage_values)
 
 
-def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
-    sorted_data: tuple[EventsAvailability, ...] = tuple(
-        sorted(data, key=operator.attrgetter("non_available"), reverse=True)[
-            :LIMIT
-        ]
+def format_data(
+    *, data: tuple[EventsAvailability, ...]
+) -> tuple[dict, CsvData]:
+    complete_data: tuple[EventsAvailability, ...] = tuple(
+        sorted(data, key=operator.attrgetter("non_available"), reverse=True)
     )
+    sorted_data = complete_data[:LIMIT]
     percentage_values = [
         format_availability_percentages(
             values={
@@ -103,7 +92,7 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
         for group in sorted_data
     ]
 
-    return dict(
+    json_data = dict(
         data=dict(
             columns=[
                 ["Unavailable"]
@@ -177,6 +166,20 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
             ],
         },
     )
+    csv_data = format_data_csv(
+        columns=[
+            "Unavailable",
+            "Available",
+        ],
+        values=[
+            [group.non_available for group in complete_data],
+            [group.available for group in complete_data],
+        ],
+        categories=[group.name for group in data],
+        header="Group name",
+    )
+
+    return (json_data, csv_data)
 
 
 async def get_data_many_groups(
@@ -192,33 +195,32 @@ async def get_data_many_groups(
 
 
 async def generate_all() -> None:
-    header: str = "Group name"
     loaders: Dataloaders = get_new_context()
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
+        json_document, csv_document = format_data(
             data=await get_data_many_groups(
                 groups=org_groups, loaders=loaders
             ),
         )
         json_dump(
-            document=document,
+            document=json_document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=header),
+            csv_document=csv_document,
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            document = format_data(
+            json_document, csv_document = format_data(
                 data=await get_data_many_groups(
                     groups=tuple(groups), loaders=loaders
                 ),
             )
             json_dump(
-                document=document,
+                document=json_document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=header),
+                csv_document=csv_document,
             )
 
 
