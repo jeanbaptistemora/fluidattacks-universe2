@@ -3040,6 +3040,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSON_HTTPS_FLAG_MISSING = MethodInfo(
+        file_name="conf_files",
+        name="json_https_flag_missing",
+        module="lib_path",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JSON_DISABLE_HOST_CHECK = MethodInfo(
         file_name="conf_files",
         name="json_disable_host_check",
