@@ -45,11 +45,11 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
   const tableColumns: ColumnDef<IOrganizationAuthorsTable>[] = [
     {
       accessorKey: "actor",
-      header: "Author Name",
+      header: t("organization.tabs.billing.authors.headers.authorName"),
     },
     {
       accessorKey: "groups",
-      header: "Groups",
+      header: t("organization.tabs.billing.authors.headers.groups"),
     },
   ];
 

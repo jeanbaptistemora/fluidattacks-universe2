@@ -1599,9 +1599,24 @@ export const enTranslations: ResourceKey = {
       },
       billing: {
         authors: {
+          headers: {
+            authorName: "Author name",
+            groups: "Groups",
+          },
           title: "Authors",
         },
         groups: {
+          headers: {
+            authors: "Authors",
+            forces: "Forces",
+            groupName: "Group name",
+            machine: "Machine",
+            managed: "Managed",
+            monthToDateSpend: "Month-to-date spend ($)",
+            service: "Service",
+            squad: "Squad",
+            tier: "Tier",
+          },
           managed: {
             managed: "Managed",
             notManaged: "Not managed",

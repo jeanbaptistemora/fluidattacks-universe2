@@ -134,19 +134,19 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   const tier: ColumnDef<IGroupAttr> = {
     accessorKey: "tier",
-    header: "Tier",
+    header: t("organization.tabs.billing.groups.headers.tier"),
     meta: { filterType: "select" },
   };
   const service: ColumnDef<IGroupAttr> = {
     accessorKey: "service",
-    header: "Service",
+    header: t("organization.tabs.billing.groups.headers.service"),
     meta: { filterType: "select" },
   };
 
   const baseTableColumns: ColumnDef<IGroupAttr>[] = [
     {
       accessorKey: "name",
-      header: "Group Name",
+      header: t("organization.tabs.billing.groups.headers.groupName"),
     },
     {
       accessorKey: "managed",
@@ -157,7 +157,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           openUpdateModal
         ),
       enableColumnFilter: false,
-      header: "Managed",
+      header: t("organization.tabs.billing.groups.headers.managed"),
     },
     tier,
     service,
@@ -165,21 +165,21 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       accessorKey: "machine",
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
-      header: "Machine",
+      header: t("organization.tabs.billing.groups.headers.machine"),
       meta: { filterType: "select" },
     },
     {
       accessorKey: "squad",
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
-      header: "Squad",
+      header: t("organization.tabs.billing.groups.headers.squad"),
       meta: { filterType: "select" },
     },
     {
       accessorKey: "forces",
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
-      header: "Forces",
+      header: t("organization.tabs.billing.groups.headers.forces"),
       meta: { filterType: "select" },
     },
     {
@@ -189,7 +189,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
-      header: "Authors",
+      header: t<string>("organization.tabs.billing.groups.headers.authors"),
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
@@ -198,7 +198,9 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
-      header: "Month-to-date spend ($)",
+      header: t<string>(
+        "organization.tabs.billing.groups.headers.monthToDateSpend"
+      ),
     },
   ];
 

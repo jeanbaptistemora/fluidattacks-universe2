@@ -87,14 +87,21 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.queryAllByText("Managed")).toHaveLength(2);
+    expect(
+      screen.queryAllByText("organization.tabs.billing.groups.headers.managed")
+    ).toHaveLength(1);
+    expect(screen.queryAllByText("Managed")).toHaveLength(1);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
       )
     ).not.toBeInTheDocument();
-    expect(screen.queryByText("Tier")).toBeInTheDocument();
-    expect(screen.queryByText("Service")).toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.tier")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.service")
+    ).toBeInTheDocument();
 
     const mockedExternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
@@ -144,14 +151,21 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.queryAllByText("Managed")).toHaveLength(2);
+    expect(
+      screen.queryAllByText("organization.tabs.billing.groups.headers.managed")
+    ).toHaveLength(1);
+    expect(screen.queryAllByText("Managed")).toHaveLength(1);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
       )
     ).not.toBeInTheDocument();
-    expect(screen.queryByText("Tier")).not.toBeInTheDocument();
-    expect(screen.queryByText("Service")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.tier")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.service")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -234,16 +248,23 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
-    expect(screen.queryAllByText("Managed")).toHaveLength(2);
+    expect(
+      screen.queryAllByText("organization.tabs.billing.groups.headers.managed")
+    ).toHaveLength(1);
+    expect(screen.queryAllByText("Managed")).toHaveLength(1);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
       )
     ).not.toBeInTheDocument();
-    expect(screen.queryByText("Tier")).toBeInTheDocument();
-    expect(screen.queryByText("Service")).toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.tier")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.billing.groups.headers.service")
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getAllByText("Managed")[1]);
+    await userEvent.click(screen.getAllByText("Managed")[0]);
 
     await waitFor((): void => {
       expect(
