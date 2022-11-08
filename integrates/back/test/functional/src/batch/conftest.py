@@ -671,7 +671,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
-                    specific="5",
                     state=VulnerabilityState(
                         commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                         modified_by="machine@fluidattacks.com",
@@ -694,9 +693,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2022-09-01T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="README.md",
                     root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
-                    commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                 ),
             },
             {
@@ -707,7 +704,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
-                    specific="3",
                     state=VulnerabilityState(
                         commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                         modified_by="machine@fluidattacks.com",
@@ -730,9 +726,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2022-09-01T00:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="README.md",
                     root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
-                    commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                 ),
             },
         ],

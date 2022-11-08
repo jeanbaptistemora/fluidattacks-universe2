@@ -43,7 +43,7 @@ async def test_clone_roots_real_ssh(
         await loaders.vulnerability.load(
             "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
         )
-    ).specific == "5"
+    ).state.specific == "5"
     action = BatchProcessing(
         action_name=Action.REBASE.value,
         entity="unittesting",
@@ -59,8 +59,8 @@ async def test_clone_roots_real_ssh(
     vuln: Vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
-    assert vuln.specific == "11"  # this line has been changed
+    assert vuln.state.specific == "11"  # this line has been changed
     assert (
         await loaders.vulnerability.load("4dbc01e0-4cfc-4b77-9b71-bb7566c60bg")
-    ).specific == "3"
+    ).state.specific == "3"
     assert await snippet_already_exists(vuln.id, vuln.state.modified_date)

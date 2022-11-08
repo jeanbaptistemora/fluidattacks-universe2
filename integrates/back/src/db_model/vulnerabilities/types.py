@@ -88,12 +88,9 @@ class Vulnerability(NamedTuple):
     group_name: str
     hacker_email: str
     id: str
-    specific: str
     state: VulnerabilityState
     type: VulnerabilityType
-    where: str
     bug_tracking_system_url: Optional[str] = None
-    commit: Optional[str] = None
     custom_severity: Optional[int] = None
     developer: Optional[str] = None
     event_id: Optional[str] = None

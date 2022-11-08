@@ -1,9 +1,9 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-# type: ignore
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 update tags field to historic state
 

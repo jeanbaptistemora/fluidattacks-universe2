@@ -180,7 +180,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce10",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -198,7 +197,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                     zero_risk=VulnerabilityZeroRisk(
                         comment_id="123456",
                         modified_by="requested@zr.com",
@@ -215,7 +213,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce11",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -233,7 +230,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                     zero_risk=VulnerabilityZeroRisk(
                         comment_id="123456",
                         modified_by="requested@zr.com",
@@ -250,7 +246,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce12",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -268,7 +263,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                     zero_risk=VulnerabilityZeroRisk(
                         comment_id="123456",
                         modified_by="requested@zr.com",
@@ -285,7 +279,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce13",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -303,7 +296,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                     zero_risk=VulnerabilityZeroRisk(
                         comment_id="123456",
                         modified_by="requested@zr.com",
@@ -320,7 +312,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce14",
-                    specific="14",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -338,7 +329,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                 ),
             },
         ],

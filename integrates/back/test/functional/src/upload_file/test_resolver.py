@@ -215,7 +215,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     escaper_vuln: Vulnerability = next(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding_id)
-        if vuln.specific == "4646"
+        if vuln.state.specific == "4646"
         and vuln.state.where == "192.168.1.46"
         and vuln.type == VulnerabilityType.PORTS
         and vuln.state.status == VulnerabilityStateStatus.OPEN

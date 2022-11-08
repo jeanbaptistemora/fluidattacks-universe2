@@ -329,7 +329,7 @@ async def test_approval(populate: bool) -> None:
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(f_117.id)
         assert len(f_117_vulns) == 1
-        assert (f_117_vulns[0].state.where, f_117_vulns[0].specific) == (
+        assert (f_117_vulns[0].state.where, f_117_vulns[0].state.specific) == (
             ".project",
             "0",
         )

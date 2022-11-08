@@ -165,7 +165,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="7777",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -187,7 +186,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="192.168.1.20",
                 ),
             },
             {
@@ -199,7 +197,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="8888",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -221,7 +218,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="192.168.1.20",
                 ),
             },
             {
@@ -233,7 +229,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -255,7 +250,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="192.168.1.20",
                 ),
             },
         ],

@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 Populate where, specific and commit in the vulnerability historic state
 

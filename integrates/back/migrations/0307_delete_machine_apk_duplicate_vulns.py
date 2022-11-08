@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 Removes duplicate vulnerabilities reported by Machine in APK findings
 

@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 This migration removes the duplicated vulnerabilities caused by a bug
 in the batch action to move roots.

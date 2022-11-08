@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 Some specific are numbers or ranges instead of strings in the vulnerabilities
 

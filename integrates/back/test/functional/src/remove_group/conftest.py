@@ -403,7 +403,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:13+00:00",
@@ -421,7 +420,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                 ),
             },
             {
@@ -432,7 +430,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2321",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
@@ -456,7 +453,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.1",
                 ),
             },
             {
@@ -467,7 +463,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2321",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
@@ -491,7 +486,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.1",
                 ),
             },
         ],

@@ -170,7 +170,6 @@ async def populate() -> bool:
                     hacker_email="test@fluidattacks.com",
                     id="64bf8e56-0b3c-432a-bff7-c3eef56c47b7",
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                    specific="999",
                     state=VulnerabilityState(
                         modified_by="test@fluidattacks.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -183,8 +182,6 @@ async def populate() -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_source=Source.ASM,
                     ),
-                    where="test/data/lib_path/f060/csharp.cs",
-                    commit="4af88aa99f5ba20456560dd89ed380cbf81c2b1e",
                 ),
             },
         ],

@@ -459,7 +459,6 @@ def group_specific(
                 group_name=group[0].group_name,
                 hacker_email=group[0].hacker_email,
                 id=group[0].id,
-                specific=specific_grouped,
                 state=group[0].state._replace(
                     commit=(
                         group[0].state.commit[0:7]
@@ -470,12 +469,6 @@ def group_specific(
                     where=key[0],
                 ),
                 type=group[0].type,
-                where=key[0],
-                commit=(
-                    group[0].commit[0:7]
-                    if group[0].commit is not None
-                    else None
-                ),
             )
         )
     return tuple(grouped_vulns)

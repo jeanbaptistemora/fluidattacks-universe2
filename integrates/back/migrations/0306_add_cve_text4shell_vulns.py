@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 Update existing Text4Shell vulnerabilities
 that were reported with the ID of the Github Advisory

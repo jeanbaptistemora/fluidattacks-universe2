@@ -428,7 +428,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="4444",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:43:11+00:00",
@@ -456,7 +455,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="192.168.1.44",
                 ),
             },
             {
@@ -468,7 +466,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="4545",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:44:11+00:00",
@@ -496,7 +493,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:11+00:00",
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
-                    where="192.168.1.45",
                 ),
             },
             {
@@ -508,7 +504,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="4646",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -540,7 +535,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2018-04-08T01:45:12+00:00",
                         status=VulnerabilityVerificationStatus.VERIFIED,
                     ),
-                    where="192.168.1.46",
                 ),
                 "historic_state": [
                     VulnerabilityState(
@@ -580,7 +574,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdceb",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                    specific="4747",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:44:11+00:00",
@@ -604,7 +597,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.47",
                 ),
             },
         ],

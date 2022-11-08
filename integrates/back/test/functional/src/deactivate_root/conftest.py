@@ -565,7 +565,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:13+00:00",
@@ -583,7 +582,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                     root_id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                 ),
             },
@@ -595,7 +593,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2320",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
@@ -619,7 +616,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.1",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },
@@ -631,7 +627,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6b",
-                    specific="2321",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:15+00:00",
@@ -655,7 +650,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.2",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },
@@ -667,7 +661,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2322",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2018-04-08T00:45:16+00:00",
@@ -693,7 +686,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.3",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
             },

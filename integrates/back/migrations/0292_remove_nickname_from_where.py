@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # pylint: disable=invalid-name
+# type: ignore
 """
 It is not necessary to add the nickname at the beginning of
 the vulnerabilities, the nickname was used to identify the origin of the

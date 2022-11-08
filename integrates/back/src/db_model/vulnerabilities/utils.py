@@ -127,7 +127,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
 
     return Vulnerability(
         bug_tracking_system_url=item.get("bug_tracking_system_url", None),
-        commit=item.get("commit", None),
         created_by=item["created_by"],
         created_date=item["created_date"],
         custom_severity=(
@@ -147,7 +146,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
         root_id=item.get("root_id", None),
         skims_method=item.get("skims_method", None),
         skims_technique=item.get("skims_technique", None),
-        specific=item["specific"],
         state=state,
         stream=item.get("stream", None),
         tags=item.get("tags", None),
@@ -155,7 +153,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
         type=VulnerabilityType[item["type"]],
         unreliable_indicators=unreliable_indicators,
         verification=verification,
-        where=item["where"],
         zero_risk=zero_risk,
     )
 

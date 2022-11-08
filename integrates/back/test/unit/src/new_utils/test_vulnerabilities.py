@@ -89,7 +89,6 @@ async def test_get_vuln_closing_date() -> None:
         group_name="unittesting",
         hacker_email="test@test.com",
         id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
-        specific="phone",
         state=VulnerabilityState(
             modified_by="test@test.com",
             modified_date="2019-01-08T21:01:26+00:00",
@@ -102,7 +101,6 @@ async def test_get_vuln_closing_date() -> None:
         unreliable_indicators=VulnerabilityUnreliableIndicators(
             unreliable_source=Source.ASM,
         ),
-        where="https://example.com",
     )
     test_data = get_closing_date(closed_vulnerability)
     closing_date = datetime(2019, 1, 8).date()
@@ -124,9 +122,7 @@ async def test_get_vuln_opening_date() -> None:
         group_name="",
         hacker_email="",
         id="",
-        specific="",
         type=VulnerabilityType.LINES,
-        where="",
         state=VulnerabilityState(
             modified_by="",
             modified_date="2019-01-08T21:01:26+00:00",
@@ -205,7 +201,6 @@ def test_sort_vulnerabilities() -> None:
             group_name="",
             hacker_email="",
             id="",
-            specific="",
             state=VulnerabilityState(
                 modified_by="",
                 modified_date="",
@@ -218,7 +213,6 @@ def test_sort_vulnerabilities() -> None:
             unreliable_indicators=VulnerabilityUnreliableIndicators(
                 unreliable_source=Source.ASM,
             ),
-            where=where,
         )
         for where in ("abaa", "1abc", "aaaa")
     )
@@ -230,7 +224,6 @@ def test_sort_vulnerabilities() -> None:
             group_name="",
             hacker_email="",
             id="",
-            specific="",
             state=VulnerabilityState(
                 modified_by="",
                 modified_date="",
@@ -243,7 +236,6 @@ def test_sort_vulnerabilities() -> None:
             unreliable_indicators=VulnerabilityUnreliableIndicators(
                 unreliable_source=Source.ASM,
             ),
-            where=where,
         )
         for where in ("1abc", "aaaa", "abaa")
     )

@@ -218,7 +218,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    specific="9999",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -236,7 +235,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
                     ),
-                    where="192.168.1.20",
                 ),
             },
             {
@@ -247,7 +245,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
-                    specific="2321",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -269,7 +266,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=1,
                     ),
-                    where="192.168.1.1",
                 ),
             },
             {
@@ -280,7 +276,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="7771bc87-8633-4a4a-8d8e-7dae0ca57e7a",
-                    specific="77777",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -302,7 +297,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     type=VulnerabilityType.PORTS,
-                    where="192.168.1.7",
                 ),
                 "historic_zero_risk": [
                     VulnerabilityZeroRisk(
