@@ -10,6 +10,7 @@ interface IColProps {
   lg?: number;
   md?: number;
   sm?: number;
+  paddingTop?: number;
 }
 
 const getAttrs = (cols?: number): string =>
@@ -26,6 +27,10 @@ const Col = styled.div.attrs({
   className: "comp-col",
 })<IColProps>`
   word-break: break-word;
+
+  ${({ paddingTop }): string => `
+  padding-top: ${paddingTop === undefined ? 0 : paddingTop}px;
+`}
 
   @media (max-width: 768px) {
     ${({ sm }): string => getAttrs(sm)}

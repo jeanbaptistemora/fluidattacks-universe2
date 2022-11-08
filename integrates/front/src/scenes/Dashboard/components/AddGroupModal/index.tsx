@@ -12,7 +12,6 @@ import { Field, Form, Formik } from "formik";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { Fragment, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import type { Step } from "react-joyride";
 import LoadingOverlay from "react-loading-overlay-ts";
 import { useHistory } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -20,13 +19,13 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { handleCreateError, handleUpdateError } from "./helpers";
 
+import { ExternalLink } from "components/ExternalLink";
+import { InfoDropdown } from "components/InfoDropdown";
 import { Select } from "components/Input";
-import { Col, Row } from "components/Layout";
+import { Col } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Switch } from "components/Switch";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
@@ -102,12 +101,18 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
         variables: {
           description: values.description,
           groupName: values.name.toUpperCase(),
-          hasMachine: values.type === "CONTINUOUS",
-          hasSquad: values.type === "CONTINUOUS" ? values.squad : false,
+          hasMachine:
+            values.type === "CONTINUOUS-MACHINE" ||
+            values.type === "CONTINUOUS-SQUAD",
+          hasSquad: values.type === "CONTINUOUS-SQUAD",
           language: values.language,
           organizationName: values.organization,
           service: values.service,
-          subscription: values.type,
+          subscription: ["CONTINUOUS-MACHINE", "CONTINUOUS-SQUAD"].includes(
+            values.type
+          )
+            ? "CONTINUOUS"
+            : "ONESHOT",
         },
       });
       if (runTour) {
@@ -121,7 +126,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   return (
     <React.StrictMode>
       <Modal
-        minWidth={600}
+        minWidth={350}
         onClose={onClose}
         open={true}
         title={t("organization.tabs.groups.newGroup.new.group")}
@@ -135,265 +140,200 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             organization: organization.toUpperCase(),
             service: "WHITE",
             squad: true,
-            type: "CONTINUOUS",
+            type: "CONTINUOUS-MACHINE",
           }}
           name={"newGroup"}
           onSubmit={handleSubmit}
         >
-          {({ values, dirty, setFieldValue }): JSX.Element => {
-            function handleSquadBtnChange(): void {
-              setFieldValue("squad", !values.squad);
-            }
-
-            const isContinuous = values.type === "CONTINUOUS";
-
-            const steps: Step[] = [
+          {(): JSX.Element => {
+            const radioBtnOptions = [
               {
-                ...BaseStep,
-                content: t("tours.addGroup.intro"),
-                placement: "center",
-                target: "#add-group-plan",
-                title: t("organization.tabs.groups.newGroup.new.group"),
+                text: "Continuous Hacking - Machine Plan",
+                tip: "Continuous Hacking with Machine",
+                value: "CONTINUOUS-MACHINE",
               },
               {
-                ...BaseStep,
-                content: t("tours.addGroup.groupDescription"),
-                hideBackButton: true,
-                hideFooter: values.description.length === 0,
-                target: "#add-group-description-tour",
+                text: "Continuous Hacking - Squad Plan",
+                tip: "Continuous Hacking with Machine and Squad",
+                value: "CONTINUOUS-SQUAD",
               },
               {
-                ...BaseStep,
-                content: t("tours.addGroup.serviceType"),
-                target: "#add-group-service-type",
-              },
-              {
-                ...BaseStep,
-                content: t("tours.addGroup.testingType"),
-                target: "#add-group-testing-type",
-              },
-              {
-                ...BaseStep,
-                content: t("tours.addGroup.reportLanguage"),
-                target: "#add-group-report-language",
-              },
-              {
-                ...BaseStep,
-                content: t("tours.addGroup.squadPlan"),
-                target: "#add-group-plan",
-              },
-              {
-                ...BaseStep,
-                content: t("tours.addGroup.proceedButton"),
-                spotlightClicks: true,
-                target: "#add-group-confirm",
+                text: "One-shot Hacking",
+                tip: "One-shot Hacking",
+                value: "ONESHOT",
               },
             ];
-
-            const planStep = 5;
-
-            if (!isContinuous) {
-              steps.splice(planStep, 1);
-            }
 
             return (
               <Fragment>
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
-                  <Row id={"add-group-description-tour"} justify={"between"}>
-                    <Col lg={33} md={33} sm={33}>
-                      <Text mb={1}>
-                        {t(
-                          "organization.tabs.groups.newGroup.organization.text"
-                        )}
-                      </Text>
-                      <Tooltip
-                        hide={runTour}
-                        id={
-                          "organization.tabs.groups.newGroup.organization.tooltip"
-                        }
-                        place={"top"}
-                        tip={t(
-                          "organization.tabs.groups.newGroup.organization.tooltip"
-                        )}
-                      >
-                        <Field
-                          component={FormikText}
-                          disabled={true}
-                          name={"organization"}
-                          type={"text"}
-                          validate={composeValidators([
-                            required,
-                            maxOrganizationLength,
-                            validTextField,
-                          ])}
-                        />
-                      </Tooltip>
-                    </Col>
-                    <Col lg={33} md={33} sm={33}>
-                      <Text mb={1}>
-                        {t("organization.tabs.groups.newGroup.name")}
-                      </Text>
+                  <Col lg={33} md={33} sm={33}>
+                    <Text mb={1}>
+                      {t("organization.tabs.groups.newGroup.organization.text")}
+                    </Text>
+                    <Tooltip
+                      hide={runTour}
+                      id={
+                        "organization.tabs.groups.newGroup.organization.tooltip"
+                      }
+                      place={"top"}
+                      tip={t(
+                        "organization.tabs.groups.newGroup.organization.tooltip"
+                      )}
+                    >
                       <Field
                         component={FormikText}
-                        id={"add-group-name"}
-                        name={"name"}
+                        disabled={true}
+                        name={"organization"}
                         type={"text"}
                         validate={composeValidators([
-                          alphaNumeric,
-                          maxGroupNameLength,
                           required,
+                          maxOrganizationLength,
                           validTextField,
                         ])}
                       />
-                    </Col>
-                    <Col lg={33} md={33} sm={33}>
-                      <Text mb={1}>
-                        {t(
-                          "organization.tabs.groups.newGroup.description.text"
-                        )}
-                      </Text>
-                      <Tooltip
-                        hide={runTour}
-                        id={
-                          "organization.tabs.groups.newGroup.description.tooltip"
-                        }
-                        place={"top"}
-                        tip={t(
-                          "organization.tabs.groups.newGroup.description.tooltip"
-                        )}
-                      >
-                        <Field
-                          component={FormikText}
-                          id={"add-group-description"}
-                          name={"description"}
-                          type={"text"}
-                          validate={composeValidators([
-                            required,
-                            maxDescriptionLength,
-                            validTextField,
-                          ])}
-                        />
-                      </Tooltip>
-                    </Col>
-                  </Row>
-                  <Row justify={"between"}>
-                    <Col id={"add-group-service-type"} lg={33} md={33} sm={33}>
-                      <Tooltip
-                        hide={runTour}
-                        id={"organization.tabs.groups.newGroup.type.tooltip"}
-                        place={"top"}
-                        tip={t(
-                          "organization.tabs.groups.newGroup.type.tooltip"
-                        )}
-                      >
-                        <Select
-                          label={t(
-                            "organization.tabs.groups.newGroup.type.title"
-                          )}
-                          name={"type"}
+                    </Tooltip>
+                  </Col>
+                  <Col lg={33} md={33} paddingTop={25} sm={33}>
+                    <Text mb={1}>
+                      {t("organization.tabs.groups.newGroup.name")}
+                    </Text>
+                    <Field
+                      component={FormikText}
+                      id={"add-group-name"}
+                      name={"name"}
+                      type={"text"}
+                      validate={composeValidators([
+                        alphaNumeric,
+                        maxGroupNameLength,
+                        required,
+                        validTextField,
+                      ])}
+                    />
+                  </Col>
+                  <Col lg={33} md={33} paddingTop={25} sm={33}>
+                    <Text mb={1}>
+                      {t("organization.tabs.groups.newGroup.description.text")}
+                    </Text>
+                    <Tooltip
+                      hide={runTour}
+                      id={
+                        "organization.tabs.groups.newGroup.description.tooltip"
+                      }
+                      place={"top"}
+                      tip={t(
+                        "organization.tabs.groups.newGroup.description.tooltip"
+                      )}
+                    >
+                      <Field
+                        component={FormikText}
+                        id={"add-group-description"}
+                        name={"description"}
+                        type={"text"}
+                        validate={composeValidators([
+                          required,
+                          maxDescriptionLength,
+                          validTextField,
+                        ])}
+                      />
+                    </Tooltip>
+                  </Col>
+                  <Col paddingTop={25}>
+                    {t("organization.tabs.groups.newGroup.type.title")}
+                    {radioBtnOptions.map((option): JSX.Element => {
+                      return (
+                        <Col
+                          key={"type"}
+                          lg={33}
+                          md={33}
+                          paddingTop={7}
+                          sm={33}
                         >
-                          <option value={"CONTINUOUS"}>
-                            {t(
-                              "organization.tabs.groups.newGroup.type.continuous"
-                            )}
-                          </option>
-                          <option value={"ONESHOT"}>
-                            {t(
-                              "organization.tabs.groups.newGroup.type.oneShot"
-                            )}
-                          </option>
-                        </Select>
-                      </Tooltip>
+                          <Field
+                            name={"type"}
+                            type={"radio"}
+                            validate={required}
+                            value={option.value}
+                          />
+                          &nbsp;
+                          {option.text}
+                          &nbsp; &nbsp;
+                          <InfoDropdown size={"small"}>
+                            {option.tip}
+                          </InfoDropdown>
+                        </Col>
+                      );
+                    })}
+                    <Col paddingTop={16}>
+                      <ExternalLink
+                        href={
+                          "https://fluidattacks.com/services/continuous-hacking/"
+                        }
+                      >
+                        <Text size={"xs"}>
+                          {"Learn more about Continuous Hacking plans"}
+                        </Text>
+                      </ExternalLink>
                     </Col>
-                    <Col id={"add-group-testing-type"} lg={33} md={33} sm={33}>
+                  </Col>
+                  <Col
+                    id={"add-group-testing-type"}
+                    lg={33}
+                    md={33}
+                    paddingTop={25}
+                    sm={33}
+                  >
+                    <Select
+                      label={t(
+                        "organization.tabs.groups.newGroup.service.title"
+                      )}
+                      name={"service"}
+                    >
+                      <option value={"BLACK"}>
+                        {t("organization.tabs.groups.newGroup.service.black")}
+                      </option>
+                      <option value={"WHITE"}>
+                        {t("organization.tabs.groups.newGroup.service.white")}
+                      </option>
+                    </Select>
+                  </Col>
+                  <Col
+                    id={"add-group-report-language"}
+                    lg={33}
+                    md={33}
+                    paddingTop={25}
+                    sm={33}
+                  >
+                    <Tooltip
+                      hide={runTour}
+                      id={"organization.tabs.groups.newGroup.language.tooltip"}
+                      place={"top"}
+                      tip={t(
+                        "organization.tabs.groups.newGroup.language.tooltip"
+                      )}
+                    >
                       <Select
                         label={t(
-                          "organization.tabs.groups.newGroup.service.title"
+                          "organization.tabs.groups.newGroup.language.text"
                         )}
-                        name={"service"}
+                        name={"language"}
                       >
-                        <option value={"BLACK"}>
-                          {t("organization.tabs.groups.newGroup.service.black")}
+                        <option value={"EN"}>
+                          {t("organization.tabs.groups.newGroup.language.EN")}
                         </option>
-                        <option value={"WHITE"}>
-                          {t("organization.tabs.groups.newGroup.service.white")}
+                        <option value={"ES"}>
+                          {t("organization.tabs.groups.newGroup.language.ES")}
                         </option>
                       </Select>
-                    </Col>
-                    <Col
-                      id={"add-group-report-language"}
-                      lg={33}
-                      md={33}
-                      sm={33}
-                    >
-                      <Tooltip
-                        hide={runTour}
-                        id={
-                          "organization.tabs.groups.newGroup.language.tooltip"
-                        }
-                        place={"top"}
-                        tip={t(
-                          "organization.tabs.groups.newGroup.language.tooltip"
-                        )}
-                      >
-                        <Select
-                          label={t(
-                            "organization.tabs.groups.newGroup.language.text"
-                          )}
-                          name={"language"}
-                        >
-                          <option value={"EN"}>
-                            {t("organization.tabs.groups.newGroup.language.EN")}
-                          </option>
-                          <option value={"ES"}>
-                            {t("organization.tabs.groups.newGroup.language.ES")}
-                          </option>
-                        </Select>
-                      </Tooltip>
-                    </Col>
-                  </Row>
-                  {isContinuous && (
-                    <div className={"mv2"} id={"add-group-plan"}>
-                      <Tooltip
-                        hide={runTour}
-                        id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                        place={"top"}
-                        tip={t(
-                          "organization.tabs.groups.newGroup.squad.tooltip"
-                        )}
-                      >
-                        <Text mb={1}>
-                          {"* "}
-                          {t("organization.tabs.groups.newGroup.squad.text")}
-                        </Text>
-                        <Switch
-                          checked={values.squad}
-                          label={{
-                            off: t(
-                              "organization.tabs.groups.newGroup.switch.no"
-                            ),
-                            on: t(
-                              "organization.tabs.groups.newGroup.switch.yes"
-                            ),
-                          }}
-                          name={"squad"}
-                          onChange={handleSquadBtnChange}
-                        />
-                      </Tooltip>
-                    </div>
-                  )}
-                  {isContinuous &&
-                    `${"* "} ${t(
-                      "organization.tabs.groups.newGroup.extraChargesMayApply"
-                    )}`}
+                    </Tooltip>
+                  </Col>
                   <ModalConfirm
-                    disabled={!dirty || submitting}
+                    disabled={submitting}
                     id={"add-group-confirm"}
                     onCancel={onClose}
                   />
                 </Form>
-                <Tour onFinish={finishTour} run={runTour} steps={steps} />
               </Fragment>
             );
           }}

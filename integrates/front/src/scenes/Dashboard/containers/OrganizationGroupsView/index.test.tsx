@@ -19,7 +19,7 @@ import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/Organizatio
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgError, msgSuccess } from "utils/notifications";
+import { msgError } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
@@ -340,7 +340,7 @@ describe("Organization groups view", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+    expect(screen.getByText("components.modal.confirm")).toBeEnabled();
 
     await userEvent.type(
       screen.getByRole("textbox", { name: "name" }),
@@ -349,10 +349,6 @@ describe("Organization groups view", (): void => {
     await userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test group"
-    );
-    await userEvent.selectOptions(
-      screen.getByRole("combobox", { name: "type" }),
-      ["CONTINUOUS"]
     );
 
     await waitFor((): void => {
@@ -363,14 +359,9 @@ describe("Organization groups view", (): void => {
 
     await waitFor(
       (): void => {
-        expect(screen.queryAllByRole("row")).toHaveLength(4);
+        expect(screen.queryAllByRole("row")).toHaveLength(3);
       },
       { timeout: 2000 }
-    );
-
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "organization.tabs.groups.newGroup.success",
-      "organization.tabs.groups.newGroup.titleSuccess"
     );
 
     jest.clearAllMocks();

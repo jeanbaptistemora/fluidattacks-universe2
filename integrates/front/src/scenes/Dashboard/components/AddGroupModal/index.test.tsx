@@ -70,13 +70,9 @@ describe("AddGroupModal component", (): void => {
     expect(
       screen.getByRole("textbox", { name: "description" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("combobox", { name: "type" })).toBeInTheDocument();
     expect(
       screen.getByRole("combobox", { name: "service" })
     ).toBeInTheDocument();
-    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
-      1
-    );
     expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
   });
 });
