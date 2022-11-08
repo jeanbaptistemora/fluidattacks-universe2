@@ -26,7 +26,6 @@ from typing import (
     Any,
     Iterator,
     Optional,
-    Union,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -69,7 +68,7 @@ def initialize_schema() -> None:
 
 
 def execute(
-    sql_query: Union[str, sql.Composed],
+    sql_query: sql.Composed,
     sql_vars: Optional[dict[str, Any]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
@@ -78,7 +77,7 @@ def execute(
 
 
 def execute_many(
-    sql_query: Union[str, sql.Composed],
+    sql_query: sql.Composed,
     sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
@@ -87,7 +86,7 @@ def execute_many(
 
 
 def execute_batch(
-    sql_query: Union[str, sql.Composed],
+    sql_query: sql.Composed,
     sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
