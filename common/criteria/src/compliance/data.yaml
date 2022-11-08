@@ -6548,6 +6548,9 @@ owaspmasvs:
     V2_4:
       title: Security veriﬁcation requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V2_5:
+      title: Security veriﬁcation requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V2_7:
       title: Security veriﬁcation requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
@@ -6602,6 +6605,9 @@ owaspmasvs:
     V4_8:
       title: Authentication and session management requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V4_9:
+      title: Authentication and session management requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V4_10:
       title: Authentication and session management requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
@@ -6616,6 +6622,9 @@ owaspmasvs:
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V5_5:
       title: Network communication requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V6_1:
+      title: Platform interaction requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V6_2:
       title: Platform interaction requirements
@@ -6632,6 +6641,9 @@ owaspmasvs:
     V6_8:
       title: Platform interaction requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V6_10:
+      title: Platform interaction requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V7_1:
       title: Code quality and build setting requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
@@ -6644,13 +6656,28 @@ owaspmasvs:
     V7_6:
       title: Code quality and build setting requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V7_7:
+      title: Code quality and build setting requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V7_8:
+      title: Code quality and build setting requirements
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V7_9:
       title: Code quality and build setting requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V8_1:
       title: Resilience requirements - Impede dynamic analysis and tampering
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V8_2:
+      title: Resilience requirements - Impede dynamic analysis and tampering
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V8_5:
+      title: Resilience requirements - Impede dynamic analysis and tampering
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V8_6:
+      title: Resilience requirements - Impede dynamic analysis and tampering
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V8_7:
       title: Resilience requirements - Impede dynamic analysis and tampering
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V8_9:
@@ -6660,6 +6687,9 @@ owaspmasvs:
       title: Resilience requirements - Device binding
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     V8_11:
+      title: Resilience requirements - Impede comprehension
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+    V8_12:
       title: Resilience requirements - Impede comprehension
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
   metadata: {}

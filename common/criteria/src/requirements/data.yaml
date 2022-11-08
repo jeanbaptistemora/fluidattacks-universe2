@@ -615,6 +615,7 @@
     - swiftcsc.5_2
     - asvs.3_4_5
     - asvs.4_2_2
+    - owaspmasvs.V6_10
   metadata: {}
 '032':
   en:
@@ -1573,6 +1574,7 @@
     - asvs.14_4_5
     - asvs.14_4_7
     - asvs.14_5_1
+    - owaspmasvs.V8_5
   metadata: {}
 '072':
   en:
@@ -2775,6 +2777,7 @@
     - capec.242
     - cwe.80
     - owasp10.A3
+    - owaspmasvs.V2_5
   metadata: {}
 '118':
   en:
@@ -4379,6 +4382,7 @@
     - asvs.2_2_7
     - asvs.2_3_2
     - asvs.4_3_1
+    - owaspmasvs.V4_9
   metadata: {}
 '154':
   en:
@@ -4999,6 +5003,7 @@
     - osamm.SA_2
     - c2m2.7_2_c
     - cwe.453
+    - owaspmasvs.V7_9
   metadata: {}
 '162':
   en:
@@ -6271,6 +6276,7 @@
     - ptes.6_2_1_1
     - owasprisks.P1
     - swiftcsc.5_4
+    - owaspmasvs.V8_12
   metadata: {}
 '185':
   en:
@@ -6481,6 +6487,7 @@
     - sig.H_1_2
     - sig.U_1_2_2
     - asvs.1_2_2
+    - owaspmasvs.V6_1
   metadata: {}
 '189':
   en:
@@ -8796,6 +8803,8 @@
     - asvs.13_2_1
     - asvs.13_2_5
     - asvs.14_5_1
+    - owaspmasvs.V7_9
+    - owaspmasvs.V8_5
   metadata: {}
 '273':
   en:
@@ -8868,6 +8877,7 @@
     - pci.5_2_1
     - siglite.SL_162
     - sig.D_6_6
+    - owaspmasvs.V8_5
   metadata: {}
 '280':
   en:
@@ -11587,6 +11597,7 @@
     - pci.7_3_3
     - sig.N_1_9
     - asvs.4_1_1
+    - owaspmasvs.V7_7
   metadata: {}
 '342':
   en:
@@ -12216,6 +12227,8 @@
     - iso27002.7_10
     - iso27002.8_1
     - asvs.8_3_6
+    - owaspmasvs.V8_6
+    - owaspmasvs.V8_7
   metadata: {}
 '351':
   en:
@@ -12296,6 +12309,7 @@
     - iso27002.8_19
     - iec62443.UC-2_4
     - nistssdf.PW_6_1
+    - owaspmasvs.V8_7
   metadata: {}
 '353':
   en:
