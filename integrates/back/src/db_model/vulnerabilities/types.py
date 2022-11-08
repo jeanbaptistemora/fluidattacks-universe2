@@ -121,7 +121,6 @@ class VulnerabilitiesConnection(NamedTuple):
 
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
-    commit: Optional[str] = None
     created_by: Optional[str] = None
     created_date: Optional[str] = None
     custom_severity: Optional[str] = None
@@ -131,11 +130,9 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     skims_technique: Optional[str] = None
     developer: Optional[str] = None
     root_id: Optional[str] = None
-    specific: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
     type: Optional[VulnerabilityType] = None
-    where: Optional[str] = None
 
 
 VulnerabilityHistoric = Union[

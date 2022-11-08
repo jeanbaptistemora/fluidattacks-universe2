@@ -17,7 +17,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
 )
 import logging
@@ -158,14 +157,5 @@ async def rebase(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
         entry=last_state,
-    )
-    await vulns_model.update_metadata(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
-        metadata=VulnerabilityMetadataToUpdate(
-            commit=vulnerability_commit,
-            specific=vulnerability_specific,
-            where=vulnerability_where,
-        ),
     )
     return last_state

@@ -895,12 +895,6 @@ async def verify(
         update_metadata_and_state(
             vulnerability=vuln_to_close,
             new_metadata=VulnerabilityMetadataToUpdate(
-                commit=(
-                    close_item.state.commit
-                    if close_item
-                    and close_item.type == VulnerabilityType.LINES
-                    else None
-                ),
                 stream=(
                     close_item.stream
                     if close_item
@@ -910,7 +904,9 @@ async def verify(
             ),
             new_state=VulnerabilityState(
                 commit=close_item.state.commit
-                if close_item
+                if close_item and close_item.type == VulnerabilityType.LINES
+                else None
+                if close_item and close_item.type != VulnerabilityType.LINES
                 else vuln_to_close.state.commit,
                 modified_by=modified_by,
                 modified_date=modified_date,
