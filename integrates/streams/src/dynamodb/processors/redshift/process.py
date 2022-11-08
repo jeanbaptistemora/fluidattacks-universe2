@@ -46,18 +46,17 @@ def _get_items_iterator(
     return itertools.groupby(filtered_items, itemgetter("pk"))
 
 
-def process_events(records: tuple[Record, ...]) -> None:
-    with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image for record in records if record.old_image
-        ]
-        for item in metadata_items:
-            events_ops.insert_metadata(cursor=cursor, item=item)
-            LOGGER.info(
-                "Event metadata stored, group: %s, id: %s",
-                item["sk"].split("#")[1],
-                item["pk"].split("#")[1],
-            )
+def _process_events(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
+    metadata_items: list[Item] = [
+        record.old_image for record in records if record.old_image
+    ]
+    for item in metadata_items:
+        events_ops.insert_metadata(cursor=cursor, item=item)
+        LOGGER.info(
+            "Event metadata stored, group: %s, id: %s",
+            item["sk"].split("#")[1],
+            item["pk"].split("#")[1],
+        )
 
 
 def _process_finding_metadata(cursor: cursor_cls, item: Item) -> None:
@@ -94,21 +93,20 @@ def _process_finding_verification(
     )
 
 
-def process_findings(records: tuple[Record, ...]) -> None:
-    with db_cursor() as cursor:
-        metadata_items: list[Item] = [
-            record.old_image
-            for record in records
-            if record.old_image and record.sk.startswith("GROUP#")
-        ]
-        for item in metadata_items:
-            _process_finding_metadata(cursor, item)
-        for key, items in _get_items_iterator(records, "STATE#"):
-            finding_id = str(key).split("#")[1]
-            _process_finding_state(cursor, finding_id, list(items))
-        for key, items in _get_items_iterator(records, "VERIFICATION#"):
-            finding_id = str(key).split("#")[1]
-            _process_finding_verification(cursor, finding_id, list(items))
+def _process_findings(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
+    metadata_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.startswith("GROUP#")
+    ]
+    for item in metadata_items:
+        _process_finding_metadata(cursor, item)
+    for key, items in _get_items_iterator(records, "STATE#"):
+        finding_id = str(key).split("#")[1]
+        _process_finding_state(cursor, finding_id, list(items))
+    for key, items in _get_items_iterator(records, "VERIFICATION#"):
+        finding_id = str(key).split("#")[1]
+        _process_finding_verification(cursor, finding_id, list(items))
 
 
 def _process_roots(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
@@ -203,6 +201,25 @@ def _process_vulnerabilities(
 
 def process_records(records: tuple[Record, ...]) -> None:
     with db_cursor() as cursor:
+        _process_events(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("EVENT#")
+                    and record.sk.startswith("GROUP#"),
+                    records,
+                )
+            ),
+        )
+        _process_findings(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("FIN#"),
+                    records,
+                )
+            ),
+        )
         _process_roots(
             cursor=cursor,
             records=tuple(
