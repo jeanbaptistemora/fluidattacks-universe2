@@ -27,6 +27,7 @@ from custom_exceptions import (
     AlreadySubmitted,
     InvalidRootComponent,
     RepeatedToeInput,
+    RootNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -117,8 +118,11 @@ from organizations_finding_policies import (
 )
 import os
 import random
+import re
 from roots.domain import (
+    add_machine_execution,
     finish_machine_execution,
+    get_root_id_by_nickname,
     start_machine_execution,
 )
 from s3.resource import (
@@ -1004,54 +1008,75 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 
 
 async def get_current_execution(
-    loaders: Dataloaders, execution_id: str
+    root_id: str,
+    batch_job_id: str,
+    findings_executed: Optional[list[MachineFindingResult]] = None,
+    commit: Optional[str] = None,
 ) -> Optional[RootMachineExecution]:
-    batch_job_id = execution_id.split("_")[1]
-    current_root = await _get_current_root(loaders, execution_id)
-    if not current_root:
-        return None
+
     result = await get_machine_executions_by_job_id(
-        job_id=batch_job_id, root_id=current_root.id
+        job_id=batch_job_id, root_id=root_id
     )
     if not result:
+        if await add_machine_execution(
+            root_id,
+            batch_job_id,
+            findings_executed=findings_executed or [],
+            commit=commit,
+        ):
+            with suppress(IndexError):
+                return (
+                    await get_machine_executions_by_job_id(
+                        job_id=batch_job_id, root_id=root_id
+                    )
+                )[0]
         return None
     return result[0]
 
 
-async def _get_current_root(
-    loaders: Dataloaders, execution_id: str
-) -> Optional[GitRoot]:
-    group_name = execution_id.split("_")[0]
-    batch_job_id = execution_id.split("_")[1]
-    executions: Tuple[
-        RootMachineExecution, ...
-    ] = await get_machine_executions_by_job_id(job_id=batch_job_id)
-    roots_in_execution: Tuple[GitRoot, ...] = await loaders.root.load_many(
-        [(group_name, exc.root_id) for exc in executions]
+def _match_execution_id(execution_id: str) -> Optional[dict[str, str]]:
+    pattern = (
+        r"(?P<group_name>[a-z]*)_(?P<job_id>[0-9a-z-]{36})_"
+        r"(?P<root_nickname>(.?)*)_([0-9a-z]{8})"
     )
-    current_root: Optional[GitRoot] = next(
-        (
-            root
-            for root in roots_in_execution
-            if root.state.nickname in execution_id
-        ),
-        None,
-    )
-    if not current_root:
+    match = re.match(pattern, execution_id)
+    if not match:
         return None
-    return current_root
+    return match.groupdict()
 
 
 async def _start_machine_execution(
-    loaders: Dataloaders, execution_id: str
+    loaders: Dataloaders,
+    execution_id: str,
+    findings_executed: Optional[list[MachineFindingResult]] = None,
+    commit: Optional[str] = None,
 ) -> None:
-    batch_job_id = execution_id.split("_")[1]
-    current_root = await _get_current_root(loaders, execution_id)
-    current_execution = await get_current_execution(loaders, execution_id)
-    if not current_root or not current_execution:
+
+    match_dict = _match_execution_id(execution_id)
+    if not match_dict:
+        return
+    batch_job_id = match_dict["job_id"]
+    try:
+        root_id = get_root_id_by_nickname(
+            match_dict["root_nickname"],
+            await loaders.group_roots.load(match_dict["group_name"]),
+            True,
+        )
+    except RootNotFound:
+        return None
+
+    current_execution = await get_current_execution(
+        root_id, batch_job_id, findings_executed, commit
+    )
+    if not current_execution:
         return
     if not current_execution.started_at:
-        await start_machine_execution(current_root.id, batch_job_id)
+        await start_machine_execution(
+            root_id,
+            batch_job_id,
+            started_at=datetime.now(),
+            git_commit=commit,
+        )
 
 
 async def _finish_machine_execution(
@@ -1059,10 +1084,23 @@ async def _finish_machine_execution(
     execution_id: str,
     findings_executed: Tuple[MachineFindingResult, ...],
 ) -> None:
-    batch_job_id = execution_id.split("_")[1]
-    current_root = await _get_current_root(loaders, execution_id)
-    current_execution = await get_current_execution(loaders, execution_id)
-    if not current_root or not current_execution:
+    match_dict = _match_execution_id(execution_id)
+    if not match_dict:
+        return
+    try:
+        root_id = get_root_id_by_nickname(
+            match_dict["root_nickname"],
+            await loaders.group_roots.load(match_dict["group_name"]),
+            True,
+        )
+    except RootNotFound:
+        return
+
+    current_execution = await get_current_execution(
+        root_id,
+        match_dict["job_id"],
+    )
+    if not current_execution:
         return
     result: list[MachineFindingResult] = []
     for item in current_execution.findings_executed:
@@ -1078,8 +1116,8 @@ async def _finish_machine_execution(
             result = [*result, item]
 
     await finish_machine_execution(
-        current_root.id,
-        batch_job_id,
+        root_id,
+        match_dict["job_id"],
         stopped_at=datetime.now(),
         findings_executed=result,
     )
@@ -1096,7 +1134,6 @@ async def process_execution(
     criteria_vulns = criteria_vulns or await get_vulns_file()
     criteria_reqs = criteria_reqs or await get_requirements_file()
     loaders: Dataloaders = get_new_context()
-    await _start_machine_execution(loaders, execution_id)
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(execution_id, config_path)
     try:
@@ -1126,6 +1163,15 @@ async def process_execution(
         )
         return False
 
+    await _start_machine_execution(
+        loaders,
+        execution_id,
+        [
+            MachineFindingResult(open=0, modified=0, finding=check)
+            for check in execution_config.get("checks", [])
+        ],
+        results["runs"][0]["versionControlProvenance"][0]["revisionId"],
+    )
     rules_id: Set[str] = {
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     }
