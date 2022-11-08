@@ -159,7 +159,7 @@ with false narratives that appear to come from reliable or authentic sources.
 Even though it started with,
 for instance,
 playful or recreational uses,
-it is true that today it's beginning to enter dark sides
+it is true that today it's beginning to enter the dark side
 for immoral purposes.
 This is an increasingly accessible technology,
 even for people with low technical knowledge.
@@ -275,7 +275,6 @@ In essence,
 the trends in prevention for the coming year are likely to remain
 the same as those that have been useful so far
 in dealing with the recognized threat landscape.
-We will hardly discover innovative strategies and practices for 2023.
 There will undoubtedly be more predisposition
 to implement and mature cybersecurity in organizations.
 Already in [our recent post on trends](../cybersecurity-trends-2022/)
@@ -399,7 +398,7 @@ we will continue recommending a combination of manual and automated methods.
 While the latter delivers vulnerability reports at high speed,
 it focuses on known vulnerabilities,
 often superficial,
-and brings it high false positive and false negative rates.
+and brings with it high false positive and false negative rates.
 Manual work is essential for greater accuracy and scope.
 As we stated in our previous State of Attacks report
 (and perhaps we'll do so in the next one),
@@ -413,8 +412,7 @@ we will continue recommending that
 you keep your applications or other IT systems
 under continuous assessment as a preventive measure.
 Use our [Continuous Hacking service](../../services/continuous-hacking/),
-and don't let negligence
-cause threat actors to catch you by surprise in 2023
+and don't let threat actors catch you by surprise in 2023
 (or even right now).
 Do you want to be part of the trend in cybersecurity implementation?
 Get started now for free!
