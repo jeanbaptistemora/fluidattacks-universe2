@@ -89,6 +89,10 @@ async def remove_comment(group_name: str, comment_id: str) -> None:
     )
 
 
+async def remove_comments(group_name: str) -> None:
+    await group_comments_model.remove_group_comments(group_name=group_name)
+
+
 async def get_comments(
     loaders: Dataloaders, group_name: str, email: str
 ) -> tuple[GroupComment, ...]:

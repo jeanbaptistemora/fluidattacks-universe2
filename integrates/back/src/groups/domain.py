@@ -144,8 +144,8 @@ from findings import (
 from group_access import (
     domain as group_access_domain,
 )
-from group_comments.domain import (
-    mask_comments,
+from group_comments import (
+    domain as group_comments_domain,
 )
 from mailer import (
     groups as groups_mail,
@@ -1367,7 +1367,7 @@ async def remove_resources(
         ),
         workers=4,
     )
-    await mask_comments(loaders, group_name)
+    await group_comments_domain.remove_comments(group_name)
     await mask_files(loaders, group_name)
     await remove_all_roots(
         loaders=loaders,
