@@ -143,9 +143,7 @@ def get_current_group() -> str:
         return "unspecified-subs"
 
 
-def is_valid_group(  # pylint: disable=unused-argument
-    ctx: Any,
-    param: Any,
+def is_valid_group(
     subs: str,
 ) -> str:
     actual_path: str = os.getcwd()

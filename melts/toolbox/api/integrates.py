@@ -262,7 +262,7 @@ class Queries:
     ) -> Response:
         """Get a group."""
         LOGGER.debug(
-            "Query.group(group_name=%s, with_drafts=%s," " with_findings=%s)",
+            "Query.group(group_name=%s, with_drafts=%s, with_findings=%s)",
             group_name,
             with_drafts,
             with_findings,

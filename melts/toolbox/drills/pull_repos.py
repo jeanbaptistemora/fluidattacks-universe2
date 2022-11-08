@@ -181,12 +181,12 @@ def download_repo_from_s3(
             (commit := root.get("cloningStatus", {}).get("commit"))
             and (branch := root.get("branch"))
             and (local_commit := get_head_commit(repo_path, branch))
+            and (local_commit == commit)
         ):
-            if local_commit == commit:
-                LOGGER.info("%s  repository already exists", nickname)
-                if progress_bar:
-                    progress_bar()
-                return True
+            LOGGER.info("%s  repository already exists", nickname)
+            if progress_bar:
+                progress_bar()
+            return True
 
     os.makedirs(repo_path.parent, exist_ok=True)
     file_path = repo_path.with_suffix(".tar.gz")

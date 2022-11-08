@@ -12,7 +12,9 @@ from typing import (
 
 # Compiled regular expresions
 RE_SPACE_CHARS = re.compile(r"\s", flags=re.M)
-RE_NOT_ALLOWED_CHARS = re.compile(r"[^a-zá-úñÁ-ÚÑA-Z0-9\s,._]", flags=re.M)
+RE_NOT_ALLOWED_CHARS = re.compile(
+    r"[^a-zA-Z\u00C0-\u00FF0-9\s,._]", flags=re.M
+)
 
 
 def sanitize_string(string: Any) -> str:
