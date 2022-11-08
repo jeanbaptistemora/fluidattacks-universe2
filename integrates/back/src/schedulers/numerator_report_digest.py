@@ -688,7 +688,6 @@ async def send_numerator_report() -> None:
                 continue
     else:
         LOGGER.info("- numerator report NOT sent")
-        return
 
 
 async def main() -> None:

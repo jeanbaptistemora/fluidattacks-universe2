@@ -834,35 +834,35 @@ async def update_metadata_and_state(
             entry=new_state,
         )
 
-    if vulnerability.state.status != new_state.status:
-        if (
-            finding_policy
-            and new_state.status == VulnerabilityStateStatus.OPEN
-            and finding_policy.state.status == "APPROVED"
-            and vulnerability.treatment
-            and vulnerability.treatment.status
-            != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        ):
-            treatment_to_update = (
-                vulns_utils.get_treatment_from_org_finding_policy(
-                    modified_date=new_state.modified_date,
-                    user_email=finding_policy.state.modified_by,
-                )
+    if (  # pylint: disable=too-many-boolean-expressions
+        vulnerability.state.status != new_state.status
+        and finding_policy
+        and new_state.status == VulnerabilityStateStatus.OPEN
+        and finding_policy.state.status == "APPROVED"
+        and vulnerability.treatment
+        and vulnerability.treatment.status
+        != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+    ):
+        treatment_to_update = (
+            vulns_utils.get_treatment_from_org_finding_policy(
+                modified_date=new_state.modified_date,
+                user_email=finding_policy.state.modified_by,
             )
-            await vulns_model.update_treatment(
-                current_value=vulnerability,
-                finding_id=vulnerability.finding_id,
-                vulnerability_id=vulnerability.id,
-                treatment=treatment_to_update[0],
-            )
-            await vulns_model.update_treatment(
-                current_value=vulnerability._replace(
-                    treatment=treatment_to_update[0]
-                ),
-                finding_id=vulnerability.finding_id,
-                vulnerability_id=vulnerability.id,
-                treatment=treatment_to_update[1],
-            )
+        )
+        await vulns_model.update_treatment(
+            current_value=vulnerability,
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            treatment=treatment_to_update[0],
+        )
+        await vulns_model.update_treatment(
+            current_value=vulnerability._replace(
+                treatment=treatment_to_update[0]
+            ),
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            treatment=treatment_to_update[1],
+        )
 
     await vulns_model.update_metadata(
         finding_id=vulnerability.finding_id,

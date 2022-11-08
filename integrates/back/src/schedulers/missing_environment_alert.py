@@ -133,7 +133,6 @@ async def missing_environment_alert() -> None:
                 )
     else:
         LOGGER.info("- environment alert NOT sent")
-        return
 
 
 async def main() -> None:

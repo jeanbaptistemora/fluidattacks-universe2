@@ -15,7 +15,7 @@ async def is_personal_email(user_email: str) -> bool:
         "free_email_provider_domains.txt"
     )
     email_domain = user_email.split("@")[1]
-    error_msg = "Couldn't fetch free email provider domains"
+    error_msg = "Couldn't fetch free email provider domains %s"
 
     try:
         async with aiohttp.ClientSession() as session:

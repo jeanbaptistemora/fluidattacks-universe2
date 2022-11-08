@@ -100,7 +100,6 @@ async def send_temporal_treatment_report() -> None:
 
     else:
         LOGGER.info("- temporal treatment report NOT sent")
-        return
 
 
 async def main() -> None:

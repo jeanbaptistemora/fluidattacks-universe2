@@ -105,7 +105,6 @@ async def send_users_weekly_report() -> None:
         )
     else:
         LOGGER.info("- users weekly report NOT sent")
-        return
 
 
 async def main() -> None:

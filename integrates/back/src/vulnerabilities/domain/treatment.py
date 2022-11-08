@@ -556,11 +556,10 @@ async def update_vulnerabilities_treatment(
         validations.validate_field_length(
             updated_values["justification"], 10000
         )
-    if vulnerability.treatment:
-        if not compare_historic_treatments(
-            vulnerability.treatment, updated_values
-        ):
-            raise SameValues()
+    if vulnerability.treatment and not compare_historic_treatments(
+        vulnerability.treatment, updated_values
+    ):
+        raise SameValues()
 
     historic_treatment = await loaders.vulnerability_historic_treatment.load(
         vulnerability.id

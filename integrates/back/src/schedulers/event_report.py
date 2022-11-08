@@ -90,7 +90,6 @@ async def send_event_report() -> None:
             )
     else:
         LOGGER.info("- event report NOT sent")
-        return
 
 
 async def main() -> None:

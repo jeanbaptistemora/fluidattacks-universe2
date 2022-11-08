@@ -112,7 +112,6 @@ async def test_add_organization() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_organization() -> None:
-    loaders: Dataloaders = get_new_context()
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     org_name = "tatsumi"
     email = "org_testuser1@gmail.com"
@@ -128,7 +127,7 @@ async def test_remove_organization() -> None:
         ),
     )
 
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     org: Organization = await loaders.organization.load(org_id)
     assert org.state.status == OrganizationStateStatus.DELETED
     assert org.state.modified_by == email

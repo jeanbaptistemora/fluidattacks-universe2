@@ -89,7 +89,6 @@ async def send_reminder_notification() -> None:
         )
     else:
         LOGGER.info("- reminder notification NOT sent")
-        return
 
 
 async def main() -> None:
