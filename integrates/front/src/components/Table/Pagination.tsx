@@ -78,7 +78,7 @@ const Pagination = <TData extends RowData>({
               size={"sm"}
               variant={el === pageSize ? "selected" : "secondary"}
             >
-              {el}
+              <div style={{ textAlign: "center", width: "25px" }}>{el}</div>
             </Button>
           )
         )}
@@ -114,7 +114,7 @@ const Pagination = <TData extends RowData>({
             size={"sm"}
             variant={el === pageIndex ? "selected" : "secondary"}
           >
-            {el + 1}
+            <div style={{ textAlign: "center", width: "15px" }}>{el + 1}</div>
           </Button>
         )
       )}

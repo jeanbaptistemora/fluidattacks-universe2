@@ -6,6 +6,7 @@
 
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -15,6 +16,8 @@ import React, { useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { Col } from "components/Layout";
+import { Table } from "components/Table";
 import { Comments } from "scenes/Dashboard/components/Comments";
 import type {
   ICommentStructure,
@@ -27,6 +30,7 @@ import {
 } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
+import { featurePreviewContext } from "utils/featurePreview";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -40,6 +44,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
+  const { featurePreview } = useContext(featurePreviewContext);
 
   const handleAddConsultError: (addCommentError: ApolloError) => void = (
     addCommentError: ApolloError
@@ -97,6 +102,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
 
   const [addConsult] = useMutation(ADD_GROUP_CONSULT, {
     onError: handleAddConsultError,
+    refetchQueries: [{ query: GET_GROUP_CONSULTING }, "GetGroupConsulting"],
   });
 
   const handlePost: (
@@ -139,8 +145,50 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || loading) {
     return <div />;
   }
+  interface IData {
+    date: string;
+    label: string;
+    authorName: string;
+  }
 
-  return (
+  const columns: ColumnDef<IData>[] = [
+    {
+      accessorKey: "date",
+      header: "Date",
+    },
+    {
+      accessorKey: "label",
+      header: "Email",
+    },
+    {
+      accessorKey: "authorName",
+      header: "Created By",
+    },
+  ];
+
+  const datasetTable: ICommentStructure[] = data.group.consulting;
+  const datasetTables: IData[] = datasetTable
+    .filter((comments): boolean => comments.parentComment < 1)
+    .map((comment): IData => {
+      return {
+        authorName: comment.fullName,
+        date: comment.created,
+        label: comment.email,
+      };
+    });
+
+  return featurePreview ? (
+    <React.StrictMode>
+      <div className={"flex justify-between"}>
+        <Col>
+          <Table columns={columns} data={datasetTables} id={"testTable"} />
+        </Col>
+        <Col>
+          <Comments onLoad={getData} onPostComment={handlePost} />
+        </Col>
+      </div>
+    </React.StrictMode>
+  ) : (
     <React.StrictMode>
       <div>
         <Comments onLoad={getData} onPostComment={handlePost} />
