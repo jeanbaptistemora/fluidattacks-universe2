@@ -133,9 +133,9 @@ Access rights that the application recognizes on external entities:
 1. Now and then, some _Data_ assets
    are replicated by the _Backups_ component.
 
-### Threat Categorization
+## Threat Categorization
 
-#### Spoofing
+### Spoofing
 
 1. An attacker may want to impersonate our users.
 
@@ -176,7 +176,7 @@ Access rights that the application recognizes on external entities:
    - No concurrent sessions are allowed
    - API tokens can be revoked.
 
-#### Tampering
+### Tampering
 
 1. An attacker may tamper with an authentication token
    (session token or API token).
@@ -215,7 +215,7 @@ Access rights that the application recognizes on external entities:
 
    - We have backups for the most important tables in the Database.
 
-#### Repudiation
+### Repudiation
 
 1. An attacker may repudiate who they are.
 
@@ -235,10 +235,72 @@ Access rights that the application recognizes on external entities:
    - In many cases, the "Historic State" is stored in the Database,
      allowing retrieval of every modification the data has had over time.
 
-#### Information disclosure
+### Information disclosure
 
-#### Denial of service
+1. An attacker may use data from a breach.
 
-1.
+   Mitigation:
 
-#### Elevation of privilege
+   - Secrets are rotated every time someone from the staff leaves the company.
+   - Information is encrypted at rest.
+   - Secrets are stored in the database using proper cryptography mechanisms.
+
+1. An attacker may access the information they would normally not have access to.
+
+   Mitigation:
+
+   - Apart from the authentication system,
+     the authorization system forbids access unless explicitly granted.
+
+### Denial of service
+
+1. Symmetric Denial of Service.
+
+   Mitigation:
+
+   - We use Cloudflare as a proxy, CDN, and firewall,
+     and have configured a rate limit per IP.
+
+1. Asymmetric Denial of Service.
+
+   Mitigation:
+
+   - Upon failure of some API server instances,
+     Kubernetes can heal the cluster by spinning new instances.
+   - Upon increased demand,
+     Kubernetes can spin new instances up to a max capacity.
+   - We use monitoring solutions
+     to inspect in real-time
+     the slow queries happening in the application,
+     and proactively optimize them
+     before an attacker can exploit them in practice.
+
+### Elevation of privilege
+
+1. An attacker may want to elevate their current role within the application.
+
+   Mitigation:
+
+   - The API functions in the source code
+     are easy to annotate with a "decorator",
+     which is a small line of code that enforces
+     the authorization automatically before executing any logic.
+   - The access control of every role is centralized and as-code,
+     and can only be changed by changing the source code and redeploying the application,
+     so it's easy to audit changes that are made to it.
+   - Who has which role happens dynamically
+     through being granted access by another higher-ranked role.
+     Care is taken to avoid an elevation of privileges
+     by computing permissions matrices,
+     where it's easy to see which role can do what.
+   - We practice minimum privilege where it makes sense.
+
+### Lateral movement
+
+1. An attacker may use their current privileges in one system
+   to gain access to another system.
+
+   Mitigation:
+
+   - The API server has different layers of access control,
+     allowing a logical division of the data by customer.
