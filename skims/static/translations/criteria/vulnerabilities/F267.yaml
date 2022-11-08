@@ -42,7 +42,7 @@ lib_path.f267.k8s_check_privileged_used:
   en: >
     Ensure securityContext.privileged property is set to false
   es: >
-    Asegúrese de que la propiedad securityContext.readOnlyRootFilesystem esté establecida
+    Asegúrese de que la propiedad securityContext.privileged esté establecida
     en false
 lib_path.f267.k8s_check_drop_capability:
   en: >

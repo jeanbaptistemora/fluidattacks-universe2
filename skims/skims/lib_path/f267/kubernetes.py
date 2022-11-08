@@ -21,6 +21,8 @@ from model.core_model import (
 from typing import (
     Any,
     Iterator,
+    List,
+    Union,
 )
 
 
@@ -69,15 +71,31 @@ def _k8s_root_container(
                 yield as_root
 
 
+def get_read_only_findings(tag: Node) -> Union[Node, None]:
+    has_security_context: bool = False
+    for node, node_data in tag.data.items():
+        if node.data == "securityContext":
+            if (
+                read_only := node_data.inner.get("readOnlyRootFilesystem")
+            ) and not read_only.data:
+                return read_only
+            if not read_only:
+                return node
+            has_security_context = True
+
+    return tag if not has_security_context else None
+
+
 def _k8s_root_filesystem_read_only(
-    template: Any,
-) -> Iterator[Any]:
-    for ctx in iter_security_context(template, True):
-        read_only = ctx.inner.get("readOnlyRootFilesystem")
-        if read_only and not read_only.data:
-            yield read_only
-        elif not read_only:
-            yield ctx
+    template: Node,
+) -> Iterator[Node]:
+    vulns_found: List[Node] = []
+    for container in iter_containers_type(template):
+        for container_props in container:
+            if finding := get_read_only_findings(container_props):
+                vulns_found.append(finding)
+
+    yield from vulns_found
 
 
 def _k8s_check_run_as_user(
