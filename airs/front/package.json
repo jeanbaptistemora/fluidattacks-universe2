@@ -115,6 +115,16 @@
     "eslint-import-resolver-typescript": {
       "get-tsconfig": "4.1.0"
     },
+    "gatsby": {
+      "yaml-loader": {
+        "loader-utils": "2.0.3"
+      }
+    },
+    "gatsby-plugin-sass": {
+      "resolve-url-loader": {
+        "loader-utils": "2.0.3"
+      }
+    },
     "got": "11.8.5",
     "immer": "9.0.15",
     "node-fetch": "2.6.7",
