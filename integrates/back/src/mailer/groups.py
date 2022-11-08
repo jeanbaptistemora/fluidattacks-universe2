@@ -50,6 +50,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 
 
@@ -995,6 +996,34 @@ async def send_mail_numerator_report(
         subject=f"[ARM] Progress Report {user_login} [{report_date}]",
         context=context,
         template_name="numerator_digest",
+    )
+
+
+async def send_mail_comments_digest(
+    *,
+    loaders: Any,
+    context: Dict[
+        str,
+        Dict[
+            str,
+            Union[
+                List[Dict[str, Optional[str]]],
+                Dict[str, List[Dict[str, Optional[str]]]],
+            ],
+        ],
+    ],
+    email_to: str,
+    email_cc: List[str],
+) -> None:
+    user_login = str(email_to).split("@", maxsplit=1)[0]
+    await send_mails_async(
+        loaders=loaders,
+        email_to=[email_to],
+        email_cc=email_cc,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] Comments Report [{user_login}]",
+        context=context,
+        template_name="comments_digest",
     )
 
 

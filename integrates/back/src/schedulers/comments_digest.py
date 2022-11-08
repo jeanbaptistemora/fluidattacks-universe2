@@ -7,7 +7,12 @@ from aioextensions import (
 )
 from context import (
     FI_ENVIRONMENT,
+    FI_MAIL_COS,
+    FI_MAIL_CTO,
     FI_TEST_PROJECTS,
+)
+from custom_exceptions import (
+    UnableToSendMail,
 )
 from dataloaders import (
     Dataloaders,
@@ -38,10 +43,19 @@ from db_model.group_comments.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from group_access import (
     domain as group_access_domain,
 )
 import logging
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
+from mailer import (
+    groups as groups_mail,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -65,6 +79,13 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 COMMENTS_AGE = 1
+
+
+mail_comments_digest = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=3,
+    sleep_seconds=2,
+)(groups_mail.send_mail_comments_digest)
 
 
 class CommentsDataType(TypedDict):
@@ -292,8 +313,17 @@ async def send_comment_digest() -> None:
         )
     }
 
-    users_data = {
-        email: {
+    for email in unique_emails(dict(groups_data), ()):
+        user_content: Dict[
+            str,
+            Dict[
+                str,
+                Union[
+                    List[Dict[str, Optional[str]]],
+                    Dict[str, List[Dict[str, Optional[str]]]],
+                ],
+            ],
+        ] = {
             group_name: {
                 "group_comments": digest_comments(data["group_comments"]),
                 "event_comments": {
@@ -310,10 +340,25 @@ async def send_comment_digest() -> None:
             for group_name, data in groups_data.items()
             if email in data["email_to"]
         }
-        for email in unique_emails(dict(groups_data), ())
-    }
 
-    LOGGER.info("- Email data to notify: %s", users_data)
+        try:
+            await mail_comments_digest(
+                loaders=loaders,
+                context=user_content,
+                email_to=email,
+                email_cc=[FI_MAIL_COS, FI_MAIL_CTO],
+            )
+            LOGGER.info(
+                "Comments email sent",
+                extra={"extra": {"email": email}},
+            )
+        except KeyError:
+            LOGGER.info(
+                "Key error, email not sent",
+                extra={"extra": {"email": email}},
+            )
+            continue
+    LOGGER.info("Comments report execution finished.")
 
 
 async def main() -> None:
