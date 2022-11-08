@@ -25,6 +25,10 @@ GO_MOD_DEP: Pattern[str] = re.compile(
 GO_REQ_MOD_DEP: Pattern[str] = re.compile(
     r"require\s(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
+GO_REPLACE: Pattern[str] = re.compile(
+    r"^\s+(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?\s=>"
+    r"\s(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?$"
+)
 GO_DIRECTIVE: Pattern[str] = re.compile(r"(?P<directive>require|replace) \(")
 
 

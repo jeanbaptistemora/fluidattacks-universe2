@@ -152,7 +152,4 @@ def analyze(  # noqa: MC0001
     if file_name == "Gemfile":
         return (run_gem_gemfile(content_generator(), path),)
 
-    if (file_name, file_extension) == ("go", "mod"):
-        return (run_go_mod(content_generator(), path),)
-
     return ()
