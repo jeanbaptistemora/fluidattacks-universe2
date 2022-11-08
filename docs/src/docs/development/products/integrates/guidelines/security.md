@@ -172,7 +172,38 @@ Access rights that the application recognizes on external entities:
 
 #### Tampering
 
+1. An attacker may submit invalid data to the API.
+
+   Mitigation:
+
+   - All input validation controls happen server-side.
+   - The protocol we use for the API is GraphQL,
+     which enforces basic types (boolean, integer, date, ...)
+     and structure on the incoming requests.
+   - Some fields are added special validations using regular expressions,
+     and so on.
+   - Communication with the Database
+     is done using the appropriate libraries
+     for the task,
+     which handle the specific Database language (escaping, data types, etc)
+     correctly.
+
+1. Man in the Middle.
+
+   Mitigation:
+
+   - Only secure communication protocols are accepted by the API server.
+   - The Strict-Transport-Security response header is set.
+
 #### Repudiation
+
+1. An attacker may perform destructive actions anyway.
+
+   Mitigation:
+
+   - Logs are sent to _AWS Cloudwatch_ identifying who did what and when.
+   - In many cases, the "Historic State" is stored in the Database,
+     allowing retrieval of every modification the data has had over time.
 
 #### Information disclosure
 
