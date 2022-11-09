@@ -42,11 +42,12 @@ def has_eval(graph: Graph) -> List[NId]:
             g.pred_has_labels(label_type="ObjectCreation"),
         ),
     ):
-        if (args_id := graph.nodes[member].get("arguments_id")) and (
+        if (
             (
                 graph.nodes[member].get("expression") in sensitive_methods
                 or graph.nodes[member].get("name") in sensitive_methods
             )
+            and (args_id := graph.nodes[member].get("arguments_id"))
             and not is_argument_literal(graph, args_id)
         ):
             vuln_nodes.append(member)
