@@ -13,6 +13,9 @@ from custom_exceptions import (
     SamePhoneNumber,
     StakeholderNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -92,6 +95,7 @@ async def update_information(
             responsibility, 50
         ) and validate_alphanumeric_field(responsibility):
             await group_access_domain.update(
+                loaders=context.loaders,
                 email=email,
                 group_name=group_name,
                 metadata=GroupAccessMetadataToUpdate(
@@ -216,6 +220,7 @@ async def update_notification_preferences(
 
 
 async def update_invited_stakeholder(
+    loaders: Dataloaders,
     updated_data: dict[str, str],
     invitation: GroupInvitation,
     group: Group,
@@ -234,6 +239,7 @@ async def update_invited_stakeholder(
             responsibility=responsibility, role=role
         )
         await group_access_domain.update(
+            loaders=loaders,
             email=email,
             group_name=group.name,
             metadata=GroupAccessMetadataToUpdate(

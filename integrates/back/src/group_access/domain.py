@@ -6,6 +6,9 @@ from aioextensions import (
     collect,
 )
 import authz
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     InvalidAuthorization,
     RequestedInvitationTooSoon,
@@ -43,6 +46,9 @@ from db_model.group_access.types import (
     GroupAccessRequest,
     GroupAccessState,
 )
+from db_model.group_access.utils import (
+    merge_group_access_changes,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -76,7 +82,8 @@ from typing import (
 async def add_access(
     loaders: Any, email: str, group_name: str, role: str
 ) -> None:
-    await group_access_model.update_metadata(
+    await update(
+        loaders=loaders,
         email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
@@ -348,10 +355,16 @@ async def remove_access(loaders: Any, email: str, group_name: str) -> None:
 
 
 async def update(
+    loaders: Dataloaders,
     email: str,
     group_name: str,
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
+    with suppress(StakeholderNotInGroup):
+        old_access: GroupAccess = await loaders.group_access.load(
+            GroupAccessRequest(email=email, group_name=group_name)
+        )
+        metadata = merge_group_access_changes(old_access, metadata)
     await group_access_model.update_metadata(
         email=email, group_name=group_name, metadata=metadata
     )

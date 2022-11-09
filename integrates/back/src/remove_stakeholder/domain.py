@@ -207,7 +207,8 @@ async def confirm_deletion_mail(
         subject="starlette_session",
     )
     validate_email_address(email)
-    await group_access_model.update_metadata(
+    await group_access_domain.update(
+        loaders=loaders,
         email=email,
         group_name="confirm_deletion",
         metadata=GroupAccessMetadataToUpdate(

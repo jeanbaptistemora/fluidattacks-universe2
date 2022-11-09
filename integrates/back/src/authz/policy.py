@@ -29,6 +29,9 @@ from db_model.group_access.types import (
     GroupAccessRequest,
     GroupAccessState,
 )
+from db_model.group_access.utils import (
+    merge_group_access_changes,
+)
 from db_model.groups.enums import (
     GroupService,
     GroupStateStatus,
@@ -208,16 +211,21 @@ async def grant_group_level_role(
 ) -> None:
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
-
+    metadata = GroupAccessMetadataToUpdate(
+        role=role,
+        state=GroupAccessState(modified_date=datetime_utils.get_iso_date()),
+    )
+    with suppress(StakeholderNotInGroup):
+        group_access: GroupAccess = await loaders.group_access.load(
+            GroupAccessRequest(group_name=group_name, email=email)
+        )
+        metadata = merge_group_access_changes(
+            old_access=group_access, changes=metadata
+        )
     await group_access_model.update_metadata(
         email=email,
         group_name=group_name,
-        metadata=GroupAccessMetadataToUpdate(
-            role=role,
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
-        ),
+        metadata=metadata,
     )
     # If there is no user-level role for this user add one
     if not await get_user_level_role(loaders, email):
@@ -276,15 +284,17 @@ async def revoke_group_level_role(
             GroupAccessRequest(group_name=group_name, email=email)
         )
         if group_access.role:
-            await group_access_model.update_metadata(
-                email=email,
-                group_name=group_name,
-                metadata=GroupAccessMetadataToUpdate(
+            metadata = merge_group_access_changes(
+                old_access=group_access,
+                changes=GroupAccessMetadataToUpdate(
                     role="",
                     state=GroupAccessState(
                         modified_date=datetime_utils.get_iso_date()
                     ),
                 ),
+            )
+            await group_access_model.update_metadata(
+                email=email, group_name=group_name, metadata=metadata
             )
 
 

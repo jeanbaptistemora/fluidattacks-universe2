@@ -74,6 +74,7 @@ async def confirm_deletion_mail(
         subject="starlette_session",
     )
     await group_access_domain.update(
+        loaders=get_new_context(),
         email=email,
         group_name="confirm_deletion",
         metadata=GroupAccessMetadataToUpdate(

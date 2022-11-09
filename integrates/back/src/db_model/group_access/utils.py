@@ -81,3 +81,27 @@ def format_metadata_item(
         for key, value in item.items()
         if value is not None
     }
+
+
+def merge_group_access_changes(
+    old_access: GroupAccess, changes: GroupAccessMetadataToUpdate
+) -> GroupAccessMetadataToUpdate:
+    return GroupAccessMetadataToUpdate(
+        state=changes.state,
+        confirm_deletion=changes.confirm_deletion
+        if changes.confirm_deletion
+        else old_access.confirm_deletion,
+        expiration_time=changes.expiration_time
+        if changes.expiration_time is not None
+        else old_access.expiration_time,
+        has_access=changes.has_access
+        if changes.has_access is not None
+        else old_access.has_access,
+        invitation=changes.invitation
+        if changes.invitation
+        else old_access.invitation,
+        responsibility=changes.responsibility
+        if changes.responsibility is not None
+        else old_access.responsibility,
+        role=changes.role if changes.role is not None else old_access.role,
+    )

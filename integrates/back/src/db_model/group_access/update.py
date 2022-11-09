@@ -41,3 +41,27 @@ async def update_metadata(
         key=primary_key,
         table=TABLE,
     )
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["group_historic_access"],
+        values={
+            "email": email,
+            "name": group_name,
+            # The modified date will always exist here
+            "iso8601utc": metadata.state.modified_date
+            if metadata.state.modified_date
+            else "",
+        },
+    )
+    key_structure = TABLE.primary_key
+    await operations.put_item(
+        facet=TABLE.facets["group_historic_access"],
+        item={
+            **item,
+            "email": email,
+            "group_name": group_name,
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+        },
+        table=TABLE,
+    )

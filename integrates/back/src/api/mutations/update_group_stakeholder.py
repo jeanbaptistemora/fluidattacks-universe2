@@ -76,7 +76,7 @@ async def _update_stakeholder(
     invitation = group_access.invitation
     if invitation and not invitation.is_used:
         await stakeholders_domain.update_invited_stakeholder(
-            updated_data, invitation, group
+            info.context.loaders, updated_data, invitation, group
         )
     else:
         await authz.grant_group_level_role(

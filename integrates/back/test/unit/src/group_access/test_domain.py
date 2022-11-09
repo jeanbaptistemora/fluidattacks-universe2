@@ -81,7 +81,9 @@ async def test_get_reattackers() -> None:
 
 
 @pytest.mark.changes_db
-@pytest.mark.skip(reason="The feature it relies on has not been implemented")
+@pytest.mark.skip(
+    reason="The feature it relies on has not been implemented yet"
+)
 async def test_update_group_access_metadata() -> None:
     loaders: Dataloaders = get_new_context()
     email = "another_user@gmail.com"
@@ -110,6 +112,7 @@ async def test_update_group_access_metadata() -> None:
     assert access.has_access == historic_access[1].has_access
 
     await update(
+        loaders=loaders,
         email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(

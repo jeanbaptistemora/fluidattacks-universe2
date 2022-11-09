@@ -14,6 +14,10 @@ class OrganizationInvitation(NamedTuple):
     url_token: str
 
 
+class OrganizationAccessState(NamedTuple):
+    modified_date: Optional[str]
+
+
 class OrganizationAccess(NamedTuple):
     organization_id: str
     email: str

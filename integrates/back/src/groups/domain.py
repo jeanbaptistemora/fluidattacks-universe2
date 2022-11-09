@@ -59,7 +59,6 @@ from datetime import (
 from db_model import (
     enrollment as enrollment_model,
     forces as forces_model,
-    group_access as group_access_model,
     groups as groups_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
@@ -227,6 +226,7 @@ async def complete_register_for_group_invitation(
         )
     coroutines.append(
         group_access_domain.update(
+            loaders=loaders,
             email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
@@ -375,7 +375,8 @@ async def add_group(
     # Admins are not granted access to the group
     # they are omnipresent
     if granted_role != "admin":
-        await group_access_model.update_metadata(
+        await group_access_domain.update(
+            loaders=loaders,
             email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
@@ -1062,42 +1063,26 @@ async def invite_to_group(
         },
         subject="starlette_session",
     )
-    invitation = GroupInvitation(
-        is_used=False,
-        responsibility=responsibility,
-        role=role,
-        url_token=url_token,
+    await group_access_domain.update(
+        loaders=loaders,
+        email=email,
+        group_name=group_name,
+        metadata=GroupAccessMetadataToUpdate(
+            expiration_time=expiration_time,
+            has_access=False,
+            invitation=GroupInvitation(
+                is_used=False,
+                responsibility=responsibility,
+                role=role,
+                url_token=url_token,
+            ),
+            responsibility=responsibility,
+            role=role,
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
+        ),
     )
-    if await group_access_domain.exists(loaders, group_name, email):
-        await group_access_domain.update(
-            email=email,
-            group_name=group_name,
-            metadata=GroupAccessMetadataToUpdate(
-                expiration_time=expiration_time,
-                has_access=False,
-                invitation=invitation,
-                responsibility=responsibility,
-                role=role,
-                state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
-                ),
-            ),
-        )
-    else:
-        await group_access_model.update_metadata(
-            email=email,
-            group_name=group_name,
-            metadata=GroupAccessMetadataToUpdate(
-                expiration_time=expiration_time,
-                has_access=False,
-                invitation=invitation,
-                responsibility=responsibility,
-                role=role,
-                state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
-                ),
-            ),
-        )
     confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
     reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
     mail_to = [email]
