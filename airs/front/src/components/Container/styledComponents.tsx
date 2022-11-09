@@ -108,7 +108,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
-    width = "auto",
+    width = "100%",
     widthMd,
     widthSm,
     wrap = "unset",
