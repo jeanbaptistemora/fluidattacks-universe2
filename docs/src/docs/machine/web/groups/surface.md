@@ -20,7 +20,7 @@ such as URLs/IPs and
 **Languages** identify the different
 languages used in your code.
 
-![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758714/docs/web/groups/surface/surface_section.png)
+![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022585/docs/web/groups/surface/surface.png)
 
 ## Lines
 
@@ -32,7 +32,7 @@ filenames that compose them,
 being the ToE that the
 Hackers will validate.
 
-![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758818/docs/web/groups/surface/lines.png)
+![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022667/docs/web/groups/surface/lines_sec.png)
 
 This section shows a table providing
 the following information:
@@ -82,7 +82,7 @@ By clicking on the
 Filters button,
 you can access them.
 
-![Lines Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_lines_filters.png)
+![Lines Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022808/docs/web/groups/surface/filters_lines.png)
 
 ## Inputs
 
@@ -92,7 +92,7 @@ section in Environment URLs/IP,
 giving us the entry points that
 the Hackers will validate.
 
-![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1663759081/docs/web/groups/surface/inputs.png)
+![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022927/docs/web/groups/surface/inputs_sec.png)
 
 This section shows a table
 providing the following information:
@@ -127,7 +127,7 @@ you will have access to that options
 filtering the information of
 your interest.
 
-![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1657896305/docs/web/groups/surface/surface_inputs_filters.png)
+![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668023023/docs/web/groups/surface/filters_inputs.png)
 
 ## Languages
 
