@@ -66,6 +66,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -78,7 +79,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-COMMENTS_AGE = 1
 
 
 mail_comments_digest = retry_on_exceptions(
@@ -112,10 +112,11 @@ def days_since_comment(date: str) -> int:
 def last_comments(
     comments: Tuple[Union[GroupComment, EventComment, FindingComment], ...],
 ) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
     return tuple(
         comment
         for comment in comments
-        if days_since_comment(comment.creation_date) <= COMMENTS_AGE
+        if days_since_comment(comment.creation_date) < comments_age
     )
 
 
@@ -198,7 +199,12 @@ def digest_comments(
 ) -> List[Dict[str, Optional[str]]]:
     return [
         {
-            "date": comment.creation_date,
+            "date": datetime_utils.get_as_str(
+                datetime_utils.get_datetime_from_iso_str(
+                    comment.creation_date
+                ),
+                "%Y-%m-%d %H:%M:%S %Z",
+            ),
             "type": "comment" if comment.parent_id == "0" else "reply",
             "name": comment.full_name
             if comment.full_name
@@ -314,31 +320,26 @@ async def send_comment_digest() -> None:
     }
 
     for email in unique_emails(dict(groups_data), ()):
-        user_content: Dict[
-            str,
-            Dict[
-                str,
-                Union[
-                    List[Dict[str, Optional[str]]],
-                    Dict[str, List[Dict[str, Optional[str]]]],
-                ],
-            ],
-        ] = {
-            group_name: {
-                "group_comments": digest_comments(data["group_comments"]),
-                "event_comments": {
-                    event_id: digest_comments(comments)
-                    for event_id, comments in data["event_comments"].items()
-                },
-                "finding_comments": {
-                    finding_id: digest_comments(comments)
-                    for finding_id, comments in data[
-                        "finding_comments"
-                    ].items()
-                },
+        user_content: Dict[str, Any] = {
+            "groups_data": {
+                group_name: {
+                    "group_comments": digest_comments(data["group_comments"]),
+                    "event_comments": {
+                        event_id: digest_comments(comments)
+                        for event_id, comments in data[
+                            "event_comments"
+                        ].items()
+                    },
+                    "finding_comments": {
+                        finding_id: digest_comments(comments)
+                        for finding_id, comments in data[
+                            "finding_comments"
+                        ].items()
+                    },
+                }
+                for group_name, data in groups_data.items()
+                if email in data["email_to"]
             }
-            for group_name, data in groups_data.items()
-            if email in data["email_to"]
         }
 
         try:
