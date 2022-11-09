@@ -16,9 +16,11 @@ from syntax_graph.syntax_readers.dart import (
     comment as dart_comment,
     conditional_expression as dart_conditional_expression,
     declaration_block as dart_declaration_block,
+    enum_declaration as dart_enum_declaration,
     execution_block as dart_execution_block,
     expression_statement as dart_expression_statement,
     extension_declaration as dart_extension_declaration,
+    finally_clause as dart_finally_clause,
     for_statement as dart_for_statement,
     function_body as dart_function_body,
     function_declaration as dart_function_declaration,
@@ -44,6 +46,9 @@ from syntax_graph.syntax_readers.dart import (
     return_statement as dart_return_statement,
     selector as dart_selector,
     string_literal as dart_string_literal,
+    switch_body as dart_switch_body,
+    switch_statement as dart_switch_statement,
+    try_statement as dart_try_statement,
     type_identifier as dart_type_identifier,
     update_expression as dart_update_expression,
     variable_declaration as dart_variable_declaration,
@@ -153,6 +158,12 @@ DART_DISPATCHERS: Dispatchers = (
             "decimal_floating_point_literal",
         },
         syntax_reader=dart_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "enum_declaration",
+        },
+        syntax_reader=dart_enum_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -339,6 +350,30 @@ DART_DISPATCHERS: Dispatchers = (
             "local_variable_declaration",
         },
         syntax_reader=dart_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_block",
+        },
+        syntax_reader=dart_switch_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_statement",
+        },
+        syntax_reader=dart_switch_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "try_statement",
+        },
+        syntax_reader=dart_try_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=dart_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
