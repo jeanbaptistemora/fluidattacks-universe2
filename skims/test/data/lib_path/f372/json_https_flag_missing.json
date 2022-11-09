@@ -1,0 +1,17 @@
+{
+    "name": "holidays-component",
+    "version": "0.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "start:local": "ng serve --port 4206 --host 0.0.0.0 --ssl",
+        "build": "ng build",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e",
+        "build:elements": "ng build --prod --output-hashing none && node ./concatenate.js",
+        "build:elements:local": "ng build --configuration=local --aot --output-hashing none && node ./concatenate.js",
+        "npm-login": "node npm-login.js",
+        "serve:elements": "http-server elements/ --port 5063 --cors"
+    }
+}
