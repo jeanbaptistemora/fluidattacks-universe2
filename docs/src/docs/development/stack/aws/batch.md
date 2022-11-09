@@ -57,7 +57,9 @@ are the following:
 
 ## Alternatives
 
-We used [GitLab CI][GITLAB-CI] before implementing [Batch][BATCH].
+### GitLab CI
+
+We used [GitLab CI][gitlab-ci] before implementing [Batch][batch].
 We migrated
 because GitLab CI is not intended to run scheduled jobs
 that take many hours,
@@ -66,6 +68,42 @@ before they could finish,
 mainly due to disconnections
 between the worker running the job
 and the [GitLab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
+On top of this,
+GitLab CI has a limit on the number of schedules per project,
+and running thousands of jobs puts a lot of pressure on the GitLab coordinator
+and the GitLab CI Bastion.
+
+### Buildkite
+
+> https://buildkite.com
+
+Pros:
+
+- Handles submission of duplicated jobs
+- Gives us logging, monitoring, and stability measurements out-of-the-box
+- We can separate costs by having different queues (associated to different deployments)
+- Notifications out-of-the-box to email and others
+- Support pipelines out-of-the-box
+- They have an API to query information about past jobs on a pipeline
+  and trigger new builds,
+  which is much more flexible than Batch's API
+
+Cons:
+
+- Much more expensive.
+
+### Kubernetes Jobs
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/job/
+
+Pros:
+
+- Allows better separation of costs.
+
+Cons:
+
+- It requires manually kick-starting a build,
+  because it doesn't listen automatically to the queue like batch does.
 
 ## Usage
 
