@@ -54,6 +54,18 @@ from typing import (
                 key="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJCg==",
             ),
         ],
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "42143c0c-a12c-4774-9d02-285b94e698e4",
+            dict(
+                name="cred4",
+                type="HTTPS",
+                azureOrganization="orgcred5",
+                isPat=True,
+                token="token test",
+            ),
+        ],
     ],
 )
 async def test_update_credentials(
@@ -61,7 +73,7 @@ async def test_update_credentials(
     email: str,
     organization_id: str,
     credentials_id: str,
-    edited_credentials: dict[str, str],
+    edited_credentials: dict,
 ) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
@@ -104,6 +116,12 @@ async def test_update_credentials(
     assert getattr(
         current_credentials.state.secret, "password", None
     ) == edited_credentials.get("password")
+    assert getattr(
+        current_credentials.state, "is_pat", False
+    ) == edited_credentials.get("isPat", False)
+    assert getattr(
+        current_credentials.state, "azure_organization", None
+    ) == edited_credentials.get("azureOrganization")
 
 
 @pytest.mark.asyncio

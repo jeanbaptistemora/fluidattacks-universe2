@@ -5,6 +5,10 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    InvalidCredentialSecret,
+    InvalidParameter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -51,13 +55,24 @@ from typing import (
                 key="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJCg==",
             ),
         ],
+        [
+            "user_manager@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            dict(
+                name="cred4",
+                type="HTTPS",
+                azureOrganization="orgcred5",
+                isPat=True,
+                token="token test",
+            ),
+        ],
     ],
 )
 async def test_add_credentials(
     populate: bool,
     email: str,
     organization_id: str,
-    credentials: dict[str, str],
+    credentials: dict,
 ) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
@@ -94,6 +109,12 @@ async def test_add_credentials(
     assert getattr(
         new_credentials.state.secret, "password", None
     ) == credentials.get("password")
+    assert getattr(new_credentials.state, "is_pat", False) == credentials.get(
+        "isPat", False
+    )
+    assert getattr(
+        new_credentials.state, "azure_organization", None
+    ) == credentials.get("azureOrganization")
 
 
 @pytest.mark.asyncio
@@ -145,6 +166,78 @@ async def test_add_credentials_fail(
         result["errors"][0]["message"]
         == "Exception - Field cannot fill with blank characters"
     )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5", type="HTTPS", token="token test", isPat=True
+        ),
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(
+        InvalidParameter("azure_organization")
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5",
+            type="HTTPS",
+            token="token test",
+            isPat=False,
+            azureOrganization="testorg1",
+        ),
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(
+        InvalidParameter("azure_organization")
+    )
+
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred5",
+            type="HTTPS",
+            token="token test",
+            isPat=True,
+            azureOrganization="   ",
+        ),
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Field cannot fill with blank characters"
+    )
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred6",
+            type="SSH",
+            key="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJCg==",
+            isPat=True,
+            azureOrganization="testorgcred6",
+        ),
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidCredentialSecret())
+    result = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials=dict(
+            name="cred6",
+            type="HTTPS",
+            user="user test",
+            password="lorem.ipsum,Dolor.sit:am3t;t]{3[s.T}/l;u=r<w>oiu(p",
+            isPat=True,
+            azureOrganization="testorgcred6",
+        ),
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidCredentialSecret())
 
     result = await get_result(
         user=email,

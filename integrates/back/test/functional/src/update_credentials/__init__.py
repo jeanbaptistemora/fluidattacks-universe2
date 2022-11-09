@@ -20,7 +20,7 @@ async def get_result(
     user: str,
     organization_id: str,
     credentials_id: str,
-    credentials: dict[str, str],
+    credentials: dict,
 ) -> Dict[str, Any]:
     query: str = """
         mutation UpdateCredentialsMutation(
