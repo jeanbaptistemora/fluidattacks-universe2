@@ -20,8 +20,10 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
       lastStateDate
       lastTreatmentDate
       reportDate
+      rootNickname
       severity
       source
+      specific
       stream
       treatment
       treatmentAcceptanceDate
@@ -29,18 +31,25 @@ const GET_VULN_ADDITIONAL_INFO: DocumentNode = gql`
       treatmentChanges
       treatmentJustification
       vulnerabilityType
+      where
     }
   }
 `;
 
 const UPDATE_VULNERABILITY_DESCRIPTION: DocumentNode = gql`
   mutation UpdateVulnerabilityDescription(
-    $source: VulnerabilitySource!
+    $commit: String
+    $source: VulnerabilitySource
+    $specific: String
     $vulnerabilityId: ID!
+    $where: String
   ) {
     updateVulnerabilityDescription(
+      commit: $commit
       source: $source
+      specific: $specific
       vulnerabilityId: $vulnerabilityId
+      where: $where
     ) {
       success
     }

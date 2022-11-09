@@ -22,6 +22,7 @@ import type {
   IUpdateVulnerabilityDescriptionAttr,
 } from "./types";
 
+import { Input } from "components/Input/Fields/Input";
 import { Select } from "components/Input/Fields/Select";
 import { Col, Row } from "components/Layout";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
@@ -30,6 +31,7 @@ import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInf
 import { Status } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { regExps } from "utils/validations";
 
 function commitFormatter(value: string): string {
   const COMMIT_LENGTH: number = 7;
@@ -40,6 +42,7 @@ function commitFormatter(value: string): string {
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canRetrieveHacker,
   canSeeSource,
+  refetchData,
   vulnerability,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
@@ -78,6 +81,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             t("groupAlerts.updatedTitle")
           );
           setIsEditing(false);
+          refetchData();
         }
       },
       onError: (error: ApolloError): void => {
@@ -129,8 +133,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   function onSubmit(values: IFormValues): void {
     void updateVulnerabilityDescription({
       variables: {
-        source: values.source,
+        commit: values.type === "lines" ? values.commitHash : undefined,
+        source: values.source === "ASM" ? undefined : values.source,
+        specific: values.specific,
         vulnerabilityId: vulnerability.id,
+        where: values.where,
       },
     });
   }
@@ -140,15 +147,61 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       <Formik
         enableReinitialize={true}
         initialValues={{
+          commitHash: data.vulnerability.commitHash,
           source: data.vulnerability.source.toUpperCase(),
+          specific: data.vulnerability.specific,
+          type: data.vulnerability.vulnerabilityType,
+          where:
+            _.isNull(data.vulnerability.rootNickname) ||
+            _.isEmpty(data.vulnerability.rootNickname) ||
+            data.vulnerability.vulnerabilityType !== "lines"
+              ? data.vulnerability.where
+              : _.replace(
+                  data.vulnerability.where,
+                  new RegExp(`^${data.vulnerability.rootNickname}/`, "u"),
+                  ""
+                ),
         }}
-        name={"editvulnerability"}
+        name={"editVulnerability"}
         onSubmit={onSubmit}
         validationSchema={object().shape({
-          source: string().required(),
+          commitHash: string().when("type", {
+            is: "lines",
+            otherwise: string().nullable(),
+            then: string()
+              .required(t("validations.required"))
+              .matches(regExps.commitHash, t("validations.commitHash")),
+          }),
+          source: string().required(t("validations.required")),
+          specific: string().when("type", {
+            is: "lines",
+            otherwise: string().when("type", {
+              is: "ports",
+              otherwise: string().required(t("validations.required")),
+              then: string()
+                .required(t("validations.required"))
+                .matches(regExps.numeric, t("validations.numeric"))
+                .test(
+                  "isValidPortRange",
+                  t("validations.portRange"),
+                  (value?: string): boolean => {
+                    if (value === undefined || _.isEmpty(value)) {
+                      return false;
+                    }
+                    const port = _.toInteger(value);
+
+                    return port >= 0 && port <= 65535;
+                  }
+                ),
+            }),
+            then: string()
+              .required(t("validations.required"))
+              .matches(regExps.numeric, t("validations.numeric")),
+          }),
+          where: string().required(t("validations.required")),
         })}
       >
-        {({ dirty, submitForm }): React.ReactNode => {
+        {({ dirty, submitForm, values }): React.ReactNode => {
           function onUpdate(): void {
             void submitForm();
           }
@@ -167,9 +220,26 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     <Col>
                       <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
                       <Detail
-                        editableField={undefined}
-                        field={_.unescape(vulnerability.where)}
-                        isEditing={false}
+                        editableField={
+                          <div
+                            className={
+                              "flex flex-row justify-start items-center w-100"
+                            }
+                          >
+                            <div>
+                              {_.isNull(data.vulnerability.rootNickname) ||
+                              _.isEmpty(data.vulnerability.rootNickname) ||
+                              data.vulnerability.vulnerabilityType !== "lines"
+                                ? ""
+                                : `${data.vulnerability.rootNickname}/`}
+                            </div>
+                            <div className={"flex-grow-1"}>
+                              <Input name={"where"} />
+                            </div>
+                          </div>
+                        }
+                        field={_.unescape(data.vulnerability.where)}
+                        isEditing={isEditing}
                         label={undefined}
                       />
                       {_.isEmpty(data.vulnerability.stream) ? undefined : (
@@ -181,9 +251,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         />
                       )}
                       <Detail
-                        editableField={undefined}
-                        field={<Value value={vulnerability.specific} />}
-                        isEditing={false}
+                        editableField={<Input name={"specific"} />}
+                        field={<Value value={data.vulnerability.specific} />}
+                        isEditing={isEditing}
                         label={t(
                           `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
                         )}
@@ -256,17 +326,23 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                           label={t("searchFindings.tabVuln.vulnTable.source")}
                         />
                       ) : undefined}
-                      {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
+                      {(_.isEmpty(values.commitHash) && !isEditing) ||
+                      data.vulnerability.vulnerabilityType !==
+                        "lines" ? undefined : (
                         <Detail
-                          editableField={undefined}
+                          editableField={<Input name={"commitHash"} />}
                           field={
                             <Value
-                              value={commitFormatter(
-                                data.vulnerability.commitHash as string
-                              )}
+                              value={
+                                _.isNull(data.vulnerability.commitHash)
+                                  ? undefined
+                                  : commitFormatter(
+                                      data.vulnerability.commitHash
+                                    )
+                              }
                             />
                           }
-                          isEditing={false}
+                          isEditing={isEditing}
                           label={t("searchFindings.tabVuln.commitHash")}
                         />
                       )}

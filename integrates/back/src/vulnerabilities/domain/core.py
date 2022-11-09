@@ -1154,12 +1154,12 @@ async def update_description(  # noqa: MC0001 # NOSONAR
         await vulns_model.update_historic_entry(
             current_value=vulnerability,
             entry=vulnerability.state._replace(
-                commit=description.commit or vulnerability.state.commit,
+                commit=updated_commit,
                 modified_by=stakeholder_email,
                 modified_date=datetime_utils.get_iso_date(),
-                source=description.source or vulnerability.state.source,
-                specific=description.specific or vulnerability.state.specific,
-                where=description.where or vulnerability.state.where,
+                source=updated_source,
+                specific=updated_specific,
+                where=updated_where,
             ),
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,

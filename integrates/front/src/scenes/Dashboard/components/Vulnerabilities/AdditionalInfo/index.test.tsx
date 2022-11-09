@@ -83,8 +83,10 @@ describe("AdditionalInfo", (): void => {
           lastStateDate: "2020-09-05 03:23:23",
           lastTreatmentDate: "2019-07-05 09:56:40",
           reportDate: "",
+          rootNickname: "",
           severity: "1",
           source: "escape",
+          specific: "specific-3",
           stream: null,
           treatment: "IN_PROGRESS",
           treatmentAcceptanceDate: "",
@@ -92,6 +94,7 @@ describe("AdditionalInfo", (): void => {
           treatmentChanges: "1",
           treatmentJustification: "test progress justification",
           vulnerabilityType: "lines",
+          where: "https://example.com/lines",
         },
       },
     },
@@ -115,6 +118,7 @@ describe("AdditionalInfo", (): void => {
           <AdditionalInfo
             canRetrieveHacker={false}
             canSeeSource={true}
+            refetchData={jest.fn()}
             vulnerability={formatVulnerabilities([mockVuln])[0]}
           />
         </MockedProvider>

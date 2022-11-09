@@ -9,11 +9,16 @@ import type { IVulnRowAttr } from "../types";
 interface IAdditionalInfoProps {
   canRetrieveHacker: boolean;
   canSeeSource: boolean;
+  refetchData: () => void;
   vulnerability: IVulnRowAttr;
 }
 
 interface IFormValues {
+  commitHash: string | null;
   source: string;
+  specific: string;
+  type: string;
+  where: string;
 }
 
 interface IGetVulnAdditionalInfoAttr {
@@ -37,8 +42,10 @@ interface IVulnInfoAttr {
   lastStateDate: string;
   lastTreatmentDate: string;
   reportDate: string;
+  rootNickname: string | null;
   severity: string | null;
   source: string;
+  specific: string;
   stream: string | null;
   treatment: string;
   treatmentAcceptanceDate: string | null;
@@ -46,6 +53,7 @@ interface IVulnInfoAttr {
   treatmentChanges: string;
   treatmentJustification: string | null;
   vulnerabilityType: string;
+  where: string;
 }
 
 export type {

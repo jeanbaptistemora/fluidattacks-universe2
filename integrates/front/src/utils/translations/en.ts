@@ -3877,6 +3877,7 @@ export const enTranslations: ResourceKey = {
       "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
     oneOf: "This field must be one of the suggested values",
+    portRange: "This field can only contain ports",
     positive: "The number must be greater than 0",
     requestedTooSoon:
       "Please wait a minute before resending an invitation to this user",

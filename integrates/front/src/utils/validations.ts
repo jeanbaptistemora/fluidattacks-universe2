@@ -24,6 +24,7 @@ import { translate } from "utils/translations/translate";
 const regExps = {
   alphabetic: /^[a-zA-Z]+$/u,
   alphanumeric: /^[a-zA-Z0-9]+$/u,
+  commitHash: /^[A-Fa-f0-9]{40}$|^[A-Fa-f0-9]{64}$/u,
   numeric: /^[0-9]+$/u,
   text: /^[\w\-\s,;.¿?¡!]+$/u,
 };
