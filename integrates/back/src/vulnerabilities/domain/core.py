@@ -80,6 +80,7 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     token as token_utils,
+    validations as validations_utils,
     vulnerabilities as vulns_utils,
 )
 from notifications import (
@@ -100,8 +101,10 @@ from typing import (
 )
 from vulnerabilities.domain.validations import (
     validate_commit_hash,
+    validate_lines_specific,
+    validate_path,
+    validate_ports_specific,
     validate_source,
-    validate_specific,
     validate_uniqueness,
     validate_where,
 )
@@ -1053,7 +1056,7 @@ async def get_last_reattack_date(
     )
 
 
-async def update_description(
+async def update_description(  # noqa: MC0001 # NOSONAR
     loaders: Dataloaders,
     vulnerability_id: str,
     description: VulnerabilityDescriptionToUpdate,
@@ -1064,16 +1067,39 @@ async def update_description(
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
+
     if description.commit is not None:
         if vulnerability.type is not VulnerabilityType.LINES:
             raise InvalidParameter("commit")
         validate_commit_hash(description.commit)
+        updated_commit: Optional[str] = description.commit
+    else:
+        updated_commit = vulnerability.state.commit
+
     if description.specific is not None:
-        validate_specific(description.specific)
+        validations_utils.validate_sanitized_csv_input(description.specific)
+        if vulnerability.type is VulnerabilityType.LINES:
+            validate_lines_specific(description.specific)
+        if vulnerability.type is VulnerabilityType.PORTS:
+            validate_ports_specific(description.specific)
+        updated_specific = description.specific
+    else:
+        updated_specific = vulnerability.state.specific
+
     if description.source is not None:
         validate_source(description.source)
+        updated_source = description.source
+    else:
+        updated_source = vulnerability.state.source
+
     if description.where is not None:
+        if vulnerability.type is VulnerabilityType.LINES:
+            validate_path(description.where)
         validate_where(description.where)
+        updated_where = description.where
+    else:
+        updated_where = vulnerability.state.where
+
     if any([description.specific is not None, description.where is not None]):
         vulnerabilities_connection: VulnerabilitiesConnection = (
             await loaders.finding_vulnerabilities_nzr_c.load(
@@ -1098,23 +1124,43 @@ async def update_description(
                 edge.node
                 for edge in vulnerabilities_connection.edges
                 + zr_vulnerabilities_connection.edges
+                if edge.node.id != vulnerability.id
             ),
-            vulnerability_where=description.where or vulnerability.state.where,
-            vulnerability_specific=description.specific
-            or vulnerability.state.specific,
+            vulnerability_where=updated_where,
+            vulnerability_specific=updated_specific,
             vulnerability_type=vulnerability.type,
             vulnerability_id=vulnerability_id,
         )
-    await vulns_model.update_historic_entry(
-        current_value=vulnerability,
-        entry=vulnerability.state._replace(
-            commit=description.commit or vulnerability.state.commit,
-            modified_by=stakeholder_email,
-            modified_date=datetime_utils.get_iso_date(),
-            source=description.source or vulnerability.state.source,
-            specific=description.specific or vulnerability.state.specific,
-            where=description.where or vulnerability.state.where,
-        ),
-        finding_id=vulnerability.finding_id,
-        vulnerability_id=vulnerability.id,
-    )
+        await vulns_utils.validate_vulnerability_in_toe(
+            loaders,
+            vulnerability.group_name,
+            vulnerability._replace(
+                state=vulnerability.state._replace(
+                    commit=updated_commit,
+                    specific=updated_specific,
+                    source=updated_source,
+                    where=updated_where,
+                ),
+            ),
+            index=0,
+        )
+
+    if not (
+        updated_commit == vulnerability.state.commit
+        and updated_source == vulnerability.state.source
+        and updated_specific == vulnerability.state.specific
+        and updated_where == vulnerability.state.where
+    ):
+        await vulns_model.update_historic_entry(
+            current_value=vulnerability,
+            entry=vulnerability.state._replace(
+                commit=description.commit or vulnerability.state.commit,
+                modified_by=stakeholder_email,
+                modified_date=datetime_utils.get_iso_date(),
+                source=description.source or vulnerability.state.source,
+                specific=description.specific or vulnerability.state.specific,
+                where=description.where or vulnerability.state.where,
+            ),
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+        )

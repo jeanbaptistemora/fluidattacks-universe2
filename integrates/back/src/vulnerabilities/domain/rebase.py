@@ -39,7 +39,7 @@ from vulnerabilities.domain.utils import (
 )
 from vulnerabilities.domain.validations import (
     validate_commit_hash,
-    validate_specific,
+    validate_lines_specific,
     validate_uniqueness,
     validate_where,
 )
@@ -65,7 +65,7 @@ async def rebase(
         raise ExpectedVulnToBeOfLinesType.new()
 
     validate_commit_hash(vulnerability_commit)
-    validate_specific(vulnerability_specific)
+    validate_lines_specific(vulnerability_specific)
     current_vuln: Vulnerability = next(
         vuln for vuln in finding_vulns_data if vuln.id == vulnerability_id
     )

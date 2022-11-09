@@ -3,6 +3,8 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from custom_exceptions import (
+    InvalidPath,
+    InvalidPort,
     InvalidSource,
     InvalidStream,
     InvalidVulnCommitHash,
@@ -36,9 +38,16 @@ from vulnerabilities.domain.utils import (
 )
 
 
-def validate_specific(specific: str) -> None:
+def validate_lines_specific(specific: str) -> None:
     if not specific.isdigit():
         raise InvalidVulnSpecific.new()
+
+
+def validate_ports_specific(specific: str) -> None:
+    if not specific.isdigit():
+        raise InvalidVulnSpecific.new()
+    if not 0 <= int(specific) <= 65535:
+        raise InvalidPort(expr=f'"values": "{specific}"')
 
 
 def validate_uniqueness(
@@ -96,6 +105,13 @@ def validate_stream(
 def validate_where(where: str) -> None:
     if not re.match("^[^=/]+.+$", where):
         raise InvalidVulnWhere.new()
+
+
+def validate_path(path: str) -> None:
+    # Use Unix-like paths
+    if path.find("\\") >= 0:
+        invalid_path = path.replace("\\", "\\\\")
+        raise InvalidPath(expr=f'"values": "{invalid_path}"')
 
 
 def validate_source(source: Source) -> None:
