@@ -28,6 +28,11 @@ describe("GroupVulnerabilitiesView", (): void => {
               currentState: "open",
               currentStateCapitalized: "Open",
               externalBugTrackingSystem: null,
+              finding: {
+                id: "438679960",
+                severityScore: 2.7,
+                title: "001. Test draft title",
+              },
               findingId: "438679960",
               groupName: "unittesting",
               historicTreatment: [
@@ -161,6 +166,21 @@ describe("GroupVulnerabilitiesView", (): void => {
     },
   };
 
+  const queryMock: readonly MockedResponse[] = [
+    {
+      request: {
+        query: GET_GROUP_VULNERABILITIES,
+        variables: {
+          first: 100,
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: mockGroupVulnerabilities,
+      },
+    },
+  ];
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupVulnerabilitiesView).toBe("function");
@@ -169,31 +189,12 @@ describe("GroupVulnerabilitiesView", (): void => {
   it("should render in group vulnerabilities", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const queryMock: MockedResponse = {
-      request: {
-        query: GET_GROUP_VULNERABILITIES,
-        variables: {
-          after: "",
-          first: 100,
-          groupName: "unittesting",
-          search: "",
-          stateStatus: "",
-          treatment: "",
-          verificationStatus: "",
-          zeroRisk: "",
-        },
-      },
-      result: {
-        data: mockGroupVulnerabilities,
-      },
-    };
-
     render(
-      <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/vulns"]}>
-        <MockedProvider cache={getCache()} mocks={[queryMock]}>
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
           <Route
             component={GroupVulnerabilitiesView}
-            path={"/orgs/:organizationName/groups/:groupName/vulns"}
+            path={"/groups/:groupName/vulns"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -202,5 +203,33 @@ describe("GroupVulnerabilitiesView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
+
+    jest.clearAllMocks();
+  });
+
+  it("should display all group vulnerabilities columns", (): void => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <Route
+            component={GroupVulnerabilitiesView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("Vulnerability")).toBeInTheDocument();
+    expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("Treatment")).toBeInTheDocument();
+    expect(screen.getByText("Reattack")).toBeInTheDocument();
+    expect(screen.getByText("Found")).toBeInTheDocument();
+    expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Evidence")).toBeInTheDocument();
+
+    jest.clearAllMocks();
   });
 });
