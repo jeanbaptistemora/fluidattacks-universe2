@@ -1142,5 +1142,13 @@
     "ES": {
       "title": "426. Supply Chain Attack - Kubernetes"
     }
+  },
+  "F427": {
+    "EN": {
+      "title": "427. Use of an insecure channel - Docker"
+    },
+    "ES": {
+      "title": "427. Use of an insecure channel - Docker"
+    }
   }
 }

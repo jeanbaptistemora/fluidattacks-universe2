@@ -1177,6 +1177,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
     )
+    F427: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F427",
+        cwe=319,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[181],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
