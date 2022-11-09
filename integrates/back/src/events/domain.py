@@ -201,9 +201,12 @@ async def add_event(
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
     events_validations.validate_type(EventType[kwargs["event_type"]])
-    root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
-    if root.state.status != "ACTIVE":
-        raise InvalidParameter(field="rootId")
+    root_id: str = kwargs["root_id"]
+    if root_id:
+        root: Root = await loaders.root.load((group_name, root_id))
+        root_id = root.id
+        if root.state.status != "ACTIVE":
+            raise InvalidParameter(field="rootId")
     if file:
         await validate_evidence(EventEvidenceId.FILE_1, file)
     if image:
@@ -226,7 +229,7 @@ async def add_event(
         group_name=group_name,
         hacker=hacker_email,
         id=str(random.randint(10000000, 170000000)),  # nosec
-        root_id=root.id,
+        root_id=root_id,
         state=EventState(
             modified_by=hacker_email,
             modified_date=datetime_utils.get_as_utc_iso_format(event_date),

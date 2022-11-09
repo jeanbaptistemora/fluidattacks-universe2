@@ -132,7 +132,7 @@ type Mutation {
         """
       )
     "Id of the root the event is associated with"
-    rootId: ID!
+    rootId: ID
   ): AddEventPayload!
 
   "Adds a consult/comment to an Event"
