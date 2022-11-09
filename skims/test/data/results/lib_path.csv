@@ -31979,6 +31979,13 @@ F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,11,676,skims,143
   21 |     }
      ^ Col 0
 ",javascript.js_uses_eval
+F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,4,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+  1 | let input = req.query.input;
+  2 | eval(input); // Noncompliant
+  3 | (Function(input))(); // Noncompliant
+> 4 | (new Function(input))(); // Noncompliant
+    ^ Col 0
+",typescript.ts_uses_eval
 F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,3,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
   1 | let input = req.query.input;
   2 | eval(input); // Noncompliant
