@@ -30,7 +30,7 @@ where you can add comments about any issues
 or questions
 that you may have about the group in general.
 
-![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_groups.png)
+![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1668012758/docs/squad/consulting/consulting_in_groups.png)
 
 ## Concerning vulnerabilities
 
@@ -40,7 +40,7 @@ When you click on a type of vulnerability,
 you can find the tab
 on the right-hand side of your screen.
 
-![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_vulns.png)
+![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1668013028/docs/squad/consulting/consulting_vuln.png)
 
 This section should be used to communicate with us
 when there are any issues concerning any of the vulnerabilities
@@ -60,7 +60,7 @@ When you click on the former,
 a text field will be available
 where you can add your comments.
 
-![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_events.png)
+![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1668013077/docs/squad/consulting/comments.png)
 
 This tab is useful
 for when you want to ask us
