@@ -20,7 +20,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli2
-      inputs.nixpkgs.jdk17_headless
+      inputs.nixpkgs.jdk8_headless
       inputs.nixpkgs.jq
       inputs.nixpkgs.python39
     ];
