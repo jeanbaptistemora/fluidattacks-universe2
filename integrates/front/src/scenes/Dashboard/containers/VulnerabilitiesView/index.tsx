@@ -290,18 +290,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
         type: "text",
       },
       {
-        id: "treatmentAcceptanceStatus",
-        key: "treatmentAcceptanceStatus",
-        label: "Treatment Acceptance",
-        selectOptions: (vulns: IVulnRowAttr[]): string[] =>
-          [
-            ...new Set(
-              vulns.map((vuln): string => vuln.treatmentAcceptanceStatus ?? "")
-            ),
-          ].filter(Boolean),
-        type: "select",
-      },
-      {
         id: "treatmentAssigned",
         key: "treatmentAssigned",
         label: "Assignees",
