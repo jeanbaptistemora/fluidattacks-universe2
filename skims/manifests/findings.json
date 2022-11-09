@@ -567,6 +567,14 @@
       "title": "152. Insecure or unset HTTP headers - X-Frame Options"
     }
   },
+  "F153": {
+    "EN": {
+      "title": "153. Insecure or unset HTTP headers - Accept"
+    },
+    "ES": {
+      "title": "153. Insecure or unset HTTP headers - Accept"
+    }
+  },
   "F157": {
     "EN": {
       "title": "157. Unrestricted access between network segments"
