@@ -38533,13 +38533,15 @@
   en:
     title: Server side cross-site scripting 
     description: >
-      It is possible to inject JavaScript code into application fields, causing the server to process
-      and convert these entries into arbitrary JavaScript code extracting information from the server. 
-      This could allow an attacker to compromise the data inside the server. 
+      It is possible to inject JavaScript into application fields, with the goal of having the 
+      server execute malicious code before rendering user input. This allows a remote attacker 
+      to compromise internal server files, make requests on behalf of the server or perform
+      a port scan.
     impact: >
       - Extracting information from the server.
+      - Execute actions on the server or on behalf of the server.
     recommendation: >
-      Filter the information that receives and sends the application using white lists.
+      Properly sanitize user input, before executing it on the server side.
     threat: >
       Unprivileged attacker from the internet impersonating the application.
   category: Unexpected Injection
@@ -38592,14 +38594,15 @@
   es:
     title: Server side cross-site scripting
     description: >
-      Es posible inyectar código JavaScript en los campos de la aplicación, haciendo que el servidor
-      procese y conviertas estas entradas en código JavaScript arbitrario extrayendo información del
-      servidor. Esto podría permitir a un atacante comprometer la información que este al interior del
-      servidor. 
+      Es posible inyectar JavaScript en los campos de la aplicación, con el objetivo de que el 
+      servidor ejecute el código malicioso antes de renderizar la entrada del usuario. Esto 
+      permite a un atacante remoto comprometer archivos internos del servidor, realizar 
+      peticiones a nombre del servidor o realizar un escaneo de puertos. 
     impact: >
       - Extraer información del servidor.
+      - Ejecutar acciones en el servido o a nombre de el.
     recommendation: >
-      Filtrar la información que recibe y envía la aplicación utilizando listas blancas.
+      Sanitizar correctamente las entradas del usuario, antes de ejecutarlas del lado del servidor.
     threat: >
       Atacante autenticado desde internet manipulando los parámetros de la aplicación.
   score:
@@ -38616,7 +38619,7 @@
       exploit_code_maturity: H
       remediation_level: U
       report_confidence: R
-  requirements: ['029', '173']
+  requirements: ['173']
   metadata:
     en:
       details: __empty__
