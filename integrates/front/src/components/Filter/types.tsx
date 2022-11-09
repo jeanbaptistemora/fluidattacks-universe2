@@ -14,7 +14,13 @@ interface IFilter<IData extends object> {
     | "includesInsensitive"
     | "includesSensitive";
   id: string;
-  key: keyof IData | ((arg0: IData) => boolean);
+  key:
+    | keyof IData
+    | ((
+        arg0: IData,
+        value?: string,
+        rangeValues?: [string, string]
+      ) => boolean);
   label?: string;
   rangeValues?: [string, string];
   selectOptions?:

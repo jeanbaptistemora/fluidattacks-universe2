@@ -103,7 +103,8 @@ const useFilters = <IData extends object>(
 
   function checkAllFilters(dataPoint: IData): boolean {
     return filters.every((filter): boolean => {
-      if (typeof filter.key === "function") return filter.key(dataPoint);
+      if (typeof filter.key === "function")
+        return filter.key(dataPoint, filter.value, filter.rangeValues);
       switch (filter.type) {
         case "number":
           return handleNumberCase(dataPoint, filter as IFilterComp<IData>);
