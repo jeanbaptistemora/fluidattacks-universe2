@@ -18,8 +18,12 @@ interface IOrganizationAuthorAttr {
 
 interface IOrganizationBilling {
   authors: IOrganizationAuthorAttr[];
-  currentAuthors: number;
-  currentSpend: number;
+  baseCosts: number;
+  mtdAuthorsMachine: number;
+  mtdAuthorsSquad: number;
+  mtdAuthorsTotal: number;
+  mtdCostsAuthors: number;
+  mtdCostsTotal: number;
   portal: string;
 }
 

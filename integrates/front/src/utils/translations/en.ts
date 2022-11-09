@@ -1656,13 +1656,13 @@ export const enTranslations: ResourceKey = {
           },
         },
         overview: {
-          currentAuthors: {
-            content: "{{currentAuthors}} Authors",
+          mtdAuthorsSquad: {
+            content: "{{mtdAuthorsSquad}} Authors",
             info: "Active authors during the current month",
             title: "Month-To-Date Authors",
           },
-          currentSpend: {
-            content: "{{currentSpend}} $",
+          mtdCostsTotal: {
+            content: "{{mtdCostsTotal}} $",
             info: "Organization spend during the current month",
             title: "Month-To-Date Spend",
           },

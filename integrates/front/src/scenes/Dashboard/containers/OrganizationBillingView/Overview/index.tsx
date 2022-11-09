@@ -15,14 +15,14 @@ import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 
 interface IOrganizationOverviewProps {
-  currentAuthors: number;
-  currentSpend: number;
+  mtdAuthorsSquad: number;
+  mtdCostsTotal: number;
   organizationName: string;
 }
 
 export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
-  currentAuthors,
-  currentSpend,
+  mtdAuthorsSquad,
+  mtdCostsTotal,
   organizationName,
 }: IOrganizationOverviewProps): JSX.Element => {
   const { t } = useTranslation();
@@ -44,23 +44,27 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
           <Col lg={50} md={50} sm={50}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.currentAuthors.content",
-                { currentAuthors }
+                "organization.tabs.billing.overview.mtdAuthorsSquad.content",
+                { mtdAuthorsSquad }
               )}
-              info={t("organization.tabs.billing.overview.currentAuthors.info")}
+              info={t(
+                "organization.tabs.billing.overview.mtdAuthorsSquad.info"
+              )}
               title={t(
-                "organization.tabs.billing.overview.currentAuthors.title"
+                "organization.tabs.billing.overview.mtdAuthorsSquad.title"
               )}
             />
           </Col>
           <Col lg={50} md={50} sm={50}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.currentSpend.content",
-                { currentSpend }
+                "organization.tabs.billing.overview.mtdCostsTotal.content",
+                { mtdCostsTotal }
               )}
-              info={t("organization.tabs.billing.overview.currentSpend.info")}
-              title={t("organization.tabs.billing.overview.currentSpend.title")}
+              info={t("organization.tabs.billing.overview.mtdCostsTotal.info")}
+              title={t(
+                "organization.tabs.billing.overview.mtdCostsTotal.title"
+              )}
             />
           </Col>
         </Row>

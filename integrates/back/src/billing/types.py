@@ -34,8 +34,12 @@ class OrganizationAuthor(NamedTuple):
 
 class OrganizationBilling(NamedTuple):
     authors: tuple[OrganizationAuthor, ...]
-    current_authors: int
-    current_spend: int
+    base_costs: int
+    mtd_authors_machine: int
+    mtd_authors_squad: int
+    mtd_authors_total: int
+    mtd_costs_authors: int
+    mtd_costs_total: int
     portal: str
 
 
