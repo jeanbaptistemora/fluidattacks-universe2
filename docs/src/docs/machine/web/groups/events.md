@@ -18,7 +18,9 @@ can see a cumulative record of
 solved and unsolved events in
 your group is the Events section.
 
-![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/event_tab.png)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1667995580/docs/web/groups/events/events_tab.png)
+
+## Events Table
 
 This section shows a table
 providing the following
@@ -71,7 +73,7 @@ First,
 when an event is opened,
 it will have the status **Unsolved**.
 
-![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/status_unsolved.png)
+![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1667995864/docs/web/groups/events/unsolved_status.png)
 
 Here you have to give the
 solution to this created event.
@@ -82,7 +84,7 @@ When you do this,
 the **Request Verification** option
 will be activated immediately.
 
-![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/status_request_verification.png)
+![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1667996015/docs/web/groups/events/request_verification.png)
 
 When you click on it,
 you will get a pop-up window
@@ -101,13 +103,11 @@ where we will be waiting
 for the verification that
 the supplied solution is effective.
 
-![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/state_pending.png)
+![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1667996150/docs/web/groups/events/pending.png)
 
 When validated and the
 solution successful,
 it will move to our third **Solved state**.
-
-![Solved State](https://res.cloudinary.com/fluid-attacks/image/upload/v1661276495/docs/web/groups/events/state_solved.png)
 
 If this solution does not work,
 the event will be set to
@@ -147,7 +147,12 @@ options corresponding to the
 variables that give columns
 their names.
 
-![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/funct_filters.png)
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1667997971/docs/web/groups/events/filters.png)
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
 
 ## Event details
 
@@ -161,7 +166,7 @@ its ID,
 the date it was reported
 and its current status.
 
-![Event Details Header](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_events.png)
+![Event Details Header](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998513/docs/web/groups/events/header.png)
 
 You can see three tabs
 under the header: Description,
@@ -175,14 +180,14 @@ the site where it is
 present and the number
 of components affected.
 
-![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_description_authorization.png)
+![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998603/docs/web/groups/events/description.png)
 
 In **Evidence**,
 you find images,
 videos or GIFs justifying
 the reported event.
 
-![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_evidence.png)
+![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998697/docs/web/groups/events/evidence.png)
 
 In **Comments**,
 you find the discussion
@@ -192,7 +197,7 @@ company's staff and
 project managers about the event.
 You can leave your comments there.
 
-![Event Details Comments](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_comments.png)
+![Event Details Comments](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998785/docs/web/groups/events/comments.png)
 
 ## Types of events
 
@@ -275,123 +280,3 @@ upon or non-existent functionalities.
 
 Any other problems that do not
 fall into the above categories.
-
-## Creating an event
-
-In order to create a new event,
-you need to click on the **New**
-button in the **Event** tab.
-
-![New Event Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/newevent_modal.png)
-
-You will see the following pop-up window:
-
-![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/newevent_pop_up_window.png)
-
-There you must enter or
-select the requested information:
-
-- The nickname of the
-  root where the analyst
-  discovered the event
-  being reported
-- The approximate date
-  at which the event
-  was discovered
-- The type of event
-- The affected accessibility
-- A detailed description
-  of the event
-- Image or another file
-  as supporting evidence
-  of the event
-- Impact on an ongoing
-  reattack (Y/N).
-  In case there is an impact,
-  you must select the affected
-  locations in the reattack
-  so that it goes into the
-  On-hold status.)
-
-After entering the
-information and clicking
-the **Proceed** button,
-the ARM will create the new
-event and send an email to
-all project managers.
-You can also click on
-the **Cancel** button
-to discard the creation
-of the event.
-
-## Closing an event
-
-When a user notifies that
-the event has been solved,
-or analysts find out they
-can now access previously
-blocked targets
-without problems,
-the event must be closed.
-
-![Event Solved Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/markassolved_button_highlight.png)
-
-You can do this in the
-**Events** section.
-You have to click on
-the solved event.
-Then,
-in its description,
-you will see the
-**Mark as solved**
-button that will show
-you this pop-up window
-when you click on it:
-
-![Event Solved Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281292/docs/web/groups/events/markassolved_window.png)
-
-There you must enter the
-date the analyst discovered
-or was notified of the
-solution of the event.
-In addition,
-you must provide the number
-of hours that the event
-affected the group.
-Once this is done,
-you can click the **Proceed**
-button to mark the event as
-solved or click the **Cancel**
-button to interrupt this procedure.
-
-## Update affected reattacks
-
-With the
-**Update affected reattacks**
-button,
-you can indicate that an
-already created event
-affects the execution of
-one or more reattacks.
-
-![Affected Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/updateaffectedreattacks_button.png)
-
-When you click on it,
-you will see a pop-up
-window where you can
-select the respective
-event and the reattacks
-that are being affected.
-
-![Affected Reattacks Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/updateaffectedreattacks_window.png)
-
-By clicking on the
-**Proceed** button,
-the selected reattack(s) will
-go into a status called On hold.
-(If you want to know
-more about this status,
-follow this [link](/squad/reattacks#reattacks-on-hold).)
-By clicking on the
-**Cancel** button,
-you will abort the process.
