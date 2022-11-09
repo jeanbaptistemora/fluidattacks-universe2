@@ -39,7 +39,10 @@ class Verifications(NamedTuple):
 
 
 class VulnerabilityDescriptionToUpdate(NamedTuple):
+    commit: Optional[str]
     source: Optional[Source]
+    where: Optional[str]
+    specific: Optional[str]
 
 
 ToolItem = dict[str, str]

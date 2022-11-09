@@ -10,6 +10,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    InvalidParameter,
     InvalidRemovalVulnState,
     RequiredFieldToBeUpdate,
     VulnNotFound,
@@ -50,6 +51,8 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
+    FindingVulnerabilitiesZrRequest,
+    VulnerabilitiesConnection,
     Vulnerability,
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
@@ -94,6 +97,13 @@ from typing import (
     Counter,
     Optional,
     Union,
+)
+from vulnerabilities.domain.validations import (
+    validate_commit_hash,
+    validate_source,
+    validate_specific,
+    validate_uniqueness,
+    validate_where,
 )
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
@@ -1054,13 +1064,56 @@ async def update_description(
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
-
+    if description.commit is not None:
+        if vulnerability.type is not VulnerabilityType.LINES:
+            raise InvalidParameter("commit")
+        validate_commit_hash(description.commit)
+    if description.specific is not None:
+        validate_specific(description.specific)
+    if description.source is not None:
+        validate_source(description.source)
+    if description.where is not None:
+        validate_where(description.where)
+    if any([description.specific is not None, description.where is not None]):
+        vulnerabilities_connection: VulnerabilitiesConnection = (
+            await loaders.finding_vulnerabilities_nzr_c.load(
+                FindingVulnerabilitiesZrRequest(
+                    finding_id=vulnerability.finding_id,
+                    paginate=False,
+                    state_status=VulnerabilityStateStatus.OPEN,
+                )
+            )
+        )
+        zr_vulnerabilities_connection: VulnerabilitiesConnection = (
+            await loaders.finding_vulnerabilities_zr_c.load(
+                FindingVulnerabilitiesZrRequest(
+                    finding_id=vulnerability.finding_id,
+                    paginate=False,
+                    state_status=VulnerabilityStateStatus.OPEN,
+                )
+            )
+        )
+        validate_uniqueness(
+            finding_vulns_data=tuple(
+                edge.node
+                for edge in vulnerabilities_connection.edges
+                + zr_vulnerabilities_connection.edges
+            ),
+            vulnerability_where=description.where or vulnerability.state.where,
+            vulnerability_specific=description.specific
+            or vulnerability.state.specific,
+            vulnerability_type=vulnerability.type,
+            vulnerability_id=vulnerability_id,
+        )
     await vulns_model.update_historic_entry(
         current_value=vulnerability,
         entry=vulnerability.state._replace(
+            commit=description.commit or vulnerability.state.commit,
             modified_by=stakeholder_email,
             modified_date=datetime_utils.get_iso_date(),
             source=description.source or vulnerability.state.source,
+            specific=description.specific or vulnerability.state.specific,
+            where=description.where or vulnerability.state.where,
         ),
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
