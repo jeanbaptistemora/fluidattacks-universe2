@@ -20,3 +20,8 @@ class FindingComment(NamedTuple):
     id: str
     parent_id: str
     full_name: Optional[str] = None
+
+
+class FindingCommentsRequest(NamedTuple):
+    comment_type: CommentType
+    finding_id: str

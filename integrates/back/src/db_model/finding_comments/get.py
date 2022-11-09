@@ -21,6 +21,9 @@ from db_model import (
 from db_model.finding_comments.enums import (
     CommentType,
 )
+from db_model.finding_comments.types import (
+    FindingCommentsRequest,
+)
 from db_model.finding_comments.utils import (
     format_finding_comments,
 )
@@ -66,11 +69,14 @@ async def _get_comments(
 class FindingCommentsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, comments: Iterable[tuple[CommentType, str]]
+        self, requests: Iterable[FindingCommentsRequest]
     ) -> tuple[tuple[FindingComment, ...], ...]:
         return await collect(
             tuple(
-                _get_comments(comment_type=comment_type, finding_id=finding_id)
-                for comment_type, finding_id in comments
+                _get_comments(
+                    comment_type=request.comment_type,
+                    finding_id=request.finding_id,
+                )
+                for request in requests
             )
         )

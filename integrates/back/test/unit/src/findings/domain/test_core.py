@@ -22,6 +22,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.types import (
     Finding,
@@ -344,9 +345,13 @@ async def test_add_comment() -> None:
         "unittesting",
     )
     loaders = get_new_context()
-    finding_comments: list[
-        FindingComment
-    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
+    finding_comments: tuple[
+        FindingComment, ...
+    ] = await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
+    )
     assert finding_comments[-1].content == "Test comment"
     assert finding_comments[-1].full_name == "unittesting"
 
@@ -364,10 +369,12 @@ async def test_add_comment() -> None:
         "unittesting",
     )
     new_loaders = get_new_context()
-    new_finding_comments: list[
-        FindingComment
+    new_finding_comments: tuple[
+        FindingComment, ...
     ] = await new_loaders.finding_comments.load(
-        (CommentType.COMMENT, finding_id)
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
     )
     assert new_finding_comments[-1].content == "Test comment"
     assert new_finding_comments[-1].parent_id == str(comment_id)
@@ -438,9 +445,13 @@ async def test_verify_vulnerabilities() -> None:
         loaders=info.context.loaders,
     )
     loaders = get_new_context()
-    finding_commets: list[
-        FindingComment
-    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
+    finding_commets: tuple[
+        FindingComment, ...
+    ] = await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
+    )
     assert finding_commets[-1].finding_id == finding_id
     assert finding_commets[-1].full_name == "Miguel de Orellana"
     assert finding_commets[-1].comment_type == CommentType.VERIFICATION

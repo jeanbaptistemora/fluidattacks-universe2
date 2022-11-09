@@ -20,6 +20,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus as FinVStatus,
@@ -131,7 +132,9 @@ async def test_solve_event_on_hold(
     requester = await get_reattack_requester(loaders, vulnerability)
     solve_consult: str = "The reattacks are back to"
     consults: tuple[FindingComment, ...] = await loaders.finding_comments.load(
-        (CommentType.COMMENT, finding.id)
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding.id
+        )
     )
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email

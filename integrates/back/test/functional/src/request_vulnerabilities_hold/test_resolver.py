@@ -18,6 +18,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus as FVStatus,
@@ -105,9 +106,13 @@ async def test_request_hold_vuln(
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         != email
     )
-    finding_comments: list[
-        FindingComment
-    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
+    finding_comments: tuple[
+        FindingComment, ...
+    ] = await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
+    )
     assert finding_comments[-1].finding_id == finding_id
     assert finding_comments[-1].comment_type == CommentType.VERIFICATION
     assert finding_comments[-1].email == email

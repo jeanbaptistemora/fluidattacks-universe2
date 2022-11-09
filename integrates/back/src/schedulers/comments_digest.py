@@ -33,6 +33,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.types import (
     Finding,
@@ -137,12 +138,20 @@ async def instance_comments(
         return last_comments(await loaders.event_comments.load(instance_id))
 
     comments = (
-        await loaders.finding_comments.load((CommentType.COMMENT, instance_id))
-        + await loaders.finding_comments.load(
-            (CommentType.CONSULT, instance_id)
+        await loaders.finding_comments.load(
+            FindingCommentsRequest(
+                comment_type=CommentType.COMMENT, finding_id=instance_id
+            )
         )
         + await loaders.finding_comments.load(
-            (CommentType.VERIFICATION, instance_id)
+            FindingCommentsRequest(
+                comment_type=CommentType.CONSULT, finding_id=instance_id
+            )
+        )
+        + await loaders.finding_comments.load(
+            FindingCommentsRequest(
+                comment_type=CommentType.VERIFICATION, finding_id=instance_id
+            )
         )
     )
 
@@ -193,7 +202,11 @@ def unique_emails(
 async def finding_comments(
     loaders: Dataloaders, finding_id: str
 ) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
-    comments = await loaders.finding_comments.load(finding_id)
+    comments = await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
+    )
     return last_comments(comments)
 
 

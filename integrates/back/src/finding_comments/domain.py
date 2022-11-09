@@ -20,6 +20,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.types import (
     Finding,
@@ -168,7 +169,9 @@ async def get_comments(
     user_email: str,
 ) -> tuple[FindingComment, ...]:
     comments = await loaders.finding_comments.load(
-        (CommentType.COMMENT, finding_id)
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
     )
     historic_verification: tuple[
         FindingVerification, ...
@@ -227,7 +230,9 @@ async def get_observations(
     loaders: Dataloaders, group_name: str, finding_id: str, user_email: str
 ) -> list[FindingComment]:
     observations = await loaders.finding_comments.load(
-        (CommentType.OBSERVATION, finding_id)
+        FindingCommentsRequest(
+            comment_type=CommentType.OBSERVATION, finding_id=finding_id
+        )
     )
 
     enforcer = await authz.get_group_level_enforcer(loaders, user_email)

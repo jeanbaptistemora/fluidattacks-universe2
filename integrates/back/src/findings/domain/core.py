@@ -46,6 +46,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -156,7 +157,7 @@ async def add_comment(
     finding_id: str,
     group_name: str,
 ) -> None:
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     param_type = comment_data.comment_type
     parent_comment = (
         str(comment_data.parent_id) if comment_data.parent_id else "0"
@@ -174,7 +175,10 @@ async def add_comment(
         finding_comments = [
             comment.id
             for comment in await loaders.finding_comments.load(
-                (comment_data.comment_type, finding_id)
+                FindingCommentsRequest(
+                    comment_type=comment_data.comment_type,
+                    finding_id=finding_id,
+                )
             )
         ]
         if parent_comment not in finding_comments:

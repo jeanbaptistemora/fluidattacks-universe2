@@ -15,6 +15,12 @@ from aioextensions import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
+from db_model.finding_comments.types import (
+    FindingCommentsRequest,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -59,7 +65,9 @@ async def main() -> None:  # noqa: MC0001
 
         for finding_id in [finding.id for finding in findings]:
             comments = await loaders.finding_comments.load(
-                ("comment", finding_id)
+                FindingCommentsRequest(
+                    comment_type=CommentType.COMMENT, finding_id=finding_id
+                )
             )
             for comment in comments:
                 if comment.email == "machine@fluidattacks.com":

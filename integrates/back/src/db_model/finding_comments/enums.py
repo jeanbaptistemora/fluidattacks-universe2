@@ -7,7 +7,7 @@ from enum import (
 )
 
 
-class CommentType(Enum):
+class CommentType(str, Enum):
     COMMENT: str = "COMMENT"
     CONSULT: str = "CONSULT"
     OBSERVATION: str = "OBSERVATION"

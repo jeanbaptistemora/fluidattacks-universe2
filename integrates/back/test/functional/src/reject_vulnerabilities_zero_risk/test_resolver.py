@@ -14,6 +14,7 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
+    FindingCommentsRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -58,10 +59,12 @@ async def test_reject_vulnerabilities_zero_risk(
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED  # type: ignore
-    zero_risk_comments: list[
-        FindingComment
+    zero_risk_comments: tuple[
+        FindingComment, ...
     ] = await loaders.finding_comments.load(
-        (CommentType.ZERO_RISK, finding_id)
+        FindingCommentsRequest(
+            comment_type=CommentType.ZERO_RISK, finding_id=finding_id
+        )
     )
     assert zero_risk_comments[-1].finding_id == finding_id
     assert zero_risk_comments[-1].content == "reject zero risk vuln"
