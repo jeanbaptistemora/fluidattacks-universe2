@@ -5,14 +5,14 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.getter_signature import (
-    build_getter_signature_node,
+from syntax_graph.syntax_nodes.variable_declaration import (
+    build_variable_declaration_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    adj_ast,
+    match_ast_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -20,8 +20,9 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    node_attrs = args.ast_graph.nodes[args.n_id]
-    name = node_to_str(args.ast_graph, node_attrs["label_field_name"])
-    c_ids = adj_ast(args.ast_graph, args.n_id)
+    graph = args.ast_graph
+    var_id = graph.nodes[args.n_id]["label_field_name"]
+    var_name = node_to_str(graph, var_id)
+    var_type = match_ast_d(graph, args.n_id, "type_identifier")
 
-    return build_getter_signature_node(args, name, iter(c_ids))
+    return build_variable_declaration_node(args, var_name, var_type, var_id)

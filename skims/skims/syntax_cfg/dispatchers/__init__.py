@@ -103,6 +103,7 @@ DISPATCHERS: Dispatchers = (
             "Resource",
             "Selector",
             "SymbolLookup",
+            "SymbolType",
             "ThrowStatement",
             "UnaryExpression",
             "UpdateExpression",

@@ -17,12 +17,13 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = adj_ast(args.ast_graph, args.n_id)
+    graph = args.ast_graph
+    c_ids = adj_ast(graph, args.n_id)
     invalid_childs = {
         "=>",
         ";",
     }
-    graph = args.ast_graph
+
     return build_function_body_node(
         args,
         c_ids=(

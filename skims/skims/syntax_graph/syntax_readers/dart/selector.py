@@ -13,9 +13,25 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
+    match_ast_d,
+)
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    c_ids = adj_ast(args.ast_graph, args.n_id)
-    return build_selector_node(args, iter(c_ids))
+    graph = args.ast_graph
+    id_name = match_ast_d(
+        graph, args.n_id, "unconditional_assignable_selector"
+    ) or match_ast_d(graph, args.n_id, "conditional_assignable_selector")
+    selector_name = None
+    if id_name:
+        child_id = match_ast_d(graph, id_name, "identifier")
+        if child_id:
+            selector_name = node_to_str(graph, child_id)
+
+        return build_selector_node(args, selector_name, None)
+
+    c_ids = adj_ast(graph, args.n_id)
+    return build_selector_node(args, selector_name, iter(c_ids))
