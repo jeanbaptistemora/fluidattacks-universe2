@@ -8,10 +8,10 @@ function main {
   local success=0
 
   : \
-    && if integrates-front-lint-eslint; then
+    && if integrates-front-lint-stylelint; then
       success=$((success + 1))
     fi \
-    && if integrates-front-lint-stylelint; then
+    && if integrates-front-lint-eslint; then
       success=$((success + 1))
     fi \
     && if test "${success}" -eq 2; then

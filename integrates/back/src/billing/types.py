@@ -21,8 +21,10 @@ class GroupAuthor(NamedTuple):
 
 class GroupBilling(NamedTuple):
     authors: tuple[GroupAuthor, ...]
-    current_authors: int
-    current_spend: int
+    base_cost: int
+    mtd_authors: int
+    mtd_authors_costs: int
+    mtd_total_costs: int
 
 
 class OrganizationAuthor(NamedTuple):

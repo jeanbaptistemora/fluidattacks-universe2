@@ -5,8 +5,10 @@
  */
 
 interface IGroupBilling {
-  currentAuthors: number;
-  currentSpend: number;
+  baseCost: number;
+  mtdAuthors: number;
+  mtdAuthorsCosts: number;
+  mtdTotalCosts: number;
 }
 
 interface IOrganizationAuthorAttr {

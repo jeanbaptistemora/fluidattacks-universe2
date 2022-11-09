@@ -48,8 +48,10 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         permissions
         tier
         billing {
-          currentAuthors
-          currentSpend
+          baseCost
+          mtdAuthors
+          mtdAuthorsCosts
+          mtdTotalCosts
         }
       }
       paymentMethods {

@@ -38,7 +38,7 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **kwargs: datetime,
 ) -> GroupBilling:
-    return await billing_domain.get_group_authors(
+    return await billing_domain.get_group_billing(
         date=kwargs.get("date", datetime_utils.get_now()),
         group=parent,
     )

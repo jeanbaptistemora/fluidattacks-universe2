@@ -55,8 +55,10 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   // States
   const defaultCurrentRow: IGroupAttr = {
     billing: {
-      currentAuthors: 1,
-      currentSpend: 0,
+      baseCost: 0,
+      mtdAuthors: 0,
+      mtdAuthorsCosts: 0,
+      mtdTotalCosts: 0,
     },
     forces: "",
     hasForces: false,
@@ -184,22 +186,42 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.currentAuthors;
+        return row.billing?.baseCost;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
-      header: t<string>("organization.tabs.billing.groups.headers.authors"),
+      header: t<string>("organization.tabs.billing.groups.headers.baseCost"),
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.currentSpend;
+        return row.billing?.mtdAuthors;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      enableColumnFilter: false,
+      header: t<string>("organization.tabs.billing.groups.headers.mtdAuthors"),
+    },
+    {
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.billing?.mtdAuthorsCosts;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
       header: t<string>(
-        "organization.tabs.billing.groups.headers.monthToDateSpend"
+        "organization.tabs.billing.groups.headers.mtdAuthorsCosts"
+      ),
+    },
+    {
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.billing?.mtdTotalCosts;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      enableColumnFilter: false,
+      header: t<string>(
+        "organization.tabs.billing.groups.headers.mtdTotalCosts"
       ),
     },
   ];

@@ -913,23 +913,32 @@ async def report_subscription_usage(
     )
 
 
-async def get_group_authors(*, date: datetime, group: Group) -> GroupBilling:
-    group_authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
+async def get_group_billing(*, date: datetime, group: Group) -> GroupBilling:
+    authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
         date=date,
         group=group.name,
     )
 
-    current_authors: int = len(group_authors)
+    prices: dict[str, Price] = await get_prices()
 
-    current_spend: int = 0
+    base_cost: int = 0
+    if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE):
+        base_cost = int(prices["machine"].amount / 100)
+
+    mtd_authors: int = len(authors)
+
+    mtd_authors_costs: int = 0
     if group.state.tier == GroupTier.SQUAD:
-        prices: dict[str, Price] = await get_prices()
-        current_spend = int(current_authors * prices["squad"].amount / 100)
+        mtd_authors_costs = int(mtd_authors * prices["squad"].amount / 100)
+
+    mtd_total_costs: int = base_cost + mtd_authors_costs
 
     return GroupBilling(
-        authors=group_authors,
-        current_authors=current_authors,
-        current_spend=current_spend,
+        authors=authors,
+        base_cost=base_cost,
+        mtd_authors=mtd_authors,
+        mtd_authors_costs=mtd_authors_costs,
+        mtd_total_costs=mtd_total_costs,
     )
 
 
