@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 08, 2022, 04:29 PM",
+    "DateLastModified": "Nov 09, 2022, 10:56 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -14629,6 +14629,14 @@
           "DataAccess": {
             "MySql": {}
           }
+        },
+        {
+          "FacetName": "group_id",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP_ID",
+            "SortKeyAlias": "GROUP#name"
+          },
+          "TableData": []
         },
         {
           "FacetName": "group_metadata",
