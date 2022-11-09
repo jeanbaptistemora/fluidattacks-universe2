@@ -35,13 +35,14 @@ const useFilters = <IData extends object>(
       case "caseSensitive":
         return String(dataPoint[filter.key]) === filter.value;
 
+      case "caseInsensitive":
+        return (
+          String(dataPoint[filter.key]).toLowerCase() ===
+          filter.value.toLowerCase()
+        );
+
       case "includesSensitive":
         return String(dataPoint[filter.key]).includes(filter.value);
-
-      case "includesInsensitive":
-        return String(dataPoint[filter.key])
-          .toLowerCase()
-          .includes(filter.value.toLowerCase());
 
       case "includesInArray": {
         const array: unknown[] = JSON.parse(
@@ -51,12 +52,11 @@ const useFilters = <IData extends object>(
         return array.includes(filter.value);
       }
 
-      case "caseInsensitive":
+      case "includesInsensitive":
       default:
-        return (
-          String(dataPoint[filter.key]).toLowerCase() ===
-          filter.value.toLowerCase()
-        );
+        return String(dataPoint[filter.key])
+          .toLowerCase()
+          .includes(filter.value.toLowerCase());
     }
   }
 
