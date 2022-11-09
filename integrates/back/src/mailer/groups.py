@@ -50,7 +50,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
 )
 
 
@@ -1002,16 +1001,7 @@ async def send_mail_numerator_report(
 async def send_mail_comments_digest(
     *,
     loaders: Any,
-    context: Dict[
-        str,
-        Dict[
-            str,
-            Union[
-                List[Dict[str, Optional[str]]],
-                Dict[str, List[Dict[str, Optional[str]]]],
-            ],
-        ],
-    ],
+    context: Dict[str, Any],
     email_to: str,
     email_cc: List[str],
 ) -> None:

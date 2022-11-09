@@ -65,6 +65,9 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from stakeholders.domain import (
+    is_fluid_staff,
+)
 from typing import (
     Any,
     Dict,
@@ -234,11 +237,12 @@ async def send_comment_digest() -> None:
             for stakeholder in group_stakeholders
             if Notification.NEW_COMMENT
             in stakeholder.state.notifications_preferences.email
+            and is_fluid_staff(stakeholder.email)
         )
         for group_stakeholders in groups_stakeholders
     )
 
-    if FI_ENVIRONMENT == "development":
+    if FI_ENVIRONMENT == "production":
         groups_names = tuple(
             group_name
             for group_name in groups_names
