@@ -1004,10 +1004,19 @@ def format_stacked_vulnerabilities_data(
             "Open",
         ],
         values=[
-            [group.closed_vulnerabilities for group in all_data],
-            [group.accepted for group in all_data],
-            [group.accepted_undefined for group in all_data],
-            [group.remaining_open_vulnerabilities for group in all_data],
+            [
+                format_cvssf(Decimal(group.closed_vulnerabilities))
+                for group in all_data
+            ],
+            [format_cvssf(Decimal(group.accepted)) for group in all_data],
+            [
+                format_cvssf(Decimal(group.accepted_undefined))
+                for group in all_data
+            ],
+            [
+                format_cvssf(Decimal(group.remaining_open_vulnerabilities))
+                for group in all_data
+            ],
         ],
         categories=[group.user for group in all_data],
         header="User",
