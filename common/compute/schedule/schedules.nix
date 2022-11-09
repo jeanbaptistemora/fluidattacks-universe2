@@ -259,6 +259,35 @@
       "management:type" = "product";
     };
   };
+  integrates_comments_digest = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.comments_digest.main"
+    ];
+
+    schedule_expression = "cron(0 10 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_comments_digest";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_consume_dynamodb_stream = {
     enabled = true;
     command = [
