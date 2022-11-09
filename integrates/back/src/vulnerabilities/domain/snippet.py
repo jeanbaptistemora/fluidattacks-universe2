@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
 )
@@ -71,7 +74,7 @@ async def upload_snippet(
         )
 
 
-async def get_snippet(
+async def generate_snippet(
     vulnerability_state: VulnerabilityState, repo: Repo
 ) -> Optional[str]:
     current_commit = vulnerability_state.commit or "HEAD"
@@ -84,3 +87,25 @@ async def get_snippet(
             viewport=SnippetViewport(0, int(vulnerability_state.specific)),
         )
     return None
+
+
+async def get_snippet(
+    vulnerability_id: str,
+    vulnerability_modified_date: Union[str, datetime],
+) -> Optional[str]:
+    modified_date = (
+        vulnerability_modified_date
+        if isinstance(vulnerability_modified_date, str)
+        else vulnerability_modified_date.isoformat()
+    )
+    client = await get_s3_resource()
+    file_key = f"snippets/VULN#{vulnerability_id}#STATE#{modified_date}"
+    with tempfile.NamedTemporaryFile() as snippet_file:
+        try:
+            await client.download_fileobj(
+                FI_AWS_S3_MAIN_BUCKET, file_key, snippet_file
+            )
+        except ClientError:
+            return None
+        snippet_file.seek(os.SEEK_SET)
+        return snippet_file.read().decode("utf-8")

@@ -76,7 +76,7 @@ from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
 )
 from vulnerabilities.domain.snippet import (
-    get_snippet,
+    generate_snippet,
     snippet_already_exists,
     upload_snippet,
 )
@@ -250,7 +250,7 @@ async def rebase_root(
     futures = []
     for vuln, has_snippet in zip(vulnerabilities, states_with_with_snippet):
         if not has_snippet and (
-            snippet := await get_snippet(vuln.state, repo)
+            snippet := await generate_snippet(vuln.state, repo)
         ):
             futures.append(
                 upload_snippet(vuln.id, vuln.state.modified_date, snippet)
