@@ -1536,6 +1536,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_CRYPTO_CREDENTIALS = MethodInfo(
+        file_name="typescript",
+        name="typescript_crypto_ts_credentials",
+        module="lib_root",
+        finding=FindingEnum.F009,
+        developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
         name="jwt_token",
@@ -4394,7 +4402,7 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     TS_USES_BYPASS_SECURITY_TRUST_URL = MethodInfo(
-        file_name="javascript",
+        file_name="typecript",
         name="ts_use_of_bypass_security_trust_url",
         module="lib_root",
         finding=FindingEnum.F371,
@@ -4410,7 +4418,7 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     TS_USES_DANGEROUSLY_SET_HTML = MethodInfo(
-        file_name="javascript",
+        file_name="typescript",
         name="ts_uses_dangerously_set_html",
         module="lib_root",
         finding=FindingEnum.F371,

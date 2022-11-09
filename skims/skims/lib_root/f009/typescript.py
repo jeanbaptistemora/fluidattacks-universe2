@@ -25,13 +25,13 @@ from typing import (
 )
 
 
-def js_crypto_js_credentials(
+def ts_crypto_js_credentials(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
+            GraphLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
@@ -43,5 +43,5 @@ def js_crypto_js_credentials(
         desc_key="src.lib_path.f009.crypto_js_credentials.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JS_CRYPTO_CREDENTIALS,
+        method=MethodsEnum.TS_CRYPTO_CREDENTIALS,
     )

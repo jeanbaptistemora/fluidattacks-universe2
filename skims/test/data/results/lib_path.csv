@@ -38738,7 +38738,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   23 |   }
   24 | }
      ^ Col 0
-",javascript.ts_use_of_bypass_security_trust_url
+",typecript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,17,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
    4 |   selector: 'my-app',
    5 |   template: `
@@ -38762,7 +38762,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   23 |   }
   24 | }
      ^ Col 0
-",javascript.ts_use_of_bypass_security_trust_url
+",typecript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,16,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
    4 |   selector: 'my-app',
    5 |   template: `
@@ -38786,7 +38786,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   23 |   }
   24 | }
      ^ Col 0
-",javascript.ts_use_of_bypass_security_trust_url
+",typecript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,15,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
    4 |   selector: 'my-app',
    5 |   template: `
@@ -38810,7 +38810,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   23 |   }
   24 | }
      ^ Col 0
-",javascript.ts_use_of_bypass_security_trust_url
+",typecript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,19,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_truster.ts,"
    4 |  selector: 'my-app',
    5 |  template: `
@@ -38834,7 +38834,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   23 |  }
   24 |
      ^ Col 1
-",javascript.ts_use_of_bypass_security_trust_url
+",typecript.ts_use_of_bypass_security_trust_url
 F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Jsx file. in namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,"
    1 | import React from ""react"";
    2 |
@@ -38870,7 +38870,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml
   14 | };
   15 | export default App;
      ^ Col 0
-",javascript.ts_uses_dangerously_set_html
+",typescript.ts_uses_dangerously_set_html
 F371,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0,79,skims,371. DOM-Based cross-site scripting (XSS),The content-type header or character encoding is not set or is malformed. in namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,"
    1 | <!DOCTYPE html>
    2 | <html>
@@ -39235,6 +39235,102 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
 ",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,12,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |
+   6 |   const chart2 = arg;
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
+   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
+  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+> 12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,11,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |
+   6 |   const chart2 = arg;
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
+   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
+> 11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,9,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |
+   6 |   const chart2 = arg;
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
+>  9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
+  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,12,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |   const args = arg
+   6 |
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
+   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
+  10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
+  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+> 12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,11,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |   const args = arg
+   6 |
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
+   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
+  10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
+> 11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,10,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |   const chartString = ""Hello world"";
+   5 |   const args = arg
+   6 |
+   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
+   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
+   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
+> 10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
+  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
+  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+  13 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/connection.config,5,798,skims,009. Sensitive information in source code,Database connection string in namespace/skims/test/data/lib_path/f009/connection.config,"
   1 | <?xml version='1.0' encoding='utf-8'?>
   2 |   <configuration>
