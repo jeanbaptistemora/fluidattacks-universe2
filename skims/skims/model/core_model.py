@@ -4816,14 +4816,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    DOCKER_PORT_EXPOSED = MethodInfo(
-        file_name="docker",
-        name="docker_port_exposed",
-        module="lib_path",
-        finding=FindingEnum.F418,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     JAVA_USES_SYSTEM_EXIT = MethodInfo(
         file_name="java",
         name="java_uses_exit_method",
@@ -4894,5 +4886,13 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F426,
         developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DOCKER_PORT_EXPOSED = MethodInfo(
+        file_name="docker",
+        name="docker_port_exposed",
+        module="lib_path",
+        finding=FindingEnum.F427,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

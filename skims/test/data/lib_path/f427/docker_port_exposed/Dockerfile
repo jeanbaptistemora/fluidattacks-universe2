@@ -21,4 +21,6 @@ ENV NODE_ENV production
 RUN npm i --only=production && npm cache clean --force
 USER node
 
-EXPOSE 80
+EXPOSE 8081 53
+
+EXPOSE 21/tcp

@@ -5260,54 +5260,6 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    36 |             ""CidrIp"": ""0.0.0.0/0"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F418,lines,namespace/skims/test/data/lib_path/f418/docker_port_exposed/Dockerfile,10,16,skims,418. Insecure service configuration - Docker,"Port 22 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f418/docker_port_exposed/Dockerfile","
-   1 | FROM node:16-alpine@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS build
-   2 |
-   3 | WORKDIR /usr/src/app
-   4 |
-   5 | COPY --chown=node:node package*.json ./
-   6 | RUN npm i
-   7 | COPY --chown=node:node . .
-   8 | USER node
-   9 |
-> 10 | EXPOSE 22
-  11 |
-  12 | WORKDIR /usr/src/app
-  13 | COPY --chown=node:node package*.json ./
-  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-  15 | COPY --chown=node:node . .
-  16 |
-  17 | RUN npm run build
-  18 |
-  19 | ENV NODE_ENV production
-  20 |
-  21 | RUN npm i --only=production && npm cache clean --force
-     ^ Col 0
-",docker.docker_port_exposed
-F418,lines,namespace/skims/test/data/lib_path/f418/docker_port_exposed/Dockerfile,24,16,skims,418. Insecure service configuration - Docker,"Port 80 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f418/docker_port_exposed/Dockerfile","
-   4 |
-   5 | COPY --chown=node:node package*.json ./
-   6 | RUN npm i
-   7 | COPY --chown=node:node . .
-   8 | USER node
-   9 |
-  10 | EXPOSE 22
-  11 |
-  12 | WORKDIR /usr/src/app
-  13 | COPY --chown=node:node package*.json ./
-  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-  15 | COPY --chown=node:node . .
-  16 |
-  17 | RUN npm run build
-  18 |
-  19 | ENV NODE_ENV production
-  20 |
-  21 | RUN npm i --only=production && npm cache clean --force
-  22 | USER node
-  23 |
-> 24 | EXPOSE 80
-     ^ Col 0
-",docker.docker_port_exposed
 F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,13,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
    3 |   myLaunchConfig:
    4 |     Type: AWS::AutoScaling::LaunchConfiguration
@@ -26977,6 +26929,78 @@ F332,lines,namespace/skims/test/data/lib_path/f332/json_check_https_argument.jso
   9 | }
     ^ Col 0
 ",conf_files.json_check_https_argument
+F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,26,319,skims,427. Use of an insecure channel - Docker,"Port 21 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
+   6 | RUN npm i
+   7 | COPY --chown=node:node . .
+   8 | USER node
+   9 |
+  10 | EXPOSE 22
+  11 |
+  12 | WORKDIR /usr/src/app
+  13 | COPY --chown=node:node package*.json ./
+  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  15 | COPY --chown=node:node . .
+  16 |
+  17 | RUN npm run build
+  18 |
+  19 | ENV NODE_ENV production
+  20 |
+  21 | RUN npm i --only=production && npm cache clean --force
+  22 | USER node
+  23 |
+  24 | EXPOSE 8081 53
+  25 |
+> 26 | EXPOSE 21/tcp
+     ^ Col 0
+",docker.docker_port_exposed
+F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,10,319,skims,427. Use of an insecure channel - Docker,"Port 22 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
+   1 | FROM node:16-alpine@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS build
+   2 |
+   3 | WORKDIR /usr/src/app
+   4 |
+   5 | COPY --chown=node:node package*.json ./
+   6 | RUN npm i
+   7 | COPY --chown=node:node . .
+   8 | USER node
+   9 |
+> 10 | EXPOSE 22
+  11 |
+  12 | WORKDIR /usr/src/app
+  13 | COPY --chown=node:node package*.json ./
+  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  15 | COPY --chown=node:node . .
+  16 |
+  17 | RUN npm run build
+  18 |
+  19 | ENV NODE_ENV production
+  20 |
+  21 | RUN npm i --only=production && npm cache clean --force
+     ^ Col 0
+",docker.docker_port_exposed
+F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,24,319,skims,427. Use of an insecure channel - Docker,"Port 53 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
+   6 | RUN npm i
+   7 | COPY --chown=node:node . .
+   8 | USER node
+   9 |
+  10 | EXPOSE 22
+  11 |
+  12 | WORKDIR /usr/src/app
+  13 | COPY --chown=node:node package*.json ./
+  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+  15 | COPY --chown=node:node . .
+  16 |
+  17 | RUN npm run build
+  18 |
+  19 | ENV NODE_ENV production
+  20 |
+  21 | RUN npm i --only=production && npm cache clean --force
+  22 | USER node
+  23 |
+> 24 | EXPOSE 8081 53
+  25 |
+  26 | EXPOSE 21/tcp
+     ^ Col 0
+",docker.docker_port_exposed
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | ing System;

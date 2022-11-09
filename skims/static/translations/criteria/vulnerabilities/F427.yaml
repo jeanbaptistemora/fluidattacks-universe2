@@ -1,0 +1,8 @@
+---
+lib_path.f427.docker_port_exposed:
+  en: >-
+    Port {port} is exposed, which is insecure and could lead to more
+    complex attacks such as information leaking and enumeration.
+  es: >-
+    El puerto {port} esta expuesto, el cual es inseguro y podría llevar
+    a ataques mas complejos como filtración y enumeración de información.
