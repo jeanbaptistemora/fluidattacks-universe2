@@ -18,7 +18,7 @@ from utils import (
 
 
 def search(args: SearchArgs) -> Iterator[SearchResult]:
-    if args.graph.nodes[args.n_id]["name"] == args.symbol:
+    if args.graph.nodes[args.n_id].get("name") == args.symbol:
         yield True, args.n_id
     else:
         if "ctx_evaluated" not in args.graph.nodes[args.n_id]:

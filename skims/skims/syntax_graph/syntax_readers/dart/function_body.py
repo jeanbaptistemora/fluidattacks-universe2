@@ -5,8 +5,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.function_body import (
-    build_function_body_node,
+from syntax_graph.syntax_nodes.statement_block import (
+    build_statement_block_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -19,12 +19,9 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = adj_ast(graph, args.n_id)
-    invalid_childs = {
-        "=>",
-        ";",
-    }
+    invalid_childs = {"=>", ";"}
 
-    return build_function_body_node(
+    return build_statement_block_node(
         args,
         c_ids=(
             _id

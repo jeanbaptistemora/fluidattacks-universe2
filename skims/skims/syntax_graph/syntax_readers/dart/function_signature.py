@@ -13,7 +13,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast,
+    adj_ast,
     match_ast_d,
     search_pred_until_type,
 )
@@ -23,7 +23,7 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-
+    graph = args.ast_graph
     body_parents = {
         "class_body",
         "extension_body",
@@ -31,33 +31,18 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "program",
     }
 
-    name_id = args.ast_graph.nodes[args.n_id]["label_field_name"]
-    function_name = node_to_str(args.ast_graph, name_id)
+    name_id = graph.nodes[args.n_id]["label_field_name"]
+    m_name = node_to_str(graph, name_id)
 
     class_pred, last_c = search_pred_until_type(
-        args.ast_graph,
+        graph,
         args.n_id,
         body_parents,
     )
-
-    if (
-        last_c
-        and (
-            class_childs := list(
-                match_ast(args.ast_graph, class_pred).values()
-            )
-        )
-        and (
-            parameters_id := match_ast_d(
-                args.ast_graph, args.n_id, "formal_parameter_list"
-            )
-        )
-    ):
+    if last_c and (class_childs := list(adj_ast(graph, class_pred))):
+        pm_id = match_ast_d(graph, args.n_id, "formal_parameter_list")
+        children = {"parameters_id": pm_id}
         body_id = class_childs[class_childs.index(last_c) + 1]
-        return build_method_declaration_node(
-            args, function_name, body_id, {"parameters_id": parameters_id}
-        )
+        return build_method_declaration_node(args, m_name, body_id, children)
 
-    raise MissingCaseHandling(
-        f"Bad function signature handling in {args.n_id}"
-    )
+    raise MissingCaseHandling(f"Bad functionsignature handling in {args.n_id}")
