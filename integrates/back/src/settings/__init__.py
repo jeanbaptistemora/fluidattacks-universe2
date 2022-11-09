@@ -10,8 +10,6 @@ from .jwt import (
     JWT_COOKIE_SAMESITE,
     JWT_SECRET,
     JWT_SECRET_API,
-    JWT_SECRET_API_NEW,
-    JWT_SECRET_NEW,
 )
 from .logger import (
     LOGGING,
@@ -35,8 +33,6 @@ __all__ = [
     "JWT_COOKIE_SAMESITE",
     "JWT_SECRET",
     "JWT_SECRET_API",
-    "JWT_SECRET_API_NEW",
-    "JWT_SECRET_NEW",
     "LOGGING",
     "SESSION_COOKIE_AGE",
     "STATIC_URL",

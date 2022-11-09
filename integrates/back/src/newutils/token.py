@@ -60,8 +60,6 @@ from settings import (
     JWT_COOKIE_NAME,
     JWT_SECRET,
     JWT_SECRET_API,
-    JWT_SECRET_API_NEW,
-    JWT_SECRET_NEW,
     LOGGING,
 )
 from typing import (
@@ -234,7 +232,7 @@ def encode_token(
     api: bool = False,
 ) -> str:
     """Encrypts the payload into a jwe token and returns its encoded version"""
-    secret = JWT_SECRET_API_NEW if api else JWT_SECRET_NEW
+    secret = JWT_SECRET_API if api else JWT_SECRET
     jws_key = JWK.from_json(secret)
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     default_claims = dict(exp=expiration_time, sub=subject)
@@ -299,8 +297,8 @@ def _get_secret(jwt_token: JWT) -> str:
         sub = _decode_jwe(payload).get("sub")
 
     if sub == "api_token":
-        return JWT_SECRET_API_NEW
-    return JWT_SECRET_NEW
+        return JWT_SECRET_API
+    return JWT_SECRET
 
 
 def _validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
