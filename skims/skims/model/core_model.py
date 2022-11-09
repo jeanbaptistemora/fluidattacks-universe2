@@ -1156,13 +1156,6 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
     )
-    F419: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
-        code="F419",
-        cwe=778,
-        execution_queue=ExecutionQueue.cloud,
-        requirements=[75, 376, 377, 378],
-    )
     F423: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F423",
@@ -4053,14 +4046,6 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F279,
         developer=DeveloperEnum.FLOR_CALDERON,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    K8S_CHECK_AUDIT_FLAG = MethodInfo(
-        file_name="kubernetes",
-        name="k8s_check_audit_flag",
-        module="lib_path",
-        finding=FindingEnum.F419,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
     K8S_CHECK_ADD_CAPABILITY = MethodInfo(

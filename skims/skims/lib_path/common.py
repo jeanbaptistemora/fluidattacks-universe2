@@ -562,25 +562,3 @@ def pkg_deps_to_vulns(
         return resolve_vulns
 
     return resolve_deps
-
-
-def _get_all_dicts_from_list(value: List[Any]) -> Iterator[Any]:
-    for elem in value:
-        if isinstance(elem, dict):
-            yield from get_all_values_from_nested_dict(elem)
-        else:
-            yield str(elem)
-
-
-def get_all_values_from_nested_dict(
-    dictionary: Dict[str, Any]
-) -> Iterator[Any]:
-    for value in dictionary.values():
-        if isinstance(value, dict):
-            yield from get_all_values_from_nested_dict(value)
-        else:
-            if isinstance(value, list):
-                yield from _get_all_dicts_from_list(value)
-            else:
-                if value:
-                    yield str(value)
