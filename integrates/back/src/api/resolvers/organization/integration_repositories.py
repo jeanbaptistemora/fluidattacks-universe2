@@ -11,6 +11,9 @@ from azure.devops.v6_0.git.models import (
 from azure_repositories.types import (
     CredentialsGitRepository,
 )
+from azure_repositories.utils import (
+    filter_urls,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -84,6 +87,8 @@ async def resolve(
         )
         for credential, _repositories in zip(pat_credentials, repositories)
         for repository in _repositories
-        if repository.remote_url not in roots_url
-        and repository.ssh_url not in roots_url
+        if filter_urls(
+            repository=repository,
+            urls=roots_url if isinstance(roots_url, set) else set(),
+        )
     )
