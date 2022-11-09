@@ -288,34 +288,6 @@
       "management:type" = "product";
     };
   };
-  integrates_consume_dynamodb_stream = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/streams"
-      "prod"
-    ];
-
-    schedule_expression = "cron(0 */4 * * ? *)";
-    size = "small";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 14400;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_consume_dynamodb_stream";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_define_treatments_notification = {
     enabled = true;
     command = [
