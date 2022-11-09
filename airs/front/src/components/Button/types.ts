@@ -7,11 +7,17 @@
 import type { ButtonHTMLAttributes } from "react";
 
 type TSize = "lg" | "md" | "sm";
-type TVariant = "ghost" | "primary" | "secondary" | "tertiary";
+type TVariant =
+  | "darkGhost"
+  | "darkSecondary"
+  | "darkTertiary"
+  | "ghost"
+  | "primary"
+  | "secondary"
+  | "tertiary";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  disp?: "block" | "inline-block" | "inline";
-  selected?: boolean;
+  display?: "block" | "inline-block" | "inline";
   size?: TSize;
   variant?: TVariant;
 }
