@@ -151,7 +151,10 @@ def delete_out_of_scope_files(group: str) -> bool:
                     shutil.rmtree(path_to_delete)
 
     # Delete cloned repositories that are not expected to be cloned
-    cloned_repositories: Set[str] = set(os.listdir(path_to_fusion))
+    cloned_repositories: Set[str] = set()
+    with suppress(FileNotFoundError):
+        os.makedirs(path_to_fusion, exist_ok=True)
+        cloned_repositories = set(os.listdir(path_to_fusion))
     bad_repositories: Set[str] = cloned_repositories - expected_repositories
 
     if bad_repositories:

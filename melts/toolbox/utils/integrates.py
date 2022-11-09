@@ -60,7 +60,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
         LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(filter_request.errors)
         return []
-    return filter_request.data["group"]["roots"]
+    return [item for item in filter_request.data["group"]["roots"] if item]
 
 
 def get_git_roots(group: str) -> List[Dict[str, Any]]:
@@ -69,10 +69,11 @@ def get_git_roots(group: str) -> List[Dict[str, Any]]:
         LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(roots.errors)
         return []
+
     return [
         item
         for item in roots.data["group"]["roots"]
-        if item["__typename"] == "GitRoot"
+        if item and item["__typename"] == "GitRoot"
     ]
 
 
