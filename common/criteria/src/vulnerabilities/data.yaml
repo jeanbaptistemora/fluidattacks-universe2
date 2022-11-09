@@ -38700,3 +38700,87 @@
   metadata:
     en:
       details: __empty__
+'427':
+  en:
+    title: Use of an insecure channel - Docker
+    description: >
+      The docker configuration exposes ports in your container that are an open
+      door to your system. Expose only the ports that your application needs and 
+      avoid exposing ports such as HTTP (80).
+    impact: >
+      Capture confidential information and credentials in plain text.
+    recommendation: >
+      Deploy the application over an encrypted communication channel,
+      for instance, HTTPS with TLS.
+
+      Always try to reduce the attack surface and use EXPOSE
+      to mark and document only the required ports in the Dockerfile.
+    threat: >
+      Anonymous attacker on adjacent network
+      performing a man-in-the-middle.
+  es:
+    title: Use of an insecure channel - Docker
+    description: >
+      La configuración docker expone puertos en su contenedor que 
+      suponen una puerta abierta a su sistema. Exponga solo los puertos
+      que su aplicación necesita y evite exponer puertos como HTTP (80).
+    impact: >
+      Capturar información confidencial y credenciales en texto plano.
+    recommendation: >
+      Desplegar la aplicación sobre un canal de comunicación cifrado,
+      por ejemplo, HTTPS utilizando TLS.
+
+      Reducir la superficie de ataque y usar EXPOSE para marcar y documentar
+      solo los puertos requeridos en el Dockerfile.
+    threat: >
+      Atacante anónimo en red adyacente
+      ejecutando un ataque de hombre en el medio.
+  category: Information Collection
+  examples:
+    non_compliant: |
+      Some insecure channels are used to deploy the application
+      ```Dockerfile
+      
+      FROM node:14-alpine AS development
+      ENV NODE_ENV development
+      WORKDIR /app
+      COPY package.json .
+      RUN npm install
+      COPY . .
+      EXPOSE 80
+      CMD [ "node", "app.js" ]
+      
+      ```
+    compliant: |
+      Use secure channels to deploy the application
+      ```Dockerfile
+
+      FROM node:14-alpine AS development
+      ENV NODE_ENV development
+      WORKDIR /app
+      COPY package.json .
+      RUN npm install
+      COPY . .
+      EXPOSE 443
+      CMD [ "node", "app.js" ]
+      
+      ```
+  remediation_time: '15'
+  score:
+    base:
+      attack_vector: A
+      attack_complexity: H
+      privileges_required: N
+      user_interaction: R
+      scope: U
+      confidentiality: L
+      integrity: N
+      availability: N
+    temporal:
+      exploit_code_maturity: P
+      remediation_level: O
+      report_confidence: C
+  requirements: ['181']
+  metadata:
+    en:
+      details: __empty__
