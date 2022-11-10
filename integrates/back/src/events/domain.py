@@ -201,7 +201,7 @@ async def add_event(
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
     events_validations.validate_type(EventType[kwargs["event_type"]])
-    root_id: str = kwargs["root_id"]
+    root_id: Optional[str] = kwargs.get("root_id")
     if root_id:
         root: Root = await loaders.root.load((group_name, root_id))
         root_id = root.id
