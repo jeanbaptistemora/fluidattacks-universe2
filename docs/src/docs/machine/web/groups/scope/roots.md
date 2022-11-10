@@ -32,7 +32,7 @@ The Git Roots table gives us
 summary information of the
 repositories I want to be analyzed.
 
-![Git Root table](https://res.cloudinary.com/fluid-attacks/image/upload/v1668094472/docs/web/groups/scope/git_root_table.png)
+![Git Root table](https://res.cloudinary.com/fluid-attacks/image/upload/v1668103427/docs/web/groups/scope/git_root_table.png)
 
 This table shows the following information:
 
@@ -61,6 +61,12 @@ This table shows the following information:
   N/A and Unknown.
   For more information click
   [here](/machine/web/groups/scope/roots/#status-in-git-root)
+- **HCK:**
+  If Health Check is included
+  in that repository.
+- **Nickname:**
+  The nickname of this repository
+  to be easily identified
 - **Sync:**
   Request to clone that repository
   once again since changes have been
@@ -74,7 +80,9 @@ upon click,
 will unfold the description for
 each repository.
 
-![Downward-facing arrow](https://res.cloudinary.com/fluid-attacks/image/upload/v1668095094/docs/web/groups/scope/downward.png)
+![Downward-facing arrow](https://res.cloudinary.com/fluid-attacks/image/upload/v1668103621/docs/web/groups/scope/downward.png)
+
+## Git Roots functionalities
 
 ### Add new root
 
@@ -86,7 +94,7 @@ window where you will have to
 enter the information of the
 new repository you want to add.
 
-![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659113179/docs/web/groups/scope/git_add_new_root.png)
+![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668103688/docs/web/groups/scope/add_new_gitroot.png)
 
 The information you have to fill in is as follows:
 
@@ -114,13 +122,20 @@ The information you have to fill in is as follows:
   Here,
   you select which type of
   credential you want to add.
-
-### Functionalities​
-
-In this section,
-you will find the
-following buttons: export,
-columns filter and filters.
+  For more information,
+  click [here](/machine/web/groups/scope/roots/#protocols-to-clone-a-git-repository)
+- **Environment kind:**
+  The type of environment that is this root.
+- **Health Check:**
+  You have to put YES or NO
+  if this git root applies
+  Health Check.
+- **Exclusions:**
+  Specifies what files of that
+  root will be ignored during
+  the analysis by clicking on
+  the plus symbol;
+  you can add many as you need.
 
 #### Export button
 
@@ -143,7 +158,7 @@ you can manipulate the
 information to display
 in the table.
 
-![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1659101998/docs/web/groups/scope/git_columns.png)
+![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1668104380/docs/web/groups/scope/columns_filter.png)
 
 #### Filters
 
@@ -152,7 +167,7 @@ in the Git Roots section,
 helping us filter the information
 that is of interest quickly and safely.
 
-![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1659104871/docs/web/groups/scope/git_filters.png)
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668104488/docs/web/groups/scope/general_filters.png)
 
 ## IP roots
 
