@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ecre
 alt: Logo eCRE
 certification: yes
-certificationid: 13
+certificationid: 10
 ---
 
 [eCRE](https://elearnsecurity.com/product/ecre-certification/)

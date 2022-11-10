@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ecptx
 alt: Logo eCPTX
 certification: yes
-certificationid: 11
+certificationid: 8
 ---
 
 [eCPTX](https://elearnsecurity.com/product/ecptx-certification/)

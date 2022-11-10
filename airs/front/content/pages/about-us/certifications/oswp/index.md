@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-oswp
 alt: Logo OSWP
 certification: yes
-certificationid: 8
+certificationid: 5
 ---
 
 [OSWP](https://www.offensive-security.com/wifu-oswp/)

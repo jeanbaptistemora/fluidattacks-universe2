@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-oscp
 alt: Logo OSCP
 certification: yes
-certificationid: 7
+certificationid: 4
 ---
 
 [OSCP](https://www.offensive-security.com/pwk-oscp/)

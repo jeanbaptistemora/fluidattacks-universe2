@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-gxpn
 alt: Logo GXPN
 certification: yes
-certificationid: 9
+certificationid: 6
 ---
 
 [GXPN](https://www.giac.org/certifications/exploit-researcher-advanced-penetration-tester-gxpn/)

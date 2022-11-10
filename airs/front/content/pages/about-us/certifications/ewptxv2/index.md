@@ -1,12 +1,12 @@
 ---
-slug: about-us/certifications/ewptv2/
+slug: about-us/certifications/ewptxv2/
 title: eLearnSecurity Web Application Penetration Tester eXtreme
 description: Our team of ethical hackers proudly holds the eWPTXv2 (eLearnSecurity Web Application Penetration Tester eXtreme) certification, among many others.
 keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, EWPTX
-certificationlogo: logo-ewptv2
+certificationlogo: logo-ewptxv2
 alt: Logo eWPTXv2
 certification: yes
-certificationid: 12
+certificationid: 9
 ---
 
 [eWPTXv2](https://elearnsecurity.com/product/ewptxv2-certification/)

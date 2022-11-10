@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ecmap
 alt: Logo eCMAP
 certification: yes
-certificationid: 18
+certificationid: 15
 ---
 
 [eCMAP](https://elearnsecurity.com/product/ecmap-certification/)

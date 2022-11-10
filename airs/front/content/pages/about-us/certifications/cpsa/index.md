@@ -9,7 +9,7 @@ certification: yes
 certificationid: 30
 ---
 
-[CPSA](https://www.crest-approved.org/examination/practitioner-security-analyst/index.html)
+[CPSA](https://www.crest-approved.org/certification-careers/crest-certifications/crest-practitioner-security-analyst/)
 is a certification created by CREST.
 Candidates must pass a theoretical exam,
 proving basic knowledge in assessing operating systems

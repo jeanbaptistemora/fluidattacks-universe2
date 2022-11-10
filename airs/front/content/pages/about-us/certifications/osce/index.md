@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-osce-1
 alt: Logo OSCE
 certification: yes
-certificationid: 3
+certificationid: 2
 ---
 
 [OSCE](https://www.offensive-security.com/ctp-osce/)
