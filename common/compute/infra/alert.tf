@@ -63,15 +63,13 @@ resource "aws_sns_topic_subscription" "main" {
 resource "aws_cloudwatch_event_rule" "alert" {
   name = "compute_alert"
 
-  event_pattern = jsonencode(
-    {
-      source      = ["aws.batch"]
-      detail-type = ["Batch Job State Change"]
-      detail = {
-        status = ["FAILED"]
-      }
+  event_pattern = jsonencode({
+    source      = ["aws.batch"]
+    detail-type = ["Batch Job State Change"]
+    detail = {
+      status = ["FAILED"]
     }
-  )
+  })
 
   tags = {
     "Name"               = "compute_alert"

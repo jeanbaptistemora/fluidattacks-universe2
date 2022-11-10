@@ -31,6 +31,7 @@ locals {
             "es:*",
             "events:*",
             "iam:*",
+            "kinesis:*",
             "kms:*",
             "lambda:*",
             "logs:*",
