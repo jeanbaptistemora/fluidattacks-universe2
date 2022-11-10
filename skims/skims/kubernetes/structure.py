@@ -78,3 +78,10 @@ def get_pod_spec(template: Node) -> Union[Node, None]:
     ):
         return spec
     return None
+
+
+def get_container_security_context(container: Node) -> Union[Node, None]:
+    for container_tag in container.data.keys():
+        if container_tag.data == "securityContext":
+            return container_tag
+    return None
