@@ -62,6 +62,7 @@ describe("AdditionalInfo", (): void => {
     reportDate: "",
     rootNickname: "https:",
     severity: "1",
+    snippet: null,
     specific: "specific-3",
     stream: null,
     tag: "tag-7, tag-8",

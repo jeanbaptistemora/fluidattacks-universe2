@@ -25,6 +25,7 @@ interface IVulnRowAttr {
   reportDate: string;
   rootNickname: string | null;
   severity: string | null;
+  snippet: string | null;
   specific: string;
   stream: string | null;
   tag: string;

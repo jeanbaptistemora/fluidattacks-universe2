@@ -3496,6 +3496,10 @@ export const enTranslations: ResourceKey = {
       closed: "Closed",
       commitHash: "Commit hash",
       contentTab: {
+        code: {
+          title: "Code",
+          tooltip: "A portion of the vulnerable code",
+        },
         details: {
           title: "Details",
           tooltip: "Details",
