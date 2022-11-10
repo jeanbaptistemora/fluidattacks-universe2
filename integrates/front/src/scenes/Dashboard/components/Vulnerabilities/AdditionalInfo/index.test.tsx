@@ -6,15 +6,31 @@
 
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import moment from "moment";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 import type { IVulnRowAttr } from "../types";
 import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
-import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
+import {
+  GET_VULN_ADDITIONAL_INFO,
+  UPDATE_VULNERABILITY_DESCRIPTION,
+} from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgSuccess } from "utils/notifications";
+
+jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../../utils/notifications");
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
@@ -138,5 +154,94 @@ describe("AdditionalInfo", (): void => {
     ).toBeInTheDocument();
 
     expect(screen.getByText("2020-09-05")).toBeInTheDocument();
+  });
+
+  it("should update vulnerability details", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_VULNERABILITY_DESCRIPTION,
+          variables: {
+            commit: "ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
+            source: "DETERMINISTIC",
+            specific: "1111",
+            vulnerabilityId: "af7a48b8-d8fc-41da-9282-d424fff563f0",
+            where: "https://example.com/lines/edited",
+          },
+        },
+        result: {
+          data: {
+            updateVulnerabilityDescription: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_update_vulnerability_description_mutate" },
+    ]);
+
+    render(
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockQueryVulnAdditionalInfo, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <AdditionalInfo
+              canRetrieveHacker={false}
+              canSeeSource={true}
+              refetchData={jest.fn()}
+              vulnerability={formatVulnerabilities([mockVuln])[0]}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          "searchFindings.tabVuln.vulnTable.vulnerabilityType.lines"
+        )
+      ).toBeInTheDocument();
+    });
+    await userEvent.click(
+      screen.getByText(
+        "searchFindings.tabVuln.additionalInfo.buttons.edit.text"
+      )
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: /where/iu }),
+      "/edited"
+    );
+    await userEvent.clear(screen.getByRole("textbox", { name: /specific/iu }));
+    await userEvent.type(
+      screen.getByRole("textbox", { name: /specific/iu }),
+      "1111"
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: /source/iu }),
+      ["DETERMINISTIC"]
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: /commithash/iu }),
+      "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+    );
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "searchFindings.tabVuln.additionalInfo.buttons.save.text",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "searchFindings.tabVuln.additionalInfo.alerts.updatedDetails",
+        "groupAlerts.updatedTitle"
+      );
+    });
   });
 });
