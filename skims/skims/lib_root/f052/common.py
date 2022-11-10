@@ -22,6 +22,9 @@ from typing import (
 from utils import (
     graph as g,
 )
+from utils.string import (
+    complete_attrs_on_set,
+)
 
 
 def split_function_name(f_names: str) -> Tuple[str, str]:
@@ -63,4 +66,23 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
         ):
             vuln_nodes.append(n_id)
 
+    return vuln_nodes
+
+
+def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    danger_methods = complete_attrs_on_set({"crypto.createHash"})
+
+    for n_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+    ):
+        if (
+            graph.nodes[n_id]["expression"] in danger_methods
+            and (al_id := graph.nodes[n_id].get("arguments_id"))
+            and (test_node := g.match_ast(graph, al_id).get("__0__"))
+            and get_eval_danger(graph, test_node, method)
+        ):
+            vuln_nodes.append(n_id)
     return vuln_nodes

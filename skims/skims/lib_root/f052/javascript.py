@@ -4,6 +4,7 @@
 
 from lib_root.f052.common import (
     insecure_create_cipher,
+    insecure_hash,
 )
 from lib_sast.types import (
     ShardDb,
@@ -34,9 +35,6 @@ from typing import (
     Tuple,
 )
 import utils.graph as g
-from utils.string import (
-    complete_attrs_on_set,
-)
 
 
 def split_function_name(f_names: str) -> Tuple[str, str]:
@@ -79,7 +77,6 @@ def javascript_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_HASH
-    danger_methods = complete_attrs_on_set({"crypto.createHash"})
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -89,18 +86,8 @@ def javascript_insecure_hash(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
-                if (
-                    graph.nodes[n_id]["expression"] in danger_methods
-                    and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and (test_node := g.match_ast(graph, al_id).get("__0__"))
-                    and get_eval_danger(graph, test_node, method)
-                ):
-                    yield shard, n_id
+            for n_id in insecure_hash(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",

@@ -48,6 +48,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_CIPHER_SSL: java_insecure_cipher_ssl,
     MethodsEnum.JAVA_INSECURE_CIPHER_JMQI: java_insecure_cipher_jmqi,
     MethodsEnum.JS_INSECURE_HASH: js_insecure_hash,
+    MethodsEnum.TS_INSECURE_HASH: js_insecure_hash,
     MethodsEnum.JS_INSECURE_CREATE_CIPHER: insecure_create_cipher,
     MethodsEnum.JS_INSECURE_ECDH_KEY: js_insecure_ecdh_key,
     MethodsEnum.JS_INSECURE_EC_KEYPAIR: js_insecure_key_pair,

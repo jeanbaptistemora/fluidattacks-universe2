@@ -23737,6 +23737,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,7,310,sk
   15 |
      ^ Col 9
 ",c_sharp.c_sharp_insecure_rijndael_managed
+F052,lines,namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,"
+   4 |  * SPDX-License-Identifier: MPL-2.0
+   5 |  */
+   6 |
+   7 | import { Router } from ""express"";
+   8 | import crypto from ""crypto"";
+   9 |
+  10 | const router = Router();
+  11 |
+  12 | router.get(""/test139/:target"", function (req, res) {
+  13 |   let target = req.params[""target""];
+> 14 |   const hash = crypto.createHash(""RSA-MD4"");
+  15 |
+  16 |   hash.on(""readable"", () => {
+  17 |     const data = hash.read();
+  18 |     if (data) {
+  19 |       res.json({ hash: data.toString(""hex"") });
+  20 |     }
+  21 |   });
+  22 |   hash.write(target);
+  23 |   hash.end();
+  24 | });
+     ^ Col 0
+",javascript.javascript_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
    2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
@@ -24041,6 +24065,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,4,310,s
   19 | }
      ^ Col 0
 ",typescript.ts_insecure_create_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/typescript_insecure_hash.ts,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/typescript_insecure_hash.ts,"
+   5 |  */
+   6 |
+   7 | import { Router } from ""express"";
+   8 | import crypto from ""crypto"";
+   9 |
+  10 |
+  11 | const router = Router();
+  12 |
+  13 | router.get(""/test139/:target"", function (req, res) {
+  14 |   let target = req.params[""target""];
+> 15 |   const hash = crypto.createHash(""RSA-MD4"");
+  16 |
+  17 |   hash.on(""readable"", () => {
+  18 |     const data = hash.read();
+  19 |     if (data) {
+  20 |       res.json({ hash: data.toString(""hex"") });
+  21 |     }
+  22 |   });
+  23 |   hash.write(target);
+  24 |   hash.end();
+  25 | });
+     ^ Col 0
+",Typescript.typescript_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/java.java,"
   15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
   16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//

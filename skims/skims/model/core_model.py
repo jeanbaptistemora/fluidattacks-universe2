@@ -2983,6 +2983,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_INSECURE_HASH = MethodInfo(
+        file_name="Typescript",
+        name="typescript_insecure_hash",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TS_INSECURE_CIPHERS = MethodInfo(
         file_name="typescript",
         name="ts_insecure_ciphers",
