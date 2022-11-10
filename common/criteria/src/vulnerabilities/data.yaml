@@ -11184,11 +11184,7 @@
   en:
     title: Unverifiable files
     description: >
-      The repository is storing files
-      that either can not be verified
-      nor should be versioned,
-      such as binary files,
-      logs or temporary files.
+      Files are stored in the repository that cannot be verified because their content is not compatible with their extension.
     impact: >
       - Difficult the versioning
       and security auditing process.
@@ -38784,6 +38780,86 @@
       remediation_level: O
       report_confidence: C
   requirements: ['181']
+  metadata:
+    en:
+      details: __empty__
+'428':
+  en:
+    title: Inappropriate coding practices - invalid file
+    description: >
+      Files are stored in the repository that cannot be verified
+      because their content is not compatible with their extension.
+    impact: >
+      - Difficult security auditing process.
+
+      - Cause an inadequate operation in the different applications
+        that make use of it.
+    recommendation: >
+      - Verify the identified files and adjust their content to their
+       corresponding extension. 
+    threat: >
+      Attacker authenticated from the Internet with access to the source code.
+  es:
+    title: Inappropriate coding practices - invalid file
+    description: >
+      En el repositorio se almacenan archivos que no se pueden verificar
+      debido a que su contenido no es compatible con su extensión.
+    impact: >
+      - Dificultar el proceso auditoría de seguridad.
+
+      - Provocar un inadecuado funcionamiento en las distintas aplicaciones
+        que hacen uso de el..
+    recommendation: >
+      Verificar los archivos identificados y ajustar su contenido a su
+        correspondiente extensión. 
+    threat: >
+      Atacante autenticado desde Internet con acceso al código fuente.
+  category: Functionality Abuse
+  examples:
+    non_compliant: |
+      Inappropriate use of comments in json file.  
+      ```json
+      [
+      //This is a comment to be adjusted in production. 
+        {
+          "name": "example document",
+          "int": 123,
+          "notation": -123.123e-2,
+          "unicode": "\u2665",
+          "character": "0",
+        },
+      ]
+      ```
+    compliant: |
+      Use of comments in json file.  
+      ```json
+      [
+        {
+          "_comment": "comment text goes here...",
+          "name": "example document",
+          "int": 123,
+          "notation": -123.123e-2,
+          "unicode": "\u2665",
+          "character": "0",
+        },
+      ]
+      ```
+  remediation_time: '15'
+  score:
+    base:
+      attack_vector: N
+      attack_complexity: H
+      privileges_required: L
+      user_interaction: N
+      scope: U
+      confidentiality: N
+      integrity: N
+      availability: L
+    temporal:
+      exploit_code_maturity: U
+      remediation_level: U
+      report_confidence: R
+  requirements: ['046']
   metadata:
     en:
       details: __empty__
