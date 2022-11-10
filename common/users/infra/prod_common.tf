@@ -47,6 +47,7 @@ locals {
             "s3:*",
             "sagemaker:*",
             "savingsplans:*",
+            "schemas:*",
             "secretsmanager:*",
             "serverlessrepo:*",
             "servicequotas:*",
