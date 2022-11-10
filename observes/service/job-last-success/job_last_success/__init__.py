@@ -2,16 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from utils_logger.v2 import (
-    BugsnagConf,
-    set_bugsnag,
-    set_main_log,
+from ._logger import (
+    set_logger,
+)
+from fa_purity.cmd import (
+    unsafe_unwrap,
 )
 
 __version__ = "1.1.0"
 
-_conf = BugsnagConf(
-    "tap", __version__, "./observes/service/job_last_success", False
-)
-set_bugsnag(_conf)
-LOG = set_main_log(__name__)
+unsafe_unwrap(set_logger(__name__, __version__))

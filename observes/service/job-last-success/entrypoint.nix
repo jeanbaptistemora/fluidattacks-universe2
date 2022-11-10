@@ -4,28 +4,33 @@
 fetchNixpkgs: projectPath: observesIndex: let
   system = "x86_64-linux";
   python_version = "python310";
-  pkgs = fetchNixpkgs {
+  nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
 
-  _utils_logger_src = projectPath observesIndex.common.utils_logger.root;
-  utils-logger."${python_version}" = import _utils_logger_src {
-    inherit python_version;
-    src = _utils_logger_src;
-    legacy_pkgs = pkgs;
-  };
+  fa-purity = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/purity";
+      rev = "7ec586458c8a1e46093816e62354bd5253f429b5";
+      ref = "refs/tags/v1.25.1";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
 
-  _fa_purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    rev = "ced4246ae36b30a7c0be99b8f15eae60cc403ca3";
-    ref = "refs/tags/v1.18.1";
-  };
-  fa-purity = import _fa_purity_src {
-    inherit system;
-    legacy_pkgs = pkgs;
-    src = _fa_purity_src;
-  };
+  utils-logger."${python_version}" = let
+    src = projectPath observesIndex.common.utils_logger_2.root;
+  in
+    import src {
+      inherit python_version src;
+      nixpkgs =
+        nixpkgs
+        // {
+          inherit fa-purity;
+        };
+    };
 
   _redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
@@ -34,16 +39,17 @@ fetchNixpkgs: projectPath: observesIndex: let
   };
   redshift-client = import _redshift_src {
     inherit system;
-    legacy_pkgs = pkgs;
+    legacy_pkgs = nixpkgs;
     src = _redshift_src;
     others = {
       inherit fa-purity;
     };
   };
 
-  local_pkgs = {inherit fa-purity redshift-client utils-logger;};
+  extras = {inherit fa-purity redshift-client utils-logger;};
   out = import ./. {
-    inherit local_pkgs pkgs python_version;
+    inherit python_version;
+    nixpkgs = nixpkgs // extras;
     src = ./.;
   };
 in

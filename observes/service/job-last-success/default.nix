@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  local_pkgs,
-  pkgs,
+  nixpkgs,
   python_version,
   src,
 }: let
@@ -14,16 +13,13 @@
     version = builtins.elemAt match 0;
   in
     _metadata // {inherit version;};
-  lib = {
-    buildEnv = pkgs."${python_version}".buildEnv.override;
-    buildPythonPackage = pkgs."${python_version}".pkgs.buildPythonPackage;
-    fetchPypi = pkgs.python3Packages.fetchPypi;
-  };
-  python_pkgs = import ./build/deps {
-    inherit local_pkgs pkgs lib python_version;
+  deps = import ./build/deps {
+    inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata python_pkgs;
+    inherit src metadata;
+    lib = deps.lib;
+    python_pkgs = deps.python_pkgs;
   };
   checks = import ./check {self_pkg = self_pkgs.pkg;};
 in

@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import click
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
 from job_last_success import (
     db_client,
 )
@@ -14,6 +17,9 @@ from job_last_success.conf import (
 import json
 from typing import (
     IO,
+)
+from utils_logger_2 import (
+    start_session,
 )
 
 
@@ -68,8 +74,7 @@ def compound_job(auth: IO[str], job: str, child: str) -> None:
 
 @click.group()
 def main() -> None:
-    # cli group entrypoint
-    pass
+    unsafe_unwrap(start_session())
 
 
 main.add_command(single_job)

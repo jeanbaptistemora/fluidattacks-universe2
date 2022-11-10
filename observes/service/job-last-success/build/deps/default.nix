@@ -2,21 +2,23 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
-  lib,
-  local_pkgs,
-  pkgs,
+  nixpkgs,
   python_version,
 }: let
-  python_pkgs = pkgs."${python_version}Packages";
-in
-  python_pkgs
-  // {
-    types-click = import ./click/stubs.nix lib;
-    types-psycopg2 = import ./psycopg2/stubs.nix lib;
-    import-linter = import ./import-linter {
-      inherit lib python_pkgs;
+  lib = {
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
+  };
+  python_pkgs =
+    nixpkgs."${python_version}Packages"
+    // {
+      types-psycopg2 = import ./psycopg2/stubs.nix lib;
+      import-linter = import ./import-linter {
+        inherit lib python_pkgs;
+      };
+      fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      redshift-client = nixpkgs.redshift-client."${python_version}".pkg;
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
-    fa-purity = local_pkgs.fa-purity."${python_version}".pkg;
-    redshift-client = local_pkgs.redshift-client."${python_version}".pkg;
-    utils-logger = local_pkgs.utils-logger."${python_version}".pkg;
-  }
+in {inherit python_pkgs lib;}

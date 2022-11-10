@@ -13,7 +13,6 @@
     psycopg2
     redshift-client
     types-psycopg2
-    types-click
     utils-logger
   ];
   build_deps = with python_pkgs; [flit-core];
