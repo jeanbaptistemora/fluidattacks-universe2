@@ -84,7 +84,7 @@ async def test_get_reattackers() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_group_access_metadata() -> None:
+async def test_group_access_changes() -> None:
     loaders: Dataloaders = get_new_context()
     email = "another_user@gmail.com"
     group_name = "unittesting"
@@ -162,6 +162,14 @@ async def test_update_group_access_metadata() -> None:
         assert historic.role == expected.role
         assert historic.has_access == expected.has_access
 
+    await remove_access(loaders, email, group_name)
+    loaders.group_access.clear_all()
+    assert not await exists(loaders, group_name, email)
+    historic_access = await loaders.group_historic_access.clear_all().load(
+        GroupAccessRequest(email=email, group_name=group_name)
+    )
+    assert historic_access == tuple()
+
 
 @pytest.mark.changes_db
 async def test_remove_access() -> None:
@@ -171,5 +179,5 @@ async def test_remove_access() -> None:
     assert await exists(loaders, group_name, email)
     await remove_access(loaders, email, group_name)
 
-    loaders = get_new_context()
+    loaders.group_access.clear_all()
     assert not await exists(loaders, group_name, email)
