@@ -41,6 +41,7 @@ import type { ITableProps } from "./types";
 import { Button } from "components/Button";
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
+import { flattenData } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 
 const Table = <TData extends RowData>({
@@ -213,7 +214,7 @@ const Table = <TData extends RowData>({
             {extraButtons}
             {columnToggle ? <ToggleFunction table={table} /> : undefined}
             {exportCsv ? (
-              <CSVLink data={data as object[]} filename={csvName}>
+              <CSVLink data={flattenData(data as object[])} filename={csvName}>
                 <Button variant={"ghost"}>
                   <FontAwesomeIcon icon={faDownload} />
                   &nbsp;

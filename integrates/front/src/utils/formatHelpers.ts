@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { isValidElement } from "react";
+
 import { translate } from "utils/translations/translate";
 
 const castEventType: (field: string) => string = (field: string): string => {
@@ -137,9 +139,53 @@ const formatDuration = (value: number): string => {
   return `${hhStr}:${mmStr}:${ssStr}`;
 };
 
+const flattenObj = (input: object): object => {
+  const traverseKeys = (
+    prevKey: string,
+    entries: [string, unknown][]
+  ): [string, unknown][] => {
+    const ent = entries.reduce(
+      (
+        current: [string, unknown][],
+        [key, value]: [string, unknown]
+      ): [string, unknown][] => {
+        if (isValidElement(value) || key === "__typename")
+          return current.concat([["", ""]]);
+        if (typeof value === "object" && value) {
+          const objEntries: [string, unknown][] = Object.entries(value);
+
+          return current.concat(traverseKeys(key, objEntries));
+        }
+        const path = prevKey === "" ? "" : `${prevKey}.`;
+
+        return current.concat([[path + key, value]]);
+      },
+      []
+    );
+
+    return ent;
+  };
+  const entries: [string, unknown][] = Object.entries(input);
+  const flatEntries = traverseKeys("", entries).filter(
+    ([key, _value]: [string, unknown]): boolean => key !== ""
+  );
+
+  return Object.fromEntries(flatEntries);
+};
+
+const flattenData = (dataset: object[]): object[] => {
+  const flatArray: object[] = dataset.map((datapoint: object): object => {
+    return flattenObj(datapoint);
+  });
+
+  return flatArray;
+};
+
 export {
   castEventType,
   castEventStatus,
+  flattenData,
+  flattenObj,
   formatDate,
   formatDropdownField,
   formatDuration,
