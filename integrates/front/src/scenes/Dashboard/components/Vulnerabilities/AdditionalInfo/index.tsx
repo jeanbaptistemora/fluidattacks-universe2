@@ -22,6 +22,7 @@ import type {
   IUpdateVulnerabilityDescriptionAttr,
 } from "./types";
 
+import type { IErrorInfoAttr } from "../uploadFile";
 import { Input } from "components/Input/Fields/Input";
 import { Select } from "components/Input/Fields/Select";
 import { Col, Row } from "components/Layout";
@@ -46,6 +47,10 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   vulnerability,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
+
+  function formatError(errorName: string, errorValue: string): string {
+    return ` ${t(errorName)} "${errorValue}" ${t("groupAlerts.invalid")}. `;
+  }
 
   // State
   const [isEditing, setIsEditing] = useState(false);
@@ -85,12 +90,64 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         }
       },
       onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach((): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred updating the vulnerability description",
-            error
-          );
+        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          if (message.includes("Exception - Error in path value")) {
+            const errorObject: IErrorInfoAttr = JSON.parse(message);
+            msgError(`${t("groupAlerts.portValue")}
+            ${formatError("groupAlerts.value", errorObject.values)}`);
+          } else if (message === "Invalid, vulnerability already exists") {
+            msgError(t("validations.vulnerabilityAlreadyExists"));
+          } else if (message === "Exception - Unsanitized input found") {
+            msgError(t("validations.unsanitizedInputFound"));
+          } else if (
+            message.includes(
+              "Exception - The vulnerability path does not exist in the toe lines"
+            )
+          ) {
+            msgError(
+              t(
+                "searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist",
+                {
+                  path: t("searchFindings.tabVuln.vulnTable.location"),
+                }
+              )
+            );
+          } else if (
+            message.includes(
+              "Exception -  The vulnerability URL and field do not exist in the toe inputs"
+            )
+          ) {
+            msgError(
+              t(
+                "searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist",
+                {
+                  path: t("searchFindings.tabVuln.vulnTable.location"),
+                }
+              )
+            );
+          } else if (
+            message.includes(
+              "Exception -  The line does not exist in the range of 0 and lines of code"
+            )
+          ) {
+            const destructMsg: { msg: string; path: string } =
+              JSON.parse(message);
+            msgError(
+              t(
+                "searchFindings.tabVuln.alerts.uploadFile.lineDoesNotExistInLoc",
+                {
+                  line: destructMsg.msg.split("code: ")[1],
+                  path: t("searchFindings.tabVuln.vulnTable.location"),
+                }
+              )
+            );
+          } else {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred updating the vulnerability description",
+              error
+            );
+          }
         });
       },
       refetchQueries: [GET_VULN_ADDITIONAL_INFO],
@@ -170,7 +227,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             otherwise: string().nullable(),
             then: string()
               .required(t("validations.required"))
-              .matches(regExps.commitHash, t("validations.commitHash")),
+              .matches(regExps.commitHash, t("validations.commitHash"))
+              .nullable(),
           }),
           source: string().required(t("validations.required")),
           specific: string().when("type", {
@@ -198,7 +256,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               .required(t("validations.required"))
               .matches(regExps.numeric, t("validations.numeric")),
           }),
-          where: string().required(t("validations.required")),
+          where: string()
+            .required(t("validations.required"))
+            .matches(regExps.vulnerabilityWhere, t("validations.location")),
         })}
       >
         {({ dirty, submitForm, values }): React.ReactNode => {

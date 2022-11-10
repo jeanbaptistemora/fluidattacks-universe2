@@ -3885,6 +3885,7 @@ export const enTranslations: ResourceKey = {
       "URL value cannot contain the following characters: {{chars}}",
     invalidUrlType: "Invalid Url Type",
     invalidValueInField: "The value inserted in one of the fields is not valid",
+    location: "The location should not start with = or /",
     lowerDate: "Invalid date",
     maxLength: "Type {{count}} characters or less",
     minLength: "Type {{count}} characters or more",
@@ -3914,6 +3915,7 @@ export const enTranslations: ResourceKey = {
     validDate: "The date must be below six months",
     validDateToken: "The date must be below six months",
     validSessionDate: "The session has expired",
+    vulnerabilityAlreadyExists: "The vulnerability already exists",
     zeroOrPositive: "The number must be either 0 or positive",
   },
   verifyDialog: {
