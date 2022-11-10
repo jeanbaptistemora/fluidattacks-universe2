@@ -7,6 +7,7 @@ from __future__ import (
 )
 
 from http_headers import (
+    accept,
     as_string,
     content_encoding,
     content_security_policy,
@@ -528,6 +529,29 @@ def _breach_possible(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _insecure_http_accept_options(
+    ctx: HeaderCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
+
+    if header := ctx.headers_parsed.get("AcceptHeader"):
+        if header.value == "*/*":
+            locations.append(
+                desc="accept.insecure",
+                identifier=header.value,
+            )
+    else:
+        locations.append("accept.missing")
+
+    return _create_vulns(
+        locations=locations,
+        header=header,
+        ctx=ctx,
+        method=core_model.MethodsEnum.INSECURE_HTTP_ACCEPT_OPTIONS,
+    )
+
+
 def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     headers_parsed: MultiDict[str, Header] = MultiDict(  # type: ignore
         [
@@ -537,6 +561,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
             )
             for line in [f"{header_raw_name}: {header_raw_value}"]
             for header_parsed in [
+                accept.parse(line),
                 content_encoding.parse(line),
                 content_security_policy.parse(line),
                 date.parse(line),
@@ -575,5 +600,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F130: [_set_cookie_secure],
     core_model.FindingEnum.F131: [_strict_transport_security],
     core_model.FindingEnum.F132: [_x_content_type_options],
+    core_model.FindingEnum.F153: [_insecure_http_accept_options],
     core_model.FindingEnum.F343: [_breach_possible],
 }

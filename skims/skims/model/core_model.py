@@ -3687,6 +3687,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    INSECURE_HTTP_ACCEPT_OPTIONS = MethodInfo(
+        file_name="analyze_headers",
+        name="insecure_http_accept_options",
+        module="lib_http",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.DAST,
+    )
     TS_USES_INNERHTML = MethodInfo(
         file_name="typescript",
         name="ts_uses_innerhtml",

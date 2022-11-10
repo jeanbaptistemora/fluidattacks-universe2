@@ -1,0 +1,11 @@
+---
+lib_http.analyze_headers.accept.insecure:
+  en: >
+    The Accept header is not properly configured and allows any MIME type
+    in the request
+  es: >
+    El encabezado Accept no esta configurado correctamente y permite cualquier
+    tipo de MIME en la solicitud
+lib_http.analyze_headers.accept.missing:
+  en: The Accept header is not specified
+  es: No se especifica el encabezado Accept

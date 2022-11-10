@@ -14,6 +14,16 @@ from typing import (
 )
 
 
+class AcceptHeader(NamedTuple):
+    name: str
+    value: str
+
+
+class ContentEncodingHeader(NamedTuple):
+    name: str
+    value: str
+
+
 class ContentSecurityPolicyHeader(NamedTuple):
     name: str
 
@@ -83,13 +93,9 @@ class XFrameOptionsHeader(NamedTuple):
     value: str
 
 
-class ContentEncodingHeader(NamedTuple):
-    name: str
-    value: str
-
-
 Header = Optional[
     Union[
+        AcceptHeader,
         ContentEncodingHeader,
         ContentSecurityPolicyHeader,
         DateHeader,
