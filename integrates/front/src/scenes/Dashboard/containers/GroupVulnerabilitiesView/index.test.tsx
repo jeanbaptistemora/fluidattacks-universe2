@@ -232,4 +232,26 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     jest.clearAllMocks();
   });
+
+  it("should have Filter button", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <Route
+            component={GroupVulnerabilitiesView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
 });
