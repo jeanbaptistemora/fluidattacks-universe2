@@ -92,7 +92,11 @@ async def mutate(  # pylint: disable=too-many-arguments
     sorts_risk_level_date: Optional[datetime] = None,
     sorts_suggestions: Optional[list[dict[str, Any]]] = None,
 ) -> SimplePayloadType:
-    if sorts_risk_level is None and sorts_suggestions is None:
+    if (
+        sorts_risk_level is None
+        and sorts_suggestions is None
+        and sorts_risk_level_date is None
+    ):
         raise InvalidSortsParameters.new()
 
     if sorts_risk_level is not None:

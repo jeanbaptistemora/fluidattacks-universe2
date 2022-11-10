@@ -21,9 +21,9 @@ from typing import (
 @pytest.mark.parametrize(
     ("sorts_risk_level_date"),
     (
-        ("2021-01-20T05:00:00+00:00"),
-        ("2021-02-20T05:00:00+00:00"),
-        ("2021-03-20T05:00:00+00:00"),
+        ("2021-01-20"),
+        ("2021-02-20"),
+        ("2021-03-20"),
     ),
 )
 @pytest.mark.parametrize(
@@ -109,7 +109,9 @@ async def test_update_toe_lines_sorts(
                     "root": {"nickname": "asm_1"},
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": sorts_risk_level,
-                    "sortsRiskLevelDate": sorts_risk_level_date,
+                    "sortsRiskLevelDate": (
+                        f"{sorts_risk_level_date}T00:00:00+00:00"
+                    ),
                     "sortsSuggestions": sorts_suggestions,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
@@ -164,7 +166,7 @@ async def test_update_toe_lines_sorts_range_fail(
         root_nickname="asm_1",
         filename="test2/test.sh",
         sorts_risk_level=sorts_risk_level,
-        sorts_risk_level_date="2021-01-20T05:00:00+00:00",
+        sorts_risk_level_date="2021-01-20",
         sorts_suggestions=[],
     )
     assert "errors" in result
@@ -182,7 +184,7 @@ async def test_update_toe_lines_sorts_no_filename(populate: bool) -> None:
         root_nickname="asm_1",
         filename="non_existing_filename",
         sorts_risk_level=10,
-        sorts_risk_level_date="2021-01-20T05:00:00+00:00",
+        sorts_risk_level_date="2021-01-20",
         sorts_suggestions=[],
     )
     assert (

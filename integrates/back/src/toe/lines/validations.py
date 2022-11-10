@@ -39,7 +39,7 @@ def validate_sort_risk_level(value: int) -> None:
 
 
 def validate_sorts_risk_level_date(sorts_risk_level_date: datetime) -> None:
-    if sorts_risk_level_date > datetime_utils.get_now():
+    if sorts_risk_level_date > datetime.today():
         raise InvalidSortsRiskLevelDate()
 
 
