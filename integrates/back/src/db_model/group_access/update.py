@@ -58,8 +58,6 @@ async def update_metadata(
         facet=TABLE.facets["group_historic_access"],
         item={
             **item,
-            "email": email,
-            "group_name": group_name,
             key_structure.partition_key: historic_key.partition_key,
             key_structure.sort_key: historic_key.sort_key,
         },

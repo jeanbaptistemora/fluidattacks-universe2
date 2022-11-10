@@ -21,6 +21,9 @@ from group_access.domain import (
     remove_access,
     update,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import pytest
 
 pytestmark = [
@@ -81,14 +84,11 @@ async def test_get_reattackers() -> None:
 
 
 @pytest.mark.changes_db
-@pytest.mark.skip(
-    reason="The feature it relies on has not been implemented yet"
-)
 async def test_update_group_access_metadata() -> None:
     loaders: Dataloaders = get_new_context()
     email = "another_user@gmail.com"
     group_name = "unittesting"
-    modification_date: str = "2022-11-01T06:07:57+00:00"
+    dummy_date: str = "2022-11-01T06:07:57+00:00"
     assert not await exists(loaders, group_name, email)
 
     await add_access(
@@ -96,7 +96,9 @@ async def test_update_group_access_metadata() -> None:
     )
     assert await exists(loaders, group_name, email)
 
-    access: GroupAccess = await loaders.group_access.load(
+    # Adding a new user implies two trips to the db, one of which leaves a
+    # cached GroupAccess
+    access: GroupAccess = await loaders.group_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
     historic_access: tuple[
@@ -105,28 +107,24 @@ async def test_update_group_access_metadata() -> None:
         GroupAccessRequest(email=email, group_name=group_name)
     )
     assert len(historic_access) == 2
-    assert access.email == historic_access[1].email == email
-    assert access.group_name == historic_access[1].group_name == group_name
-    assert access.state == historic_access[1].state
-    assert access.role == historic_access[1].role == "user"
-    assert access.has_access == historic_access[1].has_access
+    assert access == historic_access[-1]
 
     await update(
         loaders=loaders,
         email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
-            state=GroupAccessState(modified_date=modification_date),
+            state=GroupAccessState(
+                modified_date=datetime_utils.get_iso_date()
+            ),
             responsibility="Responsible for testing the historic facet",
         ),
     )
 
-    loaders.group_access.clear_all()
-    loaders.group_historic_access.clear_all()
-    access = await loaders.group_access.load(
+    access = await loaders.group_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
-    historic_access = await loaders.group_historic_access.load(
+    historic_access = await loaders.group_historic_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
     assert len(historic_access) == 3
@@ -136,14 +134,14 @@ async def test_update_group_access_metadata() -> None:
         GroupAccess(
             email=email,
             group_name=group_name,
-            state=GroupAccessState(modified_date=modification_date),
+            state=GroupAccessState(modified_date=dummy_date),
             role=None,
             has_access=True,
         ),
         GroupAccess(
             email=email,
             group_name=group_name,
-            state=GroupAccessState(modified_date=modification_date),
+            state=GroupAccessState(modified_date=dummy_date),
             role="user",
             has_access=True,
         ),
@@ -151,12 +149,18 @@ async def test_update_group_access_metadata() -> None:
             email=email,
             group_name=group_name,
             responsibility="Responsible for testing the historic facet",
-            state=GroupAccessState(modified_date=modification_date),
+            state=GroupAccessState(modified_date=dummy_date),
             role="user",
             has_access=True,
         ),
     )
-    assert historic_access == expected_history
+    for historic, expected in zip(historic_access, expected_history):
+        assert historic.email == expected.email
+        assert historic.group_name == expected.group_name
+        assert historic.responsibility == expected.responsibility
+        assert historic.state.modified_date
+        assert historic.role == expected.role
+        assert historic.has_access == expected.has_access
 
 
 @pytest.mark.changes_db
