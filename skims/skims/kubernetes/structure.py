@@ -7,6 +7,7 @@ from metaloaders.model import (
 )
 from typing import (
     Iterator,
+    Union,
 )
 
 
@@ -53,11 +54,7 @@ def check_template_integrity(template: Node) -> bool:
 def iter_security_context(
     template: Node, container_only: bool
 ) -> Iterator[Node]:
-    if (
-        getattr(template, "raw")
-        and hasattr(template.raw, "get")
-        and template.raw.get("apiVersion")
-    ):
+    if check_template_integrity(template):
         if (
             not container_only
             and (kind := template.inner.get("kind"))
@@ -70,3 +67,14 @@ def iter_security_context(
             for elem in container:
                 ctx = elem.inner.get("securityContext")
                 yield ctx if ctx and ctx.data else elem
+
+
+def get_pod_spec(template: Node) -> Union[Node, None]:
+    if (
+        check_template_integrity(template)
+        and (kind := template.inner.get("kind"))
+        and kind.data == "Pod"
+        and (spec := template.inner.get("spec"))
+    ):
+        return spec
+    return None
