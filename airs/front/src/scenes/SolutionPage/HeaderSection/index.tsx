@@ -13,11 +13,13 @@ import { Text, Title } from "../../../components/Typography";
 
 interface IHeaderProps {
   description: string;
+  image: string;
   title: string;
 }
 
 const HeaderSection: React.FC<IHeaderProps> = ({
   description,
+  image,
   title,
 }): JSX.Element => {
   return (
@@ -35,7 +37,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
         <Text color={"#535365"} size={"medium"} textAlign={"center"}>
           {description}
         </Text>
-        <Container display={"flex"} justify={"center"} mt={3} wrap={"wrap"}>
+        <Container display={"flex"} justify={"center"} mv={3} wrap={"wrap"}>
           <Container ph={1} pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink href={"/free-trial/"}>
               <Button display={"block"} variant={"primary"}>
@@ -50,6 +52,13 @@ const HeaderSection: React.FC<IHeaderProps> = ({
               </Button>
             </AirsLink>
           </Container>
+        </Container>
+        <Container center={true} width={"950px"} widthSm={"100%"}>
+          <img
+            alt={`solution ${title}`}
+            className={"w-100 h-100"}
+            src={image}
+          />
         </Container>
       </Container>
     </Container>
