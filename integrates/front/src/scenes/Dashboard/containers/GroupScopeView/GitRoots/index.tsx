@@ -593,6 +593,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           initialValues={
             isManagingRoot.mode === "EDIT" ? managementInitialValues : undefined
           }
+          isEditing={isManagingRoot.mode === "EDIT"}
           modalMessages={rootModalMessages}
           nicknames={nicknames}
           onClose={closeModal}

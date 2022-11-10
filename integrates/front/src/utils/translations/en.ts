@@ -2133,6 +2133,10 @@ export const enTranslations: ResourceKey = {
             tooltip: "Add new root using the URL",
           },
         },
+        modal: {
+          select: "In which group the root will be added",
+          title: "Select group",
+        },
       },
     },
   },

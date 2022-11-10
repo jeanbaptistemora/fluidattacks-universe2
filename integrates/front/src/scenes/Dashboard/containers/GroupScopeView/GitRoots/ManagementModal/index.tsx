@@ -25,6 +25,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 interface IManagementModalProps {
   groupName: string;
   initialValues: IFormValues | undefined;
+  isEditing: boolean;
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
@@ -36,6 +37,7 @@ interface IManagementModalProps {
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
   groupName,
+  isEditing,
   initialValues = {
     branch: "",
     cloningStatus: {
@@ -77,7 +79,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     "api_mutations_update_git_root_mutate"
   );
   const { t } = useTranslation();
-  const isEditing: boolean = initialValues.url !== "";
 
   return (
     <Modal

@@ -28,7 +28,8 @@ interface IPlusModalProps {
   refetchRepositories: (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<IOrganizationIntegrationRepositoriesAttr>>;
-  changePermissions: (groupName: string) => void;
+  changeGroupPermissions: (groupName: string) => void;
+  changeOrganizationPermissions: () => void;
   onClose: () => void;
 }
 
