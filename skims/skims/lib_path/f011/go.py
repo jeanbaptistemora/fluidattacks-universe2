@@ -29,6 +29,10 @@ GO_REPLACE: Pattern[str] = re.compile(
     r"^\s+(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?\s=>"
     r"\s(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?$"
 )
+GO_REP_DEP: Pattern[str] = re.compile(
+    r"replace\s(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?\s=>"
+    r"\s(.+?/[\w\-\.~]+?)(/v\d+)?(\sv(\S+))?$"
+)
 GO_DIRECTIVE: Pattern[str] = re.compile(r"(?P<directive>require|replace) \(")
 GO_VERSION: Pattern[str] = re.compile(
     r"\ngo (?P<major>\d)\.(?P<minor>\d+)(\.\d+)?\n"
@@ -53,6 +57,8 @@ def go_mod(content: str, path: str) -> Iterator[DependencyType]:  # NOSONAR
         for line_number, line in enumerate(content.splitlines(), 1):
             if matched := re.search(GO_REQ_MOD_DEP, line):
                 yield get_dep_info(matched, line_number)
+            elif re.search(GO_REP_DEP, line):
+                replace_list.append(line)
             elif not required:
                 if directive := GO_DIRECTIVE.match(line):
                     required = directive.group("directive")
