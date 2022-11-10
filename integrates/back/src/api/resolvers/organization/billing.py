@@ -24,7 +24,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
 )
 
 
@@ -37,12 +36,8 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: datetime,
 ) -> OrganizationBilling:
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
-
     return await billing_domain.get_organization_billing(
         date=kwargs.get("date", datetime_utils.get_now()),
         org=parent,
         loaders=info.context.loaders,
-        user_email=user_email,
     )

@@ -40,7 +40,7 @@ class OrganizationBilling(NamedTuple):
     number_authors_machine: int
     number_authors_squad: int
     number_authors_total: int
-    portal: str
+    organization: str
 
 
 class Address(NamedTuple):

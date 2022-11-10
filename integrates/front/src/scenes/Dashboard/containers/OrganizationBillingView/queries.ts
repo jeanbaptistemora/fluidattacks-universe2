@@ -39,6 +39,27 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         numberAuthorsMachine
         numberAuthorsSquad
         numberAuthorsTotal
+        paymentMethods {
+          businessName
+          id
+          brand
+          default
+          expirationMonth
+          expirationYear
+          lastFourDigits
+          email
+          country
+          state
+          city
+          rut {
+            fileName
+            modifiedDate
+          }
+          taxId {
+            fileName
+            modifiedDate
+          }
+        }
         portal
       }
       groups {
@@ -56,27 +77,6 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
           costsBase
           costsTotal
           numberAuthors
-        }
-      }
-      paymentMethods {
-        businessName
-        id
-        brand
-        default
-        expirationMonth
-        expirationYear
-        lastFourDigits
-        email
-        country
-        state
-        city
-        rut {
-          fileName
-          modifiedDate
-        }
-        taxId {
-          fileName
-          modifiedDate
         }
       }
     }

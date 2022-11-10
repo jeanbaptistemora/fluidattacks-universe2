@@ -71,7 +71,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     data === undefined ? [] : data.organization.groups;
   const name: string = data === undefined ? "" : data.organization.name;
   const paymentMethods: IPaymentMethodAttr[] =
-    data === undefined ? [] : data.organization.paymentMethods ?? [];
+    data === undefined ? [] : data.organization.billing.paymentMethods ?? [];
 
   if (data === undefined) {
     return <div />;

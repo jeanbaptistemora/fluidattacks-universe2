@@ -16,7 +16,6 @@ from api.resolvers.organization import (
     min_acceptance_severity,
     min_breaking_severity,
     organization_id,
-    payment_methods,
     permissions,
     stakeholders,
     user_role,
@@ -44,7 +43,6 @@ ORGANIZATION.set_field(
 )
 ORGANIZATION.set_field("maxNumberAcceptances", max_number_acceptances.resolve)
 ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)
-ORGANIZATION.set_field("paymentMethods", payment_methods.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
 ORGANIZATION.set_field(

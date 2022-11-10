@@ -983,7 +983,6 @@ async def get_organization_billing(
     date: datetime,
     org: Organization,
     loaders: Dataloaders,
-    user_email: str,
 ) -> OrganizationBilling:
     authors: tuple[OrganizationAuthor, ...] = await get_organization_authors(
         date=date,
@@ -1014,12 +1013,6 @@ async def get_organization_billing(
         number_authors_squad * prices["squad"].amount / 100
     )
     costs_total: int = costs_base + costs_authors
-    portal: str = await customer_portal(
-        org_id=org.id,
-        org_name=org.name,
-        user_email=user_email,
-        org_billing_customer=org.billing_customer,
-    )
 
     return OrganizationBilling(
         authors=authors,
@@ -1029,7 +1022,7 @@ async def get_organization_billing(
         number_authors_machine=number_authors_machine,
         number_authors_squad=number_authors_squad,
         number_authors_total=number_authors_total,
-        portal=portal,
+        organization=org.id,
     )
 
 

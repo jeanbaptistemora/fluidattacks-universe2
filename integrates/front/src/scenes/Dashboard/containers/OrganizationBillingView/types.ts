@@ -16,6 +16,23 @@ interface IOrganizationAuthorAttr {
   groups: string[];
 }
 
+interface IPaymentMethodAttr {
+  id: string;
+  brand: string;
+  default: boolean;
+  lastFourDigits: string;
+  expirationMonth: string;
+  expirationYear: string;
+  businessName: string;
+  download: string;
+  email: string;
+  country: string;
+  state: string;
+  city: string;
+  rut: IFileMetadata | undefined;
+  taxId: IFileMetadata | undefined;
+}
+
 interface IOrganizationBilling {
   authors: IOrganizationAuthorAttr[];
   costsAuthors: number;
@@ -24,6 +41,7 @@ interface IOrganizationBilling {
   numberAuthorsMachine: number;
   numberAuthorsSquad: number;
   numberAuthorsTotal: number;
+  paymentMethods: IPaymentMethodAttr[] | undefined;
   portal: string;
 }
 
@@ -53,29 +71,11 @@ interface IFileMetadata {
   modifiedDate: string;
 }
 
-interface IPaymentMethodAttr {
-  id: string;
-  brand: string;
-  default: boolean;
-  lastFourDigits: string;
-  expirationMonth: string;
-  expirationYear: string;
-  businessName: string;
-  download: string;
-  email: string;
-  country: string;
-  state: string;
-  city: string;
-  rut: IFileMetadata | undefined;
-  taxId: IFileMetadata | undefined;
-}
-
 interface IGetOrganizationBilling {
   organization: {
     billing: IOrganizationBilling;
     groups: IGroupAttr[];
     name: string;
-    paymentMethods: IPaymentMethodAttr[] | undefined;
   };
 }
 

@@ -59,9 +59,6 @@ from .organization_billing import (
 from .organization_compliance import (
     ORGANIZATION_COMPLIANCE,
 )
-from .payment_method import (
-    PAYMENT_METHOD,
-)
 from .prices import (
     PRICES,
 )
@@ -187,7 +184,6 @@ TYPES: Tuple[ObjectType, ...] = (
     ORGANIZATION_BILLING,
     ORGANIZATION_COMPLIANCE,
     ORGANIZATION_COMPLIANCE_STANDARD,
-    PAYMENT_METHOD,
     PRICES,
     QUERY,
     REQUIREMENT,

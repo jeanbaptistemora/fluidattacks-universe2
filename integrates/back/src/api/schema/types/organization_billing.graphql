@@ -10,6 +10,36 @@ type OrganizationBillingAuthor {
   groups: [String]!
 }
 
+"PaymentMethod type definition"
+type PaymentMethod {
+  "Mastercard, Visa, or any other brand"
+  brand: String!
+  "Name of thew business related to this payment method"
+  businessName: String!
+  "City where the business is located"
+  city: String!
+  "Country where the business is located"
+  country: String!
+  "True if the payment method is default for the customer"
+  default: Boolean!
+  "Email for e-factura"
+  email: String!
+  "Expiration month"
+  expirationMonth: String!
+  "Expiration year"
+  expirationYear: String!
+  "Payment method Stripe ID"
+  id: ID!
+  "Last four digits"
+  lastFourDigits: String!
+  "Rut document file metadata"
+  rut: DocumentFile
+  "State where the business is located"
+  state: String!
+  "TaxId document file metadata"
+  taxId: DocumentFile
+}
+
 "OrganizationBilling type definition"
 type OrganizationBilling {
   "Authors data"
@@ -26,6 +56,8 @@ type OrganizationBilling {
   numberAuthorsSquad: Int!
   "Number of authors for all subscriptions"
   numberAuthorsTotal: Int!
+  "Payment methods for the organization"
+  paymentMethods: [PaymentMethod]!
   "Portal URL for managing group tiers"
   portal: String!
 }
