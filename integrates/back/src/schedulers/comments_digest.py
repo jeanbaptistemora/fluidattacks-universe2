@@ -57,6 +57,9 @@ from mailchimp_transactional.api_client import (
 from mailer import (
     groups as groups_mail,
 )
+from mailer.utils import (
+    get_organization_name,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -83,6 +86,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+MAX_COMMENT_LENGTH = 500
 
 
 mail_comments_digest = retry_on_exceptions(
@@ -93,6 +97,7 @@ mail_comments_digest = retry_on_exceptions(
 
 
 class CommentsDataType(TypedDict):
+    org_name: str
     email_to: Tuple[str, ...]
     group_comments: Tuple[
         Union[GroupComment, EventComment, FindingComment], ...
@@ -210,6 +215,13 @@ async def finding_comments(
     return last_comments(comments)
 
 
+def format_comment(comment: str) -> str:
+    if len(comment) > MAX_COMMENT_LENGTH:
+        comment = f"{comment[:MAX_COMMENT_LENGTH]}..."
+
+    return comment
+
+
 def digest_comments(
     items: Tuple[Union[GroupComment, EventComment, FindingComment], ...]
 ) -> List[Dict[str, Optional[str]]]:
@@ -221,11 +233,11 @@ def digest_comments(
                 ),
                 "%Y-%m-%d %H:%M:%S %Z",
             ),
-            "type": "comment" if comment.parent_id == "0" else "reply",
             "name": comment.full_name
             if comment.full_name
             else comment.email.split("@")[0],
-            "comment": comment.content,
+            "comment": format_comment(comment.content),
+            "instance_id": comment._asdict().get("finding_id"),
         }
         for comment in items
     ]
@@ -233,7 +245,24 @@ def digest_comments(
 
 async def send_comment_digest() -> None:
     loaders: Dataloaders = get_new_context()
-    groups_names = await orgs_domain.get_all_active_group_names(loaders)
+    groups = await orgs_domain.get_all_active_groups(loaders)
+
+    if FI_ENVIRONMENT == "production":
+        groups = tuple(
+            group
+            for group in groups
+            if group.name not in FI_TEST_PROJECTS.split(",")
+            and group.state.has_squad
+        )
+
+    groups_names = tuple(group.name for group in groups)
+    groups_org_names = await collect(
+        [
+            get_organization_name(loaders, group_name)
+            for group_name in groups_names
+        ]
+    )
+
     groups_stakeholders: Tuple[Tuple[Stakeholder, ...], ...] = await collect(
         [
             group_access_domain.get_group_stakeholders(
@@ -254,13 +283,6 @@ async def send_comment_digest() -> None:
         )
         for group_stakeholders in groups_stakeholders
     )
-
-    if FI_ENVIRONMENT == "production":
-        groups_names = tuple(
-            group_name
-            for group_name in groups_names
-            if group_name not in FI_TEST_PROJECTS.split(",")
-        )
 
     groups_comments: Tuple[
         Tuple[Union[GroupComment, EventComment, FindingComment], ...], ...
@@ -308,12 +330,14 @@ async def send_comment_digest() -> None:
             groups_names,
             [
                 {
+                    "org_name": org_name,
                     "email_to": email_to,
                     "group_comments": group,
                     "event_comments": event,
                     "finding_comments": finding,
                 }
-                for email_to, group, event, finding in zip(
+                for org_name, email_to, group, event, finding in zip(
+                    groups_org_names,
                     group_stakeholders_email,
                     groups_comments,
                     events_comments,
@@ -340,6 +364,7 @@ async def send_comment_digest() -> None:
         user_content: Dict[str, Any] = {
             "groups_data": {
                 group_name: {
+                    "org_name": data["org_name"],
                     "group_comments": digest_comments(data["group_comments"]),
                     "event_comments": {
                         event_id: digest_comments(comments)
