@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from lib_root.f052.common import (
+    insecure_create_cipher,
+)
 from lib_sast.types import (
     ShardDb,
 )
@@ -112,12 +115,6 @@ def javascript_insecure_create_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_CREATE_CIPHER
-    ciphers_methods = {
-        "createdecipher",
-        "createcipher",
-        "createdecipheriv",
-        "createcipheriv",
-    }
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -126,21 +123,8 @@ def javascript_insecure_create_cipher(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
-                f_name = graph.nodes[n_id]["expression"]
-                _, crypt = split_function_name(f_name)
-                if (
-                    crypt in ciphers_methods
-                    and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and (args := g.adj_ast(graph, al_id))
-                    and len(args) > 0
-                    and get_eval_danger(graph, args[0], method)
-                ):
-                    yield shard, n_id
+            for n_id in insecure_create_cipher(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
