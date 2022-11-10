@@ -8,7 +8,7 @@ from utils_logger.v2 import (
     set_main_log,
 )
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 _conf = BugsnagConf(
     "tap", __version__, "./observes/service/job_last_success", False
