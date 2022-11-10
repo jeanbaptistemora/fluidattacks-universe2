@@ -47,7 +47,7 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
     $file: Upload
     $image: Upload
     $groupName: String!
-    $rootId: ID!
+    $rootId: ID
   ) {
     addEvent(
       detail: $detail

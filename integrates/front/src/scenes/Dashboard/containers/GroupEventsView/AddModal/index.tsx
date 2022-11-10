@@ -124,7 +124,9 @@ const AddModal: React.FC<IAddModalProps> = ({
   async function handleSubmit(values: IFormValues): Promise<void> {
     return onSubmit({
       ...values,
-      rootId: roots[nicknames.indexOf(values.rootNickname)].id,
+      rootId: values.rootNickname
+        ? roots[nicknames.indexOf(values.rootNickname)].id
+        : "",
     });
   }
 
@@ -134,7 +136,13 @@ const AddModal: React.FC<IAddModalProps> = ({
       otherwise: array().notRequired(),
       then: array().min(1, t("validations.someRequired")),
     }),
-    rootNickname: string().required().oneOf(nicknames, t("validations.oneOf")),
+    rootNickname: string()
+      .oneOf(nicknames, t("validations.oneOf"))
+      .when("eventType", {
+        is: "MISSING_SUPPLIES",
+        otherwise: string().required(),
+        then: string().notRequired(),
+      }),
   });
 
   return (
@@ -162,19 +170,6 @@ const AddModal: React.FC<IAddModalProps> = ({
 
           return (
             <Form>
-              <Row>
-                <Col100>
-                  <FormGroup>
-                    <ControlLabel>{t("group.events.form.root")}</ControlLabel>
-                    <Field
-                      component={FormikAutocompleteText}
-                      name={"rootNickname"}
-                      placeholder={t("group.events.form.rootPlaceholder")}
-                      suggestions={nicknames}
-                    />
-                  </FormGroup>
-                </Col100>
-              </Row>
               <Row>
                 <Col50>
                   <FormGroup>
@@ -242,6 +237,19 @@ const AddModal: React.FC<IAddModalProps> = ({
                     </Field>
                   </FormGroup>
                 </Col50>
+              </Row>
+              <Row>
+                <Col100>
+                  <FormGroup>
+                    <ControlLabel>{t("group.events.form.root")}</ControlLabel>
+                    <Field
+                      component={FormikAutocompleteText}
+                      name={"rootNickname"}
+                      placeholder={t("group.events.form.rootPlaceholder")}
+                      suggestions={nicknames}
+                    />
+                  </FormGroup>
+                </Col100>
               </Row>
               <Row>
                 <Col100>
