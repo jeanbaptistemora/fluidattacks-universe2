@@ -72,7 +72,7 @@ def decode_insecure_jwt_token(
             graph = shard.syntax_graph
 
             for nid in yield_syntax_graph_member_access(graph, {"decode"}):
-                if not any(
+                if graph.nodes[nid].get("member") == "jwt" and not any(
                     graph.nodes[n_id]["label_type"] == "MethodInvocation"
                     and graph.nodes[n_id].get("expression") == "jwt.verify"
                     for path in get_backward_paths(graph, nid)
