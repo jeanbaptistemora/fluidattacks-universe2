@@ -126,7 +126,7 @@ def _initialize_unfulfilled_standards_table() -> None:
     )
 
 
-async def initialize_tables() -> None:
+def initialize_tables() -> None:
     initialize_schema()
     _initialize_metadata_table()
     _initialize_code_languages_table()

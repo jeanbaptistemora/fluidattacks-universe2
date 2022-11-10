@@ -200,7 +200,7 @@ def _initialize_verification_vuln_ids_table() -> None:
     )
 
 
-async def initialize_tables() -> None:
+def initialize_tables() -> None:
     initialize_schema()
     _initialize_metadata_table()
     _initialize_state_table()

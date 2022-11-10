@@ -49,6 +49,6 @@ def _initialize_metadata_table() -> None:
     )
 
 
-async def initialize_tables() -> None:
+def initialize_tables() -> None:
     initialize_schema()
     _initialize_metadata_table()
