@@ -459,6 +459,13 @@ const Development = [
   "development/contributing",
   {
     type: "category",
+    label: "Values",
+    items: [
+      "development/values/daily-progress",
+    ],
+  },
+  {
+    type: "category",
     label: "Guidelines",
     items: [
       "development/guidelines/intro",
