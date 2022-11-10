@@ -13,6 +13,7 @@ from model.core_model import (
 )
 import re
 from typing import (
+    Dict,
     Iterator,
     List,
     Match,
@@ -39,10 +40,14 @@ GO_VERSION: Pattern[str] = re.compile(
 )
 
 
-def get_dep_info(matched: Match[str], line_number: int) -> DependencyType:
+def add_require(
+    matched: Match[str], req_dict: Dict[str, DependencyType], line_number: int
+) -> None:
     product = matched.group("product")
     version = matched.group("version")
-    return format_pkg_dep(product, version, line_number, line_number)
+    req_dict[product] = format_pkg_dep(
+        product, version, line_number, line_number
+    )
 
 
 # pylint: disable=unused-argument
@@ -54,9 +59,10 @@ def go_mod(content: str, path: str) -> Iterator[DependencyType]:  # NOSONAR
     if major >= 2 or (major == 1 and minor >= 17):
         required: str = ""
         replace_list: List[str] = []
+        req_dict: Dict[str, DependencyType] = {}
         for line_number, line in enumerate(content.splitlines(), 1):
             if matched := re.search(GO_REQ_MOD_DEP, line):
-                yield get_dep_info(matched, line_number)
+                add_require(matched, req_dict, line_number)
             elif re.search(GO_REP_DEP, line):
                 replace_list.append(line)
             elif not required:
@@ -68,7 +74,7 @@ def go_mod(content: str, path: str) -> Iterator[DependencyType]:  # NOSONAR
                     continue
                 replace_list.append(line)
             elif matched := re.search(GO_MOD_DEP, line):
-                yield get_dep_info(matched, line_number)
+                add_require(matched, req_dict, line_number)
             else:
                 required = ""
     else:
