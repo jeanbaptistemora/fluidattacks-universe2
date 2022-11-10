@@ -18,7 +18,15 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = adj_ast(args.ast_graph, args.n_id)
-    ignored_types = {";", "inferred_type", "function_body", "const_builtin"}
+    ignored_types = {
+        ";",
+        "inferred_type",
+        "function_body",
+        "const_builtin",
+        "late",
+        "type_identifier",
+        "final_builtin",
+    }
     filtered_ids = [
         _id
         for _id in c_ids

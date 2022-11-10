@@ -19,7 +19,12 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = adj_ast(graph, args.n_id)
+    invalid_childs = {";", "type_test", "(", ")"}
     return build_expression_statement_node(
         args,
-        c_ids=(_id for _id in c_ids if graph.nodes[_id]["label_type"] != ";"),
+        c_ids=(
+            _id
+            for _id in c_ids
+            if graph.nodes[_id]["label_type"] not in invalid_childs
+        ),
     )

@@ -8,9 +8,12 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    List,
+)
 
 
-def build_class_body_node(args: SyntaxGraphArgs, c_ids: list) -> NId:
+def build_class_body_node(args: SyntaxGraphArgs, c_ids: List[NId]) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="ClassBody",

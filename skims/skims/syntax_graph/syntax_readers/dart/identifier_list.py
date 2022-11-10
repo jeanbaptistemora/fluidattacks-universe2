@@ -24,4 +24,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         for _id in c_ids
         if args.ast_graph.nodes[_id]["label_type"] in var_types
     ]
+    if len(filtered_ids) == 1:
+        return args.generic(args.fork_n_id(filtered_ids[0]))
+
     return build_identifier_list_node(args, iter(filtered_ids))

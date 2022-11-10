@@ -12,6 +12,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    adj_ast,
     match_ast,
 )
 
@@ -23,7 +24,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
     val_id = n_attr["label_field_right"]
     op_id = n_attr.get("label_field_operator")
     operator = str(graph.nodes[op_id]["label_text"])
-    if graph.nodes[var_id]["label_type"] == "assignable_expression":
+    if (
+        graph.nodes[var_id]["label_type"] == "assignable_expression"
+        and len(adj_ast(graph, var_id)) == 1
+    ):
         var_id = match_ast(graph, var_id).get("__0__")
 
     return build_assignment_node(args, var_id, val_id, operator)

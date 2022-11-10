@@ -50,7 +50,6 @@ from syntax_graph.syntax_readers.dart import (
     switch_body as dart_switch_body,
     switch_statement as dart_switch_statement,
     try_statement as dart_try_statement,
-    type_identifier as dart_type_identifier,
     unary_expression as dart_unary_expression,
     update_expression as dart_update_expression,
     variable_declaration as dart_variable_declaration,
@@ -110,9 +109,11 @@ DART_DISPATCHERS: Dispatchers = (
         applicable_types={
             "additive_expression",
             "equality_expression",
+            "logical_and_expression",
             "logical_or_expression",
             "multiplicative_expression",
             "relational_expression",
+            "type_test_expression",
         },
         syntax_reader=dart_binary_expression.reader,
     ),
@@ -169,6 +170,8 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "assertion",
+            "assert_statement",
             "expression_statement",
         },
         syntax_reader=dart_expression_statement.reader,
@@ -294,9 +297,15 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "||",
+            "&&",
             "additive_operator",
             "equality_operator",
+            "increment_operator",
+            "is_operator",
             "multiplicative_operator",
+            "operator",
+            "prefix_operator",
+            "postfix_operator",
             "relational_operator",
         },
         syntax_reader=dart_operator.reader,
@@ -311,12 +320,14 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "formal_parameter_list",
+            "optional_formal_parameters",
         },
         syntax_reader=dart_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
             "return_statement",
+            "yield_statement",
         },
         syntax_reader=dart_return_statement.reader,
     ),
@@ -331,8 +342,13 @@ DART_DISPATCHERS: Dispatchers = (
             "const_builtin",
             "get",
             "inferred_type",
+            "final_builtin",
+            "late",
             "null_literal",
+            "static",
+            "sync*",
             "this",
+            "type_identifier",
         },
         syntax_reader=dart_reserved_word.reader,
     ),
@@ -349,12 +365,6 @@ DART_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=dart_string_literal.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "type_identifier",
-        },
-        syntax_reader=dart_type_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -394,6 +404,7 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "do_statement",
             "while_statement",
         },
         syntax_reader=dart_while_statement.reader,

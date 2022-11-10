@@ -73,6 +73,7 @@ DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "Annotation",
             "ArrayInitializer",
             "ArrowExpressionClause",
             "Assignment",
@@ -90,6 +91,7 @@ DISPATCHERS: Dispatchers = (
             "FinallyClause",
             "FunctionBody",
             "IdentifierList",
+            "InitializedIdentifier",
             "LexicalDeclaration",
             "Literal",
             "MemberAccess",
@@ -100,10 +102,10 @@ DISPATCHERS: Dispatchers = (
             "ObjectCreation",
             "PostfixUnaryExpression",
             "PropertyDeclaration",
+            "ReservedWord",
             "Resource",
             "Selector",
             "SymbolLookup",
-            "SymbolType",
             "ThrowStatement",
             "UnaryExpression",
             "UpdateExpression",

@@ -40,7 +40,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
         body_parents,
     )
     if last_c and (class_childs := list(adj_ast(graph, class_pred))):
-        al_list = match_ast(graph, args.n_id, "formal_parameter_list")
+        al_list = match_ast(
+            graph, args.n_id, "formal_parameter_list", "static"
+        )
         children = {
             "parameters_id": al_list.get("formal_parameter_list"),
             "initializers": al_list.get("__0__"),

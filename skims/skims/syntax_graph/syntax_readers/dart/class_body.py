@@ -18,10 +18,11 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
+    c_ids = adj_ast(graph, args.n_id)
     ignored_types = {";", "{", "}", "function_body"}
-    c_ids = [
+    filtered_ids = [
         _id
-        for _id in adj_ast(graph, args.n_id)
+        for _id in c_ids
         if graph.nodes[_id]["label_type"] not in ignored_types
     ]
-    return build_class_body_node(args, c_ids)
+    return build_class_body_node(args, filtered_ids)

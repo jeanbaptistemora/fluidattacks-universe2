@@ -26,13 +26,17 @@ def reader(args: SyntaxGraphArgs) -> NId:
     param_name = None
     if param_identifier:
         param_name = node_to_str(graph, param_identifier)
+    type_id = match_ast_d(graph, args.n_id, "type_arguments")
+    param_type = None
+    if type_id:
+        param_type = node_to_str(graph, type_id)
 
     c_ids = adj_ast(graph, args.n_id)
-    invalid_childs = {"this", ".", "?", ";"}
+    invalid_childs = {"this", ".", "?", ";", "type_arguments"}
     return build_parameter_node(
         args,
         param_name,
-        None,
+        param_type,
         None,
         c_ids=(
             _id
