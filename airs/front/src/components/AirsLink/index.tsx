@@ -4,19 +4,21 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
 import React from "react";
 
-interface IProps {
+import { InternalLink } from "./styledComponents";
+import type { ILinkProps } from "./types";
+
+interface IAirsLinkProps extends ILinkProps {
   children: JSX.Element;
   href: string;
 }
 
-const AirsLink: React.FC<IProps> = ({
+const AirsLink: React.FC<IAirsLinkProps> = ({
   children,
+  decoration,
   href,
-}: IProps): JSX.Element => {
+}): JSX.Element => {
   const allowLinks = [
     "https://status.fluidattacks.com",
     "https://docs.fluidattacks.com",
@@ -43,7 +45,11 @@ const AirsLink: React.FC<IProps> = ({
     );
   }
 
-  return <Link to={href}>{children}</Link>;
+  return (
+    <InternalLink decoration={decoration} to={href}>
+      {children}
+    </InternalLink>
+  );
 };
 
 export { AirsLink };
