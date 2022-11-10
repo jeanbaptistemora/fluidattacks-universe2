@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from kubernetes.structure import (
+    check_template_integrity,
     get_containers_capabilities,
     iter_containers_type,
     iter_security_context,
@@ -55,11 +56,8 @@ def _k8s_allow_privilege_escalation_enabled(
 def _k8s_root_container(
     template: Any,
 ) -> Iterator[Any]:
-    if (
-        getattr(template, "raw")
-        and hasattr(template.raw, "get")
-        and template.raw.get("apiVersion")
-        and (ctx := template.inner.get("securityContext"))
+    if check_template_integrity(template) and (
+        ctx := template.inner.get("securityContext")
     ):
         as_root = ctx.inner.get("runAsNonRoot")
         if as_root and not as_root.data:
@@ -124,11 +122,8 @@ def _k8s_check_ctx_seccomp(
 def _k8s_check_seccomp_profile(
     template: Any,
 ) -> Iterator[Any]:
-    if (
-        getattr(template, "raw")
-        and hasattr(template.raw, "get")
-        and template.raw.get("apiVersion")
-        and (ctx := template.inner.get("securityContext"))
+    if check_template_integrity(template) and (
+        ctx := template.inner.get("securityContext")
     ):
         yield from _k8s_check_ctx_seccomp(ctx)
     else:
@@ -139,11 +134,8 @@ def _k8s_check_seccomp_profile(
 def _k8s_check_privileged_used(
     template: Any,
 ) -> Iterator[Any]:
-    if (
-        getattr(template, "raw")
-        and hasattr(template.raw, "get")
-        and template.raw.get("apiVersion")
-        and (ctx := template.inner.get("spec"))
+    if check_template_integrity(template) and (
+        ctx := template.inner.get("spec")
     ):
         privileged = ctx.inner.get("privileged")
         if privileged and privileged.data:

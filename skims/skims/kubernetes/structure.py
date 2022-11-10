@@ -42,6 +42,14 @@ def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
     return []
 
 
+def check_template_integrity(template: Node) -> bool:
+    return bool(
+        getattr(template, "raw")
+        and hasattr(template.raw, "get")
+        and template.raw.get("apiVersion")
+    )
+
+
 def iter_security_context(
     template: Node, container_only: bool
 ) -> Iterator[Node]:
