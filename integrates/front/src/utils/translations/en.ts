@@ -1607,14 +1607,14 @@ export const enTranslations: ResourceKey = {
         },
         groups: {
           headers: {
-            baseCost: "Base monthly cost",
+            costsAuthors: "Month-to-date authors costs ($)",
+            costsBase: "Base monthly cost",
+            costsTotal: "Month-to-date total costs ($)",
             forces: "Forces",
             groupName: "Group name",
             machine: "Machine",
             managed: "Managed",
-            mtdAuthors: "Month-to-date authors",
-            mtdAuthorsCosts: "Month-to-date authors costs ($)",
-            mtdTotalCosts: "Month-to-date total costs ($)",
+            numberAuthors: "Month-to-date authors",
             service: "Service",
             squad: "Squad",
             tier: "Tier",
@@ -1656,15 +1656,15 @@ export const enTranslations: ResourceKey = {
           },
         },
         overview: {
-          mtdAuthorsSquad: {
-            content: "{{mtdAuthorsSquad}} Authors",
-            info: "Active authors during the current month",
-            title: "Month-To-Date Authors",
-          },
-          mtdCostsTotal: {
-            content: "{{mtdCostsTotal}} $",
+          costsTotal: {
+            content: "{{costsTotal}} $",
             info: "Organization spend during the current month",
             title: "Month-To-Date Spend",
+          },
+          numberAuthorsSquad: {
+            content: "{{numberAuthorsSquad}} Authors",
+            info: "Active authors during the current month",
+            title: "Month-To-Date Authors",
           },
           title: {
             info: "Billing information for {{organizationName}}",

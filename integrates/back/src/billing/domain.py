@@ -921,24 +921,24 @@ async def get_group_billing(*, date: datetime, group: Group) -> GroupBilling:
 
     prices: dict[str, Price] = await get_prices()
 
-    base_cost: int = 0
+    costs_base: int = 0
     if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE):
-        base_cost = int(prices["machine"].amount / 100)
+        costs_base = int(prices["machine"].amount / 100)
 
-    mtd_authors: int = len(authors)
+    number_authors: int = len(authors)
 
-    mtd_authors_costs: int = 0
+    costs_authors: int = 0
     if group.state.tier == GroupTier.SQUAD:
-        mtd_authors_costs = int(mtd_authors * prices["squad"].amount / 100)
+        costs_authors = int(number_authors * prices["squad"].amount / 100)
 
-    mtd_total_costs: int = base_cost + mtd_authors_costs
+    costs_total: int = costs_base + costs_authors
 
     return GroupBilling(
         authors=authors,
-        base_cost=base_cost,
-        mtd_authors=mtd_authors,
-        mtd_authors_costs=mtd_authors_costs,
-        mtd_total_costs=mtd_total_costs,
+        costs_authors=costs_authors,
+        costs_base=costs_base,
+        costs_total=costs_total,
+        number_authors=number_authors,
     )
 
 
@@ -996,24 +996,24 @@ async def get_organization_billing(
     )
     prices: dict[str, Price] = await get_prices()
 
-    base_costs: int = 0
-    mtd_authors_machine: int = 0
-    mtd_authors_squad: int = 0
+    costs_base: int = 0
+    number_authors_machine: int = 0
+    number_authors_squad: int = 0
     for group in org_groups:
         if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE):
-            base_costs += int(prices["machine"].amount / 100)
+            costs_base += int(prices["machine"].amount / 100)
         for author in authors:
             if group.name in author.groups:
                 if group.state.tier == GroupTier.MACHINE:
-                    mtd_authors_machine += 1
+                    number_authors_machine += 1
                 elif group.state.tier == GroupTier.SQUAD:
-                    mtd_authors_squad += 1
+                    number_authors_squad += 1
 
-    mtd_authors_total: int = len(authors)
-    mtd_costs_authors: int = int(
-        mtd_authors_squad * prices["squad"].amount / 100
+    number_authors_total: int = len(authors)
+    costs_authors: int = int(
+        number_authors_squad * prices["squad"].amount / 100
     )
-    mtd_costs_total: int = base_costs + mtd_costs_authors
+    costs_total: int = costs_base + costs_authors
     portal: str = await customer_portal(
         org_id=org.id,
         org_name=org.name,
@@ -1023,12 +1023,12 @@ async def get_organization_billing(
 
     return OrganizationBilling(
         authors=authors,
-        base_costs=base_costs,
-        mtd_authors_machine=mtd_authors_machine,
-        mtd_authors_squad=mtd_authors_squad,
-        mtd_authors_total=mtd_authors_total,
-        mtd_costs_authors=mtd_costs_authors,
-        mtd_costs_total=mtd_costs_total,
+        costs_authors=costs_authors,
+        costs_base=costs_base,
+        costs_total=costs_total,
+        number_authors_machine=number_authors_machine,
+        number_authors_squad=number_authors_squad,
+        number_authors_total=number_authors_total,
         portal=portal,
     )
 

@@ -55,10 +55,10 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   // States
   const defaultCurrentRow: IGroupAttr = {
     billing: {
-      baseCost: 0,
-      mtdAuthors: 0,
-      mtdAuthorsCosts: 0,
-      mtdTotalCosts: 0,
+      costsAuthors: 0,
+      costsBase: 0,
+      costsTotal: 0,
+      numberAuthors: 0,
     },
     forces: "",
     hasForces: false,
@@ -186,43 +186,43 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.baseCost;
+        return row.billing?.costsBase;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
-      header: t<string>("organization.tabs.billing.groups.headers.baseCost"),
+      header: t<string>("organization.tabs.billing.groups.headers.costsBase"),
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.mtdAuthors;
-      },
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      enableColumnFilter: false,
-      header: t<string>("organization.tabs.billing.groups.headers.mtdAuthors"),
-    },
-    {
-      accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.mtdAuthorsCosts;
+        return row.billing?.numberAuthors;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
       header: t<string>(
-        "organization.tabs.billing.groups.headers.mtdAuthorsCosts"
+        "organization.tabs.billing.groups.headers.numberAuthors"
       ),
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.mtdTotalCosts;
+        return row.billing?.costsAuthors;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       enableColumnFilter: false,
       header: t<string>(
-        "organization.tabs.billing.groups.headers.mtdTotalCosts"
+        "organization.tabs.billing.groups.headers.costsAuthors"
       ),
+    },
+    {
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.billing?.costsTotal;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      enableColumnFilter: false,
+      header: t<string>("organization.tabs.billing.groups.headers.costsTotal"),
     },
   ];
 

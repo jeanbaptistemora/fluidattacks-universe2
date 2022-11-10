@@ -53,10 +53,10 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
-                      baseCost: 1,
-                      mtdAuthors: 1,
-                      mtdAuthorsCosts: 1,
-                      mtdTotalCosts: 1,
+                      costsAuthors: 1,
+                      costsBase: 1,
+                      costsTotal: 1,
+                      numberAuthors: 1,
                     },
                     forces: "",
                     hasForces: true,
@@ -120,10 +120,10 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
-                      baseCost: 1,
-                      mtdAuthors: 1,
-                      mtdAuthorsCosts: 1,
-                      mtdTotalCosts: 1,
+                      costsAuthors: 1,
+                      costsBase: 1,
+                      costsTotal: 1,
+                      numberAuthors: 1,
                     },
                     forces: "",
                     hasForces: true,
@@ -218,10 +218,10 @@ describe("Organization billing groups view", (): void => {
                 groups={[
                   {
                     billing: {
-                      baseCost: 1,
-                      mtdAuthors: 1,
-                      mtdAuthorsCosts: 1,
-                      mtdTotalCosts: 1,
+                      costsAuthors: 1,
+                      costsBase: 1,
+                      costsTotal: 1,
+                      numberAuthors: 1,
                     },
                     forces: "",
                     hasForces: true,

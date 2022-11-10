@@ -15,14 +15,14 @@ import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 
 interface IOrganizationOverviewProps {
-  mtdAuthorsSquad: number;
-  mtdCostsTotal: number;
+  numberAuthorsSquad: number;
+  costsTotal: number;
   organizationName: string;
 }
 
 export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
-  mtdAuthorsSquad,
-  mtdCostsTotal,
+  numberAuthorsSquad,
+  costsTotal,
   organizationName,
 }: IOrganizationOverviewProps): JSX.Element => {
   const { t } = useTranslation();
@@ -44,27 +44,25 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
           <Col lg={50} md={50} sm={50}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.mtdAuthorsSquad.content",
-                { mtdAuthorsSquad }
+                "organization.tabs.billing.overview.numberAuthorsSquad.content",
+                { numberAuthorsSquad }
               )}
               info={t(
-                "organization.tabs.billing.overview.mtdAuthorsSquad.info"
+                "organization.tabs.billing.overview.numberAuthorsSquad.info"
               )}
               title={t(
-                "organization.tabs.billing.overview.mtdAuthorsSquad.title"
+                "organization.tabs.billing.overview.numberAuthorsSquad.title"
               )}
             />
           </Col>
           <Col lg={50} md={50} sm={50}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.mtdCostsTotal.content",
-                { mtdCostsTotal }
+                "organization.tabs.billing.overview.costsTotal.content",
+                { costsTotal }
               )}
-              info={t("organization.tabs.billing.overview.mtdCostsTotal.info")}
-              title={t(
-                "organization.tabs.billing.overview.mtdCostsTotal.title"
-              )}
+              info={t("organization.tabs.billing.overview.costsTotal.info")}
+              title={t("organization.tabs.billing.overview.costsTotal.title")}
             />
           </Col>
         </Row>

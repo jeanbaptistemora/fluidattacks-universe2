@@ -5,10 +5,10 @@
  */
 
 interface IGroupBilling {
-  baseCost: number;
-  mtdAuthors: number;
-  mtdAuthorsCosts: number;
-  mtdTotalCosts: number;
+  costsAuthors: number;
+  costsBase: number;
+  costsTotal: number;
+  numberAuthors: number;
 }
 
 interface IOrganizationAuthorAttr {
@@ -18,12 +18,12 @@ interface IOrganizationAuthorAttr {
 
 interface IOrganizationBilling {
   authors: IOrganizationAuthorAttr[];
-  baseCosts: number;
-  mtdAuthorsMachine: number;
-  mtdAuthorsSquad: number;
-  mtdAuthorsTotal: number;
-  mtdCostsAuthors: number;
-  mtdCostsTotal: number;
+  costsAuthors: number;
+  costsBase: number;
+  costsTotal: number;
+  numberAuthorsMachine: number;
+  numberAuthorsSquad: number;
+  numberAuthorsTotal: number;
   portal: string;
 }
 

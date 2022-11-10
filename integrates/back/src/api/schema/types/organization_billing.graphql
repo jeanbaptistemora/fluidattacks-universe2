@@ -14,18 +14,18 @@ type OrganizationBillingAuthor {
 type OrganizationBilling {
   "Authors data"
   authors: [OrganizationBillingAuthor!]!
-  "Base monthly costs for all subscriptions"
-  baseCosts: Int!
-  "Month-to-date authors for machine subscriptions"
-  mtdAuthorsMachine: Int!
-  "Month-to-date authors for squad subscriptions"
-  mtdAuthorsSquad: Int!
-  "Month-to-date authors for all subscriptions"
-  mtdAuthorsTotal: Int!
-  "Month-to-date authors costs for squad subscriptions"
-  mtdCostsAuthors: Int!
-  "Month-to-date total costs for all subscriptions"
-  mtdCostsTotal: Int!
+  "Authors costs for squad subscriptions"
+  costsAuthors: Int!
+  "Base costs for priced subscriptions"
+  costsBase: Int!
+  "Total costs for priced subscriptions"
+  costsTotal: Int!
+  "Number of authors for machine subscriptions"
+  numberAuthorsMachine: Int!
+  "Number of authors for squad subscriptions"
+  numberAuthorsSquad: Int!
+  "Number of authors for all subscriptions"
+  numberAuthorsTotal: Int!
   "Portal URL for managing group tiers"
   portal: String!
 }

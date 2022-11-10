@@ -21,10 +21,10 @@ class GroupAuthor(NamedTuple):
 
 class GroupBilling(NamedTuple):
     authors: tuple[GroupAuthor, ...]
-    base_cost: int
-    mtd_authors: int
-    mtd_authors_costs: int
-    mtd_total_costs: int
+    costs_authors: int
+    costs_base: int
+    costs_total: int
+    number_authors: int
 
 
 class OrganizationAuthor(NamedTuple):
@@ -34,12 +34,12 @@ class OrganizationAuthor(NamedTuple):
 
 class OrganizationBilling(NamedTuple):
     authors: tuple[OrganizationAuthor, ...]
-    base_costs: int
-    mtd_authors_machine: int
-    mtd_authors_squad: int
-    mtd_authors_total: int
-    mtd_costs_authors: int
-    mtd_costs_total: int
+    costs_authors: int
+    costs_base: int
+    costs_total: int
+    number_authors_machine: int
+    number_authors_squad: int
+    number_authors_total: int
     portal: str
 
 

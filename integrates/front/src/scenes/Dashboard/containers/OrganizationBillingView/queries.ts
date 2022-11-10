@@ -33,12 +33,12 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
           actor
           groups
         }
-        baseCosts
-        mtdAuthorsMachine
-        mtdAuthorsSquad
-        mtdAuthorsTotal
-        mtdCostsAuthors
-        mtdCostsTotal
+        costsAuthors
+        costsBase
+        costsTotal
+        numberAuthorsMachine
+        numberAuthorsSquad
+        numberAuthorsTotal
         portal
       }
       groups {
@@ -52,10 +52,10 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         permissions
         tier
         billing {
-          baseCost
-          mtdAuthors
-          mtdAuthorsCosts
-          mtdTotalCosts
+          costsAuthors
+          costsBase
+          costsTotal
+          numberAuthors
         }
       }
       paymentMethods {
