@@ -13,8 +13,6 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
-  ColumnFilter,
-  ColumnFiltersState,
   Row,
   SortingState,
   VisibilityState,
@@ -47,9 +45,10 @@ import {
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
-import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
@@ -76,14 +75,110 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
-  const [vulnFilters, setVulnFilters] = useStoredState<ColumnFiltersState>(
-    "vulnerabilitiesTable-columnFilters",
-    [],
-    localStorage
-  );
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblFindings-columnFilters",
-    [],
+  const [filters, setFilters] = useStoredState<IFilter<IFindingAttr>[]>(
+    "tblFindingFilters",
+    [
+      {
+        id: "lastVulnerability",
+        key: "lastVulnerability",
+        label: "Last Report",
+        type: "number",
+      },
+      {
+        id: "title",
+        key: "title",
+        label: "Type",
+        selectOptions: (findings: IFindingAttr[]): string[] =>
+          [
+            ...new Set(findings.map((finding): string => finding.title ?? "")),
+          ].filter(Boolean),
+        type: "select",
+      },
+      {
+        id: "state",
+        key: "state",
+        label: "Status",
+        selectOptions: [
+          { header: "Open", value: "open" },
+          { header: "Closed", value: "closed" },
+        ],
+        type: "select",
+      },
+      {
+        id: "treatment",
+        key: (finding: IFindingAttr, value?: string): boolean => {
+          if (value === "" || value === undefined) return true;
+
+          return (
+            finding.treatmentSummary[
+              value as keyof typeof finding.treatmentSummary
+            ] > 0
+          );
+        },
+        label: t("searchFindings.tabVuln.vulnTable.treatment"),
+        selectOptions: [
+          {
+            header: t("searchFindings.tabDescription.treatment.new"),
+            value: "new",
+          },
+          {
+            header: t("searchFindings.tabDescription.treatment.inProgress"),
+            value: "inProgress",
+          },
+          {
+            header: t("searchFindings.tabDescription.treatment.accepted"),
+            value: "accepted",
+          },
+          {
+            header: t(
+              "searchFindings.tabDescription.treatment.acceptedUndefined"
+            ),
+            value: "acceptedUndefined",
+          },
+        ],
+        type: "select",
+      },
+      {
+        id: "severityScore",
+        key: "severityScore",
+        label: "Severity",
+        type: "numberRange",
+      },
+      {
+        id: "age",
+        key: "age",
+        label: "Age",
+        type: "number",
+      },
+      {
+        id: "locationsInfo",
+        key: (datapoint: IFindingAttr, value?: string): boolean => {
+          if (value === "" || value === undefined) return true;
+          if (
+            datapoint.locationsInfo.locations === "" ||
+            datapoint.locationsInfo.locations === undefined
+          )
+            return false;
+
+          return datapoint.locationsInfo.locations.includes(value);
+        },
+        label: "Locations",
+        type: "text",
+      },
+      {
+        id: "reattack",
+        key: "reattack",
+        label: "Reattack",
+        selectOptions: ["-", "Pending"],
+        type: "select",
+      },
+      {
+        id: "releaseDate",
+        key: "releaseDate",
+        label: "Release Date",
+        type: "dateRange",
+      },
+    ],
     localStorage
   );
   const [columnVisibility, setColumnVisibility] =
@@ -142,31 +237,26 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorKey: "title",
       header: "Type",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "age",
       header: "Age",
-      meta: { filterType: "number" },
     },
     {
       accessorKey: "lastVulnerability",
       cell: (cell: ICellHelper<IFindingAttr>): string =>
         t("group.findings.description.value", { count: cell.getValue() }),
       header: "Last report",
-      meta: { filterType: "number" },
     },
     {
       accessorKey: "state",
       cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
         formatState(cell.getValue()),
       header: "Status",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "severityScore",
       header: "Severity",
-      meta: { filterType: "numberRange" },
     },
     {
       accessorKey: "openVulnerabilities",
@@ -177,7 +267,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IFindingAttr>): string =>
         formatPercentage(cell.getValue()),
       header: t("group.findings.closingPercentage"),
-      meta: { filterType: "number" },
     },
     {
       accessorFn: (row: IFindingAttr): string | undefined =>
@@ -189,7 +278,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorKey: "reattack",
       header: "Reattack",
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row: IFindingAttr): string[] =>
@@ -200,15 +288,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             cell.row.original.locationsInfo.treatmentAssignmentEmails.values()
           )
         ),
-      filterFn: "arrIncludes",
       header: "Assignees",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "releaseDate",
-      filterFn: filterDate,
       header: "Release Date",
-      meta: { filterType: "dateRange" },
     },
     {
       accessorFn: (row: IFindingAttr): string[] => {
@@ -235,9 +319,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
         ${treatment.acceptedUndefined}`;
       },
-      filterFn: "arrIncludes",
       header: "Treatment",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "description",
@@ -324,6 +406,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [data, findingVulnerabilities]
   );
 
+  const filteredFindings = useFilters(findings, filters);
+
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,
     find.title,
@@ -386,62 +470,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     return renderDescription(row.original);
   }
 
-  useEffect((): void => {
-    if (
-      columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "state"
-      ).length > 0
-    ) {
-      const filtervalue = columnFilters.filter(
-        (element: ColumnFilter): boolean => element.id === "state"
-      )[0].value;
-      if (
-        vulnFilters.filter(
-          (element: ColumnFilter): boolean => element.id === "currentState"
-        ).length > 0
-      ) {
-        setVulnFilters(
-          vulnFilters.map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "currentState") {
-              return { id: "currentState", value: filtervalue };
-            }
-
-            return element;
-          })
-        );
-      } else {
-        setVulnFilters([
-          ...vulnFilters,
-          { id: "currentState", value: filtervalue },
-        ]);
-      }
-    } else {
-      setVulnFilters(
-        vulnFilters
-          .map((element: ColumnFilter): ColumnFilter => {
-            if (element.id === "currentState") {
-              return { id: "", value: "" };
-            }
-
-            return element;
-          })
-          .filter((element: ColumnFilter): boolean => element.id !== "")
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnFilters]);
-
   return (
     <React.StrictMode>
       <Table
-        columnFilterSetter={setColumnFilters}
-        columnFilterState={columnFilters}
         columnToggle={true}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
         columns={tableColumns}
-        data={findings}
-        enableColumnFilters={true}
+        data={filteredFindings}
         expandedRow={handleRowExpand}
         extraButtons={
           <React.Fragment>
@@ -475,6 +511,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               </Tooltip>
             </Can>
           </React.Fragment>
+        }
+        filters={
+          <Filters
+            dataset={findings}
+            filters={filters}
+            setFilters={setFilters}
+          />
         }
         id={"tblFindings"}
         onRowClick={goToFinding}

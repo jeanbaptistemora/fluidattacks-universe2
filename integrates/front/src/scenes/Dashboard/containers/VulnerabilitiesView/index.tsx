@@ -301,7 +301,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
           ].filter(Boolean),
         type: "select",
       },
-    ]
+    ],
+    localStorage
   );
 
   const filteredVulnerabilities = useFilters(vulnerabilities, filters);
