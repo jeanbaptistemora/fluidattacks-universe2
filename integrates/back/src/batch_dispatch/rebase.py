@@ -77,8 +77,7 @@ from vulnerabilities.domain.rebase import (
 )
 from vulnerabilities.domain.snippet import (
     generate_snippet,
-    snippet_already_exists,
-    upload_snippet,
+    set_snippet,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -241,20 +240,12 @@ async def rebase_root(
     vulnerabilities = await loaders.vulnerability.load_many(
         [vuln.id for vuln in vulnerabilities]
     )
-    states_with_with_snippet = await collect(
-        [
-            snippet_already_exists(vuln.id, vuln.state.modified_date)
-            for vuln in vulnerabilities
-        ]
-    )
     futures = []
-    for vuln, has_snippet in zip(vulnerabilities, states_with_with_snippet):
-        if not has_snippet and (
+    for vuln in vulnerabilities:
+        if not vuln.state.snippet and (
             snippet := await generate_snippet(vuln.state, repo)
         ):
-            futures.append(
-                upload_snippet(vuln.id, vuln.state.modified_date, snippet)
-            )
+            futures.append(set_snippet(vuln, vuln.state, snippet))
     await collect(futures)
 
 

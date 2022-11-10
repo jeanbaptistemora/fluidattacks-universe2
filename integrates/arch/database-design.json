@@ -1009,6 +1009,10 @@
         {
           "AttributeName": "sorts_risk_level_date",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "snippet",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -36764,7 +36768,8 @@
             "where",
             "specific",
             "justification",
-            "tool"
+            "tool",
+            "snippet"
           ],
           "DataAccess": {
             "MySql": {}

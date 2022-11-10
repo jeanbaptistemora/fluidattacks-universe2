@@ -14,7 +14,11 @@ from contextlib import (
 from datetime import (
     datetime,
 )
+from db_model import (
+    vulnerabilities as vulns_model,
+)
 from db_model.vulnerabilities.types import (
+    Vulnerability,
     VulnerabilityState,
 )
 from git import (
@@ -72,6 +76,18 @@ async def upload_snippet(
             snippet_file,
             file_key,
         )
+
+
+async def set_snippet(
+    vulnerability: Vulnerability, last_state: VulnerabilityState, contents: str
+) -> None:
+    last_state = last_state._replace(snippet=contents)
+    await vulns_model.update_historic_entry(
+        current_value=vulnerability,
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
+        entry=last_state,
+    )
 
 
 async def generate_snippet(

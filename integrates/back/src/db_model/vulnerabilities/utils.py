@@ -181,6 +181,7 @@ def format_state(item: Item) -> VulnerabilityState:
         status=VulnerabilityStateStatus[item["status"]],
         tool=tool,
         where=item["where"],
+        snippet=item.get("snippet"),
     )
 
 

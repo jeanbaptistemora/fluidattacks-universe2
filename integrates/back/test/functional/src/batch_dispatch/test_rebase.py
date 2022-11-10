@@ -27,9 +27,6 @@ from typing import (
     Any,
     Dict,
 )
-from vulnerabilities.domain.snippet import (
-    snippet_already_exists,
-)
 
 
 @pytest.mark.asyncio
@@ -63,4 +60,4 @@ async def test_clone_roots_real_ssh(
     assert (
         await loaders.vulnerability.load("4dbc01e0-4cfc-4b77-9b71-bb7566c60bg")
     ).state.specific == "3"
-    assert await snippet_already_exists(vuln.id, vuln.state.modified_date)
+    assert vuln.state.snippet is not None
