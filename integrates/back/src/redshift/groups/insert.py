@@ -86,3 +86,25 @@ def insert_unfulfilled_standards(
         format_sql_query_metadata(UNFULFILLED_STANDARDS_TABLE, sql_fields),
         sql_values,
     )
+
+
+def insert_group(
+    *,
+    cursor: cursor_cls,
+    item: Item,
+) -> None:
+    insert_metadata(cursor=cursor, item=item)
+    insert_historic_state(cursor=cursor, historic_state=(item["state"],))
+
+
+def insert_unreliable_indicators(
+    *,
+    cursor: cursor_cls,
+    unreliable_indicators: Item,
+) -> None:
+    insert_code_languages(
+        cursor=cursor, unreliable_indicators=unreliable_indicators
+    )
+    insert_unfulfilled_standards(
+        cursor=cursor, unreliable_indicators=unreliable_indicators
+    )
