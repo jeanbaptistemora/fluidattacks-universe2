@@ -30,6 +30,7 @@ from mypy_boto3_dynamodb import (
 import pytest
 from schedulers.update_indicators import (
     create_data_format_chart,
+    create_register_by_week,
     create_weekly_date,
     get_accepted_vulns,
     get_by_time_range,
@@ -80,6 +81,27 @@ def test_create_weekly_date() -> None:
     test_data = create_weekly_date(first_date)
     expected_output = "Sep 16 - 22, 2019"
     assert test_data == expected_output
+
+
+async def test_create_register_by_week(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
+    loaders = get_new_context()
+    group_name = "unittesting"
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        test_data = await create_register_by_week(loaders, group_name)
+    assert isinstance(test_data.vulnerabilities, list)
+    for item in test_data.vulnerabilities:
+        assert isinstance(item, list)
+        assert isinstance(item[0], dict)
+        assert item[0] is not None
 
 
 async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
