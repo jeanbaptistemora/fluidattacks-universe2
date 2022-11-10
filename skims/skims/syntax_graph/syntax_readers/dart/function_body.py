@@ -19,7 +19,7 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = adj_ast(graph, args.n_id)
-    invalid_childs = {"=>", ";"}
+    invalid_childs = {"=>", ";", "async"}
 
     return build_statement_block_node(
         args,

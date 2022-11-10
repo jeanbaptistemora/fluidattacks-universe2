@@ -18,4 +18,10 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = adj_ast(args.ast_graph, args.n_id)
-    return build_identifier_list_node(args, iter(c_ids))
+    var_types = {"initialized_identifier", "static_final_declaration"}
+    filtered_ids = [
+        _id
+        for _id in c_ids
+        if args.ast_graph.nodes[_id]["label_type"] in var_types
+    ]
+    return build_identifier_list_node(args, iter(filtered_ids))

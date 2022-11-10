@@ -17,7 +17,6 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-
     return build_reserved_word_node(
         args, node_to_str(args.ast_graph, args.n_id)
     )

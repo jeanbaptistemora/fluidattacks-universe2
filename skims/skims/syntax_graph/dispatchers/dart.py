@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.dart import (
     arguments as dart_arguments,
     assignable_selector as dart_assignable_selector,
     assignment_expression as dart_assignment_expression,
+    await_expression as dart_await_expression,
     binary_expression as dart_binary_expression,
     boolean_literal as dart_boolean_literal,
     class_body as dart_class_body,
@@ -50,6 +51,7 @@ from syntax_graph.syntax_readers.dart import (
     switch_statement as dart_switch_statement,
     try_statement as dart_try_statement,
     type_identifier as dart_type_identifier,
+    unary_expression as dart_unary_expression,
     update_expression as dart_update_expression,
     variable_declaration as dart_variable_declaration,
     while_statement as dart_while_statement,
@@ -69,6 +71,7 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "argument",
+            "named_argument",
         },
         syntax_reader=dart_argument.reader,
     ),
@@ -86,8 +89,8 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "unconditional_assignable_selector",
             "conditional_assignable_selector",
+            "unconditional_assignable_selector",
         },
         syntax_reader=dart_assignable_selector.reader,
     ),
@@ -99,11 +102,17 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "relational_expression",
-            "logical_or_expression",
+            "await_expression",
+        },
+        syntax_reader=dart_await_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "additive_expression",
             "equality_expression",
+            "logical_or_expression",
             "multiplicative_expression",
+            "relational_expression",
         },
         syntax_reader=dart_binary_expression.reader,
     ),
@@ -154,13 +163,6 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "decimal_integer_literal",
-            "decimal_floating_point_literal",
-        },
-        syntax_reader=dart_number_literal.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "enum_declaration",
         },
         syntax_reader=dart_enum_declaration.reader,
@@ -176,6 +178,12 @@ DART_DISPATCHERS: Dispatchers = (
             "extension_declaration",
         },
         syntax_reader=dart_extension_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "finally_clause",
+        },
+        syntax_reader=dart_finally_clause.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -222,6 +230,13 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "initialized_identifier_list",
+            "static_final_declaration_list",
+        },
+        syntax_reader=dart_identifier_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "if_statement",
         },
         syntax_reader=dart_if_statement.reader,
@@ -229,14 +244,9 @@ DART_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "initialized_identifier",
+            "static_final_declaration",
         },
         syntax_reader=dart_initialized_identifier.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "initialized_identifier_list",
-        },
-        syntax_reader=dart_identifier_list.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -276,18 +286,25 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "decimal_floating_point_literal",
+            "decimal_integer_literal",
+        },
+        syntax_reader=dart_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "||",
             "additive_operator",
             "equality_operator",
             "multiplicative_operator",
             "relational_operator",
-            "||",
         },
         syntax_reader=dart_operator.reader,
     ),
     Dispatcher(
         applicable_types={
-            "formal_parameter",
             "constructor_param",
+            "formal_parameter",
         },
         syntax_reader=dart_parameter.reader,
     ),
@@ -296,12 +313,6 @@ DART_DISPATCHERS: Dispatchers = (
             "formal_parameter_list",
         },
         syntax_reader=dart_parameter_list.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "postfix_expression",
-        },
-        syntax_reader=dart_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -317,11 +328,11 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "const_builtin",
             "get",
             "inferred_type",
-            "const_builtin",
-            "this",
             "null_literal",
+            "this",
         },
         syntax_reader=dart_reserved_word.reader,
     ),
@@ -333,23 +344,17 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "type_identifier",
-        },
-        syntax_reader=dart_type_identifier.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "string_literal",
             "list_literal",
             "set_or_map_literal",
+            "string_literal",
         },
         syntax_reader=dart_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
-            "local_variable_declaration",
+            "type_identifier",
         },
-        syntax_reader=dart_variable_declaration.reader,
+        syntax_reader=dart_type_identifier.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -371,9 +376,21 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "finally_clause",
+            "unary_expression",
         },
-        syntax_reader=dart_finally_clause.reader,
+        syntax_reader=dart_unary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "postfix_expression",
+        },
+        syntax_reader=dart_update_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "local_variable_declaration",
+        },
+        syntax_reader=dart_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
