@@ -2127,6 +2127,13 @@ export const enTranslations: ResourceKey = {
         text: "Stakeholders",
         tooltip: "Add and remove users from the organization",
       },
+      weakest: {
+        formatter: {
+          plus: {
+            tooltip: "Add new root using the URL",
+          },
+        },
+      },
     },
   },
   profile: {
