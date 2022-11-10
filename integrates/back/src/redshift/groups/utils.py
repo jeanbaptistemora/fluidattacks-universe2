@@ -14,10 +14,10 @@ FLUID_IDENTIFIER = "@fluidattacks.com"
 
 
 def format_row_code_languages(
-    group_name: str,
-    item: Item,
+    unreliable_indicators: Item,
 ) -> list[Item]:
-    unreliable_code_languages = item.get("code_languages", [])
+    group_name = str(unreliable_indicators["pk"]).split("#")[1]
+    unreliable_code_languages = unreliable_indicators.get("code_languages", [])
     return [
         dict(
             id=hashlib.sha256(
@@ -53,11 +53,10 @@ def format_row_metadata(
 
 
 def format_row_state(
-    group_name: str,
     state: Item,
 ) -> Item:
     return dict(
-        id=group_name,
+        id=str(state["pk"]).split("#")[1],
         has_machine=bool(state["has_machine"]),
         has_squad=bool(state["has_squad"]),
         justification=state.get("justification"),
@@ -79,10 +78,12 @@ def format_row_state(
 
 
 def format_row_unfulfilled_standards(
-    group_name: str,
-    item: Item,
+    unreliable_indicators: Item,
 ) -> list[Item]:
-    unreliable_unfulfilled_standards = item.get("unfulfilled_standards", [])
+    group_name = str(unreliable_indicators["pk"]).split("#")[1]
+    unreliable_unfulfilled_standards = unreliable_indicators.get(
+        "unfulfilled_standards", []
+    )
     return [
         dict(
             id=hashlib.sha256(
