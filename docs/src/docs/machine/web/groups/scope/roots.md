@@ -137,7 +137,12 @@ The information you have to fill in is as follows:
   the plus symbol;
   you can add many as you need.
 
-#### Export button
+When you fill in the required fields,
+click on **Confirm**,
+and your repository will
+be successfully added.
+
+### Export button
 
 Clicking on the **Export**
 button will download a file
@@ -146,7 +151,7 @@ values) extension,
 which contains the information
 in the Git Root table.
 
-#### Columns filter
+### Columns filter
 
 Columns filter helps us to
 show or hide which columns I
@@ -160,7 +165,7 @@ in the table.
 
 ![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1668104380/docs/web/groups/scope/columns_filter.png)
 
-#### Filters
+### Filters
 
 We have five different filters
 in the Git Roots section,
