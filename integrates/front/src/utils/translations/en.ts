@@ -2137,6 +2137,11 @@ export const enTranslations: ResourceKey = {
           select: "In which group the root will be added",
           title: "Select group",
         },
+        table: {
+          action: "Action",
+          lastCommitDate: "Last commit date",
+          url: "Repository URL",
+        },
       },
     },
   },
