@@ -220,7 +220,7 @@ def c_sharp_managed_secure_mode(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    insecure_objects = {"AesManaged", "RijndaelManaged"}
+    insecure_objects = {"AesManaged"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -245,6 +245,36 @@ def c_sharp_managed_secure_mode(
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.CS_MANAGED_SECURE_MODE,
+    )
+
+
+def c_sharp_insecure_rijndael_managed(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    insecure_objects = {"RijndaelManaged"}
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.CSHARP,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+            ):
+                if graph.nodes[nid].get("name") in insecure_objects:
+                    yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=MethodsEnum.CS_INSECURE_RIJNDAEL,
     )
 
 

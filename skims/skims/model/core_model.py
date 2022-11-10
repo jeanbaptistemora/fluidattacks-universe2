@@ -2783,6 +2783,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_INSECURE_RIJNDAEL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_rijndael_managed",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_RSA_SECURE_MODE = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_rsa_secure_mode",

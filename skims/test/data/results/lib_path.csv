@@ -23575,6 +23575,78 @@ F052,lines,namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,10,310,skims
   18 | }
      ^ Col 0
 ",java.java_insecure_cipher_jmqi
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |    public static void insecure() {
+   6 |       AesManaged aes_insecure = new AesManaged
+   7 |       {
+   8 |          KeySize = 128,
+   9 |          BlockSize = 128,
+> 10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
+  10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+> 20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+  27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+> 27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+  31 |    public static void secure() {
+  32 |       AesManaged aes_secure = new AesManaged
+  33 |       {
+  34 |          KeySize = 128,
+  35 |          BlockSize = 128,
+  36 |          Mode = CipherMode.CTS,
+  37 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_cipher.java,"
    1 | mport javax.net.ssl.SSLContext;
    2 | mport javax.net.ssl.SSLSession;
@@ -23647,6 +23719,24 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,7,310,ski
   21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
      ^ Col 0
 ",typescript.ts_insecure_ciphers
+F052,lines,namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,"
+   1 | tem;
+   2 | tem.IO;
+   3 | tem.Security.Cryptography;
+   4 |
+   5 | t {
+   6 |  static void Main() {
+>  7 | ndaelManaged aes_insecure3 = new RijndaelManaged
+   8 |
+   9 | KeySize = 128,
+  10 | BlockSize = 128,
+  11 | Mode = CipherMode.CTS,
+  12 | Padding = PaddingMode.PKCS7
+  13 |
+  14 |
+  15 |
+     ^ Col 9
+",c_sharp.c_sharp_insecure_rijndael_managed
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
    2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
@@ -23719,102 +23809,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,13,310,
   23 |         padding: CryptoJS.pad.AnsiX923
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
-F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
-   1 | using System;
-   2 | using System.IO;
-   3 | using System.Security.Cryptography;
-   4 | class ManagedAesSample {
-   5 |
-   6 |    public static void Main() {
-   7 |       AesManaged aes_insecure = new AesManaged
-   8 |       {
-   9 |          KeySize = 128,
-  10 |          BlockSize = 128,
-> 11 |          Mode = CipherMode.CBC,
-  12 |          Padding = PaddingMode.PKCS7
-  13 |       };
-  14 |
-  15 |       var cipher_mode = CipherMode.OFB;
-  16 |
-  17 |       AesManaged aes_insecure1 = new AesManaged
-  18 |       {
-  19 |          KeySize = 128,
-  20 |          BlockSize = 128,
-  21 |          Mode = cipher_mode,
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
-  11 |          Mode = CipherMode.CBC,
-  12 |          Padding = PaddingMode.PKCS7
-  13 |       };
-  14 |
-  15 |       var cipher_mode = CipherMode.OFB;
-  16 |
-  17 |       AesManaged aes_insecure1 = new AesManaged
-  18 |       {
-  19 |          KeySize = 128,
-  20 |          BlockSize = 128,
-> 21 |          Mode = cipher_mode,
-  22 |          Padding = PaddingMode.PKCS7
-  23 |       };
-  24 |
-  25 |       AesManaged aes_insecure2 = new AesManaged();
-  26 |       aes_insecure2.BlockSize = 128;
-  27 |       aes_insecure2.KeySize = 128;
-  28 |       aes_insecure2.Mode = cipher_mode;
-  29 |
-  30 |       RijndaelManaged aes_insecure3 = new RijndaelManaged
-  31 |       {
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
-  18 |       {
-  19 |          KeySize = 128,
-  20 |          BlockSize = 128,
-  21 |          Mode = cipher_mode,
-  22 |          Padding = PaddingMode.PKCS7
-  23 |       };
-  24 |
-  25 |       AesManaged aes_insecure2 = new AesManaged();
-  26 |       aes_insecure2.BlockSize = 128;
-  27 |       aes_insecure2.KeySize = 128;
-> 28 |       aes_insecure2.Mode = cipher_mode;
-  29 |
-  30 |       RijndaelManaged aes_insecure3 = new RijndaelManaged
-  31 |       {
-  32 |          Mode = cipher_mode,
-  33 |       };
-  34 |
-  35 |       AesManaged aes_secure = new AesManaged
-  36 |       {
-  37 |          KeySize = 128,
-  38 |          BlockSize = 128,
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,32,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
-  22 |          Padding = PaddingMode.PKCS7
-  23 |       };
-  24 |
-  25 |       AesManaged aes_insecure2 = new AesManaged();
-  26 |       aes_insecure2.BlockSize = 128;
-  27 |       aes_insecure2.KeySize = 128;
-  28 |       aes_insecure2.Mode = cipher_mode;
-  29 |
-  30 |       RijndaelManaged aes_insecure3 = new RijndaelManaged
-  31 |       {
-> 32 |          Mode = cipher_mode,
-  33 |       };
-  34 |
-  35 |       AesManaged aes_secure = new AesManaged
-  36 |       {
-  37 |          KeySize = 128,
-  38 |          BlockSize = 128,
-  39 |          Mode = CipherMode.CTS,
-  40 |          Padding = PaddingMode.PKCS7
-  41 |       };
-  42 |    }
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""

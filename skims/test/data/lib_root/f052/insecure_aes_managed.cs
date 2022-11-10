@@ -1,9 +1,8 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
-class ManagedAesSample {
-
-   public static void Main() {
+class Test {
+   public static void insecure() {
       AesManaged aes_insecure = new AesManaged
       {
          KeySize = 128,
@@ -27,11 +26,9 @@ class ManagedAesSample {
       aes_insecure2.KeySize = 128;
       aes_insecure2.Mode = cipher_mode;
 
-      RijndaelManaged aes_insecure3 = new RijndaelManaged
-      {
-         Mode = cipher_mode,
-      };
+   }
 
+   public static void secure() {
       AesManaged aes_secure = new AesManaged
       {
          KeySize = 128,
