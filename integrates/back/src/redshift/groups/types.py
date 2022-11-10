@@ -41,15 +41,15 @@ class StateTableRow:
     id: str
     has_machine: bool
     has_squad: bool
+    justification: Optional[str]
     managed: str
     modified_by: str
     modified_date: datetime
+    pending_deletion_date: Optional[datetime]
+    service: Optional[str]
     status: str
     tier: str
     type: str
-    justification: Optional[str]
-    pending_deletion_date: Optional[datetime]
-    service: Optional[str]
 
 
 @dataclass(frozen=True)

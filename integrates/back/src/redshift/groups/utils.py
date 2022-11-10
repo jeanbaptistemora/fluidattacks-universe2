@@ -76,3 +76,22 @@ def format_row_state(
         tier=state["tier"] if state.get("tier") else "OTHER",
         type=state["type"],
     )
+
+
+def format_row_unfulfilled_standards(
+    group_name: str,
+    item: Item,
+) -> list[Item]:
+    unreliable_unfulfilled_standards = item.get("unfulfilled_standards", [])
+    return [
+        dict(
+            id=hashlib.sha256(
+                (group_name + standard["name"] + requirement).encode("utf-8")
+            ).hexdigest(),
+            group_name=group_name,
+            name=standard["name"],
+            requirement=requirement,
+        )
+        for standard in unreliable_unfulfilled_standards
+        for requirement in standard["unfulfilled_requirements"]
+    ]
