@@ -2599,6 +2599,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_WEAK_RANDOM = MethodInfo(
+        file_name="typescript",
+        name="typescript_weak_random",
+        module="lib_root",
+        finding=FindingEnum.F034,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     QUERY_F034 = MethodInfo(
         file_name="query",
         name="query_f034",

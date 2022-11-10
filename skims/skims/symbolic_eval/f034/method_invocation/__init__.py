@@ -6,7 +6,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f034.method_invocation.javascript import (
-    js_weak_random,
+    weak_random,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,7 +18,8 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_WEAK_RANDOM: js_weak_random,
+    MethodsEnum.JS_WEAK_RANDOM: weak_random,
+    MethodsEnum.TS_WEAK_RANDOM: weak_random,
 }
 
 

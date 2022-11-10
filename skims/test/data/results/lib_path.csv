@@ -27546,6 +27546,34 @@ F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. I
   13 | }
      ^ Col 0
 ",query.query_f034
+F034,lines,namespace/skims/test/data/lib_root/f034/js_weak_random.js,6,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/js_weak_random.js,"
+   1 | import { Router } from ""express"";
+   2 |
+   3 | const router = Router();
+   4 | function routa(req, res) {
+   5 |   let key = Math.random().toString();
+>  6 |   res.cookie(""rememberKey"", key);
+   7 |   res.json({ ok: true });
+   8 | }
+   9 | router.get(""/test148"", routa);
+  10 |
+  11 | export default router;
+     ^ Col 0
+",javascript.javascript_weak_random
+F034,lines,namespace/skims/test/data/lib_root/f034/ts_weak_random.ts,6,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/ts_weak_random.ts,"
+   1 | import { Router } from ""express"";
+   2 |
+   3 | const router = Router();
+   4 | function routa(req, res) {
+   5 |   let key = Math.random().toString();
+>  6 |   res.cookie(""rememberKey"", key);
+   7 |   res.json({ ok: true });
+   8 | }
+   9 | router.get(""/test148"", routa);
+  10 |
+  11 | export default router;
+     ^ Col 0
+",typescript.typescript_weak_random
 F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,11,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,"
    1 | import java.net.URI;
    2 | import java.net.URISyntaxException;

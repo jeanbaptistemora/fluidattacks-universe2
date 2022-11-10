@@ -25,15 +25,15 @@ from typing import (
 )
 
 
-def js_weak_random(
+def ts_weak_random(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_WEAK_RANDOM
+    method = MethodsEnum.TS_WEAK_RANDOM
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
+            GraphLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
