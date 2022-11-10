@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* eslint react/jsx-no-bind:0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import React from "react";
 
 import { AirsLink } from "../../../components/AirsLink";
@@ -22,6 +24,15 @@ const HeaderSection: React.FC<IHeaderProps> = ({
   image,
   title,
 }): JSX.Element => {
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "header-free-trial-click",
+      category: "solution",
+    });
+  };
+
   return (
     <Container bgColor={"#f4f4f6"} ph={4} pv={5}>
       <Container center={true} maxWidth={"1200px"}>
@@ -40,7 +51,11 @@ const HeaderSection: React.FC<IHeaderProps> = ({
         <Container display={"flex"} justify={"center"} mv={3} wrap={"wrap"}>
           <Container ph={1} pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink href={"/free-trial/"}>
-              <Button display={"block"} variant={"primary"}>
+              <Button
+                display={"block"}
+                onClick={matomoFreeTrialEvent}
+                variant={"primary"}
+              >
                 {"Start free trial"}
               </Button>
             </AirsLink>
