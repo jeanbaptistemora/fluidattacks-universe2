@@ -64,4 +64,4 @@ const ProgressBar: FC<IProgressBarProps> = ({
 );
 
 export type { IProgressBarProps };
-export { ProgressBar };
+export { ProgressBar, getPercentageToDisplay };

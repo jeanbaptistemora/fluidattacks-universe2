@@ -14,7 +14,7 @@ import { ConfirmDialog } from "components/ConfirmDialog";
 describe("ConfirmDialog", (): void => {
   const btnCancel = "components.modal.cancel";
 
-  it("should return a fuction", (): void => {
+  it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof ConfirmDialog).toBe("function");
   });
