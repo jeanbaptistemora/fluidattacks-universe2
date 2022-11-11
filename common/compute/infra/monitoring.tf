@@ -176,7 +176,7 @@ resource "aws_s3_object" "monitoring_jobs_json_paths" {
 resource "aws_redshiftdata_statement" "monitoring_jobs_table" {
   cluster_identifier = data.aws_redshift_cluster.observes.cluster_identifier
   database           = data.aws_redshift_cluster.observes.database_name
-  db_user            = data.aws_redshift_cluster.observes.master_username #var.redshiftUser
+  db_user            = data.aws_redshift_cluster.observes.master_username
   sql                = <<-EOF
     CREATE SCHEMA IF NOT EXISTS common_compute;
     CREATE TABLE IF NOT EXISTS common_compute.jobs (jobId text PRIMARY KEY);
