@@ -13,6 +13,14 @@ If you want to know more
 about these service types,
 click [here](/machine/web/groups/services).
 
+If your group has
+[White services](about/glossary/#white-box)
+it will have [Git Roots](machine/web/groups/scope/roots/#git-roots)
+and [Environment URLs](machine/web/groups/scope/roots/#environment-urls-table),
+or if your group has [Black services](about/glossary/#black-box),
+you will have [IP Roots](machine/web/groups/scope/roots/#ip-roots)
+and [URL roots](machine/web/groups/scope/roots/#url-roots).
+
 ## Git Roots
 
 Here we put any Git repositories
@@ -66,7 +74,7 @@ This table shows the following information:
   in that repository.
 - **Nickname:**
   The nickname of this repository
-  to be easily identified
+  to be easily identified.
 - **Sync:**
   Request to clone that repository
   once again since changes have been
@@ -174,6 +182,61 @@ that is of interest quickly and safely.
 
 ![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668104488/docs/web/groups/scope/general_filters.png)
 
+### Managing Git Root
+
+If you want to edit the details
+of an active root,
+you need to click on it.
+A pop-up window will appear,
+where you can navigate three tabs:
+[Git repository](machine/web/groups/scope/roots/#git-roots),
+[Environment URLs](machine/web/groups/scope/roots/#environment-urls-table)
+and [Secrets](machine/web/groups/scope/roots/#secrets)
+
+![Managing Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668171709/docs/web/groups/scope/managing_git_root.png)
+
+The Git repository tab allows you
+to change details of your Git root.
+Keep in mind that modifying the
+repository’s URL and branch is only
+allowed if absolutely no vulnerabilities
+have been reported in it.
+If there are reported vulnerabilities,
+you will have to add a new root
+with the URL and branch you need
+to include in the security tests.
+
+If you want to know how to edit
+or add an environment,
+enter [here](machine/web/groups/scope/roots/#managing-git-root-environments).
+Now,
+if you're going to add or edit secrets,
+you can learn how to do it
+[here](machine/web/groups/scope/roots/#secrets).
+
+## Environment URLs
+
+Here you see the environments
+according to the Git Roots
+added to them.
+
+## Environment URLs table
+
+In the environments table,
+you can see the environments
+added in Git Roots.
+
+![Environment URL Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_table.png)
+
+There is also a downward-facing
+arrow on the left,
+which,
+upon click,
+it shows you the creation date
+and the Git Root corresponding
+to that registered environment.
+
+![Environment Registered](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_registered.png)
 ## IP roots
 
 An IP address is the unique
@@ -359,50 +422,6 @@ any environment by clicking on
 the trash button.
 
 ![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
-
-## Environment URLs table
-
-In the environments table,
-you can see the environments
-added in Git Roots.
-
-![Environment URL Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_table.png)
-
-There is also a downward-facing
-arrow on the left,
-which,
-upon click,
-it shows you the creation date
-and the Git Root corresponding
-to that registered environment.
-
-![Environment Registered](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_registered.png)
-
-## Editing Git roots
-
-If you want to edit the
-details of an active root,
-you need to click on it.
-A pop-up window will appear,
-where you can navigate
-three tabs: **Git repository**,
-**Environment URLs**
-and **Secrets**.
-
-![Edit Git Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1654884640/docs/web/groups/scope/root_editing_git_roots.png)
-
-The Git repository tab allows
-you to change details of your
-Git repository.
-Keep in mind that modifying the
-repository’s URL and branch is
-only allowed if absolutely no
-vulnerabilities have been
-reported in it.
-If there are reported vulnerabilities,
-you will have to add a new root
-with the URL and branch you need
-to include in the security tests.
 
 ## Deactivate a Git Root
 
