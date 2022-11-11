@@ -6,12 +6,7 @@
 
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  Row,
-  SortingState,
-} from "@tanstack/react-table";
+import type { ColumnDef, Row, SortingState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
@@ -19,6 +14,8 @@ import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
@@ -71,9 +68,43 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblForcesExecutionsTableFilters",
-    []
+  const [filters, setFilters] = useStoredState<IFilter<IExecution>[]>(
+    "tblForcesExecutionsFilters",
+    [
+      {
+        id: "status",
+        key: "status",
+        label: t("group.forces.status.title"),
+        selectOptions: ["Secure", "Vulnerable"],
+        type: "select",
+      },
+      {
+        id: "strictness",
+        key: "strictness",
+        label: t("group.forces.strictness.title"),
+        selectOptions: ["Strict", "Tolerant"],
+        type: "select",
+      },
+      {
+        id: "kind",
+        key: "kind",
+        label: t("group.forces.kind.title"),
+        selectOptions: ["ALL", "DAST", "SAST"],
+        type: "select",
+      },
+      {
+        id: "gitRepo",
+        key: "gitRepo",
+        label: t("group.forces.gitRepo"),
+        type: "text",
+      },
+      {
+        id: "date",
+        key: "date",
+        label: t("group.forces.date"),
+        type: "dateRange",
+      },
+    ]
   );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblForcesExecutionsSorting",
@@ -233,16 +264,16 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     void refetch({ search });
   }, 500);
 
+  const filteredData = useFilters(executions, filters);
+
   return (
     <React.StrictMode>
       <p>{t("group.forces.tableAdvice")}</p>
       <Table
-        columnFilterSetter={setColumnFilters}
-        columnFilterState={columnFilters}
         columns={headersExecutionTable}
-        data={executions}
-        enableColumnFilters={true}
+        data={filteredData}
         exportCsv={true}
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblForcesExecutions"}
         onNextPage={handleNextPage}
         onRowClick={openSeeExecutionDetailsModal}
