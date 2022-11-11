@@ -183,8 +183,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     useMutation<IUpdateVulnerabilityResultAttr>(UPDATE_VULNERABILITY_MUTATION, {
       onCompleted: (result: IUpdateVulnerabilityResultAttr): void => {
         if (
-          !_.isUndefined(result.updateVulnerabilitiesTreatment) &&
-          result.updateVulnerabilitiesTreatment.success
+          (!_.isUndefined(result.updateVulnerabilitiesTreatment) &&
+            result.updateVulnerabilitiesTreatment.success) ||
+          (!_.isUndefined(result.updateVulnerabilityDescription) &&
+            result.updateVulnerabilityDescription.success)
         ) {
           refetchData();
         }
