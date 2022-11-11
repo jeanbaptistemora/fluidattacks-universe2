@@ -57,41 +57,50 @@ def replace_req(
 ) -> Iterator[DependencyType]:
     for matched, line_number in replace_list:
         old_pkg = matched.group("old_prod")
+        old_version = matched.group("old_ver")
         repl_pkg = matched.group("new_prod")
         version = matched.group("new_ver")
         if old_pkg in req_dict:
+            if old_version and req_dict[old_pkg][1]["item"] != old_version:
+                continue
             req_dict[old_pkg] = format_pkg_dep(
                 repl_pkg, version, line_number, line_number
             )
     return iter(req_dict.values())
 
 
+def resolve_go_deps(content: str) -> Iterator[DependencyType]:
+    required: str = ""
+    replace_list: List[Tuple[Match[str], int]] = []
+    req_dict: Dict[str, DependencyType] = {}
+    for line_number, line in enumerate(content.splitlines(), 1):
+        if matched := re.search(GO_REQ_MOD_DEP, line):
+            add_require(matched, req_dict, line_number)
+        elif replace := re.search(GO_REP_DEP, line):
+            replace_list.append((replace, line_number))
+        elif not required:
+            if directive := GO_DIRECTIVE.match(line):
+                required = directive.group("directive")
+        elif required == "replace":
+            if replace := re.search(GO_REPLACE, line):
+                replace_list.append((replace, line_number))
+                continue
+            required = ""
+        elif matched := re.search(GO_MOD_DEP, line):
+            add_require(matched, req_dict, line_number)
+        else:
+            required = ""
+    return replace_req(req_dict, replace_list)
+
+
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.GO, MethodsEnum.GO_MOD)
-def go_mod(content: str, path: str) -> Iterator[DependencyType]:  # NOSONAR
+def go_mod(content: str, path: str) -> Iterator[DependencyType]:
     go_version = GO_VERSION.search(content)
-    major = int(go_version.group("major"))  # type: ignore
-    minor = int(go_version.group("minor"))  # type: ignore
+    if not go_version:
+        return iter([({}, {})])
+    major = int(go_version.group("major"))
+    minor = int(go_version.group("minor"))
     if major >= 2 or (major == 1 and minor >= 17):
-        required: str = ""
-        replace_list: List[Tuple[Match[str], int]] = []
-        req_dict: Dict[str, DependencyType] = {}
-        for line_number, line in enumerate(content.splitlines(), 1):
-            if matched := re.search(GO_REQ_MOD_DEP, line):
-                add_require(matched, req_dict, line_number)
-            elif replace := re.search(GO_REP_DEP, line):
-                replace_list.append((replace, line_number))
-            elif not required:
-                if directive := GO_DIRECTIVE.match(line):
-                    required = directive.group("directive")
-            elif required == "replace":
-                if replace := re.search(GO_REPLACE, line):
-                    replace_list.append((replace, line_number))
-                    continue
-                required = ""
-            elif matched := re.search(GO_MOD_DEP, line):
-                add_require(matched, req_dict, line_number)
-            else:
-                required = ""
-        return replace_req(req_dict, replace_list)
+        return resolve_go_deps(content)
     return iter([({}, {})])
