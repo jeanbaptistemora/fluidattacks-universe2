@@ -41,6 +41,7 @@ class AmendUsers:
             raw.data.message,
             raw.data.summary,
             raw.data.deltas,
+            raw.data.files,
         )
         _id = CommitId(raw.commit_id.hash, gen_fa_hash(data))
         return CommitDataObj(_id, data)

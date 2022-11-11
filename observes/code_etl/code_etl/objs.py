@@ -11,6 +11,10 @@ from code_etl.time_utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    FrozenList,
+    Maybe,
+)
 from typing import (
     Literal,
     Optional,
@@ -63,6 +67,7 @@ class CommitData:
     message: TruncatedStr[Literal[4096]]
     summary: TruncatedStr[Literal[256]]
     deltas: Deltas
+    files: Maybe[FrozenList[str]]
 
 
 @dataclass(frozen=True)

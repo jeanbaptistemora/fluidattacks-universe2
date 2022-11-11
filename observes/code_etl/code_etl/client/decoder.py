@@ -22,6 +22,9 @@ from code_etl.objs import (
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
+from fa_purity import (
+    Maybe,
+)
 from fa_purity.result import (
     Result,
     ResultE,
@@ -85,7 +88,7 @@ def decode_commit_data_2(
                 lambda dl: assert_not_none(raw.message).bind(
                     lambda msg: assert_not_none(raw.summary).map(
                         lambda s: CommitData(
-                            a[0], a[1], c[0], c[1], msg, s, dl
+                            a[0], a[1], c[0], c[1], msg, s, dl, Maybe.empty()
                         )
                     )
                 )

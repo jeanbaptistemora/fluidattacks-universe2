@@ -18,6 +18,9 @@ from code_etl.time_utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    Maybe,
+)
 from fa_purity.json.primitive.factory import (
     to_primitive,
 )
@@ -60,6 +63,7 @@ class CommitDataFactory:
             commit.stats.total["lines"],
             commit.stats.total["files"],
         )
+        files = tuple(str(f) for f in commit.stats.files)  # type: ignore[misc]
         data = CommitData(
             author,
             to_utc(commit.authored_datetime),
@@ -68,6 +72,7 @@ class CommitDataFactory:
             truncate(str(commit.message), 4096),
             truncate(str(commit.summary), 256),
             deltas,
+            Maybe.from_value(files),
         )
         _id = CommitId(commit.hexsha, gen_fa_hash(data))
         return CommitDataObj(_id, data)

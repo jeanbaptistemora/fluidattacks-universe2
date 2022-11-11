@@ -50,7 +50,7 @@ from git.repo.base import (
 import logging
 from typing import (
     cast,
-    Iterator,
+    Iterable,
 )
 
 LOG = logging.getLogger(__name__)
@@ -82,16 +82,14 @@ class Extractor:
     def extract_data(self, repo: Repo) -> PureIter[CommitStamp]:
         # using `unsafe_from_cmd` assumes the repository
         # is read-only/unmodified
-        commits: PureIter[GitCommit] = unsafe_from_cmd(
-            Cmd.from_cmd(
-                lambda: iter(
-                    cast(
-                        Iterator[GitCommit],
-                        repo.iter_commits(no_merges=True, topo_order=True),
-                    )
-                )
-            )
+        _commits: Cmd[Iterable[GitCommit]] = Cmd.from_cmd(
+            lambda: cast(
+                Iterable[GitCommit],
+                repo.iter_commits(no_merges=True, topo_order=True),
+            ),
         )
+        commits: PureIter[GitCommit] = unsafe_from_cmd(_commits)
+
         return until_empty(commits.map(self._to_stamp))
 
     def extract_repo(self) -> Maybe[RepoRegistration]:
