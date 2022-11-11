@@ -167,9 +167,7 @@ describe("AdditionalInfo", (): void => {
           variables: {
             commit: "ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
             source: "DETERMINISTIC",
-            specific: "1111",
             vulnerabilityId: "af7a48b8-d8fc-41da-9282-d424fff563f0",
-            where: "https://example.com/lines/edited",
           },
         },
         result: {
@@ -214,15 +212,6 @@ describe("AdditionalInfo", (): void => {
       screen.getByText(
         "searchFindings.tabVuln.additionalInfo.buttons.edit.text"
       )
-    );
-    await userEvent.type(
-      screen.getByRole("textbox", { name: /where/iu }),
-      "/edited"
-    );
-    await userEvent.clear(screen.getByRole("textbox", { name: /specific/iu }));
-    await userEvent.type(
-      screen.getByRole("textbox", { name: /specific/iu }),
-      "1111"
     );
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: /source/iu }),

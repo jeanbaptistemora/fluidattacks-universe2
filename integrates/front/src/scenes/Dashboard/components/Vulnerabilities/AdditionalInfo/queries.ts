@@ -40,16 +40,12 @@ const UPDATE_VULNERABILITY_DESCRIPTION: DocumentNode = gql`
   mutation UpdateVulnerabilityDescription(
     $commit: String
     $source: VulnerabilitySource
-    $specific: String
     $vulnerabilityId: ID!
-    $where: String
   ) {
     updateVulnerabilityDescription(
       commit: $commit
       source: $source
-      specific: $specific
       vulnerabilityId: $vulnerabilityId
-      where: $where
     ) {
       success
     }

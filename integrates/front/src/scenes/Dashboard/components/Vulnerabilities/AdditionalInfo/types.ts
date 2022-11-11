@@ -16,9 +16,7 @@ interface IAdditionalInfoProps {
 interface IFormValues {
   commitHash: string | null;
   source: string;
-  specific: string;
   type: string;
-  where: string;
 }
 
 interface IGetVulnAdditionalInfoAttr {

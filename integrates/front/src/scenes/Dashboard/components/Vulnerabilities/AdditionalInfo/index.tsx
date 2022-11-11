@@ -192,9 +192,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       variables: {
         commit: values.type === "lines" ? values.commitHash : undefined,
         source: values.source === "ASM" ? undefined : values.source,
-        specific: values.specific,
         vulnerabilityId: vulnerability.id,
-        where: values.where,
       },
     });
   }
@@ -206,18 +204,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         initialValues={{
           commitHash: data.vulnerability.commitHash,
           source: data.vulnerability.source.toUpperCase(),
-          specific: data.vulnerability.specific,
           type: data.vulnerability.vulnerabilityType,
-          where:
-            _.isNull(data.vulnerability.rootNickname) ||
-            _.isEmpty(data.vulnerability.rootNickname) ||
-            data.vulnerability.vulnerabilityType !== "lines"
-              ? data.vulnerability.where
-              : _.replace(
-                  data.vulnerability.where,
-                  new RegExp(`^${data.vulnerability.rootNickname}/`, "u"),
-                  ""
-                ),
         }}
         name={"editVulnerability"}
         onSubmit={onSubmit}
@@ -231,34 +218,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               .nullable(),
           }),
           source: string().required(t("validations.required")),
-          specific: string().when("type", {
-            is: "lines",
-            otherwise: string().when("type", {
-              is: "ports",
-              otherwise: string().required(t("validations.required")),
-              then: string()
-                .required(t("validations.required"))
-                .matches(regExps.numeric, t("validations.numeric"))
-                .test(
-                  "isValidPortRange",
-                  t("validations.portRange"),
-                  (value?: string): boolean => {
-                    if (value === undefined || _.isEmpty(value)) {
-                      return false;
-                    }
-                    const port = _.toInteger(value);
-
-                    return port >= 0 && port <= 65535;
-                  }
-                ),
-            }),
-            then: string()
-              .required(t("validations.required"))
-              .matches(regExps.numeric, t("validations.numeric")),
-          }),
-          where: string()
-            .required(t("validations.required"))
-            .matches(regExps.vulnerabilityWhere, t("validations.location")),
         })}
       >
         {({ dirty, submitForm, values }): React.ReactNode => {
@@ -280,26 +239,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     <Col>
                       <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
                       <Detail
-                        editableField={
-                          <div
-                            className={
-                              "flex flex-row justify-start items-center w-100"
-                            }
-                          >
-                            <div>
-                              {_.isNull(data.vulnerability.rootNickname) ||
-                              _.isEmpty(data.vulnerability.rootNickname) ||
-                              data.vulnerability.vulnerabilityType !== "lines"
-                                ? ""
-                                : `${data.vulnerability.rootNickname}/`}
-                            </div>
-                            <div className={"flex-grow-1"}>
-                              <Input name={"where"} />
-                            </div>
-                          </div>
-                        }
+                        editableField={undefined}
                         field={_.unescape(data.vulnerability.where)}
-                        isEditing={isEditing}
+                        isEditing={false}
                         label={undefined}
                       />
                       {_.isEmpty(data.vulnerability.stream) ? undefined : (
@@ -311,9 +253,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         />
                       )}
                       <Detail
-                        editableField={<Input name={"specific"} />}
+                        editableField={undefined}
                         field={<Value value={data.vulnerability.specific} />}
-                        isEditing={isEditing}
+                        isEditing={false}
                         label={t(
                           `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
                         )}
