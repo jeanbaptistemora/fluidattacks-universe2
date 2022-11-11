@@ -15,14 +15,22 @@ import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 
 interface IOrganizationOverviewProps {
-  numberAuthorsSquad: number;
+  costsAuthors: number;
+  costsBase: number;
   costsTotal: number;
+  numberAuthorsMachine: number;
+  numberAuthorsSquad: number;
+  numberAuthorsTotal: number;
   organizationName: string;
 }
 
 export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
-  numberAuthorsSquad,
+  costsAuthors,
+  costsBase,
   costsTotal,
+  numberAuthorsMachine,
+  numberAuthorsSquad,
+  numberAuthorsTotal,
   organizationName,
 }: IOrganizationOverviewProps): JSX.Element => {
   const { t } = useTranslation();
@@ -41,7 +49,53 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
           </InfoDropdown>
         </Text>
         <Row>
-          <Col lg={50} md={50} sm={50}>
+          <Col lg={33} md={50} sm={100}>
+            <OverviewCard
+              content={t(
+                "organization.tabs.billing.overview.costsBase.content",
+                { costsBase }
+              )}
+              info={t("organization.tabs.billing.overview.costsBase.info")}
+              title={t("organization.tabs.billing.overview.costsBase.title")}
+            />
+          </Col>
+          <Col lg={33} md={50} sm={100}>
+            <OverviewCard
+              content={t(
+                "organization.tabs.billing.overview.costsAuthors.content",
+                { costsAuthors }
+              )}
+              info={t("organization.tabs.billing.overview.costsAuthors.info")}
+              title={t("organization.tabs.billing.overview.costsAuthors.title")}
+            />
+          </Col>
+          <Col lg={33} md={50} sm={100}>
+            <OverviewCard
+              content={t(
+                "organization.tabs.billing.overview.costsTotal.content",
+                { costsTotal }
+              )}
+              info={t("organization.tabs.billing.overview.costsTotal.info")}
+              title={t("organization.tabs.billing.overview.costsTotal.title")}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={33} md={50} sm={100}>
+            <OverviewCard
+              content={t(
+                "organization.tabs.billing.overview.numberAuthorsMachine.content",
+                { numberAuthorsMachine }
+              )}
+              info={t(
+                "organization.tabs.billing.overview.numberAuthorsMachine.info"
+              )}
+              title={t(
+                "organization.tabs.billing.overview.numberAuthorsMachine.title"
+              )}
+            />
+          </Col>
+          <Col lg={33} md={50} sm={100}>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberAuthorsSquad.content",
@@ -55,14 +109,18 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={50} md={50} sm={50}>
+          <Col lg={33} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.costsTotal.content",
-                { costsTotal }
+                "organization.tabs.billing.overview.numberAuthorsTotal.content",
+                { numberAuthorsTotal }
               )}
-              info={t("organization.tabs.billing.overview.costsTotal.info")}
-              title={t("organization.tabs.billing.overview.costsTotal.title")}
+              info={t(
+                "organization.tabs.billing.overview.numberAuthorsTotal.info"
+              )}
+              title={t(
+                "organization.tabs.billing.overview.numberAuthorsTotal.title"
+              )}
             />
           </Col>
         </Row>

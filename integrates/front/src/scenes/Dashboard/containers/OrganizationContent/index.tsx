@@ -193,9 +193,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   >
                     {translate.t("organization.tabs.policies.text")}
                   </Tab>
-                  <Can
-                    do={"api_resolvers_organization_payment_methods_resolve"}
-                  >
+                  <Can do={"api_resolvers_organization_billing_resolve"}>
                     <Tab
                       id={"billingTab"}
                       link={`${url}/billing`}

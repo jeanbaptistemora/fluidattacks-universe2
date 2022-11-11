@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# None
-
 from api.resolvers.organization_billing import (
     payment_methods,
     portal,
@@ -11,8 +9,6 @@ from api.resolvers.organization_billing import (
 from ariadne import (
     ObjectType,
 )
-
-# None
 
 ORGANIZATION_BILLING = ObjectType("OrganizationBilling")
 ORGANIZATION_BILLING.set_field("paymentMethods", payment_methods.resolve)
