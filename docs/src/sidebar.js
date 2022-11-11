@@ -138,6 +138,7 @@ const About = [
     type: "category",
     label: "Compare",
     items: [
+      "about/compare/introduction",
       "about/compare/checkmarx",
       "about/compare/crashtest",
       "about/compare/detectify",
