@@ -20,6 +20,8 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
@@ -85,27 +87,22 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   >[] = [
     {
       accessorKey: "reportDate",
-      enableColumnFilter: false,
       header: "Date",
     },
     {
       accessorKey: "title",
-      enableColumnFilter: false,
       header: "Type",
     },
     {
       accessorKey: "description",
-      enableColumnFilter: false,
       header: "Description",
     },
     {
       accessorKey: "severityScore",
-      enableColumnFilter: false,
       header: "Severity",
     },
     {
       accessorKey: "openVulnerabilities",
-      enableColumnFilter: false,
       header: "Open Vulns.",
     },
     {
@@ -114,9 +111,20 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         cell: ICellHelper<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
       ): JSX.Element => statusFormatter(cell.getValue()),
       header: "State",
-      meta: { filterType: "select" },
     },
   ];
+
+  const [filters, setFilters] = useState<
+    IFilter<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>[]
+  >([
+    {
+      id: "currentState",
+      key: "currentState",
+      label: "State",
+      selectOptions: ["Created", "Rejected", "Submitted"],
+      type: "select",
+    },
+  ]);
 
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
   const titleSuggestions: string[] = _.sortBy(
@@ -270,6 +278,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     return matchingSuggestion.description;
   };
 
+  const dataset: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
+    formatDrafts(data?.group.drafts ?? []);
+
+  const filteredData: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
+    useFilters(dataset, filters);
+
   if (
     _.isUndefined(data) ||
     _.isEmpty(data) ||
@@ -283,9 +297,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const validateNoDuplicates = (title: string): string | undefined =>
     checkDuplicates(title, data.group.drafts, data.group.findings);
-
-  const dataset: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
-    formatDrafts(data.group.drafts);
 
   return (
     <React.StrictMode>
@@ -352,8 +363,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       </Modal>
       <Table
         columns={tableColumns}
-        data={dataset}
-        enableColumnFilters={true}
+        data={filteredData}
         exportCsv={true}
         extraButtons={
           <Have I={"can_report_vulnerabilities"}>
@@ -368,6 +378,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             </Tooltip>
           </Have>
         }
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblDrafts"}
         onRowClick={goToFinding}
       />
