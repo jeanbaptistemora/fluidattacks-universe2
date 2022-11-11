@@ -4,9 +4,14 @@
 
 from lib_path.common import (
     DependencyType,
+    format_pkg_dep,
 )
 from lib_path.f011.gem import (
     gem_gemfile,
+)
+from lib_path.f011.go import (
+    add_require,
+    GO_REQ_MOD_DEP,
 )
 from lib_path.f393.gem import (
     gem_gemfile_dev,
@@ -17,6 +22,7 @@ from operator import (
 import pytest
 import re
 from typing import (
+    Dict,
     Iterator,
     List,
     Pattern,
@@ -96,3 +102,18 @@ def test_gem_gemfile_dev() -> None:
             break
 
     assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_go_add_require() -> None:
+    req_dict: Dict[str, DependencyType] = {}
+    dep_line: str = "require gorm.io/gorm v1.24.0"
+    line_number: int = 24
+    if matched := re.search(GO_REQ_MOD_DEP, dep_line):
+        add_require(matched, req_dict, line_number)
+    exp_dict = {
+        "gorm.io/gorm": format_pkg_dep(
+            "gorm.io/gorm", "1.24.0", line_number, line_number
+        )
+    }
+    assert exp_dict == req_dict
