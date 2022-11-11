@@ -16,9 +16,11 @@ resource "aws_kinesis_stream" "common_compute_monitoring_jobs" {
   }
 }
 
-data "aws_iam_policy_document" "common_compute_invoke_kinesis" {
+data "aws_iam_policy_document" "common_compute_kinesis" {
   statement {
     actions = [
+      "kinesis:Describe*",
+      "kinesis:Get*",
       "kinesis:PutRecord",
       "kinesis:PutRecords",
     ]
@@ -29,39 +31,35 @@ data "aws_iam_policy_document" "common_compute_invoke_kinesis" {
   }
 }
 
-resource "aws_iam_policy" "common_compute_invoke_kinesis" {
-  name = "common_compute_invoke_kinesis"
+resource "aws_iam_policy" "common_compute_kinesis" {
+  name = "common_compute_kinesis"
 
-  policy = data.aws_iam_policy_document.common_compute_invoke_kinesis.json
+  policy = data.aws_iam_policy_document.common_compute_kinesis.json
 }
 
-data "aws_iam_policy_document" "common_compute_assume_invoke_kinesis" {
+data "aws_iam_policy_document" "common_compute_assume_kinesis" {
   statement {
     actions = ["sts:AssumeRole"]
 
     principals {
       type = "Service"
       identifiers = [
-        // TODO: I think `events` is the right one,
-        // but pending to debug and remove the unnecessary ones
         "events.amazonaws.com",
         "firehose.amazonaws.com",
-        "kinesis.amazonaws.com",
-        "schemas.amazonaws.com",
       ]
     }
   }
 }
 
-resource "aws_iam_role" "common_compute_invoke_kinesis" {
-  name = "common-compute-invoke-kinesis"
+resource "aws_iam_role" "common_compute_kinesis" {
+  name = "common-compute-kinesis"
 
-  assume_role_policy = data.aws_iam_policy_document.common_compute_assume_invoke_kinesis.json
+  assume_role_policy = data.aws_iam_policy_document.common_compute_assume_kinesis.json
 }
 
-resource "aws_iam_role_policy_attachment" "common_compute_invoke_kinesis" {
-  role       = aws_iam_role.common_compute_invoke_kinesis.name
-  policy_arn = aws_iam_policy.common_compute_invoke_kinesis.arn
+resource "aws_iam_role_policy_attachment" "common_compute_kinesis" {
+  role       = aws_iam_role.common_compute_kinesis.name
+  policy_arn = aws_iam_policy.common_compute_kinesis.arn
 }
 
 resource "aws_cloudwatch_event_rule" "common_compute_monitoring_jobs" {
@@ -83,9 +81,54 @@ resource "aws_cloudwatch_event_rule" "common_compute_monitoring_jobs" {
 resource "aws_cloudwatch_event_target" "common_compute_monitoring_jobs" {
   rule     = aws_cloudwatch_event_rule.common_compute_monitoring_jobs.name
   arn      = aws_kinesis_stream.common_compute_monitoring_jobs.arn
-  role_arn = aws_iam_role.common_compute_invoke_kinesis.arn
+  role_arn = aws_iam_role.common_compute_kinesis.arn
 
   kinesis_target {
     partition_key_path = "$.detail.jobId"
   }
+}
+
+resource "aws_s3_bucket" "common_compute_monitoring" {
+  bucket = "common-compute-monitoring"
+}
+
+resource "aws_s3_bucket_acl" "bucket_acl" {
+  bucket = aws_s3_bucket.common_compute_monitoring.id
+  acl    = "private"
+}
+
+resource "aws_iam_role" "assume_firehose" {
+  name = "assume_firehose"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Action" : "sts:AssumeRole",
+        "Principal" : {
+          "Service" : "firehose.amazonaws.com"
+        },
+        "Effect" : "Allow",
+      }
+    ]
+  })
+}
+
+resource "aws_cloudwatch_log_group" "common_compute_monitoring" {
+  name = "common-compute-monitoring"
+}
+
+resource "aws_cloudwatch_log_stream" "common_compute_monitoring_jobs" {
+  name           = "jobs"
+  log_group_name = aws_cloudwatch_log_group.common_compute_monitoring.name
+}
+
+resource "aws_s3_object" "common_compute_monitoring_jobs_json_paths" {
+  bucket = aws_s3_bucket.common_compute_monitoring.id
+  key    = "jobs/jsonpaths.json"
+  content = jsonencode({
+    "jsonpaths" : [
+      "$.detail.jobId",
+    ]
+  })
 }
