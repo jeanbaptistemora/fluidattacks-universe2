@@ -237,6 +237,32 @@ and the Git Root corresponding
 to that registered environment.
 
 ![Environment Registered](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_registered.png)
+
+## Managing git root environments
+
+Authorized users will also find the
+**Environment URLs** tab in the edit modal.
+You can add environments corresponding
+to the selected git Root by clicking
+on the **Add Environment URL** button.
+
+![Environment URLs Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_tab.png)
+
+Here you will get a popup window
+where you will have to select which
+environment URL type you want to
+add and the URL of this one,
+followed by clicking Confirm.
+
+![Add Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_environment_select.png)
+
+You will get the added
+environment successfully.
+Remember that you can also delete
+any environment by clicking on
+the trash button.
+
+![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
 ## IP roots
 
 An IP address is the unique
@@ -396,32 +422,6 @@ Remember to click on the
 **Check Access** button
 or validation if the credential
 gives access to clone the repository.
-
-## Managing git root environments
-
-Authorized users will also find the
-**Environment URLs** tab in the edit modal.
-You can add environments corresponding
-to the selected git Root by clicking
-on the **Add Environment URL** button.
-
-![Environment URLs Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_tab.png)
-
-Here you will get a popup window
-where you will have to select which
-environment URL type you want to
-add and the URL of this one,
-followed by clicking Confirm.
-
-![Add Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_environment_select.png)
-
-You will get the added
-environment successfully.
-Remember that you can also delete
-any environment by clicking on
-the trash button.
-
-![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
 
 ## Deactivate a Git Root
 
