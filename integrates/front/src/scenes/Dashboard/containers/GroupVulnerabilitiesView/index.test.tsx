@@ -7,6 +7,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -269,6 +270,40 @@ describe("GroupVulnerabilitiesView", (): void => {
     });
 
     expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should have Filter options", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <Route
+            component={GroupVulnerabilitiesView}
+            path={"/groups/:groupName/vulns"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await userEvent.click(screen.getByText("Filter"));
+
+    expect(screen.getAllByText("Status")[1]).toBeInTheDocument();
+    expect(screen.getAllByText("Treatment")[1]).toBeInTheDocument();
+    expect(screen.getAllByText("Reattack")[1]).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByText("Status")[1]);
+
+    expect(screen.getByText("open")).toBeInTheDocument();
+    expect(screen.getByText("closed")).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByText("Treatment")[1]);
+
+    expect(screen.getAllByText("In progress")[1]).toBeInTheDocument();
+    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.getByText("Temporarily accepted")).toBeInTheDocument();
+    expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
