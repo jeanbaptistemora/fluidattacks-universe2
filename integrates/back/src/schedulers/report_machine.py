@@ -168,7 +168,12 @@ from urllib.parse import (
     ParseResult,
     urlparse,
 )
+from vulnerabilities.domain.snippet import (
+    set_snippet,
+)
 from vulnerabilities.domain.utils import (
+    get_hash,
+    get_hash_from_typed,
     get_path_from_integrates_vulnerability,
 )
 from vulnerability_files.domain import (
@@ -891,6 +896,49 @@ async def _is_machine_finding(loaders: Dataloaders, finding_id: str) -> bool:
     return is_machine_finding
 
 
+async def upload_snippet(
+    loaders: Dataloaders,
+    root: GitRoot,
+    vuln_id: str,
+    sarif_vulns: list[Any],
+) -> None:
+    current_vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    if current_vuln.state.status != VulnerabilityStateStatus.OPEN:
+        return
+
+    current_hash = get_hash_from_typed(current_vuln)
+    for vuln in sarif_vulns:
+        if vuln["properties"]["kind"] == "lines":
+            _hash = get_hash(
+                vuln["locations"][0]["physicalLocation"]["region"][
+                    "startLine"
+                ],
+                "LINES",
+                ignore_advisories(
+                    _get_path_from_sarif_vulnerability(vuln, True)
+                ),
+                current_vuln.root_id,
+            )
+        else:
+            _hash = get_hash(
+                vuln["locations"][0]["physicalLocation"]["region"][
+                    "startLine"
+                ],
+                "INPUTS",
+                ignore_advisories(_get_input_url(vuln, root.state.nickname)),
+                current_vuln.root_id,
+            )
+        if current_hash == _hash:
+            await set_snippet(
+                current_vuln,
+                current_vuln.state,
+                vuln["locations"][0]["physicalLocation"]["region"]["snippet"][
+                    "text"
+                ],
+            )
+            break
+
+
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
@@ -990,6 +1038,12 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             EntityDependency.upload_file,
             finding_ids=[finding.id],
             vulnerability_ids=list(persisted_vulns),
+        )
+        await collect(
+            [
+                upload_snippet(loaders, git_root, vuln_id, sarif_vulns)
+                for vuln_id in persisted_vulns
+            ]
         )
     else:
         reattack_future.close()
