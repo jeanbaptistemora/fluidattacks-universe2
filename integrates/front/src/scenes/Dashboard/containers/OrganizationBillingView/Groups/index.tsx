@@ -23,7 +23,6 @@ import { Text } from "components/Text";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { areMutationsValid } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/helpers";
 import { linkFormatter } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/linkFormatter";
-import { Container } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/styles";
 import type { IUpdateGroupResultAttr } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/types";
 import { UpdateSubscriptionModal } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/UpdateSubscriptionModal";
 import { UPDATE_GROUP_MUTATION } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
@@ -186,15 +185,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.costsBase;
-      },
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      enableColumnFilter: false,
-      header: t<string>("organization.tabs.billing.groups.headers.costsBase"),
-    },
-    {
-      accessorFn: (row: IGroupAttr): number | undefined => {
         return row.billing?.numberAuthors;
       },
       cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
@@ -203,6 +193,15 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       header: t<string>(
         "organization.tabs.billing.groups.headers.numberAuthors"
       ),
+    },
+    {
+      accessorFn: (row: IGroupAttr): number | undefined => {
+        return row.billing?.costsBase;
+      },
+      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      enableColumnFilter: false,
+      header: t<string>("organization.tabs.billing.groups.headers.costsBase"),
     },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
@@ -339,7 +338,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   );
 
   return (
-    <Container>
+    <div>
       <Text fw={7} mb={3} mt={4} size={"big"}>
         {t("organization.tabs.billing.groups.title")}
       </Text>
@@ -371,6 +370,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           permissions={currentRow.permissions}
         />
       )}
-    </Container>
+    </div>
   );
 };

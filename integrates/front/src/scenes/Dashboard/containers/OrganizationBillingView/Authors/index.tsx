@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 
 import { Table } from "components/Table";
 import { Text } from "components/Text";
-import { Container } from "scenes/Dashboard/containers/OrganizationBillingView/Authors/styles";
 import type {
   IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
@@ -56,7 +55,7 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
   const dataset: IOrganizationAuthorsTable[] = formatAuthorsData(authors);
 
   return (
-    <Container>
+    <div>
       <Text fw={7} mb={3} mt={4} size={"big"}>
         {t("organization.tabs.billing.authors.title")}
       </Text>
@@ -66,6 +65,6 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
         enableColumnFilters={true}
         id={"tblGroups"}
       />
-    </Container>
+    </div>
   );
 };

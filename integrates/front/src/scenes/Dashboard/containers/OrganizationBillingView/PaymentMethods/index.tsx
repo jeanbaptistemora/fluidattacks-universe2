@@ -24,7 +24,6 @@ import { useTranslation } from "react-i18next";
 
 import { AddCreditCardModal } from "./AddCreditCardModal";
 import { AddOtherMethodModal } from "./AddOtherMethodModal";
-import { Container } from "./styles";
 import { UpdateCreditCardModal } from "./UpdateCreditCardModal";
 import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
@@ -486,7 +485,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     ];
 
     return (
-      <Container>
+      <div>
         <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("organization.tabs.billing.paymentMethods.title")}
         </Text>
@@ -640,6 +639,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             onSubmit={handleUpdatePaymentMethodSubmit}
           />
         )}
-      </Container>
+      </div>
     );
   };

@@ -6,10 +6,6 @@
 
 import styled from "styled-components";
 
-const Container = styled.div.attrs({
-  className: "word-wrap",
-})``;
-
 const LinkSpan = styled.span.attrs({})<{
   isNone: boolean;
 }>`
@@ -24,4 +20,4 @@ const LinkSpan = styled.span.attrs({})<{
   }
 `;
 
-export { Container, LinkSpan };
+export { LinkSpan };
