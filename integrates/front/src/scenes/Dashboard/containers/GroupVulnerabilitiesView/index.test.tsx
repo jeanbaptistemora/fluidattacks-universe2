@@ -51,9 +51,9 @@ describe("GroupVulnerabilitiesView", (): void => {
               lastVerificationDate: null,
               organizationName: "test",
               remediated: false,
-              reportDate: "",
+              reportDate: "2019-05-23 21:19:29",
               rootNickname: "https:",
-              severity: "3",
+              severity: "2.7",
               snippet: null,
               specific: "specific-1",
               stream: null,
@@ -176,6 +176,7 @@ describe("GroupVulnerabilitiesView", (): void => {
         variables: {
           first: 100,
           groupName: "unittesting",
+          search: "",
         },
       },
       result: {
@@ -210,7 +211,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should display all group vulnerabilities columns", (): void => {
+  it("should display all group vulnerabilities columns", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -224,6 +225,10 @@ describe("GroupVulnerabilitiesView", (): void => {
       </MemoryRouter>
     );
 
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
     expect(screen.getByText("Vulnerability")).toBeInTheDocument();
     expect(screen.getByText("Type")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
@@ -232,6 +237,16 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("Found")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Evidence")).toBeInTheDocument();
+    expect(
+      screen.getByText("https://example.com/inputs | specific-1")
+    ).toBeInTheDocument();
+    expect(screen.getByText("001. test draft title")).toBeInTheDocument();
+    expect(screen.getAllByText("Open")[0]).toBeInTheDocument();
+    expect(screen.getByText("In progress")).toBeInTheDocument();
+    expect(screen.getByText("Requested")).toBeInTheDocument();
+    expect(screen.getByText("2019-05-23")).toBeInTheDocument();
+    expect(screen.getByText("2.7")).toBeInTheDocument();
+    expect(screen.getAllByText("View")[0]).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
