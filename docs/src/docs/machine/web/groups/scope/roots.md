@@ -214,6 +214,174 @@ if you're going to add or edit secrets,
 you can learn how to do it
 [here](machine/web/groups/scope/roots/#secrets).
 
+### Deactivate a Git Root
+
+:::caution
+Scope changes may involve closing or reporting new vulnerabilities
+:::
+
+Deleting a root isn't possible
+in the ARM because in the
+security world it is
+always better to keep
+records of everything.
+However,
+you can change its state
+to **Active** or **Inactive**,
+which would mean the following:
+
+- **Active:**
+  The repository is available and ready for our analysts to access.
+- **Inactive:**
+  The repository does not exist anymore, it was changed, or it was added by
+  mistake.
+
+We will notify the state changes
+via email to all the people involved in the
+project (both `Fluid Attacks’s`
+and the customer’s users).
+
+You can change the state at any moment.
+We will keep track of every change for
+traceability reasons.
+
+To do this action of change of state,
+you must first find the branch
+you want to disable or move to.
+Once you know which one it is,
+go to the state column and
+click on the toggle of the
+branch that is currently active.
+
+![Deactivate Git Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668182871/docs/web/groups/scope/toggle_brach.png)
+
+Here,
+you will get pop-up window
+asking why you want to
+disable the root.
+
+![Deactivate Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_root_windw.png)
+
+When you click on the drop-down menu,
+you will get three options:
+Registered by mistake,
+move to another group,
+and other.
+
+#### Registered by mistake
+
+This option is useful in case
+of mistakes when adding a root,
+but if you just
+need to update the URL,
+branch or any other root attributes,
+refer to [Managing Git Root](machine/web/groups/scope/roots/#managing-git-root).
+
+#### Moved to another group
+
+This option allows moving a
+root to another group along with the
+vulnerabilities reported to it.
+
+![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668183656/docs/web/groups/scope/move_other_group.png)
+
+The search bar will suggest
+other groups with the same
+service type that you have
+access to within the organization.
+
+#### Other
+
+When neither of the previous two
+reasons applies,
+then you can use this one and
+put what the reason is.
+
+Then,
+after clicking the **"Cofirm"** button,
+the root will be deactivated in the
+current group and created in
+the selected group.
+
+## Protocols to clone a Git repository
+
+To clone a Git repository
+in the Scope section,
+you can do it with the
+protocol **HTTPS** or
+**SSH key (Security Shell)**,
+which you can use for authentication.
+
+## Adding a root with the HTTPS​
+
+With HTTPS,
+you can access it in two ways:
+**User and Password**
+or **Access Token**.
+
+![Adding Root HTTPS](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_https.png)
+
+When selecting
+**User and Password** option,
+you have to fill in the fields
+that say **Repository user**
+and **Repository password**,
+followed by clicking on the
+**Check Access** button.
+
+![Adding Root Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_option.png)
+
+Remember that the **Check Access**
+button helps us to validate if the
+access credentials given are
+correct to perform the
+cloning successfully.
+If they are not,
+you will get invalid Credentials,
+and if they are valid,
+you will get Success access.
+
+## Adding a root with the SSH key
+
+With SSH keys,
+you can connect to your repository
+server without using a username and password.
+Here you have to supply a Private Key.
+If you need to set up an SSH Key,
+we recommend reading this document:
+[Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account)
+.
+We show you how to generate
+your private and public keys
+step by step.
+
+![Adding Root SSH](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_ssh.png)
+
+Remember to click on the
+**Check Access** button
+or validation if the credential
+gives access to clone the repository.
+
+## Status in Git Root
+
+The status help us to see how our
+repository is in the cloning process.
+We manage a total of 5 status.
+
+- **Cloning:**
+  The repository is being cloned.
+- **Ok:**
+  The cloning was successful.
+- **Failed:**
+  Something went wrong with the cloning.
+- **N/A:**
+  The root is inactive.
+- **Unknown:**
+  Is the initial state
+  when creating a root,
+  meaning it has not yet
+  been cloned or is glued
+  for this action.
 ## Environment URLs
 
 Here you see the environments
@@ -371,175 +539,6 @@ reported vulnerabilities,
 and our team can efficiently
 verify the effectiveness of
 the fixes you implemented.
-
-## Protocols to clone a Git repository
-
-To clone a Git repository
-in the Scope section,
-you can do it with the
-protocol **HTTPS** or
-**SSH key (Security Shell)**,
-which you can use for authentication.
-
-## Adding a root with the HTTPS​
-
-With HTTPS,
-you can access it in two ways:
-**User and Password**
-or **Access Token**.
-
-![Adding Root HTTPS](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_https.png)
-
-When selecting
-**User and Password** option,
-you have to fill in the fields
-that say **Repository user**
-and **Repository password**,
-followed by clicking on the
-**Check Access** button.
-
-![Adding Root Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_option.png)
-
-Remember that the **Check Access**
-button helps us to validate if the
-access credentials given are
-correct to perform the
-cloning successfully.
-If they are not,
-you will get invalid Credentials,
-and if they are valid,
-you will get Success access.
-
-## Adding a root with the SSH key
-
-With SSH keys,
-you can connect to your repository
-server without using a username and password.
-Here you have to supply a Private Key.
-If you need to set up an SSH Key,
-we recommend reading this document:
-[Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account)
-.
-We show you how to generate
-your private and public keys
-step by step.
-
-![Adding Root SSH](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_ssh.png)
-
-Remember to click on the
-**Check Access** button
-or validation if the credential
-gives access to clone the repository.
-
-## Deactivate a Git Root
-
-:::caution
-Scope changes may involve closing or reporting new vulnerabilities
-:::
-
-Deleting a root isn't possible
-in the ARM because in the
-security world it is
-always better to keep
-records of everything.
-However,
-you can change its state
-to **Active** or **Inactive**,
-which would mean the following:
-
-- **Active:**
-  The repository is available and ready for our analysts to access.
-- **Inactive:**
-  The repository does not exist anymore, it was changed, or it was added by
-  mistake.
-
-We will notify the state changes
-via email to all the people involved in the
-project (both `Fluid Attacks’s`
-and the customer’s users).
-
-You can change the state at any moment.
-We will keep track of every change for
-traceability reasons.
-
-To do this action of change of state,
-you must first find the branch
-you want to disable or move to.
-Once you know which one it is,
-go to the state column and
-click on the toggle of the
-branch that is currently active.
-
-![Deactivate Git Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668182871/docs/web/groups/scope/toggle_brach.png)
-
-Here,
-you will get pop-up window
-asking why you want to
-disable the root.
-
-![Deactivate Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_root_windw.png)
-
-When you click on the drop-down menu,
-you will get three options:
-Registered by mistake,
-move to another group,
-and other.
-
-### Registered by mistake
-
-This option is useful in case
-of mistakes when adding a root,
-but if you just
-need to update the URL,
-branch or any other root attributes,
-refer to [Managing Git Root](machine/web/groups/scope/roots/#managing-git-root).
-
-### Moved to another group
-
-This option allows moving a
-root to another group along with the
-vulnerabilities reported to it.
-
-![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668183656/docs/web/groups/scope/move_other_group.png)
-
-The search bar will suggest
-other groups with the same
-service type that you have
-access to within the organization.
-
-### Other
-
-When neither of the previous two
-reasons applies,
-then you can use this one and
-put what the reason is.
-
-Then,
-after clicking the **"Cofirm"** button,
-the root will be deactivated in the
-current group and created in
-the selected group.
-
-## Status in Git Root
-
-The status help us to see how our
-repository is in the cloning process.
-We manage a total of 5 status.
-
-- **Cloning:**
-  The repository is being cloned.
-- **Ok:**
-  The cloning was successful.
-- **Failed:**
-  Something went wrong with the cloning.
-- **N/A:**
-  The root is inactive.
-- **Unknown:**
-  Is the initial state
-  when creating a root,
-  meaning it has not yet
-  been cloned or is glued
-  for this action.
 
 ## Secrets
 
