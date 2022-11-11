@@ -1,0 +1,4 @@
+---
+lib_root.f353.js_decode_insecure_jwt_token:
+  en: Token JWT is not verified before decoding.
+  es: El token JWT no es verificado antes de ser decodificado.

@@ -919,6 +919,14 @@
       "title": "350. Insecure digital certificates - Chain of trust"
     }
   },
+  "F353": {
+    "EN": {
+      "title": "353. Lack of data validation - Token"
+    },
+    "ES": {
+      "title": "353. Lack of data validation - Token"
+    }
+  },
   "F354": {
     "EN": {
       "title": "354. Insecure file upload - Files Limit"

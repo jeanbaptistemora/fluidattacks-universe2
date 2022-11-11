@@ -974,6 +974,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.crypto,
         requirements=[88, 89, 90, 91, 92, 93],
     )
+    F353: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F353",
+        cwe=287,
+        execution_queue=ExecutionQueue.crypto,
+        requirements=[228],
+    )
     F354: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F354",
@@ -4199,14 +4206,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JS_DECODE_INSECURE_JWT_TOKEN = MethodInfo(
-        file_name="javascript",
-        name="js_decode_insecure_jwt_token",
-        module="lib_root",
-        finding=FindingEnum.F309,
-        developer=DeveloperEnum.FLOR_CALDERON,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TS_INSECURE_JWT_TOKEN = MethodInfo(
         file_name="typescript",
         name="ts_insecure_jwt_token",
@@ -4356,6 +4355,22 @@ class MethodsEnum(Enum):
         name="java_use_insecure_trust_manager",
         module="lib_root",
         finding=FindingEnum.F350,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_DECODE_INSECURE_JWT_TOKEN = MethodInfo(
+        file_name="javascript",
+        name="js_decode_insecure_jwt_token",
+        module="lib_root",
+        finding=FindingEnum.F309,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_DECODE_INSECURE_JWT_TOKEN = MethodInfo(
+        file_name="typescript",
+        name="ts_decode_insecure_jwt_token",
+        module="lib_root",
+        finding=FindingEnum.F309,
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
