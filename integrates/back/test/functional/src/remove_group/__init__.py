@@ -36,3 +36,24 @@ async def get_result(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_query_group(
+    *,
+    email: str,
+    group_name: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        query {{
+            group(groupName: "{group_name}"){{
+                name
+                __typename
+            }}
+        }}
+    """
+    data: dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=email,
+        context=get_new_context(),
+    )

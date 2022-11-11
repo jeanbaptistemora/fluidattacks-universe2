@@ -1395,6 +1395,7 @@ async def remove_resources(
                 cursor=cursor,
                 unreliable_indicators=unreliable_indicators,
             )
+    await groups_model.remove(group_name=group_name)
 
 
 async def remove_stakeholder(

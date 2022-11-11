@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from custom_exceptions import (
+    GroupNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -51,5 +54,5 @@ async def test_remove_obsolete_groups() -> None:
     assert test_group_1.state.status == GroupStateStatus.ACTIVE
     assert test_group_1.state.pending_deletion_date
 
-    test_group_2: Group = await loaders.group.load(test_group_name_2)
-    assert test_group_2.state.status == GroupStateStatus.DELETED
+    with pytest.raises(GroupNotFound):
+        await loaders.group.load(test_group_name_2)

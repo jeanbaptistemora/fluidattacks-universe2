@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from . import (
+    get_query_group,
     get_result,
 )
 from dataloaders import (
@@ -10,7 +11,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.enums import (
-    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -47,17 +47,12 @@ async def test_update_group(populate: bool, email: str) -> None:
     assert "success" in result["data"]["updateGroup"]
     assert result["data"]["updateGroup"]["success"]
 
-    loaders.group.clear(group_name)
-    group_updated: Group = await loaders.group.load(group_name)
-    assert group_updated.state.type == GroupSubscriptionType.ONESHOT
-    assert group_updated.state.has_machine is False
-    assert group_updated.state.has_squad is False
+    query_result = await get_query_group(email=email, group_name=group_name)
+    assert "errors" in query_result
     assert (
-        group_updated.state.justification
-        == GroupStateUpdationJustification.NONE
+        query_result["errors"][0]["message"]
+        == "Access denied or group not found"
     )
-    assert group_updated.state.tier == GroupTier.ONESHOT
-    assert group_updated.state.modified_by == email
 
 
 @pytest.mark.asyncio

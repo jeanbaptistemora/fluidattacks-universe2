@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from . import (
+    get_query_group,
     get_result,
 )
 from dataloaders import (
@@ -12,17 +13,8 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.constants import (
-    MASKED,
-)
 from db_model.groups.enums import (
-    GroupService,
     GroupStateRemovalJustification,
-    GroupStateStatus,
-    GroupTier,
-)
-from db_model.groups.types import (
-    Group,
 )
 import pytest
 from typing import (
@@ -49,24 +41,14 @@ async def test_remove_group(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["removeGroup"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
-    assert group.state.has_machine is False
-    assert group.state.has_squad is False
+    query_result = await get_query_group(email=email, group_name=group_name)
+    assert "errors" in query_result
     assert (
-        group.state.justification == GroupStateRemovalJustification.NO_SYSTEM
+        query_result["errors"][0]["message"]
+        == "Access denied or group not found"
     )
-    assert group.state.modified_by == email
-    assert group.state.service == GroupService.WHITE
-    assert group.state.status == GroupStateStatus.DELETED
-    assert group.state.tier == GroupTier.FREE
-    for file in group.files:  # type: ignore
-        assert file.description == MASKED
-        assert file.file_name == MASKED
-        assert file.modified_by == MASKED
-        assert file.modified_date
-        assert file.modified_date != MASKED
 
+    loaders: Dataloaders = get_new_context()
     findings: tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
