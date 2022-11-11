@@ -1,7 +1,7 @@
 ---
 id: crashtest
 title: Fluid Attacks vs CrashTest Security
-sidebar_label: CrashTest Security
+sidebar_label: CrashTest
 slug: /about/compare/crashtest
 ---
 

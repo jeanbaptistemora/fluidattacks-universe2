@@ -48,3 +48,74 @@ security providers.
   infrastructure or applications to
   obtain vulnerability information
   or to initiate tool functions.
+
+- *CLI Client*:
+  Offers tools to perform scans
+  from local machines.
+
+- *API Service*:
+  Offers an API service for different
+  functionalities, whether it is
+  obtaining analysis information,
+  configuring tools,
+  or initiating scans.
+
+- *On-premise Version*:
+  Version of the tool available
+  for deployment in on-premise
+  infrastructure.
+
+- *SaaS Version*:
+  Version of the tool available
+  to be used as Software as a
+  Service offered by the vendor.
+
+- *Monthly scans*:
+  Number of scans that can be
+  performed per month.
+
+- *Reports Module*:
+  Availability of the reports
+  module for use by customers.
+
+- *Available in Cloud providers Marketplace*:
+  Services or tools offerings available in
+  cloud service providers' marketplaces.
+
+- *Users*:
+  Number of users that can access the
+  platform or tool.
+
+- *Vulnerability prioritization*:
+  Prioritization of vulnerabilities
+  based on severity or criticality
+  of vulnerabilities found.
+
+- *Severity calculation method*:
+  Method used to calculate the level
+  of severity of the vulnerabilities.
+
+- *Support*:
+  Support channels provided to address
+  doubts and achieve customer success
+  by implementing tools or services.
+
+- *Summary of findings*:
+  Function to visualize the summary of
+  the findings information and the
+  security status of the organization
+  after performing the analysis.
+
+- *Filters*:
+  Available fields to filter the
+  information presented in the
+  analysis.
+
+- *Information displayed in the vulnerability list*:
+  Information displayed when viewing
+  the vulnerability list.
+
+- *Vulnerability details*:
+  Information displayed when viewing
+  the detail of the vulnerabilities
+  found.
