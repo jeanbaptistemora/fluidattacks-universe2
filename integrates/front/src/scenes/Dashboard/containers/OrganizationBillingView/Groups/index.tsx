@@ -74,7 +74,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   };
 
   // Auxiliary functions
-  const accesibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
+  const accessibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
     groupData.filter(
       (group): boolean =>
         (group.permissions.includes(
@@ -88,26 +88,12 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
     groupData.map((group: IGroupAttr): IGroupAttr => {
-      const servicesParameters: Record<string, string> = {
-        false: "organization.tabs.groups.disabled",
-        true: "organization.tabs.groups.enabled",
-      };
       const name: string = _.capitalize(group.name);
-      const service: string = _.capitalize(group.service);
       const tier: string = _.capitalize(group.tier);
-      const forces: string = t(servicesParameters[group.hasForces.toString()]);
-      const machine: string = t(
-        servicesParameters[group.hasMachine.toString()]
-      );
-      const squad: string = t(servicesParameters[group.hasSquad.toString()]);
 
       return {
         ...group,
-        forces,
-        machine,
         name,
-        service,
-        squad,
         tier,
       };
     });
@@ -129,18 +115,12 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const canSeeSubscriptionType: boolean = permissions.can(
     "see_billing_subscription_type"
   );
-  const canSeeServiceType: boolean = permissions.can(
-    "see_billing_service_type"
-  );
 
   const tier: ColumnDef<IGroupAttr> = {
     accessorKey: "tier",
+    cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
+      statusFormatter(cell.getValue()),
     header: t("organization.tabs.billing.groups.headers.tier"),
-    meta: { filterType: "select" },
-  };
-  const service: ColumnDef<IGroupAttr> = {
-    accessorKey: "service",
-    header: t("organization.tabs.billing.groups.headers.service"),
     meta: { filterType: "select" },
   };
 
@@ -161,28 +141,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       header: t("organization.tabs.billing.groups.headers.managed"),
     },
     tier,
-    service,
-    {
-      accessorKey: "machine",
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      header: t("organization.tabs.billing.groups.headers.machine"),
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "squad",
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      header: t("organization.tabs.billing.groups.headers.squad"),
-      meta: { filterType: "select" },
-    },
-    {
-      accessorKey: "forces",
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      header: t("organization.tabs.billing.groups.headers.forces"),
-      meta: { filterType: "select" },
-    },
     {
       accessorFn: (row: IGroupAttr): number | undefined => {
         return row.billing?.numberAuthors;
@@ -192,26 +150,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       enableColumnFilter: false,
       header: t<string>(
         "organization.tabs.billing.groups.headers.numberAuthors"
-      ),
-    },
-    {
-      accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.costsBase;
-      },
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      enableColumnFilter: false,
-      header: t<string>("organization.tabs.billing.groups.headers.costsBase"),
-    },
-    {
-      accessorFn: (row: IGroupAttr): number | undefined => {
-        return row.billing?.costsAuthors;
-      },
-      cell: (cell: ICellHelper<IGroupAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      enableColumnFilter: false,
-      header: t<string>(
-        "organization.tabs.billing.groups.headers.costsAuthors"
       ),
     },
     {
@@ -226,20 +164,14 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   ];
 
   const tableColumns = baseTableColumns.filter((header): boolean => {
-    switch (header) {
-      case tier: {
-        return canSeeSubscriptionType;
-      }
-      case service: {
-        return canSeeServiceType;
-      }
-      default: {
-        return true;
-      }
+    if (header === tier) {
+      return canSeeSubscriptionType;
     }
+
+    return true;
   });
 
-  const dataset: IGroupAttr[] = formatGroupsData(accesibleGroupsData(groups));
+  const dataset: IGroupAttr[] = formatGroupsData(accessibleGroupsData(groups));
 
   // Edit group subscription
   const closeModal = useCallback((): void => {

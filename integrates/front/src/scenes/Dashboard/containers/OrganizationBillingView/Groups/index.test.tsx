@@ -101,9 +101,6 @@ describe("Organization billing groups view", (): void => {
     expect(
       screen.queryByText("organization.tabs.billing.groups.headers.tier")
     ).toBeInTheDocument();
-    expect(
-      screen.queryByText("organization.tabs.billing.groups.headers.service")
-    ).toBeInTheDocument();
 
     const mockedExternalPermissions = new PureAbility<string>([
       { action: "api_mutations_update_subscription_mutate" },
@@ -166,9 +163,6 @@ describe("Organization billing groups view", (): void => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByText("organization.tabs.billing.groups.headers.tier")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("organization.tabs.billing.groups.headers.service")
     ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
@@ -265,9 +259,6 @@ describe("Organization billing groups view", (): void => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByText("organization.tabs.billing.groups.headers.tier")
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByText("organization.tabs.billing.groups.headers.service")
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getAllByText("Managed")[0]);

@@ -1607,16 +1607,10 @@ export const enTranslations: ResourceKey = {
         },
         groups: {
           headers: {
-            costsAuthors: "Authors costs ($)",
-            costsBase: "Base costs ($)",
             costsTotal: "Total costs ($)",
-            forces: "Forces",
             groupName: "Group name",
-            machine: "Machine",
             managed: "Managed",
-            numberAuthors: "Authors",
-            service: "Service",
-            squad: "Squad",
+            numberAuthors: "Month-To-Date Authors",
             tier: "Tier",
           },
           managed: {
