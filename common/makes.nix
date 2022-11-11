@@ -11,6 +11,7 @@
     ./dev/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
+    ./monitoring/makes.nix
     ./okta/makes.nix
     ./pipeline/makes.nix
     ./status/makes.nix
