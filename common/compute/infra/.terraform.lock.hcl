@@ -1,25 +1,28 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/aws" {
-  version     = "4.4.0"
-  constraints = "4.4.0"
+  version     = "4.39.0"
+  constraints = "4.39.0"
   hashes = [
-    "h1:xUXge6/Bn/CzSjZpmQIr7/FwANKj+3cIEnxYlgS1xFo=",
-    "zh:087e8e1b9c3d2c9d547181aa88f75fd42d9800eea6d37c0276b1208c427113ff",
-    "zh:25c3deac14f06a7da5d4d8b56dd5e25a24b5c3bb6bb7a585145d7df1a6e5bc3f",
-    "zh:5bd23fc03cd51eca3f1e4e4414624dcc4f075eca5cf5aabf06b54b4edded5c50",
-    "zh:8399507975a422a84b93b24c07db34cc9342f54aa693eace1b451c6b1ab54b87",
-    "zh:9618bed0832433fee57579d4a001479b08e2092d0c08539edb897f57f6ea0114",
-    "zh:b0b9060bc367c5fb6175c7ae59382fd6107ab0c0bad6e40cd3205127d8e6717d",
-    "zh:b160122057659cceb72f78a86483f71d59742502dad23b770dc4248b8e94edd4",
-    "zh:cb927f4622ef9bf439b867aef760c948839e1cec2ddb8bdba7abfc5183124360",
-    "zh:e37ce5054a5838eda190f286a62eeb7146087863e38b1a205aa0eb12a5e765b9",
-    "zh:e38856fd703b2f6e08a35cbe5ddab9a734c9608d2372411bfa6ef1b05ffeb758",
-    "zh:f342e638d9672d969ed3946b9f0650cf327690b35e0812b2ddae97bd32c2d946",
+    "h1:tM2mSfH03Ert/Qd+EUMIavtwjPCM/no91VBH/8vobCE=",
+    "zh:08e3d453bbeaccda3f4ab7ae45f81d515ab49a765ce2d43f060842bb2e653846",
+    "zh:238a460231e9e6ca786b2cb2088a98edfc48f0e36c433edd7d65a250980f7566",
+    "zh:4d5663c2cf521e91caddd5508b13759110bc21b2e9543ff6a9f8cf8d02af1aeb",
+    "zh:5b397e46aac6db155b4b9162ac168010473d6309ae363301f0335184c1f50be6",
+    "zh:7178536cfebc6423336798aead72fe774f4d8118ae19ffe6a6a1108fe60608d7",
+    "zh:867c5269cea2fe15f7ea837507ad0fe97e8913be4348868b284c12217d689457",
+    "zh:88db4bb188f68011cb05eefb3ea7e5741da1d9acdb3c7bd517e715dfc8c0cfc3",
+    "zh:95b4da4bdbb2eb02333e52c2ced0c5f133d854f730e3744c0c239268c21feee6",
+    "zh:9b12af85486a96aedd8d7984b0ff811a4b42e3d88dad1a3fb4c0b580d04fa425",
+    "zh:9bbe67eaa03bfb293913431b39879385e42473bdb61be842fd78b3c89333f1ba",
+    "zh:a06b9b5fbe8c84a0da431a22d9dd583143406846c1d8febe06f62fc89aeccd1d",
+    "zh:cb925338b164e916f289e717f8ecaacf5fd5df56790ec6296158e76d6131b914",
+    "zh:d9dbf68b0defc220085eda1348f439f724ce83a0636bec18dc83aa73fe2385d5",
+    "zh:eb59e6234e73bd0d48fe372201155802c9b920711a1da078e5b07508271312ee",
+    "zh:f68b2685ee86bcf314d74a20e97b5cbe0c63741827143f7a4ba7ec56555329dc",
   ]
 }

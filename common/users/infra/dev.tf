@@ -63,6 +63,7 @@ locals {
             "logs:Get*",
             "logs:List*",
             "redshift:Describe*",
+            "redshift-data:Describe*",
             "route53:Get*",
             "route53:List*",
             "route53-recovery-control-config:Describe*",

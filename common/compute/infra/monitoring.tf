@@ -95,16 +95,6 @@ resource "aws_cloudwatch_log_stream" "monitoring_jobs" {
   log_group_name = aws_cloudwatch_log_group.monitoring.name
 }
 
-resource "aws_s3_object" "monitoring_jobs_json_paths" {
-  bucket = aws_s3_bucket.monitoring.id
-  key    = "jobs/jsonpaths.json"
-  content = jsonencode({
-    "jsonpaths" : [
-      "$.detail.jobId",
-    ]
-  })
-}
-
 resource "aws_iam_role" "firehose_delivery" {
   name = "common-compute-firehose-delivery"
 
@@ -173,12 +163,26 @@ resource "aws_iam_policy" "firehose_delivery" {
   })
 }
 
+resource "aws_s3_object" "monitoring_jobs_json_paths" {
+  bucket = aws_s3_bucket.monitoring.id
+  key    = "jobs/jsonpaths.json"
+  content = jsonencode({
+    "jsonpaths" : [
+      "$.detail.jobId",
+    ]
+  })
+}
 
-/*
-  CREATE TABLE common_compute.jobs (
-    jobId text PRIMARY KEY,
-  );
-*/
+resource "aws_redshiftdata_statement" "monitoring_jobs_table" {
+  cluster_identifier = data.aws_redshift_cluster.observes.cluster_identifier
+  database           = data.aws_redshift_cluster.observes.database_name
+  db_user            = data.aws_redshift_cluster.observes.master_username #var.redshiftUser
+  sql                = <<-EOF
+    CREATE SCHEMA IF NOT EXISTS common_compute;
+    CREATE TABLE IF NOT EXISTS common_compute.jobs (jobId text PRIMARY KEY);
+  EOF
+}
+
 resource "aws_kinesis_firehose_delivery_stream" "monitoring_jobs" {
   name        = "common-compute-monitoring-jobs"
   destination = "redshift"
