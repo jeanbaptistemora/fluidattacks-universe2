@@ -16,26 +16,6 @@ resource "aws_kinesis_stream" "monitoring_jobs" {
   }
 }
 
-resource "aws_iam_policy" "kinesis_stream_monitoring_jobs" {
-  name = "common-compute-kinesis-stream-monitoring-jobs"
-
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "kinesis:PutRecord",
-          "kinesis:PutRecords",
-        ],
-        "Resource" : [
-          aws_kinesis_stream.monitoring_jobs.arn
-        ],
-      },
-    ]
-  })
-}
-
 resource "aws_iam_role" "kinesis_stream_monitoring_jobs" {
   name = "common-compute-kinesis"
 
@@ -56,6 +36,26 @@ resource "aws_iam_role" "kinesis_stream_monitoring_jobs" {
 resource "aws_iam_role_policy_attachment" "kinesis_stream_monitoring_jobs" {
   role       = aws_iam_role.kinesis_stream_monitoring_jobs.name
   policy_arn = aws_iam_policy.kinesis_stream_monitoring_jobs.arn
+}
+
+resource "aws_iam_policy" "kinesis_stream_monitoring_jobs" {
+  name = "common-compute-kinesis-stream-monitoring-jobs"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "kinesis:PutRecord",
+          "kinesis:PutRecords",
+        ],
+        "Resource" : [
+          aws_kinesis_stream.monitoring_jobs.arn
+        ],
+      },
+    ]
+  })
 }
 
 resource "aws_cloudwatch_event_rule" "monitoring_jobs" {
@@ -103,4 +103,118 @@ resource "aws_s3_object" "monitoring_jobs_json_paths" {
       "$.detail.jobId",
     ]
   })
+}
+
+resource "aws_iam_role" "firehose_delivery" {
+  name = "common-compute-firehose-delivery"
+
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : "sts:AssumeRole",
+        "Principal" : {
+          "Service" : "firehose.amazonaws.com"
+        },
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "firehose_delivery" {
+  role       = aws_iam_role.firehose_delivery.name
+  policy_arn = aws_iam_policy.firehose_delivery.arn
+}
+
+resource "aws_iam_policy" "firehose_delivery" {
+  name = "common-compute-firehose-delivery"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:PutLogEvents"
+        ],
+        "Resource" : [
+          aws_cloudwatch_log_stream.monitoring_jobs.arn,
+        ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "kinesis:DescribeStream",
+          "kinesis:GetShardIterator",
+          "kinesis:GetRecords",
+          "kinesis:ListShards"
+        ],
+        "Resource" : [
+          aws_kinesis_stream.monitoring_jobs.arn
+        ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:AbortMultipartUpload",
+          "s3:GetBucketLocation",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:ListBucketMultipartUploads",
+          "s3:PutObject"
+        ],
+        "Resource" : [
+          "${aws_s3_bucket.monitoring.arn}",
+          "${aws_s3_bucket.monitoring.arn}/*",
+        ],
+      },
+    ]
+  })
+}
+
+
+/*
+  CREATE TABLE common_compute.jobs (
+    jobId text PRIMARY KEY,
+  );
+*/
+resource "aws_kinesis_firehose_delivery_stream" "monitoring_jobs" {
+  name        = "common-compute-monitoring-jobs"
+  destination = "redshift"
+
+  kinesis_source_configuration {
+    kinesis_stream_arn = aws_kinesis_stream.monitoring_jobs.arn
+    role_arn           = aws_iam_role.firehose_delivery.arn
+  }
+
+  s3_configuration {
+    role_arn           = aws_iam_role.firehose_delivery.arn
+    bucket_arn         = aws_s3_bucket.monitoring.arn
+    buffer_size        = 1
+    buffer_interval    = 60
+    compression_format = "UNCOMPRESSED"
+    prefix             = "jobs"
+
+    cloudwatch_logging_options {
+      enabled         = true
+      log_group_name  = aws_cloudwatch_log_group.monitoring.name
+      log_stream_name = aws_cloudwatch_log_stream.monitoring_jobs.name
+    }
+  }
+
+  redshift_configuration {
+    role_arn        = aws_iam_role.firehose_delivery.arn
+    cluster_jdbcurl = "jdbc:redshift://${data.aws_redshift_cluster.observes.endpoint}:${data.aws_redshift_cluster.observes.port}/${data.aws_redshift_cluster.observes.database_name}"
+    username        = var.redshiftUser
+    password        = var.redshiftPassword
+    data_table_name = "common_compute.jobs"
+    copy_options    = "json 's3://${aws_s3_object.monitoring_jobs_json_paths.bucket}/${aws_s3_object.monitoring_jobs_json_paths.id}' region 'us-east-1'"
+
+    cloudwatch_logging_options {
+      enabled         = true
+      log_group_name  = aws_cloudwatch_log_group.monitoring.name
+      log_stream_name = aws_cloudwatch_log_stream.monitoring_jobs.name
+    }
+  }
 }
