@@ -10,14 +10,16 @@ interface IGroupData {
   events: {
     eventStatus: string;
   }[];
-  openFindings: number;
-  machine: string;
-  squad: string;
-  service: string;
   hasMachine: boolean;
   hasSquad: boolean;
+  machine: string;
+  managed: "MANAGED" | "NOT_MANAGED" | "TRIAL" | "UNDER_REVIEW";
   name: string;
+  openFindings: number;
   plan: string;
+  service: string;
+  squad: string;
+  status: string;
   subscription: string;
   userRole: string;
   vulnerabilities: string;

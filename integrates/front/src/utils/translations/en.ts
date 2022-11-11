@@ -1966,6 +1966,13 @@ export const enTranslations: ResourceKey = {
         },
         plan: "Plan",
         role: "Role",
+        status: {
+          header: "Group status",
+          managed: "Subscribed",
+          notManaged: "Subscribed",
+          trial: "Free-trial",
+          underReview: "Suspended",
+        },
         text: "Groups",
         tooltip: "Groups that belong to the organization",
         vulnerabilities: "Vulnerabilities",

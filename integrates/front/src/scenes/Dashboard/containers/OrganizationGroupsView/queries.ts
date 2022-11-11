@@ -23,6 +23,7 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
         events {
           eventStatus
         }
+        managed
       }
     }
   }

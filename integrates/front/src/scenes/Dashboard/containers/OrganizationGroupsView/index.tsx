@@ -125,12 +125,16 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               ).length
             } need(s) attention`
           : "None";
+      const status: string = t(
+        `organization.tabs.groups.status.${_.camelCase(group.managed)}`
+      );
 
       return {
         ...group,
         description,
         eventFormat,
         plan,
+        status,
         vulnerabilities,
       };
     });
@@ -147,8 +151,8 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       header: t("organization.tabs.groups.newGroup.name"),
     },
     {
-      accessorKey: "description",
-      header: t("organization.tabs.groups.newGroup.description.text"),
+      accessorKey: "status",
+      header: t("organization.tabs.groups.status.header"),
     },
     {
       accessorKey: "plan",
@@ -157,6 +161,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     {
       accessorKey: "vulnerabilities",
       header: t("organization.tabs.groups.vulnerabilities"),
+    },
+    {
+      accessorKey: "description",
+      header: t("organization.tabs.groups.newGroup.description.text"),
     },
     {
       accessorKey: "userRole",
