@@ -135,6 +135,10 @@ async def test_solve_event_on_hold(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding.id
         )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION, finding_id=finding.id
+        )
     )
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email

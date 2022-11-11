@@ -44,12 +44,7 @@ async def _get_comments(
         values={"finding_id": finding_id},
     )
     key_structure = TABLE.primary_key
-    if comment_type == CommentType.COMMENT:
-        filter_expression = Attr("comment_type").eq("COMMENT") | Attr(
-            "comment_type"
-        ).eq("VERIFICATION")
-    else:
-        filter_expression = Attr("comment_type").eq(comment_type.value)
+    filter_expression = Attr("comment_type").eq(comment_type.value)
     response = await operations.query(
         filter_expression=filter_expression,
         condition_expression=(

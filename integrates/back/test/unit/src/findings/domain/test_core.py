@@ -351,6 +351,10 @@ async def test_add_comment() -> None:
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION, finding_id=finding_id
+        )
     )
     assert finding_comments[-1].content == "Test comment"
     assert finding_comments[-1].full_name == "unittesting"
@@ -450,6 +454,10 @@ async def test_verify_vulnerabilities() -> None:
     ] = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
+        )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION, finding_id=finding_id
         )
     )
     assert finding_commets[-1].finding_id == finding_id

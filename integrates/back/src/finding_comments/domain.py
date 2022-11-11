@@ -172,6 +172,10 @@ async def get_comments(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION, finding_id=finding_id
+        )
     )
     historic_verification: tuple[
         FindingVerification, ...

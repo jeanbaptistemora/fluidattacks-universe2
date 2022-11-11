@@ -74,7 +74,11 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
     type_ = comment_data.comment_type
-    type_fmt = "consulting" if type_ == CommentType.COMMENT else "observation"
+    type_fmt = (
+        "consulting"
+        if type_ in [CommentType.COMMENT, CommentType.VERIFICATION]
+        else "observation"
+    )
     email_context: dict[str, Any] = {
         "comment": comment_data.content.splitlines(),
         "comment_type": type_fmt,

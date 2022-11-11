@@ -112,6 +112,10 @@ async def test_request_hold_vuln(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION, finding_id=finding_id
+        )
     )
     assert finding_comments[-1].finding_id == finding_id
     assert finding_comments[-1].comment_type == CommentType.VERIFICATION
