@@ -1985,7 +1985,11 @@ export const enTranslations: ResourceKey = {
           managed: "Subscribed",
           notManaged: "Subscribed",
           trial: "Free-trial",
+          trialTip: "You have active a Free-Trial subscription",
           underReview: "Suspended",
+          underReviewTip:
+            "This group has been suspended due to non-payment " +
+            "or lack of payment setup",
         },
         text: "Groups",
         tooltip: "Groups that belong to the organization",

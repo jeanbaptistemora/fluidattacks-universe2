@@ -112,7 +112,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           : group.hasSquad
           ? "Squad"
           : "Machine";
-      const vulnerabilities: string = `${group.openFindings} types found`;
+      const vulnerabilities: string = group.openFindings
+        ? `${group.openFindings} types found`
+        : "In process";
       const eventFormat: string =
         _.isUndefined(group.events) || _.isEmpty(group.events)
           ? "None"
@@ -152,6 +154,24 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       accessorKey: "status",
+      cell: (cell): JSX.Element => {
+        const link = `groups/${String(cell.row.getValue("name"))}/scope`;
+        const text = cell.getValue<string>();
+        const showTrialTip =
+          text === t(`organization.tabs.groups.status.trial`);
+        const showSuspendedTip =
+          text === t(`organization.tabs.groups.status.underReview`);
+        const infoTip = showTrialTip
+          ? t(`organization.tabs.groups.status.trialTip`)
+          : t(`organization.tabs.groups.status.underReviewTip`);
+
+        return formatLinkHandler(
+          link,
+          text,
+          showTrialTip || showSuspendedTip,
+          infoTip
+        );
+      },
       header: t("organization.tabs.groups.status.header"),
     },
     {
