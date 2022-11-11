@@ -24,6 +24,7 @@ makeScript {
       outputs."/common/utils/aws"
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
+      outputs."/common/utils/lint-npm-deps"
       outputs."/common/utils/lint-typescript"
       outputs."/common/utils/sops"
     ];

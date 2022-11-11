@@ -11,6 +11,7 @@ function main {
     && pushd out \
     && copy __argAirsNpm__ 'node_modules' \
     && install_scripts \
+    && lint_npm_deps package.json \
     && ./node_modules/.bin/tsc --noEmit -p tsconfig.json \
     && lint_typescript "$(pwd)" "$(pwd)" \
     && popd \
