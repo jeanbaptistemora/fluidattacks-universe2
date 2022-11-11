@@ -309,6 +309,7 @@ def _parse_one_cached(
 
     syntax_support = {
         GraphShardMetadataLanguage.CSHARP,
+        GraphShardMetadataLanguage.DART,
         GraphShardMetadataLanguage.JAVA,
         GraphShardMetadataLanguage.JAVASCRIPT,
         GraphShardMetadataLanguage.TYPESCRIPT,
