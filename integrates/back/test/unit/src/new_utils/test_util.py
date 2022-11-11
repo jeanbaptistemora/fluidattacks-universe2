@@ -42,7 +42,6 @@ from freezegun import (
 )
 from newutils import (
     datetime as datetime_utils,
-    encodings,
     files as files_utils,
     token as token_utils,
     utils,
@@ -83,19 +82,6 @@ def test_assert_file_mime() -> None:
     assert not files_utils.assert_file_mime(
         non_included_filename, allowed_mimes
     )
-
-
-async def test_payload_encode_decode() -> None:
-    payload = {
-        "user_email": "unittest",
-        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
-        "sub": "starlette_session",
-        "jti": token_utils.calculate_hash_token()["jti"],
-    }
-    result = encodings.jwt_payload_decode(
-        encodings.jwt_payload_encode(payload)
-    )
-    assert payload == result
 
 
 async def test_get_jwt_content() -> None:
