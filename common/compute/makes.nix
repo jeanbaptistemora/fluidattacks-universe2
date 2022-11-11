@@ -12,6 +12,8 @@
       commonCompute = {
         setup = [
           outputs."/secretsForAwsFromGitlab/prodCommon"
+          outputs."/secretsForEnvFromSops/commonComputeProd"
+          outputs."/secretsForTerraformFromEnv/commonCompute"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
@@ -36,11 +38,29 @@
       commonCompute = {
         setup = [
           outputs."/secretsForAwsFromGitlab/dev"
+          outputs."/secretsForEnvFromSops/commonComputeDev"
+          outputs."/secretsForTerraformFromEnv/commonCompute"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
         version = "1.0";
       };
+    };
+  };
+  secretsForEnvFromSops = {
+    commonComputeDev = {
+      vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
+      manifest = "/common/secrets/dev.yaml";
+    };
+    commonComputeProd = {
+      vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
+      manifest = "/common/secrets/prod.yaml";
+    };
+  };
+  secretsForTerraformFromEnv = {
+    commonCompute = {
+      redshiftUser = "REDSHIFT_USER";
+      redshiftPassword = "REDSHIFT_PASSWORD";
     };
   };
 }

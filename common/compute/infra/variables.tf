@@ -7,6 +7,9 @@ variable "terraform_state_lock_arn" {
   default = "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"
 }
 
+variable "redshiftUser" {}
+variable "redshiftPassword" {}
+
 # Reused infrastructure
 
 data "aws_iam_role" "main" {
@@ -51,4 +54,7 @@ data "aws_subnet" "batch_main" {
     name   = "tag:Name"
     values = ["batch_main"]
   }
+}
+data "aws_redshift_cluster" "observes" {
+  cluster_identifier = "observes"
 }
