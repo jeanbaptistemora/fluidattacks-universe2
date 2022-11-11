@@ -1464,15 +1464,8 @@ type Mutation {
     commit: String
     "Source of the vulnerability"
     source: VulnerabilitySource
-    """
-    Specific location of the Vulnerability, can be a line of code,
-    a field or a port
-    """
-    specific: String
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
-    "General location of the Vulnerability, can be a file, an URL or an IP"
-    where: String
   ): SimplePayload!
 
   "Updates data related to the treatment of a Vulnerability"
