@@ -30,10 +30,6 @@ from datetime import (
 from db_model.stakeholders.types import (
     StakeholderAccessToken,
 )
-from jose import (
-    jwt,
-    JWTError,
-)
 import json
 from jwcrypto.jwe import (
     InvalidJWEData,
@@ -64,7 +60,6 @@ from settings import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
 )
 
@@ -129,13 +124,6 @@ def calculate_hash_token() -> Dict[str, str]:
     }
 
 
-def decode_jwt(jwt_token: str, api: bool = False) -> Dict[str, Any]:
-    """Decodes a jwt token and returns its decrypted payload"""
-    secret = JWT_SECRET_API if api else JWT_SECRET
-    content = jwt.decode(token=jwt_token, key=secret, algorithms=["HS512"])
-    return _decrypt_jwt_payload(content)
-
-
 async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
     if isinstance(context, dict):
@@ -165,16 +153,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     except JWTExpired:
         # Session expired
         raise InvalidAuthorization() from None
-    except jwt.ExpiredSignatureError:
-        # Session expired
-        raise InvalidAuthorization() from None
     except (AttributeError, IndexError) as ex:
-        LOGGER.exception(ex, extra={"extra": context})
-        raise InvalidAuthorization() from None
-    except jwt.JWTClaimsError as ex:
-        LOGGER.exception(ex, extra={"extra": context})
-        raise InvalidAuthorization() from None
-    except JWTError as ex:
         LOGGER.exception(ex, extra={"extra": context})
         raise InvalidAuthorization() from None
     except InvalidJWEData:
@@ -201,28 +180,6 @@ def is_valid_expiration_time(expiration_time: float) -> bool:
     exp = datetime.utcfromtimestamp(expiration_time)
     now = datetime.utcnow()
     return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
-
-
-def jwt_has_api_token(token: str) -> bool:
-    payload = jwt.get_unverified_claims(token)
-    payload = _decrypt_jwt_payload(payload)
-    return cast(
-        bool,
-        payload.get("sub")
-        == ("api_token" if "sub" in payload else "jti" in payload),
-    )
-
-
-def new_encoded_jwt(payload: Dict[str, Any], api: bool = False) -> str:
-    """Encrypts the payload into a jwt token and returns its encoded version"""
-    processed_payload = _encrypt_jwt_payload(payload)
-    secret = JWT_SECRET_API if api else JWT_SECRET
-    token: str = jwt.encode(
-        processed_payload,
-        algorithm="HS512",
-        key=secret,
-    )
-    return token
 
 
 def encode_token(
