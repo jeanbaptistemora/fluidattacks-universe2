@@ -77,5 +77,5 @@ def go_mod(content: str, path: str) -> Iterator[DependencyType]:  # NOSONAR
                 add_require(matched, req_dict, line_number)
             else:
                 required = ""
-    else:
-        yield ({}, {})
+        return iter(req_dict.values())
+    return iter([({}, {})])
