@@ -23,7 +23,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_MANAGED_SECURE_MODE: cs_managed_secure_mode,
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
-    MethodsEnum.TS_INSECURE_AES_CIPHER: insecure_mode,
+    MethodsEnum.TS_INSECURE_ENCRYPT: insecure_mode,
 }
 
 

@@ -2942,6 +2942,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_INSECURE_ENCRYPT = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_encrypt",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_INSECURE_CREATE_CIPHER = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_create_cipher",
@@ -2997,22 +3005,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F052,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_INSECURE_CIPHERS = MethodInfo(
-        file_name="typescript",
-        name="ts_insecure_ciphers",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_INSECURE_AES_CIPHER = MethodInfo(
-        file_name="typescript",
-        name="ts_insecure_aes_cipher",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TS_INSECURE_CREATE_CIPHER = MethodInfo(
         file_name="typescript",

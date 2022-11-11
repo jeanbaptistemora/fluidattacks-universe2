@@ -42,6 +42,16 @@ def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     return False
 
 
+def is_insecure_encrypt(
+    graph: Graph, al_id: NId, algo: str, method: MethodsEnum
+) -> bool:
+    if algo in {"des", "rc4", "rsa"}:
+        return True
+    if algo in {"aes"} and (args := g.adj_ast(graph, al_id)) and len(args) > 2:
+        return get_eval_danger(graph, args[2], method)
+    return False
+
+
 def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     ciphers_methods = {
@@ -83,6 +93,26 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (test_node := g.match_ast(graph, al_id).get("__0__"))
             and get_eval_danger(graph, test_node, method)
+        ):
+            vuln_nodes.append(n_id)
+    return vuln_nodes
+
+
+def insecure_encrypt(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    crypto_methods = {"encrypt", "decrypt"}
+
+    for n_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+    ):
+        f_name = graph.nodes[n_id]["expression"]
+        algo, crypt = split_function_name(f_name)
+        if (
+            crypt in crypto_methods
+            and (al_id := graph.nodes[n_id].get("arguments_id"))
+            and is_insecure_encrypt(graph, al_id, algo, method)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes

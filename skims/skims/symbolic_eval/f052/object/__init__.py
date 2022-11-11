@@ -21,6 +21,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_KEY: insecure_key,
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_encrypt,
+    MethodsEnum.TS_INSECURE_ENCRYPT: insecure_encrypt,
 }
 
 

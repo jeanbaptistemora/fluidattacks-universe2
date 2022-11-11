@@ -4,7 +4,9 @@
 
 from lib_root.f052.common import (
     insecure_create_cipher,
+    insecure_encrypt,
     insecure_hash,
+    split_function_name,
 )
 from lib_sast.types import (
     ShardDb,
@@ -18,7 +20,6 @@ from model.graph_model import (
     GraphDB,
     GraphShardMetadataLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -32,16 +33,8 @@ from symbolic_eval.utils import (
 from typing import (
     Iterable,
     Set,
-    Tuple,
 )
 import utils.graph as g
-
-
-def split_function_name(f_names: str) -> Tuple[str, str]:
-    name_l = f_names.lower().split(".")
-    if len(name_l) < 2:
-        return "", name_l[-1]
-    return name_l[-2], name_l[-1]
 
 
 def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
@@ -59,16 +52,6 @@ def get_eval_triggers(
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and evaluation.danger and evaluation.triggers == rules:
             return True
-    return False
-
-
-def is_insecure_encrypt(
-    graph: Graph, al_id: NId, algo: str, method: MethodsEnum
-) -> bool:
-    if algo in {"des", "rc4", "rsa"}:
-        return True
-    if (args := g.adj_ast(graph, al_id)) and len(args) > 2:
-        return get_eval_danger(graph, args[2], method)
     return False
 
 
@@ -126,7 +109,6 @@ def javascript_insecure_encrypt(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_ENCRYPT
-    crypto_methods = {"encrypt", "decrypt"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -135,19 +117,8 @@ def javascript_insecure_encrypt(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
-                f_name = graph.nodes[n_id]["expression"]
-                algo, crypt = split_function_name(f_name)
-                if (
-                    crypt in crypto_methods
-                    and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and is_insecure_encrypt(graph, al_id, algo, method)
-                ):
-                    yield shard, n_id
+            for n_id in insecure_encrypt(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
