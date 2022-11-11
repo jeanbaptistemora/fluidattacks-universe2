@@ -46,7 +46,6 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
-    encodings,
 )
 import secrets
 from sessions import (
@@ -72,36 +71,6 @@ NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
-
-
-def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Creates a JWE from a payload"""
-    serialized_payload = encodings.jwt_payload_encode(payload)
-    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    claims: str = JWE(
-        algs=[
-            "A256GCM",
-            "A256GCMKW",
-        ],
-        plaintext=serialized_payload.encode("utf-8"),
-        protected={
-            "alg": "A256GCMKW",
-            "enc": "A256GCM",
-        },
-        recipient=key,
-    ).serialize()
-    return encodings.jwt_payload_decode(claims)
-
-
-def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Returns the decrypted payload of a JWE"""
-    serialized_payload = encodings.jwt_payload_encode(payload)
-    key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    result = JWE()
-    result.deserialize(serialized_payload.encode("utf-8"))
-    result.decrypt(key)
-
-    return encodings.jwt_payload_decode(result.payload.decode("utf-8"))
 
 
 def calculate_hash_token() -> Dict[str, str]:
