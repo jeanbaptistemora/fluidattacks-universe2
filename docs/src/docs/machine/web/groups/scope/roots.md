@@ -263,6 +263,14 @@ any environment by clicking on
 the trash button.
 
 ![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
+
+:::note
+You can also find in the Environment URLs
+view how to add secrets.
+Click [here](machine/web/groups/scope/roots#secrets)
+if you want to know more.
+:::
+
 ## IP roots
 
 An IP address is the unique
@@ -425,45 +433,6 @@ gives access to clone the repository.
 
 ## Deactivate a Git Root
 
-It may be that over time we
-no longer require the use
-of some repositories,
-or we want to move it
-to another group.
-We have the flexibility to
-inactivate or move repositories
-quickly and easily by going
-to the State column.
-
-![Deactivate Git Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_git_root.png)
-
-First, you must find the branch
-you want to disable or move to.
-Once you know which one it is,
-go to the state column and click
-on the toggle of the branch
-that is currently active.
-Here,
-you will get pop-up window
-asking why you want to
-disable the root.
-
-![Deactivate Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_root_windw.png)
-
-When you click on the drop-down menu,
-you will get three options:
-Registered by mistake,
-move to another group,
-and other.
-Remember that each action you
-select must take into account
-the alert warnings.
-For more information,
-click
-[here](/machine/web/groups/scope/roots#deactivating-roots).
-
-## Deactivating roots
-
 :::caution
 Scope changes may involve closing or reporting new vulnerabilities
 :::
@@ -493,12 +462,28 @@ You can change the state at any moment.
 We will keep track of every change for
 traceability reasons.
 
-### Out of scope
+To do this action of change of state,
+you must first find the branch
+you want to disable or move to.
+Once you know which one it is,
+go to the state column and
+click on the toggle of the
+branch that is currently active.
 
-This option takes
-the root out of scope,
-therefore it will no
-longer be tested.
+![Deactivate Git Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668182871/docs/web/groups/scope/toggle_brach.png)
+
+Here,
+you will get pop-up window
+asking why you want to
+disable the root.
+
+![Deactivate Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_root_windw.png)
+
+When you click on the drop-down menu,
+you will get three options:
+Registered by mistake,
+move to another group,
+and other.
 
 ### Registered by mistake
 
@@ -507,7 +492,7 @@ of mistakes when adding a root,
 but if you just
 need to update the URL,
 branch or any other root attributes,
-refer to [Editing git roots](#editing-git-roots).
+refer to [Managing Git Root](machine/web/groups/scope/roots/#managing-git-root).
 
 ### Moved to another group
 
@@ -515,15 +500,22 @@ This option allows moving a
 root to another group along with the
 vulnerabilities reported to it.
 
-![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1634230160/docs/web/groups/scope/move_root.png)
+![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668183656/docs/web/groups/scope/move_other_group.png)
 
 The search bar will suggest
 other groups with the same
 service type that you have
 access to within the organization.
 
+### Other
+
+When neither of the previous two
+reasons applies,
+then you can use this one and
+put what the reason is.
+
 Then,
-after clicking the "proceed" button,
+after clicking the **"Cofirm"** button,
 the root will be deactivated in the
 current group and created in
 the selected group.
