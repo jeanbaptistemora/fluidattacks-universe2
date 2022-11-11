@@ -142,21 +142,13 @@ async def instance_comments(
     if instance_type == "event":
         return last_comments(await loaders.event_comments.load(instance_id))
 
-    comments = (
-        await loaders.finding_comments.load(
-            FindingCommentsRequest(
-                comment_type=CommentType.COMMENT, finding_id=instance_id
-            )
+    comments = await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.COMMENT, finding_id=instance_id
         )
-        + await loaders.finding_comments.load(
-            FindingCommentsRequest(
-                comment_type=CommentType.CONSULT, finding_id=instance_id
-            )
-        )
-        + await loaders.finding_comments.load(
-            FindingCommentsRequest(
-                comment_type=CommentType.VERIFICATION, finding_id=instance_id
-            )
+    ) + await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.CONSULT, finding_id=instance_id
         )
     )
 

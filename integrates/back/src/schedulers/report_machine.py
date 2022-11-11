@@ -39,6 +39,9 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.findings.enums import (
     AttackComplexity,
     AttackVector,
@@ -959,6 +962,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             existing_vulns_to_close, existing_open_machine_vulns, "closed"
         ),
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
+        CommentType.VERIFICATION,
     )
 
     should_update_evidence: bool = False
