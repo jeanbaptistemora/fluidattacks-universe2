@@ -48,6 +48,9 @@ from findings.types import (
 from freezegun import (
     freeze_time,
 )
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
+)
 from newutils.datetime import (
     get_as_utc_iso_format,
     get_now,
@@ -61,8 +64,12 @@ from settings import (
 )
 import time
 from typing import (
+    Any,
     List,
     Tuple,
+)
+from unittest import (
+    mock,
 )
 from vulnerabilities.types import (
     Treatments,
@@ -73,16 +80,26 @@ pytestmark = [
 ]
 
 
-async def test_get_last_closed_vulnerability() -> None:
+async def test_get_last_closed_vulnerability(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     findings_to_get = ["463558592", "422286126"]
     loaders: Dataloaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
-        findings_to_get
-    )
-    (
-        vuln_closed_days,
-        last_closed_vuln,
-    ) = await get_last_closed_vulnerability_info(loaders, findings)
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        findings: Tuple[Finding, ...] = await loaders.finding.load_many(
+            findings_to_get
+        )
+        (
+            vuln_closed_days,
+            last_closed_vuln,
+        ) = await get_last_closed_vulnerability_info(loaders, findings)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
