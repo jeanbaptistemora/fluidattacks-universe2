@@ -171,15 +171,6 @@ resource "cloudflare_record" "status" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "help" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "help.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "fluidattacks.zendesk.com"
-  proxied = false
-  ttl     = 1
-}
-
 resource "cloudflare_record" "rebrandly" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "go.${cloudflare_zone.fluidattacks_com.zone}"

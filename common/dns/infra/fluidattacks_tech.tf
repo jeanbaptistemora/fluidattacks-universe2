@@ -57,6 +57,15 @@ resource "cloudflare_record" "www_fluidattacks_tech" {
   proxied = true
 }
 
+resource "cloudflare_record" "help" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = "help.${cloudflare_zone.fluidattacks_tech.zone}"
+  type    = "CNAME"
+  value   = "fluidattacks.zendesk.com"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "gd_domainconnect" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = "_domainconnect.${cloudflare_zone.fluidattacks_tech.zone}"
