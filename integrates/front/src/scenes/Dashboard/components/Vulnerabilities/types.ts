@@ -26,6 +26,7 @@ interface IVulnRowAttr {
   rootNickname: string | null;
   severity: string | null;
   snippet: string | null;
+  source: string;
   specific: string;
   stream: string | null;
   tag: string;
@@ -65,6 +66,7 @@ interface IVulnDataTypeAttr {
   historicTreatment: IHistoricTreatment[];
   id: string;
   severity: string | null;
+  source: string;
   specific: string;
   tag: string;
   assigned: string;
@@ -99,11 +101,12 @@ interface IVulnComponentProps {
   ) => void;
 }
 
-interface IUpdateTreatmentVulnerabilityForm {
+interface IUpdateVulnerabilityForm {
   acceptanceDate?: string;
   externalBugTrackingSystem: string | null;
   justification?: string;
   severity: string | null;
+  source?: string;
   tag?: string;
   treatment: string;
   assigned?: string;
@@ -111,11 +114,11 @@ interface IUpdateTreatmentVulnerabilityForm {
 
 interface IVulnerabilityModalValues
   extends Array<
-    | IUpdateTreatmentVulnerabilityForm
-    | React.Dispatch<React.SetStateAction<IUpdateTreatmentVulnerabilityForm>>
+    | IUpdateVulnerabilityForm
+    | React.Dispatch<React.SetStateAction<IUpdateVulnerabilityForm>>
   > {
-  0: IUpdateTreatmentVulnerabilityForm;
-  1: React.Dispatch<React.SetStateAction<IUpdateTreatmentVulnerabilityForm>>;
+  0: IUpdateVulnerabilityForm;
+  1: React.Dispatch<React.SetStateAction<IUpdateVulnerabilityForm>>;
 }
 
 export type {
@@ -123,7 +126,7 @@ export type {
   IUploadVulnerabilitiesResultAttr,
   IDownloadVulnerabilitiesResultAttr,
   IVulnerabilityModalValues,
-  IUpdateTreatmentVulnerabilityForm,
+  IUpdateVulnerabilityForm,
   IVulnDataTypeAttr,
   IVulnComponentProps,
 };

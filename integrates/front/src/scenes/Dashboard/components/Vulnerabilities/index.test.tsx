@@ -96,6 +96,7 @@ describe("VulnComponent", (): void => {
       rootNickname: "https:",
       severity: "3",
       snippet: null,
+      source: "asm",
       specific: "specific-1",
       stream: null,
       tag: "tag-1, tag-2",
@@ -140,6 +141,7 @@ describe("VulnComponent", (): void => {
       rootNickname: "https:",
       severity: "1",
       snippet: null,
+      source: "asm",
       specific: "specific-2",
       stream: null,
       tag: "tag-5, tag-6",
@@ -184,6 +186,7 @@ describe("VulnComponent", (): void => {
       rootNickname: "https:",
       severity: "1",
       snippet: null,
+      source: "asm",
       specific: "specific-3",
       stream: null,
       tag: "tag-7, tag-8",
@@ -234,7 +237,7 @@ describe("VulnComponent", (): void => {
     ).not.toBeDisabled();
     expect(
       within(screen.getAllByRole("row")[2]).getByRole("checkbox")
-    ).toBeDisabled();
+    ).not.toBeDisabled();
 
     rerender(
       <authzPermissionsContext.Provider value={mockedPermissions}>

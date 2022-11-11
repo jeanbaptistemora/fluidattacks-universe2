@@ -7,7 +7,7 @@
 import type { FetchResult } from "@apollo/client";
 
 import type {
-  IUpdateTreatmentVulnerabilityForm,
+  IUpdateVulnerabilityForm,
   IVulnDataTypeAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 
@@ -33,12 +33,14 @@ interface IUpdateTreatmentModalProps extends IUpdateDescriptionProps {
     requestZeroRisk: (
       variables: Record<string, unknown>
     ) => Promise<FetchResult<unknown>>,
-    updateDescription: (
-      dataTreatment: IUpdateTreatmentVulnerabilityForm,
-      isEditPristine: boolean,
+    updateVulnerability: (
+      data: IUpdateVulnerabilityForm,
+      isDescriptionPristine: boolean,
+      isTreatmentDescriptionPristine: boolean,
       isTreatmentPristine: boolean
     ) => Promise<void>,
-    isEditPristine: boolean,
+    isDescriptionPristine: boolean,
+    isTreatmentDescriptionPristine: boolean,
     isTreatmentPristine: boolean
   ) => void;
 }
@@ -72,7 +74,10 @@ interface IStakeholderAttr {
   invitationState: string;
 }
 
-interface IUpdateVulnDescriptionResultAttr {
+interface IUpdateVulnerabilityResultAttr {
+  updateVulnerabilityDescription?: {
+    success: boolean;
+  };
   updateVulnerabilityTreatment?: {
     success: boolean;
   };
@@ -90,5 +95,5 @@ export type {
   ISendNotificationResultAttr,
   IUpdateDescriptionProps,
   IUpdateTreatmentModalProps,
-  IUpdateVulnDescriptionResultAttr,
+  IUpdateVulnerabilityResultAttr,
 };

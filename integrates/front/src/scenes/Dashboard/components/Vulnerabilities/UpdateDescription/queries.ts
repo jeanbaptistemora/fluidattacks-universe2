@@ -7,8 +7,8 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
-  mutation UpdateVulnerabilityTreatmentMutation(
+const UPDATE_VULNERABILITY_MUTATION: DocumentNode = gql`
+  mutation UpdateVulnerabilityMutation(
     $findingId: String!
     $severity: Int
     $tag: String
@@ -17,17 +17,25 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $externalBugTrackingSystem: String
     $acceptanceDate: String
     $justification: String!
+    $source: VulnerabilitySource
     $treatment: UpdateClientDescriptionTreatment!
+    $isVulnDescriptionChanged: Boolean!
     $isVulnTreatmentChanged: Boolean!
-    $isVulnInfoChanged: Boolean!
+    $isVulnTreatmentDescriptionChanged: Boolean!
   ) {
+    updateVulnerabilityDescription(
+      source: $source
+      vulnerabilityId: $vulnerabilityId
+    ) @include(if: $isVulnDescriptionChanged) {
+      success
+    }
     updateVulnerabilityTreatment(
       externalBugTrackingSystem: $externalBugTrackingSystem
       findingId: $findingId
       severity: $severity
       tag: $tag
       vulnerabilityId: $vulnerabilityId
-    ) @include(if: $isVulnInfoChanged) {
+    ) @include(if: $isVulnTreatmentDescriptionChanged) {
       success
     }
     updateVulnerabilitiesTreatment(
@@ -92,6 +100,6 @@ const REQUEST_VULNS_ZERO_RISK: DocumentNode = gql`
 export {
   REMOVE_TAGS_MUTATION,
   REQUEST_VULNS_ZERO_RISK,
-  UPDATE_DESCRIPTION_MUTATION,
+  UPDATE_VULNERABILITY_MUTATION,
   SEND_ASSIGNED_NOTIFICATION,
 };

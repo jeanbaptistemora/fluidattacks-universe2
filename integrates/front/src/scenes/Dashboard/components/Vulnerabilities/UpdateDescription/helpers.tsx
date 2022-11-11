@@ -16,14 +16,11 @@ import type {
   IRemoveTagResultAttr,
   IRequestVulnZeroRiskResultAttr,
   ISendNotificationResultAttr,
-  IUpdateVulnDescriptionResultAttr,
+  IUpdateVulnerabilityResultAttr,
 } from "./types";
 import { groupLastHistoricTreatment } from "./utils";
 
-import type {
-  IUpdateTreatmentVulnerabilityForm,
-  IVulnDataTypeAttr,
-} from "../types";
+import type { IUpdateVulnerabilityForm, IVulnDataTypeAttr } from "../types";
 import { Alert } from "components/Alert";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { Logger } from "utils/logger";
@@ -32,7 +29,7 @@ import { translate } from "utils/translations/translate";
 
 const isTheFormPristine = (
   isTreatmentValuesPristine: boolean,
-  formValues: IUpdateTreatmentVulnerabilityForm,
+  formValues: IUpdateVulnerabilityForm,
   vulnerabilities: IVulnDataTypeAttr[]
 ): boolean => {
   return (
@@ -54,15 +51,18 @@ const deleteTagVulnHelper = (result: IRemoveTagResultAttr): void => {
   }
 };
 
-type VulnUpdateResult = ExecutionResult<IUpdateVulnDescriptionResultAttr>;
+type VulnUpdateResult = ExecutionResult<IUpdateVulnerabilityResultAttr>;
 type NotificationResult = ExecutionResult<ISendNotificationResultAttr>;
 
 const getResults = async (
-  updateVuln: (variables: Record<string, unknown>) => Promise<VulnUpdateResult>,
+  updateVulnerability: (
+    variables: Record<string, unknown>
+  ) => Promise<VulnUpdateResult>,
   vulnerabilities: IVulnDataTypeAttr[],
-  dataTreatment: IUpdateTreatmentVulnerabilityForm,
+  values: IUpdateVulnerabilityForm,
   findingId: string,
-  isEditPristine: boolean,
+  isDescriptionPristine: boolean,
+  isTreatmentDescriptionPristine: boolean,
   isTreatmentPristine: boolean
 ): Promise<VulnUpdateResult[]> => {
   const chunkSize = 10;
@@ -72,25 +72,27 @@ const getResults = async (
       async (): Promise<VulnUpdateResult[]> => {
         const updates = chunk.map(
           async (vuln): Promise<VulnUpdateResult> =>
-            updateVuln({
+            updateVulnerability({
               variables: {
-                acceptanceDate: dataTreatment.acceptanceDate,
-                assigned: _.isEmpty(dataTreatment.assigned)
+                acceptanceDate: values.acceptanceDate,
+                assigned: _.isEmpty(values.assigned)
                   ? undefined
-                  : dataTreatment.assigned,
-                externalBugTrackingSystem:
-                  dataTreatment.externalBugTrackingSystem,
+                  : values.assigned,
+                externalBugTrackingSystem: values.externalBugTrackingSystem,
                 findingId,
-                isVulnInfoChanged: !isEditPristine,
+                isVulnDescriptionChanged: !isDescriptionPristine,
                 isVulnTreatmentChanged: !isTreatmentPristine,
-                justification: dataTreatment.justification,
-                severity: _.isEmpty(String(dataTreatment.severity))
+                isVulnTreatmentDescriptionChanged:
+                  !isTreatmentDescriptionPristine,
+                justification: values.justification,
+                severity: _.isEmpty(String(values.severity))
                   ? -1
-                  : Number(dataTreatment.severity),
-                tag: dataTreatment.tag,
+                  : Number(values.severity),
+                source: _.isEmpty(values.source) ? undefined : values.source,
+                tag: values.tag,
                 treatment: isTreatmentPristine
                   ? "IN_PROGRESS"
-                  : dataTreatment.treatment,
+                  : values.treatment,
                 vulnerabilityId: vuln.id,
               },
             })
@@ -111,10 +113,13 @@ const getResults = async (
 };
 
 const getAllResults = async (
-  updateVuln: (variables: Record<string, unknown>) => Promise<VulnUpdateResult>,
+  updateVulnerability: (
+    variables: Record<string, unknown>
+  ) => Promise<VulnUpdateResult>,
   vulnerabilities: IVulnDataTypeAttr[],
-  dataTreatment: IUpdateTreatmentVulnerabilityForm,
-  isEditPristine: boolean,
+  dataTreatment: IUpdateVulnerabilityForm,
+  isDescriptionPristine: boolean,
+  isTreatmentDescriptionPristine: boolean,
   isTreatmentPristine: boolean
 ): Promise<VulnUpdateResult[][]> => {
   const vulnerabilitiesByFinding = _.groupBy(
@@ -129,11 +134,12 @@ const getAllResults = async (
       async (): Promise<VulnUpdateResult[][]> => {
         return Promise.all([
           getResults(
-            updateVuln,
+            updateVulnerability,
             chunkedVulnerabilities,
             dataTreatment,
             findingId,
-            isEditPristine,
+            isDescriptionPristine,
+            isTreatmentDescriptionPristine,
             isTreatmentPristine
           ),
         ]);
@@ -202,10 +208,10 @@ const getAreAllNotificationValid = (
 };
 
 const getAreAllMutationValid = (
-  results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[]
+  results: ExecutionResult<IUpdateVulnerabilityResultAttr>[]
 ): boolean[] => {
   return results.map(
-    (result: ExecutionResult<IUpdateVulnDescriptionResultAttr>): boolean => {
+    (result: ExecutionResult<IUpdateVulnerabilityResultAttr>): boolean => {
       if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
         const updateInfoSuccess: boolean = _.isUndefined(
           result.data.updateVulnerabilityTreatment
@@ -227,7 +233,7 @@ const getAreAllMutationValid = (
 };
 
 const getAreAllChunckedMutationValid = (
-  results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[][]
+  results: ExecutionResult<IUpdateVulnerabilityResultAttr>[][]
 ): boolean[] =>
   results
     .map(getAreAllMutationValid)
@@ -240,7 +246,7 @@ const getAreAllChunckedMutationValid = (
     );
 
 const dataTreatmentTrackHelper = (
-  dataTreatment: IUpdateTreatmentVulnerabilityForm
+  dataTreatment: IUpdateVulnerabilityForm
 ): void => {
   if (dataTreatment.tag !== undefined) {
     mixpanel.track("AddVulnerabilityTag");
@@ -253,7 +259,7 @@ const dataTreatmentTrackHelper = (
 const validMutationsHelper = (
   handleCloseModal: () => void,
   areAllMutationValid: boolean[],
-  dataTreatment: IUpdateTreatmentVulnerabilityForm,
+  dataTreatment: IUpdateVulnerabilityForm,
   vulnerabilities: IVulnDataTypeAttr[],
   isTreatmentPristine: boolean
 ): void => {
@@ -366,21 +372,23 @@ const handleRequestZeroRiskError = (
 };
 
 const handleSubmitHelper = async (
-  handleUpdateVulnTreatment: (
-    dataTreatment: IUpdateTreatmentVulnerabilityForm,
-    isEditPristine: boolean,
+  handleUpdateVulnerability: (
+    values: IUpdateVulnerabilityForm,
+    isDescriptionPristine: boolean,
+    isTreatmentDescriptionPristine: boolean,
     isTreatmentPristine: boolean
   ) => Promise<void>,
   requestZeroRisk: (
     variables: Record<string, unknown>
   ) => Promise<FetchResult<unknown>>,
   confirm: IConfirmFn,
-  values: IUpdateTreatmentVulnerabilityForm,
+  values: IUpdateVulnerabilityForm,
   findingId: string,
   vulnerabilities: IVulnDataTypeAttr[],
   changedToRequestZeroRisk: boolean,
   changedToUndefined: boolean,
-  isEditPristine: boolean,
+  isDescriptionPristine: boolean,
+  isTreatmentDescriptionPristine: boolean,
   isTreatmentPristine: boolean
   // Exception: FP(parameters are necessary)
   // eslint-disable-next-line
@@ -401,16 +409,18 @@ const handleSubmitHelper = async (
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
       // NOSONAR
-      void handleUpdateVulnTreatment(
+      void handleUpdateVulnerability(
         values,
-        isEditPristine,
+        isDescriptionPristine,
+        isTreatmentDescriptionPristine,
         isTreatmentPristine
       );
     });
   } else {
-    await handleUpdateVulnTreatment(
+    await handleUpdateVulnerability(
       values,
-      isEditPristine,
+      isDescriptionPristine,
+      isTreatmentDescriptionPristine,
       isTreatmentPristine
     );
   }

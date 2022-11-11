@@ -14,9 +14,9 @@ import React from "react";
 
 import {
   REQUEST_VULNS_ZERO_RISK,
-  UPDATE_DESCRIPTION_MUTATION,
+  UPDATE_VULNERABILITY_MUTATION,
 } from "./queries";
-import type { IUpdateVulnDescriptionResultAttr } from "./types";
+import type { IUpdateVulnerabilityResultAttr } from "./types";
 
 import { GET_GROUP_USERS } from "../queries";
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -65,6 +65,7 @@ describe("Update Description component", (): void => {
       ],
       id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
       severity: "2",
+      source: "asm",
       specific: "",
       tag: "one",
       where: "",
@@ -201,6 +202,7 @@ describe("Update Description component", (): void => {
         historicTreatment: [treatment],
         id: "test_one",
         severity: null,
+        source: "asm",
         specific: "",
         tag: "one",
         where: "",
@@ -214,6 +216,7 @@ describe("Update Description component", (): void => {
         historicTreatment: [treatment],
         id: "test_two",
         severity: null,
+        source: "asm",
         specific: "",
         tag: "one",
         where: "",
@@ -449,33 +452,38 @@ describe("Update Description component", (): void => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const handleRefetchData: jest.Mock = jest.fn();
-    const updateTreatment: IUpdateVulnDescriptionResultAttr = {
+    const updateTreatment: IUpdateVulnerabilityResultAttr = {
       updateVulnerabilitiesTreatment: { success: true },
       updateVulnerabilityTreatment: { success: true },
     };
-    const mutationVariables: Record<string, boolean | number | string> = {
+    const mutationVariables: Record<
+      string,
+      boolean | number | string | undefined
+    > = {
       acceptanceDate: "",
       assigned: "manager_test@test.test",
       externalBugTrackingSystem: "http://test.t",
       findingId: "422286126",
-      isVulnInfoChanged: true,
+      isVulnDescriptionChanged: false,
       isVulnTreatmentChanged: true,
+      isVulnTreatmentDescriptionChanged: true,
       justification: "test justification to treatment",
       severity: 2,
+      source: undefined,
       tag: "one",
       treatment: "IN_PROGRESS",
     };
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: UPDATE_DESCRIPTION_MUTATION,
+          query: UPDATE_VULNERABILITY_MUTATION,
           variables: { ...mutationVariables, vulnerabilityId: "test1" },
         },
         result: { data: updateTreatment },
       },
       {
         request: {
-          query: UPDATE_DESCRIPTION_MUTATION,
+          query: UPDATE_VULNERABILITY_MUTATION,
           variables: { ...mutationVariables, vulnerabilityId: "test2" },
         },
         result: { data: updateTreatment },
@@ -512,6 +520,7 @@ describe("Update Description component", (): void => {
         historicTreatment: [],
         id: "test1",
         severity: null,
+        source: "asm",
         specific: "",
         tag: "one",
         where: "",
@@ -525,6 +534,7 @@ describe("Update Description component", (): void => {
         historicTreatment: [],
         id: "test2",
         severity: null,
+        source: "asm",
         specific: "",
         tag: "one",
         where: "",
@@ -607,15 +617,18 @@ describe("Update Description component", (): void => {
 
     const mocksError: MockedResponse = {
       request: {
-        query: UPDATE_DESCRIPTION_MUTATION,
+        query: UPDATE_VULNERABILITY_MUTATION,
         variables: {
           acceptanceDate: "",
+          assigned: undefined,
           externalBugTrackingSystem: "",
           findingId: "422286126",
-          isVulnInfoChanged: false,
+          isVulnDescriptionChanged: false,
           isVulnTreatmentChanged: true,
+          isVulnTreatmentDescriptionChanged: false,
           justification: "test justification to treatment",
           severity: -1,
+          source: "ASM",
           tag: "one",
           treatment: "ACCEPTED_UNDEFINED",
           vulnerabilityId: "test",
@@ -639,6 +652,7 @@ describe("Update Description component", (): void => {
         historicTreatment: [],
         id: "test",
         severity: null,
+        source: "asm",
         specific: "",
         tag: "one",
         where: "",

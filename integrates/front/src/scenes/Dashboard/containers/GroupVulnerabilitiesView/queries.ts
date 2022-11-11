@@ -20,6 +20,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     rootNickname
     severity
     specific
+    source
     stream
     tag
     treatment

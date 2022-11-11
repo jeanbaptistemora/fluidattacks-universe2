@@ -12,7 +12,13 @@ import type { FormikTouched } from "formik";
 import { Form, useFormikContext } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { AcceptanceDateField } from "./AcceptanceDateField";
@@ -37,6 +43,7 @@ import {
 } from "./helpers";
 import { JustificationField } from "./JustificationField";
 import { SeverityField } from "./SeverityField";
+import { SourceField } from "./SourceField";
 import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
 
@@ -46,14 +53,14 @@ import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { ModalConfirm } from "components/Modal";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
-  IUpdateTreatmentVulnerabilityForm,
+  IUpdateVulnerabilityForm,
   IVulnDataTypeAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   REMOVE_TAGS_MUTATION,
   REQUEST_VULNS_ZERO_RISK,
   SEND_ASSIGNED_NOTIFICATION,
-  UPDATE_DESCRIPTION_MUTATION,
+  UPDATE_VULNERABILITY_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type {
   IGroupUsersAttr,
@@ -63,7 +70,7 @@ import type {
   ISendNotificationResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,
-  IUpdateVulnDescriptionResultAttr,
+  IUpdateVulnerabilityResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import {
   groupLastHistoricTreatment,
@@ -117,6 +124,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const canAssignVulnsToFluid: boolean = userLevelPermissions.can(
     "can_assign_vulnerabilities_to_fluidattacks_staff"
   );
+  const areSelectedClosedVulnerabilities = vulnerabilities.some(
+    (vulnerability: IVulnDataTypeAttr): boolean =>
+      vulnerability.currentState === "closed"
+  );
   const [isRunning, setIsRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
 
@@ -127,7 +138,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     values: formValues,
     setTouched,
     setValues,
-  } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
+  } = useFormikContext<IUpdateVulnerabilityForm>();
 
   function getDiff(
     initValues: Record<string, unknown>,
@@ -146,7 +157,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     initialValues as unknown as Record<string, unknown>,
     formValues as unknown as Record<string, unknown>
   );
-  const isEditPristine: boolean =
+  const isDescriptionPristine: boolean =
+    diffs.filter((diff: string): boolean => ["source"].includes(diff))
+      .length === 0;
+  const isTreatmentDescriptionPristine: boolean =
     diffs.filter((diff: string): boolean =>
       ["externalBugTrackingSystem", "tag", "severity"].includes(diff)
     ).length === 0;
@@ -159,12 +173,15 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     formValues,
     vulnerabilities
   );
-  const isPreviousEditPristine = usePreviousPristine(isEditPristine);
+
+  const isPreviousEditPristine = usePreviousPristine(
+    isTreatmentDescriptionPristine
+  );
   const isPreviousTreatmentPristine = usePreviousPristine(isTreatmentPristine);
 
-  const [updateVuln, { loading: updatingVuln }] =
-    useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
-      onCompleted: (result: IUpdateVulnDescriptionResultAttr): void => {
+  const [updateVulnerability, { loading: updatingVulnerability }] =
+    useMutation<IUpdateVulnerabilityResultAttr>(UPDATE_VULNERABILITY_MUTATION, {
+      onCompleted: (result: IUpdateVulnerabilityResultAttr): void => {
         if (
           !_.isUndefined(result.updateVulnerabilitiesTreatment) &&
           result.updateVulnerabilitiesTreatment.success
@@ -234,22 +251,24 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     ],
   });
 
-  const handleUpdateVulnTreatment = async (
-    dataTreatment: IUpdateTreatmentVulnerabilityForm,
-    isEditPristineP: boolean,
+  const handleUpdateVulnerability = async (
+    values: IUpdateVulnerabilityForm,
+    isDescriptionPristineP: boolean,
+    isTreatmentDescriptionPristineP: boolean,
     isTreatmentPristineP: boolean
   ): Promise<void> => {
     if (vulnerabilities.length === 0) {
       msgError(t("searchFindings.tabResources.noSelection"));
     } else {
-      dataTreatmentTrackHelper(dataTreatment);
+      dataTreatmentTrackHelper(values);
       try {
         setIsRunning(true);
         const results = await getAllResults(
-          updateVuln,
+          updateVulnerability,
           vulnerabilities,
-          dataTreatment,
-          isEditPristineP,
+          values,
+          isDescriptionPristineP,
+          isTreatmentDescriptionPristineP,
           isTreatmentPristineP
         );
 
@@ -258,7 +277,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         validMutationsHelper(
           handleCloseModal,
           areAllMutationValid,
-          dataTreatment,
+          values,
           vulnerabilities,
           isTreatmentPristineP
         );
@@ -289,7 +308,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     }
   };
 
-  const { submitForm } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
+  const { submitForm } = useFormikContext<IUpdateVulnerabilityForm>();
 
   async function handleDeletion(tag: string): Promise<void> {
     await deleteTagVuln({
@@ -368,7 +387,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const isAcceptedUndefinedSelected: boolean =
     formValues.treatment === "ACCEPTED_UNDEFINED";
 
-  function isEmpty(formObject: IUpdateTreatmentVulnerabilityForm): boolean {
+  function isEmpty(formObject: IUpdateVulnerabilityForm): boolean {
     return _.values(formObject).every(
       (objectValue: string | null | undefined): boolean =>
         _.isEmpty(objectValue)
@@ -378,8 +397,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   useEffect((): void => {
     setConfigFn(
       requestZeroRisk,
-      handleUpdateVulnTreatment,
-      isEditPristine,
+      handleUpdateVulnerability,
+      isDescriptionPristine,
+      isTreatmentDescriptionPristine,
       isTreatmentPristine
     );
     const valuesDifferences: string[] = getDiff(
@@ -392,11 +412,11 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     if (isEmpty(treatment) && !_.isEmpty(initialValues)) {
       setTreatment(initialValues);
     } else if (
-      (!isEditPristine || !isTreatmentPristine) &&
+      (!isTreatmentDescriptionPristine || !isTreatmentPristine) &&
       valuesDifferences.length > 0
     ) {
       setTreatment(formValues);
-    } else if (isEditPristine && isTreatmentPristine) {
+    } else if (isTreatmentDescriptionPristine && isTreatmentPristine) {
       if (isTouched) {
         setTreatment(initialValues);
         setValues(initialValues);
@@ -409,13 +429,11 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         if (valuesDifferences.length > 0) {
           setValues(treatment);
           setTouched(
-            (
-              valuesDifferences as (keyof IUpdateTreatmentVulnerabilityForm)[]
-            ).reduce(
+            (valuesDifferences as (keyof IUpdateVulnerabilityForm)[]).reduce(
               (
-                previousValue: FormikTouched<IUpdateTreatmentVulnerabilityForm>,
-                currentValue: keyof IUpdateTreatmentVulnerabilityForm
-              ): FormikTouched<IUpdateTreatmentVulnerabilityForm> => (
+                previousValue: FormikTouched<IUpdateVulnerabilityForm>,
+                currentValue: keyof IUpdateVulnerabilityForm
+              ): FormikTouched<IUpdateVulnerabilityForm> => (
                 // eslint-disable-next-line fp/no-mutation, no-sequences
                 (previousValue[currentValue] = true), previousValue
               ),
@@ -428,7 +446,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     // Annotation needed as adding the dependencies creates a memory leak
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isEditPristine,
+    isTreatmentDescriptionPristine,
     isTreatmentPristine,
     isPreviousEditPristine,
     isPreviousTreatmentPristine,
@@ -442,91 +460,100 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   return (
     <React.StrictMode>
       <Form>
-        <div className={"flex flex-wrap pt3"}>
-          <Col50>
-            <TreatmentField
-              isTreatmentPristine={isTreatmentPristine}
-              lastTreatment={lastTreatment}
-            />
-          </Col50>
-          <Col50>
-            <AssignedField
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              isInProgressSelected={isInProgressSelected}
-              lastTreatment={lastTreatment}
-              userEmails={userEmails}
-            />
-          </Col50>
-        </div>
-        <Row>
-          <Col50>
-            <AcceptanceUserField
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              isInProgressSelected={isInProgressSelected}
-              lastTreatment={lastTreatment}
-            />
-          </Col50>
-        </Row>
+        {areSelectedClosedVulnerabilities ? undefined : (
+          <Fragment>
+            <div className={"flex flex-wrap pt3"}>
+              <Col50>
+                <TreatmentField
+                  isTreatmentPristine={isTreatmentPristine}
+                  lastTreatment={lastTreatment}
+                />
+              </Col50>
+              <Col50>
+                <AssignedField
+                  isAcceptedSelected={isAcceptedSelected}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  isInProgressSelected={isInProgressSelected}
+                  lastTreatment={lastTreatment}
+                  userEmails={userEmails}
+                />
+              </Col50>
+            </div>
+            <Row>
+              <Col50>
+                <AcceptanceUserField
+                  isAcceptedSelected={isAcceptedSelected}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  isInProgressSelected={isInProgressSelected}
+                  lastTreatment={lastTreatment}
+                />
+              </Col50>
+            </Row>
+            <Row>
+              <Col100>
+                <JustificationField
+                  isTreatmentPristine={isTreatmentPristine}
+                  lastTreatment={lastTreatment}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col50>
+                <AcceptanceDateField
+                  isAcceptedSelected={isAcceptedSelected}
+                  lastTreatment={lastTreatment}
+                />
+              </Col50>
+            </Row>
+            <Row>
+              <Col100>
+                <ExternalBtsField
+                  hasNewVulnSelected={hasNewVulns}
+                  isAcceptedSelected={isAcceptedSelected}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  isInProgressSelected={isInProgressSelected}
+                  vulnerabilities={vulnerabilities}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <TagField
+                  handleDeletion={handleDeletion}
+                  hasNewVulnSelected={hasNewVulns}
+                  isAcceptedSelected={isAcceptedSelected}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  isInProgressSelected={isInProgressSelected}
+                />
+              </Col100>
+            </Row>
+            {(isAcceptedSelected ||
+              isAcceptedUndefinedSelected ||
+              isInProgressSelected ||
+              !hasNewVulns) &&
+            canUpdateVulnsTreatment &&
+            canDeleteVulnsTags ? (
+              <React.StrictMode>
+                {tagReminderAlert(isTreatmentPristine)}
+              </React.StrictMode>
+            ) : undefined}
+            <Row>
+              <Col50>
+                <SeverityField
+                  hasNewVulnSelected={hasNewVulns}
+                  isAcceptedSelected={isAcceptedSelected}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  isInProgressSelected={isInProgressSelected}
+                  level={groupVulnLevel(vulnerabilities)}
+                />
+              </Col50>
+            </Row>
+          </Fragment>
+        )}
         <Row>
           <Col100>
-            <JustificationField
-              isTreatmentPristine={isTreatmentPristine}
-              lastTreatment={lastTreatment}
-            />
+            <SourceField />
           </Col100>
-        </Row>
-        <Row>
-          <Col50>
-            <AcceptanceDateField
-              isAcceptedSelected={isAcceptedSelected}
-              lastTreatment={lastTreatment}
-            />
-          </Col50>
-        </Row>
-        <Row>
-          <Col100>
-            <ExternalBtsField
-              hasNewVulnSelected={hasNewVulns}
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              isInProgressSelected={isInProgressSelected}
-              vulnerabilities={vulnerabilities}
-            />
-          </Col100>
-        </Row>
-        <Row>
-          <Col100>
-            <TagField
-              handleDeletion={handleDeletion}
-              hasNewVulnSelected={hasNewVulns}
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              isInProgressSelected={isInProgressSelected}
-            />
-          </Col100>
-        </Row>
-        {(isAcceptedSelected ||
-          isAcceptedUndefinedSelected ||
-          isInProgressSelected ||
-          !hasNewVulns) &&
-        canUpdateVulnsTreatment &&
-        canDeleteVulnsTags ? (
-          <React.StrictMode>
-            {tagReminderAlert(isTreatmentPristine)}
-          </React.StrictMode>
-        ) : undefined}
-        <Row>
-          <Col50>
-            <SeverityField
-              hasNewVulnSelected={hasNewVulns}
-              isAcceptedSelected={isAcceptedSelected}
-              isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-              isInProgressSelected={isInProgressSelected}
-              level={groupVulnLevel(vulnerabilities)}
-            />
-          </Col50>
         </Row>
       </Form>
       {treatmentChangeAlert(isTreatmentPristine)}
@@ -541,10 +568,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         <ModalConfirm
           disabled={
             requestingZeroRisk ||
-            updatingVuln ||
+            updatingVulnerability ||
             deletingTag ||
             isRunning ||
-            (isEditPristine && isTreatmentPristine)
+            (isTreatmentDescriptionPristine &&
+              isTreatmentPristine &&
+              isDescriptionPristine)
           }
           onCancel={handleCloseModal}
           onConfirm={submitForm}

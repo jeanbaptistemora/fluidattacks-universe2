@@ -20,10 +20,7 @@ import {
   sortTags,
 } from "./utils";
 
-import type {
-  IUpdateTreatmentVulnerabilityForm,
-  IVulnDataTypeAttr,
-} from "../types";
+import type { IUpdateVulnerabilityForm, IVulnDataTypeAttr } from "../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
@@ -47,52 +44,60 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
   );
 
   const [fnConfig, setFnConfig] = useState<{
-    isEditPristine: boolean;
+    isDescriptionPristine: boolean;
+    isTreatmentDescriptionPristine: boolean;
     isTreatmentPristine: boolean;
     requestZeroRisk: (
       variables: Record<string, unknown>
     ) => Promise<FetchResult<unknown>>;
-    updateDescription: (
-      dataTreatment: IUpdateTreatmentVulnerabilityForm,
-      isEditPristine: boolean,
+    updateVulnerability: (
+      dataTreatment: IUpdateVulnerabilityForm,
+      isDescriptionPristine: boolean,
+      isTreatmentDescriptionPristine: boolean,
       isTreatmentPristine: boolean
     ) => Promise<void>;
   }>({
-    isEditPristine: true,
+    isDescriptionPristine: true,
+    isTreatmentDescriptionPristine: true,
     isTreatmentPristine: true,
     requestZeroRisk: async (): Promise<FetchResult<unknown>> =>
       Promise.resolve<FetchResult>({}),
-    updateDescription: async (): Promise<void> => Promise.resolve(undefined),
+    updateVulnerability: async (): Promise<void> => Promise.resolve(undefined),
   });
   const setConfigFn: (
     requestZeroRisk: (
       variables: Record<string, unknown>
     ) => Promise<FetchResult<unknown>>,
-    updateDescription: (
-      dataTreatment: IUpdateTreatmentVulnerabilityForm,
-      isEditPristine: boolean,
+    updateVulnerability: (
+      dataTreatment: IUpdateVulnerabilityForm,
+      isDescriptionPristine: boolean,
+      isTreatmentDescriptionPristine: boolean,
       isTreatmentPristine: boolean
     ) => Promise<void>,
-    isEditPristine: boolean,
+    isDescriptionPristine: boolean,
+    isTreatmentDescriptionPristine: boolean,
     isTreatmentPristine: boolean
   ) => void = useCallback(
     (
       requestZeroRisk: (
         variables: Record<string, unknown>
       ) => Promise<FetchResult<unknown>>,
-      updateDescription: (
-        dataTreatment: IUpdateTreatmentVulnerabilityForm,
-        isEditPristine: boolean,
+      updateVulnerability: (
+        dataTreatment: IUpdateVulnerabilityForm,
+        isDescriptionPristine: boolean,
+        isTreatmentDescriptionPristine: boolean,
         isTreatmentPristine: boolean
       ) => Promise<void>,
-      isEditPristine: boolean,
+      isDescriptionPristine: boolean,
+      isTreatmentDescriptionPristine: boolean,
       isTreatmentPristine: boolean
     ): void => {
       setFnConfig({
-        isEditPristine,
+        isDescriptionPristine,
+        isTreatmentDescriptionPristine,
         isTreatmentPristine,
         requestZeroRisk,
-        updateDescription,
+        updateVulnerability,
       });
     },
     []
@@ -112,7 +117,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
       >
         {(confirm): JSX.Element => {
           async function handleSubmit(
-            values: IUpdateTreatmentVulnerabilityForm
+            values: IUpdateVulnerabilityForm
           ): Promise<void> {
             const changedToRequestZeroRisk: boolean =
               values.treatment === "REQUEST_ZERO_RISK";
@@ -121,7 +126,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
               lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
             await handleSubmitHelper(
-              fnConfig.updateDescription,
+              fnConfig.updateVulnerability,
               fnConfig.requestZeroRisk,
               confirm,
               values,
@@ -129,7 +134,8 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
               vulnerabilities,
               changedToRequestZeroRisk,
               changedToUndefined,
-              fnConfig.isEditPristine,
+              fnConfig.isDescriptionPristine,
+              fnConfig.isTreatmentDescriptionPristine,
               fnConfig.isTreatmentPristine
             );
           }
@@ -148,6 +154,10 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                 severity:
                   Number(groupVulnLevel(vulnerabilities)) > 0
                     ? groupVulnLevel(vulnerabilities)
+                    : "",
+                source:
+                  vulnerabilities.length === 1
+                    ? vulnerabilities[0].source.toUpperCase()
                     : "",
                 tag: _.join(_.intersection(...vulnsTags), ","),
                 treatment: lastTreatment.treatment.replace("NEW", ""),
