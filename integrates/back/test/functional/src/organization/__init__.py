@@ -36,6 +36,12 @@ async def get_result(
                 stakeholders {{
                     email
                 }}
+                credentials {{
+                    azureOrganization
+                    isPat
+                    name
+                    type
+                }}
                 permissions
                 userRole
                 vulnerabilityGracePeriod

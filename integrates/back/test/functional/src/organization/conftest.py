@@ -6,6 +6,15 @@
 from back.test import (
     db,
 )
+from db_model.credentials.types import (
+    Credentials,
+    CredentialsState,
+    HttpsPatSecret,
+    SshSecret,
+)
+from db_model.enums import (
+    CredentialType,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -136,5 +145,34 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 email=generic_data["global_vars"]["admin_email"],
             ),
         ],
+        "credentials": (
+            Credentials(
+                id="3912827d-2b35-4e08-bd35-1bb24457951d",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.SSH,
+                    secret=SshSecret(key="VGVzdCBTU0gK"),
+                    is_pat=False,
+                ),
+            ),
+            Credentials(
+                id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    azure_organization="testorg1",
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="pat token",
+                    type=CredentialType.HTTPS,
+                    secret=HttpsPatSecret(token="VGVzdCBTU0gK"),
+                    is_pat=True,
+                ),
+            ),
+        ),
     }
     return await db.populate({**generic_data["db_data"], **data})

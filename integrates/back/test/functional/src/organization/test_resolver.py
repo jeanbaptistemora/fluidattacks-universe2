@@ -79,6 +79,15 @@ async def test_get_organization_ver_1(
     assert sorted(stakeholders) == org_stakeholders
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+    assert len(result["data"]["organization"]["credentials"]) == 2
+    assert result["data"]["organization"]["credentials"][1]["isPat"] is False
+    assert (
+        result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
+    )
+    assert result["data"]["organization"]["credentials"][0]["isPat"] is True
+    assert (
+        result["data"]["organization"]["credentials"][0]["name"] == "pat token"
+    )
 
 
 @pytest.mark.asyncio
@@ -158,6 +167,7 @@ async def test_get_organization_default_values(
     assert sorted(stakeholders) == org_stakeholders
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+    assert len(result["data"]["organization"]["credentials"]) == 0
 
 
 @pytest.mark.asyncio
