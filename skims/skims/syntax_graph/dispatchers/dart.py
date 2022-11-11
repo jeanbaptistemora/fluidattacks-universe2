@@ -7,15 +7,19 @@ from syntax_graph.syntax_readers.dart import (
     argument as dart_argument,
     argument_part as dart_argument_part,
     arguments as dart_arguments,
+    assignable_expression as dart_assignable_expression,
     assignable_selector as dart_assignable_selector,
     assignment_expression as dart_assignment_expression,
     await_expression as dart_await_expression,
     binary_expression as dart_binary_expression,
     boolean_literal as dart_boolean_literal,
+    break_statement as dart_break_statement,
     class_body as dart_class_body,
     class_definition as dart_class_definition,
     comment as dart_comment,
     conditional_expression as dart_conditional_expression,
+    constant_constructor_signature as dart_constant_constructor_signature,
+    continue_statement as dart_continue_statement,
     declaration_block as dart_declaration_block,
     enum_declaration as dart_enum_declaration,
     execution_block as dart_execution_block,
@@ -40,6 +44,7 @@ from syntax_graph.syntax_readers.dart import (
     new_expression as dart_new_expression,
     number_literal as dart_number_literal,
     operator as dart_operator,
+    operator_signature as dart_operator_signature,
     parameter as dart_parameter,
     parameter_list as dart_parameter_list,
     program as dart_program,
@@ -49,6 +54,7 @@ from syntax_graph.syntax_readers.dart import (
     string_literal as dart_string_literal,
     switch_body as dart_switch_body,
     switch_statement as dart_switch_statement,
+    throw_statement as dart_throw_statement,
     try_statement as dart_try_statement,
     unary_expression as dart_unary_expression,
     update_expression as dart_update_expression,
@@ -85,6 +91,12 @@ DART_DISPATCHERS: Dispatchers = (
             "arguments",
         },
         syntax_reader=dart_arguments.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assignable_expression",
+        },
+        syntax_reader=dart_assignable_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -126,6 +138,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "break_statement",
+        },
+        syntax_reader=dart_break_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "class_body",
         },
         syntax_reader=dart_class_body.reader,
@@ -138,16 +156,28 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "comment",
+            "documentation_comment",
+        },
+        syntax_reader=dart_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "conditional_expression",
         },
         syntax_reader=dart_conditional_expression.reader,
     ),
     Dispatcher(
         applicable_types={
-            "comment",
-            "documentation_comment",
+            "constant_constructor_signature",
         },
-        syntax_reader=dart_comment.reader,
+        syntax_reader=dart_constant_constructor_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "continue_statement",
+        },
+        syntax_reader=dart_continue_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -312,6 +342,12 @@ DART_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "operator_signature",
+        },
+        syntax_reader=dart_operator_signature.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "constructor_param",
             "formal_parameter",
         },
@@ -377,6 +413,12 @@ DART_DISPATCHERS: Dispatchers = (
             "switch_statement",
         },
         syntax_reader=dart_switch_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "throw_expression",
+        },
+        syntax_reader=dart_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
