@@ -98,6 +98,11 @@ from db_model.groups.enums import (
     GroupSubscriptionType,
     GroupTier,
 )
+from db_model.groups.get import (
+    get_group_historic_state_items,
+    get_group_item,
+    get_group_unreliable_indicators_item,
+)
 from db_model.groups.types import (
     Group,
     GroupFile,
@@ -172,6 +177,10 @@ from organizations import (
     domain as orgs_domain,
 )
 import re
+from redshift import (
+    groups as redshift_groups,
+    operations as redshift_ops,
+)
 from roots import (
     domain as roots_domain,
 )
@@ -490,20 +499,6 @@ async def remove_group(
             ]
         )
 
-    if FI_ENVIRONMENT == "development":
-        await remove_resources(
-            loaders=loaders,
-            group_name=group_name,
-            email=email,
-        )
-    await batch_dal.put_action(
-        action=Action.REMOVE_GROUP_RESOURCES,
-        entity=group_name,
-        subject=email,
-        additional_info="remove_group",
-        queue="small",
-        product_name=Product.INTEGRATES,
-    )
     await remove_all_stakeholders(
         loaders=loaders,
         group_name=group_name,
@@ -521,6 +516,21 @@ async def remove_group(
             status=GroupStateStatus.DELETED,
         ),
     )
+
+    await batch_dal.put_action(
+        action=Action.REMOVE_GROUP_RESOURCES,
+        entity=group_name,
+        subject=email,
+        additional_info="remove_group",
+        queue="small",
+        product_name=Product.INTEGRATES,
+    )
+    if FI_ENVIRONMENT == "development":
+        await remove_resources(
+            loaders=loaders,
+            group_name=group_name,
+            email=email,
+        )
 
 
 async def update_group_managed(
@@ -1362,6 +1372,29 @@ async def remove_resources(
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
     await toe_lines_model.remove_group_toe_lines(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
+
+    if FI_ENVIRONMENT == "production":
+        with redshift_ops.db_cursor() as cursor:
+            item = await get_group_item(group_name=group_name)
+            redshift_groups.insert_group(
+                cursor=cursor,
+                item=item,
+            )
+            historic_state = await get_group_historic_state_items(
+                group_name=group_name
+            )
+            redshift_groups.insert_historic_state(
+                cursor=cursor,
+                group_name=group_name,
+                historic_state=historic_state,
+            )
+            unreliable_indicators = await get_group_unreliable_indicators_item(
+                group_name=group_name
+            )
+            redshift_groups.insert_code_languages(
+                cursor=cursor,
+                unreliable_indicators=unreliable_indicators,
+            )
 
 
 async def remove_stakeholder(
