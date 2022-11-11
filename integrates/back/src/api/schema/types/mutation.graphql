@@ -1438,26 +1438,6 @@ type Mutation {
     vulnerabilityId: ID!
   ): SimplePayload!
 
-  "Updates Vulnerability commit data"
-  updateVulnerabilityCommit(
-    "Full SHA-1 hash of the commit where the Vulnerability was found"
-    vulnerabilityCommit: String!
-    "Identifier of the Vulnerability to update"
-    vulnerabilityId: String!
-    "General location of the Vulnerability, can be a file, an URL or an IP"
-    vulnerabilityWhere: String!
-    """
-    Specific location of the Vulnerability, can be a line of code,
-    a field or a port
-    """
-    vulnerabilitySpecific: String!
-  ): SimplePayload!
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/04/26.
-      """
-    )
-
   "Updates Vulnerability description"
   updateVulnerabilityDescription(
     "Full SHA-1 hash of the commit where the Vulnerability was found"

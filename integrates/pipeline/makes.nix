@@ -188,7 +188,6 @@
     ["update_tours"]
     ["update_url_root"]
     ["update_vulnerabilities_treatment"]
-    ["update_vulnerability_commit"]
     ["update_vulnerability_description"]
     ["update_vulnerability_treatment"]
     ["upload_file"]
