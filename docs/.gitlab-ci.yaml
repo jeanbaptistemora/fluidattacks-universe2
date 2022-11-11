@@ -63,6 +63,10 @@
   <<: [*makes4, *docs_in_dev_branch]
   stage: lint-code
 
+/docs/lint:
+  <<: [*makes4, *docs_in_dev_branch]
+  stage: lint-code
+
 /lintTerraform/docsInfra:
   <<: [*makes4, *docs_in_dev_branch]
   stage: test-infra
