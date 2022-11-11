@@ -40,6 +40,7 @@ from sorts.utils.static import (
 )
 from typing import (
     List,
+    Tuple,
 )
 
 
@@ -68,9 +69,9 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
 
 def get_toes_to_update(
     group_toe_lines: List[ToeLines], predicted_files: csv.DictReader
-) -> List[ToeLines]:
+) -> Tuple[List[ToeLines], List[ToeLines]]:
     toes_to_update: List[ToeLines] = []
-    pred_range_lim = 3
+    skipped_toes = group_toe_lines.copy()
     for predicted_file in predicted_files:
         decryped_filepath = FERNET.decrypt(
             predicted_file["file"].encode()
@@ -80,34 +81,33 @@ def get_toes_to_update(
         )
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
         for toe_lines in group_toe_lines:
-            sorts_risk_level = toe_lines.sorts_risk_level
-            if (
-                toe_lines.filename == predicted_file_filename
-                and predicted_file_prob
-                not in range(
-                    sorts_risk_level - pred_range_lim,  # type: ignore
-                    sorts_risk_level + pred_range_lim,  # type: ignore
-                )
-            ):
+            if toe_lines.filename == predicted_file_filename:
                 toes_to_update.append(
-                    ToeLines(  # type: ignore
+                    ToeLines(
+                        attacked_lines=toe_lines.attacked_lines,
                         filename=predicted_file_filename,
+                        loc=toe_lines.loc,
                         root_nickname=predicted_nickname,
                         sorts_risk_level=predicted_file_prob,  # type: ignore
                     )
                 )
+                skipped_toes.remove(toe_lines)
                 break
 
-    return toes_to_update
+    return toes_to_update, skipped_toes
 
 
-def update_integrates_toes(group_name: str, csv_name: str) -> None:
+def update_integrates_toes(
+    group_name: str, csv_name: str, current_date: str
+) -> None:
     group_toe_lines: List[ToeLines] = get_toe_lines_sorts(
         group_name  # type: ignore
     )
     with open(csv_name, "r", encoding="utf8") as csv_file:
         reader = csv.DictReader(csv_file)
-        toes_to_update = get_toes_to_update(group_toe_lines, reader)
+        toes_to_update, skipped_toes = get_toes_to_update(
+            group_toe_lines, reader
+        )
         with ThreadPoolExecutor(max_workers=8) as executor:
             for toe_lines in toes_to_update:
                 executor.submit(
@@ -115,12 +115,22 @@ def update_integrates_toes(group_name: str, csv_name: str) -> None:
                     group_name,
                     toe_lines.root_nickname,
                     toe_lines.filename,
+                    current_date,
                     toe_lines.sorts_risk_level,  # type: ignore
+                )
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            for skipped_toe in skipped_toes:
+                executor.submit(
+                    update_toe_lines_sorts,
+                    group_name,
+                    skipped_toe.root_nickname,
+                    skipped_toe.filename,
+                    "1970-01-01",
                 )
         log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
 
 
-def prioritize(subscription_path: str) -> bool:
+def prioritize(subscription_path: str, current_date: str) -> bool:
     """Prioritizes files according to the chance of finding a vulnerability"""
     success: bool = False
     group: str = os.path.basename(os.path.normpath(subscription_path))
@@ -137,7 +147,7 @@ def prioritize(subscription_path: str) -> bool:
                 [f"extension_{num}" for num in range(num_bits + 1)],
                 csv_name,
             )
-            update_integrates_toes(group, csv_name)
+            update_integrates_toes(group, csv_name, current_date)
             display_results(csv_name)
     else:
         log(

@@ -24,6 +24,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
 )
 
 
@@ -227,7 +228,11 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
 
 
 def update_toe_lines_sorts(
-    group_name: str, root_nickname: str, filename: str, risk_level: int
+    group_name: str,
+    root_nickname: str,
+    filename: str,
+    risk_level_date: str,
+    risk_level: Optional[int] = None,
 ) -> bool:
     result = _execute(
         query="""
@@ -235,13 +240,15 @@ def update_toe_lines_sorts(
                 $group_name: String!,
                 $root_nickname: String!,
                 $filename: String!,
-                $risk_level: Int!
+                $risk_level: Int,
+                $risk_level_date: DateTime!
             ) {
                 updateToeLinesSorts(
                     groupName: $group_name,
                     rootNickname: $root_nickname,
                     filename: $filename,
                     sortsRiskLevel: $risk_level
+                    sortsRiskLevelDate: $risk_level_date
                 ) {
                     success
                 }
@@ -253,6 +260,7 @@ def update_toe_lines_sorts(
             root_nickname=root_nickname,
             filename=filename,
             risk_level=risk_level,
+            risk_level_date=risk_level_date,
         ),
     )
 

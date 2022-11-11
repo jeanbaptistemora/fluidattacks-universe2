@@ -52,6 +52,7 @@ from training.redshift import (
         resolve_path=True,
     ),
 )
+@click.argument("date", type=str)
 @click.option(
     "--association-rules",
     is_flag=True,
@@ -71,6 +72,7 @@ from training.redshift import (
 @shield(on_error_return=False)
 def execute_sorts(
     subscription: str,
+    date: str,
     association_rules: bool,
     get_file_data: bool,
     token: str,
@@ -88,7 +90,7 @@ def execute_sorts(
             execute_association_rules(group)
             success = True
         else:
-            success = prioritize_files(subscription)
+            success = prioritize_files(subscription, date)
 
         execution_time: float = time.time() - start_time
         log_to_remote_info(

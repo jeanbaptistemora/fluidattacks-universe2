@@ -14,7 +14,7 @@ function execute {
         && return 0
     fi \
     && echo '[INFO] Running sorts:' \
-    && if sorts "groups/${group}"; then
+    && if sorts "groups/${group}" "${current_date}"; then
       echo "[INFO] Succesfully executed on: ${group}" \
         && success='true'
     else
@@ -28,6 +28,7 @@ function execute {
 function main {
   local parallel="${1}"
   local groups_file
+  current_date="$(date +"%Y-%m-%d")"
 
   : \
     && aws_login "prod_sorts" "3600" \
