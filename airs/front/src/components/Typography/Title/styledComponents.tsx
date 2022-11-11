@@ -22,15 +22,15 @@ const fontWeights: Record<TWeight, number> = {
 const variants: Record<TSize, { sizes: ISize; weight: TWeight }> = {
   big: { sizes: { fontSize: "1", lineHeight: "56" }, weight: "bold" },
   medium: {
-    sizes: { fontSize: "2", lineHeight: "48" },
+    sizes: { fontSize: "2", lineHeight: "44" },
     weight: "bold",
   },
   small: {
-    sizes: { fontSize: "3", lineHeight: "40" },
+    sizes: { fontSize: "3", lineHeight: "32" },
     weight: "semibold",
   },
   xs: {
-    sizes: { fontSize: "4", lineHeight: "32" },
+    sizes: { fontSize: "4", lineHeight: "28" },
     weight: "semibold",
   },
 };

@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type React from "react";
+
 type TStyle = "i" | "no";
 type Nums1To4 = 1 | 2 | 3 | 4;
 type Nums1To7 = Nums1To4 | 5 | 6 | 7;
@@ -12,6 +14,7 @@ type TSize = "big" | "medium" | "small" | "xs";
 
 interface ITypographyProps {
   color: string;
+  children: React.ReactNode;
   display?: "block" | "inline-block" | "inline";
   hColor?: string;
   mb?: Nums1To7 | 0;

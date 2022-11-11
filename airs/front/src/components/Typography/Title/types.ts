@@ -7,7 +7,6 @@
 import type { ITypographyProps, Nums1To4 } from "../types";
 
 interface ITitleProps extends ITypographyProps {
-  children: React.ReactNode;
   level: Nums1To4;
 }
 

@@ -7,7 +7,6 @@
 import type { ITypographyProps, TWeight } from "../types";
 
 interface ITextProps extends ITypographyProps {
-  children: React.ReactNode;
   weight?: TWeight;
 }
 
