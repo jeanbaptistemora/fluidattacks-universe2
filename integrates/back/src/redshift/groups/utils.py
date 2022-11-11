@@ -53,10 +53,11 @@ def format_row_metadata(
 
 
 def format_row_state(
+    group_name: str,
     state: Item,
 ) -> Item:
     return dict(
-        id=str(state["pk"]).split("#")[1],
+        id=group_name,
         has_machine=bool(state["has_machine"]),
         has_squad=bool(state["has_squad"]),
         justification=state.get("justification"),
@@ -75,24 +76,3 @@ def format_row_state(
         tier=state["tier"] if state.get("tier") else "OTHER",
         type=state["type"],
     )
-
-
-def format_row_unfulfilled_standards(
-    unreliable_indicators: Item,
-) -> list[Item]:
-    group_name = str(unreliable_indicators["pk"]).split("#")[1]
-    unreliable_unfulfilled_standards = unreliable_indicators.get(
-        "unfulfilled_standards", []
-    )
-    return [
-        dict(
-            id=hashlib.sha256(
-                (group_name + standard["name"] + requirement).encode("utf-8")
-            ).hexdigest(),
-            group_name=group_name,
-            name=standard["name"],
-            requirement=requirement,
-        )
-        for standard in unreliable_unfulfilled_standards
-        for requirement in standard["unfulfilled_requirements"]
-    ]

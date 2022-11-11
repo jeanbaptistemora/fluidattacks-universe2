@@ -14,7 +14,6 @@ from psycopg2 import (
 CODE_LANGUAGES_TABLE = "groups_code_languages"
 METADATA_TABLE = "groups_metadata"
 STATE_TABLE = "groups_state"
-UNFULFILLED_STANDARDS_TABLE = "groups_unfulfilled_standards"
 
 
 def _initialize_code_languages_table() -> None:
@@ -102,33 +101,8 @@ def _initialize_state_table() -> None:
     )
 
 
-def _initialize_unfulfilled_standards_table() -> None:
-    execute(
-        sql.SQL(
-            """
-            CREATE TABLE IF NOT EXISTS {table} (
-                id VARCHAR,
-                group_name VARCHAR,
-                name VARCHAR,
-                requirement VARCHAR,
-
-                UNIQUE (
-                    id
-                ),
-                PRIMARY KEY (
-                    id
-                )
-            )
-        """
-        ).format(
-            table=sql.Identifier(SCHEMA_NAME, UNFULFILLED_STANDARDS_TABLE),
-        ),
-    )
-
-
 def initialize_tables() -> None:
     initialize_schema()
     _initialize_metadata_table()
     _initialize_code_languages_table()
     _initialize_state_table()
-    _initialize_unfulfilled_standards_table()

@@ -6,4 +6,3 @@
 CODE_LANGUAGES_TABLE = "groups_code_languages"
 METADATA_TABLE = "groups_metadata"
 STATE_TABLE = "groups_state"
-UNFULFILLED_STANDARDS_TABLE = "groups_unfulfilled_standards"

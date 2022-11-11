@@ -50,12 +50,3 @@ class StateTableRow:
     status: str
     tier: str
     type: str
-
-
-@dataclass(frozen=True)
-class UnfulfilledStandardsTableRow:
-    # pylint: disable=invalid-name
-    id: str
-    group_name: str
-    name: str
-    requirement: str

@@ -11,7 +11,6 @@ from .initialize import (
     CODE_LANGUAGES_TABLE,
     METADATA_TABLE,
     STATE_TABLE,
-    UNFULFILLED_STANDARDS_TABLE,
 )
 from .types import (
     CodeLanguagesTableRow,
@@ -22,7 +21,6 @@ from .utils import (
     format_row_code_languages,
     format_row_metadata,
     format_row_state,
-    format_row_unfulfilled_standards,
 )
 from dynamodb.types import (
     Item,
@@ -50,10 +48,13 @@ def insert_code_languages(
 def insert_historic_state(
     *,
     cursor: cursor_cls,
+    group_name: str,
     historic_state: tuple[Item, ...],
 ) -> None:
     sql_fields = get_query_fields(StateTableRow)
-    sql_values = [format_row_state(state) for state in historic_state]
+    sql_values = [
+        format_row_state(group_name, state) for state in historic_state
+    ]
     cursor.executemany(
         format_sql_query_historic(STATE_TABLE, METADATA_TABLE, sql_fields),
         sql_values,
@@ -73,38 +74,14 @@ def insert_metadata(
     )
 
 
-def insert_unfulfilled_standards(
-    *,
-    cursor: cursor_cls,
-    unreliable_indicators: Item,
-) -> None:
-    sql_fields = get_query_fields(CodeLanguagesTableRow)
-    sql_values = format_row_unfulfilled_standards(unreliable_indicators)
-    if not sql_values:
-        return
-    cursor.executemany(
-        format_sql_query_metadata(UNFULFILLED_STANDARDS_TABLE, sql_fields),
-        sql_values,
-    )
-
-
 def insert_group(
     *,
     cursor: cursor_cls,
     item: Item,
 ) -> None:
     insert_metadata(cursor=cursor, item=item)
-    insert_historic_state(cursor=cursor, historic_state=(item["state"],))
-
-
-def insert_unreliable_indicators(
-    *,
-    cursor: cursor_cls,
-    unreliable_indicators: Item,
-) -> None:
-    insert_code_languages(
-        cursor=cursor, unreliable_indicators=unreliable_indicators
-    )
-    insert_unfulfilled_standards(
-        cursor=cursor, unreliable_indicators=unreliable_indicators
+    insert_historic_state(
+        cursor=cursor,
+        group_name=str(item["pk"]).split("#")[1],
+        historic_state=(item["state"],),
     )
