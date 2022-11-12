@@ -12,6 +12,7 @@ locals {
           Action = [
             "access-analyzer:*",
             "acm:*",
+            "athena:*",
             "autoscaling:*",
             "aws-marketplace:*",
             "aws-portal:*",
@@ -31,6 +32,7 @@ locals {
             "es:*",
             "events:*",
             "firehose:*",
+            "glue:*",
             "grafana:*",
             "iam:*",
             "kinesis:*",
