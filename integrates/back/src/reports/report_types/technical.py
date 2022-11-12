@@ -50,11 +50,7 @@ from tempfile import (
     TemporaryDirectory,
 )
 from typing import (
-    Dict,
-    List,
     Optional,
-    Set,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -64,8 +60,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 def convert_evidences_to_png(
-    findings: Tuple[Finding, ...],
-    finding_evidences_set: Dict[str, List[Dict[str, str]]],
+    findings: tuple[Finding, ...],
+    finding_evidences_set: dict[str, list[dict[str, str]]],
     tempdir: str,
 ) -> None:
     """
@@ -97,13 +93,13 @@ def convert_evidences_to_png(
 
 
 async def download_evidences_for_pdf(
-    findings: Tuple[Finding, ...], tempdir: str
-) -> Dict[str, List[Dict[str, str]]]:
+    findings: tuple[Finding, ...], tempdir: str
+) -> dict[str, list[dict[str, str]]]:
     finding_evidences_set = {}
     for finding in findings:
         folder_name = f"{finding.group_name}/{finding.id}"
         evidences = get_formatted_evidence(finding)
-        evidences_s3: Set[str] = set(
+        evidences_s3: set[str] = set(
             await findings_storage.search_evidence(folder_name)
         )
         evidence_set = [
@@ -114,7 +110,7 @@ async def download_evidences_for_pdf(
             for _, value in evidences.items()
             if (
                 value["url"]
-                and f'{folder_name}/{value["url"]}' in evidences_s3
+                and f'evidences/{folder_name}/{value["url"]}' in evidences_s3
             )
         ]
         finding_evidences_set[finding.id] = evidence_set
@@ -147,7 +143,7 @@ async def generate_pdf_file(
     *,
     loaders: Dataloaders,
     description: str,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group_name: str,
     lang: str,
     user_email: str,
@@ -175,7 +171,7 @@ async def generate_pdf_file(
 async def generate_xls_file(  # NOSONAR # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group_name: str,
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
