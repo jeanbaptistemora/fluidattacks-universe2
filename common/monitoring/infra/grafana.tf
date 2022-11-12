@@ -13,7 +13,7 @@ resource "aws_grafana_workspace" "monitoring" {
 
 resource "aws_grafana_workspace_saml_configuration" "monitoring" {
   workspace_id     = aws_grafana_workspace.monitoring.id
-  idp_metadata_url = "https://fluidattacks.okta.com/app/exknalqoulqokKDvJ357/sso/saml/metadata"
+  idp_metadata_xml = okta_app_saml.grafana.metadata
 
   admin_role_values  = ["admin"]
   editor_role_values = ["editor"]

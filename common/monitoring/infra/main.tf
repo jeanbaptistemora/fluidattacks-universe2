@@ -10,6 +10,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.39.0"
     }
+    okta = {
+      source  = "okta/okta"
+      version = "~> 3.22.0"
+    }
   }
 
   backend "s3" {
@@ -23,4 +27,10 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+}
+
+provider "okta" {
+  org_name  = "fluidattacks"
+  base_url  = "okta.com"
+  api_token = var.oktaApiToken
 }
