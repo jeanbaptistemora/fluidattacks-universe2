@@ -12,7 +12,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_ORGANIZATION_CREDENTIALS } from "../GroupScopeView/queries";
+import { GET_ORGANIZATION_CREDENTIALS } from "../OrganizationCredentialsView/queries";
 import { OrganizationWeakest } from "scenes/Dashboard/containers/OrganizationWeakestView/index";
 import {
   GET_ORGANIZATION_GROUPS,
@@ -20,8 +20,22 @@ import {
 } from "scenes/Dashboard/containers/OrganizationWeakestView/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
+const mockHistoryPush: jest.Mock = jest.fn();
+jest.mock("react-router-dom", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-dom");
+
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
+
 describe("OrganizationWeakestView", (): void => {
-  const mocksVulnerabilities: MockedResponse = {
+  const mocksOrgRepositories: MockedResponse = {
     request: {
       query: GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
       variables: {
@@ -46,7 +60,7 @@ describe("OrganizationWeakestView", (): void => {
     },
   };
 
-  const mocksUserGroups: MockedResponse = {
+  const mocksOrganizationGroups: MockedResponse = {
     request: {
       query: GET_ORGANIZATION_GROUPS,
       variables: {
@@ -75,7 +89,7 @@ describe("OrganizationWeakestView", (): void => {
             },
           ],
           name: "orgtest",
-          permissions: [],
+          permissions: ["api_mutations_add_credentials_mutate"],
         },
       },
     },
@@ -96,6 +110,7 @@ describe("OrganizationWeakestView", (): void => {
             {
               __typename: "Credentials",
               id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+              isPat: true,
               name: "Credentials test",
               owner: "owner@test.com",
               type: "HTTPS",
@@ -113,14 +128,20 @@ describe("OrganizationWeakestView", (): void => {
     expect(typeof OrganizationWeakest).toBe("function");
   });
 
-  it("should handle reattack button basic", async (): Promise<void> => {
+  it("should handle select group to add", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const { container } = render(
       <MemoryRouter initialEntries={["/orgs/orgtest/weakest"]}>
         <MockedProvider
           addTypename={true}
-          mocks={[mocksUserGroups, mocksVulnerabilities, mockedOrgCredentials]}
+          mocks={[
+            mockedOrgCredentials,
+            mocksOrganizationGroups,
+            mocksOrgRepositories,
+          ]}
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
@@ -181,5 +202,82 @@ describe("OrganizationWeakestView", (): void => {
     });
 
     expect(screen.getByRole("textbox", { name: "branch" })).toHaveValue("main");
+  });
+
+  it("should handle empty", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const mocksRepositories: MockedResponse = {
+      request: {
+        query: GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
+        variables: {
+          organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+        },
+      },
+      result: {
+        data: {
+          organization: {
+            __typename: "Organization",
+            integrationRepositories: [],
+            name: "orgtest",
+          },
+        },
+      },
+    };
+
+    const mockedCredentials: MockedResponse = {
+      request: {
+        query: GET_ORGANIZATION_CREDENTIALS,
+        variables: {
+          organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+        },
+      },
+      result: {
+        data: {
+          organization: {
+            __typename: "Organization",
+            credentials: [],
+            name: "orgtest",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/orgtest/weakest"]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[
+            mockedCredentials,
+            mocksOrganizationGroups,
+            mocksRepositories,
+          ]}
+        >
+          <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
+            <authzGroupContext.Provider value={new PureAbility<string>([])}>
+              <Route path={"/orgs/:organizationName/weakest"}>
+                <OrganizationWeakest
+                  organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
+                />
+              </Route>
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("button")).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getByRole("button"));
+
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
+    expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/orgtest/credentials");
   });
 });
