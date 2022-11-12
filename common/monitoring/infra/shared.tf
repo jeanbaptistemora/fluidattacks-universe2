@@ -9,6 +9,19 @@ resource "aws_s3_bucket" "monitoring_athena_results" {
   bucket = "common-monitoring-athena-results"
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "monitoring_athena_results" {
+  bucket = aws_s3_bucket.monitoring_athena_results.id
+
+  rule {
+    id     = "remove old ${aws_s3_bucket.monitoring_athena_results.id} objects"
+    status = "Enabled"
+
+    expiration {
+      days = 1
+    }
+  }
+}
+
 resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = aws_s3_bucket.monitoring.id
   acl    = "private"
