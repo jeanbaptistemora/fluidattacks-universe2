@@ -380,16 +380,33 @@ def get_severity(metric: str, metric_value: Decimal) -> Optional[str]:
     return description
 
 
+def get_percentage(number_of_findings: int, total_findings: float) -> float:
+    return float(
+        number_of_findings * 100 / total_findings
+        if total_findings > 0
+        else 0.0
+    )
+
+
 def make_vuln_table(
     context_findings: Tuple[PdfFindingInfo, ...], words: Dict[str, str]
 ) -> VulnTable:
     """Label findings percent quantity."""
+    number_of_findings = float(
+        len(
+            [
+                finding
+                for finding in context_findings
+                if finding.open_vulnerabilities > 0
+            ]
+        )
+    )
     vuln_table: List[List[Union[float, int, str]]] = [
         [words["vuln_c"], 0, 0, 0],
         [words["vuln_h"], 0, 0, 0],
         [words["vuln_m"], 0, 0, 0],
         [words["vuln_l"], 0, 0, 0],
-        ["Total", len(context_findings), "100.00%", 0],
+        ["Total", number_of_findings, "100.00%", 0],
     ]
     top_table: List[List[Union[int, str]]] = []
     ttl_vulns, top = 0, 1
@@ -397,22 +414,22 @@ def make_vuln_table(
         crit_as_text = words["crit_l"]
         vuln_amount = finding.open_vulnerabilities
         ttl_vulns += vuln_amount
-        if 9.0 <= finding.severity_score <= 10.0:
+        if 9.0 <= finding.severity_score <= 10.0 and vuln_amount > 0:
             vuln_table[0][1] = int(vuln_table[0][1]) + 1
             vuln_table[0][3] = int(vuln_table[0][3]) + vuln_amount
             crit_as_text = words["crit_c"]
-        elif 7.0 <= finding.severity_score <= 8.9:
+        elif 7.0 <= finding.severity_score <= 8.9 and vuln_amount > 0:
             vuln_table[1][1] = int(vuln_table[1][1]) + 1
             vuln_table[1][3] = int(vuln_table[1][3]) + vuln_amount
             crit_as_text = words["crit_h"]
-        elif 4.0 <= finding.severity_score <= 6.9:
+        elif 4.0 <= finding.severity_score <= 6.9 and vuln_amount > 0:
             vuln_table[2][1] = int(vuln_table[2][1]) + 1
             vuln_table[2][3] = int(vuln_table[2][3]) + vuln_amount
             crit_as_text = words["crit_m"]
-        else:
+        elif 0.0 <= finding.severity_score <= 3.9 and vuln_amount > 0:
             vuln_table[3][1] = int(vuln_table[3][1]) + 1
             vuln_table[3][3] = int(vuln_table[3][3]) + vuln_amount
-        if top <= 5:
+        if top <= 5 and vuln_amount > 0:
             top_table.append(
                 [
                     top,
@@ -421,26 +438,17 @@ def make_vuln_table(
                 ]
             )
             top += 1
-    number_of_findings = float(len(context_findings))
-    vuln_table[0][2] = float(
-        int(vuln_table[0][1]) * 100 / number_of_findings
-        if number_of_findings != 0
-        else 0.0
+    vuln_table[0][2] = get_percentage(
+        int(vuln_table[0][1]), number_of_findings
     )
-    vuln_table[1][2] = float(
-        int(vuln_table[1][1]) * 100 / number_of_findings
-        if number_of_findings != 0
-        else 0.0
+    vuln_table[1][2] = get_percentage(
+        int(vuln_table[1][1]), number_of_findings
     )
-    vuln_table[2][2] = float(
-        int(vuln_table[2][1]) * 100 / number_of_findings
-        if number_of_findings != 0
-        else 0.0
+    vuln_table[2][2] = get_percentage(
+        int(vuln_table[2][1]), number_of_findings
     )
-    vuln_table[3][2] = float(
-        int(vuln_table[3][1]) * 100 / number_of_findings
-        if number_of_findings != 0
-        else 0.0
+    vuln_table[3][2] = get_percentage(
+        int(vuln_table[3][1]), number_of_findings
     )
     vuln_table[0][2] = f"{float(vuln_table[0][2]):.2f}%"
     vuln_table[1][2] = f"{float(vuln_table[1][2]):.2f}%"
@@ -688,15 +696,25 @@ class CreatorPdf:
         colors = ["#980000", "red", "orange", "yellow"]
         explode = (0.1, 0, 0, 0)
         for finding in context_findings:
-            if 9.0 <= finding.severity_score <= 10.0:
+            if (
+                9.0 <= finding.severity_score <= 10.0
+                and finding.open_vulnerabilities > 0
+            ):
                 finding_state_pie[0] += 1
-            elif 7.0 <= finding.severity_score <= 8.9:
+            elif (
+                7.0 <= finding.severity_score <= 8.9
+                and finding.open_vulnerabilities > 0
+            ):
                 finding_state_pie[1] += 1
-            elif 4.0 <= finding.severity_score <= 6.9:
+            elif (
+                4.0 <= finding.severity_score <= 6.9
+                and finding.open_vulnerabilities > 0
+            ):
                 finding_state_pie[2] += 1
-            elif 0.0 <= finding.severity_score <= 3.9:  # Abierto por defecto
-                finding_state_pie[3] += 1
-            else:
+            elif (
+                0.0 <= finding.severity_score <= 3.9
+                and finding.open_vulnerabilities > 0
+            ):
                 finding_state_pie[3] += 1
         pie(
             finding_state_pie,
