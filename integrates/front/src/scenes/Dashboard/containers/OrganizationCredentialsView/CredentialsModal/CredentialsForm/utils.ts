@@ -21,6 +21,27 @@ const validateSchema = (): InferType<TypedSchema> =>
     (values: IFormValues): BaseSchema =>
       object({
         auth: string(),
+        azureOrganization: string().when(["newSecrets", "type", "isPat"], {
+          is: (newSecrets: boolean, type: string, isPat: boolean): boolean =>
+            newSecrets &&
+            type === (values.auth === "TOKEN" ? "HTTPS" : "") &&
+            isPat,
+          otherwise: string(),
+          then: string()
+            .required(translate.t("validations.required"))
+            .test(
+              "hasValidValue",
+              translate.t("validations.invalidSpaceField"),
+              (value): boolean => {
+                const regex = /\S/u;
+                if (value === undefined) {
+                  return true;
+                }
+
+                return regex.test(value);
+              }
+            ),
+        }),
         key: string()
           .when(["newSecrets", "type"], {
             is: (newSecrets: boolean, type: string): boolean =>

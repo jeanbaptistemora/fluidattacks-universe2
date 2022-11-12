@@ -8,6 +8,8 @@ import type { FormikHelpers } from "formik";
 
 interface IFormValues {
   auth: "TOKEN" | "USER";
+  azureOrganization: string | undefined;
+  isPat: boolean | undefined;
   key: string | undefined;
   name: string | undefined;
   newSecrets: boolean;

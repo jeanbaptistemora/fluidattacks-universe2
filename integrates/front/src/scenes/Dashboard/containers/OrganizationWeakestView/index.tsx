@@ -7,6 +7,8 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
+import { faPlug } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -19,6 +21,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory, useParams } from "react-router-dom";
 
 import { PlusModal } from "./modal";
 import { plusFormatter } from "./plusFormatter";
@@ -33,9 +36,14 @@ import type {
   IOrganizationWeakestProps,
 } from "./types";
 
+import { GET_ORGANIZATION_CREDENTIALS } from "../OrganizationCredentialsView/queries";
+import type { ICredentialsAttr } from "../OrganizationCredentialsView/types";
 import type { IAction, IGroupAction } from "../Tasks/Vulnerabilities/types";
+import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
+import { Tooltip } from "components/Tooltip";
+import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 
@@ -53,6 +61,8 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
   organizationId,
 }: IOrganizationWeakestProps): JSX.Element => {
   const { t } = useTranslation();
+  const { push } = useHistory();
+  const { organizationName } = useParams<{ organizationName: string }>();
 
   const attributesContext: PureAbility<string> = useContext(authzGroupContext);
   const permissionsContext: PureAbility<string> = useContext(
@@ -95,6 +105,32 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
         organizationId,
       },
     }
+  );
+
+  const { data: credentialsData } = useQuery<{
+    organization: { credentials: ICredentialsAttr[] };
+  }>(GET_ORGANIZATION_CREDENTIALS, {
+    onError: (errors: ApolloError): void => {
+      errors.graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error(
+          "Couldn't load organization credentials from weakest",
+          error
+        );
+      });
+    },
+    variables: {
+      organizationId,
+    },
+  });
+
+  const credentialsAttrs = useMemo(
+    (): ICredentialsAttr[] =>
+      _.isUndefined(credentialsData)
+        ? []
+        : credentialsData.organization.credentials.filter(
+            (credential: ICredentialsAttr): boolean => credential.isPat
+          ),
+    [credentialsData]
   );
 
   const groupNames = useMemo(
@@ -264,8 +300,31 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     repositoriesData,
   ]);
 
+  const onMoveToCredentials = useCallback((): void => {
+    push(`/orgs/${organizationName}/credentials`);
+  }, [organizationName, push]);
+
   return (
     <React.StrictMode>
+      {credentialsAttrs.length === 0 && credentialsData !== undefined ? (
+        <Can do={"api_mutations_add_credentials_mutate"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={"organization.tabs.weakest.buttons.add.tooltip.id"}
+            tip={t("organization.tabs.weakest.buttons.add.tooltip")}
+          >
+            <Button
+              id={"moveToCredentials"}
+              onClick={onMoveToCredentials}
+              variant={"secondary"}
+            >
+              <FontAwesomeIcon icon={faPlug} />
+              &nbsp;
+              {t("organization.tabs.weakest.buttons.add.text")}
+            </Button>
+          </Tooltip>
+        </Can>
+      ) : undefined}
       <Table
         columns={[
           ...tableColumns,

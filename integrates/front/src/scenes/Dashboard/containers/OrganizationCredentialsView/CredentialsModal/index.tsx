@@ -10,12 +10,12 @@ import type { ApolloError } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { CredentialsForm } from "./CredentialsForm";
 import type { IFormValues } from "./CredentialsForm/types";
-import type { ICredentialsModalProps } from "./types";
+import type { ICredentialsModalProps, ISecretsCredentials } from "./types";
 
 import {
   ADD_CREDENTIALS,
@@ -125,9 +125,8 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
     }
   );
 
-  // Handle actions
-  async function handleSubmit(values: IFormValues): Promise<void> {
-    const secrets =
+  const formatSecrets = useCallback(
+    (values: IFormValues): ISecretsCredentials =>
       values.type === "HTTPS"
         ? values.auth === "USER"
           ? {
@@ -135,13 +134,29 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
               type: "HTTPS",
               user: values.user,
             }
-          : { token: values.token, type: "HTTPS" }
+          : {
+              azureOrganization:
+                _.isUndefined(values.azureOrganization) ||
+                _.isUndefined(values.isPat) ||
+                !values.isPat
+                  ? undefined
+                  : values.azureOrganization,
+              isPat: _.isUndefined(values.isPat) ? false : values.isPat,
+              token: values.token,
+              type: "HTTPS",
+            }
         : {
             key: Buffer.from(
               _.isUndefined(values.key) ? "" : values.key
             ).toString("base64"),
             type: "SSH",
-          };
+          },
+    []
+  );
+
+  // Handle actions
+  async function handleSubmit(values: IFormValues): Promise<void> {
+    const secrets = formatSecrets(values);
 
     if (isAdding) {
       await handleAddCredentials({
@@ -184,6 +199,8 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           isEditing && !_.isUndefined(selectedCredentials)
             ? {
                 auth: "TOKEN",
+                azureOrganization: undefined,
+                isPat: false,
                 key: undefined,
                 name: selectedCredentials[0].name,
                 newSecrets: false,

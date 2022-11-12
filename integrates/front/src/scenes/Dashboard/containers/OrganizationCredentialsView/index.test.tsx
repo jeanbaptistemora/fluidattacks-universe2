@@ -58,6 +58,7 @@ describe("organization credentials view", (): void => {
                 {
                   __typename: "Credentials",
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  isPat: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -105,6 +106,7 @@ describe("organization credentials view", (): void => {
                 {
                   __typename: "Credentials",
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  isPat: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -122,6 +124,7 @@ describe("organization credentials view", (): void => {
           query: ADD_CREDENTIALS,
           variables: {
             credentials: {
+              isPat: false,
               name: "New name",
               token: "New token",
               type: "HTTPS",
@@ -213,6 +216,7 @@ describe("organization credentials view", (): void => {
                 {
                   __typename: "Credentials",
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  isPat: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -302,6 +306,7 @@ describe("organization credentials view", (): void => {
                 {
                   __typename: "Credentials",
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  isPat: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",

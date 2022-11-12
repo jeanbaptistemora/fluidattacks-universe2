@@ -11,14 +11,18 @@ interface IAddCredentialsResultAttr {
 }
 
 interface ICredentialsAttr {
+  azureOrganization: string | null;
   id: string;
+  isPat: boolean;
   name: string;
   owner: string;
   type: "HTTPS" | "SSH";
 }
 
 interface ICredentialsData {
+  azureOrganization: string | null;
   id: string;
+  isPat: boolean;
   name: string;
   owner: string;
   type: "HTTPS" | "SSH";

@@ -1850,7 +1850,9 @@ export const enTranslations: ResourceKey = {
               token: "Access Token",
               user: "User and Password",
             },
+            azureOrganization: "Azure organization",
             edit: "Edit",
+            isPat: "Use as Azure DevOps PAT",
             name: {
               label: "Credential name",
               placeholder: "Test credential",
@@ -2148,6 +2150,12 @@ export const enTranslations: ResourceKey = {
         tooltip: "Add and remove users from the organization",
       },
       weakest: {
+        buttons: {
+          add: {
+            text: "Integrate",
+            tooltip: "Integrate with Azure DevOps by adding PAT credentials",
+          },
+        },
         formatter: {
           plus: {
             tooltip: "Add new root using the URL",
@@ -2162,6 +2170,8 @@ export const enTranslations: ResourceKey = {
           lastCommitDate: "Last commit date",
           url: "Repository URL",
         },
+        text: "Weakest",
+        tooltip: "Integration repositories not included in ARM",
       },
     },
   },

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,7 @@ import type { ICredentialsFormProps, IFormValues } from "./types";
 import { validateSchema } from "./utils";
 
 import { Input, Select, TextArea } from "components/Input";
+import { FormikCheckbox } from "components/Input/Formik";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { ModalConfirm } from "components/Modal";
@@ -26,6 +27,8 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
 
   const defaultInitialValues: IFormValues = {
     auth: "TOKEN",
+    azureOrganization: undefined,
+    isPat: false,
     key: undefined,
     name: undefined,
     newSecrets: true,
@@ -118,15 +121,36 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                     </Col>
                   )}
                   {values.type === "HTTPS" && values.auth === "TOKEN" && (
-                    <Col lg={100} md={100} sm={100}>
-                      <Input
-                        label={t(
-                          "organization.tabs.credentials.credentialsModal.form.token"
-                        )}
-                        name={"token"}
-                        required={true}
-                      />
-                    </Col>
+                    <React.Fragment>
+                      <Col lg={100} md={100} sm={100}>
+                        <Input
+                          label={t(
+                            "organization.tabs.credentials.credentialsModal.form.token"
+                          )}
+                          name={"token"}
+                          required={true}
+                        />
+                      </Col>
+                      <Col lg={100} md={100} sm={100}>
+                        <Field
+                          component={FormikCheckbox}
+                          label={t(
+                            "organization.tabs.credentials.credentialsModal.form.isPat"
+                          )}
+                          name={"isPat"}
+                          type={"checkbox"}
+                        />
+                        {values.isPat === true ? (
+                          <Input
+                            label={t(
+                              "organization.tabs.credentials.credentialsModal.form.azureOrganization"
+                            )}
+                            name={"azureOrganization"}
+                            required={true}
+                          />
+                        ) : undefined}
+                      </Col>
+                    </React.Fragment>
                   )}
                   {values.type === "HTTPS" && values.auth === "USER" && (
                     <Fragment>

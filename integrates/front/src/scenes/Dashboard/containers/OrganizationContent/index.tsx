@@ -24,6 +24,7 @@ import {
 
 import { ComplianceContent } from "../ComplianceContent";
 import { OrganizationCredentials } from "../OrganizationCredentialsView";
+import { OrganizationWeakest } from "../OrganizationWeakestView";
 import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
@@ -203,6 +204,13 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     </Tab>
                   </Can>
                   <Tab
+                    id={"weakestTab"}
+                    link={`${url}/weakest`}
+                    tooltip={translate.t("organization.tabs.weakest.tooltip")}
+                  >
+                    {translate.t("organization.tabs.weakest.text")}
+                  </Tab>
+                  <Tab
                     id={"credentialsTab"}
                     link={`${url}/credentials`}
                     tooltip={translate.t(
@@ -257,6 +265,11 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Route>
                 <Route exact={true} path={`${path}/billing`}>
                   <OrganizationBilling
+                    organizationId={basicData.organizationId.id}
+                  />
+                </Route>
+                <Route exact={true} path={`${path}/weakest`}>
+                  <OrganizationWeakest
                     organizationId={basicData.organizationId.id}
                   />
                 </Route>
