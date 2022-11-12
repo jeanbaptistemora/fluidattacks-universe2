@@ -34,12 +34,12 @@ describe("OrganizationOverview", (): void => {
             organization: {
               __typename: "Organization",
               billing: {
-                costsAuthors: 1,
-                costsBase: 1,
                 costsTotal: 1,
                 numberAuthorsMachine: 1,
                 numberAuthorsSquad: 1,
-                numberAuthorsTotal: 1,
+                numberGroupsMachine: 1,
+                numberGroupsSquad: 1,
+                organizationName: "org-test",
               },
               name: "org-test",
             },
@@ -51,12 +51,11 @@ describe("OrganizationOverview", (): void => {
     render(
       <MockedProvider addTypename={false} mocks={mockedQueries}>
         <OrganizationOverview
-          costsAuthors={1}
-          costsBase={1}
           costsTotal={1}
           numberAuthorsMachine={1}
           numberAuthorsSquad={1}
-          numberAuthorsTotal={1}
+          numberGroupsMachine={1}
+          numberGroupsSquad={1}
           organizationName={"org-test"}
         />
       </MockedProvider>
@@ -67,17 +66,8 @@ describe("OrganizationOverview", (): void => {
       ).toBeInTheDocument();
 
       expect(
-        screen.getByText("organization.tabs.billing.overview.costsBase.title")
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          "organization.tabs.billing.overview.costsAuthors.title"
-        )
-      ).toBeInTheDocument();
-      expect(
         screen.getByText("organization.tabs.billing.overview.costsTotal.title")
       ).toBeInTheDocument();
-
       expect(
         screen.getByText(
           "organization.tabs.billing.overview.numberAuthorsMachine.title"
@@ -88,9 +78,15 @@ describe("OrganizationOverview", (): void => {
           "organization.tabs.billing.overview.numberAuthorsSquad.title"
         )
       ).toBeInTheDocument();
+
       expect(
         screen.getByText(
-          "organization.tabs.billing.overview.numberAuthorsTotal.title"
+          "organization.tabs.billing.overview.numberGroupsMachine.title"
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "organization.tabs.billing.overview.numberGroupsSquad.title"
         )
       ).toBeInTheDocument();
     });

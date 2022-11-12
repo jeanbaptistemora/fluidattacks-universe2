@@ -15,22 +15,20 @@ import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 
 interface IOrganizationOverviewProps {
-  costsAuthors: number;
-  costsBase: number;
   costsTotal: number;
   numberAuthorsMachine: number;
   numberAuthorsSquad: number;
-  numberAuthorsTotal: number;
+  numberGroupsMachine: number;
+  numberGroupsSquad: number;
   organizationName: string;
 }
 
 export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
-  costsAuthors,
-  costsBase,
   costsTotal,
   numberAuthorsMachine,
   numberAuthorsSquad,
-  numberAuthorsTotal,
+  numberGroupsMachine,
+  numberGroupsSquad,
   organizationName,
 }: IOrganizationOverviewProps): JSX.Element => {
   const { t } = useTranslation();
@@ -49,39 +47,35 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
           </InfoDropdown>
         </Text>
         <Row>
-          <Col lg={33} md={50} sm={100}>
+          <Col lg={20} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.costsBase.content",
-                { costsBase }
+                "organization.tabs.billing.overview.numberGroupsMachine.content",
+                { numberGroupsMachine }
               )}
-              info={t("organization.tabs.billing.overview.costsBase.info")}
-              title={t("organization.tabs.billing.overview.costsBase.title")}
+              info={t(
+                "organization.tabs.billing.overview.numberGroupsMachine.info"
+              )}
+              title={t(
+                "organization.tabs.billing.overview.numberGroupsMachine.title"
+              )}
             />
           </Col>
-          <Col lg={33} md={50} sm={100}>
+          <Col lg={20} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.costsAuthors.content",
-                { costsAuthors }
+                "organization.tabs.billing.overview.numberGroupsSquad.content",
+                { numberGroupsSquad }
               )}
-              info={t("organization.tabs.billing.overview.costsAuthors.info")}
-              title={t("organization.tabs.billing.overview.costsAuthors.title")}
+              info={t(
+                "organization.tabs.billing.overview.numberGroupsSquad.info"
+              )}
+              title={t(
+                "organization.tabs.billing.overview.numberGroupsSquad.title"
+              )}
             />
           </Col>
-          <Col lg={33} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.billing.overview.costsTotal.content",
-                { costsTotal }
-              )}
-              info={t("organization.tabs.billing.overview.costsTotal.info")}
-              title={t("organization.tabs.billing.overview.costsTotal.title")}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={33} md={50} sm={100}>
+          <Col lg={20} md={50} sm={100}>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberAuthorsMachine.content",
@@ -95,7 +89,7 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={33} md={50} sm={100}>
+          <Col lg={20} md={50} sm={100}>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberAuthorsSquad.content",
@@ -109,18 +103,14 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={33} md={50} sm={100}>
+          <Col lg={20} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.billing.overview.numberAuthorsTotal.content",
-                { numberAuthorsTotal }
+                "organization.tabs.billing.overview.costsTotal.content",
+                { costsTotal }
               )}
-              info={t(
-                "organization.tabs.billing.overview.numberAuthorsTotal.info"
-              )}
-              title={t(
-                "organization.tabs.billing.overview.numberAuthorsTotal.title"
-              )}
+              info={t("organization.tabs.billing.overview.costsTotal.info")}
+              title={t("organization.tabs.billing.overview.costsTotal.title")}
             />
           </Col>
         </Row>

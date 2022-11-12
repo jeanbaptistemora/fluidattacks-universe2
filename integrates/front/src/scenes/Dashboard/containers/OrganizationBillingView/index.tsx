@@ -63,10 +63,6 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     data === undefined ? [] : data.organization.billing.authors;
   const billingPortal: string =
     data === undefined ? "" : data.organization.billing.portal;
-  const costsAuthors: number =
-    data === undefined ? 0 : data.organization.billing.costsAuthors;
-  const costsBase: number =
-    data === undefined ? 0 : data.organization.billing.costsBase;
   const costsTotal: number =
     data === undefined ? 0 : data.organization.billing.costsTotal;
   const groups: IGroupAttr[] =
@@ -75,8 +71,10 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     data === undefined ? 0 : data.organization.billing.numberAuthorsMachine;
   const numberAuthorsSquad: number =
     data === undefined ? 0 : data.organization.billing.numberAuthorsSquad;
-  const numberAuthorsTotal: number =
-    data === undefined ? 0 : data.organization.billing.numberAuthorsTotal;
+  const numberGroupsMachine: number =
+    data === undefined ? 0 : data.organization.billing.numberGroupsMachine;
+  const numberGroupsSquad: number =
+    data === undefined ? 0 : data.organization.billing.numberGroupsSquad;
   const organizationName: string =
     data === undefined ? "" : data.organization.name;
   const paymentMethods: IPaymentMethodAttr[] =
@@ -89,12 +87,11 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   return (
     <React.Fragment>
       <OrganizationOverview
-        costsAuthors={costsAuthors}
-        costsBase={costsBase}
         costsTotal={costsTotal}
         numberAuthorsMachine={numberAuthorsMachine}
         numberAuthorsSquad={numberAuthorsSquad}
-        numberAuthorsTotal={numberAuthorsTotal}
+        numberGroupsMachine={numberGroupsMachine}
+        numberGroupsSquad={numberGroupsSquad}
         organizationName={organizationName}
       />
       <OrganizationGroups

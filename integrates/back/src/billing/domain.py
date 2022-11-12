@@ -998,9 +998,15 @@ async def get_organization_billing(
     costs_base: int = 0
     number_authors_machine: int = 0
     number_authors_squad: int = 0
+    number_groups_machine: int = 0
+    number_groups_squad: int = 0
     for group in org_groups:
-        if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE):
+        if group.state.tier == GroupTier.SQUAD:
             costs_base += int(prices["machine"].amount / 100)
+            number_groups_squad += 1
+        elif group.state.tier == GroupTier.MACHINE:
+            costs_base += int(prices["machine"].amount / 100)
+            number_groups_machine += 1
         for author in authors:
             if group.name in author.groups:
                 if group.state.tier == GroupTier.MACHINE:
@@ -1009,6 +1015,7 @@ async def get_organization_billing(
                     number_authors_squad += 1
 
     number_authors_total: int = len(authors)
+    number_groups_total: int = len(org_groups)
     costs_authors: int = int(
         number_authors_squad * prices["squad"].amount / 100
     )
@@ -1022,6 +1029,9 @@ async def get_organization_billing(
         number_authors_machine=number_authors_machine,
         number_authors_squad=number_authors_squad,
         number_authors_total=number_authors_total,
+        number_groups_machine=number_groups_machine,
+        number_groups_squad=number_groups_squad,
+        number_groups_total=number_groups_total,
         organization=org.id,
     )
 

@@ -1650,35 +1650,30 @@ export const enTranslations: ResourceKey = {
           },
         },
         overview: {
-          costsAuthors: {
-            content: "{{costsAuthors}} $",
-            info: "Month-To-Date authors organization costs",
-            title: "Authors costs",
-          },
-          costsBase: {
-            content: "{{costsBase}} $",
-            info: "Month-To-Date base organization costs",
-            title: "Base costs",
-          },
           costsTotal: {
             content: "{{costsTotal}} $",
             info: "Month-To-Date total organization costs",
             title: "Total costs",
           },
           numberAuthorsMachine: {
-            content: "{{numberAuthorsMachine}} Authors",
-            info: "Month-To-Date number of Machine authors",
+            content: "{{numberAuthorsMachine}} Author(s)",
+            info: "Month-To-Date Machine authors",
             title: "Machine authors",
           },
           numberAuthorsSquad: {
-            content: "{{numberAuthorsSquad}} Authors",
-            info: "Month-To-Date number of Squad authors",
+            content: "{{numberAuthorsSquad}} Author(s)",
+            info: "Month-To-Date Squad authors",
             title: "Squad authors",
           },
-          numberAuthorsTotal: {
-            content: "{{numberAuthorsTotal}} Authors",
-            info: "Month-To-Date total number of authors",
-            title: "Total authors",
+          numberGroupsMachine: {
+            content: "{{numberGroupsMachine}} Group(s)",
+            info: "Number of Squad groups",
+            title: "Squad groups",
+          },
+          numberGroupsSquad: {
+            content: "{{numberGroupsSquad}} Group(s)",
+            info: "Number of Machine groups",
+            title: "Machine groups",
           },
           title: {
             info: "Billing information for {{organizationName}}",

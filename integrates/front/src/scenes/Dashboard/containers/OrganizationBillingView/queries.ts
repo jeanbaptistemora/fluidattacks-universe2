@@ -39,6 +39,9 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         numberAuthorsMachine
         numberAuthorsSquad
         numberAuthorsTotal
+        numberGroupsMachine
+        numberGroupsSquad
+        numberGroupsTotal
         paymentMethods {
           businessName
           id

@@ -56,6 +56,12 @@ type OrganizationBilling {
   numberAuthorsSquad: Int!
   "Number of authors for all subscriptions"
   numberAuthorsTotal: Int!
+  "Number of groups with machine subscription"
+  numberGroupsMachine: Int!
+  "Number of groups with squad subscription"
+  numberGroupsSquad: Int!
+  "Total number of groups"
+  numberGroupsTotal: Int!
   "Payment methods for the organization"
   paymentMethods: [PaymentMethod]!
   "Portal URL for managing group tiers"

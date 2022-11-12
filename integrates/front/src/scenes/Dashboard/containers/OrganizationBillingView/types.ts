@@ -41,6 +41,9 @@ interface IOrganizationBilling {
   numberAuthorsMachine: number;
   numberAuthorsSquad: number;
   numberAuthorsTotal: number;
+  numberGroupsMachine: number;
+  numberGroupsSquad: number;
+  numberGroupsTotal: number;
   paymentMethods: IPaymentMethodAttr[] | undefined;
   portal: string;
 }

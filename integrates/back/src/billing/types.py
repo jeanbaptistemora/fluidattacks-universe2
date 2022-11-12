@@ -40,6 +40,9 @@ class OrganizationBilling(NamedTuple):
     number_authors_machine: int
     number_authors_squad: int
     number_authors_total: int
+    number_groups_machine: int
+    number_groups_squad: int
+    number_groups_total: int
     organization: str
 
 
