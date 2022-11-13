@@ -380,7 +380,7 @@ def get_severity(metric: str, metric_value: Decimal) -> Optional[str]:
     return description
 
 
-def get_percentage(number_of_findings: int, total_findings: float) -> float:
+def get_percentage(number_of_findings: int, total_findings: int) -> float:
     return float(
         number_of_findings * 100 / total_findings
         if total_findings > 0
@@ -392,14 +392,13 @@ def make_vuln_table(
     context_findings: Tuple[PdfFindingInfo, ...], words: Dict[str, str]
 ) -> VulnTable:
     """Label findings percent quantity."""
-    number_of_findings = float(
-        len(
-            [
-                finding
-                for finding in context_findings
-                if finding.open_vulnerabilities > 0
-            ]
-        )
+    number_of_findings: int = len(
+        [
+            finding
+            for finding in context_findings
+            if finding.open_vulnerabilities > 0
+            and Decimal("0.0") <= finding.severity_score <= Decimal("10.0")
+        ]
     )
     vuln_table: List[List[Union[float, int, str]]] = [
         [words["vuln_c"], 0, 0, 0],
@@ -414,19 +413,31 @@ def make_vuln_table(
         crit_as_text = words["crit_l"]
         vuln_amount = finding.open_vulnerabilities
         ttl_vulns += vuln_amount
-        if 9.0 <= finding.severity_score <= 10.0 and vuln_amount > 0:
+        if (
+            Decimal("9.0") <= finding.severity_score <= Decimal("10.0")
+            and vuln_amount > 0
+        ):
             vuln_table[0][1] = int(vuln_table[0][1]) + 1
             vuln_table[0][3] = int(vuln_table[0][3]) + vuln_amount
             crit_as_text = words["crit_c"]
-        elif 7.0 <= finding.severity_score <= 8.9 and vuln_amount > 0:
+        elif (
+            Decimal("7.0") <= finding.severity_score <= Decimal("8.9")
+            and vuln_amount > 0
+        ):
             vuln_table[1][1] = int(vuln_table[1][1]) + 1
             vuln_table[1][3] = int(vuln_table[1][3]) + vuln_amount
             crit_as_text = words["crit_h"]
-        elif 4.0 <= finding.severity_score <= 6.9 and vuln_amount > 0:
+        elif (
+            Decimal("4.0") <= finding.severity_score <= Decimal("6.9")
+            and vuln_amount > 0
+        ):
             vuln_table[2][1] = int(vuln_table[2][1]) + 1
             vuln_table[2][3] = int(vuln_table[2][3]) + vuln_amount
             crit_as_text = words["crit_m"]
-        elif 0.0 <= finding.severity_score <= 3.9 and vuln_amount > 0:
+        elif (
+            Decimal("0.0") <= finding.severity_score <= Decimal("3.9")
+            and vuln_amount > 0
+        ):
             vuln_table[3][1] = int(vuln_table[3][1]) + 1
             vuln_table[3][3] = int(vuln_table[3][3]) + vuln_amount
         if top <= 5 and vuln_amount > 0:
