@@ -708,22 +708,22 @@ class CreatorPdf:
         explode = (0.1, 0, 0, 0)
         for finding in context_findings:
             if (
-                9.0 <= finding.severity_score <= 10.0
+                Decimal("9.0") <= finding.severity_score <= Decimal("10.0")
                 and finding.open_vulnerabilities > 0
             ):
                 finding_state_pie[0] += 1
             elif (
-                7.0 <= finding.severity_score <= 8.9
+                Decimal("7.0") <= finding.severity_score <= Decimal("8.9")
                 and finding.open_vulnerabilities > 0
             ):
                 finding_state_pie[1] += 1
             elif (
-                4.0 <= finding.severity_score <= 6.9
+                Decimal("4.0") <= finding.severity_score <= Decimal("6.9")
                 and finding.open_vulnerabilities > 0
             ):
                 finding_state_pie[2] += 1
             elif (
-                0.0 <= finding.severity_score <= 3.9
+                Decimal("0.0") <= finding.severity_score <= Decimal("3.9")
                 and finding.open_vulnerabilities > 0
             ):
                 finding_state_pie[3] += 1
