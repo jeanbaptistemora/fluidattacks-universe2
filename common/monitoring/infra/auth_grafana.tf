@@ -31,13 +31,28 @@ resource "aws_iam_policy" "grafana" {
     "Version" = "2012-10-17",
     "Statement" = [
       {
+        "Effect"   = "Allow",
+        "Action"   = "athena:ListDataCatalogs",
+        "Resource" = "*",
+      },
+      {
+        "Effect" = "Allow",
+        "Action" = [
+          "athena:GetQueryExecution",
+          "athena:GetQueryResults",
+          "athena:StartQueryExecution",
+        ],
+        "Resource" = aws_athena_workgroup.monitoring.arn,
+      },
+      {
         "Effect" = "Allow",
         "Action" = [
           "athena:ListDatabases",
-          "athena:ListDataCatalogs",
-          "athena:ListWorkGroups",
+          "athena:ListTableMetadata",
         ],
-        "Resource" = "*",
+        "Resource" = [
+          "arn:aws:athena:*:*:datacatalog/AwsDataCatalog"
+        ],
       },
       {
         "Effect" = "Allow",
