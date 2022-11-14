@@ -48,6 +48,35 @@ resource "aws_iam_policy" "grafana" {
           "arn:aws:glue:*:*:catalog",
         ],
       },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:ListBucket",
+        ],
+        "Resource" : [
+          "${aws_s3_bucket.monitoring.arn}",
+          "${aws_s3_bucket.monitoring_athena_results.arn}",
+        ],
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:GetObject",
+        ],
+        "Resource" : [
+          "${aws_s3_bucket.monitoring.arn}/*",
+        ],
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:GetObject",
+          "s3:PutObject",
+        ],
+        "Resource" : [
+          "${aws_s3_bucket.monitoring_athena_results.arn}/*",
+        ],
+      },
       # For Redshift data source:
       # {
       #   "Effect" ="Allow",
