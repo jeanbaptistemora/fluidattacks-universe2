@@ -60,25 +60,32 @@ resource "aws_kinesis_firehose_delivery_stream" "compute_jobs" {
   }
 }
 
-resource "aws_athena_named_query" "drop_compute_jobs_table" {
-  name      = "common-monitoring-drop-compute-jobs-table"
-  workgroup = aws_athena_workgroup.monitoring.id
-  database  = aws_athena_database.monitoring.name
-  query     = <<-EOF
-    DROP TABLE IF EXISTS `compute_jobs`;
-  EOF
-}
+resource "aws_glue_catalog_table" "compute_jobs" {
+  database_name = aws_athena_database.monitoring.name
+  name          = "compute_jobs"
 
-resource "aws_athena_named_query" "create_compute_jobs_table" {
-  name      = "common-monitoring-create-compute-jobs-table"
-  workgroup = aws_athena_workgroup.monitoring.id
-  database  = aws_athena_database.monitoring.name
-  query     = <<-EOF
-    CREATE EXTERNAL TABLE `compute_jobs` (
-      `id` string,
-      `time` string
-    )
-    ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
-    LOCATION 's3://${aws_s3_bucket.monitoring.bucket}/${aws_kinesis_firehose_delivery_stream.compute_jobs.extended_s3_configuration[0].prefix}'
-  EOF
+  table_type = "EXTERNAL_TABLE"
+
+  storage_descriptor {
+    location      = "s3://${aws_s3_bucket.monitoring.bucket}/compute-jobs"
+    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
+    output_format = "org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat"
+
+    ser_de_info {
+      serialization_library = "org.openx.data.jsonserde.JsonSerDe"
+      parameters = {
+        "serialization.format" = 1
+      }
+    }
+
+    columns {
+      name = "id"
+      type = "string"
+    }
+
+    columns {
+      name = "time"
+      type = "string"
+    }
+  }
 }
