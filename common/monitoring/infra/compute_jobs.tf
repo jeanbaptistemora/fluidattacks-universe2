@@ -78,6 +78,11 @@ resource "aws_glue_catalog_table" "compute_jobs" {
       }
     }
 
+    sort_columns {
+      column     = "time"
+      sort_order = 0
+    }
+
     columns {
       name = "detail"
       type = replace(
@@ -93,15 +98,15 @@ resource "aws_glue_catalog_table" "compute_jobs" {
               resourceRequirements:array<struct<type:string, value:string>>,
               vcpus:bigint
             >,
-            createdAt:bigint,
+            createdAt:timestamp,
             jobId:string,
             jobName:string,
             jobQueue:string,
-            startedAt:bigint,
+            startedAt:timestamp,
             status:string,
             statusReason:string,
             requesttime:string,
-            stoppedAt:bigint
+            stoppedAt:timestamp
           >
         EOF
         ,

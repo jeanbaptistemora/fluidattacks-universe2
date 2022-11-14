@@ -61,7 +61,11 @@ resource "aws_iam_policy" "grafana" {
       },
       {
         "Effect" = "Allow",
-        "Action" = "glue:GetTable",
+        "Action" = [
+          "glue:GetPartition",
+          "glue:GetPartitions",
+          "glue:GetTable",
+        ],
         "Resource" = [
           "arn:aws:glue:*:*:catalog",
           "arn:aws:glue:*:*:database/${aws_athena_database.monitoring.name}",
