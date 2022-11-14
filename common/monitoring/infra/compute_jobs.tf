@@ -79,13 +79,43 @@ resource "aws_glue_catalog_table" "compute_jobs" {
     }
 
     columns {
+      name = "detail"
+      type = replace(
+        <<-EOF
+          struct<
+            container:struct<
+              command:array<string>,
+              environment:array<struct<name:string>>,
+              exitCode:bigint,
+              image:string,
+              logStreamName:string,
+              memory:bigint,
+              resourceRequirements:array<struct<type:string, value:string>>,
+              vcpus:bigint
+            >,
+            createdAt:bigint,
+            jobId:string,
+            jobName:string,
+            jobQueue:string,
+            startedAt:bigint,
+            status:string,
+            statusReason:string,
+            requesttime:string,
+            stoppedAt:bigint
+          >
+        EOF
+        ,
+      "/[\n ]+/", "")
+    }
+
+    columns {
       name = "id"
       type = "string"
     }
 
     columns {
       name = "time"
-      type = "string"
+      type = "timestamp"
     }
   }
 }
