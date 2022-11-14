@@ -55,12 +55,17 @@ resource "aws_iam_policy" "grafana" {
         ],
       },
       {
+        "Effect"   = "Allow",
+        "Action"   = "glue:GetDatabases",
+        "Resource" = "arn:aws:glue:*:*:catalog",
+      },
+      {
         "Effect" = "Allow",
-        "Action" = [
-          "glue:GetDatabases"
-        ],
+        "Action" = "glue:GetTable",
         "Resource" = [
           "arn:aws:glue:*:*:catalog",
+          "arn:aws:glue:*:*:database/${aws_athena_database.monitoring.name}",
+          aws_glue_catalog_table.compute_jobs.arn,
         ],
       },
       {
