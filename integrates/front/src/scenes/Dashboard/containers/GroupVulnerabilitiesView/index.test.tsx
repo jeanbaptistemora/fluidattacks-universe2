@@ -6,6 +6,7 @@
 
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -16,6 +17,7 @@ import type { IGroupVulnerabilities } from "./types";
 
 import { GroupVulnerabilitiesView } from ".";
 import { getCache } from "utils/apollo";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupVulnerabilitiesView", (): void => {
   const mockGroupVulnerabilities: IGroupVulnerabilities = {
@@ -173,6 +175,10 @@ describe("GroupVulnerabilitiesView", (): void => {
     },
   };
 
+  const mockedPermissions = new PureAbility<string>([
+    { action: "api_mutations_verify_vulnerabilities_request_mutate" },
+  ]);
+
   const queryMock: readonly MockedResponse[] = [
     {
       request: {
@@ -307,6 +313,47 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("New")).toBeInTheDocument();
     expect(screen.getByText("Temporarily accepted")).toBeInTheDocument();
     expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should open verify vulnerabilities modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([{ action: "can_report_vulnerabilities" }])
+              }
+            >
+              <Route
+                component={GroupVulnerabilitiesView}
+                path={"/groups/:groupName/vulns"}
+              />
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "searchFindings.tabDescription.markVerified.text",
+      })
+    );
+
+    expect(screen.getByText("Where")).toBeInTheDocument();
+    expect(screen.getByText("Specific")).toBeInTheDocument();
+    expect(screen.getByText("State")).toBeInTheDocument();
+    expect(screen.getByText("specific-1")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
