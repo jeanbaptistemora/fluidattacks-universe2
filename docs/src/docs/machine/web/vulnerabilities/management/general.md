@@ -70,4 +70,4 @@ Find out more information about
 this tab under
 [this link](/machine/web/groups/vulnerabilities#tracking-tab).
 
-![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668517202/docs/web/vulnerabilities/management/tracking_tab.png)
+![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668520103/docs/web/vulnerabilities/management/tracking_tab.png)

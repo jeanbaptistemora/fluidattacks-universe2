@@ -12,14 +12,14 @@ to create portfolios.
 In order to create a tag,
 you can click on the **Add** button.
 
-![Portfolio Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1655306078/docs/web/groups/scope/portfolios_section.png)
+![Portfolio Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1668522638/docs/web/groups/scope/portfolios.png)
 
 When you click on it,
 a window will show up
 where you can add
 as many tags as you want.
 
-![Add Tag](https://res.cloudinary.com/fluid-attacks/image/upload/v1655306078/docs/web/groups/scope/portfolios_add_tags.png)
+![Add Tag](https://res.cloudinary.com/fluid-attacks/image/upload/v1668522699/docs/web/groups/scope/add_tag.png)
 
 To add a tag
 you can click on the
@@ -34,7 +34,7 @@ to delete it
 if you decide to add less tags.
 When you have added the tag
 or tags you want,
-click on **Proceed**
+click on **Confirm**
 to create them
 or you can click on **Cancel**
 to dismiss them.
@@ -44,7 +44,7 @@ in the **Tags** section
 that is used to delete any tags
 that you already created.
 
-![Selected Tag](https://res.cloudinary.com/fluid-attacks/image/upload/v1655306078/docs/web/groups/scope/portfolios_selected_tag.png)
+![Selected Tag](https://res.cloudinary.com/fluid-attacks/image/upload/v1668523112/docs/web/groups/scope/remove.png)
 
 In order to enable this button,
 you need to click on
