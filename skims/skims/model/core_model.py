@@ -4354,7 +4354,7 @@ class MethodsEnum(Enum):
         file_name="javascript",
         name="js_decode_insecure_jwt_token",
         module="lib_root",
-        finding=FindingEnum.F309,
+        finding=FindingEnum.F353,
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -4362,7 +4362,7 @@ class MethodsEnum(Enum):
         file_name="typescript",
         name="ts_decode_insecure_jwt_token",
         module="lib_root",
-        finding=FindingEnum.F309,
+        finding=FindingEnum.F353,
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
