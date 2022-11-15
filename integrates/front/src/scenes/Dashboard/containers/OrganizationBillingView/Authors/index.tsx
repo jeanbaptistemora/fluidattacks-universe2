@@ -6,9 +6,11 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { Text } from "components/Text";
 import type {
@@ -52,7 +54,24 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
     },
   ];
 
+  const [filters, setFilters] = useState<IFilter<IOrganizationAuthorsTable>[]>([
+    {
+      id: "actor",
+      key: "actor",
+      label: t("organization.tabs.billing.authors.headers.authorName"),
+      type: "text",
+    },
+    {
+      id: "groups",
+      key: "groups",
+      label: t("organization.tabs.billing.authors.headers.groups"),
+      type: "text",
+    },
+  ]);
+
   const dataset: IOrganizationAuthorsTable[] = formatAuthorsData(authors);
+
+  const filteredDataset = useFilters(dataset, filters);
 
   return (
     <div>
@@ -61,8 +80,8 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       </Text>
       <Table
         columns={tableColumns}
-        data={dataset}
-        enableColumnFilters={true}
+        data={filteredDataset}
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblGroups"}
       />
     </div>
