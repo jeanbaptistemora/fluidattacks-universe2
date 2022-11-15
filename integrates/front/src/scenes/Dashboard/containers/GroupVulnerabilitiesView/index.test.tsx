@@ -176,6 +176,9 @@ describe("GroupVulnerabilitiesView", (): void => {
   };
 
   const mockedPermissions = new PureAbility<string>([
+    { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
+    { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
+    { action: "api_mutations_reject_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_verify_vulnerabilities_request_mutate" },
   ]);
 
@@ -354,6 +357,114 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("Specific")).toBeInTheDocument();
     expect(screen.getByText("State")).toBeInTheDocument();
     expect(screen.getByText("specific-1")).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should open treatment acceptance modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const queryZeroRiskMock: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_GROUP_VULNERABILITIES,
+          variables: {
+            first: 100,
+            groupName: "unittesting",
+            zeroRisk: "REQUESTED",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "unittesting",
+              vulnerabilities: {
+                edges: [
+                  {
+                    node: {
+                      assigned: "",
+                      currentState: "open",
+                      currentStateCapitalized: "Open",
+                      externalBugTrackingSystem: null,
+                      finding: {
+                        id: "438679961",
+                        severityScore: 2.7,
+                        title: "002. Test draft title",
+                      },
+                      findingId: "438679961",
+                      groupName: "unittesting",
+                      historicTreatment: [
+                        {
+                          acceptanceDate: "",
+                          acceptanceStatus: "",
+                          assigned: "assigned-user-4",
+                          date: "2019-07-05 09:56:40",
+                          justification: "test progress justification",
+                          treatment: "IN PROGRESS",
+                          user: "usertreatment@test.test",
+                        },
+                      ],
+                      id: "89521e9a-b1a3-4047-a16e-15d530dc1341",
+                      lastTreatmentDate: "2019-07-05 09:56:40",
+                      lastVerificationDate: null,
+                      organizationName: "test",
+                      remediated: false,
+                      reportDate: "2019-05-23 21:19:29",
+                      rootNickname: "https:",
+                      severity: "2.7",
+                      snippet: null,
+                      source: "asm",
+                      specific: "specific-4",
+                      stream: null,
+                      tag: "tag-1, tag-2",
+                      treatment: "",
+                      treatmentAcceptanceDate: "",
+                      treatmentAcceptanceStatus: "",
+                      treatmentAssigned: "assigned-user-4",
+                      treatmentDate: "2019-07-05 09:56:40",
+                      treatmentJustification: "test progress justification",
+                      treatmentUser: "usertreatment@test.test",
+                      verification: "Requested",
+                      vulnerabilityType: "inputs",
+                      where: "https://example.com/inputs2",
+                      zeroRisk: "Requested",
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+      ...queryMock,
+    ];
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryZeroRiskMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "searchFindings.tabVuln.buttons.handleAcceptance",
+      })
+    );
+
+    expect(screen.getByText("Where")).toBeInTheDocument();
+    expect(screen.getByText("Specific")).toBeInTheDocument();
+    expect(screen.getByText("Acceptance")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
