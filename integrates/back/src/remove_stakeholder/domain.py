@@ -60,9 +60,6 @@ from newutils.datetime import (
     get_as_epoch,
     get_now_plus_delta,
 )
-from newutils.token import (
-    encode_token,
-)
 from newutils.validations import (
     validate_email_address,
 )
@@ -201,7 +198,7 @@ async def confirm_deletion_mail(
     email: str,
 ) -> None:
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
-    url_token = encode_token(
+    url_token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload={
             "user_email": email,

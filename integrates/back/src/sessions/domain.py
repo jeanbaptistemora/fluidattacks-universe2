@@ -2,6 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from context import (
+    FI_JWT_ENCRYPTION_KEY,
+    FI_JWT_SECRET,
+    FI_JWT_SECRET_API,
+)
 import contextlib
 from custom_exceptions import (
     ExpiredToken,
@@ -23,6 +28,9 @@ from db_model.stakeholders.types import (
     StateSessionType,
 )
 import json
+from jwcrypto.jwe import (
+    JWE,
+)
 from jwcrypto.jwk import (
     JWK,
 )
@@ -40,6 +48,38 @@ from typing import (
     Dict,
     Optional,
 )
+
+
+def encode_token(
+    expiration_time: int,
+    payload: Dict[str, Any],
+    subject: str,
+    api: bool = False,
+) -> str:
+    """Encrypts the payload into a jwe token and returns its encoded version"""
+    secret = FI_JWT_SECRET_API if api else FI_JWT_SECRET
+    jws_key = JWK.from_json(secret)
+    jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
+    default_claims = dict(exp=expiration_time, sub=subject)
+    jwt_object = JWT(
+        default_claims=default_claims,
+        claims=JWE(
+            algs=[
+                "A256GCM",
+                "A256GCMKW",
+            ],
+            plaintext=json.dumps(payload).encode("utf-8"),
+            protected={
+                "alg": "A256GCMKW",
+                "enc": "A256GCM",
+            },
+            recipient=jwe_key,
+        ).serialize(),
+        header={"alg": "HS512"},
+    )
+    jwt_object.make_signed_token(jws_key)
+
+    return jwt_object.serialize()
 
 
 def decode_token(token: str) -> Dict[str, Any]:

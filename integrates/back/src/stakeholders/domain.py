@@ -52,6 +52,9 @@ from newutils.validations import (
     validate_email_address,
     validate_field_length,
 )
+from sessions import (
+    domain as sessions_domain,
+)
 from stakeholders.utils import (
     get_international_format_phone_number,
 )
@@ -159,7 +162,7 @@ async def update_access_token(
 
     if token_utils.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
-        session_jwt = token_utils.encode_token(
+        session_jwt = sessions_domain.encode_token(
             expiration_time=expiration_time,
             payload={
                 "user_email": email,

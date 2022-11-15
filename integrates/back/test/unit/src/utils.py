@@ -26,6 +26,9 @@ from newutils import (
 from requests import (
     Request,
 )
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
@@ -65,7 +68,7 @@ async def create_dummy_session(
         "last_name": "test",
         "jti": jti,
     }
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=payload,
         subject="starlette_session",

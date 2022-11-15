@@ -110,7 +110,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
-    token as token_utils,
 )
 from newutils.organization_access import (
     format_invitation_state,
@@ -529,7 +528,7 @@ async def invite_to_organization(
             organization_name
         )
         organization_id = organization.id
-        url_token = token_utils.encode_token(
+        url_token = sessions_domain.encode_token(
             expiration_time=expiration_time,
             payload={
                 "organization_id": organization_id,

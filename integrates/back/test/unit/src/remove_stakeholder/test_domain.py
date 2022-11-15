@@ -29,14 +29,14 @@ from newutils.datetime import (
     get_iso_date,
     get_now_plus_delta,
 )
-from newutils.token import (
-    encode_token,
-)
 import pytest
 from remove_stakeholder.domain import (
     complete_deletion,
     get_confirm_deletion,
     remove_stakeholder_all_organizations,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from settings import (
     TEMPLATES_DIR,
@@ -66,7 +66,7 @@ async def confirm_deletion_mail(
     email: str,
 ) -> str:
     expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
-    url_token = encode_token(
+    url_token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload={
             "user_email": email,
@@ -137,7 +137,7 @@ async def test_confirm_deletion_mail() -> None:
 async def test_confirm_deletion() -> None:
     email: str = "unittest2@test.test"
     expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
-    url_token = encode_token(
+    url_token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload={
             "user_email": email,

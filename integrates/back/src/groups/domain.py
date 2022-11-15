@@ -158,7 +158,6 @@ from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
     resources as resources_utils,
-    token as token_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -183,6 +182,9 @@ from redshift import (
 )
 from roots import (
     domain as roots_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -1065,7 +1067,7 @@ async def invite_to_group(
     expiration_time = datetime_utils.get_as_epoch(
         datetime_utils.get_now_plus_delta(weeks=1)
     )
-    url_token = token_utils.encode_token(
+    url_token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload={
             "group_name": group_name,

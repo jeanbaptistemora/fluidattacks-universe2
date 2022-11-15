@@ -31,6 +31,9 @@ from newutils import (
     datetime as datetime_utils,
     token as token_utils,
 )
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     JWT_COOKIE_NAME,
     JWT_COOKIE_SAMESITE,
@@ -54,7 +57,7 @@ async def create_session_token(user: UserAccessInfo) -> str:
     expiration_time = datetime_utils.get_as_epoch(
         datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
     )
-    jwt_token: str = token_utils.encode_token(
+    jwt_token: str = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=dict(
             user_email=user_email,

@@ -7,9 +7,6 @@ from . import (
 )
 import binascii
 import collections
-from context import (
-    FI_JWT_ENCRYPTION_KEY,
-)
 from cryptography.exceptions import (
     InvalidKey,
 )
@@ -29,16 +26,10 @@ from datetime import (
 from db_model.stakeholders.types import (
     StakeholderAccessToken,
 )
-import json
 from jwcrypto.jwe import (
     InvalidJWEData,
-    JWE,
-)
-from jwcrypto.jwk import (
-    JWK,
 )
 from jwcrypto.jwt import (
-    JWT,
     JWTExpired,
 )
 import logging
@@ -49,8 +40,6 @@ from sessions import (
 )
 from settings import (
     JWT_COOKIE_NAME,
-    JWT_SECRET,
-    JWT_SECRET_API,
     LOGGING,
 )
 from typing import (
@@ -145,38 +134,6 @@ def is_valid_expiration_time(expiration_time: float) -> bool:
     exp = datetime.utcfromtimestamp(expiration_time)
     now = datetime.utcnow()
     return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
-
-
-def encode_token(
-    expiration_time: int,
-    payload: Dict[str, Any],
-    subject: str,
-    api: bool = False,
-) -> str:
-    """Encrypts the payload into a jwe token and returns its encoded version"""
-    secret = JWT_SECRET_API if api else JWT_SECRET
-    jws_key = JWK.from_json(secret)
-    jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    default_claims = dict(exp=expiration_time, sub=subject)
-    jwt_object = JWT(
-        default_claims=default_claims,
-        claims=JWE(
-            algs=[
-                "A256GCM",
-                "A256GCMKW",
-            ],
-            plaintext=json.dumps(payload).encode("utf-8"),
-            protected={
-                "alg": "A256GCMKW",
-                "enc": "A256GCM",
-            },
-            recipient=jwe_key,
-        ).serialize(),
-        header={"alg": "HS512"},
-    )
-    jwt_object.make_signed_token(jws_key)
-
-    return jwt_object.serialize()
 
 
 def verificate_hash_token(

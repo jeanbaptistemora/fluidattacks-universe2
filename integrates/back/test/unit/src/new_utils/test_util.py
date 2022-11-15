@@ -52,6 +52,9 @@ from organizations import (
 import os
 import pytest
 import pytz
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
@@ -95,7 +98,7 @@ async def test_get_jwt_content() -> None:
         "user_email": user_email,
         "jti": jti,
     }
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=payload,
         subject="starlette_session",
@@ -126,7 +129,7 @@ async def test_valid_token() -> None:
     expiration_time = datetime_utils.get_as_epoch(
         datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
     )
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload={
             "user_email": user_email,
@@ -163,7 +166,7 @@ async def test_valid_api_token() -> None:
         "iat": int(datetime.utcnow().timestamp()),
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=payload,
         subject="api_token",
@@ -193,7 +196,7 @@ async def test_expired_token() -> None:
         "iat": int(datetime_utils.get_from_str(date).timestamp()),
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=payload,
         subject="api_token",
@@ -233,7 +236,7 @@ async def test_revoked_token() -> None:
         "user_email": user_email,
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    token = token_utils.encode_token(
+    token = sessions_domain.encode_token(
         expiration_time=expiration_time,
         payload=payload,
         subject="starlette_session",
