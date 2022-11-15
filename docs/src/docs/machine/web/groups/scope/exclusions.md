@@ -39,7 +39,7 @@ that appears
 when you are adding or editing
 a git root in your group.
 
-![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
+![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1668475134/docs/web/groups/scope/exclusions.png)
 
 You just need to go
 to the scope section of your group
@@ -49,7 +49,7 @@ depending on what you want to do,
 and a window will show up.
 
 There you can see
-the section that says **Gitignore**,
+the section that says **Exclusions**,
 this is where you can specify
 the paths that you don't want us to test.
 Here you can click
@@ -65,6 +65,9 @@ on the **interrogation sign(?)**
 besides the word **gitignore**
 to access a web page
 that instructs you on how to write it.
+
+![Exclusions button](https://res.cloudinary.com/fluid-attacks/image/upload/v1668475380/docs/web/groups/scope/exc_isopns_button.png)
+
 For your convenience,
 you can also click
 [this link](https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitignore.html#_pattern_format)

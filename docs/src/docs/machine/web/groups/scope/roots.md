@@ -144,6 +144,8 @@ The information you have to fill in is as follows:
   the analysis by clicking on
   the plus symbol;
   you can add many as you need.
+  If you want to know how to do it,
+  you can enter [here](machine/web/groups/scope/exclusions).
 
 When you fill in the required fields,
 click on **Confirm**,
