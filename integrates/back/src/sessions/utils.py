@@ -12,6 +12,7 @@ from custom_exceptions import (
 )
 from datetime import (
     datetime,
+    timedelta,
 )
 import json
 from jwcrypto.jwe import (
@@ -27,6 +28,9 @@ from typing import (
     Any,
     Dict,
 )
+
+# Constants
+MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 
 
 def decode_jwe(payload: str) -> Dict[str, Any]:
@@ -53,6 +57,19 @@ def get_secret(jwt_token: JWT) -> str:
     if sub == "api_token":
         return FI_JWT_SECRET_API
     return FI_JWT_SECRET
+
+
+def is_api_token(user_data: Dict[str, Any]) -> bool:
+    return user_data.get("sub") == (
+        "api_token" if "sub" in user_data else "jti" in user_data
+    )
+
+
+def is_valid_expiration_time(expiration_time: float) -> bool:
+    """Verify that expiration time is minor than six months"""
+    exp = datetime.utcfromtimestamp(expiration_time)
+    now = datetime.utcnow()
+    return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
 
 
 def validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:

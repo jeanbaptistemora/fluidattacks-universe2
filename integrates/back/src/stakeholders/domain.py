@@ -54,6 +54,7 @@ from newutils.validations import (
 )
 from sessions import (
     domain as sessions_domain,
+    utils as sessions_utils,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -160,7 +161,7 @@ async def update_access_token(
     token_data = token_utils.calculate_hash_token()
     session_jwt = ""
 
-    if token_utils.is_valid_expiration_time(expiration_time):
+    if sessions_utils.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
         session_jwt = sessions_domain.encode_token(
             expiration_time=expiration_time,

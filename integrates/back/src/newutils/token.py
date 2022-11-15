@@ -19,10 +19,6 @@ from cryptography.hazmat.primitives.kdf.scrypt import (
 from custom_exceptions import (
     InvalidAuthorization,
 )
-from datetime import (
-    datetime,
-    timedelta,
-)
 from db_model.stakeholders.types import (
     StakeholderAccessToken,
 )
@@ -51,7 +47,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
@@ -121,19 +116,6 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 def get_request_store(context: Any) -> collections.defaultdict:
     """Returns customized store attribute of a Django/Starlette request"""
     return context.store if hasattr(context, "store") else context.state.store
-
-
-def is_api_token(user_data: Dict[str, Any]) -> bool:
-    return user_data.get("sub") == (
-        "api_token" if "sub" in user_data else "jti" in user_data
-    )
-
-
-def is_valid_expiration_time(expiration_time: float) -> bool:
-    """Verify that expiration time is minor than six months"""
-    exp = datetime.utcfromtimestamp(expiration_time)
-    now = datetime.utcnow()
-    return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
 
 
 def verificate_hash_token(

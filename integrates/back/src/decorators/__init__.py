@@ -61,6 +61,9 @@ from newutils.utils import (
 from organizations import (
     domain as orgs_domain,
 )
+from sessions import (
+    utils as sessions_utils,
+)
 from settings import (
     DEBUG,
     JWT_COOKIE_NAME,
@@ -561,7 +564,7 @@ def require_login(func: TVar) -> TVar:
 
         try:
             user_data: Any = await token_utils.get_jwt_content(context)
-            if token_utils.is_api_token(user_data):
+            if sessions_utils.is_api_token(user_data):
                 await verify_jti(
                     context.loaders,
                     user_data["user_email"],

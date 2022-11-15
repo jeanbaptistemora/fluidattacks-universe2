@@ -11,6 +11,9 @@ from db_model.stakeholders.types import (
 from newutils import (
     token as token_utils,
 )
+from sessions import (
+    utils as sessions_utils,
+)
 from settings import (
     SESSION_COOKIE_AGE,
 )
@@ -38,5 +41,5 @@ def test_is_valid_expiration_time() -> None:
     exp_valid = int(time()) + SESSION_COOKIE_AGE
     exp_invalid = int(time() + timedelta(weeks=AGE_WEEKS).total_seconds())
 
-    assert token_utils.is_valid_expiration_time(exp_valid)
-    assert not token_utils.is_valid_expiration_time(exp_invalid)
+    assert sessions_utils.is_valid_expiration_time(exp_valid)
+    assert not sessions_utils.is_valid_expiration_time(exp_invalid)

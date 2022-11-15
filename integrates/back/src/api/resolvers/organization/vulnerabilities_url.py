@@ -34,7 +34,9 @@ from newutils import (
 )
 from newutils.token import (
     get_jwt_content,
-    is_api_token,
+)
+from sessions import (
+    utils as sessions_utils,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -66,7 +68,7 @@ async def resolve(
 
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await get_jwt_content(info.context)
-    if not is_api_token(user_info):
+    if not sessions_utils.is_api_token(user_info):
         user_email: str = user_info["user_email"]
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
         user_phone: Optional[StakeholderPhone] = stakeholder.phone
