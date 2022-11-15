@@ -14,6 +14,7 @@ from .utils import (
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    Key,
 )
 from custom_exceptions import (
     GroupNotFound,
@@ -129,6 +130,23 @@ async def update_unreliable_indicators(
     group_name: str,
     indicators: GroupUnreliableIndicators,
 ) -> None:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_metadata"],
+        values={"name": group_name},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["group_metadata"],),
+        limit=1,
+        table=TABLE,
+    )
+    if not response.items:
+        raise GroupNotFound()
+
     primary_key = keys.build_key(
         facet=TABLE.facets["group_unreliable_indicators"],
         values={
