@@ -556,6 +556,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       {treatmentChangeAlert(isTreatmentPristine)}
       {hasNewVulnsAlert(
         vulnerabilities,
+        areSelectedClosedVulnerabilities,
         hasNewVulns,
         isAcceptedSelected,
         isAcceptedUndefinedSelected,

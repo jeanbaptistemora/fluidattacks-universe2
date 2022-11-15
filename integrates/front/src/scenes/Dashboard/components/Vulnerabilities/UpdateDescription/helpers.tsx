@@ -450,6 +450,7 @@ const treatmentChangeAlert = (isTreatmentPristine: boolean): JSX.Element => {
 
 const hasNewVulnsAlert = (
   vulnerabilities: IVulnDataTypeAttr[],
+  areSelectedClosedVulnerabilities: boolean,
   hasNewVulns: boolean,
   isAcceptedSelected: boolean,
   isAcceptedUndefinedSelected: boolean,
@@ -457,6 +458,7 @@ const hasNewVulnsAlert = (
 ): JSX.Element => {
   return hasNewVulns &&
     !(
+      areSelectedClosedVulnerabilities ||
       isAcceptedSelected ||
       isAcceptedUndefinedSelected ||
       isInProgressSelected
