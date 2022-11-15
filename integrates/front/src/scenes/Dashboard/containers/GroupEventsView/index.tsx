@@ -12,7 +12,6 @@ import { faCheck, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
-  ColumnFiltersState,
   Row,
   SortingState,
   VisibilityState,
@@ -39,6 +38,7 @@ import {
   handleRequestHoldError,
   handleRequestHoldsHelper,
 } from "./helpers";
+import { selectOptionType } from "./selectOptions";
 import type {
   IAddEventResultAttr,
   IEventData,
@@ -52,6 +52,8 @@ import { handleUpdateEvidenceError } from "../EventEvidenceView/helpers";
 import { UPDATE_EVIDENCE_MUTATION } from "../EventEvidenceView/queries";
 import type { IUpdateEventEvidenceResultAttr } from "../EventEvidenceView/types";
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import { Table } from "components/Table/index";
 import type { ICellHelper } from "components/Table/types";
@@ -122,7 +124,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       accessorKey: "eventDate",
       filterFn: filterDate,
       header: t("searchFindings.tabEvents.date"),
-      meta: { filterType: "dateRange" },
     },
     {
       accessorKey: "detail",
@@ -131,25 +132,59 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     {
       accessorKey: "eventType",
       header: t("searchFindings.tabEvents.type"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "eventStatus",
       cell: (cell: ICellHelper<IEventData>): JSX.Element =>
         statusFormatter(cell.getValue()),
       header: t("searchFindings.tabEvents.status"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "closingDate",
-      filterFn: filterDate,
       header: t("searchFindings.tabEvents.dateClosed"),
-      meta: { filterType: "dateRange" },
     },
   ];
 
-  const [columnFilters, columnFiltersSetter] =
-    useStoredState<ColumnFiltersState>("tblEvents-columnFilters", []);
+  const [filters, setFilters] = useStoredState<IFilter<IEventData>[]>(
+    "tblEventsFilters",
+    [
+      {
+        id: "eventDate",
+        key: "eventDate",
+        label: t("searchFindings.tabEvents.date"),
+        type: "dateRange",
+      },
+      {
+        id: "eventType",
+        key: "eventType",
+        label: t("searchFindings.tabEvents.type"),
+        selectOptions: selectOptionType,
+        type: "select",
+      },
+      {
+        filterFn: "caseInsensitive",
+        id: "eventStatus",
+        key: "eventStatus",
+        label: t("searchFindings.tabEvents.status"),
+        selectOptions: [
+          {
+            header: t(castEventStatus("VERIFICATION_REQUESTED")),
+            value: "Pending",
+          },
+          { header: t(castEventStatus("CREATED")), value: "Unsolved" },
+          { header: t(castEventStatus("SOLVED")), value: "Solved" },
+        ],
+        type: "select",
+      },
+      {
+        id: "closingDate",
+        key: "closingDate",
+        label: t("searchFindings.tabEvents.dateClosed"),
+        type: "dateRange",
+      },
+    ],
+    localStorage
+  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblEvents-visibilityState", {
       Assignees: false,
@@ -443,6 +478,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const isOpenMode = isOpenRequestVerificationMode;
 
+  const filteredDataset = useFilters(dataset, filters);
+
   return (
     <React.Fragment>
       {isAddModalOpen ? (
@@ -476,14 +513,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         tip={t("searchFindings.tabEvents.tableAdvice")}
       >
         <Table
-          columnFilterSetter={columnFiltersSetter}
-          columnFilterState={columnFilters}
           columnToggle={true}
           columnVisibilitySetter={setColumnVisibility}
           columnVisibilityState={columnVisibility}
           columns={columns}
-          data={dataset}
-          enableColumnFilters={true}
+          data={filteredDataset}
           enableRowSelection={
             isOpenRequestVerificationMode ? enabledRows : undefined
           }
@@ -557,6 +591,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
               ) : undefined}
             </React.Fragment>
           }
+          filters={<Filters filters={filters} setFilters={setFilters} />}
           id={"tblEvents"}
           onRowClick={goToEventz}
           rowSelectionSetter={
