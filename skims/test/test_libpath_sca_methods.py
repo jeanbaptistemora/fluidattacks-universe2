@@ -167,10 +167,11 @@ def test_go_mod() -> None:
     content: List[str] = file_contents.splitlines()
     generator_dep = go_mod.__wrapped__(file_contents, path)  # type: ignore
     assertion: bool = True
-    for line_num in [*range(5, 28), *range(31, 85)]:
-        dep_splitted_info = content[line_num].strip().split()
-        if dep_splitted_info[0] == "require":
-            dep_splitted_info.pop(0)
+    for line_num in [*range(5, 28), *range(31, 85), 91, 94, 95]:
+        if line_num in (91, 94, 95):
+            dep_splitted_info = content[line_num].split("=> ")[1].split()
+        else:
+            dep_splitted_info = content[line_num].strip().split()
         pkg_name: str = dep_splitted_info[0]
         version: str = dep_splitted_info[1][1:]
 

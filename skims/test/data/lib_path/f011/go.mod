@@ -83,8 +83,8 @@ require (
 	modernc.org/libc v1.20.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.4.0 // indirect
-	modernc.org/sqlite v1.19.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
+	modernc.org/sqlite v1.19.2 // indirect
 )
 
 require	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
@@ -92,6 +92,6 @@ require	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
 replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.5
 
 replace (
-    golang.org/x/net => example.com/fork/net v1.4.5
 	modernc.org/sqlite v1.19.2 => modernc.org/sqlite v1.19.3
+    golang.org/x/net => example.com/fork/net v1.4.5
 )
