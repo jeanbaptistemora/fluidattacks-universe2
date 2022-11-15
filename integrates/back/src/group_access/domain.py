@@ -166,21 +166,25 @@ async def get_group_stakeholders(
 
 
 async def get_group_stakeholders_emails(
-    loaders: Any, group_name: str, active: bool = True
+    loaders: Dataloaders, group_name: str, active: bool = True
 ) -> list[str]:
     stakeholders_access: tuple[
-        GroupAccess
+        GroupAccess, ...
     ] = await loaders.group_stakeholders_access.load(group_name)
     now_epoch = datetime_utils.get_as_epoch(datetime_utils.get_now())
-    not_expired_stakeholders_access = tuple(
-        access
+    active_stakeholders_email = [
+        access.email
         for access in stakeholders_access
-        if not access.expiration_time or access.expiration_time > now_epoch
-    )
+        if access.has_access
+        and (not access.expiration_time or access.expiration_time > now_epoch)
+    ]
+    if active:
+        return active_stakeholders_email
+
     return [
         access.email
-        for access in not_expired_stakeholders_access
-        if access.has_access == active
+        for access in stakeholders_access
+        if access.email not in active_stakeholders_email
     ]
 
 
