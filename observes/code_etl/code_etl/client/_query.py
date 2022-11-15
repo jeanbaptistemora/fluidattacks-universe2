@@ -4,7 +4,6 @@
 
 from code_etl.client.encoder import (
     CommitTableRow,
-    RawRow,
 )
 from code_etl.objs import (
     RepoId,
@@ -50,7 +49,7 @@ def _all_data(
     table: TableID, namespace: Optional[str]
 ) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
-    _attrs = ",".join([f.name for f in fields(RawRow)])
+    _attrs = ",".join([f.name for f in fields(CommitTableRow)])
     base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
     id_args: Dict[str, str] = {
         "schema": table.schema.name,

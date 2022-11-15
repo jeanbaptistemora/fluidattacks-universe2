@@ -23,7 +23,6 @@ from code_etl.client.encoder import (
     from_raw,
     from_reg,
     from_stamp,
-    RawRow,
     to_dict,
 )
 from code_etl.objs import (
@@ -94,7 +93,7 @@ def _fetch(
 ) -> Cmd[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
     result = client.fetch_many(chunk).map(
         lambda rows: Maybe.from_optional(
-            tuple(from_raw(RawRow(*r.data)) for r in rows) if rows else None
+            tuple(from_raw(r.data) for r in rows) if rows else None
         )
     )
     return result
