@@ -3742,6 +3742,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    XML_ACCEPT_HEADER = MethodInfo(
+        file_name="conf_files",
+        name="xml_accept_header",
+        module="lib_path",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.DAST,
+    )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_unrestricted_access_network_segments",

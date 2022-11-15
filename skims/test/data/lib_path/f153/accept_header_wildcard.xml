@@ -1,0 +1,9 @@
+<elementProp name="" elementType="Header">
+  <stringProp name="Header.name">Accept</stringProp>
+  <stringProp name="Header.value">*/*</stringProp>
+</elementProp>
+
+<elementProp name="" elementType="Header">
+  <stringProp name="Header.name">Accept</stringProp>
+  <stringProp name="Header.value">*-*</stringProp>
+</elementProp>
