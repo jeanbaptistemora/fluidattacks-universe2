@@ -908,7 +908,7 @@ class InvalidStream(CustomBaseException):
     def __init__(self, vuln_type: str = "", index: str = "") -> None:
         """Constructor"""
         msg = (
-            f'{{"msg": "Exception - Invalid stream should start \'home\' or '
+            '{"msg": "Exception - Invalid stream should start \'home\' or '
             f'\'query\'", "path": "/{vuln_type}/{index}"}}'
         )
         super(InvalidStream, self).__init__(msg)
@@ -1033,6 +1033,12 @@ class RepeatedToeLines(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Toe lines already exists"
         super(RepeatedToeLines, self).__init__(msg)
+
+
+class RepeatedToePort(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Toe port already exists"
+        super(RepeatedToePort, self).__init__(msg)
 
 
 class RepeatedValues(CustomBaseException):
@@ -1539,7 +1545,7 @@ class SamePhoneNumber(CustomBaseException):
 class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
     def __init__(self, index: str = "") -> None:
         msg = (
-            f'{{"msg": "Exception - The vulnerability path does not exist in '
+            '{"msg": "Exception - The vulnerability path does not exist in '
             f'the toe lines", "path": "/lines/{index}"}}'
         )
         super(VulnerabilityPathDoesNotExistInToeLines, self).__init__(msg)
@@ -1548,7 +1554,7 @@ class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
 class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
     def __init__(self, index: str = "") -> None:
         msg = (
-            f'{{"msg": "Exception -  The vulnerability URL and field do not '
+            '{"msg": "Exception -  The vulnerability URL and field do not '
             f'exist in the toe inputs", "path": "/inputs/{index}"}}'
         )
         super(VulnerabilityUrlFieldDoNotExistInToeInputs, self).__init__(msg)
@@ -1557,7 +1563,7 @@ class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
 class LineDoesNotExistInTheLinesOfCodeRange(CustomBaseException):
     def __init__(self, line: str, index: str) -> None:
         msg = (
-            f'{{"msg": "Exception -  The line does not exist in the range '
+            '{"msg": "Exception -  The line does not exist in the range '
             f'of 0 and lines of code: {line}", "path": "/lines/{index}"}}'
         )
         super(LineDoesNotExistInTheLinesOfCodeRange, self).__init__(msg)
