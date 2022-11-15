@@ -1184,6 +1184,19 @@ class ToeLinesNotFound(CustomBaseException):
         super(ToeLinesNotFound, self).__init__(msg)
 
 
+class ToePortAlreadyUpdated(CustomBaseException):
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - The toe port has been updated by another operation"
+        super(ToePortAlreadyUpdated, self).__init__(msg)
+
+
+class ToePortNotFound(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Toe port has not been found"
+        super(ToePortNotFound, self).__init__(msg)
+
+
 class UnexpectedUserRole(CustomBaseException):
     """Exception to control that roles attached to an user are valid."""
 
