@@ -14,8 +14,6 @@ first you need to go
 to the **Scope** section
 of the group you want to manage.
 
-![Scope Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350475/docs/web/groups/delete/highlighting_scope_i5aluz.png)
-
 When you get to the **Scope** section,
 scroll all the way down
 until you see the part called
@@ -25,7 +23,7 @@ Be aware that this section
 will only appear
 if you have the appropiate authorization.
 
-![Delete Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350475/docs/web/groups/delete/delete_button_yd4pxq.png)
+![Delete Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1668526136/docs/web/groups/delete/delete.png)
 
 After clicking on this button
 a window will appear
@@ -38,7 +36,12 @@ as there is no going back
 after you complete it.
 With this consideration in mind,
 after typing the name of the group,
-click on proceed
+click on **Confirm** button
 to complete the deletion of the group.
 
-![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350475/docs/web/groups/delete/delete_modal_iflo3l.png)
+![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1668526339/docs/web/groups/delete/action_delete.png)
+
+> **Note:** This action will immediately delete the group.
+> This will remove all of its data including
+> findings and related vulnerabilities.
+> This is a destructive action and cannot be undone.
