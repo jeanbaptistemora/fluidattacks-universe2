@@ -407,6 +407,15 @@ data: Dict[str, List[Any]] = dict(
             ),
             sk_2="VULN#242f848c-148a-4028-8e36-c7d995502590",
         ),
+        dict(
+            pk="USER#unittest@fluidattacks.com",
+            sk="GROUP#unittesting",
+            role="reattacker",
+            has_access=True,
+            responsibility="Testes",
+            group_name="unittesting",
+            email="unittest@fluidattacks.com",
+        ),
     ]
 )
 

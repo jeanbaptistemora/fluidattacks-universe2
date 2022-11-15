@@ -328,13 +328,33 @@ async def test_get_tracking_vulnerabilities() -> None:
     assert test_data == expected_output
 
 
-async def test_has_access_to_finding() -> None:
+async def test_has_access_to_finding(dynamo_resource: ServiceResource) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
     loaders = get_new_context()
     wrong_data = ["unittest@fluidattacks.com", "000000000"]
-    right_data = ["unittest@fluidattacks.com", "560175507"]
-    with pytest.raises(FindingNotFound):
-        await has_access_to_finding(loaders, wrong_data[0], wrong_data[1])
-    assert await has_access_to_finding(loaders, right_data[0], right_data[1])
+    right_data = ["unittest@fluidattacks.com", "422286126"]
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+
+        with pytest.raises(FindingNotFound):
+            await has_access_to_finding(loaders, wrong_data[0], wrong_data[1])
+        with mock.patch(
+            "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+        ) as mock_resource:
+            mock_resource.return_value.batch_get_item.side_effect = (
+                mock_batch_get_item
+            )
+            assert await has_access_to_finding(
+                loaders, right_data[0], right_data[1]
+            )
 
 
 @pytest.mark.changes_db
