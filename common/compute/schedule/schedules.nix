@@ -1289,7 +1289,7 @@
     size = "medium";
     awsRole = "prod_integrates";
     attempts = 3;
-    timeout = 129600;
+    timeout = 172800;
     parallel = 1;
 
     environment = [
