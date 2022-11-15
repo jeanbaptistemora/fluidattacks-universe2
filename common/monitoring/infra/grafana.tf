@@ -9,6 +9,10 @@ resource "aws_grafana_workspace" "monitoring" {
   authentication_providers = ["SAML"]
   permission_type          = "CUSTOMER_MANAGED"
   role_arn                 = aws_iam_role.grafana.arn
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_grafana_workspace_saml_configuration" "monitoring" {

@@ -3,6 +3,10 @@
 # SPDX-License-Identifier: MPL-2.0
 resource "aws_s3_bucket" "monitoring" {
   bucket = "common-monitoring"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket" "monitoring_athena_results" {
@@ -29,6 +33,10 @@ resource "aws_s3_bucket_acl" "bucket_acl" {
 
 resource "aws_cloudwatch_log_group" "monitoring" {
   name = "common-monitoring"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_athena_database" "monitoring" {

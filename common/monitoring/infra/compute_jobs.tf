@@ -5,6 +5,10 @@
 resource "aws_cloudwatch_log_stream" "compute_jobs" {
   name           = "compute-jobs"
   log_group_name = aws_cloudwatch_log_group.monitoring.name
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_kinesis_stream" "compute_jobs" {
@@ -13,6 +17,10 @@ resource "aws_kinesis_stream" "compute_jobs" {
 
   stream_mode_details {
     stream_mode = "ON_DEMAND"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
@@ -23,6 +31,10 @@ resource "aws_cloudwatch_event_rule" "compute_jobs" {
     source      = ["aws.batch"]
     detail-type = ["Batch Job State Change"]
   })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_cloudwatch_event_target" "compute_jobs" {
@@ -31,7 +43,11 @@ resource "aws_cloudwatch_event_target" "compute_jobs" {
   role_arn = aws_iam_role.kinesis_stream.arn
 
   kinesis_target {
-    partition_key_path = "$.detail.jobId"
+    partition_key_path = "$.id"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
