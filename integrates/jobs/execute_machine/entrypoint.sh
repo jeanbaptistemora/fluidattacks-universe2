@@ -53,7 +53,7 @@ function main() {
           && aws s3 cp \
             --recursive \
             "groups/${group_name}/fusion/${root}/execution_configs/" \
-            s3://skims.data/configs \
+            s3://machine.data/configs \
           && find "groups/${group_name}/fusion/${root}/execution_configs/" \
             -name "*.yaml" \
           | while read -r file_config; do
@@ -70,7 +70,7 @@ function main() {
               && execution_id="${filename%.*}" \
               && execution_result="groups/${group_name}/fusion/${root}/execution_results/${execution_id}.sarif" \
               && if test -f "${execution_result}"; then
-                aws s3 cp "${execution_result}" s3://skims.data/results/ \
+                aws s3 cp "${execution_result}" s3://machine.data/results/ \
                   && python3 __argScript__ submit-task \
                     --execution-id "${execution_id}" \
                   && python3 __argScript__ finish-execution \

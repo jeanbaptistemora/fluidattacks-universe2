@@ -16,6 +16,9 @@ from aiohttp.client_exceptions import (
 import asyncio
 import base64
 import boto3
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_REGION_NAME,
 )
@@ -223,11 +226,19 @@ async def get_config(
     s3_client = await get_s3_resource()
     print(f"configs/{execution_id}.yaml")
     with tempfile.NamedTemporaryFile() as temp:
-        await s3_client.download_fileobj(
-            "skims.data",
-            f"configs/{execution_id}.yaml",
-            temp,
-        )
+        try:
+            await s3_client.download_fileobj(
+                "machine.data",
+                f"configs/{execution_id}.yaml",
+                temp,
+            )
+        except ClientError:
+            await s3_client.download_fileobj(
+                "skims.data",
+                f"configs/{execution_id}.yaml",
+                temp,
+            )
+
         temp.seek(0)
         return yaml.safe_load(temp)
 
@@ -246,11 +257,18 @@ async def get_sarif_log(
             return yaml.safe_load(sarif_file)
     s3_client = await get_s3_resource()
     with tempfile.NamedTemporaryFile() as temp:
-        await s3_client.download_fileobj(
-            "skims.data",
-            f"results/{execution_id}.sarif",
-            temp,
-        )
+        try:
+            await s3_client.download_fileobj(
+                "machine.data",
+                f"results/{execution_id}.sarif",
+                temp,
+            )
+        except ClientError:
+            await s3_client.download_fileobj(
+                "skims.data",
+                f"results/{execution_id}.sarif",
+                temp,
+            )
         temp.seek(0)
         try:
             return yaml.safe_load(
