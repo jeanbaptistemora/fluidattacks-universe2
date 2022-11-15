@@ -35,6 +35,8 @@ import type { IData, IGroupAuthor } from "../GroupAuthorsView/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters/timeFromNow";
 import type { ICellHelper } from "components/Table/types";
@@ -118,7 +120,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const tableColumns: ColumnDef<IStakeholderDataSet>[] = [
     {
       accessorKey: "email",
-      enableColumnFilter: false,
       header: t("searchFindings.usersTable.usermail"),
     },
     {
@@ -144,23 +145,19 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         });
       },
       header: t("searchFindings.usersTable.userRole"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "responsibility",
-      enableColumnFilter: false,
       header: t("searchFindings.usersTable.userResponsibility"),
     },
     {
       accessorKey: "firstLogin",
-      enableColumnFilter: false,
       header: t("searchFindings.usersTable.firstlogin"),
     },
     {
       accessorKey: "lastLogin",
       cell: (cell: ICellHelper<IStakeholderDataSet>): string =>
         timeFromNow(cell.getValue()),
-      enableColumnFilter: false,
       header: t("searchFindings.usersTable.lastlogin"),
     },
     {
@@ -168,16 +165,47 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
         statusFormatter(cell.getValue()),
       header: t("searchFindings.usersTable.invitationState"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "invitationResend",
       cell: (cell: ICellHelper<IStakeholderDataSet>): JSX.Element =>
         cell.getValue(),
-      enableColumnFilter: false,
       header: t("searchFindings.usersTable.invitation"),
     },
   ];
+
+  const [filters, setFilters] = useState<IFilter<IStakeholderDataSet>[]>([
+    {
+      filterFn: "caseInsensitive",
+      id: "role",
+      key: "role",
+      label: t("searchFindings.usersTable.userRole"),
+      selectOptions: [
+        { header: "Admin", value: "admin" },
+        { header: "Customer Manager", value: "customer_manager" },
+        { header: "Hacker", value: "hacker" },
+        { header: "Reattacker", value: "reattacker" },
+        { header: "Resourcer", value: "resourcer" },
+        { header: "Reviewer", value: "reviewer" },
+        { header: "User", value: "user" },
+        { header: "User Manager", value: "user_manager" },
+        { header: "Vulnerability Manager", value: "vulnerability_manager" },
+      ],
+      type: "select",
+    },
+    {
+      filterFn: "caseInsensitive",
+      id: "invitationState",
+      key: "invitationState",
+      label: t("searchFindings.usersTable.invitationState"),
+      selectOptions: [
+        { header: "Pending", value: "PENDING" },
+        { header: "Registered", value: "REGISTERED" },
+        { header: "Unregistered", value: "UNREGISTERED" },
+      ],
+      type: "select",
+    },
+  ]);
 
   // GraphQL operations
   const {
@@ -382,11 +410,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   }, [authorsDate, data, dateRange, dataAuthor, userEmail]);
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
-
-  const stakeholdersList = data.group.stakeholders.map(
+  const stakeholdersList = data?.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
       async function handleResendEmail(
         event: React.MouseEvent<HTMLButtonElement>
@@ -421,13 +445,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
+  const filteredData = useFilters(stakeholdersList ?? [], filters);
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
+  }
+
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
         <Table
           columns={tableColumns}
-          data={stakeholdersList}
-          enableColumnFilters={true}
+          data={filteredData}
           exportCsv={true}
           extraButtons={
             <React.Fragment>
@@ -523,6 +552,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               </Can>
             </React.Fragment>
           }
+          filters={<Filters filters={filters} setFilters={setFilters} />}
           id={"tblUsers"}
           rowSelectionSetter={setCurrentRow}
           rowSelectionState={currentRow}
