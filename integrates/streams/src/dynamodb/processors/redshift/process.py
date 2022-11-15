@@ -6,6 +6,7 @@
 from . import (
     events as events_ops,
     findings as findings_ops,
+    groups as groups_ops,
     roots as roots_ops,
     toe_inputs as toe_inputs_ops,
     toe_lines as toe_lines_ops,
@@ -107,6 +108,41 @@ def _process_findings(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
     for key, items in _get_items_iterator(records, "VERIFICATION#"):
         finding_id = str(key).split("#")[1]
         _process_finding_verification(cursor, finding_id, list(items))
+
+
+def _process_group_metadata(cursor: cursor_cls, item: Item) -> None:
+    groups_ops.insert_group(cursor=cursor, item=item)
+    LOGGER.info(
+        "Group metadata stored, org: %s, id: %s",
+        item["name"],
+        item["organization_id"],
+    )
+
+
+def _process_groups(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
+    metadata_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.startswith("ORG#")
+    ]
+    for item in metadata_items:
+        _process_group_metadata(cursor, item)
+
+    for key, items in _get_items_iterator(records, "STATE#"):
+        group_name = str(key).split("#")[1]
+        groups_ops.insert_historic_state(
+            cursor=cursor, group_name=group_name, historic_state=tuple(items)
+        )
+
+    indicators_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.endswith("#UNRELIABLEINDICATORS")
+    ]
+    for item in indicators_items:
+        groups_ops.insert_code_languages(
+            cursor=cursor, unreliable_indicators=item
+        )
 
 
 def _process_roots(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
@@ -216,6 +252,20 @@ def process_records(records: tuple[Record, ...]) -> None:
             records=tuple(
                 filter(
                     lambda record: record.pk.startswith("FIN#"),
+                    records,
+                )
+            ),
+        )
+        _process_groups(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("GROUP#")
+                    and (
+                        record.sk.startswith("GROUP#")
+                        or record.sk.startswith("ORG#")
+                        or record.sk.startswith("STATE#")
+                    ),
                     records,
                 )
             ),
