@@ -29,6 +29,9 @@ from decorators import (
 from group_comments import (
     domain as group_comments_domain,
 )
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
 from organizations import (
@@ -60,6 +63,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def _process_group(
     cursor: cursor_cls,
     group_name: str,
+    loaders: Dataloaders,
     progress: float,
 ) -> None:
     redshift_groups.insert_group(
@@ -80,6 +84,11 @@ async def _process_group(
         ),
     )
     await group_comments_domain.remove_comments(group_name)
+    await groups_domain.remove_all_stakeholders(
+        loaders=loaders,
+        group_name=group_name,
+        modified_by="integrates@fluidattacks.com",
+    )
     await groups_model.remove(group_name=group_name)
     LOGGER_CONSOLE.info(
         "Group processed",
@@ -106,6 +115,7 @@ async def main() -> None:
                 _process_group(
                     cursor=cursor,
                     group_name=group_name,
+                    loaders=loaders,
                     progress=count / len(deleted_group_names),
                 )
                 for count, group_name in enumerate(deleted_group_names)

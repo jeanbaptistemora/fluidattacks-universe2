@@ -1297,27 +1297,19 @@ async def remove_all_stakeholders(
     modified_by: str,
 ) -> None:
     """Revoke stakeholders access to group."""
-    active, suspended = await collect(
-        [
-            group_access_domain.get_group_stakeholders_emails(
-                loaders, group_name, True
-            ),
-            group_access_domain.get_group_stakeholders_emails(
-                loaders, group_name, False
-            ),
-        ]
-    )
-    all_stakeholders_email = active + suspended
+    stakeholders_access: tuple[
+        GroupAccess, ...
+    ] = await loaders.group_stakeholders_access.load(group_name)
     await collect(
-        [
+        tuple(
             remove_stakeholder(
                 loaders=loaders,
-                email_to_revoke=email,
+                email_to_revoke=access.email,
                 group_name=group_name,
                 modified_by=modified_by,
             )
-            for email in all_stakeholders_email
-        ]
+            for access in stakeholders_access
+        )
     )
 
 

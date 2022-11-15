@@ -12,7 +12,6 @@ from contextlib import (
 from custom_exceptions import (
     InvalidAuthorization,
     RequestedInvitationTooSoon,
-    StakeholderNotFound,
     StakeholderNotInGroup,
 )
 from dataloaders import (
@@ -57,9 +56,6 @@ from db_model.vulnerabilities.types import (
 )
 from db_model.vulnerabilities.update import (
     update_assigned_index,
-)
-from itertools import (
-    chain,
 )
 from jose import (
     JWTError,
@@ -130,38 +126,16 @@ async def get_reattackers(
     ]
 
 
-async def _get_stakeholder(loaders: Any, email: str) -> Stakeholder:
-    try:
-        return await loaders.stakeholder.load(email)
-    except StakeholderNotFound:
-        return Stakeholder(
-            email=email,
-            is_registered=False,
-        )
-
-
 async def get_group_stakeholders(
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
 ) -> tuple[Stakeholder, ...]:
-    stakeholders_emails: list[str] = list(
-        chain.from_iterable(
-            await collect(
-                [
-                    get_group_stakeholders_emails(
-                        loaders, group_name=group_name, active=True
-                    ),
-                    get_group_stakeholders_emails(
-                        loaders, group_name=group_name, active=False
-                    ),
-                ]
-            )
-        )
-    )
-    return await collect(
-        tuple(
-            _get_stakeholder(loaders, email) for email in stakeholders_emails
-        )
+    stakeholders_access: tuple[
+        GroupAccess, ...
+    ] = await loaders.group_stakeholders_access.load(group_name)
+
+    return await loaders.stakeholder_with_fallback.load_many(
+        tuple(access.email for access in stakeholders_access)
     )
 
 
@@ -206,22 +180,17 @@ async def get_managers(loaders: Any, group_name: str) -> list[str]:
 
 
 async def get_stakeholder_groups_names(
-    loaders: Any, email: str, active: bool
+    loaders: Dataloaders, email: str, active: bool
 ) -> list[str]:
     groups_access: tuple[
         GroupAccess, ...
     ] = await loaders.stakeholder_groups_access.load(email)
+
     return [
         group_access.group_name
         for group_access in groups_access
         if group_access.has_access == active
     ]
-
-
-async def get_stakeholders_to_notify(
-    loaders: Any, group_name: str, active: bool = True
-) -> list[str]:
-    return await get_group_stakeholders_emails(loaders, group_name, active)
 
 
 async def get_stakeholders_subscribed_to_consult(
@@ -231,7 +200,7 @@ async def get_stakeholders_subscribed_to_consult(
     comment_type: str,
     is_finding_released: bool = True,
 ) -> list[str]:
-    emails = await get_stakeholders_to_notify(loaders, group_name)
+    emails = await get_group_stakeholders_emails(loaders, group_name)
     if comment_type.lower() == "observation" or not is_finding_released:
         roles: tuple[str, ...] = await collect(
             tuple(
