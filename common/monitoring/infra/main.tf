@@ -10,9 +10,17 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.39.0"
     }
+    grafana = {
+      source  = "grafana/grafana"
+      version = "1.30.0"
+    }
     okta = {
       source  = "okta/okta"
       version = "~> 3.22.0"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
     }
   }
 
@@ -27,6 +35,11 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+}
+
+provider "grafana" {
+  url  = "https://${aws_grafana_workspace.monitoring.endpoint}"
+  auth = aws_grafana_workspace_api_key.monitoring.key
 }
 
 provider "okta" {
