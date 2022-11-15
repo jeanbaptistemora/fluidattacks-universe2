@@ -135,6 +135,9 @@ from organizations.types import (
     CredentialAttributesToUpdate,
 )
 import re
+from sessions import (
+    domain as sessions_domain,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -331,7 +334,7 @@ async def get_access_by_url_token(
     url_token: str,
 ) -> OrganizationAccess:
     try:
-        token_content = token_utils.decode_token(url_token)
+        token_content = sessions_domain.decode_token(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
     except (JWTError, KeyError, JWTExpired) as ex:

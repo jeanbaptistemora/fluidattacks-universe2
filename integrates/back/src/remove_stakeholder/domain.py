@@ -61,7 +61,6 @@ from newutils.datetime import (
     get_now_plus_delta,
 )
 from newutils.token import (
-    decode_token,
     encode_token,
 )
 from newutils.validations import (
@@ -69,6 +68,9 @@ from newutils.validations import (
 )
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -157,7 +159,7 @@ async def get_email_from_url_token(
     url_token: str,
 ) -> str:
     try:
-        token_content = decode_token(url_token)
+        token_content = sessions_domain.decode_token(url_token)
     except (JWTError, JWException, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 

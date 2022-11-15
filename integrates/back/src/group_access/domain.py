@@ -69,10 +69,12 @@ from jwcrypto.jwt import (
 )
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
 )
 from newutils.group_access import (
     format_invitation_state,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -98,7 +100,7 @@ async def add_access(
 
 async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
     try:
-        token_content = token_utils.decode_token(url_token)
+        token_content = sessions_domain.decode_token(url_token)
         group_name: str = token_content["group_name"]
         email: str = token_content["user_email"]
     except (JWTError, KeyError, JWTExpired) as ex:

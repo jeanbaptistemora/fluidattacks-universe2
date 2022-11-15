@@ -20,7 +20,6 @@ from cryptography.hazmat.primitives.kdf.scrypt import (
     Scrypt,
 )
 from custom_exceptions import (
-    ExpiredToken,
     InvalidAuthorization,
 )
 from datetime import (
@@ -44,9 +43,6 @@ from jwcrypto.jwt import (
 )
 import logging
 import logging.config
-from newutils import (
-    datetime as datetime_utils,
-)
 import secrets
 from sessions import (
     domain as sessions_domain,
@@ -115,7 +111,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
         if not token:
             raise InvalidAuthorization()
 
-        content = decode_token(token)
+        content = sessions_domain.decode_token(token)
         email = content["user_email"]
         if content.get("sub") == "starlette_session":
             await sessions_domain.verify_session_token(content, email)
@@ -181,67 +177,6 @@ def encode_token(
     jwt_object.make_signed_token(jws_key)
 
     return jwt_object.serialize()
-
-
-def _decode_jwe(payload: str) -> Dict[str, Any]:
-    """Decodes a jwe token and returns its decrypted payload"""
-    jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    jwe_token = JWE()
-    jwe_token.deserialize(payload)
-    jwe_token.decrypt(jwe_key)
-    decoded_payload = json.loads(jwe_token.payload.decode("utf-8"))
-
-    return decoded_payload
-
-
-def decode_token(token: str) -> Dict[str, Any]:
-    """Decodes a jwt token and returns its decrypted payload"""
-    jwt_token = JWT(jwt=token)
-    secret = _get_secret(jwt_token)
-    jws_key = JWK.from_json(secret)
-    jwt_token.validate(jws_key)
-    claims = json.loads(jwt_token.claims)
-    decoded_payload = _decode_jwe(jwt_token.token.payload)
-
-    # Old token
-    if not claims.get("exp"):
-        payload = _validate_expiration_time(decoded_payload)
-        return payload
-
-    default_claims = dict(exp=claims["exp"], sub=claims["sub"])
-    return dict(decoded_payload, **default_claims)
-
-
-def _get_secret(jwt_token: JWT) -> str:
-    """Returns the secret needed to decrypt JWE"""
-    # pylint: disable=protected-access
-    payload = jwt_token._token.objects["payload"]
-    deserialized_payload = json.loads(payload.decode("utf-8"))
-    sub = deserialized_payload.get("sub")
-
-    if sub is None:
-        sub = _decode_jwe(payload).get("sub")
-
-    if sub == "api_token":
-        return JWT_SECRET_API
-    return JWT_SECRET
-
-
-def _validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
-    if "exp" not in payload:
-        return payload
-
-    exp = payload["exp"]
-    utc_now = int(datetime_utils.get_utc_timestamp())
-    if isinstance(exp, str):
-        exp_as_datetime = datetime.strptime(exp, "%Y-%m-%dT%H:%M:%S.%f")
-        exp = datetime_utils.get_as_epoch(exp_as_datetime)
-        payload["exp"] = exp
-
-    if exp < utc_now:
-        raise ExpiredToken()
-
-    return payload
 
 
 def verificate_hash_token(

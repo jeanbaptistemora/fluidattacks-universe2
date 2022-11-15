@@ -22,6 +22,16 @@ from db_model.stakeholders.types import (
     StakeholderSessionToken,
     StateSessionType,
 )
+import json
+from jwcrypto.jwk import (
+    JWK,
+)
+from jwcrypto.jwt import (
+    JWT,
+)
+from sessions import (
+    utils as sessions_utils,
+)
 from starlette.requests import (
     Request,
 )
@@ -30,6 +40,24 @@ from typing import (
     Dict,
     Optional,
 )
+
+
+def decode_token(token: str) -> Dict[str, Any]:
+    """Decodes a jwt token and returns its decrypted payload"""
+    jwt_token = JWT(jwt=token)
+    secret = sessions_utils.get_secret(jwt_token)
+    jws_key = JWK.from_json(secret)
+    jwt_token.validate(jws_key)
+    claims = json.loads(jwt_token.claims)
+    decoded_payload = sessions_utils.decode_jwe(jwt_token.token.payload)
+
+    # Old token
+    if not claims.get("exp"):
+        payload = sessions_utils.validate_expiration_time(decoded_payload)
+        return payload
+
+    default_claims = dict(exp=claims["exp"], sub=claims["sub"])
+    return dict(decoded_payload, **default_claims)
 
 
 async def remove_session_token(content: Dict[str, Any], email: str) -> None:
