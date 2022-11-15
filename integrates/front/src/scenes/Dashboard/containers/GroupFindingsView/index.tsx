@@ -76,7 +76,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
   const [filters, setFilters] = useStoredState<IFilter<IFindingAttr>[]>(
-    "tblFindingFilters",
+    "tblFindFilters",
     [
       {
         id: "lastVulnerability",
