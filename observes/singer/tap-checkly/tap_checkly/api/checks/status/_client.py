@@ -22,7 +22,6 @@ from fa_purity.json.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
-    infinite_range,
     pure_map,
 )
 from fa_purity.stream.factory import (
@@ -30,7 +29,6 @@ from fa_purity.stream.factory import (
 )
 from fa_purity.stream.transform import (
     chain,
-    until_none,
 )
 from tap_checkly.api._raw import (
     Credentials,

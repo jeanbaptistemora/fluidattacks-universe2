@@ -10,7 +10,6 @@ from code_etl.mailmap import (
     Mailmap,
 )
 from code_etl.objs import (
-    RepoContex,
     RepoId,
 )
 from code_etl.upload_repo import (
@@ -65,7 +64,6 @@ from redshift_client.sql_client.connection import (
     IsolationLvl,
 )
 from typing import (
-    Callable,
     Tuple,
 )
 
@@ -137,21 +135,22 @@ def _upload_repos(
             )
         )
 
-    _pair: Callable[[Path], Cmd[Tuple[Client, Path]]] = lambda p: _new_client(
-        p
-    ).map(lambda c: (c, p))
+    def _pair(path: Path) -> Cmd[Tuple[Client, Path]]:
+        return _new_client(path).map(lambda c: (c, path))
+
     client_paths = tuple(map(_pair, repo_paths))
     pool = ThreadPool()  # type: ignore[misc]
 
     def _action() -> None:
         LOG.debug("Concurrent action started!")
-        _action: Callable[
-            [Cmd[Tuple[Client, Path]]], None
-        ] = lambda i: unsafe_unwrap(
-            i.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
-        )
+
+        def _inner(cmd: Cmd[Tuple[Client, Path]]) -> None:
+            return unsafe_unwrap(
+                cmd.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
+            )
+
         pool.map(  # type: ignore[misc]
-            _action,
+            _inner,
             client_paths,
         )
 

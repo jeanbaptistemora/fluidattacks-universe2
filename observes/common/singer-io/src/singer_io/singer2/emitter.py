@@ -6,7 +6,6 @@
 from dataclasses import (
     dataclass,
 )
-import json
 from returns.io import (
     IO,
 )
@@ -26,10 +25,6 @@ from singer_io.singer2.json import (
     JsonEmitter,
     JsonObj,
     JsonValue,
-)
-import sys
-from typing import (
-    IO as IO_FILE,
 )
 
 

@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._core import (
-    SingerLoader,
-)
 from botocore.exceptions import (
     ClientError,
 )

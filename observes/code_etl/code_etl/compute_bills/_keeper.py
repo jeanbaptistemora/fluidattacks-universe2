@@ -72,9 +72,8 @@ class ReportKeeper(_ReportKeeper):
         row: ReportRow,
     ) -> Cmd[None]:
         if current not in row.groups:
-            raise Exception(
-                f"A user in the final report does not belong to the group: {current.name}"
-            )
+            title = "A user in the final report does not belong to the group"
+            raise Exception(f"{title}: {current.name}")
         org = self._get_org.unwrap(current)
 
         def _group_filter(grp: GroupId) -> bool:

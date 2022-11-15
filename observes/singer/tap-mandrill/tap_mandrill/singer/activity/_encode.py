@@ -22,9 +22,6 @@ from fa_purity.utils import (
 from fa_singer_io.json_schema import (
     factory as JSchemaFactory,
 )
-from fa_singer_io.json_schema.core import (
-    JsonSchema,
-)
 from fa_singer_io.singer import (
     SingerRecord,
     SingerSchema,

@@ -131,7 +131,7 @@ def migration(
                 lambda s: s.map(lambda i: flatten_results(i))
                 .map(
                     lambda r: r.map(
-                        lambda l: tuple(from_row_obj(i) for i in l)
+                        lambda d: tuple(from_row_obj(i) for i in d)
                     ).map(lambda p: Cmd.from_cmd(lambda: _emit_action(t, p)))
                 )
                 .map(lambda x: x.unwrap())

@@ -157,7 +157,9 @@ def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:  # type: ignor
 
 @lru_cache(maxsize=None)  # type: ignore[misc]
 def _get_group_org_cached(token: str, group: str) -> Optional[str]:
-    result: Optional[str] = unsafe_unwrap(_get_group_org(token, group))  # type: ignore[misc]
+    result: Optional[str] = unsafe_unwrap(
+        _get_group_org(token, group)  # type: ignore[misc]
+    )
     return result
 
 
@@ -212,7 +214,7 @@ def get_month_repos(
     return client.execute(
         new_query(stm),
         QueryValues(freeze(args)),
-    ) + client.fetch_all().map(lambda l: frozenset(map(_to_group_id, l)))
+    ) + client.fetch_all().map(lambda d: frozenset(map(_to_group_id, d)))
 
 
 def get_month_contributions(

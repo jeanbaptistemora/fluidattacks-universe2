@@ -38,7 +38,6 @@ from tap_bugsnag.api.common import (
     fold,
     fold_and_chain,
     typed_page_builder,
-    UnexpectedEmptyData,
 )
 from tap_bugsnag.api.common.raw import (
     RawApi,

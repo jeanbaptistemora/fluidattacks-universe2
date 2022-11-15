@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from enum import (
-    Enum,
-)
 from fa_purity.frozen import (
     FrozenDict,
     FrozenList,

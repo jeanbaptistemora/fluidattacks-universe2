@@ -11,7 +11,6 @@ from datetime import (
 from fa_purity import (
     FrozenDict,
     FrozenList,
-    JsonObj,
     Maybe,
 )
 

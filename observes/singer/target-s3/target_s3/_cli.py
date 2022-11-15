@@ -6,9 +6,6 @@ import click
 from fa_purity import (
     Cmd,
 )
-from fa_purity.utils import (
-    raise_exception,
-)
 from target_s3 import (
     loader,
 )

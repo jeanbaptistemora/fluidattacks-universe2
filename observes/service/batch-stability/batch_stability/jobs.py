@@ -25,9 +25,6 @@ from fa_purity.stream.transform import (
 from mypy_boto3_batch.type_defs import (
     JobSummaryTypeDef,
 )
-from typing import (
-    Callable,
-)
 
 QUEUES = frozenset(
     [

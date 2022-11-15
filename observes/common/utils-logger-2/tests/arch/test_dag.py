@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from ._utils import (
-    map_over_children,
-)
 from .dag import (
     DAG,
 )

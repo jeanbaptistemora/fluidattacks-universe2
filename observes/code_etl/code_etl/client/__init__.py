@@ -98,7 +98,7 @@ def _fetch(
 def _fetch_one_result(client: DbClient, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
     return (
         client.fetch_one()
-        .map(lambda l: assert_key(l, 0))
+        .map(lambda i: assert_key(i, 0))
         .map(lambda v: v.bind(lambda i: assert_type(i, d_type)))
     )
 
@@ -169,7 +169,7 @@ class RawClient:
         return self._sql_client.execute(*query_pair).map(
             lambda _: from_piter(items)
             .transform(lambda s: until_empty(s))
-            .map(lambda l: from_flist(l))
+            .map(lambda i: from_flist(i))
             .transform(lambda s: chain(s))
         )
 
@@ -242,8 +242,8 @@ class Client:
             .map(lambda b: not b)
         )
         return last.bind(
-            lambda l: is_new.map(
-                lambda n: RepoContex(repo, l.value_or(None), n)
+            lambda i: is_new.map(
+                lambda n: RepoContex(repo, i.value_or(None), n)
             )
         )
 

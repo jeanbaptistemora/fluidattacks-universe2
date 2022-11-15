@@ -64,8 +64,8 @@ def decode_deltas(raw: CommitTableRow) -> ResultE[Deltas]:
     return assert_not_none(raw.total_insertions).bind(
         lambda i: assert_not_none(raw.total_deletions).bind(
             lambda d: assert_not_none(raw.total_lines).bind(
-                lambda l: assert_not_none(raw.total_files).map(
-                    lambda f: Deltas(i, d, l, f)
+                lambda lines: assert_not_none(raw.total_files).map(
+                    lambda f: Deltas(i, d, lines, f)
                 )
             )
         )
