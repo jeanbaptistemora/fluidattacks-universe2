@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: heldens
 product: deep-object-diff 1.1.0 - Prototype Pollution
-date: 2022-10-19 12:00 COT
+date: 2022-11-15 09:00 COT
 cveid: CVE-2022-41713
 severity: 7.3
 description: deep-object-diff 1.1.0    -    Prototype Pollution
@@ -24,7 +24,7 @@ template: advisory
 | **Product**           | deep-object-diff                                                   |
 | **Affected versions** | Version 1.1.0                                                      |
 | **State**             | Public                                                             |
-| **Release date**      | 2022-10-19                                                         |
+| **Release date**      | 2022-11-15                                                         |
 
 ## Vulnerability
 
@@ -58,9 +58,6 @@ Therefore, if an attacker succeeds in injecting the `__proto__` property into
 an object, he will succeed in injecting or editing its properties.
 
 ## Exploitation
-
-To exploit this vulnerability, you must send the following file to a user
-to open with Markdownify.
 
 ### exploit.js
 
@@ -110,7 +107,7 @@ We have reserved the CVE-2022-41713 to refer to this issue from now on.
 
 ## Mitigation
 
-There is currently no patch available for this vulnerability.
+An updated version of deep-object-diff is available at the vendor page.
 
 ## Credits
 
@@ -122,13 +119,15 @@ Offensive Team.
 
 **Vendor page** <https://github.com/mattphillips/deep-object-diff>
 
+**Issue** <https://github.com/mattphillips/deep-object-diff/issues/85>
+
 ## Timeline
 
 <time-lapse
-  discovered="2022-09-05"
-  contacted="2022-09-05"
-  replied="2022-09-05"
-  confirmed=""
-  patched=""
-  disclosure="2022-10-19">
+  discovered="2022-10-05"
+  contacted="2022-10-05"
+  replied="2022-10-05"
+  confirmed="2022-10-05"
+  patched="2022-11-12"
+  disclosure="2022-11-15">
 </time-lapse>
