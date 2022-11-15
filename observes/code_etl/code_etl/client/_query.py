@@ -52,7 +52,7 @@ def _all_data(
     _namespace = Maybe.from_optional(namespace)
     _attrs = ",".join([f.name for f in fields(RawRow)])
     base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
-    id_args: Dict[str, Optional[str]] = {
+    id_args: Dict[str, str] = {
         "schema": table.schema.name,
         "table": table.table_name,
     }
@@ -83,9 +83,7 @@ def all_data_count(
     stm = _namespace.map(
         lambda _: f"{base_stm} WHERE namespace = %(namespace)s"
     ).value_or(base_stm)
-    id_args: Dict[str, Optional[str]] = (
-        {"namespace": namespace} if namespace else {}
-    )
+    id_args: Dict[str, str] = {"namespace": namespace} if namespace else {}
     args: Dict[str, PrimitiveVal] = {
         "schema": table.schema.name,
         "table": table.table_name,
