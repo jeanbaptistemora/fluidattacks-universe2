@@ -10,7 +10,6 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -34,6 +33,8 @@ import type {
   IGetStakeholdersAttrs,
 } from "../GroupStakeholdersView/types";
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters } from "components/Filter";
 import { Table } from "components/Table/index";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
@@ -176,8 +177,28 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [permissions, stackHolderData]
   );
 
-  const [columnFilters, columnFiltersSetter] =
-    useStoredState<ColumnFiltersState>("tblAuthorsList-columnFilters", []);
+  const [filters, setFilters] = useState<
+    IFilter<IAuthors & { invitationState: string }>[]
+  >([
+    {
+      id: "actor",
+      key: "actor",
+      label: t("group.authors.actor"),
+      type: "text",
+    },
+    {
+      id: "groups",
+      key: "groups",
+      label: t("group.authors.groupsContributed"),
+      type: "text",
+    },
+    {
+      id: "repository",
+      key: "repository",
+      label: t("group.authors.repository"),
+      type: "text",
+    },
+  ]);
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblAuthorsList-visibilityState", {
       invitation: hasInvitationPermissions,
@@ -378,14 +399,12 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         </Col100>
       </Row>
       <Table
-        columnFilterSetter={columnFiltersSetter}
-        columnFilterState={columnFilters}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
         columns={columns}
         data={datasetText}
-        enableColumnFilters={true}
         exportCsv={true}
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblAuthorsList"}
         sortingSetter={setSorting}
         sortingState={sorting}
