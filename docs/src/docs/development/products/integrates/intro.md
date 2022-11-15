@@ -2,7 +2,7 @@
 id: intro
 title: Integrates
 sidebar_label: Introduction
-slug: /development/integrates
+slug: /development/products/integrates
 ---
 
 Integrates is the Product responsible

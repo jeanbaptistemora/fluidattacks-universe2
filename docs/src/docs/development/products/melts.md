@@ -125,7 +125,7 @@ you can try to fix them:
 ## Architecture
 
 1. Melts is a CLI written in Python.
-   It communicates with the [Integrates API](/development/integrates)
+   It communicates with the [Integrates API](/development/products/integrates)
    and reports stability problems
    in the source code
    to [Bugsnag](https://www.bugsnag.com/).

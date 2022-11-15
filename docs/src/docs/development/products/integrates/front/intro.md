@@ -1,8 +1,8 @@
 ---
-id: front
+id: intro
 title: Front
 sidebar_label: Front
-slug: /development/integrates/guidelines/front
+slug: /development/products/integrates/front
 ---
 
 ## Overview

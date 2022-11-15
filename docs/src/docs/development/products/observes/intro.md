@@ -63,7 +63,7 @@ and stopping stuck [GitLab](/development/stack/gitlab) jobs.
 
    - `/observes/etl/code/compute-bills`:
      Whose task is to produce billing information
-     for [Integrates](/development/integrates),
+     for [Integrates](/development/products/integrates),
      and therefore puts the data into a bucket owned by Integrates.
 
    - `/observes/etl/code/mirror/all-on-aws`:

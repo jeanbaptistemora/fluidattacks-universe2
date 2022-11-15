@@ -21,7 +21,7 @@ End Users are given the option to configure what checks run.
 ## Architecture
 
 1. Reviews is a CLI written in Python.
-   It communicates with the [GitLab GraphQL API](/development/integrates)
+   It communicates with the [GitLab GraphQL API](/development/products/integrates)
    to get information about a Merge Request
    and the associated Pipelines and Git Commits to it,
    and then performs checks over the information.

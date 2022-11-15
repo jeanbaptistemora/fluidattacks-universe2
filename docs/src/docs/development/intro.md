@@ -50,7 +50,8 @@ that can be found on each of the respective projects.
   or company-wide infrastructure and resources,
   and owner of the admin account.
 
-- [Integrates](/development/integrates): The Attack Resistance Management platform:
+- [Integrates](/development/products/integrates):
+  The Attack Resistance Management platform:
 
   - Web interface: [app.fluidattacks.com](https://app.fluidattacks.com/).
   - API: [app.fluidattacks.com/api](https://app.fluidattacks.com/api).

@@ -7,7 +7,7 @@ slug: /development/forces
 
 Forces is the product responsible
 for the client-side part of the [DevSecOps agent](/machine/agent).
-On the other hand, [Integrates](/development/integrates)
+On the other hand, [Integrates](/development/products/integrates)
 is responsible for the back-end
 and the web interface.
 
@@ -33,7 +33,7 @@ and the web interface.
    [Bugsnag](https://www.bugsnag.com/),
    where developers can consume it to improve exception handling
    and improve the program's logic to protect against crashes,
-   and communicates with the [ARM (Integrates)](/development/integrates)
+   and communicates with the [ARM (Integrates)](/development/products/integrates)
    through the API
    in order to fetch the End User information,
    and to upload execution logs that the End User

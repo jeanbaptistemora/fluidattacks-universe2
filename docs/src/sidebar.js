@@ -413,15 +413,20 @@ const Development = [
         label: "Integrates",
         items: [
           "development/products/integrates/intro",
+          "development/products/integrates/security",
           {
             type: "category",
-            label: "Guidelines",
+            label: "Backend",
             items: [
-              "development/products/integrates/guidelines/front",
-              "development/products/integrates/guidelines/async-python",
-              "development/products/integrates/guidelines/graphql-api",
-              "development/products/integrates/guidelines/security",
+              "development/products/integrates/back/async-python",
+              "development/products/integrates/back/graphql-api",
+              "development/products/integrates/back/migrations",
             ],
+          },
+          {
+            type: "category",
+            label: "Frontend",
+            items: ["development/products/integrates/front/intro"],
           },
         ],
       },
@@ -461,9 +466,7 @@ const Development = [
   {
     type: "category",
     label: "Values",
-    items: [
-      "development/values/daily-progress",
-    ],
+    items: ["development/values/daily-progress"],
   },
   {
     type: "category",

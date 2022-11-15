@@ -2,7 +2,7 @@
 id: security
 title: Security
 sidebar_label: Security
-slug: /development/integrates/security
+slug: /development/products/integrates/security
 ---
 
 :::note
@@ -13,9 +13,9 @@ this document was last updated on: 2022-11-05
 For context on what this product does
 what the main components are,
 and high-level external dependencies,
-see the [Integrates](/development/integrates) product page.
+see the [Integrates](/development/products/integrates) product page.
 
-## Thread Model
+## Threat Model
 
 <!--
 https://owasp.org/www-community/Threat_Modeling_Process#introduction

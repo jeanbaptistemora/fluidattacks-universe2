@@ -2,7 +2,7 @@
 id: async-python
 title: Asynchronous Python
 sidebar_label: Asynchronous Python
-slug: /development/writing-code-suggestions
+slug: /development/products/integrates/back/writing-code-suggestions
 ---
 
 As you may have noticed,

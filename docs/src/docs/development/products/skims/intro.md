@@ -14,7 +14,7 @@ with the security vulnerabilities found.
 End Users are allowed to run Skims
 as a Free and Open Source vulnerability detection tool.
 
-[Integrates](/development/integrates)
+[Integrates](/development/products/integrates)
 configures and runs Skims periodically
 to find vulnerabilities
 over the surface of Fluid Attacks customers
@@ -155,7 +155,7 @@ including the changes you've made to the source code.
 
 ### Local Tests
 
-Some tests require a local instance of [Integrates](/development/integrates).
+Some tests require a local instance of [Integrates](/development/products/integrates).
 
 To deploy a local instance of integrates,
 run each command in a different terminal.

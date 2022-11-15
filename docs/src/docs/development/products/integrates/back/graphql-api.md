@@ -2,7 +2,7 @@
 id: graphql-api
 title: GraphQL API
 sidebar_label: GraphQL API
-slug: /development/graphql-api
+slug: /development/products/integrates/back/graphql-api
 ---
 
 ## What is GraphQL
@@ -354,7 +354,7 @@ For better comprehension
 on how it's done in python,
 here's an article
 that provides a good explanation:
-[Writing fast and concurrent code, even at architectural windward](/development/writing-code-suggestions)
+[Writing fast and concurrent code, even at architectural windward](/development/products/integrates/back/writing-code-suggestions)
 
 ### Implementing and using dataloaders
 
