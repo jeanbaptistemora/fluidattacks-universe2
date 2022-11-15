@@ -40,9 +40,11 @@ def format_row_metadata(
     return dict(
         id=item["name"],
         created_by=item["created_by"]
-        if str(item["created_by"]).endswith(FLUID_IDENTIFIER)
+        if str(item.get("created_by", "")).endswith(FLUID_IDENTIFIER)
         else None,
-        created_date=item["created_date"],
+        created_date=datetime.fromisoformat(item["created_date"])
+        if item.get("created_date")
+        else None,
         language=item["language"],
         name=item["name"],
         organization_id=item["organization_id"],
