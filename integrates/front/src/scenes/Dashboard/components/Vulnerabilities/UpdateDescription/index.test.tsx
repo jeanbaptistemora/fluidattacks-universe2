@@ -721,4 +721,79 @@ describe("Update Description component", (): void => {
     expect(handleOnClose).not.toHaveBeenCalled();
     expect(handleRefetchData).not.toHaveBeenCalled();
   });
+
+  it("should handle edit source", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleOnClose: jest.Mock = jest.fn();
+    const handleClearSelected: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_VULNERABILITY_MUTATION,
+          variables: {
+            acceptanceDate: "",
+            assigned: undefined,
+            externalBugTrackingSystem: "",
+            findingId: "1",
+            isVulnDescriptionChanged: true,
+            isVulnTreatmentChanged: false,
+            isVulnTreatmentDescriptionChanged: false,
+            justification: "",
+            severity: 2,
+            source: "ANALYST",
+            tag: "one",
+            treatment: "IN_PROGRESS",
+            vulnerabilityId: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+          },
+        },
+        result: { data: { updateVulnerabilityDescription: { success: true } } },
+      },
+    ];
+    const mockedSourcePermissions = new PureAbility<string>([
+      { action: "see_vulnerability_source" },
+      { action: "api_mutations_update_vulnerability_description_mutate" },
+    ]);
+    render(
+      <MockedProvider addTypename={false} mocks={[...mocksMutation]}>
+        <authzPermissionsContext.Provider value={mockedSourcePermissions}>
+          <UpdateDescription
+            findingId={"422286126"}
+            groupName={"testgroupname"}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
+            vulnerabilities={vulns}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "source" })
+      ).toHaveLength(1);
+    });
+
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "source" }),
+      ["ANALYST"]
+    );
+    await waitFor((): void => {
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
+    });
+    await userEvent.click(screen.getByText(btnConfirm));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenNthCalledWith(
+        1,
+        "Update Vulnerabilities",
+        "Congratulations"
+      );
+    });
+  });
 });
