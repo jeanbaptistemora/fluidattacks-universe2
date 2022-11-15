@@ -480,7 +480,7 @@ def generate_config_files(
         (
             root
             for root in get_roots(token, group_name) or []
-            if root["nickname"] == root_nickname
+            if root.get("nickname") == root_nickname
         ),
         None,
     )

@@ -30,6 +30,7 @@ function main() {
       | jq '.Item.additional_info.S' -r \
       | jq -c -r '.checks')" \
     && chown -R "${USER}" "$(pwd)" \
+    && git config --global --add safe.directory '*' \
     && echo "${dynamo_item}" \
     | jq '.Item.additional_info.S' -r \
       | jq -c -r '.roots[]' \
