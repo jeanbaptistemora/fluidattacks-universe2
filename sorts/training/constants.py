@@ -136,8 +136,9 @@ MODEL_HYPERPARAMETERS = {
         ),
     },
     "histgradientboostingclassifier": {
+        "max_depth": CategoricalParameter([25, 50, 100, 255]),
         "learning_rate": ContinuousParameter(
-            0.01, 0.1, scaling_type="Logarithmic"
+            0.1, 0.5, scaling_type="Logarithmic"
         ),
     },
     "kneighborsclassifier": {
