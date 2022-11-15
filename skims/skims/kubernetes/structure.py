@@ -6,6 +6,7 @@ from metaloaders.model import (
     Node,
 )
 from typing import (
+    Dict,
     Iterator,
     Union,
 )
@@ -26,7 +27,7 @@ def iter_containers_type(
         "ephemeralContainers",
         "initContainers",
     }
-    if template and template.data:
+    if check_template_integrity(template) and template.data:
         k8s_spec = template.inner.get("spec", None)
         if k8s_spec and k8s_spec.data:
             for c_type in containers_type:
@@ -45,7 +46,8 @@ def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
 
 def check_template_integrity(template: Node) -> bool:
     return bool(
-        getattr(template, "raw")
+        template
+        and getattr(template, "raw")
         and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
     )
@@ -80,8 +82,14 @@ def get_pod_spec(template: Node) -> Union[Node, None]:
     return None
 
 
-def get_container_security_context(container: Node) -> Union[Node, None]:
-    for container_tag in container.data.keys():
-        if container_tag.data == "securityContext":
-            return container_tag
+def get_label_and_data(
+    template: Node, label: str
+) -> Union[Dict[Node, Node], None]:
+    for label_tag, data in template.data.items():
+        if (
+            label_tag.data
+            and isinstance(label_tag.data, str)
+            and label_tag.data.lower() == label
+        ):
+            return {label_tag: data}
     return None
