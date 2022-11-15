@@ -13,6 +13,7 @@ about the vulnerabilities
 reported in your system.
 This information includes
 vulnerability status,
+display of vulnerable code,
 defined treatments and
 tracking history.
 We provide this information in
@@ -21,8 +22,10 @@ window that appears when you
 click on any vulnerability in
 the **Locations** tab or the
 **To-do list** section.
-This window has three tabs:
-**Details**, **Treatments**
+This window has four tabs:
+**Details**,
+**Code**,
+**Treatments**
 and **Tracking**.
 
 In the **Details** tab,
@@ -32,7 +35,20 @@ closed–, location,
 last reattack request date
 and current treatment.
 
-![Vulnerability Detail Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1646425891/docs/web/vulnerabilities/management/vulner_info_detail_tab.png)
+![Vulnerability Detail Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668514861/docs/web/vulnerabilities/management/details_tab.png)
+
+Next to details tab is code
+is **Code** tab.
+Here you can see the vulnerable
+portion of the code,
+being this a clear reference
+where the vulnerability is pointed
+out directly from the code.
+
+![Code Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668514617/docs/web/vulnerabilities/management/code_tab.png)
+
+> **Note:** This tab is exclusive only,
+> to vulnerability type SAST.
 
 In the **Treatments** tab,
 you can modify the vulnerability’s
@@ -43,7 +59,7 @@ define for a vulnerability,
 follow
 [this link](/machine/web/vulnerabilities/management/treatments).
 
-![Treatments Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1646425892/docs/web/vulnerabilities/management/vulner_info_treatmnt_tab.png)
+![Treatments Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668515370/docs/web/vulnerabilities/management/treatments_Tab.png)
 
 Lastly,
 in the **Tracking** tab,
@@ -54,4 +70,4 @@ Find out more information about
 this tab under
 [this link](/machine/web/groups/vulnerabilities#tracking-tab).
 
-![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1646425892/docs/web/vulnerabilities/management/vulner_info_tracking_tab.png)
+![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668517202/docs/web/vulnerabilities/management/tracking_tab.png)
