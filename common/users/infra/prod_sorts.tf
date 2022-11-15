@@ -29,24 +29,6 @@ locals {
           ]
         },
         {
-          Sid    = "iamWrite"
-          Effect = "Allow"
-          Action = [
-            "iam:Attach*",
-            "iam:Create*",
-            "iam:Delete*",
-            "iam:Detach*",
-            "iam:Pass*",
-            "iam:Put*",
-            "iam:Tag*",
-            "iam:Update*",
-          ]
-          Resource = [
-            "arn:aws:iam::${data.aws_caller_identity.main.account_id}:instance-profile/*sorts*",
-            "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*sorts*",
-          ]
-        },
-        {
           Sid    = "cloudwatchRead"
           Effect = "Allow"
           Action = [
