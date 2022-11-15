@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptanceUserField } from "./AcceptanceUserField";
 import { AssignedField } from "./AssignedField";
+import { ConfirmButtons } from "./ConfirmButtons";
 import { ExternalBtsField } from "./ExternalBtsField";
 import {
   dataTreatmentTrackHelper,
@@ -50,7 +51,6 @@ import { TreatmentField } from "./TreatmentField";
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../../Navbar/Tasks/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
-import { ModalConfirm } from "components/Modal";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateVulnerabilityForm,
@@ -112,9 +112,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { t } = useTranslation();
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_vulnerabilities_zero_risk_mutate"
-  );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );
@@ -309,8 +306,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       }
     }
   };
-
-  const { submitForm } = useFormikContext<IUpdateVulnerabilityForm>();
 
   async function handleDeletion(tag: string): Promise<void> {
     await deleteTagVuln({
@@ -566,22 +561,16 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         isAcceptedUndefinedSelected,
         isInProgressSelected
       )}
-      {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
-        <ModalConfirm
-          disabled={
-            requestingZeroRisk ||
-            updatingVulnerability ||
-            deletingTag ||
-            isRunning ||
-            (isTreatmentDescriptionPristine &&
-              isTreatmentPristine &&
-              isDescriptionPristine)
-          }
-          onCancel={handleCloseModal}
-          onConfirm={submitForm}
-          txtCancel={t("group.findings.report.modalClose")}
-        />
-      ) : undefined}
+      <ConfirmButtons
+        deletingTag={deletingTag}
+        handleCloseModal={handleCloseModal}
+        isDescriptionPristine={isDescriptionPristine}
+        isRunning={isRunning}
+        isTreatmentDescriptionPristine={isTreatmentDescriptionPristine}
+        isTreatmentPristine={isTreatmentPristine}
+        requestingZeroRisk={requestingZeroRisk}
+        updatingVulnerability={updatingVulnerability}
+      />
     </React.StrictMode>
   );
 };
