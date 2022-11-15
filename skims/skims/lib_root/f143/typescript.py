@@ -4,6 +4,7 @@
 
 from lib_root.f143.common import (
     has_eval,
+    is_insec_invocation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -39,7 +40,8 @@ def uses_eval(
                 continue
             graph = shard.syntax_graph
             for n_id in has_eval(graph):
-                yield shard, n_id
+                if is_insec_invocation(graph, n_id, method):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f143.uses_eval",

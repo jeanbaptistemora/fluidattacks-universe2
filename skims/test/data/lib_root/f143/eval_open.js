@@ -1,4 +1,4 @@
-function functionAWithConsoleLog() {
+function functionAWithConsoleLog(req) {
     var a = 13
     var c = Math.floor((Math.random() * 100) + 1);
     localStorage.getItem('key');
@@ -9,6 +9,7 @@ function functionAWithConsoleLog() {
         if(c < 5) throw "too low";
         if(c > 10) throw "too high";
         eval('alert("Your query string was ' + unescape(document.location.search) + '");');
+        eval(req.query.input)
         eval("Your query string is a literal string and it is reasonably safe.") // Compliant
         // eval('alert("Your query string was ' + unescape(document.location.search) + '");');
     }
