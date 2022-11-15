@@ -18,25 +18,24 @@ from model.core_model import (
 import re
 from typing import (
     Iterator,
-    Pattern,
     Tuple,
-)
-
-WS = r"\s*"
-WSM = r"\s+"
-HEADER_BASIC: Pattern[str] = re.compile(
-    r"\<stringProp\sname\=\"Header.value\"\>Basic\s.+\<\/stringProp\>"
 )
 
 
 def jmx_header_basic(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
-        for line_number, line in enumerate(content.splitlines(), start=1):
-            if re.search(
-                HEADER_BASIC,
-                line,
-            ):
-                yield (line_number, 0)
+
+        soup = BeautifulSoup(content, features="html.parser")
+        for tag in soup.find_all("stringprop"):
+            if isinstance(tag, Tag):
+                tag_name = tag.name
+                tag_content = str(tag.string).lower()
+                if tag_name == "stringprop" and re.search(
+                    r"\bbasic\b", tag_content
+                ):
+                    line_no: int = tag.sourceline
+                    col_no: int = tag.sourcepos
+                    yield line_no, col_no
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -57,7 +56,9 @@ def basic_auth_method(content: str, path: str) -> Vulnerabilities:
             if isinstance(tag, Tag):
                 tag_name = tag.name
                 tag_content = str(tag.string).lower()
-                if tag_name == "auth-method" and "basic" in tag_content:
+                if tag_name == "auth-method" and re.search(
+                    r"\bbasic\b", tag_content
+                ):
                     line_no: int = tag.sourceline
                     col_no: int = tag.sourcepos
                     yield line_no, col_no

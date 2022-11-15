@@ -84,16 +84,11 @@ def analyze(
                 content, path, model
             ),
         )
-    elif file_extension == "jmx":
+    elif file_extension in ("config", "xml", "jmx"):
         content = content_generator()
         results = (
             *results,
             run_jmx_header_basic(content, path),
-        )
-    elif file_extension in ("config", "xml"):
-        content = content_generator()
-        results = (
-            *results,
             run_basic_auth_method(content, path),
         )
 

@@ -37,7 +37,7 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if file_extension == "config":
+    if file_extension in ("config", "xml", "jmx"):
         content = content_generator()
         results = (
             *results,
