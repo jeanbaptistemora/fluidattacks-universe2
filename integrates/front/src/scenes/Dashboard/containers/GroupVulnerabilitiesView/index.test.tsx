@@ -179,6 +179,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
     { action: "api_mutations_reject_vulnerabilities_zero_risk_mutate" },
+    { action: "api_mutations_request_vulnerabilities_verification_mutate" },
     { action: "api_mutations_verify_vulnerabilities_request_mutate" },
   ]);
 
@@ -465,6 +466,49 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("Where")).toBeInTheDocument();
     expect(screen.getByText("Specific")).toBeInTheDocument();
     expect(screen.getByText("Acceptance")).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should open reattack modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([
+                  { action: "is_continuous" },
+                  { action: "can_report_vulnerabilities" },
+                ])
+              }
+            >
+              <Route
+                component={GroupVulnerabilitiesView}
+                path={"/groups/:groupName/vulns"}
+              />
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "searchFindings.tabDescription.requestVerify.text",
+      })
+    );
+
+    expect(
+      screen.getByText("searchFindings.tabDescription.remediationModal.message")
+    ).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
