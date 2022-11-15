@@ -10,7 +10,8 @@ function main {
     && aws_login "prod_integrates" "3600" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
-    && python3 __argScript__ "${@}"
+    && python3 __argScript__ "${@}" \
+    && rm -rf /tmp/*
 }
 
 main "${@}"
