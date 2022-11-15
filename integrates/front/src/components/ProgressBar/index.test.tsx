@@ -26,6 +26,8 @@ describe("ProgressBar", (): void => {
 
   it("should validate if statement", (): void => {
     expect.hasAssertions();
+
+    expect(getPercentageToDisplay(-5)).toBe(0);
     expect(getPercentageToDisplay(101)).toBe(100);
   });
 });
