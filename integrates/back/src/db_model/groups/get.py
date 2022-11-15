@@ -34,15 +34,12 @@ from dynamodb import (
     keys,
     operations,
 )
-from dynamodb.types import (
-    Item,
-)
 from typing import (
     Iterable,
 )
 
 
-async def get_group_item(*, group_name: str) -> Item:
+async def _get_group(*, group_name: str) -> Group:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"name": group_name},
@@ -62,17 +59,13 @@ async def get_group_item(*, group_name: str) -> Item:
     if not response.items:
         raise GroupNotFound()
 
-    return response.items[0]
+    return format_group(response.items[0])
 
 
-async def _get_group(*, group_name: str) -> Group:
-    return format_group(await get_group_item(group_name=group_name))
-
-
-async def get_group_historic_state_items(
+async def _get_group_historic_state(
     *,
     group_name: str,
-) -> tuple[Item, ...]:
+) -> tuple[GroupState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_historic_state"],
         values={"name": group_name},
@@ -86,22 +79,12 @@ async def get_group_historic_state_items(
         facets=(TABLE.facets["group_historic_state"],),
         table=TABLE,
     )
-    return tuple(response.items)
+    return tuple(map(format_state, response.items))
 
 
-async def _get_group_historic_state(
-    *,
-    group_name: str,
-) -> tuple[GroupState, ...]:
-    return tuple(
-        map(
-            format_state,
-            await get_group_historic_state_items(group_name=group_name),
-        )
-    )
-
-
-async def get_group_unreliable_indicators_item(*, group_name: str) -> Item:
+async def _get_group_unreliable_indicators(
+    *, group_name: str
+) -> GroupUnreliableIndicators:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_unreliable_indicators"],
         values={"name": group_name},
@@ -111,16 +94,6 @@ async def get_group_unreliable_indicators_item(*, group_name: str) -> Item:
         key=primary_key,
         table=TABLE,
     )
-    if not item:
-        return {}
-
-    return item
-
-
-async def _get_group_unreliable_indicators(
-    *, group_name: str
-) -> GroupUnreliableIndicators:
-    item = await get_group_unreliable_indicators_item(group_name=group_name)
     if not item:
         return GroupUnreliableIndicators()
 

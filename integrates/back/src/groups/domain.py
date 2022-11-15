@@ -98,11 +98,6 @@ from db_model.groups.enums import (
     GroupSubscriptionType,
     GroupTier,
 )
-from db_model.groups.get import (
-    get_group_historic_state_items,
-    get_group_item,
-    get_group_unreliable_indicators_item,
-)
 from db_model.groups.types import (
     Group,
     GroupFile,
@@ -176,10 +171,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import re
-from redshift import (
-    groups as redshift_groups,
-    operations as redshift_ops,
-)
 from roots import (
     domain as roots_domain,
 )
@@ -1366,29 +1357,6 @@ async def remove_resources(
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
     await toe_lines_model.remove_group_toe_lines(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
-
-    if FI_ENVIRONMENT == "production":
-        with redshift_ops.db_cursor() as cursor:
-            item = await get_group_item(group_name=group_name)
-            redshift_groups.insert_group(
-                cursor=cursor,
-                item=item,
-            )
-            historic_state = await get_group_historic_state_items(
-                group_name=group_name
-            )
-            redshift_groups.insert_historic_state(
-                cursor=cursor,
-                group_name=group_name,
-                historic_state=historic_state,
-            )
-            unreliable_indicators = await get_group_unreliable_indicators_item(
-                group_name=group_name
-            )
-            redshift_groups.insert_code_languages(
-                cursor=cursor,
-                unreliable_indicators=unreliable_indicators,
-            )
     await groups_model.remove(group_name=group_name)
 
 

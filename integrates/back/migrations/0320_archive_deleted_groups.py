@@ -21,7 +21,7 @@ from dataloaders import (
 from db_model import (
     groups as groups_model,
 )
-from db_model.groups.get import (
+from db_model.groups.get import (  # type: ignore
     get_group_historic_state_items,
     get_group_item,
     get_group_unreliable_indicators_item,
