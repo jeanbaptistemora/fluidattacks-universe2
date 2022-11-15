@@ -77,12 +77,14 @@ async def _process_group(
             group_name=group_name
         ),
     )
-    redshift_groups.insert_code_languages(
-        cursor=cursor,
-        unreliable_indicators=await get_group_unreliable_indicators_item(
-            group_name=group_name
-        ),
+    unreliable_indicators = await get_group_unreliable_indicators_item(
+        group_name=group_name
     )
+    if unreliable_indicators:
+        redshift_groups.insert_code_languages(
+            cursor=cursor,
+            unreliable_indicators=unreliable_indicators,
+        )
     await group_comments_domain.remove_comments(group_name)
     await groups_domain.remove_all_stakeholders(
         loaders=loaders,

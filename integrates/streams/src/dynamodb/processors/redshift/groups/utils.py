@@ -9,6 +9,9 @@ from dynamodb.types import (
     Item,
 )
 import hashlib
+from typing import (
+    Union,
+)
 
 FLUID_IDENTIFIER = "@fluidattacks.com"
 
@@ -52,6 +55,14 @@ def format_row_metadata(
     )
 
 
+def _format_state_managed(managed: Union[bool, str]) -> str:
+    if not managed:
+        return "NOT_MANAGED"
+    if managed is True:
+        return "MANAGED"
+    return str(managed)
+
+
 def format_row_state(
     group_name: str,
     state: Item,
@@ -61,7 +72,7 @@ def format_row_state(
         has_machine=bool(state["has_machine"]),
         has_squad=bool(state["has_squad"]),
         justification=state.get("justification"),
-        managed=state["managed"] if state.get("managed") else "NOT_MANAGED",
+        managed=_format_state_managed(state.get("managed", "")),
         modified_by=state["modified_by"]
         if str(state["modified_by"]).endswith(FLUID_IDENTIFIER)
         else None,
