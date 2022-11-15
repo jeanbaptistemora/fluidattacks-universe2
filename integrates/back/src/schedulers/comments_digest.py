@@ -69,9 +69,6 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-from stakeholders.domain import (
-    is_fluid_staff,
-)
 from typing import (
     Any,
     Dict,
@@ -225,7 +222,7 @@ def digest_comments(
                 ),
                 "%Y-%m-%d %H:%M:%S %Z",
             ),
-            "name": comment.full_name
+            "name": comment.full_name.rstrip()
             if comment.full_name
             else comment.email.split("@")[0],
             "comment": format_comment(comment.content),
@@ -271,7 +268,6 @@ async def send_comment_digest() -> None:
             for stakeholder in group_stakeholders
             if Notification.NEW_COMMENT
             in stakeholder.state.notifications_preferences.email
-            and is_fluid_staff(stakeholder.email)
         )
         for group_stakeholders in groups_stakeholders
     )
