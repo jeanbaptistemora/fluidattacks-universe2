@@ -7,9 +7,11 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
@@ -35,7 +37,6 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
       header: "Date",
       meta: { filterType: "dateRange" },
     },
-
     {
       accessorKey: "title",
       header: "Type",
@@ -70,6 +71,16 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     },
   ];
 
+  const [filters, setFilters] = useState<IFilter<ITodoDraftAttr>[]>([
+    {
+      id: "currentState",
+      key: "currentState",
+      label: "State",
+      selectOptions: ["Created", "Rejected", "Submitted"],
+      type: "select",
+    },
+  ]);
+
   const { data } = useQuery<IGetTodoDrafts>(GET_TODO_DRAFTS, {
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
@@ -83,6 +94,8 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
 
   const dataset: ITodoDraftAttr[] =
     _.isUndefined(data) || _.isEmpty(data) ? [] : _.flatten(data.me.drafts);
+
+  const filteredDataset = useFilters(dataset, filters);
 
   function goToDraft(
     rowInfo: Row<ITodoDraftAttr>
@@ -99,9 +112,9 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <Table
         columns={columns}
-        data={dataset}
-        enableColumnFilters={true}
+        data={filteredDataset}
         exportCsv={true}
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblTodoDrafts"}
         onRowClick={goToDraft}
       />
