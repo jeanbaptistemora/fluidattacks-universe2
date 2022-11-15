@@ -4871,6 +4871,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DART_HAS_PRINT_STATEMENTS = MethodInfo(
+        file_name="dart",
+        name="dart_has_print_statements",
+        module="lib_root",
+        finding=FindingEnum.F237,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     XML_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
         file_name="conf_files",
         name="xml_has_x_xss_protection_header",
