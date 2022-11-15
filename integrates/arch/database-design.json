@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 09, 2022, 02:21 PM",
+    "DateLastModified": "Nov 15, 2022, 03:59 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -14753,7 +14753,10 @@
                 "S": "GROUP_ID"
               }
             }
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_metadata",
@@ -24278,7 +24281,8 @@
           "DataAccess": {
             "MySql": {}
           }
-        },{
+        },
+        {
           "FacetName": "toe_input_historic_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "INPUTS#GROUP#group_name#ROOT#root_id#COMPONENT#component#ENTRYPOINT#entry_point",
@@ -24502,6 +24506,34 @@
             "be_present",
             "attacked_by",
             "be_present_until",
+            "has_vulnerabilities",
+            "state"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "toe_port_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#group_name",
+            "SortKeyAlias": "PORTS#ROOT#root_id#IP#ip#PORT#port"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "seen_first_time_by",
+            "ip",
+            "port",
+            "group_name",
+            "root_id",
+            "first_attack_at",
+            "attacked_at",
+            "seen_at",
+            "be_present",
+            "attacked_by",
+            "be_present_until",
+            "pk_2",
+            "sk_2",
             "has_vulnerabilities",
             "state"
           ],
