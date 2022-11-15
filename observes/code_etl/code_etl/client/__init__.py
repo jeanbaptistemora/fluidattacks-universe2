@@ -15,6 +15,7 @@ from code_etl.client.db_client import (
     DbClient,
 )
 from code_etl.client.encoder import (
+    commit_row_to_dict,
     CommitTableRow,
     from_raw,
     from_reg,
@@ -67,6 +68,7 @@ from postgres_client.query import (
     SqlArgs,
 )
 from redshift_client.sql_client import (
+    QueryValues,
     SqlClient,
 )
 from redshift_client.sql_client.connection import (
@@ -149,10 +151,11 @@ class RawClient:
         msg = Cmd.from_cmd(
             lambda: LOG.debug("unique inserting %s rows", len(rows))
         )
+        args = tuple(QueryValues(commit_row_to_dict(r)) for r in rows)
         return msg.bind(
-            lambda _: self._db_client.execute_batch(
+            lambda _: self._sql_client.batch(
                 _query.insert_unique_row(self._table),
-                tuple(SqlArgs(to_dict(r)) for r in rows),
+                args,
             )
         )
 

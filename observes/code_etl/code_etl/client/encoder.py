@@ -30,6 +30,12 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from fa_purity import (
+    FrozenDict,
+)
+from fa_purity.frozen import (
+    freeze,
+)
 from fa_purity.maybe import (
     Maybe,
 )
@@ -37,6 +43,9 @@ from fa_purity.result import (
     Result,
     ResultE,
     UnwrapError,
+)
+from redshift_client.sql_client.primitive import (
+    PrimitiveVal,
 )
 from typing import (
     Any,
@@ -203,3 +212,8 @@ def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
         "fa_hash": row.fa_hash,
         "seen_at": row.seen_at.time.isoformat(),
     }
+
+
+def commit_row_to_dict(row: CommitTableRow) -> FrozenDict[str, PrimitiveVal]:
+    raw: Dict[str, PrimitiveVal] = {k: v for k, v in to_dict(row).items()}
+    return freeze(raw)

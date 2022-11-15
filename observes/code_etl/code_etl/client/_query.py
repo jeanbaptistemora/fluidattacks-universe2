@@ -105,10 +105,14 @@ def insert_row(table: TableID) -> LegacyQuery:
     )
 
 
-def insert_unique_row(table: TableID) -> LegacyQuery:
+def insert_unique_row(table: TableID) -> Query:
     _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
     values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
-    return LegacyQuery(
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    return dynamic_query(
         f"""
         INSERT INTO {{schema}}.{{table}} ({_fields}) SELECT {values}
         WHERE NOT EXISTS (
@@ -120,12 +124,7 @@ def insert_unique_row(table: TableID) -> LegacyQuery:
                 and repository = %(repository)s
         )
         """,
-        SqlArgs(
-            identifiers={
-                "schema": table.schema.name,
-                "table": table.table_name,
-            }
-        ),
+        freeze(identifiers),
     )
 
 
