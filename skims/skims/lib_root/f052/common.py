@@ -116,3 +116,25 @@ def insecure_encrypt(graph: Graph, method: MethodsEnum) -> List[NId]:
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
+
+
+def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    danger_f = {"createecdh"}
+
+    for n_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+    ):
+        f_name = graph.nodes[n_id]["expression"]
+        _, key = split_function_name(f_name)
+        if (
+            key in danger_f
+            and (al_id := graph.nodes[n_id].get("arguments_id"))
+            and (args := g.adj_ast(graph, al_id))
+            and len(args) > 0
+            and get_eval_danger(graph, args[0], method)
+        ):
+            vuln_nodes.append(n_id)
+    return vuln_nodes

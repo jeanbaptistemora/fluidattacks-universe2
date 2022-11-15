@@ -45,6 +45,7 @@ from lib_root.f052.typescript import (
     ts_insecure_create_cipher,
     ts_insecure_encrypt,
     ts_insecure_hash,
+    typescript_insecure_ecdh_key,
 )
 from model import (
     core_model,
@@ -85,4 +86,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, ts_insecure_create_cipher),
     (FINDING, ts_insecure_hash),
     (FINDING, ts_insecure_encrypt),
+    (FINDING, typescript_insecure_ecdh_key),
 )
