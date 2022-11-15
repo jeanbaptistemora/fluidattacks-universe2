@@ -47,14 +47,16 @@ import { Can } from "utils/authz/Can";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 
-const formatDate: (date: Date | undefined) => string = (
-  date: Date | undefined
+const formatDate: (date: Date | string | null | undefined) => string = (
+  date: Date | string | null | undefined
 ): string => {
-  if (_.isUndefined(date)) {
-    return "";
+  if (date === undefined || date === null) {
+    return "-";
   }
 
-  return moment(date).format("YYYY-MM-DD hh:mm:ss");
+  const result: string = moment(date).format("YYYY-MM-DD hh:mm:ss");
+
+  return result === "Invalid date" ? "-" : result;
 };
 
 export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
@@ -153,7 +155,14 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
   const integrationRepositories = _.isUndefined(repositoriesData)
     ? []
     : _.orderBy(
-        repositoriesData.organization.integrationRepositories,
+        repositoriesData.organization.integrationRepositories.map(
+          (
+            repository: IIntegrationRepositoriesAttr
+          ): IIntegrationRepositoriesAttr => ({
+            ...repository,
+            lastCommitDate: formatDate(repository.lastCommitDate),
+          })
+        ),
         "lastCommitDate",
         "desc"
       );
@@ -166,8 +175,6 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     },
     {
       accessorKey: "lastCommitDate",
-      cell: (cell: ICellHelper<IIntegrationRepositoriesAttr>): string =>
-        formatDate(cell.getValue()),
       header: t("organization.tabs.weakest.table.lastCommitDate"),
     },
   ];

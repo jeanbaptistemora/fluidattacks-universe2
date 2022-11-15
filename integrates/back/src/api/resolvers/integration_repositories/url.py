@@ -8,10 +8,13 @@ from azure_repositories.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from urllib.parse import (
+    unquote_plus,
+)
 
 
 async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
 ) -> str:
-    return parent.repository.web_url
+    return unquote_plus(parent.repository.web_url)

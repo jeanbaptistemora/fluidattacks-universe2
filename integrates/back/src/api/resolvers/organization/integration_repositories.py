@@ -33,6 +33,13 @@ from db_model.roots.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.datetime import (
+    get_now_minus_delta,
+)
+from urllib.parse import (
+    unquote_plus,
+    urlparse,
+)
 
 
 async def _get_repositories(
@@ -80,6 +87,11 @@ async def resolve(
         )
     )
 
+    urls = {
+        unquote_plus(urlparse(url.lower()).path)
+        for url in (roots_url if isinstance(roots_url, set) else set())
+    }
+
     return tuple(
         CredentialsGitRepository(
             credential=credential,
@@ -87,8 +99,10 @@ async def resolve(
         )
         for credential, _repositories in zip(pat_credentials, repositories)
         for repository in _repositories
-        if filter_urls(
+        if repository.project.last_update_time.timestamp()
+        > get_now_minus_delta(days=60).timestamp()
+        and filter_urls(
             repository=repository,
-            urls=roots_url if isinstance(roots_url, set) else set(),
+            urls=urls,
         )
-    )
+    )[:100]

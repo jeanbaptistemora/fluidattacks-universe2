@@ -82,18 +82,21 @@ async def get_repositories_commits(
     repositories: tuple[CredentialsGitRepositoryCommit, ...],
 ) -> tuple[tuple[GitCommit, ...], ...]:
     repositories_commits: tuple[tuple[GitCommit, ...], ...] = await collect(
-        in_thread(
-            _get_repositories_commits,
-            base_url=(
-                f"{BASE_URL}/{repository.credential.state.azure_organization}"
-            ),
-            access_token=repository.credential.state.secret.token
-            if isinstance(repository.credential.state.secret, HttpsPatSecret)
-            else "",
-            repository_id=repository.repository_id,
-            project_name=repository.project_name,
-        )
-        for repository in repositories
+        tuple(
+            in_thread(
+                _get_repositories_commits,
+                organization=repository.credential.state.azure_organization,
+                access_token=repository.credential.state.secret.token
+                if isinstance(
+                    repository.credential.state.secret, HttpsPatSecret
+                )
+                else "",
+                repository_id=repository.repository_id,
+                project_name=repository.project_name,
+            )
+            for repository in repositories
+        ),
+        workers=8,
     )
 
     return repositories_commits
@@ -101,13 +104,15 @@ async def get_repositories_commits(
 
 def _get_repositories_commits(
     *,
-    base_url: str,
+    organization: str,
     access_token: str,
     repository_id: str,
     project_name: str,
 ) -> tuple[GitCommit, ...]:
     credentials = BasicAuthentication("", access_token)
-    connection = Connection(base_url=base_url, creds=credentials)
+    connection = Connection(
+        base_url=f"{BASE_URL}/{organization}", creds=credentials
+    )
     try:
         git_client: GitClient = connection.clients.get_git_client()
         commits: list[GitCommit] = git_client.get_commits(

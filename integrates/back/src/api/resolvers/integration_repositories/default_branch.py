@@ -14,4 +14,8 @@ async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
 ) -> str:
-    return parent.repository.default_branch
+    return (
+        parent.repository.default_branch
+        if parent.repository.default_branch is not None
+        else ""
+    )

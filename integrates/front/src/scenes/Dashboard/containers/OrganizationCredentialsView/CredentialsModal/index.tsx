@@ -199,8 +199,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           isEditing && !_.isUndefined(selectedCredentials)
             ? {
                 auth: "TOKEN",
-                azureOrganization: undefined,
-                isPat: false,
+                azureOrganization:
+                  selectedCredentials[0].azureOrganization ?? "",
+                isPat: selectedCredentials[0].isPat,
                 key: undefined,
                 name: selectedCredentials[0].name,
                 newSecrets: false,
