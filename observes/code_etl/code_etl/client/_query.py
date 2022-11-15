@@ -11,9 +11,6 @@ from code_etl.objs import (
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
 )
-from dataclasses import (
-    fields,
-)
 from fa_purity.frozen import (
     freeze,
     FrozenList,
@@ -49,7 +46,7 @@ def _all_data(
     table: TableID, namespace: Optional[str]
 ) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
-    _attrs = ",".join([f.name for f in fields(CommitTableRow)])
+    _attrs = ",".join(CommitTableRow.fields())
     base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
     id_args: Dict[str, str] = {
         "schema": table.schema.name,
@@ -91,8 +88,8 @@ def all_data_count(
 
 
 def insert_row(table: TableID) -> LegacyQuery:
-    _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
-    values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
+    _fields = ",".join(CommitTableRow.fields())
+    values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
     return LegacyQuery(
         f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values})",
         SqlArgs(
@@ -105,8 +102,8 @@ def insert_row(table: TableID) -> LegacyQuery:
 
 
 def insert_unique_row(table: TableID) -> Query:
-    _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
-    values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
+    _fields = ",".join(CommitTableRow.fields())
+    values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
         "table": table.table_name,
@@ -215,7 +212,7 @@ def update_row(
             and repository = %(repository)s
     """
     args = SqlArgs(
-        row.__dict__,
+        row.__dict__,  # type: ignore[misc]
         {
             "schema": table.schema.name,
             "table": table.table_name,

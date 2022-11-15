@@ -26,6 +26,7 @@ from code_etl.time_utils import (
 )
 from dataclasses import (
     dataclass,
+    fields as dataclass_fields,
 )
 from datetime import (
     datetime,
@@ -80,6 +81,10 @@ class CommitTableRow:
     hash: str
     fa_hash: Optional[str]
     seen_at: DatetimeUTC
+
+    @staticmethod
+    def fields() -> FrozenList[str]:
+        return tuple(f.name for f in dataclass_fields(CommitTableRow))  # type: ignore[misc]
 
 
 def from_objs(
