@@ -105,7 +105,6 @@ resource "aws_glue_catalog_table" "compute_jobs" {
             startedAt:timestamp,
             status:string,
             statusReason:string,
-            requesttime:string,
             stoppedAt:timestamp
           >
         EOF

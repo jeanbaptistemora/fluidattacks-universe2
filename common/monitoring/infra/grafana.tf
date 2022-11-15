@@ -22,5 +22,5 @@ resource "aws_grafana_workspace_saml_configuration" "monitoring" {
   email_assertion         = "mail"
   login_assertion         = "mail"
   role_assertion          = "role"
-  login_validity_duration = 60
+  login_validity_duration = 24 * 60 # 1 Day
 }
