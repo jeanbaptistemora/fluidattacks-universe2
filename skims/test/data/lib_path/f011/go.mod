@@ -22,7 +22,6 @@ require (
 	go.uber.org/atomic v1.9.0
 	gogs.io/gogs v0.6.5
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
-	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
 	golang.org/x/text v0.3.8
 	gorm.io/datatypes v1.0.7
 	gorm.io/driver/postgres v1.4.4
@@ -87,6 +86,8 @@ require (
 	modernc.org/sqlite v1.19.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 )
+
+require	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
 
 replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.5
 
