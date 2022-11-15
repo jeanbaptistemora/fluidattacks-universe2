@@ -5,6 +5,8 @@
 from kubernetes.structure import (
     check_template_integrity,
     get_containers_capabilities,
+    get_label_and_data,
+    get_pod_spec,
     iter_containers_type,
     iter_security_context,
 )
@@ -21,6 +23,7 @@ from model.core_model import (
 )
 from typing import (
     Any,
+    Dict,
     Iterator,
     List,
     Union,
@@ -105,30 +108,84 @@ def _k8s_check_run_as_user(
             yield as_user
 
 
-def _k8s_check_ctx_seccomp(
-    ctx: Any,
-) -> Iterator[Any]:
-    if sec_prof := ctx.inner.get("seccompProfile"):
-        if (
-            prof_type := sec_prof.inner.get("type")
-        ) and prof_type.data.lower() == "unconfined":
-            yield prof_type
-        elif not sec_prof.inner.get("type"):
-            yield sec_prof
-    else:
-        yield ctx
+def _k8s_check_pod_seccomp(template: Node) -> Union[Node, None]:
+    if (
+        (pod_spec := get_pod_spec(template))
+        and (pod_security_context := pod_spec.inner.get("securityContext"))
+        and (
+            pod_seccomp_profile := pod_security_context.inner.get(
+                "seccompProfile"
+            )
+        )
+        and (pod_type := pod_seccomp_profile.inner.get("type"))
+    ):
+        return pod_type
+    return None
+
+
+def get_vuln_line(  # NOSONAR
+    container_ctx: Dict[Node, Node], pod_has_safe_config: bool
+) -> Union[Node, None]:
+    for sec_ctx, ctx_element in container_ctx.items():
+        if container_seccomp_profile := ctx_element.inner.get(
+            "seccompProfile"
+        ):
+            if container_type := container_seccomp_profile.inner.get("type"):
+                if container_type.data:
+                    if container_type.data.lower() == "unconfined":
+                        return container_type
+                elif not pod_has_safe_config:
+                    return container_type
+            elif not pod_has_safe_config:
+                seccomp_node: Union[Dict[Node, Node], None]
+                if seccomp_node := get_label_and_data(
+                    ctx_element, "seccompprofile"
+                ):
+                    return next(iter(seccomp_node))
+        elif not pod_has_safe_config:
+            return sec_ctx
+    return None
+
+
+def _k8s_check_container_seccomp(
+    container_props: Node, pod_has_safe_config: bool
+) -> Union[Node, None]:
+    if container_ctx := get_label_and_data(container_props, "securitycontext"):
+        if vuln := get_vuln_line(container_ctx, pod_has_safe_config):
+            return vuln
+    elif not pod_has_safe_config:
+        return container_props
+    return None
 
 
 def _k8s_check_seccomp_profile(
-    template: Any,
-) -> Iterator[Any]:
-    if check_template_integrity(template) and (
-        ctx := template.inner.get("securityContext")
+    template: Node,
+) -> Iterator[Node]:
+    pod_has_safe_config: bool = False
+
+    if (
+        (pod_type := _k8s_check_pod_seccomp(template))
+        and pod_type.data
+        and pod_type.data.lower() == "unconfined"
     ):
-        yield from _k8s_check_ctx_seccomp(ctx)
-    else:
-        for ctx in iter_security_context(template, False):
-            yield from _k8s_check_ctx_seccomp(ctx)
+        yield pod_type
+    elif (
+        pod_type
+        and pod_type.data
+        and pod_type.data.lower()
+        in [
+            "runtimedefault",
+            "localhost",
+        ]
+    ):
+        pod_has_safe_config = True
+
+    for container in iter_containers_type(template):
+        for container_props in container:
+            if vuln := _k8s_check_container_seccomp(
+                container_props, pod_has_safe_config
+            ):
+                yield vuln
 
 
 def _k8s_check_privileged_used(
