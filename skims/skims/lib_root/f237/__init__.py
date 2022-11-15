@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from lib_root.f237.dart import (
+    has_print_statements as dart_has_print_statements,
+)
 from lib_root.f237.java import (
     has_print_statements as java_has_print_statements,
 )
@@ -11,4 +14,7 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F237
-QUERIES: graph_model.Queries = ((FINDING, java_has_print_statements),)
+QUERIES: graph_model.Queries = (
+    (FINDING, java_has_print_statements),
+    (FINDING, dart_has_print_statements),
+)
