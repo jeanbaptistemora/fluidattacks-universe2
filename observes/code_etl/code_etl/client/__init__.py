@@ -1,6 +1,9 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
+from __future__ import (
+    annotations,
+)
 
 from code_etl.client import (
     _query,
@@ -215,33 +218,41 @@ class RawClient:
 
 
 @dataclass(frozen=True)
+class _Client:
+    # exposes utilities from and to DB using not raw objs
+    db_client: DbClient
+    table: TableID
+    raw: RawClient
+
+
+@dataclass(frozen=True)
 class Client:
     # exposes utilities from and to DB using not raw objs
-    _db_client: DbClient
-    _table: TableID
-    _raw: RawClient
+    _inner: _Client
 
-    def __init__(
-        self, _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
-    ) -> None:
+    @staticmethod
+    def new(
+        _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
+    ) -> Client:
         _client = DbClient(_db_client)
-        _raw = RawClient(_client, _sql_client, _table)
-        object.__setattr__(self, "_db_client", _client)
-        object.__setattr__(self, "_table", _table)
-        object.__setattr__(self, "_raw", _raw)
+        return Client(
+            _Client(_client, _table, RawClient(_client, _sql_client, _table))
+        )
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
-        return self._raw.all_data_count(namespace)
+        return self._inner.raw.all_data_count(namespace)
 
     def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
-        last = self._db_client.execute_query(
-            _query.last_commit_hash(self._table, repo)
-        ).bind(lambda _: _fetch_one_result(self._db_client, str))
+        last = self._inner.db_client.execute_query(
+            _query.last_commit_hash(self._inner.table, repo)
+        ).bind(lambda _: _fetch_one_result(self._inner.db_client, str))
         is_new = (
-            self._db_client.execute_query(
-                _query.commit_exists(self._table, repo, COMMIT_HASH_SENTINEL),
+            self._inner.db_client.execute_query(
+                _query.commit_exists(
+                    self._inner.table, repo, COMMIT_HASH_SENTINEL
+                ),
             )
-            .bind(lambda _: _fetch_not_empty(self._db_client))
+            .bind(lambda _: _fetch_not_empty(self._inner.db_client))
             .map(lambda b: not b)
         )
         return last.bind(
@@ -255,19 +266,23 @@ class Client:
             lambda: LOG.info("register_repos %s", str(reg))
         )
         encoded = tuple(from_reg(r) for r in reg)
-        return log_info.bind(lambda _: self._raw.insert_unique_rows(encoded))
+        return log_info.bind(
+            lambda _: self._inner.raw.insert_unique_rows(encoded)
+        )
 
     def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
             lambda: LOG.info("inserting %s stamps", len(stamps))
         )
         encoded = tuple(from_stamp(s) for s in stamps)
-        return log_info.bind(lambda _: self._raw.insert_unique_rows(encoded))
+        return log_info.bind(
+            lambda _: self._inner.raw.insert_unique_rows(encoded)
+        )
 
     def namespace_data(
         self, namespace: str
     ) -> Cmd[Stream[ResultE[Union[CommitStamp, RepoRegistration]]]]:
-        return self._raw.namespace_data(namespace).map(
+        return self._inner.raw.namespace_data(namespace).map(
             lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
         )
 
@@ -279,7 +294,7 @@ class Client:
                 lambda: LOG.info("delta update %s", old.commit.commit_id)
             )
             return info.bind(
-                lambda _: self._raw.delta_update(
+                lambda _: self._inner.raw.delta_update(
                     encoder.from_stamp(old),
                     encoder.from_stamp(new),
                     ignore_fa_hash,

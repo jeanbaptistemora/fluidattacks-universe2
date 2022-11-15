@@ -130,7 +130,7 @@ def _upload_repos(
 
     def _new_client(path: Path) -> Cmd[Client]:
         return new_client(connection, LOG.getChild(str(path))).map(
-            lambda c: Client(
+            lambda c: Client.new(
                 ClientFactory().from_creds(db_id, creds), c, target
             )
         )

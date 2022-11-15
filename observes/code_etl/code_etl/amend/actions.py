@@ -96,8 +96,8 @@ def _start(
     db_client_2 = ClientFactory().from_creds(db_id, creds)
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
     sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
-    client = sql_client_1.map(lambda q: Client(db_client_1, q, table))
-    client2 = sql_client_2.map(lambda q: Client(db_client_2, q, table))
+    client = sql_client_1.map(lambda q: Client.new(db_client_1, q, table))
+    client2 = sql_client_2.map(lambda q: Client.new(db_client_2, q, table))
     return client.bind(
         lambda c1: client2.bind(
             lambda c2: amend_users(c1, c2, namespace, mailmap)
