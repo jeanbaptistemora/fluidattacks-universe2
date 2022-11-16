@@ -449,10 +449,20 @@ async def test_get_oldest_no_treatment_findings() -> None:
 
 
 @freeze_time("2021-05-27")
-async def test_get_treatment_summary() -> None:
+async def test_get_treatment_summary(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     loaders = get_new_context()
     finding_id = "475041513"
-    oldest_findings = await get_treatment_summary(loaders, finding_id)
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        oldest_findings = await get_treatment_summary(loaders, finding_id)
     expected_output = Treatments(
         accepted=0,
         accepted_undefined=0,
