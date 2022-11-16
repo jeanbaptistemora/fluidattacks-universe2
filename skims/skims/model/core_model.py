@@ -3222,6 +3222,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_PATH_TRAVERSAL = MethodInfo(
+        file_name="typescript",
+        name="ts_insecure_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     DATE = MethodInfo(
         file_name="analyze_headers",
         name="date",

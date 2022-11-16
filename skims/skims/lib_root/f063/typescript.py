@@ -25,15 +25,15 @@ from typing import (
 )
 
 
-def javascript_insecure_path_traversal(
+def typescript_insecure_path_traversal(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_PATH_TRAVERSAL
+    method = MethodsEnum.TS_PATH_TRAVERSAL
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
+            GraphLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
