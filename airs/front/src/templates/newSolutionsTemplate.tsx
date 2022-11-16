@@ -16,11 +16,14 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
+/* eslint react/jsx-no-bind:0 */
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link, graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { AirsLink } from "../components/AirsLink";
 import { Button } from "../components/Button";
 import { CloudImage } from "../components/CloudImage";
 import { Container } from "../components/Container";
@@ -37,7 +40,7 @@ import {
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const newSolutionsIndex: React.FC<IQueryData> = ({
+const NewSolutionsIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -47,6 +50,15 @@ const newSolutionsIndex: React.FC<IQueryData> = ({
 
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
+
+  const { trackEvent } = useMatomo();
+
+  const matomoFreeTrialEvent = (): void => {
+    trackEvent({
+      action: "cta-free-trial-event-click",
+      category: "solutions",
+    });
+  };
 
   const solutionData = [
     {
@@ -152,18 +164,27 @@ const newSolutionsIndex: React.FC<IQueryData> = ({
                     wrap={"wrap"}
                   >
                     <Container pb={3} pr={1} width={"200px"} widthSm={"100%"}>
-                      <Button display={"block"} size={"lg"} variant={"primary"}>
-                        {"Start free trial"}
-                      </Button>
+                      <AirsLink href={"/free-trial/"}>
+                        <Button
+                          display={"block"}
+                          onClick={matomoFreeTrialEvent}
+                          size={"lg"}
+                          variant={"primary"}
+                        >
+                          {"Start free trial"}
+                        </Button>
+                      </AirsLink>
                     </Container>
                     <Container pb={5} width={"200px"} widthSm={"100%"}>
-                      <Button
-                        display={"block"}
-                        size={"lg"}
-                        variant={"tertiary"}
-                      >
-                        {"Contact now"}
-                      </Button>
+                      <AirsLink href={"/contact-us/"}>
+                        <Button
+                          display={"block"}
+                          size={"lg"}
+                          variant={"tertiary"}
+                        >
+                          {"Contact now"}
+                        </Button>
+                      </AirsLink>
                     </Container>
                   </Container>
                 </Container>
@@ -221,10 +242,10 @@ const newSolutionsIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default newSolutionsIndex;
+export default NewSolutionsIndex;
 
 export const query: StaticQueryDocument = graphql`
-  query newSolutionsIndex($slug: String!) {
+  query NewSolutionsIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
