@@ -14,6 +14,7 @@ not managed by any other product.
 1. The following domains are provided:
 
    - `fluidattacks.com`.
+   - `fluidattacks.tech`.
    - `fluidsignal.com`.
    - `fluid.la`.
    - `fluidattacks.co`.

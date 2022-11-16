@@ -103,8 +103,6 @@ digraph status {
           label="DNS"
 
           cloudflare_zone_fluidattacks_com_dns_cname[label="CNAME"]
-          cloudflare_zone_fluidattacks_com_dns_cname_help[label="CNAME help (Zendesk)"]
-          cloudflare_zone_fluidattacks_com_dns_cname_go[label="CNAME go (Rebrandly)"]
           cloudflare_zone_fluidattacks_com_dns_cname_news[label="CNAME news (AnnounceKit)"]
           cloudflare_zone_fluidattacks_com_dns_cname_status[label="CNAME status (Checkly)"]
           cloudflare_zone_fluidattacks_com_dns_cname_www[label="CNAME www"]
@@ -124,11 +122,33 @@ digraph status {
             cloudflare_zone_fluidattacks_com_rules_page_landing_forward[label="try.fluidattacks.com/$1"]
           }
         }
+      }
 
-        subgraph cluster_cloudflare_zone_fluidattacks_com_worker_routes {
+      subgraph cluster_cloudflare_zone_fluidattacks_tech {
+        label="fluidattacks.tech"
+
+        cluster_cloudflare_zone_fluidattacks_tech[label="" style="invis"]
+        cloudflare_zone_fluidattacks_tech_dnssec[label="DNSSEC"]
+
+        subgraph cluster_cloudflare_zone_fluidattacks_tech_dns {
+          label="DNS"
+
+          cloudflare_zone_fluidattacks_tech_dns_cname[label="CNAME"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_help[label="CNAME help (Zendesk)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_go[label="CNAME go (Rebrandly)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_domainconnect[label="CNAME _domainconnect (Domain Connect)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_status[label="CNAME email (Secureserver)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_pay[label="CNAME pay (GoDaddy)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_track[label="CNAME track (Mailgun)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_try[label="CNAME tray (Unbounce)"]
+          cloudflare_zone_fluidattacks_tech_dns_cname_www[label="CNAME www"]
+          cloudflare_zone_fluidattacks_tech_dns_mx[label="MX (MailStore)" peripheries="2"]
+        }
+
+        subgraph cluster_cloudflare_zone_fluidattacks_tech_worker_routes {
           label="Worker Routes"
 
-          cloudflare_zone_fluidattacks_com_worker_route_go[label="go.fluidattacks.com/*"]
+          cloudflare_zone_fluidattacks_tech_worker_route_go[label="go.fluidattacks.tech/*"]
         }
       }
 
@@ -162,7 +182,7 @@ digraph status {
 
   edge[color="0.6 1.0 1.0"]
   cloudflare_zone_fluidattacks_com_dns_cname_www -> cloudflare_zone_fluidattacks_com_dns_cname[]
-  cloudflare_zone_fluidattacks_com_worker_route_go -> cluster_cloudflare_workers_makes_headers[]
+  cloudflare_zone_fluidattacks_tech_worker_route_go -> cluster_cloudflare_workers_makes_headers[]
   cloudflare_zone_fluid_la_dns_cname -> cloudflare_zone_fluidattacks_com_dns_cname[]
   cloudflare_zone_fluidattacks_co_dns_cname -> cloudflare_zone_fluidattacks_com_dns_cname[]
   cloudflare_zone_fluidattacks_co_rules_page -> cloudflare_zone_fluidattacks_co_rules_page_forward[]
@@ -173,6 +193,7 @@ digraph status {
   cloudflare_zone_fluidsignal_com_rules_page -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
   cloudflare_zone_fluidsignal_com_rules_page_www -> cloudflare_zone_fluidsignal_com_rules_page_forward[]
   cluster_cloudflare_zone_fluidattacks_com -> cloudflare_argo[ltail="cluster_cloudflare_zone_fluidattacks_com"]
+  cluster_cloudflare_zone_fluidattacks_tech -> cloudflare_argo[ltail="cluster_cloudflare_zone_fluidattacks_tech"]
   cluster_cloudflare_zone_fluidsignal_com -> cloudflare_argo[ltail="cluster_cloudflare_zone_fluidsignal_com"]
 
   edge[color="0.8 1.0 1.0"]
