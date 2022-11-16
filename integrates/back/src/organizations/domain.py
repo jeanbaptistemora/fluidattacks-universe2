@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint:disable=too-many-lines
 from aioextensions import (
     collect,
     schedule,
@@ -155,7 +156,7 @@ DEFAULT_MIN_SEVERITY = Decimal("0.0")
 
 
 async def add_credentials(
-    loaders: Any,
+    loaders: Dataloaders,
     attributes: CredentialAttributesToAdd,
     organization_id: str,
     modified_by: str,
@@ -215,7 +216,7 @@ async def add_credentials(
 
 
 async def add_group_access(
-    loaders: Any, organization_id: str, group_name: str
+    loaders: Dataloaders, organization_id: str, group_name: str
 ) -> None:
     stakeholders = await get_stakeholders_emails(loaders, organization_id)
     stakeholders_roles = await collect(
@@ -234,7 +235,7 @@ async def add_group_access(
 
 
 async def add_stakeholder(
-    loaders: Any, organization_id: str, email: str, role: str
+    loaders: Dataloaders, organization_id: str, email: str, role: str
 ) -> None:
     # Check for customer manager granting requirements
     validate_role_fluid_reqs(email, role)
@@ -284,7 +285,7 @@ async def update_state(
 
 
 async def complete_register_for_organization_invitation(
-    loaders: Any, organization_access: OrganizationAccess
+    loaders: Dataloaders, organization_access: OrganizationAccess
 ) -> None:
     invitation = organization_access.invitation
     if invitation and invitation.is_used:
@@ -329,7 +330,7 @@ async def complete_register_for_organization_invitation(
 
 
 async def get_access_by_url_token(
-    loaders: Any,
+    loaders: Dataloaders,
     url_token: str,
 ) -> OrganizationAccess:
     try:
@@ -347,7 +348,7 @@ async def get_access_by_url_token(
 
 
 async def get_all_active_groups(
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> tuple[Group, ...]:
     active_groups = []
     async for organization in iterate_organizations():
@@ -358,7 +359,7 @@ async def get_all_active_groups(
 
 
 async def get_all_active_group_names(
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> tuple[str, ...]:
     active_groups = await get_all_active_groups(loaders)
     active_group_names = tuple(group.name for group in active_groups)
@@ -366,7 +367,7 @@ async def get_all_active_group_names(
 
 
 async def get_all_deleted_groups(
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> tuple[Group, ...]:
     deleted_groups: list[Group] = list(
         await loaders.organization_groups.load("ORG#unknown")
@@ -381,7 +382,7 @@ async def get_all_deleted_groups(
 
 
 async def get_group_names(
-    loaders: Any, organization_id: str
+    loaders: Dataloaders, organization_id: str
 ) -> tuple[str, ...]:
     org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
         organization_id
@@ -389,7 +390,7 @@ async def get_group_names(
     return tuple(group.name for group in org_groups)
 
 
-async def exists(loaders: Any, organization_name: str) -> bool:
+async def exists(loaders: Dataloaders, organization_name: str) -> bool:
     try:
         await loaders.organization.load(organization_name.lower().strip())
         return True
@@ -443,7 +444,7 @@ async def add_organization(
 
 
 async def get_stakeholder_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     is_registered: bool,
     organization_id: str,
@@ -466,7 +467,7 @@ async def get_stakeholder_role(
 
 
 async def get_stakeholders_emails(
-    loaders: Any, organization_id: str
+    loaders: Dataloaders, organization_id: str
 ) -> list[str]:
     stakeholders_access: tuple[
         OrganizationAccess, ...
@@ -476,7 +477,7 @@ async def get_stakeholders_emails(
 
 
 async def get_stakeholders(
-    loaders: Any, organization_id: str
+    loaders: Dataloaders, organization_id: str
 ) -> tuple[Stakeholder, ...]:
     emails = await get_stakeholders_emails(loaders, organization_id)
 
@@ -484,7 +485,7 @@ async def get_stakeholders(
 
 
 async def has_group(
-    loaders: Any, organization_id: str, group_name: str
+    loaders: Dataloaders, organization_id: str, group_name: str
 ) -> bool:
     try:
         group: Group = await loaders.group.load(group_name)
@@ -493,7 +494,9 @@ async def has_group(
         return False
 
 
-async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
+async def has_access(
+    loaders: Dataloaders, organization_id: str, email: str
+) -> bool:
     if (
         await authz.get_organization_level_role(
             loaders, email, organization_id
@@ -514,7 +517,7 @@ async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
 
 
 async def invite_to_organization(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     role: str,
     organization_name: str,
@@ -578,7 +581,7 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
 
 
 async def iterate_organizations_and_groups(
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> AsyncIterator[tuple[str, str, tuple[str, ...]]]:
     """Yield (org_id, org_name, org_group_names) non-concurrently generated."""
     async for organization in iterate_organizations():
@@ -589,7 +592,10 @@ async def iterate_organizations_and_groups(
 
 
 async def remove_credentials(
-    loaders: Any, organization_id: str, credentials_id: str, modified_by: str
+    loaders: Dataloaders,
+    organization_id: str,
+    credentials_id: str,
+    modified_by: str,
 ) -> None:
     organization: Organization = await loaders.organization.load(
         organization_id
@@ -619,7 +625,7 @@ async def remove_credentials(
 
 
 async def remove_access(
-    loaders: Any, organization_id: str, email: str, modified_by: str
+    loaders: Dataloaders, organization_id: str, email: str, modified_by: str
 ) -> None:
     if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
@@ -652,8 +658,31 @@ async def remove_access(
     )
 
 
+async def remove_organization(
+    *,
+    loaders: Dataloaders,
+    organization_id: str,
+    organization_name: str,
+    modified_by: str,
+) -> None:
+    await collect(
+        remove_access(loaders, organization_id, email, modified_by)
+        for email in await get_stakeholders_emails(loaders, organization_id)
+    )
+    await orgs_model.update_state(
+        organization_id=organization_id,
+        organization_name=organization_name,
+        state=OrganizationState(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+            status=OrganizationStateStatus.DELETED,
+            pending_deletion_date="",
+        ),
+    )
+
+
 async def reject_register_for_organization_invitation(
-    loaders: Any,
+    loaders: Dataloaders,
     organization_access: OrganizationAccess,
 ) -> None:
     invitation = organization_access.invitation
@@ -666,7 +695,7 @@ async def reject_register_for_organization_invitation(
 
 
 async def update_credentials(
-    loaders: Any,
+    loaders: Dataloaders,
     attributes: CredentialAttributesToUpdate,
     credentials_id: str,
     organization_id: str,
@@ -813,7 +842,7 @@ async def update_billing_customer(
 
 
 async def update_policies(
-    loaders: Any,
+    loaders: Dataloaders,
     organization_id: str,
     organization_name: str,
     user_email: str,
@@ -857,7 +886,7 @@ async def update_policies(
 
 # pylint: disable=too-many-arguments
 async def send_mail_policies(
-    loaders: Any,
+    loaders: Dataloaders,
     new_policies: dict[str, Any],
     organization_id: str,
     organization_name: str,
@@ -910,7 +939,7 @@ async def send_mail_policies(
 
 
 async def validate_acceptance_severity_range(
-    loaders: Any, organization_id: str, values: PoliciesToUpdate
+    loaders: Dataloaders, organization_id: str, values: PoliciesToUpdate
 ) -> bool:
     success: bool = True
     organization_data: Organization = await loaders.organization.load(

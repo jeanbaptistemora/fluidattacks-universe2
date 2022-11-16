@@ -5,16 +5,16 @@
 from custom_exceptions import (
     CredentialAlreadyExists,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.credentials.types import (
     Credentials,
-)
-from typing import (
-    Any,
 )
 
 
 async def validate_credentials_name_in_organization(
-    loaders: Any,
+    loaders: Dataloaders,
     organization_id: str,
     credentials_name: str,
 ) -> None:

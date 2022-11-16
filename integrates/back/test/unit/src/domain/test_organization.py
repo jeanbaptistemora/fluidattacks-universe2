@@ -30,13 +30,15 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationState,
 )
 from db_model.types import (
     PoliciesToUpdate,
 )
 from decimal import (
     Decimal,
+)
+from freezegun import (
+    freeze_time,
 )
 from group_access import (
     domain as group_access_domain,
@@ -111,20 +113,17 @@ async def test_add_organization() -> None:
 
 
 @pytest.mark.changes_db
+@freeze_time("2022-11-11T15:58:31")
 async def test_remove_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     org_name = "tatsumi"
     email = "org_testuser1@gmail.com"
-    modified_date = "2019-11-22T20:07:57+00:00"
-    await orgs_domain.update_state(
+    modified_date = "2022-11-11T15:58:31+00:00"
+    await orgs_domain.remove_organization(
+        loaders=get_new_context(),
+        modified_by=email,
         organization_id=org_id,
         organization_name=org_name,
-        state=OrganizationState(
-            modified_by=email,
-            modified_date=modified_date,
-            status=OrganizationStateStatus.DELETED,
-            pending_deletion_date="",
-        ),
     )
 
     loaders: Dataloaders = get_new_context()
