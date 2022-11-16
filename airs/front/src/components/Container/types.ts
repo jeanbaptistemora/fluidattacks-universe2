@@ -15,6 +15,7 @@ type TWrap = "nowrap" | "unset" | "wrap";
 interface IContainerProps {
   align?: TAlign;
   bgColor?: string;
+  borderColor?: string;
   br?: Nums0To4;
   center?: boolean;
   children: React.ReactNode;
