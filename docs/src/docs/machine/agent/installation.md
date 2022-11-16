@@ -36,6 +36,8 @@ in case you already generated one.
 
 ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/manage_toke.png)
 
+> **Note:** The DevSecOps token is valid for 180 days.
+
 1. Make sure your execution environment
    has the required dependencies:
    - Docker (>= 20.10.10)
@@ -70,8 +72,6 @@ can also be set in the ARM organization's Policies tab.
 In the case of `--breaking`,
 the value passed to the CLI option takes
 precedence over the value set in ARM.
-
-> **Note:** The DevSecOps token is valid for 180 days.
 
 ## Examples
 
