@@ -8,9 +8,6 @@ from datetime import (
 from db_model.stakeholders.types import (
     StakeholderAccessToken,
 )
-from newutils import (
-    token as token_utils,
-)
 from sessions import (
     utils as sessions_utils,
 )
@@ -24,15 +21,15 @@ from time import (
 AGE_WEEKS = 27  # invalid expiration time
 
 
-def test_verificate_hash_token() -> None:
-    token = token_utils.calculate_hash_token()
+def test_validate_hash_token() -> None:
+    token = sessions_utils.calculate_hash_token()
     access_token = StakeholderAccessToken(
         iat=0, salt=token["salt"], jti=token["jti_hashed"]
     )
-    different_token = token_utils.calculate_hash_token()
+    different_token = sessions_utils.calculate_hash_token()
 
-    assert token_utils.verificate_hash_token(access_token, token["jti"])
-    assert not token_utils.verificate_hash_token(
+    assert sessions_utils.validate_hash_token(access_token, token["jti"])
+    assert not sessions_utils.validate_hash_token(
         access_token, different_token["jti"]
     )
 

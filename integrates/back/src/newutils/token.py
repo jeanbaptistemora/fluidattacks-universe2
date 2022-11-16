@@ -5,22 +5,9 @@
 from . import (
     function,
 )
-import binascii
 import collections
-from cryptography.exceptions import (
-    InvalidKey,
-)
-from cryptography.hazmat.backends import (
-    default_backend,
-)
-from cryptography.hazmat.primitives.kdf.scrypt import (
-    Scrypt,
-)
 from custom_exceptions import (
     InvalidAuthorization,
-)
-from db_model.stakeholders.types import (
-    StakeholderAccessToken,
 )
 from jwcrypto.jwe import (
     InvalidJWEData,
@@ -30,7 +17,6 @@ from jwcrypto.jwt import (
 )
 import logging
 import logging.config
-import secrets
 from sessions import (
     domain as sessions_domain,
 )
@@ -47,30 +33,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-NUMBER_OF_BYTES = 32  # length of the key
-SCRYPT_N = 2**14  # cpu/memory cost
-SCRYPT_R = 8  # block size
-SCRYPT_P = 1  # parallelization
-
-
-def calculate_hash_token() -> Dict[str, str]:
-    jti_token = secrets.token_bytes(NUMBER_OF_BYTES)
-    salt = secrets.token_bytes(NUMBER_OF_BYTES)
-    backend = default_backend()
-    jti_hashed = Scrypt(
-        salt=salt,
-        length=NUMBER_OF_BYTES,
-        n=SCRYPT_N,
-        r=SCRYPT_R,
-        p=SCRYPT_P,
-        backend=backend,
-    ).derive(jti_token)
-
-    return {
-        "jti_hashed": binascii.hexlify(jti_hashed).decode(),
-        "jti": binascii.hexlify(jti_token).decode(),
-        "salt": binascii.hexlify(salt).decode(),
-    }
 
 
 async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
@@ -116,27 +78,3 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 def get_request_store(context: Any) -> collections.defaultdict:
     """Returns customized store attribute of a Django/Starlette request"""
     return context.store if hasattr(context, "store") else context.state.store
-
-
-def verificate_hash_token(
-    access_token: StakeholderAccessToken, jti_token: str
-) -> bool:
-    resp = False
-    backend = default_backend()
-    token_hashed = Scrypt(
-        salt=binascii.unhexlify(access_token.salt),
-        length=NUMBER_OF_BYTES,
-        n=SCRYPT_N,
-        r=SCRYPT_R,
-        p=SCRYPT_P,
-        backend=backend,
-    )
-    try:
-        token_hashed.verify(
-            binascii.unhexlify(jti_token),
-            binascii.unhexlify(access_token.jti),
-        )
-        resp = True
-    except InvalidKey as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-    return resp

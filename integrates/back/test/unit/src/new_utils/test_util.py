@@ -54,6 +54,7 @@ import pytest
 import pytz
 from sessions import (
     domain as sessions_domain,
+    utils as sessions_utils,
 )
 from settings import (
     JWT_COOKIE_NAME,
@@ -90,7 +91,7 @@ def test_assert_file_mime() -> None:
 async def test_get_jwt_content() -> None:
     request = create_dummy_simple_session()
     user_email = "unittest"
-    jti = token_utils.calculate_hash_token()["jti"]
+    jti = sessions_utils.calculate_hash_token()["jti"]
     expiration_time = datetime_utils.get_as_epoch(
         datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
     )
@@ -125,7 +126,7 @@ async def test_get_jwt_content() -> None:
 async def test_valid_token() -> None:
     request = create_dummy_simple_session()
     user_email = "unittest"
-    jti = token_utils.calculate_hash_token()["jti"]
+    jti = sessions_utils.calculate_hash_token()["jti"]
     expiration_time = datetime_utils.get_as_epoch(
         datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
     )
@@ -164,7 +165,7 @@ async def test_valid_api_token() -> None:
     payload = {
         "user_email": "unittest",
         "iat": int(datetime.utcnow().timestamp()),
-        "jti": token_utils.calculate_hash_token()["jti"],
+        "jti": sessions_utils.calculate_hash_token()["jti"],
     }
     token = sessions_domain.encode_token(
         expiration_time=expiration_time,
@@ -194,7 +195,7 @@ async def test_expired_token() -> None:
     payload = {
         "user_email": "unittest",
         "iat": int(datetime_utils.get_from_str(date).timestamp()),
-        "jti": token_utils.calculate_hash_token()["jti"],
+        "jti": sessions_utils.calculate_hash_token()["jti"],
     }
     token = sessions_domain.encode_token(
         expiration_time=expiration_time,
@@ -234,7 +235,7 @@ async def test_revoked_token() -> None:
     )
     payload = {
         "user_email": user_email,
-        "jti": token_utils.calculate_hash_token()["jti"],
+        "jti": sessions_utils.calculate_hash_token()["jti"],
     }
     token = sessions_domain.encode_token(
         expiration_time=expiration_time,

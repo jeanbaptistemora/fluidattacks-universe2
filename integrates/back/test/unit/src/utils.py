@@ -20,14 +20,12 @@ from db_model.stakeholders.types import (
 from graphql import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from requests import (
     Request,
 )
 from sessions import (
     domain as sessions_domain,
+    utils as sessions_utils,
 )
 from settings import (
     JWT_COOKIE_NAME,
@@ -58,7 +56,7 @@ async def create_dummy_session(
     username: str = "unittest", session_jwt: Optional[str] = None
 ) -> Request:
     request = create_dummy_simple_session(username)
-    jti = token_utils.calculate_hash_token()["jti"]
+    jti = sessions_utils.calculate_hash_token()["jti"]
     expiration_time = int(
         (datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)).timestamp()
     )

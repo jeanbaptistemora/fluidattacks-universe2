@@ -45,7 +45,6 @@ from group_access import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
 )
 from newutils.validations import (
     validate_alphanumeric_field,
@@ -125,7 +124,9 @@ async def has_valid_access_token(
         return False
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     if context and stakeholder.access_token:
-        return token_utils.verificate_hash_token(stakeholder.access_token, jti)
+        return sessions_utils.validate_hash_token(
+            stakeholder.access_token, jti
+        )
     return False
 
 
@@ -158,7 +159,7 @@ async def update_access_token(
     email: str, expiration_time: int, **kwargs_token: Any
 ) -> str:
     """Update access token"""
-    token_data = token_utils.calculate_hash_token()
+    token_data = sessions_utils.calculate_hash_token()
     session_jwt = ""
 
     if sessions_utils.is_valid_expiration_time(expiration_time):

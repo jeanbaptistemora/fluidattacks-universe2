@@ -29,10 +29,10 @@ from httpx import (
 )
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
 )
 from sessions import (
     domain as sessions_domain,
+    utils as sessions_utils,
 )
 from settings import (
     JWT_COOKIE_NAME,
@@ -52,7 +52,7 @@ from typing import (
 
 
 async def create_session_token(user: UserAccessInfo) -> str:
-    jti = token_utils.calculate_hash_token()["jti"]
+    jti = sessions_utils.calculate_hash_token()["jti"]
     user_email = user.user_email
     expiration_time = datetime_utils.get_as_epoch(
         datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
