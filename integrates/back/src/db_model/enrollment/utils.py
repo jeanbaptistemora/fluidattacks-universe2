@@ -15,7 +15,7 @@ import simplejson as json
 
 def format_enrollment(item: Item) -> Enrollment:
     return Enrollment(
-        email=item["email"],
+        email=str(item["email"]).lower().strip(),
         enrolled=item["enrolled"],
         trial=format_trial(item["trial"]),
     )

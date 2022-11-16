@@ -126,12 +126,11 @@ def format_tours(item: Item) -> StakeholderTours:
 
 
 def format_stakeholder(item: Item) -> Stakeholder:
-    email: str = item.get("email") or str(item["pk"]).split("#")[1]
     return Stakeholder(
         access_token=format_access_token(item["access_token"])
         if item.get("access_token")
         else None,
-        email=email.lower().strip(),
+        email=str(item["email"]).lower().strip(),
         first_name=item.get("first_name"),
         is_concurrent_session=item.get("is_concurrent_session", False),
         is_registered=item.get("is_registered", False),

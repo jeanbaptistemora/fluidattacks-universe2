@@ -16,6 +16,7 @@ import simplejson as json
 
 
 async def add(*, enrollment: Enrollment) -> None:
+    enrollment = enrollment._replace(email=enrollment.email.lower().strip())
     key_structure = TABLE.primary_key
     enrollment_key = keys.build_key(
         facet=TABLE.facets["enrollment_metadata"],

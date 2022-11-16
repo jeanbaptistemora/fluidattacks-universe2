@@ -71,7 +71,7 @@ async def mutate(
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     new_user_role = map_roles(role)
-    new_user_email = kwargs.get("email", "")
+    new_user_email = kwargs.get("email", "").lower().strip()
     new_user_responsibility = kwargs.get("responsibility", "-")
 
     if await exists(loaders, group_name, new_user_email):

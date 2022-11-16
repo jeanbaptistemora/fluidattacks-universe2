@@ -51,6 +51,7 @@ async def mutate(
     role: str,
 ) -> AddStakeholderPayload:
     loaders: Dataloaders = info.context.loaders
+    email = email.lower().strip()
     role = map_roles(role)
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

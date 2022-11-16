@@ -75,7 +75,7 @@ async def mutate(
     requester_data = await token_utils.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]
 
-    stakeholder_email = str(parameters.get("user_email"))
+    stakeholder_email = str(parameters.get("user_email")).lower().strip()
     stakeholder_role: str = map_roles(str(parameters.get("role")).lower())
 
     with suppress(StakeholderNotInOrganization):
