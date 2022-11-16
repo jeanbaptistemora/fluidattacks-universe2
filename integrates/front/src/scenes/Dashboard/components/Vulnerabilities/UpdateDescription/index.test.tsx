@@ -628,7 +628,7 @@ describe("Update Description component", (): void => {
           isVulnTreatmentDescriptionChanged: false,
           justification: "test justification to treatment",
           severity: -1,
-          source: "ASM",
+          source: undefined,
           tag: "one",
           treatment: "ACCEPTED_UNDEFINED",
           vulnerabilityId: "test",

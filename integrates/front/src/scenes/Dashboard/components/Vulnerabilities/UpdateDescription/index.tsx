@@ -156,7 +156,8 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                     ? groupVulnLevel(vulnerabilities)
                     : "",
                 source:
-                  vulnerabilities.length === 1
+                  vulnerabilities.length === 1 &&
+                  vulnerabilities[0].source.toUpperCase() !== "ASM"
                     ? vulnerabilities[0].source.toUpperCase()
                     : "",
                 tag: _.join(_.intersection(...vulnsTags), ","),
