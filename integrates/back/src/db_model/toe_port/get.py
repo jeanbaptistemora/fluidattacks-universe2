@@ -7,6 +7,7 @@ from .constants import (
 )
 from .types import (
     GroupToePortsRequest,
+    RootToePortsRequest,
     ToePort,
     ToePortRequest,
     ToePortsConnection,
@@ -39,8 +40,8 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
+    Iterable,
     List,
-    Tuple,
 )
 
 
@@ -72,7 +73,7 @@ class ToePortLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: List[ToePortRequest]
-    ) -> Tuple[ToePort, ...]:
+    ) -> Iterable[ToePort]:
         return await collect(tuple(map(_get_toe_port, requests)))
 
 
@@ -105,9 +106,7 @@ async def _get_toe_ports_by_group(
             condition_expression=(
                 Key(key_structure.partition_key).eq(primary_key.partition_key)
                 & Key(key_structure.sort_key).begins_with(
-                    primary_key.sort_key.replace(
-                        "#ROOT#COMPONENT#ENTRYPOINT", ""
-                    )
+                    primary_key.sort_key.replace("#ROOT#IP#PORT", "")
                 )
             ),
             facets=(TABLE.facets["toe_port_metadata"],),
@@ -130,11 +129,76 @@ class GroupToePortsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: List[GroupToePortsRequest]
-    ) -> Tuple[ToePortsConnection, ...]:
+    ) -> Iterable[ToePortsConnection]:
         return await collect(tuple(map(_get_toe_ports_by_group, requests)))
 
     async def load_nodes(
         self, request: GroupToePortsRequest
-    ) -> Tuple[ToePort, ...]:
+    ) -> Iterable[ToePort]:
+        connection: ToePortsConnection = await self.load(request)
+        return tuple(edge.node for edge in connection.edges)
+
+
+async def _get_toe_ports_by_root(
+    request: RootToePortsRequest,
+) -> ToePortsConnection:
+    if request.be_present is None:
+        facet = TABLE.facets["toe_port_metadata"]
+        primary_key = keys.build_key(
+            facet=facet,
+            values={
+                "group_name": request.group_name,
+                "root_id": request.root_id,
+            },
+        )
+        index = None
+        key_structure = TABLE.primary_key
+    else:
+        facet = GSI_2_FACET
+        primary_key = keys.build_key(
+            facet=facet,
+            values={
+                "group_name": request.group_name,
+                "be_present": str(request.be_present).lower(),
+                "root_id": request.root_id,
+            },
+        )
+        index = TABLE.indexes["gsi_2"]
+        key_structure = index.primary_key
+    try:
+        response = await operations.query(
+            after=request.after,
+            condition_expression=(
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                & Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key.replace("#PORT", "")
+                )
+            ),
+            facets=(TABLE.facets["toe_port_metadata"],),
+            index=index,
+            limit=request.first,
+            paginate=request.paginate,
+            table=TABLE,
+        )
+    except ValidationException as exc:
+        raise InvalidBePresentFilterCursor() from exc
+    return ToePortsConnection(
+        edges=tuple(
+            format_toe_port_edge(index, item, TABLE) for item in response.items
+        ),
+        page_info=response.page_info,
+    )
+
+
+class RootToePortsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: List[RootToePortsRequest]
+    ) -> Iterable[ToePortsConnection]:
+        return await collect(tuple(map(_get_toe_ports_by_root, requests)))
+
+    async def load_nodes(
+        self, request: RootToePortsRequest
+    ) -> Iterable[ToePort]:
         connection: ToePortsConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
