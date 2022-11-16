@@ -16,7 +16,7 @@ from azure.devops.client import (
 from azure.devops.connection import (
     Connection,
 )
-from azure.devops.released.git.git_client import (
+from azure.devops.v6_0.git.git_client import (
     GitClient,
 )
 from azure.devops.v6_0.git.models import (
@@ -96,7 +96,7 @@ async def get_repositories_commits(
             )
             for repository in repositories
         ),
-        workers=8,
+        workers=2,
     )
 
     return repositories_commits
@@ -132,7 +132,7 @@ class OrganizationRepositoriesLoader(DataLoader):
     async def batch_load_fn(
         self,
         credentials: tuple[Credentials, ...],
-    ) -> tuple[tuple[Credentials, ...], ...]:
+    ) -> tuple[tuple[GitRepository, ...], ...]:
         return await get_repositories(credentials=credentials)
 
 

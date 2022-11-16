@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 15, 2022, 03:59 PM",
+    "DateLastModified": "Nov 15, 2022, 10:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1012,6 +1012,10 @@
         },
         {
           "AttributeName": "snippet",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "last_commit_date",
           "AttributeType": "S"
         }
       ],
@@ -6042,11 +6046,11 @@
             "role",
             "responsibility",
             "group_name",
+            "state",
             "has_access",
             "invitation",
             "expiration_time",
-            "confirm_deletion",
-            "state"
+            "confirm_deletion"
           ],
           "DataAccess": {
             "MySql": {}
@@ -6152,11 +6156,11 @@
             "role",
             "responsibility",
             "group_name",
+            "state",
             "has_access",
             "invitation",
             "expiration_time",
-            "confirm_deletion",
-            "state"
+            "confirm_deletion"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24003,7 +24007,6 @@
             "loc",
             "seen_first_time_by",
             "sorts_risk_level",
-            "sorts_risk_level_date",
             "group_name",
             "first_attack_at",
             "attacked_lines",
@@ -24019,7 +24022,8 @@
             "has_vulnerabilities",
             "last_author",
             "last_commit",
-            "sorts_suggestions"
+            "sorts_suggestions",
+            "sorts_risk_level_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24275,8 +24279,8 @@
             "be_present_until",
             "pk_2",
             "sk_2",
-            "has_vulnerabilities",
-            "state"
+            "state",
+            "has_vulnerabilities"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24506,8 +24510,8 @@
             "be_present",
             "attacked_by",
             "be_present_until",
-            "has_vulnerabilities",
-            "state"
+            "state",
+            "has_vulnerabilities"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24521,21 +24525,21 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "seen_first_time_by",
-            "ip",
             "port",
+            "seen_first_time_by",
             "group_name",
-            "root_id",
             "first_attack_at",
             "attacked_at",
             "seen_at",
             "be_present",
             "attacked_by",
+            "root_id",
             "be_present_until",
             "pk_2",
             "sk_2",
+            "state",
             "has_vulnerabilities",
-            "state"
+            "ip"
           ],
           "DataAccess": {
             "MySql": {}
@@ -38974,6 +38978,19 @@
           "DataAccess": {
             "MySql": {}
           }
+        },
+        {
+          "FacetName": "organization_unreliable_integration_repository",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#id",
+            "SortKeyAlias": "URL#hash#BRANCH#branch"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "branch",
+            "last_commit_date",
+            "url"
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [
