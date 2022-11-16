@@ -17,6 +17,8 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
@@ -171,7 +173,33 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     return true;
   });
 
+  const baseFilters: IFilter<IGroupAttr>[] = [
+    {
+      id: "name",
+      key: "name",
+      label: t("organization.tabs.billing.groups.headers.groupName"),
+      type: "text",
+    },
+    {
+      id: "tier",
+      key: "tier",
+      label: t("organization.tabs.billing.groups.headers.tier"),
+      selectOptions: ["Machine", "Oneshot", "Squad"],
+      type: "select",
+    },
+  ];
+
+  const [filters, setFilters] = useState<IFilter<IGroupAttr>[]>(
+    baseFilters.filter((filter): boolean => {
+      if (filter.id === "tier") return canSeeSubscriptionType;
+
+      return true;
+    })
+  );
+
   const dataset: IGroupAttr[] = formatGroupsData(accessibleGroupsData(groups));
+
+  const filteredDataset = useFilters(dataset, filters);
 
   // Edit group subscription
   const closeModal = useCallback((): void => {
@@ -276,8 +304,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       </Text>
       <Table
         columns={tableColumns}
-        data={dataset}
-        enableColumnFilters={true}
+        data={filteredDataset}
         extraButtons={
           <Can do={"api_resolvers_organization_billing_resolve"}>
             <ExternalLink href={billingPortal}>
@@ -289,6 +316,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
             </ExternalLink>
           </Can>
         }
+        filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblGroups"}
       />
       {isUpdatingSubscription === false ? undefined : (
