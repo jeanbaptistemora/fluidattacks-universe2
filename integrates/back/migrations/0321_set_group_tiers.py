@@ -6,8 +6,11 @@
 """
 Set billing tier accordingly for all active groups:
 
-1. Groups with OTHER tier and has_squad will become SQUAD
-2. Groups with OTHER tier and has_machine will become MACHINE
+1. Groups with FREE tier and has_squad will become SQUAD
+2. Groups with FREE tier and has_machine will become MACHINE
+
+Execution Time:    2022-11-16 at 18:56:57 UTC
+Finalization Time: 2022-11-16 at 18:57:44 UTC
 """
 
 from aioextensions import (
@@ -46,7 +49,6 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def _process_group(
     *,
     group: Group,
-    progress: float,
 ) -> None:
     tier: GroupTier = group.state.tier
     if tier == GroupTier.FREE:
@@ -69,7 +71,6 @@ async def _process_group(
                 "group_tier": tier,
                 "group_has_machine": group.state.has_machine,
                 "group_has_squad": group.state.has_squad,
-                "progress": round(progress, 2),
             }
         },
     )
@@ -88,11 +89,9 @@ async def main() -> None:
         tuple(
             _process_group(
                 group=group,
-                progress=count / len(active_groups),
             )
-            for count, group in enumerate(active_groups)
+            for group in active_groups
         ),
-        workers=1,
     )
 
 

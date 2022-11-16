@@ -1667,13 +1667,13 @@ export const enTranslations: ResourceKey = {
           },
           numberGroupsMachine: {
             content: "{{numberGroupsMachine}} Group(s)",
-            info: "Number of Squad groups",
-            title: "Squad groups",
+            info: "Number of Machine groups",
+            title: "Machine groups",
           },
           numberGroupsSquad: {
             content: "{{numberGroupsSquad}} Group(s)",
-            info: "Number of Machine groups",
-            title: "Machine groups",
+            info: "Number of Squad groups",
+            title: "Squad groups",
           },
           title: {
             info: "Billing information for {{organizationName}}",
