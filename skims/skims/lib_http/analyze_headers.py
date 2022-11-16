@@ -513,7 +513,7 @@ def _breach_possible(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     for header in headers:
         if (
             isinstance(header, ContentEncodingHeader)
-            and header.value == "gzip"
+            and "gzip" in header.value
         ):
             locations.append(
                 desc="breach_possible.insecure",

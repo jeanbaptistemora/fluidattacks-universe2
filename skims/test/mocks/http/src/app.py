@@ -359,7 +359,7 @@ def add_f343_breach_possible() -> None:
         "f343_breach_possible",
         "content-encoding",
         [
-            "compress",
+            "compress, gzip",
             "gzip",
         ],
     )
