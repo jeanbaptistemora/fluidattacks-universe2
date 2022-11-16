@@ -11,29 +11,6 @@ from utils import (
 )
 
 
-def insecure_key(
-    args: SymbolicEvalArgs,
-) -> SymbolicEvaluation:
-    args.evaluation[args.n_id] = False
-
-    for pair_id in g.match_ast_group_d(args.graph, args.n_id, "Pair"):
-        pair_node = args.graph.nodes[pair_id]
-        key = pair_node["key_id"]
-        value = pair_node["value_id"]
-        if (
-            args.graph.nodes[key]["symbol"] == "modulusLength"
-            or args.graph.nodes[key]["symbol"] == "namedCurve"
-        ):
-            args.triggers.clear()
-            args.triggers.update(
-                args.generic(
-                    args.fork(n_id=value, evaluation={}, triggers=set())
-                ).triggers
-            )
-
-    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
-
-
 def insecure_encrypt(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:

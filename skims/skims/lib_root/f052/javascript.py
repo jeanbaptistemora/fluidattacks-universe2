@@ -38,14 +38,6 @@ from typing import (
 import utils.graph as g
 
 
-def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
 def get_eval_triggers(
     graph: Graph, n_id: str, rules: Set[str], method: MethodsEnum
 ) -> bool:
@@ -149,7 +141,7 @@ def javascript_insecure_ecdh_key(
         desc_key="src.lib_path.f052.insecure_key.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JS_INSECURE_KEY,
+        method=method,
     )
 
 

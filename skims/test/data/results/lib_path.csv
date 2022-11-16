@@ -24793,7 +24793,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ecdh.js,6,310,ski
   10 |
   11 | export default router;
      ^ Col 0
-",javascript.javascript_insecure_key
+",javascript.javascript_insecure_ecdh_key
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
