@@ -7,6 +7,7 @@ from lib_root.f052.common import (
     insecure_ecdh_key,
     insecure_encrypt,
     insecure_hash,
+    insecure_rsa_keypair,
     split_function_name,
 )
 from lib_sast.types import (
@@ -150,8 +151,6 @@ def javascript_insecure_rsa_keypair(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_RSA_KEYPAIR
-    danger_f = {"generatekeypair"}
-    rules = {"rsa", "unsafemodulus"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -160,21 +159,8 @@ def javascript_insecure_rsa_keypair(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
-                f_name = graph.nodes[n_id]["expression"]
-                _, key = split_function_name(f_name)
-                if (
-                    key in danger_f
-                    and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and (args := g.adj_ast(graph, al_id))
-                    and len(args) > 1
-                    and get_eval_triggers(graph, al_id, rules, method)
-                ):
-                    yield shard, n_id
+            for n_id in insecure_rsa_keypair(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_key.description",

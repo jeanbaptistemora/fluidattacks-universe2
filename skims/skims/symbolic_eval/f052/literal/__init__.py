@@ -53,6 +53,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_INSECURE_ECDH_KEY: js_insecure_ecdh_key,
     MethodsEnum.JS_INSECURE_EC_KEYPAIR: js_insecure_key_pair,
     MethodsEnum.JS_INSECURE_RSA_KEYPAIR: js_insecure_key_pair,
+    MethodsEnum.TS_INSECURE_RSA_KEYPAIR: js_insecure_key_pair,
     MethodsEnum.TS_INSECURE_CREATE_CIPHER: insecure_create_cipher,
 }
 

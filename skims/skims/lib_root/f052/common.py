@@ -17,6 +17,7 @@ from symbolic_eval.utils import (
 )
 from typing import (
     List,
+    Set,
     Tuple,
 )
 from utils import (
@@ -49,6 +50,16 @@ def is_insecure_encrypt(
         return True
     if algo in {"aes"} and (args := g.adj_ast(graph, al_id)) and len(args) > 2:
         return get_eval_danger(graph, args[2], method)
+    return False
+
+
+def get_eval_triggers(
+    graph: Graph, n_id: str, rules: Set[str], method: MethodsEnum
+) -> bool:
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger and evaluation.triggers == rules:
+            return True
     return False
 
 
@@ -135,6 +146,29 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
             and (args := g.adj_ast(graph, al_id))
             and len(args) > 0
             and get_eval_danger(graph, args[0], method)
+        ):
+            vuln_nodes.append(n_id)
+    return vuln_nodes
+
+
+def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    danger_f = {"generatekeypair"}
+    rules = {"rsa", "unsafemodulus"}
+
+    for n_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+    ):
+        f_name = graph.nodes[n_id]["expression"]
+        _, key = split_function_name(f_name)
+        if (
+            key in danger_f
+            and (al_id := graph.nodes[n_id].get("arguments_id"))
+            and (args := g.adj_ast(graph, al_id))
+            and len(args) > 1
+            and get_eval_triggers(graph, al_id, rules, method)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
