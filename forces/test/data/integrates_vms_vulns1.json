@@ -87,6 +87,12 @@
               },
               "status": {
                 "S": "CLOSED"
+              },
+              "where": {
+                "S": "forces/test/data/user_controller.py"
+              },
+              "specific": {
+                "S": "2"
               }
             }
           }
@@ -113,6 +119,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "specific": {
+            "S": "2"
           }
         }
       }
@@ -137,6 +149,12 @@
           },
           "status": {
             "S": "CLOSED"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "specific": {
+            "S": "2"
           }
         }
       }
@@ -249,6 +267,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "5"
+              },
+              "where": {
+                "S": "forces/test/data/user_controller.py"
               }
             }
           }
@@ -275,6 +299,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "5"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
           }
         }
       }
@@ -387,6 +417,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "where": {
+                "S": "OWASP/BenchmarkTest00001.java"
+              },
+              "specific": {
+                "S": "71"
               }
             }
           }
@@ -413,6 +449,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
+          },
+          "specific": {
+            "S": "71"
           }
         }
       }
@@ -522,6 +564,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "3"
+              },
+              "where": {
+                "S": "forces/test/data/user_controller.py"
               }
             }
           }
@@ -548,6 +596,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "3"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
           }
         }
       }
@@ -660,6 +714,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "89"
+              },
+              "where": {
+                "S": "OWASP/BenchmarkTest00001.java"
               }
             }
           }
@@ -686,6 +746,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "89"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
           }
         }
       }
@@ -795,6 +861,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "78"
+              },
+              "where": {
+                "S": "OWASP/BenchmarkTest00001.java"
               }
             }
           }
@@ -821,6 +893,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "78"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
           }
         }
       }
@@ -930,6 +1008,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "89"
+              },
+              "where": {
+                "S": "OWASP/BenchmarkTest00001.java"
               }
             }
           }
@@ -956,6 +1040,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "89"
+          },
+          "where": {
+            "S": "OWASP/BenchmarkTest00001.java"
           }
         }
       }
@@ -1065,6 +1155,12 @@
               },
               "status": {
                 "S": "OPEN"
+              },
+              "specific": {
+                "S": "4"
+              },
+              "where": {
+                "S": "forces/test/data/user_controller.py"
               }
             }
           }
@@ -1091,6 +1187,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "4"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
           }
         }
       }

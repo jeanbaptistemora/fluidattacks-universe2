@@ -87,6 +87,12 @@
               },
               "status": {
                 "S": "CLOSED"
+              },
+              "specific": {
+                "S": "1"
+              },
+              "where": {
+                "S": "forces/test/data/user_controller.py"
               }
             }
           }
@@ -113,6 +119,12 @@
           },
           "status": {
             "S": "OPEN"
+          },
+          "specific": {
+            "S": "1"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
           }
         }
       }
@@ -137,6 +149,12 @@
           },
           "status": {
             "S": "CLOSED"
+          },
+          "specific": {
+            "S": "1"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
           }
         }
       }
