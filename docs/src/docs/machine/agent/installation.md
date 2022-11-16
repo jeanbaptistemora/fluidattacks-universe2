@@ -71,6 +71,8 @@ In the case of `--breaking`,
 the value passed to the CLI option takes
 precedence over the value set in ARM.
 
+> **Note:** The DevSecOps token is valid for 180 days.
+
 ## Examples
 
 :::tip
