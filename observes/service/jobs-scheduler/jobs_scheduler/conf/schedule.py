@@ -56,15 +56,5 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
             CronItem.from_values(frozenset([0, 11])),
             frozenset([Days.SUN]),
         ).unwrap(): (Job.FORMSTACK,),
-        weekly(
-            ANY,
-            CronItem.from_range(range(0, 16, 5)),
-            DaysRange.new(Days.MON, Days.SAT).unwrap(),
-        ).unwrap(): (Job.DYNAMO_FORCES,),
-        weekly(
-            ANY,
-            CronItem.from_range(range(5, 19, 3)),
-            DaysRange.new(Days.MON, Days.SAT).unwrap(),
-        ).unwrap(): (Job.DYNAMO_INTEGRATES,),
     }
 )
