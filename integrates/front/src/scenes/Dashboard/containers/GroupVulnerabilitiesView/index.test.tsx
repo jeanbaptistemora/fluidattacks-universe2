@@ -179,8 +179,12 @@ describe("GroupVulnerabilitiesView", (): void => {
     { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_handle_vulnerabilities_acceptance_mutate" },
     { action: "api_mutations_reject_vulnerabilities_zero_risk_mutate" },
+    { action: "api_mutations_remove_vulnerability_tags_mutate" },
     { action: "api_mutations_request_vulnerabilities_verification_mutate" },
+    { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
+    { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     { action: "api_mutations_verify_vulnerabilities_request_mutate" },
+    { action: "can_assign_vulnerabilities_to_fluidattacks_staff" },
   ]);
 
   const queryMock: readonly MockedResponse[] = [
@@ -508,6 +512,39 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     expect(
       screen.getByText("searchFindings.tabDescription.remediationModal.message")
+    ).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should open edit modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+    await userEvent.click(screen.getAllByRole("checkbox")[1]);
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "searchFindings.tabVuln.buttons.edit",
+      })
+    );
+
+    expect(
+      screen.getByText("searchFindings.tabDescription.editVuln")
     ).toBeInTheDocument();
 
     jest.clearAllMocks();
