@@ -449,6 +449,154 @@ data: Dict[str, List[Any]] = dict(
             group_name="unittesting",
             email="unittest@fluidattacks.com",
         ),
+        dict(
+            severity=dict(
+                attack_complexity=Decimal("0.44"),
+                integrity_impact=Decimal("0.22"),
+                integrity_requirement=Decimal("1"),
+                modified_confidentiality_impact=Decimal("0.22"),
+                modified_user_interaction=Decimal("0.85"),
+                modified_severity_scope=Decimal("0"),
+                modified_availability_impact=Decimal("0.22"),
+                report_confidence=Decimal("0.92"),
+                modified_integrity_impact=Decimal("0.22"),
+                attack_vector=Decimal("0.62"),
+                modified_attack_complexity=Decimal("0.44"),
+                privileges_required=Decimal("0.62"),
+                availability_impact=Decimal("0.22"),
+                modified_privileges_required=Decimal("0.62"),
+                confidentiality_requirement=Decimal("1"),
+                modified_attack_vector=Decimal("0.62"),
+                user_interaction=Decimal("0.85"),
+                confidentiality_impact=Decimal("0.22"),
+                exploitability=Decimal("0.94"),
+                remediation_level=Decimal("0.96"),
+                severity_scope=Decimal("0"),
+                availability_requirement=Decimal("1"),
+            ),
+            requirements="""REQ.0077. La aplicación no debe revelar detalles
+                del sistema interno como stack traces, fragmentos de
+                sentencias SQL y nombres de base de datos o tablas.
+                REQ.0176. El sistema debe restringir el acceso a objetos del
+                sistema que tengan contenido sensible. Sólo permitirá su
+                acceso a usuarios autorizados.""",
+            group_name="oneshottest",
+            approval=dict(
+                modified_by="integratesmanager@gmail.com",
+                justification="NO_JUSTIFICATION",
+                source="ASM",
+                modified_date="2018-11-29T05:00:00+00:00",
+                status="APPROVED",
+            ),
+            description="Descripción de fuga de información técnica",
+            recommendation="""Eliminar el banner de los servicios con fuga de
+                información, Verificar que los encabezados HTTP no expongan
+                ningún nombre o versión.""",
+            unreliable_indicators=dict(
+                unreliable_where="192.168.1.9",
+                unreliable_newest_vulnerability_report_date="""2020-09-12
+                    T13:45:48+00:00""",
+                unreliable_verification_summary=dict(
+                    verified=Decimal("0"),
+                    requested=Decimal("0"),
+                    on_hold=Decimal("0"),
+                ),
+                unreliable_open_vulnerabilities=Decimal("1"),
+                unreliable_treatment_summary=dict(
+                    accepted=Decimal("0"),
+                    new=Decimal("1"),
+                    in_progress=Decimal("0"),
+                    accepted_undefined=Decimal("0"),
+                ),
+                unreliable_oldest_vulnerability_report_date="""2020-09-12
+                    T13:45:48+00:00""",
+                unreliable_oldest_open_vulnerability_report_date="""2020-09-12
+                    T13:45:48+00:00""",
+                unreliable_closed_vulnerabilities=Decimal("0"),
+                unreliable_status="OPEN",
+            ),
+            title="037. Technical information leak",
+            analyst_email="unittest@fluidattacks.com",
+            cvss_version="3.1",
+            sk="GROUP#oneshottest",
+            submission=dict(
+                modified_by="integratesmanager@gmail.com",
+                justification="NO_JUSTIFICATION",
+                source="ASM",
+                modified_date="2018-04-08T00:45:11+00:00",
+                status="SUBMITTED",
+            ),
+            id="457497318",
+            pk="FIN#457497318",
+            state=dict(
+                modified_by="integratesmanager@gmail.com",
+                justification="NO_JUSTIFICATION",
+                source="ASM",
+                modified_date="2018-11-29T05:00:00+00:00",
+                status="APPROVED",
+            ),
+            threat="Amenaza.",
+            evidences=dict(
+                evidence1=dict(
+                    modified_date="2018-11-29T05:00:00+00:00",
+                    description="Comentario",
+                    url="oneshottest-457497318-evidence_route_1",
+                ),
+                evidence2=dict(
+                    modified_date="2018-11-29T05:00:00+00:00",
+                    description="Descripcion de prueba",
+                    url="oneshottest-457497318-evidence_route_2",
+                ),
+                evidence3=dict(
+                    modified_date="2018-11-29T05:00:00+00:00",
+                    description="Descripcion de prueba",
+                    url="oneshottest-457497318-evidence_route_3",
+                ),
+            ),
+            min_time_to_remediate=Decimal("18"),
+            sorts="NO",
+            attack_vector_description="This is an attack vector",
+            creation=dict(
+                modified_by="integratesmanager@gmail.com",
+                justification="NO_JUSTIFICATION",
+                source="ASM",
+                modified_date="2018-04-08T00:43:18+00:00",
+                status="CREATED",
+            ),
+        ),
+        dict(
+            treatment=dict(
+                modified_date="2020-09-12T13:45:48+00:00",
+                status="NEW",
+            ),
+            hacker_email="unittest@fluidattacks.com",
+            group_name="oneshottest",
+            pk_5="FIN#457497318",
+            unreliable_indicators=dict(
+                unreliable_reattack_cycles=0,
+                unreliable_source="ASM",
+                unreliable_efficacy=0,
+                unreliable_treatment_changes=0,
+            ),
+            type="PORTS",
+            created_by="unittest@fluidattacks.com",
+            sk="FIN#457497318",
+            sk_3="VULN#afb345f6-9319-416a-b174-0201d7cd3822",
+            pk_2="ROOT",
+            created_date="2020-09-12T13:45:48+00:00",
+            pk="VULN#afb345f6-9319-416a-b174-0201d7cd3822",
+            pk_3="USER",
+            sk_5="VULN#DELETED#false#ZR#false#STATE#open#VERIF#none",
+            state=dict(
+                modified_by="unittest@fluidattacks.com",
+                source="ASM",
+                modified_date="2020-09-12T13:45:48+00:00",
+                specific="6666",
+                status="OPEN",
+                where="192.168.1.9",
+            ),
+            sk_2="VULN#afb345f6-9319-416a-b174-0201d7cd3822",
+        ),
     ]
 )
 

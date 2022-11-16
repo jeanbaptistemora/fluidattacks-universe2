@@ -434,13 +434,23 @@ async def test_mask_finding() -> None:
 
 
 @freeze_time("2021-05-27")
-async def test_get_oldest_no_treatment_findings() -> None:
+async def test_get_oldest_no_treatment(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     group_name = "oneshottest"
     loaders = get_new_context()
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    oldest_findings = await get_oldest_no_treatment(loaders, findings)
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        oldest_findings = await get_oldest_no_treatment(loaders, findings)
     expected_output = {
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,
@@ -449,9 +459,7 @@ async def test_get_oldest_no_treatment_findings() -> None:
 
 
 @freeze_time("2021-05-27")
-async def test_get_treatment_summary(
-    dynamo_resource: ServiceResource,
-) -> None:
+async def test_get_treatment_summary(dynamo_resource: ServiceResource) -> None:
     def mock_query(**kwargs: Any) -> Any:
         table_name = "integrates_vms"
         return dynamo_resource.Table(table_name).query(**kwargs)
