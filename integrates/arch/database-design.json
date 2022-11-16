@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 15, 2022, 10:01 PM",
+    "DateLastModified": "Nov 16, 2022, 05:28 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -13557,12 +13557,6 @@
               "email": {
                 "S": "__adminEmail__"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#__adminEmail__"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13592,12 +13586,6 @@
               },
               "email": {
                 "S": "continuoushack2@gmail.com"
-              },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#continuoushack2@gmail.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13629,12 +13617,6 @@
               "email": {
                 "S": "continuoushacking@gmail.com"
               },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#continuoushacking@gmail.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13664,12 +13646,6 @@
               },
               "email": {
                 "S": "customer_manager@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#customer_manager@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13701,12 +13677,6 @@
               "email": {
                 "S": "forces.unittesting@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#forces.unittesting@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13736,12 +13706,6 @@
               },
               "email": {
                 "S": "integrateshacker@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integrateshacker@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13773,12 +13737,6 @@
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesmanager@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13808,12 +13766,6 @@
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
-              },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesmanager@gmail.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13845,12 +13797,6 @@
               "email": {
                 "S": "integratesreattacker@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesreattacker@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13880,12 +13826,6 @@
               },
               "email": {
                 "S": "integratesresourcer@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesresourcer@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13917,12 +13857,6 @@
               "email": {
                 "S": "integratesreviewer@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesreviewer@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -13952,12 +13886,6 @@
               },
               "email": {
                 "S": "integratesserviceforces@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesserviceforces@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -13989,12 +13917,6 @@
               "email": {
                 "S": "integratesuser2@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesuser2@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -14024,12 +13946,6 @@
               },
               "email": {
                 "S": "integratesuser2@gmail.com"
-              },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesuser2@gmail.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -14061,12 +13977,6 @@
               "email": {
                 "S": "integratesuser@gmail.com"
               },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#integratesuser@gmail.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -14096,12 +14006,6 @@
               },
               "email": {
                 "S": "unittest2@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#unittest2@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true
@@ -14133,12 +14037,6 @@
               "email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "pk_2": {
-                "S": "CO#fluidattacks"
-              },
-              "sk_2": {
-                "S": "ENROLL#unittest@fluidattacks.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -14169,12 +14067,6 @@
               "email": {
                 "S": "vulnmanager@gmail.com"
               },
-              "pk_2": {
-                "S": "CO#gmail"
-              },
-              "sk_2": {
-                "S": "ENROLL#vulnmanager@gmail.com"
-              },
               "enrolled": {
                 "BOOL": true
               },
@@ -14203,9 +14095,7 @@
             "extension_date",
             "extension_days",
             "start_date",
-            "trial",
-            "pk_2",
-            "sk_2"
+            "trial"
           ],
           "DataAccess": {
             "MySql": {}
@@ -39100,7 +38990,73 @@
             "branch",
             "last_commit_date",
             "url"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "company_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CO#domain",
+            "SortKeyAlias": "CO#domain"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "CO#fluidattacks.com"
+              },
+              "sk": {
+                "S": "CO#fluidattacks.com"
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.946275+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.946286+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "CO#gmail.com"
+              },
+              "sk": {
+                "S": "CO#gmail.com"
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.946275+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.946286+00:00"
+                  }
+                }
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "trial"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "GlobalSecondaryIndexes": [
