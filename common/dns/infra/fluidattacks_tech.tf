@@ -47,6 +47,19 @@ resource "cloudflare_zone_dnssec" "fluidattacks_tech" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
 }
 
+# Workers
+
+resource "cloudflare_worker_script" "headers" {
+  name    = "makes_headers"
+  content = data.local_file.headers.content
+}
+
+resource "cloudflare_worker_route" "go_headers" {
+  zone_id     = cloudflare_zone.fluidattacks_tech.id
+  pattern     = "go.${cloudflare_zone.fluidattacks_tech.zone}/*"
+  script_name = cloudflare_worker_script.headers.name
+}
+
 # CNAME Recordds
 
 resource "cloudflare_record" "www_fluidattacks_tech" {
@@ -63,6 +76,15 @@ resource "cloudflare_record" "help" {
   type    = "CNAME"
   value   = "fluidattacks.zendesk.com"
   proxied = false
+  ttl     = 1
+}
+
+resource "cloudflare_record" "rebrandly" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = "go.${cloudflare_zone.fluidattacks_tech.zone}"
+  type    = "CNAME"
+  value   = "rebrandlydomain.com"
+  proxied = true
   ttl     = 1
 }
 

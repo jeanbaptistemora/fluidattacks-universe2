@@ -170,16 +170,6 @@ resource "cloudflare_record" "status" {
   proxied = false
   ttl     = 1
 }
-
-resource "cloudflare_record" "rebrandly" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "go.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "rebrandlydomain.com"
-  proxied = true
-  ttl     = 1
-}
-
 resource "cloudflare_record" "zd1_domainkey" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "zendesk1.domainkey.${cloudflare_zone.fluidattacks_com.zone}"
@@ -472,19 +462,6 @@ resource "cloudflare_page_rule" "redirect_landing" {
       status_code = 301
     }
   }
-}
-
-# Workers
-
-resource "cloudflare_worker_script" "headers" {
-  name    = "makes_headers"
-  content = data.local_file.headers.content
-}
-
-resource "cloudflare_worker_route" "go_headers" {
-  zone_id     = cloudflare_zone.fluidattacks_com.id
-  pattern     = "go.${cloudflare_zone.fluidattacks_com.zone}/*"
-  script_name = cloudflare_worker_script.headers.name
 }
 
 # Certificates
