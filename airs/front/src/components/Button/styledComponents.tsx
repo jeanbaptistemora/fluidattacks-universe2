@@ -16,7 +16,7 @@ import type {
 
 const sizes: Record<TSize, ISize> = {
   lg: {
-    fontSize: 3,
+    fontSize: 4,
     ph: 24,
     pv: 10,
   },

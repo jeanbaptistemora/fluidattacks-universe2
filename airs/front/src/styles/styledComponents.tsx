@@ -1213,16 +1213,6 @@ const SystemsCardContainer = styled.div.attrs({
   `,
 })``;
 
-const SolutionsCardContainer = styled.div.attrs({
-  className: `
-    tl
-    pv5
-    ph3
-    w-100
-    w-33-l
-  `,
-})``;
-
 export {
   AdvisoriesContainer,
   AdvisoryContainer,
@@ -1309,7 +1299,6 @@ export {
   ServicesGrid,
   SidebarContainer,
   SocialMediaLink,
-  SolutionsCardContainer,
   SquaredCardContainer,
   SubcategoryLink,
   SystemsCardContainer,
