@@ -12,7 +12,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type {
   ColumnDef,
-  ColumnFiltersState,
   Row,
   SortingState,
   VisibilityState,
@@ -52,6 +51,8 @@ import type {
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
@@ -160,12 +161,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const closeDeactivationModal = useCallback((): void => {
     setDeactivationModal({ open: false, rootId: "" });
   }, []);
-
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblGitRoots-columnFilters",
-    [],
-    localStorage
-  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblGitRoots-visibilityState", {
       HCK: false,
@@ -399,6 +394,63 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         useVpn: currentRow.useVpn,
       };
 
+  const [filters, setFilters] = useState<IFilter<IGitRootData>[]>([
+    {
+      id: "nickname",
+      key: "nickname",
+      label: t("group.scope.git.repo.nickname"),
+      type: "text",
+    },
+    {
+      id: "branch",
+      key: "branch",
+      label: t("group.scope.git.repo.branch"),
+      type: "text",
+    },
+    {
+      filterFn: "caseInsensitive",
+      id: "state",
+      key: "state",
+      label: t("group.scope.common.state"),
+      selectOptions: [
+        { header: "Active", value: "ACTIVE" },
+        { header: "Inactive", value: "INACTIVE" },
+      ],
+      type: "select",
+    },
+    {
+      filterFn: "caseInsensitive",
+      id: "cloningStatus",
+      key: (arg0, value): boolean => {
+        if (value === "") return true;
+
+        return value?.includes(arg0.cloningStatus.status) ?? true;
+      },
+      label: t("group.scope.git.repo.cloning.status"),
+      selectOptions: [
+        { header: "Cloning", value: "CLONING" },
+        { header: "Failed", value: "FAILED" },
+        { header: "N/A", value: "N/A" },
+        { header: "Ok", value: "OK" },
+        { header: "Queued", value: "QUEUED" },
+        { header: "Unknown", value: "UNKNOWN" },
+      ],
+      type: "select",
+    },
+    {
+      id: "includesHealthCheck",
+      key: "includesHealthCheck",
+      label: t("group.scope.common.state"),
+      selectOptions: [
+        { header: formatBoolean(true), value: "true" },
+        { header: formatBoolean(false), value: "false" },
+      ],
+      type: "select",
+    },
+  ]);
+
+  const filteredRoots = useFilters(roots, filters);
+
   return (
     <Fragment>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
@@ -422,8 +474,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               </Text>
               <Card>
                 <Table
-                  columnFilterSetter={setColumnFilters}
-                  columnFilterState={columnFilters}
                   columnToggle={true}
                   columnVisibilitySetter={setColumnVisibility}
                   columnVisibilityState={columnVisibility}
@@ -450,9 +500,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                                 handleStateUpdate
                               )
                             : statusFormatter(cell.getValue()),
-                        filterFn: "equalsString",
                         header: String(t("group.scope.common.state")),
-                        meta: { filterType: "select" },
                       },
                       {
                         accessorFn: (row: IGitRootData): string =>
@@ -462,7 +510,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         header: String(
                           t("group.scope.git.repo.cloning.status")
                         ),
-                        meta: { filterType: "select" },
                       },
                       {
                         accessorFn: (row: IGitRootData): string | undefined =>
@@ -472,7 +519,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         header: String(
                           t("group.scope.git.healthCheck.tableHeader")
                         ),
-                        meta: { filterType: "select" },
                       },
                       {
                         accessorKey: "nickname",
@@ -491,7 +537,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                                 cell.row.original,
                                 handleSyncClick
                               ),
-                            enableColumnFilter: false,
                             header: String(
                               t("group.scope.git.repo.cloning.sync")
                             ),
@@ -500,8 +545,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       : []
                   )}
                   csvName={groupName}
-                  data={roots}
-                  enableColumnFilters={true}
+                  data={filteredRoots}
                   expandedRow={handleRowExpand}
                   exportCsv={true}
                   extraButtons={
@@ -538,6 +582,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       </Can>
                       <InternalSurfaceButton />
                     </Fragment>
+                  }
+                  filters={
+                    <Filters filters={filters} setFilters={setFilters} />
                   }
                   id={"tblGitRoots"}
                   onRowClick={canShowModal ? handleRowClick : undefined}
