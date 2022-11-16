@@ -12557,7 +12557,7 @@ F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   23 |         - containerPort: 88
      ^ Col 0
 ",kubernetes.k8s_allow_privilege_escalation_enabled
-F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,16,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
  in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
    3 | kind: Pod
    4 | metadata:
@@ -12571,8 +12571,8 @@ F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   12 |       image: nginx
   13 |       ports:
   14 |         - containerPort: 80
-  15 |       securityContext:
-> 16 |         capabilities:
+> 15 |       securityContext:
+  16 |         capabilities:
   17 |           add:
   18 |             - SYS_ADMIN
   19 |             - NET_ADMIN

@@ -48,15 +48,31 @@ def _k8s_check_add_capability(
             yield cap_add[0]
 
 
+def get_allow_privileges_findings(tag: Node) -> Union[Node, None]:
+    has_security_context: bool = False
+    for node, node_data in tag.data.items():
+        if node.data == "securityContext":
+            if (
+                privileged := node_data.inner.get("allowPrivilegeEscalation")
+            ) and privileged.data:
+                return privileged
+            if not privileged:
+                return node
+            has_security_context = True
+
+    return tag if not has_security_context else None
+
+
 def _k8s_allow_privilege_escalation_enabled(
-    template: Any,
-) -> Iterator[Any]:
-    for ctx in iter_security_context(template, True):
-        escalation = ctx.inner.get("allowPrivilegeEscalation")
-        if escalation and escalation.data:
-            yield escalation
-        elif not escalation:
-            yield ctx
+    template: Node,
+) -> Iterator[Node]:
+    vulns_found: List[Node] = []
+    for container in iter_containers_type(template):
+        for container_props in container:
+            if finding := get_allow_privileges_findings(container_props):
+                vulns_found.append(finding)
+
+    yield from vulns_found
 
 
 def _k8s_check_pod_root_container(template: Node) -> Union[Node, None]:
