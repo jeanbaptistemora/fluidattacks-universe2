@@ -108,8 +108,6 @@ locals {
             "arn:aws:s3:::integrates/analytics/*atfluid/*",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com/*",
-            "arn:aws:s3:::skims.data",
-            "arn:aws:s3:::skims.data/*",
             "arn:aws:s3:::web.eph.fluidattacks.com",
             "arn:aws:s3:::web.eph.fluidattacks.com/*",
           ]
