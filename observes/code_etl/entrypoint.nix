@@ -32,12 +32,17 @@ fetchNixpkgs: projectPath: observesIndex: let
       };
     };
 
-  _utils_logger_src = projectPath observesIndex.common.utils_logger.root;
-  utils-logger."${python_version}" = import _utils_logger_src {
-    inherit python_version;
-    legacy_pkgs = nixpkgs;
-    src = _utils_logger_src;
-  };
+  utils-logger."${python_version}" = let
+    src = projectPath observesIndex.common.utils_logger_2.root;
+  in
+    import src {
+      inherit python_version src;
+      nixpkgs =
+        nixpkgs
+        // {
+          inherit fa-purity;
+        };
+    };
 
   local_pkgs = {inherit fa-purity redshift-client utils-logger;};
   out = import ./. {

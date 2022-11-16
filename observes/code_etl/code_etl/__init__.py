@@ -2,10 +2,13 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import utils_logger
-
-utils_logger.configure(
-    app_type="etl",
-    asynchronous=False,
+from ._logger import (
+    set_logger,
 )
-LOG = utils_logger.main_log(__name__)
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
+
+__version__ = "2.0.0"
+
+unsafe_unwrap(set_logger(__name__, __version__))
