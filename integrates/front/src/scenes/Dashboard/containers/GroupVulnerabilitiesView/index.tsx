@@ -8,13 +8,17 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type { IGroupVulnerabilities } from "./types";
-import { formatVulnerability, isPendingToAcceptance } from "./utils";
+import {
+  formatVulnAttribute,
+  formatVulnerability,
+  isPendingToAcceptance,
+} from "./utils";
 
 import { formatState } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
@@ -266,6 +270,21 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
       }
     }
   }
+
+  useEffect((): void => {
+    const filterToSearch = vulnFilters.reduce(
+      (prev, curr): Record<string, string> => {
+        const title = formatVulnAttribute(curr.id);
+
+        return {
+          ...prev,
+          [title]: curr.value,
+        };
+      },
+      {}
+    );
+    void refetch(filterToSearch);
+  }, [vulnFilters, refetch]);
 
   const handleSearch = useDebouncedCallback((search: string): void => {
     void refetch({ search });
