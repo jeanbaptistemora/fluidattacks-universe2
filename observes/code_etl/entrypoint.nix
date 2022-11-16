@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 fetchNixpkgs: projectPath: observesIndex: let
-  python_version = "python39";
+  python_version = "python310";
   nixpkgs = fetchNixpkgs {
-    rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
-    sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
+    rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
+    sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
 
   fa-purity = let
@@ -46,8 +46,8 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   local_pkgs = {inherit fa-purity redshift-client utils-logger;};
   out = import ./. {
+    inherit python_version;
     pkgs = nixpkgs // local_pkgs;
-    python_version = "python39";
     src = ./.;
   };
 in

@@ -80,10 +80,10 @@ def _fetch(
 
 def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
     _filter = filter(
-        lambda x: x[0],
-        ((bool(getattr(new, k) != v), k) for k, v in old.__dict__.items()),
+        lambda x: x[0],  # type: ignore[misc]
+        ((bool(getattr(new, k) != v), k) for k, v in old.__dict__.items()),  # type: ignore[misc]
     )
-    return tuple(map(lambda x: x[1], _filter))
+    return tuple(map(lambda x: x[1], _filter))  # type: ignore[misc]
 
 
 @dataclass(frozen=True)
@@ -169,7 +169,7 @@ class RawClient:
             )
         if len(_fields) > 0:
             changes = tuple(
-                f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields
+                f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields  # type: ignore[misc]
             )
             log_info = Cmd.from_cmd(
                 lambda: LOG.info(
