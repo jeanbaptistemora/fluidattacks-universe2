@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: headhunterz
 product: Badaso 2.6.3 - RCE
-date: 2022-11-15 09:30 COT
+date: 2022-11-16 11:00 COT
 cveid: CVE-2022-41705
 severity: 10.0
 description: Badaso 2.6.3    -    Remote Command Execution (RCE)
@@ -24,7 +24,7 @@ template: advisory
 | **Product**           | Badaso                                                             |
 | **Affected versions** | Version 2.6.3                                                      |
 | **State**             | Public                                                             |
-| **Release date**      | 2022-11-15                                                        |
+| **Release date**      | 2022-11-16                                                         |
 
 ## Vulnerability
 
@@ -90,7 +90,7 @@ We have reserved the CVE-2022-41705 to refer to this issue from now on.
 
 ## Mitigation
 
-There is currently no patch available for this vulnerability.
+An updated version of Badaso is available at the vendor page.
 
 ## Credits
 
@@ -111,6 +111,6 @@ Offensive Team.
   contacted="2022-10-24"
   replied="2022-10-24"
   confirmed="2022-10-26"
-  patched=""
-  disclosure="2022-11-15">
+  patched="2022-11-15"
+  disclosure="2022-11-16">
 </time-lapse>
