@@ -21,10 +21,6 @@ from fa_purity.maybe import (
 from postgres_client.ids import (
     TableID,
 )
-from postgres_client.query import (
-    Query as LegacyQuery,
-    SqlArgs,
-)
 from redshift_client.sql_client import (
     Query,
     QueryValues,
@@ -156,28 +152,30 @@ def commit_exists(
     )
 
 
-def last_commit_hash(table: TableID, repo: RepoId) -> LegacyQuery:
-    return LegacyQuery(
-        """
-        SELECT hash FROM {schema}.{table}
-        WHERE
-            hash != %(hash)s
-            and namespace = %(namespace)s
-            and repository = %(repository)s
-        ORDER BY seen_at DESC, authored_at DESC
-        LIMIT 1
-        """,
-        SqlArgs(
-            {
-                "namespace": repo.namespace,
-                "repository": repo.repository,
-                "hash": COMMIT_HASH_SENTINEL,
-            },
-            {
-                "schema": table.schema.name,
-                "table": table.table_name,
-            },
-        ),
+def last_commit_hash(
+    table: TableID, repo: RepoId
+) -> Tuple[Query, QueryValues]:
+    statement = """
+    SELECT hash FROM {schema}.{table}
+    WHERE
+        hash != %(hash)s
+        and namespace = %(namespace)s
+        and repository = %(repository)s
+    ORDER BY seen_at DESC, authored_at DESC
+    LIMIT 1
+    """
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    args: Dict[str, PrimitiveVal] = {
+        "namespace": repo.namespace,
+        "repository": repo.repository,
+        "hash": COMMIT_HASH_SENTINEL,
+    }
+    return (
+        Query.dynamic_query(statement, freeze(identifiers)),
+        QueryValues(freeze(args)),
     )
 
 

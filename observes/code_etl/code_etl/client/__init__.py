@@ -23,7 +23,6 @@ from code_etl.client.encoder import (
     from_raw,
     from_reg,
     from_stamp,
-    to_dict,
 )
 from code_etl.objs import (
     CommitStamp,
@@ -66,9 +65,6 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
-from postgres_client.query import (
-    SqlArgs,
-)
 from redshift_client.sql_client import (
     QueryValues,
     SqlClient,
@@ -79,13 +75,10 @@ from redshift_client.sql_client.connection import (
 )
 from typing import (
     Optional,
-    Type,
-    TypeVar,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
-_T = TypeVar("_T")
 
 
 def _fetch(
@@ -97,18 +90,6 @@ def _fetch(
         )
     )
     return result
-
-
-def _fetch_one_result(client: DbClient, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
-    return (
-        client.fetch_one()
-        .map(lambda i: assert_key(i, 0))
-        .map(lambda v: v.bind(lambda i: assert_type(i, d_type)))
-    )
-
-
-def _fetch_not_empty(client: DbClient) -> Cmd[bool]:
-    return client.fetch_one().map(bool)
 
 
 def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
@@ -249,14 +230,25 @@ class Client:
         return self._inner.raw.all_data_count(namespace)
 
     def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
-        last = self._inner.db_client.execute_query(
-            _query.last_commit_hash(self._inner.table, repo)
-        ).bind(lambda _: _fetch_one_result(self._inner.db_client, str))
-        query, args = _query.commit_exists(
-            self._inner.table, repo, COMMIT_HASH_SENTINEL
+        last = self._inner.sql_client.execute(
+            *_query.last_commit_hash(self._inner.table, repo)
+        ).bind(
+            lambda _: self._inner.sql_client.fetch_one().map(
+                lambda m: m.to_result()
+                .alt(Exception)
+                .bind(
+                    lambda r: assert_key(r.data, 0).bind(
+                        lambda i: assert_type(i, str)
+                    )
+                )
+            )
         )
         is_new = (
-            self._inner.sql_client.execute(query, args)
+            self._inner.sql_client.execute(
+                *_query.commit_exists(
+                    self._inner.table, repo, COMMIT_HASH_SENTINEL
+                )
+            )
             .bind(lambda _: self._inner.sql_client.fetch_one())
             .map(lambda b: not b.map(lambda _: True).value_or(False))
         )
