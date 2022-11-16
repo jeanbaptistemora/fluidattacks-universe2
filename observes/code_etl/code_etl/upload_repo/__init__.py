@@ -4,7 +4,6 @@
 
 from code_etl.client import (
     Client,
-    LegacyAdapters,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -45,18 +44,16 @@ from pathlib import (
 from pathos.threading import (  # type: ignore[import]
     ThreadPool,
 )
-from postgres_client.connection import (
-    Credentials,
-    DatabaseID,
-)
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     new_client,
 )
 from redshift_client.sql_client.connection import (
     connect,
+    Credentials,
+    DatabaseId,
     DbConnection,
     IsolationLvl,
 )
@@ -114,14 +111,12 @@ def upload(
 
 def _upload_repos(
     connection: DbConnection,
-    target: TableID,
+    target: TableId,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    LOG.info(
-        "Uploading repos data into %s.%s", target.schema, target.table_name
-    )
+    LOG.info("Uploading repos data into %s.%s", target.schema, target.name)
 
     def _new_client(path: Path) -> Cmd[Client]:
         return new_client(connection, LOG.getChild(str(path))).map(
@@ -152,17 +147,17 @@ def _upload_repos(
 
 
 def upload_repos(
-    db_id: DatabaseID,
+    db_id: DatabaseId,
     creds: Credentials,
-    target: TableID,
+    target: TableId,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     # pylint: disable=too-many-arguments
     connection = connect(
-        LegacyAdapters.db_id(db_id),
-        LegacyAdapters.db_creds(creds),
+        db_id,
+        creds,
         False,
         IsolationLvl.AUTOCOMMIT,
     )

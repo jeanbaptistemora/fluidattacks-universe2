@@ -52,20 +52,12 @@ from fa_purity.stream.transform import (
     until_empty,
 )
 import logging
-from postgres_client.connection import (
-    Credentials as LegacyCredentials,
-    DatabaseID,
-)
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     QueryValues,
     SqlClient,
-)
-from redshift_client.sql_client.connection import (
-    Credentials,
-    DatabaseId,
 )
 from typing import (
     Optional,
@@ -98,7 +90,7 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
 class RawClient:
     # exposes utilities from and to DB using raw objs i.e. CommitTableRow
     _sql_client: SqlClient
-    _table: TableID
+    _table: TableId
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         query_items = (
@@ -198,7 +190,7 @@ class RawClient:
 @dataclass(frozen=True)
 class _Client:
     sql_client: SqlClient
-    table: TableID
+    table: TableId
     raw: RawClient
 
 
@@ -208,7 +200,7 @@ class Client:
     _inner: _Client
 
     @staticmethod
-    def new(_sql_client: SqlClient, _table: TableID) -> Client:
+    def new(_sql_client: SqlClient, _table: TableId) -> Client:
         return Client(
             _Client(_sql_client, _table, RawClient(_sql_client, _table))
         )
@@ -285,14 +277,3 @@ class Client:
                 )
             )
         return Cmd.from_cmd(lambda: LOG.debug("no changes"))
-
-
-@dataclass(frozen=True)
-class LegacyAdapters:
-    @staticmethod
-    def db_id(db_id: DatabaseID) -> DatabaseId:
-        return DatabaseId(db_id.db_name, db_id.host, db_id.port)
-
-    @staticmethod
-    def db_creds(creds: LegacyCredentials) -> Credentials:
-        return Credentials(creds.user, creds.password)

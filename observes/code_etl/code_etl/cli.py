@@ -25,6 +25,15 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from fa_purity import (
+    JsonValue,
+)
+from fa_purity.json.factory import (
+    loads,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
+)
 from fa_purity.maybe import (
     Maybe,
 )
@@ -34,17 +43,13 @@ from os.path import (
 from pathlib import (
     Path,
 )
-from postgres_client.connection import (
+from redshift_client.id_objs import (
+    SchemaId,
+    TableId,
+)
+from redshift_client.sql_client.connection import (
     Credentials,
-    DatabaseID,
-)
-from postgres_client.connection.decoder import (
-    creds_from_str,
-    id_from_str,
-)
-from postgres_client.ids import (
-    SchemaID,
-    TableID,
+    DatabaseId,
 )
 from typing import (
     Any,
@@ -55,9 +60,44 @@ from typing import (
 )
 
 
+def creds_from_str(raw: str) -> Credentials:
+    data = loads(raw).alt(Exception)
+    user = data.bind(
+        lambda x: Unfolder(JsonValue(x))
+        .uget("user")
+        .bind(lambda u: u.to_primitive(str).alt(Exception))
+    )
+    password = data.bind(
+        lambda x: Unfolder(JsonValue(x))
+        .uget("password")
+        .bind(lambda u: u.to_primitive(str).alt(Exception))
+    )
+    return Credentials(user.unwrap(), password.unwrap())
+
+
+def id_from_str(raw: str) -> DatabaseId:
+    data = loads(raw).alt(Exception)
+    name = data.bind(
+        lambda x: Unfolder(JsonValue(x))
+        .uget("name")
+        .bind(lambda u: u.to_primitive(str).alt(Exception))
+    )
+    host = data.bind(
+        lambda x: Unfolder(JsonValue(x))
+        .uget("host")
+        .bind(lambda u: u.to_primitive(str).alt(Exception))
+    )
+    port = data.bind(
+        lambda x: Unfolder(JsonValue(x))
+        .uget("port")
+        .bind(lambda u: u.to_primitive(str).alt(Exception).map(int))
+    )
+    return DatabaseId(name.unwrap(), host.unwrap(), port.unwrap())
+
+
 @dataclass(frozen=True)
 class CmdContext:
-    db_id: DatabaseID
+    db_id: DatabaseId
     creds: Credentials
 
 
@@ -78,8 +118,8 @@ def _get_mailmap(path: Optional[str]) -> Maybe[Mailmap]:
     return Maybe.from_optional(path).map(MailmapFactory.from_file_path)
 
 
-def _to_table(pair: Tuple[str, str]) -> TableID:
-    return TableID(SchemaID(pair[0]), pair[1])
+def _to_table(pair: Tuple[str, str]) -> TableId:
+    return TableId(SchemaId(pair[0]), pair[1])
 
 
 @click.command()  # type: ignore[misc]

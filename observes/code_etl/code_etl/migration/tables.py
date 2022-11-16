@@ -8,8 +8,8 @@ from fa_purity.cmd import (
 from fa_purity.frozen import (
     freeze,
 )
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     Query,
@@ -20,7 +20,7 @@ from typing import (
 )
 
 
-def init_table_2_query(client: SqlClient, table: TableID) -> Cmd[None]:
+def init_table_2_query(client: SqlClient, table: TableId) -> Cmd[None]:
     statement = """
         CREATE TABLE IF NOT EXISTS {schema}.{table} (
             author_email VARCHAR(256),
@@ -51,7 +51,7 @@ def init_table_2_query(client: SqlClient, table: TableID) -> Cmd[None]:
         """
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     return client.execute(
         Query.dynamic_query(statement, freeze(identifiers)), None

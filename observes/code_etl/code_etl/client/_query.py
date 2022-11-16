@@ -18,8 +18,8 @@ from fa_purity.frozen import (
 from fa_purity.maybe import (
     Maybe,
 )
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     Query,
@@ -36,14 +36,14 @@ from typing import (
 
 
 def _all_data(
-    table: TableID, namespace: Optional[str]
+    table: TableId, namespace: Optional[str]
 ) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
     _attrs = ",".join(CommitTableRow.fields())
     base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
     id_args: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     args: Dict[str, PrimitiveVal] = (
         {"namespace": namespace} if namespace else {}
@@ -58,17 +58,17 @@ def _all_data(
 
 
 def namespace_data(
-    table: TableID, namespace: str
+    table: TableId, namespace: str
 ) -> Tuple[Query, QueryValues]:
     return _all_data(table, namespace)
 
 
-def all_data(table: TableID) -> Tuple[Query, QueryValues]:
+def all_data(table: TableId) -> Tuple[Query, QueryValues]:
     return _all_data(table, None)
 
 
 def all_data_count(
-    table: TableID, namespace: Optional[str] = None
+    table: TableId, namespace: Optional[str] = None
 ) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
     base_stm = "SELECT COUNT(*) FROM {schema}.{table}"
@@ -80,7 +80,7 @@ def all_data_count(
     )
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     return (
         Query.dynamic_query(stm, freeze(identifiers)),
@@ -88,12 +88,12 @@ def all_data_count(
     )
 
 
-def insert_row(table: TableID) -> Query:
+def insert_row(table: TableId) -> Query:
     _fields = ",".join(CommitTableRow.fields())
     values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     return Query.dynamic_query(
         f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values})",
@@ -101,12 +101,12 @@ def insert_row(table: TableID) -> Query:
     )
 
 
-def insert_unique_row(table: TableID) -> Query:
+def insert_unique_row(table: TableId) -> Query:
     _fields = ",".join(CommitTableRow.fields())
     values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     return Query.dynamic_query(
         f"""
@@ -125,7 +125,7 @@ def insert_unique_row(table: TableID) -> Query:
 
 
 def commit_exists(
-    table: TableID,
+    table: TableId,
     repo: RepoId,
     commit_hash: str,
 ) -> Tuple[Query, QueryValues]:
@@ -139,7 +139,7 @@ def commit_exists(
     """
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     args: Dict[str, PrimitiveVal] = {
         "namespace": repo.namespace,
@@ -153,7 +153,7 @@ def commit_exists(
 
 
 def last_commit_hash(
-    table: TableID, repo: RepoId
+    table: TableId, repo: RepoId
 ) -> Tuple[Query, QueryValues]:
     statement = """
     SELECT hash FROM {schema}.{table}
@@ -166,7 +166,7 @@ def last_commit_hash(
     """
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     args: Dict[str, PrimitiveVal] = {
         "namespace": repo.namespace,
@@ -179,7 +179,7 @@ def last_commit_hash(
     )
 
 
-def update_row(table: TableID, _fields: FrozenList[str]) -> Query:
+def update_row(table: TableId, _fields: FrozenList[str]) -> Query:
     values = ",".join(tuple(f"{f} = %({f})s" for f in _fields))
     statement = f"""
         UPDATE {{schema}}.{{table}} SET {values} WHERE
@@ -189,6 +189,6 @@ def update_row(table: TableID, _fields: FrozenList[str]) -> Query:
     """
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
-        "table": table.table_name,
+        "table": table.name,
     }
     return Query.dynamic_query(statement, freeze(identifiers))

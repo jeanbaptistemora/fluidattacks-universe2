@@ -7,7 +7,6 @@ from code_etl.amend.core import (
 )
 from code_etl.client import (
     Client,
-    LegacyAdapters,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -27,18 +26,16 @@ from fa_purity.stream.transform import (
     consume,
 )
 import logging
-from postgres_client.connection import (
-    Credentials,
-    DatabaseID,
-)
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     new_client,
 )
 from redshift_client.sql_client.connection import (
     connect,
+    Credentials,
+    DatabaseId,
     DbConnection,
     IsolationLvl,
 )
@@ -83,7 +80,7 @@ def amend_users(
 
 def _start(
     connection: DbConnection,
-    table: TableID,
+    table: TableId,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
@@ -99,15 +96,15 @@ def _start(
 
 
 def start(
-    db_id: DatabaseID,
+    db_id: DatabaseId,
     creds: Credentials,
-    table: TableID,
+    table: TableId,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     connection = connect(
-        LegacyAdapters.db_id(db_id),
-        LegacyAdapters.db_creds(creds),
+        db_id,
+        creds,
         False,
         IsolationLvl.AUTOCOMMIT,
     )

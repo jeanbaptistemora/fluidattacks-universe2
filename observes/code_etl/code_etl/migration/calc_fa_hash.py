@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from code_etl.client import (
-    LegacyAdapters,
     RawClient,
 )
 from code_etl.client.decoder import (
@@ -48,21 +47,16 @@ from fa_purity.union import (
     inl,
 )
 import logging
-from postgres_client.client import (
-    ClientFactory,
-)
-from postgres_client.connection import (
-    Credentials,
-    DatabaseID,
-)
-from postgres_client.ids import (
-    TableID,
+from redshift_client.id_objs import (
+    TableId,
 )
 from redshift_client.sql_client import (
     new_client,
 )
 from redshift_client.sql_client.connection import (
     connect,
+    Credentials,
+    DatabaseId,
     DbConnection,
     IsolationLvl,
 )
@@ -140,8 +134,8 @@ def migration(
 
 def _start(
     connection: DbConnection,
-    source: TableID,
-    target: TableID,
+    source: TableId,
+    target: TableId,
     namespace: str,
 ) -> Cmd[None]:
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
@@ -168,15 +162,15 @@ def _start(
 
 
 def start(
-    db_id: DatabaseID,
+    db_id: DatabaseId,
     creds: Credentials,
-    source: TableID,
-    target: TableID,
+    source: TableId,
+    target: TableId,
     namespace: str,
 ) -> Cmd[None]:
     connection = connect(
-        LegacyAdapters.db_id(db_id),
-        LegacyAdapters.db_creds(creds),
+        db_id,
+        creds,
         False,
         IsolationLvl.AUTOCOMMIT,
     )
