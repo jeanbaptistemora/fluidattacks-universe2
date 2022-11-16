@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
 import { Modal } from ".";
@@ -26,5 +26,21 @@ describe("Modal", (): void => {
 
     expect(screen.queryByText("Unit modal content")).toBeInTheDocument();
     expect(screen.queryByText("Unit test title")).toBeInTheDocument();
+  });
+
+  it("should close on press esc", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleClose: jest.Mock = jest.fn();
+    const { container } = render(
+      <Modal onClose={handleClose} open={true} title={"Unit test title"}>
+        <p>{"Unit 2 modal content"}</p>
+      </Modal>
+    );
+
+    fireEvent.keyDown(container, { key: "Escape" });
+    await waitFor((): void => {
+      expect(handleClose).toHaveBeenCalledTimes(1);
+    });
   });
 });
