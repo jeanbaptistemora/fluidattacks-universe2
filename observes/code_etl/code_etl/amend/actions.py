@@ -27,9 +27,6 @@ from fa_purity.stream.transform import (
     consume,
 )
 import logging
-from postgres_client.client import (
-    ClientFactory,
-)
 from postgres_client.connection import (
     Credentials,
     DatabaseID,
@@ -86,18 +83,14 @@ def amend_users(
 
 def _start(
     connection: DbConnection,
-    db_id: DatabaseID,
-    creds: Credentials,
     table: TableID,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    db_client_1 = ClientFactory().from_creds(db_id, creds)
-    db_client_2 = ClientFactory().from_creds(db_id, creds)
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
     sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
-    client = sql_client_1.map(lambda q: Client.new(db_client_1, q, table))
-    client2 = sql_client_2.map(lambda q: Client.new(db_client_2, q, table))
+    client = sql_client_1.map(lambda q: Client.new(q, table))
+    client2 = sql_client_2.map(lambda q: Client.new(q, table))
     return client.bind(
         lambda c1: client2.bind(
             lambda c2: amend_users(c1, c2, namespace, mailmap)
@@ -122,9 +115,7 @@ def start(
     def _action() -> None:
         conn = unsafe_unwrap(connection)
         try:
-            unsafe_unwrap(
-                _start(conn, db_id, creds, table, namespace, mailmap)
-            )
+            unsafe_unwrap(_start(conn, table, namespace, mailmap))
         finally:
             unsafe_unwrap(conn.close())
 

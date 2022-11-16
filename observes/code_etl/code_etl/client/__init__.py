@@ -14,9 +14,6 @@ from code_etl.client._assert import (
     assert_key,
     assert_type,
 )
-from code_etl.client.db_client import (
-    DbClient,
-)
 from code_etl.client.encoder import (
     commit_row_to_dict,
     CommitTableRow,
@@ -55,9 +52,6 @@ from fa_purity.stream.transform import (
     until_empty,
 )
 import logging
-from postgres_client.client import (
-    Client as RawDbClient,
-)
 from postgres_client.connection import (
     Credentials as LegacyCredentials,
     DatabaseID,
@@ -203,8 +197,6 @@ class RawClient:
 
 @dataclass(frozen=True)
 class _Client:
-    # exposes utilities from and to DB using not raw objs
-    db_client: DbClient
     sql_client: SqlClient
     table: TableID
     raw: RawClient
@@ -216,14 +208,9 @@ class Client:
     _inner: _Client
 
     @staticmethod
-    def new(
-        _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
-    ) -> Client:
-        _client = DbClient(_db_client)
+    def new(_sql_client: SqlClient, _table: TableID) -> Client:
         return Client(
-            _Client(
-                _client, _sql_client, _table, RawClient(_sql_client, _table)
-            )
+            _Client(_sql_client, _table, RawClient(_sql_client, _table))
         )
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:

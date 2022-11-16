@@ -6,9 +6,6 @@ from code_etl.client import (
     LegacyAdapters,
     RawClient,
 )
-from code_etl.client.db_client import (
-    DbClient,
-)
 from code_etl.client.decoder import (
     decode_commit_data_2,
     decode_repo_registration,
@@ -141,37 +138,27 @@ def migration(
     return action.bind(consume)
 
 
-def _new_dbclient(
-    db_id: DatabaseID,
-    creds: Credentials,
-) -> Cmd[DbClient]:
-    db_client = ClientFactory().from_creds(db_id, creds)
-    return Cmd.from_cmd(lambda: DbClient(db_client))
-
-
 def _start(
     connection: DbConnection,
-    db_id: DatabaseID,
-    creds: Credentials,
     source: TableID,
     target: TableID,
     namespace: str,
 ) -> Cmd[None]:
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
     sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
+    sql_client_3 = new_client(connection, LOG.getChild("sql_client_3"))
     sql_client_target = new_client(
         connection, LOG.getChild("sql_client_target")
     )
-    db_client_init = _new_dbclient(db_id, creds)
 
     client = sql_client_1.map(lambda q: RawClient(q, source))
     client2 = sql_client_2.map(lambda q: RawClient(q, source))
     target_client = sql_client_target.map(lambda q: RawClient(q, target))
-    return db_client_init.bind(
-        lambda db_cli: client.bind(
+    return sql_client_3.bind(
+        lambda c3: client.bind(
             lambda c1: client2.bind(
                 lambda c2: target_client.bind(
-                    lambda ct: init_table_2_query(db_cli, target).bind(
+                    lambda ct: init_table_2_query(c3, target).bind(
                         lambda _: migration(c1, c2, ct, namespace)
                     )
                 )
@@ -197,9 +184,7 @@ def start(
     def _action() -> None:
         conn = unsafe_unwrap(connection)
         try:
-            unsafe_unwrap(
-                _start(conn, db_id, creds, source, target, namespace)
-            )
+            unsafe_unwrap(_start(conn, source, target, namespace))
         finally:
             unsafe_unwrap(conn.close())
 

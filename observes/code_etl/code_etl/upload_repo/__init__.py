@@ -45,9 +45,6 @@ from pathlib import (
 from pathos.threading import (  # type: ignore[import]
     ThreadPool,
 )
-from postgres_client.client import (
-    ClientFactory,
-)
 from postgres_client.connection import (
     Credentials,
     DatabaseID,
@@ -117,8 +114,6 @@ def upload(
 
 def _upload_repos(
     connection: DbConnection,
-    db_id: DatabaseID,
-    creds: Credentials,
     target: TableID,
     namespace: str,
     repo_paths: FrozenList[Path],
@@ -130,9 +125,7 @@ def _upload_repos(
 
     def _new_client(path: Path) -> Cmd[Client]:
         return new_client(connection, LOG.getChild(str(path))).map(
-            lambda c: Client.new(
-                ClientFactory().from_creds(db_id, creds), c, target
-            )
+            lambda c: Client.new(c, target)
         )
 
     def _pair(path: Path) -> Cmd[Tuple[Client, Path]]:
@@ -178,9 +171,7 @@ def upload_repos(
         conn = unsafe_unwrap(connection)
         try:
             unsafe_unwrap(
-                _upload_repos(
-                    conn, db_id, creds, target, namespace, repo_paths, mailmap
-                )
+                _upload_repos(conn, target, namespace, repo_paths, mailmap)
             )
         finally:
             unsafe_unwrap(conn.close())

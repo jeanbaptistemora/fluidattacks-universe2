@@ -2,24 +2,26 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from code_etl.client.db_client import (
-    DbClient,
-)
 from fa_purity.cmd import (
     Cmd,
+)
+from fa_purity.frozen import (
+    freeze,
 )
 from postgres_client.ids import (
     TableID,
 )
-from postgres_client.query import (
+from redshift_client.sql_client import (
     Query,
-    SqlArgs,
+    SqlClient,
+)
+from typing import (
+    Dict,
 )
 
 
-def init_table_2_query(client: DbClient, table: TableID) -> Cmd[None]:
-    query = Query(
-        """
+def init_table_2_query(client: SqlClient, table: TableID) -> Cmd[None]:
+    statement = """
         CREATE TABLE IF NOT EXISTS {schema}.{table} (
             author_email VARCHAR(256),
             author_name VARCHAR(256),
@@ -46,12 +48,11 @@ def init_table_2_query(client: DbClient, table: TableID) -> Cmd[None]:
                 hash
             )
         ) SORTKEY (namespace, repository)
-        """,
-        SqlArgs(
-            identifiers={
-                "schema": table.schema.name,
-                "table": table.table_name,
-            },
-        ),
+        """
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    return client.execute(
+        Query.dynamic_query(statement, freeze(identifiers)), None
     )
-    return client.execute_query(query)
