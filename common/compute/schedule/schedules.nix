@@ -405,6 +405,35 @@
       "management:type" = "product";
     };
   };
+  integrates_update_organization_repositories = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.update_organization_repositories.main"
+    ];
+
+    schedule_expression = "cron(45 11,23 * * ? *)";
+    size = "medium";
+    awsRole = "prod_integrates";
+    attempts = 2;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_update_organization_repositories";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_delete_imamura_stakeholders = {
     enabled = true;
     command = [
