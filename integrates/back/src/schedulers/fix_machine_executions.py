@@ -60,7 +60,7 @@ async def process_item(
         return False
     result_objects = (
         await s3_client.list_objects(
-            Bucket="skims.data",
+            Bucket="machine.data",
             Prefix=(
                 f"results/{group_name}_{job.job_id}"
                 f"_{git_root.state.nickname}"
@@ -69,7 +69,7 @@ async def process_item(
     ).get("Contents", [])
     config_objects = (
         await s3_client.list_objects(
-            Bucket="skims.data",
+            Bucket="machine.data",
             Prefix=(
                 f"configs/{group_name}_{job.job_id}"
                 f"_{git_root.state.nickname}"
