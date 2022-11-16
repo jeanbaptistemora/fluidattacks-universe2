@@ -33,7 +33,7 @@ async def update_metadata(
     email: str,
     metadata: StakeholderMetadataToUpdate,
 ) -> None:
-    email = email.strip().lower()
+    email = email.lower().strip()
     gsi_2_index = TABLE.indexes["gsi_2"]
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_metadata"],
@@ -68,7 +68,7 @@ async def update_state(
     user_email: str,
     state: StakeholderState,
 ) -> None:
-    email = user_email.strip().lower()
+    email = user_email.lower().strip()
     key_structure = TABLE.primary_key
     state_item = json.loads(json.dumps(state), parse_float=Decimal)
     state_item = {

@@ -18,7 +18,7 @@ from dynamodb.types import (
 
 def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
-        email=item["email"],
+        email=str(item["email"]).lower().strip(),
         organization_id=add_org_id_prefix(item["organization_id"]),
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
@@ -43,7 +43,7 @@ def format_metadata_item(
     organization_id: str,
 ) -> Item:
     item: Item = {
-        "email": email,
+        "email": email.lower().strip(),
         "expiration_time": metadata.expiration_time,
         "has_access": metadata.has_access,
         "invitation": {

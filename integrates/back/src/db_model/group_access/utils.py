@@ -16,7 +16,7 @@ from dynamodb.types import (
 
 def format_group_access(item: Item) -> GroupAccess:
     return GroupAccess(
-        email=item["email"],
+        email=str(item["email"]).lower().strip(),
         group_name=item["group_name"],
         confirm_deletion=GroupConfirmDeletion(
             is_used=bool(item["confirm_deletion"]["is_used"]),
@@ -58,7 +58,7 @@ def format_metadata_item(
         }
         if metadata.confirm_deletion
         else None,
-        "email": email,
+        "email": email.lower().strip(),
         "expiration_time": metadata.expiration_time,
         "group_name": group_name,
         "has_access": metadata.has_access,
