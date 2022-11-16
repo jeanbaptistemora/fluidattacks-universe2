@@ -6,6 +6,9 @@
 from back.test import (
     db,
 )
+from collections import (
+    defaultdict,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -26,6 +29,9 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
     GroupState,
+)
+from db_model.integration_repositories.types import (
+    OrganizationIntegrationRepository,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -144,6 +150,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 organization_id="8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
                 email=generic_data["global_vars"]["admin_email"],
             ),
+            OrganizationAccess(
+                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                email=generic_data["global_vars"]["admin_email"],
+            ),
         ],
         "credentials": (
             Credentials(
@@ -174,5 +184,39 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             ),
         ),
+        "organization_unreliable_integration_repository": (
+            OrganizationIntegrationRepository(
+                id=(
+                    "4334ca3f5c8afb8b529782a6b96daa94160e5f3c030ebbc5f"
+                    "369d800b2a8b584"
+                ),
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                branch="main",
+                last_commit_date="2022-11-02 09:37:57",
+                url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+            ),
+        ),
     }
-    return await db.populate({**generic_data["db_data"], **data})
+
+    merge_dict: dict[str, list[Any]] = defaultdict(list)
+    for dict_data in (generic_data["db_data"], data):
+        for key, value in dict_data.items():
+            if key == "groups":
+                all_groups = merge_dict[key] + value
+                merge_dict[key] = list(
+                    {
+                        group["group"].name: group for group in all_groups
+                    }.values()
+                )
+            elif key == "organizations":
+                all_organizations = merge_dict[key] + value
+                merge_dict[key] = list(
+                    {
+                        organization["organization"].id: organization
+                        for organization in all_organizations
+                    }.values()
+                )
+            else:
+                merge_dict[key].extend(value)
+
+    return await db.populate(merge_dict)

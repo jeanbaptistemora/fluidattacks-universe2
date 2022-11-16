@@ -7,17 +7,30 @@ from . import (
     get_result,
     get_vulnerabilities_url,
 )
+from back.test.functional.src.remove_credentials import (
+    get_result as remove_credentials,
+)
 from back.test.functional.src.remove_stakeholder_access import (
     get_access_token,
 )
 from custom_exceptions import (
     RequiredVerificationCode,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from datetime import (
     datetime,
     timedelta,
 )
+from db_model.integration_repositories.types import (
+    OrganizationIntegrationRepository,
+)
 import pytest
+from schedulers.update_organization_repositories import (
+    main,
+)
 from typing import (
     Any,
     Optional,
@@ -51,6 +64,7 @@ async def test_get_organization_ver_1(
         "reviewer@fluidattacks.com",
         "reviewer@gmail.com",
         "service_forces@fluidattacks.com",
+        "service_forces@gmail.com",
         "user@fluidattacks.com",
         "user@gmail.com",
         "user_manager@fluidattacks.com",
@@ -76,7 +90,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["vulnerabilityGracePeriod"] == 5
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert sorted(groups) == []
-    assert sorted(stakeholders) == org_stakeholders
+    assert sorted(stakeholders) == sorted(org_stakeholders)
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
     assert len(result["data"]["organization"]["credentials"]) == 2
@@ -88,6 +102,34 @@ async def test_get_organization_ver_1(
     assert (
         result["data"]["organization"]["credentials"][0]["name"] == "pat token"
     )
+
+    result_remove = await remove_credentials(
+        user="user_manager@fluidattacks.com",
+        credentials_id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+        organization_id=org_id,
+    )
+    assert "errors" not in result_remove
+    assert "success" in result_remove["data"]["removeCredentials"]
+    assert result_remove["data"]["removeCredentials"]["success"]
+    loaders: Dataloaders = get_new_context()
+    current_repositories: tuple[
+        OrganizationIntegrationRepository, ...
+    ] = await loaders.organization_unreliable_integration_repositories.load(
+        (org_id, None, None)
+    )
+    assert len(current_repositories) == 1
+
+    await main()
+    loaders.organization_unreliable_integration_repositories.clear_all()
+    loaders.organization_credentials.clear_all()
+    loaders.group_roots.clear_all()
+
+    updated_repositories: tuple[
+        OrganizationIntegrationRepository, ...
+    ] = await loaders.organization_unreliable_integration_repositories.load(
+        (org_id, None, None)
+    )
+    assert len(updated_repositories) == 0
 
 
 @pytest.mark.asyncio
@@ -126,7 +168,7 @@ async def test_get_organization_ver_2(
     assert result["data"]["organization"]["minBreakingSeverity"] == 2
     assert result["data"]["organization"]["vulnerabilityGracePeriod"] == 5
     assert result["data"]["organization"]["name"] == org_name.lower()
-    assert sorted(groups) == org_groups
+    assert org_groups[0] in groups
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
 

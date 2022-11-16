@@ -57,6 +57,12 @@ from db_model.group_access.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.integration_repositories.types import (
+    OrganizationIntegrationRepository,
+)
+from db_model.integration_repositories.update import (
+    update_unreliable_repositories,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
@@ -247,6 +253,21 @@ async def populate_groups(data: list[dict[str, Any]]) -> bool:
     await collect(
         tuple(_populate_group_policies(item) for item in data),
         workers=16,
+    )
+    return True
+
+
+async def populate_organization_unreliable_integration_repository(
+    data: tuple[OrganizationIntegrationRepository, ...],
+) -> bool:
+    await collect(
+        tuple(
+            update_unreliable_repositories(
+                repository=repository,
+            )
+            for repository in data
+        ),
+        workers=4,
     )
     return True
 

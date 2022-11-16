@@ -58,6 +58,8 @@ from itertools import (
 from newutils.datetime import (
     DEFAULT_ISO_STR,
     get_as_utc_iso_format,
+    get_datetime_from_iso_str,
+    get_now_minus_delta,
 )
 from operator import (
     attrgetter,
@@ -127,6 +129,8 @@ async def _update(
                 )
             )
             for repository, date in zip(repositories, repositories_dates)
+            if get_datetime_from_iso_str(date).timestamp()
+            > get_now_minus_delta(days=60).timestamp()
         ),
         workers=4,
     )
@@ -137,10 +141,13 @@ async def _remove(
     organization_id: str,
     repositories: tuple[CredentialsGitRepository, ...],
     loaders: Dataloaders,
+    repositories_dates: tuple[str, ...],
 ) -> None:
     repositories_ids: set[str] = {
         f"URL#{_get_id(repository)}#BRANCH#{_get_branch(repository).lower()}"
-        for repository in repositories
+        for repository, date in zip(repositories, repositories_dates)
+        if get_datetime_from_iso_str(date).timestamp()
+        > get_now_minus_delta(days=60).timestamp()
     }
     current_unreliable_repositories: tuple[
         OrganizationIntegrationRepository, ...
@@ -223,6 +230,7 @@ async def update_organization_repositories(
             organization_id=organization.id,
             repositories=repositories,
             loaders=loaders,
+            repositories_dates=repositories_dates,
         )
 
         info(
