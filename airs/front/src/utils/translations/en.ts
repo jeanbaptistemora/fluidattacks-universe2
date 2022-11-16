@@ -1101,13 +1101,21 @@ const pageTexts: ResourceKey = {
           "in your IT infrastructure, applications, or source code.",
         title: "Security Testing",
       },
-      title: "Solutions",
+      title: "Application security solutions",
       vulnerabilityManagement: {
         paragraph:
           "You can examine data on the identification, classification and prioritization " +
           "of vulnerabilities in your systems and software.",
         title: "Vulnerability Management",
       },
+    },
+    informations: {
+      paragraph:
+        "Fluid Attacks offers comprehensive solutions in application security. " +
+        "We help you build secure applications by finding vulnerabilities in your " +
+        "software development lifecycle using automated tools and the manual work " +
+        "of our ethical hackers.",
+      subtitle: "Application security solutions",
     },
     penetrationTesting: {
       paragraph:
