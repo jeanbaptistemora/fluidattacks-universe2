@@ -180,6 +180,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       accessorKey: "vulnerabilities",
+      cell: (cell): JSX.Element => {
+        const link = `groups/${String(cell.row.getValue("name"))}/vulns`;
+        const text = cell.getValue<string>();
+
+        return formatLinkHandler(link, text);
+      },
       header: t("organization.tabs.groups.vulnerabilities"),
     },
     {
