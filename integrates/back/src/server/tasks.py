@@ -13,11 +13,11 @@ from s3.resource import (
     s3_shutdown,
     s3_startup,
 )
-from schedulers.report_machine import (
-    process_execution,
-)
 from server import (
     SERVER,
+)
+from server.report_machine import (
+    process_execution,
 )
 
 

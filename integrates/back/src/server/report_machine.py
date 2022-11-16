@@ -472,7 +472,7 @@ def _get_path_from_sarif_vulnerability(
     return what
 
 
-def _get_vulns_with_reattack(
+def _get_vulns_with_reattack(  # NOSONAR
     stream: dict[str, Any],
     integrates_vulnerabilities: Tuple[Vulnerability, ...],
     state: str,

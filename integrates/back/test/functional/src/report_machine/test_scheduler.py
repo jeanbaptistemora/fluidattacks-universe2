@@ -27,7 +27,7 @@ from finding_comments import (
 )
 import json
 import pytest
-from schedulers.report_machine import (
+from server.report_machine import (
     process_execution,
 )
 from typing import (
@@ -50,7 +50,7 @@ async def test_persist_result(populate: bool) -> None:
         sarif_report = json.load(sarif)
 
     with mock.patch(
-        "schedulers.report_machine.get_config",
+        "server.report_machine.get_config",
         side_effect=mock.AsyncMock(
             return_value={
                 "namespace": "nickname",
@@ -61,7 +61,7 @@ async def test_persist_result(populate: bool) -> None:
         ),
     ):
         with mock.patch(
-            "schedulers.report_machine.get_sarif_log",
+            "server.report_machine.get_sarif_log",
             side_effect=mock.AsyncMock(return_value=sarif_report),
         ):
             await process_execution("group1_1234345")
@@ -139,7 +139,7 @@ async def test_report_f079(populate: bool) -> None:
         sarif_report = json.load(sarif)
 
     with mock.patch(
-        "schedulers.report_machine.get_config",
+        "server.report_machine.get_config",
         side_effect=mock.AsyncMock(
             return_value={
                 "namespace": "nickname",
@@ -155,7 +155,7 @@ async def test_report_f079(populate: bool) -> None:
         ),
     ):
         with mock.patch(
-            "schedulers.report_machine.get_sarif_log",
+            "server.report_machine.get_sarif_log",
             side_effect=mock.AsyncMock(return_value=sarif_report),
         ):
             loaders = get_new_context()
@@ -232,7 +232,7 @@ async def test_duplicated_reports(populate: bool) -> None:
             sarif_report_2 = json.load(sarif_2)
 
     with mock.patch(
-        "schedulers.report_machine.get_config",
+        "server.report_machine.get_config",
         side_effect=mock.AsyncMock(
             return_value={
                 "namespace": "nickname",
@@ -245,7 +245,7 @@ async def test_duplicated_reports(populate: bool) -> None:
             },
         ),
     ), mock.patch(
-        "schedulers.report_machine.get_sarif_log",
+        "server.report_machine.get_sarif_log",
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report_1, sarif_report_2],
         ),
@@ -299,7 +299,7 @@ async def test_approval(populate: bool) -> None:
         sarif_report = json.load(sarif)
 
     with mock.patch(
-        "schedulers.report_machine.get_config",
+        "server.report_machine.get_config",
         side_effect=mock.AsyncMock(
             return_value={
                 "namespace": "nickname",
@@ -309,7 +309,7 @@ async def test_approval(populate: bool) -> None:
             },
         ),
     ), mock.patch(
-        "schedulers.report_machine.get_sarif_log",
+        "server.report_machine.get_sarif_log",
         side_effect=mock.AsyncMock(return_value=sarif_report),
     ):
         loaders = get_new_context()
@@ -378,7 +378,7 @@ async def test_report_inputs(populate: bool) -> None:
         invalid_sarif_report = json.load(sarif)
 
     with mock.patch(
-        "schedulers.report_machine.get_config",
+        "server.report_machine.get_config",
         side_effect=mock.AsyncMock(
             return_value={
                 "namespace": "nickname",
@@ -389,7 +389,7 @@ async def test_report_inputs(populate: bool) -> None:
             },
         ),
     ), mock.patch(
-        "schedulers.report_machine.get_sarif_log",
+        "server.report_machine.get_sarif_log",
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report, invalid_sarif_report]
         ),
