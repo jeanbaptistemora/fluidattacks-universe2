@@ -10,7 +10,7 @@ Analytics information between
 different groups within the
 same organization.
 
-![Portfolios Information](https://res.cloudinary.com/fluid-attacks/image/upload/v1662414400/docs/web/portfolio/portfolio_overview.png)
+![Portfolios Information](https://res.cloudinary.com/fluid-attacks/image/upload/v1668603779/docs/web/portfolio/portfolios.png)
 
 In the overview of this section,
 you can create a portfolio
@@ -45,7 +45,7 @@ When you select a portfolio of
 your interest you will see two
 tabs: Analytics and Groups.
 
-![Interested Portfolio](https://res.cloudinary.com/fluid-attacks/image/upload/v1662414399/docs/web/portfolio/portfolio_2tabs.png)
+![Interested Portfolio](https://res.cloudinary.com/fluid-attacks/image/upload/v1668603811/docs/web/portfolio/portfolio_interest.png)
 
 In the Analytics view,
 you can see the graphs and
