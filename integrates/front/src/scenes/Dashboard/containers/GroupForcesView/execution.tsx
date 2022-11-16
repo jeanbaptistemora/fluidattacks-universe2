@@ -5,13 +5,15 @@
  */
 
 import { useQuery } from "@apollo/client";
-import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import ReactAnsi from "react-ansi";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tab, Tabs } from "components/Tabs";
@@ -25,7 +27,6 @@ import type {
   IGetForcesExecution,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { Col33, Row, TabContent } from "styles/styledComponents";
-import { useStoredState } from "utils/hooks/useStoredState";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
@@ -33,11 +34,6 @@ const Execution: React.FC<IExecution> = (
   const { t } = useTranslation();
   const { log, executionId, groupName } = props;
   const isOld: boolean = log !== undefined;
-
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblForcesExecutionTableFilters",
-    []
-  );
 
   const { loading, data } = useQuery<IGetForcesExecution>(
     GET_FORCES_EXECUTION,
@@ -49,10 +45,6 @@ const Execution: React.FC<IExecution> = (
       },
     }
   );
-
-  if (loading && !isOld) {
-    return <p>{"Loading ..."}</p>;
-  }
 
   const execution: IExecution = isOld
     ? props
@@ -91,13 +83,15 @@ const Execution: React.FC<IExecution> = (
     return `${openStr}, ${acceptedStr}, ${closedStr}, ${totalStr}`;
   };
 
-  const vulns: IExploitResult[] = _.isNull(execution.vulnerabilities)
-    ? []
-    : execution.vulnerabilities.open.concat(
-        execution.vulnerabilities.closed.concat(
-          execution.vulnerabilities.accepted
-        )
-      );
+  const vulns: IExploitResult[] =
+    _.isNil(execution.vulnerabilities) ||
+    _.isNil(execution.vulnerabilities.open)
+      ? []
+      : execution.vulnerabilities.open.concat(
+          execution.vulnerabilities.closed.concat(
+            execution.vulnerabilities.accepted
+          )
+        );
 
   const datset = vulns.map(
     (elem: IExploitResult): IExploitResult => ({
@@ -111,7 +105,6 @@ const Execution: React.FC<IExecution> = (
       accessorFn: (row): number => row.exploitability,
       header: t("group.forces.compromisedToe.exploitability"),
       id: "explotability",
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row): string => row.state,
@@ -119,28 +112,78 @@ const Execution: React.FC<IExecution> = (
         statusFormatter(cell.getValue()),
       header: t("group.forces.compromisedToe.status"),
       id: "state",
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row): string => row.kind,
-
       header: t("group.forces.compromisedToe.type"),
       id: "kind",
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row): string => row.who,
       header: t("group.forces.compromisedToe.what"),
       id: "who",
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row): string => row.where,
       header: t("group.forces.compromisedToe.where"),
       id: "where",
-      meta: { filterType: "select" },
     },
   ];
+
+  const [filters, setFilters] = useState<IFilter<IExploitResult>[]>([
+    {
+      id: "exploitability",
+      key: "exploitability",
+      label: t("group.forces.compromisedToe.exploitability"),
+      type: "number",
+    },
+    {
+      id: "state",
+      key: "state",
+      label: t("group.forces.compromisedToe.status"),
+      selectOptions: (exploits): string[] =>
+        [...new Set(exploits.map((exploit): string => exploit.state))].filter(
+          Boolean
+        ),
+      type: "select",
+    },
+    {
+      id: "kind",
+      key: "kind",
+      label: t("group.forces.compromisedToe.type"),
+      selectOptions: (exploits): string[] =>
+        [...new Set(exploits.map((exploit): string => exploit.kind))].filter(
+          Boolean
+        ),
+      type: "select",
+    },
+    {
+      id: "who",
+      key: "who",
+      label: t("group.forces.compromisedToe.what"),
+      selectOptions: (exploits): string[] =>
+        [...new Set(exploits.map((exploit): string => exploit.who))].filter(
+          Boolean
+        ),
+      type: "select",
+    },
+    {
+      id: "where",
+      key: "where",
+      label: t("group.forces.compromisedToe.where"),
+      selectOptions: (exploits): string[] =>
+        [...new Set(exploits.map((exploit): string => exploit.where))].filter(
+          Boolean
+        ),
+      type: "select",
+    },
+  ]);
+
+  const filteredDataset = useFilters(datset, filters);
+
+  if (loading && !isOld) {
+    return <p>{"Loading ..."}</p>;
+  }
 
   return (
     <div>
@@ -267,14 +310,18 @@ const Execution: React.FC<IExecution> = (
           <Switch>
             <Route path={"/summary"}>
               <Table
-                columnFilterSetter={setColumnFilters}
-                columnFilterState={columnFilters}
                 columnToggle={true}
                 columns={columns}
-                data={datset}
-                enableColumnFilters={true}
+                data={filteredDataset}
                 enableSearchBar={true}
                 exportCsv={false}
+                filters={
+                  <Filters
+                    dataset={datset}
+                    filters={filters}
+                    setFilters={setFilters}
+                  />
+                }
                 id={"tblCompromisedToe"}
               />
             </Route>
