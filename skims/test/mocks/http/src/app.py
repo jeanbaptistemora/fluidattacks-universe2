@@ -365,16 +365,6 @@ def add_f343_breach_possible() -> None:
     )
 
 
-def add_f153() -> None:
-    _add_headers(
-        "f153",
-        "accept",
-        [
-            "*/*",
-        ],
-    )
-
-
 def start() -> None:
     APP.run()
 
@@ -394,4 +384,3 @@ add_f043_dast_xfo()
 add_f064_server_clock()
 add_f086()
 add_f343_breach_possible()
-add_f153()
