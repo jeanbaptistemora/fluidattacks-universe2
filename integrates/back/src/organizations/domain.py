@@ -679,6 +679,9 @@ async def remove_organization(
             pending_deletion_date="",
         ),
     )
+    await credentials_model.remove_organization_credentials(
+        organization_id=organization_id
+    )
 
 
 async def reject_register_for_organization_invitation(
