@@ -12,7 +12,6 @@
     fa-purity
     GitPython
     pathos
-    postgres-client
     psycopg2
     ratelimiter
     redshift-client

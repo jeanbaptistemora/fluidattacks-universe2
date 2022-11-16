@@ -39,21 +39,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = _utils_logger_src;
   };
 
-  _postgres_client_src = projectPath "/observes/common/postgres-client/src";
-  postgres-client."${python_version}" = import _postgres_client_src {
-    inherit python_version;
-    src = _postgres_client_src;
-    legacy_pkgs =
-      nixpkgs
-      // {
-        python39Packages =
-          nixpkgs.python39Packages
-          // {
-            utils-logger = utils-logger.python39.pkg;
-          };
-      };
-  };
-  local_pkgs = {inherit postgres-client fa-purity redshift-client utils-logger;};
+  local_pkgs = {inherit fa-purity redshift-client utils-logger;};
   out = import ./. {
     pkgs = nixpkgs // local_pkgs;
     python_version = "python39";
