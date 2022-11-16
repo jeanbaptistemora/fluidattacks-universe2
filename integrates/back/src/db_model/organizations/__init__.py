@@ -9,6 +9,9 @@ from .get import (
     get_all_organizations,
     iterate_organizations,
 )
+from .remove import (
+    remove_unreliable_indicators,
+)
 from .update import (
     update_metadata,
     update_policies,
@@ -20,6 +23,7 @@ __all__ = [
     "add",
     "get_all_organizations",
     "iterate_organizations",
+    "remove_unreliable_indicators",
     "update_metadata",
     "update_policies",
     "update_state",
