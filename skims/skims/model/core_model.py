@@ -1590,14 +1590,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
-    GO_SUM = MethodInfo(
-        file_name="go",
-        name="go_sum",
-        module="lib_path",
-        finding=FindingEnum.F011,
-        developer=DeveloperEnum.LEWIS_CONTRERAS,
-        technique=TechniqueEnum.SCA,
-    )
     MAVEN_POM_XML = MethodInfo(
         file_name="maven",
         name="maven_pom_xml",
