@@ -14,7 +14,7 @@ from utils import (
 )
 
 
-def js_insecure_ecdh_key(
+def insecure_ecdh_key(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
@@ -24,7 +24,7 @@ def js_insecure_ecdh_key(
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
-def js_insecure_hash(
+def insecure_hash(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
@@ -35,7 +35,7 @@ def js_insecure_hash(
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
-def js_insecure_key_pair(
+def insecure_key_pair(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False

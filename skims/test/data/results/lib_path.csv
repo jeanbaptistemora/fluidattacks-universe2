@@ -11799,6 +11799,30 @@ F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,66,200,skim
    76 |         //console.log(a+b)
       ^ Col 0
 ",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,"
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+> 20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+  22 |     }
+  23 |   );
+  24 | }
+  25 |
+  26 | router.get(""/test134"", test);
+  27 |
+  28 | export default router;
+     ^ Col 0
+",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,30,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,"
   18 |     },
   19 |     privateKeyEncoding: {
@@ -11843,6 +11867,30 @@ F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.js,4,20
   7 | }
     ^ Col 0
 ",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+> 20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+  22 |     }
+  23 |   );
+  24 | }
+  25 |
+  26 | router.get(""/test134"", test);
+  27 |
+  28 | export default router;
+     ^ Col 0
+",typescript.ts_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,21,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,"
    6 | router.get(""/test130"", (_req, res) => {
    7 |   let key_options = {
@@ -25672,6 +25720,30 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,36,310,skims,052. I
   46 |          .build()
      ^ Col 11
 ",kotlin.kotlin_insecure_key
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,"
+   1 | import { Router } from ""express"";
+   2 | const router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | function test(req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",javascript.javascript_insecure_ec_keypair
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ecdh.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/js_insecure_ecdh.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";
@@ -25710,6 +25782,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,26
   36 | router.get(""/test130"", test);
      ^ Col 0
 ",javascript.javascript_insecure_rsa_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
+   1 | import { Router } from ""express"";
+   2 | const router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | function test(req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",typescript.typescript_insecure_ec_keypair
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";

@@ -172,3 +172,26 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
+
+
+def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    danger_f = {"generatekeypair"}
+    rules = {"ec", "unsafecurve"}
+
+    for n_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+    ):
+        f_name = graph.nodes[n_id]["expression"]
+        _, key = split_function_name(f_name)
+        if (
+            key in danger_f
+            and (al_id := graph.nodes[n_id].get("arguments_id"))
+            and (args := g.adj_ast(graph, al_id))
+            and len(args) > 1
+            and get_eval_triggers(graph, al_id, rules, method)
+        ):
+            vuln_nodes.append(n_id)
+    return vuln_nodes

@@ -22,9 +22,9 @@ from symbolic_eval.f052.literal.java import (
     java_insecure_key_rsa,
 )
 from symbolic_eval.f052.literal.javascript import (
-    js_insecure_ecdh_key,
-    js_insecure_hash,
-    js_insecure_key_pair,
+    insecure_ecdh_key,
+    insecure_hash,
+    insecure_key_pair,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -46,14 +46,15 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_CIPHER: java_evaluate_cipher,
     MethodsEnum.JAVA_INSECURE_CIPHER_SSL: java_insecure_cipher_ssl,
     MethodsEnum.JAVA_INSECURE_CIPHER_JMQI: java_insecure_cipher_jmqi,
-    MethodsEnum.JS_INSECURE_HASH: js_insecure_hash,
-    MethodsEnum.TS_INSECURE_HASH: js_insecure_hash,
+    MethodsEnum.JS_INSECURE_HASH: insecure_hash,
+    MethodsEnum.TS_INSECURE_HASH: insecure_hash,
     MethodsEnum.JS_INSECURE_CREATE_CIPHER: insecure_create_cipher,
-    MethodsEnum.JS_INSECURE_ECDH_KEY: js_insecure_ecdh_key,
-    MethodsEnum.TS_INSECURE_ECDH_KEY: js_insecure_ecdh_key,
-    MethodsEnum.JS_INSECURE_EC_KEYPAIR: js_insecure_key_pair,
-    MethodsEnum.JS_INSECURE_RSA_KEYPAIR: js_insecure_key_pair,
-    MethodsEnum.TS_INSECURE_RSA_KEYPAIR: js_insecure_key_pair,
+    MethodsEnum.JS_INSECURE_ECDH_KEY: insecure_ecdh_key,
+    MethodsEnum.TS_INSECURE_ECDH_KEY: insecure_ecdh_key,
+    MethodsEnum.JS_INSECURE_EC_KEYPAIR: insecure_key_pair,
+    MethodsEnum.TS_INSECURE_EC_KEYPAIR: insecure_key_pair,
+    MethodsEnum.JS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
+    MethodsEnum.TS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
     MethodsEnum.TS_INSECURE_CREATE_CIPHER: insecure_create_cipher,
 }
 

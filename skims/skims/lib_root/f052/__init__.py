@@ -44,6 +44,7 @@ from lib_root.f052.typescript import (
     ts_insecure_create_cipher,
     ts_insecure_encrypt,
     ts_insecure_hash,
+    typescript_insecure_ec_keypair,
     typescript_insecure_ecdh_key,
     typescript_insecure_rsa_keypair,
 )
@@ -78,6 +79,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, javascript_insecure_hash),
     (FINDING, javascript_insecure_ecdh_key),
     (FINDING, javascript_insecure_ec_keypair),
+    (FINDING, typescript_insecure_ec_keypair),
     (FINDING, javascript_insecure_rsa_keypair),
     (FINDING, typescript_insecure_rsa_keypair),
     (FINDING, kotlin_insecure_cipher),
