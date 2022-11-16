@@ -163,19 +163,10 @@ def _start(
         connection, LOG.getChild("sql_client_target")
     )
     db_client_init = _new_dbclient(db_id, creds)
-    db_client_1 = _new_dbclient(db_id, creds)
-    db_client_2 = _new_dbclient(db_id, creds)
-    db_client_target = _new_dbclient(db_id, creds)
 
-    client = sql_client_1.bind(
-        lambda q: db_client_1.map(lambda d: RawClient(d, q, source))
-    )
-    client2 = sql_client_2.bind(
-        lambda q: db_client_2.map(lambda d: RawClient(d, q, source))
-    )
-    target_client = sql_client_target.bind(
-        lambda q: db_client_target.map(lambda d: RawClient(d, q, target))
-    )
+    client = sql_client_1.map(lambda q: RawClient(q, source))
+    client2 = sql_client_2.map(lambda q: RawClient(q, source))
+    target_client = sql_client_target.map(lambda q: RawClient(q, target))
     return db_client_init.bind(
         lambda db_cli: client.bind(
             lambda c1: client2.bind(

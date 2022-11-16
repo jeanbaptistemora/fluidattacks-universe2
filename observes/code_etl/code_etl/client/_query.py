@@ -203,9 +203,7 @@ def last_commit_hash(table: TableID, repo: RepoId) -> LegacyQuery:
     )
 
 
-def update_row(
-    table: TableID, row: CommitTableRow, _fields: FrozenList[str]
-) -> LegacyQuery:
+def update_row(table: TableID, _fields: FrozenList[str]) -> Query:
     values = ",".join(tuple(f"{f} = %({f})s" for f in _fields))
     statement = f"""
         UPDATE {{schema}}.{{table}} SET {values} WHERE
@@ -213,11 +211,8 @@ def update_row(
             and namespace = %(namespace)s
             and repository = %(repository)s
     """
-    args = SqlArgs(
-        row.__dict__,  # type: ignore[misc]
-        {
-            "schema": table.schema.name,
-            "table": table.table_name,
-        },
-    )
-    return LegacyQuery(statement, args)
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    return Query.dynamic_query(statement, freeze(identifiers))

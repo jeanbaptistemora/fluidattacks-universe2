@@ -122,7 +122,6 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
 @dataclass(frozen=True)
 class RawClient:
     # exposes utilities from and to DB using raw objs i.e. CommitTableRow
-    _db_client: DbClient
     _sql_client: SqlClient
     _table: TableID
 
@@ -213,8 +212,9 @@ class RawClient:
                 )
             )
             return log_info.bind(
-                lambda _: self._db_client.execute_query(
-                    _query.update_row(self._table, new, _fields)
+                lambda _: self._sql_client.execute(
+                    _query.update_row(self._table, _fields),
+                    QueryValues(encoder.commit_row_to_dict(new)),
                 )
             )
         return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
@@ -238,9 +238,7 @@ class Client:
         _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
     ) -> Client:
         _client = DbClient(_db_client)
-        return Client(
-            _Client(_client, _table, RawClient(_client, _sql_client, _table))
-        )
+        return Client(_Client(_client, _table, RawClient(_sql_client, _table)))
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         return self._inner.raw.all_data_count(namespace)
