@@ -79,13 +79,15 @@ def all_data_count(
     stm = _namespace.map(
         lambda _: f"{base_stm} WHERE namespace = %(namespace)s"
     ).value_or(base_stm)
-    id_args: Dict[str, str] = {"namespace": namespace} if namespace else {}
-    args: Dict[str, PrimitiveVal] = {
+    args: Dict[str, PrimitiveVal] = (
+        {"namespace": namespace} if namespace else {}
+    )
+    identifiers: Dict[str, str] = {
         "schema": table.schema.name,
         "table": table.table_name,
     }
     return (
-        Query.dynamic_query(stm, freeze(id_args)),
+        Query.dynamic_query(stm, freeze(identifiers)),
         QueryValues(freeze(args)),
     )
 
@@ -126,55 +128,31 @@ def insert_unique_row(table: TableID) -> Query:
     )
 
 
-def update_users(table: TableID) -> LegacyQuery:
-    return LegacyQuery(
-        """
-        UPDATE {schema}.{table}
-        SET
-            author_email = %(author_email)s,
-            author_name = %(author_name)s,
-            committer_email = %(committer_email)s,
-            committer_name = %(committer_name)s
-        WHERE
-            hash = %(hash)s
-            and namespace = %(namespace)s
-            and repository = %(repository)s
-        """,
-        SqlArgs(
-            identifiers={
-                "schema": table.schema.name,
-                "table": table.table_name,
-            }
-        ),
-    )
-
-
 def commit_exists(
     table: TableID,
     repo: RepoId,
     commit_hash: str,
-) -> LegacyQuery:
-    return LegacyQuery(
-        """
-        SELECT hash, namespace, repository
-        FROM {schema}.{table}
-        WHERE
-            hash = %(hash)s
-            and namespace = %(namespace)s
-            and repository = %(repository)s
-        LIMIT 1
-        """,
-        SqlArgs(
-            {
-                "namespace": repo.namespace,
-                "repository": repo.repository,
-                "hash": commit_hash,
-            },
-            {
-                "schema": table.schema.name,
-                "table": table.table_name,
-            },
-        ),
+) -> Tuple[Query, QueryValues]:
+    statement = """
+    SELECT 1
+    FROM {schema}.{table}
+    WHERE
+        hash = %(hash)s
+        and namespace = %(namespace)s
+        and repository = %(repository)s
+    """
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    args: Dict[str, PrimitiveVal] = {
+        "namespace": repo.namespace,
+        "repository": repo.repository,
+        "hash": commit_hash,
+    }
+    return (
+        Query.dynamic_query(statement, freeze(identifiers)),
+        QueryValues(freeze(args)),
     )
 
 

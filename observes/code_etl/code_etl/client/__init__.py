@@ -224,6 +224,7 @@ class RawClient:
 class _Client:
     # exposes utilities from and to DB using not raw objs
     db_client: DbClient
+    sql_client: SqlClient
     table: TableID
     raw: RawClient
 
@@ -238,7 +239,11 @@ class Client:
         _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
     ) -> Client:
         _client = DbClient(_db_client)
-        return Client(_Client(_client, _table, RawClient(_sql_client, _table)))
+        return Client(
+            _Client(
+                _client, _sql_client, _table, RawClient(_sql_client, _table)
+            )
+        )
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         return self._inner.raw.all_data_count(namespace)
@@ -247,14 +252,13 @@ class Client:
         last = self._inner.db_client.execute_query(
             _query.last_commit_hash(self._inner.table, repo)
         ).bind(lambda _: _fetch_one_result(self._inner.db_client, str))
+        query, args = _query.commit_exists(
+            self._inner.table, repo, COMMIT_HASH_SENTINEL
+        )
         is_new = (
-            self._inner.db_client.execute_query(
-                _query.commit_exists(
-                    self._inner.table, repo, COMMIT_HASH_SENTINEL
-                ),
-            )
-            .bind(lambda _: _fetch_not_empty(self._inner.db_client))
-            .map(lambda b: not b)
+            self._inner.sql_client.execute(query, args)
+            .bind(lambda _: self._inner.sql_client.fetch_one())
+            .map(lambda b: not b.map(lambda _: True).value_or(False))
         )
         return last.bind(
             lambda i: is_new.map(
