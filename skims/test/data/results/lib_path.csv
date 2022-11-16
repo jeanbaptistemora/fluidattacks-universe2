@@ -24683,7 +24683,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,7,310,sk
   14 |
   15 |
      ^ Col 9
-",c_sharp.c_sharp_insecure_rijndael_managed
+",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,"
    4 |  * SPDX-License-Identifier: MPL-2.0
    5 |  */
