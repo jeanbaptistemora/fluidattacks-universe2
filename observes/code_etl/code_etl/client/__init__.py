@@ -133,17 +133,21 @@ class RawClient:
             else _query.all_data_count(self._table)
         )
         return self._sql_client.execute(*query_items).bind(
-            lambda _: self._db_client.fetch_one().map(
-                lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
+            lambda _: self._sql_client.fetch_one()
+            .map(lambda m: m.unwrap())
+            .map(
+                lambda i: assert_key(i.data, 0).bind(
+                    lambda j: assert_type(j, int)
+                )
             )
         )
 
     def insert_rows(self, rows: FrozenList[CommitTableRow]) -> Cmd[None]:
         msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
         return msg.bind(
-            lambda _: self._db_client.execute_batch(
+            lambda _: self._sql_client.batch(
                 _query.insert_row(self._table),
-                tuple(SqlArgs(to_dict(r)) for r in rows),
+                tuple(QueryValues(commit_row_to_dict(r)) for r in rows),
             )
         )
 

@@ -26,14 +26,11 @@ from postgres_client.query import (
     SqlArgs,
 )
 from redshift_client.sql_client import (
+    Query,
     QueryValues,
 )
 from redshift_client.sql_client.primitive import (
     PrimitiveVal,
-)
-from redshift_client.sql_client.query import (
-    dynamic_query,
-    Query,
 )
 from typing import (
     Dict,
@@ -58,7 +55,10 @@ def _all_data(
     stm = _namespace.map(
         lambda _: f"{base_stm} WHERE namespace = %(namespace)s"
     ).value_or(base_stm)
-    return (dynamic_query(stm, freeze(id_args)), QueryValues(freeze(args)))
+    return (
+        Query.dynamic_query(stm, freeze(id_args)),
+        QueryValues(freeze(args)),
+    )
 
 
 def namespace_data(
@@ -84,20 +84,22 @@ def all_data_count(
         "schema": table.schema.name,
         "table": table.table_name,
     }
-    return (dynamic_query(stm, freeze(id_args)), QueryValues(freeze(args)))
+    return (
+        Query.dynamic_query(stm, freeze(id_args)),
+        QueryValues(freeze(args)),
+    )
 
 
-def insert_row(table: TableID) -> LegacyQuery:
+def insert_row(table: TableID) -> Query:
     _fields = ",".join(CommitTableRow.fields())
     values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
-    return LegacyQuery(
+    identifiers: Dict[str, str] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    return Query.dynamic_query(
         f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values})",
-        SqlArgs(
-            identifiers={
-                "schema": table.schema.name,
-                "table": table.table_name,
-            }
-        ),
+        freeze(identifiers),
     )
 
 
@@ -108,7 +110,7 @@ def insert_unique_row(table: TableID) -> Query:
         "schema": table.schema.name,
         "table": table.table_name,
     }
-    return dynamic_query(
+    return Query.dynamic_query(
         f"""
         INSERT INTO {{schema}}.{{table}} ({_fields}) SELECT {values}
         WHERE NOT EXISTS (
