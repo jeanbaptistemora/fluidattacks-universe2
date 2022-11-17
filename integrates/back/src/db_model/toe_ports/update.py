@@ -49,7 +49,7 @@ async def update_metadata(
         facet=facet,
         values={
             "group_name": current_value.group_name,
-            "ip": current_value.ip,
+            "address": current_value.address,
             "port": current_value.port,
             "root_id": current_value.root_id,
         },
@@ -59,7 +59,7 @@ async def update_metadata(
         values={
             "be_present": str(current_value.be_present).lower(),
             "group_name": current_value.group_name,
-            "ip": current_value.ip,
+            "address": current_value.address,
             "port": current_value.port,
             "root_id": current_value.root_id,
         },
@@ -109,7 +109,7 @@ async def update_metadata(
             values={
                 "be_present": str(metadata_item["be_present"]).lower(),
                 "group_name": current_value.group_name,
-                "ip": current_value.ip,
+                "address": current_value.address,
                 "port": current_value.port,
                 "root_id": current_value.root_id,
             },

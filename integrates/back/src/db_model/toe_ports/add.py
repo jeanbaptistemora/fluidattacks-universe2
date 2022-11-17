@@ -36,7 +36,7 @@ async def add(*, toe_port: ToePort) -> None:
     toe_port_key = keys.build_key(
         facet=facet,
         values={
-            "ip": toe_port.ip,
+            "address": toe_port.address,
             "port": toe_port.port,
             "group_name": toe_port.group_name,
             "root_id": toe_port.root_id,
@@ -46,7 +46,7 @@ async def add(*, toe_port: ToePort) -> None:
         facet=GSI_2_FACET,
         values={
             "be_present": str(toe_port.be_present).lower(),
-            "ip": toe_port.ip,
+            "address": toe_port.address,
             "port": toe_port.port,
             "group_name": toe_port.group_name,
             "root_id": toe_port.root_id,

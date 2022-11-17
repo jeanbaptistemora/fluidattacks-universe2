@@ -21,7 +21,7 @@ from dynamodb.types import (
 async def remove(
     *,
     group_name: str,
-    ip: str,  # pylint: disable=invalid-name
+    address: str,
     port: str,
     root_id: str,
 ) -> None:
@@ -29,7 +29,7 @@ async def remove(
     toe_port_key = keys.build_key(
         facet=facet,
         values={
-            "ip": ip,
+            "address": address,
             "port": port,
             "group_name": group_name,
             "root_id": root_id,
@@ -52,7 +52,7 @@ async def remove_group_toe_ports(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(
-                primary_key.sort_key.replace("#ROOT#IP#PORT", "")
+                primary_key.sort_key.replace("#ROOT#ADDRESS#PORT", "")
             )
         ),
         facets=(TABLE.facets["toe_port_metadata"],),

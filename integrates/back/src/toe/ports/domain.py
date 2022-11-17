@@ -50,10 +50,10 @@ def _get_optional_be_present_until(
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
-async def add(  # pylint: disable=too-many-arguments,invalid-name
+async def add(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     group_name: str,
-    ip: str,
+    address: str,
     port: str,
     root_id: str,
     attributes: ToePortAttributesToAdd,
@@ -62,7 +62,7 @@ async def add(  # pylint: disable=too-many-arguments,invalid-name
     if not isinstance(root, IPRoot):
         raise InvalidRootType()
     validate_active_root(root)
-    validate_ip_and_port_in_root(root, ip, port)
+    validate_ip_and_port_in_root(root, address, port)
 
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at
@@ -77,7 +77,7 @@ async def add(  # pylint: disable=too-many-arguments,invalid-name
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,
         be_present_until=be_present_until,
-        ip=ip,
+        address=address,
         port=port,
         first_attack_at=first_attack_at,
         group_name=group_name,
@@ -94,7 +94,7 @@ async def remove(
 ) -> None:
     await toe_ports_model.remove(
         port=current_value.port,
-        ip=current_value.ip,
+        address=current_value.address,
         group_name=current_value.group_name,
         root_id=current_value.root_id,
     )

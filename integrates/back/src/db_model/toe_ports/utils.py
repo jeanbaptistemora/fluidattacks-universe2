@@ -43,7 +43,7 @@ def format_toe_port(
         else None,
         group_name=item["group_name"],
         has_vulnerabilities=item["has_vulnerabilities"],
-        ip=item["ip"],
+        address=item["address"],
         port=item["port"],
         root_id=item["root_id"],
         seen_at=datetime.fromisoformat(item["seen_at"])
@@ -86,7 +86,7 @@ def format_toe_port_item(
         else db_model_utils.get_date_as_utc_iso_format(
             toe_port.be_present_until
         ),
-        "ip": toe_port.ip,
+        "address": toe_port.address,
         "first_attack_at": None
         if toe_port.first_attack_at is None
         else db_model_utils.get_date_as_utc_iso_format(

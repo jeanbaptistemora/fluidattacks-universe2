@@ -23,14 +23,14 @@ class ToePort(NamedTuple):
     first_attack_at: Optional[datetime]
     group_name: str
     has_vulnerabilities: bool
-    ip: str
+    address: str
     port: str
     root_id: str
     seen_at: Optional[datetime]
     seen_first_time_by: Optional[str]
 
     def get_hash(self) -> int:
-        return hash((self.group_name, self.ip, self.port))
+        return hash((self.group_name, self.address, self.port))
 
 
 class ToePortEdge(NamedTuple):
@@ -45,7 +45,7 @@ class ToePortsConnection(NamedTuple):
 
 class ToePortRequest(NamedTuple):
     group_name: str
-    ip: str
+    address: str
     port: str
     root_id: str
 

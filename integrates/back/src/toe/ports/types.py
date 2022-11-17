@@ -13,7 +13,6 @@ from typing import (
 
 class ToePortAttributesToAdd(NamedTuple):
     be_present: bool
-    root_id: str
     attacked_at: Optional[datetime] = None
     attacked_by: Optional[str] = None
     first_attack_at: Optional[datetime] = None
