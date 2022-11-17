@@ -49,10 +49,8 @@ import inspect
 import logging
 import logging.config
 from newutils import (
-    function,
     logs as logs_utils,
     templates as templates_utils,
-    token as token_utils,
     validations,
 )
 from newutils.utils import (
@@ -62,6 +60,8 @@ from organizations import (
     domain as orgs_domain,
 )
 from sessions import (
+    domain as sessions_domain,
+    function,
     utils as sessions_utils,
 )
 from settings import (
@@ -131,7 +131,7 @@ def authenticate_session(func: TFun) -> TFun:
     async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
         try:
-            await token_utils.get_jwt_content(request)
+            await sessions_domain.get_jwt_content(request)
             return await func(*args, **kwargs)
         except (ExpiredToken, InvalidAuthorization):
             response = templates_utils.unauthorized(request)
@@ -236,7 +236,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         if isinstance(context, dict):
             context = context.get("request", {})
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         object_ = await resolve_group_name(context, args, kwargs)
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
@@ -291,7 +291,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             organization_identifier
         )
         organization_id = organization.id
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
@@ -330,7 +330,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
         else:
             GraphQLError("Could not get context from request.")
 
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
@@ -360,7 +360,7 @@ def enforce_owner(func: TVar) -> TVar:
         loaders = context.loaders
         owner = str((getattr(args[0], "owner", None) if args else None))
 
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         if owner != subject:
             stakeholder_level_role = await authz.get_user_level_role(
@@ -424,7 +424,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
             if isinstance(context, dict):
                 context = context.get("request", {})
-            store = token_utils.get_request_store(context)
+            store = sessions_domain.get_request_store(context)
             group_name = await resolve_group_name(context, args, kwargs)
             loaders = context.loaders
             group: Group = await loaders.group.load(group_name)
@@ -529,7 +529,7 @@ def require_corporate_email(func: Callable[..., Any]) -> TVar:
     @functools.wraps(func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
 
         if await is_personal_email(user_data["user_email"]):
             raise OnlyCorporateEmails()
@@ -555,7 +555,7 @@ def require_login(func: TVar) -> TVar:
         context = args[1].context if len(args) > 1 else args[0]
         if isinstance(context, dict):
             context = context.get("request", {})
-        store = token_utils.get_request_store(context)
+        store = sessions_domain.get_request_store(context)
 
         # Within the context of one request we only need to check this once
         # Future calls to this decorator will be passed trough
@@ -563,7 +563,7 @@ def require_login(func: TVar) -> TVar:
             return await _func(*args, **kwargs)
 
         try:
-            user_data: Any = await token_utils.get_jwt_content(context)
+            user_data: Any = await sessions_domain.get_jwt_content(context)
             if sessions_utils.is_api_token(user_data):
                 await verify_jti(
                     context.loaders,
@@ -601,7 +601,7 @@ def require_organization_access(func: TVar) -> TVar:
             or (getattr(args[0], "organization_id", None) if args else None)
         )
 
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         user_email = user_data["user_email"]
         loaders = context.loaders
         organization: Organization = await loaders.organization.load(

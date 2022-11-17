@@ -23,8 +23,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
-    token as token_utils,
     validations,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -51,7 +53,9 @@ async def mutate(
     org: Organization = await info.context.loaders.organization.load(
         kwargs["organization_id"]
     )
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
 
     if rut is not None:

@@ -31,7 +31,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -53,7 +55,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         loaders: Dataloaders = info.context.loaders
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         stakeholder_email = user_info["user_email"]
         other = kwargs.get("other")
         await events_domain.update_solving_reason(

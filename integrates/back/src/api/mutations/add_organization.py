@@ -14,11 +14,11 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
-from newutils import (
-    token as token_utils,
-)
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -35,7 +35,9 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> AddOrganizationPayload:
     loaders = info.context.loaders
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
     country = kwargs.get("country")
     name = kwargs["name"]

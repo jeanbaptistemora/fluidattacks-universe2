@@ -28,7 +28,9 @@ from groups.domain import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -44,7 +46,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     email = user_data["user_email"]
     group: Group = await loaders.group.load(group_name.lower())
     policies_to_update = format_policies_to_update(kwargs)

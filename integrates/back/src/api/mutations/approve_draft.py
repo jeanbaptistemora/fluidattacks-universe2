@@ -50,10 +50,12 @@ from mailer import (
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
-    token as token_utils,
 )
 from newutils.datetime import (
     convert_from_iso_str,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -88,7 +90,7 @@ async def mutate(
             severity_score
         )
         group_name = finding.group_name
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(
             info.context.loaders,

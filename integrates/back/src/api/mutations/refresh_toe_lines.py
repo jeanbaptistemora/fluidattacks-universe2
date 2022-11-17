@@ -30,7 +30,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -47,7 +49,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         group_name = parameters["group_name"]
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         action = Action.REFRESH_TOE_LINES
         queue = "small"
         job_payloads = await batch_domain.get_job_payloads(

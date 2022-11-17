@@ -48,7 +48,9 @@ from mailer import (
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Optional,
@@ -75,7 +77,7 @@ async def mutate(
         other_reason: Optional[str] = other if other != str(None) else None
 
         finding_loader = info.context.loaders.finding
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         rejection: DraftRejection = await findings_domain.reject_draft(
             context=info.context,
             finding_id=finding_id,

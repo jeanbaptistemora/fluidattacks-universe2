@@ -18,8 +18,8 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 
 # Constants
@@ -43,7 +43,9 @@ async def resolve(
     **_kwargs: None,
 ) -> set[str]:
     loaders: Dataloaders = get_new_context()
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
 
     permissions: set[str] = await _get_org_permissions(

@@ -27,7 +27,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
 )
 from newutils.validations import (
     validate_space_field,
@@ -37,6 +36,9 @@ from organizations import (
 )
 from organizations.types import (
     CredentialAttributesToUpdate,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -56,7 +58,7 @@ async def mutate(
     credentials: dict[str, str],
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     is_pat: bool = bool(credentials.get("is_pat", False))
     if is_pat:

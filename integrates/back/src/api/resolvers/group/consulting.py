@@ -20,11 +20,11 @@ from graphql.type.definition import (
 from group_comments import (
     domain as group_comments_domain,
 )
-from newutils import (
-    token as token_utils,
-)
 from newutils.group_comments import (
     format_group_consulting_resolve,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -39,7 +39,9 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> list[dict[str, Any]]:
-    user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_data: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     group_comments: tuple[
         GroupComment, ...
     ] = await group_comments_domain.get_comments(

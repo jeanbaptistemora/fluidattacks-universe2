@@ -28,7 +28,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from toe.lines import (
     domain as toe_lines_domain,
@@ -61,7 +63,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 ) -> SimplePayloadType:
     try:
         loaders: Dataloaders = info.context.loaders
-        user_data = await token_utils.get_jwt_content(info.context)
+        user_data = await sessions_domain.get_jwt_content(info.context)
         user_email = user_data["user_email"]
         await toe_lines_domain.add(
             loaders=loaders,

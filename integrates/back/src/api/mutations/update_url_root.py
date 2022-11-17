@@ -20,11 +20,11 @@ from graphql.type.definition import (
 from newutils.logs import (
     cloudwatch_log,
 )
-from newutils.token import (
-    get_jwt_content,
-)
 from roots.domain import (
     update_url_root,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -39,7 +39,9 @@ async def mutate(
     root_id: str,
     nickname: str,
 ) -> SimplePayload:
-    user_info: dict[str, str] = await get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
 
     await update_url_root(

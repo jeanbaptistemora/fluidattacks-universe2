@@ -25,7 +25,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     stakeholders as stakeholders_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -42,7 +44,7 @@ async def mutate(
     info: GraphQLResolveInfo,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
 
     await enrollment_domain.add_enrollment(

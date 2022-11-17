@@ -43,7 +43,6 @@ from freezegun import (
 from newutils import (
     datetime as datetime_utils,
     files as files_utils,
-    token as token_utils,
     utils,
 )
 from organizations import (
@@ -113,7 +112,7 @@ async def test_get_jwt_content() -> None:
             )
         ),
     )
-    test_data = await token_utils.get_jwt_content(request)
+    test_data = await sessions_domain.get_jwt_content(request)
     expected_output = {
         "user_email": user_email,
         "exp": expiration_time,
@@ -147,7 +146,7 @@ async def test_valid_token() -> None:
             )
         ),
     )
-    test_data = await token_utils.get_jwt_content(request)
+    test_data = await sessions_domain.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
         "exp": expiration_time,
@@ -174,7 +173,7 @@ async def test_valid_api_token() -> None:
         api=True,
     )
     request.cookies[JWT_COOKIE_NAME] = token
-    test_data = await token_utils.get_jwt_content(request)
+    test_data = await sessions_domain.get_jwt_content(request)
     expected_output = {
         "user_email": "unittest",
         "exp": expiration_time,
@@ -206,25 +205,25 @@ async def test_expired_token() -> None:
     request.cookies[JWT_COOKIE_NAME] = token
 
     with pytest.raises(InvalidAuthorization):
-        assert await token_utils.get_jwt_content(request)
+        assert await sessions_domain.get_jwt_content(request)
 
 
 async def test_token_expired() -> None:
     user_email = "integratesuser@gmail.com"
     request = await create_dummy_session(user_email)
     setattr(request, "store", defaultdict(lambda: None))
-    assert await token_utils.get_jwt_content(request)
+    assert await sessions_domain.get_jwt_content(request)
 
     new_request = await create_dummy_session(user_email)
     setattr(new_request, "store", defaultdict(lambda: None))
-    assert await token_utils.get_jwt_content(new_request)
+    assert await sessions_domain.get_jwt_content(new_request)
 
     with pytest.raises(ExpiredToken):
         setattr(request, "store", defaultdict(lambda: None))
-        assert await token_utils.get_jwt_content(request)
+        assert await sessions_domain.get_jwt_content(request)
 
         setattr(new_request, "store", defaultdict(lambda: None))
-        assert await token_utils.get_jwt_content(new_request)
+        assert await sessions_domain.get_jwt_content(new_request)
 
 
 async def test_revoked_token() -> None:
@@ -245,7 +244,7 @@ async def test_revoked_token() -> None:
     request.cookies[JWT_COOKIE_NAME] = token
 
     with pytest.raises(ExpiredToken):
-        assert await token_utils.get_jwt_content(request)
+        assert await sessions_domain.get_jwt_content(request)
 
 
 def test_replace_all() -> None:

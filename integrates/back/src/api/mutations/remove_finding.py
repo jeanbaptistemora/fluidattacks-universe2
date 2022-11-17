@@ -43,7 +43,9 @@ from mailer import (
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -62,7 +64,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         loaders: Dataloaders = get_new_context()
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         state_justification = StateRemovalJustification[justification]
         finding: Finding = await loaders.finding.load(finding_id)

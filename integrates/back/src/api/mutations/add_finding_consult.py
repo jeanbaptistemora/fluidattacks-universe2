@@ -39,8 +39,10 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
     validations as validations_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from time import (
     time,
@@ -55,7 +57,7 @@ async def _add_finding_consult(
 ) -> str:
     validations_utils.validate_fields([parameters["content"]])
     param_type = parameters.get("type", "").lower()
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
     finding: Finding = await info.context.loaders.finding.load(finding_id)

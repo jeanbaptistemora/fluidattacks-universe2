@@ -21,11 +21,11 @@ from graphql.type.definition import (
 from group_access.domain import (
     exists,
 )
-from newutils import (
-    token as token_utils,
-)
 from newutils.group_access import (
     format_invitation_state,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Optional,
@@ -37,7 +37,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[str]:
-    request_store = token_utils.get_request_store(info.context)
+    request_store = sessions_domain.get_request_store(info.context)
     entity = request_store.get("entity")
     loaders: Dataloaders = info.context.loaders
 

@@ -23,8 +23,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -57,7 +57,7 @@ async def _resolve_for_group(
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Stakeholder:
-    request_store = token_utils.get_request_store(info.context)
+    request_store = sessions_domain.get_request_store(info.context)
     entity: str = kwargs["entity"]
     request_store["entity"] = entity
     email: str = kwargs["user_email"]

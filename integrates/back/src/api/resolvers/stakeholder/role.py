@@ -32,13 +32,15 @@ from group_access.domain import (
 )
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
 )
 from newutils.group_access import (
     format_invitation_state as format_group_invitation_state,
 )
 from newutils.organization_access import (
     format_invitation_state as format_org_invitation_state,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Optional,
@@ -52,7 +54,7 @@ async def resolve(
 ) -> Optional[str]:
     loaders: Dataloaders = info.context.loaders
     stakeholder_role: str = ""
-    request_store = token_utils.get_request_store(info.context)
+    request_store = sessions_domain.get_request_store(info.context)
     entity = request_store.get("entity")
 
     if entity == "GROUP":

@@ -79,12 +79,14 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
     validations as validations_utils,
     vulnerabilities as vulns_utils,
 )
 from notifications import (
     domain as notifications_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from settings import (
     LOGGING,
@@ -900,7 +902,7 @@ async def verify(
         Vulnerability
     ] = await loaders.vulnerability.load_many(sorted(closed_vulns_ids))
     if context:
-        user_data = await token_utils.get_jwt_content(context)
+        user_data = await sessions_domain.get_jwt_content(context)
         modified_by = str(user_data["user_email"])
     else:
         modified_by = "machine@fluidattacks.com"

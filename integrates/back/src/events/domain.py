@@ -111,7 +111,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     files as files_utils,
-    token as token_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -119,6 +118,9 @@ import pytz
 import random
 from s3 import (
     operations as s3_ops,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from settings import (
     LOGGING,
@@ -384,7 +386,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     ] = await loaders.event_vulnerabilities_loader.load((event_id))
     has_reattacks: bool = len(affected_reattacks) > 0
     if has_reattacks:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         # For open vulns on hold
         reattacks_dict: dict[str, set[str]] = {}
         # For closed vulns on hold (yes, that can happen)

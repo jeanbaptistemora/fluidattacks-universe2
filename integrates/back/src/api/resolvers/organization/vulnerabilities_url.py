@@ -32,10 +32,8 @@ from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
 )
-from newutils.token import (
-    get_jwt_content,
-)
 from sessions import (
+    domain as sessions_domain,
     utils as sessions_utils,
 )
 from stakeholders.utils import (
@@ -67,7 +65,9 @@ async def resolve(
     )
 
     loaders: Dataloaders = info.context.loaders
-    user_info: dict[str, str] = await get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     if not sessions_utils.is_api_token(user_info):
         user_email: str = user_info["user_email"]
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)

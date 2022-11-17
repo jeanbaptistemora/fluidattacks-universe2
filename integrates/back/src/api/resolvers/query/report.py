@@ -52,9 +52,6 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import json
-from newutils import (
-    token as token_utils,
-)
 from newutils.datetime import (
     get_now,
 )
@@ -70,6 +67,9 @@ from organizations.domain import (
     validate_min_acceptance_severity,
 )
 import pytz
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     TIME_ZONE,
 )
@@ -279,7 +279,9 @@ async def resolve(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> Dict[str, Any]:
     loaders: Dataloaders = info.context.loaders
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":

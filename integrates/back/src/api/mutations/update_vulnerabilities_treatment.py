@@ -39,7 +39,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -66,7 +68,7 @@ async def mutate(
     **parameters: str,
 ) -> SimplePayload:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)

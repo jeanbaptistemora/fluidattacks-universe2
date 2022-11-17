@@ -23,7 +23,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     stakeholders as stakeholders_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -43,7 +45,7 @@ async def mutate(
     event_id: str,
     **_kwargs: Any,
 ) -> SimplePayload:
-    stakeholder_info: dict[str, str] = await token_utils.get_jwt_content(
+    stakeholder_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     await events_domain.reject_solution(

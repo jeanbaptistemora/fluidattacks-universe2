@@ -24,8 +24,8 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders.domain import (
     update_notification_preferences,
@@ -43,7 +43,7 @@ async def mutate(
     notifications_preferences: Dict[str, Any],
 ) -> SimplePayload:
     loaders = info.context.loaders
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
     if notifications_preferences.get("parameters", False):

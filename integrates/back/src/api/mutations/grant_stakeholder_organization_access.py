@@ -48,13 +48,15 @@ import logging.config
 from newutils import (
     logs as logs_utils,
     organization_access as org_access_utils,
-    token as token_utils,
 )
 from newutils.utils import (
     map_roles,
 )
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 # Constants
@@ -72,7 +74,7 @@ async def mutate(
         organization_id
     )
     organization_name = organization.name
-    requester_data = await token_utils.get_jwt_content(info.context)
+    requester_data = await sessions_domain.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]
 
     stakeholder_email = str(parameters.get("user_email")).lower().strip()

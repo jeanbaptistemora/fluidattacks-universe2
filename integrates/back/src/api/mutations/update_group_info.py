@@ -43,10 +43,12 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
     validations as validations_utils,
 )
 import pytz
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     TIME_ZONE,
 )
@@ -72,7 +74,7 @@ async def mutate(
 ) -> SimplePayloadType:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
     try:

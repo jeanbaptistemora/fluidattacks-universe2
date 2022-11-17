@@ -17,11 +17,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -33,7 +33,7 @@ async def resolve(
 ) -> tuple[Stakeholder, ...]:
     loaders: Dataloaders = info.context.loaders
     # The store is needed to resolve stakeholder's role
-    request_store = token_utils.get_request_store(info.context)
+    request_store = sessions_domain.get_request_store(info.context)
     request_store["entity"] = "ORGANIZATION"
     request_store["organization_id"] = parent.id
 

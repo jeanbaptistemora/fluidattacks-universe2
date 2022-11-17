@@ -30,11 +30,11 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
-from newutils import (
-    token as token_utils,
-)
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from tags import (
     domain as tags_domain,
@@ -51,7 +51,9 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     tag_name: str = kwargs["tag"].lower()
     organization_id: Optional[str] = kwargs.get("organizationId", None)
-    user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_data: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_data["user_email"]
     user_group_names: list[
         str

@@ -30,7 +30,9 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -60,7 +62,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     **kwargs: Any,
 ) -> UpdateToeInputPayload:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         current_value: ToeInput = await loaders.toe_input.load(

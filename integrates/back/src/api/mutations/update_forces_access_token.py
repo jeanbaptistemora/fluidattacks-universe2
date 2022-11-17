@@ -32,7 +32,9 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -47,7 +49,7 @@ async def mutate(
     group_name: str,
 ) -> UpdateAccessTokenPayload:
     loaders: Dataloaders = info.context.loaders
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     responsible = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
 

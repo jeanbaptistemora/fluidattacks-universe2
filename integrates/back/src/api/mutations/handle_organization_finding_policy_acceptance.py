@@ -23,11 +23,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from organizations_finding_policies import (
     domain as policies_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Dict,
@@ -46,7 +46,9 @@ async def mutate(
     organization_name: str,
     status: str,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
 
     await policies_domain.handle_finding_policy_acceptance(

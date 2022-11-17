@@ -24,7 +24,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -48,7 +50,7 @@ async def mutate(
     **_kwargs: Any,
 ) -> SimplePayloadType:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         await stakeholders_domain.update_mobile(
             user_email,

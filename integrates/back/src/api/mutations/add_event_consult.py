@@ -26,12 +26,14 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     stakeholders as stakeholders_utils,
-    token as token_utils,
     validations,
 )
 from newutils.datetime import (
     get_as_utc_iso_format,
     get_now,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from time import (
     time,
@@ -54,7 +56,9 @@ async def mutate(
     validations.validate_fields([content])
 
     comment_id: str = str(round(time() * 1000))
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     today = get_as_utc_iso_format(get_now())
     email = str(user_info["user_email"])
 

@@ -55,11 +55,13 @@ from machine.availability import (
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
-    token as token_utils,
     validations,
 )
 from newutils.requests import (
     get_source_new,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -81,7 +83,7 @@ async def mutate(
     title: str,
     **kwargs: Any,
 ) -> AddDraftPayload:
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
     if get_source_new(info.context).value != Source.MACHINE.value:

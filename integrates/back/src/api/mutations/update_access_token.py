@@ -20,7 +20,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -35,7 +37,7 @@ from typing import (
 async def mutate(
     _: Any, info: GraphQLResolveInfo, expiration_time: int
 ) -> UpdateAccessTokenPayloadType:
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     email = user_info["user_email"]
     try:
         result = await stakeholders_domain.update_access_token(

@@ -22,7 +22,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -50,7 +52,7 @@ async def mutate(
     rejected_vulnerabilities: list[str],
 ) -> SimplePayload:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         email: str = user_info["user_email"]
         await handle_vulnerabilities_acceptance(
             loaders=info.context.loaders,

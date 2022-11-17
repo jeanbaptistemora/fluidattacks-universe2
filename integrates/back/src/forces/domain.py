@@ -27,7 +27,6 @@ from groups import (
 import json
 from newutils import (
     datetime as datetime_utils,
-    token as token_utils,
 )
 from newutils.forces import (
     format_forces_vulnerabilities_to_add,
@@ -39,6 +38,9 @@ import os
 import re
 from s3 import (
     operations as s3_ops,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -108,7 +110,7 @@ async def add_forces_execution(
 
 async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
     user_email = format_forces_user_email(group_name)
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     modified_by = user_data["user_email"]
     await groups_domain.invite_to_group(
         loaders=info.context.loaders,

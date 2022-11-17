@@ -23,13 +23,15 @@ from graphql.type.definition import (
 from newutils import (
     analytics,
     logs as logs_utils,
-    token as token_utils,
 )
 from organizations import (
     utils as orgs_utils,
 )
 from roots import (
     validations as roots_validations,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -43,7 +45,9 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
     url = kwargs["url"]
     branch = kwargs["branch"]

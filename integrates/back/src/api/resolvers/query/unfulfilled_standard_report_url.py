@@ -23,11 +23,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from reports import (
     domain as reports_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -54,7 +54,9 @@ async def resolve(
     **_kwargs: Any,
 ) -> str:
     loaders: Dataloaders = info.context.loaders
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     stakeholder_email: str = user_info["user_email"]
     stakeholder: Stakeholder = await loaders.stakeholder.load(
         stakeholder_email

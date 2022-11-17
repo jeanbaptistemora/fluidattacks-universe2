@@ -43,10 +43,12 @@ import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
 )
 from newutils.utils import (
     map_roles,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 # Constants
@@ -68,7 +70,7 @@ async def mutate(
 ) -> GrantStakeholderAccessPayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     new_user_role = map_roles(role)
     new_user_email = kwargs.get("email", "").lower().strip()

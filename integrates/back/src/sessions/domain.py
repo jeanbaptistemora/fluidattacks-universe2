@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+import collections
 from context import (
     FI_JWT_ENCRYPTION_KEY,
     FI_JWT_SECRET,
@@ -29,6 +30,7 @@ from db_model.stakeholders.types import (
 )
 import json
 from jwcrypto.jwe import (
+    InvalidJWEData,
     JWE,
 )
 from jwcrypto.jwk import (
@@ -36,9 +38,17 @@ from jwcrypto.jwk import (
 )
 from jwcrypto.jwt import (
     JWT,
+    JWTExpired,
 )
+import logging
+import logging.config
 from sessions import (
+    function,
     utils as sessions_utils,
+)
+from settings import (
+    JWT_COOKIE_NAME,
+    LOGGING,
 )
 from starlette.requests import (
     Request,
@@ -48,6 +58,11 @@ from typing import (
     Dict,
     Optional,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 def encode_token(
@@ -98,6 +113,51 @@ def decode_token(token: str) -> Dict[str, Any]:
 
     default_claims = dict(exp=claims["exp"], sub=claims["sub"])
     return dict(decoded_payload, **default_claims)
+
+
+async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
+    context_store_key = function.get_id(get_jwt_content)
+    if isinstance(context, dict):
+        context = context.get("request", {})
+    store = get_request_store(context)
+
+    # Within the context of one request we only need to process it once
+    if context_store_key in store:
+        store[context_store_key]["user_email"] = store[context_store_key][
+            "user_email"
+        ].lower()
+        return store[context_store_key]
+
+    try:
+        cookies = context.cookies
+        cookie_token = cookies.get(JWT_COOKIE_NAME)
+        header_token = context.headers.get("Authorization")
+        token = header_token.split()[1] if header_token else cookie_token
+
+        if not token:
+            raise InvalidAuthorization()
+
+        content = decode_token(token)
+        email = content["user_email"]
+        if content.get("sub") == "starlette_session":
+            await verify_session_token(content, email)
+    except JWTExpired:
+        # Session expired
+        raise InvalidAuthorization() from None
+    except (AttributeError, IndexError) as ex:
+        LOGGER.exception(ex, extra={"extra": context})
+        raise InvalidAuthorization() from None
+    except InvalidJWEData:
+        raise InvalidAuthorization() from None
+    else:
+        content["user_email"] = content["user_email"].lower()
+        store[context_store_key] = content
+        return content
+
+
+def get_request_store(context: Any) -> collections.defaultdict:
+    """Returns customized store attribute of a Django/Starlette request"""
+    return context.store if hasattr(context, "store") else context.state.store
 
 
 async def remove_session_token(content: Dict[str, Any], email: str) -> None:

@@ -26,7 +26,9 @@ from newutils import (
     analytics,
     logs as logs_utils,
     resources as resources_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -46,7 +48,7 @@ async def mutate(
 ) -> DownloadFilePayload:
     file_info = parameters["files_data"]
     group_name = group_name.lower()
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     signed_url = await resources_utils.download_file(file_info, group_name)
     if signed_url:

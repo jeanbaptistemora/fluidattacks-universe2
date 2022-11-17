@@ -25,7 +25,9 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -38,7 +40,7 @@ from newutils import (
 async def mutate(
     _: None, info: GraphQLResolveInfo, group_name: str
 ) -> SimplePayloadType:
-    stakeholder_info = await token_utils.get_jwt_content(info.context)
+    stakeholder_info = await sessions_domain.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     await groups_domain.unsubscribe_from_group(

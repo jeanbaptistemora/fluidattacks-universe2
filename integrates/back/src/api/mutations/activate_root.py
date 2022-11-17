@@ -36,11 +36,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from roots import (
     domain as roots_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -109,7 +109,9 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
     root_loader: DataLoader = info.context.loaders.root
     root = await root_loader.load((kwargs["group_name"], kwargs["id"]))

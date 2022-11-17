@@ -26,8 +26,10 @@ from newutils import (
     analytics,
     logs as logs_utils,
     resources as resources_utils,
-    token as token_utils,
     validations as validations_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -46,7 +48,7 @@ async def mutate(
     _: None, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> SignPostUrlsPayload:
     files_data = parameters["files_data"]
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
     validations_utils.validate_file_name(files_data[0]["file_name"])

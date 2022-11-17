@@ -17,12 +17,12 @@ from graphql.type.definition import (
 from group_access.domain import (
     validate_new_invitation_time_limit,
 )
-from newutils import (
-    token as token_utils,
-)
 from remove_stakeholder.domain import (
     confirm_deletion_mail,
     get_confirm_deletion,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -32,7 +32,7 @@ async def mutate(
     info: GraphQLResolveInfo,
 ) -> SimplePayloadType:
     loaders: Dataloaders = info.context.loaders
-    stakeholder_info = await token_utils.get_jwt_content(info.context)
+    stakeholder_info = await sessions_domain.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
     deletion = await get_confirm_deletion(
         loaders=loaders, email=stakeholder_email

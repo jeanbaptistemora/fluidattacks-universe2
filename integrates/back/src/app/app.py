@@ -86,7 +86,6 @@ import logging.config
 from newutils import (
     analytics,
     templates,
-    token as token_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -149,7 +148,7 @@ LOGGER = logging.getLogger(__name__)
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
     """View for authenticated users."""
-    user_info = await token_utils.get_jwt_content(request)
+    user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
     try:
         if FI_ENVIRONMENT == "production":
@@ -320,7 +319,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session."""
     try:
-        user_info = await token_utils.get_jwt_content(request)
+        user_info = await sessions_domain.get_jwt_content(request)
     except (ExpiredToken, InvalidAuthorization):
         return templates.unauthorized(request)
 

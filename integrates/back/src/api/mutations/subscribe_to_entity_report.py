@@ -23,7 +23,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from subscriptions import (
     domain as subscriptions_domain,
@@ -39,7 +41,7 @@ async def mutate(
     report_subject: str,
 ) -> SimplePayloadType:
     loaders: Dataloaders = info.context.loaders
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     email = user_info["user_email"]
     subscription_entity = SubscriptionEntity[report_entity.upper()]
     subscription_frequency = SubscriptionFrequency[frequency.upper()]

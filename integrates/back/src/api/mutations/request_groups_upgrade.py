@@ -17,8 +17,8 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -32,7 +32,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     email = user_info["user_email"]
     group_names: list[str] = kwargs["group_names"]
     await groups_domain.request_upgrade(

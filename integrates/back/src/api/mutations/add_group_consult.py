@@ -30,8 +30,10 @@ from group_comments import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
     validations as validations_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 import time
 from typing import (
@@ -51,7 +53,7 @@ async def mutate(
 ) -> AddConsultPayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     current_time = datetime_utils.get_as_utc_iso_format(
         datetime_utils.get_now()

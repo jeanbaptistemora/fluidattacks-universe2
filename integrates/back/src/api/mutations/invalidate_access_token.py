@@ -19,7 +19,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -35,7 +37,7 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
 ) -> SimplePayloadType:
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     try:
         await stakeholders_domain.remove_access_token(user_info["user_email"])
         logs_utils.cloudwatch_log(

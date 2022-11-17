@@ -20,11 +20,11 @@ from finding_comments import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    token as token_utils,
-)
 from newutils.finding_comments import (
     format_finding_consulting_resolve,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -38,7 +38,7 @@ async def resolve(
     **_kwargs: None,
 ) -> list[dict[str, Any]]:
     loaders: Dataloaders = info.context.loaders
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     observations: list[
         FindingComment
     ] = await comments_domain.get_observations(

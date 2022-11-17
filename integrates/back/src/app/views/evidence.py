@@ -29,12 +29,14 @@ from magic import (
 from newutils import (
     files as files_utils,
     logs as logs_utils,
-    token as token_utils,
     utils,
 )
 from s3.operations import (
     download_file,
     list_files,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from starlette.requests import (
     Request,
@@ -66,7 +68,7 @@ async def enforce_group_level_role(
     *allowed_roles: Sequence[str],
 ) -> Response:
     response = None
-    user_info = await token_utils.get_jwt_content(request)
+    user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
     requester_role = await authz.get_group_level_role(loaders, email, group)
     if requester_role not in allowed_roles:
@@ -76,7 +78,7 @@ async def enforce_group_level_role(
 
 
 async def get_evidence(request: Request) -> Response:
-    user_info = await token_utils.get_jwt_content(request)
+    user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
     loaders: Dataloaders = get_new_context()
     group_name = request.path_params["group_name"]

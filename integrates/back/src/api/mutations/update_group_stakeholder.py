@@ -42,10 +42,12 @@ import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
 )
 from newutils.utils import (
     map_roles,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -101,7 +103,7 @@ async def mutate(
     group_name: str = updated_data["group_name"].lower()
     modified_role: str = map_roles(updated_data["role"])
     modified_email: str = updated_data["email"]
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
 
     loaders: Dataloaders = info.context.loaders

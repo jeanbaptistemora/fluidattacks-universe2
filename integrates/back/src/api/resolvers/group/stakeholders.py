@@ -22,8 +22,8 @@ from graphql.type.definition import (
 from group_access.domain import (
     get_group_stakeholders,
 )
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -41,10 +41,12 @@ async def resolve(
 ) -> tuple[Stakeholder, ...]:
     loaders: Dataloaders = info.context.loaders
     # The store is needed to resolve stakeholder's role
-    request_store = token_utils.get_request_store(info.context)
+    request_store = sessions_domain.get_request_store(info.context)
     request_store["entity"] = "GROUP"
     request_store["group_name"] = parent.name
-    user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_data: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_data["user_email"]
     stakeholders: tuple[Stakeholder, ...] = await get_group_stakeholders(
         loaders, parent.name

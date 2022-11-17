@@ -12,8 +12,8 @@ from app import (
 from app.views.types import (
     UserAccessInfo,
 )
-from newutils import (
-    token as token_utils,
+from sessions import (
+    domain as sessions_domain,
 )
 from starlette.requests import (
     Request,
@@ -32,7 +32,7 @@ async def graphic_csv(request: Request) -> Response:
 
 
 async def graphics_for_entity(entity: str, request: Request) -> Response:
-    request_data = await token_utils.get_jwt_content(request)
+    request_data = await sessions_domain.get_jwt_content(request)
     response = await analytics_domain.handle_graphics_for_entity_request(
         entity=entity,
         request=request,

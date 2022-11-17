@@ -30,7 +30,9 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from toe.lines import (
     domain as toe_lines_domain,
@@ -59,7 +61,7 @@ async def mutate(
     **kwargs: Any,
 ) -> UpdateToeLinesPayload:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         current_value: ToeLines = await loaders.toe_lines.load(

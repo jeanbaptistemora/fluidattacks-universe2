@@ -19,7 +19,9 @@ from groups import (
 )
 from newutils import (
     groups as groups_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -29,7 +31,9 @@ async def resolve(
     **_kwargs: None,
 ) -> tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
-    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
+        info.context
+    )
     user_email: str = user_info["user_email"]
     user_group_names: list[
         str

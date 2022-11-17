@@ -28,8 +28,10 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
     validations,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -56,7 +58,7 @@ async def mutate(
     vulnerabilities: list[str],
 ) -> SimplePayloadType:
     try:
-        user_info = await token_utils.get_jwt_content(info.context)
+        user_info = await sessions_domain.get_jwt_content(info.context)
         # Validate justification length and vet characters in it
         validations.validate_field_length(
             justification,

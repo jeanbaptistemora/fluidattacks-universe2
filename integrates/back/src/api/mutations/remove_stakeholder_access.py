@@ -22,7 +22,9 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 
 
@@ -38,7 +40,7 @@ async def mutate(
     user_email: str,
     group_name: str,
 ) -> RemoveStakeholderAccessPayload:
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
     await groups_domain.remove_stakeholder(
         loaders=info.context.loaders,

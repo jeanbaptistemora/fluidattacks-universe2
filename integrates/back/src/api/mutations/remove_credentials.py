@@ -21,10 +21,12 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
 )
 from organizations import (
     domain as orgs_domain,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -43,7 +45,7 @@ async def mutate(
     organization_id: str,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    user_data = await token_utils.get_jwt_content(info.context)
+    user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     await orgs_domain.remove_credentials(
         loaders=loaders,

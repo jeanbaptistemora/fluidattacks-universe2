@@ -44,7 +44,9 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
-    token as token_utils,
+)
+from sessions import (
+    domain as sessions_domain,
 )
 from typing import (
     Any,
@@ -67,7 +69,7 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    user_info = await token_utils.get_jwt_content(info.context)
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
     org: Organization = await loaders.organization.load(group.organization_id)

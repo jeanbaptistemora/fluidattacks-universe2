@@ -35,7 +35,6 @@ import logging.config
 from newutils import (
     analytics as analytics_utils,
     templates as templates_utils,
-    token as token_utils,
     validations,
 )
 from newutils.encodings import (
@@ -45,6 +44,9 @@ from organizations import (
     domain as orgs_domain,
 )
 import os
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -133,7 +135,7 @@ async def handle_authz_claims(
     request: Request,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    user_info = await token_utils.get_jwt_content(request)
+    user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
     valid_filters = [30, 60, 90, 180]
     if any(

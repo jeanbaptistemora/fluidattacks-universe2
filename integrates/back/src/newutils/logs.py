@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from .token import (
-    get_jwt_content,
-)
 from aioextensions import (
     in_thread,
     schedule,
@@ -18,6 +15,9 @@ from custom_exceptions import (
 )
 import logging
 import logging.config
+from sessions import (
+    domain as sessions_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -37,7 +37,7 @@ def cloudwatch_log(request: Request, msg: str) -> None:
 
 async def cloudwatch_log_async(request: Request, msg: str) -> None:
     try:
-        user_data = await get_jwt_content(request)
+        user_data = await sessions_domain.get_jwt_content(request)
     except (ExpiredToken, InvalidAuthorization):
         user_data = {"user_email": "unauthenticated"}
     info = [str(user_data["user_email"])]
