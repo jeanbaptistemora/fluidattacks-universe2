@@ -35,23 +35,8 @@ from fa_purity.union import (
 )
 from typing import (
     Optional,
-    TypeVar,
     Union,
 )
-
-_T = TypeVar("_T")
-
-
-class RawDecodeError(Exception):
-    def __init__(
-        self,
-        target: str,
-        raw: _T,
-    ):
-        super().__init__(
-            f"TypeError when trying to build `{target}` "
-            f"from raw obj `{str(raw)}`"
-        )
 
 
 def _decode_user(name: Optional[str], email: Optional[str]) -> ResultE[User]:
@@ -94,16 +79,20 @@ def decode_commit_data_2(
                 )
             )
         )
-    )
+    ).alt(lambda e: TypeError(f"Failed `CommitData` decode i.e. {e}"))
 
 
 def decode_commit_data_id(
     raw: CommitTableRow,
 ) -> ResultE[CommitDataId]:
-    return assert_not_none(raw.fa_hash).map(
-        lambda fa: CommitDataId(
-            RepoId(raw.namespace, raw.repository), CommitId(raw.hash, fa)
+    return (
+        assert_not_none(raw.fa_hash)
+        .map(
+            lambda fa: CommitDataId(
+                RepoId(raw.namespace, raw.repository), CommitId(raw.hash, fa)
+            )
         )
+        .alt(lambda e: TypeError(f"Failed `CommitDataId` decode i.e. {e}"))
     )
 
 
@@ -114,14 +103,16 @@ def decode_commit_stamp(
         decode_commit_data_id(raw)
         .bind(lambda i: decode_commit_data_2(raw).map(lambda j: Commit(i, j)))
         .map(lambda c: CommitStamp(c, raw.seen_at))
-    )
+    ).alt(lambda e: TypeError(f"Failed `CommitStamp` decode i.e. {e}"))
 
 
 def decode_repo_registration(
     raw: CommitTableRow,
 ) -> ResultE[RepoRegistration]:
     if raw.hash != COMMIT_HASH_SENTINEL:
-        return Result.failure(TypeError("Not a RepoRegistration object"))
+        return Result.failure(
+            TypeError("Failed `RepoRegistration` decode"), RepoRegistration
+        ).alt(Exception)
     return Result.success(
         RepoRegistration(
             CommitDataId(
@@ -137,4 +128,4 @@ def decode_commit_table_row(
     raw: CommitTableRow,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
     reg = decode_repo_registration(raw).map(lambda x: inr(x, CommitStamp))
-    return reg.lash(lambda _: decode_commit_stamp(raw).map(inl))
+    return reg.lash(lambda _: decode_commit_stamp(raw).map(lambda x: inl(x)))

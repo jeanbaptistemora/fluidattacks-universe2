@@ -146,12 +146,12 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[CommitTableRow]:
         total_lines = assert_opt_type(raw[10], int).unwrap()
         total_files = assert_opt_type(raw[11], int).unwrap()
 
-        namespace = assert_type(raw[3], str).unwrap()
-        repository = assert_type(raw[3], str).unwrap()
-        _hash = assert_type(raw[3], str).unwrap()
-        fa_hash = assert_opt_type(raw[3], str).unwrap()
+        namespace = assert_type(raw[12], str).unwrap()
+        repository = assert_type(raw[13], str).unwrap()
+        _hash = assert_type(raw[14], str).unwrap()
+        fa_hash = assert_opt_type(raw[15], str).unwrap()
 
-        seen_at = assert_type(raw[3], datetime).map(to_utc).unwrap()
+        seen_at = assert_type(raw[16], datetime).map(to_utc).unwrap()
         row = CommitTableRow(
             author_name,
             author_email,
@@ -173,10 +173,14 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[CommitTableRow]:
         )
         return factory.success(row)
     except KeyError as err:
-        return factory.failure(err).alt(Exception)
+        return factory.failure(
+            Exception(f"Failed `CommitTableRow` decode i.e. {err}")
+        )
     except UnwrapError as err:
         error = cast(UnwrapError[PrimitiveVal, Exception], err)
-        return factory.failure(error.container.unwrap_fail())
+        return factory.failure(error.container.unwrap_fail()).alt(
+            lambda e: Exception(f"Failed `CommitTableRow` decode i.e. {e}")
+        )
 
 
 def from_stamp(stamp: CommitStamp) -> CommitTableRow:
