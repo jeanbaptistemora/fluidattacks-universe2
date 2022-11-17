@@ -32568,24 +32568,50 @@ F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12
   14 |
      ^ Col 1
 ",c_sharp.c_sharp_xpath_injection
-F135,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts,9,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts","
-   1 | import { HttpHeaders } from '@angular/common/http';
-   2 | import Observable from '../types.ts';
-   3 |
-   4 | type LoginModel ={};
-   5 | export class AppComponent {
+F135,lines,namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js,11,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js","
+   1 | /*
+   2 |  * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   3 |  *
+   4 |  * SPDX-License-Identifier: MPL-2.0
+   5 |  */
    6 |
-   7 |   login(login: LoginModel): Observable<any>{
+   7 | import { HttpHeaders } from ""@angular/common/http"";
    8 |
->  9 |     const headers = new HttpHeaders({
-  10 |       'Content-Type': 'application/json',
-  11 |       'X-XSS-Protection': 'anything', // Unsafe F135
-  12 |       'X-Frame-Options': 'anything', // Unsafe F152
-  13 |     });
+   9 | export class AppComponent {
+  10 |   login(login) {
+> 11 |     const headers = new HttpHeaders({
+  12 |       ""Content-Type"": ""application/json"",
+  13 |       ""X-XSS-Protection"": ""anything"", // Unsafe F135
+  14 |       ""X-Frame-Options"": ""anything"", // Unsafe F152
+  15 |     });
+  16 |   }
+  17 | }
+     ^ Col 0
+",javascript.javascript_unsafe_http_xss_protection
+F135,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,15,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts","
+   2 |  * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   3 |  *
+   4 |  * SPDX-License-Identifier: MPL-2.0
+   5 |  */
+   6 |
+   7 | import { HttpHeaders } from '@angular/common/http';
+   8 | import Observable from '../types.ts';
+   9 |
+  10 | type LoginModel ={};
+  11 | export class AppComponent {
+  12 |
+  13 |   login(login: LoginModel): Observable<any>{
   14 |
-  15 |   }
-  16 | }
+> 15 |     const headers = new HttpHeaders({
+  16 |       'Content-Type': 'application/json',
+  17 |       'X-XSS-Protection': 'anything', // Unsafe F135
+  18 |       'X-Frame-Options': 'anything', // Unsafe F152
+  19 |     });
+  20 |
+  21 |   }
+  22 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xss_protection
 F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
@@ -34648,24 +34674,29 @@ F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
-F152,lines,namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts,9,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
- in namespace/skims/test/data/lib_root/f135/unsafe_http_headers.ts","
-   1 | import { HttpHeaders } from '@angular/common/http';
-   2 | import Observable from '../types.ts';
-   3 |
-   4 | type LoginModel ={};
-   5 | export class AppComponent {
+F152,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,15,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
+ in namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts","
+   2 |  * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   3 |  *
+   4 |  * SPDX-License-Identifier: MPL-2.0
+   5 |  */
    6 |
-   7 |   login(login: LoginModel): Observable<any>{
-   8 |
->  9 |     const headers = new HttpHeaders({
-  10 |       'Content-Type': 'application/json',
-  11 |       'X-XSS-Protection': 'anything', // Unsafe F135
-  12 |       'X-Frame-Options': 'anything', // Unsafe F152
-  13 |     });
+   7 | import { HttpHeaders } from '@angular/common/http';
+   8 | import Observable from '../types.ts';
+   9 |
+  10 | type LoginModel ={};
+  11 | export class AppComponent {
+  12 |
+  13 |   login(login: LoginModel): Observable<any>{
   14 |
-  15 |   }
-  16 | }
+> 15 |     const headers = new HttpHeaders({
+  16 |       'Content-Type': 'application/json',
+  17 |       'X-XSS-Protection': 'anything', // Unsafe F135
+  18 |       'X-Frame-Options': 'anything', // Unsafe F152
+  19 |     });
+  20 |
+  21 |   }
+  22 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xframe_options
 F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,37,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"

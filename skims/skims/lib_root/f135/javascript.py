@@ -25,15 +25,15 @@ from typing import (
 )
 
 
-def typescript_insecure_http_headers(
+def javascript_insecure_http_headers(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TS_UNSAFE_HTTP_XSS_PROTECTION
+    method = MethodsEnum.JS_UNSAFE_HTTP_XSS_PROTECTION
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.TYPESCRIPT,
+            GraphLanguage.JAVASCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue

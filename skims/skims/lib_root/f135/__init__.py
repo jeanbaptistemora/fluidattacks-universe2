@@ -2,8 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from lib_root.f135.javascript import (
+    javascript_insecure_http_headers,
+)
 from lib_root.f135.typescript import (
-    insecure_http_headers as typescript_insecure_http_headers,
+    typescript_insecure_http_headers,
 )
 from model import (
     core_model,
@@ -11,4 +14,7 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F135
-QUERIES: graph_model.Queries = ((FINDING, typescript_insecure_http_headers),)
+QUERIES: graph_model.Queries = (
+    (FINDING, typescript_insecure_http_headers),
+    (FINDING, javascript_insecure_http_headers),
+)
