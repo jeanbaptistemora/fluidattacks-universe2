@@ -38,6 +38,7 @@ from db_model import (
     enrollment as enrollment_model,
     organization_access as org_access_model,
     organizations as orgs_model,
+    portfolios as portfolios_model,
     roots as roots_model,
 )
 from db_model.constants import (
@@ -691,6 +692,9 @@ async def remove_organization(
         organization_id=organization_id, organization_name=organization_name
     )
     await remove_org_finding_policies(organization_name=organization_name)
+    await portfolios_model.remove_organization_portfolios(
+        organization_name=organization_name
+    )
 
 
 async def reject_register_for_organization_invitation(
