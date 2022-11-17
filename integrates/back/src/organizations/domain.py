@@ -96,6 +96,9 @@ from db_model.types import (
 from decimal import (
     Decimal,
 )
+from dynamodb.model import (
+    remove_org_finding_policies,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -687,6 +690,7 @@ async def remove_organization(
     await orgs_model.remove_unreliable_indicators(
         organization_id=organization_id, organization_name=organization_name
     )
+    await remove_org_finding_policies(organization_name=organization_name)
 
 
 async def reject_register_for_organization_invitation(
