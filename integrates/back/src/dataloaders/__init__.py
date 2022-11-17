@@ -9,6 +9,9 @@ from azure_repositories.dal import (
 from collections import (
     defaultdict,
 )
+from db_model.companies.get import (
+    CompanyLoader,
+)
 from db_model.compliance.get import (
     ComplianceUnreliableIndicatorsLoader,
 )
@@ -132,6 +135,7 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
+    company: CompanyLoader
     compliance_unreliable_indicators: ComplianceUnreliableIndicatorsLoader
     credentials: CredentialsLoader
     enrollment: EnrollmentLoader
@@ -283,6 +287,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     )
 
     return Dataloaders(
+        company=CompanyLoader(),
         compliance_unreliable_indicators=(
             ComplianceUnreliableIndicatorsLoader()
         ),

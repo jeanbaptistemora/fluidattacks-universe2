@@ -46,7 +46,7 @@ def handle_error(*, error: ClientError) -> None:
     )
 
     if custom_exception:
-        raise custom_exception
+        raise custom_exception from error
 
     LOGGER.exception(error)
     raise UnavailabilityError()
