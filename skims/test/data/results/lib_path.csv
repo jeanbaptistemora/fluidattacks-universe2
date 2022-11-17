@@ -28229,30 +28229,6 @@ F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfil
 > 26 | EXPOSE 21/tcp
      ^ Col 0
 ",docker.docker_port_exposed
-F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,10,319,skims,427. Use of an insecure channel - Docker,"Port 22 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
-   1 | FROM node:16-alpine@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS build
-   2 |
-   3 | WORKDIR /usr/src/app
-   4 |
-   5 | COPY --chown=node:node package*.json ./
-   6 | RUN npm i
-   7 | COPY --chown=node:node . .
-   8 | USER node
-   9 |
-> 10 | EXPOSE 22
-  11 |
-  12 | WORKDIR /usr/src/app
-  13 | COPY --chown=node:node package*.json ./
-  14 | COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-  15 | COPY --chown=node:node . .
-  16 |
-  17 | RUN npm run build
-  18 |
-  19 | ENV NODE_ENV production
-  20 |
-  21 | RUN npm i --only=production && npm cache clean --force
-     ^ Col 0
-",docker.docker_port_exposed
 F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,24,319,skims,427. Use of an insecure channel - Docker,"Port 53 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
    6 | RUN npm i
    7 | COPY --chown=node:node . .

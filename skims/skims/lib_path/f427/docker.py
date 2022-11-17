@@ -18,7 +18,7 @@ from typing import (
 
 def docker_port_exposed(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int, str]]:
-        unsafe_ports = r"(20|21|22|23|25|53|69|80|137|139|443|445|8080|8443)$"
+        unsafe_ports = r"(20|21|23|25|53|69|80|137|139|445|8080)$"
         for line_number, line in enumerate(content.splitlines(), start=1):
             if line.startswith("EXPOSE"):
                 for port in line.split(" ")[1:]:
