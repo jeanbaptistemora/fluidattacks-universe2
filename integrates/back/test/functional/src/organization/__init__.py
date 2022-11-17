@@ -33,6 +33,20 @@ async def get_result(
                 groups {{
                     name
                 }}
+                integrationRepositoriesConnection(first: 100) {{
+                    __typename
+                    edges {{
+                        node {{
+                            defaultBranch
+                            lastCommitDate
+                            url
+                        }}
+                    }}
+                    pageInfo {{
+                        hasNextPage
+                        endCursor
+                    }}
+                }}
                 stakeholders {{
                     email
                 }}

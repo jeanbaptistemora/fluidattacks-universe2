@@ -24,6 +24,15 @@ from dataloaders import (
 from db_model.enums import (
     Notification,
 )
+from db_model.groups.types import (
+    Group,
+)
+from db_model.integration_repositories.remove import (
+    remove,
+)
+from db_model.integration_repositories.types import (
+    OrganizationIntegrationRepository,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -39,6 +48,7 @@ from graphql.type.definition import (
 from group_access import (
     domain as group_access_domain,
 )
+import hashlib
 from machine.availability import (
     is_check_available,
 )
@@ -56,6 +66,9 @@ from newutils import (
 )
 from roots import (
     domain as roots_domain,
+)
+from roots.utils import (
+    format_git_repo_url,
 )
 from typing import (
     Any,
@@ -131,6 +144,21 @@ async def mutate(
                 },
             ],
         )
+
+    group_name = str(kwargs["group_name"]).lower()
+    group: Group = await loaders.group.load(group_name)
+    await remove(
+        repository=OrganizationIntegrationRepository(
+            id=hashlib.sha256(kwargs["url"].encode("utf-8")).hexdigest(),
+            organization_id=group.organization_id,
+            branch=(
+                "refs/heads/"
+                f'{kwargs["branch"].rstrip().lstrip("refs/heads/")}'
+            ),
+            last_commit_date="",
+            url=format_git_repo_url(kwargs["url"]),
+        )
+    )
 
     await groups_mail.send_mail_added_root(
         loaders=loaders,

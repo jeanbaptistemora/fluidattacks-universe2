@@ -2,8 +2,12 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+# pylint: disable=import-error
 from . import (
     get_result,
+)
+from back.test.functional.src.organization import (
+    get_result as get_organization,
 )
 from dataloaders import (
     get_new_context,
@@ -26,6 +30,18 @@ from typing import (
 async def test_add_git_root(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
+    org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
+
+    organization: dict = await get_organization(user=email, org=org_id)
+    assert (
+        len(
+            organization["data"]["organization"][
+                "integrationRepositoriesConnection"
+            ]["edges"]
+        )
+        == 1
+    )
+
     result: Dict[str, Any] = await get_result(
         user=email,
         group=group_name,
@@ -38,6 +54,16 @@ async def test_add_git_root(populate: bool, email: str) -> None:
     root = await loaders.root.load((group_name, root_id))
     assert root.cloning.status.value == "QUEUED"
     assert root.cloning.reason == "Cloning queued..."
+
+    organization = await get_organization(user=email, org=org_id)
+    assert (
+        len(
+            organization["data"]["organization"][
+                "integrationRepositoriesConnection"
+            ]["edges"]
+        )
+        == 0
+    )
 
 
 @pytest.mark.asyncio

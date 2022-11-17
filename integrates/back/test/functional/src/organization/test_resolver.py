@@ -91,6 +91,24 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert sorted(groups) == []
     assert sorted(stakeholders) == sorted(org_stakeholders)
+    assert (
+        result["data"]["organization"]["integrationRepositoriesConnection"][
+            "edges"
+        ][0]["node"]["defaultBranch"]
+        == "main"
+    )
+    assert (
+        result["data"]["organization"]["integrationRepositoriesConnection"][
+            "edges"
+        ][0]["node"]["lastCommitDate"]
+        == "2022-11-02 09:37:57"
+    )
+    assert (
+        result["data"]["organization"]["integrationRepositoriesConnection"][
+            "edges"
+        ][0]["node"]["url"]
+        == "ssh://git@test.com:v3/testprojects/_git/secondrepor"
+    )
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
     assert len(result["data"]["organization"]["credentials"]) == 2
