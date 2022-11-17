@@ -27,7 +27,7 @@ class MetadataTableRow:
     # pylint: disable=invalid-name,too-many-instance-attributes
     id: str
     created_by: str
-    created_date: str
+    created_date: datetime
     language: str
     name: str
     organization_id: str
