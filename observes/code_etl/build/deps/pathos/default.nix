@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: MPL-2.0
 {
   lib,
-  pythonPkgs,
+  python_pkgs,
 }: let
-  ppft = pythonPkgs.ppft.overridePythonAttrs (
+  ppft = python_pkgs.ppft.overridePythonAttrs (
     old: rec {
       version = "1.6.6.4";
       src = lib.fetchPypi {
@@ -16,7 +16,7 @@
       };
     }
   );
-  pox = pythonPkgs.pox.overridePythonAttrs (
+  pox = python_pkgs.pox.overridePythonAttrs (
     old: rec {
       version = "0.3.0";
       src = lib.fetchPypi {
@@ -28,7 +28,7 @@
     }
   );
 in
-  pythonPkgs.pathos.overridePythonAttrs (
+  python_pkgs.pathos.overridePythonAttrs (
     old: rec {
       version = "0.2.8";
       src = lib.fetchPypi {
@@ -37,6 +37,6 @@ in
         extension = "zip";
         sha256 = "Hw8nqQ96tmxCO6eWUpAA/ek2DRey2OUAl2Qf9AX8bxU=";
       };
-      propagatedBuildInputs = [pythonPkgs.dill pythonPkgs.multiprocess pox ppft];
+      propagatedBuildInputs = [python_pkgs.dill python_pkgs.multiprocess pox ppft];
     }
   )

@@ -47,7 +47,7 @@ fetchNixpkgs: projectPath: observesIndex: let
   local_pkgs = {inherit fa-purity redshift-client utils-logger;};
   out = import ./. {
     inherit python_version;
-    pkgs = nixpkgs // local_pkgs;
+    nixpkgs = nixpkgs // local_pkgs;
     src = ./.;
   };
 in

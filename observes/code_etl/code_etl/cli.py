@@ -51,6 +51,7 @@ from redshift_client.sql_client.connection import (
     Credentials,
     DatabaseId,
 )
+import sys
 from typing import (
     Any,
     IO as FILE,
@@ -111,7 +112,7 @@ mailmap_file = click.Path(
     allow_dash=False,
     path_type=str,
 )
-pass_ctx = click.make_pass_decorator(CmdContext)
+pass_ctx = click.make_pass_decorator(CmdContext)  # type: ignore[misc]
 
 
 def _get_mailmap(path: Optional[str]) -> Maybe[Mailmap]:
@@ -123,11 +124,11 @@ def _to_table(pair: Tuple[str, str]) -> TableId:
 
 
 @click.command()  # type: ignore[misc]
-@click.option("--mailmap", type=mailmap_file)
-@click.option("--schema", type=str, required=True)
-@click.option("--table", type=str, required=True)
-@click.option("--namespace", type=str, required=True)
-@click.pass_obj
+@click.option("--mailmap", type=mailmap_file)  # type: ignore[misc]
+@click.option("--schema", type=str, required=True)  # type: ignore[misc]
+@click.option("--table", type=str, required=True)  # type: ignore[misc]
+@click.option("--namespace", type=str, required=True)  # type: ignore[misc]
+@click.pass_obj  # type: ignore[misc]
 def amend_authors(
     ctx: CmdContext,
     schema: str,
@@ -145,10 +146,10 @@ def amend_authors(
 
 
 @click.command()  # type: ignore[misc]
-@click.argument("folder", type=str)
-@click.argument("year", type=int)
-@click.argument("month", type=int)
-@click.argument("integrates_token", type=str)
+@click.argument("folder", type=str)  # type: ignore[misc]
+@click.argument("year", type=int)  # type: ignore[misc]
+@click.argument("month", type=int)  # type: ignore[misc]
+@click.argument("integrates_token", type=str)  # type: ignore[misc]
 def compute_bills(
     folder: str, year: int, month: int, integrates_token: str
 ) -> NoReturn:
@@ -158,12 +159,12 @@ def compute_bills(
 
 
 @click.command()  # type: ignore[misc]
-@click.option("--schema", type=str, required=True)
-@click.option("--table", type=str, required=True)
-@click.option("--namespace", type=str, required=True)
-@click.option("--mailmap", type=mailmap_file)
-@click.argument("repositories", type=str, nargs=-1)
-@pass_ctx
+@click.option("--schema", type=str, required=True)  # type: ignore[misc]
+@click.option("--table", type=str, required=True)  # type: ignore[misc]
+@click.option("--namespace", type=str, required=True)  # type: ignore[misc]
+@click.option("--mailmap", type=mailmap_file)  # type: ignore[misc]
+@click.argument("repositories", type=str, nargs=-1)  # type: ignore[misc]
+@pass_ctx  # type: ignore[misc]
 def upload_code(
     ctx: CmdContext,
     schema: str,
@@ -182,10 +183,10 @@ def upload_code(
 
 
 @click.command()  # type: ignore[misc]
-@click.argument("namespace", type=str)
-@click.option("--source", type=(str, str), help="schema-table pair")
-@click.option("--target", type=(str, str), help="schema-table pair")
-@pass_ctx
+@click.argument("namespace", type=str)  # type: ignore[misc]
+@click.option("--source", type=(str, str), help="schema-table pair")  # type: ignore[misc]
+@click.option("--target", type=(str, str), help="schema-table pair")  # type: ignore[misc]
+@pass_ctx  # type: ignore[misc]
 def calculate_fa_hash(
     ctx: CmdContext,
     source: Tuple[str, str],
@@ -207,11 +208,11 @@ migration.add_command(calculate_fa_hash)
 
 
 @click.group()  # type: ignore[misc]
-@click.option("--db-id", type=click.File("r"), required=True)
-@click.option("--creds", type=click.File("r"), required=True)
-@click.pass_context
+@click.option("--db-id", type=click.File("r"), required=True)  # type: ignore[misc]
+@click.option("--creds", type=click.File("r"), required=True)  # type: ignore[misc]
+@click.pass_context  # type: ignore[misc]
 def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:  # type: ignore[misc]
-    if "--help" not in click.get_os_args():
+    if "--help" not in sys.argv[1:]:
         ctx.obj = CmdContext(  # type: ignore[misc]
             id_from_str(db_id.read()),
             creds_from_str(creds.read()),

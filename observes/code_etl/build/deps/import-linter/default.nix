@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 {
   lib,
-  pythonPkgs,
+  python_pkgs,
 }: let
   grimp = lib.buildPythonPackage rec {
     pname = "grimp";
@@ -13,7 +13,7 @@
       hash = "sha256:v+4uMpCESktuAI9nwH2rVPOHA/wL8BYRGaVHMbob7Q0=";
     };
     doCheck = false;
-    propagatedBuildInputs = [pythonPkgs.networkx];
+    propagatedBuildInputs = [python_pkgs.networkx];
   };
 in
   lib.buildPythonPackage rec {
@@ -23,5 +23,5 @@ in
       inherit pname version;
       hash = "sha256:0fjUy8CnuzAwt3ONfi6tz/kY8HCp2wUiuV3yqINNR94=";
     };
-    propagatedBuildInputs = [grimp pythonPkgs.click];
+    propagatedBuildInputs = [grimp python_pkgs.click];
   }
