@@ -36,10 +36,17 @@ interface IFilterComp<IData extends object> extends IFilter<IData> {
   key: keyof IData;
 }
 
+interface IPermanentData {
+  id: string;
+  value?: string;
+  rangeValues?: [string, string];
+}
+
 interface IFiltersProps<IData extends object> {
   dataset?: IData[];
+  permaset?: [IPermanentData[], Dispatch<SetStateAction<IPermanentData[]>>];
   filters: IFilter<IData>[];
   setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
 }
 
-export type { IFilter, IFilterComp, IFiltersProps };
+export type { IFilter, IFilterComp, IFiltersProps, IPermanentData };

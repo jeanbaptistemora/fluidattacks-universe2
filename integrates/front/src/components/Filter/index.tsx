@@ -7,9 +7,14 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import type { IFilter, IFilterComp, IFiltersProps } from "./types";
+import type {
+  IFilter,
+  IFilterComp,
+  IFiltersProps,
+  IPermanentData,
+} from "./types";
 
 import { Button } from "components/Button";
 import {
@@ -128,6 +133,7 @@ const useFilters = <IData extends object>(
 
 const Filters = <IData extends object>({
   dataset = undefined,
+  permaset = undefined,
   filters,
   setFilters,
 }: IFiltersProps<IData>): JSX.Element => {
@@ -140,6 +146,8 @@ const Filters = <IData extends object>({
     setOpen(false);
   }, []);
 
+  const [permaValues, setPermaValues] = permaset ?? [undefined, undefined];
+
   function resetFiltersHandler(): (event: React.FormEvent) => void {
     return (event: React.FormEvent): void => {
       setFilters(
@@ -147,6 +155,13 @@ const Filters = <IData extends object>({
           return { ...filter, rangeValues: ["", ""], value: "" };
         })
       );
+      if (permaValues !== undefined) {
+        setPermaValues(
+          permaValues.map((permadata): IPermanentData => {
+            return { ...permadata, rangeValues: ["", ""], value: "" };
+          })
+        );
+      }
       event.stopPropagation();
     };
   }
@@ -169,6 +184,19 @@ const Filters = <IData extends object>({
             };
           }
 
+          setPermaValues?.(
+            permaValues.map((permadata): IPermanentData => {
+              if (permadata.id === id) {
+                return {
+                  ...permadata,
+                  rangeValues: value,
+                };
+              }
+
+              return permadata;
+            })
+          );
+
           return filter;
         })
       );
@@ -188,11 +216,42 @@ const Filters = <IData extends object>({
             };
           }
 
+          setPermaValues?.(
+            permaValues.map((permadata): IPermanentData => {
+              if (permadata.id === id) {
+                return {
+                  ...permadata,
+                  value: event.target.value,
+                };
+              }
+
+              return permadata;
+            })
+          );
+
           return filter;
         })
       );
     };
   }
+
+  useEffect((): void => {
+    if (permaset === undefined) return;
+    setFilters(
+      filters.map((filter): IFilter<IData> => {
+        const permaValue = permaValues?.find(
+          (permadata): boolean => permadata.id === filter.id
+        );
+
+        return {
+          ...filter,
+          rangeValues: permaValue?.rangeValues ?? filter.rangeValues,
+          value: permaValue?.value ?? filter.value,
+        };
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <React.Fragment>
@@ -369,5 +428,5 @@ const Filters = <IData extends object>({
   );
 };
 
-export type { IFilter };
+export type { IFilter, IPermanentData };
 export { Filters, useFilters };
