@@ -984,54 +984,58 @@ async def get_organization_billing(
     org: Organization,
     loaders: Dataloaders,
 ) -> OrganizationBilling:
-    authors: tuple[OrganizationAuthor, ...] = await get_organization_authors(
+    groups_total: tuple[Group, ...] = await loaders.organization_groups.load(
+        org.id,
+    )
+    groups_machine: frozenset[str] = frozenset(
+        group.name
+        for group in groups_total
+        if group.state.tier == GroupTier.MACHINE
+    )
+    groups_squad: frozenset[str] = frozenset(
+        group.name
+        for group in groups_total
+        if group.state.tier == GroupTier.SQUAD
+    )
+
+    authors_total: tuple[
+        OrganizationAuthor, ...
+    ] = await get_organization_authors(
         date=date,
         org=org,
         loaders=loaders,
     )
-
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
-        org.id,
+    authors_machine: frozenset[Optional[str]] = frozenset(
+        author.actor
+        for author in authors_total
+        if bool(author.groups & groups_machine)
     )
+    authors_squad: frozenset[Optional[str]] = frozenset(
+        author.actor
+        for author in authors_total
+        if bool(author.groups & groups_squad)
+    )
+
     prices: dict[str, Price] = await get_prices()
-
-    costs_base: int = 0
-    number_authors_machine: int = 0
-    number_authors_squad: int = 0
-    number_groups_machine: int = 0
-    number_groups_squad: int = 0
-    for group in org_groups:
-        if group.state.tier == GroupTier.SQUAD:
-            costs_base += int(prices["machine"].amount / 100)
-            number_groups_squad += 1
-        elif group.state.tier == GroupTier.MACHINE:
-            costs_base += int(prices["machine"].amount / 100)
-            number_groups_machine += 1
-        for author in authors:
-            if group.name in author.groups:
-                if group.state.tier == GroupTier.MACHINE:
-                    number_authors_machine += 1
-                elif group.state.tier == GroupTier.SQUAD:
-                    number_authors_squad += 1
-
-    number_authors_total: int = len(authors)
-    number_groups_total: int = len(org_groups)
-    costs_authors: int = int(
-        number_authors_squad * prices["squad"].amount / 100
+    costs_base: int = int(
+        prices["machine"].amount
+        * (len(groups_squad) + len(groups_machine))
+        / 100
     )
+    costs_authors: int = int(len(authors_squad) * prices["squad"].amount / 100)
     costs_total: int = costs_base + costs_authors
 
     return OrganizationBilling(
-        authors=authors,
+        authors=authors_total,
         costs_authors=costs_authors,
         costs_base=costs_base,
         costs_total=costs_total,
-        number_authors_machine=number_authors_machine,
-        number_authors_squad=number_authors_squad,
-        number_authors_total=number_authors_total,
-        number_groups_machine=number_groups_machine,
-        number_groups_squad=number_groups_squad,
-        number_groups_total=number_groups_total,
+        number_authors_machine=len(authors_machine),
+        number_authors_squad=len(authors_squad),
+        number_authors_total=len(authors_total),
+        number_groups_machine=len(groups_machine),
+        number_groups_squad=len(groups_squad),
+        number_groups_total=len(groups_total),
         organization=org.id,
     )
 
