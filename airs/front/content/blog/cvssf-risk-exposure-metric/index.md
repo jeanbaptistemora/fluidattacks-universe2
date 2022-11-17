@@ -105,7 +105,7 @@ This poses a difficulty.
 We could have ten vulnerabilities with a score of 1.0 each,
 and they would not represent the same risk as one of 10.0.
 Likewise,
-success in remediating those two vulnerabilities
+success in remediating those ten vulnerabilities
 should not be seen as valuable as that in fixing that one critical flaw.
 This raises the following possibility.
 
@@ -207,17 +207,17 @@ Case on point: Our [2022 State of Attacks](https://try.fluidattacks.com/state-of
 documented
 that 98% of the vulnerabilities we detected in the systems of our clients
 were of a low or medium CVSS severity.
-Yet **it was the remaining 2%
+**Yet it was the remaining 2%
 that generated 76% of the reported risk exposure**.
 They were exclusively high or critical CVSS severity vulnerabilities.
 
 So,
-organizations using the CVSSF can **promptly prioritize remediation
-of the vulnerabilities representing a higher risk exposure**.
+organizations using the CVSSF can **promptly prioritize remediation**
+of the vulnerabilities representing a higher risk exposure.
 If successful,
 this would cause the aggregated risk exposure to go down significantly.
 Also,
-**their uncertainty about their security status can be greatly reduced**,
+their uncertainty about their security status can be greatly reduced,
 as they have an **accurate aggregated value** at their disposal
 on which they can **base their goals for cybersecurity success**,
 and which they can **use for predictions of potential losses**.
