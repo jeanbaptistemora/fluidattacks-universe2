@@ -688,9 +688,6 @@ async def remove_organization(
     await credentials_model.remove_organization_credentials(
         organization_id=organization_id
     )
-    await orgs_model.remove_unreliable_indicators(
-        organization_id=organization_id, organization_name=organization_name
-    )
     await remove_org_finding_policies(organization_name=organization_name)
     await portfolios_model.remove_organization_portfolios(
         organization_name=organization_name
