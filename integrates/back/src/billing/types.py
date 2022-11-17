@@ -12,9 +12,9 @@ from typing import (
 
 
 class GroupAuthor(NamedTuple):
-    actor: Optional[str]
+    actor: str
     commit: Optional[str]
-    groups: Optional[str]
+    groups: str
     organization: Optional[str]
     repository: Optional[str]
 
@@ -28,8 +28,8 @@ class GroupBilling(NamedTuple):
 
 
 class OrganizationAuthor(NamedTuple):
-    actor: Optional[str]
-    groups: frozenset[Optional[str]]
+    actor: str
+    groups: frozenset[str]
 
 
 class OrganizationBilling(NamedTuple):

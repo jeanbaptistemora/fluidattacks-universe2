@@ -918,19 +918,19 @@ async def get_group_billing(*, date: datetime, group: Group) -> GroupBilling:
         date=date,
         group=group.name,
     )
-
-    prices: dict[str, Price] = await get_prices()
-
-    costs_base: int = 0
-    if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE):
-        costs_base = int(prices["machine"].amount / 100)
-
     number_authors: int = len(authors)
 
-    costs_authors: int = 0
-    if group.state.tier == GroupTier.SQUAD:
-        costs_authors = int(number_authors * prices["squad"].amount / 100)
-
+    prices: dict[str, Price] = await get_prices()
+    costs_authors: int = (
+        int(number_authors * prices["squad"].amount / 100)
+        if group.state.tier == GroupTier.SQUAD
+        else 0
+    )
+    costs_base: int = (
+        int(prices["machine"].amount / 100)
+        if group.state.tier in (GroupTier.SQUAD, GroupTier.MACHINE)
+        else 0
+    )
     costs_total: int = costs_base + costs_authors
 
     return GroupBilling(
@@ -961,7 +961,7 @@ async def get_organization_authors(
             )
         )
     )
-    org_actors: frozenset[Optional[str]] = frozenset(
+    org_actors: frozenset[str] = frozenset(
         author.actor for author in group_authors
     )
 
@@ -1005,12 +1005,12 @@ async def get_organization_billing(
         org=org,
         loaders=loaders,
     )
-    authors_machine: frozenset[Optional[str]] = frozenset(
+    authors_machine: frozenset[str] = frozenset(
         author.actor
         for author in authors_total
         if bool(author.groups & groups_machine)
     )
-    authors_squad: frozenset[Optional[str]] = frozenset(
+    authors_squad: frozenset[str] = frozenset(
         author.actor
         for author in authors_total
         if bool(author.groups & groups_squad)

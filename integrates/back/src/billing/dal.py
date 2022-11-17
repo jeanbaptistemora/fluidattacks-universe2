@@ -522,9 +522,9 @@ async def get_group_authors(
 
     return tuple(
         GroupAuthor(
-            actor=author.get("actor"),
+            actor=author["actor"],
             commit=author.get("commit"),
-            groups=author.get("groups"),
+            groups=author["groups"],
             organization=author.get("organization"),
             repository=author.get("repository"),
         )
