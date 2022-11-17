@@ -9,6 +9,10 @@ import React, { useEffect } from "react";
 
 import type { ICodeInfoProps } from "./types";
 
+import "prismjs/themes/prism-coy.css";
+import "prismjs/plugins/line-highlight/prism-line-highlight.js";
+import "prismjs/plugins/line-highlight/prism-line-highlight.css";
+
 const CodeInfo: React.FC<ICodeInfoProps> = ({
   vulnerability,
 }: ICodeInfoProps): JSX.Element => {
@@ -18,7 +22,15 @@ const CodeInfo: React.FC<ICodeInfoProps> = ({
 
   return (
     <div className={"Code"}>
-      <pre>
+      <pre
+        className={"line-highlight"}
+        data-line={String(Number(vulnerability.specific))}
+        data-line-offset={
+          Number(vulnerability.specific) > 10
+            ? String(Number(vulnerability.specific) - 11)
+            : 0
+        }
+      >
         <code className={"language-none"}>{vulnerability.snippet}</code>
       </pre>
     </div>
