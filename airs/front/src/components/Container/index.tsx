@@ -25,6 +25,8 @@ const Container: React.FC<IContainerProps> = ({
   mh,
   minHeight,
   minWidth,
+  minWidthMd,
+  minWidthSm,
   ml,
   mr,
   mt,
@@ -56,6 +58,8 @@ const Container: React.FC<IContainerProps> = ({
       mh={mh}
       minHeight={minHeight}
       minWidth={minWidth}
+      minWidthMd={minWidthMd}
+      minWidthSm={minWidthSm}
       ml={ml}
       mr={mr}
       mt={mt}

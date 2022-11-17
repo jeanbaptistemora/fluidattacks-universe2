@@ -31,6 +31,7 @@ interface IButtonProps
 
 const Button: FC<IButtonProps> = ({
   children,
+  disabled,
   display,
   icon,
   iconSide = "left",
@@ -42,6 +43,7 @@ const Button: FC<IButtonProps> = ({
 }: Readonly<IButtonProps>): JSX.Element => {
   return (
     <StyledButton
+      disabled={disabled}
       display={display}
       name={name}
       onClick={onClick}

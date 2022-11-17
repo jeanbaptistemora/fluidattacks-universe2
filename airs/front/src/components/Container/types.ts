@@ -39,6 +39,8 @@ interface IContainerProps {
   maxWidth?: string;
   minHeight?: string;
   minWidth?: string;
+  minWidthMd?: string;
+  minWidthSm?: string;
   scroll?: TScroll;
   width?: string;
   widthMd?: string;

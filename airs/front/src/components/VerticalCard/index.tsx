@@ -25,6 +25,8 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   description,
   image,
   minWidth,
+  minWidthMd,
+  minWidthSm,
   subtitle = "",
   subMinHeight,
   title,
@@ -44,6 +46,8 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         display={"flex"}
         mh={2}
         minWidth={minWidth}
+        minWidthMd={minWidthMd}
+        minWidthSm={minWidthSm}
         mv={2}
         width={width}
         widthMd={widthMd}
@@ -101,6 +105,8 @@ const VerticalCard: React.FC<IVerticalCard> = ({
       display={"flex"}
       mh={2}
       minWidth={minWidth}
+      minWidthMd={minWidthMd}
+      minWidthSm={minWidthSm}
       mv={2}
       width={width}
       widthMd={widthMd}

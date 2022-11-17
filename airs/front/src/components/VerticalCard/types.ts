@@ -15,6 +15,8 @@ interface IVerticalCard {
   subMinHeight?: string;
   titleMinHeight?: string;
   minWidth?: string;
+  minWidthMd?: string;
+  minWidthSm?: string;
   subtitle?: string;
   title: string;
   width?: string;

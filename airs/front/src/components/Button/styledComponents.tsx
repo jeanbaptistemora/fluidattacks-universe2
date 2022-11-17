@@ -129,7 +129,12 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     transition: all 0.3s ease;
     width: ${display === "block" ? "100%" : "auto"};
 
-    :hover {
+    :disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    :hover:not([disabled]) {
       background-color: ${bgColorHover};
       border-color: ${bgColorHover};
       color: ${colorHover};

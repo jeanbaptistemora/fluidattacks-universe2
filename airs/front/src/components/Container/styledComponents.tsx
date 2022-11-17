@@ -18,6 +18,9 @@ import type {
 const getWidth = (defaultWidth: string, width?: string): string =>
   width === undefined ? `width: ${defaultWidth};` : `width: ${width};`;
 
+const getMinWidth = (defaultWidth: string, width?: string): string =>
+  width === undefined ? `min-width: ${defaultWidth};` : `min-width: ${width};`;
+
 const getHorizontalMargin = (
   center: boolean,
   mh: number,
@@ -109,6 +112,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
+    minWidthMd,
+    minWidthSm,
     scroll = "none",
     width = "100%",
     widthMd,
@@ -125,21 +130,26 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     justify-content: ${justifies[justify]};
     max-width: ${maxWidth};
     min-height: ${minHeight};
-    min-width: ${minWidth};
     overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
     overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
     transition: all 0.3s ease;
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}
+      ${getMinWidth(minWidth)}
     }
 
     @media screen and (min-width: 30em) and (max-width: 60em) {
       ${getWidth(width, widthMd)}
+      ${getMinWidth(minWidth, minWidthMd)}
     }
 
     @media screen and (max-width: 30em) {
       ${getWidth(widthMd === undefined ? width : widthMd, widthSm)}
+      ${getMinWidth(
+        minWidthMd === undefined ? minWidth : minWidthMd,
+        minWidthSm
+      )}
     }
   `}
 `;

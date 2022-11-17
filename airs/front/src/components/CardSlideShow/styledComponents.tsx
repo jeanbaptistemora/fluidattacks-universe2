@@ -24,6 +24,10 @@ const SlideContainer = styled.div.attrs({
   @media screen and (max-width: 784px) {
     width: 360px;
   }
+
+  @media screen and (max-width: 30em) {
+    width: 286px;
+  }
 `;
 
 export { SlideContainer };

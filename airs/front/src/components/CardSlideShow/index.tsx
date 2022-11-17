@@ -24,13 +24,15 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
   containerTitle,
   data,
 }): JSX.Element => {
-  const cards = data;
-  const cardWidth = 360;
-  const maxScroll = cardWidth * cards.length;
+  const slideDiv = useRef<HTMLDivElement>(null);
+  const cardDiv = useRef<HTMLDivElement>(null);
+
+  const [cardWidth, setCardWidth] = useState(0);
   const [currentWidth, setCurrentWidth] = useState(0);
   const [scroll, setScroll] = useState(0);
 
-  const slideDiv = useRef<HTMLDivElement>(null);
+  const cards = data;
+  const maxScroll = cardWidth * cards.length;
 
   const scrollLeft: () => void = (): void => {
     setScroll(scroll < cardWidth ? 0 : scroll - cardWidth);
@@ -42,25 +44,26 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
     );
   };
 
-  const changeScroll: (element: React.RefObject<HTMLDivElement>) => void = (
-    element
-  ): void => {
-    if (element.current) {
-      if (
-        element.current.scrollLeft > 0 ||
-        element.current.scrollLeft < currentWidth
-      ) {
-        element.current.scrollLeft = scroll;
-      } else {
-        element.current.scrollLeft += 0;
-      }
-      setCurrentWidth(maxScroll - element.current.offsetWidth);
-    }
-  };
-
   useEffect((): void => {
+    const changeScroll: (element: React.RefObject<HTMLDivElement>) => void = (
+      element
+    ): void => {
+      if (element.current) {
+        if (
+          element.current.scrollLeft > 0 ||
+          element.current.scrollLeft < currentWidth
+        ) {
+          element.current.scrollLeft = scroll;
+        } else {
+          element.current.scrollLeft += 0;
+        }
+        setCurrentWidth(maxScroll - element.current.offsetWidth);
+      }
+    };
+
+    setCardWidth(cardDiv.current ? cardDiv.current.offsetWidth : 0);
     changeScroll(slideDiv);
-  });
+  }, [currentWidth, maxScroll, scroll]);
 
   return (
     <Container bgColor={"#25252d"} ph={4} pv={5}>
@@ -79,31 +82,46 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
         </Text>
       </Container>
       <SlideContainer>
-        <Container>
-          <Button icon={<IoIosArrowBack />} onClick={scrollLeft} />
-          <Button icon={<IoIosArrowForward />} onClick={scrollRight} />
-        </Container>
         <div className={"flex overflow-hidden scroll-smooth"} ref={slideDiv}>
           {cards.map((card): JSX.Element => {
             const { alt, description, image, title, slug } =
               card.node.frontmatter;
 
             return (
-              <VerticalCard
-                alt={alt}
-                btnText={btnText}
-                description={description}
-                image={image}
-                key={title}
-                link={slug}
-                minWidth={"344px"}
-                title={title}
-                titleMinHeight={"80px"}
-                width={"344px"}
-              />
+              <div className={"flex"} key={title} ref={cardDiv}>
+                <VerticalCard
+                  alt={alt}
+                  btnText={btnText}
+                  description={description}
+                  image={image}
+                  link={slug}
+                  minWidth={"344px"}
+                  minWidthSm={"270px"}
+                  title={title}
+                  titleMinHeight={"80px"}
+                />
+              </div>
             );
           })}
         </div>
+        <Container display={"flex"} mh={2} mt={3}>
+          <Container mr={2} width={"auto"}>
+            <Button
+              disabled={scroll === 0}
+              icon={<IoIosArrowBack />}
+              onClick={scrollLeft}
+              variant={"darkSecondary"}
+            />
+          </Container>
+          <Container width={"auto"}>
+            <Button
+              disabled={scroll === currentWidth}
+              icon={<IoIosArrowForward />}
+              onClick={scrollRight}
+              variant={"darkSecondary"}
+            />
+          </Container>
+        </Container>
       </SlideContainer>
     </Container>
   );
