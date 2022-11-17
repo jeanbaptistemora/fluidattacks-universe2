@@ -31,7 +31,6 @@ import type {
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -217,25 +216,22 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     ? formatGroupData(data.organization.groups)
     : [];
 
-  const [filters, setFilters] = useStoredState<IFilter<IGroupData>[]>(
-    "tblGroupsFilters",
-    [
-      {
-        filterFn: "includesInsensitive",
-        id: "name",
-        key: "name",
-        label: t("organization.tabs.groups.newGroup.name"),
-        type: "text",
-      },
-      {
-        id: "plan",
-        key: "plan",
-        label: t("organization.tabs.groups.plan"),
-        selectOptions: ["Machine", "Oneshot", "Squad"],
-        type: "select",
-      },
-    ]
-  );
+  const [filters, setFilters] = useState<IFilter<IGroupData>[]>([
+    {
+      filterFn: "includesInsensitive",
+      id: "name",
+      key: "name",
+      label: t("organization.tabs.groups.newGroup.name"),
+      type: "text",
+    },
+    {
+      id: "plan",
+      key: "plan",
+      label: t("organization.tabs.groups.plan"),
+      selectOptions: ["Machine", "Oneshot", "Squad"],
+      type: "select",
+    },
+  ]);
 
   const filteredDataset = useFilters(dataset, filters);
 

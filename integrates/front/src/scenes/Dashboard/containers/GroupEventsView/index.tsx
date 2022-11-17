@@ -145,46 +145,42 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const [filters, setFilters] = useStoredState<IFilter<IEventData>[]>(
-    "tblEventsFilters",
-    [
-      {
-        id: "eventDate",
-        key: "eventDate",
-        label: t("searchFindings.tabEvents.date"),
-        type: "dateRange",
-      },
-      {
-        id: "eventType",
-        key: "eventType",
-        label: t("searchFindings.tabEvents.type"),
-        selectOptions: selectOptionType,
-        type: "select",
-      },
-      {
-        filterFn: "caseInsensitive",
-        id: "eventStatus",
-        key: "eventStatus",
-        label: t("searchFindings.tabEvents.status"),
-        selectOptions: [
-          {
-            header: t(castEventStatus("VERIFICATION_REQUESTED")),
-            value: "Pending",
-          },
-          { header: t(castEventStatus("CREATED")), value: "Unsolved" },
-          { header: t(castEventStatus("SOLVED")), value: "Solved" },
-        ],
-        type: "select",
-      },
-      {
-        id: "closingDate",
-        key: "closingDate",
-        label: t("searchFindings.tabEvents.dateClosed"),
-        type: "dateRange",
-      },
-    ],
-    localStorage
-  );
+  const [filters, setFilters] = useState<IFilter<IEventData>[]>([
+    {
+      id: "eventDate",
+      key: "eventDate",
+      label: t("searchFindings.tabEvents.date"),
+      type: "dateRange",
+    },
+    {
+      id: "eventType",
+      key: "eventType",
+      label: t("searchFindings.tabEvents.type"),
+      selectOptions: selectOptionType,
+      type: "select",
+    },
+    {
+      filterFn: "caseInsensitive",
+      id: "eventStatus",
+      key: "eventStatus",
+      label: t("searchFindings.tabEvents.status"),
+      selectOptions: [
+        {
+          header: t(castEventStatus("VERIFICATION_REQUESTED")),
+          value: "Pending",
+        },
+        { header: t(castEventStatus("CREATED")), value: "Unsolved" },
+        { header: t(castEventStatus("SOLVED")), value: "Solved" },
+      ],
+      type: "select",
+    },
+    {
+      id: "closingDate",
+      key: "closingDate",
+      label: t("searchFindings.tabEvents.dateClosed"),
+      type: "dateRange",
+    },
+  ]);
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblEvents-visibilityState", {
       Assignees: false,

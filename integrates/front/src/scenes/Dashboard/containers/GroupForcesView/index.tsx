@@ -68,44 +68,41 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
-  const [filters, setFilters] = useStoredState<IFilter<IExecution>[]>(
-    "tblForcesExecutionsFilters",
-    [
-      {
-        id: "status",
-        key: "status",
-        label: t("group.forces.status.title"),
-        selectOptions: ["Secure", "Vulnerable"],
-        type: "select",
-      },
-      {
-        id: "strictness",
-        key: "strictness",
-        label: t("group.forces.strictness.title"),
-        selectOptions: ["Strict", "Tolerant"],
-        type: "select",
-      },
-      {
-        id: "kind",
-        key: "kind",
-        label: t("group.forces.kind.title"),
-        selectOptions: ["ALL", "DAST", "SAST"],
-        type: "select",
-      },
-      {
-        id: "gitRepo",
-        key: "gitRepo",
-        label: t("group.forces.gitRepo"),
-        type: "text",
-      },
-      {
-        id: "date",
-        key: "date",
-        label: t("group.forces.date"),
-        type: "dateRange",
-      },
-    ]
-  );
+  const [filters, setFilters] = useState<IFilter<IExecution>[]>([
+    {
+      id: "status",
+      key: "status",
+      label: t("group.forces.status.title"),
+      selectOptions: ["Secure", "Vulnerable"],
+      type: "select",
+    },
+    {
+      id: "strictness",
+      key: "strictness",
+      label: t("group.forces.strictness.title"),
+      selectOptions: ["Strict", "Tolerant"],
+      type: "select",
+    },
+    {
+      id: "kind",
+      key: "kind",
+      label: t("group.forces.kind.title"),
+      selectOptions: ["ALL", "DAST", "SAST"],
+      type: "select",
+    },
+    {
+      id: "gitRepo",
+      key: "gitRepo",
+      label: t("group.forces.gitRepo"),
+      type: "text",
+    },
+    {
+      id: "date",
+      key: "date",
+      label: t("group.forces.date"),
+      type: "dateRange",
+    },
+  ]);
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblForcesExecutionsSorting",
     []
@@ -125,26 +122,22 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       accessorKey: "date",
       filterFn: filterDate,
       header: t("group.forces.date"),
-      meta: { filterType: "dateRange" },
     },
     {
       accessorKey: "status",
       cell: (cell: ICellHelper<IExecution>): JSX.Element =>
         statusFormatter(cell.getValue()),
       header: t("group.forces.status.title"),
-      meta: { filterType: "select" },
     },
     {
       accessorFn: (row: IExecution): number => {
         return row.foundVulnerabilities.total;
       },
       header: String(t("group.forces.status.vulnerabilities")),
-      meta: { filterType: "number" },
     },
     {
       accessorKey: "strictness",
       header: t("group.forces.strictness.title"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "kind",

@@ -15,7 +15,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import type { IFilter } from "components/Filter";
+import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
@@ -220,87 +220,94 @@ export const VulnsView: React.FC = (): JSX.Element => {
     undefined
   );
 
-  const [filters, setFilters] = useStoredState<IFilter<IVulnRowAttr>[]>(
+  const [filters, setFilters] = useState<IFilter<IVulnRowAttr>[]>([
+    {
+      id: "currentState",
+      key: "currentState",
+      label: t("searchFindings.tabVuln.vulnTable.status"),
+      selectOptions: [
+        { header: t("searchFindings.tabVuln.open"), value: "open" },
+        { header: t("searchFindings.tabVuln.closed"), value: "closed" },
+      ],
+      type: "select",
+      value: "open",
+    },
+    {
+      id: "reportDate",
+      key: "reportDate",
+      label: t("searchFindings.tabVuln.vulnTable.reportDate"),
+      type: "dateRange",
+    },
+    {
+      id: "verification",
+      key: "verification",
+      label: t("searchFindings.tabVuln.vulnTable.reattack"),
+      selectOptions: [
+        { header: t("searchFindings.tabVuln.onHold"), value: "On_hold" },
+        {
+          header: t("searchFindings.tabVuln.requested"),
+          value: "Requested",
+        },
+        {
+          header: t("searchFindings.tabVuln.verified"),
+          value: "Verified",
+        },
+      ],
+      type: "select",
+    },
+    {
+      id: "treatment",
+      key: "treatment",
+      label: t("searchFindings.tabVuln.vulnTable.treatment"),
+      selectOptions: [
+        {
+          header: t("searchFindings.tabDescription.treatment.new"),
+          value: "NEW",
+        },
+        {
+          header: t("searchFindings.tabDescription.treatment.inProgress"),
+          value: "IN_PROGRESS",
+        },
+        {
+          header: t("searchFindings.tabDescription.treatment.accepted"),
+          value: "ACCEPTED",
+        },
+        {
+          header: t(
+            "searchFindings.tabDescription.treatment.acceptedUndefined"
+          ),
+          value: "ACCEPTED_UNDEFINED",
+        },
+      ],
+      type: "select",
+    },
+    {
+      id: "tag",
+      key: "tag",
+      label: t("searchFindings.tabVuln.vulnTable.tags"),
+      type: "text",
+    },
+    {
+      id: "treatmentAssigned",
+      key: "treatmentAssigned",
+      label: "Assignees",
+      selectOptions: (vulns: IVulnRowAttr[]): string[] =>
+        [
+          ...new Set(vulns.map((vuln): string => vuln.treatmentAssigned ?? "")),
+        ].filter(Boolean),
+      type: "select",
+    },
+  ]);
+
+  const [filterVal, setFilterVal] = useStoredState<IPermanentData[]>(
     "vulnerabilitiesTableFilters",
     [
-      {
-        id: "currentState",
-        key: "currentState",
-        label: t("searchFindings.tabVuln.vulnTable.status"),
-        selectOptions: [
-          { header: t("searchFindings.tabVuln.open"), value: "open" },
-          { header: t("searchFindings.tabVuln.closed"), value: "closed" },
-        ],
-        type: "select",
-        value: "open",
-      },
-      {
-        id: "reportDate",
-        key: "reportDate",
-        label: t("searchFindings.tabVuln.vulnTable.reportDate"),
-        type: "dateRange",
-      },
-      {
-        id: "verification",
-        key: "verification",
-        label: t("searchFindings.tabVuln.vulnTable.reattack"),
-        selectOptions: [
-          { header: t("searchFindings.tabVuln.onHold"), value: "On_hold" },
-          {
-            header: t("searchFindings.tabVuln.requested"),
-            value: "Requested",
-          },
-          {
-            header: t("searchFindings.tabVuln.verified"),
-            value: "Verified",
-          },
-        ],
-        type: "select",
-      },
-      {
-        id: "treatment",
-        key: "treatment",
-        label: t("searchFindings.tabVuln.vulnTable.treatment"),
-        selectOptions: [
-          {
-            header: t("searchFindings.tabDescription.treatment.new"),
-            value: "NEW",
-          },
-          {
-            header: t("searchFindings.tabDescription.treatment.inProgress"),
-            value: "IN_PROGRESS",
-          },
-          {
-            header: t("searchFindings.tabDescription.treatment.accepted"),
-            value: "ACCEPTED",
-          },
-          {
-            header: t(
-              "searchFindings.tabDescription.treatment.acceptedUndefined"
-            ),
-            value: "ACCEPTED_UNDEFINED",
-          },
-        ],
-        type: "select",
-      },
-      {
-        id: "tag",
-        key: "tag",
-        label: t("searchFindings.tabVuln.vulnTable.tags"),
-        type: "text",
-      },
-      {
-        id: "treatmentAssigned",
-        key: "treatmentAssigned",
-        label: "Assignees",
-        selectOptions: (vulns: IVulnRowAttr[]): string[] =>
-          [
-            ...new Set(
-              vulns.map((vuln): string => vuln.treatmentAssigned ?? "")
-            ),
-          ].filter(Boolean),
-        type: "select",
-      },
+      { id: "currentState", value: "" },
+      { id: "reportDate", rangeValues: ["", ""] },
+      { id: "verification", value: "" },
+      { id: "treatment", value: "" },
+      { id: "tag", value: "" },
+      { id: "treatmentAssigned", value: "" },
     ],
     localStorage
   );
@@ -518,6 +525,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   <Filters
                     dataset={vulnerabilities}
                     filters={filters}
+                    permaset={[filterVal, setFilterVal]}
                     setFilters={setFilters}
                   />
                 }

@@ -45,7 +45,7 @@ import {
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
-import type { IFilter } from "components/Filter";
+import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
@@ -75,109 +75,122 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
-  const [filters, setFilters] = useStoredState<IFilter<IFindingAttr>[]>(
+  const [filters, setFilters] = useState<IFilter<IFindingAttr>[]>([
+    {
+      id: "lastVulnerability",
+      key: "lastVulnerability",
+      label: "Last Report",
+      type: "number",
+    },
+    {
+      id: "title",
+      key: "title",
+      label: "Type",
+      selectOptions: (findings: IFindingAttr[]): string[] =>
+        [
+          ...new Set(findings.map((finding): string => finding.title ?? "")),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "state",
+      key: "state",
+      label: "Status",
+      selectOptions: [
+        { header: "Open", value: "open" },
+        { header: "Closed", value: "closed" },
+      ],
+      type: "select",
+    },
+    {
+      id: "treatment",
+      key: (finding: IFindingAttr, value?: string): boolean => {
+        if (value === "" || value === undefined) return true;
+
+        return (
+          finding.treatmentSummary[
+            value as keyof typeof finding.treatmentSummary
+          ] > 0
+        );
+      },
+      label: t("searchFindings.tabVuln.vulnTable.treatment"),
+      selectOptions: [
+        {
+          header: t("searchFindings.tabDescription.treatment.new"),
+          value: "new",
+        },
+        {
+          header: t("searchFindings.tabDescription.treatment.inProgress"),
+          value: "inProgress",
+        },
+        {
+          header: t("searchFindings.tabDescription.treatment.accepted"),
+          value: "accepted",
+        },
+        {
+          header: t(
+            "searchFindings.tabDescription.treatment.acceptedUndefined"
+          ),
+          value: "acceptedUndefined",
+        },
+      ],
+      type: "select",
+    },
+    {
+      id: "severityScore",
+      key: "severityScore",
+      label: "Severity",
+      type: "numberRange",
+    },
+    {
+      id: "age",
+      key: "age",
+      label: "Age",
+      type: "number",
+    },
+    {
+      id: "locationsInfo",
+      key: (datapoint: IFindingAttr, value?: string): boolean => {
+        if (value === "" || value === undefined) return true;
+        if (
+          datapoint.locationsInfo.locations === "" ||
+          datapoint.locationsInfo.locations === undefined
+        )
+          return false;
+
+        return datapoint.locationsInfo.locations
+          .toLowerCase()
+          .includes(value.toLowerCase());
+      },
+      label: "Locations",
+      type: "text",
+    },
+    {
+      id: "reattack",
+      key: "reattack",
+      label: "Reattack",
+      selectOptions: ["-", "Pending"],
+      type: "select",
+    },
+    {
+      id: "releaseDate",
+      key: "releaseDate",
+      label: "Release Date",
+      type: "dateRange",
+    },
+  ]);
+  const [filterVal, setFilterVal] = useStoredState<IPermanentData[]>(
     "tblFindFilters",
     [
-      {
-        id: "lastVulnerability",
-        key: "lastVulnerability",
-        label: "Last Report",
-        type: "number",
-      },
-      {
-        id: "title",
-        key: "title",
-        label: "Type",
-        selectOptions: (findings: IFindingAttr[]): string[] =>
-          [
-            ...new Set(findings.map((finding): string => finding.title ?? "")),
-          ].filter(Boolean),
-        type: "select",
-      },
-      {
-        id: "state",
-        key: "state",
-        label: "Status",
-        selectOptions: [
-          { header: "Open", value: "open" },
-          { header: "Closed", value: "closed" },
-        ],
-        type: "select",
-      },
-      {
-        id: "treatment",
-        key: (finding: IFindingAttr, value?: string): boolean => {
-          if (value === "" || value === undefined) return true;
-
-          return (
-            finding.treatmentSummary[
-              value as keyof typeof finding.treatmentSummary
-            ] > 0
-          );
-        },
-        label: t("searchFindings.tabVuln.vulnTable.treatment"),
-        selectOptions: [
-          {
-            header: t("searchFindings.tabDescription.treatment.new"),
-            value: "new",
-          },
-          {
-            header: t("searchFindings.tabDescription.treatment.inProgress"),
-            value: "inProgress",
-          },
-          {
-            header: t("searchFindings.tabDescription.treatment.accepted"),
-            value: "accepted",
-          },
-          {
-            header: t(
-              "searchFindings.tabDescription.treatment.acceptedUndefined"
-            ),
-            value: "acceptedUndefined",
-          },
-        ],
-        type: "select",
-      },
-      {
-        id: "severityScore",
-        key: "severityScore",
-        label: "Severity",
-        type: "numberRange",
-      },
-      {
-        id: "age",
-        key: "age",
-        label: "Age",
-        type: "number",
-      },
-      {
-        id: "locationsInfo",
-        key: (datapoint: IFindingAttr, value?: string): boolean => {
-          if (value === "" || value === undefined) return true;
-          if (
-            datapoint.locationsInfo.locations === "" ||
-            datapoint.locationsInfo.locations === undefined
-          )
-            return false;
-
-          return datapoint.locationsInfo.locations.includes(value);
-        },
-        label: "Locations",
-        type: "text",
-      },
-      {
-        id: "reattack",
-        key: "reattack",
-        label: "Reattack",
-        selectOptions: ["-", "Pending"],
-        type: "select",
-      },
-      {
-        id: "releaseDate",
-        key: "releaseDate",
-        label: "Release Date",
-        type: "dateRange",
-      },
+      { id: "lastVulnerability", value: "" },
+      { id: "title", value: "" },
+      { id: "state", value: "" },
+      { id: "treatment", value: "" },
+      { id: "severityScore", rangeValues: ["", ""] },
+      { id: "age", value: "" },
+      { id: "locationsInfo", value: "" },
+      { id: "reattack", value: "" },
+      { id: "releaseDate", rangeValues: ["", ""] },
     ],
     localStorage
   );
@@ -516,6 +529,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           <Filters
             dataset={findings}
             filters={filters}
+            permaset={[filterVal, setFilterVal]}
             setFilters={setFilters}
           />
         }
