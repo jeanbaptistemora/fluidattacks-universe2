@@ -11,6 +11,7 @@ type TDirection = "column" | "row" | "unset";
 type TDisplay = "block" | "flex" | "ib" | "inline" | "none";
 type TJustify = "around" | "between" | "center" | "end" | "start" | "unset";
 type TWrap = "nowrap" | "unset" | "wrap";
+type TScroll = "none" | "x" | "xy" | "y";
 
 interface IContainerProps {
   align?: TAlign;
@@ -38,6 +39,7 @@ interface IContainerProps {
   maxWidth?: string;
   minHeight?: string;
   minWidth?: string;
+  scroll?: TScroll;
   width?: string;
   widthMd?: string;
   widthSm?: string;

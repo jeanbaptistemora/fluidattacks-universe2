@@ -109,6 +109,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
+    scroll = "none",
     width = "100%",
     widthMd,
     widthSm,
@@ -125,6 +126,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     max-width: ${maxWidth};
     min-height: ${minHeight};
     min-width: ${minWidth};
+    overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
+    overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
     transition: all 0.3s ease;
 
     @media screen and (min-width: 60em) {

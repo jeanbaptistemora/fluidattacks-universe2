@@ -12,7 +12,7 @@ import type { IContainerProps } from "../../../../components/Container/types";
 const TextContainer: React.FC<IContainerProps> = ({
   children,
 }): JSX.Element => (
-  <Container center={true} maxWidth={"1200px"}>
+  <Container center={true} maxWidth={"1200px"} ph={4}>
     {children}
   </Container>
 );
