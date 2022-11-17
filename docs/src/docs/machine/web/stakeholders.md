@@ -1,26 +1,48 @@
 ---
 id: stakeholders
-title: Organizational level stakeholders
+title: Organizational level Stakeholders
 sidebar_label: Stakeholders
 slug: /machine/web/stakeholders
 ---
-
-## Introduction
 
 Organization stakeholders can access to
 the organization Analytics and Policies.
 Allowing them to give access to new
 stakeholders or configure policies.
 
-![Stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1662390064/docs/web/stakeholders/stakehold_tab.png)
+![Stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1668687857/docs/web/stakeholders/stakeholders.png)
+
+## Stakeholders table
+
+In total, we have six columns which are described below:
+
+- **Stakeholder email:**
+  The user's email address.
+- **Role:**
+  The role that the user has
+  in that organization.
+- **First login:**
+  The date and time at which the
+  first entry into the organization.
+- **Last login:**
+  The time recorded since the last entry.
+- **Registration status:**
+  The state that the user is in can be:
+  Registered,
+  Unregistered or Pending.
+- **Invitation:**
+  It allows you to Resend the
+  invitation to a user if they
+  have yet to accept it.
+## Functionalities​
 
 In the stakeholder section,
-you have four
+you have five
 functionalities:
 Add,
 Edit,
 Remove,
-and Export.
+Export and search bar.
 
 ### Add
 
@@ -67,15 +89,13 @@ you must select the stakeholders
 to remove by clicking on the
 checkbox on the left.
 
-![Checkbox](https://res.cloudinary.com/fluid-attacks/image/upload/v1661438042/docs/web/stakeholders/remove_checkbox.png)
-
 After selecting,
 you go to the **Remove** button,
 where you will get a pop-up window
 where you **confirm** if you want
 to remove these participants.
 
-![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661438040/docs/web/stakeholders/remove_button.png)
+![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1668688031/docs/web/stakeholders/remove.png)
 
 Clicking this will automatically
 remove the selected people from
@@ -87,3 +107,8 @@ Clicking on this button will
 download a CSV (comma-separated values)
 file containing all the information
 in the table of this section.
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
