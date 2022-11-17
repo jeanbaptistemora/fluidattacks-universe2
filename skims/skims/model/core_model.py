@@ -4010,7 +4010,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_elb2_has_not_deletion_protection",
         module="lib_path",
-        finding=FindingEnum.F247,
+        finding=FindingEnum.F258,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )

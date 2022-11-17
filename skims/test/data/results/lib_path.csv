@@ -27390,54 +27390,6 @@ F246,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,311,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_has_unencrypted_storage
-F247,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,2,311,skims,247. Non-encrypted confidential information - AWS,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
-   1 |
->  2 | resource ""aws_lb"" ""test"" {
-   3 |   name               = ""test-lb-tf""
-   4 |   internal           = false
-   5 |   load_balancer_type = ""application""
-   6 |   security_groups    = [aws_security_group.lb_sg.id]
-   7 | }
-   8 |
-   9 |
-  10 | resource ""aws_lb"" ""test"" {
-  11 |   name               = ""test-lb-tf""
-  12 |   internal           = false
-  13 |   load_balancer_type = ""application""
-  14 |   security_groups    = [aws_security_group.lb_sg.id]
-  15 |
-  16 |   enable_deletion_protection = false
-  17 | }
-  18 |
-  19 |
-  20 | resource ""aws_lb"" ""test"" {
-  21 |   name               = ""test-lb-tf""
-     ^ Col 0
-",terraform.tfm_elb2_has_not_deletion_protection
-F247,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,16,311,skims,247. Non-encrypted confidential information - AWS,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
-   6 |   security_groups    = [aws_security_group.lb_sg.id]
-   7 | }
-   8 |
-   9 |
-  10 | resource ""aws_lb"" ""test"" {
-  11 |   name               = ""test-lb-tf""
-  12 |   internal           = false
-  13 |   load_balancer_type = ""application""
-  14 |   security_groups    = [aws_security_group.lb_sg.id]
-  15 |
-> 16 |   enable_deletion_protection = false
-  17 | }
-  18 |
-  19 |
-  20 | resource ""aws_lb"" ""test"" {
-  21 |   name               = ""test-lb-tf""
-  22 |   internal           = false
-  23 |   load_balancer_type = ""application""
-  24 |   security_groups    = [aws_security_group.lb_sg.id]
-  25 |
-  26 |   enable_deletion_protection = true
-     ^ Col 0
-",terraform.tfm_elb2_has_not_deletion_protection
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,7,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
    1 | ---
    2 | Resources:
@@ -30781,6 +30733,54 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   58 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,2,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+   1 |
+>  2 | resource ""aws_lb"" ""test"" {
+   3 |   name               = ""test-lb-tf""
+   4 |   internal           = false
+   5 |   load_balancer_type = ""application""
+   6 |   security_groups    = [aws_security_group.lb_sg.id]
+   7 | }
+   8 |
+   9 |
+  10 | resource ""aws_lb"" ""test"" {
+  11 |   name               = ""test-lb-tf""
+  12 |   internal           = false
+  13 |   load_balancer_type = ""application""
+  14 |   security_groups    = [aws_security_group.lb_sg.id]
+  15 |
+  16 |   enable_deletion_protection = false
+  17 | }
+  18 |
+  19 |
+  20 | resource ""aws_lb"" ""test"" {
+  21 |   name               = ""test-lb-tf""
+     ^ Col 0
+",terraform.tfm_elb2_has_not_deletion_protection
+F258,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,16,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+   6 |   security_groups    = [aws_security_group.lb_sg.id]
+   7 | }
+   8 |
+   9 |
+  10 | resource ""aws_lb"" ""test"" {
+  11 |   name               = ""test-lb-tf""
+  12 |   internal           = false
+  13 |   load_balancer_type = ""application""
+  14 |   security_groups    = [aws_security_group.lb_sg.id]
+  15 |
+> 16 |   enable_deletion_protection = false
+  17 | }
+  18 |
+  19 |
+  20 | resource ""aws_lb"" ""test"" {
+  21 |   name               = ""test-lb-tf""
+  22 |   internal           = false
+  23 |   load_balancer_type = ""application""
+  24 |   security_groups    = [aws_security_group.lb_sg.id]
+  25 |
+  26 |   enable_deletion_protection = true
+     ^ Col 0
+",terraform.tfm_elb2_has_not_deletion_protection
 F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,8,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
    1 | ---
    2 | Resources:
