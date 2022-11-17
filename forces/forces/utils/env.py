@@ -9,18 +9,10 @@ from typing import (
 
 # Constants
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOCAL_ENDPOINT = "https://127.0.0.1:8001/api"
+PROD_ENDPOINT = "https://app.fluidattacks.com/api"
+ENDPOINT: str = os.environ.get("API_ENDPOINT", PROD_ENDPOINT)
 
 
-def guess_environment() -> Literal["development"] | Literal["production"]:
-    if any(
-        (
-            "universe/" in BASE_DIR,
-            (
-                os.environ.get("CI_COMMIT_REF_NAME", "trunk") != "trunk"
-                and os.environ.get("CI_PROJECT_NAMESPACE") == "fluidattacks"
-            ),
-        )
-    ):
-        return "development"
-
-    return "production"  # pragma: no cover
+def guess_environment() -> Literal["development", "production"]:
+    return "development" if ENDPOINT != PROD_ENDPOINT else "production"

@@ -40,6 +40,9 @@
     rules = gitlabOnlyDev;
     stage = "post-deploy";
     tags = ["small"];
+    variables = {
+      API_ENDPOINT = "https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api";
+    };
   };
 in {
   pipelines = {

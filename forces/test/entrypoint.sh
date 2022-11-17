@@ -19,10 +19,7 @@ function main {
     --no-cov-on-fail
     --verbose
   )
-  if ! test -z "${CI_COMMIT_REF_NAME:-}"; then
-    API_ENDPOINT="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
-  fi \
-    && aws_login "dev" "3600" \
+  aws_login "dev" "3600" \
     && if test -n "${CI:-}"; then
       aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \

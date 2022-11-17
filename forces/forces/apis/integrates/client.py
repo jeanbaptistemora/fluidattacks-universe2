@@ -17,12 +17,12 @@ from forces.apis.integrates import (
     get_api_token,
 )
 from forces.utils.env import (
-    guess_environment,
+    ENDPOINT,
+    LOCAL_ENDPOINT,
 )
 from forces.utils.logs import (
     blocking_log,
 )
-import os
 from typing import (
     Any,
     AsyncIterator,
@@ -30,12 +30,6 @@ from typing import (
 )
 
 # Context
-LOCAL_ENDPOINT = "https://127.0.0.1:8001/api"
-ENDPOINT: str = (
-    "https://app.fluidattacks.com/api"
-    if guess_environment() == "production"
-    else (os.environ.get("API_ENDPOINT") or LOCAL_ENDPOINT)
-)
 TVar = TypeVar("TVar")
 
 
