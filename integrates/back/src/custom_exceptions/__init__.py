@@ -1369,6 +1369,27 @@ class InvalidToeLinesAttackedLines(CustomBaseException):
         super(InvalidToeLinesAttackedLines, self).__init__(msg)
 
 
+class ToePortNotPresent(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The toe port is not present"
+        super(ToePortNotPresent, self).__init__(msg)
+
+
+class InvalidToePortAttackedAt(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The attack time must be between the previous "
+            "attack and the current time"
+        )
+        super(InvalidToePortAttackedAt, self).__init__(msg)
+
+
+class InvalidToePortAttackedBy(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The port attacked by attribute is mandatory"
+        super(InvalidToePortAttackedBy, self).__init__(msg)
+
+
 class InvalidBillingCustomer(CustomBaseException):
     def __init__(self) -> None:
         msg = (
