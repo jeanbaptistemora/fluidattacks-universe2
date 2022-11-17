@@ -4,22 +4,21 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
   root = projectPath inputs.observesIndex.etl.code.root;
   pkg = import "${root}/entrypoint.nix" {
-    inherit fetchNixpkgs projectPath;
+    inherit projectPath fetchNixpkgs;
     observesIndex = inputs.observesIndex;
   };
-  env = pkg.env.runtime;
+  check = pkg.check.tests;
 in
-  makeTemplate {
-    name = "observes-etl-code-env-runtime";
+  makeScript {
     searchPaths = {
-      bin = [
-        env
-      ];
+      bin = [check];
     };
+    name = "observes-etl-code-check-tests";
+    entrypoint = "";
   }

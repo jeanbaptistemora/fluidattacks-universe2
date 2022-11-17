@@ -1031,7 +1031,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/etl/code/lint:
+/observes/etl/code/check/arch:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -1046,14 +1046,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
-    - m . /observes/etl/code/lint
+    - m . /observes/etl/code/check/arch
   stage: lint-code
   tags:
     - small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/etl/code/test:
+/observes/etl/code/check/tests:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -1068,8 +1068,52 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
-    - m . /observes/etl/code/test
+    - m . /observes/etl/code/check/tests
   stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/etl/code/check/types:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/etl/code/check/types
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/etl/code/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/etl/code/env/dev
+  stage: build
   tags:
     - small
   variables:

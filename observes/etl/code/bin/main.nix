@@ -9,7 +9,10 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.etl.code.root;
-  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  pkg = import "${root}/entrypoint.nix" {
+    inherit fetchNixpkgs projectPath;
+    observesIndex = inputs.observesIndex;
+  };
   env = pkg.env.bin;
 in
   makeScript {

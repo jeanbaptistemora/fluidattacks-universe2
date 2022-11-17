@@ -59,8 +59,6 @@ in {
       (standard_2 "${etlsPath}/code")
       // {
         src = "${etlsPath}/code/code_etl";
-        lint = "${etlsPath}/code/lint";
-        test = "${etlsPath}/code/test";
       };
   };
   common = {

@@ -9,13 +9,16 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.etl.code.root;
-  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  check = pkg.check.types;
+  pkg = import "${root}/entrypoint.nix" {
+    inherit projectPath fetchNixpkgs;
+    observesIndex = inputs.observesIndex;
+  };
+  check = pkg.check.arch;
 in
   makeScript {
     searchPaths = {
       bin = [check];
     };
-    name = "observes-etl-code-lint";
+    name = "observes-etl-code-check-arch";
     entrypoint = "";
   }

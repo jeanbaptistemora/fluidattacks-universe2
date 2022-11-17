@@ -56,6 +56,7 @@
   std_pkgs = with index; [
     common.asm_dal
     common.utils_logger_2
+    etl.code
     etl.dynamo
     service.batch_stability
     service.scheduler
@@ -85,36 +86,12 @@
   in
     arch_check ++ types_check ++ tests_check ++ run_check ++ env_dev;
   pkgsJobs = builtins.concatLists (map genPkgJobs std_pkgs);
-  # legacy standard
-  targets = with index; [
-    etl.code
-  ];
-  lintJobsOutputs = map (x: x.lint) targets;
-  lintJobs =
-    map (
-      output: {
-        inherit output;
-        gitlabExtra = gitlabLint;
-      }
-    )
-    lintJobsOutputs;
-  testJobsOutputs = map (x: x.test) targets;
-  testJobs =
-    map (
-      output: {
-        inherit output;
-        gitlabExtra = gitlabTestCode;
-      }
-    )
-    testJobsOutputs;
 in {
   pipelines = {
     observes = {
       gitlabPath = "/observes/gitlab-ci.yaml";
       jobs =
-        lintJobs
-        ++ testJobs
-        ++ pkgsJobs
+        pkgsJobs
         ++ [
           {
             output = "/deployTerraform/observes";
