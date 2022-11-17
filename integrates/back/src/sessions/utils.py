@@ -77,6 +77,7 @@ def get_secret(jwt_token: JWT) -> str:
     deserialized_payload = json.loads(payload.decode("utf-8"))
     sub = deserialized_payload.get("sub")
 
+    # Old token check
     if sub is None:
         sub = decode_jwe(payload).get("sub")
 

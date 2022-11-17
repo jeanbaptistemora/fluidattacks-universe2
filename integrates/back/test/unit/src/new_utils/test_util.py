@@ -16,6 +16,10 @@ from back.test.unit.src.utils import (
 from collections import (
     defaultdict,
 )
+from context import (
+    FI_JWT_SECRET,
+    FI_JWT_SECRET_API,
+)
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
@@ -39,6 +43,15 @@ from db_model.stakeholders.types import (
 )
 from freezegun import (
     freeze_time,
+)
+from jwcrypto.jwk import (
+    JWK,
+)
+from jwcrypto.jws import (
+    InvalidJWSSignature,
+)
+from jwcrypto.jwt import (
+    JWT,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -85,6 +98,87 @@ def test_assert_file_mime() -> None:
     assert not files_utils.assert_file_mime(
         non_included_filename, allowed_mimes
     )
+
+
+def test_get_secret_session_token() -> None:
+    user_email = "unittest"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    payload = {
+        "user_email": user_email,
+        "jti": sessions_utils.calculate_hash_token()["jti"],
+    }
+    token = sessions_domain.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="starlette_session",
+    )
+    secret = sessions_utils.get_secret(JWT(jwt=token))
+    assert secret == FI_JWT_SECRET
+
+
+def test_get_secret_api_token() -> None:
+    user_email = "unittest"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    payload = {
+        "user_email": user_email,
+        "jti": sessions_utils.calculate_hash_token()["jti"],
+    }
+    token = sessions_domain.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="api_token",
+    )
+    secret = sessions_utils.get_secret(JWT(jwt=token))
+    assert secret == FI_JWT_SECRET_API
+
+
+def test_decode_jwe() -> None:
+    user_email = "unittest"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    payload = {
+        "user_email": user_email,
+        "jti": "e52615d33d77a21ba886d5a6d002a7b \
+                b3e9b07c4b6e8e4aec87d96ca5161dd12",
+    }
+    token = sessions_domain.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="api_token",
+        api=True,
+    )
+    jwt_token = JWT(jwt=token)
+    secret = sessions_utils.get_secret(jwt_token)
+    jws_key = JWK.from_json(secret)
+    jwt_token.validate(jws_key)
+    decoded_payload = sessions_utils.decode_jwe(jwt_token.token.payload)
+    assert decoded_payload == payload
+
+
+def test_invalid_token_signature() -> None:
+    user_email = "unittest"
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
+    )
+    payload = {
+        "user_email": user_email,
+        "jti": sessions_utils.calculate_hash_token()["jti"],
+    }
+    token = sessions_domain.encode_token(
+        expiration_time=expiration_time,
+        payload=payload,
+        subject="api_token",
+    )
+    jwt_token = JWT(jwt=token)
+    secret = sessions_utils.get_secret(jwt_token)
+    jws_key = JWK.from_json(secret)
+    with pytest.raises(InvalidJWSSignature):
+        jwt_token.validate(jws_key)
 
 
 async def test_get_jwt_content() -> None:
