@@ -28,6 +28,11 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageReporters: ["text", "lcov"],
+  coverageThreshold: {
+    global: {
+      branches: 58,
+    },
+  },
   maxWorkers: 1,
   moduleDirectories: ["node_modules", "src"],
   moduleNameMapper: {
