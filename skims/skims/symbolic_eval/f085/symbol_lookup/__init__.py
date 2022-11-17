@@ -6,7 +6,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f085.symbol_lookup.javascript import (
-    js_client_storage,
+    client_storage,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,7 +18,8 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_CLIENT_STORAGE: js_client_storage,
+    MethodsEnum.JS_CLIENT_STORAGE: client_storage,
+    MethodsEnum.TS_CLIENT_STORAGE: client_storage,
 }
 
 

@@ -3422,6 +3422,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_CLIENT_STORAGE = MethodInfo(
+        file_name="typescript",
+        name="typescript_client_storage",
+        module="lib_root",
+        finding=FindingEnum.F085,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     HTML_HAS_NOT_SUB_RESOURCE_INTEGRITY = MethodInfo(
         file_name="html",
         name="html_has_not_sub_resource_integrity",
