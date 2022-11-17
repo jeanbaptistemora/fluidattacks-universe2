@@ -27,9 +27,14 @@ class GroupBilling(NamedTuple):
     number_authors: int
 
 
+class OrganizationActiveGroup(NamedTuple):
+    name: str
+    tier: str
+
+
 class OrganizationAuthor(NamedTuple):
     actor: str
-    groups: frozenset[str]
+    active_groups: tuple[OrganizationActiveGroup, ...]
 
 
 class OrganizationBilling(NamedTuple):

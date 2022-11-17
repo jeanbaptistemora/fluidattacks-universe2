@@ -15,6 +15,7 @@ from billing.types import (
     Customer,
     GroupAuthor,
     GroupBilling,
+    OrganizationActiveGroup,
     OrganizationAuthor,
     OrganizationBilling,
     PaymentMethod,
@@ -943,33 +944,41 @@ async def get_organization_authors(
     org: Organization,
     loaders: Dataloaders,
 ) -> tuple[OrganizationAuthor, ...]:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
-        org.id,
-    )
+    org_groups: dict[str, Group] = {
+        group.name: group
+        for group in await loaders.organization_groups.load(
+            org.id,
+        )
+    }
     group_authors: tuple[GroupAuthor, ...] = tuple(
         flatten(
             await collect(
                 [
-                    dal.get_group_authors(date=date, group=group.name)
+                    dal.get_group_authors(date=date, group=group)
                     for group in org_groups
                 ]
             )
         )
     )
-    org_actors: frozenset[str] = frozenset(
+    org_active_actors: frozenset[str] = frozenset(
         author.actor for author in group_authors
     )
 
     return tuple(
         OrganizationAuthor(
-            actor=org_actor,
-            groups=frozenset(
-                author.groups
+            actor=actor,
+            active_groups=tuple(
+                OrganizationActiveGroup(
+                    name=org_groups[author.groups].name,
+                    tier=str(
+                        org_groups[author.groups].state.tier.value
+                    ).lower(),
+                )
                 for author in group_authors
-                if author.actor == org_actor
+                if author.actor == actor
             ),
         )
-        for org_actor in org_actors
+        for actor in org_active_actors
     )
 
 
@@ -1003,12 +1012,18 @@ async def get_organization_billing(
     authors_machine: frozenset[str] = frozenset(
         author.actor
         for author in authors_total
-        if bool(author.groups & groups_machine)
+        if bool(
+            frozenset(group.name for group in author.active_groups)
+            & groups_machine
+        )
     )
     authors_squad: frozenset[str] = frozenset(
         author.actor
         for author in authors_total
-        if bool(author.groups & groups_squad)
+        if bool(
+            frozenset(group.name for group in author.active_groups)
+            & groups_squad
+        )
     )
 
     prices: dict[str, Price] = await get_prices()

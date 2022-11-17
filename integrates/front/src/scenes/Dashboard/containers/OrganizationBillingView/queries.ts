@@ -31,7 +31,10 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
       billing {
         authors {
           actor
-          groups
+          activeGroups {
+            name
+            tier
+          }
         }
         costsAuthors
         costsBase

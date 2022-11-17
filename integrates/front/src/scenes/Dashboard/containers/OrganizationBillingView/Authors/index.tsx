@@ -14,6 +14,7 @@ import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { Text } from "components/Text";
 import type {
+  IOrganizationActiveGroupAttr,
   IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
@@ -33,12 +34,14 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
     authorData.map(
       (author: IOrganizationAuthorAttr): IOrganizationAuthorsTable => {
         const actor: string = _.capitalize(author.actor);
-        const groups: string = author.groups.join(", ");
+        const activeGroups: string = author.activeGroups
+          .map((group: IOrganizationActiveGroupAttr): string => group.name)
+          .join(", ");
 
         return {
           ...author,
+          activeGroups,
           actor,
-          groups,
         };
       }
     );
@@ -49,8 +52,8 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       header: t("organization.tabs.billing.authors.headers.authorName"),
     },
     {
-      accessorKey: "groups",
-      header: t("organization.tabs.billing.authors.headers.groups"),
+      accessorKey: "activeGroups",
+      header: t("organization.tabs.billing.authors.headers.activeGroups"),
     },
   ];
 
@@ -62,9 +65,9 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       type: "text",
     },
     {
-      id: "groups",
-      key: "groups",
-      label: t("organization.tabs.billing.authors.headers.groups"),
+      id: "activeGroups",
+      key: "activeGroups",
+      label: t("organization.tabs.billing.authors.headers.activeGroups"),
       type: "text",
     },
   ]);

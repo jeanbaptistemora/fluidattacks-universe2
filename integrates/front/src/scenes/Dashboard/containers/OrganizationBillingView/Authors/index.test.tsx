@@ -36,12 +36,26 @@ describe("OrganizationOverview", (): void => {
               billing: {
                 authors: [
                   {
+                    activeGroups: [
+                      {
+                        name: "continuoustesting",
+                        tier: "SQUAD",
+                      },
+                      {
+                        name: "unittesting",
+                        tier: "SQUAD",
+                      },
+                    ],
                     actor: "Dev 1",
-                    groups: ["continuoustesting", "unittesting"],
                   },
                   {
+                    activeGroups: [
+                      {
+                        name: "unittesting",
+                        tier: "SQUAD",
+                      },
+                    ],
                     actor: "Dev 2",
-                    groups: ["unittesting"],
                   },
                 ],
               },
@@ -56,12 +70,26 @@ describe("OrganizationOverview", (): void => {
         <OrganizationAuthors
           authors={[
             {
+              activeGroups: [
+                {
+                  name: "continuoustesting",
+                  tier: "SQUAD",
+                },
+                {
+                  name: "unittesting",
+                  tier: "SQUAD",
+                },
+              ],
               actor: "Dev 1",
-              groups: ["continuoustesting", "unittesting"],
             },
             {
+              activeGroups: [
+                {
+                  name: "unittesting",
+                  tier: "SQUAD",
+                },
+              ],
               actor: "Dev 2",
-              groups: ["unittesting"],
             },
           ]}
         />
@@ -76,7 +104,9 @@ describe("OrganizationOverview", (): void => {
         screen.getByText("organization.tabs.billing.authors.headers.authorName")
       ).toBeInTheDocument();
       expect(
-        screen.getByText("organization.tabs.billing.authors.headers.groups")
+        screen.getByText(
+          "organization.tabs.billing.authors.headers.activeGroups"
+        )
       ).toBeInTheDocument();
 
       expect(screen.getByText("Dev 1")).toBeInTheDocument();

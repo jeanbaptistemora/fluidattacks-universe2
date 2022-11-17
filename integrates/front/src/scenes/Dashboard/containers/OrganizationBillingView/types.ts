@@ -11,9 +11,14 @@ interface IGroupBilling {
   numberAuthors: number;
 }
 
+interface IOrganizationActiveGroupAttr {
+  name: string;
+  tier: string;
+}
+
 interface IOrganizationAuthorAttr {
   actor: string;
-  groups: string[];
+  activeGroups: IOrganizationActiveGroupAttr[];
 }
 
 interface IPaymentMethodAttr {
@@ -50,7 +55,7 @@ interface IOrganizationBilling {
 
 interface IOrganizationAuthorsTable {
   actor: string;
-  groups: string;
+  activeGroups: string;
 }
 
 interface IGroupAttr {
@@ -89,4 +94,5 @@ export type {
   IPaymentMethodAttr,
   IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
+  IOrganizationActiveGroupAttr,
 };

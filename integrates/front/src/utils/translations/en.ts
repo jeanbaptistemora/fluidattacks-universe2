@@ -1600,8 +1600,8 @@ export const enTranslations: ResourceKey = {
       billing: {
         authors: {
           headers: {
+            activeGroups: "Active groups",
             authorName: "Author name",
-            groups: "Groups",
           },
           title: "Authors",
         },
