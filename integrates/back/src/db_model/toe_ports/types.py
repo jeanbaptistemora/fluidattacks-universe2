@@ -76,7 +76,6 @@ class ToePortMetadataToUpdate(NamedTuple):
     has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
-    root_id: Optional[str] = None
     clean_attacked_at: bool = False
     clean_be_present_until: bool = False
     clean_first_attack_at: bool = False

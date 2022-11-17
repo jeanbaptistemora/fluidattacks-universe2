@@ -4,6 +4,9 @@
 
 from custom_exceptions import (
     InvalidRootType,
+    InvalidToePortAttackedAt,
+    InvalidToePortAttackedBy,
+    ToePortNotPresent,
 )
 from dataloaders import (
     Dataloaders,
@@ -20,6 +23,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_ports.types import (
     ToePort,
+    ToePortMetadataToUpdate,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -30,6 +34,7 @@ from roots.validations import (
 )
 from toe.ports.types import (
     ToePortAttributesToAdd,
+    ToePortAttributesToUpdate,
 )
 from toe.utils import (
     get_has_vulnerabilities,
@@ -92,4 +97,90 @@ async def remove(
         ip=current_value.ip,
         group_name=current_value.group_name,
         root_id=current_value.root_id,
+    )
+
+
+def _validate_update(
+    current_value: ToePort,
+    attributes: ToePortAttributesToUpdate,
+) -> None:
+    if (
+        attributes.be_present is None
+        and current_value.be_present is False
+        and attributes.attacked_at is not None
+    ):
+        raise ToePortNotPresent()
+    if attributes.be_present is False and attributes.attacked_at is not None:
+        raise ToePortNotPresent()
+    if (
+        attributes.attacked_at is not None
+        and current_value.attacked_at is not None
+        and attributes.attacked_at <= current_value.attacked_at
+    ):
+        raise InvalidToePortAttackedAt()
+    if (
+        attributes.attacked_at is not None
+        and attributes.attacked_at > datetime_utils.get_utc_now()
+    ):
+        raise InvalidToePortAttackedAt()
+    if (
+        attributes.attacked_at is not None
+        and current_value.seen_at is not None
+        and attributes.attacked_at < current_value.seen_at
+    ):
+        raise InvalidToePortAttackedAt()
+    if attributes.attacked_at is not None and attributes.attacked_by is None:
+        raise InvalidToePortAttackedBy()
+
+
+async def update(
+    current_value: ToePort,
+    attributes: ToePortAttributesToUpdate,
+    is_moving_toe_port: bool = False,
+) -> None:
+    if is_moving_toe_port is False:
+        _validate_update(current_value, attributes)
+
+    be_present_until = (
+        None
+        if attributes.be_present is None
+        else _get_optional_be_present_until(attributes.be_present)
+    )
+    current_be_present = (
+        current_value.be_present
+        if attributes.be_present is None
+        else attributes.be_present
+    )
+    first_attack_at = None
+    if attributes.first_attack_at is not None:
+        first_attack_at = attributes.first_attack_at
+    elif not current_value.first_attack_at and attributes.attacked_at:
+        first_attack_at = attributes.attacked_at
+    has_vulnerabilities = (
+        get_has_vulnerabilities(
+            current_be_present, attributes.has_vulnerabilities
+        )
+        if attributes.has_vulnerabilities is not None
+        or attributes.be_present is not None
+        else None
+    )
+
+    metadata = ToePortMetadataToUpdate(
+        attacked_at=attributes.attacked_at,
+        attacked_by=attributes.attacked_by,
+        be_present=attributes.be_present,
+        be_present_until=be_present_until,
+        first_attack_at=first_attack_at,
+        has_vulnerabilities=has_vulnerabilities,
+        seen_at=attributes.seen_at,
+        seen_first_time_by=attributes.seen_first_time_by,
+        clean_attacked_at=attributes.clean_attacked_at,
+        clean_be_present_until=attributes.be_present is not None
+        and be_present_until is None,
+        clean_first_attack_at=attributes.clean_first_attack_at,
+        clean_seen_at=attributes.clean_seen_at,
+    )
+    await toe_ports_model.update_metadata(
+        current_value=current_value,
+        metadata=metadata,
     )
