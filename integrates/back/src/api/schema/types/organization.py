@@ -5,6 +5,7 @@
 from api.resolvers.organization import (
     analytics,
     billing,
+    company,
     compliance,
     credentials,
     finding_policies,
@@ -30,6 +31,7 @@ from ariadne import (
 ORGANIZATION: ObjectType = ObjectType("Organization")
 ORGANIZATION.set_field("analytics", analytics.resolve)
 ORGANIZATION.set_field("billing", billing.resolve)
+ORGANIZATION.set_field("company", company.resolve)
 ORGANIZATION.set_field("compliance", compliance.resolve)
 ORGANIZATION.set_field("credentials", credentials.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)

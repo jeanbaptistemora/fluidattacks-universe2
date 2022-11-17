@@ -332,6 +332,12 @@ async def test_organization() -> None:
     query = """
         query GetOrganizationInfo($organizationId: String!) {
             organization(organizationId: $organizationId) {
+                company {
+                    domain
+                    trial {
+                        completed
+                    }
+                }
                 id
                 maxAcceptanceDays
                 maxAcceptanceSeverity
@@ -374,6 +380,10 @@ async def test_organization() -> None:
     assert sorted(groups) == expected_groups
     for stakeholder in expected_stakeholders:
         assert stakeholder in stakeholders
+    assert result["data"]["organization"]["company"] == {
+        "domain": "unknown.com",
+        "trial": {"completed": True},
+    }
 
     exe = StakeholderNotInOrganization()
     result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
