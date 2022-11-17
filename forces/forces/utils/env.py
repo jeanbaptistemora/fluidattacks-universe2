@@ -3,9 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 import os
-from os import (
-    environ,
-)
 from typing import (
     Literal,
 )
@@ -18,7 +15,10 @@ def guess_environment() -> Literal["development"] | Literal["production"]:
     if any(
         (
             "universe/" in BASE_DIR,
-            environ.get("CI_COMMIT_REF_NAME", "trunk") != "trunk",
+            (
+                os.environ.get("CI_COMMIT_REF_NAME", "trunk") != "trunk"
+                and os.environ.get("CI_PROJECT_NAMESPACE") == "fluidattacks"
+            ),
         )
     ):
         return "development"
