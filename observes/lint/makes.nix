@@ -18,7 +18,6 @@ in {
           (makeSearchPaths {
             pythonPackage = builtins.map projectPath (
               [
-                "/observes/code_etl"
                 "/observes/common/paginator"
                 "/observes/common/singer-io/src"
                 "/observes/common/utils-logger/src"
@@ -27,6 +26,7 @@ in {
                 "/observes/singer/tap-zoho-crm/src"
               ]
               ++ [
+                inputs.observesIndex.etl.code.root
                 inputs.observesIndex.service.scheduler.root
                 inputs.observesIndex.service.batch_stability.root
                 inputs.observesIndex.service.job_last_success.root
