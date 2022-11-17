@@ -33,6 +33,19 @@ type Organization {
   id: String!
   "Repositories integration within the organization"
   integrationRepositories: [IntegrationRepositories]
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/05/16.
+      Use `integrationRepositoriesConnection` instead.
+      """
+    )
+  "Repositories integration within the organization"
+  integrationRepositoriesConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount to return"
+    first: Int
+  ): IntegrationRepositoriesConnection
   "Maximum number of calendar days a finding can be temporally accepted"
   maxAcceptanceDays: Int
   "Maximum CVSS 3.1 score in which a finding can be temporally accepted"

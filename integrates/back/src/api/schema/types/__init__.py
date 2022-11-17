@@ -124,6 +124,7 @@ from api.schema.types.group_compliance import (
 )
 from api.schema.types.integration_repositories import (
     INTEGRATION_REPOSITORIES,
+    ORGANIZATION_INTEGRATION_REPOSITORIES,
 )
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
@@ -184,6 +185,7 @@ TYPES: Tuple[ObjectType, ...] = (
     ORGANIZATION_BILLING,
     ORGANIZATION_COMPLIANCE,
     ORGANIZATION_COMPLIANCE_STANDARD,
+    ORGANIZATION_INTEGRATION_REPOSITORIES,
     PRICES,
     QUERY,
     REQUIREMENT,

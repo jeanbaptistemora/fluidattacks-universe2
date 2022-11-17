@@ -60,6 +60,7 @@ from db_model.groups.get import (
     OrganizationGroupsLoader,
 )
 from db_model.integration_repositories.get import (
+    OrganizationUnreliableRepositoriesConnectionLoader,
     OrganizationUnreliableRepositoriesLoader,
 )
 from db_model.organization_access.get import (
@@ -184,6 +185,9 @@ class Dataloaders(NamedTuple):
     organization_integration_repositories: OrganizationRepositoriesLoader
     organization_unreliable_integration_repositories: (
         OrganizationUnreliableRepositoriesLoader
+    )
+    organization_unreliable_integration_repositories_c: (
+        OrganizationUnreliableRepositoriesConnectionLoader
     )
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
@@ -345,6 +349,9 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         ),
         organization_unreliable_integration_repositories=(
             OrganizationUnreliableRepositoriesLoader()
+        ),
+        organization_unreliable_integration_repositories_c=(
+            OrganizationUnreliableRepositoriesConnectionLoader()
         ),
         portfolio=portfolio_loader,
         root=RootLoader(),

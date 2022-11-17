@@ -10,6 +10,7 @@ from api.resolvers.organization import (
     finding_policies,
     groups,
     integration_repositories,
+    integration_repositories_connection,
     max_acceptance_days,
     max_acceptance_severity,
     max_number_acceptances,
@@ -36,6 +37,10 @@ ORGANIZATION.set_field("groups", groups.resolve)
 ORGANIZATION.set_field("id", organization_id.resolve)
 ORGANIZATION.set_field(
     "integrationRepositories", integration_repositories.resolve
+)
+ORGANIZATION.set_field(
+    "integrationRepositoriesConnection",
+    integration_repositories_connection.resolve,
 )
 ORGANIZATION.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 ORGANIZATION.set_field(
