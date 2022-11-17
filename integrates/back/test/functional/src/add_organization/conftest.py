@@ -35,6 +35,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "organizations": [
             {
                 "organization": Organization(
+                    created_by="johndoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="967e17db-6345-4504-a5c4-285e5f8068c6",
                     name="trialorg",

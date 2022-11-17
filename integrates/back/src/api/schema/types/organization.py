@@ -34,6 +34,9 @@ ORGANIZATION.set_field("credentials", credentials.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)
 ORGANIZATION.set_field("groups", groups.resolve)
 ORGANIZATION.set_field("id", organization_id.resolve)
+ORGANIZATION.set_field(
+    "integrationRepositories", integration_repositories.resolve
+)
 ORGANIZATION.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 ORGANIZATION.set_field(
     "maxAcceptanceSeverity", max_acceptance_severity.resolve
@@ -45,9 +48,6 @@ ORGANIZATION.set_field("maxNumberAcceptances", max_number_acceptances.resolve)
 ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
-ORGANIZATION.set_field(
-    "integrationRepositories", integration_repositories.resolve
-)
 ORGANIZATION.set_field("userRole", user_role.resolve)
 ORGANIZATION.set_field("vulnerabilitiesUrl", vulnerabilities_url.resolve)
 ORGANIZATION.set_field(

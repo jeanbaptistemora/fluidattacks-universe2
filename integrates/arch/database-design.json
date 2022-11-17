@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 16, 2022, 05:28 PM",
+    "DateLastModified": "Nov 16, 2022, 07:22 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -6491,6 +6491,9 @@
               "name": {
                 "S": "kiba"
               },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
               "id": {
                 "S": "33c08ebd-2068-47e7-9673-e1aa03dc9448"
               },
@@ -6534,6 +6537,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6545,6 +6551,9 @@
               },
               "name": {
                 "S": "imamura"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
@@ -6598,6 +6607,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6609,6 +6621,9 @@
               },
               "name": {
                 "S": "makimachi"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -6662,6 +6677,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6673,6 +6691,9 @@
               },
               "name": {
                 "S": "himura"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
@@ -6717,6 +6738,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6728,6 +6752,9 @@
               },
               "name": {
                 "S": "hajime"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
@@ -6784,6 +6811,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6795,6 +6825,9 @@
               },
               "name": {
                 "S": "bulat"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
@@ -6839,6 +6872,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6850,6 +6886,9 @@
               },
               "name": {
                 "S": "ikari"
+              },
+              "created_date": {
+                "S": "2019-11-30T15:00:00+00:00"
               },
               "id": {
                 "S": "ed6f051c-2572-420f-bc11-476c4e71b4ee"
@@ -6894,6 +6933,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "integratesmanager@gmail.com"
               }
             },
             {
@@ -6905,6 +6947,9 @@
               },
               "name": {
                 "S": "kamiya"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
@@ -6958,6 +7003,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -6969,6 +7017,9 @@
               },
               "name": {
                 "S": "tatsumi"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "fe80d2d4-ccb7-46d1-8489-67c6360581de"
@@ -7013,6 +7064,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -7024,6 +7078,9 @@
               },
               "name": {
                 "S": "okada"
+              },
+              "created_date": {
+                "S": "2018-02-08T00:43:18+00:00"
               },
               "id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -7134,6 +7191,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             },
             {
@@ -7145,6 +7205,9 @@
               },
               "name": {
                 "S": "makoto"
+              },
+              "created_date": {
+                "S": "2019-11-22T20:07:57+00:00"
               },
               "id": {
                 "S": "d32674a9-9838-4337-b222-68c88bf54647"
@@ -7192,6 +7255,9 @@
               },
               "country": {
                 "S": "Colombia"
+              },
+              "created_by": {
+                "S": "unknown"
               }
             }
           ],
@@ -7206,7 +7272,9 @@
             "payment_methods",
             "country",
             "documents",
-            "vulnerabilities_url"
+            "vulnerabilities_url",
+            "created_date",
+            "created_by"
           ],
           "DataAccess": {
             "MySql": {}

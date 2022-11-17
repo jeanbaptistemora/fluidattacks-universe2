@@ -57,6 +57,8 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
 
 def format_organization(item: Item) -> Organization:
     return Organization(
+        created_by=item.get("created_by", ""),
+        created_date=item.get("created_date", ""),
         billing_customer=item.get("billing_customer"),
         country=item.get("country"),
         id=add_org_id_prefix(item["id"]),

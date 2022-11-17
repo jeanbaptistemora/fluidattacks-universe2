@@ -57,6 +57,8 @@ class OrganizationUnreliableIndicators(NamedTuple):
 
 
 class Organization(NamedTuple):
+    created_by: str
+    created_date: str
     id: str
     name: str
     policies: Policies

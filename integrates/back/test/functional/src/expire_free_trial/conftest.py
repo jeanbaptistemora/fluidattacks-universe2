@@ -174,6 +174,8 @@ async def populate() -> bool:
         "organizations": [
             {
                 "organization": Organization(
+                    created_by="johndoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="e314a87c-223f-44bc-8317-75900f2ffbc7",
                     name="testorg",
@@ -190,6 +192,8 @@ async def populate() -> bool:
             },
             {
                 "organization": Organization(
+                    created_by="janedoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
                     name="testorg2",
@@ -206,6 +210,8 @@ async def populate() -> bool:
             },
             {
                 "organization": Organization(
+                    created_by="uiguaran@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="a2204896-fbd0-4c55-8163-4cb3b018551c",
                     name="testorg3",
@@ -222,6 +228,8 @@ async def populate() -> bool:
             },
             {
                 "organization": Organization(
+                    created_by="abuendia@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="5399f49f-6e2c-4712-af72-5ea6e34cf15d",
                     name="testorg4",

@@ -622,12 +622,7 @@ async def create_payment_method(
                 raise PaymentMethodAlreadyExists()
             org.payment_methods.append(other_payment)
         else:
-            org = Organization(
-                country=org.country,
-                id=org.id,
-                name=org.name,
-                policies=org.policies,
-                state=org.state,
+            org = org._replace(
                 payment_methods=[other_payment],
                 billing_customer=customer.id,
             )

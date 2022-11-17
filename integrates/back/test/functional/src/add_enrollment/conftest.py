@@ -81,6 +81,8 @@ async def populate() -> bool:
         "organizations": [
             {
                 "organization": Organization(
+                    created_by="johndoe@fluidattacks.com",
+                    created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="e314a87c-223f-44bc-8317-75900f2ffbc7",
                     name="testorg",
