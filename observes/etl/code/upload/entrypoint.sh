@@ -4,8 +4,6 @@
 
 # shellcheck shell=bash
 
-alias code-etl="observes-etl-code-bin"
-
 function job_code_upload {
   local group="${1}"
   local db
@@ -41,7 +39,7 @@ function job_code_upload {
           melts drills --pull-repos "${group}"; then
           echo "[INFO] Uploading ${group}" \
             && shopt -s nullglob \
-            && code-etl \
+            && observes-etl-code \
               --db-id "${db}" \
               --creds "${creds}" \
               upload-code \
@@ -51,7 +49,7 @@ function job_code_upload {
               --mailmap '.groups-mailmap' \
               "groups/${group}/fusion/"* \
             && echo "[INFO] Amend authors of ${group}" \
-            && code-etl \
+            && observes-etl-code \
               --db-id "${db}" \
               --creds "${creds}" \
               amend-authors \

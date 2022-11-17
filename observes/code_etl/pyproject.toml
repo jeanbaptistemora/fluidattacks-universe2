@@ -23,7 +23,7 @@ description = "Code ETL"
 dynamic = ["version"]
 
 [project.scripts]
-observes-etl-code-bin = 'code_etl.cli:main'
+observes-etl-code = 'code_etl.cli:main'
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
+  inputs,
   makeScript,
   outputs,
   ...
@@ -9,7 +10,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/etl/code/bin"
+      outputs."${inputs.observesIndex.etl.code.bin}"
     ];
     source = [
       outputs."/common/utils/aws"

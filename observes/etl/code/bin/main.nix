@@ -2,19 +2,25 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 {
+  fetchNixpkgs,
+  inputs,
   makeScript,
-  outputs,
+  projectPath,
   ...
-}:
-makeScript {
-  entrypoint = ''
-    observes-etl-code-bin "$@"
-  '';
-  searchPaths = {
-    source = [
-      outputs."/observes/etl/code/env/bin"
-      outputs."/observes/common/import-and-run"
-    ];
-  };
-  name = "observes-etl-code-bin";
-}
+}: let
+  root = projectPath inputs.observesIndex.etl.code.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.bin;
+in
+  makeScript {
+    name = "observes-etl-code";
+    searchPaths = {
+      bin = [
+        env
+        inputs.nixpkgs.git
+      ];
+    };
+    entrypoint = ''
+      observes-etl-code "$@"
+    '';
+  }

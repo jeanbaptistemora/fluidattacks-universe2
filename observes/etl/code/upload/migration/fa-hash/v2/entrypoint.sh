@@ -4,8 +4,6 @@
 
 # shellcheck shell=bash
 
-alias code-etl="observes-etl-code-bin"
-
 function migration {
   local namespace="${1}"
   local db
@@ -16,7 +14,7 @@ function migration {
     && aws_login "prod_observes" "3600" \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && code-etl \
+    && observes-etl-code \
       --db-id "${db}" \
       --creds "${creds}" \
       migration calculate-fa-hash \
