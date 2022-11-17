@@ -15,7 +15,7 @@ You can access the **Policies** section
 by clicking on the **Policies** tab on
 your organization's home page on ARM.
 
-![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1662386894/docs/web/organizations/policies_tab.png)
+![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1668696098/docs/web/organizations/policies.png)
 
 In this section,
 you will find two tables.
@@ -34,7 +34,7 @@ the icon with the letter _i_
 next to a policy to see the
 value we recommend.
 
-![Policies Section Detail](https://res.cloudinary.com/fluid-attacks/image/upload/v1662386893/docs/web/organizations/list_policies.png)
+![Policies Section Detail](https://res.cloudinary.com/fluid-attacks/image/upload/v1668696135/docs/web/organizations/policies_section.png)
 
 ## Maximum number of calendar days a finding can be temporarily accepted​
 
@@ -199,4 +199,3 @@ After clicking the add button,
 the tag(s) you chose will be
 applied automatically to all
 the vulnerabilities of that type.
-
