@@ -32,6 +32,7 @@ from api.mutations import (
     add_stakeholder,
     add_toe_input,
     add_toe_lines,
+    add_toe_port,
     add_url_root,
     approve_draft,
     confirm_vulnerabilities_zero_risk,
@@ -163,6 +164,7 @@ MUTATION.set_field("addPaymentMethod", add_payment_method.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field("addToeInput", add_toe_input.mutate)
 MUTATION.set_field("addToeLines", add_toe_lines.mutate)
+MUTATION.set_field("addToePort", add_toe_port.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("approveDraft", approve_draft.mutate)
 MUTATION.set_field(

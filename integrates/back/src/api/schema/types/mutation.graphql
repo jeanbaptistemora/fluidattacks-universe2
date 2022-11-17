@@ -421,6 +421,18 @@ type Mutation {
     modifiedDate: DateTime!
   ): SimplePayload!
 
+  "Adds a new Toe port to the ARM group"
+  addToePort(
+    "Name of the group the port is associated with"
+    groupName: String!
+    "IP address of the environment"
+    address: String!
+    "Port number"
+    port: Int!
+    "Id of the root the port is associated with"
+    rootId: String!
+  ): SimplePayload!
+
   "Adds the URL of the environment to be tested"
   addUrlRoot(
     "URL of the environment to test"
