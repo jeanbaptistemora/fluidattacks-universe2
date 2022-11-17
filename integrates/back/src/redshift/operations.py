@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from aioextensions import (
-    in_thread,
-)
 from context import (
     FI_AWS_REDSHIFT_DBNAME,
     FI_AWS_REDSHIFT_HOST,
@@ -32,9 +29,7 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
     Iterator,
-    List,
     Optional,
 )
 
@@ -64,27 +59,41 @@ def db_cursor() -> Iterator[cursor_cls]:
         connection.close()
 
 
-async def execute(
+def initialize_schema() -> None:
+    with db_cursor() as cursor:
+        LOGGER.info("Ensuring %s schema exists...", SCHEMA_NAME)
+        cursor.execute(
+            sql.SQL(
+                """
+                CREATE SCHEMA IF NOT EXISTS {schema_name}
+            """
+            ).format(
+                schema_name=sql.Identifier(SCHEMA_NAME),
+            ),
+        )
+
+
+def execute(
     sql_query: sql.Composed,
-    sql_vars: Optional[Dict[str, Any]] = None,
+    sql_vars: Optional[dict[str, Any]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
         with db_cursor() as cursor:
-            await in_thread(cursor.execute, sql_query, sql_vars)
+            cursor.execute(sql_query, sql_vars)
 
 
-async def execute_many(
+def execute_many(
     sql_query: sql.Composed,
-    sql_vars: Optional[List[Dict[str, Any]]] = None,
+    sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
         with db_cursor() as cursor:
-            await in_thread(cursor.executemany, sql_query, sql_vars)
+            cursor.executemany(sql_query, sql_vars)
 
 
-async def execute_batch(
+def execute_batch(
     sql_query: sql.Composed,
-    sql_vars: Optional[List[Dict[str, Any]]] = None,
+    sql_vars: Optional[list[dict[str, Any]]] = None,
 ) -> None:
     if FI_ENVIRONMENT == "production":
         with db_cursor() as cursor:

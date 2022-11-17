@@ -51,7 +51,7 @@ async def _remove_vulns_from_table(
         )
         for vuln_id in vuln_ids
     ]
-    await redshift_ops.execute_batch(  # nosec
+    redshift_ops.execute_batch(  # nosec
         sql_query=f"""
             DELETE FROM {table}
             WHERE id=%(id)s
