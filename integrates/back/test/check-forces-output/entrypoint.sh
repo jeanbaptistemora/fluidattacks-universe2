@@ -4,6 +4,14 @@
 
 # shellcheck shell=bash
 
+function resolve_endpoint() {
+  if ! test -z "${CI:-}"; then
+    endpoint="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
+  else
+    endpoint="https://localhost:8001/api"
+  fi
+}
+
 function check_output() {
   if ! grep -q "ERROR\|TypeError\|IndexError\|Traceback" "$1"; then
     echo "[INFO] All clear!"
@@ -28,7 +36,8 @@ function main {
     && DAEMON=true integrates-db \
     && echo "[INFO] Running DevSecOps agent check..." \
     && mkdir -p "${out}" \
-    && forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
+    && resolve_endpoint \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
     && check_output "${out}/forces-output.log" \
     && rm -rf "${out}" \
     && return "${result_code}" \
