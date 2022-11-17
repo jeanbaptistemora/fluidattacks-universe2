@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from kubernetes.structure import (
-    check_template_integrity,
     get_containers_capabilities,
     get_label_and_data,
     get_pod_spec,
@@ -241,11 +240,9 @@ def _k8s_check_seccomp_profile(
 
 
 def _k8s_check_privileged_used(
-    template: Any,
-) -> Iterator[Any]:
-    if check_template_integrity(template) and (
-        ctx := template.inner.get("spec")
-    ):
+    template: Node,
+) -> Iterator[Node]:
+    for ctx in iter_security_context(template, True):
         privileged = ctx.inner.get("privileged")
         if privileged and privileged.data:
             yield privileged
