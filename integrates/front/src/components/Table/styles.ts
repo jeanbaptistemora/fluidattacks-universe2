@@ -38,6 +38,7 @@ const TableContainer = styled.div.attrs({
     border-bottom: solid 1px #8888;
     padding: 12px;
     width: auto;
+    white-space: pre-line;
   }
 
   label > input,
