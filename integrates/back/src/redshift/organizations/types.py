@@ -29,5 +29,5 @@ class StateTableRow:
     id: str
     modified_by: str
     modified_date: datetime
-    status: str
     pending_deletion_date: Optional[datetime]
+    status: str
