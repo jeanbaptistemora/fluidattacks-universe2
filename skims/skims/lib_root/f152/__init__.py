@@ -2,8 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from lib_root.f152.javascript import (
+    javascript_insecure_header_xframe_options,
+)
 from lib_root.f152.typescript import (
-    insecure_header_xframe_options as typescript_insecure_header_xframe_opts,
+    typescript_insecure_header_xframe_options,
 )
 from model import (
     core_model,
@@ -12,5 +15,6 @@ from model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F152
 QUERIES: graph_model.Queries = (
-    (FINDING, typescript_insecure_header_xframe_opts),
+    (FINDING, typescript_insecure_header_xframe_options),
+    (FINDING, javascript_insecure_header_xframe_options),
 )

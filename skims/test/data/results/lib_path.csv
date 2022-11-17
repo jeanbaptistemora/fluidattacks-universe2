@@ -34474,6 +34474,27 @@ F109,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,681,s
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
+F152,lines,namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js,11,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
+ in namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js","
+   1 | /*
+   2 |  * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+   3 |  *
+   4 |  * SPDX-License-Identifier: MPL-2.0
+   5 |  */
+   6 |
+   7 | import { HttpHeaders } from ""@angular/common/http"";
+   8 |
+   9 | export class AppComponent {
+  10 |   login(login) {
+> 11 |     const headers = new HttpHeaders({
+  12 |       ""Content-Type"": ""application/json"",
+  13 |       ""X-XSS-Protection"": ""anything"", // Unsafe F135
+  14 |       ""X-Frame-Options"": ""anything"", // Unsafe F152
+  15 |     });
+  16 |   }
+  17 | }
+     ^ Col 0
+",javascript.javascript_unsafe_http_xframe_options
 F152,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,15,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"Ensure that the HttpHeaders constructor suppresses 'X-Frame-Options' headers.
  in namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts","
    2 |  * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>

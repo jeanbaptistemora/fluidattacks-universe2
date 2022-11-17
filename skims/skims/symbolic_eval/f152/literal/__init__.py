@@ -6,7 +6,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f152.literal.typescript import (
-    ts_insecure_http_headers,
+    insecure_http_headers,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,7 +18,8 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.TS_UNSAFE_HTTP_X_FRAME_OPTIONS: ts_insecure_http_headers,
+    MethodsEnum.TS_UNSAFE_HTTP_X_FRAME_OPTIONS: insecure_http_headers,
+    MethodsEnum.JS_UNSAFE_HTTP_X_FRAME_OPTIONS: insecure_http_headers,
 }
 
 
