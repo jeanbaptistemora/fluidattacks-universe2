@@ -5,6 +5,7 @@
 from api.resolvers.credentials import (
     azure_organization,
     is_pat,
+    is_token,
     key,
     name,
     organization,
@@ -20,6 +21,7 @@ from ariadne import (
 CREDENTIALS = ObjectType("Credentials")
 CREDENTIALS.set_field("azureOrganization", azure_organization.resolve)
 CREDENTIALS.set_field("isPat", is_pat.resolve)
+CREDENTIALS.set_field("isToken", is_token.resolve)
 CREDENTIALS.set_field("key", key.resolve)
 CREDENTIALS.set_field("name", name.resolve)
 CREDENTIALS.set_field("organization", organization.resolve)
