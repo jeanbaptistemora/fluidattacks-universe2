@@ -25,6 +25,32 @@ in your group.
 
 ![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1661373759/docs/web/groups/stakeholders/stakeholders_section.png)
 
+## Stakeholders table
+
+In total, we have six columns which are described below:
+
+- **Stakeholder email:**
+  The user's email address.
+- **Role:**
+  The role that the user has
+  in that organization.
+- **Responsibility:**
+  The user's responsibility in
+  the group.
+- **First login:**
+  The date and time at which the
+  first entry into the organization.
+- **Last login:**
+  The time recorded since the last entry.
+- **Registration status:**
+  The state that the user is in can be:
+  Registered,
+  Unregistered or Pending.
+- **Invitation:**
+  It allows you to Resend the
+  invitation to a user if they
+  have yet to accept it.
+
 ## Functionalities
 
 In this section,
@@ -33,7 +59,8 @@ following buttons:
 export,
 add,
 edit,
-remove and filters.
+remove,
+filters and search bar.
 
 ### Export
 
@@ -110,3 +137,8 @@ for the table: Role and
 Registration status.
 
 ![Filters Available](https://res.cloudinary.com/fluid-attacks/image/upload/v1661375344/docs/web/groups/stakeholders/filters_type.png)
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
