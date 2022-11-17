@@ -37,13 +37,38 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.types import (
+    Item,
+)
 from typing import (
     AsyncIterator,
     Iterable,
 )
 
 
-async def get_all_organizations() -> tuple[Organization, ...]:
+async def get_organization_historic_state_items(
+    *,
+    organization_id: str,
+) -> tuple[Item, ...]:
+    facet = TABLE.facets["organization_historic_state"]
+    primary_key = keys.build_key(
+        facet=facet,
+        values={"id": remove_org_id_prefix(organization_id)},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(facet,),
+        table=TABLE,
+    )
+
+    return response.items
+
+
+async def get_all_organizations_items() -> tuple[Item, ...]:
     primary_key = keys.build_key(
         facet=ALL_ORGANIZATIONS_INDEX_METADATA,
         values={"all": "all"},
@@ -63,7 +88,13 @@ async def get_all_organizations() -> tuple[Organization, ...]:
     if not response.items:
         raise ErrorLoadingOrganizations()
 
-    return tuple(format_organization(item) for item in response.items)
+    return response.items
+
+
+async def get_all_organizations() -> tuple[Organization, ...]:
+    items = await get_all_organizations_items()
+
+    return tuple(format_organization(item) for item in items)
 
 
 async def iterate_organizations() -> AsyncIterator[Organization]:
@@ -71,7 +102,7 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
         yield organization
 
 
-async def _get_organization_by_id(*, organization_id: str) -> Organization:
+async def get_organization_by_id_item(*, organization_id: str) -> Item:
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={"id": remove_org_id_prefix(organization_id)},
@@ -91,10 +122,16 @@ async def _get_organization_by_id(*, organization_id: str) -> Organization:
     if not response.items:
         raise OrganizationNotFound()
 
-    return format_organization(response.items[0])
+    return response.items[0]
 
 
-async def _get_organization_by_name(*, organization_name: str) -> Organization:
+async def _get_organization_by_id(*, organization_id: str) -> Organization:
+    item = await get_organization_by_id_item(organization_id=organization_id)
+
+    return format_organization(item)
+
+
+async def get_organization_by_name_item(*, organization_name: str) -> Item:
     organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
@@ -118,7 +155,15 @@ async def _get_organization_by_name(*, organization_name: str) -> Organization:
     if not response.items:
         raise OrganizationNotFound()
 
-    return format_organization(response.items[0])
+    return response.items[0]
+
+
+async def _get_organization_by_name(*, organization_name: str) -> Organization:
+    item = await get_organization_by_name_item(
+        organization_name=organization_name
+    )
+
+    return format_organization(item)
 
 
 async def _get_organization(*, organization_key: str) -> Organization:
