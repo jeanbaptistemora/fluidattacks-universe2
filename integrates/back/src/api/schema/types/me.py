@@ -4,6 +4,7 @@
 
 from api.resolvers.me import (
     access_token,
+    company,
     credentials,
     drafts,
     enrollment,
@@ -29,6 +30,7 @@ from ariadne import (
 
 ME = ObjectType("Me")
 ME.set_field("accessToken", access_token.resolve)
+ME.set_field("company", company.resolve)
 ME.set_field("credentials", credentials.resolve)
 ME.set_field("drafts", drafts.resolve)
 ME.set_field("enrollment", enrollment.resolve)

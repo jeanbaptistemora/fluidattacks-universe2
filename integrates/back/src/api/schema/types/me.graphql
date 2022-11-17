@@ -8,6 +8,8 @@ type Me {
   accessToken: String!
   "Origin of the requests made to the endpoint by this user"
   callerOrigin: CallerOrigin!
+  "Company the organization belongs to"
+  company: Company!
   "Credentials that belong to the stakeholder"
   credentials: [Credentials!]
   "New findings yet to be approved"

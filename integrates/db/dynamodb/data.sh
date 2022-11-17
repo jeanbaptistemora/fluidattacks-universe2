@@ -13,6 +13,7 @@ function main {
   local out="integrates/db/.data"
   local i=0
   local included_facets=(
+    company_metadata
     compliance_unreliable_indicators
     credentials_historic_state
     credentials_metadata

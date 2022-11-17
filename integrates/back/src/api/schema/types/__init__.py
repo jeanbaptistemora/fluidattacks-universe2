@@ -5,6 +5,9 @@
 from .billing import (
     BILLING,
 )
+from .company import (
+    COMPANY,
+)
 from .consult import (
     CONSULT,
 )
@@ -157,6 +160,7 @@ from typing import (
 
 TYPES: Tuple[ObjectType, ...] = (
     BILLING,
+    COMPANY,
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,

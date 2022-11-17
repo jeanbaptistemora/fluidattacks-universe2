@@ -29,6 +29,12 @@ async def test_me() -> None:
     query = """{
         me(callerOrigin: "API") {
             accessToken
+            company {
+                domain
+                trial {
+                    completed
+                }
+            }
             tags(organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3") {
                 name
                 groups {
@@ -64,6 +70,10 @@ async def test_me() -> None:
         if tag["name"] == "test-groups":
             output = [proj["name"] for proj in tag["groups"]]
             assert sorted(output) == sorted(expected_groups)
+    assert result["data"]["me"]["company"] == {
+        "domain": "gmail.com",
+        "trial": {"completed": True},
+    }
 
 
 @pytest.mark.changes_db

@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+"Company type definition"
+type Company {
+  "Email domain of the company"
+  domain: String!
+  "Free trial information"
+  trial: Trial!
+}
