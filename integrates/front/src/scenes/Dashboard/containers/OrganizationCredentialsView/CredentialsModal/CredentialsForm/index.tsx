@@ -4,16 +4,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ICredentialsFormProps, IFormValues } from "./types";
 import { validateSchema } from "./utils";
 
 import { Input, Select, TextArea } from "components/Input";
-import { FormikCheckbox } from "components/Input/Formik";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { ModalConfirm } from "components/Modal";
@@ -35,8 +34,13 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
     password: undefined,
     token: undefined,
     type: "SSH",
+    typeCredential: "SSH",
     user: undefined,
   };
+  const buttonMessage = useMemo(
+    (): string => (isAdding ? "add" : "edit"),
+    [isAdding]
+  );
 
   return (
     <Formik
@@ -52,6 +56,26 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
         // Handle actions
         function toggleNewSecrets(): void {
           setFieldValue("newSecrets", !values.newSecrets);
+        }
+        function onTypeChange(
+          event: React.ChangeEvent<HTMLSelectElement>
+        ): void {
+          event.preventDefault();
+          if (event.target.value === "SSH") {
+            setFieldValue("type", "SSH");
+            setFieldValue("auth", "");
+            setFieldValue("isPat", false);
+          }
+          if (event.target.value === "USER") {
+            setFieldValue("type", "HTTPS");
+            setFieldValue("auth", "USER");
+            setFieldValue("isPat", false);
+          }
+          if (event.target.value === "TOKEN") {
+            setFieldValue("type", "HTTPS");
+            setFieldValue("auth", "TOKEN");
+            setFieldValue("isPat", true);
+          }
         }
 
         return (
@@ -77,17 +101,22 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                       label={t(
                         "organization.tabs.credentials.credentialsModal.form.type.label"
                       )}
-                      name={"type"}
-                      required={true}
+                      name={"typeCredential"}
+                      onChange={onTypeChange}
                     >
-                      <option value={"HTTPS"}>
-                        {t(
-                          "organization.tabs.credentials.credentialsModal.form.type.https"
-                        )}
-                      </option>
                       <option value={"SSH"}>
                         {t(
                           "organization.tabs.credentials.credentialsModal.form.type.ssh"
+                        )}
+                      </option>
+                      <option value={"TOKEN"}>
+                        {t(
+                          "organization.tabs.credentials.credentialsModal.form.auth.azureToken"
+                        )}
+                      </option>
+                      <option value={"USER"}>
+                        {t(
+                          "organization.tabs.credentials.credentialsModal.form.auth.user"
                         )}
                       </option>
                     </Select>
@@ -104,22 +133,6 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                       />
                     </Col>
                   )}
-                  {values.type === "HTTPS" && (
-                    <Col lg={100} md={100} sm={100}>
-                      <Select name={"auth"} required={true}>
-                        <option value={"TOKEN"}>
-                          {t(
-                            "organization.tabs.credentials.credentialsModal.form.auth.token"
-                          )}
-                        </option>
-                        <option value={"USER"}>
-                          {t(
-                            "organization.tabs.credentials.credentialsModal.form.auth.user"
-                          )}
-                        </option>
-                      </Select>
-                    </Col>
-                  )}
                   {values.type === "HTTPS" && values.auth === "TOKEN" && (
                     <React.Fragment>
                       <Col lg={100} md={100} sm={100}>
@@ -132,21 +145,16 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                         />
                       </Col>
                       <Col lg={100} md={100} sm={100}>
-                        <Field
-                          component={FormikCheckbox}
-                          label={t(
-                            "organization.tabs.credentials.credentialsModal.form.isPat"
-                          )}
-                          name={"isPat"}
-                          type={"checkbox"}
-                        />
                         {values.isPat === true ? (
                           <Input
                             label={t(
-                              "organization.tabs.credentials.credentialsModal.form.azureOrganization"
+                              "organization.tabs.credentials.credentialsModal.form.azureOrganization.text"
                             )}
                             name={"azureOrganization"}
                             required={true}
+                            tooltip={t(
+                              "organization.tabs.credentials.credentialsModal.form.azureOrganization.tooltip"
+                            )}
                           />
                         ) : undefined}
                       </Col>
@@ -195,9 +203,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
               disabled={isSubmitting || !dirty}
               onCancel={onCancel}
               txtConfirm={t(
-                `organization.tabs.credentials.credentialsModal.form.${
-                  isAdding ? "add" : "edit"
-                }`
+                `organization.tabs.credentials.credentialsModal.form.${buttonMessage}`
               )}
             />
           </Form>

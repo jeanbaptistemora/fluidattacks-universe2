@@ -28,6 +28,7 @@ const GET_ORGANIZATION_CREDENTIALS: DocumentNode = gql`
         azureOrganization
         id
         isPat
+        isToken
         name
         owner
         type

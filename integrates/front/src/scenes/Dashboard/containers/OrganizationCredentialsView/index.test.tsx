@@ -57,8 +57,10 @@ describe("organization credentials view", (): void => {
               credentials: [
                 {
                   __typename: "Credentials",
+                  azureOrganization: null,
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
                   isPat: false,
+                  isToken: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -82,7 +84,11 @@ describe("organization credentials view", (): void => {
     );
     await waitFor((): void => {
       expect(screen.getByText("Credentials test")).toBeInTheDocument();
-      expect(screen.getByText("HTTPS")).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "organization.tabs.credentials.credentialsModal.form.auth.user"
+        )
+      ).toBeInTheDocument();
       expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
   });
@@ -105,8 +111,10 @@ describe("organization credentials view", (): void => {
               credentials: [
                 {
                   __typename: "Credentials",
+                  azureOrganization: null,
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
                   isPat: false,
+                  isToken: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -124,7 +132,8 @@ describe("organization credentials view", (): void => {
           query: ADD_CREDENTIALS,
           variables: {
             credentials: {
-              isPat: false,
+              azureOrganization: "testorg1",
+              isPat: true,
               name: "New name",
               token: "New token",
               type: "HTTPS",
@@ -173,16 +182,20 @@ describe("organization credentials view", (): void => {
       "New name"
     );
     await userEvent.selectOptions(
-      screen.getByRole("combobox", { name: "type" }),
+      screen.getByRole("combobox", { name: "typeCredential" }),
       [
         screen.getByText(
-          "organization.tabs.credentials.credentialsModal.form.type.https"
+          "organization.tabs.credentials.credentialsModal.form.auth.azureToken"
         ),
       ]
     );
     await userEvent.type(
       screen.getByRole("textbox", { name: "token" }),
       "New token"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "azureOrganization" }),
+      "testorg1"
     );
     await userEvent.click(
       screen.getByRole("button", {
@@ -215,8 +228,10 @@ describe("organization credentials view", (): void => {
               credentials: [
                 {
                   __typename: "Credentials",
+                  azureOrganization: null,
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
                   isPat: false,
+                  isToken: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -305,8 +320,10 @@ describe("organization credentials view", (): void => {
               credentials: [
                 {
                   __typename: "Credentials",
+                  azureOrganization: null,
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
                   isPat: false,
+                  isToken: false,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -373,20 +390,8 @@ describe("organization credentials view", (): void => {
     );
     await userEvent.click(screen.getByRole("checkbox", { name: "newSecrets" }));
     await userEvent.selectOptions(
-      screen.getByRole("combobox", { name: "type" }),
-      [
-        screen.getByText(
-          "organization.tabs.credentials.credentialsModal.form.type.https"
-        ),
-      ]
-    );
-    await userEvent.selectOptions(
-      screen.getByRole("combobox", { name: "auth" }),
-      [
-        screen.getByText(
-          "organization.tabs.credentials.credentialsModal.form.auth.user"
-        ),
-      ]
+      screen.getByRole("combobox", { name: "typeCredential" }),
+      ["USER"]
     );
     await userEvent.clear(screen.getByRole("textbox", { name: "user" }));
     await userEvent.type(

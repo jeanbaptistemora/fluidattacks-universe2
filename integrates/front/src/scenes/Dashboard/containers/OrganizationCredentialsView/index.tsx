@@ -48,7 +48,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
 
   // States
   const [selectedCredentials, setSelectedCredentials] = useState<
-    ICredentialsAttr[]
+    ICredentialsData[]
   >([]);
   const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -92,6 +92,31 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     },
   });
 
+  const formatType = useCallback(
+    (value: ICredentialsAttr): string => {
+      if (value.type === "HTTPS") {
+        if (value.isToken) {
+          if (value.isPat && value.azureOrganization !== null) {
+            return t(
+              "organization.tabs.credentials.credentialsModal.form.auth.azureToken"
+            );
+          }
+
+          return t(
+            "organization.tabs.credentials.credentialsModal.form.auth.token"
+          );
+        }
+
+        return t(
+          "organization.tabs.credentials.credentialsModal.form.auth.user"
+        );
+      }
+
+      return value.type;
+    },
+    [t]
+  );
+
   // Format data
   const credentialsAttrs = _.isUndefined(data)
     ? []
@@ -99,6 +124,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   const credentials: ICredentialsData[] = credentialsAttrs.map(
     (credentialAttr: ICredentialsAttr): ICredentialsData => ({
       ...credentialAttr,
+      formattedType: formatType(credentialAttr),
     })
   );
 
@@ -135,7 +161,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
       header: t("organization.tabs.credentials.table.columns.name"),
     },
     {
-      accessorKey: "type",
+      accessorKey: "formattedType",
       header: t("organization.tabs.credentials.table.columns.type"),
     },
     {

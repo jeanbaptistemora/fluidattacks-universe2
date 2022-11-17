@@ -14,6 +14,7 @@ interface ICredentialsAttr {
   azureOrganization: string | null;
   id: string;
   isPat: boolean;
+  isToken: boolean;
   name: string;
   owner: string;
   type: "HTTPS" | "SSH";
@@ -21,8 +22,10 @@ interface ICredentialsAttr {
 
 interface ICredentialsData {
   azureOrganization: string | null;
+  formattedType: string;
   id: string;
   isPat: boolean;
+  isToken: boolean;
   name: string;
   owner: string;
   type: "HTTPS" | "SSH";

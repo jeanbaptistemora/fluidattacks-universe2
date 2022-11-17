@@ -1847,10 +1847,15 @@ export const enTranslations: ResourceKey = {
           form: {
             add: "Add",
             auth: {
+              azureToken: "Azure DevOps PAT",
               token: "Access Token",
               user: "User and Password",
             },
-            azureOrganization: "Azure organization",
+            azureOrganization: {
+              text: "Azure Organization",
+              tooltip:
+                "The name of the azure organization related to the personal access token",
+            },
             edit: "Edit",
             isPat: "Use as Azure DevOps PAT",
             name: {

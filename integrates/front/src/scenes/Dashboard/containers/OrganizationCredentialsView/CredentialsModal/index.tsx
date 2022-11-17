@@ -26,6 +26,7 @@ import type {
   IAddCredentialsResultAttr,
   IUpdateCredentialsResultAttr,
 } from "../types";
+import { formatAuthCredentials, formatTypeCredentials } from "../utils";
 import { Modal } from "components/Modal";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -198,7 +199,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
         initialValues={
           isEditing && !_.isUndefined(selectedCredentials)
             ? {
-                auth: "TOKEN",
+                auth: formatAuthCredentials(selectedCredentials[0]),
                 azureOrganization:
                   selectedCredentials[0].azureOrganization ?? "",
                 isPat: selectedCredentials[0].isPat,
@@ -208,6 +209,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
                 password: undefined,
                 token: undefined,
                 type: selectedCredentials[0].type,
+                typeCredential: formatTypeCredentials(selectedCredentials[0]),
                 user: undefined,
               }
             : undefined
