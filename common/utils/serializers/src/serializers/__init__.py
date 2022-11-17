@@ -21,12 +21,13 @@ SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 
 class SnippetViewport(NamedTuple):
-    column: int
     line: int
+    column: Optional[int] = None
 
     columns_per_line: int = SNIPPETS_COLUMNS
     line_context: int = SNIPPETS_CONTEXT
     wrap: bool = False
+    show_line_numbers: bool = True
 
 
 def _chunked(line: str, chunk_size: int) -> Iterator[str]:
@@ -67,8 +68,10 @@ def make_snippet(  # NOSONAR
 
         # Find the horizontal left of the snippet
         # We'll place the center at 25% from the left border
-        viewport_left: int = max(
-            viewport.column - viewport.columns_per_line // 4, 0
+        viewport_left: int = (
+            max(viewport.column - viewport.columns_per_line // 4, 0)
+            if viewport.column
+            else 0
         )
 
         if lines:
@@ -80,6 +83,8 @@ def make_snippet(  # NOSONAR
                 lines[-2][0] if len(lines) >= 2 else None
             )
             for index, (line_no, line) in enumerate(lines):
+                if not viewport.line:
+                    continue
                 # Highlight this line if requested
                 mark_symbol = (
                     ">"
@@ -99,8 +104,11 @@ def make_snippet(  # NOSONAR
                 ]
 
                 # Edit in-place the lines to add the ruler
-                fmt = f"{mark_symbol} {line_no_str!s:>{loc_width}s} | {line}"
-                lines[index] = (line_no, fmt.rstrip(" "))
+                if viewport.show_line_numbers:
+                    fmt = (
+                        f"{mark_symbol} {line_no_str!s:>{loc_width}s} | {line}"
+                    )
+                    lines[index] = (line_no, fmt.rstrip(" "))
 
             # Slice viewport vertically
             if viewport_center - viewport.line_context <= 0:
@@ -116,14 +124,13 @@ def make_snippet(  # NOSONAR
                         max(viewport_center - viewport.line_context, 0),
                         viewport_center + viewport.line_context + 1,
                     )
-                    if (viewport_center + viewport.line_context < len(lines))
-                    else slice(
-                        max(len(lines) - 2 * viewport.line_context - 1, 0),
-                        len(lines),
-                    )
                 ]
 
             # Highlight the column if requested
-            lines.append((0, f"  {' ':>{loc_width}} ^ Col {viewport_left}"))
+
+            if viewport.column:
+                lines.append(
+                    (0, f"  {' ':>{loc_width}} ^ Col {viewport_left}")
+                )
 
     return "\n".join(map(itemgetter(1), lines))
