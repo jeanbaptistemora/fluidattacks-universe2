@@ -8,15 +8,27 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_ORGANIZATION_INTEGRATION_REPOSITORIES: DocumentNode = gql`
-  query GetOrganizationIntegrationRepositories($organizationId: String!) {
+  query GetOrganizationIntegrationRepositories(
+    $organizationId: String!
+    $first: Int
+    $after: String
+  ) {
     organization(organizationId: $organizationId) {
       __typename
       name
-      integrationRepositories {
+      integrationRepositoriesConnection(after: $after, first: $first) {
         __typename
-        defaultBranch
-        lastCommitDate
-        url
+        edges {
+          node {
+            defaultBranch
+            lastCommitDate
+            url
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }

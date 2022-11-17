@@ -31,6 +31,7 @@ import {
 } from "./queries";
 import type {
   IIntegrationRepositoriesAttr,
+  IIntegrationRepositoriesEdge,
   IOrganizationGroups,
   IOrganizationIntegrationRepositoriesAttr,
   IOrganizationWeakestProps,
@@ -76,23 +77,29 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // GraphQl queries
-  const { data: repositoriesData, refetch: refetchRepositories } =
-    useQuery<IOrganizationIntegrationRepositoriesAttr>(
-      GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
-      {
-        onError: ({ graphQLErrors }: ApolloError): void => {
-          graphQLErrors.forEach((error: GraphQLError): void => {
-            Logger.error(
-              "Couldn't load organization integration repositories",
-              error
-            );
-          });
-        },
-        variables: {
-          organizationId,
-        },
-      }
-    );
+  const {
+    data: repositoriesData,
+    fetchMore,
+    refetch: refetchRepositories,
+  } = useQuery<IOrganizationIntegrationRepositoriesAttr>(
+    GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
+    {
+      fetchPolicy: "network-only",
+      nextFetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error(
+            "Couldn't load organization integration repositories",
+            error
+          );
+        });
+      },
+      variables: {
+        first: 150,
+        organizationId,
+      },
+    }
+  );
 
   const { data: groupsData } = useQuery<{ organization: IOrganizationGroups }>(
     GET_ORGANIZATION_GROUPS,
@@ -152,15 +159,20 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     [groupsData]
   );
 
+  const pageInfo =
+    repositoriesData === undefined
+      ? undefined
+      : repositoriesData.organization.integrationRepositoriesConnection
+          .pageInfo;
   const integrationRepositories = _.isUndefined(repositoriesData)
     ? []
     : _.orderBy(
-        repositoriesData.organization.integrationRepositories.map(
-          (
-            repository: IIntegrationRepositoriesAttr
-          ): IIntegrationRepositoriesAttr => ({
-            ...repository,
-            lastCommitDate: formatDate(repository.lastCommitDate),
+        repositoriesData.organization.integrationRepositoriesConnection.edges.map(
+          ({
+            node,
+          }: IIntegrationRepositoriesEdge): IIntegrationRepositoriesAttr => ({
+            ...node,
+            lastCommitDate: formatDate(node.lastCommitDate),
           })
         ),
         "lastCommitDate",
@@ -299,6 +311,16 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     },
     [attributesContext, permissionsContext, groupsData]
   );
+
+  useEffect((): void => {
+    if (!_.isUndefined(pageInfo)) {
+      if (pageInfo.hasNextPage) {
+        void fetchMore({
+          variables: { after: pageInfo.endCursor, first: 1200 },
+        });
+      }
+    }
+  }, [pageInfo, fetchMore]);
 
   useEffect(onGroupChange, [
     attributesContext,

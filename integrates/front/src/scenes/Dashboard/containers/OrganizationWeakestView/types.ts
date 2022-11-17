@@ -14,12 +14,6 @@ interface IIntegrationRepositoriesAttr {
   url: string;
 }
 
-interface IOrganizationIntegrationRepositoriesAttr {
-  organization: {
-    integrationRepositories: IIntegrationRepositoriesAttr[];
-  };
-}
-
 interface IPlusModalProps {
   groupNames: string[];
   isOpen: boolean;
@@ -43,7 +37,27 @@ interface IOrganizationGroups {
   permissions: string[];
 }
 
+interface IIntegrationRepositoriesEdge {
+  node: IIntegrationRepositoriesAttr;
+}
+
+interface IIntegrationRepositoriesConnection {
+  edges: IIntegrationRepositoriesEdge[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string;
+  };
+}
+
+interface IOrganizationIntegrationRepositoriesAttr {
+  organization: {
+    integrationRepositoriesConnection: IIntegrationRepositoriesConnection;
+  };
+}
+
 export type {
+  IIntegrationRepositoriesConnection,
+  IIntegrationRepositoriesEdge,
   IIntegrationRepositoriesAttr,
   IPlusModalProps,
   IOrganizationIntegrationRepositoriesAttr,

@@ -39,6 +39,7 @@ describe("OrganizationWeakestView", (): void => {
     request: {
       query: GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
       variables: {
+        first: 150,
         organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
       },
     },
@@ -46,14 +47,24 @@ describe("OrganizationWeakestView", (): void => {
       data: {
         organization: {
           __typename: "Organization",
-          integrationRepositories: [
-            {
-              __typename: "IntegrationRepositories",
-              defaultBranch: "main",
-              lastCommitDate: "2022-11-09 02:34:40+00:00",
-              url: "https://testrepo.com/testorg1/testproject1/_git/testrepo",
+          integrationRepositoriesConnection: {
+            __typename: "IntegrationRepositoriesConnection",
+            edges: [
+              {
+                __typename: "IntegrationRepositoriesEdge",
+                node: {
+                  __typename: "OrganizationIntegrationRepositories",
+                  defaultBranch: "main",
+                  lastCommitDate: "2022-11-09 02:34:40+00:00",
+                  url: "https://testrepo.com/testorg1/testproject1/_git/testrepo",
+                },
+              },
+            ],
+            pageInfo: {
+              endCursor: "bnVsbA==",
+              hasNextPage: false,
             },
-          ],
+          },
           name: "orgtest",
         },
       },
@@ -213,6 +224,7 @@ describe("OrganizationWeakestView", (): void => {
       request: {
         query: GET_ORGANIZATION_INTEGRATION_REPOSITORIES,
         variables: {
+          first: 150,
           organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         },
       },
@@ -220,7 +232,14 @@ describe("OrganizationWeakestView", (): void => {
         data: {
           organization: {
             __typename: "Organization",
-            integrationRepositories: [],
+            integrationRepositoriesConnection: {
+              __typename: "IntegrationRepositoriesConnection",
+              edges: [],
+              pageInfo: {
+                endCursor: "bnVsbA==",
+                hasNextPage: false,
+              },
+            },
             name: "orgtest",
           },
         },
