@@ -84,8 +84,8 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
       <SlideContainer>
         <div className={"flex overflow-hidden scroll-smooth"} ref={slideDiv}>
           {cards.map((card): JSX.Element => {
-            const { alt, description, image, title, slug } =
-              card.node.frontmatter;
+            const { alt, description, image, title } = card.node.frontmatter;
+            const { slug } = card.node.fields;
 
             return (
               <div className={"flex"} key={title} ref={cardDiv}>
@@ -110,6 +110,7 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
               disabled={scroll === 0}
               icon={<IoIosArrowBack />}
               onClick={scrollLeft}
+              size={"lg"}
               variant={"darkSecondary"}
             />
           </Container>
@@ -118,6 +119,7 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
               disabled={scroll === currentWidth}
               icon={<IoIosArrowForward />}
               onClick={scrollRight}
+              size={"lg"}
               variant={"darkSecondary"}
             />
           </Container>
