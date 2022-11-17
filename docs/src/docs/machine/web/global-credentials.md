@@ -13,11 +13,24 @@ To see the credentials that exist,
 you have to go to the main page
 in the tab called credentials.
 
-![Main Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1660670043/docs/web/credentials/credent_main_page.png)
+![Main Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1668699808/docs/web/credentials/credentials.png)
+
+## Credentials table
 
 Here you can see the list
 of all the credentials created
 in the organization you are located in.
+In total, we have three columns which
+are described below:
+
+- **Name:**
+  The name of the credential.
+- **Type:**
+  Which type of credential it is,
+  can be [HTTPS](machine/web/groups/scope/roots#adding-a-root-with-the-https)
+  or [SSH](machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key).
+- **Owner:**
+  The person who created the credential.
 
 ## Functionalities​
 
@@ -74,3 +87,8 @@ keep in mind regarding credentials:
 - The owner of the credentials
   is the last one that edited
   the credential's secrets.
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
