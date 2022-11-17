@@ -19,5 +19,7 @@ in
         env
       ];
     };
-    entrypoint = ./entrypoint.sh;
+    entrypoint = ''
+      observes-batch-stability "$@"
+    '';
   }

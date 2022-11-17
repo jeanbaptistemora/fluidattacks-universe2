@@ -9,9 +9,11 @@
 }:
 makeScript {
   searchPaths = {
+    bin = [
+      outputs."${inputs.observesIndex.service.batch_stability.bin}"
+    ];
     source = [
       outputs."/common/utils/aws"
-      outputs."${inputs.observesIndex.service.batch_stability.bin}"
       outputs."/common/utils/sops"
     ];
   };
