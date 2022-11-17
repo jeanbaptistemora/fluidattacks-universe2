@@ -454,7 +454,10 @@ const Development = [
           {
             type: "category",
             label: "Guidelines",
-            items: ["development/products/skims/guidelines/sca"],
+            items: [
+              "development/products/skims/guidelines/sca",
+              "development/products/skims/guidelines/sast",
+            ],
           },
         ],
       },
