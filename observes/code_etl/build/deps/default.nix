@@ -43,7 +43,6 @@ in
       inherit lib;
       pythonPkgs = _python_pkgs_2;
     };
-    postgres-client = pkgs.postgres-client."${python_version}".pkg;
     redshift-client = pkgs.redshift-client."${python_version}".pkg;
     types-click = import ./click/stubs.nix lib;
     utils-logger = pkgs.utils-logger."${python_version}".pkg;
