@@ -82,3 +82,14 @@ async def add(  # pylint: disable=too-many-arguments,invalid-name
         root_id=root_id,
     )
     await toe_ports_model.add(toe_port=toe_port)
+
+
+async def remove(
+    current_value: ToePort,
+) -> None:
+    await toe_ports_model.remove(
+        port=current_value.port,
+        ip=current_value.ip,
+        group_name=current_value.group_name,
+        root_id=current_value.root_id,
+    )
