@@ -44,6 +44,7 @@ interface IContainerProps {
   minWidthMd?: string;
   minWidthSm?: string;
   scroll?: TScroll;
+  shadow?: boolean;
   width?: string;
   widthMd?: string;
   widthSm?: string;

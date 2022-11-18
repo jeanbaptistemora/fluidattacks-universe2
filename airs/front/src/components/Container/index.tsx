@@ -39,6 +39,7 @@ const Container: React.FC<IContainerProps> = ({
   pr,
   pt,
   pv,
+  shadow,
   width,
   widthMd,
   widthSm,
@@ -74,6 +75,7 @@ const Container: React.FC<IContainerProps> = ({
       pr={pr}
       pt={pt}
       pv={pv}
+      shadow={shadow}
       width={width}
       widthMd={widthMd}
       widthSm={widthSm}

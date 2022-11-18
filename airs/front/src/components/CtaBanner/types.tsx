@@ -8,6 +8,7 @@ interface ICtaBannerProps {
   title: string;
   paragraph: string;
   image: string;
+  matomoAction: string;
 }
 
 export type { ICtaBannerProps };

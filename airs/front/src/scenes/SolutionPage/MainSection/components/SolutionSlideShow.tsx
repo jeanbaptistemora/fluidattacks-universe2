@@ -42,6 +42,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
               description
               image
               title
+              subtitle
             }
           }
         }

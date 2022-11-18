@@ -22,7 +22,6 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { CtaBanner } from "../components/CtaBanner";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -42,11 +41,6 @@ const NewSolutionIndex: React.FC<IQueryData> = ({
   const { description, headtitle, identifier, image, keywords, slug, title } =
     data.markdownRemark.frontmatter;
   const { htmlAst } = data.markdownRemark;
-
-  const ctaParagraph =
-    `This culture is gaining strength as an increasing number of organizations are ` +
-    `building more secure software day by day. Don't miss out on the benefits, ` +
-    `and ask us about our 21-day free trial for a taste of our ${identifier} solution.`;
 
   return (
     <React.Fragment>
@@ -81,13 +75,9 @@ const NewSolutionIndex: React.FC<IQueryData> = ({
             <SolutionPage
               description={description}
               htmlAst={htmlAst}
+              identifier={identifier}
               image={image}
               title={title}
-            />
-            <CtaBanner
-              image={`airs/solutions/cta-banner`}
-              paragraph={ctaParagraph}
-              title={`Get Started with Fluid Attacks' ${identifier} rigth now`}
             />
           </PageArticle>
         </div>

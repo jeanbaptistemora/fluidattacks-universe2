@@ -117,6 +117,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     minWidthMd,
     minWidthSm,
     scroll = "none",
+    shadow = false,
     width = "100%",
     widthMd,
     widthSm,
@@ -137,6 +138,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
     overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
     transition: all 0.3s ease;
+    box-shadow: ${shadow ? "0 10px 20px 0 rgba(0, 0, 0, 0.16)" : "unset"};
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}
