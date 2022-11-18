@@ -103,9 +103,6 @@ from dynamodb.model import (
 from group_access import (
     domain as group_access_domain,
 )
-from jose import (
-    JWTError,
-)
 from jwcrypto.jwt import (
     JWTExpired,
 )
@@ -341,7 +338,7 @@ async def get_access_by_url_token(
         token_content = sessions_domain.decode_token(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
-    except (JWTError, KeyError, JWTExpired) as ex:
+    except (KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     return await loaders.organization_access.load(

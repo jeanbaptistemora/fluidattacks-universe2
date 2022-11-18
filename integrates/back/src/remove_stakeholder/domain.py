@@ -38,9 +38,6 @@ from decorators import (
 from group_access import (
     domain as group_access_domain,
 )
-from jose import (
-    JWTError,
-)
 from jwcrypto.jwe import (
     JWException,
 )
@@ -157,7 +154,7 @@ async def get_email_from_url_token(
 ) -> str:
     try:
         token_content = sessions_domain.decode_token(url_token)
-    except (JWTError, JWException, JWTExpired) as ex:
+    except (JWException, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     email: str = token_content["user_email"]

@@ -57,9 +57,6 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
-from jose import (
-    JWTError,
-)
 from jwcrypto.jwt import (
     JWTExpired,
 )
@@ -99,7 +96,7 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
         token_content = sessions_domain.decode_token(url_token)
         group_name: str = token_content["group_name"]
         email: str = token_content["user_email"]
-    except (JWTError, KeyError, JWTExpired) as ex:
+    except (KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
     return await loaders.group_access.load(
