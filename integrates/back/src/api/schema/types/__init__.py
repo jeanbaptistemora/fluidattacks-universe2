@@ -142,6 +142,9 @@ from api.schema.types.requirement import (
 from api.schema.types.toe_lines import (
     TOELINES,
 )
+from api.schema.types.toe_port import (
+    TOEPORT,
+)
 from api.schema.types.trial import (
     TRIAL,
 )
@@ -200,6 +203,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TAG,
     TOEINPUT,
     TOELINES,
+    TOEPORT,
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,

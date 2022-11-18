@@ -956,6 +956,32 @@
       "management:type" = "product";
     };
   };
+  integrates_remove_vuln_where_specific_commit = {
+    enabled = false;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@acaguirreatfluid"
+      "/integrates/db/migration"
+      "prod"
+      "0317_remove_vuln_where_specific_commit.py"
+    ];
+
+    schedule_expression = "cron(10 14 4 11 *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 172800;
+    parallel = 1;
+
+    environment = [];
+
+    tags = {
+      "Name" = "integrates_remove_vuln_where_specific_commit";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_send_deprecation_notice = {
     enabled = true;
     command = [

@@ -17,16 +17,16 @@ function main {
     --exitfirst
     --no-cov-on-fail
     --verbose
+    -s
+    -vv
   )
 
   source __argIntegratesBackEnv__/template dev \
     && DAEMON=true integrates-db \
-    && DAEMON=true integrates-storage \
     && pushd integrates \
     && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
     && BATCH_BIN="$(command -v integrates-batch)" \
-    && pytest -m 'not changes_db' "${pytest_args[@]}" back/test/unit/src \
-    && pytest -m 'changes_db' --cov-append "${pytest_args[@]}" back/test/unit/src \
+    && pytest -m 'test' --cov-append "${pytest_args[@]}" back/test/unit/src \
     && popd \
     || return 1
 }

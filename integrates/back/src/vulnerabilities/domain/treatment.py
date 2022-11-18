@@ -537,18 +537,18 @@ async def update_vulnerabilities_treatment(
             f" {today.split()[1]}"
         )
 
-    if "assigned" in updated_values:
-        role: str = await authz.get_group_level_role(
-            loaders, user_email, group_name
-        )
-        updated_values["assigned"] = await get_valid_assigned(
-            loaders=loaders,
-            assigned=updated_values["assigned"],
-            is_manager=role
-            in {"user_manager", "customer_manager", "vulnerability_manager"},
-            email=user_email,
-            group_name=group_name,
-        )
+    # if "assigned" in updated_values:
+    #     role: str = await authz.get_group_level_role(
+    #         loaders, user_email, group_name
+    #     )
+    #     updated_values["assigned"] = await get_valid_assigned(
+    #         loaders=loaders,
+    #         assigned=updated_values["assigned"],
+    #         is_manager=role
+    #         in {"user_manager", "customer_manager", "vulnerability_manager"},
+    #         email=user_email,
+    #         group_name=group_name,
+    #     )
 
     validations.validate_fields(list(updated_values.values()))
     if updated_values["treatment"] != "NEW":
