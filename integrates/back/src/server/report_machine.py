@@ -611,7 +611,7 @@ def _machine_vulns_to_close(
     sarif_hashes = {
         hash(
             (
-                _get_path_from_sarif_vulnerability(vuln, True),
+                _get_path_from_sarif_vulnerability(vuln, False),
                 str(
                     vuln["locations"][0]["physicalLocation"]["region"][
                         "startLine"
@@ -629,7 +629,7 @@ def _machine_vulns_to_close(
         if hash(
             (
                 get_path_from_integrates_vulnerability(
-                    vuln.state.where, vuln.type, True
+                    vuln.state.where, vuln.type, False
                 )[1],
                 vuln.state.specific,
             )
@@ -640,7 +640,7 @@ def _machine_vulns_to_close(
             path_is_include(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln.state.where, vuln.type
+                        vuln.state.where, vuln.type, False
                     )[1]
                 ).split(" ", maxsplit=1)[0],
                 [
@@ -841,7 +841,7 @@ def _filter_vulns_already_reported(
         hash(
             (
                 get_path_from_integrates_vulnerability(
-                    vuln.state.where, vuln.type, True
+                    vuln.state.where, vuln.type, False
                 )[1],
                 vuln.state.specific,
             )
@@ -862,7 +862,7 @@ def _filter_vulns_already_reported(
             if hash(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln["url"], VulnerabilityType.INPUTS, True
+                        vuln["url"], VulnerabilityType.INPUTS, False
                     )[1],
                     vuln["field"],
                 )
@@ -875,7 +875,7 @@ def _filter_vulns_already_reported(
             if hash(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln["path"], VulnerabilityType.LINES, True
+                        vuln["path"], VulnerabilityType.LINES, False
                     )[1],
                     vuln["line"],
                 )
@@ -917,7 +917,7 @@ async def upload_snippet(
                 ],
                 "LINES",
                 ignore_advisories(
-                    _get_path_from_sarif_vulnerability(vuln, True)
+                    _get_path_from_sarif_vulnerability(vuln, False)
                 ),
                 current_vuln.root_id,
             )
