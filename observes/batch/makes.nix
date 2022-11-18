@@ -7,6 +7,12 @@
   outputs,
   ...
 }: let
+  composition = let
+    reverseList = xs: let l = builtins.length xs; in builtins.genList (n: builtins.elemAt xs (l - n - 1)) l;
+    apply = x: f: f x;
+  in
+    # composition of functions
+    functions: val: builtins.foldl' apply val (reverseList functions);
   sizes_conf = fromYaml (
     builtins.readFile (
       projectPath "/common/compute/arch/sizes/data.yaml"
@@ -30,7 +36,6 @@
       definition = "prod_observes";
       environment = [
         "CACHIX_AUTH_TOKEN"
-        "UNIVERSE_API_TOKEN"
       ];
       setup = [outputs."/secretsForAwsFromGitlab/prodObserves"];
       tags = {
@@ -42,6 +47,7 @@
     }
     // compute_resources size;
 
+  with_universe_token = job: job // {environment = job.environment ++ ["UNIVERSE_API_TOKEN"];};
   parrallel_job = parallel: let
     parallel_conf =
       if parallel >= 2
@@ -113,7 +119,7 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
     };
 
-    observesGitlabEtlChallenges = scheduled_job {
+    observesGitlabEtlChallenges = composition [with_universe_token scheduled_job] {
       name = "gitlab_challenges_etl";
       size = "medium";
       attempts = 1;
@@ -121,7 +127,7 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
     };
 
-    observesGitlabEtlDefault = scheduled_job {
+    observesGitlabEtlDefault = composition [with_universe_token scheduled_job] {
       name = "gitlab_default_etl";
       size = "medium";
       attempts = 1;
@@ -129,7 +135,7 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
     };
 
-    observesGitlabEtlProduct = scheduled_job {
+    observesGitlabEtlProduct = composition [with_universe_token scheduled_job] {
       name = "gitlab_product_etl";
       size = "medium";
       attempts = 1;
@@ -137,7 +143,7 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
     };
 
-    observesGitlabEtlServices = scheduled_job {
+    observesGitlabEtlServices = composition [with_universe_token scheduled_job] {
       name = "gitlab_services_etl";
       size = "medium";
       attempts = 1;
@@ -161,14 +167,14 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
     };
 
-    observesCodeEtlMirror = clone_job {
+    observesCodeEtlMirror = composition [with_universe_token clone_job] {
       name = "code_mirror";
       attempts = 3;
       timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/mirror"];
     };
 
-    observesCodeEtlUpload = scheduled_job {
+    observesCodeEtlUpload = composition [with_universe_token scheduled_job] {
       name = "code_upload";
       size = "nano";
       attempts = 3;
