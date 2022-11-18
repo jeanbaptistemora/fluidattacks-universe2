@@ -51,6 +51,7 @@ from api.resolvers.group import (
     tier,
     toe_inputs,
     toe_lines,
+    toe_ports,
     user_deletion,
     user_role,
     vulnerabilities,
@@ -120,6 +121,7 @@ GROUP.set_field("tags", tags.resolve)
 GROUP.set_field("tier", tier.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("toeLines", toe_lines.resolve)
+GROUP.set_field("toePorts", toe_ports.resolve)
 GROUP.set_field("userDeletion", user_deletion.resolve)
 GROUP.set_field("userRole", user_role.resolve)
 GROUP.set_field("vulnerabilities", vulnerabilities.resolve)

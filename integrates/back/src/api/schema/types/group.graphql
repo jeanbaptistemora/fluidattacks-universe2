@@ -160,6 +160,17 @@ type Group {
     "Id of the root the lines is associated with"
     rootId: ID
   ): ToeLinesConnection!
+  "Target of Evaluation ports information"
+  toePorts(
+    "The cursor for the forward pagination"
+    after: String
+    "If the port is present in the root"
+    bePresent: Boolean
+    "Amount of element to return"
+    first: Int
+    "Id of the root the port is associated with"
+    rootId: ID
+  ): ToePortsConnection!
   "Last removed user from the group"
   userDeletion: String
   "Role of the current user within the group"

@@ -92,7 +92,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 has_vulnerabilities=True,
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-                seen_first_time_by="",
+                seen_first_time_by="test1@test.com",
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToePort(
