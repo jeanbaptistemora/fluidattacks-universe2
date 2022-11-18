@@ -21,6 +21,9 @@ from decimal import (
 from dynamodb.types import (
     PageInfo,
 )
+from serializers import (
+    Snippet,
+)
 from typing import (
     List,
     NamedTuple,
@@ -45,7 +48,7 @@ class VulnerabilityState(NamedTuple):
     commit: Optional[str] = None
     justification: Optional[StateRemovalJustification] = None
     tool: Optional[VulnerabilityTool] = None
-    snippet: Optional[str] = None
+    snippet: Optional[Snippet] = None
 
 
 class VulnerabilityTreatment(NamedTuple):

@@ -36,6 +36,7 @@ from s3.resource import (
 )
 from serializers import (
     make_snippet,
+    Snippet,
     SnippetViewport,
 )
 import tempfile
@@ -79,7 +80,9 @@ async def upload_snippet(
 
 
 async def set_snippet(
-    vulnerability: Vulnerability, last_state: VulnerabilityState, contents: str
+    vulnerability: Vulnerability,
+    last_state: VulnerabilityState,
+    contents: Snippet,
 ) -> None:
     last_state = last_state._replace(snippet=contents)
     await vulns_model.update_historic_entry(
@@ -92,7 +95,7 @@ async def set_snippet(
 
 async def generate_snippet(
     vulnerability_state: VulnerabilityState, repo: Repo
-) -> Optional[str]:
+) -> Optional[Snippet]:
     current_commit = vulnerability_state.commit or "HEAD"
     with suppress(GitCommandError, ValueError):
         content = repo.git.show(
@@ -105,7 +108,7 @@ async def generate_snippet(
                 show_line_numbers=False,
                 highlight_line_number=False,
             ),
-        ).content
+        )
     return None
 
 

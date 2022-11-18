@@ -45,7 +45,11 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
+from serializers import (
+    Snippet,
+)
 from typing import (
+    Any,
     Optional,
     Tuple,
 )
@@ -167,6 +171,24 @@ def format_vulnerability_edge(
     )
 
 
+def _format_snippet(
+    snippet: Optional[dict[str, Any]] = None
+) -> Optional[Snippet]:
+    if not snippet or isinstance(snippet, str):
+        return None
+    return Snippet(
+        content=snippet["content"],
+        offset=snippet["offset"],
+        line=snippet["line"],
+        column=snippet.get("column"),
+        columns_per_line=snippet["columns_per_line"],
+        line_context=snippet["line_context"],
+        highlight_line_number=snippet["highlight_line_number"],
+        show_line_numbers=snippet["show_line_numbers"],
+        wrap=snippet["wrap"],
+    )
+
+
 def format_state(item: Item) -> VulnerabilityState:
     tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
@@ -181,7 +203,7 @@ def format_state(item: Item) -> VulnerabilityState:
         status=VulnerabilityStateStatus[item["status"]],
         tool=tool,
         where=item["where"],
-        snippet=item.get("snippet"),
+        snippet=_format_snippet(item.get("snippet")),
     )
 
 
