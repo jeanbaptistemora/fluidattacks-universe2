@@ -16,7 +16,9 @@ type TScroll = "none" | "x" | "xy" | "y";
 interface IContainerProps {
   align?: TAlign;
   bgColor?: string;
+  borderBottom?: string;
   borderColor?: string;
+  borderTop?: string;
   br?: Nums0To4;
   center?: boolean;
   children: React.ReactNode;

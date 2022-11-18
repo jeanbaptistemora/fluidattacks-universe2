@@ -12,7 +12,9 @@ import type { IContainerProps } from "./types";
 const Container: React.FC<IContainerProps> = ({
   align,
   bgColor,
+  borderBottom,
   borderColor,
+  borderTop,
   br,
   center,
   children,
@@ -46,7 +48,9 @@ const Container: React.FC<IContainerProps> = ({
     <StyledContainer
       align={align}
       bgColor={bgColor}
+      borderBottom={borderBottom}
       borderColor={borderColor}
+      borderTop={borderTop}
       br={br}
       center={center}
       direction={direction}

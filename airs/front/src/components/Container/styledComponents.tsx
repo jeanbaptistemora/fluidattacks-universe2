@@ -104,7 +104,9 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
   ${({
     align = "unset",
     bgColor = "transparent",
+    borderBottom = "0px",
     borderColor = "unset",
+    borderTop = "0px",
     direction = "unset",
     display = "block",
     height = "auto",
@@ -123,6 +125,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     align-items: ${aligns[align]};
     background-color: ${bgColor};
     border: 1px solid ${borderColor};
+    border-bottom: ${borderBottom} solid #dddde3;
+    border-top: ${borderTop} solid #dddde3;
     display: ${displays[display]};
     flex-direction: ${directions[direction]};
     flex-wrap: ${wraps[wrap]};
