@@ -26,12 +26,12 @@ const CodeInfo: React.FC<ICodeInfoProps> = ({
         className={"line-highlight"}
         data-line={String(Number(vulnerability.specific))}
         data-line-offset={
-          Number(vulnerability.specific) > 10
-            ? String(Number(vulnerability.specific) - 11)
-            : 0
+          vulnerability.snippet === null ? 0 : vulnerability.snippet.offset
         }
       >
-        <code className={"language-none"}>{vulnerability.snippet}</code>
+        <code className={"language-none"}>
+          {vulnerability.snippet === null ? "" : vulnerability.snippet.content}
+        </code>
       </pre>
     </div>
   );

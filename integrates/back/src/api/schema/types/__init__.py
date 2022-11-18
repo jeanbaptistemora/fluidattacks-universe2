@@ -139,6 +139,9 @@ from api.schema.types.organization_compliance_standard import (
 from api.schema.types.requirement import (
     REQUIREMENT,
 )
+from api.schema.types.snippet import (
+    SNIPPET,
+)
 from api.schema.types.toe_lines import (
     TOELINES,
 )
@@ -204,6 +207,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TREATMENT,
     TREATMENT_SUMMARY,
     TRIAL,
+    SNIPPET,
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     URLROOT,

@@ -25,7 +25,7 @@ interface IVulnRowAttr {
   reportDate: string;
   rootNickname: string | null;
   severity: string | null;
-  snippet: string | null;
+  snippet: ISnippet | null;
   source: string;
   specific: string;
   stream: string | null;
@@ -43,6 +43,11 @@ interface IVulnRowAttr {
   where: string;
   zeroRisk: string | null;
   finding?: IFinding;
+}
+
+interface ISnippet {
+  content: string;
+  offset: number;
 }
 
 interface IUploadVulnerabilitiesResultAttr {

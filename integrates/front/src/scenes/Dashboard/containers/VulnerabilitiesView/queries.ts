@@ -19,7 +19,10 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     reportDate
     rootNickname
     severity
-    snippet
+    snippet {
+      content
+      offset
+    }
     source
     specific
     stream

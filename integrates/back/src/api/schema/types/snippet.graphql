@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+"Stakeholder type definition"
+type Snippet {
+  "Column Focus"
+  column: Int
+  "Number of chars per line"
+  columnsPerLine: Int!
+  "Snippet content"
+  content: String!
+  "Highlight the focus line"
+  highlightLineNumber: Boolean!
+  "Focus line of code portion"
+  line: Int!
+  "Number of lines before and after focus line"
+  lineContext: Int!
+  "Offset lines before"
+  offset: Int!
+  "Show the number of lines in the snippet"
+  showLineNumbers: Boolean!
+}
