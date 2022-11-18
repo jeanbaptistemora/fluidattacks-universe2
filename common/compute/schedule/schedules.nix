@@ -1391,6 +1391,35 @@
       "management:type" = "product";
     };
   };
+  integrates_vulnerabilities_expiring_report = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.vulnerabilities_expiring_report.main"
+    ];
+
+    schedule_expression = "cron(0 10 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_vulnerablities_expiring_report";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   cancel_stuck_jobs = {
     enabled = true;
     command = [
