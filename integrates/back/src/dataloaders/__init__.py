@@ -108,6 +108,11 @@ from db_model.toe_lines.get import (
     RootToeLinesLoader,
     ToeLinesLoader,
 )
+from db_model.toe_ports.get import (
+    GroupToePortsLoader,
+    RootToePortsLoader,
+    ToePortLoader,
+)
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
     EventVulnerabilitiesLoader,
@@ -176,6 +181,7 @@ class Dataloaders(NamedTuple):
     group_roots: GroupRootsLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
+    group_toe_ports: GroupToePortsLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     group_stakeholders_access: GroupStakeholdersAccessLoader
     me_drafts: MeDraftsLoader
@@ -206,9 +212,11 @@ class Dataloaders(NamedTuple):
     root_secrets: RootSecretsLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
+    root_toe_ports: RootToePortsLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
+    toe_port: ToePortLoader
     stakeholder: StakeholderLoader
     stakeholder_groups_access: StakeholderGroupsAccessLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
@@ -330,6 +338,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         group_roots=GroupRootsLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
+        group_toe_ports=GroupToePortsLoader(),
         group_stakeholders_access=group_stakeholders_access_loader,
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_drafts=MeDraftsLoader(),
@@ -366,6 +375,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         root_secrets=RootSecretsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
+        root_toe_ports=RootToePortsLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
         stakeholder_groups_access=stakeholder_groups_access_loader,
@@ -379,6 +389,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         stakeholder_with_fallback=stakeholder_with_fallback,
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
+        toe_port=ToePortLoader(),
         user_credentials=UserCredentialsLoader(),
         vulnerability=vulnerability_loader,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
