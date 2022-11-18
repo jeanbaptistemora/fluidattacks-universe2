@@ -17,7 +17,7 @@ from typing import (
 class GroupAuthor(NamedTuple):
     actor: str
     commit: Optional[str]
-    groups: str
+    groups: frozenset[str]
     organization: Optional[str]
     repository: Optional[str]
 

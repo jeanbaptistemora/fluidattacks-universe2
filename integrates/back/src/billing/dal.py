@@ -524,7 +524,7 @@ async def get_group_authors(
         GroupAuthor(
             actor=author["actor"],
             commit=author.get("commit"),
-            groups=author["groups"],
+            groups=frozenset(author["groups"].replace(" ", "").split(",")),
             organization=author.get("organization"),
             repository=author.get("repository"),
         )

@@ -9,7 +9,7 @@ type GroupBillingAuthor {
   "Example contribution commit"
   commit: String
   "Groups the author has contributed to"
-  groups: String
+  groups: [String!]!
   "Organization the author has contributed to"
   organization: String
   "Root repository of the contributions"

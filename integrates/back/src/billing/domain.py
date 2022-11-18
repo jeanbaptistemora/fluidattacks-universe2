@@ -64,6 +64,9 @@ from db_model.organizations.types import (
 from groups import (
     domain as groups_domain,
 )
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
 from more_itertools import (
@@ -976,7 +979,7 @@ async def get_organization_authors(
             org.id,
         )
     }
-    group_authors: tuple[GroupAuthor, ...] = tuple(
+    org_authors: tuple[GroupAuthor, ...] = tuple(
         flatten(
             await collect(
                 [
@@ -986,23 +989,34 @@ async def get_organization_authors(
             )
         )
     )
-    org_active_actors: frozenset[str] = frozenset(
-        author.actor for author in group_authors
+    unique_authors: frozenset[str] = frozenset(
+        author.actor for author in org_authors
     )
-
+    unique_author_groups: dict[str, frozenset[str]] = {
+        unique_author: frozenset(
+            flatten(
+                chain(
+                    tuple(
+                        author.groups
+                        for author in org_authors
+                        if author.actor == unique_author
+                    )
+                )
+            )
+        )
+        for unique_author in unique_authors
+    }
     return tuple(
         OrganizationAuthor(
             actor=actor,
             active_groups=tuple(
                 OrganizationActiveGroup(
-                    name=org_groups[author.groups].name,
-                    tier=org_groups[author.groups].state.tier,
+                    name=group, tier=org_groups[group].state.tier
                 )
-                for author in group_authors
-                if author.actor == actor
+                for group in groups
             ),
         )
-        for actor in org_active_actors
+        for actor, groups in unique_author_groups.items()
     )
 
 
