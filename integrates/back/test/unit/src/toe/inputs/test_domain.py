@@ -12,6 +12,10 @@ from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
     ToeInputRequest,
+    ToeInputState,
+)
+from freezegun import (
+    freeze_time,
 )
 import pytest
 from toe.inputs import (
@@ -97,6 +101,7 @@ async def test_delete() -> None:
 
 
 @pytest.mark.changes_db
+@freeze_time("2022-11-11T15:00:00+00:00")
 async def test_update() -> None:
     group_name = "unittesting"
     entry_point = "btnTest"
@@ -146,5 +151,6 @@ async def test_update() -> None:
         group_name=group_name,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
+        state=ToeInputState(modified_date="2022-11-11T15:00:00+00:00"),
         unreliable_root_id="",
     )

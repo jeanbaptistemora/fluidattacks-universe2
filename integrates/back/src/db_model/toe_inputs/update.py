@@ -36,6 +36,7 @@ from dynamodb.model import (
 )
 from typing import (
     Dict,
+    Optional,
     Union,
 )
 
@@ -72,7 +73,9 @@ async def update_metadata(
         gsi_2_index,
         current_value,
     )
-    metadata_item: Dict[str, Union[str, datetime]] = {
+    metadata_item: Dict[
+        str, Union[str, datetime, Dict[str, Optional[str]]]
+    ] = {
         key: db_model_utils.get_date_as_utc_iso_format(value)
         if isinstance(value, datetime)
         else value
@@ -84,8 +87,10 @@ async def update_metadata(
             "clean_be_present_until",
             "clean_first_attack_at",
             "clean_seen_at",
+            "state",
         }
     }
+    metadata_item["state"] = {"modified_date": metadata.state.modified_date}
     if metadata.clean_attacked_at:
         metadata_item["attacked_at"] = ""
     if metadata.clean_be_present_until:

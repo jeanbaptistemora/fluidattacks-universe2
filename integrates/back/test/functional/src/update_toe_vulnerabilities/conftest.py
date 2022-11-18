@@ -34,6 +34,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+    ToeInputState,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -55,6 +56,9 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 import pytest
 from typing import (
@@ -260,6 +264,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="",
                 unreliable_root_id="",
+                state=ToeInputState(
+                    modified_date=datetime_utils.get_iso_date(),
+                ),
             ),
             ToeInput(
                 attacked_at=datetime.fromisoformat(
@@ -278,6 +285,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
                 unreliable_root_id="",
+                state=ToeInputState(
+                    modified_date=datetime_utils.get_iso_date(),
+                ),
             ),
             ToeInput(
                 attacked_at=datetime.fromisoformat(
@@ -298,6 +308,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                state=ToeInputState(
+                    modified_date=datetime_utils.get_iso_date(),
+                ),
             ),
         ),
         "toe_lines": (

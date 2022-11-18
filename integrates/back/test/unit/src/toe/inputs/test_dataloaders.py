@@ -13,6 +13,7 @@ from db_model.toe_inputs.types import (
     ToeInput,
     ToeInputEdge,
     ToeInputsConnection,
+    ToeInputState,
 )
 from dynamodb.types import (
     PageInfo,
@@ -52,6 +53,9 @@ async def test_get_by_group() -> None:
                         "2020-01-11T05:00:00+00:00"
                     ),
                     seen_first_time_by="test2@test.com",
+                    state=ToeInputState(
+                        modified_date="2021-02-11T05:00:00+00:00"
+                    ),
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
@@ -78,6 +82,9 @@ async def test_get_by_group() -> None:
                         "2020-01-11T05:00:00+00:00"
                     ),
                     seen_first_time_by="test2@test.com",
+                    state=ToeInputState(
+                        modified_date="2021-02-11T05:00:00+00:00"
+                    ),
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
@@ -104,6 +111,9 @@ async def test_get_by_group() -> None:
                         "2000-01-01T05:00:00+00:00"
                     ),
                     seen_first_time_by="",
+                    state=ToeInputState(
+                        modified_date="2021-02-11T05:00:00+00:00"
+                    ),
                     unreliable_root_id="",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
@@ -131,6 +141,9 @@ async def test_get_by_group() -> None:
                         "2020-03-14T05:00:00+00:00"
                     ),
                     seen_first_time_by="test@test.com",
+                    state=ToeInputState(
+                        modified_date="2021-02-11T05:00:00+00:00"
+                    ),
                     unreliable_root_id="",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"

@@ -28,6 +28,7 @@ from db_model.roots.types import (
 from db_model.toe_inputs.types import (
     ToeInput,
     ToeInputMetadataToUpdate,
+    ToeInputState,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -308,6 +309,7 @@ async def update(
     )
 
     metadata = ToeInputMetadataToUpdate(
+        state=ToeInputState(modified_date=datetime_utils.get_iso_date()),
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,

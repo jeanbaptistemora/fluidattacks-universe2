@@ -15,6 +15,10 @@ from typing import (
 )
 
 
+class ToeInputState(NamedTuple):
+    modified_date: Optional[str]
+
+
 class ToeInput(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: str
@@ -28,6 +32,7 @@ class ToeInput(NamedTuple):
     seen_at: Optional[datetime]
     seen_first_time_by: str
     unreliable_root_id: str
+    state: ToeInputState = ToeInputState(modified_date=None)
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.component, self.entry_point))
@@ -68,6 +73,7 @@ class RootToeInputsRequest(NamedTuple):
 
 
 class ToeInputMetadataToUpdate(NamedTuple):
+    state: ToeInputState
     attacked_at: Optional[datetime] = None
     attacked_by: Optional[str] = None
     be_present: Optional[bool] = None
