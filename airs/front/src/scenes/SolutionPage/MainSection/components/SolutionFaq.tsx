@@ -43,12 +43,24 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
         width={"100%"}
         wrap={"wrap"}
       >
-        <Container width={"50%"}>
+        <Container
+          maxWidth={"1000px"}
+          width={"100%"}
+          widthMd={"50%"}
+          widthSm={"60%"}
+        >
           <Title color={"#2e2e38"} level={3} size={"xs"}>
             {title}
           </Title>
         </Container>
-        <Container display={"block"} justify={"end"} mr={0} width={"5%"}>
+        <Container
+          display={"block"}
+          justify={"end"}
+          mr={0}
+          width={"9%"}
+          widthMd={"10%"}
+          widthSm={"15%"}
+        >
           <Button
             icon={icon === "plus" ? <FaPlus /> : <FaMinus />}
             onClick={showDescription}

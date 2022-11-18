@@ -35,6 +35,7 @@ interface IQueryData {
         description: string;
         encrypted: string;
         headtitle: string;
+        identifier: string;
         image: string;
         keywords: string;
         modified: string;
@@ -106,6 +107,7 @@ interface IData {
             description: string;
             encrypted: string;
             filter: string;
+            identifier: string;
             image: string;
             partner: string;
             partnerlogo: string;
@@ -137,6 +139,7 @@ interface INodes {
       certification: string;
       date: string;
       description: string;
+      identifier: string;
       image: string;
       slug: string;
       spanish: string;
