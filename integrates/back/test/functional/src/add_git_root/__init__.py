@@ -9,39 +9,38 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 async def get_result(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
-    query: str = f"""
-      mutation {{
+    credentials: dict,
+) -> dict:
+    query: str = """
+      mutation AddGitRoot (
+        $groupName: String!, $credentials: RootCredentialsInput
+      ) {
         addGitRoot(
           branch: "trunk"
-          credentials: {{
-            token: "token"
-            name: "Credentials test"
-            type: HTTPS
-          }}
+          credentials: $credentials
           environment: "production"
           gitignore: []
-          groupName: "{group}"
+          groupName: $groupName
           includesHealthCheck: true
           url: "https://gitlab.com/fluidattacks/universe"
-        ) {{
+        ) {
           rootId
           success
-        }}
-      }}
+        }
+      }
     """
-    data: Dict[str, str] = {
+    data: dict = {
         "query": query,
+        "variables": {
+            "groupName": group,
+            "credentials": credentials,
+        },
     }
     return await get_graphql_result(
         data,
