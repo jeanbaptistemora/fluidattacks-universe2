@@ -930,6 +930,14 @@ async def get_group_billing(
             loaders=loaders,
         )
     }
+    group_squad_authors: tuple[GroupAuthor, ...] = tuple(
+        author
+        for author in group_authors
+        if GroupTier.SQUAD
+        in tuple(
+            group.tier for group in org_authors[author.actor].active_groups
+        )
+    )
     costs_authors: int = int(
         sum(
             tuple(
@@ -937,16 +945,13 @@ async def get_group_billing(
                 / len(
                     tuple(
                         group
-                        for group in org_authors[author.actor].active_groups
+                        for group in org_authors[
+                            squad_author.actor
+                        ].active_groups
                         if group.tier == GroupTier.SQUAD
                     )
                 )
-                for author in group_authors
-                if GroupTier.SQUAD
-                in tuple(
-                    group.tier
-                    for group in org_authors[author.actor].active_groups
-                )
+                for squad_author in group_squad_authors
             )
         )
         / 100
