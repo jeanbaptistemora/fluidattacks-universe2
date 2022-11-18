@@ -17,22 +17,21 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
-import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link, graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { AirsLink } from "../components/AirsLink";
 import { Button } from "../components/Button";
 import { CloudImage } from "../components/CloudImage";
 import { Container } from "../components/Container";
+import { CtaBanner } from "../components/CtaBanner";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { Paragraph } from "../components/Texts";
-import { Text, Title } from "../components/Typography";
-import { PageArticle, PageContainer } from "../styles/styledComponents";
+import { Title } from "../components/Typography";
+import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
@@ -46,15 +45,6 @@ const SolutionsIndex: React.FC<IQueryData> = ({
 
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
-
-  const { trackEvent } = useMatomo();
-
-  const matomoFreeTrialEvent = (): void => {
-    trackEvent({
-      action: "cta-free-trial-event-click",
-      category: "solutions",
-    });
-  };
 
   const solutionData = [
     {
@@ -128,116 +118,64 @@ const SolutionsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle bgColor={"#ffffff"}>
-            <Container bgColor={"#f4f4f6"}>
+            <Container bgColor={"#f4f4f6"} ph={4} pv={5}>
+              <CtaBanner
+                image={"airs/solutions/Index/application-security-solutions"}
+                matomoAction={"Solution"}
+                paragraph={translate.t("solutions.informations.paragraph")}
+                title={translate.t("solutions.informations.subtitle")}
+              />
+            </Container>
+            <Container ph={4}>
               <Container
-                align={"center"}
-                bgColor={"#f4f4f6"}
                 center={true}
                 display={"flex"}
-                maxWidth={"1500px"}
-                ph={3}
-                pv={5}
-                widthSm={"100%"}
+                justify={"center"}
+                maxWidth={"1440px"}
                 wrap={"wrap"}
               >
-                <Container
-                  display={"flex"}
-                  maxWidth={"720px"}
-                  width={"50%"}
-                  widthSm={"100%"}
-                  wrap={"wrap"}
-                >
-                  <Title color={"#2e2e38"} level={1} mb={4} size={"big"}>
-                    {translate.t("solutions.informations.subtitle")}
-                  </Title>
-                  <Text color={"#65657b"} size={"big"}>
-                    {translate.t("solutions.informations.paragraph")}
-                  </Text>
-                  <Container
-                    display={"flex"}
-                    mt={4}
-                    widthSm={"100%"}
-                    wrap={"wrap"}
-                  >
-                    <Container pb={3} pr={1} width={"200px"} widthSm={"100%"}>
-                      <AirsLink href={"/free-trial/"}>
-                        <Button
-                          display={"block"}
-                          onClick={matomoFreeTrialEvent}
-                          size={"lg"}
-                          variant={"primary"}
-                        >
-                          {"Start free trial"}
+                {solutionData.map((solutionCard): JSX.Element => {
+                  return (
+                    <Container
+                      key={solutionCard.title}
+                      mh={2}
+                      mv={2}
+                      ph={3}
+                      pv={5}
+                      width={"464px"}
+                      widthSm={"100%"}
+                    >
+                      <CloudImage
+                        alt={title}
+                        src={`airs/solutions/${solutionCard.image}`}
+                        styles={"w-100"}
+                      />
+                      <Title
+                        color={"#2e2e38"}
+                        level={4}
+                        mb={3}
+                        mt={2}
+                        size={"xs"}
+                      >
+                        {solutionCard.title}
+                      </Title>
+                      <Paragraph
+                        fColor={"#5c5c70"}
+                        fSize={"16"}
+                        marginBottom={"3"}
+                      >
+                        {solutionCard.paragraph}
+                      </Paragraph>
+                      <Link to={solutionCard.link}>
+                        <Button variant={"primary"}>
+                          {"Explore solution"}
                         </Button>
-                      </AirsLink>
+                      </Link>
                     </Container>
-                    <Container pb={5} width={"200px"} widthSm={"100%"}>
-                      <AirsLink href={"/contact-us/"}>
-                        <Button
-                          display={"block"}
-                          size={"lg"}
-                          variant={"tertiary"}
-                        >
-                          {"Contact now"}
-                        </Button>
-                      </AirsLink>
-                    </Container>
-                  </Container>
-                </Container>
-                <Container
-                  center={true}
-                  maxWidth={"760px"}
-                  minWidth={"280px"}
-                  pb={2}
-                  width={"50%"}
-                  widthSm={"100%"}
-                >
-                  <CloudImage
-                    alt={title}
-                    src={`airs/solutions/Index/application-security-solutions`}
-                  />
-                </Container>
+                  );
+                })}
               </Container>
             </Container>
-            <PageContainer className={"flex flex-wrap"}>
-              {solutionData.map((solutionCard): JSX.Element => {
-                return (
-                  <Container
-                    key={solutionCard.title}
-                    ph={3}
-                    pv={5}
-                    width={"33%"}
-                    widthMd={"50%"}
-                    widthSm={"100%"}
-                  >
-                    <CloudImage
-                      alt={title}
-                      src={`airs/solutions/${solutionCard.image}`}
-                      styles={"w-100"}
-                    />
-                    <Title
-                      color={"#2e2e38"}
-                      level={4}
-                      mb={3}
-                      mt={2}
-                      size={"xs"}
-                    >
-                      {solutionCard.title}
-                    </Title>
-                    <Paragraph
-                      fColor={"#5c5c70"}
-                      fSize={"16"}
-                      marginBottom={"3"}
-                    >
-                      {solutionCard.paragraph}
-                    </Paragraph>
-                    <Link to={solutionCard.link}>
-                      <Button variant={"primary"}>{"Explore solution"}</Button>
-                    </Link>
-                  </Container>
-                );
-              })}
-            </PageContainer>
           </PageArticle>
         </div>
       </Layout>
