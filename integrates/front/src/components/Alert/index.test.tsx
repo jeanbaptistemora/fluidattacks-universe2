@@ -22,4 +22,13 @@ describe("Alert", (): void => {
 
     expect(screen.queryByText("Alert message")).toBeInTheDocument();
   });
+
+  it("should render an alert closable", (): void => {
+    expect.hasAssertions();
+
+    render(<Alert closable={true}>{"Alert message"}</Alert>);
+
+    expect(screen.queryByText("Alert message")).toBeInTheDocument();
+    expect(screen.queryByRole("button")).toBeInTheDocument();
+  });
 });

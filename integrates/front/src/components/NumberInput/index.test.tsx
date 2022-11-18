@@ -28,6 +28,23 @@ describe("numberInput", (): void => {
     expect(screen.queryByRole("spinbutton")).toHaveValue(2);
   });
 
+  it("should render a spinbutton with decimal places", (): void => {
+    expect.hasAssertions();
+
+    const onEnterCallback: jest.Mock = jest.fn();
+    render(
+      <NumberInput
+        decimalPlaces={1}
+        defaultValue={2.1}
+        max={3}
+        min={1}
+        onEnter={onEnterCallback}
+      />
+    );
+
+    expect(screen.queryByRole("spinbutton")).toHaveValue(2.1);
+  });
+
   it("should call callback on enter with the current value", async (): Promise<void> => {
     expect.hasAssertions();
 
