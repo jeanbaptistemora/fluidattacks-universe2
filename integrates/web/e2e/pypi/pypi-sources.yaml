@@ -1,29 +1,24 @@
 closure:
   attrs: 22.1.0
   cffi: 1.15.1
-  colorama: 0.4.5
+  colorama: 0.4.6
   coverage: 6.5.0
   cryptography: 37.0.4
   deprecated: 1.2.13
-  ecdsa: 0.18.0
   iniconfig: 1.1.1
   itsdangerous: 1.1.0
   jwcrypto: 1.3.1
   packaging: "21.3"
   pluggy: 1.0.0
   py: 1.11.0
-  pyasn1: 0.4.8
   pycparser: "2.21"
   pyparsing: 3.0.9
   pytest: 7.1.3
   pytest-cov: 3.0.0
   pytest-rerunfailures: 9.1.1
   pytest-test-groups: 1.0.3
-  python-jose: 3.3.0
   pytz: 2022.2.1
-  rsa: "4.9"
   selenium: 3.141.0
-  six: 1.16.0
   tomli: 2.0.1
   urllib3: 1.26.12
   wrapt: 1.14.1
@@ -64,12 +59,12 @@ links:
   - name: cffi-1.15.1.tar.gz
     sha256: 1y9lr651svbzf1m03s4lqbnbv2byx8f6f0ml7hjm24vvlfwvy06l
     url: https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz
-  - name: colorama-0.4.5-py2.py3-none-any.whl
-    sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
-    url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
-  - name: colorama-0.4.5.tar.gz
-    sha256: 195pcxlhp4qz8pq496kvw6k7vdd056j8mffr76k8h2f59wrv9ip6
-    url: https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz
+  - name: colorama-0.4.6-py2.py3-none-any.whl
+    sha256: 1ijz53xpmxds2qf02l9yf0rnp7bznwh3ci4xkw8wmh5cyn8rj7ag
+    url: https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl
+  - name: colorama-0.4.6.tar.gz
+    sha256: 0i3fpq0w5mbfdpy3z9p5raw4fg17jxr6jwh5l8qhavpdnxf5ys88
+    url: https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz
   - name: coverage-6.5.0-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 0idpg8vp6n3df657vsxkr7gwd3b5642hdm7a6jdw9gyn1bbi6dv3
     url: https://files.pythonhosted.org/packages/ea/52/c08080405329326a7ff16c0dfdb4feefaa8edd7446413df67386fe1bbfe0/coverage-6.5.0-cp39-cp39-macosx_10_9_x86_64.whl
@@ -133,12 +128,6 @@ links:
   - name: Deprecated-1.2.13.tar.gz
     sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
     url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
-  - name: ecdsa-0.18.0-py2.py3-none-any.whl
-    sha256: 1parqpag3zpfxbhdw3x3snd11501sxdjjz0xmawicbzdwxc04q40
-    url: https://files.pythonhosted.org/packages/09/d4/4f05f5d16a4863b30ba96c23b23e942da8889abfa1cdbabf2a0df12a4532/ecdsa-0.18.0-py2.py3-none-any.whl
-  - name: ecdsa-0.18.0.tar.gz
-    sha256: 0j8yxplifl2dp3fkyl0xz2k13jl2a94fwp6nl4i1pqjr2l24h0qr
-    url: https://files.pythonhosted.org/packages/ff/7b/ba6547a76c468a0d22de93e89ae60d9561ec911f59532907e72b0d8bc0f1/ecdsa-0.18.0.tar.gz
   - name: iniconfig-1.1.1-py2.py3-none-any.whl
     sha256: 1cx8kpp3akxwadzsmv2cdnifkyzj8fki5frmv3mzcivz9g3287h1
     url: https://files.pythonhosted.org/packages/9b/dd/b3c12c6d707058fa947864b67f0c4e0c39ef8610988d7baea9578f3c48f3/iniconfig-1.1.1-py2.py3-none-any.whl
@@ -172,12 +161,6 @@ links:
   - name: py-1.11.0.tar.gz
     sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
     url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
-  - name: pyasn1-0.4.8-py2.py3-none-any.whl
-    sha256: 0pda8szs8jsaknf4ggilgn2q8vpwdm2nzyw79vzlfnai63nf5irr
-    url: https://files.pythonhosted.org/packages/62/1e/a94a8d635fa3ce4cfc7f506003548d0a2447ae76fd5ca53932970fe3053f/pyasn1-0.4.8-py2.py3-none-any.whl
-  - name: pyasn1-0.4.8.tar.gz
-    sha256: 1fnhbi3rmk47l9851gbik0flfr64vs5j0hbqx24cafjap6gprxxf
-    url: https://files.pythonhosted.org/packages/a4/db/fffec68299e6d7bad3d504147f9094830b704527a7fc098b721d38cc7fa7/pyasn1-0.4.8.tar.gz
   - name: pycparser-2.21-py2.py3-none-any.whl
     sha256: 1agwca0hgbpwmr9snhxafqjhfd52mq083rw5n7vf25amallm9r4f
     url: https://files.pythonhosted.org/packages/62/d5/5f610ebe421e85889f2e55e33b7f9a6795bd982198517d912eb1c76e1a53/pycparser-2.21-py2.py3-none-any.whl
@@ -211,33 +194,15 @@ links:
   - name: pytest-test-groups-1.0.3.tar.gz
     sha256: 15pxjfydagazmwvmhii90kw69pkmr7pi73ahcl4jkb85hspfhgm9
     url: https://files.pythonhosted.org/packages/e6/76/9fc99adf0b7b74ad2cb6a2ddfccb7e67ce9631f3f3927a7fd9b4d59ded7b/pytest-test-groups-1.0.3.tar.gz
-  - name: python_jose-3.3.0-py2.py3-none-any.whl
-    sha256: 0fljg0nh14ndal2v6njky54bikcv13hpmm7ddr9ricpq4fq7c4wv
-    url: https://files.pythonhosted.org/packages/bd/2d/e94b2f7bab6773c70efc70a61d66e312e1febccd9e0db6b9e0adf58cbad1/python_jose-3.3.0-py2.py3-none-any.whl
-  - name: python-jose-3.3.0.tar.gz
-    sha256: 12npwl3qz0szlsbgfmfmxgfsk4r2xfanw94ic4rwd6fmd9g9nxsm
-    url: https://files.pythonhosted.org/packages/e4/19/b2c86504116dc5f0635d29f802da858404d77d930a25633d2e86a64a35b3/python-jose-3.3.0.tar.gz
   - name: pytz-2022.2.1-py2.py3-none-any.whl
     sha256: 15q11jg9nn28d92kazhjyna9l3kqaxxxppgvbnaw62gsv8dlh3r2
     url: https://files.pythonhosted.org/packages/d5/50/54451e88e3da4616286029a3a17fc377de817f66a0f50e1faaee90161724/pytz-2022.2.1-py2.py3-none-any.whl
   - name: pytz-2022.2.1.tar.gz
     sha256: 1xfwpcal8hdlmf3lvwbn1lfrf8brhqzaxp83maid3wh4f90j38nf
     url: https://files.pythonhosted.org/packages/24/0c/401283bb1499768e33ddd2e1a35817c775405c1f047a9dc088a29ce2ea5d/pytz-2022.2.1.tar.gz
-  - name: rsa-4.9-py3-none-any.whl
-    sha256: 1xvlc59ipksbkz746bkxibnpwwm8bzvhwk9lcxlph575b280s9lh
-    url: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
-  - name: rsa-4.9.tar.gz
-    sha256: 08gg417lvcqfqmg6gwah9ahy19w72ik2c08v6pqxg1bckjj69173
-    url: https://files.pythonhosted.org/packages/aa/65/7d973b89c4d2351d7fb232c2e452547ddfa243e93131e7cfa766da627b52/rsa-4.9.tar.gz
   - name: selenium-3.141.0.tar.gz
     sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
     url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
-  - name: six-1.16.0-py2.py3-none-any.whl
-    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
-    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
-  - name: six-1.16.0.tar.gz
-    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
-    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
   - name: tomli-2.0.1-py3-none-any.whl
     sha256: 1k0fqfdylinb57s2aqwprahwbrsk3babg4gghz4g06hnlvky77ck
     url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
