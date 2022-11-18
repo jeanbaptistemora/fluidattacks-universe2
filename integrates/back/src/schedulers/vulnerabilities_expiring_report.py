@@ -22,6 +22,12 @@ from db_model.findings.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -36,6 +42,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Dict,
     Tuple,
     TypedDict,
 )
@@ -49,7 +56,7 @@ LOGGER = logging.getLogger(__name__)
 
 class ExpiringDataType(TypedDict):
     email_to: Tuple[str, ...]
-    group_expiring_findings: Tuple[Finding, ...]
+    group_expiring_findings: Dict[str, Dict[str, int]]
 
 
 def days_to_end(date: str) -> int:
@@ -60,13 +67,39 @@ def days_to_end(date: str) -> int:
     return days
 
 
+async def expiring_vulnerabilities(
+    loaders: Dataloaders, finding_id: str
+) -> Dict[str, int]:
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
+    return {
+        f"{vulnerability.state.where}"
+        + f"({vulnerability.state.specific})": days_to_end(
+            vulnerability.treatment.accepted_until
+        )
+        for vulnerability in vulnerabilities
+        if vulnerability.treatment
+        and vulnerability.treatment.status
+        == VulnerabilityTreatmentStatus.ACCEPTED
+        and (end_date := vulnerability.treatment.accepted_until)
+        and days_to_end(end_date) in range(7)
+    }
+
+
 async def findings_close_to_expiring(
     loaders: Dataloaders, group_name: str
-) -> Tuple[Finding, ...]:
-    findings_to_expiring: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load(group_name)
-    return findings_to_expiring
+) -> Dict[str, Dict[str, int]]:
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
+
+    finding_types = (finding.title for finding in findings)
+
+    vulnerabilities = await collect(
+        [expiring_vulnerabilities(loaders, finding.id) for finding in findings]
+    )
+    return dict(zip(finding_types, vulnerabilities))
 
 
 async def send_temporal_treatment_report() -> None:
@@ -100,18 +133,26 @@ async def send_temporal_treatment_report() -> None:
         for group_stakeholders in groups_stakeholders
     )
 
-    groups_expiring_findings: Tuple[Tuple[Finding, ...], ...] = await collect(
+    groups_expiring_findings = await collect(
         [
             findings_close_to_expiring(loaders, group_name)
             for group_name in groups_names
         ]
     )
 
-    data = tuple(
+    data: Dict[str, ExpiringDataType] = dict(
         zip(
             groups_names,
-            groups_stakeholders_email,
-            groups_expiring_findings,
+            [
+                ExpiringDataType(
+                    email_to=email_to,
+                    group_expiring_findings=expiring_findings,
+                )
+                for email_to, expiring_findings in zip(
+                    groups_stakeholders_email,
+                    groups_expiring_findings,
+                )
+            ],
         )
     )
 
