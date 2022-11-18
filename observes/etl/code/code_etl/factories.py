@@ -63,7 +63,7 @@ class CommitDataFactory:
             commit.stats.total["lines"],
             commit.stats.total["files"],
         )
-        files = tuple(str(f) for f in commit.stats.files)  # type: ignore[misc]
+        files = frozenset(str(f) for f in commit.stats.files)  # type: ignore[misc]
         data = CommitData(
             author,
             to_utc(commit.authored_datetime),

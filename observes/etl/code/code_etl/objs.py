@@ -16,6 +16,7 @@ from fa_purity import (
     Maybe,
 )
 from typing import (
+    FrozenSet,
     Literal,
     Optional,
 )
@@ -67,7 +68,7 @@ class CommitData:
     message: TruncatedStr[Literal[4096]]
     summary: TruncatedStr[Literal[256]]
     deltas: Deltas
-    files: Maybe[FrozenList[str]]
+    files: Maybe[FrozenSet[str]]
 
 
 @dataclass(frozen=True)

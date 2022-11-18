@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from code_etl.client import (
+from code_etl.client._raw import (
     RawClient,
 )
 from code_etl.client.decoder import (
@@ -86,8 +86,8 @@ def migrate_row(
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
     reg: ResultE[
         Union[CommitStamp, RepoRegistration]
-    ] = decode_repo_registration(row).map(inl)
-    return reg.lash(lambda _: migrate_commit(row).map(inl))
+    ] = decode_repo_registration(row).map(lambda x: inl(x))
+    return reg.lash(lambda _: migrate_commit(row).map(lambda x: inl(x)))
 
 
 def migration(
