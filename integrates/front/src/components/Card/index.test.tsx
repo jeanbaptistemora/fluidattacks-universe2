@@ -28,4 +28,18 @@ describe("Card", (): void => {
     expect(screen.queryByText("Card title")).toBeInTheDocument();
     expect(screen.queryByText("Card body")).toBeInTheDocument();
   });
+
+  it("should render a card untitled and with img", (): void => {
+    expect.hasAssertions();
+
+    const clickCallback: jest.Mock = jest.fn();
+    const { queryByText } = render(
+      <Card img={"Card img"} onClick={clickCallback} title={undefined}>
+        {"Card body"}
+      </Card>
+    );
+
+    expect(queryByText("Card img")).toBeInTheDocument();
+    expect(queryByText("Card title")).not.toBeInTheDocument();
+  });
 });
