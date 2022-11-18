@@ -79,6 +79,14 @@ class UpdateToeLinesPayload(NamedTuple):
     success: bool
 
 
+class UpdateToePortPayload(NamedTuple):
+    address: str
+    port: str
+    group_name: str
+    root_id: str
+    success: bool
+
+
 class ExecuteMachinePayload(NamedTuple):
     success: bool
     pipeline_url: str
