@@ -29,6 +29,7 @@ def format_row_metadata(
         created_date=datetime.fromisoformat(item["created_date"])
         if item.get("created_date")
         else None,
+        name=item["name"],
     )
 
 
