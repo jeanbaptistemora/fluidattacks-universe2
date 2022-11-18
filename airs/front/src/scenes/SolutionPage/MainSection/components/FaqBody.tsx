@@ -11,7 +11,7 @@ import { Text } from "../../../../components/Typography";
 import type { ITextProps } from "../../../../components/Typography";
 
 const FaqBody: React.FC<ITextProps> = ({ children }): JSX.Element => (
-  <Container>
+  <Container mb={4}>
     <Text color={"#11111"} textAlign={"start"}>
       {children}
     </Text>
