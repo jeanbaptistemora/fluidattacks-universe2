@@ -28,6 +28,7 @@ class SnippetViewport(NamedTuple):
     line_context: int = SNIPPETS_CONTEXT
     wrap: bool = False
     show_line_numbers: bool = True
+    highlight_line_number: bool = True
 
 
 def _chunked(line: str, chunk_size: int) -> Iterator[str]:
@@ -70,7 +71,7 @@ def make_snippet(  # NOSONAR
         # We'll place the center at 25% from the left border
         viewport_left: int = (
             max(viewport.column - viewport.columns_per_line // 4, 0)
-            if viewport.column
+            if viewport.column is not None
             else 0
         )
 
@@ -83,12 +84,12 @@ def make_snippet(  # NOSONAR
                 lines[-2][0] if len(lines) >= 2 else None
             )
             for index, (line_no, line) in enumerate(lines):
-                if not viewport.line:
-                    continue
                 # Highlight this line if requested
                 mark_symbol = (
                     ">"
-                    if line_no == viewport.line and line_no != line_no_last
+                    if line_no == viewport.line
+                    and line_no != line_no_last
+                    and viewport.highlight_line_number
                     else " "
                 )
 
@@ -124,11 +125,16 @@ def make_snippet(  # NOSONAR
                         max(viewport_center - viewport.line_context, 0),
                         viewport_center + viewport.line_context + 1,
                     )
+                    if (viewport_center + viewport.line_context < len(lines))
+                    else slice(
+                        max(len(lines) - 2 * viewport.line_context - 1, 0),
+                        len(lines),
+                    )
                 ]
 
             # Highlight the column if requested
 
-            if viewport.column:
+            if viewport.column is not None:
                 lines.append(
                     (0, f"  {' ':>{loc_width}} ^ Col {viewport_left}")
                 )
