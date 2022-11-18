@@ -21,7 +21,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from typing import (
-    Any,
     Dict,
     Iterator,
     List,
@@ -33,8 +32,8 @@ from utils.function import (
 
 
 def _k8s_check_add_capability(
-    template: Any,
-) -> Iterator[Any]:
+    template: Node,
+) -> Iterator[Node]:
     for ctx in iter_security_context(template, True):
         if (cap_add := get_containers_capabilities(ctx, "add")) and cap_add[
             0
@@ -156,8 +155,8 @@ def _k8s_root_filesystem_read_only(
 
 
 def _k8s_check_run_as_user(
-    template: Any,
-) -> Iterator[Any]:
+    template: Node,
+) -> Iterator[Node]:
     for ctx in iter_security_context(template, False):
         as_user = ctx.inner.get("runAsUser")
         if as_user and as_user.data == 0:
@@ -249,8 +248,8 @@ def _k8s_check_privileged_used(
 
 
 def _k8s_check_drop_capability(
-    template: Any,
-) -> Iterator[Any]:
+    template: Node,
+) -> Iterator[Node]:
     for ctx in iter_security_context(template, True):
         cap_drop = get_containers_capabilities(ctx, "drop")
         if cap_drop and "all" not in [cap.data.lower() for cap in cap_drop]:
@@ -258,8 +257,8 @@ def _k8s_check_drop_capability(
 
 
 def _k8s_container_without_securitycontext(
-    template: Any,
-) -> Iterator[Any]:
+    template: Node,
+) -> Iterator[Node]:
     for container in iter_containers_type(template):
         for elem in container:
             if isinstance(elem, Node) and not elem.inner.get(
@@ -269,7 +268,7 @@ def _k8s_container_without_securitycontext(
 
 
 def k8s_check_add_capability(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -283,7 +282,7 @@ def k8s_check_add_capability(
 
 
 def k8s_allow_privilege_escalation_enabled(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -299,7 +298,7 @@ def k8s_allow_privilege_escalation_enabled(
 
 
 def k8s_root_container(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -311,7 +310,7 @@ def k8s_root_container(
 
 
 def k8s_root_filesystem_read_only(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -325,7 +324,7 @@ def k8s_root_filesystem_read_only(
 
 
 def k8s_check_run_as_user(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -337,7 +336,7 @@ def k8s_check_run_as_user(
 
 
 def k8s_check_seccomp_profile(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -351,7 +350,7 @@ def k8s_check_seccomp_profile(
 
 
 def k8s_check_privileged_used(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -365,7 +364,7 @@ def k8s_check_privileged_used(
 
 
 def k8s_check_drop_capability(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
@@ -379,7 +378,7 @@ def k8s_check_drop_capability(
 
 
 def k8s_container_without_securitycontext(
-    content: str, path: str, template: Any
+    content: str, path: str, template: Node
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
