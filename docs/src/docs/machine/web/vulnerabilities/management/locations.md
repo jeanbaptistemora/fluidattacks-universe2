@@ -174,3 +174,41 @@ these are described below:
   Locations that have an assigned.
 
 ![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1668782028/docs/web/vulnerabilities/management/location_table.png)
+
+:::note
+You can see a pop-up window with details
+by clicking on any location.
+For more information,
+click [here](machine/web/vulnerabilities/management/general).
+:::
+
+## Functionalities
+
+## Notify button
+
+Helps us notify all
+open locations of the
+specific vulnerability type,
+receiving a report of these.
+Please note that this feature
+will only appear for the
+[User manager](/machine/web/groups/roles/#user-manager-role)
+and [Vulnerability manager](/machine/web/groups/roles/#vulnerability-manager-role)
+roles.
+
+To receive this email,
+Click on the **Notify button**.
+
+![Notify button](https://res.cloudinary.com/fluid-attacks/image/upload/v1666212867/docs/web/vulnerabilities/management/notify_button.png)
+
+You will get a confirmation
+pop-up window if you want
+to receive the notification.
+
+![confirmation window](https://res.cloudinary.com/fluid-attacks/image/upload/v1666213023/docs/web/vulnerabilities/management/confirmation_window.png)
+
+When you click **Notify**,
+you will get an email called
+Vulnerability Alert,
+which has information about
+this locations.
