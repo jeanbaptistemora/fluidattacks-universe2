@@ -19,7 +19,7 @@ from db_model import (
     organizations as orgs_model,
     portfolios as portfolios_model,
 )
-from db_model.organizations.get import (
+from db_model.organizations.get import (  # type: ignore
     get_all_organizations_items,
     get_organization_historic_state_items,
 )
