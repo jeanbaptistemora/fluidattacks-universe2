@@ -4,14 +4,6 @@
 
 # shellcheck shell=bash
 
-function resolve_endpoint() {
-  if ! test -z "${CI:-}"; then
-    endpoint="https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
-  else
-    endpoint="https://localhost:8001/api"
-  fi
-}
-
 function check_output() {
   if ! grep -q "ERROR\|TypeError\|IndexError\|Traceback" "$1"; then
     echo "[INFO] All clear!"
@@ -32,12 +24,11 @@ function main {
     && aws_login "dev" "3600" \
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
-    && DAEMON=true integrates-storage \
     && DAEMON=true integrates-db \
     && echo "[INFO] Running DevSecOps agent check..." \
     && mkdir -p "${out}" \
     && resolve_endpoint \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
+    && API_ENDPOINT="https://localhost:8001/api" forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
     && check_output "${out}/forces-output.log" \
     && rm -rf "${out}" \
     && return "${result_code}" \

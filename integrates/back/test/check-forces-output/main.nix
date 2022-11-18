@@ -18,7 +18,6 @@ makeScript {
     bin = [
       inputs.nixpkgs.coreutils
       outputs."/integrates/db"
-      outputs."/integrates/storage"
       outputs."/forces"
     ];
     source = [
