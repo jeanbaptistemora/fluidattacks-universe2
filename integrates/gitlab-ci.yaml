@@ -165,7 +165,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/test/check-forces-output:
+/integrates/back/test/forces:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -180,7 +180,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/check-forces-output
+    - m . /integrates/back/test/forces
   stage: test-code
   tags:
     - small
@@ -4409,29 +4409,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/web/check-forces-output:
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs:
-    - /integrates/back/deploy/dev
-  rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/web/check-forces-output
-  stage: post-deploy
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /integrates/web/e2e:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -4452,6 +4429,29 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/web/e2e
+  stage: post-deploy
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/web/forces:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs:
+    - /integrates/back/deploy/dev
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/web/forces
   stage: post-deploy
   tags:
     - small

@@ -38,9 +38,9 @@ function main {
     fi \
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
-    && resolve_endpoint \
     && echo "[INFO] Running DevSecOps agent check..." \
     && mkdir -p "${out}" \
+    && resolve_endpoint \
     && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
     && check_output "${out}/forces-output.log" \
     && rm -rf "${out}" \

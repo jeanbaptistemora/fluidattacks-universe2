@@ -9,7 +9,7 @@
   ...
 }:
 makeScript {
-  name = "integrates-web-check-forces-output";
+  name = "integrates-web-forces";
   replace = {
     __argIntegratesSecrets__ = projectPath "/integrates";
   };

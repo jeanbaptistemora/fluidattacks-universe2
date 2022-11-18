@@ -382,7 +382,7 @@ in {
               };
           }
           {
-            output = "/integrates/back/test/check-forces-output";
+            output = "/integrates/back/test/forces";
             gitlabExtra =
               gitlabTestDev
               // {
@@ -610,7 +610,7 @@ in {
               };
           }
           {
-            output = "/integrates/web/check-forces-output";
+            output = "/integrates/web/forces";
             gitlabExtra =
               gitlabPostDeployDev
               // {
