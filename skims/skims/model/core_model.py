@@ -22,6 +22,7 @@ from typing import (
 
 
 class Platform(Enum):
+    COMPOSER: str = "COMPOSER"
     PIP: str = "PIP"
     NPM: str = "NPM"
     MAVEN: str = "MAVEN"
@@ -1588,6 +1589,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F009,
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    COMPOSER_JSON = MethodInfo(
+        file_name="composer",
+        name="composer_json",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
     )
     GEM_GEMFILE = MethodInfo(
         file_name="gem",
