@@ -32,6 +32,7 @@ from db_model import (
     stakeholders as stakeholders_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
+    toe_ports as toe_ports_model,
     vulnerabilities as vulns_model,
 )
 from db_model.credentials.types import (
@@ -85,6 +86,9 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+)
+from db_model.toe_ports.types import (
+    ToePort,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -591,6 +595,13 @@ async def populate_toe_inputs(data: tuple[ToeInput, ...]) -> bool:
 async def populate_toe_lines(data: tuple[ToeLines, ...]) -> bool:
     await collect(
         [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
+    )
+    return True
+
+
+async def populate_toe_ports(data: tuple[ToePort, ...]) -> bool:
+    await collect(
+        [toe_ports_model.add(toe_port=toe_port) for toe_port in data]
     )
     return True
 
