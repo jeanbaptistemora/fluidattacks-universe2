@@ -815,6 +815,14 @@
       "title": "279. Root detection control bypass"
     }
   },
+  "F280": {
+    "EN": {
+      "title": "280. Session Fixation"
+    },
+    "ES": {
+      "title": "280. Session Fixation"
+    }
+  },
   "F281": {
     "EN": {
       "title": "281. Use of an insecure channel - AWS"

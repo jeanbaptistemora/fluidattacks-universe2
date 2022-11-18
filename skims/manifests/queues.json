@@ -83,7 +83,8 @@
   "skims_cookie": {
     "availability": "ALWAYS",
     "findings": [
-      "F042"
+      "F042",
+      "F280"
     ]
   },
   "skims_crypto": {
