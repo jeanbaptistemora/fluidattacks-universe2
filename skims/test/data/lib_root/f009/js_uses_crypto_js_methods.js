@@ -1,13 +1,13 @@
 import * as CryptoJS from "crypto-js";
 
 function hasCrytoJsFunctions(arg) {
-  const chartString = "Hello world";
 
-  const chart2 = arg;
-  const base64 = CryptoJS.enc.Base64.parse(chartString);
-  const utf16 = CryptoJS.enc.Utf16.parse(chart2);
+  //Unsafe
   const Utf16LE = CryptoJS.enc.Utf16LE.parse("a23ijl");
-  const Hex = CryptoJS.enc.Hex.parse(chartString);
-  const Latin1 = CryptoJS.enc.Latin1.parse("iuop8o");
+  const Latin1 = CryptoJS.enc.Latin1.parse("sec\"ret");
   const utf8 = CryptoJS.enc.Utf8.parse("Fmljho");
+
+  // Safe values
+  const initDate = format(parse("hello"));
+  const base64 = CryptoJS.enc.base64.parse(arg);
 }

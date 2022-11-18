@@ -40520,166 +40520,97 @@ F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml.json,1,798,skims
 > 1 | ""AKIA0000000000000000""
     ^ Col 0
 ",aws.aws_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-  3 | CryptoJS.enc.Base64.parse(""secret"");
-  4 | CryptoJS.enc.Utf16.parse('secret');
-  5 | CryptoJS.enc.Utf16LE.parse(`source`);
-  6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-  7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-> 8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-  3 | CryptoJS.enc.Base64.parse(""secret"");
-  4 | CryptoJS.enc.Utf16.parse('secret');
-  5 | CryptoJS.enc.Utf16LE.parse(`source`);
-  6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-> 7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-  8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-  3 | CryptoJS.enc.Base64.parse(""secret"");
-  4 | CryptoJS.enc.Utf16.parse('secret');
-  5 | CryptoJS.enc.Utf16LE.parse(`source`);
-> 6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-  7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-  8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,5,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-  3 | CryptoJS.enc.Base64.parse(""secret"");
-  4 | CryptoJS.enc.Utf16.parse('secret');
-> 5 | CryptoJS.enc.Utf16LE.parse(`source`);
-  6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-  7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-  8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,4,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-  3 | CryptoJS.enc.Base64.parse(""secret"");
-> 4 | CryptoJS.enc.Utf16.parse('secret');
-  5 | CryptoJS.enc.Utf16LE.parse(`source`);
-  6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-  7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-  8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_path/f009/javascript.js,"
-  1 | CryptoJS.enc.Base64.parse(source);
-  2 |
-> 3 | CryptoJS.enc.Base64.parse(""secret"");
-  4 | CryptoJS.enc.Utf16.parse('secret');
-  5 | CryptoJS.enc.Utf16LE.parse(`source`);
-  6 | CryptoJS.enc.Hex.parse(""sec\""ret"");
-  7 | CryptoJS.enc.Latin1.parse('sec\'ret');
-  8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
-    ^ Col 0
-",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,12,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
    1 | import * as CryptoJS from ""crypto-js"";
    2 |
    3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |
-   6 |   const chart2 = arg;
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
-   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
-  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
-  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-> 12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   4 |
+   5 |   //Unsafe
+   6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+   7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+>  8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
   13 | }
      ^ Col 0
 ",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,11,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
    1 | import * as CryptoJS from ""crypto-js"";
    2 |
    3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |
-   6 |   const chart2 = arg;
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
-   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
-  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
-> 11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   4 |
+   5 |   //Unsafe
+   6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+>  7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+   8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
   13 | }
      ^ Col 0
 ",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,9,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
    1 | import * as CryptoJS from ""crypto-js"";
    2 |
    3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |
-   6 |   const chart2 = arg;
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chart2);
->  9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
-  10 |   const Hex = CryptoJS.enc.Hex.parse(chartString);
-  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   4 |
+   5 |   //Unsafe
+>  6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+   7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+   8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
   13 | }
      ^ Col 0
 ",javascript.javascript_crypto_js_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,12,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
-   1 | import * as CryptoJS from ""crypto-js"";
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
    2 |
-   3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |   const args = arg
-   6 |
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
-   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
-  10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
-  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-> 12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
-  13 | }
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+   6 |   const base64 = enc.Base64.parse(""danger_value"");
+   7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+>  8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
      ^ Col 0
 ",typescript.typescript_crypto_ts_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,11,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
-   1 | import * as CryptoJS from ""crypto-js"";
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
    2 |
-   3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |   const args = arg
-   6 |
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
-   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
-  10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
-> 11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
-  13 | }
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+   6 |   const base64 = enc.Base64.parse(""danger_value"");
+>  7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+   8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
      ^ Col 0
 ",typescript.typescript_crypto_ts_credentials
-F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,10,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
-   1 | import * as CryptoJS from ""crypto-js"";
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
    2 |
-   3 | function hasCrytoJsFunctions(arg) {
-   4 |   const chartString = ""Hello world"";
-   5 |   const args = arg
-   6 |
-   7 |   const base64 = CryptoJS.enc.Base64.parse(chartString);
-   8 |   const utf16 = CryptoJS.enc.Utf16.parse(chartString);
-   9 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(args);
-> 10 |   const Hex = CryptoJS.enc.Hex.parse(""1231jlk"");
-  11 |   const Latin1 = CryptoJS.enc.Latin1.parse(""iuop8o"");
-  12 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
-  13 | }
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+>  6 |   const base64 = enc.Base64.parse(""danger_value"");
+   7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+   8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
      ^ Col 0
 ",typescript.typescript_crypto_ts_credentials
 F009,lines,namespace/skims/test/data/lib_path/f009/connection.config,5,798,skims,009. Sensitive information in source code,Database connection string in namespace/skims/test/data/lib_path/f009/connection.config,"
