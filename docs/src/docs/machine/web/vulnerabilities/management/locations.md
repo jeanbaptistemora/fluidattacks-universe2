@@ -31,7 +31,7 @@ can access [a vast list](/criteria/vulnerabilities/)
 that we are constantly updating on our
 [Documentation](https://docs.fluidattacks.com/).
 
-![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775187/docs/web/vulnerabilities/management/header.png)
+![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778565/docs/web/vulnerabilities/management/header.png)
 
 The first thing you see below
 the title, on the far left, is
@@ -85,7 +85,7 @@ In the table below, you can precisely
 find which files and code lines
 are affected.
 
-![Number Of Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1668776834/docs/web/vulnerabilities/management/open_vuln.png)
+![Number Of Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778790/docs/web/vulnerabilities/management/open_vuln.png)
 
 Next, you can see the
 **discovery date**.
@@ -94,7 +94,7 @@ and day we first identified and
 reported that type of vulnerability
 for the group in question.
 
-![Discovery Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1668777015/docs/web/vulnerabilities/management/discover_day.png)
+![Discovery Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778886/docs/web/vulnerabilities/management/discover_day.png)
 
 The last item in the header is
 the **MMTR (Mean Time to Repair)**
@@ -113,4 +113,64 @@ of how much time you would have
 to invest in the future in the
 remediation task.
 
-![Estimated Remediation Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1668777124/docs/web/vulnerabilities/management/mtr.png)
+![Estimated Remediation Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778933/docs/web/vulnerabilities/management/mtr.png)
+
+## Locations table
+
+The locations table gives us
+the details of the location of
+the vulnerability,
+giving us a total of 9 columns;
+these are described below:
+
+- **Location:**
+  The files where
+  this type of vulnerability
+  has been reported.
+  They can be understood as
+  individual vulnerabilities
+  of that type.
+- **Specific:**
+  In what
+  lines of code,
+  inputs (e.g.,
+  password field)
+  or ports each
+  vulnerability was
+  detected.
+- **Status:**
+  Whether each
+  vulnerability has been
+  closed (remediated) or
+  remains open.
+- **Report date:**
+  The dates when
+  vulnerabilities were reported.
+- **Reattack:**
+  Whether a
+  reattack has been requested
+  and is pending,
+  is on hold,
+  has been verified (open)
+  or verified (closed).
+  If this cell is blank,
+  it should be interpreted
+  that a reattack has not
+  been requested.
+- **Treatment:**
+  The defined treatment
+  for each vulnerability,
+  which could be in progress,
+  temporarily accepted,
+  permanently accepted or
+  zero risk.
+- **Tags:**
+  Any tags that you
+  have given each vulnerability
+  to identify it.
+- **Treatment Acceptance:**
+  The locations that have accepted treatment.
+- **Assignees:**
+  Locations that have an assigned.
+
+![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1668782028/docs/web/vulnerabilities/management/location_table.png)
