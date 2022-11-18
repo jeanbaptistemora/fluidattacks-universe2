@@ -54,6 +54,6 @@ class GroupSubscriptionType(str, Enum):
 class GroupTier(str, Enum):
     FREE: str = "FREE"
     MACHINE: str = "MACHINE"
-    SQUAD: str = "SQUAD"
     ONESHOT: str = "ONESHOT"
     OTHER: str = "OTHER"
+    SQUAD: str = "SQUAD"

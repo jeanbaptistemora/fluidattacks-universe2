@@ -909,18 +909,44 @@ async def report_subscription_usage(
     )
 
 
-async def get_group_billing(*, date: datetime, group: Group) -> GroupBilling:
-    authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
+async def get_group_billing(
+    *, date: datetime, org: Organization, group: Group, loaders: Dataloaders
+) -> GroupBilling:
+    group_authors: tuple[GroupAuthor, ...] = await dal.get_group_authors(
         date=date,
         group=group.name,
     )
-    number_authors: int = len(authors)
+    number_authors: int = len(group_authors)
 
     prices: dict[str, Price] = await get_prices()
-    costs_authors: int = (
-        int(number_authors * prices["squad"].amount / 100)
-        if group.state.tier == GroupTier.SQUAD
-        else 0
+    org_authors: dict[str, OrganizationAuthor] = {
+        author.actor: author
+        for author in await get_organization_authors(
+            date=date,
+            org=org,
+            loaders=loaders,
+        )
+    }
+    costs_authors: int = int(
+        sum(
+            tuple(
+                prices["squad"].amount
+                / len(
+                    tuple(
+                        group
+                        for group in org_authors[author.actor].active_groups
+                        if group.tier == GroupTier.SQUAD
+                    )
+                )
+                for author in group_authors
+                if GroupTier.SQUAD
+                in tuple(
+                    group.tier
+                    for group in org_authors[author.actor].active_groups
+                )
+            )
+        )
+        / 100
     )
     costs_base: int = (
         int(prices["machine"].amount / 100)
@@ -930,7 +956,7 @@ async def get_group_billing(*, date: datetime, group: Group) -> GroupBilling:
     costs_total: int = costs_base + costs_authors
 
     return GroupBilling(
-        authors=authors,
+        authors=group_authors,
         costs_authors=costs_authors,
         costs_base=costs_base,
         costs_total=costs_total,
@@ -970,9 +996,7 @@ async def get_organization_authors(
             active_groups=tuple(
                 OrganizationActiveGroup(
                     name=org_groups[author.groups].name,
-                    tier=str(
-                        org_groups[author.groups].state.tier.value
-                    ).lower(),
+                    tier=org_groups[author.groups].state.tier,
                 )
                 for author in group_authors
                 if author.actor == actor

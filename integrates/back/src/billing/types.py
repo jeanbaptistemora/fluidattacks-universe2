@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from db_model.groups.enums import (
+    GroupTier,
+)
 from db_model.organizations.types import (
     DocumentFile,
 )
@@ -29,7 +32,7 @@ class GroupBilling(NamedTuple):
 
 class OrganizationActiveGroup(NamedTuple):
     name: str
-    tier: str
+    tier: GroupTier
 
 
 class OrganizationAuthor(NamedTuple):

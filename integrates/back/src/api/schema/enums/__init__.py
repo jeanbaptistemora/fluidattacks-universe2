@@ -247,11 +247,11 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "TierType",
         {
-            "FREE": "free",
-            "MACHINE": "machine",
-            "ONESHOT": "oneshot",
-            "OTHER": "other",
-            "SQUAD": "squad",
+            "FREE": "FREE",
+            "MACHINE": "MACHINE",
+            "ONESHOT": "ONESHOT",
+            "OTHER": "OTHER",
+            "SQUAD": "SQUAD",
         },
     ),
     EnumType(

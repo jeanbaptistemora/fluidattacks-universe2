@@ -2,19 +2,19 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from db_model.groups.enums import (
+    GroupTier,
+)
 from db_model.groups.types import (
     Group,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-) -> Optional[str]:
-    return str(parent.state.tier.value).lower()
+) -> GroupTier:
+    return parent.state.tier
