@@ -4,7 +4,6 @@
 
 # shellcheck shell=bash
 
-alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"
 
 function start_etl {

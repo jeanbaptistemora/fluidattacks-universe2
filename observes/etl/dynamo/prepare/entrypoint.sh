@@ -4,8 +4,6 @@
 
 # shellcheck shell=bash
 
-alias tap-json="observes-singer-tap-json-bin"
-
 function get_schemas {
   local use_cache="${1}"
   local cache_bucket_folder="${2}"

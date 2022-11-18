@@ -17,5 +17,5 @@ makeScript {
       outputs."${inputs.observesIndex.tap.json.env.runtime}"
     ];
   };
-  name = "observes-singer-tap-json-bin";
+  name = "tap-json";
 }

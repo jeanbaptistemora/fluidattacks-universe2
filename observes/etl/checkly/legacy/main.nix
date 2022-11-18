@@ -21,6 +21,6 @@ makeScript {
       outputs."/observes/common/db-creds"
     ];
   };
-  name = "observes-etl-checkly";
+  name = "observes-etl-checkly-legacy";
   entrypoint = ./entrypoint.sh;
 }

@@ -5,7 +5,7 @@
 # shellcheck shell=bash
 
 alias tap-bugsnag="observes-singer-tap-bugsnag-bin"
-alias tap-json="observes-singer-tap-json-bin"
+
 alias target-redshift="observes-target-redshift"
 
 function start_etl {
