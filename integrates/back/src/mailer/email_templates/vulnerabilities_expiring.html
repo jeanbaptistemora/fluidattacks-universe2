@@ -1,0 +1,42 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_group %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+
+      {% include 'layouts/components/arm_banner.html' %}
+      {{ banner_group('Temporal Treatment Alert') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>These are vulnerabilities close to expiring:</p>
+        <p>
+        {% for group_name, group_data in groups_data.items() %}
+          {%- if group_data["group_expiring_findings"] -%}
+            {% for finding_title, vulnerabilities in group_data["group_expiring_findings"].items() %}
+          <strong>{{ group_name.capitalize() }} - {{ finding_title }}</strong>
+          <ul>
+              {% for vulnerability, days_remaining in vulnerabilities.items() %}
+            <li>
+              {{ vulnerability }}({{ days_remaining }} days remaining)
+            </li>
+              {% endfor %}
+          </ul>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        </p>
+        <p>
+          Regards,<br />
+          Fluid Attacks Team
+        </p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
+    </div>
+  {% endblock %}

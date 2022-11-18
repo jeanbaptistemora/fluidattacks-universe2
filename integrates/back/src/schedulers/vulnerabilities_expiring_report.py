@@ -7,7 +7,12 @@ from aioextensions import (
 )
 from context import (
     FI_ENVIRONMENT,
+    FI_MAIL_COS,
+    FI_MAIL_CTO,
     FI_TEST_PROJECTS,
+)
+from custom_exceptions import (
+    UnableToSendMail,
 )
 from dataloaders import (
     Dataloaders,
@@ -19,19 +24,28 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from group_access import (
     domain as group_access_domain,
 )
 import logging
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
+from mailer import (
+    groups as groups_mail,
+)
+from mailer.utils import (
+    get_organization_name,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -41,8 +55,13 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from stakeholders.domain import (
+    is_fluid_staff,
+)
 from typing import (
+    Any,
     Dict,
+    List,
     Tuple,
     TypedDict,
 )
@@ -53,8 +72,15 @@ logging.config.dictConfig(LOGGING)
 DAYS_TO_EXPIRING = 7
 LOGGER = logging.getLogger(__name__)
 
+mail_vulnerabilities_expiring = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=3,
+    sleep_seconds=2,
+)(groups_mail.send_mail_vulnerabilities_expiring)
+
 
 class ExpiringDataType(TypedDict):
+    org_name: str
     email_to: Tuple[str, ...]
     group_expiring_findings: Dict[str, Dict[str, int]]
 
@@ -99,7 +125,42 @@ async def findings_close_to_expiring(
     vulnerabilities = await collect(
         [expiring_vulnerabilities(loaders, finding.id) for finding in findings]
     )
-    return dict(zip(finding_types, vulnerabilities))
+
+    findings_to_expiring = dict(zip(finding_types, vulnerabilities))
+    return {
+        finding_type: data
+        for (finding_type, data) in findings_to_expiring.items()
+        if data
+    }
+
+
+def unique_emails(
+    expiring_data: Dict[str, ExpiringDataType],
+    email_list: Tuple[str, ...],
+) -> Tuple[str, ...]:
+    if expiring_data:
+        email_list += expiring_data.popitem()[1]["email_to"]
+        unique_emails(expiring_data, email_list)
+
+    return tuple(set(email_list))
+
+
+async def get_fluid_stakeholders(
+    loaders: Dataloaders, group_name: str, notification: str, roles: set[str]
+) -> List[str]:
+    stakeholders = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=notification,
+            roles=roles,
+        )
+    )
+    return [
+        stakeholder
+        for stakeholder in stakeholders
+        if is_fluid_staff(stakeholder)
+    ]
 
 
 async def send_temporal_treatment_report() -> None:
@@ -113,24 +174,30 @@ async def send_temporal_treatment_report() -> None:
             if group not in FI_TEST_PROJECTS.split(",")
         )
 
-    groups_stakeholders: Tuple[Tuple[Stakeholder, ...], ...] = await collect(
+    groups_org_names = await collect(
         [
-            group_access_domain.get_group_stakeholders(
-                loaders,
-                group_name,
-            )
+            get_organization_name(loaders, group_name)
             for group_name in groups_names
         ]
     )
 
-    groups_stakeholders_email: Tuple[Tuple[str, ...], ...] = tuple(
-        tuple(
-            stakeholder.email
-            for stakeholder in group_stakeholders
-            if Notification.NEW_COMMENT
-            in stakeholder.state.notifications_preferences.email
-        )
-        for group_stakeholders in groups_stakeholders
+    roles: set[str] = {
+        "resourcer",
+        "customer_manager",
+        "user_manager",
+        "vulnerability_manager",
+    }
+
+    groups_stakeholders_email: Tuple[List[str], ...] = await collect(
+        [
+            get_fluid_stakeholders(
+                loaders=loaders,
+                group_name=group_name,
+                notification=Notification.UPDATED_TREATMENT,
+                roles=roles,
+            )
+            for group_name in groups_names
+        ]
     )
 
     groups_expiring_findings = await collect(
@@ -140,15 +207,17 @@ async def send_temporal_treatment_report() -> None:
         ]
     )
 
-    data: Dict[str, ExpiringDataType] = dict(
+    groups_data: Dict[str, ExpiringDataType] = dict(
         zip(
             groups_names,
             [
                 ExpiringDataType(
-                    email_to=email_to,
+                    org_name=org_name,
+                    email_to=tuple(email_to),
                     group_expiring_findings=expiring_findings,
                 )
-                for email_to, expiring_findings in zip(
+                for org_name, email_to, expiring_findings in zip(
+                    groups_org_names,
                     groups_stakeholders_email,
                     groups_expiring_findings,
                 )
@@ -156,7 +225,43 @@ async def send_temporal_treatment_report() -> None:
         )
     )
 
-    LOGGER.info("Finding expiring report data: %s", data)
+    groups_data = {
+        group_name: data
+        for (group_name, data) in groups_data.items()
+        if data["email_to"] and data["group_expiring_findings"]
+    }
+
+    for email in unique_emails(dict(groups_data), ()):
+        user_content: Dict[str, Any] = {
+            "groups_data": {
+                group_name: {
+                    "org_name": data["org_name"],
+                    "group_expiring_findings": data["group_expiring_findings"],
+                }
+                for group_name, data in groups_data.items()
+                if email in data["email_to"]
+            }
+        }
+
+        try:
+            await mail_vulnerabilities_expiring(
+                loaders=loaders,
+                context=user_content,
+                email_to=email,
+                email_cc=[FI_MAIL_COS, FI_MAIL_CTO],
+            )
+            LOGGER.info(
+                "Temporal treatment alert email sent",
+                extra={"extra": {"email": email}},
+            )
+        except KeyError:
+            LOGGER.info(
+                "Key error, Temporal treatment alert email not sent",
+                extra={"extra": {"email": email}},
+            )
+            continue
+    LOGGER.info("Temporal treatment alert execution finished.")
+    LOGGER.info("Finding expiring report data: %s", groups_data)
 
 
 async def main() -> None:

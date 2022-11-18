@@ -1034,3 +1034,22 @@ async def send_mail_missing_environment_alert(
         context=context,
         template_name="missing_environment_alert",
     )
+
+
+async def send_mail_vulnerabilities_expiring(
+    *,
+    loaders: Any,
+    context: Dict[str, Any],
+    email_to: str,
+    email_cc: List[str],
+) -> None:
+    user_login = str(email_to).split("@", maxsplit=1)[0]
+    await send_mails_async(
+        loaders=loaders,
+        email_to=[email_to],
+        email_cc=email_cc,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] Temporal Treatment Alert [{user_login}]",
+        context=context,
+        template_name="vulnerabilities_expiring",
+    )
