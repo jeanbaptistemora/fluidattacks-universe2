@@ -109,13 +109,23 @@ async def test_get_last_closed_vulnerability(
     assert last_closed_vuln.finding_id == "463558592"  # type: ignore
 
 
-async def test_get_max_open_severity() -> None:
+async def test_get_max_open_severity(
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     findings_to_get = ["463558592", "422286126"]
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
-        findings_to_get
-    )
-    test_data = await get_max_open_severity(loaders, findings)
+    with mock.patch(
+        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    ) as mock_table_resource:
+        mock_table_resource.return_value.query.side_effect = mock_query
+        findings: Tuple[Finding, ...] = await loaders.finding.load_many(
+            findings_to_get
+        )
+        test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1].id == "463558592"  # type: ignore
 
