@@ -75,7 +75,101 @@ async def elbv2_listeners_not_using_https(
     return vulns
 
 
+def _iterate_locations(
+    distribution: Dict[str, Any], dist_arn: str
+) -> List[Location]:
+    locations: List[Location] = []
+    distribution_config = distribution["DistributionConfig"]
+    if (
+        "DefaultCacheBehavior" in distribution_config
+        and (def_cache_beh := distribution_config["DefaultCacheBehavior"])
+        and "ViewerProtocolPolicy" in def_cache_beh
+        and def_cache_beh["ViewerProtocolPolicy"] == "allow-all"
+    ):
+        locations = [
+            *locations,
+            Location(
+                arn=(dist_arn),
+                description=t("src.lib_path.f372.serves_content_over_http"),
+                values=(def_cache_beh["ViewerProtocolPolicy"],),
+                access_patterns=(
+                    (
+                        "/DistributionConfig/DefaultCacheBehavior"
+                        "/ViewerProtocolPolicy"
+                    ),
+                ),
+            ),
+        ]
+
+    if "CacheBehaviors" in distribution_config:
+        cache_behaviors = distribution_config["CacheBehaviors"]
+        for index, cache_b in enumerate(cache_behaviors):
+            if (
+                "ViewerProtocolPolicy" in cache_b
+                and cache_b["ViewerProtocolPolicy"] == "allow-all"
+            ):
+                locations = [
+                    *locations,
+                    Location(
+                        arn=(dist_arn),
+                        description=t(
+                            "src.lib_path.f372.serves_content_over_http"
+                        ),
+                        values=(def_cache_beh["ViewerProtocolPolicy"],),
+                        access_patterns=(
+                            (
+                                f"/DistributionConfig/{index}/"
+                                "CacheBehaviors/ViewerProtocolPolicy"
+                            ),
+                        ),
+                    ),
+                ]
+
+    return locations
+
+
+async def cft_serves_content_over_http(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudfront", function="list_distributions"
+    )
+    distribution_list = (
+        response.get("DistributionList", []) if response else []
+    )
+    method = core_model.MethodsEnum.AWS_CFT_SERVES_CONTENT_OVER_HTTP
+    vulns: core_model.Vulnerabilities = ()
+    if distribution_list:
+        for dist in distribution_list["Items"]:
+            dist_id = dist["Id"]
+            dist_arn = dist["ARN"]
+
+            config: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="cloudfront",
+                function="get_distribution",
+                parameters={
+                    "Id": str(dist_id),
+                },
+            )
+            distribution = config.get("Distribution", {})
+            locations = _iterate_locations(distribution, dist_arn)
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=distribution,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (elbv2_listeners_not_using_https,)
+] = (
+    cft_serves_content_over_http,
+    elbv2_listeners_not_using_https,
+)
