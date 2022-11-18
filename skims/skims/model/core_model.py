@@ -1565,6 +1565,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
+        file_name="typescript",
+        name="typescript_non_secure_construction_of_cookies",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
+        file_name="javascript",
+        name="javascript_non_secure_construction_of_cookies",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
         name="jwt_token",

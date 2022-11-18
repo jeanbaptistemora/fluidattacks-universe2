@@ -1,0 +1,8 @@
+---
+src.lib_root.f280.non_secure_construction_of_cookies:
+  en: >
+    The variables used to create cookies or to set headers are not properly
+    sanitized.
+  es: >
+    Las variables que se utilizan para crear cookies o para establecer headers
+    no están correctamente sanitizadas.
