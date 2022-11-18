@@ -208,8 +208,8 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   </Can>
                   {userEmail.endsWith("@fluidattacks.com") ? (
                     <Tab
-                      id={"weakestTab"}
-                      link={`${url}/weakest`}
+                      id={"outofscopeTab"}
+                      link={`${url}/outofscope`}
                       tooltip={translate.t("organization.tabs.weakest.tooltip")}
                     >
                       {translate.t("organization.tabs.weakest.text")}
@@ -274,7 +274,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   />
                 </Route>
                 {userEmail.endsWith("@fluidattacks.com") ? (
-                  <Route exact={true} path={`${path}/weakest`}>
+                  <Route exact={true} path={`${path}/outofscope`}>
                     <OrganizationWeakest
                       organizationId={basicData.organizationId.id}
                     />

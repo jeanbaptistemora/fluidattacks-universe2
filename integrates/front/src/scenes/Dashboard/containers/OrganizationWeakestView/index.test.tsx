@@ -146,7 +146,7 @@ describe("OrganizationWeakestView", (): void => {
     jest.clearAllMocks();
 
     const { container } = render(
-      <MemoryRouter initialEntries={["/orgs/orgtest/weakest"]}>
+      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
         <MockedProvider
           addTypename={true}
           mocks={[
@@ -157,7 +157,7 @@ describe("OrganizationWeakestView", (): void => {
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
-              <Route path={"/orgs/:organizationName/weakest"}>
+              <Route path={"/orgs/:organizationName/outofscope"}>
                 <OrganizationWeakest
                   organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
                 />
@@ -266,7 +266,7 @@ describe("OrganizationWeakestView", (): void => {
     };
 
     render(
-      <MemoryRouter initialEntries={["/orgs/orgtest/weakest"]}>
+      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
         <MockedProvider
           addTypename={true}
           mocks={[
@@ -277,7 +277,7 @@ describe("OrganizationWeakestView", (): void => {
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
-              <Route path={"/orgs/:organizationName/weakest"}>
+              <Route path={"/orgs/:organizationName/outofscope"}>
                 <OrganizationWeakest
                   organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
                 />

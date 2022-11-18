@@ -122,7 +122,7 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     onError: (errors: ApolloError): void => {
       errors.graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error(
-          "Couldn't load organization credentials from weakest",
+          "Couldn't load organization credentials from out of scope",
           error
         );
       });
