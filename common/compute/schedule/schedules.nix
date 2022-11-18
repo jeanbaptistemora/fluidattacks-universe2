@@ -1491,7 +1491,6 @@
 
     environment = [
       "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
@@ -1572,7 +1571,6 @@
 
     environment = [
       "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
@@ -1599,7 +1597,6 @@
 
     environment = [
       "CI_PROJECT_ID"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
@@ -1626,7 +1623,6 @@
 
     environment = [
       "CI_PROJECT_ID"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
@@ -1653,7 +1649,6 @@
 
     environment = [
       "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
@@ -1680,7 +1675,6 @@
 
     environment = [
       "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
     ];
 
     tags = {
