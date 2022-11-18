@@ -324,6 +324,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function",
             "function_declaration",
             "generator_function_declaration",
             "method_definition",
