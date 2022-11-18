@@ -184,9 +184,9 @@ click [here](machine/web/vulnerabilities/management/general).
 
 ## Functionalities
 
-## Notify button
+### Notify button
 
-Helps us notify all
+This feature helps us notify all
 open locations of the
 specific vulnerability type,
 receiving a report of these.
@@ -212,3 +212,13 @@ you will get an email called
 Vulnerability Alert,
 which has information about
 this locations.
+
+### Reattack
+
+In this section,
+you can do Reattack;
+for more information,
+we have an exclusive section
+for this action,
+you can enter [here](squad/reattacks)
+for more details.

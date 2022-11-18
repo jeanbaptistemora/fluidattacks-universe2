@@ -25,31 +25,10 @@ a more specific location.
 In this section,
 you will find the following subsections:
 
-- Locations.
+- [Locations](machine/web/vulnerabilities/management/locations).
 - Description.
 - Severity.
 - Evidence.
 - Tracking.
 - Records.
 - Consulting.
-
-Besides this there are other
-useful functionalities you can
-do here that enable efficient
-management of your vulnerabilities:
-
-- Define a treatment for each
-  vulnerability.
-- Request that a vulnerability
-  be reattacked.
-- Request a zero risk treatment
-  for a vulnerability.
-- Check what information was
-  compromised by this type of
-  vulnerability, if applicable.
-- Look at a script that replicates
-  the exploitation process of
-  the vulnerability, if applicable.
-- Look at a timeline that describes
-  how this type of vulnerability
-  has evolved over time
