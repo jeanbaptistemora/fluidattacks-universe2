@@ -243,7 +243,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         cell: ICellHelper<IAuthors & { invitationState: string }>
       ): JSX.Element => cell.getValue(),
       header: t("searchFindings.usersTable.invitationState"),
-      meta: { filterType: "select" },
     },
   ];
 

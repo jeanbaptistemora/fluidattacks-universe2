@@ -35,7 +35,6 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
       accessorKey: "reportDate",
       filterFn: filterDate,
       header: "Date",
-      meta: { filterType: "dateRange" },
     },
     {
       accessorKey: "title",
@@ -44,12 +43,10 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     {
       accessorKey: "severityScore",
       header: "Severity",
-      meta: { filterType: "number" },
     },
     {
       accessorKey: "openVulnerabilities",
       header: "Open Vulns.",
-      meta: { filterType: "number" },
     },
     {
       accessorKey: "groupName",
@@ -60,14 +57,12 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<ITodoDraftAttr>): JSX.Element =>
         hackerFormatter(cell.getValue()),
       header: "Hacker",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "currentState",
       cell: (cell: ICellHelper<ITodoDraftAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       header: "State",
-      meta: { filterType: "select" },
     },
   ];
 

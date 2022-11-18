@@ -12,7 +12,6 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -31,6 +30,8 @@ import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
 import { SortsSuggestionsButton } from "./styles";
 import { formatBePresent, formatPercentage, formatRootId } from "./utils";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
@@ -106,11 +107,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     setIsSortsSuggestionsModalOpen(false);
   }, []);
 
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblToeLines-columnFilters",
-    [],
-    localStorage
-  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>(
       "tblToeLines-visibilityState",
@@ -346,7 +342,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     {
       accessorKey: "rootNickname",
       header: t("group.toe.lines.root"),
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "filename",
@@ -355,14 +350,12 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     {
       accessorKey: "loc",
       header: t("group.toe.lines.loc"),
-      meta: { filterType: "numberRange" },
     },
     {
       accessorFn: (row: IToeLinesData): string =>
         formatBoolean(row.hasVulnerabilities),
       header: t("group.toe.lines.hasVulnerabilities"),
       id: "hasVulnerabilities",
-      meta: { filterType: "select" },
     },
     {
       accessorKey: "modifiedDate",
@@ -370,7 +363,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         formatDate(cell.getValue()),
       filterFn: filterDate,
       header: t("group.toe.lines.modifiedDate"),
-      meta: { filterType: "dateRange" },
     },
     {
       accessorKey: "lastCommit",
@@ -386,148 +378,283 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         formatDate(cell.getValue()),
       filterFn: filterDate,
       header: t("group.toe.lines.seenAt"),
-      meta: { filterType: "dateRange" },
     },
     {
       accessorKey: "sortsRiskLevel",
       cell: (cell: ICellHelper<IToeLinesData>): string =>
         formatSortsRiskLevel(cell.getValue()),
       header: t("group.toe.lines.sortsRiskLevel"),
-      meta: { filterType: "numberRange" },
     },
     {
       accessorFn: (row: IToeLinesData): string => formatBoolean(row.bePresent),
       header: t("group.toe.lines.bePresent"),
       id: "bePresent",
+    },
+    {
+      accessorFn: (row): number => row.coverage * 100,
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatPercentage(cell.row.original.coverage),
+      header: t("group.toe.lines.coverage"),
+      id: "coverage",
+    },
+    {
+      accessorKey: "attackedLines",
+      cell: (cell: ICellHelper<IToeLinesData>): JSX.Element | string =>
+        editableAttackedLinesFormatter(
+          canUpdateAttackedLines,
+          handleUpdateAttackedLines,
+          cell.row.original
+        ),
+      header: t("group.toe.lines.attackedLines"),
+      id: "attackedLines",
+    },
+    {
+      accessorKey: "daysToAttack",
+      header: t("group.toe.lines.daysToAttack"),
+      id: "daysToAttack",
+    },
+    {
+      accessorKey: "attackedAt",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.lines.attackedAt"),
+      id: "attackedAt",
+    },
+    {
+      accessorKey: "attackedBy",
+      header: t("group.toe.lines.attackedBy"),
+      id: "attackedBy",
       meta: { filterType: "select" },
+    },
+    {
+      accessorKey: "firstAttackAt",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.lines.firstAttackAt"),
+      id: "firstAttackAt",
+    },
+    {
+      accessorKey: "comments",
+      header: t("group.toe.lines.comments"),
+      id: "comments",
+    },
+    {
+      accessorKey: "sortsSuggestions",
+      cell: (cell: ICellHelper<IToeLinesData>): JSX.Element =>
+        formatSortsSuggestions(cell.getValue()),
+      header: t("group.toe.lines.sortsSuggestions"),
+      id: "sortsSuggestions",
+    },
+    {
+      accessorKey: "bePresentUntil",
+      cell: (cell: ICellHelper<IToeLinesData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.lines.bePresentUntil"),
+      id: "bePresentUntil",
     },
   ];
 
-  const columnsCoverage: ColumnDef<IToeLinesData>[] =
-    isInternal && canSeeCoverage && canGetAttackedLines
-      ? [
-          {
-            accessorFn: (row): number => row.coverage * 100,
-            cell: (cell: ICellHelper<IToeLinesData>): string =>
-              formatPercentage(cell.row.original.coverage),
-            header: t("group.toe.lines.coverage"),
-            id: "coverage",
-            meta: { filterType: "numberRange" },
-          },
-        ]
-      : [];
+  const baseFilters: IFilter<IToeLinesData>[] = [
+    {
+      id: "rootNickname",
+      key: "rootNickname",
+      label: t("group.toe.lines.root"),
+      selectOptions: (lines: IToeLinesData[]): string[] =>
+        [
+          ...new Set(lines.map((datapoint): string => datapoint.rootNickname)),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "filename",
+      key: "filename",
+      label: t("group.toe.lines.filename"),
+      type: "text",
+    },
+    {
+      id: "loc",
+      key: "loc",
+      label: t("group.toe.lines.loc"),
+      type: "numberRange",
+    },
+    {
+      id: "treatment",
+      key: "hasVulnerabilities",
+      label: t("group.toe.lines.hasVulnerabilities"),
+      selectOptions: [
+        { header: formatBoolean(true), value: "true" },
+        { header: formatBoolean(false), value: "false" },
+      ],
+      type: "select",
+    },
+    {
+      id: "modifiedDate",
+      key: "modifiedDate",
+      label: t("group.toe.lines.modifiedDate"),
+      type: "dateRange",
+    },
+    {
+      id: "lastCommit",
+      key: "lastCommit",
+      label: t("group.toe.lines.lastCommit"),
+      type: "text",
+    },
+    {
+      id: "lastAuthor",
+      key: "lastAuthor",
+      label: t("group.toe.lines.lastAuthor"),
+      type: "text",
+    },
+    {
+      id: "seenAt",
+      key: "seenAt",
+      label: t("group.toe.lines.seenAt"),
+      type: "dateRange",
+    },
+    {
+      id: "sortsRiskLevel",
+      key: "sortsRiskLevel",
+      label: t("group.toe.lines.sortsRiskLevel"),
+      type: "numberRange",
+    },
+    {
+      id: "bePresent",
+      key: "bePresent",
+      label: t("group.toe.lines.bePresent"),
+      selectOptions: [
+        { header: formatBoolean(true), value: "true" },
+        { header: formatBoolean(false), value: "false" },
+      ],
+      type: "select",
+    },
+    {
+      id: "coverage",
+      key: (arg0, _value, rangeValues): boolean => {
+        if (_.isNil(rangeValues)) return true;
+        const coverage = arg0.coverage * 100;
+        const isHigher = _.isEmpty(rangeValues[0])
+          ? true
+          : coverage >= parseInt(rangeValues[0], 10);
+        const isLower = _.isEmpty(rangeValues[1])
+          ? true
+          : coverage <= parseInt(rangeValues[1], 10);
 
-  const columnsAttackedLines: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetAttackedLines
-      ? [
-          {
-            accessorKey: "attackedLines",
-            cell: (cell: ICellHelper<IToeLinesData>): JSX.Element | string =>
-              editableAttackedLinesFormatter(
-                canUpdateAttackedLines,
-                handleUpdateAttackedLines,
-                cell.row.original
-              ),
-            header: t("group.toe.lines.attackedLines"),
-          },
-        ]
-      : [];
+        return isHigher && isLower;
+      },
+      label: t("group.toe.lines.coverage"),
+      type: "numberRange",
+    },
+    {
+      id: "attackedLines",
+      key: "attackedLines",
+      label: t("group.toe.lines.attackedLines"),
+      type: "text",
+    },
+    {
+      id: "daysToAttack",
+      key: "daysToAttack",
+      label: t("group.toe.lines.daysToAttack"),
+      type: "numberRange",
+    },
+    {
+      id: "attackedAt",
+      key: "attackedAt",
+      label: t("group.toe.lines.attackedAt"),
+      type: "dateRange",
+    },
+    {
+      id: "attackedBy",
+      key: "attackedBy",
+      label: t("group.toe.lines.attackedBy"),
+      selectOptions: (lines: IToeLinesData[]): string[] =>
+        [
+          ...new Set(lines.map((datapoint): string => datapoint.attackedBy)),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "firstAttackAt",
+      key: "firstAttackAt",
+      label: t("group.toe.lines.firstAttackAt"),
+      type: "dateRange",
+    },
+    {
+      id: "comments",
+      key: "comments",
+      label: t("group.toe.lines.comments"),
+      type: "text",
+    },
+    {
+      id: "sortsSuggestions",
+      key: "sortsSuggestions",
+      label: t("group.toe.lines.sortsSuggestions"),
+      type: "text",
+    },
+    {
+      id: "bePresentUntil",
+      key: "bePresentUntil",
+      label: t("group.toe.lines.bePresentUntil"),
+      type: "dateRange",
+    },
+  ];
 
-  const columnsDaysToAttack: ColumnDef<IToeLinesData>[] =
-    isInternal && canSeeDaysToAttack && canGetAttackedAt
-      ? [
-          {
-            accessorKey: "daysToAttack",
-            header: t("group.toe.lines.daysToAttack"),
-            meta: { filterType: "numberRange" },
-          },
-        ]
-      : [];
+  const tablecolumns = columns.filter((column): boolean => {
+    switch (column.id) {
+      case "coverage":
+        return isInternal && canSeeCoverage && canGetAttackedLines;
+      case "attackedLines":
+        return isInternal && canGetAttackedLines;
+      case "daysToAttack":
+        return isInternal && canSeeDaysToAttack && canGetAttackedAt;
+      case "attackedAt":
+        return isInternal && canGetAttackedAt;
+      case "attackedBy":
+        return isInternal && canGetAttackedBy;
+      case "firstAttackAt":
+        return isInternal && canGetFirstAttackAt;
+      case "comments":
+        return isInternal && canGetComments;
+      case "sortsSuggestions":
+        return isInternal;
+      case "bePresentUntil":
+        return isInternal && canGetBePresentUntil;
+      default:
+        return true;
+    }
+  });
 
-  const columnsAttackedAt: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetAttackedAt
-      ? [
-          {
-            accessorKey: "attackedAt",
-            cell: (cell: ICellHelper<IToeLinesData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.lines.attackedAt"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
+  const tableFilters = baseFilters.filter((filter): boolean => {
+    switch (filter.id) {
+      case "coverage":
+        return isInternal && canSeeCoverage && canGetAttackedLines;
+      case "attackedLines":
+        return isInternal && canGetAttackedLines;
+      case "daysToAttack":
+        return isInternal && canSeeDaysToAttack && canGetAttackedAt;
+      case "attackedAt":
+        return isInternal && canGetAttackedAt;
+      case "attackedBy":
+        return isInternal && canGetAttackedBy;
+      case "firstAttackAt":
+        return isInternal && canGetFirstAttackAt;
+      case "comments":
+        return isInternal && canGetComments;
+      case "sortsSuggestions":
+        return isInternal;
+      case "bePresentUntil":
+        return isInternal && canGetBePresentUntil;
+      default:
+        return true;
+    }
+  });
 
-  const columnsAttackedBy: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetAttackedBy
-      ? [
-          {
-            accessorKey: "attackedBy",
-            header: t("group.toe.lines.attackedBy"),
-            meta: { filterType: "select" },
-          },
-        ]
-      : [];
+  const [filters, setFilters] =
+    useState<IFilter<IToeLinesData>[]>(tableFilters);
 
-  const columnsFirstAttackAt: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetFirstAttackAt
-      ? [
-          {
-            accessorKey: "firstAttackAt",
-            cell: (cell: ICellHelper<IToeLinesData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.lines.firstAttackAt"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
-
-  const columnsComments: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetComments
-      ? [
-          {
-            accessorKey: "comments",
-            header: t("group.toe.lines.comments"),
-          },
-        ]
-      : [];
-
-  const columsnSortsSuggestions: ColumnDef<IToeLinesData>[] = isInternal
-    ? [
-        {
-          accessorKey: "sortsSuggestions",
-          cell: (cell: ICellHelper<IToeLinesData>): JSX.Element =>
-            formatSortsSuggestions(cell.getValue()),
-          header: t("group.toe.lines.sortsSuggestions"),
-        },
-      ]
-    : [];
-
-  const columnsBePresentUntil: ColumnDef<IToeLinesData>[] =
-    isInternal && canGetBePresentUntil
-      ? [
-          {
-            accessorKey: "bePresentUntil",
-            cell: (cell: ICellHelper<IToeLinesData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.lines.bePresentUntil"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
-
-  const columnsResult: ColumnDef<IToeLinesData>[] = columns
-    .concat(columnsCoverage)
-    .concat(columnsAttackedLines)
-    .concat(columnsDaysToAttack)
-    .concat(columnsAttackedAt)
-    .concat(columnsAttackedBy)
-    .concat(columnsFirstAttackAt)
-    .concat(columnsComments)
-    .concat(columsnSortsSuggestions)
-    .concat(columnsBePresentUntil);
+  const filteredToeLines = useFilters(toeLines, filters);
 
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
@@ -601,14 +728,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   return (
     <React.StrictMode>
       <Table
-        columnFilterSetter={setColumnFilters}
-        columnFilterState={columnFilters}
         columnToggle={true}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
-        columns={columnsResult}
-        data={toeLines}
-        enableColumnFilters={true}
+        columns={tablecolumns}
+        data={filteredToeLines}
         exportCsv={true}
         extraButtons={
           <ActionButtons
@@ -620,6 +744,13 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
             onAdd={toggleAdd}
             onEdit={toggleEdit}
             onVerify={handleVerify}
+          />
+        }
+        filters={
+          <Filters
+            dataset={toeLines}
+            filters={filters}
+            setFilters={setFilters}
           />
         }
         id={"tblToeLines"}
