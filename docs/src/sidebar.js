@@ -669,6 +669,7 @@ const Machine = [
             label: "Management",
             items: [
               "machine/web/vulnerabilities/management/introduction",
+              "machine/web/vulnerabilities/management/locations",
               "machine/web/vulnerabilities/management/general",
               "machine/web/vulnerabilities/management/vulnerability-description",
               "machine/web/vulnerabilities/management/to-do-list",

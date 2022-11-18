@@ -20,7 +20,18 @@ tell **Where** in the
 is the vulnerability along with
 a more specific location.
 
-![Vulnerability Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1645455490/docs/web/vulnerabilities/management/managmt_vuln_section.png)
+![Vulnerability Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1668771723/docs/web/vulnerabilities/management/locations_vieew.png)
+
+In this section,
+you will find the following subsections:
+
+- Locations.
+- Description.
+- Severity.
+- Evidence.
+- Tracking.
+- Records.
+- Consulting.
 
 ## Header of the type of vulnerability
 
