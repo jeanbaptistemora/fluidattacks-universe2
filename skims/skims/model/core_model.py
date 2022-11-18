@@ -3253,6 +3253,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_ZIP_SLIP_PATH_INJECTION = MethodInfo(
+        file_name="java",
+        name="java_zip_slip_injection",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_PATH_TRAVERSAL = MethodInfo(
         file_name="javascript",
         name="js_insecure_path_traversal",
@@ -4195,14 +4203,6 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F266,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JAVA_ZIP_SLIP_PATH_INJECTION = MethodInfo(
-        file_name="java",
-        name="java_zip_slip_injection",
-        module="lib_root",
-        finding=FindingEnum.F279,
-        developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
     K8S_CHECK_ADD_CAPABILITY = MethodInfo(

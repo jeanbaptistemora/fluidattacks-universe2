@@ -83,7 +83,7 @@ def zip_slip_injection(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_root.f279.zip_slip_path_injection",
+        desc_key="lib_root.f063.zip_slip_path_injection",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
