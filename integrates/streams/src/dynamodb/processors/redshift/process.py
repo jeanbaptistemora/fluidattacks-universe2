@@ -7,6 +7,7 @@ from . import (
     events as events_ops,
     findings as findings_ops,
     groups as groups_ops,
+    organizations as orgs_ops,
     roots as roots_ops,
     toe_inputs as toe_inputs_ops,
     toe_lines as toe_lines_ops,
@@ -145,6 +146,35 @@ def _process_groups(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
         )
 
 
+def _process_organization_metadata(cursor: cursor_cls, item: Item) -> None:
+    orgs_ops.insert_organization(cursor=cursor, item=item)
+    LOGGER.info(
+        "Organization metadata stored, id: %s, name: %s",
+        item["id"],
+        item["name"],
+    )
+
+
+def _process_organizations(
+    cursor: cursor_cls, records: tuple[Record, ...]
+) -> None:
+    metadata_items: list[Item] = [
+        record.old_image
+        for record in records
+        if record.old_image and record.sk.startswith("ORG#")
+    ]
+    for item in metadata_items:
+        _process_organization_metadata(cursor, item)
+
+    for key, items in _get_items_iterator(records, "STATE#"):
+        organization_id = str(key).split("#")[1]
+        orgs_ops.insert_historic_state(
+            cursor=cursor,
+            historic_state=tuple(items),
+            organization_id=organization_id,
+        )
+
+
 def _process_roots(cursor: cursor_cls, records: tuple[Record, ...]) -> None:
     metadata_items: list[Item] = [
         record.old_image for record in records if record.old_image
@@ -264,6 +294,19 @@ def process_records(records: tuple[Record, ...]) -> None:
                     and (
                         record.sk.startswith("GROUP#")
                         or record.sk.startswith("ORG#")
+                        or record.sk.startswith("STATE#")
+                    ),
+                    records,
+                )
+            ),
+        )
+        _process_organizations(
+            cursor=cursor,
+            records=tuple(
+                filter(
+                    lambda record: record.pk.startswith("ORG#")
+                    and (
+                        record.sk.startswith("ORG#")
                         or record.sk.startswith("STATE#")
                     ),
                     records,
