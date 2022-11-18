@@ -299,8 +299,14 @@ export const enTranslations: ResourceKey = {
       "Only corporate users are allowed. Please contact your manager to request access.",
     credentials: {
       auth: {
+        azureToken: "Azure DevOps PAT",
         token: "Access Token",
         user: "User and Password",
+      },
+      azureOrganization: {
+        text: "Azure Organization",
+        tooltip:
+          "The name of the azure organization related to the personal access token",
       },
       name: {
         label: "Credential name",

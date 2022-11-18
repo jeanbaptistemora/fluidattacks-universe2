@@ -98,7 +98,28 @@ const AddRoot: React.FC<IAddRootProps> = ({
         onSubmit={validateAndSubmit}
         validationSchema={rootSchema}
       >
-        {({ isSubmitting, values }): JSX.Element => {
+        {({ isSubmitting, values, setFieldValue }): JSX.Element => {
+          function onTypeChange(
+            event: React.ChangeEvent<HTMLSelectElement>
+          ): void {
+            event.preventDefault();
+            if (event.target.value === "SSH") {
+              setFieldValue("credentials.type", "SSH");
+              setFieldValue("credentials.auth", "");
+              setFieldValue("credentials.isPat", false);
+            }
+            if (event.target.value === "USER") {
+              setFieldValue("credentials.type", "HTTPS");
+              setFieldValue("credentials.auth", "USER");
+              setFieldValue("credentials.isPat", false);
+            }
+            if (event.target.value === "TOKEN") {
+              setFieldValue("credentials.type", "HTTPS");
+              setFieldValue("credentials.auth", "TOKEN");
+              setFieldValue("credentials.isPat", true);
+            }
+          }
+
           return (
             <Form>
               <Row justify={"start"}>
@@ -122,14 +143,18 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 <Col lg={50} md={50} sm={100}>
                   <Select
                     label={t("autoenrollment.credentials.type.label")}
-                    name={"credentials.type"}
+                    name={"credentials.typeCredential"}
+                    onChange={onTypeChange}
                   >
                     <option value={""}>{""}</option>
-                    <option value={"HTTPS"}>
-                      {t("autoenrollment.credentials.type.https")}
-                    </option>
                     <option value={"SSH"}>
                       {t("autoenrollment.credentials.type.ssh")}
+                    </option>
+                    <option value={"USER"}>
+                      {t("autoenrollment.credentials.auth.user")}
+                    </option>
+                    <option value={"TOKEN"}>
+                      {t("autoenrollment.credentials.auth.azureToken")}
                     </option>
                   </Select>
                 </Col>
@@ -154,26 +179,29 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     />
                   </Col>
                 )}
-                {values.credentials.type === "HTTPS" && (
-                  <Col lg={100} md={100} sm={100}>
-                    <Select name={"credentials.auth"}>
-                      <option value={"TOKEN"}>
-                        {t("autoenrollment.credentials.auth.token")}
-                      </option>
-                      <option value={"USER"}>
-                        {t("autoenrollment.credentials.auth.user")}
-                      </option>
-                    </Select>
-                  </Col>
-                )}
                 {values.credentials.type === "HTTPS" &&
                   values.credentials.auth === "TOKEN" && (
-                    <Col lg={100} md={100} sm={100}>
-                      <Input
-                        label={t("autoenrollment.credentials.token")}
-                        name={"credentials.token"}
-                      />
-                    </Col>
+                    <React.Fragment>
+                      <Col lg={100} md={100} sm={100}>
+                        <Input
+                          label={t("autoenrollment.credentials.token")}
+                          name={"credentials.token"}
+                        />
+                      </Col>
+                      <Col lg={100} md={100} sm={100}>
+                        {values.credentials.isPat === true ? (
+                          <Input
+                            label={t(
+                              "autoenrollment.credentials.azureOrganization.text"
+                            )}
+                            name={"credentials.azureOrganization"}
+                            tooltip={t(
+                              "autoenrollment.credentials.azureOrganization.tooltip"
+                            )}
+                          />
+                        ) : undefined}
+                      </Col>
+                    </React.Fragment>
                   )}
                 {values.credentials.type === "HTTPS" &&
                   values.credentials.auth === "USER" && (

@@ -133,26 +133,24 @@ describe("Autoenrollment", (): void => {
     await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
-      name: "credentials.type",
+      name: "credentials.typeCredential",
     });
-    await userEvent.selectOptions(credentialsTypeSelect, [
-      variables.credentials.type,
-    ]);
+    await userEvent.selectOptions(credentialsTypeSelect, ["TOKEN"]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
     await userEvent.type(credentialsNameInput, variables.credentials.name);
 
-    const credentialsAuthSelect = await screen.findByRole("combobox", {
-      name: "credentials.auth",
-    });
-    await userEvent.selectOptions(credentialsAuthSelect, ["TOKEN"]);
-
     const credentialsTokenInput = await screen.findByRole("textbox", {
       name: "credentials.token",
     });
     await userEvent.type(credentialsTokenInput, variables.credentials.token);
+
+    const credentialsOrganizationInput = await screen.findByRole("textbox", {
+      name: "credentials.azureOrganization",
+    });
+    await userEvent.type(credentialsOrganizationInput, "testorg1");
 
     const environmentInput = await screen.findByRole("textbox", {
       name: "env",
@@ -228,21 +226,14 @@ describe("Autoenrollment", (): void => {
     await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
-      name: "credentials.type",
+      name: "credentials.typeCredential",
     });
-    await userEvent.selectOptions(credentialsTypeSelect, [
-      variables.credentials.type,
-    ]);
+    await userEvent.selectOptions(credentialsTypeSelect, ["USER"]);
 
     const credentialsNameInput = await screen.findByRole("textbox", {
       name: "credentials.name",
     });
     await userEvent.type(credentialsNameInput, variables.credentials.name);
-
-    const credentialsAuthSelect = await screen.findByRole("combobox", {
-      name: "credentials.auth",
-    });
-    await userEvent.selectOptions(credentialsAuthSelect, ["USER"]);
 
     const credentialsUserInput = await screen.findByRole("textbox", {
       name: "credentials.user",
@@ -331,7 +322,7 @@ describe("Autoenrollment", (): void => {
     await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
-      name: "credentials.type",
+      name: "credentials.typeCredential",
     });
     await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
@@ -450,6 +441,8 @@ describe("Autoenrollment", (): void => {
         variables: {
           branch: "main",
           credentials: {
+            azureOrganization: undefined,
+            isPat: false,
             key: variables.credentials.key,
             name: variables.credentials.name,
             password: variables.credentials.password,
@@ -498,7 +491,7 @@ describe("Autoenrollment", (): void => {
     await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
-      name: "credentials.type",
+      name: "credentials.typeCredential",
     });
     await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,
@@ -624,6 +617,8 @@ describe("Autoenrollment", (): void => {
         variables: {
           branch: "main",
           credentials: {
+            azureOrganization: undefined,
+            isPat: false,
             key: variables.credentials.key,
             name: variables.credentials.name,
             password: variables.credentials.password,
@@ -672,7 +667,7 @@ describe("Autoenrollment", (): void => {
     await userEvent.type(branchInput, variables.branch);
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
-      name: "credentials.type",
+      name: "credentials.typeCredential",
     });
     await userEvent.selectOptions(credentialsTypeSelect, [
       variables.credentials.type,

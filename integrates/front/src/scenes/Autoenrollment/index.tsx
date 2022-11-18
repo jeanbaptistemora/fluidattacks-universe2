@@ -7,6 +7,7 @@
 import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
+import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -69,6 +70,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     branch: "",
     credentials: {
       auth: "TOKEN",
+      azureOrganization: undefined,
+      isPat: false,
       key: "",
       name: "",
       password: "",
@@ -270,6 +273,15 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 credentials.token === ""
                   ? null
                   : {
+                      azureOrganization:
+                        _.isUndefined(credentials.azureOrganization) ||
+                        _.isUndefined(credentials.isPat) ||
+                        !credentials.isPat
+                          ? undefined
+                          : credentials.azureOrganization,
+                      isPat: _.isUndefined(credentials.isPat)
+                        ? false
+                        : credentials.isPat,
                       key:
                         credentials.key === ""
                           ? undefined

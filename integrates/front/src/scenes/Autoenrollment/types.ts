@@ -56,6 +56,8 @@ interface IRootAttr {
   branch: string;
   credentials: {
     auth: "TOKEN" | "USER";
+    azureOrganization: string | undefined;
+    isPat: boolean | undefined;
     key: string;
     name: string;
     password: string;

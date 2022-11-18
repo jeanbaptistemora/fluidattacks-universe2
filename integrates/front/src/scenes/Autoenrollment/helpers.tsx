@@ -154,6 +154,26 @@ const rootSchema = lazy(
         .matches(regExps.alphanumeric, t("validations.alphanumeric")),
       credentials: object({
         auth: string(),
+        azureOrganization: string().when(["type", "isPat"], {
+          is: (type: string, isPat: boolean): boolean =>
+            type === (values.credentials.auth === "TOKEN" ? "HTTPS" : "") &&
+            isPat,
+          otherwise: string(),
+          then: string()
+            .required(translate.t("validations.required"))
+            .test(
+              "hasValidValue",
+              translate.t("validations.invalidSpaceField"),
+              (value): boolean => {
+                const regex = /\S/u;
+                if (value === undefined) {
+                  return true;
+                }
+
+                return regex.test(value);
+              }
+            ),
+        }),
         key: string().when("type", {
           is: "SSH",
           otherwise: string(),
@@ -180,6 +200,7 @@ const rootSchema = lazy(
           then: string().required(t("validations.required")),
         }),
         type: string().required(t("validations.required")),
+        typeCredential: string().required(t("validations.required")),
         user: string().when("type", {
           is: values.credentials.auth === "USER" ? "HTTPS" : "",
           otherwise: string(),
