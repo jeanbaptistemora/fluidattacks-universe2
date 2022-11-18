@@ -60,3 +60,57 @@ those scores: **low** from 0.1 to
 ![Vulnerability Severity Level Medium](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/medium.png)
 
 ![Vulnerability Severity Level Low](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/low.png)
+
+To the right of the severity,
+you find the **status** of that
+type of vulnerability.
+It can simply be **open** or **closed**.
+Open means that at least one of
+the locations where we reported
+that type of vulnerability has it
+without being fixed.
+On the other hand, closed means
+that you remediated that security
+issue in all those locations.
+
+![Vulnerability Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1668776670/docs/web/vulnerabilities/management/status.png)
+
+Then, continuing from left
+to right, you discover the number
+of **open vulnerabilities**.
+This number corresponds to how
+many locations in your system still
+have that type of vulnerability.
+In the table below, you can precisely
+find which files and code lines
+are affected.
+
+![Number Of Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1668776834/docs/web/vulnerabilities/management/open_vuln.png)
+
+Next, you can see the
+**discovery date**.
+This is simply the year, month,
+and day we first identified and
+reported that type of vulnerability
+for the group in question.
+
+![Discovery Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1668777015/docs/web/vulnerabilities/management/discover_day.png)
+
+The last item in the header is
+the **MMTR (Mean Time to Repair)**
+this represents the average time
+needed to fix a vulnerability.
+In our ARM is known as
+**estimated remediation time**.
+This indicator shows the number
+of hours that, through our
+calculations, we estimate it will
+take you to remediate the selected
+type of vulnerability.
+This estimate can undoubtedly be
+helpful for you to have an idea
+of how much time you would have
+to invest in the future in the
+remediation task.
+
+![Estimated Remediation Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1668777124/docs/web/vulnerabilities/management/mtr.png)
