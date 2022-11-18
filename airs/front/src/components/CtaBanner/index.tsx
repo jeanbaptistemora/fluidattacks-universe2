@@ -31,7 +31,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   };
 
   return (
-    <Container bgColor={"#ffffff"}>
+    <Container bgColor={"#ffffff"} pb={6} pt={4}>
       <Container
         bgColor={"#f4f4f6"}
         borderColor={"#dddde3"}
