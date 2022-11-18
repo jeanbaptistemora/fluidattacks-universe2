@@ -14,6 +14,7 @@ import { GridContainer } from "./components/GridContainer";
 import { Header2 } from "./components/Header2";
 import { Paragraph } from "./components/Paragraph";
 import { SolutionCard } from "./components/SolutionCard";
+import { SolutionSlideShow } from "./components/SolutionSlideShow";
 import { TextContainer } from "./components/TextContainer";
 
 import { Container } from "../../../components/Container";
@@ -29,13 +30,14 @@ const MainSection: React.FC<IMainProps> = ({ htmlAst }): JSX.Element => {
       h2: Header2,
       p: Paragraph,
       "solution-card": SolutionCard,
+      "solution-slide": SolutionSlideShow,
       "text-container": TextContainer,
     },
     createElement,
   }).Compiler;
 
   return (
-    <Container bgColor={"#fff"} ph={4} pv={5}>
+    <Container bgColor={"#fff"} pv={5}>
       {renderAst(htmlAst)}
     </Container>
   );

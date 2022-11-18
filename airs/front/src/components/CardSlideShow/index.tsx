@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/* eslint react/forbid-component-props: 0 */
 /* eslint fp/no-mutation:0 */
 /* eslint react/jsx-no-bind:0 */
 import React, { useEffect, useRef, useState } from "react";
