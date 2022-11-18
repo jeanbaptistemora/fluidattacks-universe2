@@ -540,9 +540,18 @@ def _format_root_credential_new(
 ) -> Credentials:
     credential_name = credentials["name"]
     credential_type = CredentialType(credentials["type"])
+    is_pat: bool = bool(credentials.get("is_pat", False))
 
     if not credential_name:
         raise InvalidParameter()
+    if is_pat:
+        if "azure_organization" not in credentials:
+            raise InvalidParameter("azure_organization")
+        validation_utils.validate_space_field(
+            credentials["azure_organization"]
+        )
+    if not is_pat and "azure_organization" in credentials:
+        raise InvalidParameter("azure_organization")
 
     secret = orgs_utils.format_credentials_secret_type(credentials)
 
@@ -556,8 +565,10 @@ def _format_root_credential_new(
             name=credentials["name"],
             secret=secret,
             type=credential_type,
-            is_pat=False,
-            azure_organization=None,
+            is_pat=is_pat,
+            azure_organization=credentials["azure_organization"]
+            if is_pat
+            else None,
         ),
     )
 

@@ -82,8 +82,12 @@ input PhoneInput {
 
 "Root credentials definition"
 input RootCredentialsInput {
+  "Name of the azure organization pat"
+  azureOrganization: String
   "ID of an existing credential"
   id: String
+  "Whether credential is azure pat"
+  isPat: Boolean
   "SSH key"
   key: String
   "Name of the credential"
