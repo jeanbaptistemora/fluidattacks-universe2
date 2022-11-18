@@ -8,9 +8,6 @@ from api.resolvers.mutation_payload.update_toe_input_payload import (
 from api.resolvers.mutation_payload.update_toe_lines_payload import (
     toe_lines as update_toe_lines_payload_toe_lines,
 )
-from api.resolvers.mutation_payload.update_toe_port_payload import (
-    toe_port as update_toe_port_payload_toe_port,
-)
 from ariadne import (
     ObjectType,
 )
@@ -23,10 +20,4 @@ UPDATE_TOE_INPUT_PAYLOAD.set_field(
 UPDATE_TOE_LINES_PAYLOAD = ObjectType("UpdateToeLinesPayload")
 UPDATE_TOE_LINES_PAYLOAD.set_field(
     "toeLines", update_toe_lines_payload_toe_lines.resolve
-)
-
-
-UPDATE_TOE_PORT_PAYLOAD = ObjectType("UpdateToePortPayload")
-UPDATE_TOE_PORT_PAYLOAD.set_field(
-    "toePort", update_toe_port_payload_toe_port.resolve
 )

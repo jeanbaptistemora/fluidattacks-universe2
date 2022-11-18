@@ -18,6 +18,13 @@ function main {
       TEST_E2E_USER_3 \
       TEST_E2E_USER_4 \
       TEST_E2E_USER_5 \
+    && if test -n "${CI:-}"; then
+      aws_eks_update_kubeconfig 'common' 'us-east-1' \
+        && kubectl rollout status \
+          "deploy/integrates-${CI_COMMIT_REF_NAME}" \
+          -n "dev" \
+          --timeout="15m"
+    fi \
     && pushd integrates/back/test/e2e/src \
     && pkgFirefox='__argFirefox__' \
       pkgGeckoDriver='__argGeckodriver__' \
@@ -31,7 +38,6 @@ function main {
       --test-group "${CI_NODE_INDEX:-1}" \
       --test-group-count "${CI_NODE_TOTAL:-1}" \
       --verbose \
-      -k test_org_stakeholder \
     && popd \
     || return 1
 }

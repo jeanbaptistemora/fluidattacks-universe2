@@ -12,6 +12,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip(reason="Resolvers have not been developed")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("toe_ports")
 @pytest.mark.parametrize(
@@ -38,7 +39,6 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
                     "bePresent": True,
                     "bePresentUntil": None,
                     "firstAttackAt": "2020-01-02T05:00:00+00:00",
-                    "hasVulnerabilities": True,
                     "port": 8080,
                     "root": {
                         "__typename": "IPRoot",
@@ -46,7 +46,7 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
                         "nickname": "root1",
                     },
                     "seenAt": "2000-01-01T05:00:00+00:00",
-                    "seenFirstTimeBy": "test1@test.com",
+                    "seenFirstTimeBy": "",
                 },
             },
             {
@@ -62,7 +62,6 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
                     "bePresent": False,
                     "bePresentUntil": "2021-03-11T05:00:00+00:00",
                     "firstAttackAt": "2021-02-11T05:00:00+00:00",
-                    "hasVulnerabilities": False,
                     "port": 8081,
                     "root": {
                         "__typename": "IPRoot",
@@ -85,6 +84,7 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
     }
 
 
+@pytest.mark.skip(reason="Resolvers have not been developed")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("toe_ports")
 @pytest.mark.parametrize(

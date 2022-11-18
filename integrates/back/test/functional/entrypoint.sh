@@ -18,8 +18,6 @@ function main {
     --showlocals
     --resolver-test-group "${resolver_test_group}"
     --verbose
-    -s
-    -vv
   )
 
   source __argIntegratesBackEnv__/template dev \

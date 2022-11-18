@@ -62,7 +62,7 @@ def _process(records: tuple[Record, ...], index: str) -> None:
             if action_name == "index" and record.new_image:
                 body.append(record.new_image)
 
-        CLIENT.bulk(body=body, refresh=False)
+        CLIENT.bulk(body=body)
 
 
 def process_vulns(records: tuple[Record, ...]) -> None:

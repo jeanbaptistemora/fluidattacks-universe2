@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 18, 2022, 01:36 PM",
+    "DateLastModified": "Nov 16, 2022, 07:22 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -24589,7 +24589,7 @@
           "FacetName": "toe_port_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#group_name",
-            "SortKeyAlias": "PORTS#ROOT#root_id#ADDRESS#address#PORT#port"
+            "SortKeyAlias": "PORTS#ROOT#root_id#IP#ip#PORT#port"
           },
           "TableData": [],
           "NonKeyAttributes": [
@@ -24607,7 +24607,7 @@
             "sk_2",
             "state",
             "has_vulnerabilities",
-            "address"
+            "ip"
           ],
           "DataAccess": {
             "MySql": {}
