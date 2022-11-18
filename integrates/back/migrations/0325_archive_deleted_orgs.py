@@ -13,6 +13,7 @@ from aioextensions import (
 )
 from db_model import (
     credentials as credentials_model,
+    organizations as orgs_model,
     portfolios as portfolios_model,
 )
 from db_model.organizations.get import (
@@ -81,6 +82,9 @@ async def _process_organization(
     await remove_org_finding_policies(organization_name=organization_name)
     await portfolios_model.remove_organization_portfolios(
         organization_name=organization_name
+    )
+    await orgs_model.remove(
+        organization_id=organization_id, organization_name=organization_name
     )
     LOGGER_CONSOLE.info(
         "Organization processed",
