@@ -6,19 +6,19 @@
 
 /* eslint fp/no-mutating-methods:0 */
 import { graphql, useStaticQuery } from "gatsby";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { CardSlideShow } from "../../../../components/CardSlideShow";
 
 interface ISolutionSlideShowProps {
   description: string;
-  tag: string;
+  solution: string;
   title: string;
 }
 
 const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
   description,
-  tag,
+  solution,
   title,
 }): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -49,39 +49,85 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
     }
   `);
 
-  const sortList = {
-    devsevops: [
-      "/blog/aws-devsecops-with-fluid-attacks/",
+  const sortList: {
+    [key: string]: string[];
+    devsecops: string[];
+    attackSimulation: string[];
+  } = {
+    attackSimulation: [
+      "/blog/tribe-of-hackers-5/",
+      "/blog/tribe-of-hackers-2/",
+      "/blog/what-is-red-team-in-cyber-security/",
+      "/blog/red-team-exercise/",
+    ],
+    devsecops: [
       "/blog/why-is-cloud-devsecops-important/",
       "/blog/what-does-a-devsecops-engineer-do/",
+      "/blog/aws-devsecops-with-fluid-attacks/",
       "/blog/devsecops-best-practices/",
       "/blog/devsecops-tools/",
       "/blog/how-to-implement-devsecops/",
       "/blog/devsecops-concept/",
     ],
+    ethicalHacking: [
+      "/blog/tribe-of-hackers-5/",
+      "/blog/tribe-of-hackers-4/",
+      "/blog/tribe-of-hackers-3/",
+      "/blog/tribe-of-hackers-2/",
+      "/blog/tribe-of-hackers-1/",
+      "Delimiting an Ethical Hacking",
+      "/blog/thinking-like-hacker/",
+      "/blog/what-is-ethical-hacking/",
+    ],
+    penetrationTesting: [
+      "/blog/importance-pentesting/",
+      "/blog/choosing-pentesting-team/",
+      "/blog/what-is-ptaas/",
+      "/blog/what-is-manual-penetration-testing/",
+    ],
+    redTeaming: [
+      "/blog/tiber-eu-providers/",
+      "/blog/tiber-eu-framework/",
+      "/blog/attacking-without-announcing/",
+      "/blog/red-team-exercise/",
+      "/blog/what-is-red-team-in-cyber-security/",
+    ],
+    secureCodeReview: [
+      "/blog/differences-between-sast-sca-dast/",
+      "/blog/sastisfying-app-security/",
+      "/blog/secure-code-review/",
+    ],
+    securityTesting: [
+      "/blog/what-is-mast/",
+      "/blog/what-is-ptaas/",
+      "/blog/reverse-engineering/",
+      "/blog/differences-between-sast-sca-dast/",
+      "/blog/stand-shoulders-giants/",
+      "/blog/sastisfying-app-security/",
+    ],
+    vulnerabilityManagement: [
+      "/blog/aws-devsecops-with-fluid-attacks/",
+      "/blog/devsecops-tools/",
+      "/blog/rules-new-standard/",
+      "/blog/attack-resistance-management-psirts/",
+    ],
   };
 
-  const blogs: INodes[] = data.allMarkdownRemark.edges.filter((edge): boolean =>
-    edge.node.frontmatter.tags.includes(tag)
-  );
+  const blogs: INodes[] = data.allMarkdownRemark.edges;
 
-  const [sortedBlogs, setSortedBlogs] = useState<INodes[]>(blogs);
+  const toFilter: string[] = sortList[solution];
 
-  useEffect((): void => {
-    function sortBlogs(toSort: string[]): void {
-      const sortingBlogs = [...sortedBlogs];
-      sortingBlogs.sort(
-        (first, second): number =>
-          toSort.indexOf(second.node.fields.slug) -
-          toSort.indexOf(first.node.fields.slug)
-      );
-      setSortedBlogs(sortingBlogs);
-    }
-
-    if (tag === "devsecops") {
-      sortBlogs(sortList.devsevops);
-    }
+  const filterBlogs: INodes[] = blogs.filter((post): boolean => {
+    return toFilter.some((slug): boolean => {
+      return slug === post.node.fields.slug;
+    });
   });
+
+  const sortedBlogs = [...filterBlogs].sort(
+    (first, second): number =>
+      toFilter.indexOf(second.node.fields.slug) -
+      toFilter.indexOf(first.node.fields.slug)
+  );
 
   return (
     <CardSlideShow

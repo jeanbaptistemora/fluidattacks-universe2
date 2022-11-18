@@ -10,24 +10,32 @@ const SlideContainer = styled.div.attrs({
   className: `
       center
     `,
-})`
-  width: 1440px;
+})<{ initialWidth: number }>`
+  ${({ initialWidth }): string => {
+    return `
+      width: ${initialWidth}px;
 
-  @media screen and (max-width: 1504px) {
-    width: 1080px;
-  }
+      @media screen and (max-width: 1504px) {
+        width: ${initialWidth - 360}px;
+      }
 
-  @media screen and (max-width: 1144px) {
-    width: 720px;
-  }
+      @media screen and (max-width: 1144px) {
+        width: ${initialWidth - 360 * 2}px;
+      }
 
-  @media screen and (max-width: 784px) {
-    width: 360px;
-  }
+      @media screen and (max-width: 784px) {
+        width: ${
+          initialWidth - 360 * 3 === 0
+            ? initialWidth - 360 * 2
+            : initialWidth - 360 * 3
+        }px;
+      }
 
-  @media screen and (max-width: 30em) {
-    width: 286px;
-  }
+      @media screen and (max-width: 30em) {
+        width: 286px;
+      }
+  `;
+  }}
 `;
 
 export { SlideContainer };
