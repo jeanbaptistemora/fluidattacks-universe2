@@ -143,7 +143,7 @@ def _add_android_manifest_location(
                 line=line,
                 wrap=True,
             ),
-        ),
+        ).content,
         **desc_kwargs,
     )
 

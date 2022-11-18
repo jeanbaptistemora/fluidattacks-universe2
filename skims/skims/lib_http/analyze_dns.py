@@ -97,7 +97,7 @@ def _add_dns_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=15, wrap=True),
-        ),
+        ).content,
     )
 
 

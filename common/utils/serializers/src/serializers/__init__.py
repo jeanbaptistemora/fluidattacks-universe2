@@ -31,6 +31,18 @@ class SnippetViewport(NamedTuple):
     highlight_line_number: bool = True
 
 
+class Snippet(NamedTuple):
+    content: str
+    offset: int
+    line: Optional[int] = None
+    column: Optional[int] = None
+    columns_per_line: int = SNIPPETS_COLUMNS
+    line_context: int = SNIPPETS_CONTEXT
+    wrap: bool = False
+    show_line_numbers: bool = True
+    highlight_line_number: bool = True
+
+
 def _chunked(line: str, chunk_size: int) -> Iterator[str]:
     if line:
         yield from chunked(line, n=chunk_size)  # type: ignore
@@ -42,10 +54,10 @@ def make_snippet(  # NOSONAR
     *,
     content: str,
     viewport: Optional[SnippetViewport] = None,
-) -> str:
+) -> Snippet:
     # Replace tab by spaces so 1 char renders as 1 symbol
     lines_raw: List[str] = content.replace("\t", " ").splitlines()
-
+    offset = 0
     # Build a list of line numbers to line contents, handling wrapping
     if viewport is not None and viewport.wrap:
         lines: List[Tuple[int, str]] = [
@@ -113,6 +125,7 @@ def make_snippet(  # NOSONAR
 
             # Slice viewport vertically
             if viewport_center - viewport.line_context <= 0:
+                offset = 0
                 lines = lines[
                     slice(
                         0,
@@ -120,6 +133,11 @@ def make_snippet(  # NOSONAR
                     )
                 ]
             else:
+                offset = (
+                    max(viewport_center - viewport.line_context, 0)
+                    if (viewport_center + viewport.line_context < len(lines))
+                    else max(len(lines) - 2 * viewport.line_context - 1, 0)
+                )
                 lines = lines[
                     slice(
                         max(viewport_center - viewport.line_context, 0),
@@ -139,4 +157,20 @@ def make_snippet(  # NOSONAR
                     (0, f"  {' ':>{loc_width}} ^ Col {viewport_left}")
                 )
 
-    return "\n".join(map(itemgetter(1), lines))
+    if viewport:
+        return Snippet(
+            content="\n".join(map(itemgetter(1), lines)),
+            offset=offset,
+            line=viewport.line,
+            column=viewport.column,
+            columns_per_line=viewport.columns_per_line,
+            line_context=viewport.line_context,
+            highlight_line_number=viewport.highlight_line_number,
+            show_line_numbers=viewport.show_line_numbers,
+            wrap=viewport.wrap,
+        )
+
+    return Snippet(
+        content="\n".join(map(itemgetter(1), lines)),
+        offset=offset,
+    )

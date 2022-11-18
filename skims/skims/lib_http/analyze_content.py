@@ -93,7 +93,7 @@ def build_vulnerabilities(
                         column=location.column,
                         line=location.line,
                     ),
-                ),
+                ).content,
                 http_properties=HTTPProperties(
                     has_redirect=ctx.url.has_redirect,
                     original_url=ctx.url.original_url,

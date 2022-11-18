@@ -93,7 +93,7 @@ def get_vulnerability_from_n_id(
                     column=int(n_attrs_label_column),
                     line=int(n_attrs_label_line),
                 ),
-            ),
+            ).content,
         ),
     )
 

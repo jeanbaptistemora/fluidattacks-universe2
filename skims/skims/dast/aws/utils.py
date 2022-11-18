@@ -91,7 +91,7 @@ def build_vulnerabilities(
                         else 0,
                         wrap=True,
                     ),
-                ),
+                ).content,
             ),
         )
         for location in locations

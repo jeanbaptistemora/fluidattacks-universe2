@@ -199,7 +199,7 @@ def get_vulnerabilities_blocking(
                         line=match.start_line,
                         wrap=wrap,
                     ),
-                ),
+                ).content,
             ),
         )
         for match in get_matching_lines_blocking(content, grammar)
@@ -227,7 +227,7 @@ def get_vulnerabilities_from_iterator_blocking(
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
-                ),
+                ).content,
             ),
         )
         for line_no, column_no in iterator
@@ -261,7 +261,7 @@ def get_vulnerabilities_include_parameter(
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
-                ),
+                ).content,
             ),
         )
         for line_no, column_no, param in iterator
@@ -289,7 +289,7 @@ def get_vulnerabilities_for_incomplete_deps(
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=int(0), line=int(0)),
-                ),
+                ).content,
             ),
         )
         for dep in iterator
@@ -395,7 +395,7 @@ async def _translate_dependencies_to_vulnerabilities(
                                 column=product["column"],
                                 line=product["line"],
                             ),
-                        ),
+                        ).content,
                     ),
                 )
                 for product, version in dependencies

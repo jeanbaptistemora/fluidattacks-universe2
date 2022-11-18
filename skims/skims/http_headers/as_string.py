@@ -53,4 +53,4 @@ def snippet(
             line=line,
             wrap=True,
         ),
-    )
+    ).content

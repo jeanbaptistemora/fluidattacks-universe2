@@ -101,9 +101,11 @@ async def generate_snippet(
         return make_snippet(
             content=content,
             viewport=SnippetViewport(
-                line=int(vulnerability_state.specific), show_line_numbers=False
+                line=int(vulnerability_state.specific),
+                show_line_numbers=False,
+                highlight_line_number=False,
             ),
-        )
+        ).content
     return None
 
 

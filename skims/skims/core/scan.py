@@ -83,7 +83,7 @@ async def upload_sarif_result(
             async with session.client("s3") as s3_client:
                 await s3_client.upload_fileobj(
                     reader,
-                    "skims.data",
+                    "machine.data",
                     f"results/{CTX.config.execution_id}.sarif",
                 )
 

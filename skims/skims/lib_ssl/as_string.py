@@ -317,4 +317,4 @@ def snippet(
             wrap=True,
             columns_per_line=columns_per_line,
         ),
-    )
+    ).content

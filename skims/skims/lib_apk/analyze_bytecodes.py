@@ -94,7 +94,7 @@ def _add_apk_unsigned_not_signed_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=12, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -139,7 +139,7 @@ def _add_no_root_check_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -214,7 +214,7 @@ def _add_no_certs_pinning_1_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=11, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -244,7 +244,7 @@ def _add_no_certs_pinning_2_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=13, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -289,7 +289,7 @@ def _add_no_obfuscation_location(
         snippet=make_snippet(
             content=class_source,
             viewport=SnippetViewport(column=0, line=1, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -388,7 +388,7 @@ def _add_has_fragment_injection_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -444,7 +444,7 @@ def _add_webview_caches_javascript_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=12, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -475,7 +475,7 @@ def _add_webview_allows_resource_access(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=12, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -544,7 +544,7 @@ def _add_has_frida(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=13, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -599,7 +599,7 @@ def _add_not_verifies_ssl_hostname(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=12, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -651,7 +651,7 @@ def _add_uses_insecure_delete(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -701,7 +701,7 @@ def _add_socket_uses_get_insecure(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=12, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -730,7 +730,7 @@ def _add_uses_http_resources(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -795,7 +795,7 @@ def _add_allow_user_ca_by_default(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=10, wrap=True),
-        ),
+        ).content,
     )
 
 
@@ -823,7 +823,7 @@ def _add_allow_user_ca(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=11, wrap=True),
-        ),
+        ).content,
     )
 
 

@@ -24,7 +24,7 @@ def test_make_snippet() -> None:
         jjjjjjjjjjkkkkkkkkkkllllllllll
         """
     )
-    assert make_snippet(content=content) == _dedent(
+    assert make_snippet(content=content).content == _dedent(
         """
         aaaaaaaaaabbbbbbbbbbcccccccccc
         ddddddddddeeeeeeeeeeffffffffff
@@ -42,7 +42,7 @@ def test_make_snippet() -> None:
             line_context=1,
             wrap=True,
         ),
-    ) == _dedent(
+    ).content == _dedent(
         """
             | ccccc
         > 2 | dddddeeeeeeeeee
@@ -64,7 +64,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=1, line_context=2),
-        )
+        ).content
         == _dedent(
             """
             > 1 | 1 center
@@ -89,7 +89,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=2, line_context=2),
-        )
+        ).content
         == _dedent(
             """
               1 | 1
@@ -114,7 +114,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=3, line_context=2),
-        )
+        ).content
         == _dedent(
             """
               1 | 1
@@ -139,7 +139,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=4, line_context=2),
-        )
+        ).content
         == _dedent(
             """
               2 | 2
@@ -164,7 +164,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=5, line_context=2),
-        )
+        ).content
         == _dedent(
             """
               2 | 2
@@ -189,7 +189,7 @@ def test_make_snippet() -> None:
                 """
             ),
             viewport=SnippetViewport(column=10, line=6, line_context=2),
-        )
+        ).content
         == _dedent(
             """
               2 | 2
