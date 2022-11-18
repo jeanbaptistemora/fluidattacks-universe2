@@ -25,9 +25,6 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.enums import (
-    OrganizationStateStatus,
-)
 from db_model.organizations.types import (
     Organization,
 )
@@ -36,9 +33,6 @@ from db_model.types import (
 )
 from decimal import (
     Decimal,
-)
-from freezegun import (
-    freeze_time,
 )
 from group_access import (
     domain as group_access_domain,
@@ -113,12 +107,10 @@ async def test_add_organization() -> None:
 
 
 @pytest.mark.changes_db
-@freeze_time("2022-11-11T15:58:31")
 async def test_remove_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     org_name = "tatsumi"
     email = "org_testuser1@gmail.com"
-    modified_date = "2022-11-11T15:58:31+00:00"
     await orgs_domain.remove_organization(
         loaders=get_new_context(),
         modified_by=email,
@@ -127,11 +119,8 @@ async def test_remove_organization() -> None:
     )
 
     loaders: Dataloaders = get_new_context()
-    org: Organization = await loaders.organization.load(org_id)
-    assert org.state.status == OrganizationStateStatus.DELETED
-    assert org.state.modified_by == email
-    assert org.state.modified_date == modified_date
-    assert org.state.pending_deletion_date is None
+    with pytest.raises(OrganizationNotFound):
+        await loaders.organization.load(org_id)
 
 
 async def test_get_id_by_name() -> None:

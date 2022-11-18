@@ -14,6 +14,7 @@ from authz.validations import (
 import bugsnag
 from context import (
     BASE_URL,
+    FI_ENVIRONMENT,
 )
 from custom_exceptions import (
     GroupNotFound,
@@ -73,6 +74,10 @@ from db_model.organization_access.types import (
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
+)
+from db_model.organizations.get import (
+    get_organization_by_id_item,
+    get_organization_historic_state_items,
 )
 from db_model.organizations.types import (
     Organization,
@@ -136,6 +141,10 @@ from organizations.types import (
     CredentialAttributesToUpdate,
 )
 import re
+from redshift import (
+    operations as redshift_ops,
+    organizations as redshift_orgs,
+)
 from sessions import (
     domain as sessions_domain,
 )
@@ -688,6 +697,24 @@ async def remove_organization(
     await remove_org_finding_policies(organization_name=organization_name)
     await portfolios_model.remove_organization_portfolios(
         organization_name=organization_name
+    )
+    if FI_ENVIRONMENT == "production":
+        with redshift_ops.db_cursor() as cursor:
+            redshift_orgs.insert_organization(
+                cursor=cursor,
+                item=await get_organization_by_id_item(
+                    organization_id=organization_id
+                ),
+            )
+            redshift_orgs.insert_historic_state(
+                cursor=cursor,
+                historic_state=await get_organization_historic_state_items(
+                    organization_id=organization_id
+                ),
+                organization_id=organization_id,
+            )
+    await orgs_model.remove(
+        organization_id=organization_id, organization_name=organization_name
     )
 
 
