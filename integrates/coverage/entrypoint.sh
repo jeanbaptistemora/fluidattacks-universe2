@@ -7,7 +7,7 @@
 function main {
   local coverage_target=86.00
   local coverage_args=(
-    --omit="back/migrations/*,back/src/redshift/*,back/src/toe/ports/*"
+    --omit="back/migrations/*,back/src/redshift/*,back/src/toe/ports/*, back/src/api/resolvers/toe_port/*"
     --ignore-errors
   )
 
