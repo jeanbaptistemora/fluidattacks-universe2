@@ -1401,8 +1401,8 @@
       "schedulers.vulnerabilities_expiring_report.main"
     ];
 
-    schedule_expression = "cron(0 10 ? * 2-6 *)";
-    size = "nano";
+    schedule_expression = "cron(0 17 ? * 2-6 *)";
+    size = "medium";
     awsRole = "prod_integrates";
     attempts = 3;
     timeout = 86400;
@@ -1414,7 +1414,7 @@
     ];
 
     tags = {
-      "Name" = "integrates_vulnerablities_expiring_report";
+      "Name" = "integrates_vulnerabilities_expiring_report";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
