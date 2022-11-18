@@ -10,7 +10,6 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
   ColumnDef,
-  ColumnFiltersState,
   Row,
   SortingState,
   VisibilityState,
@@ -26,6 +25,8 @@ import { ActionButtons } from "./ActionButtons";
 import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
@@ -82,11 +83,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     IToeInputData[]
   >([]);
 
-  const [columnFilters, setColumnFilters] = useStoredState<ColumnFiltersState>(
-    "tblToeInputs-columnFilters",
-    [],
-    localStorage
-  );
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>(
       "tblToeInputs-visibilityState",
@@ -315,77 +311,172 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
           canUpdateToeInput && isInternal,
           handleUpdateToeInputBePresent
         ),
-      header: String(t("group.toe.inputs.bePresent")),
+      header: t("group.toe.inputs.bePresent"),
       id: "bePresent",
       meta: { filterType: "select" },
     },
+    {
+      accessorKey: "attackedAt",
+      cell: (cell: ICellHelper<IToeInputData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.inputs.attackedAt"),
+      id: "attackedAt",
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorKey: "attackedBy",
+      header: t("group.toe.inputs.attackedBy"),
+      id: "attackedBy",
+    },
+    {
+      accessorKey: "firstAttackAt",
+      cell: (cell: ICellHelper<IToeInputData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.inputs.firstAttackAt"),
+      id: "firstAttackAt",
+      meta: { filterType: "dateRange" },
+    },
+    {
+      accessorKey: "seenFirstTimeBy",
+      header: t("group.toe.inputs.seenFirstTimeBy"),
+      id: "seenFirstTimeBy",
+    },
+    {
+      accessorKey: "bePresentUntil",
+      cell: (cell: ICellHelper<IToeInputData>): string =>
+        formatDate(cell.getValue()),
+      filterFn: filterDate,
+      header: t("group.toe.inputs.bePresentUntil"),
+      id: "bePresentUntil",
+      meta: { filterType: "dateRange" },
+    },
   ];
 
-  const columnsAttackedAt: ColumnDef<IToeInputData>[] =
-    isInternal && canGetAttackedAt
-      ? [
-          {
-            accessorKey: "attackedAt",
-            cell: (cell: ICellHelper<IToeInputData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.inputs.attackedAt"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
+  const baseFilters: IFilter<IToeInputData>[] = [
+    {
+      id: "rootNickname",
+      key: "rootNickname",
+      label: t("group.toe.inputs.root"),
+      selectOptions: (inputs): string[] =>
+        [
+          ...new Set(inputs.map((datapoint): string => datapoint.rootNickname)),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "component",
+      key: "component",
+      label: t("group.toe.inputs.component"),
+      selectOptions: (inputs): string[] =>
+        [
+          ...new Set(inputs.map((datapoint): string => datapoint.component)),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "entryPoint",
+      key: "entryPoint",
+      label: t("group.toe.inputs.entryPoint"),
+      type: "text",
+    },
+    {
+      id: "hasVulnerabilities",
+      key: "hasVulnerabilities",
+      label: t("group.toe.inputs.hasVulnerabilities"),
+      selectOptions: [
+        { header: formatBoolean(true), value: "true" },
+        { header: formatBoolean(false), value: "false" },
+      ],
+      type: "select",
+    },
+    {
+      id: "seenAt",
+      key: "seenAt",
+      label: t("group.toe.inputs.seenAt"),
+      type: "dateRange",
+    },
+    {
+      id: "bePresent",
+      key: "bePresent",
+      label: t("group.toe.inputs.bePresent"),
+      selectOptions: [
+        { header: formatBoolean(true), value: "true" },
+        { header: formatBoolean(false), value: "false" },
+      ],
+      type: "select",
+    },
+    {
+      id: "attackedAt",
+      key: "attackedAt",
+      label: t("group.toe.inputs.attackedAt"),
+      type: "dateRange",
+    },
+    {
+      id: "attackedBy",
+      key: "attackedBy",
+      label: t("group.toe.inputs.attackedBy"),
+      type: "text",
+    },
+    {
+      id: "firstAttackAt",
+      key: "firstAttackAt",
+      label: t("group.toe.inputs.firstAttackAt"),
+      type: "dateRange",
+    },
+    {
+      id: "seenFirstTimeBy",
+      key: "seenFirstTimeBy",
+      label: t("group.toe.inputs.seenFirstTimeBy"),
+      type: "text",
+    },
+    {
+      id: "bePresentUntil",
+      key: "bePresentUntil",
+      label: t("group.toe.inputs.bePresentUntil"),
+      type: "dateRange",
+    },
+  ];
 
-  const columnsAttackedBy: ColumnDef<IToeInputData>[] =
-    isInternal && canGetAttackedBy
-      ? [
-          {
-            accessorKey: "attackedBy",
-            header: t("group.toe.inputs.attackedBy"),
-          },
-        ]
-      : [];
-  const columnsFirstAttackAt: ColumnDef<IToeInputData>[] =
-    isInternal && canGetFirstAttackAt
-      ? [
-          {
-            accessorKey: "firstAttackAt",
-            cell: (cell: ICellHelper<IToeInputData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.inputs.firstAttackAt"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
-  const columnsSeenFirstTimeBy: ColumnDef<IToeInputData>[] =
-    isInternal && canGetSeenFirstTimeBy
-      ? [
-          {
-            accessorKey: "seenFirstTimeBy",
-            header: t("group.toe.inputs.seenFirstTimeBy"),
-          },
-        ]
-      : [];
-  const columnsbePresentUntil: ColumnDef<IToeInputData>[] =
-    isInternal && canGetBePresentUntil
-      ? [
-          {
-            accessorKey: "bePresentUntil",
-            cell: (cell: ICellHelper<IToeInputData>): string =>
-              formatDate(cell.getValue()),
-            filterFn: filterDate,
-            header: t("group.toe.inputs.bePresentUntil"),
-            meta: { filterType: "dateRange" },
-          },
-        ]
-      : [];
+  const tableColumns = columns.filter((column): boolean => {
+    switch (column.id) {
+      case "attackedAt":
+        return isInternal && canGetAttackedAt;
+      case "attackedBy":
+        return isInternal && canGetAttackedBy;
+      case "firstAttackAt":
+        return isInternal && canGetFirstAttackAt;
+      case "seenFirstTimeBy":
+        return isInternal && canGetSeenFirstTimeBy;
+      case "bePresentUntil":
+        return isInternal && canGetBePresentUntil;
+      default:
+        return true;
+    }
+  });
 
-  const columnsResult: ColumnDef<IToeInputData>[] = columns
-    .concat(columnsAttackedAt)
-    .concat(columnsAttackedBy)
-    .concat(columnsFirstAttackAt)
-    .concat(columnsSeenFirstTimeBy)
-    .concat(columnsbePresentUntil);
+  const tableFilters = baseFilters.filter((filter): boolean => {
+    switch (filter.id) {
+      case "attackedAt":
+        return isInternal && canGetAttackedAt;
+      case "attackedBy":
+        return isInternal && canGetAttackedBy;
+      case "firstAttackAt":
+        return isInternal && canGetFirstAttackAt;
+      case "seenFirstTimeBy":
+        return isInternal && canGetSeenFirstTimeBy;
+      case "bePresentUntil":
+        return isInternal && canGetBePresentUntil;
+      default:
+        return true;
+    }
+  });
+
+  const [filters, setFilters] =
+    useState<IFilter<IToeInputData>[]>(tableFilters);
+
+  const filteredToeLines = useFilters(toeInputs, filters);
 
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
@@ -459,14 +550,11 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   return (
     <React.StrictMode>
       <Table
-        columnFilterSetter={setColumnFilters}
-        columnFilterState={columnFilters}
         columnToggle={true}
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
-        columns={columnsResult}
-        data={toeInputs}
-        enableColumnFilters={true}
+        columns={tableColumns}
+        data={filteredToeLines}
         enableRowSelection={enabledRows}
         exportCsv={true}
         extraButtons={
@@ -477,6 +565,13 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
             isMarkingAsAttacked={isMarkingAsAttacked}
             onAdd={toggleAdd}
             onMarkAsAttacked={handleMarkAsAttacked}
+          />
+        }
+        filters={
+          <Filters
+            dataset={toeInputs}
+            filters={filters}
+            setFilters={setFilters}
           />
         }
         id={"tblToeInputs"}

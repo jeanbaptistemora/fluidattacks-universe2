@@ -481,7 +481,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       type: "numberRange",
     },
     {
-      id: "treatment",
+      id: "hasVulnerabilities",
       key: "hasVulnerabilities",
       label: t("group.toe.lines.hasVulnerabilities"),
       selectOptions: [
