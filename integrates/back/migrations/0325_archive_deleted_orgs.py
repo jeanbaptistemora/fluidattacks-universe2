@@ -5,6 +5,9 @@
 # pylint: disable=invalid-name
 """
 Archive deleted orgs in redshift and remove all related items from vms.
+
+Execution Time:    2022-11-18 at 18:07:03 UTC
+Finalization Time: 2022-11-18 at 18:33:35 UTC
 """
 
 from aioextensions import (
