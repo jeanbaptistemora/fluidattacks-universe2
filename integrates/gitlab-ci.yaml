@@ -3841,7 +3841,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/unit:
+/integrates/back/test/unit__changes_db:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -3862,7 +3862,36 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/unit
+    - m . /integrates/back/test/unit 'changes_db'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
+/integrates/back/test/unit__not_changes_db:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/unit 'not_changes_db'
   stage: test-code
   tags:
     - small
@@ -3966,7 +3995,8 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /integrates/back/test/unit
+    - /integrates/back/test/unit__changes_db
+    - /integrates/back/test/unit__not_changes_db
     - /integrates/front/test
     - /integrates/coverage/combine__1
     - /integrates/coverage/combine__2

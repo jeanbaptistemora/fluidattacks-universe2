@@ -364,6 +364,27 @@ in {
           functionalTests)
         ++ [
           {
+            args = ["changes_db"];
+            output = "/integrates/back/test/unit";
+            gitlabExtra =
+              gitlabTestDevAndProd
+              // {
+                after_script = ["cp ~/.makes/provenance-* ."];
+                artifacts = {
+                  name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
+                  paths = [
+                    "integrates/.coverage*"
+                    "provenance-*"
+                  ];
+                  expire_in = "1 week";
+                };
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
+              };
+          }
+          {
+            args = ["not_changes_db"];
             output = "/integrates/back/test/unit";
             gitlabExtra =
               gitlabTestDevAndProd
@@ -466,7 +487,8 @@ in {
                 coverage = "/(?i)total.*? (100(?:\\.0+)?\\%|[1-9]?\\d(?:\\.\\d+)?\\%)$/";
                 needs =
                   [
-                    "/integrates/back/test/unit"
+                    "/integrates/back/test/unit__changes_db"
+                    "/integrates/back/test/unit__not_changes_db"
                     "/integrates/front/test"
                   ]
                   ++ (

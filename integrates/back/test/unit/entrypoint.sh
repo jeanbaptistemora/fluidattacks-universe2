@@ -6,7 +6,14 @@
 
 function main {
   export BATCH_BIN
-  export COVERAGE_FILE=.coverage.unit
+  if [[ $# -eq 0 ]] || [[ $# -gt 1 ]]; then
+    echo '$ Error, add not_changes_db or changes_db to the command'
+    exit 1
+  else
+    local test_group="${1}"
+    export COVERAGE_FILE=.coverage.unit_"${test_group}"
+    echo "$ Executing uni test with $test_group"
+  fi
   local pytest_args=(
     --cov 'back'
     --cov-report 'term'
@@ -20,15 +27,28 @@ function main {
   )
 
   source __argIntegratesBackEnv__/template dev \
-    && DAEMON=true integrates-db \
-    && DAEMON=true integrates-storage \
-    && pushd integrates \
-    && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
-    && BATCH_BIN="$(command -v integrates-batch)" \
-    && pytest -m 'not changes_db' "${pytest_args[@]}" back/test/unit/src \
-    && pytest -m 'changes_db' --cov-append "${pytest_args[@]}" back/test/unit/src \
-    && popd \
-    || return 1
+    && if [ "$test_group" = "not_changes_db" ]; then
+      DAEMON=true integrates-db \
+        && DAEMON=true integrates-storage \
+        && pushd integrates \
+        && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
+        && BATCH_BIN="$(command -v integrates-batch)" \
+        && pytest -m 'not changes_db' "${pytest_args[@]}" back/test/unit/src \
+        && popd \
+        || return 1
+    elif [ "$test_group" = "changes_db" ]; then
+      DAEMON=true integrates-db \
+        && DAEMON=true integrates-storage \
+        && pushd integrates \
+        && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
+        && BATCH_BIN="$(command -v integrates-batch)" \
+        && pytest -m 'changes_db' "${pytest_args[@]}" back/test/unit/src \
+        && popd \
+        || return 1
+    else
+      echo "\$ Error, $test_group is not a valid argument" \
+        && exit 1
+    fi
 }
 
 main "${@}"
