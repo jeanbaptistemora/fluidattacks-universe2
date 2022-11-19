@@ -136,7 +136,7 @@ const About = [
   "about/glossary",
   {
     type: "category",
-    label: "Compare",
+    label: "How we compare",
     items: [
       "about/compare/introduction",
       "about/compare/checkmarx",

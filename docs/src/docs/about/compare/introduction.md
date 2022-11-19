@@ -5,117 +5,87 @@ sidebar_label: Introduction
 slug: "/about/compare"
 ---
 
-In order to show the benefits of hiring
-Fluid Attacks services, in this section
-we will show you a comparison between the
-Fluid Attacks Squad plan and different
-providers that offer security services,
-with the objective of presenting the
-differences between our to present the
-differences between the features and
-performance of our offer with respect
-to our competitors.
+In order to show the benefits
+of hiring Fluid Attacks' software security services,
+in this section,
+we compare ourselves with other providers.
+We present the information in tables
+weighing up the features of Fluid Attacks' Squad Plan
+versus the competition's offer in several topics.
+In the last column, we judge who shows an advantage in the topic.
 
-There is a description of the categories
-those will be used to compare Fluid
-Attacks's Squad plan against other
-security providers.
+Here are the descriptions of each of the topics:
 
-- *Scanners*:
-  Types of scanners offered for
-  vulnerability analysis.
+- **Scanners:**
+  Types of scanners offered for vulnerability analysis
 
-- *CI/CD Integrations*:
-  Integration options for CI/CD
-  pipeline management tools.
+- **CI/CD integrations:**
+  Integration options for CI/CD pipeline management tools
 
-- *False Positives SLA*:
-  Service level agreement defined
-  by the organization to ensure
-  the quality of its findings.
+- **False positives SLA:**
+  Service level agreement on the percentage of false positives
 
-- *Supported languages*:
-  Programming languages supported
-  by the tools and services offered.
+- **Supported languages:**
+  Programming languages supported by the tools and services offered
 
-- *IDE Integrations*:
-  Integration options for Integrated
-  Development Enviroments available
-  in market.
+- **IDE integrations:**
+  Integration options for Integrated Development Environments
+  available in the market
 
-- *Use agents*:
-  Uses installable agents in the
-  infrastructure or applications to
-  obtain vulnerability information
-  or to initiate tool functions.
+- **Use of agents:**
+  Use of installable agents in the infrastructure or applications
+  to obtain vulnerability information
+  or to initiate tool functions
 
-- *CLI Client*:
-  Offers tools to perform scans
-  from local machines.
+- **CLI client:**
+  Use of tools to perform scans from local machines
 
-- *API Service*:
-  Offers an API service for different
-  functionalities, whether it is
-  obtaining analysis information,
-  configuring tools,
-  or initiating scans.
+- **API service:**
+  Use of an API service,
+  whether for obtaining analysis information,
+  configuring tools or initiating scans
 
-- *On-premise Version*:
-  Version of the tool available
-  for deployment in on-premise
-  infrastructure.
+- **On-premise version:**
+  Whether a version of the tool is available for deployment
+  in on-premise infrastructure
 
-- *SaaS Version*:
-  Version of the tool available
-  to be used as Software as a
-  Service offered by the vendor.
+- **SaaS version:**
+  Whether a version of the tool is available as software as a service
 
-- *Monthly scans*:
-  Number of scans that can be
-  performed per month.
+- **Monthly scans:**
+  Whether there is a limited number of monthly scans
 
-- *Reports Module*:
-  Availability of the reports
-  module for use by customers.
+- **Reports module:**
+  Availability of the reports module for use by customers
 
-- *Available in Cloud providers Marketplace*:
-  Services or tools offerings available in
-  cloud service providers' marketplaces.
+- **Available in cloud providers' marketplaces:**
+  Whether the services or tool offerings are available
+  in the marketplaces of cloud service providers
 
-- *Users*:
-  Number of users that can access the
-  platform or tool.
+- **Users:**
+  Whether there is a limited number of users
+  that can access the platform or tool
 
-- *Vulnerability prioritization*:
-  Prioritization of vulnerabilities
-  based on severity or criticality
-  of vulnerabilities found.
+- **Vulnerability prioritization:**
+  Whether a method of prioritization of vulnerabilities based on severity
+  or criticality is available
 
-- *Severity calculation method*:
-  Method used to calculate the level
-  of severity of the vulnerabilities.
+- **Severity measurement method:**
+  Method used to calculate the severity level of vulnerabilities
 
-- *Support*:
-  Support channels provided to address
-  doubts and achieve customer success
-  by implementing tools or services.
+- **Support:**
+  Support channels provided to address customers’ doubts and issues
 
-- *Summary of findings*:
-  Function to visualize the summary of
-  the findings information and the
-  security status of the organization
-  after performing the analysis.
+- **Findings summary:**
+  Functions to visualize the summarized information of the findings
+  and the security status of the organization
+  after performing an analysis
 
-- *Filters*:
-  Available fields to filter the
-  information presented in the
-  analysis.
+- **Filters:**
+  Available fields to filter the information presented on the platform or tool
 
-- *Information displayed in the vulnerability list*:
-  Information displayed when viewing
-  the vulnerability list.
+- **Details in the list of vulnerabilities:**
+  Information displayed when viewing the list of findings
 
-- *Vulnerability details*:
-  Information displayed when viewing
-  the detail of the vulnerabilities
-  found.
+- **Vulnerability details:**
+  Information displayed when viewing the details of the vulnerabilities found
