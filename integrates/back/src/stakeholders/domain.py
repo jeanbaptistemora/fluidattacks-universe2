@@ -92,7 +92,7 @@ async def update_information(
 ) -> None:
     email = modified_data["email"]
     responsibility = modified_data["responsibility"]
-
+    role = modified_data["role"]
     if responsibility:
         if validate_field_length(
             responsibility, 50
@@ -103,6 +103,7 @@ async def update_information(
                 group_name=group_name,
                 metadata=GroupAccessMetadataToUpdate(
                     responsibility=responsibility,
+                    role=role,
                     state=GroupAccessState(
                         modified_date=datetime_utils.get_iso_date()
                     ),
