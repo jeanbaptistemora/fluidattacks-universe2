@@ -1,11 +1,14 @@
 ---
 slug: solutions/ethical-hacking/
 title: 'Ethical Hacking: Security testing by expert intelligence'
-description: The Ethical Hacking solution consists of our team thoroughly evaluating your systems to identify vulnerabilities that could be exploited by malicious hackers.
+description: You can give Fluid Attacks’ ethical hackers permission to search for and discover what unethical hackers might exploit in your IT systems.
 keywords: Fluid Attacks, Solutions, Ethical Hacking, Security, Continuous Hacking, Vulnerability
+identifier: Ethical Hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-ethical-hacking_zuhkms.webp
 template: solution
 ---
+
+<text-container>
 
 `Fluid Attacks'` Ethical Hacking solution
 consists of attacking diverse systems
@@ -34,83 +37,80 @@ in a preventive way,
 so that your development team can remediate them
 before your software goes into production.
 
-If you're just beginning to learn
-about what ethical hackers do,
-we recommend you read our blog post
-"[What Is Ethical Hacking?](../../blog/what-is-ethical-hacking/)"
-It tells you the basics,
-including the phases in the ethical hacking process.
-
-<div class="tc">
+</text-container>
 
 ## Benefits of Ethical Hacking
 
-</div>
+<grid-container>
 
-<div class="flex flex-wrap justify-center items-center">
+  <div>
+    <solution-card
+      description="Security in DevSecOps is as crucial as functionality.
+        When it comes to detecting and reporting vulnerabilities,
+        our hackers can go at the pace of your company's developers,
+        which is not possible with traditional hacking solutions.
+        In this way, you save both money
+        in remediation and time in release to production."
+      image="airs/solutions/ethical-hacking/icon1"
+      title="Simultaneous security assessment"
+    />
+  </div>
 
-<div class="sect2">
+  <div>
+    <solution-card
+      description="Our latest research shows that all of the critical
+        severity vulnerabilities in our clients'
+        systems were detected by the manual method only.
+        That is, ethical hackers can find
+        the vulnerabilities automated tools can't."
+      image="airs/solutions/ethical-hacking/icon2"
+      title="Report of critical severity vulnerabilities"
+    />
+  </div>
 
-### Simultaneous security assessment
+  <div>
+    <solution-card
+      description="With our solution, you are not paying for a so-called
+        'automatic hacking' process. Rather than assigning
+        only one professional to evaluate your IT systems'
+        security using an automated tool, at Fluid Attacks,
+        Ethical Hacking is usually performed by 10 ethical
+        or white hat hackers on average per project."
+      image="airs/solutions/ethical-hacking/icon3"
+      title="10 hackers assigned on average"
+    />
+  </div>
 
-Security in DevSecOps is as crucial as functionality.
-When it comes to detecting and reporting vulnerabilities,
-our hackers can go at the pace of your company's developers,
-which is not possible with traditional hacking solutions.
-In this way,
-you save both money in remediation
-and time in release to production.
+  <div>
+    <solution-card
+      description="Our cost is variable and proportional
+        to the number of developers who build and modify your code.
+        In other words, the price you pay for our
+        Ethical Hacking solution will be proportional
+        to your investment in software development."
+      image="airs/solutions/ethical-hacking/icon4"
+      title="Price of hacking based on scope"
+    />
+  </div>
 
-</div>
+</grid-container>
 
-<div class="sect2">
-
-### Report of critical severity vulnerabilities
-
-Our latest research shows that
-all of the critical severity vulnerabilities
-in our clients' systems
-were detected by the manual method only.
-That is,
-ethical hackers can find the vulnerabilities automated tools can't.
-
-</div>
-
-<div class="sect2">
-
-### 10 hackers assigned on average
-
-With our solution,
-you are not paying for a so-called "automatic hacking" process.
-Rather than assigning only one professional
-to evaluate your IT systems' security using an automated tool,
-at `Fluid Attacks`,
-Ethical Hacking is usually performed by 10 ethical or white hat hackers
-on average per project.
-
-</div>
-
-<div class="sect2">
-
-### Price of hacking based on scope
-
-Our cost is variable and proportional
-to the number of developers
-who build and modify your code.
-In other words,
-the price you pay for our Ethical Hacking solution
-will be proportional to your investment
-in software development.
-
-</div>
-
+<div>
+  <solution-slide
+    description="We invite you to read our
+      blog posts related to this solution."
+    solution="ethicalHacking"
+    title="Do you want to learn more about Ethical hacking?"
+  />
 </div>
 
 ## Ethical hacking FAQs
 
-The following are a few FAQs regarding ethical hacking:
+<faq-container>
 
-### What does a certified ethical hacker do?
+<div>
+<solution-faq
+  title="What does a certified ethical hacker do?">
 
 A certified ethical hacker exerts their expertise
 to discover everything that can pose a cybersecurity risk
@@ -126,7 +126,12 @@ ethical hackers present their findings,
 which are valuable to trigger remediation efforts.
 We offer plenty more details [here](../../blog/what-is-ethical-hacking/).
 
-### Why is ethical hacking important?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="Why is ethical hacking important?">
 
 Ethical hacking is important
 because it anticipates attacks
@@ -136,12 +141,7 @@ that need to be remediated,
 which are often more severe
 than those found using only automated tools.
 
-## Get started with Fluid Attacks' Ethical Hacking right now
+</solution-faq>
+</div>
 
-Organizations are leveraging the expert intelligence of ethical hackers
-to find most of the critical severity vulnerabilities in their systems.
-Don't miss out on the benefits,
-and ask us about our Ethical Hacking solution.
-If first you'd like a taste of our automated security testing,
-check out the [21-day free trial](../../free-trial/)
-and upgrade to include Ethical Hacking at any time.
+</faq-container>

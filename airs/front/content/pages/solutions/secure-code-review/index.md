@@ -1,11 +1,14 @@
 ---
 slug: solutions/secure-code-review/
 title: 'Secure Code Review: In-depth analysis of your source code'
-description: Through Fluid Attacks' Secure Code Review solution, you will know if your code fulfills the required standards and if it has vulnerabilities to be remediated.
+description: With Fluid Attacks, you can verify if your lines of code comply with various required standards and if there are security vulnerabilities you should remediate.
 keywords: Fluid Attacks, Solutions, Code Audit, Ethical Hacking, Secure Code Review, Security, Standards
+identifier: Secure Code Review
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1622577351/airs/solutions/solution-secure-code-review_dyaluj.webp
 template: solution
 ---
+
+<text-container>
 
 `Fluid Attacks'` Secure Code Review solution
 provides you with a comprehensive review of your software's source code.
@@ -32,77 +35,84 @@ over traditional secure code review services,
 prompting you to reduce security risks before the software is released,
 thus avoiding future costs of remediation.
 
-If you want to learn more about what secure code review is,
-we invite you to read our blog post,
-"[Do You Apply Secure Code Review?](../../blog/secure-code-review/)"
-
-<div class="tc">
+</text-container>
 
 ## Benefits of Secure Code Review
 
-</div>
+<grid-container>
 
-<div class="flex flex-wrap justify-center items-center">
+  <div>
+    <solution-card
+      description="Early and constant secure source code review can allow the system,
+        in general,
+        to maintain updated and secure components,
+        that is,
+        to follow all kinds of trends in cybersecurity
+        in favor of the integrity
+        and confidentiality of the information."
+      image="airs/solutions/secure-code-review/icon1"
+      title="Updated source code security"
+    />
+  </div>
 
-<div class="sect2">
+ <div>
+    <solution-card
+      description="Our Secure Code Review solution offers a combination
+        of the advantages of secure code review tools
+        and manual code review.
+        This approach allows for an accurate examination
+        of your software's source code structure and functionality
+        in order to detect every type of error and weakness,
+        so you can then diligently remedy them
+        to ensure code quality and security."
+      image="airs/solutions/secure-code-review/icon2"
+      title="Accurate security assessments"
+    />
+  </div>
 
-### Updated source code security
+ <div>
+    <solution-card
+      description="Our Attack Resistance Management platform (ARM)
+        allows you to access general
+        and specific data for each finding in your code
+        reported by our expert security analysts.
+        Furthermore, it enables your team
+        to follow the entire vulnerability remediation process with detailed,
+        up-to-date information."
+      image="airs/solutions/secure-code-review/icon3"
+      title="Full tracking of vulnerabilities in code"
+    />
+  </div>
 
-Early and constant secure source code review can allow the system,
-in general,
-to maintain updated and secure components,
-that is,
-to follow all kinds of trends in cybersecurity
-in favor of the integrity
-and confidentiality of the information.
+   <div>
+    <solution-card
+      description="We check that you comply with best practices laid out in
+        secure coding guides by reliable sources such as the
+        OWASP."
+      image="airs/solutions/secure-code-review/icon4"
+      title="Secure coding compliance assessments"
+    />
+  </div>
 
-</div>
+</grid-container>
 
-<div class="sect2">
-
-### Accurate security assessments
-
-Our Secure Code Review solution offers a combination
-of the advantages of secure code review tools
-and manual code review.
-This approach allows for an accurate examination
-of your software's source code structure and functionality
-in order to detect every type of error and weakness,
-so you can then diligently remedy them
-to ensure code quality and security.
-
-</div>
-
-<div class="sect2">
-
-### Full tracking of vulnerabilities in code
-
-Our Attack Resistance Management platform (ARM)
-allows you to access general
-and specific data for each finding in your code
-reported by our expert security analysts.
-Furthermore, it enables your team
-to follow the entire vulnerability remediation process with detailed,
-up-to-date information.
-
-</div>
-
-<div class="sect2">
-
-### Secure coding compliance assessments
-
-We check that you comply with best practices laid out in secure coding guides
-by reliable sources such as the OWASP.
-
-</div>
-
+<div>
+  <solution-slide
+    description="We invite you to read
+      our blog posts related to this solution."
+    solution="secureCodeReview"
+    title="Do you want to learn more about Code review?"
+  />
 </div>
 
 ## Secure code review FAQs
 
-The following are a few FAQs regarding secure code review:
+<faq-container>
 
-### How to do code review?
+<div>
+<solution-faq
+  title="How to do code review?"
+>
 
 Your team should be reviewing source code
 from the very moment they start writing it.
@@ -118,7 +128,13 @@ while the manual technique helps examine the code in context and intention
 to identify unknown and complex vulnerabilities
 and validate the tool scan results.
 
-### What security requirements do you check when doing source code review?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="What security requirements do you check when doing source code review?"
+>
 
 At `Fluid Attacks`,
 we compile our own
@@ -135,12 +151,7 @@ verifying that the versions of third-party components in use are stable,
 tested and up to date,
 and many others.
 
-## Get started with Fluid Attacks' Secure Code Review right now
+</solution-faq>
+</div>
 
-Join the organizations
-that are preventing cyberattacks
-by letting us look at their source code
-and guide them through the remediation of vulnerabilities.
-Don't miss out on the benefits,
-and ask us about our [21-day free trial](../../free-trial/)
-for a taste of our Secure Code Review solution.
+</faq-container>

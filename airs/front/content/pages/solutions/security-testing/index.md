@@ -1,11 +1,14 @@
 ---
 slug: solutions/security-testing/
 title: 'Security Testing: Accurate detection of vulnerabilities'
-description: Thanks to our comprehensive Security Testing solution, your IT systems' vulnerabilities will be found with low rates of false positives and false negatives.
+description: With Fluid Attacks, you can obtain accurate and detailed reports on security vulnerabilities in your IT infrastructure, applications and source code.
 keywords: Fluid Attacks, Solutions, Security Testing, Ethical Hacking, Vulnerability, SDLC
+identifier: Security Testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-security-testing_mmthfa.webp
 template: solution
 ---
+
+<text-container>
 
 `Fluid Attacks` Security Testing solution
 allows for the accurate detection of security vulnerabilities
@@ -39,93 +42,86 @@ Every time you have implemented the fixes,
 you can ask us to perform reattacks
 to assess their effectiveness.
 
-We have several blog posts
-where you can learn the basics
-about the security testing techniques we use at `Fluid Attacks`.
-"[Sastisfying App Security](../../blog/sastisfying-app-security/)"
-and "[Stand on the Shoulders of Giants](../../blog/stand-shoulders-giants/)"
-give you a basic introduction to SAST and SCA,
-respectively.
-Further,
-you can read "[How do SAST, SCA and DAST differ?](../../blog/differences-between-sast-sca-dast/),"
-where we talk about combining these different techniques
-for comprehensive security testing.
-"[Opening the Program's Box](../../blog/reverse-engineering/)"
-shares general ideas about software reverse engineering.
-"[Penetration Testing as a Service](../../blog/what-is-ptaas/)"
-presents how pentesting is being used continuously
-to keep up with the speed of software development.
-Also,
-to learn how all the above is used to test mobile applications,
-read "[What's Mobile App Security Testing?](../../blog/what-is-mast/)"
-
-<div class="tc">
+</text-container>
 
 ## Benefits of Security Testing
 
-</div>
+<grid-container>
 
-<div class="flex flex-wrap justify-center items-center">
+  <div>
+    <solution-card
+      description="Our comprehensive Security Testing
+        solution involves delivering attacks
+        continuously to all the points from which
+        unauthorized entry could be gained.
+        This way, you can keep the security of all
+        your digital assets monitored."
+      image="airs/solutions/security-testing/icon1"
+      title="Continuous attack surface testing"
+    />
+  </div>
 
-<div class="sect2">
+  <div>
+    <solution-card
+      description="Our certified team of ethical
+        hackers actively searches your systems
+        for cybersecurity vulnerabilities that
+        may pose a risk to your information assets
+        and those of your users. You will receive detailed reports
+        based on which you can decide what you want
+        to fix according to the severity and impact on your business."
+      image="airs/solutions/security-testing/icon2"
+      title="Exhaustive vulnerability reports"
+    />
+  </div>
 
-### Continuous attack surface testing
+  <div>
+    <solution-card
+      description="We place much more emphasis
+        on tool-supported manual work
+        than on the use of automatic tools alone,
+        and are more concerned with accuracy than speed.
+        This is why you will find very low rates
+        of false positives and false negatives
+        in our projects."
+      image="airs/solutions/security-testing/icon3"
+      title="Minimal rates of false positives"
+    />
+  </div>
 
-Our comprehensive Security Testing solution involves delivering attacks
-continuously
-to all the points from which unauthorized entry could be gained.
-This way,
-you can keep the security of all your digital assets monitored.
+  <div>
+    <solution-card
+      description="We manage the security testing
+        from a unique point, our ARM.
+        This allows our red team to be available
+        and in constant communication with your
+        developers in order to achieve high remediation rates.
+        We also use this platform to provide you
+        with easy-to-understand, up-to-date executive indicators."
+      image="airs/solutions/security-testing/icon4"
+      title="Centralized attack surface management"
+    />
+  </div>
 
-</div>
+</grid-container>
 
-<div class="sect2">
-
-### Exhaustive vulnerability reports
-
-Our certified team of ethical hackers actively searches your systems
-for cybersecurity vulnerabilities
-that may pose a risk to your information assets
-and those of your users.
-You will receive detailed reports
-based on which you can decide what you want to fix
-according to the severity and impact on your business.
-
-</div>
-
-<div class="sect2">
-
-### Minimal rates of false positives
-
-We place much more emphasis on tool-supported manual work
-than on the use of automatic tools alone,
-and are more concerned with accuracy than speed.
-This is why you will find very low rates of false positives and false negatives
-in our projects.
-
-</div>
-
-<div class="sect2">
-
-### Centralized attack surface management
-
-We manage the security testing from a unique point,
-our ARM.
-This allows our red team to be available
-and in constant communication with your developers
-in order to achieve high remediation rates.
-We also use this platform to provide you with easy-to-understand,
-up-to-date executive indicators.
-
-</div>
-
+<div>
+  <solution-slide
+    description="We invite you to read
+      our blog posts related to this solution."
+    solution="securityTesting"
+    title="Do you want to learn more about Security Testing?"
+  />
 </div>
 
 ## Security testing FAQs
 
-The following are a few FAQs regarding security testing:
+<faq-container>
 
-### How to perform security testing?
+<div>
+<solution-faq
+  title="How to perform security testing?"
+>
 
 Security testing should be comprehensive
 and performed continuously throughout the entire SDLC.
@@ -146,7 +142,13 @@ security testing should be performed again
 to verify the effectiveness of the remediation
 and find new vulnerabilities.
 
-### Do automated tools hack?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="Do automated tools hack?"
+>
 
 We argue that no tool hacks.
 Even though suites have been invented
@@ -156,7 +158,13 @@ also written by hackers,
 there always needs to be a human behind these tools
 who knows which exploit to use in any given context.
 
-### How do false positives impact the software development process?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="How do false positives impact the software development process?"
+>
 
 False positives can be a hindrance
 as their analysis can be time consuming and frustrating.
@@ -170,7 +178,13 @@ false positives can be a false alarm
 that triggers this action,
 resulting in setbacks for development.
 
-### How do false negatives impact the software development process?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="How do false negatives impact the software development process?"
+>
 
 False negatives can contribute to an organization's false sense of security.
 Moreover,
@@ -178,11 +192,7 @@ moving into production with these vulnerabilities means
 that malicious attackers could exploit them,
 and remediation costs would be higher than in development phases.
 
-## Get started with Fluid Attacks' Security Testing right now
+</solution-faq>
+</div>
 
-We are offering organizations a comprehensive solution
-to find their systems' vulnerabilities throughout the SDLC
-with very low rates of false positives and false negatives.
-Don't miss out on the benefits,
-and ask us about our [21-day free trial](../../free-trial/)
-for a taste of our Security Testing solution.
+</faq-container>

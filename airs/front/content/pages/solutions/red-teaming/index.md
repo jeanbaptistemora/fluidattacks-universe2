@@ -1,11 +1,14 @@
 ---
 slug: solutions/red-teaming/
 title: 'Red Teaming: A broad view of your company''s security'
-description: Fluid Attacks' certified red team attacks your company's systems to identify the security controls it needs to implement or improve.
+description: You can ask Fluid Attacks’ red team to attack your company with its consent and reveal the flaws in its prevention, detection and response strategies.
 keywords: Fluid Attacks, Solutions, Read Team, Red Teaming, Ethical Hacking, Security, Vulnerability
+identifier: Red Teaming
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735155/airs/solutions/solution-red-teaming_trx6rr.webp
 template: solution
 ---
+
+<text-container>
 
 `Fluid Attacks` is 100% a red team.
 We establish with your organization specific objectives
@@ -30,71 +33,69 @@ to resolve your systems' weaknesses
 and improve your protection against the countless,
 constant internal and external threats in cybersecurity.
 
-We have detailed information about red teaming in our blog.
-If you want to understand the basics of this approach,
-we recommend that you read our posts
-"[What Is Red Team in Cyber Security?](../../blog/what-is-red-team-in-cyber-security/)"
-and "[Red Team Exercise](../../blog/red-team-exercise/)."
-Further,
-to learn what policies we encourage you to create
-in regard to testing your organization's response
-to "real-world" cyberattacks,
-read "[Attacking Without Announcing](../../blog/attacking-without-announcing/)."
-We have also talked about the standard phases of red teaming
-according to an initiative by the European Central Bank
-in "[Have You Heard About the TIBER-EU?](../../blog/tiber-eu-framework/)"
-And in "[TIBER Advice on Choosing Providers](../../blog/tiber-eu-providers/)"
-we have summarized what this initiative says
-about what you should look for
-in those that offer red teaming services.
-
-<div class="tc">
+</text-container>
 
 ## Benefits of Red Teaming
 
-</div>
+<grid-container>
 
-<div class="flex flex-wrap justify-center items-center">
+  <div>
+    <solution-card
+      description="`Fluid Attacks'` red team members emulate the tactics,
+        techniques and procedures of today's threat actors
+        and try to go unnoticed
+        to test your organization's security.
+        These exercises are holistic
+        in that they assess the effectiveness of security strategies
+        both at the technological and human level."
+      image="airs/solutions/red-teaming/icon1"
+      title='Testing responses to "real-world" cyberattacks'
+    />
+  </div>
 
-<div class="sect2">
+  <div>
+    <solution-card
+      description="Our ethical hackers have received various certifications,
+        including OSEE, OSCE, eCPTXv2, CRTO, CRTE and CARTP.
+        This expertise will allow you to remain confident
+        that the red team attack simulations will be effective."
+      image="airs/solutions/red-teaming/icon2"
+      title=" Security testing by certified hackers"
+    />
+  </div>
 
-### Testing responses to "real-world" cyberattacks
+</grid-container>
 
-`Fluid Attacks'` red team members emulate the tactics,
-techniques and procedures of today's threat actors
-and try to go unnoticed
-to test your organization's security.
-These exercises are holistic
-in that they assess the effectiveness of security strategies
-both at the technological and human level.
-
-</div>
-
-<div class="sect2">
-
-### Security testing by certified hackers
-
-Our ethical hackers have received [various certifications](../../about-us/certifications/),
-including OSEE, OSCE, eCPTXv2, CRTO, CRTE and CARTP.
-This expertise will allow you to remain confident
-that the red team attack simulations will be effective.
-
-</div>
-
+<div>
+  <solution-slide
+    description="We invite you to read our
+      blog posts related to this solution."
+    solution="redTeaming"
+    title="Do you want to learn more about Red teaming?"
+  />
 </div>
 
 ## Red teaming FAQs
 
-The following are a few FAQs regarding red teaming:
+<faq-container>
 
-### What is red team in cyber security?
+<div>
+<solution-faq
+  title="What is red team in cyber security?"
+>
 
 A red team is a group of offensive security specialists
 that simulates cyberattacks against the same organizations that employ it,
 targeting not only their IT systems but also their employees
 and security controls in their physical facilities.
 
-### What is red team and blue team in cyber security?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="What is red team and blue team in cyber security?"
+>
 
 Whereas a red team is a group of experts
 that conducts offensive attacks to realize specific objectives,
@@ -103,7 +104,13 @@ whose job is to assess the target organization's security
 and organize, implement and improve controls
 that would help fend it from the red team and other attackers.
 
-### What is a red team exercise?
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="What is a red team exercise?"
+>
 
 Red team exercises are attack simulations
 where the red team advances offensively toward specific objectives
@@ -118,14 +125,7 @@ ideally,
 the incident response team,
 employees and security staff do not know this.
 
-## Get started with Fluid Attacks' Red Teaming right now
+</solution-faq>
+</div>
 
-Organizations who test the effectiveness of their prevention,
-detection and response strategies
-constantly through realistic attacks
-are one step ahead of adversarial threat actors.
-Don't miss out on the benefits,
-and ask us about our Red Teaming solution.
-If first you'd like a taste of our automated security testing,
-check out the [21-day free trial](../../free-trial/)
-and upgrade to include Red Teaming at any time.
+</faq-container>
