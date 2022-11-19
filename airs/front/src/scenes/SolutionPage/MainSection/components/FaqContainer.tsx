@@ -10,13 +10,7 @@ import { Container } from "../../../../components/Container";
 import type { IContainerProps } from "../../../../components/Container/types";
 
 const FaqContainer: React.FC<IContainerProps> = ({ children }): JSX.Element => (
-  <Container
-    borderBottom={"2px"}
-    center={true}
-    maxWidth={"1200px"}
-    mb={5}
-    mt={5}
-  >
+  <Container center={true} maxWidth={"1200px"} pb={5} ph={4}>
     {children}
   </Container>
 );

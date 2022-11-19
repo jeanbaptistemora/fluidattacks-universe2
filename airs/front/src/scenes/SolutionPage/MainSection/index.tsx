@@ -10,7 +10,6 @@
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
 
-import { FaqBody } from "./components/FaqBody";
 import { FaqContainer } from "./components/FaqContainer";
 import { GridContainer } from "./components/GridContainer";
 import { Header2 } from "./components/Header2";
@@ -29,7 +28,6 @@ interface IMainProps {
 const MainSection: React.FC<IMainProps> = ({ htmlAst }): JSX.Element => {
   const renderAst = new (rehypeReact as any)({
     components: {
-      "faq-body": FaqBody,
       "faq-container": FaqContainer,
       "grid-container": GridContainer,
       h2: Header2,
@@ -42,11 +40,7 @@ const MainSection: React.FC<IMainProps> = ({ htmlAst }): JSX.Element => {
     createElement,
   }).Compiler;
 
-  return (
-    <Container bgColor={"#fff"} pv={5}>
-      {renderAst(htmlAst)}
-    </Container>
-  );
+  return <Container bgColor={"#fff"}>{renderAst(htmlAst)}</Container>;
 };
 
 export { MainSection };

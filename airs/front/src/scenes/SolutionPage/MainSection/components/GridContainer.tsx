@@ -16,8 +16,9 @@ const GridContainer: React.FC<IContainerProps> = ({
     center={true}
     direction={"row"}
     display={"flex"}
-    justify={"start"}
+    justify={"center"}
     maxWidth={"1504px"}
+    pb={5}
     ph={4}
     wrap={"wrap"}
   >
