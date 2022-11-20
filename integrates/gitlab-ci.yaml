@@ -4041,8 +4041,6 @@
     - /integrates/back/test/functional__add_event_consult
     - /integrates/back/test/functional__add_files_to_db
     - /integrates/back/test/functional__add_finding_consult
-    - /integrates/back/test/functional__add_forces_execution_s3
-    - /integrates/back/test/functional__add_git_root_s3
     - /integrates/back/test/functional__add_group
     - /integrates/back/test/functional__add_group_consult
     - /integrates/back/test/functional__add_group_tags
@@ -4054,22 +4052,24 @@
     - /integrates/back/test/functional__add_url_root
     - /integrates/back/test/functional__approve_draft
     - /integrates/back/test/functional__batch
-    - /integrates/back/test/functional__batch_dispatch_s3
     - /integrates/back/test/functional__compliance
     - /integrates/back/test/functional__confirm_vulnerabilities_zero_risk
     - /integrates/back/test/functional__deactivate_root
     - /integrates/back/test/functional__delete_obsolete_groups
     - /integrates/back/test/functional__download_event_file
     - /integrates/back/test/functional__download_file
-    - /integrates/back/test/functional__download_vulnerability_file_s3
     - /integrates/back/test/functional__event
     - /integrates/back/test/functional__events
     - /integrates/back/test/functional__expire_free_trial
     - /integrates/back/test/functional__finding
-    - /integrates/back/test/functional__forces_executions_s3
     - /integrates/back/test/functional__grant_stakeholder_access
     - /integrates/back/test/functional__grant_stakeholder_organization_access
-    - /integrates/back/test/functional__group_s3
+    - /integrates/back/test/functional__groups_languages_distribution
+    - /integrates/back/test/functional__groups_with_forces
+    - /integrates/back/test/functional__handle_vulnerabilities_acceptance
+    - /integrates/back/test/functional__invalidate_access_token
+    - /integrates/back/test/functional__machine_queue_all
+    - /integrates/back/test/functional__me
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4098,12 +4098,6 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /integrates/back/test/functional__groups_languages_distribution
-    - /integrates/back/test/functional__groups_with_forces
-    - /integrates/back/test/functional__handle_vulnerabilities_acceptance
-    - /integrates/back/test/functional__invalidate_access_token
-    - /integrates/back/test/functional__machine_queue_all
-    - /integrates/back/test/functional__me
     - /integrates/back/test/functional__move_root
     - /integrates/back/test/functional__organization
     - /integrates/back/test/functional__organization_id
@@ -4114,11 +4108,6 @@
     - /integrates/back/test/functional__reject_event_solution
     - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
     - /integrates/back/test/functional__remove_credentials
-    - /integrates/back/test/functional__remove_event_evidence_s3
-    - /integrates/back/test/functional__remove_evidence_s3
-    - /integrates/back/test/functional__remove_files_s3
-    - /integrates/back/test/functional__remove_finding_s3
-    - /integrates/back/test/functional__remove_group_s3
     - /integrates/back/test/functional__remove_group_tag
     - /integrates/back/test/functional__remove_stakeholder
     - /integrates/back/test/functional__remove_stakeholder_access
@@ -4131,13 +4120,24 @@
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
     - /integrates/back/test/functional__requeue_actions
-    - /integrates/back/test/functional__report_machine_s3
     - /integrates/back/test/functional__reset_expired_accepted_findings
     - /integrates/back/test/functional__resources
     - /integrates/back/test/functional__solve_event
     - /integrates/back/test/functional__stakeholder
     - /integrates/back/test/functional__submit_draft
     - /integrates/back/test/functional__submit_organization_finding_policy
+    - /integrates/back/test/functional__toe_inputs
+    - /integrates/back/test/functional__toe_lines
+    - /integrates/back/test/functional__toe_ports
+    - /integrates/back/test/functional__unsubscribe_from_group
+    - /integrates/back/test/functional__update_access_token
+    - /integrates/back/test/functional__update_compliance
+    - /integrates/back/test/functional__update_credentials
+    - /integrates/back/test/functional__update_event
+    - /integrates/back/test/functional__update_event_solving_reason
+    - /integrates/back/test/functional__update_evidence_description
+    - /integrates/back/test/functional__update_finding_description
+    - /integrates/back/test/functional__update_forces_access_token
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4166,26 +4166,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /integrates/back/test/functional__subscribe_to_entity_report_s3
-    - /integrates/back/test/functional__sync_git_root_s3
-    - /integrates/back/test/functional__toe_inputs
-    - /integrates/back/test/functional__toe_lines
-    - /integrates/back/test/functional__toe_ports
-    - /integrates/back/test/functional__unfulfilled_standard_report_url_s3
-    - /integrates/back/test/functional__unsubscribe_from_group
-    - /integrates/back/test/functional__update_access_token
-    - /integrates/back/test/functional__update_compliance
-    - /integrates/back/test/functional__update_credentials
-    - /integrates/back/test/functional__update_event
-    - /integrates/back/test/functional__update_event_evidence_s3
-    - /integrates/back/test/functional__update_event_solving_reason
-    - /integrates/back/test/functional__update_evidence_description
-    - /integrates/back/test/functional__update_evidence_s3
-    - /integrates/back/test/functional__update_finding_description
-    - /integrates/back/test/functional__update_forces_access_token
     - /integrates/back/test/functional__update_git_environments
-    - /integrates/back/test/functional__update_git_root_s3
-    - /integrates/back/test/functional__update_group_s3
     - /integrates/back/test/functional__update_group_access_info
     - /integrates/back/test/functional__update_group_disambiguation
     - /integrates/back/test/functional__update_group_info
@@ -4206,6 +4187,25 @@
     - /integrates/back/test/functional__update_url_root
     - /integrates/back/test/functional__update_vulnerabilities_treatment
     - /integrates/back/test/functional__update_vulnerability_description
+    - /integrates/back/test/functional__add_forces_execution_s3
+    - /integrates/back/test/functional__add_git_root_s3
+    - /integrates/back/test/functional__batch_dispatch_s3
+    - /integrates/back/test/functional__download_vulnerability_file_s3
+    - /integrates/back/test/functional__forces_executions_s3
+    - /integrates/back/test/functional__group_s3
+    - /integrates/back/test/functional__remove_event_evidence_s3
+    - /integrates/back/test/functional__remove_evidence_s3
+    - /integrates/back/test/functional__remove_files_s3
+    - /integrates/back/test/functional__remove_finding_s3
+    - /integrates/back/test/functional__remove_group_s3
+    - /integrates/back/test/functional__report_machine_s3
+    - /integrates/back/test/functional__subscribe_to_entity_report_s3
+    - /integrates/back/test/functional__sync_git_root_s3
+    - /integrates/back/test/functional__unfulfilled_standard_report_url_s3
+    - /integrates/back/test/functional__update_event_evidence_s3
+    - /integrates/back/test/functional__update_evidence_s3
+    - /integrates/back/test/functional__update_git_root_s3
+    - /integrates/back/test/functional__update_group_s3
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
