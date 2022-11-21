@@ -2,7 +2,7 @@
 id: snyk
 title: Fluid Attacks vs Snyk
 sidebar_label: Snyk
-slug: /about/compare/snyk
+slug: /about/fluid-attacks-vs-competition/snyk
 ---
 
 Here is a feature comparison

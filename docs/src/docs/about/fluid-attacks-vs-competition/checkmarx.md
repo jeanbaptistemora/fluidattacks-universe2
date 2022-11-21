@@ -2,7 +2,7 @@
 id: checkmarx
 title: Fluid Attacks vs Checkmarx
 sidebar_label: Checkmarx
-slug: /about/compare/checkmarx
+slug: /about/fluid-attacks-vs-competition/checkmarx
 ---
 
 Here is a feature comparison

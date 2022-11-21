@@ -2,7 +2,7 @@
 id: detectify
 title: Fluid Attacks vs Detectify
 sidebar_label: Detectify
-slug: /about/compare/detectify
+slug: /about/fluid-attacks-vs-competition/detectify
 ---
 
 Here is a feature comparison

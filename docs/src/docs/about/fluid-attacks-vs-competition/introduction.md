@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: "/about/compare"
+slug: "/about/fluid-attacks-vs-competition"
 ---
 
 In order to show the benefits

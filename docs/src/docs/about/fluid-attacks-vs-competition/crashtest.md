@@ -2,7 +2,7 @@
 id: crashtest
 title: Fluid Attacks vs CrashTest Security
 sidebar_label: CrashTest
-slug: /about/compare/crashtest
+slug: /about/fluid-attacks-vs-competition/crashtest
 ---
 
 Here is a feature comparison

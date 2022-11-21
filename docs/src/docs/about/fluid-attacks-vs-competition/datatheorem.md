@@ -2,7 +2,7 @@
 id: datatheorem
 title: Fluid Attacks vs Datatheorem
 sidebar_label: Datatheorem
-slug: /about/compare/datatheorem
+slug: /about/fluid-attacks-vs-competition/datatheorem
 ---
 
 Here is a feature comparison
