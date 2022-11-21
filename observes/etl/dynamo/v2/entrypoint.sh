@@ -66,12 +66,11 @@ function dynamodb_etl {
       --segments "${segments}" \
       > "${data}" \
     && get_schemas "${use_cache}" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
-    && cat "${singer_file}" > .singer \
     && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name "${schema}" \
-      < .singer \
+      < "${singer_file}" \
     && job-last-success compound-job \
       --auth "${db_creds}" \
       --job "dynamo" \

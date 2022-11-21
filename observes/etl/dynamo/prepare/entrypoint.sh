@@ -55,10 +55,9 @@ function dynamodb_etl {
     && json_db_creds "${db_creds}" \
     && export_notifier_key \
     && get_schemas "yes" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
-    && cat "${singer_file}" > .singer \
     && target-redshift destroy-and-upload \
       --schema-name "${schema}" \
-      < .singer
+      < "${singer_file}"
 }
 
 dynamodb_etl "${@}"
