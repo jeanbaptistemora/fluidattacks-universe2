@@ -6,7 +6,7 @@
 
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
@@ -224,6 +224,68 @@ describe("Autoenrollment", (): void => {
 
     const branchInput = await screen.findByRole("textbox", { name: "branch" });
     await userEvent.type(branchInput, variables.branch);
+
+    expect(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" })
+    ).toHaveValue("");
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["SSH"]
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "credentials.key" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.password" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.user" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["TOKEN"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.key" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.password" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.user" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["USER"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "credentials.user" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.key" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+    ).not.toBeInTheDocument();
 
     const credentialsTypeSelect = await screen.findByRole("combobox", {
       name: "credentials.typeCredential",
