@@ -7,8 +7,6 @@ from aioextensions import (
 )
 from context import (
     FI_ENVIRONMENT,
-    FI_MAIL_COS,
-    FI_MAIL_CTO,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -248,7 +246,7 @@ async def send_temporal_treatment_report() -> None:
                 loaders=loaders,
                 context=user_content,
                 email_to=email,
-                email_cc=[FI_MAIL_COS, FI_MAIL_CTO],
+                email_cc=[],
             )
             LOGGER.info(
                 "Temporal treatment alert email sent",
