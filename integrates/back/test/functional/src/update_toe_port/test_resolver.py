@@ -1,0 +1,76 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+# pylint: disable=too-many-arguments
+from . import (
+    get_result,
+)
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.toe_ports.types import (
+    ToePort,
+    ToePortRequest,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
+)
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_toe_port")
+@pytest.mark.parametrize(
+    ["email", "address", "port", "root_id", "be_present", "has_recent_attack"],
+    [
+        [
+            "admin@fluidattacks.com",
+            "192.168.1.1",
+            "8080",
+            "63298a73-9dff-46cf-b42d-9b2f01a56690",
+            True,
+            True,
+        ],
+        [
+            "admin@fluidattacks.com",
+            "192.168.1.1",
+            "8081",
+            "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+            True,
+            False,
+        ],
+    ],
+)
+async def test_update_toe_port(
+    populate: bool,
+    email: str,
+    address: str,
+    port: str,
+    root_id: str,
+    be_present: bool,
+    has_recent_attack: bool,
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_result(
+        address=address,
+        port=port,
+        group_name=group_name,
+        root_id=root_id,
+        be_present=be_present,
+        has_recent_attack=has_recent_attack,
+        user=email,
+    )
+    assert "errors" not in result
+    assert "success" in result["data"]["updateToePort"]
+    assert result["data"]["updateToePort"]["success"]
+    loaders: Dataloaders = get_new_context()
+    toe_port: ToePort = await loaders.toe_port.load(
+        ToePortRequest(
+            group_name=group_name, address=address, port=port, root_id=root_id
+        )
+    )
+    assert toe_port.be_present == be_present

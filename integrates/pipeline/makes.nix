@@ -166,6 +166,7 @@
     ["update_toe_input"]
     ["update_toe_lines_attacked_lines"]
     ["update_toe_lines_sorts"]
+    ["update_toe_port"]
     ["update_toe_vulnerabilities"]
     ["update_tours"]
     ["update_url_root"]

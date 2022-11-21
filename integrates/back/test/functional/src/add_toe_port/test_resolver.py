@@ -5,6 +5,14 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.toe_ports.types import (
+    ToePort,
+    ToePortRequest,
+)
 import pytest
 from typing import (
     Any,
@@ -50,6 +58,16 @@ async def test_add_toe_port(
     assert "errors" not in result
     assert "success" in result["data"]["addToePort"]
     assert result["data"]["addToePort"]["success"]
+    loaders: Dataloaders = get_new_context()
+    toe_port: ToePort = await loaders.toe_port.load(
+        ToePortRequest(
+            group_name=group_name, address=address, port=port, root_id=root_id
+        )
+    )
+    assert toe_port.address == address
+    assert toe_port.port == port
+    assert toe_port.root_id == root_id
+    assert toe_port.seen_first_time_by == email
 
 
 @pytest.mark.asyncio
