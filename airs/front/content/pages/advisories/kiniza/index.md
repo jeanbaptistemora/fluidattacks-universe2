@@ -5,15 +5,14 @@ authors: Carlos Bello
 writer: cbello
 codename: kiniza
 product: Frappe 14.10.0 - LFR
-date: 2022-11-18 12:00 COT
+date: 2022-11-21 12:00 COT
 cveid: CVE-2022-41712
 severity: 4.3
 description: Frappe 14.10.0       -       Local File Read (LFR)
 keywords: Fluid Attacks, Security, Vulnerabilities, Frappe, LFR
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
@@ -25,7 +24,7 @@ encrypted: yes
 | **Product**           | Frappe                                                             |
 | **Affected versions** | Version 14.10.0                                                    |
 | **State**             | Public                                                             |
-| **Release date**      | 2022-11-18                                                         |
+| **Release date**      | 2022-11-21                                                         |
 
 ## Vulnerability
 
@@ -92,5 +91,5 @@ Offensive Team.
   replied="2022-10-10"
   confirmed="2022-10-11"
   patched="2022-10-12"
-  disclosure="2022-11-18">
+  disclosure="2022-11-21">
 </time-lapse>
