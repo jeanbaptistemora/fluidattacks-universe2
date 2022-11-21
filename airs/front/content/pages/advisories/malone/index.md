@@ -5,15 +5,14 @@ authors: Carlos Bello
 writer: cbello
 codename: malone
 product: Browsershot 3.57.3 - Server Side XSS to LFR via HTML
-date: 2022-11-18 13:00 COT
+date: 2022-11-21 13:00 COT
 cveid: CVE-2022-43984
 severity: 7.5
 description: Browsershot 3.57.3 - Server Side XSS to LFR via HTML
 keywords: Fluid Attacks, Security, Vulnerabilities, Browsershot, Local File Read, XSS, LFR, PDF Generation
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
@@ -25,7 +24,7 @@ encrypted: yes
 | **Product**           | Browsershot                                                                                                         |
 | **Affected versions** | Version 3.57.3                                                                                                      |
 | **State**             | Public                                                                                                              |
-| **Release date**      | 2022-11-18                                                                                                          |
+| **Release date**      | 2022-11-21                                                                                                          |
 
 ## Vulnerability
 
@@ -96,5 +95,5 @@ Offensive Team.
   replied="2022-10-25"
   confirmed="2022-10-25"
   patched=""
-  disclosure="2022-11-18">
+  disclosure="2022-11-21">
 </time-lapse>
