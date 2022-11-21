@@ -109,6 +109,11 @@ ROW_HEIGHT = 57
 RED = Color(255, 52, 53, 1)  # FF3435
 WHITE = Color(255, 255, 255, 1)
 LOGGER = logging.getLogger(__name__)
+TYPE_TRANSLATION: dict[VulnerabilityType, str] = {
+    VulnerabilityType.INPUTS: "app",
+    VulnerabilityType.LINES: "code",
+    VulnerabilityType.PORTS: "infra",
+}
 
 
 # pylint: disable=too-many-instance-attributes
@@ -498,11 +503,11 @@ class ITReport:
         return description
 
     def get_row_range(self, row: int) -> List[str]:
-        # AX is the 50th column
+        # AX is the 51th column
         if self.generate_raw_data:
-            return [f"A{row}", f"AY{row}"]
+            return [f"A{row}", f"AZ{row}"]
 
-        return [f"A{row}", f"AX{row}"]
+        return [f"A{row}", f"AY{row}"]
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -799,6 +804,10 @@ class ITReport:
         if row.stream:
             stream = " > ".join(row.stream)
 
+        business_critically = EMPTY
+        if row.custom_severity:
+            business_critically = str(row.custom_severity)
+
         nickname = EMPTY
         if row.root_id:
             try:
@@ -824,9 +833,11 @@ class ITReport:
         self.row_values[vuln["Finding Id"]] = finding.id
         self.row_values[vuln["Vulnerability Id"]] = row.id
         self.row_values[vuln["Where"]] = row.state.where
+        self.row_values[vuln["Business Critically"]] = business_critically
         self.row_values[vuln["Specific"]] = specific
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
+        self.row_values[vuln["Type"]] = TYPE_TRANSLATION[row.type]
         self.row_values[vuln["Stream"]] = stream
         self.row_values[vuln["Root Nickname"]] = nickname
         if self.generate_raw_data:

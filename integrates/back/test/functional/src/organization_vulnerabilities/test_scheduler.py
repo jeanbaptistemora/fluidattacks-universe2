@@ -30,5 +30,5 @@ async def test_organization_vulnerabilities_rows(populate: bool) -> None:
         organization_name=org_name,
     )
 
-    assert len(rows[0]) == 51
+    assert len(rows[0]) == 52
     assert rows[0][-1] == "Group"

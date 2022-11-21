@@ -67,6 +67,7 @@ class GroupVulnsReportHeader(GenericHeader):
     BUSINESS_CRITICALLY: ColumnConfig = ColumnConfig(
         label="Business Critically", width=25
     )
+    TYPE: ColumnConfig = ColumnConfig(label="Type", width=25)
     REPORT_MOMENT: ColumnConfig = ColumnConfig(label="Report Moment", width=25)
     CLOSE_MOMENT: ColumnConfig = ColumnConfig(label="Close Moment", width=25)
     AGE: ColumnConfig = ColumnConfig(label="Age in days", width=20)
