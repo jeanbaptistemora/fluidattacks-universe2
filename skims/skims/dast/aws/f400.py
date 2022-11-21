@@ -60,8 +60,8 @@ async def elbv2_has_access_logging_disabled(
                         Location(
                             arn=(balancer["LoadBalancerArn"]),
                             description=t(
-                                "src.lib_path.f396."
-                                "kms_key_is_key_rotation_absent_or_disabled"
+                                "src.lib_path.f400."
+                                "elb2_has_access_logs_s3_disabled"
                             ),
                             values=(attrs["Key"],),
                             access_patterns=(f"/{index}/Key",),
@@ -80,7 +80,60 @@ async def elbv2_has_access_logging_disabled(
     return vulns
 
 
+async def cloudfront_has_logging_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudfront", function="list_distributions"
+    )
+    method = core_model.MethodsEnum.AWS_ELBV2_HAS_ACCESS_LOGGING_DISABLED
+    distributions = response.get("DistributionList", {}) if response else {}
+    vulns: core_model.Vulnerabilities = ()
+    if distributions:
+        for dist in distributions["Items"]:
+            dist_id = dist["Id"]
+            dist_arn = dist["ARN"]
+            locations: List[Location] = []
+            config: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="cloudfront",
+                function="get_distribution",
+                parameters={"Id": str(dist_id)},
+            )
+            distribution = config.get("Distribution", "")
+            distribution_config = distribution.get("DistributionConfig", {})
+            is_logging_enabled = distribution_config["Logging"]["Enabled"]
+            if not is_logging_enabled:
+                locations = [
+                    *locations,
+                    Location(
+                        arn=(dist_arn),
+                        description=t(
+                            "src.lib_path.f400.has_logging_disabled"
+                        ),
+                        values=(is_logging_enabled,),
+                        access_patterns=(
+                            "/DistributionConfig/Logging/Enabled",
+                        ),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=distribution,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (elbv2_has_access_logging_disabled,)
+] = (
+    elbv2_has_access_logging_disabled,
+    cloudfront_has_logging_disabled,
+)
