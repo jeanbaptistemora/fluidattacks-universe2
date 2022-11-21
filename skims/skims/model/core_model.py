@@ -4021,6 +4021,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_INSECURE_LOGGING = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_INSECURE_LOGGING = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TSCONFIG_SOURCEMAP_ENABLED = MethodInfo(
         file_name="tsconfig",
         name="tsconfig_sourcemap_enabled",
