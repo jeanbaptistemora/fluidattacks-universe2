@@ -57,4 +57,24 @@ describe("numberInput", (): void => {
 
     expect(onEnterCallback).toHaveBeenCalledWith(2);
   });
+
+  it("should call callback with value ended in .", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const onEnterCallback: jest.Mock = jest.fn();
+    render(
+      <NumberInput
+        autoUpdate={true}
+        decimalPlaces={1}
+        defaultValue={2.0}
+        max={3}
+        min={1}
+        onEnter={onEnterCallback}
+      />
+    );
+
+    await userEvent.type(screen.getByRole("spinbutton"), "{backspace}");
+
+    expect(onEnterCallback).toHaveBeenCalledWith(2.0);
+  });
 });

@@ -16,6 +16,11 @@ import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 describe("AddGroupModal component", (): void => {
   const mocksMutation: MockedResponse[] = [];
 
+  it("should return a function", (): void => {
+    expect.hasAssertions();
+    expect(typeof AddGroupModal).toBe("function");
+  });
+
   it("should render add group modal", async (): Promise<void> => {
     expect.hasAssertions();
 
