@@ -46,7 +46,7 @@ const Hero: React.FC<IHeroProps> = ({
         maxWidth={"1440px"}
         wrap={"wrap"}
       >
-        <Container width={"50%"} widthMd={"60%"} widthSm={"100%"}>
+        <Container width={"50%"} widthMd={"100%"}>
           <Title color={"#2e2e38"} level={2} mb={3} size={"big"}>
             {title}
           </Title>
@@ -78,8 +78,7 @@ const Hero: React.FC<IHeroProps> = ({
           display={"flex"}
           justify={"center"}
           width={"50%"}
-          widthMd={"40%"}
-          widthSm={"100%"}
+          widthMd={"100%"}
         >
           <CloudImage alt={title} src={image} />
         </Container>
