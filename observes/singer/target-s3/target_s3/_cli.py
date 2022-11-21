@@ -27,8 +27,15 @@ from utils_logger_2 import (
 @click.option(  # type: ignore[misc]
     "--prefix", required=True, type=str, help="Prefix for uploaded s3 files"
 )
-def main(bucket: str, prefix: str) -> NoReturn:
+@click.option(  # type: ignore[misc]
+    "--str-limit",
+    required=False,
+    default=-1,
+    type=int,
+    help="Max number of chars in a str field. Default -1 (no limit)",
+)
+def main(bucket: str, prefix: str, str_limit: int) -> NoReturn:
     cmd: Cmd[None] = start_session() + loader.main(
-        bucket, prefix, stdin_buffer()
+        bucket, prefix, stdin_buffer(), str_limit
     )
     cmd.compute()

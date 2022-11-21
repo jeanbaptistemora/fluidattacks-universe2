@@ -9,7 +9,7 @@ from .core import (
     RecordGroup,
 )
 from .csv import (
-    save,
+    CsvKeeper,
 )
 import boto3
 from dataclasses import (
@@ -29,11 +29,12 @@ LOG = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class S3FileUploader:
     _client: S3Client
+    _keeper: CsvKeeper
     _bucket: str
     _prefix: str
 
     def upload_to_s3(self, group: RecordGroup) -> Cmd[None]:
-        file_object = save(group)
+        file_object = self._keeper.save(group)
         file_key = self._prefix + group.schema.stream + ".csv"
         msg = _utils.log_cmd(
             lambda: LOG.info(

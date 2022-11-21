@@ -38,6 +38,9 @@ from target_s3.core import (
     PlainRecord,
     RecordGroup,
 )
+from target_s3.csv import (
+    CsvKeeperFactory,
+)
 from target_s3.upload import (
     new_client,
     S3FileUploader,
@@ -88,9 +91,12 @@ def _process_group(
     return uploader.upload_to_s3(r_group)
 
 
-def main(bucket: str, prefix: str, data: Stream[str]) -> Cmd[None] | NoReturn:
+def main(
+    bucket: str, prefix: str, data: Stream[str], str_limit: int
+) -> Cmd[None] | NoReturn:
     client = new_client()
-    uploader = client.map(lambda c: S3FileUploader(c, bucket, prefix))
+    keeper = CsvKeeperFactory.new(str_limit)
+    uploader = client.map(lambda c: S3FileUploader(c, keeper, bucket, prefix))
     singer = data.map(
         lambda i: loads(i).alt(Exception).bind(deserialize).unwrap()
     )

@@ -6,6 +6,9 @@ from . import (
     _utils,
 )
 import csv
+from dataclasses import (
+    dataclass,
+)
 from dateutil.parser import (
     isoparse,
 )
@@ -43,15 +46,34 @@ from target_s3.core import (
     TempReadOnlyFile,
 )
 from typing import (
+    Callable,
     FrozenSet,
+    Generic,
     IO,
     Tuple,
+    TypeVar,
 )
 
+_T = TypeVar("_T")
 LOG = logging.getLogger(__name__)
 
 
-def _save(data: PureIter[FrozenList[Primitive]]) -> Cmd[TempReadOnlyFile]:
+def _truncate_row(
+    row: FrozenList[Primitive], _limit: int
+) -> FrozenList[Primitive]:
+    limit = _limit if _limit >= -1 else -1
+
+    def _truncate(prim: Primitive) -> Primitive:
+        if isinstance(prim, str):
+            return prim[0:limit] if limit >= 0 else prim
+        return prim
+
+    return tuple(_truncate(r) for r in row)
+
+
+def _save(
+    data: PureIter[FrozenList[Primitive]], str_limit: int
+) -> Cmd[TempReadOnlyFile]:
     def write_cmd(file: IO[str]) -> Cmd[None]:
         def _action() -> None:
             writer = csv.writer(
@@ -62,7 +84,8 @@ def _save(data: PureIter[FrozenList[Primitive]]) -> Cmd[TempReadOnlyFile]:
                 escapechar="\\",
                 quoting=csv.QUOTE_MINIMAL,
             )
-            for row in data:
+            for _row in data:
+                row = _truncate_row(_row, str_limit)
                 try:
                     writer.writerow(row)
                 except Exception as err:
@@ -171,8 +194,9 @@ def _reformat_group(group: RecordGroup) -> RecordGroup:
     return RecordGroup.new(group.schema, records)
 
 
-def save(
+def _save_group(
     group: RecordGroup,
+    str_limit: int,
 ) -> Cmd[TempReadOnlyFile]:
     _group = _reformat_group(group)
     msg = _utils.log_cmd(
@@ -182,7 +206,7 @@ def save(
         None,
     )
     return msg + _group.records.map(_ordered_data).transform(
-        lambda x: _save(x)
+        lambda x: _save(x, str_limit)
     ).bind(
         lambda t: _utils.log_cmd(
             lambda: LOG.info(
@@ -191,3 +215,28 @@ def save(
             t,
         )
     )
+
+
+@dataclass(frozen=True)
+class _Patch(Generic[_T]):
+    inner: _T
+
+
+@dataclass(frozen=True)
+class CsvKeeper:
+    _save: _Patch[Callable[[RecordGroup], Cmd[TempReadOnlyFile]]]
+
+    def save(self, group: RecordGroup) -> Cmd[TempReadOnlyFile]:
+        return self._save.inner(group)
+
+
+@dataclass(frozen=True)
+class CsvKeeperFactory:
+    str_limit: int
+
+    def _save(self, group: RecordGroup) -> Cmd[TempReadOnlyFile]:
+        return _save_group(group, self.str_limit)
+
+    @staticmethod
+    def new(str_limit: int) -> CsvKeeper:
+        return CsvKeeper(_Patch(CsvKeeperFactory(str_limit)._save))
