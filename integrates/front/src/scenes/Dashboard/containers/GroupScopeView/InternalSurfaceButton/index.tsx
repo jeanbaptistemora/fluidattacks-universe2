@@ -32,11 +32,15 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
+  const canGetToePorts: boolean = permissions.can(
+    "api_resolvers_group_toe_ports_resolve"
+  );
   const canSeeInternalToe: boolean = permissions.can("see_internal_toe");
 
   return (
     <React.StrictMode>
-      {canSeeInternalToe && (canGetToeInputs || canGetToeLines) ? (
+      {canSeeInternalToe &&
+      (canGetToeInputs || canGetToeLines || canGetToePorts) ? (
         <ConfirmDialog
           title={t("group.scope.internalSurface.confirmDialog.title")}
         >
