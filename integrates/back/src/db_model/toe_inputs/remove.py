@@ -2,6 +2,12 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from .constants import (
+    HISTORIC_TOE_INPUT_PREFIX,
+)
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     Key,
 )
@@ -36,34 +42,8 @@ async def remove(
     )
     await operations.delete_item(key=toe_input_key, table=TABLE)
 
-    historic_toe_input_key = keys.build_key(
-        facet=TABLE.facets["toe_input_historic_metadata"],
-        values={
-            "component": component,
-            "entry_point": entry_point,
-            "group_name": group_name,
-            "root_id": root_id,
-        },
-    )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(
-                historic_toe_input_key.partition_key
-            )
-        ),
-        facets=(TABLE.facets["toe_input_historic_metadata"],),
-        table=TABLE,
-    )
-    await operations.batch_delete_item(
-        keys=tuple(
-            PrimaryKey(
-                partition_key=item[key_structure.partition_key],
-                sort_key=item[key_structure.sort_key],
-            )
-            for item in response.items
-        ),
-        table=TABLE,
+    await remove_historic_toe_inputs(
+        component, entry_point, group_name, root_id
     )
 
 
@@ -92,6 +72,56 @@ async def remove_group_toe_inputs(
             PrimaryKey(
                 partition_key=item["pk"],
                 sort_key=item["sk"],
+            )
+            for item in response.items
+        ),
+        table=TABLE,
+    )
+
+    await collect(
+        tuple(
+            remove_historic_toe_inputs(
+                component=item["component"],
+                entry_point=item["entry_point"],
+                group_name=group_name,
+                root_id=item.get("unreliable_root_id", ""),
+            )
+            for item in response.items
+        ),
+        workers=32,
+    )
+
+
+async def remove_historic_toe_inputs(
+    component: str, entry_point: str, group_name: str, root_id: str
+) -> None:
+    historic_toe_input_key = keys.build_key(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        values={
+            "component": component,
+            "entry_point": entry_point,
+            "group_name": group_name,
+            "root_id": root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(
+                historic_toe_input_key.partition_key
+            )
+            & Key(key_structure.sort_key).begins_with(
+                HISTORIC_TOE_INPUT_PREFIX
+            )
+        ),
+        facets=(TABLE.facets["toe_input_historic_metadata"],),
+        table=TABLE,
+    )
+    await operations.batch_delete_item(
+        keys=tuple(
+            PrimaryKey(
+                partition_key=item[key_structure.partition_key],
+                sort_key=item[key_structure.sort_key],
             )
             for item in response.items
         ),
