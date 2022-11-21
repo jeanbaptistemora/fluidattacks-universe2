@@ -9,7 +9,7 @@ from model import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
-from selenium.webdriver.support.ui import (
+from selenium.webdriver.support.select import (
     Select,
 )
 from typing import (

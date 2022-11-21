@@ -1,34 +1,58 @@
 closure:
+  async-generator: "1.10"
   attrs: 22.1.0
+  certifi: 2022.9.24
   cffi: 1.15.1
   colorama: 0.4.6
   coverage: 6.5.0
   cryptography: 37.0.4
   deprecated: 1.2.13
+  exceptiongroup: 1.0.4
+  h11: 0.14.0
+  idna: "3.4"
   iniconfig: 1.1.1
   itsdangerous: 1.1.0
   jwcrypto: 1.3.1
+  outcome: 1.2.0
   packaging: "21.3"
   pluggy: 1.0.0
   py: 1.11.0
   pycparser: "2.21"
   pyparsing: 3.0.9
+  pysocks: 1.7.1
   pytest: 7.1.3
   pytest-cov: 3.0.0
   pytest-rerunfailures: 9.1.1
   pytest-test-groups: 1.0.3
   pytz: 2022.2.1
-  selenium: 3.141.0
+  selenium: 4.6.0
+  sniffio: 1.3.0
+  sortedcontainers: 2.4.0
   tomli: 2.0.1
+  trio: 0.22.0
+  trio-websocket: 0.9.2
   urllib3: 1.26.12
   wrapt: 1.14.1
+  wsproto: 1.2.0
 links:
+  - name: async_generator-1.10-py3-none-any.whl
+    sha256: 0nsqss59xyvjhk5zzjwqw056mwaa5v60006s5iyrdd2rcdkbziq1
+    url: https://files.pythonhosted.org/packages/71/52/39d20e03abd0ac9159c162ec24b93fbcaa111e8400308f2465432495ca2b/async_generator-1.10-py3-none-any.whl
+  - name: async_generator-1.10.tar.gz
+    sha256: 0i11f6z6lix8ixi3vsk6s76zvvpmgrw6zjrcwjm0m4hjdh83vfvf
+    url: https://files.pythonhosted.org/packages/ce/b6/6fa6b3b598a03cba5e80f829e0dadbb49d7645f523d209b2fb7ea0bbb02a/async_generator-1.10.tar.gz
   - name: attrs-22.1.0-py2.py3-none-any.whl
     sha256: 072mv8qgvas8sagx7f021l9yrca6ry3m8cqsylsdzwkvyq1a9vw6
     url: https://files.pythonhosted.org/packages/f2/bc/d817287d1aa01878af07c19505fafd1165cd6a119e9d0821ca1d1c20312d/attrs-22.1.0-py2.py3-none-any.whl
   - name: attrs-22.1.0.tar.gz
     sha256: 1di2kd18bc0sdq61sa24sdr9c7xjg3g8ymkw1qfikra7aikc5b99
     url: https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz
+  - name: certifi-2022.9.24-py3-none-any.whl
+    sha256: 10pkhgnxd22ca8c9bc3d207rza6cyrq67qslhd441yb83lps7hch
+    url: https://files.pythonhosted.org/packages/1d/38/fa96a426e0c0e68aabc68e896584b83ad1eec779265a028e156ce509630e/certifi-2022.9.24-py3-none-any.whl
+  - name: certifi-2022.9.24.tar.gz
+    sha256: 056fpl8l6f8p4c087zj1yvsk87n2aff0vinv2abvm9p54h8n170d
+    url: https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz
   - name: cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 11gmbafr477z9yi4wnhssjq0yl22qkvgkxvy1rwdv3ikg1xxp8jl
     url: https://files.pythonhosted.org/packages/18/8f/5ff70c7458d61fa8a9752e5ee9c9984c601b0060aae0c619316a1e1f1ee5/cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
@@ -128,6 +152,24 @@ links:
   - name: Deprecated-1.2.13.tar.gz
     sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
     url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
+  - name: exceptiongroup-1.0.4-py3-none-any.whl
+    sha256: 0a58qigw7bjfcyw519jz76rdl4fbllpn0y8jdq6m6ma0xafxyajl
+    url: https://files.pythonhosted.org/packages/ce/2e/9a327cc0d2d674ee2d570ee30119755af772094edba86d721dda94404d1a/exceptiongroup-1.0.4-py3-none-any.whl
+  - name: exceptiongroup-1.0.4.tar.gz
+    sha256: 1v750rp7v7h8j0maldzrilkkwlyzixpj28vkv5adp6ydg5xrc55x
+    url: https://files.pythonhosted.org/packages/fa/e1/4f89a2608978a78876a76e69e82fa1fc5ce3fb346297eed2a51dd3df2dcf/exceptiongroup-1.0.4.tar.gz
+  - name: h11-0.14.0-py3-none-any.whl
+    sha256: 0qd7z9p38dwx215048q708vd1sn2abdh1mb3hg66ii2ip324mzp3
+    url: https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl
+  - name: h11-0.14.0.tar.gz
+    sha256: 17b97c56y31hi0n0x0cb5a87x4xr9jijf2y06pzj0977k6zgn6cg
+    url: https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz
+  - name: idna-3.4-py3-none-any.whl
+    sha256: 1hn54ps4kgv2fmyvfaks38sgrvjc1cn4834sh7gadsx3x9wpxdwh
+    url: https://files.pythonhosted.org/packages/fc/34/3030de6f1370931b9dbb4dad48f6ab1015ab1d32447850b9fc94e60097be/idna-3.4-py3-none-any.whl
+  - name: idna-3.4.tar.gz
+    sha256: 1d1cs1in0lmm61sjmlach9qvyq3xm3xcb49vhclx7mzain754kw1
+    url: https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz
   - name: iniconfig-1.1.1-py2.py3-none-any.whl
     sha256: 1cx8kpp3akxwadzsmv2cdnifkyzj8fki5frmv3mzcivz9g3287h1
     url: https://files.pythonhosted.org/packages/9b/dd/b3c12c6d707058fa947864b67f0c4e0c39ef8610988d7baea9578f3c48f3/iniconfig-1.1.1-py2.py3-none-any.whl
@@ -143,6 +185,12 @@ links:
   - name: jwcrypto-1.3.1.tar.gz
     sha256: 0z47v89rcm07yxi5vn53ddavh6x7la5kps8y3wmx3d7z2nqm3dal
     url: https://files.pythonhosted.org/packages/7c/e9/340e49ec79bcc80b822b87c3bb6de5336bef611c2f11e2c638a1d055e9f8/jwcrypto-1.3.1.tar.gz
+  - name: outcome-1.2.0-py2.py3-none-any.whl
+    sha256: 1xgpw2svc65b064vlyhnjqgrq41klgmdl5ma0n5d7mkmcnjqkay4
+    url: https://files.pythonhosted.org/packages/e9/4f/2f2d3f65d851852712b4de3fd0cfdcec9c5e9a9c347430e004ba770ef4db/outcome-1.2.0-py2.py3-none-any.whl
+  - name: outcome-1.2.0.tar.gz
+    sha256: 0wi6bmsfn73aw1hbpa1nhhshlx9k2vxcl7kp3z7h78sxwhyvv0kg
+    url: https://files.pythonhosted.org/packages/dd/91/741e1626e89fdc3664169e16300c59eefa4b23540cc6d6c70450f885098f/outcome-1.2.0.tar.gz
   - name: packaging-21.3-py3-none-any.whl
     sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
     url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
@@ -173,6 +221,12 @@ links:
   - name: pyparsing-3.0.9.tar.gz
     sha256: 1yvhdm0wdc1n20fzl0qly13llr0zcg9wl7mp37r8gdi1gp7hw0ib
     url: https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz
+  - name: PySocks-1.7.1-py3-none-any.whl
+    sha256: 1ray8fjf7ciqsfd8l4486bl93bibkrgym7kka6drp495k45bs997
+    url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
+  - name: PySocks-1.7.1.tar.gz
+    sha256: 184sg65mbmih6ljblfsxcmq5js5l7dj3gpn618w9q5dy3rbh921z
+    url: https://files.pythonhosted.org/packages/bd/11/293dd436aea955d45fc4e8a35b6ae7270f5b8e00b53cf6c024c83b657a11/PySocks-1.7.1.tar.gz
   - name: pytest-7.1.3-py3-none-any.whl
     sha256: 1dqqm2yz0z63cywjjilnqwcz5z3wpdazmv2w7xgbaw3d8sivsxqk
     url: https://files.pythonhosted.org/packages/e3/b9/3541bbcb412a9fd56593005ff32183825634ef795a1c01ceb6dee86e7259/pytest-7.1.3-py3-none-any.whl
@@ -200,15 +254,39 @@ links:
   - name: pytz-2022.2.1.tar.gz
     sha256: 1xfwpcal8hdlmf3lvwbn1lfrf8brhqzaxp83maid3wh4f90j38nf
     url: https://files.pythonhosted.org/packages/24/0c/401283bb1499768e33ddd2e1a35817c775405c1f047a9dc088a29ce2ea5d/pytz-2022.2.1.tar.gz
-  - name: selenium-3.141.0.tar.gz
-    sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
-    url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
+  - name: selenium-4.6.0-py3-none-any.whl
+    sha256: 0fxzh6jda74a5m083gknxkqz2hc0ls9p4ki5d9ksx1zlbs3rj69z
+    url: https://files.pythonhosted.org/packages/c7/35/721fde638ea1ed2f32851f89544d04dab573ff629496f0275f4e7d5f5f29/selenium-4.6.0-py3-none-any.whl
+  - name: sniffio-1.3.0-py3-none-any.whl
+    sha256: 112k8azxisfcwpvx36rpgisxf15lxv0zgaza5snvggsv3v7gvkpf
+    url: https://files.pythonhosted.org/packages/c3/a0/5dba8ed157b0136607c7f2151db695885606968d1fae123dc3391e0cfdbf/sniffio-1.3.0-py3-none-any.whl
+  - name: sniffio-1.3.0.tar.gz
+    sha256: 00cibg2madxg6j912qwpwkgggn1km8mg5dsrj8wga56kwp2ha0z6
+    url: https://files.pythonhosted.org/packages/cd/50/d49c388cae4ec10e8109b1b833fd265511840706808576df3ada99ecb0ac/sniffio-1.3.0.tar.gz
+  - name: sortedcontainers-2.4.0-py2.py3-none-any.whl
+    sha256: 1q3y4gdrb1d3595sxqlpk0j783hr8n9a6mz9hla0470gvspdqqx1
+    url: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
+  - name: sortedcontainers-2.4.0.tar.gz
+    sha256: 126vpywl7aly6zir033a9indgyficlzl68qls61nn2y3djhabji5
+    url: https://files.pythonhosted.org/packages/e8/c4/ba2f8066cceb6f23394729afe52f3bf7adec04bf9ed2c820b39e19299111/sortedcontainers-2.4.0.tar.gz
   - name: tomli-2.0.1-py3-none-any.whl
     sha256: 1k0fqfdylinb57s2aqwprahwbrsk3babg4gghz4g06hnlvky77ck
     url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
   - name: tomli-2.0.1.tar.gz
     sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
     url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
+  - name: trio-0.22.0-py3-none-any.whl
+    sha256: 1w6d47bjn1f005q4izr55k5slqiznnf5353rgh68iz4vm200gpgi
+    url: https://files.pythonhosted.org/packages/f1/ed/3623a910f9bb7a31b067d6baef476ed6e294e92a245f94ab992988e4a666/trio-0.22.0-py3-none-any.whl
+  - name: trio-0.22.0.tar.gz
+    sha256: 1kxa9v0cds0xnklvzppv4ix4xg81r73p5pm4qlvv2iqa832z2s6f
+    url: https://files.pythonhosted.org/packages/0b/b8/1b81d2149c3e2c25900d40b8e6c8d3ca502a3cc844b90c962b0854aaf3f3/trio-0.22.0.tar.gz
+  - name: trio_websocket-0.9.2-py3-none-any.whl
+    sha256: 1g6jgvikf0sf6r1mbmkvypfilp99qmv288317dya686chdp8ymav
+    url: https://files.pythonhosted.org/packages/db/c5/b5e8bc1f40568a354f2a9cc296b8892605a9d2f22e725290fc33836dd2a3/trio_websocket-0.9.2-py3-none-any.whl
+  - name: trio-websocket-0.9.2.tar.gz
+    sha256: 1znq1ybn8fz5r5796qhsnqk876nsyixixv81wzp26q62zbl4vlx3
+    url: https://files.pythonhosted.org/packages/75/91/44a0a016025794ba9fef530a6fbe59987153e2cbea7e11fe2f3d8c618740/trio-websocket-0.9.2.tar.gz
   - name: urllib3-1.26.12-py2.py3-none-any.whl
     sha256: 15z9xsfhxg94ypa1r7907cg91rsg2hsvnzv3d83gp2jsin3xsc5r
     url: https://files.pythonhosted.org/packages/6f/de/5be2e3eed8426f871b170663333a0f627fc2924cc386cd41be065e7ea870/urllib3-1.26.12-py2.py3-none-any.whl
@@ -242,4 +320,10 @@ links:
   - name: wrapt-1.14.1.tar.gz
     sha256: 0kgdvwz0xb17d2503521yccz8kq0bxv9zsp2zdy9prp0i77qa2iq
     url: https://files.pythonhosted.org/packages/11/eb/e06e77394d6cf09977d92bff310cb0392930c08a338f99af6066a5a98f92/wrapt-1.14.1.tar.gz
+  - name: wsproto-1.2.0-py3-none-any.whl
+    sha256: 0dnpgl1jqkaalad5glyzigiavza2cv2qhy2741dxg1dmabbdvb5r
+    url: https://files.pythonhosted.org/packages/78/58/e860788190eba3bcce367f74d29c4675466ce8dddfba85f7827588416f01/wsproto-1.2.0-py3-none-any.whl
+  - name: wsproto-1.2.0.tar.gz
+    sha256: 0rahm1j9danv1l6i6as80acwv16ycihxkhrvwjiqh9drxhk5ymmd
+    url: https://files.pythonhosted.org/packages/c9/4a/44d3c295350d776427904d73c189e10aeae66d7f555bb2feee16d1e4ba5a/wsproto-1.2.0.tar.gz
 python: "3.9"

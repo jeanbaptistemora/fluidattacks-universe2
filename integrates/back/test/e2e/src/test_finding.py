@@ -6,10 +6,13 @@
 from model import (
     Credentials,
 )
+from selenium.webdriver.common.by import (
+    By,
+)
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
-from selenium.webdriver.support.ui import (
+from selenium.webdriver.support.select import (
     Select,
 )
 import utils
@@ -48,8 +51,8 @@ def test_finding_description(
         "Columns filter",
         timeout,
     )
-    checkboxes = driver.find_elements_by_css_selector(
-        "#columns-buttons input[type='checkbox']"
+    checkboxes = driver.find_elements(
+        By.CSS_SELECTOR, "#columns-buttons input[type='checkbox']"
     )
 
     for checkbox in checkboxes:
@@ -320,8 +323,8 @@ def test_finding_reattack(
         timeout,
     )
 
-    checkboxes = driver.find_elements_by_css_selector(
-        "#vulnerabilitiesTable input[type='checkbox']"
+    checkboxes = driver.find_elements(
+        By.CSS_SELECTOR, "#vulnerabilitiesTable input[type='checkbox']"
     )
     for checkbox in checkboxes:
         if not checkbox.is_selected():
@@ -449,8 +452,8 @@ def test_finding_vulnerabilities(
         timeout,
     )
 
-    checkboxes = driver.find_elements_by_css_selector(
-        "#vulnerabilitiesTable input[type='checkbox']"
+    checkboxes = driver.find_elements(
+        By.CSS_SELECTOR, "#vulnerabilitiesTable input[type='checkbox']"
     )
 
     for checkbox in checkboxes:

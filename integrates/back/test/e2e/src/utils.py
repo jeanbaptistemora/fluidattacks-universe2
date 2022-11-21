@@ -22,7 +22,7 @@ from selenium.webdriver.remote.webdriver import (
 from selenium.webdriver.support import (
     expected_conditions as ec,
 )
-from selenium.webdriver.support.ui import (
+from selenium.webdriver.support.wait import (
     WebDriverWait,
 )
 from session_token import (
