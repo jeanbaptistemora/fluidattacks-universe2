@@ -5,16 +5,6 @@
 locals {
   db_tables = [
     "fi_async_processing",
-    "fi_authz",
-    "fi_events",
-    "FI_findings",
-    "fi_portfolios",
-    "FI_project_access",
-    "fi_project_comments",
-    "FI_projects",
-    "FI_users",
-    "FI_vulnerabilities",
-    "integrates",
     "integrates_vms",
   ]
 }
