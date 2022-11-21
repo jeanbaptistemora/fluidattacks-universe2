@@ -22,6 +22,7 @@
   test_deps = with python_pkgs; [
     import-linter
     mypy
+    pylint
     pytest
   ];
   pkg = (import ./build.nix) {

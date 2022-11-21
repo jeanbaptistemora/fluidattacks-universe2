@@ -20,6 +20,12 @@ in
     searchPaths = {
       bin = [
         env
+        inputs.nixpkgs.python310
       ];
     };
+    replace = {
+      __argPythonEnv__ = env;
+      __argPythonEntry__ = ./vs_settings.py;
+    };
+    template = ./template.sh;
   }
