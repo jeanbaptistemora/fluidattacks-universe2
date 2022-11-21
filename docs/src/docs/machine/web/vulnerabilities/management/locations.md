@@ -123,6 +123,8 @@ the vulnerability,
 giving us a total of 9 columns;
 these are described below:
 
+![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1668782028/docs/web/vulnerabilities/management/location_table.png)
+
 - **Location:**
   The files where
   this type of vulnerability
@@ -173,8 +175,6 @@ these are described below:
 - **Assignees:**
   Locations that have an assigned.
 
-![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1668782028/docs/web/vulnerabilities/management/location_table.png)
-
 :::note
 You can see a pop-up window with details
 by clicking on any location.
@@ -222,3 +222,49 @@ we have an exclusive section
 for this action,
 you can enter [here](squad/reattacks)
 for more details.
+
+### Edit button
+
+If you want to edit a vulnerability
+(change treatment,
+assign,
+add tags,
+etc.
+),
+you can do it with the Edit button.
+First,
+you must select which vulnerability
+you want to edit,
+followed by clicking on the edit button.
+
+![Edit action](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045341/docs/web/vulnerabilities/management/edit_button.png)
+
+You will get a popup window where
+you can edit the vulnerability.
+If you want to know more about the
+fields of this action,
+click [here](/machine/web/vulnerabilities/management/vulnerability-description/#vulnerability-assignment).
+
+![Edit pop-window](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045647/docs/web/vulnerabilities/management/edit_popwindow.png)
+
+To save the changes you have made,
+click on the **Confirm button**.
+
+### Filters
+
+In the
+[Locations](/machine/web/vulnerabilities/management/vulnerability-description#locations-table)
+subsection for each
+type of vulnerability,
+there is a **Filters**
+button that offers you
+six options to filter
+the information presented
+in the locations table.
+
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1669046275/docs/web/vulnerabilities/management/filters_locations.png)
+
+### Search bar
+
+The search bar filters the information
+contained in the columns of the table.
