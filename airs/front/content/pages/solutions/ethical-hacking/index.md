@@ -10,7 +10,7 @@ template: solution
 
 <text-container>
 
-`Fluid Attacks'` Ethical Hacking solution
+Fluid Attacks' Ethical Hacking solution
 consists of attacking diverse systems
 with the aim of discovering vulnerabilities
 that could be exploited by malicious hackers
@@ -100,11 +100,11 @@ before your software goes into production.
     description="We invite you to read our
       blog posts related to this solution."
     solution="ethicalHacking"
-    title="Do you want to learn more about Ethical hacking?"
+    title="Do you want to learn more about Ethical Hacking?"
   />
 </div>
 
-## Ethical hacking FAQs
+## Ethical Hacking FAQs
 
 <faq-container>
 

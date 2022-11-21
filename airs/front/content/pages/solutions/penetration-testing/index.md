@@ -10,7 +10,7 @@ template: solution
 
 <text-container>
 
-`Fluid Attacks'` comprehensive Penetration Testing solution
+Fluid Attacks' comprehensive Penetration Testing solution
 is based on our certified pentesters' ability
 to simulate real-world cyberattacks
 in order to infiltrate companies' software and information assets.
@@ -21,7 +21,7 @@ that can assist you in their proper elimination.
 
 Contrary to other penetration testing solutions,
 our pentesting is not an automated activity.
-`Fluid Attacks'` professionals make use of security
+Fluid Attacks' professionals make use of security
 and penetration testing tools
 and rely on their expertise
 to apply manual security testing techniques.
@@ -97,7 +97,7 @@ whether your system is effectively secured against them.
   />
 </div>
 
-## Penetration testing FAQs
+## Penetration Testing FAQs
 
 <faq-container>
 

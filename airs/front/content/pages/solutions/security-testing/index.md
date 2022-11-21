@@ -10,12 +10,12 @@ template: solution
 
 <text-container>
 
-`Fluid Attacks` Security Testing solution
+Fluid Attacks' Security Testing solution
 allows for the accurate detection of security vulnerabilities
 in your IT infrastructure,
 applications and source code.
 While other security testing solutions focus on applying a single method,
-`Fluid Attacks` offers comprehensive assessments through SAST,
+Fluid Attacks offers comprehensive assessments through SAST,
 DAST and SCA.
 Further,
 we depend less on tools
@@ -32,7 +32,7 @@ early
 and throughout the entire software development lifecycle (SDLC).
 You can find all the results of our assessments
 along with helpful details
-on `Fluid Attacks'` Attack Resistance Management platform (ARM).
+on Fluid Attacks' Attack Resistance Management platform (ARM).
 Among this information,
 our security analysts provide you with recommendations
 and guidance on their remediation
@@ -114,7 +114,7 @@ to assess their effectiveness.
   />
 </div>
 
-## Security testing FAQs
+## Security Testing FAQs
 
 <faq-container>
 

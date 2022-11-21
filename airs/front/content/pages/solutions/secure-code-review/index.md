@@ -10,7 +10,7 @@ template: solution
 
 <text-container>
 
-`Fluid Attacks'` Secure Code Review solution
+Fluid Attacks' Secure Code Review solution
 provides you with a comprehensive review of your software's source code.
 Specifically,
 this solution is intended to identify
@@ -101,11 +101,11 @@ thus avoiding future costs of remediation.
     description="We invite you to read
       our blog posts related to this solution."
     solution="secureCodeReview"
-    title="Do you want to learn more about Code review?"
+    title="Do you want to learn more about Secure Code Review?"
   />
 </div>
 
-## Secure code review FAQs
+## Secure Code Review FAQs
 
 <faq-container>
 
@@ -136,7 +136,7 @@ and validate the tool scan results.
   title="What security requirements do you check when doing source code review?"
 >
 
-At `Fluid Attacks`,
+At Fluid Attacks,
 we compile our own
 list of requirements —which are written as specific objectives— upon revision
 of several international standards related to information security.

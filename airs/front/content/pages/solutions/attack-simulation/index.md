@@ -91,7 +91,7 @@ techniques and procedures of threat actors.
   />
 </div>
 
-## Breach and attack simulation FAQs
+## Breach and Attack Simulation FAQs
 
 <faq-container>
 

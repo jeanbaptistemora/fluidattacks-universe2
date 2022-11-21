@@ -14,7 +14,7 @@ We offer the integration of security
 into the development + operations (DevOps) methodology
 during the software development lifecycle (SDLC).
 As opposed to many DevSecOps solutions,
-at `Fluid Attacks`,
+at Fluid Attacks,
 we are not entirely dependent on tools
 and place more value on our ethical hackers' skills
 to ensure greater accuracy in testing.
@@ -30,7 +30,7 @@ We do this through penetration testing,
 reverse engineering
 and automated methods such as SAST,
 SCA and DAST.
-DevSecOps with `Fluid Attacks` is a cultural change
+DevSecOps with Fluid Attacks is a cultural change
 within your organization
 where every team member can become convinced
 that security is everyone's responsibility.

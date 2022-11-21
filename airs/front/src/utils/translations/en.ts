@@ -1044,7 +1044,7 @@ const pageTexts: ResourceKey = {
       paragraph:
         "You can discover through simulated attack scenarios whether your " +
         "company’s cybersecurity is ready to respond to current threats.",
-      subtitle: "Attack Simulation",
+      subtitle: "Breach and Attack Simulation",
     },
     devSecOps: {
       paragraph:
@@ -1063,49 +1063,49 @@ const pageTexts: ResourceKey = {
         paragraph:
           "You can discover through simulated attack scenarios whether " +
           "your company’s cybersecurity is ready to respond to current threats.",
-        title: "Attack Simulation",
+        title: "Breach and Attack Simulation",
       },
       devSecOps: {
         paragraph:
-          "We offer the integration of security into the development + operations (DevOps) " +
-          "methodology during Software Development Lifecycle (SDLC).",
+          "You can integrate security into your DevOps approach at any time in your SDLC " +
+          "and ensure your team’s accountability.",
         title: "DevSecOps",
       },
       ethicalHacking: {
         paragraph:
-          "Consists of attacking diverse systems with the aim of discovering " +
-          "vulnerabilities that could be exploited by malicious hackers.",
+          "You can give our ethical hackers permission to search for and discover " +
+          "what unethical hackers might exploit in your IT systems.",
         title: "Ethical Hacking",
       },
       penetrationTesting: {
         paragraph:
           "You can have simulated attacks on your systems performed by our pentesters " +
-          "to discover unseen vulnerabilities via automated tools.",
+          "to discover vulnerabilities automated tools cannot find.",
         title: "Penetration Testing",
       },
       redTeaming: {
         paragraph:
-          "Our core is testing and attacking infrastructures, applications, and source codes " +
-          "to find vulnerabilities that may pose risks to systems.",
+          "You can ask our red team to attack your company with its consent and reveal " +
+          "the flaws in its prevention, detection and response strategies.",
         title: "Red Teaming",
       },
       secureCode: {
         paragraph:
-          "You can verify if your code lines comply with various required standards " +
-          "and if there are security vulnerabilities to remediate.",
+          "You can verify if your lines of code comply with various required standards " +
+          "and if there are security vulnerabilities you should remediate.",
         title: "Secure Code Review",
       },
       securityTesting: {
         paragraph:
-          "Allows the comprehensive and accurate detection of security vulnerabilities " +
-          "in your IT infrastructure, applications, or source code.",
+          "You can obtain accurate and detailed reports on security vulnerabilities " +
+          "in your IT infrastructure, applications and source code.",
         title: "Security Testing",
       },
       title: "Application security solutions",
       vulnerabilityManagement: {
         paragraph:
           "You can examine data on the identification, classification and prioritization " +
-          "of vulnerabilities in your systems and software.",
+          "of vulnerabilities in your systems.",
         title: "Vulnerability Management",
       },
     },
@@ -1120,32 +1120,33 @@ const pageTexts: ResourceKey = {
     penetrationTesting: {
       paragraph:
         "You can have simulated attacks on your systems performed by our " +
-        "pentesters to discover unseen vulnerabilities via automated tools.",
+        "pentesters to discover vulnerabilities automated tools cannot find.",
       subtitle: "Penetration Testing",
     },
     redTeaming: {
       paragraph:
-        "You can include our 100% Red Team in your projects to report " +
-        "security weaknesses to your development team and top management.",
+        "You can ask our red team to attack your company with its consent " +
+        "and reveal the flaws in its prevention, detection and response " +
+        "strategies.",
       subtitle: "Red Teaming",
     },
     secureCode: {
       paragraph:
-        "You can verify if your code lines comply with various required standards " +
-        "and if there are security vulnerabilities to remediate.",
+        "You can verify if your lines of code comply with various required standards " +
+        "and if there are security vulnerabilities you should remediate.",
       subtitle: "Secure Code Review",
     },
     securityTesting: {
       paragraph:
-        "You can obtain detailed and reliable reports on security " +
-        "vulnerabilities in your IT infrastructure, applications, and source " +
+        "You can obtain accurate and detailed reports on security " +
+        "vulnerabilities in your IT infrastructure, applications and source " +
         "code.",
       subtitle: "Security Testing",
     },
     vulnerabilityManagement: {
       paragraph:
         "You can examine data on the identification, classification and " +
-        "prioritization of vulnerabilities in your systems and software.",
+        "prioritization of vulnerabilities in your systems.",
       subtitle: "Vulnerability Management",
     },
   },

@@ -10,9 +10,9 @@ template: solution
 
 <text-container>
 
-`Fluid Attacks` is 100% a red team.
-We establish with your organization specific objectives
-and set out to attack its systems and security controls
+Fluid Attacks
+establishes with your organization specific objectives
+and sets out to attack its systems and security controls
 to find out the effectiveness of its attack prevention,
 detection and response strategies.
 The holistic nature of this approach means
@@ -41,7 +41,7 @@ constant internal and external threats in cybersecurity.
 
   <div>
     <solution-card
-      description="`Fluid Attacks'` red team members emulate the tactics,
+      description="Fluid Attacks' red team members emulate the tactics,
         techniques and procedures of today's threat actors
         and try to go unnoticed
         to test your organization's security.
@@ -60,7 +60,7 @@ constant internal and external threats in cybersecurity.
         This expertise will allow you to remain confident
         that the red team attack simulations will be effective."
       image="airs/solutions/red-teaming/icon2"
-      title=" Security testing by certified hackers"
+      title="Security testing by certified hackers"
     />
   </div>
 
@@ -71,11 +71,11 @@ constant internal and external threats in cybersecurity.
     description="We invite you to read our
       blog posts related to this solution."
     solution="redTeaming"
-    title="Do you want to learn more about Red teaming?"
+    title="Do you want to learn more about Red Teaming?"
   />
 </div>
 
-## Red teaming FAQs
+## Red Teaming FAQs
 
 <faq-container>
 

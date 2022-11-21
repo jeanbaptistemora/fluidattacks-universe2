@@ -64,6 +64,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
     devsecops: [
       "/blog/why-is-cloud-devsecops-important/",
       "/blog/what-does-a-devsecops-engineer-do/",
+      "/blog/azure-devsecops-with-fluid-attacks/",
       "/blog/aws-devsecops-with-fluid-attacks/",
       "/blog/devsecops-best-practices/",
       "/blog/devsecops-tools/",
@@ -76,7 +77,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/tribe-of-hackers-3/",
       "/blog/tribe-of-hackers-2/",
       "/blog/tribe-of-hackers-1/",
-      "Delimiting an Ethical Hacking",
+      "/blog/delimit-ethical-hacking/",
       "/blog/thinking-like-hacker/",
       "/blog/what-is-ethical-hacking/",
     ],
@@ -104,13 +105,16 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/reverse-engineering/",
       "/blog/differences-between-sast-sca-dast/",
       "/blog/stand-shoulders-giants/",
+      "/blog/sca-scans/",
       "/blog/sastisfying-app-security/",
     ],
     vulnerabilityManagement: [
       "/blog/aws-devsecops-with-fluid-attacks/",
       "/blog/devsecops-tools/",
+      "/blog/cvssf-risk-exposure-metric/",
       "/blog/rules-new-standard/",
       "/blog/attack-resistance-management-psirts/",
+      "/blog/from-asm-to-arm/",
     ],
   };
 
