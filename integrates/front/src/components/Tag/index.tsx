@@ -47,9 +47,11 @@ const variants: Record<TVariant, IVariant> = {
 };
 
 const Tag = styled.span<ITagProps>`
+  display: inline-block;
   border-radius: 50px;
   font-weight: 400;
   padding: 4px 12px;
+  text-align: center;
   ${({ variant }): string => {
     const { bgColor, borderColor, color } = variants[variant];
 
