@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 From deleted groups, archive roots metadata in redshift and
 remove all items from vms.
@@ -37,7 +37,7 @@ from organizations import (
     domain as orgs_domain,
 )
 import psycopg2
-from redshift import (  # type: ignore
+from redshift import (
     roots as redshift_roots,
 )
 from settings import (

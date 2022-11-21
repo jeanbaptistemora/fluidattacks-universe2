@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 Remove from redshift vulns that belong to removed findings.
 This vulns were not marked as DELETED when the finding was removed, so they

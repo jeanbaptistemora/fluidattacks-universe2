@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 Populate in redshift missing field "modified_by" from vuln state.
 Info is restored from old table "FI_vulnerabilities".

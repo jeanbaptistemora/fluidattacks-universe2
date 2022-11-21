@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 From deleted groups, archive events metadata in redshift and
 remove all items from vms.
@@ -46,7 +46,7 @@ import psycopg2
 from psycopg2.extensions import (
     cursor as cursor_cls,
 )
-from redshift import (  # type: ignore
+from redshift import (
     events as redshift_events,
 )
 from redshift.operations import (

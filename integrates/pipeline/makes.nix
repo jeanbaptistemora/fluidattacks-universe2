@@ -49,7 +49,6 @@
     "notifications"
     "organizations"
     "organizations_finding_policies"
-    "redshift"
     "remove_stakeholder"
     "reports"
     "roots"

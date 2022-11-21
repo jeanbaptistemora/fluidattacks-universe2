@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 From deleted groups, send TOE lines to redshift for analytics purposes and
 remove them from dynamodb.
@@ -30,7 +30,7 @@ import logging.config
 from organizations import (
     domain as orgs_domain,
 )
-from redshift import (  # type: ignore
+from redshift import (
     toe_lines as redshift_toe_lines,
 )
 from settings import (

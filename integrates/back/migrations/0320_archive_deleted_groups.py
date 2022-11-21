@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 Archive deleted groups in redshift and remove all related items from vms.
 
@@ -44,7 +44,7 @@ import psycopg2
 from psycopg2.extensions import (
     cursor as cursor_cls,
 )
-from redshift import (  # type: ignore
+from redshift import (
     groups as redshift_groups,
     operations as redshift_ops,
 )
