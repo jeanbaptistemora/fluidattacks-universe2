@@ -167,11 +167,58 @@ async def cloudtrail_trails_not_multiregion(
     return vulns
 
 
+async def s3_has_server_access_logging_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="s3", function="list_buckets"
+    )
+    method = core_model.MethodsEnum.AWS_S3_HAS_ACCESS_LOGGING_DISABLED
+    buckets = response.get("Buckets", {}) if response else {}
+    vulns: core_model.Vulnerabilities = ()
+    if buckets:
+        for bucket in buckets:
+            bucket_name = bucket["Name"]
+            locations: List[Location] = []
+            bucket_logging: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="s3",
+                function="get_bucket_logging",
+                parameters={"Bucket": str(bucket_name)},
+            )
+
+            bucket_logging_enabled = bool(bucket_logging.get("LoggingEnabled"))
+            if not bucket_logging_enabled:
+                locations = [
+                    *locations,
+                    Location(
+                        arn=(f"arn:aws:s3:::{bucket_name}"),
+                        description=t(
+                            "src.lib_path.f400.bucket_has_logging_disabled"
+                        ),
+                        values=(),
+                        access_patterns=(),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=bucket_logging,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    cloudtrail_trails_not_multiregion,
-    cloudfront_has_logging_disabled,
+    s3_has_server_access_logging_disabled,
     elbv2_has_access_logging_disabled,
+    cloudfront_has_logging_disabled,
+    cloudtrail_trails_not_multiregion,
 )
