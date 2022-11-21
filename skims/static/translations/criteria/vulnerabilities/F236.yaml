@@ -6,11 +6,3 @@ lib_path.f236.tsconfig_sourcemap_enabled:
   es: >-
     La propiedad sourcemap se encuentra establecida en true, lo que facilita
     el análisis de la aplicación por parte de un actor malintencionado.
-lib_path.f236.json_sourcemap_in_build:
-  en: >
-    The default value for sourcemap property is set to true by npm build,
-    which makes it easier for a malicious actor to parse the application.
-  es: >-
-    La propiedad sourcemap se encuentra establecida como true por defecto
-    en el react build, lo que facilita el análisis de la aplicación por parte
-    de un actor malintencionado.
