@@ -52,7 +52,7 @@ from training.redshift import (
         resolve_path=True,
     ),
 )
-@click.argument("date", type=str)
+@click.argument("date", type=str, required=False)
 @click.option(
     "--association-rules",
     is_flag=True,
