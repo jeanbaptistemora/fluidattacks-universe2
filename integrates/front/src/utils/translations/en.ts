@@ -1936,7 +1936,8 @@ export const enTranslations: ResourceKey = {
           machine: {
             text: "Include Machine Plan?",
             tooltip:
-              "Vulnerability detection tool that scans and reports security issues in your source code",
+              "Machine Plan is for clients that want to discover deterministic " +
+              "vulnerabilities quickly through automated tools",
           },
           managed: {
             managed: "Managed",
@@ -1951,6 +1952,12 @@ export const enTranslations: ResourceKey = {
             group: "New group",
             text: "New group",
             tooltip: "Create a new group",
+          },
+          oneshot: {
+            text: "One-Shot Hacking",
+            tooltip:
+              "One-Shot Hacking searches for vulnerabilities in only " +
+              "one specific version of your project",
           },
           organization: {
             text: "Organization",
@@ -1970,7 +1977,8 @@ export const enTranslations: ResourceKey = {
           squad: {
             text: "Include Squad Plan?",
             tooltip:
-              "Squad finds deep and zero-day vulnerabilities during software development",
+              "Squad Plan is for clients that want to discover more varied, " +
+              "even more complex vulnerabilities through ethical hacking",
           },
           success: "Group created successfully",
           switch: {

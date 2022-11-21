@@ -149,17 +149,17 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             const radioBtnOptions = [
               {
                 text: "Continuous Hacking - Machine Plan",
-                tip: "Continuous Hacking with Machine",
+                tip: t("organization.tabs.groups.newGroup.machine.tooltip"),
                 value: "CONTINUOUS-MACHINE",
               },
               {
                 text: "Continuous Hacking - Squad Plan",
-                tip: "Continuous Hacking with Machine and Squad",
+                tip: t("organization.tabs.groups.newGroup.squad.tooltip"),
                 value: "CONTINUOUS-SQUAD",
               },
               {
                 text: "One-shot Hacking",
-                tip: "One-shot Hacking",
+                tip: t("organization.tabs.groups.newGroup.oneshot.tooltip"),
                 value: "ONESHOT",
               },
             ];
