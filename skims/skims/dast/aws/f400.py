@@ -130,10 +130,48 @@ async def cloudfront_has_logging_disabled(
     return vulns
 
 
+async def cloudtrail_trails_not_multiregion(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudtrail", function="describe_trails"
+    )
+    method = core_model.MethodsEnum.AWS_CLOUDTRAIL_TRAILS_NOT_MULTIREGION
+    trails = response.get("trailList", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if trails:
+        for trail in trails:
+            trail_arn = trail["TrailARN"]
+            locations: List[Location] = []
+            if not trail["IsMultiRegionTrail"]:
+                locations = [
+                    Location(
+                        arn=(trail_arn),
+                        description=t(
+                            "src.lib_path.f400.trails_not_multiregion"
+                        ),
+                        values=(trail["IsMultiRegionTrail"],),
+                        access_patterns=("/IsMultiRegionTrail",),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=trail,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    elbv2_has_access_logging_disabled,
+    cloudtrail_trails_not_multiregion,
     cloudfront_has_logging_disabled,
+    elbv2_has_access_logging_disabled,
 )
