@@ -175,7 +175,7 @@ you can discover how many
 unsolved events need your
 attention in each of your groups.
 
-![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1667309705/docs/web/groups/general/open_event.png)
+![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669035042/docs/web/groups/general/open_unsolverd.png)
 
 When you enter one of the
 groups with at least one
