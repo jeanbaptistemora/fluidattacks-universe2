@@ -2,6 +2,3 @@
 lib_path.f332.kubernetes_insecure_port:
   en: Use of the http protocol which is insecure
   es: Uso del protocolo http el cual es inseguro
-lib_path.f332.json_check_https_argument:
-  en: Ensure the HTTPS argument is set to true.
-  es: Asegurarse que el argumento HTTPS este igualado a true.

@@ -1,9 +1,0 @@
-{
-    "name": "holidays-component",
-    "version": "0.0.0",
-    "scripts": {
-        "start": "env-cmd -f ./enviroments/.env react-scripts start",
-        "build": "env-cmd -f ./enviroments/.env react-scripts build GENERATE_SOURCEMAP=false",
-        "npm-login": "node npm-login.js"
-    }
-}

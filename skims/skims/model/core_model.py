@@ -3197,14 +3197,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JSON_CHECK_HTTPS_ARGUMENT = MethodInfo(
-        file_name="conf_files",
-        name="json_check_https_argument",
-        module="lib_path",
-        finding=FindingEnum.F332,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     JSON_SOURCEMAP_IN_BUILD = MethodInfo(
         file_name="conf_files",
         name="json_sourcemap_in_build",
