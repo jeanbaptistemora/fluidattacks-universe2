@@ -26,6 +26,7 @@ PLATFORMS = {
     "pypi": "pip",
     "gem": "gem",
     "go": "go",
+    "packagist": "composer",
 }
 ALLOWED_RANGES = ("=", "<", ">", ">=", "<=")
 
@@ -54,13 +55,13 @@ def fix_npm_gem_go_range(unformatted_range: str) -> str:
     return unformatted_range.replace("||", " || ")
 
 
-def fix_pip_range(pip_range: str) -> str:
+def fix_pip_composer_range(str_range: str) -> str:
     vals_to_change: Dict[str, str] = {"||": " || ", ",": " ", "==": "="}
 
     for target, replacement in vals_to_change.items():
-        pip_range = pip_range.replace(target, replacement)
+        fixed_range = str_range.replace(target, replacement)
 
-    return pip_range
+    return fixed_range
 
 
 def _format_ranges(platform: str, range_str: str) -> str:
@@ -68,8 +69,8 @@ def _format_ranges(platform: str, range_str: str) -> str:
         ranges = re.findall(RE_RANGES, range_str)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
-    if platform == "pypi":
-        return fix_pip_range(range_str)
+    if platform in ("pypi", "packagist"):
+        return fix_pip_composer_range(range_str)
     return fix_npm_gem_go_range(range_str)
 
 
