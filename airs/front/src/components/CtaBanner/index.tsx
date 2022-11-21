@@ -17,6 +17,10 @@ import { Container } from "../Container";
 import { Text, Title } from "../Typography";
 
 const CtaBanner: React.FC<ICtaBannerProps> = ({
+  button1Link,
+  button1Text,
+  button2Link,
+  button2Text,
   image,
   matomoAction,
   paragraph,
@@ -26,7 +30,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
 
   const matomoFreeTrialEvent = (): void => {
     trackEvent({
-      action: "cta-free-trial-event-click",
+      action: "cta-banner-click",
       category: `${matomoAction}`,
     });
   };
@@ -52,20 +56,20 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         </Text>
         <Container display={"flex"} mv={3} wrap={"wrap"}>
           <Container ph={1} pv={1} width={"auto"} widthMd={"100%"}>
-            <AirsLink href={"/free-trial/"}>
+            <AirsLink href={button1Link}>
               <Button
                 display={"block"}
                 onClick={matomoFreeTrialEvent}
                 variant={"primary"}
               >
-                {"Start free trial"}
+                {button1Text}
               </Button>
             </AirsLink>
           </Container>
           <Container ph={1} pv={1} width={"auto"} widthMd={"100%"}>
-            <AirsLink href={"/contact-us/"}>
+            <AirsLink href={button2Link}>
               <Button display={"block"} variant={"tertiary"}>
-                {"Contact now"}
+                {button2Text}
               </Button>
             </AirsLink>
           </Container>

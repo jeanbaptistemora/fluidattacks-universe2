@@ -25,7 +25,7 @@ import React from "react";
 import { Button } from "../components/Button";
 import { CloudImage } from "../components/CloudImage";
 import { Container } from "../components/Container";
-import { CtaBanner } from "../components/CtaBanner";
+import { Hero } from "../components/Hero";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -118,14 +118,17 @@ const SolutionsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle bgColor={"#ffffff"}>
-            <Container bgColor={"#f4f4f6"} ph={4} pv={5}>
-              <CtaBanner
-                image={"airs/solutions/Index/application-security-solutions"}
-                matomoAction={"Solution"}
-                paragraph={translate.t("solutions.informations.paragraph")}
-                title={translate.t("solutions.informations.subtitle")}
-              />
-            </Container>
+            <Hero
+              bgColor={"#f4f4f6"}
+              button1Link={"/free-trial/"}
+              button1Text={"Start free trial"}
+              button2Link={"/contact-us/"}
+              button2Text={"Contact now"}
+              image={"airs/solutions/Index/application-security-solutions"}
+              matomoAction={"Solution"}
+              paragraph={translate.t("solutions.informations.paragraph")}
+              title={translate.t("solutions.informations.subtitle")}
+            />
             <Container ph={4}>
               <Container
                 center={true}

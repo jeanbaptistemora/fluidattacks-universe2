@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-interface ICtaBannerProps {
+interface IHeroProps {
+  bgColor: string;
   button1Link: string;
   button1Text: string;
   button2Link: string;
@@ -15,4 +16,4 @@ interface ICtaBannerProps {
   matomoAction: string;
 }
 
-export type { ICtaBannerProps };
+export type { IHeroProps };

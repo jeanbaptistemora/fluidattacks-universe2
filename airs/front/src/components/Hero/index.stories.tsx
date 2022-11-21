@@ -8,18 +8,18 @@
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
 
-import type { ICtaBannerProps } from "./types";
+import type { IHeroProps } from "./types";
 
-import { CtaBanner } from ".";
+import { Hero } from ".";
 
 const config: Meta = {
-  component: CtaBanner,
+  component: Hero,
   title: "components/CtaBanner",
 };
 
-const Template: Story<React.PropsWithChildren<ICtaBannerProps>> = (
+const Template: Story<React.PropsWithChildren<IHeroProps>> = (
   props
-): JSX.Element => <CtaBanner {...props} />;
+): JSX.Element => <Hero {...props} />;
 
 const Default = Template.bind({});
 Default.args = {
@@ -29,7 +29,7 @@ Default.args = {
   button2Text: "Go to other test",
   image: "airs/solutions/Index/application-security-solutions",
   paragraph:
-    "This is a test paragraph that should show the behavior of the CTA",
+    "This is a test paragraph that should show the behavior of the Hero",
   title: "This is a test title",
 };
 

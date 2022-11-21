@@ -38,8 +38,12 @@ const SolutionPage: React.FC<ISolutionPageProps> = ({
       <MainSection htmlAst={htmlAst} />
       <Container bgColor={"#fff"} ph={4} pv={5}>
         <CtaBanner
+          button1Link={"/free-trial/"}
+          button1Text={"Start free trial"}
+          button2Link={"/contact-us/"}
+          button2Text={"Contact now"}
           image={"/airs/solutions/cta-banner"}
-          matomoAction={"Solutions"}
+          matomoAction={"Solution"}
           paragraph={ctaParagraph}
           title={`Get Started with Fluid Attacks' ${identifier} rigth now`}
         />
