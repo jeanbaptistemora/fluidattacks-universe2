@@ -954,6 +954,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
     )
+    F337: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F337",
+        cwe=352,
+        execution_queue=ExecutionQueue.xss,
+        requirements=[30, 31, 141],
+    )
     F338: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F338",
@@ -5061,5 +5068,13 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F427,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CS_HAS_NOT_CSFR_PROTECTION = MethodInfo(
+        file_name="c_sharp",
+        name="cs_has_not_csfr_protection",
+        module="lib_root",
+        finding=FindingEnum.F337,
+        developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
