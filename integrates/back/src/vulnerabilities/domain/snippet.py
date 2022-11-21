@@ -27,6 +27,7 @@ from git import (
 from git.exc import (
     GitCommandError,
 )
+import logging
 import os
 from s3.operations import (
     upload_memory_file,
@@ -39,11 +40,19 @@ from serializers import (
     Snippet,
     SnippetViewport,
 )
+from settings.logger import (
+    LOGGING,
+)
 import tempfile
 from typing import (
     Optional,
     Union,
 )
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 async def snippet_already_exists(
@@ -84,13 +93,20 @@ async def set_snippet(
     last_state: VulnerabilityState,
     contents: Snippet,
 ) -> None:
-    last_state = last_state._replace(snippet=contents)
-    await vulns_model.update_historic_entry(
-        current_value=vulnerability,
-        finding_id=vulnerability.finding_id,
-        vulnerability_id=vulnerability.id,
-        entry=last_state,
-    )
+    try:
+        last_state = last_state._replace(snippet=contents)
+        await vulns_model.update_historic_entry(
+            current_value=vulnerability,
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            entry=last_state,
+        )
+    except ClientError as exc:
+        LOGGER.error(
+            "failed to set vulnerability snippet",
+            extra={"extra": {"vulnerability_id": vulnerability.id}},
+        )
+        LOGGER.exception(exc)
 
 
 async def generate_snippet(
@@ -105,6 +121,7 @@ async def generate_snippet(
             content=content,
             viewport=SnippetViewport(
                 line=int(vulnerability_state.specific),
+                column=0,
                 show_line_numbers=False,
                 highlight_line_number=False,
             ),

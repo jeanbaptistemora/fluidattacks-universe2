@@ -152,7 +152,11 @@ def make_snippet(  # NOSONAR
 
             # Highlight the column if requested
 
-            if viewport.column is not None:
+            if (
+                viewport.column is not None
+                and viewport.show_line_numbers
+                and viewport.highlight_line_number
+            ):
                 lines.append(
                     (0, f"  {' ':>{loc_width}} ^ Col {viewport_left}")
                 )
