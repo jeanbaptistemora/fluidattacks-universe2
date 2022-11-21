@@ -6,7 +6,7 @@ writer: cbello
 codename: mosey
 product: Tiny File Manager 2.4.8 - RCE
 date: 2022-11-21 14:00 COT
-cveid: CVE-2022-xxxxx,CVE-2022-xxxxx,CVE-2022-xxxxx
+cveid: CVE-2022-23044,CVE-2022-45475,CVE-2022-45476
 severity: 10.0
 description: Tiny File Manager 2.4.8    -    Remote Command Execution (RCE)
 keywords: Fluid Attacks, Security, Vulnerabilities, Tiny File Manager, RCE
@@ -36,7 +36,7 @@ template: advisory
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H                                                                                |
 | **CVSSv3 Base Score** | 10.0                                                                                                                        |
 | **Exploit available** | Yes                                                                                                                         |
-| **CVE ID(s)**         | [CVE-2022-xxxxx](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-xxxxx), [CVE-2022-xxxxx](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-xxxxx), [CVE-2022-xxxxx](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-xxxxx)                                                 |
+| **CVE ID(s)**         | [CVE-2022-23044](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23044), [CVE-2022-45475](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-45475), [CVE-2022-45476](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-45476)                                                 |
 
 ## Description
 
@@ -76,7 +76,7 @@ as administrator (to achieve this I will abuse the CSRF present in the applicati
 
 ## Our security policy
 
-We have reserved the CVE-2022-xxxxx, the CVE-2022-xxxxx, the CVE-2022-xxxxx to refer
+We have reserved the CVE-2022-23044, the CVE-2022-45475, the CVE-2022-45476 to refer
 to this issue from now on.
 
 * https://fluidattacks.com/advisories/policy/
