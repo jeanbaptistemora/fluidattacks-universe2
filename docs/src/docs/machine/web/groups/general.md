@@ -5,8 +5,10 @@ sidebar_label: General
 slug: /machine/web/groups/general
 ---
 
-## Create new group
-
+The groups correspond to single
+projects that our clients create
+to manage their vulnerabilities
+separately.
 You may have several
 groups corresponding to
 separate applications,
@@ -17,12 +19,82 @@ the ethical hackers at
 assessing it in search
 for vulnerabilities.
 
+## Group table
+
+In the group table,
+you find all the groups you
+have access to within your
+organization.
+This table has seven columns,
+each of which allows you to
+organize the list content
+alphabetically (either
+ascending or descending) if
+you click on the arrows next
+to each title.
+
+![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1669031539/docs/web/groups/general/group_table.png)
+
+You find the following information:
+
+- **Group name:**
+  The first column shows you
+  the names of the groups.
+- **Group status:**
+  You can find three options:
+  **Subscribed**,
+  **Free-trial** and
+  **Suspended**.
+  **Subscribed** is when the method
+  of payment is valid, **Free-trial**
+  you find it when the group is
+  part of [Enrollment](/machine/web/self-enrollment)
+  and **Suspended** means
+  payment methods are being analyzed,
+  or the Free-trial has been completed.
+- **Plan:**
+  You can see the plan to which each
+  group belongs.
+- **Vulnerabilities:**
+  The total number of vulnerability
+  types found in the group in an
+  open state.
+- **Description:**
+  The next column gives you the
+  short descriptions the groups
+  received at their creation.
+- **Role:**
+  The [role](/machine/web/groups/roles)
+  within each of them.
+- **Events:**
+  The last column tells you how
+  many unsolved events each group
+  has (to learn more about this column,
+  we invite you to
+  [click here](/machine/web/groups/general#unsolved-events)).
+
+:::note
+When you enter a group,
+following the link in its name,
+you can see its detailed information
+in different subsections,
+which will vary depending on
+your role and the plan you have
+for that group.
+:::
+
+![Group Table Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667252083/docs/web/groups/general/group_options.png)
+
+## Functionalities
+
+### Create new group
+
 To start creating a new group,
 you need to click on the
 **New group** button in the
 main screen of your organization.
 
-![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1667248754/docs/web/groups/general/new_group.png)
+![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1669032244/docs/web/groups/general/create_group.png)
 
 A pop-up window will appear
 to set up the characteristics
@@ -30,6 +102,9 @@ of your new group.
 You will be asked to provide
 the following:
 
+- **Organization:**
+  Name of the organization in
+  which the group is to be created.
 - **Group name:**
   Enter a name for your group.
   It is recommended to choose a
@@ -41,7 +116,8 @@ the following:
   group is associated.
 - **Type of service:**
   Select between Continuous
-  Hacking and One-Shot Hacking.
+  Hacking (**Machine or Squad**)
+  and One-Shot Hacking.
 - **Type of testing:**
   Select between [white-box](/about/glossary/#white-box)
   and [black-box](https://docs.fluidattacks.com/about/glossary/#black-box)
@@ -50,21 +126,8 @@ the following:
   Select a language in which
   you would like your reports
   to be.
-- **Include Squad Plan:**
-  Select if you would like
-  to activate Squad Plan,
-  which extends the capabilities
-  of Machine Plan to include
-  manual pentesting,
-  achieving the detection of
-  zero-day vulnerabilities
-  and low rates of false
-  positives and false negatives.
-  To use Squad Plan,
-  you have to also enable
-  Machine Plan.
 
-![Types](https://res.cloudinary.com/fluid-attacks/image/upload/v1649258581/docs/web/groups/general/creation_pop_up_window.png)
+![Types](https://res.cloudinary.com/fluid-attacks/image/upload/v1669032582/docs/web/groups/general/creating_gruop.png)
 
 When you are finished
 setting up your new group,
@@ -74,9 +137,7 @@ your group table immediately,
 and you will be all set to
 start working on your project.
 
-![Group Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1667249840/docs/web/groups/general/added_new_group.png)
-
-## Group filters
+### Group filters
 
 Filters allow you to limit
 the data you visualize,
@@ -93,50 +154,10 @@ name or plan
 
 ![Group Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1667250616/docs/web/groups/general/group_filtes.png)
 
-## Group table
+### Search bar
 
-In the group table,
-you find all the groups you
-have access to within your
-organization.
-This table has five columns,
-each of which allows you to
-organize the list content
-alphabetically (either
-ascending or descending) if
-you click on the arrows next
-to each title.
-
-You find the following information:
-
-- **Group name:**
-  The first column shows you
-  the names of the groups.
-- **Description:**
-  The next column gives you the
-  short descriptions the groups
-  received at their creation.
-- **Plan:**
-  You can see the plan to which each
-  group belongs.
-- **Role:**
-  The role within each of them.
-- **Events:**
-  The last column tells you how
-  many unsolved events each group
-  has (to learn more about this column,
-  we invite you to
-  [click here](/machine/web/groups/general#unsolved-events)).
-
-When you enter a group,
-following the link in its name,
-you can see its detailed information
-in different subsections,
-which will vary depending on
-your role and the plan you have
-for that group.
-
-![Group Table Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667252083/docs/web/groups/general/group_options.png)
+The search bar filters the information
+contained in the columns of the table.
 
 > **NOTE:**
 > You can edit or [remove](/machine/web/groups/delete/) a group
