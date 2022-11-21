@@ -25,6 +25,7 @@ describe("ToeContent", (): void => {
     const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_group_toe_lines_resolve" },
       { action: "api_resolvers_group_toe_inputs_resolve" },
+      { action: "api_resolvers_group_toe_ports_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
@@ -38,7 +39,7 @@ describe("ToeContent", (): void => {
       </MemoryRouter>
     );
     await waitFor((): void => {
-      expect(screen.queryAllByRole("link")).toHaveLength(3);
+      expect(screen.queryAllByRole("link")).toHaveLength(4);
     });
 
     expect(
@@ -48,10 +49,16 @@ describe("ToeContent", (): void => {
       screen.getByRole("link", { name: "group.toe.tabs.inputs.text" })
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("link", { name: "group.toe.tabs.ports.text" })
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("link", { name: "group.toe.tabs.lines.text" })
     ).toHaveClass("active");
     expect(
       screen.getByRole("link", { name: "group.toe.tabs.inputs.text" })
+    ).not.toHaveClass("active");
+    expect(
+      screen.getByRole("link", { name: "group.toe.tabs.ports.text" })
     ).not.toHaveClass("active");
 
     jest.clearAllMocks();
