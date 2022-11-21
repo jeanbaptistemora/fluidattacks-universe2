@@ -16,6 +16,7 @@ import type { IToeContentProps } from "./types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLanguagesView } from "../GroupToeLanguagesView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
+import { GroupToePortsView } from "../GroupToePortsView";
 import { Tab, Tabs } from "components/Tabs";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
@@ -36,6 +37,9 @@ const toeContent: React.FC<IToeContentProps> = ({
   );
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
+  );
+  const canGetToePorts: boolean = permissions.can(
+    "api_resolvers_group_toe_ports_resolve"
   );
 
   return (
@@ -60,6 +64,15 @@ const toeContent: React.FC<IToeContentProps> = ({
               {t("group.toe.tabs.inputs.text")}
             </Tab>
           </Can>
+          <Can do={"api_resolvers_group_toe_ports_resolve"}>
+            <Tab
+              id={"toePortsTab"}
+              link={`${url}/ports`}
+              tooltip={t("group.toe.tabs.ports.tooltip")}
+            >
+              {t("group.toe.tabs.ports.text")}
+            </Tab>
+          </Can>
           <Tab
             id={"toeLanguagesTab"}
             link={`${url}/languages`}
@@ -77,11 +90,15 @@ const toeContent: React.FC<IToeContentProps> = ({
           <Route exact={true} path={`${path}/inputs`}>
             <GroupToeInputsView isInternal={isInternal} />
           </Route>
+          <Route exact={true} path={`${path}/ports`}>
+            <GroupToePortsView isInternal={isInternal} />
+          </Route>
           <Route exact={true} path={`${path}/languages`}>
             <GroupToeLanguagesView />
           </Route>
           {canGetToeLines ? <Redirect to={`${path}/lines`} /> : undefined}
           {canGetToeInputs ? <Redirect to={`${path}/inputs`} /> : undefined}
+          {canGetToePorts ? <Redirect to={`${path}/ports`} /> : undefined}
           <Redirect to={`${path}/languages`} />
           <Redirect to={groupPath} />
         </Switch>

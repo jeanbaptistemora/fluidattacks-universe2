@@ -1431,6 +1431,10 @@ export const enTranslations: ResourceKey = {
           text: "Lines",
           tooltip: "Track which source code lines have been reviewed",
         },
+        ports: {
+          text: "Ports",
+          tooltip: "Track which ports have been reviewed",
+        },
       },
     },
   },
