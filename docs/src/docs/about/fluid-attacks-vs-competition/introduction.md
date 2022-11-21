@@ -11,7 +11,7 @@ in this section,
 we compare ourselves with other providers.
 We present the information in tables
 weighing up the features of Fluid Attacks' Squad Plan
-versus the competition's offer in several topics.
+versus the competition's offering in several topics.
 In the last column, we judge who shows an advantage in the topic.
 
 Here are the descriptions of each of the topics:
