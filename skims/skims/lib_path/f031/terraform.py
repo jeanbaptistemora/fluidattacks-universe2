@@ -31,6 +31,7 @@ from parse_hcl2.structure.aws import (
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )
+import re
 from typing import (
     Any,
     Iterator,
@@ -53,6 +54,33 @@ def action_has_full_access_to_ssm(actions: Union[str, List[str]]) -> bool:
         if action == "ssm:*":
             return True
     return False
+
+
+def action_has_attach_role(
+    actions: Union[str, List[str]],
+    resources: Union[str, List[str]],
+) -> bool:
+    actions_list = actions if isinstance(actions, list) else [actions]
+    resource_list = resources if isinstance(resources, list) else [resources]
+    for action in actions_list:
+        if action == "iam:Attach*" and any(
+            re.split("::", resource)[0].startswith("arn:aws:iam")
+            and re.search(r"\$?[A-Za-z0-9_./{}]:role/", resource)
+            for resource in resource_list
+        ):
+            return True
+    return False
+
+
+def _tfm_iam_role_excessive_privilege(
+    statements_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for stmt in statements_iterator:
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        resources = stmt_raw.get("Resource", [])
+        actions = stmt_raw.get("Action", [])
+        if action_has_attach_role(actions, resources):
+            yield stmt
 
 
 def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
@@ -189,4 +217,22 @@ def tfm_iam_has_full_access_to_ssm(
         ),
         path=path,
         method=MethodsEnum.TFM_IAM_FULL_ACCESS_SSM,
+    )
+
+
+def tfm_iam_excessive_role_policy(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f031.iam_excessive_role_policy",
+        iterator=get_cloud_iterator(
+            _tfm_iam_role_excessive_privilege(
+                statements_iterator=terraform_iterate_iam_policy_documents(
+                    model=model,
+                )
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_IAM_EXCESSIVE_ROLE_POLICY,
     )

@@ -2677,6 +2677,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_IAM_EXCESSIVE_ROLE_POLICY = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_excessive_role_policy",
+        module="lib_path",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.FLOR_CALDERON,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_EC2_NO_IAM = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_not_an_iam_instance_profile",
@@ -3820,14 +3828,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F152,
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    INSECURE_HTTP_ACCEPT_OPTIONS = MethodInfo(
-        file_name="analyze_headers",
-        name="insecure_http_accept_options",
-        module="lib_http",
-        finding=FindingEnum.F153,
-        developer=DeveloperEnum.FLOR_CALDERON,
-        technique=TechniqueEnum.DAST,
     )
     TS_USES_INNERHTML = MethodInfo(
         file_name="typescript",
