@@ -17,7 +17,6 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -142,7 +141,12 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       return "";
     }
 
-    return moment(date).format("YYYY-MM-DD");
+    // eslint-disable-next-line new-cap
+    return Intl.DateTimeFormat("fr-CA", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(date);
   };
   const formatBoolean = (value: boolean): string =>
     value ? t("group.toe.lines.yes") : t("group.toe.lines.no");
@@ -235,16 +239,22 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
     _.isNull(toeLinesAttr.attackedAt) ||
     _.isEmpty(toeLinesAttr.attackedAt) ||
-    moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
+    new Date(toeLinesAttr.modifiedDate) > new Date(toeLinesAttr.attackedAt)
       ? toeLinesAttr.bePresent
-        ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
-        : moment(toeLinesAttr.bePresentUntil).diff(
-            moment(toeLinesAttr.modifiedDate),
-            "days"
+        ? Math.round(
+            (new Date().getTime() -
+              new Date(toeLinesAttr.modifiedDate).getTime()) /
+              (1000 * 3600 * 24)
           )
-      : moment(toeLinesAttr.attackedAt).diff(
-          moment(toeLinesAttr.modifiedDate),
-          "days"
+        : Math.round(
+            (new Date(toeLinesAttr.bePresentUntil ?? "").getTime() -
+              new Date(toeLinesAttr.modifiedDate).getTime()) /
+              (1000 * 3600 * 24)
+          )
+      : Math.round(
+          (new Date(toeLinesAttr.attackedAt).getTime() -
+            new Date(toeLinesAttr.modifiedDate).getTime()) /
+            (1000 * 3600 * 24)
         );
   const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
     const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
