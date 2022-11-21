@@ -41,7 +41,7 @@ import psycopg2
 from psycopg2.extensions import (
     cursor as cursor_cls,
 )
-from redshift import (
+from redshift import (  # type: ignore
     operations as redshift_ops,
     organizations as redshift_orgs,
 )
