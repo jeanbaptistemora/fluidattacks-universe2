@@ -73,6 +73,7 @@ function dynamodb_etl {
     && target-s3 \
       --bucket 'observes.etl-data' \
       --prefix 'test_dynamo/' \
+      --str-limit 1024 \
       < "${singer_file}" \
     && echo '[INFO] Running target-redshift' \
     && target-redshift from-s3 \
