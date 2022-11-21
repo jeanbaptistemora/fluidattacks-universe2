@@ -781,11 +781,6 @@ async def get_groups_by_stakeholder(
     group_names = await group_access_domain.get_stakeholder_groups_names(
         loaders, email, active
     )
-    if not organization_id:
-        group_names = list(
-            await filter_groups_with_org(loaders, tuple(group_names))
-        )
-
     if organization_id:
         org_groups = await loaders.organization_groups.load(organization_id)
         org_group_names: set[str] = set(group.name for group in org_groups)
@@ -1777,20 +1772,6 @@ async def request_upgrade(
         raise BillingSubscriptionSameActive()
 
     await notifications_domain.request_groups_upgrade(loaders, email, groups)
-
-
-async def filter_groups_with_org(
-    loaders: Dataloaders, group_names: tuple[str, ...]
-) -> tuple[str, ...]:
-    """
-    In current group's data, there are legacy groups with no org assigned.
-    """
-    groups: tuple[Group] = await loaders.group.load_many(group_names)
-    return tuple(
-        group.name
-        for group in groups
-        if group.organization_id != "ORG#unknown"
-    )
 
 
 async def get_treatment_summary(
