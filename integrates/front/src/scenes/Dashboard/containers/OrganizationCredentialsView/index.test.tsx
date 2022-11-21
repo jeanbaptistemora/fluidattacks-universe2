@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/* eslint-disable react/jsx-no-constructed-context-values */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { GraphQLError } from "graphql";
 import React from "react";
 
 import {
@@ -22,7 +22,7 @@ import {
 import { OrganizationCredentials } from ".";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgSuccess } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
@@ -42,6 +42,9 @@ describe("organization credentials view", (): void => {
   it("should list organization's credentials", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_add_credentials_mutate" },
+    ]);
     const mockedQueries: MockedResponse[] = [
       {
         request: {
@@ -57,10 +60,10 @@ describe("organization credentials view", (): void => {
               credentials: [
                 {
                   __typename: "Credentials",
-                  azureOrganization: null,
+                  azureOrganization: "testorg1",
                   id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
-                  isPat: false,
-                  isToken: false,
+                  isPat: true,
+                  isToken: true,
                   name: "Credentials test",
                   owner: "owner@test.com",
                   type: "HTTPS",
@@ -75,7 +78,7 @@ describe("organization credentials view", (): void => {
 
     render(
       <MockedProvider addTypename={false} mocks={mockedQueries}>
-        <authzPermissionsContext.Provider value={new PureAbility([])}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
           <OrganizationCredentials
             organizationId={"ORG#15eebe68-e9ce-4611-96f5-13d6562687e1"}
           />
@@ -84,13 +87,193 @@ describe("organization credentials view", (): void => {
     );
     await waitFor((): void => {
       expect(screen.getByText("Credentials test")).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          "organization.tabs.credentials.credentialsModal.form.auth.user"
-        )
-      ).toBeInTheDocument();
-      expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
+
+    expect(screen.getByText("owner@test.com")).toBeInTheDocument();
+
+    expect(
+      screen.queryByText("profile.credentialsModal.title")
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "organization.tabs.credentials.actionButtons.addButton.text",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("profile.credentialsModal.title")
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.getByRole("combobox", { name: "typeCredential" })
+    ).toHaveValue("SSH");
+    expect(screen.queryByRole("textbox", { name: "key" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "password" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "azureOrganization" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "typeCredential" }),
+      ["TOKEN"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "azureOrganization" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "key" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "password" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "typeCredential" }),
+      ["USER"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "password" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "key" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "azureOrganization" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("should render errors", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ORGANIZATION_CREDENTIALS,
+          variables: {
+            organizationId: "ORG#15eebe68-e9ce-4611-96f5-13d6562687e1",
+          },
+        },
+        result: { errors: [new GraphQLError("Access denied")] },
+      },
+    ];
+    const mockedMutations: readonly MockedResponse[] = [
+      {
+        request: {
+          query: ADD_CREDENTIALS,
+          variables: {
+            credentials: {
+              azureOrganization: "testorg1",
+              isPat: true,
+              name: "New name",
+              token: "New token",
+              type: "HTTPS",
+            },
+            organizationId: "ORG#15eebe68-e9ce-4611-96f5-13d6562687e1",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - A credential exists with the same name"
+            ),
+            new GraphQLError(
+              "Exception - Field cannot fill with blank characters"
+            ),
+            new GraphQLError("Exception - Password should start with a letter"),
+            new GraphQLError(
+              "Exception - Password should include at least one number"
+            ),
+            new GraphQLError(
+              "Exception - Password should include lowercase characters"
+            ),
+            new GraphQLError(
+              "Exception - Password should include uppercase characters"
+            ),
+            new GraphQLError(
+              "Exception - Password should include symbols characters"
+            ),
+            new GraphQLError(
+              "Exception - Password should not include sequentials characters"
+            ),
+          ],
+        },
+      },
+    ];
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_add_credentials_mutate" },
+    ]);
+    const mockedAuth = {
+      tours: {
+        newGroup: false,
+        newRoot: false,
+      },
+      userEmail: "owner@test.com",
+      userName: "owner",
+    };
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mockedQueries, ...mockedMutations]}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <authContext.Provider value={mockedAuth}>
+            <OrganizationCredentials
+              organizationId={"ORG#15eebe68-e9ce-4611-96f5-13d6562687e1"}
+            />
+          </authContext.Provider>
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "organization.tabs.credentials.actionButtons.addButton.text",
+      })
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "New name"
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "typeCredential" }),
+      [
+        screen.getByText(
+          "organization.tabs.credentials.credentialsModal.form.auth.azureToken"
+        ),
+      ]
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "token" }),
+      "New token"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "azureOrganization" }),
+      "testorg1"
+    );
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "organization.tabs.credentials.credentialsModal.form.add",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(8);
+    });
+
+    jest.clearAllMocks();
   });
 
   it("should add credentials", async (): Promise<void> => {

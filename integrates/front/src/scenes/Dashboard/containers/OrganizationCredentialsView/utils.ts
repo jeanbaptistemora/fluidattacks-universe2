@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ICredentialsAttr, ICredentialsData } from "./types";
+import type { ICredentialsAttr } from "./types";
 
 const formatAuthCredentials = (value: ICredentialsAttr): "TOKEN" | "USER" => {
   if (value.isToken) {
@@ -23,25 +23,4 @@ const formatTypeCredentials = (
   return "SSH";
 };
 
-const getCredentialsIndex = (
-  selectedCredentials: ICredentialsData[],
-  allCredentials: ICredentialsData[]
-): number[] => {
-  const selectedIds: string[] = selectedCredentials.map(
-    (selected: ICredentialsData): string => selected.id
-  );
-
-  return allCredentials.reduce(
-    (
-      selectedIndex: number[],
-      currentCredentials: ICredentialsData,
-      currentCredentialsIndex: number
-    ): number[] =>
-      selectedIds.includes(currentCredentials.id)
-        ? [...selectedIndex, currentCredentialsIndex]
-        : selectedIndex,
-    []
-  );
-};
-
-export { getCredentialsIndex, formatTypeCredentials, formatAuthCredentials };
+export { formatTypeCredentials, formatAuthCredentials };
