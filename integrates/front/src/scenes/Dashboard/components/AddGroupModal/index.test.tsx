@@ -73,6 +73,10 @@ describe("AddGroupModal component", (): void => {
     expect(
       screen.getByRole("combobox", { name: "service" })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: "language" })
+    ).toBeInTheDocument();
     expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
+    expect(screen.getByText("components.modal.cancel")).toBeInTheDocument();
   });
 });
