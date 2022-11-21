@@ -2,10 +2,16 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-# pylint: disable=import-error
+# pylint: disable=too-many-statements, import-error
 from . import (
     get_result,
     get_vulnerabilities_url,
+)
+from azure.devops.v6_0.git.models import (
+    GitCommit,
+    GitRepository,
+    GitUserDate,
+    TeamProjectReference,
 )
 from back.test.functional.src.remove_credentials import (
     get_result as remove_credentials,
@@ -27,6 +33,9 @@ from datetime import (
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
+from newutils.datetime import (
+    get_now_minus_delta,
+)
 import pytest
 from schedulers.update_organization_repositories import (
     main,
@@ -35,6 +44,60 @@ from typing import (
     Any,
     Optional,
 )
+from unittest import (
+    mock,
+)
+
+
+def get_repositories(
+    *, base_url: str, access_token: str  # pylint: disable=unused-argument
+) -> tuple[GitRepository, ...]:
+    return tuple(
+        [
+            GitRepository(
+                project=TeamProjectReference(
+                    last_update_time=get_now_minus_delta(days=2),
+                    name="testprojects",
+                ),
+                default_branch="refs/head/main",
+                id="2",
+                remote_url=(
+                    "ssh://git@test.com:v3/testprojects/_git/secondrepor"
+                ),
+                ssh_url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+                url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+                web_url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+            ),
+            GitRepository(
+                project=TeamProjectReference(
+                    last_update_time=get_now_minus_delta(days=2),
+                    name="testprojects",
+                ),
+                default_branch="refs/head/trunk",
+                id="1",
+                remote_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
+                ssh_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
+                url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
+                web_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
+            ),
+        ]
+    )
+
+
+def get_repositories_commits(
+    *,
+    organization: str,  # pylint: disable=unused-argument
+    access_token: str,  # pylint: disable=unused-argument
+    repository_id: str,  # pylint: disable=unused-argument
+    project_name: str,  # pylint: disable=unused-argument
+) -> tuple[GitCommit, ...]:
+
+    return tuple(
+        [
+            GitCommit(committer=GitUserDate(date=get_now_minus_delta(days=1))),
+            GitCommit(committer=GitUserDate(date=get_now_minus_delta(days=2))),
+        ]
+    )
 
 
 @pytest.mark.asyncio
@@ -121,6 +184,54 @@ async def test_get_organization_ver_1(
         result["data"]["organization"]["credentials"][0]["name"] == "pat token"
     )
 
+    loaders: Dataloaders = get_new_context()
+    current_repositories: tuple[
+        OrganizationIntegrationRepository, ...
+    ] = await loaders.organization_unreliable_integration_repositories.load(
+        (org_id, None, None)
+    )
+    assert len(current_repositories) == 1
+    assert (
+        next(
+            (
+                repository
+                for repository in current_repositories
+                if repository.branch == "trunk"
+            ),
+            None,
+        )
+        is None
+    )
+
+    with mock.patch(
+        "azure_repositories.dal._get_repositories",
+        side_effect=get_repositories,
+    ):
+        with mock.patch(
+            "azure_repositories.dal._get_repositories_commits",
+            side_effect=get_repositories_commits,
+        ):
+            await main()
+
+    loaders.organization_unreliable_integration_repositories.clear_all()
+    current_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (org_id, None, None)
+        )
+    )
+    assert len(current_repositories) == 2
+    assert (
+        next(
+            (
+                repository
+                for repository in current_repositories
+                if repository.branch == "refs/head/trunk"
+            ),
+            None,
+        )
+        is not None
+    )
+
     result_remove = await remove_credentials(
         user="user_manager@fluidattacks.com",
         credentials_id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
@@ -129,13 +240,14 @@ async def test_get_organization_ver_1(
     assert "errors" not in result_remove
     assert "success" in result_remove["data"]["removeCredentials"]
     assert result_remove["data"]["removeCredentials"]["success"]
-    loaders: Dataloaders = get_new_context()
-    current_repositories: tuple[
-        OrganizationIntegrationRepository, ...
-    ] = await loaders.organization_unreliable_integration_repositories.load(
-        (org_id, None, None)
+
+    loaders.organization_unreliable_integration_repositories.clear_all()
+    current_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (org_id, None, None)
+        )
     )
-    assert len(current_repositories) == 1
+    assert len(current_repositories) == 2
 
     await main()
     loaders.organization_unreliable_integration_repositories.clear_all()
