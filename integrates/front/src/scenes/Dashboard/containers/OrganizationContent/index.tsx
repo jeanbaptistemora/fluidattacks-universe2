@@ -45,8 +45,6 @@ import { OrganizationStakeholders } from "scenes/Dashboard/containers/Organizati
 import { OrganizationPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization/index";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
-import { authContext } from "utils/auth";
-import type { IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { featurePreviewContext } from "utils/featurePreview";
@@ -64,7 +62,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
   const { featurePreview } = useContext(featurePreviewContext);
-  const { userEmail }: IAuthContext = useContext(authContext);
 
   // Side effects
   useTabTracking("Organization");
@@ -206,15 +203,13 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                       {translate.t("organization.tabs.billing.text")}
                     </Tab>
                   </Can>
-                  {userEmail.endsWith("@fluidattacks.com") ? (
-                    <Tab
-                      id={"outofscopeTab"}
-                      link={`${url}/outofscope`}
-                      tooltip={translate.t("organization.tabs.weakest.tooltip")}
-                    >
-                      {translate.t("organization.tabs.weakest.text")}
-                    </Tab>
-                  ) : undefined}
+                  <Tab
+                    id={"outofscopeTab"}
+                    link={`${url}/outofscope`}
+                    tooltip={translate.t("organization.tabs.weakest.tooltip")}
+                  >
+                    {translate.t("organization.tabs.weakest.text")}
+                  </Tab>
                   <Tab
                     id={"credentialsTab"}
                     link={`${url}/credentials`}
@@ -273,13 +268,11 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     organizationId={basicData.organizationId.id}
                   />
                 </Route>
-                {userEmail.endsWith("@fluidattacks.com") ? (
-                  <Route exact={true} path={`${path}/outofscope`}>
-                    <OrganizationWeakest
-                      organizationId={basicData.organizationId.id}
-                    />
-                  </Route>
-                ) : undefined}
+                <Route exact={true} path={`${path}/outofscope`}>
+                  <OrganizationWeakest
+                    organizationId={basicData.organizationId.id}
+                  />
+                </Route>
                 <Route exact={true} path={`${path}/credentials`}>
                   <OrganizationCredentials
                     organizationId={basicData.organizationId.id}
