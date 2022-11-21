@@ -820,6 +820,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_update_subscription_mutate",
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
+            "api_mutations_update_toe_port_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_finding_hacker_resolve",
             "api_resolvers_group_disambiguation_resolve",

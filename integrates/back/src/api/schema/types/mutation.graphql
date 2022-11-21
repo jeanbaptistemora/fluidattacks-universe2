@@ -1418,6 +1418,24 @@ type Mutation {
     sortsSuggestions: [SortsSuggestionInput!]
   ): SimplePayload!
 
+  """
+  Updates the port of a concrete root
+  """
+  updateToePort(
+    "If the port has been attacked recently"
+    hasRecentAttack: Boolean
+    "If the port is present in the root"
+    bePresent: Boolean!
+    "IP address of the environment"
+    address: String!
+    "Port number"
+    port: Int!
+    "Name of the group the port is associated with"
+    groupName: String!
+    "Id of the root containing the ToE port to be updated"
+    rootId: String!
+  ): UpdateToePortPayload!
+
   "Update the new user completed workflow"
   updateTours(
     "Values for identify the completed new user workflows"

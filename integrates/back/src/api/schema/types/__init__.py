@@ -132,6 +132,7 @@ from api.schema.types.integration_repositories import (
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
+    UPDATE_TOE_PORT_PAYLOAD,
 )
 from api.schema.types.organization_compliance_standard import (
     ORGANIZATION_COMPLIANCE_STANDARD,
@@ -214,6 +215,7 @@ TYPES: Tuple[ObjectType, ...] = (
     SNIPPET,
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
+    UPDATE_TOE_PORT_PAYLOAD,
     URLROOT,
     UNFULFILLED_STANDARDS,
     VERIFICATION,

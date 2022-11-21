@@ -56,7 +56,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     be_present: bool,
     address: str,
-    port: str,
+    port: int,
     group_name: str,
     root_id: str,
     **kwargs: Any,
@@ -68,7 +68,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         current_value: ToePort = await loaders.toe_port.load(
             ToePortRequest(
                 address=address,
-                port=port,
+                port=str(port),
                 group_name=group_name,
                 root_id=root_id,
             )
@@ -105,7 +105,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     return UpdateToePortPayload(
         address=address,
-        port=port,
+        port=str(port),
         group_name=group_name,
         root_id=root_id,
         success=True,
