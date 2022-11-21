@@ -197,4 +197,28 @@ describe("Formatter", (): void => {
       color: ${variants.red.color};`
     );
   });
+
+  it("should not have a long text in status format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("17"));
+
+    expect(screen.queryByText("Pending verification")).not.toBeInTheDocument();
+    expect(screen.queryByText("Permanently accepted")).not.toBeInTheDocument();
+    expect(screen.queryByText("Temporarily accepted")).not.toBeInTheDocument();
+    expect(screen.queryByText("Should be gray")).not.toBeInTheDocument();
+    expect(screen.queryByText("Verified (closed)")).not.toBeInTheDocument();
+    expect(screen.queryByText("Verified (open)")).not.toBeInTheDocument();
+  });
 });
