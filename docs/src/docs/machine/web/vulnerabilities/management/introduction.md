@@ -25,8 +25,8 @@ a more specific location.
 In this section,
 you will find the following subsections:
 
-- [Locations](/machine/web/vulnerabilities/management/locations).
-- Description.
+- [Locations.](/machine/web/vulnerabilities/management/locations)
+- [Description.](/machine/web/vulnerabilities/management/description)
 - Severity.
 - Evidence.
 - Tracking.
