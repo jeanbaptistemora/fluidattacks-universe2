@@ -399,17 +399,6 @@ def iter_iam_roles(template: Node) -> Iterator[Node]:
     )
 
 
-def iter_lambda_functions(template: Node) -> Iterator[Node]:
-    yield from (
-        props
-        for _, _, props in iterate_resources(
-            template,
-            "AWS::Lambda::Function",
-            exact=True,
-        )
-    )
-
-
 def iter_severless_api(template: Node) -> Iterator[Node]:
     yield from (
         props

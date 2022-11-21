@@ -1763,11 +1763,6 @@ class SkimsMethods(Enum):
         file_name="cloudformation",
         name="cfn_elb2_has_access_logs_s3_disabled",
     )
-    CFN_LAMBDA_TRACING_DISABLED = SkimsMethodInfo(
-        developer="fcalderon@fluidattacks.com",
-        file_name="cloudformation",
-        name="cfn_lambda_function_has_tracing_disabled",
-    )
     TFM_ELB_LOGGING_DISABLED = SkimsMethodInfo(
         developer="jecheverri@fluidattacks.com",
         file_name="terraform",
