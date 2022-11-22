@@ -24,6 +24,7 @@ function main {
   esac \
     && docs build "${env}" "${branch}" \
     && aws_login "${aws_role}" "3600" \
+    && aws s3 sync "${out}" "${bucket}" \
     && aws s3 sync "${out}" "${bucket}" --delete
 }
 
