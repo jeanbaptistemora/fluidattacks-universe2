@@ -15,9 +15,13 @@ from forces.utils.logs import (
     blocking_log,
     log,
 )
-from git import (
-    Commit,
+from git.exc import (
     InvalidGitRepositoryError,
+)
+from git.objects.commit import (
+    Commit,
+)
+from git.repo import (
     Repo,
 )
 import os

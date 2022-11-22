@@ -2,17 +2,17 @@ closure:
   aioextensions: 21.7.2261349
   aiogqlc: 3.1.0
   aiohttp: 3.8.3
-  aiosignal: 1.2.0
+  aiosignal: 1.3.1
   async-timeout: 4.0.2
   attrs: 22.1.0
   bugsnag: 4.2.1
   charset-normalizer: 2.1.1
   click: 8.1.3
-  colorama: 0.4.5
+  colorama: 0.4.6
   commonmark: 0.9.1
-  frozenlist: 1.3.1
+  frozenlist: 1.3.3
   gitdb: 4.0.9
-  gitpython: 3.1.19
+  gitpython: 3.1.29
   idna: "3.4"
   more-itertools: 8.14.0
   multidict: 6.0.2
@@ -81,12 +81,12 @@ links:
   - name: aiohttp-3.8.3.tar.gz
     sha256: 0sg2dc7r6szah2s482kmfhimyhs5v3h9kmp55yw7cc90nx0zna1q
     url: https://files.pythonhosted.org/packages/ff/4f/62d9859b7d4e6dc32feda67815c5f5ab4421e6909e48cbc970b6a40d60b7/aiohttp-3.8.3.tar.gz
-  - name: aiosignal-1.2.0-py3-none-any.whl
-    sha256: 0fjfsrsspwlg2cjbj33dw5gx1kqd3zwldmkadvgq3lbc0c4j3ri6
-    url: https://files.pythonhosted.org/packages/3b/87/fe94898f2d44a93a35d5aa74671ed28094d80753a1113d68b799fab6dc22/aiosignal-1.2.0-py3-none-any.whl
-  - name: aiosignal-1.2.0.tar.gz
-    sha256: 1wkxbdgw07ay8yzx3pg1jcm46p3d21rfb5g4k17ysz3vdkdngvbq
-    url: https://files.pythonhosted.org/packages/27/6b/a89fbcfae70cf53f066ec22591938296889d3cc58fec1e1c393b10e8d71d/aiosignal-1.2.0.tar.gz
+  - name: aiosignal-1.3.1-py3-none-any.whl
+    sha256: 05rvv06k1460w8jcgsv6qsm82zvbnf0frkag9rc6ms6ignq6ydzq
+    url: https://files.pythonhosted.org/packages/76/ac/a7305707cb852b7e16ff80eaf5692309bde30e2b1100a1fcacdc8f731d97/aiosignal-1.3.1-py3-none-any.whl
+  - name: aiosignal-1.3.1.tar.gz
+    sha256: 1z4cnqww6j0xl6f3vx2r6kfv1hdny1pnlll7difvfj8nbvhrdkal
+    url: https://files.pythonhosted.org/packages/ae/67/0952ed97a9793b4958e5736f6d2b346b414a2cd63e82d05940032f45b32f/aiosignal-1.3.1.tar.gz
   - name: async_timeout-4.0.2-py3-none-any.whl
     sha256: 0g1v719nh6l516d6f7cq3j2zbz9cwhbf99ficqyl21qdypyf98cc
     url: https://files.pythonhosted.org/packages/d6/c1/8991e7c5385b897b8c020cdaad718c5b087a6626d1d11a23e1ea87e325a7/async_timeout-4.0.2-py3-none-any.whl
@@ -117,72 +117,72 @@ links:
   - name: click-8.1.3.tar.gz
     sha256: 13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn
     url: https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz
-  - name: colorama-0.4.5-py2.py3-none-any.whl
-    sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
-    url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
-  - name: colorama-0.4.5.tar.gz
-    sha256: 195pcxlhp4qz8pq496kvw6k7vdd056j8mffr76k8h2f59wrv9ip6
-    url: https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz
+  - name: colorama-0.4.6-py2.py3-none-any.whl
+    sha256: 1ijz53xpmxds2qf02l9yf0rnp7bznwh3ci4xkw8wmh5cyn8rj7ag
+    url: https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl
+  - name: colorama-0.4.6.tar.gz
+    sha256: 0i3fpq0w5mbfdpy3z9p5raw4fg17jxr6jwh5l8qhavpdnxf5ys88
+    url: https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz
   - name: commonmark-0.9.1-py2.py3-none-any.whl
     sha256: 1nbgsvb73ad93cjzjdggkpp4zizvxay3q6ms23j3vy4h4p4khbys
     url: https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl
   - name: commonmark-0.9.1.tar.gz
     sha256: 0q7d39lm8kcingpmykk5r959hrwwj6v2icyw3mihczxyb749sbs5
     url: https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz
-  - name: frozenlist-1.3.1-cp310-cp310-macosx_10_9_universal2.whl
-    sha256: 12b91v7l38yik13wj1kb8q9mx9qj2cj0k96ydp18yx01y29iq9sz
-    url: https://files.pythonhosted.org/packages/a8/a8/9b1c39de6fb6b105a58fbdffb33f69585f18853a5277afc0aea1c1f9c8f7/frozenlist-1.3.1-cp310-cp310-macosx_10_9_universal2.whl
-  - name: frozenlist-1.3.1-cp310-cp310-macosx_10_9_x86_64.whl
-    sha256: 0142zp15gmlz31f0g15i9qldxgswmzqialxmsbsh2bw49c0zhvlw
-    url: https://files.pythonhosted.org/packages/ef/52/8fb729477f53cfd2085bc01af284e00d2a4bed9cffaed96cabcb644c8c6d/frozenlist-1.3.1-cp310-cp310-macosx_10_9_x86_64.whl
-  - name: frozenlist-1.3.1-cp310-cp310-macosx_11_0_arm64.whl
-    sha256: 1wz2c06cglp8dhmisi3084z15n23rfs7hnk9rjsirsgaw9v9d6i1
-    url: https://files.pythonhosted.org/packages/63/f0/b98165ac6c1eef82f7865ecd2de6f7b4da91db6d648e83cc22f1e0f114a0/frozenlist-1.3.1-cp310-cp310-macosx_11_0_arm64.whl
-  - name: frozenlist-1.3.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1nfxgkb7wj5vkx9bfqsf47dqf9al5is694qsswyxxbkkv76n8zdl
-    url: https://files.pythonhosted.org/packages/25/36/04619d30ecc77d659786ea061cf9b7d8bc70e4afd44890118ec2d84c0969/frozenlist-1.3.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: frozenlist-1.3.1-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-    sha256: 12p9frab86fcf8wbcv2lhz7va5b03bjbqlli7zp0hp9zx6jggxia
-    url: https://files.pythonhosted.org/packages/2e/66/d62f09fb68ecd2eac4c634fdbd8108deab7aca25e1688f887814486d8753/frozenlist-1.3.1-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-  - name: frozenlist-1.3.1-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl
-    sha256: 1y0632b8ic33a3hlkg77m7vdwb7fjaqfs9amjx74y73qzwkv8657
-    url: https://files.pythonhosted.org/packages/c2/32/b2a9c62250bffc55737dda25fc4024ff918cd3f006ddf9857cb8b982a189/frozenlist-1.3.1-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl
-  - name: frozenlist-1.3.1-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 0vc2xy45v4jjpbjgdfmfsz4l1jh7q3cgfx8ybnxw22y70ab2jv65
-    url: https://files.pythonhosted.org/packages/5b/be/56fb5740ac37fd4d885c2058bd9bec909f00972415124c6ed9a5300e6cd3/frozenlist-1.3.1-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: frozenlist-1.3.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1jiqj1jmagcw2dss0hxxji9979va57280xys4kk9p7dvmyzp0x3i
-    url: https://files.pythonhosted.org/packages/c7/bb/453d792305698bef27abf79989d1e75badc6c97be39775a8ecb45fe2ea77/frozenlist-1.3.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: frozenlist-1.3.1-cp310-cp310-musllinux_1_1_aarch64.whl
-    sha256: 0cc12s8nlnhjy8hqvizz8bh3633k9dq48qz5zxn18c1nxcglzd1i
-    url: https://files.pythonhosted.org/packages/1c/75/8835da2224660473246e0aaac94c6d7ab2cf9113712cc04909a785d55df0/frozenlist-1.3.1-cp310-cp310-musllinux_1_1_aarch64.whl
-  - name: frozenlist-1.3.1-cp310-cp310-musllinux_1_1_i686.whl
-    sha256: 08dj2xl5bnx5vh6khhcw10z78b4m36gvyag64s4rnl9cp2013cy3
-    url: https://files.pythonhosted.org/packages/99/57/dd3e075442bfd8d63938fa235a2fe3462933604d97f8c6aeeb35f7ad2a04/frozenlist-1.3.1-cp310-cp310-musllinux_1_1_i686.whl
-  - name: frozenlist-1.3.1-cp310-cp310-musllinux_1_1_ppc64le.whl
-    sha256: 1fba7alj1x71nhk9j3jwcxf53n2xwhjkfgmr384gp4afairysayq
-    url: https://files.pythonhosted.org/packages/5c/70/c626cbe04017bf5b02bc42c906e1da909e43e46c117e1f8f9375f59fb516/frozenlist-1.3.1-cp310-cp310-musllinux_1_1_ppc64le.whl
-  - name: frozenlist-1.3.1-cp310-cp310-musllinux_1_1_s390x.whl
-    sha256: 1wmzvbrf5pi06qzy159hzalrhlcyg1jvs0wf7r0xdyr46ccryia9
-    url: https://files.pythonhosted.org/packages/56/59/0e4380fcbc7819df4dacab890e69c0d2bce98c133cf673c2b3961e555739/frozenlist-1.3.1-cp310-cp310-musllinux_1_1_s390x.whl
-  - name: frozenlist-1.3.1-cp310-cp310-musllinux_1_1_x86_64.whl
-    sha256: 1dcc9q491qx1wza5w1kc0i2b7i3wgddkka3g5f4kpzf7xnp81rll
-    url: https://files.pythonhosted.org/packages/ae/ea/29dd49e3123b0d83e660a804a4af696a8dd0ce22357b21740b823abe774d/frozenlist-1.3.1-cp310-cp310-musllinux_1_1_x86_64.whl
-  - name: frozenlist-1.3.1.tar.gz
-    sha256: 1j6f2lgjbg7zv8zgs75hzqxqcbsxvyn4fdc3yjiwyk502515wwrs
-    url: https://files.pythonhosted.org/packages/8a/95/229aacfe85daa28e2792481a98c336bc30d3729533e6a44db537880aca21/frozenlist-1.3.1.tar.gz
+  - name: frozenlist-1.3.3-cp310-cp310-macosx_10_9_universal2.whl
+    sha256: 1x5k4r4kflm5xym9a0lqmv10wgdanq7vm0sk7daikqc5zqjzd2zz
+    url: https://files.pythonhosted.org/packages/64/08/2e192aa0a8e4741da0284559e983d22f02d12ca2cc18598948b99414c4b6/frozenlist-1.3.3-cp310-cp310-macosx_10_9_universal2.whl
+  - name: frozenlist-1.3.3-cp310-cp310-macosx_10_9_x86_64.whl
+    sha256: 1w4w9bxg02q0wa3bsn1kkp0nc1xanr4iwbclip7jy26cvz1c9fnz
+    url: https://files.pythonhosted.org/packages/d7/4c/ada057ae7c93a60239945b9ef1ed1ad0a01fcdb7924e93efeb9932391768/frozenlist-1.3.3-cp310-cp310-macosx_10_9_x86_64.whl
+  - name: frozenlist-1.3.3-cp310-cp310-macosx_11_0_arm64.whl
+    sha256: 0c2mv0x01vhp6wz003xvg8gql1mpidajc2fdd73rl0vx6y6kximi
+    url: https://files.pythonhosted.org/packages/23/2f/2f2b21b5c45bdd17d4ea40648a9681a8a1fd32d4d50e56f77fb8fff6cb97/frozenlist-1.3.3-cp310-cp310-macosx_11_0_arm64.whl
+  - name: frozenlist-1.3.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 19ywvwiiz0hz74d78qbnppkn0ijyn563phb7k084hnyfrx6w5pvz
+    url: https://files.pythonhosted.org/packages/9f/89/6e073bbc2f48acbba807a30c09908408f556ba4c488bd3ff5be8e5cf0818/frozenlist-1.3.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: frozenlist-1.3.3-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 16abn4nf4px6l8m3p6p6p9scw8jp7625wadw1cpy823lhm8694ic
+    url: https://files.pythonhosted.org/packages/41/f1/03124919e61f2e46a13d51ccc5148fee54a80a5cb18b0e7a638e955d9705/frozenlist-1.3.3-cp310-cp310-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: frozenlist-1.3.3-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 10sldpb2h0qm91xydqkdy2l981ls0xy3g7adjwgxbhxgzl0f4h8q
+    url: https://files.pythonhosted.org/packages/df/a5/34eb83e73106b056454b6dee05d736ae462671e813212bfee2241f554f1b/frozenlist-1.3.3-cp310-cp310-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: frozenlist-1.3.3-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 1pb8201xgwi6l76p7gjd7l2q5mb2a0riw06cmb1x99xg6wkwjw7l
+    url: https://files.pythonhosted.org/packages/33/73/1dcadea68aaa904c9278f67e334bb88591c05a52a122536c41021d2a9ff5/frozenlist-1.3.3-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: frozenlist-1.3.3-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1bww9nzr48bdpd5js397dh9hqxx97ysygcp47yc4jz5dxaj66ckq
+    url: https://files.pythonhosted.org/packages/49/0e/c57ad9178618cf81be0fbb8430f17cf05423403143819d3631c7c09744c2/frozenlist-1.3.3-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: frozenlist-1.3.3-cp310-cp310-musllinux_1_1_aarch64.whl
+    sha256: 05lqqvnc602qi30vb567d3jsw2zlh3r0jiywavxhv6ciyvp20ilj
+    url: https://files.pythonhosted.org/packages/fd/b8/9ed4ed37b2c3269660a86a10a09b2fe49dbbd6973ac684804ece7b51b63f/frozenlist-1.3.3-cp310-cp310-musllinux_1_1_aarch64.whl
+  - name: frozenlist-1.3.3-cp310-cp310-musllinux_1_1_i686.whl
+    sha256: 1q4az07dnd7jaw6fpnx6wrib6y3hfihg7fm1nxkah22s8rfc0kdf
+    url: https://files.pythonhosted.org/packages/d2/fb/7421f3af6932d34a5856742324cda86a3434601eec5852cf62bfcea0c4a8/frozenlist-1.3.3-cp310-cp310-musllinux_1_1_i686.whl
+  - name: frozenlist-1.3.3-cp310-cp310-musllinux_1_1_ppc64le.whl
+    sha256: 1kh0df06aw9fghkaijvisl8b1h3agnvricyf756q93gm33z33lxy
+    url: https://files.pythonhosted.org/packages/d4/8a/5dc2e402311f67f6e8e76a01fd506d85ead034bf6e06c44c08e293deebcb/frozenlist-1.3.3-cp310-cp310-musllinux_1_1_ppc64le.whl
+  - name: frozenlist-1.3.3-cp310-cp310-musllinux_1_1_s390x.whl
+    sha256: 0zxf6mnwxs2yb6267n2dmzzqkd7axw2i2csy4rm8541k7s2arj82
+    url: https://files.pythonhosted.org/packages/bd/06/5184652df91c1948393bcb7978b7bdaca731b3201bbae2e8597136cdaba1/frozenlist-1.3.3-cp310-cp310-musllinux_1_1_s390x.whl
+  - name: frozenlist-1.3.3-cp310-cp310-musllinux_1_1_x86_64.whl
+    sha256: 084ln1zlkab5ldla7jm7nvqpf3lq4szwlgc2pjq7glyhclws6icm
+    url: https://files.pythonhosted.org/packages/2b/64/cc02fb54dd400fb33e5a4318debbcc38558f0fdbb97de77c0c51ee94122e/frozenlist-1.3.3-cp310-cp310-musllinux_1_1_x86_64.whl
+  - name: frozenlist-1.3.3.tar.gz
+    sha256: 0sispcpras096fxrd0i35qs25fqy4r0x8v1d6f40pag845bwbg2q
+    url: https://files.pythonhosted.org/packages/e9/10/d629476346112b85c912527b9080944fd2c39a816c2225413dbc0bb6fcc0/frozenlist-1.3.3.tar.gz
   - name: gitdb-4.0.9-py3-none-any.whl
     sha256: 1zd8y65kz9hjshj96zmzr27inc495zgvjl10m5nblrihhm7ascw0
     url: https://files.pythonhosted.org/packages/a3/7c/5d747655049bfbf75b5fcec57c8115896cb78d6fafa84f6d3ef4c0f13a98/gitdb-4.0.9-py3-none-any.whl
   - name: gitdb-4.0.9.tar.gz
     sha256: 1al9wymnqakranw28x1qjbpr4f66pmi0vab3krhwzjd1q12zvhms
     url: https://files.pythonhosted.org/packages/fc/44/64e02ef96f20b347385f0e9c03098659cb5a1285d36c3d17c56e534d80cf/gitdb-4.0.9.tar.gz
-  - name: GitPython-3.1.19-py3-none-any.whl
-    sha256: 0k63ag7yzf3ghkzqd95g6xdf92qymlgn5ki137icxl3bwf40as8p
-    url: https://files.pythonhosted.org/packages/b7/f7/1687fc522bc7a7f7cdacd3854ac749bcadca44c257897843de60d1fad8fe/GitPython-3.1.19-py3-none-any.whl
-  - name: GitPython-3.1.19.tar.gz
-    sha256: 0lqf5plm02aw9zl73kffk7aa4mp4girm3f2yfk27nmmmjsdh7x0q
-    url: https://files.pythonhosted.org/packages/9c/cc/13add5b133ba8ad36ae1a0c93e6a6a3f71dad96b271f37e2ffc5bfca1eea/GitPython-3.1.19.tar.gz
+  - name: GitPython-3.1.29-py3-none-any.whl
+    sha256: 03w58wn9l99w3pn40wiqlg28zlhddxjh7b2rnhws3vidxkga1vj1
+    url: https://files.pythonhosted.org/packages/1f/d3/020efb312a7d25fa00e144497a33378d415552e5581be080a99017af6d39/GitPython-3.1.29-py3-none-any.whl
+  - name: GitPython-3.1.29.tar.gz
+    sha256: 1zdybpw1l3jgnlvyaxqh9hk9r7a17rq893m20mlfc4zrlg2bydnc
+    url: https://files.pythonhosted.org/packages/22/ab/3dd8b8a24399cee9c903d5f7600d20e8703d48904020f46f7fa5ac5474e9/GitPython-3.1.29.tar.gz
   - name: idna-3.4-py3-none-any.whl
     sha256: 1hn54ps4kgv2fmyvfaks38sgrvjc1cn4834sh7gadsx3x9wpxdwh
     url: https://files.pythonhosted.org/packages/fc/34/3030de6f1370931b9dbb4dad48f6ab1015ab1d32447850b9fc94e60097be/idna-3.4-py3-none-any.whl
