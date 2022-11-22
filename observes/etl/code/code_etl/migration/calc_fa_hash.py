@@ -6,7 +6,7 @@ from code_etl.client._raw import (
     RawClient,
 )
 from code_etl.client._raw_objs import (
-    CommitTableRow,
+    RawCommitStamp,
 )
 from code_etl.client.decoder import (
     decode_commit_data_2,
@@ -70,7 +70,7 @@ LOG = logging.getLogger(__name__)
 
 
 def migrate_commit(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[CommitStamp]:
     data = decode_commit_data_2(raw)
     _id = data.map(
@@ -84,7 +84,7 @@ def migrate_commit(
 
 
 def migrate_row(
-    row: CommitTableRow,
+    row: RawCommitStamp,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
     reg: ResultE[
         Union[CommitStamp, RepoRegistration]
@@ -106,7 +106,7 @@ def migration(
 
     def _emit_action(
         total_items: int,
-        pkg: FrozenList[CommitTableRow],
+        pkg: FrozenList[RawCommitStamp],
     ) -> None:
         pkg_len = len(pkg)
         unsafe_unwrap(target_client.insert_rows(pkg))

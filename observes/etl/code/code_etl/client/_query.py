@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from ._raw_objs import (
-    CommitTableRow,
+    RawCommitStamp,
 )
 from code_etl.objs import (
     RepoId,
@@ -39,7 +39,7 @@ def _all_data(
     table: TableId, namespace: Optional[str]
 ) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
-    _attrs = ",".join(CommitTableRow.fields())
+    _attrs = ",".join(RawCommitStamp.fields())
     base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
     id_args: Dict[str, str] = {
         "schema": table.schema.name,
@@ -89,8 +89,8 @@ def all_data_count(
 
 
 def insert_row(table: TableId) -> Query:
-    _fields = ",".join(CommitTableRow.fields())
-    values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
+    _fields = ",".join(RawCommitStamp.fields())
+    values = ",".join(tuple(f"%({f})s" for f in RawCommitStamp.fields()))
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
         "table": table.name,
@@ -102,8 +102,8 @@ def insert_row(table: TableId) -> Query:
 
 
 def insert_unique_row(table: TableId) -> Query:
-    _fields = ",".join(CommitTableRow.fields())
-    values = ",".join(tuple(f"%({f})s" for f in CommitTableRow.fields()))
+    _fields = ",".join(RawCommitStamp.fields())
+    values = ",".join(tuple(f"%({f})s" for f in RawCommitStamp.fields()))
     identifiers: Dict[str, str] = {
         "schema": table.schema.name,
         "table": table.name,

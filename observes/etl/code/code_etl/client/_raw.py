@@ -6,7 +6,7 @@ from __future__ import (
 )
 
 from ._raw_objs import (
-    CommitTableRow,
+    RawCommitStamp,
 )
 from code_etl.client import (
     _query,
@@ -58,7 +58,7 @@ LOG = logging.getLogger(__name__)
 
 def _fetch(
     client: SqlClient, chunk: int
-) -> Cmd[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
+) -> Cmd[Maybe[FrozenList[ResultE[RawCommitStamp]]]]:
     result = client.fetch_many(chunk).map(
         lambda rows: Maybe.from_optional(
             tuple(from_raw(r.data) for r in rows) if rows else None
@@ -67,7 +67,7 @@ def _fetch(
     return result
 
 
-def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
+def _delta_fields(old: RawCommitStamp, new: RawCommitStamp) -> FrozenList[str]:
     _filter = filter(
         lambda x: x[0],  # type: ignore[misc]
         ((bool(getattr(new, k) != v), k) for k, v in old.__dict__.items()),  # type: ignore[misc]
@@ -97,7 +97,7 @@ class RawClient:
             )
         )
 
-    def insert_rows(self, rows: FrozenList[CommitTableRow]) -> Cmd[None]:
+    def insert_rows(self, rows: FrozenList[RawCommitStamp]) -> Cmd[None]:
         msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
         return msg.bind(
             lambda _: self._sql_client.batch(
@@ -107,7 +107,7 @@ class RawClient:
         )
 
     def insert_unique_rows(
-        self, rows: FrozenList[CommitTableRow]
+        self, rows: FrozenList[RawCommitStamp]
     ) -> Cmd[None]:
         msg = Cmd.from_cmd(
             lambda: LOG.debug("unique inserting %s rows", len(rows))
@@ -122,7 +122,7 @@ class RawClient:
 
     def _all_data(
         self, namespace: Maybe[str]
-    ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+    ) -> Cmd[Stream[ResultE[RawCommitStamp]]]:
         pkg_items = 2000
         query_pair = namespace.map(
             lambda n: _query.namespace_data(self._table, n)
@@ -137,18 +137,18 @@ class RawClient:
             .transform(lambda s: chain(s))
         )
 
-    def all_data_raw(self) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+    def all_data_raw(self) -> Cmd[Stream[ResultE[RawCommitStamp]]]:
         return self._all_data(Maybe.empty())
 
     def namespace_data(
         self, namespace: str
-    ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+    ) -> Cmd[Stream[ResultE[RawCommitStamp]]]:
         return self._all_data(Maybe.from_value(namespace))
 
     def delta_update(
         self,
-        old: CommitTableRow,
-        new: CommitTableRow,
+        old: RawCommitStamp,
+        new: RawCommitStamp,
         ignore_fa_hash: bool = True,
     ) -> Cmd[None]:
         _fields = _delta_fields(old, new)

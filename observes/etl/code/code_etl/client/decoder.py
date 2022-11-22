@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 from ._raw_objs import (
-    CommitTableRow,
+    RawCommitStamp,
 )
 from code_etl.client._assert import (
     assert_not_none,
@@ -45,7 +45,7 @@ def _decode_user(name: Optional[str], email: Optional[str]) -> ResultE[User]:
     )
 
 
-def decode_deltas(raw: CommitTableRow) -> ResultE[Deltas]:
+def decode_deltas(raw: RawCommitStamp) -> ResultE[Deltas]:
     return assert_not_none(raw.total_insertions).bind(
         lambda i: assert_not_none(raw.total_deletions).bind(
             lambda d: assert_not_none(raw.total_lines).bind(
@@ -58,7 +58,7 @@ def decode_deltas(raw: CommitTableRow) -> ResultE[Deltas]:
 
 
 def decode_commit_data_2(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[CommitData]:
     author = _decode_user(raw.author_name, raw.author_email).bind(
         lambda u: assert_not_none(raw.authored_at).map(lambda d: (u, d))
@@ -83,7 +83,7 @@ def decode_commit_data_2(
 
 
 def decode_commit_data_id(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[CommitDataId]:
     return (
         assert_not_none(raw.fa_hash)
@@ -97,7 +97,7 @@ def decode_commit_data_id(
 
 
 def decode_commit_stamp(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[CommitStamp]:
     return (
         decode_commit_data_id(raw)
@@ -107,7 +107,7 @@ def decode_commit_stamp(
 
 
 def decode_repo_registration(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[RepoRegistration]:
     if raw.hash != COMMIT_HASH_SENTINEL:
         return Result.failure(
@@ -125,7 +125,7 @@ def decode_repo_registration(
 
 
 def decode_commit_table_row(
-    raw: CommitTableRow,
+    raw: RawCommitStamp,
 ) -> ResultE[Union[CommitStamp, RepoRegistration]]:
     reg = decode_repo_registration(raw).map(lambda x: inr(x, CommitStamp))
     return reg.lash(lambda _: decode_commit_stamp(raw).map(lambda x: inl(x)))

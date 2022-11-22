@@ -12,7 +12,6 @@ from dataclasses import (
     dataclass,
 )
 from fa_purity import (
-    FrozenList,
     Maybe,
 )
 from typing import (

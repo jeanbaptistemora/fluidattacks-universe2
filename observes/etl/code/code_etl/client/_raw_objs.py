@@ -22,7 +22,7 @@ from typing import (
 
 
 @dataclass(frozen=True)
-class CommitTableRow:
+class RawCommitStamp:
     # Represents commit table schema
     # pylint: disable=too-many-instance-attributes
     author_name: Optional[str]
@@ -45,4 +45,17 @@ class CommitTableRow:
 
     @staticmethod
     def fields() -> FrozenList[str]:
-        return tuple(f.name for f in dataclass_fields(CommitTableRow))  # type: ignore[misc]
+        return tuple(f.name for f in dataclass_fields(RawCommitStamp))  # type: ignore[misc]
+
+
+@dataclass(frozen=True)
+class RawFileCommitRelation:
+    # Represents commit table schema
+    namespace: str
+    repository: str
+    hash: str
+    file_path: str
+
+    @staticmethod
+    def fields() -> FrozenList[str]:
+        return tuple(f.name for f in dataclass_fields(RawCommitStamp))  # type: ignore[misc]

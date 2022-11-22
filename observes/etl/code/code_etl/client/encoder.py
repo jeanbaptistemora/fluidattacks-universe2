@@ -7,7 +7,7 @@ from __future__ import (
 )
 
 from ._raw_objs import (
-    CommitTableRow,
+    RawCommitStamp,
 )
 from code_etl.client._assert import (
     assert_opt_type,
@@ -58,8 +58,8 @@ from typing import (
 
 def from_objs(
     data: Optional[CommitData], commit_id: CommitDataId, seen_at: DatetimeUTC
-) -> CommitTableRow:
-    return CommitTableRow(
+) -> RawCommitStamp:
+    return RawCommitStamp(
         data.author.name if data else None,
         data.author.email if data else None,
         data.authored_at if data else None,
@@ -80,8 +80,8 @@ def from_objs(
     )
 
 
-def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[CommitTableRow]:
-    factory: ResultFactory[CommitTableRow, Exception] = ResultFactory()
+def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[RawCommitStamp]:
+    factory: ResultFactory[RawCommitStamp, Exception] = ResultFactory()
     try:
         author_name = assert_opt_type(raw[0], str).unwrap()
         author_email = assert_opt_type(raw[1], str).unwrap()
@@ -121,7 +121,7 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[CommitTableRow]:
         fa_hash = assert_opt_type(raw[15], str).unwrap()
 
         seen_at = assert_type(raw[16], datetime).map(to_utc).unwrap()
-        row = CommitTableRow(
+        row = RawCommitStamp(
             author_name,
             author_email,
             authored_at,
@@ -152,15 +152,15 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[CommitTableRow]:
         )
 
 
-def from_stamp(stamp: CommitStamp) -> CommitTableRow:
+def from_stamp(stamp: CommitStamp) -> RawCommitStamp:
     return from_objs(stamp.commit.data, stamp.commit.commit_id, stamp.seen_at)
 
 
-def from_reg(reg: RepoRegistration) -> CommitTableRow:
+def from_reg(reg: RepoRegistration) -> RawCommitStamp:
     return from_objs(None, reg.commit_id, reg.seen_at)
 
 
-def from_row_obj(item: Union[CommitStamp, RepoRegistration]) -> CommitTableRow:
+def from_row_obj(item: Union[CommitStamp, RepoRegistration]) -> RawCommitStamp:
     if isinstance(item, RepoRegistration):
         return from_reg(item)
     return from_stamp(item)
@@ -181,7 +181,7 @@ def _encode_opt_int(num: Optional[int]) -> Optional[str]:
     return _from_opt(num).map(str).value_or(None)
 
 
-def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
+def to_dict(row: RawCommitStamp) -> Dict[str, Optional[str]]:
     return {
         "author_name": row.author_name,
         "author_email": row.author_email,
@@ -203,6 +203,6 @@ def to_dict(row: CommitTableRow) -> Dict[str, Optional[str]]:
     }
 
 
-def commit_row_to_dict(row: CommitTableRow) -> FrozenDict[str, PrimitiveVal]:
+def commit_row_to_dict(row: RawCommitStamp) -> FrozenDict[str, PrimitiveVal]:
     raw: Dict[str, PrimitiveVal] = {k: v for k, v in to_dict(row).items()}
     return freeze(raw)
