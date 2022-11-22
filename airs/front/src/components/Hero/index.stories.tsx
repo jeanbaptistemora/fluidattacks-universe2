@@ -14,7 +14,7 @@ import { Hero } from ".";
 
 const config: Meta = {
   component: Hero,
-  title: "components/CtaBanner",
+  title: "components/Hero",
 };
 
 const Template: Story<React.PropsWithChildren<IHeroProps>> = (

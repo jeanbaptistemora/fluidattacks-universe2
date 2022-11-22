@@ -35,6 +35,43 @@ const variants: Record<TSize, { sizes: ISize; weight: TWeight }> = {
   },
 };
 
+const getSize = (size: TSize, sizeMd?: TSize, sizeSm?: TSize): string => {
+  if (sizeMd && sizeSm) {
+    return `
+      f${variants[size].sizes.fontSize}-l
+      f${variants[sizeMd].sizes.fontSize}-m
+      f${variants[sizeSm].sizes.fontSize}
+      fw${fontWeights[variants[size].weight]}-l
+      fw${fontWeights[variants[sizeMd].weight]}-m
+      fw${fontWeights[variants[sizeSm].weight]}
+    `;
+  } else if (sizeMd) {
+    return `
+      f${variants[size].sizes.fontSize}-l
+      f${variants[sizeMd].sizes.fontSize}
+      fw${fontWeights[variants[size].weight]}-l
+      fw${fontWeights[variants[sizeMd].weight]}
+    `;
+  } else if (sizeSm) {
+    return `
+      f${variants[size].sizes.fontSize}-ns
+      f${variants[sizeSm].sizes.fontSize}
+      fw${fontWeights[variants[size].weight]}-ns
+      fw${fontWeights[variants[sizeSm].weight]}
+    `;
+  }
+
+  return `
+    f${variants[size].sizes.fontSize}
+    fw${fontWeights[variants[size].weight]}
+  `;
+};
+
+const getLineHeight = (defaultSize: TSize, size?: TSize): string =>
+  size === undefined
+    ? `line-height: ${variants[defaultSize].sizes.lineHeight}px;`
+    : `line-height: ${variants[size].sizes.lineHeight}px;`;
+
 const StyledTitle = styled.p.attrs<ITypographyProps>(
   ({
     mb = 0,
@@ -42,12 +79,15 @@ const StyledTitle = styled.p.attrs<ITypographyProps>(
     mr = 0,
     mt = 0,
     size = "medium",
+    sizeMd,
+    sizeSm,
   }): {
     className: string;
   } => ({
-    className: `f${variants[size].sizes.fontSize} fw${
-      fontWeights[variants[size].weight]
-    } mb${mb} ml${ml} mr${mr} mt${mt}`,
+    className: `
+      ${getSize(size, sizeMd, sizeSm)}
+      mb${mb} ml${ml} mr${mr} mt${mt}
+    `,
   })
 )<ITypographyProps>`
   ${({
@@ -57,17 +97,32 @@ const StyledTitle = styled.p.attrs<ITypographyProps>(
     fontStyle = "no",
     textAlign = "start",
     size = "medium",
+    sizeMd,
+    sizeSm,
   }): string => `
-        color: ${color};
-        display: ${display};
-        font-style: ${fontStyles[fontStyle]};
-        line-height: ${variants[size].sizes.lineHeight}px;
-        text-align: ${textAlign};
-        width: ${display === "block" ? "100%" : "auto"};
-        :hover {
-          color: ${hColor};
-        }
-      `}
+      color: ${color};
+      display: ${display};
+      font-style: ${fontStyles[fontStyle]};
+      line-height: ${variants[size].sizes.lineHeight}px;
+      text-align: ${textAlign};
+      width: ${display === "block" ? "100%" : "auto"};
+
+      :hover {
+        color: ${hColor};
+      }
+
+      @media screen and (min-width: 60em) {
+        ${getLineHeight(size)}
+      }
+
+      @media screen and (min-width: 30em) and (max-width: 60em) {
+        ${getLineHeight(size, sizeMd)}
+      }
+
+      @media screen and (max-width: 30em) {
+        ${getLineHeight(sizeMd === undefined ? size : sizeMd, sizeSm)}
+      }
+  `}
 `;
 
 export { StyledTitle };

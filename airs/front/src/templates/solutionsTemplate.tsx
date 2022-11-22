@@ -127,6 +127,8 @@ const SolutionsIndex: React.FC<IQueryData> = ({
               image={"airs/solutions/Index/application-security-solutions"}
               matomoAction={"Solution"}
               paragraph={translate.t("solutions.informations.paragraph")}
+              size={"big"}
+              sizeSm={"medium"}
               title={translate.t("solutions.informations.subtitle")}
             />
             <Container ph={4}>

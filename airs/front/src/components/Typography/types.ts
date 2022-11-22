@@ -22,6 +22,8 @@ interface ITypographyProps {
   mr?: Nums1To7 | 0;
   mt?: Nums1To7 | 0;
   size?: TSize;
+  sizeMd?: TSize;
+  sizeSm?: TSize;
   fontStyle?: TStyle;
   textAlign?: "center" | "end" | "start";
 }

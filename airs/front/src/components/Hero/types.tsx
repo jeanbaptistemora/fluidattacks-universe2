@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { TSize } from "../Typography/types";
+
 interface IHeroProps {
   bgColor: string;
   button1Link: string;
@@ -14,6 +16,9 @@ interface IHeroProps {
   paragraph: string;
   image: string;
   matomoAction: string;
+  size?: TSize;
+  sizeMd?: TSize;
+  sizeSm?: TSize;
 }
 
 export type { IHeroProps };

@@ -45,6 +45,8 @@ const SolutionPage: React.FC<ISolutionPageProps> = ({
           image={"/airs/solutions/cta-banner"}
           matomoAction={"Solution"}
           paragraph={ctaParagraph}
+          size={"big"}
+          sizeSm={"medium"}
           title={`Get started with Fluid Attacks' ${identifier} right now`}
         />
       </Container>

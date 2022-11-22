@@ -21,6 +21,8 @@ const Title: React.FC<ITitleProps> = ({
   mr,
   mt,
   size,
+  sizeMd,
+  sizeSm,
   textAlign,
 }): JSX.Element => {
   return (
@@ -35,6 +37,8 @@ const Title: React.FC<ITitleProps> = ({
       mr={mr}
       mt={mt}
       size={size}
+      sizeMd={sizeMd}
+      sizeSm={sizeSm}
       textAlign={textAlign}
     >
       {children}

@@ -20,6 +20,8 @@ const Text: React.FC<ITextProps> = ({
   mr,
   mt,
   size,
+  sizeMd,
+  sizeSm,
   textAlign,
   weight,
 }): JSX.Element => {
@@ -34,6 +36,8 @@ const Text: React.FC<ITextProps> = ({
       mr={mr}
       mt={mt}
       size={size}
+      sizeMd={sizeMd}
+      sizeSm={sizeSm}
       textAlign={textAlign}
       weight={weight}
     >

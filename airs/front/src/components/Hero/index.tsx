@@ -25,6 +25,9 @@ const Hero: React.FC<IHeroProps> = ({
   image,
   matomoAction,
   paragraph,
+  size = "big",
+  sizeMd,
+  sizeSm,
   title,
 }): JSX.Element => {
   const { trackEvent } = useMatomo();
@@ -47,7 +50,14 @@ const Hero: React.FC<IHeroProps> = ({
         wrap={"wrap"}
       >
         <Container width={"50%"} widthMd={"100%"}>
-          <Title color={"#2e2e38"} level={2} mb={3} size={"big"}>
+          <Title
+            color={"#2e2e38"}
+            level={1}
+            mb={3}
+            size={size}
+            sizeMd={sizeMd}
+            sizeSm={sizeSm}
+          >
             {title}
           </Title>
           <Text color={"#65657b"} size={"big"}>
