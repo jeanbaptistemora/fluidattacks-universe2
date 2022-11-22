@@ -41,6 +41,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
           level={1}
           mb={3}
           size={"big"}
+          sizeSm={"medium"}
           textAlign={"center"}
         >
           {title}
