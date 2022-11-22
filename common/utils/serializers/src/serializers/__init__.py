@@ -122,6 +122,8 @@ def make_snippet(  # NOSONAR
                         f"{mark_symbol} {line_no_str!s:>{loc_width}s} | {line}"
                     )
                     lines[index] = (line_no, fmt.rstrip(" "))
+                else:
+                    lines[index] = (line_no, line)
 
             # Slice viewport vertically
             if viewport_center - viewport.line_context <= 0:
