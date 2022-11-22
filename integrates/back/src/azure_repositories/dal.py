@@ -23,6 +23,7 @@ from azure.devops.v6_0.git.models import (
     GitCommit,
     GitQueryCommitsCriteria,
     GitRepository,
+    GitRepositoryStats,
 )
 from azure_repositories.types import (
     CredentialsGitRepositoryCommit,
@@ -38,6 +39,9 @@ from msrest.authentication import (
 )
 from settings import (
     LOGGING,
+)
+from typing import (
+    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -114,7 +118,7 @@ def _get_repositories_commits(
         base_url=f"{BASE_URL}/{organization}", creds=credentials
     )
     try:
-        git_client: GitClient = connection.clients.get_git_client()
+        git_client: GitClient = connection.clients_v6_0.get_git_client()
         commits: list[GitCommit] = git_client.get_commits(
             search_criteria=GitQueryCommitsCriteria(top=1),
             repository_id=repository_id,
@@ -125,6 +129,57 @@ def _get_repositories_commits(
         return tuple()
     else:
         return tuple(commits)
+
+
+async def get_repositories_stats(
+    *,
+    repositories: tuple[CredentialsGitRepositoryCommit, ...],
+) -> tuple[Optional[GitRepositoryStats], ...]:
+    repositories_stats: tuple[
+        Optional[GitRepositoryStats], ...
+    ] = await collect(
+        tuple(
+            in_thread(
+                _get_repositories_stats,
+                organization=repository.credential.state.azure_organization,
+                access_token=repository.credential.state.secret.token
+                if isinstance(
+                    repository.credential.state.secret, HttpsPatSecret
+                )
+                else "",
+                repository_id=repository.repository_id,
+                project_name=repository.project_name,
+            )
+            for repository in repositories
+        ),
+        workers=2,
+    )
+
+    return repositories_stats
+
+
+def _get_repositories_stats(
+    *,
+    organization: str,
+    access_token: str,
+    repository_id: str,
+    project_name: str,
+) -> Optional[GitRepositoryStats]:
+    credentials = BasicAuthentication("", access_token)
+    connection = Connection(
+        base_url=f"{BASE_URL}/{organization}", creds=credentials
+    )
+    try:
+        git_client: GitClient = connection.clients_v6_0.get_git_client()
+        stats: GitRepositoryStats = git_client.get_stats(
+            repository_id=repository_id,
+            project=project_name,
+        )
+    except (AzureDevOpsAuthenticationError, AzureDevOpsServiceError) as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+        return None
+    else:
+        return stats
 
 
 class OrganizationRepositoriesLoader(DataLoader):

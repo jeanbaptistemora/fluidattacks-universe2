@@ -8,6 +8,10 @@ from aioextensions import (
 from azure.devops.v6_0.git.models import (
     GitCommit,
     GitRepository,
+    GitRepositoryStats,
+)
+from azure_repositories.dal import (
+    get_repositories_stats,
 )
 from azure_repositories.types import (
     CredentialsGitRepository,
@@ -43,6 +47,10 @@ from db_model.organizations.get import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationUnreliableIndicatorsToUpdate,
+)
+from db_model.organizations.update import (
+    update_unreliable_org_indicators,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -71,6 +79,9 @@ from organizations.domain import (
 from schedulers.common import (
     error,
     info,
+)
+from typing import (
+    Optional,
 )
 from urllib.parse import (
     unquote_plus,
@@ -111,11 +122,37 @@ async def _get_commit_date(
     return DEFAULT_ISO_STR
 
 
+async def _get_repository_count(
+    *, repository: CredentialsGitRepository
+) -> int:
+    repo_stats: tuple[
+        Optional[GitRepositoryStats], ...
+    ] = await get_repositories_stats(
+        repositories=tuple(
+            [
+                CredentialsGitRepositoryCommit(
+                    credential=repository.credential,
+                    project_name=repository.repository.project.name,
+                    repository_id=repository.repository.id,
+                )
+            ]
+        )
+    )
+
+    if repo_stats and repo_stats[0] is not None:
+        return repo_stats[0].commits_count
+
+    return 0
+
+
 async def _update(
     *,
     organization_id: str,
+    organization_name: str,
     repositories: tuple[CredentialsGitRepository, ...],
+    repositories_stats: tuple[int, ...],
     repositories_dates: tuple[str, ...],
+    covered_repositores: int,
 ) -> None:
     await collect(
         tuple(
@@ -126,14 +163,32 @@ async def _update(
                     branch=_get_branch(repository),
                     last_commit_date=date,
                     url=repository.repository.web_url,
-                    commit_count=0,
+                    commit_count=commit_count,
                 )
             )
-            for repository, date in zip(repositories, repositories_dates)
+            for repository, date, commit_count in zip(
+                repositories, repositories_dates, repositories_stats
+            )
             if get_datetime_from_iso_str(date).timestamp()
             > get_now_minus_delta(days=60).timestamp()
         ),
         workers=4,
+    )
+
+    commit_counts = [
+        commit_count
+        for date, commit_count in zip(repositories_dates, repositories_stats)
+        if get_datetime_from_iso_str(date).timestamp()
+        > get_now_minus_delta(days=60).timestamp()
+    ]
+    await update_unreliable_org_indicators(
+        organization_id=organization_id,
+        organization_name=organization_name,
+        indicators=OrganizationUnreliableIndicatorsToUpdate(
+            missed_repositories=len(commit_counts),
+            missed_commits=sum(commit_counts),
+            covered_repositories=covered_repositores,
+        ),
     )
 
 
@@ -167,7 +222,7 @@ async def _remove(
     )
 
 
-async def update_organization_repositories(
+async def update_organization_repositories(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
     loaders: Dataloaders,
@@ -178,6 +233,15 @@ async def update_organization_repositories(
         loaders, organization.id
     )
     if not tuple(all_group_names.intersection(set(organization_group_names))):
+        await update_unreliable_org_indicators(
+            organization_id=organization.id,
+            organization_name=organization.name,
+            indicators=OrganizationUnreliableIndicatorsToUpdate(
+                missed_repositories=0,
+                missed_commits=0,
+                covered_repositories=0,
+            ),
+        )
         return
 
     credentials: tuple[
@@ -220,12 +284,22 @@ async def update_organization_repositories(
         ),
         workers=1,
     )
+    repositories_stats: tuple[int, ...] = await collect(
+        tuple(
+            _get_repository_count(repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
 
     try:
         await _update(
             organization_id=organization.id,
+            organization_name=organization.name,
             repositories=repositories,
             repositories_dates=repositories_dates,
+            repositories_stats=repositories_stats,
+            covered_repositores=len(urls),
         )
         await _remove(
             organization_id=organization.id,
