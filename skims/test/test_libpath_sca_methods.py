@@ -15,6 +15,9 @@ from lib_path.f011.go import (
     go_mod,
     GO_REQ_MOD_DEP,
 )
+from lib_path.f011.pip import (
+    pip_requirements_txt,
+)
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
@@ -184,6 +187,40 @@ def test_go_mod() -> None:
             break
         equal_props: bool = (
             pkg_item in pkg_name and version == item and line_num + 1 == line
+        )
+        if not equal_props:
+            assertion = not assertion
+            break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_pip_requirements_txt() -> None:
+    path: str = "skims/test/data/lib_path/f011/requirements.txt"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    content: List[str] = file_contents.splitlines()
+    generator_dep = pip_requirements_txt.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    for line_num, line in enumerate(content, 1):
+        pkg_name, version = line.split("==")
+
+        try:
+            next_dep = next(generator_dep)
+            pkg_item = itemgetter("item")(next_dep[0])
+            line_dep, item = itemgetter("line", "item")(next_dep[1])
+        except StopIteration:
+            assertion = not assertion
+            break
+        equal_props: bool = (
+            pkg_item in pkg_name and version == item and line_num == line_dep
         )
         if not equal_props:
             assertion = not assertion
