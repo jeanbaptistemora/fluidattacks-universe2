@@ -46,8 +46,10 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
-from git import (
+from git.cmd import (
     Git,
+)
+from git.exc import (
     GitError,
 )
 from git.repo.base import (

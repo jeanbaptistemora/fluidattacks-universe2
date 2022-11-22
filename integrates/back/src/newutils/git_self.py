@@ -20,11 +20,11 @@ from custom_exceptions import (
 from datetime import (
     datetime,
 )
-from git import (
-    Repo,
-)
 from git.exc import (
     GitCommandError,
+)
+from git.repo import (
+    Repo,
 )
 import logging
 from more_itertools import (

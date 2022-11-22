@@ -63,7 +63,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from git import (
+from git.repo import (
     Repo,
 )
 import os

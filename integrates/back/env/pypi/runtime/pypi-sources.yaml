@@ -46,7 +46,7 @@ closure:
   frozendict: "1.2"
   frozenlist: 1.3.3
   gitdb: 4.0.9
-  gitpython: 3.1.12
+  gitpython: 3.1.29
   googleapis-common-protos: 1.57.0
   graphql-core: 3.2.1
   grpcio: 1.50.0
@@ -98,7 +98,7 @@ closure:
   pandas: 1.3.4
   pathspec: 0.10.1
   pillow: 9.3.0
-  prompt-toolkit: 3.0.32
+  prompt-toolkit: 3.0.33
   protobuf: 3.20.3
   psycopg2: 2.9.3
   pyasn1: 0.4.8
@@ -516,12 +516,12 @@ links:
   - name: gitdb-4.0.9.tar.gz
     sha256: 1al9wymnqakranw28x1qjbpr4f66pmi0vab3krhwzjd1q12zvhms
     url: https://files.pythonhosted.org/packages/fc/44/64e02ef96f20b347385f0e9c03098659cb5a1285d36c3d17c56e534d80cf/gitdb-4.0.9.tar.gz
-  - name: GitPython-3.1.12-py3-none-any.whl
-    sha256: 1dgpm5gsy42b9klayvsb5grrk8y4p1izn6bb57wc1ai6n7gw6zl6
-    url: https://files.pythonhosted.org/packages/d7/cb/ec98155c501b68dcb11314c7992cd3df6dce193fd763084338a117967d53/GitPython-3.1.12-py3-none-any.whl
-  - name: GitPython-3.1.12.tar.gz
-    sha256: 1b0x9baawd68z7azj5nfp4jp3vyw0cqry1fhdr4nqmz2v7cfzns2
-    url: https://files.pythonhosted.org/packages/ec/4d/e6553122c85ec7c4c3e702142cc0f5ed02e5cf1b4d7ecea86a07e45725a0/GitPython-3.1.12.tar.gz
+  - name: GitPython-3.1.29-py3-none-any.whl
+    sha256: 03w58wn9l99w3pn40wiqlg28zlhddxjh7b2rnhws3vidxkga1vj1
+    url: https://files.pythonhosted.org/packages/1f/d3/020efb312a7d25fa00e144497a33378d415552e5581be080a99017af6d39/GitPython-3.1.29-py3-none-any.whl
+  - name: GitPython-3.1.29.tar.gz
+    sha256: 1zdybpw1l3jgnlvyaxqh9hk9r7a17rq893m20mlfc4zrlg2bydnc
+    url: https://files.pythonhosted.org/packages/22/ab/3dd8b8a24399cee9c903d5f7600d20e8703d48904020f46f7fa5ac5474e9/GitPython-3.1.29.tar.gz
   - name: googleapis_common_protos-1.57.0-py2.py3-none-any.whl
     sha256: 0g24bxl6wsdn2g6cy6skj546dxi7lld6lcginxbrd06ryvbs3x59
     url: https://files.pythonhosted.org/packages/f0/2a/25d8c1ceedc5af97de37434c9c5e38ce28aaa45960aa2bd7aa215fc420c0/googleapis_common_protos-1.57.0-py2.py3-none-any.whl
@@ -1017,12 +1017,12 @@ links:
   - name: Pillow-9.3.0.tar.gz
     sha256: 03vn7s6rq943knjglm6w82clbmvd8bya1yc0sw402mksalma4df9
     url: https://files.pythonhosted.org/packages/16/11/da8d395299ca166aa56d9436e26fe8440e5443471de16ccd9a1d06f5993a/Pillow-9.3.0.tar.gz
-  - name: prompt_toolkit-3.0.32-py3-none-any.whl
-    sha256: 0vnpdrv43lqqc3npxnpc7w9izcpjkqbynck2q96srkj9injwvgi4
-    url: https://files.pythonhosted.org/packages/03/22/784990e865d847384c28a05ff33ed09791251b320c212f957c62a11bd2ab/prompt_toolkit-3.0.32-py3-none-any.whl
-  - name: prompt_toolkit-3.0.32.tar.gz
-    sha256: 1biw2wz7pv2zdz8rvnxwm1sgilh0xrs0xnmxddjv7wsgpaf15wp7
-    url: https://files.pythonhosted.org/packages/e2/d9/1009dbb3811fee624af34df9f460f92b51edac528af316eb5770f9fbd2e1/prompt_toolkit-3.0.32.tar.gz
+  - name: prompt_toolkit-3.0.33-py3-none-any.whl
+    sha256: 0ny30llf6p270cq254yh1icgnwvkl6kgmkh012f05x7n4ar9imff
+    url: https://files.pythonhosted.org/packages/58/87/cac418cef18781a9081cb2075cc2cf08c77e0679c1f9b474587d71bbf777/prompt_toolkit-3.0.33-py3-none-any.whl
+  - name: prompt_toolkit-3.0.33.tar.gz
+    sha256: 0wqcf1g6zxxin6jmqnwafirzaky9ysp20lbxhw177iqn2b1jjp2k
+    url: https://files.pythonhosted.org/packages/c4/6e/6ff7938f47981305a801a4c5b8d8ed282b58a28c01c394d43c1fbcfc810b/prompt_toolkit-3.0.33.tar.gz
   - name: protobuf-3.20.3-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 0fz2gp4wdfvq8f9l85bnivx0b5i9ld68jwgf3bn39sxc7q69x2ir
     url: https://files.pythonhosted.org/packages/00/e7/d23c439c55c90ae2e52184363162f7079ca3e7d86205b411d4e9dc266f81/protobuf-3.20.3-cp39-cp39-macosx_10_9_x86_64.whl

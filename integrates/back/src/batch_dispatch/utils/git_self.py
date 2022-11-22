@@ -24,8 +24,10 @@ from db_model.credentials.types import (
 from decorators import (
     retry_on_exceptions,
 )
-from git import (
+from git.exc import (
     GitError,
+)
+from git.repo.base import (
     Repo,
 )
 import logging

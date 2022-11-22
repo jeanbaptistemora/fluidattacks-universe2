@@ -31,8 +31,10 @@ from db_model.roots.types import (
     RootEnvironmentUrl,
     URLRoot,
 )
-from git import (
+from git.cmd import (
     Git,
+)
+from git.exc import (
     GitCommandError,
 )
 from ipaddress import (

@@ -21,11 +21,11 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
 )
-from git import (
-    Repo,
-)
 from git.exc import (
     GitCommandError,
+)
+from git.repo import (
+    Repo,
 )
 import logging
 import os

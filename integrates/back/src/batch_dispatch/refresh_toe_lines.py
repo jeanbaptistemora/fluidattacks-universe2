@@ -40,7 +40,7 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
-from git import (
+from git.cmd import (
     Git,
 )
 from git.exc import (
@@ -48,7 +48,10 @@ from git.exc import (
     InvalidGitRepositoryError,
     NoSuchPathError,
 )
-from git.repo.base import (
+from git.objects.blob import (
+    Blob,
+)
+from git.repo import (
     Repo,
 )
 import logging
@@ -118,7 +121,7 @@ async def get_present_filenames(repo: Repo, repo_nickname: str) -> Set[str]:
     )
     trees = repo.head.commit.tree.traverse()
     included_head_filenames = tuple(
-        tree.path for tree in trees if tree.type == "blob"
+        str(tree.path) for tree in trees if isinstance(tree, Blob)
     )
     file_exists = await collect(
         in_thread(os.path.exists, f"{repo_nickname}/{filename}")
