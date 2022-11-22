@@ -5092,5 +5092,5 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F337,
         developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
