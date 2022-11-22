@@ -103,12 +103,13 @@ def _is_released(group_name: str, finding_id: str) -> bool:
     return item["state"]["status"] == "APPROVED"
 
 
-def _notify_client(vuln_id: str, event: HookEvent) -> None:
+def _notify_client(vuln_id: str, group: str, event: HookEvent) -> None:
     try:
         requests.post(
             FI_WEBHOOK_POC_URL,
             headers={"x-api-key": FI_WEBHOOK_POC_KEY},
             json={
+                "group": group,
                 "event": event.value,
                 "id_vulnerability": vuln_id,
             },
@@ -184,6 +185,6 @@ def process_poc(records: tuple[Record, ...]) -> None:
                 finding_id in released_findings,
             )
             if event is not None:
-                _notify_client(vuln_id, event)
+                _notify_client(vuln_id, group, event)
         except KeyError as ex:
             LOGGER.exception(ex)
