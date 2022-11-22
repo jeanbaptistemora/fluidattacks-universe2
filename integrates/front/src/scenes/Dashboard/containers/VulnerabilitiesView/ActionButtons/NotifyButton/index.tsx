@@ -6,6 +6,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -32,23 +33,25 @@ const NotifyButton: React.FC<INotifyButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderNotifyBtn && (
-        <Tooltip
-          disp={"inline-block"}
-          id={"searchFindings.tabDescription.notify.tooltip.id"}
-          tip={t("searchFindings.tabDescription.notify.tooltip")}
-        >
-          <Button
-            disabled={isDisabled}
-            id={"vulnerabilities-edit"}
-            onClick={onNotify}
-            variant={"ghost"}
+        <Container pr={"8px"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={"searchFindings.tabDescription.notify.tooltip.id"}
+            tip={t("searchFindings.tabDescription.notify.tooltip")}
           >
-            <React.Fragment>
-              <FontAwesomeIcon icon={faPaperPlane} />
-              &nbsp;{t("searchFindings.tabDescription.notify.text")}
-            </React.Fragment>
-          </Button>
-        </Tooltip>
+            <Button
+              disabled={isDisabled}
+              id={"vulnerabilities-edit"}
+              onClick={onNotify}
+              variant={"ghost"}
+            >
+              <React.Fragment>
+                <FontAwesomeIcon icon={faPaperPlane} />
+                &nbsp;{t("searchFindings.tabDescription.notify.text")}
+              </React.Fragment>
+            </Button>
+          </Tooltip>
+        </Container>
       )}
     </React.StrictMode>
   );

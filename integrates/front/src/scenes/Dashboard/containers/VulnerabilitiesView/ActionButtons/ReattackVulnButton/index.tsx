@@ -53,7 +53,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   return (
     <Can do={"api_mutations_request_vulnerabilities_verification_mutate"}>
       {isRequestingReattack ? (
-        <Container pl={"8px"} pr={"8px"}>
+        <Container pr={"8px"}>
           <Button
             disabled={!areVulnsSelected}
             id={"confirm-reattack"}
@@ -67,7 +67,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
         </Container>
       ) : undefined}
       {shouldRenderRequestVerifyBtn ? (
-        <Container pl={"8px"} pr={"8px"}>
+        <Container pr={"8px"}>
           <Tooltip
             disp={"inline-block"}
             id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}

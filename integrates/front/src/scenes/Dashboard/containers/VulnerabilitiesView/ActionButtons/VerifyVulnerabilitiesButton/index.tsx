@@ -10,6 +10,7 @@ import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
@@ -67,26 +68,30 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
     return (
       <Can do={"api_mutations_verify_vulnerabilities_request_mutate"}>
         {isVerifying ? (
-          <Button
-            disabled={!areVulnsSelected}
-            onClick={openModal}
-            variant={"secondary"}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-            &nbsp;{t("searchFindings.tabDescription.markVerified.text")}
-          </Button>
+          <Container pr={"8px"}>
+            <Button
+              disabled={!areVulnsSelected}
+              onClick={openModal}
+              variant={"ghost"}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+              &nbsp;{t("searchFindings.tabDescription.markVerified.text")}
+            </Button>
+          </Container>
         ) : undefined}
         {shouldRenderVerifyBtn ? (
-          <Tooltip
-            disp={"inline-block"}
-            id={"searchFindings.tabVuln.buttonsTooltip.cancelVerify.id"}
-            place={"top"}
-            tip={tooltipMessage}
-          >
-            <Button onClick={onVerify} variant={"secondary"}>
-              <DisplayIcon />
-            </Button>
-          </Tooltip>
+          <Container pr={"8px"}>
+            <Tooltip
+              disp={"inline-block"}
+              id={"searchFindings.tabVuln.buttonsTooltip.cancelVerify.id"}
+              place={"top"}
+              tip={tooltipMessage}
+            >
+              <Button onClick={onVerify} variant={"ghost"}>
+                <DisplayIcon />
+              </Button>
+            </Tooltip>
+          </Container>
         ) : undefined}
       </Can>
     );

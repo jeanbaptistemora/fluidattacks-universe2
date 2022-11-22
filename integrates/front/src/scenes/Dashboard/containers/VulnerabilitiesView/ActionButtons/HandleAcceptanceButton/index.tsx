@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import type { IHandleAcceptanceButtonProps } from "./types";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -47,24 +48,26 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderHandleAcceptanceBtn ? (
-        <Tooltip
-          disp={"inline-block"}
-          id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptance.id"}
-          place={"top"}
-          tip={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
-        >
-          <Button
-            id={"handleAcceptanceButton"}
-            onClick={openHandleAcceptance}
-            variant={"secondary"}
+        <Container pr={"8px"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptance.id"}
+            place={"top"}
+            tip={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
           >
-            <React.Fragment>
-              <FontAwesomeIcon icon={faCheck} />
-              &nbsp;
-              {t("searchFindings.tabVuln.buttons.handleAcceptance")}
-            </React.Fragment>
-          </Button>
-        </Tooltip>
+            <Button
+              id={"handleAcceptanceButton"}
+              onClick={openHandleAcceptance}
+              variant={"ghost"}
+            >
+              <React.Fragment>
+                <FontAwesomeIcon icon={faCheck} />
+                &nbsp;
+                {t("searchFindings.tabVuln.buttons.handleAcceptance")}
+              </React.Fragment>
+            </Button>
+          </Tooltip>
+        </Container>
       ) : undefined}
     </React.StrictMode>
   );
