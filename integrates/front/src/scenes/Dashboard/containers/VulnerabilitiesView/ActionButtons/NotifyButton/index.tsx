@@ -41,7 +41,7 @@ const NotifyButton: React.FC<INotifyButtonProps> = ({
             disabled={isDisabled}
             id={"vulnerabilities-edit"}
             onClick={onNotify}
-            variant={"secondary"}
+            variant={"ghost"}
           >
             <React.Fragment>
               <FontAwesomeIcon icon={faPaperPlane} />

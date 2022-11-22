@@ -10,6 +10,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
@@ -52,44 +53,48 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   return (
     <Can do={"api_mutations_request_vulnerabilities_verification_mutate"}>
       {isRequestingReattack ? (
-        <Button
-          disabled={!areVulnsSelected}
-          id={"confirm-reattack"}
-          onClick={openModal}
-          variant={"secondary"}
-        >
-          <FontAwesomeIcon icon={faCheck} />
-          &nbsp;
-          {t("searchFindings.tabVuln.buttons.reattack")}
-        </Button>
+        <Container pl={"8px"} pr={"8px"}>
+          <Button
+            disabled={!areVulnsSelected}
+            id={"confirm-reattack"}
+            onClick={openModal}
+            variant={"ghost"}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+            &nbsp;
+            {t("searchFindings.tabVuln.buttons.reattack")}
+          </Button>
+        </Container>
       ) : undefined}
       {shouldRenderRequestVerifyBtn ? (
-        <Tooltip
-          disp={"inline-block"}
-          id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
-          tip={tooltipMessage}
-        >
-          <Button
-            disabled={isReattackRequestedInAllVuln}
-            id={"start-reattack"}
-            onClick={onRequestReattack}
-            variant={"secondary"}
+        <Container pl={"8px"} pr={"8px"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
+            tip={tooltipMessage}
           >
-            {isRequestingReattack ? (
-              <React.Fragment>
-                <FontAwesomeIcon icon={faTimes} />
-                &nbsp;
-                {t("searchFindings.tabDescription.cancelVerify")}
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <FontAwesomeIcon icon={faCheck} />
-                &nbsp;
-                {t("searchFindings.tabDescription.requestVerify.text")}
-              </React.Fragment>
-            )}
-          </Button>
-        </Tooltip>
+            <Button
+              disabled={isReattackRequestedInAllVuln}
+              id={"start-reattack"}
+              onClick={onRequestReattack}
+              variant={"ghost"}
+            >
+              {isRequestingReattack ? (
+                <React.Fragment>
+                  <FontAwesomeIcon icon={faTimes} />
+                  &nbsp;
+                  {t("searchFindings.tabDescription.cancelVerify")}
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <FontAwesomeIcon icon={faCheck} />
+                  &nbsp;
+                  {t("searchFindings.tabDescription.requestVerify.text")}
+                </React.Fragment>
+              )}
+            </Button>
+          </Tooltip>
+        </Container>
       ) : undefined}
     </Can>
   );

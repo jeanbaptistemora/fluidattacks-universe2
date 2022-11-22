@@ -14,6 +14,10 @@ interface IContainerProps {
   minHeight?: string;
   minWidth?: string;
   padding?: string;
+  pb?: string;
+  pl?: string;
+  pr?: string;
+  pt?: string;
   scroll?: "none" | "x" | "xy" | "y";
   width?: string;
 }
@@ -29,6 +33,10 @@ const Container = styled.div.attrs({
     minHeight = "0",
     minWidth = "0",
     padding = "0",
+    pb = "0",
+    pl = "0",
+    pr = "0",
+    pt = "0",
     scroll = "y",
     width = "auto",
   }): string => `
@@ -41,6 +49,10 @@ min-width: ${minWidth};
 overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
 overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
 padding: ${padding};
+padding-bottom: ${pb};
+padding-left: ${pl};
+padding-right: ${pr};
+padding-top: ${pt};
 transition: all 0.3s ease;
 width: ${width};
 

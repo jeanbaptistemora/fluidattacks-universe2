@@ -12,6 +12,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -57,30 +58,32 @@ const EditButton: React.FC<IEditButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderEditBtn ? (
-        <Tooltip
-          disp={"inline-block"}
-          id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
-          tip={tooltipMessage}
-        >
-          <Button
-            disabled={isRequestingReattack || isVerifying || isDisabled}
-            id={"vulnerabilities-edit"}
-            onClick={onEdit}
-            variant={"secondary"}
+        <Container pl={"8px"} pr={"8px"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
+            tip={tooltipMessage}
           >
-            {isEditing ? (
-              <React.Fragment>
-                <FontAwesomeIcon icon={faRotateRight} />
-                &nbsp;{t("searchFindings.tabDescription.save.text")}
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <FontAwesomeIcon icon={faPen} />
-                &nbsp;{t("searchFindings.tabVuln.buttons.edit")}
-              </React.Fragment>
-            )}
-          </Button>
-        </Tooltip>
+            <Button
+              disabled={isRequestingReattack || isVerifying || isDisabled}
+              id={"vulnerabilities-edit"}
+              onClick={onEdit}
+              variant={"ghost"}
+            >
+              {isEditing ? (
+                <React.Fragment>
+                  <FontAwesomeIcon icon={faRotateRight} />
+                  &nbsp;{t("searchFindings.tabDescription.save.text")}
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <FontAwesomeIcon icon={faPen} />
+                  &nbsp;{t("searchFindings.tabVuln.buttons.edit")}
+                </React.Fragment>
+              )}
+            </Button>
+          </Tooltip>
+        </Container>
       ) : undefined}
     </React.StrictMode>
   );
