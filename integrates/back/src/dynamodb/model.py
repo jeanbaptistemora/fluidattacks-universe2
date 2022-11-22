@@ -165,32 +165,37 @@ async def add_organization_finding_policy(
     *, finding_policy: OrgFindingPolicyItem
 ) -> None:
     key_structure = TABLE.primary_key
-    metadata_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
-        values={"name": finding_policy.org_name, "uuid": finding_policy.id},
+        values={
+            "name": finding_policy.org_name,
+            "uuid": finding_policy.id,
+        },
     )
-    initial_metadata = {
-        key_structure.partition_key: metadata_key.partition_key,
-        key_structure.sort_key: metadata_key.sort_key,
+    items: list[Item] = []
+    metadata_item = {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         "name": finding_policy.metadata.name,
         "state": dict(finding_policy.state._asdict()),
         "tags": finding_policy.metadata.tags,
     }
-
-    historic_state = historics.build_historic(
-        attributes=dict(finding_policy.state._asdict()),
-        historic_facet=TABLE.facets["org_finding_policy_historic_state"],
-        key_structure=key_structure,
-        key_values={
+    items.append(metadata_item)
+    state_key = keys.build_key(
+        facet=TABLE.facets["org_finding_policy_historic_state"],
+        values={
             "iso8601utc": finding_policy.state.modified_date,
-            "name": finding_policy.org_name,
             "uuid": finding_policy.id,
         },
-        latest_facet=TABLE.facets["org_finding_policy_state"],
     )
-    items = (initial_metadata, *historic_state)
+    historic_state_item = {
+        key_structure.partition_key: state_key.partition_key,
+        key_structure.sort_key: state_key.sort_key,
+        **dict(finding_policy.state._asdict()),
+    }
+    items.append(historic_state_item)
 
-    await operations.batch_put_item(items=items, table=TABLE)
+    await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 
 async def update_organization_finding_policy_state(
@@ -214,19 +219,23 @@ async def update_organization_finding_policy_state(
     except ConditionalCheckFailedException as ex:
         raise OrgFindingPolicyNotFound() from ex
 
-    historic = historics.build_historic(
-        attributes=dict(state._asdict()),
-        historic_facet=TABLE.facets["org_finding_policy_historic_state"],
-        key_structure=key_structure,
-        key_values={
+    state_key = keys.build_key(
+        facet=TABLE.facets["org_finding_policy_historic_state"],
+        values={
             "iso8601utc": state.modified_date,
-            "name": org_name,
             "uuid": finding_policy_id,
         },
-        latest_facet=TABLE.facets["org_finding_policy_state"],
     )
-
-    await operations.batch_put_item(items=historic, table=TABLE)
+    historic_state_item = {
+        key_structure.partition_key: state_key.partition_key,
+        key_structure.sort_key: state_key.sort_key,
+        **dict(state._asdict()),
+    }
+    await operations.put_item(
+        facet=TABLE.facets["org_finding_policy_historic_state"],
+        item=historic_state_item,
+        table=TABLE,
+    )
 
 
 async def _get_historic_state_items(*, policy_id: str) -> tuple[Item, ...]:
