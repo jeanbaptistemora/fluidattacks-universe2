@@ -15,9 +15,10 @@ taken by your organization,
 this vulnerability poses no threat.
 In order to make a Zero Risk request
 you can take the same steps
-taken to assign a normal treatment.
+taken to assign a normal
+[treatment.](/machine/web/vulnerabilities/management/treatments)
 
-![Request Zero Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/request_zero_risk_pf9nod.webp)
+![Request Zero Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1669133723/docs/web/vulnerabilities/management/zero_risk.png)
 
 After choosing to give
 a Zero Risk treatment

@@ -66,6 +66,6 @@ vulnerability has evolved
 over time.
 Find out more information about
 this tab under
-[this link](/machine/web/groups/vulnerabilities#tracking-tab).
+[this link](/machine/web/vulnerabilities/management/tracking).
 
 ![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668520103/docs/web/vulnerabilities/management/tracking_tab.png)
