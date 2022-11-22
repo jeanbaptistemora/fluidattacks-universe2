@@ -25,6 +25,8 @@ type Organization {
   compliance: OrganizationCompliance!
   "Country where the organization is based"
   country: String
+  "Number of repositories covered in scope"
+  coveredRepositories: Int
   "Credentials associated to the organization"
   credentials: [Credentials!]
   "Enacted and pending Finding policies within the organization"
@@ -61,6 +63,10 @@ type Organization {
   the build in strict mode
   """
   minBreakingSeverity: Float!
+  "Number of commits of integration repositories out of the scope"
+  missedCommits: Int
+  "Number of integration repositories out of the scope"
+  missedRepositories: Int
   "Name of the organization"
   name: String!
   "Permissions of the current user within the organization"
