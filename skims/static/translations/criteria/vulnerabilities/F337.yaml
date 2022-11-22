@@ -1,0 +1,5 @@
+---
+lib_root.f337.cs_has_not_csfr_protection:
+  en: Ensure unsafe HTTP methods has Action Filters for CSFR protection.
+  es: Asegúrese de que los métodos HTTP no seguros tengan filtros
+    de acción para la protección CSFR.
