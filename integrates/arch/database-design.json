@@ -24622,6 +24622,7 @@
           "TableData": [],
           "NonKeyAttributes": [
             "name",
+            "state",
             "tags"
           ],
           "DataAccess": {

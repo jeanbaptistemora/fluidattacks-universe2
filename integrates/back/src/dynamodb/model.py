@@ -6,6 +6,7 @@ from aioextensions import (
     collect,
 )
 from boto3.dynamodb.conditions import (
+    Attr,
     Key,
 )
 from collections import (
@@ -14,11 +15,17 @@ from collections import (
 from context import (
     FI_DB_MODEL_PATH,
 )
+from custom_exceptions import (
+    OrgFindingPolicyNotFound,
+)
 from dynamodb import (
     historics,
     keys,
     operations,
     tables,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
 )
 from dynamodb.types import (
     Item,
@@ -33,7 +40,6 @@ from itertools import (
 import json
 from typing import (
     Optional,
-    Tuple,
 )
 
 with open(FI_DB_MODEL_PATH, mode="r", encoding="utf-8") as file:
@@ -45,17 +51,20 @@ def _build_org_policy_finding(
     org_name: str,
     item_id: str,
     key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
+    raw_items: tuple[Item, ...],
 ) -> OrgFindingPolicyItem:
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
-    state = historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_suffix="STATE",
-        raw_items=raw_items,
-    )
+    if "state" in metadata:
+        state: Item = metadata["state"]
+    else:
+        state = historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="STATE",
+            raw_items=raw_items,
+        )
 
     return OrgFindingPolicyItem(
         id=metadata[key_structure.sort_key].split("#")[1],
@@ -111,7 +120,7 @@ async def get_org_finding_policy(
 
 async def get_org_finding_policies(
     *, org_name: str
-) -> Tuple[OrgFindingPolicyItem, ...]:
+) -> tuple[OrgFindingPolicyItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
         values={"name": org_name},
@@ -156,7 +165,6 @@ async def add_organization_finding_policy(
     *, finding_policy: OrgFindingPolicyItem
 ) -> None:
     key_structure = TABLE.primary_key
-
     metadata_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
         values={"name": finding_policy.org_name, "uuid": finding_policy.id},
@@ -164,7 +172,9 @@ async def add_organization_finding_policy(
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
-        **dict(finding_policy.metadata._asdict()),
+        "name": finding_policy.metadata.name,
+        "state": dict(finding_policy.state._asdict()),
+        "tags": finding_policy.metadata.tags,
     }
 
     historic_state = historics.build_historic(
@@ -187,6 +197,23 @@ async def update_organization_finding_policy_state(
     *, org_name: str, finding_policy_id: str, state: OrgFindingPolicyState
 ) -> None:
     key_structure = TABLE.primary_key
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["org_finding_policy_metadata"],
+        values={"name": org_name, "uuid": finding_policy_id},
+    )
+    item = {
+        "state": dict(state._asdict()),
+    }
+    try:
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item=item,
+            key=metadata_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise OrgFindingPolicyNotFound() from ex
+
     historic = historics.build_historic(
         attributes=dict(state._asdict()),
         historic_facet=TABLE.facets["org_finding_policy_historic_state"],

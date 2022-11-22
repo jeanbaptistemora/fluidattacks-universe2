@@ -150,6 +150,10 @@ class OrganizationAlreadyCreated(_SingleMessageException):
     msg: str = "This organization has already been created"
 
 
+class OrgFindingPolicyNotFound(_SingleMessageException):
+    msg: str = "Organization finding policy not found"
+
+
 class PortfolioNotFound(_SingleMessageException):
     msg: str = "Portfolio not found"
 
