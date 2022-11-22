@@ -213,9 +213,9 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     },
   ];
   const onGroupChange: () => void = (): void => {
-    attributesContext.update([]);
-    permissionsContext.update([]);
     if (groupsData !== undefined) {
+      attributesContext.update([]);
+      permissionsContext.update([]);
       const groupsServicesAttributes: IOrganizationGroups["groups"] =
         groupsData.organization.groups.reduce(
           (
