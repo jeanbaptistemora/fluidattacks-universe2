@@ -5,7 +5,6 @@
  */
 
 import _ from "lodash";
-import moment from "moment";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { StyledComponent } from "styled-components";
@@ -57,7 +56,18 @@ export const Comments: React.FC<ICommentsProps> = ({
   const getFormattedTime = (): string => {
     const now = new Date();
 
-    return moment(now).format("YYYY/MM/DD HH:mm:ss");
+    return `${now.toLocaleString("default", {
+      year: "numeric",
+    })}/${now.toLocaleString("default", {
+      month: "2-digit",
+    })}/${now.toLocaleString("default", {
+      day: "2-digit",
+    })} ${now.toLocaleString("default", {
+      hour: "2-digit",
+      hour12: false,
+    })}:${now.toLocaleString("default", {
+      minute: "2-digit",
+    })}:${now.toLocaleString("default", { second: "2-digit" })}`;
   };
 
   const postHandler = useCallback(

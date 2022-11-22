@@ -241,17 +241,17 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     _.isEmpty(toeLinesAttr.attackedAt) ||
     new Date(toeLinesAttr.modifiedDate) > new Date(toeLinesAttr.attackedAt)
       ? toeLinesAttr.bePresent
-        ? Math.round(
+        ? Math.floor(
             (new Date().getTime() -
               new Date(toeLinesAttr.modifiedDate).getTime()) /
               (1000 * 3600 * 24)
           )
-        : Math.round(
+        : Math.floor(
             (new Date(toeLinesAttr.bePresentUntil ?? "").getTime() -
               new Date(toeLinesAttr.modifiedDate).getTime()) /
               (1000 * 3600 * 24)
           )
-      : Math.round(
+      : Math.floor(
           (new Date(toeLinesAttr.attackedAt).getTime() -
             new Date(toeLinesAttr.modifiedDate).getTime()) /
             (1000 * 3600 * 24)
