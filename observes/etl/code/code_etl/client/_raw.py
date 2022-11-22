@@ -5,6 +5,9 @@ from __future__ import (
     annotations,
 )
 
+from ._raw_objs import (
+    CommitTableRow,
+)
 from code_etl.client import (
     _query,
     encoder,
@@ -15,7 +18,6 @@ from code_etl.client._assert import (
 )
 from code_etl.client.encoder import (
     commit_row_to_dict,
-    CommitTableRow,
     from_raw,
 )
 from dataclasses import (

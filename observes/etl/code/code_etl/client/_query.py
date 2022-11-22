@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-from code_etl.client.encoder import (
+from ._raw_objs import (
     CommitTableRow,
 )
 from code_etl.objs import (

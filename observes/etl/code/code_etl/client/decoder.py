@@ -2,11 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from ._raw_objs import (
+    CommitTableRow,
+)
 from code_etl.client._assert import (
     assert_not_none,
-)
-from code_etl.client.encoder import (
-    CommitTableRow,
 )
 from code_etl.objs import (
     Commit,

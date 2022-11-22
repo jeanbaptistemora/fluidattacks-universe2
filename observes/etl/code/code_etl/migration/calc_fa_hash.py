@@ -5,12 +5,14 @@
 from code_etl.client._raw import (
     RawClient,
 )
+from code_etl.client._raw_objs import (
+    CommitTableRow,
+)
 from code_etl.client.decoder import (
     decode_commit_data_2,
     decode_repo_registration,
 )
 from code_etl.client.encoder import (
-    CommitTableRow,
     from_row_obj,
 )
 from code_etl.factories import (

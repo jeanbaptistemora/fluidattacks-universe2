@@ -17,12 +17,6 @@ from code_etl.client._assert import (
     assert_key,
     assert_type,
 )
-from code_etl.client.encoder import (
-    CommitTableRow,
-    from_raw,
-    from_reg,
-    from_stamp,
-)
 from code_etl.objs import (
     CommitStamp,
     RepoContex,
@@ -38,7 +32,6 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     FrozenList,
-    Maybe,
     ResultE,
     Stream,
 )
@@ -111,7 +104,7 @@ class Client:
         log_info = Cmd.from_cmd(
             lambda: LOG.info("register_repos %s", str(reg))
         )
-        encoded = tuple(from_reg(r) for r in reg)
+        encoded = tuple(encoder.from_reg(r) for r in reg)
         return log_info.bind(
             lambda _: self._inner.raw.insert_unique_rows(encoded)
         )
@@ -120,7 +113,7 @@ class Client:
         log_info = Cmd.from_cmd(
             lambda: LOG.info("inserting %s stamps", len(stamps))
         )
-        encoded = tuple(from_stamp(s) for s in stamps)
+        encoded = tuple(encoder.from_stamp(s) for s in stamps)
         return log_info.bind(
             lambda _: self._inner.raw.insert_unique_rows(encoded)
         )
