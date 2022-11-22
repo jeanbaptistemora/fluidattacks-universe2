@@ -248,7 +248,6 @@ async def _get_historic_state_items(*, policy_id: str) -> tuple[Item, ...]:
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(facet,),
         table=TABLE,
