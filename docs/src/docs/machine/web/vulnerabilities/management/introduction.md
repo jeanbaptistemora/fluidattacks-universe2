@@ -29,6 +29,6 @@ you will find the following subsections:
 - [Description.](/machine/web/vulnerabilities/management/description)
 - [Severity.](/machine/web/vulnerabilities/severity)
 - [Evidence.](/machine/web/vulnerabilities/evidence)
-- Tracking.
-- Records.
+- [Tracking.](/machine/web/vulnerabilities/management/tracking)
+- [Records.](/machine/web/vulnerabilities/management/records)
 - Consulting.
