@@ -4,6 +4,7 @@
 
 from .constants import (
     GSI_2_FACET,
+    HISTORIC_TOE_INPUT_PREFIX,
 )
 from .types import (
     GroupToeInputsRequest,
@@ -40,6 +41,7 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
+    Iterable,
     List,
     Tuple,
 )
@@ -75,6 +77,46 @@ class ToeInputLoader(DataLoader):
         self, requests: List[ToeInputRequest]
     ) -> Tuple[ToeInput, ...]:
         return await collect(tuple(map(_get_toe_input, requests)))
+
+
+async def _get_historic_toe_input(
+    request: ToeInputRequest,
+) -> tuple[ToeInput, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        values={
+            "component": request.component,
+            "entry_point": request.entry_point,
+            "group_name": request.group_name,
+            "root_id": request.root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(
+                HISTORIC_TOE_INPUT_PREFIX
+            )
+        ),
+        facets=(TABLE.facets["toe_input_historic_metadata"],),
+        table=TABLE,
+    )
+    if not response.items:
+        raise ToeInputNotFound()
+    return tuple(
+        format_toe_input(request.group_name, item) for item in response.items
+    )
+
+
+class HistoricToeInputLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[ToeInputRequest]
+    ) -> tuple[tuple[ToeInput, ...], ...]:
+        return await collect(
+            tuple(_get_historic_toe_input(request) for request in requests)
+        )
 
 
 async def _get_toe_inputs_by_group(
