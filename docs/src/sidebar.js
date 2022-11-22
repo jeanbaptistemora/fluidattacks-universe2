@@ -141,7 +141,7 @@ const About = [
       "about/fluid-attacks-vs-competition/introduction",
       "about/fluid-attacks-vs-competition/checkmarx",
       "about/fluid-attacks-vs-competition/crashtest-security",
-      "about/fluid-attacks-vs-competition/datatheorem",
+      "about/fluid-attacks-vs-competition/data-theorem",
       "about/fluid-attacks-vs-competition/detectify",
       "about/fluid-attacks-vs-competition/faraday",
       "about/fluid-attacks-vs-competition/kiuwan",
