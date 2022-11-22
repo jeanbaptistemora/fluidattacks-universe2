@@ -2,7 +2,7 @@
 id: shiftleft
 title: Fluid Attacks vs ShiftLeft
 sidebar_label: ShiftLeft
-slug: /about/fluid-attacks-vs-competition/shiftleft
+slug: /about/compare/shiftleft
 ---
 
 Here is a feature comparison

@@ -2,7 +2,7 @@
 id: nowsecure
 title: Fluid Attacks vs. NowSecure
 sidebar_label: NowSecure
-slug: /about/fluid-attacks-vs-competition/nowsecure
+slug: /about/compare/nowsecure
 ---
 
 Here is a feature comparison

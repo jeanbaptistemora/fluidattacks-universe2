@@ -2,7 +2,7 @@
 id: kiuwan
 title: Fluid Attacks vs. Kiuwan
 sidebar_label: Kiuwan
-slug: /about/fluid-attacks-vs-competition/kiuwan
+slug: /about/compare/kiuwan
 ---
 
 Here is a feature comparison

@@ -2,7 +2,7 @@
 id: faraday
 title: Fluid Attacks vs. Faraday
 sidebar_label: Faraday
-slug: /about/fluid-attacks-vs-competition/faraday
+slug: /about/compare/faraday
 ---
 
 Here is a feature comparison
