@@ -140,7 +140,7 @@ const About = [
     items: [
       "about/fluid-attacks-vs-competition/introduction",
       "about/fluid-attacks-vs-competition/checkmarx",
-      "about/fluid-attacks-vs-competition/crashtest",
+      "about/fluid-attacks-vs-competition/crashtest-security",
       "about/fluid-attacks-vs-competition/datatheorem",
       "about/fluid-attacks-vs-competition/detectify",
       "about/fluid-attacks-vs-competition/faraday",
