@@ -35,6 +35,7 @@ const Container: React.FC<IContainerProps> = ({
   mr,
   mt,
   mv,
+  onClick,
   pb,
   ph,
   phMd,
@@ -75,6 +76,7 @@ const Container: React.FC<IContainerProps> = ({
       mr={mr}
       mt={mt}
       mv={mv}
+      onClick={onClick}
       pb={pb}
       ph={ph}
       phMd={phMd}

@@ -7,7 +7,6 @@
 import React, { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-import { Button } from "../../../../components/Button";
 import { Container } from "../../../../components/Container";
 import { Title } from "../../../../components/Typography";
 
@@ -32,7 +31,7 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
   }
 
   return (
-    <Container borderBottom={"1px"}>
+    <Container borderBottom={"1px"} onClick={showDescription}>
       <Container
         align={"center"}
         display={"flex"}
@@ -48,10 +47,7 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
           </Title>
         </Container>
         <Container display={"flex"} justify={"end"} mr={0} width={"20%"}>
-          <Button
-            icon={icon === "plus" ? <FaPlus /> : <FaMinus />}
-            onClick={showDescription}
-          />
+          {icon === "plus" ? <FaPlus /> : <FaMinus />}
         </Container>
       </Container>
       <Container

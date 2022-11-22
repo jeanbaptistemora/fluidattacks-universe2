@@ -28,6 +28,7 @@ interface IContainerProps {
   justify?: TJustify;
   justifyMd?: TJustify;
   justifySm?: TJustify;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   mv?: Nums0To7;
   mh?: Nums0To7;
   pv?: Nums0To7;

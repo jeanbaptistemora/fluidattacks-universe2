@@ -104,6 +104,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     mr = 0,
     mt = 0,
     mv = 0,
+    onClick,
     pb = 0,
     ph = 0,
     phMd,
@@ -123,6 +124,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
       ${
         ph === 0 ? `pl${pl} pr${pr}` : `${getHorizontalPadding(ph, phMd, phSm)}`
       }
+      ${onClick ? "pointer" : ""}
     `,
   })
 )<IContainerProps>`
