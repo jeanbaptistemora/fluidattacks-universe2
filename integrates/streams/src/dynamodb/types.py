@@ -15,14 +15,20 @@ from typing import (
 Item = dict[str, Any]
 
 
-class EventName(str, Enum):
+class HookEvent(str, Enum):
+    DELETED_VULNERABILITY = "Vulnerability was deleted"
+    EDITED_VULNERABILITY = "Vulnerability was edited"
+    REPORTED_VULNERABILITY = "Vulnerability was reported"
+
+
+class StreamEvent(str, Enum):
     INSERT = "INSERT"
     MODIFY = "MODIFY"
     REMOVE = "REMOVE"
 
 
 class Record(NamedTuple):
-    event_name: EventName
+    event_name: StreamEvent
     new_image: Optional[Item]
     old_image: Optional[Item]
     pk: str

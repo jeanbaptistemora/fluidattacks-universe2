@@ -10,8 +10,8 @@ from dynamodb.resource import (
     SESSION,
 )
 from dynamodb.types import (
-    EventName,
     Record,
+    StreamEvent,
 )
 from dynamodb.utils import (
     SetEncoder,
@@ -49,7 +49,9 @@ def _process(records: tuple[Record, ...], index: str) -> None:
 
         for record in chunk:
             action_name = (
-                "delete" if record.event_name == EventName.REMOVE else "index"
+                "delete"
+                if record.event_name == StreamEvent.REMOVE
+                else "index"
             )
             action = {
                 action_name: {

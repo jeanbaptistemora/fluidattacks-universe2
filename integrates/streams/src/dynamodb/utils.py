@@ -6,9 +6,9 @@ from boto3.dynamodb.types import (
     TypeDeserializer,
 )
 from dynamodb.types import (
-    EventName,
     Item,
     Record,
+    StreamEvent,
 )
 from opensearchpy import (
     JSONSerializer,
@@ -41,7 +41,7 @@ def format_record(record: dict[str, Any]) -> Record:
     https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
     """
     return Record(
-        event_name=EventName[record["eventName"]],
+        event_name=StreamEvent[record["eventName"]],
         new_image=(
             deserialize_dynamodb_json(record["dynamodb"]["NewImage"])
             if "NewImage" in record["dynamodb"]
