@@ -8,8 +8,8 @@ Remove vulnerabilities reported by Machine to a wrong finding (F279)
 and queue execution for the correct finding (F063)
 in all of the groups roots so they are reported correctly
 
-Execution Time:
-Finalization Time:
+Execution Time: 2022-11-22 at 22:18:12 UTC
+Finalization Time: 2022-11-22 at 22:20:50 UTC
 """
 from aioextensions import (
     collect,
