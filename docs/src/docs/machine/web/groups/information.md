@@ -7,9 +7,9 @@ slug: /machine/web/groups/information
 
 Here you will find the information
 of the company and the group.
-It is composed of six fields.
+It is composed of seven fields.
 
-![Fields](https://res.cloudinary.com/fluid-attacks/image/upload/v1662041725/docs/web/groups/information/info_fields.png)
+![Fields](https://res.cloudinary.com/fluid-attacks/image/upload/v1669137294/docs/web/groups/information/info_view.png)
 
 - **Business Registration Number:**
   DNI of the company.
@@ -28,6 +28,28 @@ It is composed of six fields.
   duration of the sprint.
 - **Sprint Start Date:**
   The day my sprint starts.
+- **Managed:**
+  Shows the current payment
+  configuration of the group.
+  This information is available
+  to all ARM users but can only
+  be modified by `Fluid Attacks'` team.
+
+In Managed the configuration options are:
+
+1. **Managed:** The group is using another
+  payment method than a credit card,
+  and this method has already been validated.
+1. **Not Managed:** The group's payment method
+  is credit card.
+1. **Under review:** When it is in this status,
+  it is because of: No payments made,
+  validation of the effectiveness of other
+  payment methods or the free trial has expired.
+  When is in under review,
+  the group access is blocked.
+1. **Free trial:** Groups that are on a free
+  trial period in the use of ARM
 
 Remember that the information in
 the Business Registration Number

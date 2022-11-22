@@ -23,9 +23,9 @@ Then, you will need to select the
 vulnerability to which you want to
 assign a treatment by clicking the
 check box to its left and click
-on **Edit**.
+on [Edit.](/machine/web/vulnerabilities/management/locations#edit-button)
 
-![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_vulner_assign.png)
+![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045341/docs/web/vulnerabilities/management/edit_button.png)
 
 The **Edit** button helps you manage
 the vulnerability treatments and
