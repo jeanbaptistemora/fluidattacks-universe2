@@ -77,6 +77,28 @@ REFERRERS: JSON = {
     },
 }
 
+VISITORS: JSON = {
+    "type": "SCHEMA",
+    "stream": "visitors",
+    "key_properties": ["uuid"],
+    "schema": {
+        "properties": {
+            "uuid": _TYPE_STRING,
+            "date": _TYPE_DATE,
+            "website": _TYPE_STRING,
+            "nb_uniq_visitors": _TYPE_STRING,
+            "nb_visits": _TYPE_STRING,
+            "nb_actions": _TYPE_STRING,
+            "bounce_count": _TYPE_STRING,
+            "sum_visit_length": _TYPE_STRING,
+            "max_actions": _TYPE_STRING,
+            "bounce_rate": _TYPE_STRING,
+            "nb_actions_per_visit": _TYPE_STRING,
+            "avg_time_on_site": _TYPE_STRING,
+        }
+    },
+}
+
 TABLE_PATTERN_1: JSON = {
     "type": "SCHEMA",
     "stream": "pattern_1",
@@ -130,6 +152,7 @@ TABLE_PATTERN_3: JSON = {
 TABLE_LIST: List[Tuple] = [
     (PAGE_PERFORMANCE, "page_performance", "Actions.getPageUrls"),
     (REFERRERS, "referrers", "Referrers.getAll"),
+    (VISITORS, "visitors", "VisitsSummary.get"),
     (TABLE_PATTERN_1, "downloads", "Actions.getDownloads"),
     (TABLE_PATTERN_1, "outlinks", "Actions.getOutlinks"),
     (TABLE_PATTERN_2, "devices", "DevicesDetection.getModel"),

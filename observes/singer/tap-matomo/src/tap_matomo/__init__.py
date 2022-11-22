@@ -97,6 +97,11 @@ def get_matomo_data(method: str, site: str, date: str) -> JSON:
     resource += "&filter_limit=-1"
     resource += f"&token_auth={API_TOKEN}"
     json_objs = get_request_response(resource)[1]
+
+    if method == "VisitsSummary.get":
+        json_objs["date"] = date
+        return [json_objs]
+
     for obj in json_objs:
         obj["date"] = date
 
