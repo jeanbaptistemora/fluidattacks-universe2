@@ -33,6 +33,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
+@freeze_time("2022-11-11T05:00:00+00:00")
 async def test_add() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -48,6 +49,7 @@ async def test_add() -> None:
         has_vulnerabilities=False,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="new@test.com",
+        state=ToeInputState(modified_date="2022-11-11T05:00:00+00:00"),
         unreliable_root_id="",
     )
     await toe_inputs_domain.add(
@@ -69,8 +71,7 @@ async def test_add() -> None:
         ),
         is_moving_toe_input=True,
     )
-    loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
+    group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
     assert toe_input in group_toe_inputs

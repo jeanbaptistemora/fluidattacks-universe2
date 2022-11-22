@@ -131,3 +131,26 @@ async def update_metadata(
             )
     except ConditionalCheckFailedException as ex:
         raise ToeInputAlreadyUpdated() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        values={
+            "component": current_value.component,
+            "entry_point": current_value.entry_point,
+            "group_name": current_value.group_name,
+            "root_id": current_value.unreliable_root_id,
+            # The modified date will always exist here
+            "iso8601utc": metadata.state.modified_date
+            if metadata.state.modified_date
+            else "",
+        },
+    )
+    await operations.put_item(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        item={
+            **dict(current_value_item | metadata_item),
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+        },
+        table=TABLE,
+    )

@@ -65,3 +65,26 @@ async def add(*, toe_input: ToeInput) -> None:
         )
     except ConditionalCheckFailedException as ex:
         raise RepeatedToeInput() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        values={
+            "component": toe_input.component,
+            "entry_point": toe_input.entry_point,
+            "group_name": toe_input.group_name,
+            "root_id": toe_input.unreliable_root_id,
+            # The modified date will always exist here
+            "iso8601utc": toe_input.state.modified_date
+            if toe_input.state.modified_date
+            else "",
+        },
+    )
+    await operations.put_item(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        item={
+            **toe_input_item,
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+        },
+        table=TABLE,
+    )

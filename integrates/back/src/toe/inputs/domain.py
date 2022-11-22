@@ -93,6 +93,7 @@ async def add(  # pylint: disable=too-many-arguments
         first_attack_at=first_attack_at,
         group_name=group_name,
         has_vulnerabilities=has_vulnerabilities,
+        state=ToeInputState(modified_date=datetime_utils.get_iso_date()),
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
