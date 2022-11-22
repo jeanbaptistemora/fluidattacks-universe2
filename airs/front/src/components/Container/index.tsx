@@ -22,6 +22,8 @@ const Container: React.FC<IContainerProps> = ({
   display,
   height,
   justify,
+  justifyMd,
+  justifySm,
   maxWidth,
   mb,
   mh,
@@ -35,6 +37,8 @@ const Container: React.FC<IContainerProps> = ({
   mv,
   pb,
   ph,
+  phMd,
+  phSm,
   pl,
   pr,
   pt,
@@ -58,6 +62,8 @@ const Container: React.FC<IContainerProps> = ({
       display={display}
       height={height}
       justify={justify}
+      justifyMd={justifyMd}
+      justifySm={justifySm}
       maxWidth={maxWidth}
       mb={mb}
       mh={mh}
@@ -71,6 +77,8 @@ const Container: React.FC<IContainerProps> = ({
       mv={mv}
       pb={pb}
       ph={ph}
+      phMd={phMd}
+      phSm={phSm}
       pl={pl}
       pr={pr}
       pt={pt}

@@ -26,10 +26,14 @@ interface IContainerProps {
   display?: TDisplay;
   height?: string;
   justify?: TJustify;
+  justifyMd?: TJustify;
+  justifySm?: TJustify;
   mv?: Nums0To7;
   mh?: Nums0To7;
   pv?: Nums0To7;
   ph?: Nums0To7;
+  phMd?: Nums0To7;
+  phSm?: Nums0To7;
   mb?: Nums0To7;
   ml?: Nums0To7;
   mr?: Nums0To7;

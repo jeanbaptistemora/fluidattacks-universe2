@@ -15,27 +15,6 @@ import type {
   TWrap,
 } from "./types";
 
-const getWidth = (defaultWidth: string, width?: string): string =>
-  width === undefined ? `width: ${defaultWidth};` : `width: ${width};`;
-
-const getMinWidth = (defaultWidth: string, width?: string): string =>
-  width === undefined ? `min-width: ${defaultWidth};` : `min-width: ${width};`;
-
-const getHorizontalMargin = (
-  center: boolean,
-  mh: number,
-  mr: number,
-  ml: number
-): string => {
-  if (center) {
-    return `center`;
-  } else if (mh !== 0) {
-    return `mh${mh}`;
-  }
-
-  return `mr${mr} ml${ml}`;
-};
-
 const aligns: Record<TAlign, string> = {
   center: "center",
   end: "end",
@@ -73,6 +52,48 @@ const wraps: Record<TWrap, string> = {
   wrap: "wrap",
 };
 
+const getWidth = (defaultWidth: string, width?: string): string =>
+  width === undefined ? `width: ${defaultWidth};` : `width: ${width};`;
+
+const getMinWidth = (defaultWidth: string, width?: string): string =>
+  width === undefined ? `min-width: ${defaultWidth};` : `min-width: ${width};`;
+
+const getJustify = (defaultJustify: TJustify, justify?: TJustify): string =>
+  justify === undefined
+    ? `justify-content: ${justifies[defaultJustify]};`
+    : `justify-content: ${justifies[justify]};`;
+
+const getHorizontalMargin = (
+  center: boolean,
+  mh: number,
+  mr: number,
+  ml: number
+): string => {
+  if (center) {
+    return `center`;
+  } else if (mh !== 0) {
+    return `mh${mh}`;
+  }
+
+  return `mr${mr} ml${ml}`;
+};
+
+const getHorizontalPadding = (
+  ph: number,
+  phMd?: number,
+  phSm?: number
+): string => {
+  if (phMd !== undefined && phSm !== undefined) {
+    return `ph${ph}-l ph${phMd}-m ph${phSm}`;
+  } else if (phMd !== undefined) {
+    return `ph${ph}-l ph${phMd}`;
+  } else if (phSm !== undefined) {
+    return `ph${ph}-ns ph${phSm}`;
+  }
+
+  return `ph${ph}`;
+};
+
 const StyledContainer = styled.div.attrs<IContainerProps>(
   ({
     br = 0,
@@ -85,6 +106,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     mv = 0,
     pb = 0,
     ph = 0,
+    phMd,
+    phSm,
     pl = 0,
     pr = 0,
     pt = 0,
@@ -97,7 +120,9 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
       ${mv === 0 ? `mb${mb} mt${mt}` : `mv${mv}`}
       ${getHorizontalMargin(center, mh, mr, ml)}
       ${pv === 0 ? `pb${pb} pt${pt}` : `pv${pv}`}
-      ${ph === 0 ? `pl${pl} pr${pr}` : `ph${ph}`}
+      ${
+        ph === 0 ? `pl${pl} pr${pr}` : `${getHorizontalPadding(ph, phMd, phSm)}`
+      }
     `,
   })
 )<IContainerProps>`
@@ -111,6 +136,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     display = "block",
     height = "auto",
     justify = "unset",
+    justifyMd,
+    justifySm,
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
@@ -132,7 +159,6 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     flex-direction: ${directions[direction]};
     flex-wrap: ${wraps[wrap]};
     height: ${height};
-    justify-content: ${justifies[justify]};
     max-width: ${maxWidth};
     min-height: ${minHeight};
     overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
@@ -142,16 +168,19 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}
+      ${getJustify(justify)}
       ${getMinWidth(minWidth)}
     }
 
     @media screen and (min-width: 30em) and (max-width: 60em) {
       ${getWidth(width, widthMd)}
+      ${getJustify(justify, justifyMd)}
       ${getMinWidth(minWidth, minWidthMd)}
     }
 
     @media screen and (max-width: 30em) {
       ${getWidth(widthMd === undefined ? width : widthMd, widthSm)}
+      ${getJustify(justifyMd === undefined ? justify : justifyMd, justifySm)}
       ${getMinWidth(
         minWidthMd === undefined ? minWidth : minWidthMd,
         minWidthSm

@@ -63,8 +63,15 @@ const Hero: React.FC<IHeroProps> = ({
           <Text color={"#65657b"} size={"big"}>
             {paragraph}
           </Text>
-          <Container display={"flex"} mv={3} wrap={"wrap"}>
-            <Container ph={2} pv={1} width={"auto"} widthSm={"100%"}>
+          <Container
+            display={"flex"}
+            justify={"start"}
+            justifyMd={"center"}
+            justifySm={"unset"}
+            mv={3}
+            wrap={"wrap"}
+          >
+            <Container pv={1} width={"auto"} widthSm={"100%"}>
               <AirsLink href={button1Link}>
                 <Button
                   display={"block"}
@@ -75,7 +82,7 @@ const Hero: React.FC<IHeroProps> = ({
                 </Button>
               </AirsLink>
             </Container>
-            <Container ph={2} pv={1} width={"auto"} widthSm={"100%"}>
+            <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
               <AirsLink href={button2Link}>
                 <Button display={"block"} variant={"tertiary"}>
                   {button2Text}

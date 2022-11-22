@@ -50,7 +50,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
           {description}
         </Text>
         <Container display={"flex"} justify={"center"} mv={3} wrap={"wrap"}>
-          <Container ph={1} pv={1} width={"auto"} widthSm={"100%"}>
+          <Container pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink href={"/free-trial/"}>
               <Button
                 display={"block"}
@@ -61,7 +61,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
               </Button>
             </AirsLink>
           </Container>
-          <Container ph={1} pv={1} width={"auto"} widthSm={"100%"}>
+          <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink href={"/contact-us/"}>
               <Button display={"block"} variant={"tertiary"}>
                 {"Contact now"}
