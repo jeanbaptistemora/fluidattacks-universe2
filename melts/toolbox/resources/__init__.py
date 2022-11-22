@@ -22,13 +22,15 @@ from fa_purity import (
     Result,
     ResultE,
 )
-import git
-from git import (
-    Repo,
+from git.cmd import (
+    Git,
 )
 from git.exc import (
     GitCommandError,
     GitError,
+)
+from git.repo import (
+    Repo,
 )
 import json
 from multiprocessing import (
@@ -124,7 +126,7 @@ def manage_repo_diffs(repositories: List[Dict[str, str]]) -> None:
 
 def ls_remote(url: str) -> Dict[str, Any]:
     remote_refs = {}
-    remote = git.cmd.Git()
+    remote = Git()
     try:
         for ref in remote.ls_remote(url).split("\n"):
             hash_ref_list = ref.split("\t")
@@ -373,7 +375,7 @@ def _http_ls_remote(
 def get_head_commit(path_to_repo: Path, branch: str) -> Optional[str]:
     try:
         return (
-            git.Repo(path_to_repo.resolve(), search_parent_directories=True)
+            Repo(path_to_repo.resolve(), search_parent_directories=True)
             .heads[branch]
             .object.hexsha
         )
@@ -408,10 +410,10 @@ def _http_repo_cloning(
     if os.path.isdir(folder):
         # Update already existing repo
         try:
-            git_repo = git.Repo(folder, search_parent_directories=True)
+            git_repo = Repo(folder, search_parent_directories=True)
             git_repo.remotes.origin.pull()
         except GitError as exc:
-            problem = FormatRepoProblem(nickname, branch, exc.stderr)
+            problem = FormatRepoProblem(nickname, branch, str(exc))
             problem.log(LOGGER)
     # validate if there is no problem with the baseurl
     elif not problem:
@@ -422,7 +424,7 @@ def _http_repo_cloning(
                 multi_options=[f"-b {branch}", "--single-branch"],
             )
         except GitError as exc:
-            problem = FormatRepoProblem(nickname, branch, exc.stderr)
+            problem = FormatRepoProblem(nickname, branch, str(exc))
             problem.log(LOGGER)
 
     if problem:
@@ -583,7 +585,7 @@ def get_fingerprint(subs: str) -> bool:
 
     for repo in (r for r in listpath if os.path.isdir(f"{path}/{r}")):
         # com -> commom command
-        git_repo = git.Repo(f"{path}/{repo}", search_parent_directories=True)
+        git_repo = Repo(f"{path}/{repo}", search_parent_directories=True)
         hashr = git_repo.head.commit.hexsha
         date = datetime.fromtimestamp(git_repo.head.commit.authored_date)
         max_date = max_date or date

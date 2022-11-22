@@ -20,7 +20,9 @@ import dateutil.parser
 from functools import (
     lru_cache,
 )
-import git
+from git.repo import (
+    Repo,
+)
 import io
 import json
 import os
@@ -201,8 +203,8 @@ def get_change_request_summary(
     if gitlab_summary_var in os.environ:
         commit_summary = os.environ[gitlab_summary_var]
     else:
-        commit_summary = (
-            git.Repo(path, search_parent_directories=True).commit(ref).summary
+        commit_summary = str(
+            Repo(path, search_parent_directories=True).commit(ref).summary
         )
 
     return commit_summary
@@ -215,11 +217,10 @@ def get_change_request_body(ref: str = "HEAD", path: str = os.getcwd()) -> str:
     if gitlab_summary_var in os.environ:
         return os.environ[gitlab_summary_var]
     with contextlib.suppress(IndexError):
-        return (
-            git.Repo(path, search_parent_directories=True)
-            .commit(ref)
-            .message.split("\n\n", 1)[1]
-        )
+        return str(
+            Repo(path, search_parent_directories=True).commit(ref).message
+        ).split("\n\n", 1)[1]
+
     return ""
 
 
@@ -228,7 +229,7 @@ def get_change_request_patch(
     path: str = os.getcwd(),
 ) -> str:
     """Return the HEAD commit patch."""
-    return git.Repo(path, search_parent_directories=True).git.show(
+    return Repo(path, search_parent_directories=True).git.show(
         "--format=", ref
     )
 
@@ -268,7 +269,7 @@ def get_change_request_touched_files(
 ) -> Tuple[str, ...]:
     """Return touched files in HEAD commit."""
     return tuple(
-        git.Repo(path, search_parent_directories=True)
+        Repo(path, search_parent_directories=True)
         .git.show("--format=", "--name-only", ref)
         .splitlines()
     )

@@ -11,12 +11,14 @@ from concurrent.futures import (
 from contextlib import (
     suppress,
 )
-from git import (
+from git.cmd import (
     Git,
-    Repo,
 )
 from git.exc import (
     GitError,
+)
+from git.repo import (
+    Repo,
 )
 import os
 from pathlib import (
@@ -219,7 +221,7 @@ def download_repo_from_s3(
                 "--global",
                 "--add",
                 "safe.directory",
-                repo_path.resolve(),
+                str(repo_path.resolve()),
             ]
         )
         repo = Repo(repo_path.resolve())

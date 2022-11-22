@@ -8,9 +8,11 @@ from concurrent.futures.thread import (
 from contextlib import (
     suppress,
 )
-import git
 from git.exc import (
     GitError,
+)
+from git.repo import (
+    Repo,
 )
 import glob
 import json
@@ -129,7 +131,7 @@ def s3_sync_fusion_to_s3(
             root_id,
             "OK",
             "Cloned successfully",
-            commit=git.Repo(
+            commit=Repo(
                 repo_path, search_parent_directories=True
             ).head.object.hexsha,
         )
