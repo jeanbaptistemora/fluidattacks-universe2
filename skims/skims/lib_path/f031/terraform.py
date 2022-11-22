@@ -27,6 +27,7 @@ from parse_hcl2.common import (
     get_attribute,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_iam_role,
     iter_iam_user_policy,
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
@@ -56,17 +57,29 @@ def action_has_full_access_to_ssm(actions: Union[str, List[str]]) -> bool:
     return False
 
 
+def check_role_name(role_iterator: Iterator[Any], name: str) -> bool:
+    if any(
+        (role_name := get_attribute(attr.data, "name"))
+        and role_name.val in name
+        for attr in role_iterator
+    ):
+        return True
+    return False
+
+
 def action_has_attach_role(
     actions: Union[str, List[str]],
     resources: Union[str, List[str]],
+    role_iterator: Iterator[Any],
 ) -> bool:
     actions_list = actions if isinstance(actions, list) else [actions]
     resource_list = resources if isinstance(resources, list) else [resources]
     for action in actions_list:
         if action == "iam:Attach*" and any(
-            re.split("::", resource)[0].startswith("arn:aws:iam")
-            and re.search(r"\$?[A-Za-z0-9_./{}]:role/", resource)
-            for resource in resource_list
+            re.split("::", res)[0].startswith("arn:aws:iam")
+            and re.search(r"\$?[A-Za-z0-9_./{}]:role/", res)
+            and (check_role_name(role_iterator, re.split(":role/", res)[1]))
+            for res in resource_list
         ):
             return True
     return False
@@ -74,12 +87,13 @@ def action_has_attach_role(
 
 def _tfm_iam_role_excessive_privilege(
     statements_iterator: Iterator[Any],
+    role_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for stmt in statements_iterator:
         stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
         resources = stmt_raw.get("Resource", [])
         actions = stmt_raw.get("Action", [])
-        if action_has_attach_role(actions, resources):
+        if action_has_attach_role(actions, resources, role_iterator):
             yield stmt
 
 
@@ -230,7 +244,8 @@ def tfm_iam_excessive_role_policy(
             _tfm_iam_role_excessive_privilege(
                 statements_iterator=terraform_iterate_iam_policy_documents(
                     model=model,
-                )
+                ),
+                role_iterator=iter_aws_iam_role(model=model),
             )
         ),
         path=path,
