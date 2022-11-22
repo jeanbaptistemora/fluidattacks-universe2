@@ -58,7 +58,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderEditBtn ? (
-        <Container pl={"8px"} pr={"8px"}>
+        <Container>
           <Tooltip
             disp={"inline-block"}
             id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
