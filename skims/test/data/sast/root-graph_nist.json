@@ -21948,6 +21948,9 @@
             "1016": {
               "label_ast": "AST"
             },
+            "1021": {
+              "label_ast": "AST"
+            },
             "1035": {
               "label_ast": "AST"
             },
@@ -21958,6 +21961,21 @@
           },
           "1016": {
             "1018": {
+              "label_ast": "AST"
+            }
+          },
+          "1021": {
+            "1023": {
+              "label_ast": "AST"
+            }
+          },
+          "1023": {
+            "1025": {
+              "label_ast": "AST"
+            }
+          },
+          "1025": {
+            "1028": {
               "label_ast": "AST"
             }
           },
@@ -22183,6 +22201,12 @@
             "173": {
               "label_ast": "AST"
             },
+            "178": {
+              "label_ast": "AST"
+            },
+            "191": {
+              "label_ast": "AST"
+            },
             "205": {
               "label_ast": "AST"
             },
@@ -22193,6 +22217,41 @@
           },
           "173": {
             "175": {
+              "label_ast": "AST"
+            }
+          },
+          "178": {
+            "180": {
+              "label_ast": "AST"
+            }
+          },
+          "180": {
+            "182": {
+              "label_ast": "AST"
+            }
+          },
+          "182": {
+            "184": {
+              "label_ast": "AST"
+            }
+          },
+          "184": {
+            "188": {
+              "label_ast": "AST"
+            }
+          },
+          "191": {
+            "193": {
+              "label_ast": "AST"
+            }
+          },
+          "193": {
+            "195": {
+              "label_ast": "AST"
+            }
+          },
+          "195": {
+            "198": {
               "label_ast": "AST"
             }
           },
@@ -22509,6 +22568,12 @@
             "388": {
               "label_ast": "AST"
             },
+            "393": {
+              "label_ast": "AST"
+            },
+            "409": {
+              "label_ast": "AST"
+            },
             "426": {
               "label_ast": "AST"
             },
@@ -22519,6 +22584,49 @@
           },
           "388": {
             "390": {
+              "label_ast": "AST"
+            }
+          },
+          "393": {
+            "395": {
+              "label_ast": "AST"
+            }
+          },
+          "395": {
+            "397": {
+              "label_ast": "AST"
+            }
+          },
+          "397": {
+            "400": {
+              "label_ast": "AST"
+            },
+            "402": {
+              "label_ast": "AST"
+            }
+          },
+          "402": {
+            "406": {
+              "label_ast": "AST"
+            }
+          },
+          "409": {
+            "411": {
+              "label_ast": "AST"
+            }
+          },
+          "411": {
+            "413": {
+              "label_ast": "AST"
+            }
+          },
+          "413": {
+            "415": {
+              "label_ast": "AST"
+            }
+          },
+          "415": {
+            "419": {
               "label_ast": "AST"
             }
           },
@@ -22641,6 +22749,9 @@
             "492": {
               "label_ast": "AST"
             },
+            "497": {
+              "label_ast": "AST"
+            },
             "511": {
               "label_ast": "AST"
             },
@@ -22651,6 +22762,21 @@
           },
           "492": {
             "494": {
+              "label_ast": "AST"
+            }
+          },
+          "497": {
+            "499": {
+              "label_ast": "AST"
+            }
+          },
+          "499": {
+            "501": {
+              "label_ast": "AST"
+            }
+          },
+          "501": {
+            "504": {
               "label_ast": "AST"
             }
           },
@@ -22870,6 +22996,9 @@
             "633": {
               "label_ast": "AST"
             },
+            "638": {
+              "label_ast": "AST"
+            },
             "652": {
               "label_ast": "AST"
             },
@@ -22880,6 +23009,21 @@
           },
           "633": {
             "635": {
+              "label_ast": "AST"
+            }
+          },
+          "638": {
+            "640": {
+              "label_ast": "AST"
+            }
+          },
+          "640": {
+            "642": {
+              "label_ast": "AST"
+            }
+          },
+          "642": {
+            "645": {
               "label_ast": "AST"
             }
           },
@@ -23194,6 +23338,9 @@
             "823": {
               "label_ast": "AST"
             },
+            "828": {
+              "label_ast": "AST"
+            },
             "842": {
               "label_ast": "AST"
             },
@@ -23204,6 +23351,21 @@
           },
           "823": {
             "825": {
+              "label_ast": "AST"
+            }
+          },
+          "828": {
+            "830": {
+              "label_ast": "AST"
+            }
+          },
+          "830": {
+            "832": {
+              "label_ast": "AST"
+            }
+          },
+          "832": {
+            "835": {
               "label_ast": "AST"
             }
           },
@@ -23565,7 +23727,8 @@
             "symbol": "patched"
           },
           "1015": {
-            "attributes_id": "1016",
+            "attr_0": "1016",
+            "attr_1": "1021",
             "block_id": "1041",
             "label_type": "MethodDeclaration",
             "name": "Delete",
@@ -23577,6 +23740,21 @@
           "1018": {
             "label_type": "Attribute",
             "name": "HttpDelete"
+          },
+          "1021": {
+            "label_type": "AttributeList"
+          },
+          "1023": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "1025": {
+            "label_type": "ArgumentList"
+          },
+          "1028": {
+            "label_type": "Literal",
+            "value": "\"{id:int}\"",
+            "value_type": "string"
           },
           "1035": {
             "label_type": "ParameterList"
@@ -23783,7 +23961,9 @@
             "symbol": "houseMapper"
           },
           "172": {
-            "attributes_id": "173",
+            "attr_0": "173",
+            "attr_1": "178",
+            "attr_2": "191",
             "block_id": "221",
             "label_type": "MethodDeclaration",
             "name": "Get",
@@ -23796,9 +23976,41 @@
             "label_type": "Attribute",
             "name": "HttpGet"
           },
+          "178": {
+            "label_type": "AttributeList"
+          },
+          "180": {
+            "label_type": "Attribute",
+            "name": "EnableQuery"
+          },
+          "182": {
+            "label_type": "ArgumentList"
+          },
+          "184": {
+            "label_type": "Argument"
+          },
+          "188": {
+            "label_type": "SymbolLookup",
+            "symbol": "MaxPageSize"
+          },
           "19": {
             "expression": "System.Net",
             "label_type": "Import"
+          },
+          "191": {
+            "label_type": "AttributeList"
+          },
+          "193": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "195": {
+            "label_type": "ArgumentList"
+          },
+          "198": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
           },
           "2": {
             "expression": "System.Collections.Generic",
@@ -24140,7 +24352,9 @@
             "symbol": "x"
           },
           "387": {
-            "attributes_id": "388",
+            "attr_0": "388",
+            "attr_1": "393",
+            "attr_2": "409",
             "block_id": "432",
             "label_type": "MethodDeclaration",
             "name": "GetSingle",
@@ -24152,6 +24366,47 @@
           "390": {
             "label_type": "Attribute",
             "name": "HttpGet"
+          },
+          "393": {
+            "label_type": "AttributeList"
+          },
+          "395": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "397": {
+            "label_type": "ArgumentList"
+          },
+          "400": {
+            "label_type": "Literal",
+            "value": "\"{id:int}\"",
+            "value_type": "string"
+          },
+          "402": {
+            "label_type": "Argument"
+          },
+          "406": {
+            "label_type": "Literal",
+            "value": "\"GetSingleHouse\"",
+            "value_type": "string"
+          },
+          "409": {
+            "label_type": "AttributeList"
+          },
+          "411": {
+            "label_type": "Attribute",
+            "name": "EnableQuery"
+          },
+          "413": {
+            "label_type": "ArgumentList"
+          },
+          "415": {
+            "label_type": "Argument"
+          },
+          "419": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
           },
           "426": {
             "label_type": "ParameterList"
@@ -24274,7 +24529,8 @@
             "symbol": "houseEntity"
           },
           "491": {
-            "attributes_id": "492",
+            "attr_0": "492",
+            "attr_1": "497",
             "block_id": "522",
             "label_type": "MethodDeclaration",
             "name": "Create",
@@ -24286,6 +24542,21 @@
           "494": {
             "label_type": "Attribute",
             "name": "HttpPost"
+          },
+          "497": {
+            "label_type": "AttributeList"
+          },
+          "499": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "501": {
+            "label_type": "ArgumentList"
+          },
+          "504": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
           },
           "511": {
             "label_type": "ParameterList"
@@ -24505,7 +24776,8 @@
             "label_type": "Import"
           },
           "632": {
-            "attributes_id": "633",
+            "attr_0": "633",
+            "attr_1": "638",
             "block_id": "667",
             "label_type": "MethodDeclaration",
             "name": "Update",
@@ -24517,6 +24789,21 @@
           "635": {
             "label_type": "Attribute",
             "name": "HttpPut"
+          },
+          "638": {
+            "label_type": "AttributeList"
+          },
+          "640": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "642": {
+            "label_type": "ArgumentList"
+          },
+          "645": {
+            "label_type": "Literal",
+            "value": "\"{id:int}\"",
+            "value_type": "string"
           },
           "652": {
             "label_type": "ParameterList"
@@ -24835,7 +25122,8 @@
             "symbol": "houseEntity"
           },
           "822": {
-            "attributes_id": "823",
+            "attr_0": "823",
+            "attr_1": "828",
             "block_id": "857",
             "label_type": "MethodDeclaration",
             "name": "Patch",
@@ -24847,6 +25135,21 @@
           "825": {
             "label_type": "Attribute",
             "name": "HttpPatch"
+          },
+          "828": {
+            "label_type": "AttributeList"
+          },
+          "830": {
+            "label_type": "Attribute",
+            "name": "Route"
+          },
+          "832": {
+            "label_type": "ArgumentList"
+          },
+          "835": {
+            "label_type": "Literal",
+            "value": "\"{id:int}\"",
+            "value_type": "string"
           },
           "84": {
             "block_id": "90",

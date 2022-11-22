@@ -13,6 +13,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
+    match_ast_group,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -30,13 +31,18 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None
 
-    match_childs = match_ast(
+    match_childs = match_ast_group(
         args.ast_graph, args.n_id, "attribute_list", "modifier"
     )
-    attributes_id = match_childs.get("attribute_list")
+    attributes = match_childs.get("attribute_list")
+
     children_nid = {
-        "attributes_id": attributes_id,
         "parameters_id": parameters_id,
     }
+
+    if attributes:
+        for idx, attribute in enumerate(attributes):
+            children_nid.update({f"attr_{idx}": attribute})
+            print(children_nid)
 
     return build_method_declaration_node(args, name, block_id, children_nid)
