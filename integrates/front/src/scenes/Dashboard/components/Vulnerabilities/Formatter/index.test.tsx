@@ -221,4 +221,134 @@ describe("Formatter", (): void => {
     expect(screen.queryByText("Verified (closed)")).not.toBeInTheDocument();
     expect(screen.queryByText("Verified (open)")).not.toBeInTheDocument();
   });
+
+  it("should have a long text in complete status format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const columnsCompleteStatus: ColumnDef<IRandomData>[] = [
+      {
+        accessorKey: "currentState",
+        cell: (cell): JSX.Element => statusFormatter(cell.getValue(), true),
+        header: "Status",
+      },
+    ];
+
+    render(
+      <Table
+        columns={columnsCompleteStatus}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("17"));
+
+    expect(screen.getByText("Pending verification")).toBeInTheDocument();
+    expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
+    expect(screen.getByText("Temporarily accepted")).toBeInTheDocument();
+    expect(screen.getByText("Should be gray")).toBeInTheDocument();
+    expect(screen.getByText("Verified (closed)")).toBeInTheDocument();
+    expect(screen.getByText("Verified (open)")).toBeInTheDocument();
+  });
+
+  it("should have complete status format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const columnsCompleteStatus: ColumnDef<IRandomData>[] = [
+      {
+        accessorKey: "currentState",
+        cell: (cell): JSX.Element => statusFormatter(cell.getValue(), true),
+        header: "Status",
+      },
+    ];
+
+    render(
+      <Table
+        columns={columnsCompleteStatus}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("17"));
+
+    expect(screen.getByText("Closed")).toBeInTheDocument();
+    expect(screen.getByText("Closed")).toHaveStyle(
+      `background-color: ${variants.green.bgColor};
+      border: 1px solid ${variants.green.borderColor};
+      color: ${variants.green.color};`
+    );
+
+    expect(screen.getByText("Should be gray")).toBeInTheDocument();
+    expect(screen.getByText("Should be gray")).toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+
+    expect(screen.getByText("N/a")).toBeInTheDocument();
+    expect(screen.getByText("N/a")).toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+
+    expect(screen.getByText("On hold")).toBeInTheDocument();
+    expect(screen.getByText("On hold")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("Pending verification")).toBeInTheDocument();
+    expect(screen.getByText("Pending verification")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("Open")).toBeInTheDocument();
+    expect(screen.getByText("Open")).toHaveStyle(
+      `background-color: ${variants.red.bgColor};
+      border: 1px solid ${variants.red.borderColor};
+      color: ${variants.red.color};`
+    );
+  });
+
+  it("should not have value on complete status", (): void => {
+    expect.hasAssertions();
+
+    const columnsCompleteStatus: ColumnDef<IRandomData>[] = [
+      {
+        accessorKey: "currentState",
+        cell: (cell): JSX.Element => statusFormatter(cell.getValue(), true),
+        header: "Status",
+      },
+    ];
+
+    const dataCompleteStatus: IRandomData[] = [
+      {
+        currentState: "-",
+      },
+    ];
+
+    render(
+      <Table
+        columns={columnsCompleteStatus}
+        data={dataCompleteStatus}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.queryAllByRole("row")).toHaveLength(2);
+    expect(screen.queryByText("-")).not.toBeInTheDocument();
+  });
 });
