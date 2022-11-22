@@ -37,15 +37,14 @@ def _determine_vuln_event(
     stream_event: StreamEvent,
     new_vuln: Optional[Item],
     old_vuln: Optional[Item],
-    finding_id: str,
-    released_findings: set[str],
+    is_finding_released: bool,
 ) -> Optional[HookEvent]:
     event: Optional[HookEvent] = None
     if new_vuln is not None:
         if (
             # A vulnerability was reported to a finding
             stream_event == StreamEvent.INSERT
-            and finding_id in released_findings
+            and is_finding_released
         ) or (
             # An existing report was promoted from draft to finding
             stream_event == StreamEvent.MODIFY
@@ -53,12 +52,9 @@ def _determine_vuln_event(
             and new_vuln["created_date"] != old_vuln["created_date"]
         ):
             event = HookEvent.REPORTED_VULNERABILITY
-        elif (
-            stream_event == StreamEvent.MODIFY
-            and finding_id in released_findings
-        ):
+        elif stream_event == StreamEvent.MODIFY and is_finding_released:
             event = HookEvent.EDITED_VULNERABILITY
-    else:
+    elif stream_event == StreamEvent.REMOVE and is_finding_released:
         event = HookEvent.DELETED_VULNERABILITY
 
     return event
@@ -185,8 +181,7 @@ def process_poc(records: tuple[Record, ...]) -> None:
                 record.event_name,
                 new_vuln,
                 old_vuln,
-                finding_id,
-                released_findings,
+                finding_id in released_findings,
             )
             if event is not None:
                 _notify_client(vuln_id, event)
