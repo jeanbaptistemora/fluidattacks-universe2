@@ -26,9 +26,6 @@ from fa_purity.stream.transform import (
     consume,
 )
 import logging
-from redshift_client.id_objs import (
-    TableId,
-)
 from redshift_client.sql_client import (
     new_client,
 )
@@ -80,14 +77,13 @@ def amend_users(
 
 def _start(
     connection: DbConnection,
-    table: TableId,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
     sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
-    client = sql_client_1.map(lambda q: Client.new(q, table))
-    client2 = sql_client_2.map(lambda q: Client.new(q, table))
+    client = sql_client_1.map(Client.new)
+    client2 = sql_client_2.map(Client.new)
     return client.bind(
         lambda c1: client2.bind(
             lambda c2: amend_users(c1, c2, namespace, mailmap)
@@ -98,7 +94,6 @@ def _start(
 def start(
     db_id: DatabaseId,
     creds: Credentials,
-    table: TableId,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
@@ -112,7 +107,7 @@ def start(
     def _action() -> None:
         conn = unsafe_unwrap(connection)
         try:
-            unsafe_unwrap(_start(conn, table, namespace, mailmap))
+            unsafe_unwrap(_start(conn, namespace, mailmap))
         finally:
             unsafe_unwrap(conn.close())
 

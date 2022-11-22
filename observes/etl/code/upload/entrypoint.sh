@@ -43,8 +43,6 @@ function job_code_upload {
               --db-id "${db}" \
               --creds "${creds}" \
               upload-code \
-              --schema 'code' \
-              --table 'commits' \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
               "groups/${group}/fusion/"* \
@@ -53,8 +51,6 @@ function job_code_upload {
               --db-id "${db}" \
               --creds "${creds}" \
               amend-authors \
-              --schema 'code' \
-              --table 'commits' \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
             && if [[ ${migrated_groups[*]} =~ ${group} ]]; then

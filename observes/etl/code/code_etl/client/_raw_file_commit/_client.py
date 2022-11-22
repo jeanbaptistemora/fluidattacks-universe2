@@ -45,13 +45,7 @@ LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
-class _Private:
-    pass
-
-
-@dataclass(frozen=True)
 class RawFileCommitClient:
-    _private: _Private
     _sql_client: SqlClient
     _table: TableId
 

@@ -8,6 +8,10 @@ from __future__ import (
 from ._raw import (
     RawClient,
 )
+from ._raw_file_commit import (
+    FileRelationFactory,
+    RawFileCommitClient,
+)
 from code_etl.client import (
     _query,
     decoder,
@@ -32,11 +36,16 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     FrozenList,
+    PureIter,
     ResultE,
     Stream,
 )
+from fa_purity.pure_iter.factory import (
+    from_flist,
+)
 import logging
 from redshift_client.id_objs import (
+    SchemaId,
     TableId,
 )
 from redshift_client.sql_client import (
@@ -55,6 +64,7 @@ class _Client:
     sql_client: SqlClient
     table: TableId
     raw: RawClient
+    raw_2: RawFileCommitClient
 
 
 @dataclass(frozen=True)
@@ -63,9 +73,17 @@ class Client:
     _inner: _Client
 
     @staticmethod
-    def new(_sql_client: SqlClient, _table: TableId) -> Client:
+    def new(_sql_client: SqlClient) -> Client:
+        schema = SchemaId("code")
+        stamps = TableId(schema, "commits")
+        files_relation = TableId(schema, "files")
         return Client(
-            _Client(_sql_client, _table, RawClient(_sql_client, _table))
+            _Client(
+                _sql_client,
+                stamps,
+                RawClient(_sql_client, stamps),
+                RawFileCommitClient(_sql_client, files_relation),
+            )
         )
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:

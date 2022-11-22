@@ -125,21 +125,16 @@ def _to_table(pair: Tuple[str, str]) -> TableId:
 
 @click.command()  # type: ignore[misc]
 @click.option("--mailmap", type=mailmap_file)  # type: ignore[misc]
-@click.option("--schema", type=str, required=True)  # type: ignore[misc]
-@click.option("--table", type=str, required=True)  # type: ignore[misc]
 @click.option("--namespace", type=str, required=True)  # type: ignore[misc]
 @click.pass_obj  # type: ignore[misc]
 def amend_authors(
     ctx: CmdContext,
-    schema: str,
-    table: str,
     mailmap: Optional[str],
     namespace: str,
 ) -> NoReturn:
     start_amend(
         ctx.db_id,
         ctx.creds,
-        _to_table((schema, table)),
         namespace,
         _get_mailmap(mailmap),
     ).compute()
@@ -159,26 +154,20 @@ def compute_bills(
 
 
 @click.command()  # type: ignore[misc]
-@click.option("--schema", type=str, required=True)  # type: ignore[misc]
-@click.option("--table", type=str, required=True)  # type: ignore[misc]
 @click.option("--namespace", type=str, required=True)  # type: ignore[misc]
 @click.option("--mailmap", type=mailmap_file)  # type: ignore[misc]
 @click.argument("repositories", type=str, nargs=-1)  # type: ignore[misc]
 @pass_ctx  # type: ignore[misc]
 def upload_code(
     ctx: CmdContext,
-    schema: str,
-    table: str,
     namespace: str,
     repositories: Tuple[str, ...],
     mailmap: Optional[str],
 ) -> NoReturn:
     # pylint: disable=too-many-arguments
     repos = tuple(Path(abspath(r)) for r in repositories)
-    target = _to_table((schema, table))
-    mmap = _get_mailmap(mailmap)
     upload_repo.upload_repos(
-        ctx.db_id, ctx.creds, target, namespace, repos, mmap
+        ctx.db_id, ctx.creds, namespace, repos, _get_mailmap(mailmap)
     ).compute()
 
 

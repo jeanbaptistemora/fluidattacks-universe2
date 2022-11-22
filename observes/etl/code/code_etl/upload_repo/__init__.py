@@ -111,17 +111,14 @@ def upload(
 
 def _upload_repos(
     connection: DbConnection,
-    target: TableId,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    LOG.info("Uploading repos data into %s.%s", target.schema, target.name)
+    LOG.info("Uploading repos data")
 
     def _new_client(path: Path) -> Cmd[Client]:
-        return new_client(connection, LOG.getChild(str(path))).map(
-            lambda c: Client.new(c, target)
-        )
+        return new_client(connection, LOG.getChild(str(path))).map(Client.new)
 
     def _pair(path: Path) -> Cmd[Tuple[Client, Path]]:
         return _new_client(path).map(lambda c: (c, path))
@@ -149,7 +146,6 @@ def _upload_repos(
 def upload_repos(
     db_id: DatabaseId,
     creds: Credentials,
-    target: TableId,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
@@ -165,9 +161,7 @@ def upload_repos(
     def _action() -> None:
         conn = unsafe_unwrap(connection)
         try:
-            unsafe_unwrap(
-                _upload_repos(conn, target, namespace, repo_paths, mailmap)
-            )
+            unsafe_unwrap(_upload_repos(conn, namespace, repo_paths, mailmap))
         finally:
             unsafe_unwrap(conn.close())
 
