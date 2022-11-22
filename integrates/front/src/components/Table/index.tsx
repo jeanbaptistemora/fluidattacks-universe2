@@ -40,6 +40,7 @@ import type { ITableProps } from "./types";
 
 import { Button } from "components/Button";
 import { Gap } from "components/Layout/Gap";
+import { Text } from "components/Text";
 import { SearchText } from "styles/styledComponents";
 import { flattenData } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
@@ -216,9 +217,11 @@ const Table = <TData extends RowData>({
             {exportCsv ? (
               <CSVLink data={flattenData(data as object[])} filename={csvName}>
                 <Button variant={"ghost"}>
-                  <FontAwesomeIcon icon={faDownload} />
-                  &nbsp;
-                  {t("group.findings.exportCsv.text")}
+                  <Text bright={3}>
+                    <FontAwesomeIcon icon={faDownload} />
+                    &nbsp;
+                    {t("group.findings.exportCsv.text")}
+                  </Text>
                 </Button>
               </CSVLink>
             ) : undefined}
