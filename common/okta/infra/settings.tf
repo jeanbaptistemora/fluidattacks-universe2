@@ -5,7 +5,7 @@
 resource "okta_org_configuration" "main" {
   company_name              = "Fluid Attacks"
   website                   = "https://fluidattacks.com/"
-  end_user_support_help_url = "https://help.fluidattacks.com/"
+  end_user_support_help_url = "https://help.fluidattacks.tech/"
 
   address_1   = "95 3rd St"
   city        = "San Francisco"
