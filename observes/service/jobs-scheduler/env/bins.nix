@@ -9,7 +9,6 @@
     codeEtlMirror = outputs."/observes/etl/code/mirror/all-on-aws";
     codeEtlUpload = outputs."/observes/etl/code/upload/all-on-aws";
     checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
-    checklyEtlLegacy = outputs."/computeOnAwsBatch/observesChecklyEtlLegacy";
     delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
     dynamoDbEtls = outputs."/observes/etl/dynamo/conf";
     formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";

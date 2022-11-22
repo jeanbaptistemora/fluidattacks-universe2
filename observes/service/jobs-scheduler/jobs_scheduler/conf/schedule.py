@@ -38,7 +38,6 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
             Job.ANNOUNCEKIT,
             Job.BUGSNAG,
             Job.CHECKLY,
-            Job.CHECKLY_LEGACY,
             Job.DELIGHTED,
         ),
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),

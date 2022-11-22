@@ -32,13 +32,13 @@ function start_etl {
       > .singer \
     && echo '[INFO] Running target' \
     && target-redshift destroy-and-upload \
-      --schema-name 'new_checkly' \
+      --schema-name 'checkly' \
       --s3-state "${state_folder}/${state_file}" \
       --persistent-tables "check_results,check_results_api,check_results_browser,check_results_browser_pages" \
       < .singer \
     && job-last-success single-job \
       --auth "${db_creds}" \
-      --job 'new_checkly' \
+      --job 'checkly' \
     && rm .singer
 }
 

@@ -18,8 +18,6 @@ def job_to_bin_cmd(job: Job) -> str | NoReturn:
         return os.environ["bugsnagEtl"]
     if job is Job.CHECKLY:
         return os.environ["checklyEtl"]
-    if job is Job.CHECKLY_LEGACY:
-        return os.environ["checklyEtlLegacy"]
     if job is Job.DELIGHTED:
         return os.environ["delightedEtl"]
     if job is Job.DYNAMO_FORCES:

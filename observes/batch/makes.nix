@@ -95,14 +95,6 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
     };
 
-    observesChecklyEtlLegacy = scheduled_job {
-      name = "checkly_etl_legacy";
-      size = "nano";
-      attempts = 3;
-      timeout = 12 * 3600;
-      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly/legacy"];
-    };
-
     observesDelightedEtl = scheduled_job {
       name = "delighted_etl";
       size = "nano";
