@@ -5,8 +5,6 @@ sidebar_label: Vulnerability details
 slug: /machine/web/vulnerabilities/management/details
 ---
 
-## Vulnerability information
-
 It is helpful for you to learn
 the most relevant information
 about the vulnerabilities

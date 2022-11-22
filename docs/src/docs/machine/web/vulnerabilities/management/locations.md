@@ -243,7 +243,7 @@ You will get a popup window where
 you can edit the vulnerability.
 If you want to know more about the
 fields of this action,
-click [here](/machine/web/vulnerabilities/management/vulnerability-description/#vulnerability-assignment).
+click [here](/machine/web/vulnerabilities/management/vulnerability-assignment).
 
 ![Edit pop-window](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045647/docs/web/vulnerabilities/management/edit_popwindow.png)
 
@@ -252,15 +252,10 @@ click on the **Confirm button**.
 
 ### Filters
 
-In the
-[Locations](/machine/web/vulnerabilities/management/vulnerability-description#locations-table)
-subsection for each
-type of vulnerability,
-there is a **Filters**
-button that offers you
-six options to filter
-the information presented
-in the locations table.
+In the location section,
+there are six options to
+filter the information presented
+in the table.
 
 ![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1669046275/docs/web/vulnerabilities/management/filters_locations.png)
 

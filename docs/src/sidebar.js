@@ -672,7 +672,7 @@ const Machine = [
               "machine/web/vulnerabilities/management/introduction",
               "machine/web/vulnerabilities/management/locations",
               "machine/web/vulnerabilities/management/details",
-              "machine/web/vulnerabilities/management/vulnerability-description",
+              "machine/web/vulnerabilities/management/vulnerability-assignment",
               "machine/web/vulnerabilities/management/description",
               "machine/web/vulnerabilities/management/severity",
               "machine/web/vulnerabilities/management/evidence",

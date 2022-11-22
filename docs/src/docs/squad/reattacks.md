@@ -8,7 +8,7 @@ When you have applied a solution for an existing vulnerability,
 you can request a reattack
 for us to validate its effectiveness.
 You can do this from the
-[Locations](/machine/web/vulnerabilities/management/vulnerability-description#locations-table)
+[Locations](/machine/web/vulnerabilities/management/vulnerability-assignment)
 and
 [To-DoList](/machine/web/vulnerabilities/management/to-do-list)
 sections of the ARM.

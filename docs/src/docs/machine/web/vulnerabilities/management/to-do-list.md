@@ -24,7 +24,7 @@ However,
 an initial question could be:
 How can we assign vulnerabilities
 to our team?
-Enter this [link](/machine/web/vulnerabilities/management/vulnerability-description/#vulnerability-assignment),
+Enter this [link](/machine/web/vulnerabilities/management/vulnerability-assignment),
 and you will see how to do it!
 
 ## To-Do List table
@@ -58,7 +58,7 @@ You find the following information:
 - **Evidence:**
   Clicking on view will
   redirect you to the
-  [evidence](/machine/web/vulnerabilities/management/vulnerability-description#evidence)
+  [evidence](/machine/web/vulnerabilities/evidence)
   tab in the locations tab.
 - **Last reattack:**
   The [Reattack](/squad/reattacks)
