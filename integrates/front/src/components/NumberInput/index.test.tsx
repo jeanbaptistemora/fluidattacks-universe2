@@ -75,6 +75,44 @@ describe("numberInput", (): void => {
 
     await userEvent.type(screen.getByRole("spinbutton"), "{backspace}");
 
+    expect(onEnterCallback).toHaveBeenCalledWith(2);
+  });
+
+  it("should call callback with value incremented", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const onEnterCallback: jest.Mock = jest.fn();
+    render(
+      <NumberInput
+        autoUpdate={true}
+        decimalPlaces={1}
+        defaultValue={2.0}
+        max={3}
+        min={1}
+        onEnter={onEnterCallback}
+      />
+    );
+
+    await userEvent.click(
+      screen.getByText((_, element): boolean => {
+        return (
+          element?.tagName.toLowerCase() === "svg" &&
+          element.getAttribute("data-icon") === "minus"
+        );
+      })
+    );
+
+    expect(onEnterCallback).toHaveBeenCalledWith(1.9);
+
+    await userEvent.click(
+      screen.getByText((_, element): boolean => {
+        return (
+          element?.tagName.toLowerCase() === "svg" &&
+          element.getAttribute("data-icon") === "plus"
+        );
+      })
+    );
+
     expect(onEnterCallback).toHaveBeenCalledWith(2.0);
   });
 });
