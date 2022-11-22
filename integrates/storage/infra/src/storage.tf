@@ -2,14 +2,21 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-variable "endpoint" {}
+variable "branch" {}
+
+locals {
+  endpoint = var.branch == "trunk" ? "prod.integrates" : "${var.branch}.integrates"
+  tags = {
+    area = var.branch == "trunk" ? "cost" : "innovation"
+  }
+}
 
 resource "aws_s3_bucket" "main" {
-  bucket = var.endpoint
+  bucket = local.endpoint
 
   tags = {
-    "Name"               = var.endpoint
-    "management:area"    = "cost"
+    "Name"               = local.endpoint
+    "management:area"    = local.tags.area
     "management:product" = "integrates"
     "management:type"    = "product"
   }

@@ -6,70 +6,47 @@
     modules = {
       integratesStorageDev = {
         setup = [
-          outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageDev"
-          outputs."/envVarsForTerraform/integratesStorageDev"
+          outputs."/secretsForAwsFromGitlab/dev"
+          outputs."/workspaceForTerraformFromEnv/integratesStorage"
+          outputs."/secretsForTerraformFromEnv/integratesStorage"
         ];
         src = "/integrates/storage/infra/src";
         version = "1.0";
       };
-      integratesStorageProd = {
+      integratesStorage = {
         setup = [
           outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageProd"
-          outputs."/envVarsForTerraform/integratesStorageProd"
+          outputs."/workspaceForTerraformFromEnv/integratesStorage"
+          outputs."/secretsForTerraformFromEnv/integratesStorage"
         ];
         src = "/integrates/storage/infra/src";
         version = "1.0";
       };
-    };
-  };
-  envVarsForTerraform = {
-    integratesStorageDev = {
-      endpoint = "integrates-storage-dev";
-    };
-    integratesStorageProd = {
-      endpoint = "integrates-storage-prod";
     };
   };
   lintTerraform = {
     modules = {
-      integratesStorageDev = {
+      integratesStorage = {
         setup = [
-          outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageDev"
-          outputs."/envVarsForTerraform/integratesStorageDev"
-        ];
-        src = "/integrates/storage/infra/src";
-        version = "1.0";
-      };
-      integratesStorageProd = {
-        setup = [
-          outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageProd"
-          outputs."/envVarsForTerraform/integratesStorageProd"
+          outputs."/secretsForAwsFromGitlab/dev"
         ];
         src = "/integrates/storage/infra/src";
         version = "1.0";
       };
     };
   };
+  secretsForTerraformFromEnv = {
+    integratesStorage = {
+      branch = "CI_COMMIT_REF_NAME";
+    };
+  };
   testTerraform = {
     modules = {
-      integratesStorageDev = {
+      integratesStorage = {
         setup = [
-          outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageDev"
-          outputs."/envVarsForTerraform/integratesStorageDev"
-        ];
-        src = "/integrates/storage/infra/src";
-        version = "1.0";
-      };
-      integratesStorageProd = {
-        setup = [
-          outputs."/secretsForAwsFromGitlab/prodIntegrates"
-          outputs."/workspaceForTerraformFromEnv/integratesStorageProd"
-          outputs."/envVarsForTerraform/integratesStorageProd"
+          outputs."/secretsForAwsFromGitlab/dev"
+          outputs."/workspaceForTerraformFromEnv/integratesStorage"
+          outputs."/secretsForTerraformFromEnv/integratesStorage"
         ];
         src = "/integrates/storage/infra/src";
         version = "1.0";
@@ -78,14 +55,9 @@
   };
   workspaceForTerraformFromEnv = {
     modules = {
-      integratesStorageDev = {
+      integratesStorage = {
         src = "/integrates/storage/infra/src";
         variable = "CI_COMMIT_REF_NAME";
-        version = "1.0";
-      };
-      integratesStorageProd = {
-        src = "/integrates/storage/infra/src";
-        variable = "";
         version = "1.0";
       };
     };
