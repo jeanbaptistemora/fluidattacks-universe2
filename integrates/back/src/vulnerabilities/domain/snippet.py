@@ -21,6 +21,9 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
 )
+from dynamodb.exceptions import (
+    ValidationException,
+)
 from git.exc import (
     GitCommandError,
 )
@@ -101,7 +104,7 @@ async def set_snippet(
             vulnerability_id=vulnerability.id,
             entry=last_state,
         )
-    except ClientError as exc:
+    except ValidationException as exc:
         LOGGER.error(
             "failed to set vulnerability snippet",
             extra={"extra": {"vulnerability_id": vulnerability.id}},
@@ -109,7 +112,7 @@ async def set_snippet(
         LOGGER.exception(exc)
 
 
-async def generate_snippet(
+def generate_snippet(
     vulnerability_state: VulnerabilityState, repo: Repo
 ) -> Optional[Snippet]:
     current_commit = vulnerability_state.commit or "HEAD"

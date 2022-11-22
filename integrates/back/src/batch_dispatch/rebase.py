@@ -244,9 +244,11 @@ async def rebase_root(
     )
     futures = []
     for vuln in vulnerabilities:
-        if snippet := await generate_snippet(vuln.state, repo):
+        if (not vuln.state.snippet) and (
+            snippet := generate_snippet(vuln.state, repo)
+        ):
             futures.append(set_snippet(vuln, vuln.state, snippet))
-    await collect(futures)
+    await collect(futures, workers=50)
 
 
 async def rebase(*, item: BatchProcessing) -> None:
