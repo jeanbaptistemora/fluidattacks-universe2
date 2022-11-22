@@ -9,6 +9,9 @@ from back.src.newutils import (
 from back.test.unit.src.utils import (
     create_dummy_session,
 )
+from custom_exceptions import (
+    AlreadyApproved,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -30,13 +33,21 @@ pytestmark = [
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
-async def test_approve_draft() -> None:
+async def test_approve_draft() -> None:  # pylint: disable=too-many-locals
     finding_id = "475041513"
+    approved_finding_id = "457497318"
     user_email = "unittest@fluidattacks.com"
     context: Response = await create_dummy_session(user_email)  # type: ignore
     loaders: Dataloaders = context.loaders  # type: ignore
     historic_state_loader = loaders.vulnerability_historic_state
     historic_treatment_loader = loaders.vulnerability_historic_treatment
+    with pytest.raises(AlreadyApproved):
+        await approve_draft(
+            context.loaders,  # type: ignore
+            approved_finding_id,
+            user_email,
+            requests_utils.get_source_new(context),
+        )
 
     approval_date = await approve_draft(
         context.loaders,  # type: ignore
