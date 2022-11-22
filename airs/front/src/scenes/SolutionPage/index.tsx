@@ -42,7 +42,6 @@ const SolutionPage: React.FC<ISolutionPageProps> = ({
           button1Text={"Start free trial"}
           button2Link={"/contact-us/"}
           button2Text={"Contact now"}
-          image={"/airs/solutions/cta-banner"}
           matomoAction={"Solution"}
           paragraph={ctaParagraph}
           size={"big"}

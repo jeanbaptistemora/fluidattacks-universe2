@@ -30,8 +30,27 @@ Default.args = {
   image: "airs/solutions/Index/application-security-solutions",
   paragraph:
     "This is a test paragraph that should show the behavior of the CTA",
+  size: "big",
+  sizeMd: "medium",
+  sizeSm: "small",
   title: "This is a test title",
 };
 
-export { Default };
+const JustText: Story = (): JSX.Element => (
+  <CtaBanner
+    button1Link={"/test/"}
+    button1Text={"Go to test"}
+    button2Link={"/other-test/"}
+    button2Text={"Go to other test"}
+    matomoAction={"Example"}
+    paragraph={
+      "This is a test paragraph that should show the behavior of the CTA"
+    }
+    size={"big"}
+    sizeSm={"medium"}
+    title={`This is a test title`}
+  />
+);
+
+export { Default, JustText };
 export default config;

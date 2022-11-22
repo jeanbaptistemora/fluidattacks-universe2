@@ -13,7 +13,7 @@ interface ICtaBannerProps {
   button2Text: string;
   title: string;
   paragraph: string;
-  image: string;
+  image?: string;
   matomoAction: string;
   size?: TSize;
   sizeMd?: TSize;
