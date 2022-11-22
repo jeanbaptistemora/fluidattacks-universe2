@@ -1432,6 +1432,46 @@ export const enTranslations: ResourceKey = {
             tooltip: "Cancel",
           },
         },
+        address: "Address",
+        attackedAt: "Attacked at",
+        attackedBy: "Attacked by",
+        bePresent: "Be present",
+        bePresentUntil: "Be present until",
+        commit: "Commit",
+        filters: {
+          address: {
+            placeholder: "Address",
+            tooltip: "Filter by address",
+          },
+          bePresent: {
+            placeholder: "Be present (refetch)",
+            tooltip: "Filter by be present",
+          },
+          hasVulnerabilities: {
+            placeholder: "Has vulnerabilities",
+            tooltip: "Filter by has vulnerabilities",
+          },
+          root: {
+            placeholder: "Root (refetch)",
+            tooltip: "Filter by root",
+          },
+          seenAt: {
+            placeholder: "Seen at (range)",
+            tooltip: "Filter by seen at",
+          },
+          seenFirstTimeBy: {
+            placeholder: "Seen first time by",
+            tooltip: "Filter by seen first time by",
+          },
+        },
+        firstAttackAt: "First attack at",
+        hasVulnerabilities: "Has vulnerabilities",
+        no: "No",
+        port: "Port",
+        root: "Root",
+        seenAt: "Seen at",
+        seenFirstTimeBy: "Seen first time by",
+        yes: "Yes",
       },
       tabs: {
         inputs: {
