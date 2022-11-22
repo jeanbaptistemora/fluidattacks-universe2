@@ -17,7 +17,17 @@ SPDX-License-Identifier: MPL-2.0
         <p>
           A new user has enrolled to ARM:
           <ul>
-            <li><strong>Name:</strong> {{ enrolled_name }}</li>
+            <li>
+              <strong>Name:</strong>
+              <a
+                href="https://www.linkedin.com/search/results/all/?keywords={{ enrolled_name | urlencode }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: #ff3435;"
+              >
+                {{ enrolled_name }}
+              </a>
+            </li>
             <li><strong>Email:</strong> {{ email }}</li>
             <li><strong>Enroll date:</strong> {{ enrolled_date }}</li>
           </ul>
