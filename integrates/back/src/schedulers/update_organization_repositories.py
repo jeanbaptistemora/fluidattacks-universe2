@@ -126,6 +126,7 @@ async def _update(
                     branch=_get_branch(repository),
                     last_commit_date=date,
                     url=repository.repository.web_url,
+                    commit_count=0,
                 )
             )
             for repository, date in zip(repositories, repositories_dates)

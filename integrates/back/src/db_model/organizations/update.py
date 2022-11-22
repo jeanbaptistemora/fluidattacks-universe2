@@ -6,11 +6,13 @@ from .types import (
     OrganizationMetadataToUpdate,
     OrganizationState,
     OrganizationUnreliableIndicators,
+    OrganizationUnreliableIndicatorsToUpdate,
 )
 from .utils import (
     format_metadata_item,
     format_policies_item,
     format_unreliable_indicators_item,
+    format_unreliable_indicators_item_to_update,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -194,6 +196,30 @@ async def update_unreliable_indicators(
         },
     )
     unreliable_indicators = format_unreliable_indicators_item(indicators)
+    await operations.update_item(
+        item=unreliable_indicators,
+        key=primary_key,
+        table=TABLE,
+    )
+
+
+async def update_unreliable_org_indicators(
+    *,
+    organization_id: str,
+    organization_name: str,
+    indicators: OrganizationUnreliableIndicatorsToUpdate,
+) -> None:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["organization_unreliable_indicators"],
+        values={
+            "id": organization_id,
+            "name": organization_name,
+        },
+    )
+    unreliable_indicators = format_unreliable_indicators_item_to_update(
+        indicators
+    )
+
     await operations.update_item(
         item=unreliable_indicators,
         key=primary_key,

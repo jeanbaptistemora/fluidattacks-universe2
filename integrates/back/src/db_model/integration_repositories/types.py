@@ -16,6 +16,7 @@ class OrganizationIntegrationRepository(NamedTuple):
     organization_id: str
     branch: str
     last_commit_date: str
+    commit_count: int
     url: str
 
 

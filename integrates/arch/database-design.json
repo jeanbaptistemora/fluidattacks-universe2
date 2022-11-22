@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 22, 2022, 03:51 PM",
+    "DateLastModified": "Nov 22, 2022, 04:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1017,6 +1017,22 @@
         {
           "AttributeName": "last_commit_date",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "commit_count",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "missed_repositories",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "missed_commits",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "covered_repositories",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -7263,6 +7279,7 @@
           ],
           "NonKeyAttributes": [
             "name",
+            "created_date",
             "id",
             "pk_2",
             "sk_2",
@@ -7273,7 +7290,6 @@
             "country",
             "documents",
             "vulnerabilities_url",
-            "created_date",
             "created_by"
           ],
           "DataAccess": {
@@ -13602,7 +13618,10 @@
             "compliance_level",
             "standard_compliances",
             "compliance_weekly_trend",
-            "estimated_days_to_full_compliance"
+            "estimated_days_to_full_compliance",
+            "missed_repositories",
+            "missed_commits",
+            "covered_repositories"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24593,6 +24612,7 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "address",
             "port",
             "seen_first_time_by",
             "group_name",
@@ -24606,8 +24626,7 @@
             "pk_2",
             "sk_2",
             "state",
-            "has_vulnerabilities",
-            "address"
+            "has_vulnerabilities"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24647,8 +24666,8 @@
           ],
           "NonKeyAttributes": [
             "name",
-            "state",
-            "tags"
+            "tags",
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
@@ -39117,8 +39136,9 @@
           "TableData": [],
           "NonKeyAttributes": [
             "branch",
+            "url",
             "last_commit_date",
-            "url"
+            "commit_count"
           ],
           "DataAccess": {
             "MySql": {}

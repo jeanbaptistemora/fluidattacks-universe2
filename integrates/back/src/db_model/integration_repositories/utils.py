@@ -23,4 +23,5 @@ def format_organization_integration_repository(
         branch=item["branch"],
         last_commit_date=item["last_commit_date"],
         url=item["url"],
+        commit_count=int(item.get("commit_count", 0)),
     )

@@ -27,6 +27,7 @@ async def populate(generic_data: dict) -> bool:
                 branch="refs/heads/trunk",
                 last_commit_date="2022-11-02 09:37:57",
                 url="https://gitlab.com/fluidattacks/universe",
+                commit_count=3,
             ),
         ),
     }

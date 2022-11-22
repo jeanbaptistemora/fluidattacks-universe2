@@ -14,6 +14,7 @@ from .types import (
     OrganizationStandardCompliance,
     OrganizationState,
     OrganizationUnreliableIndicators,
+    OrganizationUnreliableIndicatorsToUpdate,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -184,6 +185,9 @@ def format_unreliable_indicators(
         ]
         if "standard_compliances" in item
         else None,
+        missed_repositories=item.get("missed_repositories", 0),
+        missed_commits=item.get("missed_commits", 0),
+        covered_repositories=item.get("covered_repositories", 0),
     )
 
 
@@ -203,3 +207,26 @@ def format_unreliable_indicators_item(
         if indicators.standard_compliances is not None
         else None,
     }
+
+
+def format_unreliable_indicators_item_to_update(
+    indicators: OrganizationUnreliableIndicatorsToUpdate,
+) -> Item:
+    item = {
+        "compliance_level": indicators.compliance_level,
+        "compliance_weekly_trend": indicators.compliance_weekly_trend,
+        "estimated_days_to_full_compliance": (
+            indicators.estimated_days_to_full_compliance
+        ),
+        "standard_compliances": [
+            format_standard_compliance_item(standard_compliance)
+            for standard_compliance in indicators.standard_compliances
+        ]
+        if indicators.standard_compliances is not None
+        else None,
+        "missed_repositories": indicators.missed_repositories,
+        "missed_commits": indicators.missed_commits,
+        "covered_repositories": indicators.covered_repositories,
+    }
+
+    return {key: value for key, value in item.items() if value is not None}

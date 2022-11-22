@@ -161,6 +161,7 @@ async def mutate(
             ),
             last_commit_date="",
             url=format_git_repo_url(kwargs["url"]),
+            commit_count=0,
         )
     )
 

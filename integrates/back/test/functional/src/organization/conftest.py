@@ -198,6 +198,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 branch="main",
                 last_commit_date="2022-11-02 09:37:57",
                 url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+                commit_count=4,
             ),
         ),
     }
