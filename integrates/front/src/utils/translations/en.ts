@@ -1417,6 +1417,22 @@ export const enTranslations: ResourceKey = {
         sortsSuggestions: "Suggested Vulnerabilities",
         yes: "Yes",
       },
+      ports: {
+        actionButtons: {
+          addButton: {
+            text: "Add",
+            tooltip: "Add new port",
+          },
+          attackedButton: {
+            text: "Attacked",
+            tooltip: "Mark selected ports as attacked",
+          },
+          cancelButton: {
+            text: "Cancel",
+            tooltip: "Cancel",
+          },
+        },
+      },
       tabs: {
         inputs: {
           text: "Inputs",
