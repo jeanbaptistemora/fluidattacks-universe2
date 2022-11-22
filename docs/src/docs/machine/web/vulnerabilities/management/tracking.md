@@ -5,17 +5,38 @@ sidebar_label: Tracking
 slug: /machine/web/vulnerabilities/management/tracking
 ---
 
-As time passes
-and your project changes,
-it becomes necessary to have
-an efficient way of knowing
-how has a type of vulnerability
-evolved over time.
-This can be visualized
-in the **Tracking** tab
-available within each type of vulnerability.
+Knowing what happened with each
+vulnerability is quite important.
+So,
+it is essential for your team to
+obtain information such as dates,
+users and justifications for each
+change in the history of your
+security vulnerabilities.
+For this purpose,
+there’s the **Tracking tab** in the ARM.
+This tab gives you detailed information
+about each vulnerability in your
+software and the treatment each has
+received over time.
 
-![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1649776737/docs/web/vulnerabilities/management/vulnerabilities_tracking.png)
+You can find the **Tracking tab** in
+two different places.
+One is in each specific vulnerability type,
+where you can have a global overview.
+
+![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669114919/docs/web/vulnerabilities/management/tracking_view.png)
+
+The second Tracking tab can be accessed
+by first clicking on the Locations tab
+in a vulnerability type and then clicking
+on a specific location where the
+vulnerability was found.
+There you can find the tab,
+which will show you individual details
+on the file you chose.
+
+![Location Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669115091/docs/web/vulnerabilities/management/tracking_locat.png)
 
 The information
 that can be seen here

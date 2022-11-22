@@ -676,10 +676,10 @@ const Machine = [
               "machine/web/vulnerabilities/management/description",
               "machine/web/vulnerabilities/management/severity",
               "machine/web/vulnerabilities/management/evidence",
+              "machine/web/vulnerabilities/management/tracking",
               "machine/web/vulnerabilities/management/to-do-list",
               "machine/web/vulnerabilities/management/treatments",
               "machine/web/vulnerabilities/management/zero-risk",
-              "machine/web/vulnerabilities/management/tracking",
             ],
           },
           {
