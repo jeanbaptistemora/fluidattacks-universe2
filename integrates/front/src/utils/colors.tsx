@@ -24,10 +24,14 @@ const statusOrangeColor: string[] = [
   "Accepted",
   "Cloning",
   "Created",
+  "In progress",
+  "New",
   "On_hold",
   "Pending",
   "Pending verification",
   "Partially closed",
+  "Permanently accepted",
+  "Temporarily accepted",
 ];
 const statusRedColor: string[] = [
   "Disabled",

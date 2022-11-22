@@ -8,6 +8,8 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { CompleteStatus } from "./completeStatus";
+
 import { Tag } from "components/Tag";
 import { getBgColor } from "utils/colors";
 
@@ -29,8 +31,16 @@ const Status: React.FC<IStatus> = ({ status }: IStatus): JSX.Element => {
   );
 };
 
-const statusFormatter = (value: string | undefined): JSX.Element => (
-  <Status status={value} />
-);
+const statusFormatter = (
+  value: string | undefined,
+  completeStatus?: boolean
+): JSX.Element => {
+  return !_.isUndefined(completeStatus) && completeStatus ? (
+    <CompleteStatus status={value} />
+  ) : (
+    <Status status={value} />
+  );
+};
 
+export type { IStatus };
 export { statusFormatter, Status };
