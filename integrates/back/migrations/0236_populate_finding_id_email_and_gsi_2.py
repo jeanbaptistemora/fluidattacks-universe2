@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MPL-2.0
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 Populate the email in gsi_2 in finding_metadata
 
