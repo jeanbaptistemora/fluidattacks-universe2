@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 22, 2022, 04:01 PM",
+    "DateLastModified": "Nov 22, 2022, 04:59 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -24668,22 +24668,6 @@
             "name",
             "tags",
             "state"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
-          "FacetName": "org_finding_policy_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "POLICY#uuid#STATE",
-            "SortKeyAlias": "ORG#name"
-          },
-          "TableData": [],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
