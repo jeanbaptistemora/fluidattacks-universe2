@@ -88,9 +88,10 @@ const config = {
             position: "right",
           },
           {
-            type: 'html',
-            position: 'right',
-            value: '<a target="_blank" rel="noopener noreferrer" href="https://fluidattacks.com/free-trial/"><button class="trial-button">Start your free trial</button></a>',
+            type: "html",
+            position: "right",
+            value:
+              '<a target="_blank" rel="noopener noreferrer" href="https://fluidattacks.com/free-trial/"><button class="trial-button">Start your free trial</button></a>',
           },
         ],
       },
@@ -102,7 +103,7 @@ const config = {
             items: [
               {
                 label: "Help",
-                href: "https://help.fluidattacks.com",
+                href: "https://help.fluidattacks.tech",
               },
               {
                 label: "LinkedIn",
