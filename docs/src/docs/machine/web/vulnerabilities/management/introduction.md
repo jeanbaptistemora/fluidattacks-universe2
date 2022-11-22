@@ -31,4 +31,4 @@ you will find the following subsections:
 - [Evidence.](/machine/web/vulnerabilities/evidence)
 - [Tracking.](/machine/web/vulnerabilities/management/tracking)
 - [Records.](/machine/web/vulnerabilities/management/records)
-- Consulting.
+- [Consulting.](/machine/web/vulnerabilities/management/consulting)

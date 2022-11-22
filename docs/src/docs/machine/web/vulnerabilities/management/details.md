@@ -1,8 +1,8 @@
 ---
-id: general
-title: General
-sidebar_label: General
-slug: /machine/web/vulnerabilities/management/general
+id: details
+title: Vulnerability details
+sidebar_label: Vulnerability details
+slug: /machine/web/vulnerabilities/management/details
 ---
 
 ## Vulnerability information

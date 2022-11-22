@@ -179,7 +179,7 @@ these are described below:
 You can see a pop-up window with details
 by clicking on any location.
 For more information,
-click [here](/machine/web/vulnerabilities/management/general).
+click [here](/machine/web/vulnerabilities/management/details).
 :::
 
 ## Functionalities
