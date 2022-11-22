@@ -9,9 +9,6 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from collections import (
-    defaultdict,
-)
 from context import (
     FI_DB_MODEL_PATH,
 )
@@ -19,7 +16,6 @@ from custom_exceptions import (
     OrgFindingPolicyNotFound,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
     tables,
@@ -47,35 +43,19 @@ with open(FI_DB_MODEL_PATH, mode="r", encoding="utf-8") as file:
 
 
 def _build_org_policy_finding(
-    *,
-    org_name: str,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: tuple[Item, ...],
+    item: Item,
 ) -> OrgFindingPolicyItem:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    if "state" in metadata:
-        state: Item = metadata["state"]
-    else:
-        state = historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="STATE",
-            raw_items=raw_items,
-        )
-
+    key_structure = TABLE.primary_key
     return OrgFindingPolicyItem(
-        id=metadata[key_structure.sort_key].split("#")[1],
-        org_name=org_name,
+        id=item[key_structure.partition_key].split("#")[1],
+        org_name=item[key_structure.sort_key].split("#")[1],
         metadata=OrgFindingPolicyMetadata(
-            name=metadata["name"], tags=metadata.get("tags", {})
+            name=item["name"], tags=item.get("tags", {})
         ),
         state=OrgFindingPolicyState(
-            modified_by=state["modified_by"],
-            modified_date=state["modified_date"],
-            status=state["status"],
+            modified_by=item["state"]["modified_by"],
+            modified_date=item["state"]["modified_date"],
+            status=item["state"]["status"],
         ),
     )
 
@@ -87,35 +67,18 @@ async def get_org_finding_policy(
 ) -> Optional[OrgFindingPolicyItem]:
     primary_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
-        values={"name": org_name, "uuid": finding_policy_id},
+        values={
+            "name": org_name,
+            "uuid": finding_policy_id,
+        },
     )
-
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
-        facets=(
-            TABLE.facets["org_finding_policy_metadata"],
-            TABLE.facets["org_finding_policy_state"],
-        ),
-        index=index,
+    item = await operations.get_item(
+        facets=(TABLE.facets["org_finding_policy_metadata"],),
+        key=primary_key,
         table=TABLE,
     )
 
-    if response.items:
-        return _build_org_policy_finding(
-            org_name=org_name,
-            item_id=primary_key.partition_key,
-            key_structure=key_structure,
-            raw_items=response.items,
-        )
-
-    return None
+    return _build_org_policy_finding(item=item) if item else None
 
 
 async def get_org_finding_policies(
@@ -125,7 +88,6 @@ async def get_org_finding_policies(
         facet=TABLE.facets["org_finding_policy_metadata"],
         values={"name": org_name},
     )
-
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
     response = await operations.query(
@@ -135,30 +97,12 @@ async def get_org_finding_policies(
                 primary_key.partition_key
             )
         ),
-        facets=(
-            TABLE.facets["org_finding_policy_metadata"],
-            TABLE.facets["org_finding_policy_state"],
-        ),
+        facets=(TABLE.facets["org_finding_policy_metadata"],),
         index=index,
         table=TABLE,
     )
 
-    org_findings_policies_items = defaultdict(list)
-    for item in response.items:
-        finding_policy_id = "#".join(
-            item[key_structure.sort_key].split("#")[:2]
-        )
-        org_findings_policies_items[finding_policy_id].append(item)
-
-    return tuple(
-        _build_org_policy_finding(
-            org_name=org_name,
-            item_id=finding_policy_id,
-            key_structure=key_structure,
-            raw_items=tuple(items),
-        )
-        for finding_policy_id, items in org_findings_policies_items.items()
-    )
+    return tuple(_build_org_policy_finding(item) for item in response.items)
 
 
 async def add_organization_finding_policy(
@@ -219,7 +163,7 @@ async def update_organization_finding_policy_state(
     except ConditionalCheckFailedException as ex:
         raise OrgFindingPolicyNotFound() from ex
 
-    state_key = keys.build_key(
+    historic_state_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_historic_state"],
         values={
             "iso8601utc": state.modified_date,
@@ -227,8 +171,8 @@ async def update_organization_finding_policy_state(
         },
     )
     historic_state_item = {
-        key_structure.partition_key: state_key.partition_key,
-        key_structure.sort_key: state_key.sort_key,
+        key_structure.partition_key: historic_state_key.partition_key,
+        key_structure.sort_key: historic_state_key.sort_key,
         **dict(state._asdict()),
     }
     await operations.put_item(
@@ -248,6 +192,7 @@ async def _get_historic_state_items(*, policy_id: str) -> tuple[Item, ...]:
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(facet,),
         table=TABLE,
@@ -270,23 +215,16 @@ async def remove_org_finding_policies(*, organization_name: str) -> None:
                 primary_key.partition_key
             )
         ),
-        facets=(
-            TABLE.facets["org_finding_policy_metadata"],
-            TABLE.facets["org_finding_policy_state"],
-        ),
+        facets=(TABLE.facets["org_finding_policy_metadata"],),
         index=index,
         table=TABLE,
     )
-
     if not response.items:
         return
 
     policies_ids = set(
         item[TABLE.primary_key.partition_key].split("#")[1]
         for item in response.items
-        if item[TABLE.primary_key.partition_key].startswith(
-            primary_key.partition_key
-        )
     )
     historic_state_items: tuple[Item, ...] = tuple(
         chain.from_iterable(
