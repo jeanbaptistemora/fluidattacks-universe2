@@ -7,6 +7,9 @@
 For organization finding policies, insert state info in metadata item
 as it is done with other entities. Also delete unneeded item for facet
 org_finding_policy_state.
+
+Execution Time:    2022-11-22 at 18:10:15 UTC
+Finalization Time: 2022-11-22 at 18:11:53 UTC
 """
 
 from aioextensions import (
