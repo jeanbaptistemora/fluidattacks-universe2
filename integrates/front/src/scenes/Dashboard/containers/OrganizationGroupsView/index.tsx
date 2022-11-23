@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-autofocus */
 import _ from "lodash";

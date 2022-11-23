@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 /* eslint-disable fp/no-mutating-methods
   --------
   Since most Jest mocks override/mutate properties, we need to disable the above rules.

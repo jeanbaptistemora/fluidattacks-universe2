@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 export { FormikArrayField } from "utils/forms/fields/ArrayField/FormikArrayField";
 export { FormikCheckbox } from "utils/forms/fields/Checkbox";
 export { EditableField } from "utils/forms/fields/EditableField";

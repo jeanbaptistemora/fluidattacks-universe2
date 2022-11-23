@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import type { FieldProps, FormikHandlers } from "formik";
 import { ErrorMessage } from "formik";
 import React from "react";

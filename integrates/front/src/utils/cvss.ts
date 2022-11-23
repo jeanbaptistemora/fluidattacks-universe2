@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 /* eslint @typescript-eslint/no-magic-numbers: ["error", { "ignore": [0,1,10] }] */
 import type { ISeverityAttr } from "scenes/Dashboard/containers/SeverityView/types";
 

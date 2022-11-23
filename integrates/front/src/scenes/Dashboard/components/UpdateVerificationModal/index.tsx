@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { useMutation } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useCallback, useState } from "react";

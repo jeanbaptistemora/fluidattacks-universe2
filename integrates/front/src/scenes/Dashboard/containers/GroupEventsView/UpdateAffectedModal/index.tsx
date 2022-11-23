@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";

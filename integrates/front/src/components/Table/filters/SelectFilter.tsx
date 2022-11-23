@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import type { Column, RowData } from "@tanstack/react-table";
 import _ from "lodash";
 import React, { useMemo } from "react";

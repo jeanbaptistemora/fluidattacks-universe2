@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 // eslint-disable camelcase
 // Needed exception as the yaml file uses camelcase for its keys
 import yaml from "js-yaml";

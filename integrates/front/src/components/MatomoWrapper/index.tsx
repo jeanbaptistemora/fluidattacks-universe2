@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";

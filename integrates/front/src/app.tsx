@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import "@fontsource/roboto";
 // https://github.com/mixpanel/mixpanel-js/issues/321

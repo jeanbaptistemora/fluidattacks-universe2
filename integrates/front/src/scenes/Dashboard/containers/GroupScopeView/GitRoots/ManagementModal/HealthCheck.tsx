@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { Field } from "formik";
 import type { Dispatch, FC, SetStateAction } from "react";
 import React, { useCallback, useState } from "react";

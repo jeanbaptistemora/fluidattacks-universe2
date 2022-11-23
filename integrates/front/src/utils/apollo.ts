@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 /* eslint-disable fp/no-mutation
   -------
   We need it in order to use methods from xhr and mutate some values from a
