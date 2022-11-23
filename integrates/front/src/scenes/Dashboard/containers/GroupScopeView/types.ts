@@ -28,6 +28,8 @@ interface ICredentials {
 }
 interface ICredentialsAttr {
   id: string;
+  isPat: boolean;
+  isToken: boolean;
   name: string;
   type: "" | "HTTPS" | "SSH";
 }

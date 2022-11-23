@@ -139,6 +139,8 @@ const GET_ORGANIZATION_CREDENTIALS: DocumentNode = gql`
       credentials {
         __typename
         id
+        isPat
+        isToken
         name
         owner
         type

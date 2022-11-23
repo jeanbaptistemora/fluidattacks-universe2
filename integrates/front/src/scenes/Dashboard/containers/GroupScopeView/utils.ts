@@ -1,4 +1,10 @@
-import type { IGitRootAttr, IIPRootAttr, IURLRootAttr, Root } from "./types";
+import type {
+  ICredentialsAttr,
+  IGitRootAttr,
+  IIPRootAttr,
+  IURLRootAttr,
+  Root,
+} from "./types";
 
 const isGitRoot = (root: Root): root is IGitRootAttr =>
   root.__typename === "GitRoot";
@@ -22,4 +28,28 @@ function mapInactiveStatus(roots: IGitRootAttr[]): IGitRootAttr[] {
   });
 }
 
-export { isGitRoot, isIPRoot, isURLRoot, mapInactiveStatus };
+const formatAuthCredentials = (value: ICredentialsAttr): "TOKEN" | "USER" => {
+  if (value.isToken) {
+    return "TOKEN";
+  }
+
+  return "USER";
+};
+const formatTypeCredentials = (
+  value: ICredentialsAttr
+): "SSH" | "TOKEN" | "USER" => {
+  if (value.type === "HTTPS") {
+    return formatAuthCredentials(value);
+  }
+
+  return "SSH";
+};
+
+export {
+  isGitRoot,
+  isIPRoot,
+  isURLRoot,
+  mapInactiveStatus,
+  formatAuthCredentials,
+  formatTypeCredentials,
+};

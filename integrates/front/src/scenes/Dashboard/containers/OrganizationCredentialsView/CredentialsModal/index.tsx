@@ -20,8 +20,11 @@ import type {
   IAddCredentialsResultAttr,
   IUpdateCredentialsResultAttr,
 } from "../types";
-import { formatAuthCredentials, formatTypeCredentials } from "../utils";
 import { Modal } from "components/Modal";
+import {
+  formatAuthCredentials,
+  formatTypeCredentials,
+} from "scenes/Dashboard/containers/GroupScopeView/utils";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
