@@ -5,4 +5,4 @@
 # shellcheck shell=bash
 
 mkdir -p ./.vscode \
-  && python "__argPythonEntry__" ./.vscode/settings.json "__argPythonEnv__"
+  && "__argPython__" "__argPythonEntry__" ./.vscode/settings.json "__argPythonEnv__"
