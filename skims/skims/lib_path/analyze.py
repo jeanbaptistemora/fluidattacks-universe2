@@ -114,6 +114,7 @@ import psutil
 from state.ephemeral import (
     EphemeralStore,
 )
+import time
 from typing import (
     Any,
     Dict,
@@ -292,14 +293,18 @@ def _analyze_one_path(  # noqa: MC0001
 
 
 def _wait_until_memory_usage(
-    percent: float, timeout: Optional[float] = None
+    percent: float,
+    timeout: Optional[float] = None,
+    interval: Optional[float] = None,
 ) -> None:
+    interval = interval or 0.05
     current_date = datetime.now()
     while psutil.virtual_memory().percent > percent:
         if timeout:
             elapsed_time = current_date - datetime.now()
             if elapsed_time.seconds > timeout:
                 raise TimeoutError()
+        time.sleep(interval)
 
 
 def _execute_partial_analyze_one_path(
@@ -310,24 +315,16 @@ def _execute_partial_analyze_one_path(
 
 def _result_or_cancel(fut: Future, timeout: Optional[float] = None) -> Any:
     try:
-        try:
-            return fut.result(timeout)
-        finally:
-            fut.cancel()
+        return fut.result(timeout)
     finally:
-        # Break a reference cycle with the exception in self._exception
-        del fut
+        fut.cancel()
 
 
 def _result_iterator(futures: List[Future]) -> Iterator[Any]:
-    try:
-        # reverse to keep finishing order
-        futures.reverse()
-        while futures:
-            yield _result_or_cancel(futures.pop())
-    finally:
-        for future in futures:
-            future.cancel()
+    # reverse to keep finishing order
+    futures.reverse()
+    while futures:
+        yield _result_or_cancel(futures.pop())
 
 
 def analyze(
