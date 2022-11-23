@@ -255,6 +255,52 @@ async def ec2_monitoring_disabled(
     return vulns
 
 
+async def cf_distribution_has_logging_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudfront", function="list_distributions"
+    )
+    method = core_model.MethodsEnum.AWS_CF_DISTRIBUTION_HAS_LOGGING_DISABLED
+    distributions = response.get("DistributionList", {}) if response else {}
+    vulns: core_model.Vulnerabilities = ()
+    if distributions:
+        for dist in distributions["Items"]:
+            dist_id = dist["Id"]
+            dist_arn = dist["ARN"]
+            locations: List[Location] = []
+            config: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="cloudfront",
+                function="get_distribution_config",
+                parameters={"Id": str(dist_id)},
+            )
+            distribution_config = config.get("DistributionConfig", {})
+            logging = distribution_config.get("Logging", "")
+            if not logging["Enabled"]:
+                locations = [
+                    *locations,
+                    Location(
+                        arn=(dist_arn),
+                        description=t(
+                            "src.lib_path.f400.has_logging_disabled"
+                        ),
+                        values=(logging["Enabled"],),
+                        access_patterns=("/Logging/Enabled",),
+                    ),
+                ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=distribution_config,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -264,4 +310,5 @@ CHECKS: Tuple[
     cloudfront_has_logging_disabled,
     cloudtrail_trails_not_multiregion,
     s3_has_server_access_logging_disabled,
+    cf_distribution_has_logging_disabled,
 )
