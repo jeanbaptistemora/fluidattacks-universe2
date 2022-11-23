@@ -2,9 +2,11 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import git
 from git.cmd import (
     Git,
+)
+from git.repo import (
+    Repo,
 )
 from integrates.graphql import (
     create_session,
@@ -24,8 +26,8 @@ def test_clone_repo() -> Iterator[str]:
         repo_path: str = os.path.join(tmp_dir, "requests")
         repo_url: str = "https://github.com/psf/requests.git"
         repo_version: str = "v2.24.0"
-        git.Repo.clone_from(repo_url, repo_path)
-        git_repo: Git = git.Git(repo_path)
+        Repo.clone_from(repo_url, repo_path)
+        git_repo: Git = Git(repo_path)
         git_repo.checkout(repo_version)
         yield tmp_dir
 

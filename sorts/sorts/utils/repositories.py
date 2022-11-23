@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-import git
 from git.cmd import (
     Git,
 )
@@ -111,7 +110,7 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
     for repo_path in repos_paths:
         repo: str = os.path.basename(repo_path)
         try:
-            git_repo: Git = git.Git(repo_path)
+            git_repo: Git = Git(repo_path)
             git_log: str = git_repo.log(
                 "--no-merges", "--numstat", "--pretty=%n%H,%ae,%aI%n"
             ).replace("\n\n\n", "\n")
@@ -155,7 +154,7 @@ def parse_git_shortstat(stat: str) -> Tuple[int, int]:
 
 def test_repo(repo_path: str) -> bool:
     """Checks correct configuration of a repository by running `git log`"""
-    git_repo: Git = git.Git(repo_path)
+    git_repo: Git = Git(repo_path)
     is_repo_ok: bool = True
     try:
         git_repo.log()
