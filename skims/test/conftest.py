@@ -7,7 +7,7 @@ from ctx import (
     NAMESPACES_FOLDER,
 )
 import datetime
-from git import (
+from git.repo import (
     Repo,
 )
 from glob import (

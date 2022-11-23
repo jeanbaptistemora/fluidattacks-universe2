@@ -16,8 +16,10 @@ from db_model import (
 from db_model.advisories.types import (
     Advisory,
 )
-from git import (
+from git.exc import (
     GitError,
+)
+from git.repo import (
     Repo,
 )
 from s3.operations import (

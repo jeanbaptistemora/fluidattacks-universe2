@@ -1,9 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
 #
 # SPDX-License-Identifier: MPL-2.0
-
-from git import (
+from git.exc import (
     GitError,
+)
+from git.repo import (
     Repo,
 )
 from typing import (
