@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from concurrent.futures import (
+    Future,
+)
 from concurrent.futures.process import (
     ProcessPoolExecutor,
 )
@@ -10,6 +13,9 @@ from concurrent.futures.thread import (
 )
 from ctx import (
     CTX,
+)
+from datetime import (
+    datetime,
 )
 from functools import (
     partial,
@@ -104,13 +110,16 @@ from os.path import (
     split,
     splitext,
 )
+import psutil
 from state.ephemeral import (
     EphemeralStore,
 )
 from typing import (
     Any,
     Dict,
+    Iterator,
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -263,10 +272,62 @@ def analyze_one_path(  # noqa: MC0001
     return result
 
 
+def _analyze_one_path(  # noqa: MC0001
+    *,
+    index: int,
+    path: str,
+    unique_nu_paths: Set[str],
+    unique_nv_paths: Set[str],
+    unique_paths_count: int,
+) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
+    content = get_file_content_block(path)
+    return analyze_one_path(
+        index=index,
+        path=path,
+        file_content=content,
+        unique_nu_paths=unique_nu_paths,
+        unique_nv_paths=unique_nv_paths,
+        unique_paths_count=unique_paths_count,
+    )
+
+
+def _wait_until_memory_usage(
+    percent: float, timeout: Optional[float] = None
+) -> None:
+    current_date = datetime.now()
+    while psutil.virtual_memory().percent > percent:
+        if timeout:
+            elapsed_time = current_date - datetime.now()
+            if elapsed_time.seconds > timeout:
+                raise TimeoutError()
+
+
 def _execute_partial_analyze_one_path(
     fun: partial,
 ) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
     return fun()
+
+
+def _result_or_cancel(fut: Future, timeout: Optional[float] = None) -> Any:
+    try:
+        try:
+            return fut.result(timeout)
+        finally:
+            fut.cancel()
+    finally:
+        # Break a reference cycle with the exception in self._exception
+        del fut
+
+
+def _result_iterator(futures: List[Future]) -> Iterator[Any]:
+    try:
+        # reverse to keep finishing order
+        futures.reverse()
+        while futures:
+            yield _result_or_cancel(futures.pop())
+    finally:
+        for future in futures:
+            future.cancel()
 
 
 def analyze(
@@ -281,32 +342,24 @@ def analyze(
     all_paths = paths.get_all()
     unique_paths_count: int = len(all_paths)
 
-    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-        contents = list(
-            worker.map(lambda x: (x, get_file_content_block(x)), all_paths)
-        )
-
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-
+        futures: List[Future] = []
+        for index, path in enumerate(all_paths, start=1):
+            _wait_until_memory_usage(80, 60)
+            futures.append(
+                executor.submit(
+                    _analyze_one_path,
+                    index=index,
+                    path=path,
+                    unique_nu_paths=set(paths.nu_paths),
+                    unique_nv_paths=set(paths.nv_paths),
+                    unique_paths_count=unique_paths_count,
+                )
+            )
         result: Tuple[
             Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]], ...
-        ] = tuple(
-            executor.map(
-                _execute_partial_analyze_one_path,
-                [
-                    partial(
-                        analyze_one_path,
-                        index=index,
-                        path=path,
-                        file_content=content,
-                        unique_nu_paths=paths.nu_paths,
-                        unique_nv_paths=paths.nv_paths,
-                        unique_paths_count=unique_paths_count,
-                    )
-                    for index, (path, content) in enumerate(contents, start=1)
-                ],
-            )
-        )
+        ] = tuple(_result_iterator(futures))
+
     with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
         for finding, vuln in (
             (finding, vuln)
