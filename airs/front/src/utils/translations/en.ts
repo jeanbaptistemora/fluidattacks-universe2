@@ -104,6 +104,14 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts written by Andrés Tirado.",
       title: "Andrés Tirado",
     },
+    carlosBello: {
+      description:
+        "Carlos is security researcher at Fluid Attacks " +
+        "since September 2022.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Carlos Bello.",
+      title: "Carlos Bello",
+    },
     danielSalazar: {
       description:
         "Daniel Salazar is the lead DevSecOps engineer at Fluid Attacks. " +

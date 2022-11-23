@@ -73,6 +73,13 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListAuthors.andresTirado.title"),
     },
     {
+      description: translate.t("blogListAuthors.carlosBello.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.carlosBello.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.carlosBello.title"),
+    },
+    {
       description: translate.t("blogListAuthors.danielSalazar.description"),
       metaDescription: translate.t(
         "blogListAuthors.danielSalazar.metaDescription"
