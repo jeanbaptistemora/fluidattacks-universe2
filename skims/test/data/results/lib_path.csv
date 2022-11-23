@@ -339,6 +339,81 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,14,117,skims,091. L
   22 | }
      ^ Col 0
 ",java.java_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/test.js,22,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/test.js","
+   6 |
+   7 |   // GOOD: remove newlines from user controlled input before logging
+   8 |   const username = q.query.username.replace(/\n|\r/g, """");
+   9 |
+  10 |   console.info(username);
+  11 | }
+  12 |
+  13 | const server = createServer(serverInt);
+  14 |
+  15 | server.listen(3000, ""127.0.0.1"", () => {});
+  16 |
+  17 | function badServerInt(req, _res) {
+  18 |   const q = parse(req.url, true);
+  19 |
+  20 |   Logger.info(q.query.username); // BAD: User input logged as-
+  21 |   log.info(q.query.username); // BAD: User input logged as-is
+> 22 |   console.info(q.query.username.replace(/\f|\f/g, """"));
+  23 | }
+  24 | const badServer = createServer(badServerInt);
+  25 |
+  26 | badServer.listen(3000, ""127.0.0.1"", () => {});
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/test.js,21,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/test.js","
+   6 |
+   7 |   // GOOD: remove newlines from user controlled input before logging
+   8 |   const username = q.query.username.replace(/\n|\r/g, """");
+   9 |
+  10 |   console.info(username);
+  11 | }
+  12 |
+  13 | const server = createServer(serverInt);
+  14 |
+  15 | server.listen(3000, ""127.0.0.1"", () => {});
+  16 |
+  17 | function badServerInt(req, _res) {
+  18 |   const q = parse(req.url, true);
+  19 |
+  20 |   Logger.info(q.query.username); // BAD: User input logged as-
+> 21 |   log.info(q.query.username); // BAD: User input logged as-is
+  22 |   console.info(q.query.username.replace(/\f|\f/g, """"));
+  23 | }
+  24 | const badServer = createServer(badServerInt);
+  25 |
+  26 | badServer.listen(3000, ""127.0.0.1"", () => {});
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/test.js,20,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/test.js","
+   6 |
+   7 |   // GOOD: remove newlines from user controlled input before logging
+   8 |   const username = q.query.username.replace(/\n|\r/g, """");
+   9 |
+  10 |   console.info(username);
+  11 | }
+  12 |
+  13 | const server = createServer(serverInt);
+  14 |
+  15 | server.listen(3000, ""127.0.0.1"", () => {});
+  16 |
+  17 | function badServerInt(req, _res) {
+  18 |   const q = parse(req.url, true);
+  19 |
+> 20 |   Logger.info(q.query.username); // BAD: User input logged as-
+  21 |   log.info(q.query.username); // BAD: User input logged as-is
+  22 |   console.info(q.query.username.replace(/\f|\f/g, """"));
+  23 | }
+  24 | const badServer = createServer(badServerInt);
+  25 |
+  26 | badServer.listen(3000, ""127.0.0.1"", () => {});
+     ^ Col 0
+",javascript.javascript_insecure_logging
 F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,10,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
  in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf","
    1 | resource ""aws_cloudtrail"" ""foobar"" {

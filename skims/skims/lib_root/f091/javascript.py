@@ -25,7 +25,7 @@ from typing import (
 )
 
 
-def javscript_insecure_logging(
+def javascript_insecure_logging(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:

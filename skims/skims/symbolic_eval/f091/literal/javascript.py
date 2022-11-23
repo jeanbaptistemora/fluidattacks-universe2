@@ -13,6 +13,7 @@ def javascript_insecure_logging(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         '"[\\n\\r\\t]"',
         "/\\n|\\r/g",
     }
+    print(args.graph.nodes[args.n_id]["value"])
     if args.graph.nodes[args.n_id]["value"] in sanitize:
         args.triggers.add("characters")
 

@@ -29,7 +29,7 @@ def typescript_insecure_logging(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_INSECURE_LOGGING
+    method = MethodsEnum.TS_INSECURE_LOGGING
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(

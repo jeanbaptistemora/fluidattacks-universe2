@@ -30,9 +30,13 @@ def is_logger_unsafe(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     if test_node := graph.nodes[n_id].get("arguments_id"):
         for path in get_backward_paths(graph, test_node):
             evaluation = evaluate(method, graph, path, test_node)
-            if evaluation and not (
-                "sanitized" in evaluation.triggers
-                and "characters" in evaluation.triggers
+            if (
+                evaluation
+                and evaluation.danger
+                and not (
+                    "sanitized" in evaluation.triggers
+                    and "characters" in evaluation.triggers
+                )
             ):
                 return True
 
