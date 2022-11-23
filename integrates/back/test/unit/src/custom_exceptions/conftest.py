@@ -67,7 +67,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             business_name="Testing Company and Sons",
             policies=dict(
-                max_number_acceptances=3,
+                max_number_acceptances=1,
                 min_acceptance_severity=0,
                 vulnerability_grace_period=10,
                 modified_by="integratesmanager@gmail.com",
