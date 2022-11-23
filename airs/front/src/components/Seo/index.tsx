@@ -106,7 +106,7 @@ const Seo: React.FC<ISeoProps> = ({
 
   const linkData: ILinkItem[] = [
     {
-      href: "https://res.cloudinary.com/fluid-attacks/image/upload/v1619036532/airs/favicon_bkgq2p.webp",
+      href: "https://res.cloudinary.com/fluid-attacks/image/upload/v1669232201/airs/favicon-2022.webp",
       rel: "shortcut icon",
     },
   ];

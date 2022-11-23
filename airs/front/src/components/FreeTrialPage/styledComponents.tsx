@@ -54,6 +54,7 @@ const ImageContainer = styled.div.attrs({
   className: `
     mw-1366
     mt4
+    tc
   `,
 })``;
 

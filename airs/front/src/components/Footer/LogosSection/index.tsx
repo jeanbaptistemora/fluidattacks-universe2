@@ -11,7 +11,7 @@ const LogosSection: React.FC = (): JSX.Element => (
     <FluidLogoContainer>
       <CloudImage
         alt={"Fluid Attacks logo footer"}
-        src={"logo-fluid-attacks-dark"}
+        src={"logo-fluid-dark-2022"}
       />
     </FluidLogoContainer>
   </FullWidthContainer>

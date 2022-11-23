@@ -146,7 +146,7 @@ const CareersFaqIndex: React.FC<IQueryData> = ({
       <Seo
         description={description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1669230787/airs/logo-fluid-2022.png"
         }
         keywords={keywords}
         title={headtitle}

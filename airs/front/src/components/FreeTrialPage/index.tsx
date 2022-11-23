@@ -31,7 +31,8 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
         <ImageContainer>
           <CloudImage
             alt={"Fluid Logo"}
-            src={"airs/logo_fluid_attacks_2021_eqop3k"}
+            src={"airs/logo-fluid-2022"}
+            styles={"w-50"}
           />
         </ImageContainer>
         <InternalContainer>
