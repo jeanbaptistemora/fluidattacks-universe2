@@ -45,7 +45,7 @@ assigned to you in the
 [To-Do List](/machine/web/vulnerabilities/management/to-do-list)
 section.
 
-![Edit Vulnerability](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431421/docs/web/vulnerabilities/management/treatments_edit_vulnerabilities.png)
+![Edit Vulnerability](https://res.cloudinary.com/fluid-attacks/image/upload/v1669214734/docs/web/vulnerabilities/management/aplication_treatment.png)
 
 The treatments available to
 you for handling vulnerabilities
