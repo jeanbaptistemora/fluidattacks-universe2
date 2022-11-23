@@ -16,13 +16,16 @@ from dynamodb.types import (
 from dynamodb.utils import (
     SetEncoder,
 )
-from more_itertools import (
-    chunked,
-)
 from opensearchpy import (
     AWSV4SignerAuth,
     OpenSearch,
     RequestsHttpConnection,
+)
+from opensearchpy.helpers import (
+    bulk,
+)
+from typing import (
+    Any,
 )
 
 CREDENTIALS = SESSION.get_credentials()
@@ -42,29 +45,22 @@ CLIENT = OpenSearch(
 
 def _process(records: tuple[Record, ...], index: str) -> None:
     """Replicates the item on AWS OpenSearch"""
-    chunk_size = 100
+    actions: list[dict[str, Any]] = []
 
-    for chunk in chunked(records, chunk_size):
-        body = []
-
-        for record in chunk:
-            action_name = (
-                "delete"
-                if record.event_name == StreamEvent.REMOVE
-                else "index"
-            )
-            action = {
-                action_name: {
-                    "_id": "#".join([record.pk, record.sk]),
-                    "_index": index,
-                }
-            }
-            body.append(action)
-
-            if action_name == "index" and record.new_image:
-                body.append(record.new_image)
-
-        CLIENT.bulk(body=body)
+    for record in records:
+        action_name = (
+            "delete" if record.event_name == StreamEvent.REMOVE else "index"
+        )
+        action = {
+            "_id": "#".join([record.pk, record.sk]),
+            "_index": index,
+            "_op_type": action_name,
+        }
+        if action_name == "index" and record.new_image:
+            actions.append({**action, "_source": record.new_image})
+        else:
+            actions.append(action)
+    bulk(client=CLIENT, actions=actions)
 
 
 def process_vulns(records: tuple[Record, ...]) -> None:

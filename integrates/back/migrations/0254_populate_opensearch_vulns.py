@@ -40,8 +40,8 @@ from dynamodb import (
 )
 import logging
 import logging.config
-from more_itertools import (
-    chunked,
+from opensearchpy._async.helpers import (
+    async_bulk,
 )
 from organizations.domain import (
     get_all_active_group_names,
@@ -67,19 +67,17 @@ LOGGER = logging.getLogger(__name__)
 async def process_vulnerabilities(
     vulnerabilities: tuple[dict[str, Any], ...]
 ) -> None:
-    body = []
-
-    for vulnerability in vulnerabilities:
-        action = {
-            "index": {
-                "_index": "vulnerabilities",
-                "_id": "#".join([vulnerability["pk"], vulnerability["sk"]]),
-            }
+    actions = [
+        {
+            "_id": "#".join([vulnerability["pk"], vulnerability["sk"]]),
+            "_index": "vulnerabilities",
+            "_op_type": "index",
+            "_source": vulnerability,
         }
-        body.extend([action, vulnerability])
-
+        for vulnerability in vulnerabilities
+    ]
     client = await get_client()
-    await client.bulk(body=body)
+    await async_bulk(client=client, actions=actions)
 
 
 async def get_vulns(finding: Finding) -> tuple[dict[str, Any]]:
@@ -87,7 +85,6 @@ async def get_vulns(finding: Finding) -> tuple[dict[str, Any]]:
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding.id},
     )
-
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
     response = await operations.query(
@@ -115,13 +112,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
         )
         for vuln in finding_vulns
     ]
-    await collect(
-        tuple(
-            process_vulnerabilities(vulns_chunk)
-            for vulns_chunk in chunked(vulnerabilities, 100)
-        ),
-        workers=10,
-    )
+    await process_vulnerabilities(vulnerabilities)
 
     LOGGER.info(
         "Group processed",
@@ -141,14 +132,16 @@ async def main() -> None:
     client = await get_client()
     await client.indices.delete(index="vulnerabilities")
     await client.indices.create(index="vulnerabilities")
-    await collect(
-        tuple(
-            process_group(loaders, group_name)
-            for group_name in active_group_names
-        ),
-        workers=5,
-    )
-    await search_shutdown()
+    try:
+        await collect(
+            tuple(
+                process_group(loaders, group_name)
+                for group_name in active_group_names
+            ),
+            workers=5,
+        )
+    finally:
+        await search_shutdown()
 
 
 if __name__ == "__main__":
