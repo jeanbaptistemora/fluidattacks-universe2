@@ -119,6 +119,9 @@
       "loader-utils": "2.0.4",
       "react-dev-utils": {
         "loader-utils": "3.2.1"
+      },
+      "socket.io": {
+        "engine.io": "6.2.1"
       }
     },
     "gatsby-plugin-sass": {
