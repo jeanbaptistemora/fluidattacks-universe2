@@ -1,6 +1,4 @@
-declare var module: any;
-
-function ts_vuln (req, res) {
+function vuln (req, res) {
     const value = req.query.value;
 
     res.setHeader("Set-Cookie", value);  // Noncompliant

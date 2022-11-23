@@ -29107,11 +29107,37 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,14,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
+F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js,5,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js","
+  1 | function vuln (req, res) {
+  2 |     const value = req.query.value;
+  3 |
+  4 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+> 5 |     res.cookie(""connect.sid"", value);  // Noncompliant
+  6 |
+  7 |     res.setHeader(""X-Data"", value); // Compliant
+  8 |     res.cookie(""data"", value); // Compliant
+  9 |   };
+    ^ Col 0
+",javascript.javascript_non_secure_construction_of_cookies
+F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js,4,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js","
+  1 | function vuln (req, res) {
+  2 |     const value = req.query.value;
+  3 |
+> 4 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+  5 |     res.cookie(""connect.sid"", value);  // Noncompliant
+  6 |
+  7 |     res.setHeader(""X-Data"", value); // Compliant
+  8 |     res.cookie(""data"", value); // Compliant
+  9 |   };
+    ^ Col 0
+",javascript.javascript_non_secure_construction_of_cookies
 F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts,7,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
  in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts","
    1 | declare var module: any;
    2 |
-   3 | function vuln (req, res) {
+   3 | function ts_vuln (req, res) {
    4 |     const value = req.query.value;
    5 |
    6 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
@@ -29126,7 +29152,7 @@ F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_co
  in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts","
    1 | declare var module: any;
    2 |
-   3 | function vuln (req, res) {
+   3 | function ts_vuln (req, res) {
    4 |     const value = req.query.value;
    5 |
 >  6 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
