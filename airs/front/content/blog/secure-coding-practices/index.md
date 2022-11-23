@@ -37,13 +37,13 @@ the exploitation of security vulnerabilities in software.
 Here we are not discussing something
 that affects only the small and the feeble.
 Large companies that provide software as a product or service
-(recent examples: [here](https://therecord.media/google-chrome-d-link-bugs-among-twelve-added-to-cisas-list-of-known-exploited-vulnerabilities/),
-[here](https://therecord.media/critical-vulnerability-found-in-siemens-industrial-tool-allowing-theft-of-cryptographic-keys/)
-and [here](https://therecord.media/microsoft-confirms-dogwalk-zero-day-vulnerability-has-been-exploited/)),
+(recent examples: [Google](https://therecord.media/google-chrome-d-link-bugs-among-twelve-added-to-cisas-list-of-known-exploited-vulnerabilities/),
+[Siemens](https://therecord.media/critical-vulnerability-found-in-siemens-industrial-tool-allowing-theft-of-cryptographic-keys/),
+and [Microsoft](https://therecord.media/microsoft-confirms-dogwalk-zero-day-vulnerability-has-been-exploited/)),
 as well as well-known organizations that make use of software
-(recent examples: [here](https://therecord.media/suspected-iranian-apt-accessed-federal-server-via-log4j-vulnerability/),
-[here](https://therecord.media/worlds-second-largest-copper-producer-recovering-from-cyberattack/)
-and [here](https://therecord.media/initial-access-broker-or-ransomware-gang-has-exclusive-access-to-mitel-zero-day-exploit-report/)),
+(recent examples: [a federal agency](https://therecord.media/suspected-iranian-apt-accessed-federal-server-via-log4j-vulnerability/),
+[Aurubis](https://therecord.media/worlds-second-largest-copper-producer-recovering-from-cyberattack/),
+and [Mitel](https://therecord.media/initial-access-broker-or-ransomware-gang-has-exclusive-access-to-mitel-zero-day-exploit-report/)),
 continue to be seriously impacted by cyberattacks.
 Many vulnerabilities exploited by malicious hackers
 to steal information or disrupt operations

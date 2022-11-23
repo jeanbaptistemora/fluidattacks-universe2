@@ -8,7 +8,7 @@ tags: cybersecurity, company, security-testing, hacking, trend
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1668649683/blog/from-asm-to-arm/cover_from_asm_to_arm.webp
 alt: Photo by Alexander Nikitenko on Unsplash
 description: This blog post explains the "attack surface management" and "attack resistance management" concepts and our transition from one to the other.
-keywords: Attack Surface, Attack Surface Management, Asm, Attack Resistance Management, Arm,Vulnerability Management, Exposure Management, Ethical Hacking, Pentesting
+keywords: Attack Surface, Attack Surface Management, Asm, Attack Resistance Management, Arm, Vulnerability Management, Exposure Management, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz
