@@ -8,9 +8,6 @@ from .dal import (
     get_organization_finding_policy,
     update_finding_policy_status,
 )
-from .types import (
-    OrgFindingPolicy,
-)
 from aioextensions import (
     collect,
 )
@@ -357,20 +354,4 @@ async def _add_new_treatment(
             for vuln in vulns_to_update
         ],
         workers=20,
-    )
-
-
-async def get_org_policies(*, org_name: str) -> tuple[OrgFindingPolicy, ...]:
-    finding_policies = await get_organization_finding_policies(
-        org_name=org_name
-    )
-    return tuple(
-        OrgFindingPolicy(
-            id=policy.id,
-            last_status_update=policy.state.modified_date,
-            name=policy.metadata.name,
-            status=policy.state.status,
-            tags=set(policy.metadata.tags),
-        )
-        for policy in finding_policies
     )
