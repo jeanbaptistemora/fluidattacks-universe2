@@ -34,14 +34,11 @@ def reader(args: SyntaxGraphArgs) -> NId:
     match_childs = match_ast_group(
         args.ast_graph, args.n_id, "attribute_list", "modifier"
     )
-    attributes = match_childs.get("attribute_list")
+    attributes_id = match_childs.get("attribute_list")
 
     children_nid = {
+        "attributes_id": attributes_id,
         "parameters_id": parameters_id,
     }
-
-    if attributes:
-        for idx, attribute in enumerate(attributes):
-            children_nid.update({f"attr_{idx}": attribute})
 
     return build_method_declaration_node(args, name, block_id, children_nid)
