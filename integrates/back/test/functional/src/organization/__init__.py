@@ -24,6 +24,9 @@ async def get_result(
         query {{
             organization(organizationId: "{org}") {{
                 id
+                coveredRepositories
+                missedCommits
+                missedRepositories
                 maxAcceptanceDays
                 maxAcceptanceSeverity
                 maxNumberAcceptances

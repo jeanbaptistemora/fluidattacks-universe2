@@ -17,6 +17,7 @@ from db_model.credentials.types import (
 )
 from db_model.enums import (
     CredentialType,
+    GitCloningStatus,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -42,6 +43,18 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationState,
+)
+from db_model.roots.enums import (
+    RootStatus,
+    RootType,
+)
+from db_model.roots.types import (
+    GitRoot,
+    GitRootCloning,
+    GitRootState,
+    IPRoot,
+    IPRootState,
+    RootEnvironmentUrl,
 )
 from db_model.types import (
     Policies,
@@ -147,6 +160,65 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     vulnerabilities_url="https://test.com",
                 ),
+            },
+        ],
+        "roots": [
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:38:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    created_by=generic_data["global_vars"]["admin_email"],
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://test.com"],
+                        git_environment_urls=[
+                            RootEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["bower_components/*", "node_modules/*"],
+                        includes_health_check=True,
+                        modified_by=generic_data["global_vars"]["admin_email"],
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/universe",
+                    ),
+                    type=RootType.GIT,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by=generic_data["global_vars"]["admin_email"],
+                    created_date="2020-11-21T13:37:10+00:00",
+                    group_name="group2",
+                    id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.1",
+                        modified_by=generic_data["global_vars"]["admin_email"],
+                        modified_date="2020-11-21T13:37:10+00:00",
+                        nickname="",
+                        other=None,
+                        port="8080",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
             },
         ],
         "organization_access": [

@@ -10,6 +10,7 @@ from . import (
 from azure.devops.v6_0.git.models import (
     GitCommit,
     GitRepository,
+    GitRepositoryStats,
     GitUserDate,
     TeamProjectReference,
 )
@@ -100,6 +101,20 @@ def get_repositories_commits(
     )
 
 
+def get_repositories_stats(
+    *,
+    organization: str,  # pylint: disable=unused-argument
+    access_token: str,  # pylint: disable=unused-argument
+    repository_id: str,
+    project_name: str,
+) -> GitRepositoryStats:
+    return GitRepositoryStats(
+        branches_count=1,
+        commits_count=5,
+        repository_id=f"{project_name}/{repository_id}",
+    )
+
+
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("organization")
 @pytest.mark.parametrize(
@@ -174,6 +189,9 @@ async def test_get_organization_ver_1(
     )
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+    assert result["data"]["organization"]["coveredRepositories"] == 0
+    assert result["data"]["organization"]["missedCommits"] == 0
+    assert result["data"]["organization"]["missedRepositories"] == 0
     assert len(result["data"]["organization"]["credentials"]) == 2
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
     assert (
@@ -211,7 +229,17 @@ async def test_get_organization_ver_1(
             "azure_repositories.dal._get_repositories_commits",
             side_effect=get_repositories_commits,
         ):
-            await main()
+            with mock.patch(
+                "azure_repositories.dal._get_repositories_stats",
+                side_effect=get_repositories_stats,
+            ):
+                await main()
+
+    result = await get_result(user=email, org=org_id)
+    assert "errors" not in result
+    assert result["data"]["organization"]["coveredRepositories"] == 1
+    assert result["data"]["organization"]["missedCommits"] == 10
+    assert result["data"]["organization"]["missedRepositories"] == 2
 
     loaders.organization_unreliable_integration_repositories.clear_all()
     current_repositories = (
@@ -260,6 +288,12 @@ async def test_get_organization_ver_1(
         (org_id, None, None)
     )
     assert len(updated_repositories) == 0
+
+    result = await get_result(user=email, org=org_id)
+    assert "errors" not in result
+    assert result["data"]["organization"]["coveredRepositories"] == 1
+    assert result["data"]["organization"]["missedCommits"] == 0
+    assert result["data"]["organization"]["missedRepositories"] == 0
 
 
 @pytest.mark.asyncio
