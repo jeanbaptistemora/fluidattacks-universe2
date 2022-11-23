@@ -163,8 +163,21 @@ class Client:
             lambda: LOG.info("inserting %s stamps", len(stamps))
         )
         encoded = tuple(encoder.from_stamp(s) for s in stamps)
-        return log_info.bind(
-            lambda _: self._inner.raw.insert_unique_rows(encoded)
+        files_relation = (
+            from_flist(stamps)
+            .bind(lambda s: FileRelationFactory.extract_relations(s))
+            .to_list()
+        )
+        log_info_2 = Cmd.from_cmd(
+            lambda: LOG.info(
+                "inserting %s file relations", len(files_relation)
+            )
+        )
+        return (
+            log_info
+            + self._inner.raw.insert_unique_rows(encoded)
+            + log_info_2
+            + self._inner.raw_2.insert(files_relation)
         )
 
     def namespace_data(
