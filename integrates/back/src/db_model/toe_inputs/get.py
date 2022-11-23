@@ -109,7 +109,7 @@ async def _get_historic_toe_input(
     )
 
 
-class HistoricToeInputLoader(DataLoader):
+class ToeInputHistoricLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]

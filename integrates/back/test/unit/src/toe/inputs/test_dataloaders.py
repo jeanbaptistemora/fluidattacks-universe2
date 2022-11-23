@@ -12,6 +12,7 @@ from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
     ToeInputEdge,
+    ToeInputRequest,
     ToeInputsConnection,
     ToeInputState,
 )
@@ -152,4 +153,32 @@ async def test_get_by_group() -> None:
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),
+    )
+
+    historic_toe_inputs = await loaders.toe_input_historic.load(
+        ToeInputRequest(
+            component="https://test.com/test2/test.aspx",
+            entry_point="-",
+            group_name=group_name,
+            root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+        )
+    )
+    assert historic_toe_inputs == (
+        ToeInput(
+            attacked_at=datetime.fromisoformat("2021-02-11T05:00:00+00:00"),
+            attacked_by="test2@test.com",
+            be_present=True,
+            be_present_until=None,
+            component="https://test.com/test2/test.aspx",
+            entry_point="-",
+            first_attack_at=datetime.fromisoformat(
+                "2021-02-11T05:00:00+00:00"
+            ),
+            unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            group_name=group_name,
+            has_vulnerabilities=False,
+            seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
+            seen_first_time_by="test2@test.com",
+            state=ToeInputState(modified_date="2021-02-11T05:00:00+00:00"),
+        ),
     )

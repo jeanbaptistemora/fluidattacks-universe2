@@ -105,6 +105,7 @@ from db_model.subscriptions.get import (
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
     RootToeInputsLoader,
+    ToeInputHistoricLoader,
     ToeInputLoader,
 )
 from db_model.toe_lines.get import (
@@ -220,6 +221,7 @@ class Dataloaders(NamedTuple):
     root_toe_lines: RootToeLinesLoader
     root_toe_ports: RootToePortsLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
+    toe_input_historic: ToeInputHistoricLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     toe_port: ToePortLoader
@@ -400,6 +402,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         ),
         stakeholder_with_fallback=stakeholder_with_fallback,
         toe_input=ToeInputLoader(),
+        toe_input_historic=ToeInputHistoricLoader(),
         toe_lines=ToeLinesLoader(),
         toe_port=ToePortLoader(),
         user_credentials=UserCredentialsLoader(),
