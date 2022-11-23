@@ -27,11 +27,9 @@ import os
 
 
 class Jobs(Enum):
-    FORCES = "FORCES"
     CORE = "CORE"
     CORE_NO_CACHE = "CORE_NO_CACHE"
     CORE_PREPARE = "CORE_PREPARE"
-    GROUP = "GROUP"
 
 
 @dataclass(frozen=True)
@@ -73,19 +71,6 @@ class Executor:
             use_cache,
         )
 
-    def standard_group(self) -> Cmd[None]:
-        cmds = tuple(
-            self._default_run(table, False, Maybe.empty(), False)
-            for table in TargetTables
-            if table not in (TargetTables.CORE, TargetTables.FORCES)
-        )
-        return serial_merge(cmds).map(lambda _: None)
-
-    def forces(self) -> Cmd[None]:
-        return self._default_run(
-            TargetTables.FORCES, False, Maybe.empty(), False
-        )
-
     def core(self) -> Cmd[None]:
         args = [
             self._etl_parallel,
@@ -123,13 +108,9 @@ def default_executor() -> Executor:
 
 
 def run_job(exe: Executor, job: Jobs) -> Cmd[None]:
-    if job is Jobs.FORCES:
-        return exe.forces()
     if job is Jobs.CORE:
         return exe.core()
     if job is Jobs.CORE_NO_CACHE:
         return exe.core_no_cache()
     if job is Jobs.CORE_PREPARE:
         return exe.prepare_core()
-    if job is Jobs.GROUP:
-        return exe.standard_group()

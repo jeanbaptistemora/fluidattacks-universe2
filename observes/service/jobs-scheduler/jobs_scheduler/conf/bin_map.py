@@ -16,10 +16,6 @@ def job_to_bin_cmd(job: Job) -> str | NoReturn:
         return os.environ["checklyEtl"]
     if job is Job.DELIGHTED:
         return os.environ["delightedEtl"]
-    if job is Job.DYNAMO_FORCES:
-        return f'{os.environ["dynamoDbEtls"]} FORCES'
-    if job is Job.DYNAMO_INTEGRATES:
-        return f'{os.environ["dynamoDbEtls"]} GROUP'
     if job is Job.DYNAMO_INTEGRATES_MAIN:
         return f'{os.environ["dynamoDbEtls"]} CORE'
     if job is Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE:
