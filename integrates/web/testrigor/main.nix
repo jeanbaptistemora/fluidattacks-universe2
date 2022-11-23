@@ -11,16 +11,14 @@
 makeScript {
   replace = {
     __argSecretsDev__ = projectPath "/integrates/secrets/development.yaml";
-    __argTests__ = projectPath "/integrates/web/testrigor/tests";
   };
   searchPaths = {
     bin = [
-      inputs.nixpkgs.curl
-      inputs.nixpkgs.gawk
-      inputs.nixpkgs.jq
+      inputs.nixpkgs.python39
     ];
     source = [
       outputs."/common/utils/sops"
+      outputs."/integrates/web/testrigor/runtime"
     ];
   };
   name = "integrates-web-testrigor";
