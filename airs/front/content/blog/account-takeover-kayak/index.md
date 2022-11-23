@@ -216,8 +216,6 @@ with a one-click attack.
 
 ### August 13, 2022
 
-- USD 3,000 bounty awarded
-
 - Vulnerability remediated
 
 - KAYAK v161.2 (10048) available on Play Store
