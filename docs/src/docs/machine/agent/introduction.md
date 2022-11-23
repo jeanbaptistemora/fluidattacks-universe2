@@ -140,7 +140,24 @@ information about that execution.
 
 ![Agent Executions](https://res.cloudinary.com/fluid-attacks/image/upload/v1667401361/docs/machine/agent/details.png)
 
-This pop-up window has
+This window offers us the information
+that the agent table gives us
+including the two policies that you
+specified in
+[policies section](/machine/web/organization/policies)
+which are:
+**DevSecOps: Days before agent starts**
+**breaking the build for new vulnerabilities**
+represented by **Grace period**
+and **Severity Threshold**
+refers to the
+**policy DevSecOps:**
+**Minimum CVSS 3.1 score from which**
+**agent breaks the build for open vulnerabilities.**
+You can enter [here](/machine/web/organization/policies)
+if you want to know more about the policies.
+
+You can also see in this view
 two tabs: **Summary**
 and **Execution** log.
 
