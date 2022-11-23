@@ -43,6 +43,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if attributes:
         for idx, attribute in enumerate(attributes):
             children_nid.update({f"attr_{idx}": attribute})
-            print(children_nid)
 
     return build_method_declaration_node(args, name, block_id, children_nid)
