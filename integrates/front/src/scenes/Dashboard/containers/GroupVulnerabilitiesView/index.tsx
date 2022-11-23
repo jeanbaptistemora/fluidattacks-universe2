@@ -20,7 +20,7 @@ import {
   isPendingToAcceptance,
 } from "./utils";
 
-import { formatState } from "../GroupFindingsView/utils";
+import { formatState, formatStatus } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
@@ -65,13 +65,13 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   },
   {
     accessorKey: "treatment",
+    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
     header: "Treatment",
   },
   {
     accessorKey: "verification",
     header: "Reattack",
   },
-
   {
     accessorKey: "reportDate",
     enableColumnFilter: false,

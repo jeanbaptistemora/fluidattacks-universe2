@@ -53,6 +53,12 @@ const formatState: (state: string) => JSX.Element = (
   return statusFormatter(translate.t(stateParameters[state]));
 };
 
+const formatStatus: (status: string) => JSX.Element = (
+  status: string
+): JSX.Element => {
+  return statusFormatter(status, true);
+};
+
 const formatTreatmentSummary: (
   state: string,
   treatmentSummary: ITreatmentSummaryAttr
@@ -241,6 +247,7 @@ export {
   filterAssigned,
   formatFindings,
   formatState,
+  formatStatus,
   formatTreatmentSummary,
   formatReattack,
   getAreAllMutationValid,

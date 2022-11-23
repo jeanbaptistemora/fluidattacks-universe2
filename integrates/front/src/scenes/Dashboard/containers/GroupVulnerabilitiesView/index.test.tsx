@@ -549,4 +549,73 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     jest.clearAllMocks();
   });
+
+  it("treatment cell should have format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("In progress")).toBeInTheDocument();
+    expect(screen.getByText("In progress")).toHaveStyle(
+      `background-color: #ffeecc;
+      border: 1px solid #d88218;
+      color: #d88218;`
+    );
+
+    jest.clearAllMocks();
+  });
+
+  it("should not have gray color in format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText("In progress")).not.toHaveStyle(
+      `background-color: #d2d2da;
+      border: 1px solid #2e2e38;
+      color: #2e2e38;`
+    );
+    expect(screen.queryAllByText("Open")[0]).not.toHaveStyle(
+      `background-color: #d2d2da;
+      border: 1px solid #2e2e38;
+      color: #2e2e38;`
+    );
+    expect(screen.queryByText("Closed")).not.toHaveStyle(
+      `background-color: #d2d2da;
+      border: 1px solid #2e2e38;
+      color: #2e2e38;`
+    );
+
+    jest.clearAllMocks();
+  });
 });
