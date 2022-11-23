@@ -25,6 +25,7 @@ from typing import (
     Dict,
     List,
     Tuple,
+    Union,
 )
 
 
@@ -36,11 +37,14 @@ def train_model(
     tuned_hyperparameters: str,
 ) -> List[List[str]]:
     training_data: DataFrame = load_training_data(training_dir)
+    shuffled_training_data = training_data.sample(
+        frac=1, random_state=42
+    ).reset_index(drop=True)
     training_output: List[List[str]] = (
         previous_results if previous_results else [RESULT_HEADERS]
     )
     training_combination_output: List[str] = train_combination(
-        model, training_data, model_features, tuned_hyperparameters
+        model, shuffled_training_data, model_features, tuned_hyperparameters
     )
     training_output.append(training_combination_output)
 
@@ -88,6 +92,13 @@ def display_model_hyperparameters(
         print(f"{parameter}: {value}")
 
 
+def check_max_leaf_nodes(value: str) -> Union[int, None]:
+    if value != "0":
+        return int(value)
+
+    return None
+
+
 def cli() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -113,6 +124,11 @@ def cli() -> argparse.Namespace:
     parser.add_argument("--max_depth", type=int, default=3)
     parser.add_argument("--n_estimators", type=int, default=100)
     parser.add_argument("--learning_rate", type=float, default=0.1)
+
+    # HistGradientBoostingClassifier parameters to tune
+    parser.add_argument(
+        "--max_leaf_nodes", type=check_max_leaf_nodes, default=31
+    )
 
     return parser.parse_args()
 
