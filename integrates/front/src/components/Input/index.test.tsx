@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -62,5 +63,31 @@ describe("Input", (): void => {
         expect(screen.queryByLabelText(label)).toBeInTheDocument();
       }
     );
+  });
+
+  it("should render InputNumber and change value", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const onChangeCallback: jest.Mock = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <Formik
+        initialValues={{ input: "test" }}
+        onSubmit={jest.fn()}
+        validationSchema={schema}
+      >
+        <Form name={"testForm"}>
+          <InputNumber
+            label={"number"}
+            name={"number"}
+            onChange={onChangeCallback}
+          />
+        </Form>
+      </Formik>
+    );
+
+    await user.type(screen.getByRole("spinbutton", { name: "number" }), "3");
+
+    expect(screen.queryByRole("spinbutton")).toHaveValue(3);
   });
 });

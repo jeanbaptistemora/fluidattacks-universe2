@@ -72,7 +72,7 @@ describe("numberInput", (): void => {
     expect(onEnterCallback).toHaveBeenCalledWith(2);
   });
 
-  it("should call callback with value incremented", async (): Promise<void> => {
+  it("should call callback with value incremented and decremented", async (): Promise<void> => {
     expect.hasAssertions();
 
     const onEnterCallback: jest.Mock = jest.fn();
