@@ -55,14 +55,17 @@ async def get_repositories(
     credentials: tuple[Credentials, ...],
 ) -> tuple[tuple[GitRepository, ...], ...]:
     return await collect(
-        in_thread(
-            _get_repositories,
-            base_url=f"{BASE_URL}/{credential.state.azure_organization}",
-            access_token=credential.state.secret.token
-            if isinstance(credential.state.secret, HttpsPatSecret)
-            else "",
-        )
-        for credential in credentials
+        tuple(
+            in_thread(
+                _get_repositories,
+                base_url=f"{BASE_URL}/{credential.state.azure_organization}",
+                access_token=credential.state.secret.token
+                if isinstance(credential.state.secret, HttpsPatSecret)
+                else "",
+            )
+            for credential in credentials
+        ),
+        workers=1,
     )
 
 
@@ -100,7 +103,7 @@ async def get_repositories_commits(
             )
             for repository in repositories
         ),
-        workers=2,
+        workers=1,
     )
 
     return repositories_commits
@@ -152,7 +155,7 @@ async def get_repositories_stats(
             )
             for repository in repositories
         ),
-        workers=2,
+        workers=1,
     )
 
     return repositories_stats

@@ -52,6 +52,9 @@ from db_model.organizations.types import (
 from db_model.organizations.update import (
     update_unreliable_org_indicators,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -265,6 +268,11 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
         for root in roots
         if isinstance(root, GitRoot)
     }
+    active_urls: set[str] = {
+        unquote_plus(urlparse(root.state.url.lower()).path)
+        for root in roots
+        if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
+    }
     repositories: tuple[CredentialsGitRepository, ...] = tuple(
         CredentialsGitRepository(
             credential=credential,
@@ -299,7 +307,7 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
             repositories=repositories,
             repositories_dates=repositories_dates,
             repositories_stats=repositories_stats,
-            covered_repositores=len(urls),
+            covered_repositores=len(active_urls),
         )
         await _remove(
             organization_id=organization.id,
