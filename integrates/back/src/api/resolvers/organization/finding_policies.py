@@ -2,23 +2,23 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
+)
 from db_model.organizations.types import (
     Organization,
-)
-from dynamodb.types import (
-    OrgFindingPolicyItem,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
     datetime as datetime_utils,
-)
-from organizations_finding_policies.domain import (
-    get_finding_policies,
 )
 from typing import (
     NamedTuple,
@@ -34,7 +34,7 @@ class OrgFindingPolicyApi(NamedTuple):
 
 
 def _format_policies_for_resolver(
-    finding_policies: tuple[OrgFindingPolicyItem, ...]
+    finding_policies: tuple[OrgFindingPolicy, ...]
 ) -> tuple[OrgFindingPolicyApi, ...]:
     return tuple(
         OrgFindingPolicyApi(
@@ -42,9 +42,9 @@ def _format_policies_for_resolver(
             last_status_update=datetime_utils.get_datetime_from_iso_str(
                 policy.state.modified_date
             ),
-            name=policy.metadata.name,
-            status=policy.state.status,
-            tags=set(policy.metadata.tags),
+            name=policy.name,
+            status=policy.state.status.value,
+            tags=set(policy.tags),
         )
         for policy in finding_policies
     )
@@ -52,9 +52,12 @@ def _format_policies_for_resolver(
 
 async def resolve(
     parent: Organization,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[OrgFindingPolicyApi, ...]:
-    finding_policies = await get_finding_policies(org_name=parent.name)
+    loaders: Dataloaders = info.context.loaders
+    finding_policies = await loaders.organization_finding_policies.load(
+        parent.name
+    )
 
     return _format_policies_for_resolver(finding_policies)

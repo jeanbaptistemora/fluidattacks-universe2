@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from .enums import (
+    PolicyStateStatus,
+)
 from .types import (
     OrgFindingPolicy,
     OrgFindingPolicyState,
@@ -25,7 +28,7 @@ def format_organization_finding_policy(
         state=OrgFindingPolicyState(
             modified_by=item["state"]["modified_by"],
             modified_date=item["state"]["modified_date"],
-            status=item["state"]["status"],
+            status=PolicyStateStatus[item["state"]["status"]],
         ),
         tags=item.get("tags", {}),
     )

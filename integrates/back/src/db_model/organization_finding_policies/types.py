@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
+from .enums import (
+    PolicyStateStatus,
+)
 from typing import (
     NamedTuple,
 )
@@ -10,7 +13,7 @@ from typing import (
 class OrgFindingPolicyState(NamedTuple):
     modified_by: str
     modified_date: str
-    status: str
+    status: PolicyStateStatus
 
 
 class OrgFindingPolicy(NamedTuple):
