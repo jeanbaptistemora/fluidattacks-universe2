@@ -1427,6 +1427,10 @@ export const enTranslations: ResourceKey = {
           },
         },
         addModal: {
+          alerts: {
+            alreadyExists: "The port already exists.",
+            success: "Port has been added.",
+          },
           close: "Close",
           fields: {
             IPRoot: "IP Root",

@@ -5,7 +5,7 @@ const ADD_TOE_PORT: DocumentNode = gql`
   mutation AddToePort(
     $address: String!
     $groupName: String!
-    $port: String!
+    $port: Int!
     $rootId: String!
   ) {
     addToePort(

@@ -1,14 +1,20 @@
 import type { ApolloError } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { GET_ROOTS } from "./queries";
-import type { IHandleAdditionModalProps, IIPRootAttr, Root } from "./types";
+import { ADD_TOE_PORT, GET_ROOTS } from "./queries";
+import type {
+  IAddToePortResultAttr,
+  IFormValues,
+  IHandleAdditionModalProps,
+  IIPRootAttr,
+  Root,
+} from "./types";
 import { isActiveIPRoot, isIPRoot } from "./utils";
 
 import { Input } from "components/Input/Fields/Input";
@@ -17,14 +23,20 @@ import { Col } from "components/Layout";
 import { Row } from "components/Layout/Row";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 import { regExps } from "utils/validations";
 
 const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
   groupName,
   handleCloseModal,
+  refetchData,
 }: IHandleAdditionModalProps): JSX.Element => {
   const { t } = useTranslation();
 
+  // States
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // GraphQL queries
   const { data: rootsData } = useQuery<{ group: { roots: Root[] } }>(
     GET_ROOTS,
     {
@@ -36,13 +48,56 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
       variables: { groupName },
     }
   );
+
+  // Generate data
   const activeIPRoots =
     rootsData === undefined
       ? []
       : rootsData.group.roots.filter(isIPRoot).filter(isActiveIPRoot);
+  const activeIPRootAddress = Object.fromEntries(
+    activeIPRoots.map((root: IIPRootAttr): [string, string] => [
+      root.id,
+      root.address,
+    ])
+  );
 
-  function handleSubmit(): void {
-    // HandleSubmit
+  // GraphQL mutations
+  const [handleAddToePort] = useMutation<IAddToePortResultAttr>(ADD_TOE_PORT, {
+    onCompleted: (data: IAddToePortResultAttr): void => {
+      setIsSubmitting(false);
+      if (data.addToePort.success) {
+        msgSuccess(
+          t("group.toe.ports.addModal.alerts.success"),
+          t("groupAlerts.titleSuccess")
+        );
+        refetchData();
+        handleCloseModal();
+      }
+    },
+    onError: (errors: ApolloError): void => {
+      setIsSubmitting(false);
+      errors.graphQLErrors.forEach((error: GraphQLError): void => {
+        if (error.message === "Exception - Toe port already exists") {
+          msgError(t("group.toe.ports.addModal.alerts.alreadyExists"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred adding toe port", error);
+        }
+      });
+    },
+  });
+
+  // Handle actions
+  function handleSubmit(values: IFormValues): void {
+    setIsSubmitting(true);
+    void handleAddToePort({
+      variables: {
+        address: activeIPRootAddress[values.rootId],
+        groupName,
+        port: _.toInteger(values.port),
+        rootId: values.rootId,
+      },
+    });
   }
 
   return (
@@ -51,8 +106,8 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
         <Modal open={true} title={t("group.toe.ports.addModal.title")}>
           <Formik
             initialValues={{
-              port: undefined,
-              rootId: undefined,
+              port: "",
+              rootId: activeIPRoots.length > 0 ? activeIPRoots[0].id : "",
             }}
             name={"addToePort"}
             onSubmit={handleSubmit}
@@ -75,7 +130,7 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
               rootId: string().required(t("validations.required")),
             })}
           >
-            {({ isSubmitting, dirty }): JSX.Element => {
+            {({ dirty }): JSX.Element => {
               function handleInteger(
                 event: React.KeyboardEvent<HTMLInputElement>
               ): void {
