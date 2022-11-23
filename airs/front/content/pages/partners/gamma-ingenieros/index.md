@@ -8,9 +8,9 @@ alt: Logo Gamma Ingenieros
 partner: yes
 ---
 
-[Gamma Ingenieros](https://www.gammaingenieros.com/) is an expert
-in cybersecurity and technological infrastructure,
-offering IT and telecommunication solutions for about 30 years.
+[Gamma Ingenieros](https://www.gammaingenieros.com/) specializes
+in cybersecurity and technological infrastructure
+and has been offering IT and telecommunication solutions for about 30 years.
 These solutions include training, cloud security and red team operations.
 Moreover,
 the firm is a certified Computer Emergency Response Team
