@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import hljs from "highlight.js";
 import React, { useEffect } from "react";

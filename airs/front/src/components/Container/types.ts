@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 type Nums0To4 = 0 | 1 | 2 | 3 | 4;
 type Nums0To7 = Nums0To4 | 5 | 6 | 7;
 type TAlign = "center" | "end" | "start" | "stretch" | "unset";

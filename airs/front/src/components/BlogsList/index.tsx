@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useEffect, useState } from "react";
