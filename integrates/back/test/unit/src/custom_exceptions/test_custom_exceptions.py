@@ -59,6 +59,9 @@ from groups.domain import (
     validate_group_services_config,
     validate_group_tags,
 )
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
+)
 from newutils.vulnerabilities import (
     range_to_list,
 )
@@ -79,8 +82,14 @@ from starlette.datastructures import (
 from twilio.base.exceptions import (
     TwilioRestException,
 )
+from typing import (
+    Any,
+)
 from unittest import (
     mock,
+)
+from unittest.mock import (
+    AsyncMock,
 )
 import uuid
 from verify.operations import (
@@ -98,6 +107,8 @@ import yaml
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+TABLE_NAME = "integrates_vms"
 
 
 async def test_exception_could_not_verify_stake_holder() -> None:
@@ -121,22 +132,45 @@ async def test_exception_error_uploading_file_s3() -> None:
             )
 
 
-async def test_exception_event_not_found() -> None:
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+async def test_exception_event_not_found(
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     loaders: Dataloaders = get_new_context()
     with pytest.raises(EventNotFound):
         await loaders.event.load("000001111")
+    assert mock_table_resource.called is True
 
 
-async def test_exception_finding_name_policy_not_found() -> None:
+@mock.patch(
+    "organizations_finding_policies.domain.get_organization_finding_policy",
+    new_callable=AsyncMock,
+)
+async def test_exception_finding_name_policy_not_found(
+    mock_get_organization_finding_policy: AsyncMock,
+) -> None:
     org_name = "okada"
+    mock_get_organization_finding_policy.return_value = None
     with pytest.raises(FindingNamePolicyNotFound):
         assert await policies_domain.get_finding_policy(
             org_name=org_name,
             finding_policy_id="5d92c7eb-816f-43d5-9361-c0672837e7ab",
         )
+        assert mock_get_organization_finding_policy.called is True
 
 
-@pytest.mark.changes_db
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     [
         "group_name",
@@ -157,10 +191,16 @@ async def test_exception_finding_name_policy_not_found() -> None:
     ],
 )
 async def test_send_mail_devsecops_agent_fail(
+    mock_table_resource: AsyncMock,
     group_name: str,
     responsible: str,
     had_token: bool,
+    dynamo_resource: ServiceResource,
 ) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     with pytest.raises(GroupNotFound):
         await send_mail_devsecops_agent(
             loaders=get_new_context(),
@@ -168,9 +208,13 @@ async def test_send_mail_devsecops_agent_fail(
             responsible=responsible,
             had_token=had_token,
         )
+        assert mock_table_resource.called is True
 
 
-@pytest.mark.changes_db
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     [
         "group_name",
@@ -203,6 +247,7 @@ async def test_send_mail_devsecops_agent_fail(
     ],  # pylint: disable=too-many-arguments
 )
 async def test_update_group_attrs_fail(
+    mock_table_resource: AsyncMock,
     group_name: str,
     service: GroupService,
     subscription: GroupSubscriptionType,
@@ -210,7 +255,12 @@ async def test_update_group_attrs_fail(
     has_squad: bool,
     has_arm: bool,
     tier: GroupTier,
+    dynamo_resource: ServiceResource,
 ) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     with pytest.raises(GroupNotFound):
         await update_group(
             loaders=get_new_context(),
@@ -225,9 +275,14 @@ async def test_update_group_attrs_fail(
             subscription=subscription,
             tier=tier,
         )
+    assert mock_table_resource.called is True
 
 
 @freeze_time("2020-10-08")
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     ["acceptance_date"],
     [
@@ -235,14 +290,22 @@ async def test_update_group_attrs_fail(
         ["2020-12-31 00:00:00"],  # Over org's max_acceptance_days
     ],
 )
-async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
+async def test_validate_past_acceptance_days(
+    mock_table_resource: AsyncMock,
+    acceptance_date: str,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date="2020-02-01T17:00:00+00:00",
             status=VulnerabilityTreatmentStatus.NEW,
         ),
     )
-    severity = 5
+    severity = 3
     values_accepted = {
         "justification": "This is a test treatment justification",
         "bts_url": "",
