@@ -1432,6 +1432,14 @@ export const enTranslations: ResourceKey = {
             tooltip: "Cancel",
           },
         },
+        addModal: {
+          close: "Close",
+          fields: {
+            IPRoot: "IP Root",
+            port: "Port",
+          },
+          title: "Add port",
+        },
         address: "Address",
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",

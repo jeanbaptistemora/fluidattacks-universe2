@@ -5,7 +5,6 @@
  */
 
 interface IFormValues {
-  address: string;
   port: string;
   rootId: string;
 }
@@ -31,7 +30,6 @@ interface IIPRootAttr {
   address: string;
   id: string;
   nickname: string;
-  port: number;
   state: "ACTIVE" | "INACTIVE";
 }
 
