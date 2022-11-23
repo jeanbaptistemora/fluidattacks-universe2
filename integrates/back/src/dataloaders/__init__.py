@@ -72,6 +72,7 @@ from db_model.organization_access.get import (
     StakeholderOrganizationsAccessLoader,
 )
 from db_model.organization_finding_policies.get import (
+    OrganizationFindingPoliciesLoader,
     OrganizationFindingPolicyLoader,
 )
 from db_model.organizations.get import (
@@ -193,6 +194,7 @@ class Dataloaders(NamedTuple):
     organization_credentials: OrganizationCredentialsLoader
     organization_groups: OrganizationGroupsLoader
     organization_finding_policy: OrganizationFindingPolicyLoader
+    organization_finding_policies: OrganizationFindingPoliciesLoader
     organization_integration_repositories_commits: (
         OrganizationRepositoriesCommitsLoader
     )
@@ -293,6 +295,10 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     stakeholder_organizations_access_loader = (
         StakeholderOrganizationsAccessLoader(organization_access_loader)
     )
+    organization_finding_policy_loader = OrganizationFindingPolicyLoader()
+    organization_finding_policies_loader = OrganizationFindingPoliciesLoader(
+        organization_finding_policy_loader
+    )
     portfolio_loader = PortfolioLoader()
     organization_portfolios_loader = OrganizationPortfoliosLoader(
         portfolio_loader
@@ -350,7 +356,8 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         organization=OrganizationLoader(),
         organization_access=organization_access_loader,
         organization_groups=organization_groups_loader,
-        organization_finding_policy=OrganizationFindingPolicyLoader(),
+        organization_finding_policy=organization_finding_policy_loader,
+        organization_finding_policies=organization_finding_policies_loader,
         organization_portfolios=organization_portfolios_loader,
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),

@@ -12,6 +12,12 @@ from .utils import (
 from aiodataloader import (
     DataLoader,
 )
+from aioextensions import (
+    collect,
+)
+from boto3.dynamodb.conditions import (
+    Key,
+)
 from custom_exceptions import (
     OrgFindingPolicyNotFound,
 )
@@ -58,9 +64,69 @@ async def _get_organization_finding_policy(
     raise OrgFindingPolicyNotFound()
 
 
+async def _get_organization_finding_policies(
+    *,
+    policy_dataloader: DataLoader,
+    organization_name: str,
+) -> tuple[OrgFindingPolicy, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["org_finding_policy_metadata"],
+        values={
+            "name": organization_name,
+        },
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["org_finding_policy_metadata"],),
+        table=TABLE,
+        index=index,
+    )
+
+    policies_list: list[OrgFindingPolicy] = []
+    for item in response.items:
+        policy = format_organization_finding_policy(item)
+        policies_list.append(policy)
+        policy_dataloader.prime(
+            OrgFindingPolicyRequest(
+                organization_name=organization_name, policy_id=policy.id
+            ),
+            policy,
+        )
+
+    return tuple(policies_list)
+
+
 class OrganizationFindingPolicyLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[OrgFindingPolicyRequest]
     ) -> tuple[OrgFindingPolicy, ...]:
         return await _get_organization_finding_policy(requests=tuple(requests))
+
+
+class OrganizationFindingPoliciesLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, organization_names: Iterable[str]
+    ) -> tuple[tuple[OrgFindingPolicy, ...], ...]:
+        return await collect(
+            tuple(
+                _get_organization_finding_policies(
+                    policy_dataloader=self.dataloader,
+                    organization_name=organization_name,
+                )
+                for organization_name in organization_names
+            )
+        )
