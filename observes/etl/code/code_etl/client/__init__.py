@@ -46,6 +46,9 @@ from fa_purity import (
 from fa_purity.pure_iter.factory import (
     from_flist,
 )
+from fa_purity.result.factory import (
+    ResultFactory,
+)
 import logging
 from redshift_client.id_objs import (
     SchemaId,
@@ -65,6 +68,14 @@ LOG = logging.getLogger(__name__)
 class Tables(Enum):
     COMMITS = "COMMITS"
     FILES = "FILES"
+
+    @staticmethod
+    def from_raw(raw: str) -> ResultE[Tables]:
+        factory: ResultFactory[Tables, Exception] = ResultFactory()
+        try:
+            return factory.success(Tables[raw.upper()])
+        except KeyError as err:
+            return factory.failure(err)
 
 
 def _table_ids(table: Tables) -> TableId:

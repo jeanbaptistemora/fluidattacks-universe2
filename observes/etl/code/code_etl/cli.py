@@ -9,8 +9,14 @@ from code_etl import (
 from code_etl.amend.actions import (
     start as start_amend,
 )
+from code_etl.client import (
+    Tables,
+)
 from code_etl.compute_bills import (
     main as bill_reports,
+)
+from code_etl.init_tables import (
+    init_tables,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -196,6 +202,23 @@ def migration() -> None:
 migration.add_command(calculate_fa_hash)
 
 
+@click.command()  # type: ignore[misc]
+@click.option(
+    "--table",
+    type=click.Choice([i.name for i in Tables], case_sensitive=False),
+    required=True,
+)  # type: ignore[misc]
+@pass_ctx  # type: ignore[misc]
+def init_table(
+    ctx: CmdContext,
+    table: str,
+) -> NoReturn:
+    # pylint: disable=too-many-arguments
+    init_tables(
+        ctx.db_id, ctx.creds, Tables.from_raw(table).unwrap()
+    ).compute()
+
+
 @click.group()  # type: ignore[misc]
 @click.option("--db-id", type=click.File("r"), required=True)  # type: ignore[misc]
 @click.option("--creds", type=click.File("r"), required=True)  # type: ignore[misc]
@@ -210,5 +233,6 @@ def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:  # type: ignore[
 
 main.add_command(amend_authors)
 main.add_command(compute_bills)
+main.add_command(init_table)
 main.add_command(upload_code)
 main.add_command(migration)
