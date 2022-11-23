@@ -213,12 +213,55 @@ async def s3_has_server_access_logging_disabled(
     return vulns
 
 
+async def ec2_monitoring_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_instances"
+    )
+    reservations = response.get("Reservations", []) if response else []
+    method = core_model.MethodsEnum.AWS_EC2_MONITORING_DISABLED
+    vulns: core_model.Vulnerabilities = ()
+    if reservations:
+        for instances in reservations:
+            locations: List[Location] = []
+            for index, i in enumerate(instances["Instances"]):
+                monitoring = i.get("Monitoring", "")
+                if monitoring["State"] != "enabled":
+                    locations = [
+                        *locations,
+                        Location(
+                            arn=(
+                                f"arn:aws:ec2::{instances['OwnerId']}:"
+                                f"instance-id/{i['InstanceId']}"
+                            ),
+                            description=t(
+                                "src.lib_path.f400.bucket_has_logging_disabled"
+                            ),
+                            values=(monitoring["State"],),
+                            access_patterns=(
+                                f"/Instances/{index}/Monitoring/State",
+                            ),
+                        ),
+                    ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=instances,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    s3_has_server_access_logging_disabled,
+    ec2_monitoring_disabled,
     elbv2_has_access_logging_disabled,
     cloudfront_has_logging_disabled,
     cloudtrail_trails_not_multiregion,
+    s3_has_server_access_logging_disabled,
 )
