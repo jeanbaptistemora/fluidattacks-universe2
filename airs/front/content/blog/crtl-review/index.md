@@ -1,0 +1,230 @@
+---
+slug: crtl-review/
+title: A CRTL Review
+date: 2022-11-25
+subtitle: A Certified Red Team Leader (CRTL) Review
+category: opinions
+tags: cybersecurity, risk, company
+image: https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/oleksii-khodakivskiy-RLQB7rX-pyY-unsplash.webp
+alt: Photo by Oleksii Khodakivskiy on Unsplash
+description: In this post we review the RTO-2 course and CRTL certification offered by Zero-Point Security
+keywords: RTO, CRTL, Red Team, Red Team Leader, Cybersecurity Success, Security Status, Ethical Hacking, Pentesting
+author: Andres Roldan
+writer: aroldan
+name: Andres Roldan
+about1: VP of Hacking and Research
+source: https://unsplash.com/photos/RLQB7rX-pyY
+---
+
+A few months ago (August 18 to be precise),
+[@Rastamouse's](https://twitter.com/_RastaMouse)
+Zero-Point Security released the course Red Team Ops II,
+or *RTO-2* for short:
+
+![RTO-2 announcement](https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/Screenshot_2022-11-23_102856.webp)
+
+[RTO-2](https://training.zeropointsecurity.co.uk/courses/red-team-ops-ii)
+is mean to be a follow-up of the
+[RTO](https://training.zeropointsecurity.co.uk/courses/red-team-ops)
+course, focusing on advanced OPSEC tactics, including
+bypassing of modern enterprise Windows endpoint controls.
+
+In this post, I will take an overview of the course
+contents and will relate my experience on the exam that
+gave me the title of Certified Red Team Leader.
+
+## Red Team Ops II
+
+Early this year, I took and completed the *RTO* course
+and associated
+[CRTO exam](https://eu.badgr.com/public/assertions/T0j8f2HRS_yrqzNAndBn9Q)
+from which I gave a
+[talk](https://www.youtube.com/watch?v=a8sOW-Dnqwg)
+(in Spanish) on how to pass it.
+
+*RTO* focused on how to perform Red Team operations
+on a multi-forest *AD* environment using Cobalt Strike.
+
+OPSEC (Operations Security) notes and tips are given
+throughout the course but the main focus is not that.
+*RTO-2* was born to compliment *RTO* on the *OPSEC* realm.
+
+Currently *RTO-2* course is divided on 7 chapters:
+
+1. C2 Infrastructure
+1. Windows APIs
+1. Process Injection
+1. Defense Evasion
+1. Attack Surface Reduction
+1. Windows Defender Application Control
+1. EDR Evasion
+
+The chapter *C2 Infrastructure* presents a way to have
+a versatile, resilient and secure C2 architecture,
+including the use of redirectors, custom Apache
+redirect rules to avoid detection of the C2 infrastructure,
+SSL certificates for Beacon and strategies for
+beaconing failover. This is very useful for real
+engagements on mature corporate environments which
+a Red Team operator should be aware of.
+
+The chapters *Windows APIs* and *Process Injection*
+are both heavily focused on offensive tooling
+development. First, there's an overview of commonly
+used Windows APIs used for offensive purposes,
+how can those functions be called from *C++*
+and how to make use of unmanaged APIs from managed
+languages like *C#* and *VBA* by the use of P/Invoke
+and D/Invoke. Then in the *Process Injection*
+chapter those capabilities are used to inject code on
+processes using a wide range of techniques, from
+injecting arbitrary code in the current process,
+to injecting code in a remote process, or using
+undocumented functions on `ntdll.dll` to create
+a new executable section on a running process and
+inject the shellcode on it, and even creating a new
+suspended benign process, queue an Asynchronous Procedure
+Call with the desired shellcode and dispatch it on a
+new thread. A couple of fun chapters.
+
+The chapter *Defense Evasion* explains capabilities
+used for endpoint controls to detect anomalous
+behavior and the way to bypass them. Cobalt Strike
+provides some interesting *OPSEC* features out-of-box,
+like *PPID* spoofing, command line spoofing, avoiding
+RWX sections, at-rest Beacon memory encryption
+and thread stack spoofing. There is also mention
+of what is and how to bypass Event Tracing for
+Windows (*ETW*), which is a Windows mechanism that
+is used to give EDRs feedback on events dispatched
+from user-mode, without the need of API hooking.
+
+The next chapter describes *Attack Surface Reduction*
+which is composed of a set of rules that can be enforced
+by a GPO to prevent common techniques used
+by attackers. The rules include blocking API calls from
+Office macros, creating child processes from Office
+applications, block processes originating from
+*PSExec* and *WMI* and block credential stealing from
+the *LSASS* process (which is a complement to mitigations
+like *PPL* and *Credential Guard*). Those rules can be
+used together, providing a defense-in-depth protection.
+However, those rules are based mainly on blacklists
+and the chapter describe ways of bypassing some of them.
+
+Then comes the chapter *Windows Defender Application Control*
+or *WDAC*, which is a
+[security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria)
+which allows to specify which applications can be
+run on a machine, based on things like its path,
+digital signature and file hash. As this is a
+official security boundary, *WDAC* bypasses are
+actually fixed by Microsoft. However, misconfigurations
+can allow an attacker to circumvent the control
+to gain further access to the machine and this
+chapter teach us a way to find common scenarios
+which can be abused.
+
+And finally, the chapter *EDR evasion* provides
+an overview of how modern EDRs work and some
+bypasses, including API unhooking, indirect
+syscalls and unregistering kernel callbacks. A
+fun chapter which even includes kernel-mode
+exploits to bypass EDR controls.
+
+As you see, the course contents is very technical
+and there are a lot less videos than on the RTO
+course as it is assumed certain level of knowledge
+to pass it through. However, it is an absolutely
+valuable material, giving the fact that you have
+lifetime access to the course and related
+updates to its contents.
+
+## Lab
+
+The *RTO-2* course comes with an companion lab
+in Cyber Ranges (formerly Snaplabs), with 40 hours
+of lab access. In the lab, you can practice everything
+that's presented on the written material and it's composed
+of several machines with different configurations:
+
+- 2 Attacking machines
+- 2 Redirectors
+- 1 DC
+- 1 CA
+- 3 Workstations
+
+## Exam
+
+After I was enrolled on *RTO-2*, it took me about three
+weeks to complete the material twice (yes, twice) because
+there was a lot of new concepts for me to digest.
+
+I then scheduled the exam to start on November 21 at
+9am.
+
+For the exam, you are given with 72 hours or
+five days (whatever happens first) to obtain four
+flags on a given set of machines in an AD environment.
+Unlike *CRTO* (which you need 6 out of 8 flags to pass),
+you must collect all the flags to pass the exam.
+
+You must enter the flags in a scoring system
+provided with the exam which checks the value and
+give the points. In the end, it took me around
+11 hours to complete the exam:
+
+![Time spent](https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/Screenshot_2022-11-22_160255.webp)
+
+![Flags](https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/Screenshot_2022-11-22_160334.webp)
+
+## Exam tips
+
+Here are some of the things that helped me to complete
+the exam:
+
+1. Follow the indications given on the course and practice
+   them in the lab. Just reading will not give you the
+   required skills to complete the exam (at least for me).
+1. There are things that are not covered in the
+   course material. You need to be comfortable on using
+   tools like Visual Studio Community, not only for
+   compiling tools but also for debugging them.
+1. Practicing *C#* development is suggested and understanding
+   how a *C#* assembly works is also a plus.
+1. Although *RTO-2* is based on defense evasion and
+   advanced *OPSEC* tactics, you must be comfortable with
+   things like *AD* enumeration, pivoting, lateral movement,
+   user impersonation, Kerberos attacks, etc, and
+   experience using Cobalt Strike. *RTO* course
+   will give you that.
+1. Technically speaking, you are not strictly required
+   to use Cobalt Strike for everything in the exam, but you
+   must know how to use other tools that may fulfill
+   the same needs.
+1. There are some exercises proposed in the course. I
+   suggest to complete them as it would give you
+   confidence when dealing with unexpected requirements
+   during the exam.
+1. And last but not least, enumeration and reconnaissance
+   are the key to know to what kind of beast are you
+   dealing with.
+
+## Exam results
+
+I'm writing this article on Nov 23, just two days after
+finishing the exam. I must wait until the next friday to
+obtain the certification. I will update this section
+once I have it!
+
+## Conclusions
+
+Red Team Ops II is a very nice course dealing with modern
+controls on mature enterprise infrastructures. It will
+also prepare you to win in engagements with restricted
+environments.
+
+The exam is fun (`s/fun/HARD AS HELL/g`) but I think that the
+72 hours/5 days given are enough to pass all the stages
+from rage, sadness, stress and finally joy.
+
