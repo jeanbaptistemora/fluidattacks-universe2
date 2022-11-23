@@ -221,13 +221,3 @@ with a one-click attack.
 - Vulnerability remediated
 
 - KAYAK v161.2 (10048) available on Play Store
-
-Fluid Attacks is a red team
-that identifies security vulnerabilities in your applications,
-such as the one presented here
-and many more.
-If you want to start trying the security tests
-with our automated tools,
-we invite you to register for a [21-day free trial](../../free-trial/).
-If you have any questions,
-[get in touch with us](../../contact-us/).
