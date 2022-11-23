@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Fluid Attacks Universe Repository
+Upstream-Contact: Development <development@fluidattacks.com>
+Source: https://gitlab.com/fluidattacks/universe
+
+Files: **
+Copyright: 2022 Fluid Attacks <development@fluidattacks.com>
+License: MPL-2.0
+
+Files: **/**
+Copyright: 2022 Fluid Attacks <development@fluidattacks.com>
+License: MPL-2.0

@@ -10,12 +10,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "license";
   searchPaths.bin = [
-    inputs.nixpkgs.coreutils
-    inputs.nixpkgs.gawk
     inputs.nixpkgs.git
-    inputs.nixpkgs.gnused
-    inputs.nixpkgs.gnugrep
     inputs.nixpkgs.reuse
-    inputs.nixpkgs.findutils
   ];
 }
