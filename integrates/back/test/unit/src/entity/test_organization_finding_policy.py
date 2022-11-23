@@ -21,6 +21,15 @@ from custom_exceptions import (
 )
 from dataloaders import (
     apply_context_attrs,
+    Dataloaders,
+    get_new_context,
+)
+from db_model.organization_finding_policies.enums import (
+    PolicyStateStatus,
+)
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
+    OrgFindingPolicyRequest,
 )
 from organizations_finding_policies import (
     domain as policies_domain,
@@ -493,10 +502,11 @@ async def test_submit_organization_finding_policy() -> None:
         org_name=organization_name,
         finding_name=finding_name.lower(),
     )
+    assert finding_policy is not None
     hande_acceptance_rejected_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,  # type: ignore
+            "findingPolicyId": finding_policy.id,
             "orgName": organization_name,
             "status": "REJECTED",
         },
@@ -525,7 +535,7 @@ async def test_submit_organization_finding_policy() -> None:
     submit_finding_policy_data = {
         "query": submit_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,  # type: ignore
+            "findingPolicyId": finding_policy.id,
             "organizationName": organization_name,
         },
     }
@@ -534,8 +544,13 @@ async def test_submit_organization_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["submitOrganizationFindingPolicy"]["success"]
-    finding_policy = await policies_domain.get_finding_policy(
-        org_name=organization_name,
-        finding_policy_id=finding_policy.id,  # type: ignore
+    loaders: Dataloaders = get_new_context()
+    finding_policy_submitted: OrgFindingPolicy = (
+        await loaders.organization_finding_policy.load(
+            OrgFindingPolicyRequest(
+                organization_name=organization_name,
+                policy_id=finding_policy.id,
+            )
+        )
     )
-    assert finding_policy.state.status == "SUBMITTED"
+    assert finding_policy_submitted.state.status == PolicyStateStatus.SUBMITTED

@@ -7,7 +7,6 @@ from custom_exceptions import (
     CouldNotVerifyStakeholder,
     ErrorUploadingFileS3,
     EventNotFound,
-    FindingNamePolicyNotFound,
     GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -17,6 +16,7 @@ from custom_exceptions import (
     InvalidRange,
     InvalidSchema,
     OrganizationNotFound,
+    OrgFindingPolicyNotFound,
     RepeatedValues,
     StakeholderNotFound,
     UnableToSendSms,
@@ -36,6 +36,9 @@ from db_model.groups.enums import (
     GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
+)
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicyRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -60,9 +63,6 @@ from mypy_boto3_dynamodb import (
 )
 from newutils.vulnerabilities import (
     range_to_list,
-)
-from organizations_finding_policies import (
-    domain as policies_domain,
 )
 import os
 import pytest
@@ -146,21 +146,16 @@ async def test_exception_event_not_found(
     assert mock_table_resource.called is True
 
 
-@mock.patch(
-    "organizations_finding_policies.domain.get_organization_finding_policy",
-    new_callable=AsyncMock,
-)
-async def test_exception_finding_name_policy_not_found(
-    mock_get_organization_finding_policy: AsyncMock,
-) -> None:
+async def test_exception_policy_not_found() -> None:
+    loaders: Dataloaders = get_new_context()
     org_name = "okada"
-    mock_get_organization_finding_policy.return_value = None
-    with pytest.raises(FindingNamePolicyNotFound):
-        assert await policies_domain.get_finding_policy(
-            org_name=org_name,
-            finding_policy_id="5d92c7eb-816f-43d5-9361-c0672837e7ab",
+    finding_policy_id = "5d92c7eb-816f-43d5-9361-c0672837e7ab"
+    with pytest.raises(OrgFindingPolicyNotFound):
+        await loaders.organization_finding_policy.load(
+            OrgFindingPolicyRequest(
+                organization_name=org_name, policy_id=finding_policy_id
+            )
         )
-        assert mock_get_organization_finding_policy.called is True
 
 
 @mock.patch(
