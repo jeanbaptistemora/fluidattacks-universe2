@@ -13,7 +13,9 @@ from . import (
 )
 import argparse
 import datetime
-import git
+from git.repo import (
+    Repo,
+)
 import json
 import os
 import re
@@ -112,7 +114,7 @@ def scan_commits(config: JSON, sync_changes: bool, after: str) -> None:
     repository: str = config["repository"]
     repo_path: str = config["location"]
     branches: str = config["branches"]
-    repo_obj: GIT_REPO = git.Repo(repo_path)
+    repo_obj: GIT_REPO = Repo(repo_path)
 
     # optional
     organization: str = config.get("organization", "__")
