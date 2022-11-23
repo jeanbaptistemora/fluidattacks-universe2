@@ -40,18 +40,17 @@ template: advisory
 
 ## Description
 
-Tiny File Manager version 2.4.8 allows an unauthenticated remote attacker
-to execute arbitrary code remotely on the server. This is possible because
-the application is vulnerable to CSRF, does not properly validate files
-uploaded by users, and allows unauthenticated users to access uploaded
-files.
+Version 2.4.8 of Tiny File Manager allows an unauthenticated remote
+attacker to execute arbitrary code remotely on the server. This is
+possible because the application is vulnerable to CSRF, processes
+uploaded files server-side (instead of just returning them for
+download), and allows unauthenticated users to access uploaded files.
 
 ## Vulnerability
 
 This vulnerability occurs because the application is vulnerable to CSRF,
-does not properly validate files uploaded by users and allows unauthenticated
-users to access uploaded files. Thanks to this, an unauthenticated remote
-attacker can execute commands on the server.
+processes uploaded files server-side (instead of just returning them for
+download), and allows unauthenticated users to access uploaded files.
 
 ## Exploitation
 
