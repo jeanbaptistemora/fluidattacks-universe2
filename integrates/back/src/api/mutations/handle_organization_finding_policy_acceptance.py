@@ -15,6 +15,12 @@ from batch.enums import (
     Action,
     Product,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organization_finding_policies.enums import (
+    PolicyStateStatus,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -28,9 +34,6 @@ from organizations_finding_policies import (
 )
 from sessions import (
     domain as sessions_domain,
-)
-from typing import (
-    Dict,
 )
 
 
@@ -46,19 +49,22 @@ async def mutate(
     organization_name: str,
     status: str,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    loaders: Dataloaders = info.context.loaders
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]
+    status_typed = PolicyStateStatus[status]
 
     await policies_domain.handle_finding_policy_acceptance(
+        loaders=loaders,
         finding_policy_id=finding_policy_id,
-        org_name=organization_name,
-        status=status,
-        user_email=user_email,
+        modified_by=user_email,
+        organization_name=organization_name,
+        status=status_typed,
     )
 
-    if status == "APPROVED":
+    if status_typed == PolicyStateStatus.APPROVED:
         await put_action(
             action=Action.HANDLE_FINDING_POLICY,
             entity=finding_policy_id,

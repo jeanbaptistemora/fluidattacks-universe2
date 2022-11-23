@@ -17,11 +17,21 @@ from custom_exceptions import (
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     vulnerabilities as vulns_model,
 )
 from db_model.findings.types import (
     Finding,
+)
+from db_model.organization_finding_policies.enums import (
+    PolicyStateStatus,
+)
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
+    OrgFindingPolicyRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -46,7 +56,6 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from typing import (
-    Any,
     Optional,
     Union,
 )
@@ -124,24 +133,30 @@ async def add_finding_policy(
 
 async def handle_finding_policy_acceptance(
     *,
+    loaders: Dataloaders,
     finding_policy_id: str,
-    org_name: str,
-    status: str,
-    user_email: str,
+    modified_by: str,
+    organization_name: str,
+    status: PolicyStateStatus,
 ) -> None:
-    finding_policy = await get_finding_policy(
-        org_name=org_name, finding_policy_id=finding_policy_id
+    finding_policy: OrgFindingPolicy = (
+        await loaders.organization_finding_policy.load(
+            OrgFindingPolicyRequest(
+                organization_name=organization_name,
+                policy_id=finding_policy_id,
+            )
+        )
     )
-    if finding_policy.state.status != "SUBMITTED":
+    if finding_policy.state.status != PolicyStateStatus.SUBMITTED:
         raise PolicyAlreadyHandled()
 
     await update_finding_policy_status(
-        org_name=org_name,
+        org_name=organization_name,
         finding_policy_id=finding_policy_id,
         status=OrgFindingPolicyState(
-            modified_by=user_email,
+            modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status=status,
+            status=status.value,
         ),
     )
 
@@ -197,7 +212,7 @@ async def deactivate_finding_policy(
 
 async def update_finding_policy_in_groups(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_name: str,
     group_names: list[str],
     status: str,
