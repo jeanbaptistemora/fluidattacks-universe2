@@ -1,6 +1,6 @@
 ---
 slug: cvssf-risk-exposure-metric/
-title: Fluid Attacks' CVSSF Metric
+title: What Your Risk Management's Missing
 date: 2022-11-16
 subtitle: Why measure cybersecurity risk with our CVSSF metric?
 category: philosophy
