@@ -148,6 +148,7 @@ const About = [
       "about/compare/nowsecure",
       "about/compare/shiftleft",
       "about/compare/snyk",
+      "about/compare/veracode",
       "about/compare/tenable",
     ],
   },
