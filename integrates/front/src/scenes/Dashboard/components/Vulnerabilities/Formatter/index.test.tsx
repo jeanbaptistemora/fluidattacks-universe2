@@ -111,6 +111,12 @@ describe("Formatter", (): void => {
     {
       currentState: "Should be gray",
     },
+    {
+      currentState: "App",
+    },
+    {
+      currentState: "Code",
+    },
   ];
 
   it("should return a function", (): void => {
@@ -132,9 +138,9 @@ describe("Formatter", (): void => {
 
     expect(screen.getByRole("table")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("17"));
+    await userEvent.click(screen.getByText("19"));
 
-    expect(screen.queryAllByRole("row")).toHaveLength(18);
+    expect(screen.queryAllByRole("row")).toHaveLength(20);
   });
 
   it("should have status format", async (): Promise<void> => {
@@ -151,7 +157,7 @@ describe("Formatter", (): void => {
 
     expect(screen.getByRole("table")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("17"));
+    await userEvent.click(screen.getByText("19"));
 
     expect(screen.getByText("Closed")).toBeInTheDocument();
     expect(screen.getByText("Closed")).toHaveStyle(
@@ -196,6 +202,20 @@ describe("Formatter", (): void => {
       border: 1px solid ${variants.red.borderColor};
       color: ${variants.red.color};`
     );
+
+    expect(screen.getByText("App")).toBeInTheDocument();
+    expect(screen.getByText("App")).toHaveStyle(
+      `background-color: ${variants.blue.bgColor};
+      border: 1px solid ${variants.blue.borderColor};
+      color: ${variants.blue.color};`
+    );
+
+    expect(screen.getByText("Code")).toBeInTheDocument();
+    expect(screen.getByText("Code")).toHaveStyle(
+      `background-color: ${variants.blue.bgColor};
+      border: 1px solid ${variants.blue.borderColor};
+      color: ${variants.blue.color};`
+    );
   });
 
   it("should not have a long text in status format", async (): Promise<void> => {
@@ -212,7 +232,7 @@ describe("Formatter", (): void => {
 
     expect(screen.getByRole("table")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("17"));
+    await userEvent.click(screen.getByText("19"));
 
     expect(screen.queryByText("Pending verification")).not.toBeInTheDocument();
     expect(screen.queryByText("Permanently accepted")).not.toBeInTheDocument();
@@ -244,7 +264,7 @@ describe("Formatter", (): void => {
 
     expect(screen.getByRole("table")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("17"));
+    await userEvent.click(screen.getByText("19"));
 
     expect(screen.getByText("Pending verification")).toBeInTheDocument();
     expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
@@ -276,7 +296,7 @@ describe("Formatter", (): void => {
 
     expect(screen.getByRole("table")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText("17"));
+    await userEvent.click(screen.getByText("19"));
 
     expect(screen.getByText("Closed")).toBeInTheDocument();
     expect(screen.getByText("Closed")).toHaveStyle(
@@ -350,5 +370,45 @@ describe("Formatter", (): void => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.queryAllByRole("row")).toHaveLength(2);
     expect(screen.queryByText("-")).not.toBeInTheDocument();
+  });
+
+  it("should not have gray color in format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <Table
+        columns={columns}
+        data={data}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("19"));
+
+    expect(screen.queryByText("Code")).not.toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+    expect(screen.queryByText("Closed")).not.toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+    expect(screen.queryByText("Open")).not.toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+    expect(screen.queryByText("Pending")).not.toHaveStyle(
+      `background-color: ${variants.gray.bgColor};
+      border: 1px solid ${variants.gray.borderColor};
+      color: ${variants.gray.color};`
+    );
+
+    jest.clearAllMocks();
   });
 });
