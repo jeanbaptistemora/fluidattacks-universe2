@@ -8,6 +8,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -22,9 +25,6 @@ from organizations_finding_policies import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Dict,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -38,15 +38,17 @@ async def mutate(
     finding_policy_id: str,
     organization_name: str,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    loaders: Dataloaders = info.context.loaders
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]
 
     await policies_domain.submit_finding_policy(
+        loaders=loaders,
         finding_policy_id=finding_policy_id,
+        modified_by=user_email,
         organization_name=organization_name,
-        user_email=user_email,
     )
 
     return SimplePayload(success=True)

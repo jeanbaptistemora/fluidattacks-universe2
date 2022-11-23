@@ -163,49 +163,61 @@ async def handle_finding_policy_acceptance(
 
 async def submit_finding_policy(
     *,
+    loaders: Dataloaders,
     finding_policy_id: str,
+    modified_by: str,
     organization_name: str,
-    user_email: str,
 ) -> None:
-    finding_policy = await get_finding_policy(
-        org_name=organization_name, finding_policy_id=finding_policy_id
+    finding_policy: OrgFindingPolicy = (
+        await loaders.organization_finding_policy.load(
+            OrgFindingPolicyRequest(
+                organization_name=organization_name,
+                policy_id=finding_policy_id,
+            )
+        )
     )
-    status: str = finding_policy.state.status
-    is_status_valid: bool = status in {"INACTIVE", "REJECTED"}
-    if not is_status_valid:
+    if finding_policy.state.status not in {
+        PolicyStateStatus.INACTIVE,
+        PolicyStateStatus.REJECTED,
+    }:
         raise PolicyAlreadyHandled()
 
     await update_finding_policy_status(
         org_name=organization_name,
         finding_policy_id=finding_policy_id,
         status=OrgFindingPolicyState(
-            modified_by=user_email,
+            modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status="SUBMITTED",
+            status=PolicyStateStatus.SUBMITTED.value,
         ),
     )
 
 
 async def deactivate_finding_policy(
     *,
+    loaders: Dataloaders,
     finding_policy_id: str,
-    org_name: str,
-    user_email: str,
+    modified_by: str,
+    organization_name: str,
 ) -> None:
-    finding_policy = await get_finding_policy(
-        org_name=org_name, finding_policy_id=finding_policy_id
+    finding_policy: OrgFindingPolicy = (
+        await loaders.organization_finding_policy.load(
+            OrgFindingPolicyRequest(
+                organization_name=organization_name,
+                policy_id=finding_policy_id,
+            )
+        )
     )
-    if finding_policy.state.status != "APPROVED":
+    if finding_policy.state.status != PolicyStateStatus.APPROVED:
         raise PolicyAlreadyHandled()
 
-    status: str = "INACTIVE"
     await update_finding_policy_status(
-        org_name=org_name,
+        org_name=organization_name,
         finding_policy_id=finding_policy_id,
         status=OrgFindingPolicyState(
-            modified_by=user_email,
+            modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status=status,
+            status=PolicyStateStatus.INACTIVE.value,
         ),
     )
 

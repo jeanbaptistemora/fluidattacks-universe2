@@ -8,6 +8,7 @@ from enum import (
 
 
 class PolicyStateStatus(str, Enum):
+    ACTIVE: str = "ACTIVE"
     APPROVED: str = "APPROVED"
     INACTIVE: str = "INACTIVE"
     REJECTED: str = "REJECTED"
