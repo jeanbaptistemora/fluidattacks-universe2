@@ -11,6 +11,9 @@ from symbolic_eval.f091.literal.c_sharp import (
 from symbolic_eval.f091.literal.java import (
     java_insecure_logging,
 )
+from symbolic_eval.f091.literal.javascript import (
+    javascript_insecure_logging,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -23,6 +26,8 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_INSECURE_LOGGING: cs_insecure_logging,
     MethodsEnum.JAVA_INSECURE_LOGGING: java_insecure_logging,
+    MethodsEnum.JS_INSECURE_LOGGING: javascript_insecure_logging,
+    MethodsEnum.TS_INSECURE_LOGGING: javascript_insecure_logging,
 }
 
 

@@ -8,6 +8,9 @@ from model.core_model import (
 from symbolic_eval.f091.method_invocation.java import (
     java_insecure_logging,
 )
+from symbolic_eval.f091.method_invocation.javascript import (
+    javascript_insecure_logging,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -19,6 +22,8 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_LOGGING: java_insecure_logging,
+    MethodsEnum.JS_INSECURE_LOGGING: javascript_insecure_logging,
+    MethodsEnum.TS_INSECURE_LOGGING: javascript_insecure_logging,
 }
 
 
