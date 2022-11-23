@@ -25,7 +25,7 @@ assign a treatment by clicking the
 check box to its left and click
 on [Edit.](/machine/web/vulnerabilities/management/locations#edit-button)
 
-![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045341/docs/web/vulnerabilities/management/edit_button.png)
+![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1669209743/docs/web/vulnerabilities/management/edit_treatment.png)
 
 The **Edit** button helps you manage
 the vulnerability treatments and
@@ -145,7 +145,7 @@ treatment:
   It can also be a monetary
   value.
 
-Keep in mind that the **User**
+Keep in mind that the [User](/machine/web/groups/roles#user-role)
 role can define the
 Temporarily accepted,
 In progress and Zero
@@ -153,10 +153,11 @@ risk treatments.
 They can also suggest treating
 a vulnerability as **Permanently accepted**,
 but the only roles that can
-approve it are either the **user manager**
-or the **vulnerability manager**.
+approve it are either the
+[user manager](/machine/web/groups/roles#user-manager-role)
+or the [vulnerability manager](/machine/web/groups/roles#vulnerability-manager-role).
 
-![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431421/docs/web/vulnerabilities/management/treatments_confirmation.png)
+![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1669210991/docs/web/vulnerabilities/management/confirmation.png)
 
 Both the user manager or the
 vulnerability manager can
@@ -169,7 +170,7 @@ vulnerability and click on the
 **Treatment Acceptance** button,
 which is only available to them.
 
-![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_tr_acceptance.png)
+![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1669210387/docs/web/vulnerabilities/management/treatment_acceptence.png)
 
 A pop-up **Observations**
 window will appear,
@@ -179,7 +180,7 @@ observation concerning the requested
 treatment and decide whether
 they approve or reject it.
 
-![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_pop_up_observations.png)
+![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1669210512/docs/web/vulnerabilities/management/observations.png)
 
 If the treatment is approved,
 the vulnerability status will
@@ -187,7 +188,7 @@ immediately change to
 **Permanently accepted**.
 Otherwise,
 the status will appear as
-**In progress**.
+**In progress** or **New**.
 
 ## Reattacking a permanently accepted vulnerability
 
