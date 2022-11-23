@@ -83,6 +83,8 @@ Offensive Team.
 
 **Vendor page** <https://github.com/frappe/frappe>
 
+**Release page** <https://github.com/frappe/frappe/releases/tag/v14.12.0>
+
 ## Timeline
 
 <time-lapse
