@@ -114,3 +114,26 @@ class RawFileCommitClient:
             )
 
         return files.map(lambda f: tuple(_build_relation(i) for i in f))
+
+    def init_table(self) -> Cmd[None]:
+        statement = """
+        CREATE TABLE IF NOT EXISTS {schema}.{table} (
+            file_path VARCHAR(1024),
+            hash CHAR(40),
+            namespace VARCHAR(64),
+            repository VARCHAR(4096),
+
+            PRIMARY KEY (
+                namespace,
+                repository,
+                hash
+            )
+        ) SORTKEY (namespace, repository)
+        """
+        identifiers: Dict[str, str] = {
+            "schema": self._table.schema.name,
+            "table": self._table.name,
+        }
+        return self._sql_client.execute(
+            Query.dynamic_query(statement, freeze(identifiers)), None
+        )

@@ -33,6 +33,9 @@ from code_etl.utils import (
 from dataclasses import (
     dataclass,
 )
+from enum import (
+    Enum,
+)
 from fa_purity import (
     Cmd,
     FrozenList,
@@ -59,6 +62,19 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 
+class Tables(Enum):
+    COMMITS = "COMMITS"
+    FILES = "FILES"
+
+
+def _table_ids(table: Tables) -> TableId:
+    schema = SchemaId("code")
+    if table is Tables.COMMITS:
+        return TableId(schema, "commits")
+    if table is Tables.FILES:
+        return TableId(schema, "files")
+
+
 @dataclass(frozen=True)
 class _Client:
     sql_client: SqlClient
@@ -74,9 +90,8 @@ class Client:
 
     @staticmethod
     def new(_sql_client: SqlClient) -> Client:
-        schema = SchemaId("code")
-        stamps = TableId(schema, "commits")
-        files_relation = TableId(schema, "files")
+        stamps = _table_ids(Tables.COMMITS)
+        files_relation = _table_ids(Tables.FILES)
         return Client(
             _Client(
                 _sql_client,
@@ -85,6 +100,11 @@ class Client:
                 RawFileCommitClient(_sql_client, files_relation),
             )
         )
+
+    def init_table(self, table: Tables) -> Cmd[None]:
+        if table is Tables.FILES:
+            return self._inner.raw_2.init_table()
+        raise NotImplementedError()
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         return self._inner.raw.all_data_count(namespace)

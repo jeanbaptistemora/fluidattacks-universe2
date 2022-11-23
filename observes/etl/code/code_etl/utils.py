@@ -8,15 +8,22 @@ from datetime import (
 from fa_purity import (
     Cmd,
 )
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
 import logging
 from os import (
     environ,
+)
+from redshift_client.sql_client import (
+    DbConnection,
 )
 from redshift_client.sql_client.connection import (
     Credentials,
     DatabaseId,
 )
 from typing import (
+    Callable,
     TypeVar,
 )
 
@@ -39,3 +46,17 @@ _T = TypeVar("_T")
 
 def log_info(log: logging.Logger, msg: str, *args: str) -> Cmd[None]:
     return Cmd.from_cmd(lambda: log.info(msg, *args))
+
+
+def wrap_connection(
+    connection: DbConnection, action: Callable[[DbConnection], Cmd[None]]
+) -> Cmd[None]:
+    """Ensures that connection is closed regardless of action errors"""
+
+    def _action() -> None:
+        try:
+            unsafe_unwrap(action(connection))
+        finally:
+            unsafe_unwrap(connection.close())
+
+    return Cmd.from_cmd(_action)
