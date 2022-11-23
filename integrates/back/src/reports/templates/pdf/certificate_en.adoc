@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-//
-// SPDX-License-Identifier: MPL-2.0
-
 === Security Testing Service Certificate
 
 Fluid Attacks Inc. identified with the registration number *8110285148*

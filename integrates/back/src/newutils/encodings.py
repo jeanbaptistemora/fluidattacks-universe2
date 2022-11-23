@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
-
 def safe_encode(string: str) -> str:
     """Turn a utf-8 string into a string of [a-z0-9] characters."""
     return string.encode("utf-8").hex().lower()

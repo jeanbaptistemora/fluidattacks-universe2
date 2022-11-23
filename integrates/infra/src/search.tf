@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 resource "aws_security_group" "integrates-opensearch" {
   name   = "integrates-opensearch"
   vpc_id = data.aws_vpc.main.id

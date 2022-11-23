@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 "OrganizationCompliance type definition"
 type OrganizationComplianceStandard {
   "Average level of compliance with the standard in all organizations"

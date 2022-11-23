@@ -1,19 +1,15 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .c3 svg {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 13px;
   color: #8f8fa3;
 }
@@ -32,10 +28,13 @@ html, body, #root {
   stroke-width: 3px !important;
 }
 
-.c3-axis-y-label, .c3-axis-x-label, .tick text {
+.c3-axis-y-label,
+.c3-axis-x-label,
+.tick text {
   fill: #8f8fa3;
 }
-.c3 line, .c3 path {
+.c3 line,
+.c3 path {
   stroke: #8f8fa3;
 }
 

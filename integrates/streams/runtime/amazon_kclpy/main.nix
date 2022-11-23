@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
 {inputs, ...}: let
   # https://github.com/awslabs/dynamodb-streams-kinesis-adapter/blob/1.5.4/pom.xml
   streams_adapter_version = "1.5.4";

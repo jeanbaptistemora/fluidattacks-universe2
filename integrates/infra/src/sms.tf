@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 resource "twilio_verify_services_v2" "verify" {
   friendly_name         = "ARM"
   code_length           = 6

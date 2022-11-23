@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 # pylint: disable=invalid-name
 """
 Identify and fix findings with formatting inconsistencies, due to errors

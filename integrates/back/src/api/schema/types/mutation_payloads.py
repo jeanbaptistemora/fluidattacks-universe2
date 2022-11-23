@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from api.resolvers.mutation_payload.update_toe_input_payload import (
     toe_input as update_toe_input_payload_toe_input,
 )

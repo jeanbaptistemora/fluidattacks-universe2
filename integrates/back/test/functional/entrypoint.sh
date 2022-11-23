@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 # shellcheck shell=bash
 
 function main {
@@ -17,7 +13,7 @@ function main {
     --no-cov-on-fail
     --showlocals
     --resolver-test-group "${resolver_test_group}"
-    --verbose
+    -vv
   )
 
   source __argIntegratesBackEnv__/template dev \

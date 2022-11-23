@@ -1,11 +1,7 @@
-/*
- * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
- *
- * SPDX-License-Identifier: MPL-2.0
- */
-
-html, body, #root {
-  font-family: 'Roboto', sans-serif;
+html,
+body,
+#root {
+  font-family: "Roboto", sans-serif;
   color: #333;
 }
 
@@ -30,6 +26,8 @@ html, body, #root {
   padding-left: 16px;
 }
 
-p, ol, ul {
+p,
+ol,
+ul {
   margin-block-end: 0rem !important;
 }
