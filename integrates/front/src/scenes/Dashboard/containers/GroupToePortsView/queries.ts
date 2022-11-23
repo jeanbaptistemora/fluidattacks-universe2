@@ -65,4 +65,36 @@ const GET_TOE_PORTS: DocumentNode = gql`
   ${TOE_PORT_FRAGMENT}
 `;
 
-export { GET_TOE_PORTS };
+const UPDATE_TOE_PORT: DocumentNode = gql`
+  mutation UpdateToePort(
+    $address: String!
+    $bePresent: Boolean!
+    $canGetAttackedAt: Boolean!
+    $canGetAttackedBy: Boolean!
+    $canGetBePresentUntil: Boolean!
+    $canGetFirstAttackAt: Boolean!
+    $canGetSeenFirstTimeBy: Boolean!
+    $groupName: String!
+    $hasRecentAttack: Boolean
+    $port: String!
+    $rootId: String!
+    $shouldGetNewToePort: Boolean!
+  ) {
+    updateToePort(
+      address: $address
+      bePresent: $bePresent
+      groupName: $groupName
+      hasRecentAttack: $hasRecentAttack
+      port: $port
+      rootId: $rootId
+    ) {
+      success
+      toePort @include(if: $shouldGetNewToePort) {
+        ...toePortFields
+      }
+    }
+  }
+  ${TOE_PORT_FRAGMENT}
+`;
+
+export { GET_TOE_PORTS, UPDATE_TOE_PORT };
