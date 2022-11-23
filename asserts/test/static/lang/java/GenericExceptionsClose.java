@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-//
-// SPDX-License-Identifier: MPL-2.0
-
 import java.security.SecureRandom;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

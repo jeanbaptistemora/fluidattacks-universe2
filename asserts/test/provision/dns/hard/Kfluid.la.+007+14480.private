@@ -1,6 +1,3 @@
-; SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-; SPDX-License-Identifier: MPL-2.0
-
 Private-key-format: v1.3
 Algorithm: 7 (NSEC3RSASHA1)
 Modulus: 6RiaK773ugsGMDnUgi0lFUWEyQR3i0kWJAj7VflZLnqw0ApTxzw70D5O/plFDqbKqK2RDWne867prQ+G+pWndDk1f423jmPr+1gR98Hb/uhlrWkPAImdlwMP9O89BfPQKvvzv/iJ4gefdT/OfLZuvR4gnKYZiyez91a/TDO5J9aNGNXXw9ehwtTz6m0nzUrSH4HUkEl9ekXEtczJW1SopTcwxH32zimCFH22d8RY1FvABIbSxq0nXX0RRiVbM4RZSa4K0aU0fKUa/W7ShiupWEajGMbTIS27pQoyXwICRvECI4usoZqv6ClVMnwQmOTNCkTrukASJ6BOxp7icUfXOw==

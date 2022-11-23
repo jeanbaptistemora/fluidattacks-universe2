@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 # This is a basic ProFTPD configuration file (rename it to
 # 'proftpd.conf' for actual use.  It establishes a single server
 # and a single anonymous login.  It assumes that you have a user/group
