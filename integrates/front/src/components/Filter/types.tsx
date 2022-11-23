@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 
 interface IFilter<IData extends object> {
+  checkValues?: string[];
   filterFn?:
     | "caseInsensitive"
     | "caseSensitive"
@@ -22,7 +23,13 @@ interface IFilter<IData extends object> {
     | string[]
     | ((arg0: IData[]) => { header: string; value: string }[])
     | ((arg0: IData[]) => string[]);
-  type?: "dateRange" | "number" | "numberRange" | "select" | "text";
+  type?:
+    | "checkBoxes"
+    | "dateRange"
+    | "number"
+    | "numberRange"
+    | "select"
+    | "text";
   value?: string;
 }
 
@@ -31,6 +38,7 @@ interface IFilterComp<IData extends object> extends IFilter<IData> {
 }
 
 interface IPermanentData {
+  checkValues?: string[];
   id: string;
   value?: string;
   rangeValues?: [string, string];

@@ -11,7 +11,9 @@ import type {
 } from "./types";
 
 import { Button } from "components/Button";
+import { Label } from "components/Input";
 import {
+  FormikCheckbox,
   FormikDate,
   FormikInput,
   FormikNumber,
@@ -57,6 +59,15 @@ const useFilters = <IData extends object>(
           .toLowerCase()
           .includes(filter.value.toLowerCase());
     }
+  }
+
+  function handleCheckBoxesCase(
+    dataPoint: IData,
+    filter: IFilterComp<IData>
+  ): boolean {
+    if (_.isEmpty(filter.checkValues)) return true;
+
+    return filter.checkValues?.includes(String(dataPoint[filter.key])) ?? true;
   }
 
   function handleNumberCase(
@@ -114,6 +125,9 @@ const useFilters = <IData extends object>(
         case "dateRange":
           return handleDateRangeCase(dataPoint, filter as IFilterComp<IData>);
 
+        case "checkBoxes":
+          return handleCheckBoxesCase(dataPoint, filter as IFilterComp<IData>);
+
         case "text":
         case "select":
         default:
@@ -142,22 +156,89 @@ const Filters = <IData extends object>({
 
   const [permaValues, setPermaValues] = permaset ?? [undefined, undefined];
 
+  function setPermanentValues({
+    id,
+    value,
+    rangeValues,
+    checkValues,
+  }: IPermanentData): void {
+    setPermaValues?.(
+      permaValues.map((permadata): IPermanentData => {
+        if (permadata.id === id) {
+          return {
+            ...permadata,
+            checkValues,
+            rangeValues,
+            value,
+          };
+        }
+
+        return permadata;
+      })
+    );
+  }
+
   function resetFiltersHandler(): (event: React.FormEvent) => void {
     return (event: React.FormEvent): void => {
       setFilters(
         filters.map((filter: IFilter<IData>): IFilter<IData> => {
-          return { ...filter, rangeValues: ["", ""], value: "" };
+          return {
+            ...filter,
+            checkValues: [],
+            rangeValues: ["", ""],
+            value: "",
+          };
         })
       );
-      if (permaValues !== undefined) {
-        setPermaValues(
-          permaValues.map((permadata): IPermanentData => {
-            return { ...permadata, rangeValues: ["", ""], value: "" };
-          })
-        );
-      }
+      setPermaValues?.(
+        permaValues.map((permadata): IPermanentData => {
+          return {
+            ...permadata,
+            checkValues: [],
+            rangeValues: ["", ""],
+            value: "",
+          };
+        })
+      );
       event.stopPropagation();
     };
+  }
+
+  function onCheckValuesChangeHadler(
+    id: string
+  ): (event: React.ChangeEvent<HTMLInputElement>) => void {
+    const temp = (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setFilters(
+        filters.map((filter): IFilter<IData> => {
+          if (filter.id === id) {
+            const filtersCheckvalues = filter.checkValues
+              ? filter.checkValues
+              : [];
+            const checkValues = filtersCheckvalues.includes(event.target.value)
+              ? filtersCheckvalues.filter(
+                  (option): boolean => option !== event.target.value
+                )
+              : [...filtersCheckvalues, event.target.value];
+
+            setPermanentValues({
+              checkValues,
+              id,
+              rangeValues: filter.rangeValues,
+              value: filter.value,
+            });
+
+            return {
+              ...filter,
+              checkValues,
+            };
+          }
+
+          return filter;
+        })
+      );
+    };
+
+    return temp;
   }
 
   function onRangeValueChangeHandler(
@@ -171,25 +252,20 @@ const Filters = <IData extends object>({
             position === 0
               ? [event.target.value, filter.rangeValues?.[1] ?? ""]
               : [filter.rangeValues?.[0] ?? "", event.target.value];
+
           if (filter.id === id) {
+            setPermanentValues({
+              checkValues: filter.checkValues,
+              id,
+              rangeValues: value,
+              value: filter.value,
+            });
+
             return {
               ...filter,
               rangeValues: value,
             };
           }
-
-          setPermaValues?.(
-            permaValues.map((permadata): IPermanentData => {
-              if (permadata.id === id) {
-                return {
-                  ...permadata,
-                  rangeValues: value,
-                };
-              }
-
-              return permadata;
-            })
-          );
 
           return filter;
         })
@@ -204,24 +280,18 @@ const Filters = <IData extends object>({
       setFilters(
         filters.map((filter): IFilter<IData> => {
           if (filter.id === id) {
+            setPermanentValues({
+              checkValues: filter.checkValues,
+              id,
+              rangeValues: filter.rangeValues,
+              value: event.target.value,
+            });
+
             return {
               ...filter,
               value: event.target.value,
             };
           }
-
-          setPermaValues?.(
-            permaValues.map((permadata): IPermanentData => {
-              if (permadata.id === id) {
-                return {
-                  ...permadata,
-                  value: event.target.value,
-                };
-              }
-
-              return permadata;
-            })
-          );
 
           return filter;
         })
@@ -239,6 +309,7 @@ const Filters = <IData extends object>({
 
         return {
           ...filter,
+          checkValues: permaValue?.checkValues ?? filter.checkValues,
           rangeValues: permaValue?.rangeValues ?? filter.rangeValues,
           value: permaValue?.value ?? filter.value,
         };
@@ -258,6 +329,18 @@ const Filters = <IData extends object>({
       <SidePanel onClose={closePanel} open={open}>
         <React.Fragment>
           {filters.map((filter: IFilter<IData>): JSX.Element => {
+            const options =
+              typeof filter.selectOptions === "function"
+                ? filter.selectOptions(dataset ?? [])
+                : filter.selectOptions;
+
+            const mappedOptions = options?.map(
+              (option): { header: string; value: string } =>
+                typeof option === "string"
+                  ? { header: option, value: option }
+                  : option
+            );
+
             switch (filter.type) {
               case "text": {
                 return (
@@ -332,11 +415,6 @@ const Filters = <IData extends object>({
                 );
               }
               case "select": {
-                const options =
-                  typeof filter.selectOptions === "function"
-                    ? filter.selectOptions(dataset ?? [])
-                    : filter.selectOptions;
-
                 return (
                   <Row>
                     <Col>
@@ -352,15 +430,7 @@ const Filters = <IData extends object>({
                         name={filter.id}
                       >
                         <option value={""}>{"All"}</option>
-                        {options?.map((option): JSX.Element => {
-                          if (typeof option === "string") {
-                            return (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            );
-                          }
-
+                        {mappedOptions?.map((option): JSX.Element => {
                           return (
                             <option key={option.value} value={option.value}>
                               {option.header}
@@ -401,6 +471,34 @@ const Filters = <IData extends object>({
                         name={filter.id}
                       />
                     </Col>
+                  </Row>
+                );
+              }
+              case "checkBoxes": {
+                return (
+                  <Row>
+                    <Label> {filter.label} </Label>
+                    {mappedOptions?.map((option): JSX.Element => {
+                      return (
+                        <Col key={option.value}>
+                          <FormikCheckbox
+                            field={{
+                              checked: filter.checkValues?.includes(
+                                option.value
+                              ),
+                              name: option.value,
+                              onBlur: (): void => undefined,
+                              onChange: onCheckValuesChangeHadler(filter.id),
+                              value: option.value,
+                            }}
+                            form={{ errors: {}, touched: {} }}
+                            label={option.header}
+                            name={option.value}
+                            value={option.value}
+                          />
+                        </Col>
+                      );
+                    })}
                   </Row>
                 );
               }
