@@ -9,10 +9,7 @@
     delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
     dynamoDbEtls = outputs."/observes/etl/dynamo/conf";
     formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";
-    gitlabEtlChallenges = outputs."/computeOnAwsBatch/observesGitlabEtlChallenges";
-    gitlabEtlDefault = outputs."/computeOnAwsBatch/observesGitlabEtlDefault";
     gitlabEtlProduct = outputs."/computeOnAwsBatch/observesGitlabEtlProduct";
-    gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
     mailchimpEtl = outputs."/computeOnAwsBatch/observesMailchimpEtl";
     mandrillEtl = outputs."/computeOnAwsBatch/observesMandrillEtl";
   };

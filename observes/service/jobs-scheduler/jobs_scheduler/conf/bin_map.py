@@ -24,12 +24,6 @@ def job_to_bin_cmd(job: Job) -> str | NoReturn:
         return os.environ["formstackEtl"]
     if job is Job.GITLAB_PRODUCT:
         return os.environ["gitlabEtlProduct"]
-    if job is Job.GITLAB_CHALLENGES:
-        return os.environ["gitlabEtlChallenges"]
-    if job is Job.GITLAB_DEFAULT:
-        return os.environ["gitlabEtlDefault"]
-    if job is Job.GITLAB_SERVICES:
-        return os.environ["gitlabEtlServices"]
     if job is Job.MAILCHIMP_ETL:
         return os.environ["mailchimpEtl"]
     if job is Job.MANDRILL_ETL:

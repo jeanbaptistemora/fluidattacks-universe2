@@ -39,9 +39,6 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),
         work_days(ANY, CronItem.from_range(range(7, 19, 1))).unwrap(): (
             Job.GITLAB_PRODUCT,
-            Job.GITLAB_CHALLENGES,
-            Job.GITLAB_DEFAULT,
-            Job.GITLAB_SERVICES,
         ),
         work_days(ANY, CronItem.from_values(frozenset([11, 18]))).unwrap(): (
             Job.FORMSTACK,
