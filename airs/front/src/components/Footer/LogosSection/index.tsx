@@ -10,16 +10,16 @@ import React from "react";
 
 import { FullWidthContainer } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
-import { FluidLogoContainer } from "../styles/styledComponents";
+import { Container } from "../../Container";
 
 const LogosSection: React.FC = (): JSX.Element => (
   <FullWidthContainer className={"pt4"}>
-    <FluidLogoContainer>
+    <Container center={true} width={"233px"}>
       <CloudImage
         alt={"Fluid Attacks logo footer"}
-        src={"logo-fluid-attacks-dark"}
+        src={"logo-fluid-dark-2022"}
       />
-    </FluidLogoContainer>
+    </Container>
   </FullWidthContainer>
 );
 

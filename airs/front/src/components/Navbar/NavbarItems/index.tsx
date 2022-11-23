@@ -17,6 +17,7 @@ import {
 } from "../../../styles/styledComponents";
 import { AirsLink } from "../../AirsLink";
 import { CloudImage } from "../../CloudImage";
+import { Container } from "../../Container";
 import { Menu } from "../Menu";
 
 const NavbarItems: React.FC = (): JSX.Element => {
@@ -32,11 +33,12 @@ const NavbarItems: React.FC = (): JSX.Element => {
         <Menu />
         <li>
           <Link className={"db tc pa1 no-underline"} to={"/"}>
-            <CloudImage
-              alt={"Fluid Attacks logo navbar"}
-              src={"logo-fluid-2022"}
-              styles={"h-5 ml3 pv2"}
-            />
+            <Container ml={3} pv={2} width={"160px"}>
+              <CloudImage
+                alt={"Fluid Attacks logo navbar"}
+                src={"logo-fluid-2022"}
+              />
+            </Container>
           </Link>
         </li>
       </div>

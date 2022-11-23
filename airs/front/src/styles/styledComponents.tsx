@@ -50,6 +50,7 @@ const NavbarList: StyledComponent<
     h-navbar
     flex
     flex-nowrap
+    items-center
   `,
 })``;
 
