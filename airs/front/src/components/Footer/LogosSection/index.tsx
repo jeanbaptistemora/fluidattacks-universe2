@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
+ *
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 import React from "react";
@@ -11,7 +17,7 @@ const LogosSection: React.FC = (): JSX.Element => (
     <FluidLogoContainer>
       <CloudImage
         alt={"Fluid Attacks logo footer"}
-        src={"logo-fluid-dark-2022"}
+        src={"logo-fluid-attacks-dark"}
       />
     </FluidLogoContainer>
   </FullWidthContainer>
