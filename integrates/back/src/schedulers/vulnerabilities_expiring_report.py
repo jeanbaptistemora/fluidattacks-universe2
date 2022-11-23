@@ -99,7 +99,7 @@ async def expiring_vulnerabilities(
     ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     return {
         f"{vulnerability.state.where}"
-        + f"({vulnerability.state.specific})": days_to_end(
+        + f" ({vulnerability.state.specific})": days_to_end(
             vulnerability.treatment.accepted_until
         )
         for vulnerability in vulnerabilities
@@ -259,7 +259,6 @@ async def send_temporal_treatment_report() -> None:
             )
             continue
     LOGGER.info("Temporal treatment alert execution finished.")
-    LOGGER.info("Finding expiring report data: %s", groups_data)
 
 
 async def main() -> None:
