@@ -6,7 +6,7 @@
 
 import type { ITagProps } from "components/Tag";
 
-const statusGrayColor: string[] = ["Requested", "Unknown", "N/a", "Queued"];
+const statusBlueColor: string[] = ["App", "Code", "Infra"];
 const statusGreenColor: string[] = [
   "Active",
   "Closed",
@@ -25,12 +25,14 @@ const statusOrangeColor: string[] = [
   "Cloning",
   "Created",
   "In progress",
+  "Masked",
   "New",
   "On_hold",
   "Pending",
   "Pending verification",
   "Partially closed",
   "Permanently accepted",
+  "Requested",
   "Temporarily accepted",
 ];
 const statusRedColor: string[] = [
@@ -46,17 +48,11 @@ const statusRedColor: string[] = [
 ];
 
 const getBgColor = (value: string): ITagProps["variant"] => {
-  if (statusGrayColor.includes(value)) {
-    return "gray";
-  } else if (statusGreenColor.includes(value)) {
-    return "green";
-  } else if (statusOrangeColor.includes(value)) {
-    return "orange";
-  } else if (statusRedColor.includes(value)) {
-    return "red";
-  }
+  if (statusGreenColor.includes(value)) return "green";
+  if (statusOrangeColor.includes(value)) return "orange";
+  if (statusRedColor.includes(value)) return "red";
 
-  return "gray";
+  return statusBlueColor.includes(value) ? "blue" : "gray";
 };
 
 export { getBgColor };
