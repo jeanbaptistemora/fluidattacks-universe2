@@ -216,16 +216,16 @@ type, tick the check box on the
 left of the location you want to
 reattack, and click **Reattack**.
 
-![Request Reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1645628305/docs/web/vulnerabilities/management/treatment_vuln_type_to_request.png)
+![Request Reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1669213193/docs/web/vulnerabilities/management/reattack_permanent.png)
 
 A pop-up window will appear asking
 you to provide a description of
 the solution you applied to this
 vulnerability.
 
-![Justification Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_just_window.png)
+![Justification Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1669213344/docs/web/vulnerabilities/management/justification.png)
 
-Click **Proceed**, and the description
+Click **Confirm**, and the description
 saying **Reattack: Requested** will
 appear in front of the previously
 selected location.
@@ -239,7 +239,7 @@ requests, along with their respective
 justifications, persons in charge and
 submission dates are recorded.
 
-![Consulting Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_consulting_sect.png)
+![Consulting Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1669123362/docs/web/vulnerabilities/management/consulting_tab.png)
 
 A hacker will be responsible for
 verifying the effectiveness of the
@@ -254,7 +254,7 @@ by the hacker.
 You can access this evidence by
 going to the **Evidence** tab.
 
-![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1645627612/docs/web/vulnerabilities/management/treatment_evidence_tab.png)
+![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669065446/docs/web/vulnerabilities/management/evidence_tab.png)
 
 To know the status of the reattack,
 you simply need to go to the
