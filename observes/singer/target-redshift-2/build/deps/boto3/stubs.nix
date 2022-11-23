@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
 lib: python_pkgs: let
   botocore-stubs = lib.buildPythonPackage rec {
     pname = "botocore-stubs";
