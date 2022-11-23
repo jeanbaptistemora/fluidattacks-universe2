@@ -26,6 +26,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+    ToeInputState,
 )
 import pytest
 from typing import (
@@ -140,6 +141,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToeInput(
@@ -158,6 +160,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="",
             ),
             ToeInput(
@@ -178,6 +181,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             ),
             ToeInput(
@@ -198,6 +202,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test3@test.com",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
             ),
             ToeInput(
@@ -218,6 +223,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=None,
                 seen_first_time_by="test4@test.com",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             ),
         ),

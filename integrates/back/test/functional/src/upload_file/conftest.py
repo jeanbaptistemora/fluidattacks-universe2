@@ -54,6 +54,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_inputs.types import (
     ToeInput,
+    ToeInputState,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -349,6 +350,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=None,
                 seen_first_time_by="",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToeInput(
@@ -367,6 +369,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=None,
                 seen_first_time_by="",
+                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
         ),

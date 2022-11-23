@@ -34,6 +34,7 @@ from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
     ToeInputsConnection,
+    ToeInputState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -43,6 +44,9 @@ from dynamodb.exceptions import (
 )
 import logging
 import logging.config
+from newutils.datetime import (
+    get_iso_date,
+)
 from settings import (
     LOGGING,
 )
@@ -70,6 +74,7 @@ async def add_input(current_toe_input: ToeInput, new_component: str) -> None:
         has_vulnerabilities=current_toe_input.has_vulnerabilities,
         seen_at=current_toe_input.seen_at,
         seen_first_time_by=current_toe_input.seen_first_time_by,
+        state=ToeInputState(modified_date=get_iso_date()),
         unreliable_root_id=current_toe_input.unreliable_root_id,
     )
     await toe_inputs_model.add(toe_input=new_toe_input)

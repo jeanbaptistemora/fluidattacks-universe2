@@ -32,7 +32,7 @@ class ToeInput(NamedTuple):
     seen_at: Optional[datetime]
     seen_first_time_by: str
     unreliable_root_id: str
-    state: ToeInputState = ToeInputState(modified_date=None)
+    state: ToeInputState
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.component, self.entry_point))
