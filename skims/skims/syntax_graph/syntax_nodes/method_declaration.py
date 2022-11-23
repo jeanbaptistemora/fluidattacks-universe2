@@ -12,6 +12,9 @@ from typing import (
     Any,
     Optional,
 )
+from utils.graph import (
+    match_ast_d,
+)
 
 
 def add_main_node(
@@ -33,6 +36,14 @@ def add_attributes(
 ) -> SyntaxGraphArgs:
     args = add_main_node(args, name_node, childs[0])
 
+    for attribute_branch in childs[1:]:
+        attribute = match_ast_d(args.ast_graph, attribute_branch, "attribute")
+        if attribute:
+            args.syntax_graph.add_edge(
+                childs[0],
+                args.generic(args.fork_n_id(attribute)),
+                label_ast="AST",
+            )
     return args
 
 
