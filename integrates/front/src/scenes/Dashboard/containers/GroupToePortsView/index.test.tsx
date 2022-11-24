@@ -376,4 +376,128 @@ describe("groupToePortsView", (): void => {
       );
     });
   });
+
+  it("should mark port as attacked", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_TOE_PORT,
+          variables: {
+            address: "127.0.0.1",
+            bePresent: true,
+            canGetAttackedAt: true,
+            canGetAttackedBy: true,
+            canGetBePresentUntil: true,
+            canGetFirstAttackAt: true,
+            canGetSeenFirstTimeBy: true,
+            groupName: "unittesting",
+            hasRecentAttack: true,
+            port: 8080,
+            rootId: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+            shouldGetNewToePort: false,
+          },
+        },
+        result: {
+          data: {
+            updateToePort: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+    const mockedToePorts: MockedResponse<{
+      group: { name: string; toePorts: IToePortsConnection };
+    }> = {
+      request: {
+        query: GET_TOE_PORTS,
+        variables: {
+          canGetAttackedAt: true,
+          canGetAttackedBy: true,
+          canGetBePresentUntil: true,
+          canGetFirstAttackAt: true,
+          canGetSeenFirstTimeBy: true,
+          first: 150,
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            name: "unittesting",
+            toePorts: {
+              __typename: "ToePortsConnection",
+              edges: [
+                {
+                  node: {
+                    __typename: "ToePort",
+                    address: "127.0.0.1",
+                    attackedAt: "2020-01-02T00:00:00-05:00",
+                    attackedBy: "hacker@test.com",
+                    bePresent: true,
+                    bePresentUntil: null,
+                    firstAttackAt: "2020-02-19T15:41:04+00:00",
+                    hasVulnerabilities: false,
+                    port: 8080,
+                    root: {
+                      __typename: "IPRoot",
+                      id: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+                      nickname: "test_nickname",
+                    },
+                    seenAt: "2000-01-01T05:00:00+00:00",
+                    seenFirstTimeBy: "",
+                  },
+                },
+              ],
+              pageInfo: {
+                endCursor: "bnVsbA==",
+                hasNextPage: false,
+              },
+            },
+          },
+        },
+      },
+    };
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_resolvers_toe_port_attacked_at_resolve" },
+      { action: "api_resolvers_toe_port_attacked_by_resolve" },
+      { action: "api_resolvers_toe_port_be_present_until_resolve" },
+      { action: "api_resolvers_toe_port_first_attack_at_resolve" },
+      { action: "api_resolvers_toe_port_seen_first_time_by_resolve" },
+      { action: "api_mutations_update_toe_port_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/ports"]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mockedToePorts, ...mocksMutation]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/ports"}>
+              <GroupToePortsView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getAllByRole("checkbox", { name: "" })[0]);
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "group.toe.ports.actionButtons.attackedButton.text",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.toe.ports.alerts.markAsAttacked.success",
+        "groupAlerts.updatedTitle"
+      );
+    });
+  });
 });
