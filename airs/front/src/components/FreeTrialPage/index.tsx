@@ -10,9 +10,9 @@ import {
   WhiteContainer,
 } from "./styledComponents";
 
-import { NewRegularRedButton } from "../../styles/styledComponents";
 import { translate } from "../../utils/translations/translate";
 import { AirsLink } from "../AirsLink";
+import { Button } from "../Button";
 import { CloudImage } from "../CloudImage";
 import { Paragraph, Title } from "../Texts";
 
@@ -59,9 +59,9 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
             })}
           </ul>
           <AirsLink href={"https://app.fluidattacks.com/#trial"}>
-            <NewRegularRedButton>
+            <Button variant={"primary"}>
               {translate.t("freeTrial.button")}
-            </NewRegularRedButton>
+            </Button>
           </AirsLink>
         </InternalContainer>
       </WhiteContainer>
