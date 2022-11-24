@@ -6,7 +6,8 @@ import { decode } from "he";
 import { utc } from "moment";
 import React from "react";
 
-import { PhantomRegularRedButton } from "../../../styles/styledComponents";
+import { AirsLink } from "../../AirsLink";
+import { Button } from "../../Button";
 import {
   CardButtonContainer,
   CardDate,
@@ -51,16 +52,11 @@ export const BlogCard: React.FC<IProps> = ({
         <PostInfo>
           <CardDescription>{description}</CardDescription>
           <CardButtonContainer>
-            <Link
-              className={
-                "c-fluid-bk f5 mt6 hv-fluid-rd fw4 no-underline t-all-5"
-              }
-              to={`/blog/${blogLink}`}
-            >
-              <PhantomRegularRedButton className={"w-90"}>
+            <AirsLink href={`/blog/${blogLink}`}>
+              <Button display={"block"} variant={"tertiary"}>
                 {"Read post"}
-              </PhantomRegularRedButton>
-            </Link>
+              </Button>
+            </AirsLink>
           </CardButtonContainer>
         </PostInfo>
       </CardInnerDiv>
