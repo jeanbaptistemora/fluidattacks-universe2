@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -15,7 +15,9 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
+import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
+import { isEqualRootId } from "./utils";
 
 import { Filters, useFilters } from "components/Filter";
 import type { IFilter } from "components/Filter";
@@ -46,6 +48,7 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
   isInternal,
 }: IGroupToePortsViewProps): JSX.Element => {
   const { t } = useTranslation();
+  const client = useApolloClient();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetAttackedAt: boolean = permissions.can(
@@ -185,6 +188,97 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     }).format(date);
   };
 
+  const storeUpdatedPort: (
+    rootId: string,
+    address: string,
+    port: number,
+    updatedToePort: IToePortAttr
+  ) => void = (
+    rootId: string,
+    address: string,
+    port: number,
+    updatedToePort: IToePortAttr
+  ): void => {
+    client.writeQuery({
+      data: {
+        ...data,
+        group: {
+          ...data?.group,
+          toePorts: {
+            ...data?.group.toePorts,
+            edges: data?.group.toePorts.edges.map(
+              (value: IToePortEdge): IToePortEdge =>
+                value.node.address === address &&
+                value.node.port === port &&
+                isEqualRootId(value.node.root, rootId)
+                  ? {
+                      node: updatedToePort,
+                    }
+                  : {
+                      node: value.node,
+                    }
+            ),
+          },
+        },
+      },
+      query: GET_TOE_PORTS,
+      variables: {
+        ...getToePortsVariables,
+        first: 150,
+      },
+    });
+  };
+
+  const handleUpdateToePortBePresent: (
+    rootId: string,
+    address: string,
+    port: number,
+    bePresent: boolean
+  ) => Promise<void> = async (
+    rootId: string,
+    address: string,
+    port: number,
+    bePresent: boolean
+  ): Promise<void> => {
+    const result = await handleUpdateToePort({
+      variables: {
+        ...getToePortsVariables,
+        address,
+        bePresent,
+        groupName,
+        hasRecentAttack: undefined,
+        port,
+        rootId,
+        shouldGetNewToePort: true,
+      },
+    });
+
+    if (!_.isNil(result.data) && result.data.updateToePort.success) {
+      const updatedToePort = result.data.updateToePort.toePort;
+      if (!_.isUndefined(updatedToePort)) {
+        setSelectedToePortDatas(
+          selectedToePortDatas
+            .map(
+              (toePortData: IToePortData): IToePortData =>
+                toePortData.address === address &&
+                toePortData.port === port &&
+                toePortData.rootId === rootId
+                  ? formatToePortData(updatedToePort)
+                  : toePortData
+            )
+            .filter(
+              (toePortData: IToePortData): boolean => toePortData.bePresent
+            )
+        );
+        storeUpdatedPort(rootId, address, port, updatedToePort);
+      }
+      msgSuccess(
+        t("group.toe.ports.alerts.updatePort"),
+        t("groupAlerts.updatedTitle")
+      );
+    }
+  };
+
   const columns: ColumnDef<IToePortData>[] = [
     {
       accessorKey: "rootNickname",
@@ -219,6 +313,12 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
       accessorFn: (row: IToePortData): string => {
         return formatBoolean(row.bePresent);
       },
+      cell: (cell: ICellHelper<IToePortData>): JSX.Element | string =>
+        editableBePresentFormatter(
+          cell.row.original,
+          canUpdateToePort && isInternal,
+          handleUpdateToePortBePresent
+        ),
       header: t("group.toe.ports.bePresent"),
       id: "bePresent",
       meta: { filterType: "select" },

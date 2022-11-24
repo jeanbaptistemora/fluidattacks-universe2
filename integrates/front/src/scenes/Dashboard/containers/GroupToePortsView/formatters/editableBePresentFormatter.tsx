@@ -16,7 +16,7 @@ export const editableBePresentFormatter = (
   handleUpdateToePort: (
     rootId: string,
     address: string,
-    port: string,
+    port: number,
     bePresent: boolean
   ) => Promise<void>
 ): JSX.Element | string => {

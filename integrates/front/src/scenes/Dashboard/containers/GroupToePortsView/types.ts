@@ -16,6 +16,7 @@ interface IToePortEdge {
 }
 
 interface IToePortsConnection {
+  __typename: string;
   edges: IToePortEdge[];
   pageInfo: {
     hasNextPage: boolean;
@@ -23,6 +24,7 @@ interface IToePortsConnection {
   };
 }
 interface IToePortAttr {
+  __typename: string;
   address: string;
   attackedAt: string | null;
   attackedBy: string;
@@ -30,13 +32,14 @@ interface IToePortAttr {
   bePresentUntil: string | null;
   firstAttackAt: string | null;
   hasVulnerabilities: boolean;
-  port: string;
+  port: number;
   root: IIPRootAttr | null;
   seenAt: string | null;
   seenFirstTimeBy: string;
 }
 
 interface IIPRootAttr {
+  __typename: string;
   id: string;
   nickname: string;
 }
@@ -47,7 +50,7 @@ interface IToePortData {
   bePresent: boolean;
   bePresentUntil: Date | undefined;
   address: string;
-  port: string;
+  port: number;
   firstAttackAt: Date | undefined;
   hasVulnerabilities: boolean;
   markedSeenFirstTimeBy: string;
@@ -68,6 +71,7 @@ interface IUpdateToePortResultAttr {
 export type {
   IFilterSet,
   IGroupToePortsViewProps,
+  IIPRootAttr,
   IToePortAttr,
   IToePortEdge,
   IToePortData,

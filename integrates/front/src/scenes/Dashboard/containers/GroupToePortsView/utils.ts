@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import { filterDateRange, filterSearchText, filterSelect } from "./filters";
-import type { IFilterSet, IToePortData } from "./types";
+import type { IFilterSet, IIPRootAttr, IToePortData } from "./types";
 
 const getNonSelectableToePortIndex: (
   allToePortDatas: IToePortData[]
@@ -21,7 +21,8 @@ const getNonSelectableToePortIndex: (
 
 const getToePortId: (toePortData: IToePortData) => string = (
   toePortData: IToePortData
-): string => toePortData.rootId + toePortData.address + toePortData.port;
+): string =>
+  toePortData.rootId + toePortData.address + toePortData.port.toString();
 
 const getToePortIds: (toePorts: IToePortData[]) => string[] = (
   toePorts: IToePortData[]
@@ -159,6 +160,14 @@ const formatBePresent = (bePresent: string): boolean | undefined =>
 const formatRootId = (rootId: string): string | undefined =>
   rootId === "" ? undefined : rootId;
 
+const isEqualRootId = (root: IIPRootAttr | null, rootId: string): boolean => {
+  if (_.isNil(root)) {
+    return rootId === "";
+  }
+
+  return root.id === rootId;
+};
+
 export {
   getFilteredData,
   getNonSelectableToePortIndex,
@@ -166,4 +175,5 @@ export {
   onSelectSeveralToePortHelper,
   formatBePresent,
   formatRootId,
+  isEqualRootId,
 };
