@@ -12,10 +12,9 @@ import {
   NavbarList,
   NavbarRegularButton,
   NavbarSubcategory,
-  NewRegularRedButton,
-  PhantomRegularRedButton,
 } from "../../../styles/styledComponents";
 import { AirsLink } from "../../AirsLink";
+import { Button } from "../../Button";
 import { CloudImage } from "../../CloudImage";
 import { Container } from "../../Container";
 import { Menu } from "../Menu";
@@ -120,18 +119,16 @@ const NavbarItems: React.FC = (): JSX.Element => {
 
         <li className={"mr3 pv4 db-l dn"}>
           <AirsLink href={"/contact-us/"}>
-            <PhantomRegularRedButton>{"Contact now"}</PhantomRegularRedButton>
+            <Button variant={"tertiary"}>{"Contact now"}</Button>
           </AirsLink>
         </li>
 
         <li className={"pv4"}>
-          <Link
-            className={"no-underline"}
-            onClick={matomoFreeTrialEvent}
-            to={"/free-trial/"}
-          >
-            <NewRegularRedButton>{"Start free trial"}</NewRegularRedButton>
-          </Link>
+          <AirsLink href={"/free-trial/"}>
+            <Button onClick={matomoFreeTrialEvent} variant={"primary"}>
+              {"Start free trial"}
+            </Button>
+          </AirsLink>
         </li>
       </div>
     </NavbarList>
