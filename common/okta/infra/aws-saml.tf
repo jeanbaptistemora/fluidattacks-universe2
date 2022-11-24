@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 data "aws_iam_policy_document" "okta-assume-role-policy-data" {
   statement {
     sid    = "OktaSAMLAccess"

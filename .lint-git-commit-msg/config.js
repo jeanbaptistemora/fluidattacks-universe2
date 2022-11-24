@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-//
-// SPDX-License-Identifier: MPL-2.0
-
 const HEADERLENGTHMAX = 72;
 const LINELENGTHMAX = 72;
 const BODYLENGTHMIN = 15;

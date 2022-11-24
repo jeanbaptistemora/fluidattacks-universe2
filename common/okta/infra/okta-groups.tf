@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 resource "okta_group" "groups" {
   for_each = {
     for _, group in local.data.groups : group.id => group

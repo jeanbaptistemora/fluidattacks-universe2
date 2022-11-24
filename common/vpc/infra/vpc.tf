@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 resource "aws_vpc" "fluid-vpc" {
   cidr_block           = "192.168.0.0/16"
   enable_dns_support   = true
