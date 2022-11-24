@@ -692,6 +692,36 @@
       "management:type" = "product";
     };
   };
+  integrates_update_organization_overview = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.update_organization_overview.main"
+    ];
+
+    schedule_expression = "cron(0 3 ? * 6 *)";
+    size = "small";
+    awsRole = "prod_integrates";
+    attempts = 2;
+    timeout = 43200;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "INTEGRATES_API_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_update_organization_overview";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_machine_queue_re_attacks = {
     enabled = true;
     command = [
