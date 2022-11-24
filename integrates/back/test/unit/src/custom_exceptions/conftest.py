@@ -95,6 +95,32 @@ data: Dict[str, List[Any]] = dict(
             business_id="14441323",
             sprint_duration=2,
         ),
+        dict(
+            business_name="Testing Company and Sons",
+            description="Integrates unit test group",
+            language="EN",
+            created_by="unittest@fluidattacks.com",
+            organization_id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            sk="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            name="unittesting",
+            pk="GROUP#unittesting",
+            created_date="2018-03-08T00:43:18+00:00",
+            state=dict(
+                has_squad=True,
+                tier="MACHINE",
+                managed="NOT_MANAGED",
+                service="WHITE",
+                modified_by="unittest@fluidattacks.com",
+                has_machine=True,
+                modified_date="2018-03-08T00:43:18+00:00",
+                type="CONTINUOUS",
+                status="ACTIVE",
+                tags=["test-groups", "test-updates", "test-tag"],
+            ),
+            sprint_start_date="2022-05-31T00:00:00",
+            business_id="14441323",
+            sprint_duration=2,
+        ),
     ]
 )
 

@@ -436,7 +436,18 @@ async def test_validate_file_schema_invalid() -> None:
         await validate_file_schema(file_url, info)  # type: ignore
 
 
-async def test_organization_not_found() -> None:
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+async def test_organization_not_found(
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     with pytest.raises(OrganizationNotFound):
         loaders: Dataloaders = get_new_context()
         await loaders.organization.load("madeup-org")
@@ -445,7 +456,18 @@ async def test_organization_not_found() -> None:
         await new_loader.organization.load("ORG#madeup-id")
 
 
-async def test_validate_tags() -> None:
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+async def test_validate_group_tags(
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     loaders: Dataloaders = get_new_context()
     with pytest.raises(RepeatedValues):
         assert await validate_group_tags(
@@ -457,8 +479,18 @@ async def test_validate_tags() -> None:
         )
 
 
-@pytest.mark.changes_db
-async def test_remove_stakeholder() -> None:
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
+async def test_stakeholder_not_found(
+    mock_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
     email: str = "testanewuser@test.test"
     loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
