@@ -2416,6 +2416,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_CLOUDTRAIL_FILES_NOT_VALIDATED = MethodInfo(
+        file_name="aws",
+        name="cloudtrail_files_not_validated",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
