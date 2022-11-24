@@ -10,14 +10,6 @@ from db_model.organization_finding_policies.types import (
     OrgFindingPolicyRequest,
     OrgFindingPolicyState,
 )
-from dynamodb.types import (
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
-    OrgFindingPolicyState as OrgFindingPolicyStateLegacy,
-)
-from organizations_finding_policies import (
-    domain as policies_domain,
-)
 import pytest
 
 # Constants
@@ -39,33 +31,31 @@ async def test_get_by_id() -> None:
         id="8b35ae2a-56a1-4f64-9da7-6a552683bf46",
         organization_name="okada",
         name="007. Cross-site request forgery",
-        tags=set(),
         state=OrgFindingPolicyState(
             modified_date="2021-04-26T13:37:10+00:00",
             modified_by="test2@test.com",
             status=PolicyStateStatus.APPROVED,
         ),
+        tags=set(),
     )
 
 
-async def test_get_finding_policies() -> None:
+async def test_get_finding_policies_by_org_name() -> None:
+    loaders: Dataloaders = get_new_context()
     org_name = "okada"
-    org_findings_policies = await policies_domain.get_finding_policies(
-        org_name=org_name
+    org_findings_policies = await loaders.organization_finding_policies.load(
+        org_name
     )
-
     assert org_findings_policies == (
-        OrgFindingPolicyItem(
+        OrgFindingPolicy(
             id="8b35ae2a-56a1-4f64-9da7-6a552683bf46",
-            org_name="okada",
-            metadata=OrgFindingPolicyMetadata(
-                name="007. Cross-site request forgery",
-                tags=set(),
-            ),
-            state=OrgFindingPolicyStateLegacy(
+            organization_name="okada",
+            name="007. Cross-site request forgery",
+            state=OrgFindingPolicyState(
                 modified_date="2021-04-26T13:37:10+00:00",
                 modified_by="test2@test.com",
-                status="APPROVED",
+                status=PolicyStateStatus.APPROVED,
             ),
+            tags=set(),
         ),
     )

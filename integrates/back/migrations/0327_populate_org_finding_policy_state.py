@@ -26,7 +26,7 @@ from dynamodb import (
     keys,
     operations,
 )
-from dynamodb.model import (
+from dynamodb.model import (  # type: ignore
     get_org_finding_policies,
 )
 from dynamodb.types import (

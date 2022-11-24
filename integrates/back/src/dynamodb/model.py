@@ -22,7 +22,6 @@ from dynamodb.exceptions import (
 from dynamodb.types import (
     Item,
     OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
     OrgFindingPolicyState,
     PrimaryKey,
 )
@@ -33,48 +32,6 @@ import json
 
 with open(FI_DB_MODEL_PATH, mode="r", encoding="utf-8") as file:
     TABLE = tables.load_tables(json.load(file))[0]
-
-
-def _build_org_policy_finding(
-    item: Item,
-) -> OrgFindingPolicyItem:
-    key_structure = TABLE.primary_key
-    return OrgFindingPolicyItem(
-        id=item[key_structure.partition_key].split("#")[1],
-        org_name=item[key_structure.sort_key].split("#")[1],
-        metadata=OrgFindingPolicyMetadata(
-            name=item["name"], tags=item.get("tags", set())
-        ),
-        state=OrgFindingPolicyState(
-            modified_by=item["state"]["modified_by"],
-            modified_date=item["state"]["modified_date"],
-            status=item["state"]["status"],
-        ),
-    )
-
-
-async def get_org_finding_policies(
-    *, org_name: str
-) -> tuple[OrgFindingPolicyItem, ...]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_metadata"],
-        values={"name": org_name},
-    )
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
-        facets=(TABLE.facets["org_finding_policy_metadata"],),
-        index=index,
-        table=TABLE,
-    )
-
-    return tuple(_build_org_policy_finding(item) for item in response.items)
 
 
 async def add_organization_finding_policy(

@@ -1,6 +1,5 @@
 from .dal import (
     add_organization_finding_policy,
-    get_organization_finding_policies,
     update_finding_policy_status,
 )
 from aioextensions import (
@@ -58,12 +57,6 @@ from uuid import (
 from vulnerabilities import (
     domain as vulns_domain,
 )
-
-
-async def get_finding_policies(
-    *, org_name: str
-) -> tuple[OrgFindingPolicyItem, ...]:
-    return await get_organization_finding_policies(org_name=org_name)
 
 
 async def validate_finding_name(name: str) -> None:

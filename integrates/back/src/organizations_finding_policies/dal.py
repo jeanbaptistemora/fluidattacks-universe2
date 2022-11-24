@@ -5,15 +5,6 @@ from dynamodb.types import (
     OrgFindingPolicyItem,
     OrgFindingPolicyState,
 )
-from typing import (
-    Tuple,
-)
-
-
-async def get_organization_finding_policies(
-    *, org_name: str
-) -> Tuple[OrgFindingPolicyItem, ...]:
-    return await model.get_org_finding_policies(org_name=org_name)
 
 
 async def add_organization_finding_policy(
