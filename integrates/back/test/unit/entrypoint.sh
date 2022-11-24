@@ -12,6 +12,7 @@ function main {
   fi
   local pytest_args=(
     --cov 'back'
+    --cov-config 'back/test/unit/settings.cfg'
     --cov-report 'term'
     --cov-report 'html:build/coverage/html'
     --cov-report 'xml:coverage.xml'
