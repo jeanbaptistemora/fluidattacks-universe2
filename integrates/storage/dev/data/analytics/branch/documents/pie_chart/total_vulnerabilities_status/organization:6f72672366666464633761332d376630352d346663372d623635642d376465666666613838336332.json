@@ -1,0 +1,15 @@
+{
+  "data": {
+    "columns": [],
+    "type": "pie",
+    "colors": {}
+  },
+  "legend": {
+    "position": "right"
+  },
+  "pie": {
+    "label": {
+      "show": true
+    }
+  }
+}
