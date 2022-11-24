@@ -82,7 +82,7 @@ async def cloudfront_has_logging_disabled(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudfront", function="list_distributions"
     )
-    method = core_model.MethodsEnum.AWS_ELBV2_HAS_ACCESS_LOGGING_DISABLED
+    method = core_model.MethodsEnum.AWS_CLOUDFRONT_HAS_LOGGING_DISABLED
     distributions = response.get("DistributionList", {}) if response else {}
     vulns: core_model.Vulnerabilities = ()
     if distributions:
