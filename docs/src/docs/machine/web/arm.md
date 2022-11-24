@@ -81,7 +81,8 @@ in your organization,
 and you probably want to
 keep their vulnerabilities separate.
 
-You can have as many groups as you want.
+You can have as many [groups](/machine/web/groups)
+as you want.
 One group for each application
 or several groups for one application,
 it is your choice.
@@ -89,17 +90,140 @@ it is your choice.
 In Groups section,
 you will find:
 
+#### Vulnerabilities
+
+One of the main sections on the platforms
+is where you find all the confirmed security issues
+of your application.
+
+[Vulnerabilities](/machine/web/groups/vulnerabilities)
+section is divided as follows:
+
+##### Locations
+
+[Here](/machine/web/vulnerabilities/management/locations)
+you find the list
+of all vulnerabilities
+with their specific locations:
+File and LoC,
+URL and input or IP and port.
+
+You can ask for a reattack
+or change the treatment
+for one or many vulnerabilities
+as you want.
+
+Also,
+you can add tag
+ or define a qualitative risk level.
+
+##### Reattack
+
+When a vulnerability is remediated,
+you need to request the `Fluid Attacks` team
+to [reattack](/squad/reattacks)
+it and confirm
+if it was indeed remediated.
+
+You can check in the
+[Locations table](/machine/web/vulnerabilities/management/locations#locations-table)
+which vulnerabilities were requested
+to reattack and verify their remediation.
+After verification,
+the `Fluid Attacks` team
+will inform you through the
+[Consulting](/squad/consulting)
+tab about the results.
+
+##### Treatments
+
+Risk management is an essential part
+of vulnerabilities management.
+You can define different
+[treatments](/machine/web/vulnerabilities/management/treatments)
+in the [Locations tab](/machine/web/vulnerabilities/management/locations):
+
+- **New:**
+  The vulnerability was reported,
+  and there is no treatment defined.
+- **In progress:**
+  The vulnerability is going to be remediated
+  and has a user responsible
+  for that remediation.
+- **Temporarily accepted:**
+  You may not resolve the vulnerability
+  and decide to coexist with the risk
+  for some time.
+  The platform accepts by default
+  a maximum of six months.
+  You can control this setting
+  in the Organization Policies section.
+- **Permanently accepted:**
+  You may not resolve the vulnerability
+  and decide to coexist
+  with the risk forever.
+
+##### Description
+
+In this [section](/machine/web/vulnerabilities/management/description)
+you can discover
+all required information
+to understand reported vulnerabilities.
+
+##### Severity
+
+For the calculation
+of the [severity](/machine/web/vulnerabilities/severity)
+of vulnerabilities,
+we use the Common Vulnerability Scoring System
+(CVSS) version 3.1.
+
+##### Evidence
+
+In [evidence](/machine/web/vulnerabilities/evidence)
+we provide video examples and screenshots
+to help you understand
+the context of the vulnerabilities.
+
+##### Tracking
+
+[Here](/machine/web/vulnerabilities/management/tracking)
+you find the history of each Vulnerability.
+What has happened to the vulnerabilities
+since the first one was reported.
+When and by whom
+the treatment was closed or changed.
+
+##### Records
+
+Some vulnerabilities
+can expose customer information;
+for context,
+we share the disclosed information in this
+[section.](/machine/web/vulnerabilities/management/records)
+
+##### Consulting in the vulnerability
+
+This [section](/squad/consulting/#concerning-vulnerabilities)
+should be used to
+communicate with us when a problem
+is related to any of the reported
+vulnerabilities or to validate the
+executed reattacks.
+
+> **Note:** This section is for Squad plan only.
+
 #### Group analytics
 
 As in the case of Organization Analytics,
-Group Analytics have
-all the information about your group.
+[Group Analytics](/machine/web/analytics/groups)
+have all the information about your group.
 
 #### DevSecOps
 
 `Fluid Attacks'` ARM
-includes an agent that
-present in the CI pipelines
+includes an [agent](/machine/agent)
+that present in the CI pipelines
 can break the build for open vulnerabilities.
 This section shows
 the result of recent executions
@@ -115,7 +239,7 @@ and more information such as the following:
 
 In the service execution,
 many things can and will happen.
-In the events,
+In the [events](/machine/web/groups/events),
 our analysts can report
 any situation that affects the service.
 It can be a full or partial disruption
@@ -129,13 +253,17 @@ You can post any doubt,
 comment, or thought
 you want to share
 with the `Fluid Attacks` team
-or your team in the Consulting tab.
+or your team in the
+[Consulting tab.](/squad/consulting#concerning-groups)
 This section works like a forum
 where anyone can post and reply.
 
+> **Note:** This section is only for the Squad plan.
+
 #### Group stakeholders
 
-You have group access control here
+You have group access control
+[here](/machine/web/groups/stakeholders)
 to define who and what they can do.
 When you give access to the group,
 there are four role options available:
@@ -143,14 +271,15 @@ there are four role options available:
 - User
 - User manager
 - Vulnerability Manager
-- Executive
 
 To get more information about it,
-check the Roles section.
+check the
+[Roles section.](/machine/web/groups/roles)
 
 #### Authors
 
-List of git users
+The [authors](/machine/web/groups/authors)
+section gives you a list of git users
 that commit code
 to checked repositories.
 
@@ -181,107 +310,6 @@ the testing service:
 - Deletion:
   Function to safely delete
   all group data.
-
-#### Vulnerabilities
-
-One of the main sections on the platforms
-is where you find all the confirmed security issues
-of your application.
-
-This section is divided as follows:
-
-##### Locations
-
-Here you find the list
-of all vulnerabilities
-with their specific locations:
-File and LoC,
-URL and input or IP and port.
-
-You can ask for a reattack
-or change the treatment
-for one or many vulnerabilities
-as you want.
-
-Also,
-you can add tag
- or define a qualitative risk level.
-
-##### Reattack
-
-When a vulnerability is remediated,
-you need to request the `Fluid Attacks` team
-to reattack it and confirm
-if it was indeed remediated.
-
-You can check in the Locations table
-which vulnerabilities were requested
-to reattack and verify their remediation.
-After verification,
-the `Fluid Attacks` team
-will inform you through the Consulting tab
-about the results.
-
-##### Treatments
-
-Risk management is an essential part
-of vulnerabilities management.
-You can define different treatments
-in the Locations tab:
-
-- **New:**
-  The vulnerability was reported,
-  and there is no treatment defined.
-- **In progress:**
-  The vulnerability is going to be remediated
-  and has a user responsible
-  for that remediation.
-- **Temporarily accepted:**
-  You may not resolve the vulnerability
-  and decide to coexist with the risk
-  for some time.
-  The platform accepts by default
-  a maximum of six months.
-  You can control this setting
-  in the Organization Policies section.
-- **Permanently accepted:**
-  You may not resolve the vulnerability
-  and decide to coexist
-  with the risk forever.
-
-##### Description
-
-In this section you can discover
-all required information
-to understand reported vulnerabilities.
-
-##### Severity
-
-For the calculation
-of the severity of vulnerabilities,
-we use the Common Vulnerability Scoring System
-(CVSS) version 3.1.
-
-##### Evidence
-
-We provide video examples and screenshots
-to help you understand
-the context of the vulnerabilities.
-
-##### Tracking
-
-Here you find the history of each Vulnerability.
-What has happened to the vulnerabilities
-since the first one was reported.
-When and by whom
-the treatment was closed or changed.
-
-##### Records
-
-Some vulnerabilities
-can expose customer information;
-for context,
-we share the disclosed information in this section.
 
 ### Portfolios
 
