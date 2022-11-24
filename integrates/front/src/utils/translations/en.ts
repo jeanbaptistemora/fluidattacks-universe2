@@ -2590,8 +2590,8 @@ export const enTranslations: ResourceKey = {
       status: {
         label: "Status",
         stateLabel: {
-          closed: "Closed",
-          open: "Open",
+          closed: "Safe",
+          open: "Vulnerable",
         },
         stateTooltip: {
           closed:

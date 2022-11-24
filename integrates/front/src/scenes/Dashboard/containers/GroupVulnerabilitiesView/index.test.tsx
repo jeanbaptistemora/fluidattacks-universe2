@@ -254,7 +254,7 @@ describe("GroupVulnerabilitiesView", (): void => {
       screen.getByText("https://example.com/inputs | specific-1")
     ).toBeInTheDocument();
     expect(screen.getByText("001. test draft title")).toBeInTheDocument();
-    expect(screen.getAllByText("Open")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Vulnerable")[0]).toBeInTheDocument();
     expect(screen.getByText("In progress")).toBeInTheDocument();
     expect(screen.getByText("Requested")).toBeInTheDocument();
     expect(screen.getAllByText("Code")[0]).toBeInTheDocument();
@@ -666,12 +666,12 @@ describe("GroupVulnerabilitiesView", (): void => {
       border: 1px solid #2e2e38;
       color: #2e2e38;`
     );
-    expect(screen.queryAllByText("Open")[0]).not.toHaveStyle(
+    expect(screen.queryAllByText("Vulnerable")[0]).not.toHaveStyle(
       `background-color: #d2d2da;
       border: 1px solid #2e2e38;
       color: #2e2e38;`
     );
-    expect(screen.queryByText("Closed")).not.toHaveStyle(
+    expect(screen.queryByText("Safe")).not.toHaveStyle(
       `background-color: #d2d2da;
       border: 1px solid #2e2e38;
       color: #2e2e38;`

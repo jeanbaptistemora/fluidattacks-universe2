@@ -384,7 +384,7 @@ describe("groupFindingsView", (): void => {
     expect(
       screen.getByText("group.findings.description.value")
     ).toBeInTheDocument();
-    expect(screen.getByText("Open")).toBeInTheDocument();
+    expect(screen.getByText("Vulnerable")).toBeInTheDocument();
     expect(screen.getByText("2.9")).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
     expect(screen.getByText("Pending")).toBeInTheDocument();

@@ -8,6 +8,7 @@ const statusGreenColor: string[] = [
   "Enabled",
   "Ok",
   "Registered",
+  "Safe",
   "Secure",
   "Solved",
   "Submitted",
@@ -35,9 +36,10 @@ const statusRedColor: string[] = [
   "Inactive",
   "Open",
   "Rejected",
-  "Unsolved",
   "Unregistered",
+  "Unsolved",
   "Verified (open)",
+  "Vulnerable",
   "Vulnerable",
 ];
 
