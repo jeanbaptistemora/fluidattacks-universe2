@@ -29,7 +29,7 @@ from dynamodb import (
 from dynamodb.model import (  # type: ignore
     get_org_finding_policies,
 )
-from dynamodb.types import (
+from dynamodb.types import (  # type: ignore
     Item,
     OrgFindingPolicyItem,
     PrimaryKey,

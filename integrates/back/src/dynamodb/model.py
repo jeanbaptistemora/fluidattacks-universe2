@@ -14,7 +14,6 @@ from dynamodb import (
 )
 from dynamodb.types import (
     Item,
-    OrgFindingPolicyItem,
     PrimaryKey,
 )
 from itertools import (
@@ -24,45 +23,6 @@ import json
 
 with open(FI_DB_MODEL_PATH, mode="r", encoding="utf-8") as file:
     TABLE = tables.load_tables(json.load(file))[0]
-
-
-async def add_organization_finding_policy(
-    *, finding_policy: OrgFindingPolicyItem
-) -> None:
-    key_structure = TABLE.primary_key
-    primary_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_metadata"],
-        values={
-            "name": finding_policy.org_name,
-            "uuid": finding_policy.id,
-        },
-    )
-    items: list[Item] = []
-    metadata_item = {
-        key_structure.partition_key: primary_key.partition_key,
-        key_structure.sort_key: primary_key.sort_key,
-        "name": finding_policy.metadata.name,
-        "state": dict(finding_policy.state._asdict()),
-        "tags": finding_policy.metadata.tags
-        if finding_policy.metadata.tags
-        else None,
-    }
-    items.append(metadata_item)
-    state_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_historic_state"],
-        values={
-            "iso8601utc": finding_policy.state.modified_date,
-            "uuid": finding_policy.id,
-        },
-    )
-    historic_state_item = {
-        key_structure.partition_key: state_key.partition_key,
-        key_structure.sort_key: state_key.sort_key,
-        **dict(finding_policy.state._asdict()),
-    }
-    items.append(historic_state_item)
-
-    await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 
 async def _get_historic_state_items(*, policy_id: str) -> tuple[Item, ...]:
