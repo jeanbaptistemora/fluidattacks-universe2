@@ -10,7 +10,7 @@ import os
 def test_cli_strict_no_breaking(test_token: str) -> None:
     runner = CliRunner()
     result = runner.invoke(
-        main, ["--token", test_token, "--strict", "--repo-name", "forces"]
+        main, ["--token", test_token, "--strict", "--repo-name", "universe"]
     )
     assert result.exit_code == 1, result.exception
 
@@ -24,7 +24,7 @@ def test_cli_strict_breaking_low(test_token: str) -> None:
             test_token,
             "--strict",
             "--repo-name",
-            "forces",
+            "universe",
             "--breaking",
             "2",
         ],
@@ -41,7 +41,7 @@ def test_cli_strict_breaking_high(test_token: str) -> None:
             test_token,
             "--strict",
             "--repo-name",
-            "forces",
+            "universe",
             "--breaking",
             "10",
         ],

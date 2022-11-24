@@ -76,7 +76,9 @@ def get_repository_metadata(repo_path: str = ".") -> dict[str, str]:
     git_repo = DEFAULT_COLUMN_VALUE
 
     if name := get_repo_name_from_vars():
-        blocking_log("info", "Repository name obtained from environment")
+        blocking_log(
+            "info", f"Repository name {name} obtained from environment"
+        )
         git_repo = name
 
     with suppress(InvalidGitRepositoryError):
@@ -102,12 +104,14 @@ def get_repository_metadata(repo_path: str = ".") -> dict[str, str]:
         if git_repo == DEFAULT_COLUMN_VALUE and (
             name := extract_repo_name(git_origin)
         ):
-            blocking_log("info", "Repository name obtained from origin")
+            blocking_log(
+                "info", f"Repository name {name} obtained from origin"
+            )
             git_repo = name
         elif git_repo == DEFAULT_COLUMN_VALUE:
             with suppress(IndexError):
                 blocking_log(
-                    "info", "Repository name obtained from current dir"
+                    "info", f"Repository name {name} obtained from current dir"
                 )
                 git_repo = os.path.basename(os.path.split(repo.git_dir)[0])
 

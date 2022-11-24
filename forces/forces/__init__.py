@@ -56,10 +56,16 @@ async def entrypoint(
             "gathering": "Gathering findings data",
             "processing": "Processing findings data",
             "formatting": "Formatting findings data",
-            "uploading": "Uploading Report to ASM",
+            "uploading": "Uploading Report to ARM",
         }
         footer: str = ": [green]Complete[/]"
         if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
+            metadata["git_repo"] = (
+                config.repository_name or metadata["git_repo"]
+            )
+            config = config._replace(
+                repository_name=config.repository_name or metadata["git_repo"]
+            )
             if not config.repository_name:
                 await log(
                     "warning",
@@ -69,9 +75,6 @@ async def entrypoint(
                     ),
                 )
 
-            metadata["git_repo"] = (
-                config.repository_name or metadata["git_repo"]
-            )
             if config.repository_name:
                 await log(
                     "info",
@@ -84,8 +87,8 @@ async def entrypoint(
             # check if repo is in roots
             if (
                 config.repository_name is not None
-                and not await check_remotes(config)
                 and config.kind != KindEnum.ALL
+                and not await check_remotes(config)
             ):
                 return 1
         await log("info", f"{tasks['resolving']}{footer}")
