@@ -1174,5 +1174,13 @@
     "ES": {
       "title": "427. Use of an insecure channel - Docker"
     }
+  },
+  "F428": {
+    "EN": {
+      "title": "428. Inappropriate coding practices - invalid file"
+    },
+    "ES": {
+      "title": "428. Inappropriate coding practices - invalid file"
+    }
   }
 }

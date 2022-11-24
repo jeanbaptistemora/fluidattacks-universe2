@@ -986,7 +986,7 @@ class FindingEnum(Enum):
         requirements=[88, 89, 90, 91, 92, 93],
     )
     F353: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F353",
         cwe=287,
         execution_queue=ExecutionQueue.crypto,
@@ -1201,6 +1201,13 @@ class FindingEnum(Enum):
         cwe=319,
         execution_queue=ExecutionQueue.leak,
         requirements=[181],
+    )
+    F428: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F428",
+        cwe=1006,
+        execution_queue=ExecutionQueue.control,
+        requirements=[46],
     )
 
 
@@ -5105,4 +5112,12 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F337,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JSON_INAPROPIATE_USE_OF_COMMENTS = MethodInfo(
+        file_name="json_files",
+        name="json_inapropiate_use_of_comments",
+        module="lib_path",
+        finding=FindingEnum.F428,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
     )
