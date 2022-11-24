@@ -3,7 +3,7 @@
 function main {
   local coverage_target=86.00
   local coverage_args=(
-    --omit="back/migrations/*,back/src/toe/ports/*"
+    --omit="back/migrations/*"
     --ignore-errors
   )
 

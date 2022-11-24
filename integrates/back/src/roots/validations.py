@@ -5,7 +5,6 @@ from custom_exceptions import (
     InvalidGitCredentials,
     InvalidGitRoot,
     InvalidRootComponent,
-    InvalidRootIpAndPort,
     InvalidUrl,
     RepeatedRootNickname,
     RequiredCredentials,
@@ -414,10 +413,3 @@ async def validate_git_credentials(
             user=secret.user,
             password=secret.password,
         )
-
-
-def validate_ip_and_port_in_root(  # pylint: disable=invalid-name
-    root: IPRoot, ip: str, port: str
-) -> None:
-    if not (root.state.address == ip and root.state.port == port):
-        raise InvalidRootIpAndPort()

@@ -1,4 +1,6 @@
 from custom_exceptions import (
+    InvalidIpAddressInRoot,
+    InvalidPort,
     InvalidRootType,
     InvalidToePortAttackedAt,
     InvalidToePortAttackedBy,
@@ -26,7 +28,6 @@ from newutils import (
 )
 from roots.validations import (
     validate_active_root,
-    validate_ip_and_port_in_root,
 )
 from toe.ports.types import (
     ToePortAttributesToAdd,
@@ -58,7 +59,10 @@ async def add(  # pylint: disable=too-many-arguments
     if not isinstance(root, IPRoot):
         raise InvalidRootType()
     validate_active_root(root)
-    validate_ip_and_port_in_root(root, address, port)
+    if root.state.address != address:
+        raise InvalidIpAddressInRoot()
+    if not 0 <= int(port) <= 65535:
+        raise InvalidPort(expr=f'"values": "{port}"')
 
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at

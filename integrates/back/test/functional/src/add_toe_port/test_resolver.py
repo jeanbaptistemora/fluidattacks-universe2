@@ -150,13 +150,13 @@ async def test_add_toe_port_root_not_found(
     [
         [
             "admin@fluidattacks.com",
-            "192.168.1.2",
+            "192.168.1.4",
             "8080",
             "83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
         ],
         [
             "admin@fluidattacks.com",
-            "192.168.1.1",
+            "192.168.1.5",
             "8082",
             "83cadbdc-23f3-463a-9421-f50f8d0cb1e6",
         ],
@@ -181,8 +181,41 @@ async def test_add_toe_port_ip_and_port_do_not_exist(
     assert "errors" in result
     assert (
         result["errors"][0]["message"]
-        == "Exception - The root does not have the IP and the port"
+        == "Exception - The root does not have the IP address"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_toe_port")
+@pytest.mark.parametrize(
+    ["email", "address", "port", "root_id"],
+    [
+        [
+            "admin@fluidattacks.com",
+            "192.168.1.1",
+            "65538",
+            "83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
+        ],
+    ],
+)
+async def test_add_toe_port_invalid_port(
+    populate: bool,
+    email: str,
+    address: str,
+    port: str,
+    root_id: str,
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    result: Dict[str, Any] = await get_result(
+        address=address,
+        port=port,
+        group_name=group_name,
+        root_id=root_id,
+        user=email,
+    )
+    assert "errors" in result
+    assert "Exception - Error in port value" in result["errors"][0]["message"]
 
 
 @pytest.mark.asyncio

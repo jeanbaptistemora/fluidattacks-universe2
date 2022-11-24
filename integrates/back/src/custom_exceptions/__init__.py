@@ -832,11 +832,11 @@ class InvalidRootComponent(CustomBaseException):
         super(InvalidRootComponent, self).__init__(msg)
 
 
-class InvalidRootIpAndPort(CustomBaseException):
+class InvalidIpAddressInRoot(CustomBaseException):
     def __init__(self) -> None:
         """Constructor"""
-        msg = "Exception - The root does not have the IP and the port"
-        super(InvalidRootIpAndPort, self).__init__(msg)
+        msg = "Exception - The root does not have the IP address"
+        super(InvalidIpAddressInRoot, self).__init__(msg)
 
 
 class InvalidRootExclusion(CustomBaseException):
