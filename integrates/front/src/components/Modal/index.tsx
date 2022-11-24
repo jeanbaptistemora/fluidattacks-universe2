@@ -55,7 +55,13 @@ const Modal: FC<IModalProps> = ({
                 </Button>
               ) : undefined}
             </Header>
-            <Container minWidth={`${minWidth}px`} padding={"10px"}>
+            <Container
+              minWidth={`${minWidth}px`}
+              pb={"10px"}
+              pl={"10px"}
+              pr={"10px"}
+              pt={"10px"}
+            >
               {children}
             </Container>
           </Dialog>

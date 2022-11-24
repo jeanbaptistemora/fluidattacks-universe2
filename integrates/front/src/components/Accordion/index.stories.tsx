@@ -56,7 +56,10 @@ Default.args = {
   ),
   header: "Example Header",
   height: "300px",
-  padding: "30px 50px",
+  pb: "30px",
+  pl: "50px",
+  pr: "50px",
+  pt: "30px",
 };
 
 export { Default };

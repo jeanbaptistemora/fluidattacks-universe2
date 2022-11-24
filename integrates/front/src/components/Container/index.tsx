@@ -7,7 +7,6 @@ interface IContainerProps {
   maxWidth?: string;
   minHeight?: string;
   minWidth?: string;
-  padding?: string;
   pb?: string;
   pl?: string;
   pr?: string;
@@ -26,7 +25,6 @@ const Container = styled.div.attrs({
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
-    padding = "0",
     pb = "0",
     pl = "0",
     pr = "0",
@@ -42,7 +40,6 @@ min-height: ${minHeight};
 min-width: ${minWidth};
 overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
 overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
-padding: ${padding};
 padding-bottom: ${pb};
 padding-left: ${pl};
 padding-right: ${pr};

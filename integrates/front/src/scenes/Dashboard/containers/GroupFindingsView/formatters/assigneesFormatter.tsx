@@ -29,7 +29,7 @@ export function assigneesFormatter(emails: string[]): JSX.Element {
   }
 
   return (
-    <Container padding={"0 15px"}>
+    <Container pb={"0px"} pl={"15px"} pr={"15px"} pt={"0px"}>
       <p>{"-"}</p>
     </Container>
   );

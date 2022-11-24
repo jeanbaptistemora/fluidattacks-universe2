@@ -13,7 +13,10 @@ interface IDropdownProps extends Partial<IDropdownContainerProps> {
   id?: string;
   maxHeight?: IContainerProps["maxHeight"];
   minWidth?: IContainerProps["minWidth"];
-  padding?: IContainerProps["padding"];
+  pb?: IContainerProps["pb"];
+  pl?: IContainerProps["pl"];
+  pr?: IContainerProps["pr"];
+  pt?: IContainerProps["pt"];
 }
 
 const Dropdown: FC<IDropdownProps> = ({
@@ -24,13 +27,23 @@ const Dropdown: FC<IDropdownProps> = ({
   id,
   maxHeight,
   minWidth = "240px",
-  padding = "8px",
+  pb = "8px",
+  pl = "8px",
+  pr = "8px",
+  pt = "8px",
   zIndex = 100,
 }: Readonly<IDropdownProps>): JSX.Element => (
   <Wrapper id={id}>
     {button}
     <DropdownContainer align={align} bgColor={bgColor} zIndex={zIndex}>
-      <Container maxHeight={maxHeight} minWidth={minWidth} padding={padding}>
+      <Container
+        maxHeight={maxHeight}
+        minWidth={minWidth}
+        pb={pb}
+        pl={pl}
+        pr={pr}
+        pt={pt}
+      >
         {children}
       </Container>
     </DropdownContainer>

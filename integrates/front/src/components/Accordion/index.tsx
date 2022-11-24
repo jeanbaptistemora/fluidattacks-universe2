@@ -27,7 +27,10 @@ const Accordion: React.FC<IAccordionProps> = ({
   maxWidth,
   minHeight,
   minWidth,
-  padding,
+  pb,
+  pl,
+  pr,
+  pt,
   scroll,
   width,
 }: Readonly<IAccordionProps>): JSX.Element => {
@@ -55,7 +58,10 @@ const Accordion: React.FC<IAccordionProps> = ({
         maxWidth={maxWidth}
         minHeight={minHeight}
         minWidth={minWidth}
-        padding={collapsed ? "0" : padding}
+        pb={collapsed ? "0" : pb}
+        pl={collapsed ? "0" : pl}
+        pr={collapsed ? "0" : pr}
+        pt={collapsed ? "0" : pt}
         scroll={scroll}
         width={width}
       >
