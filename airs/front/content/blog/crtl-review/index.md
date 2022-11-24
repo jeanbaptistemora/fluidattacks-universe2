@@ -113,17 +113,15 @@ However, those rules are based mainly on blacklists
 and the chapter describe ways of bypassing some of them.
 
 Then comes the chapter *Windows Defender Application Control*
-or *WDAC*, which is a
-[security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria)
-which allows to specify which applications can be
-run on a machine, based on things like its path,
+or *WDAC*, which allows to specify what applications
+can be run on a machine, based on things like its path,
 digital signature and file hash. As this is a
-official security boundary, *WDAC* bypasses are
-actually fixed by Microsoft. However, misconfigurations
-can allow an attacker to circumvent the control
-to gain further access to the machine and this
-chapter teach us a way to find common scenarios
-which can be abused.
+[security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria),
+*WDAC* bypasses are actually fixed by Microsoft.
+However, misconfigurations can allow an attacker to
+circumvent the control to gain further access to the
+machine and this chapter teach us a way to find common
+scenarios which can be abused.
 
 And finally, the chapter *EDR evasion* provides
 an overview of how modern EDRs work and some
