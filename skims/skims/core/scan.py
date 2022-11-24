@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 import aioboto3
 from config import (
     dump_to_yaml,

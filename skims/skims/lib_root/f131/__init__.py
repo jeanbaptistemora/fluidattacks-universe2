@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f131.c_sharp import (
     check_default_usehsts as c_sharp_check_default_usehsts,
 )

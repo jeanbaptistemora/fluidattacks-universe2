@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from sast_syntax_readers.common import (
     attribute_access as common_attribute_access,
     binary_expression as common_binary_expression,

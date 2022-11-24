@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f042.c_sharp import (
     insecurely_generated_cookies as csharp_insecurely_generated_cookies,
 )

@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 resource "aws_dynamodb_table" "skims_sca" {
   name         = "skims_sca"
   billing_mode = "PAY_PER_REQUEST"

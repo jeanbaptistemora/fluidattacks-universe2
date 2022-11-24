@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
-
 from lib_root.f148.c_sharp import (
     cs_insecure_channel,
 )

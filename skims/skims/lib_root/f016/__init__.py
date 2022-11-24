@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f016.c_sharp import (
     httpclient_no_revocation_list as c_sharp_httpclient_no_revocation_list,
     insecure_shared_access_protocol as c_sharp_insecure_shared_access_protocol,

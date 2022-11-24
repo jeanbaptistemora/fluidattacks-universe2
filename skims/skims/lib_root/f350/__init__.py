@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f350.java import (
     use_insecure_trust_manager as java_use_insecure_trust_manager,
 )

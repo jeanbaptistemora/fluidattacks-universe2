@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f017.c_sharp import (
     jwt_signed as c_sharp_jwt_signed,
     verify_decoder as c_sharp_verify_decoder,

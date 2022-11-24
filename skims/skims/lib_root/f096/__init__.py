@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from lib_root.f096.c_sharp import (
     check_xml_serializer as c_sharp_check_xml_serializer,
     insecure_deserialization as c_sharp_insecure_deserialization,
