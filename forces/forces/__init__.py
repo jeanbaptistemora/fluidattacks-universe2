@@ -63,9 +63,6 @@ async def entrypoint(
             metadata["git_repo"] = (
                 config.repository_name or metadata["git_repo"]
             )
-            config = config._replace(
-                repository_name=config.repository_name or metadata["git_repo"]
-            )
             if not config.repository_name:
                 await log(
                     "warning",
