@@ -204,7 +204,7 @@ we share the disclosed information in this
 
 ##### Consulting in the vulnerability
 
-This [section](/squad/consulting/#concerning-vulnerabilities)
+[Consulting](/squad/consulting/#concerning-vulnerabilities)
 should be used to
 communicate with us when a problem
 is related to any of the reported
@@ -283,6 +283,15 @@ section gives you a list of git users
 that commit code
 to checked repositories.
 
+#### Surface
+
+The [surface](/machine/web/groups/surface)
+tab gives more information
+about the Target of Evaluation (ToE).
+This ToE is the result of repositories,
+environments and languages specified
+in the scope roots section.
+
 #### Scope
 
 For an ARM,
@@ -292,38 +301,44 @@ The following information
 is required to enable
 the testing service:
 
-- Roots:
+- **Roots:**
   Git repositories
   where you version
   the application’s source code.
-- Environments:
+- **Environments:**
   URLs where applications are deployed.
-- Files:
+- **Files:**
   Any information
   that could help the service.
-- Tags:
+- **Tags:**
   Keywords to build portfolios
   and get information and analytics
   for groups that share the tag.
-- Services:
+- **Services:**
   Active services for the group.
-- Deletion:
+- **Deletion:**
   Function to safely delete
   all group data.
+
+If you want to see more of this
+section of scope,
+you can enter it
+[here.](/machine/web/groups/scope)
 
 ### Portfolios
 
 In the Analytics subsection,
 you have the data of all your groups.
 But if you want analytics for only a subset,
-you can go to the Portfolios subsection
+you can go to the [Portfolios](/machine/web/portfolios)
+subsection
 (we employ the same charts and indicators).
 
 Please check the tags
-in [Scope](/machine/web/arm#scope)
+in [Scope](machine/web/groups/scope/portfolios)
 for more information.
 
-### Stakeholders
+### Organization Stakeholders
 
 Some users can access
 your organization's data,
@@ -331,6 +346,9 @@ but this permission
 does not guarantee access
 to groups or vulnerabilities,
 only access to organization-level analytics and policies.
+
+Explore more of this section by
+clicking on this [link.](/machine/web/stakeholders)
 
 ### Policies
 
@@ -341,16 +359,44 @@ you can define rules
 that will apply to all groups
 in your organization.
 
-Policies to define:
+[Policies](/machine/web/organization/policies)
+to define:
 
-1. Maximum number of calendar days
-  a finding can be temporarily accepted
-1. Temporary CVSS 3.1 score range
-  within which a finding can be accepted
-1. Maximum number of times
-  a finding can be temporarily accepted
+1. Temporal acceptance:
+  maximum number
+  of days for assignment.
+1. Temporal acceptance:
+  maximum number of assignments for a
+  single vulnerability.
+1. Temporal acceptance:
+  minimum CVSS 3.1 score allowed for assignment.
+1. Temporal acceptance:
+  maximum CVSS 3.1 score allowed for assignment.
+1. DevSecOps:
+  Days before agent starts breaking the build
+  for new vulnerabilities.
+1. DevSecOps:
+  Minimum CVSS 3.1 score from which agent breaks
+  the build for open vulnerabilities.
 
-## Update
+### Credentials
+
+In this [section,](/machine/web/machine/web/global-credentials)
+you can create,
+edit and delete credentials at the Organization
+level and use them in all the groups
+that compose that. These credentials help
+us to have access to the
+[ToE](/about/glossary#toe)
+
+### Compliance
+
+[Compliance](/machine/web/compliance)
+shows the compliance of all
+standards validated by `Fluid Attacks`
+at the Organization and group level.
+
+## ARM Update
 
 When the ARM was last deployed,
 be it because of new features or
