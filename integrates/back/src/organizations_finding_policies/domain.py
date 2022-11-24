@@ -1,5 +1,4 @@
 from .dal import (
-    add_organization_finding_policy,
     update_finding_policy_status,
 )
 from aioextensions import (
@@ -14,6 +13,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model import (
+    organization_finding_policies as polices_model,
     vulnerabilities as vulns_model,
 )
 from db_model.findings.types import (
@@ -25,6 +25,7 @@ from db_model.organization_finding_policies.enums import (
 from db_model.organization_finding_policies.types import (
     OrgFindingPolicy,
     OrgFindingPolicyRequest,
+    OrgFindingPolicyState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -35,9 +36,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
 )
 from dynamodb.types import (
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
-    OrgFindingPolicyState,
+    OrgFindingPolicyState as OrgFindingPolicyStateLegacy,
 )
 from itertools import (
     chain,
@@ -102,17 +101,19 @@ async def add_finding_policy(
         raise RepeatedFindingNamePolicy()
 
     validations.validate_fields(tags)
-    new_finding_policy = OrgFindingPolicyItem(
-        org_name=organization_name,
-        id=str(uuid4()),
-        metadata=OrgFindingPolicyMetadata(name=finding_name, tags=tags),
-        state=OrgFindingPolicyState(
-            modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
-            status="SUBMITTED",
-        ),
+    await polices_model.add(
+        policy=OrgFindingPolicy(
+            id=str(uuid4()),
+            organization_name=organization_name,
+            name=finding_name,
+            state=OrgFindingPolicyState(
+                modified_by=modified_by,
+                modified_date=datetime_utils.get_iso_date(),
+                status=PolicyStateStatus.SUBMITTED,
+            ),
+            tags=tags,
+        )
     )
-    await add_organization_finding_policy(finding_policy=new_finding_policy)
 
 
 async def handle_finding_policy_acceptance(
@@ -137,7 +138,7 @@ async def handle_finding_policy_acceptance(
     await update_finding_policy_status(
         org_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyState(
+        status=OrgFindingPolicyStateLegacy(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
             status=status.value,
@@ -169,7 +170,7 @@ async def submit_finding_policy(
     await update_finding_policy_status(
         org_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyState(
+        status=OrgFindingPolicyStateLegacy(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
             status=PolicyStateStatus.SUBMITTED.value,
@@ -198,7 +199,7 @@ async def deactivate_finding_policy(
     await update_finding_policy_status(
         org_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyState(
+        status=OrgFindingPolicyStateLegacy(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
             status=PolicyStateStatus.INACTIVE.value,
