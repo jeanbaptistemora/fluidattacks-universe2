@@ -89,6 +89,8 @@ class RecordProcessor(processor.RecordProcessorBase):
             if matching_records:
                 try:
                     trigger.records_processor(matching_records)
+                # Must keep going even if one processor fails
+                # pylint: disable-next=broad-except
                 except Exception as ex:
                     LOGGER.exception(
                         ex,
@@ -102,7 +104,6 @@ class RecordProcessor(processor.RecordProcessorBase):
                             }
                         },
                     )
-                    raise
 
         self.checkpoint(
             process_records_input.checkpointer,
