@@ -33,6 +33,7 @@ from db_model import (
     credentials as credentials_model,
     enrollment as enrollment_model,
     organization_access as org_access_model,
+    organization_finding_policies as policies_model,
     organizations as orgs_model,
     portfolios as portfolios_model,
     roots as roots_model,
@@ -92,9 +93,6 @@ from db_model.types import (
 )
 from decimal import (
     Decimal,
-)
-from dynamodb.model import (
-    remove_org_finding_policies,
 )
 from group_access import (
     domain as group_access_domain,
@@ -679,7 +677,9 @@ async def remove_organization(
     await credentials_model.remove_organization_credentials(
         organization_id=organization_id
     )
-    await remove_org_finding_policies(organization_name=organization_name)
+    await policies_model.remove_org_finding_policies(
+        organization_name=organization_name
+    )
     await portfolios_model.remove_organization_portfolios(
         organization_name=organization_name
     )
