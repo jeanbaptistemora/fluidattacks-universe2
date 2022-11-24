@@ -246,6 +246,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Treatment")).toBeInTheDocument();
     expect(screen.getByText("Reattack")).toBeInTheDocument();
+    expect(screen.getByText("Source")).toBeInTheDocument();
     expect(screen.getByText("Found")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Evidence")).toBeInTheDocument();
@@ -256,6 +257,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getAllByText("Open")[0]).toBeInTheDocument();
     expect(screen.getByText("In progress")).toBeInTheDocument();
     expect(screen.getByText("Requested")).toBeInTheDocument();
+    expect(screen.getAllByText("Code")[0]).toBeInTheDocument();
     expect(screen.getByText("2019-05-23")).toBeInTheDocument();
     expect(screen.getByText("2.7")).toBeInTheDocument();
     expect(screen.getAllByText("View")[0]).toBeInTheDocument();
@@ -574,6 +576,66 @@ describe("GroupVulnerabilitiesView", (): void => {
     jest.clearAllMocks();
   });
 
+  it("source cell should have format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getAllByText("Code")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Code")[0]).toHaveStyle(
+      `background-color: #dce4f7;
+      border: 1px solid #3778ff;
+      color: #3778ff;`
+    );
+
+    jest.clearAllMocks();
+  });
+
+  it("reattack cell should have format", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/vulns"]}>
+        <MockedProvider cache={getCache()} mocks={queryMock}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupVulnerabilitiesView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Requested")).toBeInTheDocument();
+    expect(screen.getByText("Requested")).toHaveStyle(
+      `background-color: #ffeecc;
+      border: 1px solid #d88218;
+      color: #d88218;`
+    );
+
+    jest.clearAllMocks();
+  });
+
   it("should not have gray color in format", async (): Promise<void> => {
     expect.hasAssertions();
 
@@ -594,6 +656,11 @@ describe("GroupVulnerabilitiesView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
+    expect(screen.queryAllByText("Code")[0]).not.toHaveStyle(
+      `background-color: #d2d2da;
+      border: 1px solid #2e2e38;
+      color: #2e2e38;`
+    );
     expect(screen.queryByText("In progress")).not.toHaveStyle(
       `background-color: #d2d2da;
       border: 1px solid #2e2e38;

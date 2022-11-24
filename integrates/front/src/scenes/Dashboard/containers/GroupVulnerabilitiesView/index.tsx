@@ -64,7 +64,13 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   },
   {
     accessorKey: "verification",
+    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
     header: "Reattack",
+  },
+  {
+    accessorKey: "vulnerabilityType",
+    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
+    header: "Source",
   },
   {
     accessorKey: "reportDate",
