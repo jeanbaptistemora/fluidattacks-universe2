@@ -1,7 +1,12 @@
+import type { TDisplay, TVariant } from "../Button/types";
+
 interface IVerticalCard {
   alt: string;
   author?: string;
+  bgColor?: string;
+  btnDisplay?: TDisplay;
   btnText: string;
+  btnVariant?: TVariant;
   date?: string;
   description: string;
   image: string;

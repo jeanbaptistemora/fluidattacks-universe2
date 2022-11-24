@@ -7,6 +7,7 @@ import type { IVerticalCard } from "./types";
 
 import { AirsLink } from "../AirsLink";
 import { Button } from "../Button";
+import { CloudImage } from "../CloudImage";
 import { Container } from "../Container";
 import { Text, Title } from "../Typography";
 
@@ -14,7 +15,10 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   alt,
   author = "",
   link,
+  bgColor = "#f4f4f6",
+  btnDisplay = "block",
   btnText,
+  btnVariant = "tertiary",
   date = "",
   description,
   image,
@@ -34,7 +38,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   if (author && date && subtitle) {
     return (
       <Container
-        bgColor={"#f4f4f6"}
+        bgColor={bgColor}
         br={2}
         direction={"column"}
         display={"flex"}
@@ -47,7 +51,13 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         widthMd={widthMd}
         widthSm={widthSm}
       >
-        <img alt={alt} className={"br2 br--top"} src={image} />
+        {image.startsWith("https") ? (
+          <img alt={alt} className={"br2 br--top"} src={image} />
+        ) : (
+          <Container minHeight={titleMinHeight} ph={3}>
+            <CloudImage alt={alt} src={image} styles={"br2 br--top"} />
+          </Container>
+        )}
         <Container display={"flex"} justify={"around"} ph={3} pt={3}>
           <Text color={"#8f8fa3"} size={"small"}>
             {fDate}
@@ -81,7 +91,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         <CardFooter>
           <Container pb={3} ph={3}>
             <AirsLink href={link}>
-              <Button display={"block"} variant={"tertiary"}>
+              <Button display={btnDisplay} variant={btnVariant}>
                 {btnText}
               </Button>
             </AirsLink>
@@ -93,7 +103,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
 
   return (
     <Container
-      bgColor={"#f4f4f6"}
+      bgColor={bgColor}
       br={2}
       direction={"column"}
       display={"flex"}
@@ -106,7 +116,13 @@ const VerticalCard: React.FC<IVerticalCard> = ({
       widthMd={widthMd}
       widthSm={widthSm}
     >
-      <img alt={alt} className={"br2 br--top"} src={image} />
+      {image.startsWith("https") ? (
+        <img alt={alt} className={"br2 br--top"} src={image} />
+      ) : (
+        <Container minHeight={titleMinHeight} ph={3}>
+          <CloudImage alt={alt} src={image} styles={"br2 br--top"} />
+        </Container>
+      )}
       <Container minHeight={titleMinHeight} ph={3} pt={3}>
         <AirsLink href={link}>
           <Title color={"#2e2e38"} hColor={"#bf0b1a"} level={2} size={"small"}>
@@ -122,7 +138,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
       <CardFooter>
         <Container pb={3} ph={3}>
           <AirsLink href={link}>
-            <Button display={"block"} variant={"tertiary"}>
+            <Button display={btnDisplay} variant={btnVariant}>
               {btnText}
             </Button>
           </AirsLink>

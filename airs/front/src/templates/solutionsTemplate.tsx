@@ -11,20 +11,18 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
 /* eslint react/jsx-no-bind:0 */
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { Button } from "../components/Button";
-import { CloudImage } from "../components/CloudImage";
 import { Container } from "../components/Container";
+import { Grid } from "../components/Grid";
 import { Hero } from "../components/Hero";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { Paragraph } from "../components/Texts";
-import { Title } from "../components/Typography";
+import { VerticalCard } from "../components/VerticalCard";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -125,55 +123,30 @@ const SolutionsIndex: React.FC<IQueryData> = ({
               sizeSm={"medium"}
               title={translate.t("solutions.informations.subtitle")}
             />
-            <Container ph={4}>
-              <Container
-                center={true}
-                display={"flex"}
-                justify={"center"}
-                maxWidth={"1440px"}
-                wrap={"wrap"}
+            <Container center={true} maxWidth={"1440px"} ph={4} pv={5}>
+              <Grid
+                columns={"1fr 1fr 1fr"}
+                columnsMd={"1fr 1fr"}
+                columnsSm={"1fr"}
+                gap={"1rem"}
               >
-                {solutionData.map((solutionCard): JSX.Element => {
+                {solutionData.map((solution): JSX.Element => {
                   return (
-                    <Container
-                      key={solutionCard.title}
-                      mh={2}
-                      mv={2}
-                      ph={3}
-                      pv={5}
-                      width={"464px"}
-                      widthSm={"100%"}
-                    >
-                      <CloudImage
-                        alt={title}
-                        src={`airs/solutions/${solutionCard.image}`}
-                        styles={"w-100"}
-                      />
-                      <Title
-                        color={"#2e2e38"}
-                        level={4}
-                        mb={3}
-                        mt={2}
-                        size={"xs"}
-                      >
-                        {solutionCard.title}
-                      </Title>
-                      <Paragraph
-                        fColor={"#5c5c70"}
-                        fSize={"16"}
-                        marginBottom={"3"}
-                      >
-                        {solutionCard.paragraph}
-                      </Paragraph>
-                      <Link to={solutionCard.link}>
-                        <Button variant={"primary"}>
-                          {"Explore solution"}
-                        </Button>
-                      </Link>
-                    </Container>
+                    <VerticalCard
+                      alt={solution.title}
+                      bgColor={"transparent"}
+                      btnDisplay={"inline-block"}
+                      btnText={"Explore solution"}
+                      btnVariant={"primary"}
+                      description={solution.paragraph}
+                      image={`airs/solutions/${solution.image}`}
+                      key={solution.title}
+                      link={solution.link}
+                      title={solution.title}
+                    />
                   );
                 })}
-              </Container>
+              </Grid>
             </Container>
           </PageArticle>
         </div>

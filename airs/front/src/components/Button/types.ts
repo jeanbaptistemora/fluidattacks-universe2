@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 
+type TDisplay = "block" | "inline-block" | "inline";
 type TSize = "lg" | "md" | "sm";
 type TVariant =
   | "darkGhost"
@@ -11,7 +12,7 @@ type TVariant =
   | "tertiary";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  display?: "block" | "inline-block" | "inline";
+  display?: TDisplay;
   size?: TSize;
   variant?: TVariant;
 }
@@ -32,4 +33,4 @@ interface IVariant {
   colorHover: string;
 }
 
-export type { ISize, IStyledButtonProps, IVariant, TSize, TVariant };
+export type { ISize, IStyledButtonProps, IVariant, TDisplay, TSize, TVariant };
