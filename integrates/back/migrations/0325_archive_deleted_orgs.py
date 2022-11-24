@@ -22,7 +22,7 @@ from db_model.organizations.get import (  # type: ignore
 from decorators import (
     retry_on_exceptions,
 )
-from dynamodb.model import (
+from dynamodb.model import (  # type: ignore
     remove_org_finding_policies,
 )
 from dynamodb.types import (

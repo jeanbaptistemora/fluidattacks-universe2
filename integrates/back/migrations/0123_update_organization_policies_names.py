@@ -1,6 +1,6 @@
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration aims to apply standardization to organization
 finding policies names
