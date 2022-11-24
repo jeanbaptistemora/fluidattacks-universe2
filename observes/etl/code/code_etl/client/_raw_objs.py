@@ -54,4 +54,4 @@ class RawFileCommitRelation:
 
     @staticmethod
     def fields() -> FrozenList[str]:
-        return tuple(f.name for f in dataclass_fields(RawCommitStamp))  # type: ignore[misc]
+        return tuple(f.name for f in dataclass_fields(RawFileCommitRelation))  # type: ignore[misc]
