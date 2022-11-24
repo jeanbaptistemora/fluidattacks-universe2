@@ -72,13 +72,20 @@ async def validate_finding_name(name: str) -> None:
 
 
 async def get_finding_policy_by_name(
-    *, org_name: str, finding_name: str
-) -> Optional[OrgFindingPolicyItem]:
+    *,
+    loaders: Dataloaders,
+    finding_name: str,
+    organization_name: str,
+) -> Optional[OrgFindingPolicy]:
+    org_finding_policies: tuple[
+        OrgFindingPolicy, ...
+    ] = await loaders.organization_finding_policies.load(organization_name)
+
     return next(
         (
-            fin_policy
-            for fin_policy in await get_finding_policies(org_name=org_name)
-            if fin_policy.metadata.name.lower().endswith(finding_name.lower())
+            finding_policy
+            for finding_policy in org_finding_policies
+            if finding_policy.name.lower().endswith(finding_name.lower())
         ),
         None,
     )
@@ -86,25 +93,28 @@ async def get_finding_policy_by_name(
 
 async def add_finding_policy(
     *,
+    loaders: Dataloaders,
     finding_name: str,
-    org_name: str,
+    modified_by: str,
+    organization_name: str,
     tags: set[str],
-    user_email: str,
 ) -> None:
     await validate_finding_name(finding_name)
     finding_policy = await get_finding_policy_by_name(
-        org_name=org_name, finding_name=finding_name.lower()
+        loaders=loaders,
+        organization_name=organization_name,
+        finding_name=finding_name.lower(),
     )
     if finding_policy:
         raise RepeatedFindingNamePolicy()
 
     validations.validate_fields(tags)
     new_finding_policy = OrgFindingPolicyItem(
-        org_name=org_name,
+        org_name=organization_name,
         id=str(uuid4()),
         metadata=OrgFindingPolicyMetadata(name=finding_name, tags=tags),
         state=OrgFindingPolicyState(
-            modified_by=user_email,
+            modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
             status="SUBMITTED",
         ),

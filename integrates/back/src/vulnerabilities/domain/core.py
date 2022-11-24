@@ -36,6 +36,12 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
+from db_model.organization_finding_policies.enums import (
+    PolicyStateStatus,
+)
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
+)
 from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
@@ -58,9 +64,6 @@ from db_model.vulnerabilities.types import (
 )
 from db_model.vulnerabilities.update import (
     update_event_index,
-)
-from dynamodb.types import (
-    OrgFindingPolicyItem,
 )
 from finding_comments import (
     domain as comments_domain,
@@ -811,7 +814,7 @@ async def update_metadata_and_state(
     vulnerability: Vulnerability,
     new_metadata: VulnerabilityMetadataToUpdate,
     new_state: VulnerabilityState,
-    finding_policy: Optional[OrgFindingPolicyItem] = None,
+    finding_policy: Optional[OrgFindingPolicy] = None,
 ) -> str:
     """Update vulnerability metadata and historics."""
     if (
@@ -849,7 +852,7 @@ async def update_metadata_and_state(
         vulnerability.state.status != new_state.status
         and finding_policy
         and new_state.status == VulnerabilityStateStatus.OPEN
-        and finding_policy.state.status == "APPROVED"
+        and finding_policy.state.status == PolicyStateStatus.APPROVED
         and vulnerability.treatment
         and vulnerability.treatment.status
         != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED

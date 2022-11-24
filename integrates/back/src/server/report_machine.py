@@ -713,16 +713,18 @@ async def ensure_toe_inputs(
                         raise exc
 
 
-async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
+async def persist_vulnerabilities(
+    *,
     loaders: Dataloaders,
     group_name: str,
     git_root: GitRoot,
     finding: Finding,
     stream: dict[str, Any],
-    organization: str,
-) -> Optional[Set[str]]:
+    organization_name: str,
+) -> Optional[set[str]]:
     finding_policy = await policies_domain.get_finding_policy_by_name(
-        org_name=organization,
+        loaders=loaders,
+        organization_name=organization_name,
         finding_name=finding.title.lower(),
     )
 
@@ -949,7 +951,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     git_root: GitRoot,
     sarif_log: dict[str, Any],
     execution_config: dict[str, Any],
-    organization: str,
+    organization_name: str,
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
 ) -> Optional[MachineFindingResult]:
@@ -1014,11 +1016,11 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 
     should_update_evidence: bool = False
     if persisted_vulns := await persist_vulnerabilities(
-        loaders,
-        group_name,
-        git_root,
-        finding,
-        {
+        loaders=loaders,
+        group_name=group_name,
+        git_root=git_root,
+        finding=finding,
+        stream={
             "inputs": [
                 *new_vulns_to_add["inputs"],
                 *existing_vulns_to_close["inputs"],
@@ -1028,7 +1030,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
                 *existing_vulns_to_close["lines"],
             ],
         },
-        organization,
+        organization_name=organization_name,
     ):
         should_update_evidence = True
         await reattack_future
@@ -1269,7 +1271,7 @@ async def process_execution(
                 git_root=git_root,
                 sarif_log=results,
                 execution_config=execution_config,
-                organization=organization_name,
+                organization_name=organization_name,
                 auto_approve=auto_approve_rules[vuln_id],
             )
             for vuln_id, finding in rules_finding

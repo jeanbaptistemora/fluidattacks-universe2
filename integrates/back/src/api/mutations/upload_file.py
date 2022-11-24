@@ -75,10 +75,10 @@ async def mutate(
         organization: Organization = await loaders.organization.load(
             group.organization_id
         )
-        organization_name = organization.name
         finding_policy = await policies_domain.get_finding_policy_by_name(
-            org_name=organization_name,
+            loaders=loaders,
             finding_name=finding.title.lower(),
+            organization_name=organization.name,
         )
         if file_input and allowed_mime_type:
             processed_vulnerabilities = await vuln_files_domain.upload_file(

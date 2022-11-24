@@ -4,6 +4,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -22,8 +25,6 @@ from sessions import (
     domain as sessions_domain,
 )
 from typing import (
-    Dict,
-    List,
     Optional,
 )
 
@@ -38,18 +39,20 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_name: str,
     organization_name: str,
-    tags: Optional[List[str]] = None,
+    tags: Optional[list[str]] = None,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    loaders: Dataloaders = info.context.loaders
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]
 
     await policies_domain.add_finding_policy(
+        loaders=loaders,
         finding_name=finding_name.strip(),
-        org_name=organization_name,
+        modified_by=user_email,
+        organization_name=organization_name,
         tags=set(tags) if tags is not None else set(),
-        user_email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,

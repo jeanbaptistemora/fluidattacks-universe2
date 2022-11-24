@@ -164,14 +164,17 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
         }
     """
 
+    loaders: Dataloaders = get_new_context()
     finding_policy = await policies_domain.get_finding_policy_by_name(
-        org_name=org_name,
+        loaders=loaders,
+        organization_name=org_name,
         finding_name=finding_name.lower(),
     )
+    assert finding_policy is not None
     hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,  # type: ignore
+            "findingPolicyId": finding_policy.id,
             "orgName": org_name,
             "status": "APPROVED",
         },
@@ -184,7 +187,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -214,6 +217,7 @@ async def test_handle_organization_finding_policy_acceptance() -> None:
 
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
+    # pylint: disable=too-many-locals
     org_name = "okada"
     finding_name = "081. Lack of multi-factor authentication"
     finding_id = "475041513"
@@ -281,14 +285,18 @@ async def test_deactivate_org_finding_policy() -> None:
             }
         }
     """
+
+    loaders: Dataloaders = get_new_context()
     finding_policy = await policies_domain.get_finding_policy_by_name(
-        org_name=org_name,
+        loaders=loaders,
+        organization_name=org_name,
         finding_name=finding_name.lower(),
     )
+    assert finding_policy is not None
     hande_acceptance_data = {
         "query": handle_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,  # type: ignore
+            "findingPolicyId": finding_policy.id,
             "orgName": org_name,
             "status": "APPROVED",
         },
@@ -300,7 +308,7 @@ async def test_deactivate_org_finding_policy() -> None:
     assert result["data"]["handleOrganizationFindingPolicyAcceptance"][
         "success"
     ]
-    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         hande_acceptance_data, stakeholder="integratesuser2@gmail.com"
@@ -344,7 +352,7 @@ async def test_deactivate_org_finding_policy() -> None:
     deactivate_mutation_data = {
         "query": deactivate_mutation,
         "variables": {
-            "findingPolicyId": finding_policy.id,  # type: ignore
+            "findingPolicyId": finding_policy.id,
             "orgName": org_name,
         },
     }
@@ -353,7 +361,7 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["deactivateOrganizationFindingPolicy"]["success"]
-    assert await _run(finding_policy_id=finding_policy.id) == 0  # type: ignore
+    assert await _run(finding_policy_id=finding_policy.id) == 0
 
     result = await _get_result_async(
         deactivate_mutation_data, stakeholder="integratesuser2@gmail.com"
@@ -498,8 +506,11 @@ async def test_submit_organization_finding_policy() -> None:
             }
         }
     """
+
+    loaders: Dataloaders = get_new_context()
     finding_policy = await policies_domain.get_finding_policy_by_name(
-        org_name=organization_name,
+        loaders=loaders,
+        organization_name=organization_name,
         finding_name=finding_name.lower(),
     )
     assert finding_policy is not None
@@ -544,7 +555,7 @@ async def test_submit_organization_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["submitOrganizationFindingPolicy"]["success"]
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_policy_submitted: OrgFindingPolicy = (
         await loaders.organization_finding_policy.load(
             OrgFindingPolicyRequest(
