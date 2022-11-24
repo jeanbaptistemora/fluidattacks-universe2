@@ -21,28 +21,20 @@ new file with the corresponding headers.
 ## License and Copyright Headers
 
 To be compliant with the [SPDX](https://spdx.dev/)
-standards we use a header commented on each file.
+standards we use a [DEP5](https://reuse.software/spec/#dep5) file
+stored in `.reuse/dep5`.
 
-This is a License and Copyright header example:
+All existing files in the repository must be specified in such file.
 
-```python
-  # SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-  #
-  # SPDX-License-Identifier: MPL-2.0
-```
-
-The contributor must sign each new file
-added to the source code
-so the change can be approved.
-
-## Signing files
+## Reviewing files
 
 Software needed: [Makes](https://github.com/fluidattacks/makes).
 
 We use an extension of the
 [Reuse Helper Tool](https://git.fsfe.org/reuse/tool)
 and Makes, which lints
-and format files automatically with the corresponding header.
+files and makes sure
+that all of them are compliant.
 
 This extension can be executed with
 the next command, while being at the root of
@@ -69,13 +61,12 @@ next output:
   * Files with license information: 7599 / 7599
 
   Congratulations! Your project is compliant with version 3.0 of the REUSE Specification :-)
-  [INFO] Nothing to format here! All files are licensed
 ```
 
-If you missed at least one signature
-the extension will fail and will
-automatically format the specified files.
-This is an example of the output:
+If you missed at least one file
+the extension will fail and let you know
+which files need to be specified
+in the [DEP5 file](https://gitlab.com/fluidattacks/universe/-/blob/trunk/.reuse/dep5)
 
 ```bash
   # MISSING COPYRIGHT AND LICENSING INFORMATION
@@ -97,8 +88,7 @@ This is an example of the output:
   * Files with license information: 7813 / 7814
 
   Unfortunately, your project is not compliant with version 3.0 of the REUSE Specification :-(
-  [INFO] Adding License and Copyright headers to files
-  [INFO] Formatted files successfully!
+  [ERROR] Some files are not properly licensed. Please adapt the licensing file under ./reuse/dep5
 ```
 
 More info on how to add signatures using

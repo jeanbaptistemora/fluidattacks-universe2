@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 # You can find rules here:
 # https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
 
