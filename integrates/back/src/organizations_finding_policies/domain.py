@@ -51,7 +51,6 @@ from newutils import (
 )
 from typing import (
     Optional,
-    Union,
 )
 from uuid import (
     uuid4,
@@ -89,7 +88,7 @@ async def add_finding_policy(
     *,
     finding_name: str,
     org_name: str,
-    tags: Union[set[str], dict],
+    tags: set[str],
     user_email: str,
 ) -> None:
     await validate_finding_name(finding_name)

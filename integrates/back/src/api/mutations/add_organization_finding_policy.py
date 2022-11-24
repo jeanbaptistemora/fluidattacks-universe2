@@ -48,7 +48,7 @@ async def mutate(
     await policies_domain.add_finding_policy(
         finding_name=finding_name.strip(),
         org_name=organization_name,
-        tags=set(tags) if tags is not None else {},
+        tags=set(tags) if tags is not None else set(),
         user_email=user_email,
     )
     logs_utils.cloudwatch_log(

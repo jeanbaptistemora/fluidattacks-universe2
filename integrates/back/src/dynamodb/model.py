@@ -43,7 +43,7 @@ def _build_org_policy_finding(
         id=item[key_structure.partition_key].split("#")[1],
         org_name=item[key_structure.sort_key].split("#")[1],
         metadata=OrgFindingPolicyMetadata(
-            name=item["name"], tags=item.get("tags", {})
+            name=item["name"], tags=item.get("tags", set())
         ),
         state=OrgFindingPolicyState(
             modified_by=item["state"]["modified_by"],
@@ -94,7 +94,9 @@ async def add_organization_finding_policy(
         key_structure.sort_key: primary_key.sort_key,
         "name": finding_policy.metadata.name,
         "state": dict(finding_policy.state._asdict()),
-        "tags": finding_policy.metadata.tags,
+        "tags": finding_policy.metadata.tags
+        if finding_policy.metadata.tags
+        else None,
     }
     items.append(metadata_item)
     state_key = keys.build_key(

@@ -60,7 +60,7 @@ async def test_get_finding_policies() -> None:
             org_name="okada",
             metadata=OrgFindingPolicyMetadata(
                 name="007. Cross-site request forgery",
-                tags={},
+                tags=set(),
             ),
             state=OrgFindingPolicyStateLegacy(
                 modified_date="2021-04-26T13:37:10+00:00",

@@ -27,7 +27,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="dd63f2df-522d-4bfa-ad85-837832c71164",
                 metadata=OrgFindingPolicyMetadata(
                     name="031. Excessive privileges - AWS",
-                    tags={},
+                    tags=set(),
                 ),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
@@ -40,7 +40,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="3be367f9-b06c-4f72-ab77-38268045a8ff",
                 metadata=OrgFindingPolicyMetadata(
                     name="037. Technical information leak",
-                    tags={},
+                    tags=set(),
                 ),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
@@ -53,7 +53,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="f3f19b09-00e5-4bc7-b9ea-9999c9fe9f87",
                 metadata=OrgFindingPolicyMetadata(
                     name="081. Lack of multi-factor authentication",
-                    tags={},
+                    tags=set(),
                 ),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
