@@ -81,7 +81,7 @@ you can click on the **Delete** button
 that is located in the upper-right corner
 of your window.
 
-![Delete Finding Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/web/vulnerabilities/deleting-vulns/delete_finding_button_vlbpgy.webp)
+![Delete Finding Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1669320762/docs/web/vulnerabilities/deleting-vulns/delete_vul_button.png)
 
 When you click on it,
 the same pop-up for the deletion
