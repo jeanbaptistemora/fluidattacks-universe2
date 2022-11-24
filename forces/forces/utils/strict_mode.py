@@ -46,26 +46,22 @@ async def set_forces_exit_code(
         )
         for finding in findings:
             for vuln in finding.vulnerabilities:
-                severity: float = (
-                    vuln.severity
-                    if vuln.severity is not None
-                    else finding.severity
-                )
-                current_date: datetime = datetime.utcnow()
+                current_date: datetime = datetime.utcnow() - timedelta(hours=5)
                 report_date: datetime = datetime.strptime(
                     vuln.report_date, "%Y-%m-%d %H:%M:%S"
                 )
                 time_diff: timedelta = current_date - report_date
                 if (
                     vuln.state == VulnerabilityState.OPEN
-                    and severity >= config.breaking_severity
-                    and time_diff.days >= config.grace_period
+                    and vuln.severity >= config.breaking_severity
+                    and abs(time_diff.days) >= config.grace_period
                 ):
                     await log(
                         "warning",
                         (
                             "Found an open vulnerability with a severity of "
-                            f"{severity} reported {time_diff.days} day(s) ago"
+                            f"{vuln.severity} reported {time_diff.days} "
+                            "day(s) ago"
                         ),
                     )
                     return 1

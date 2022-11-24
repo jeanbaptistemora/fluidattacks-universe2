@@ -239,7 +239,7 @@ async def generate_raw_report(
             state=VulnerabilityState[str(vuln["currentState"]).upper()],
             severity=float(str(vuln["severity"]))
             if vuln["severity"] is not None
-            else None,
+            else findings_dict[find_id].severity,
             report_date=str(vuln["reportDate"]),
             exploitability=findings_dict[find_id].exploitability,
             root_nickname=str(vuln["rootNickname"])

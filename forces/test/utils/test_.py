@@ -1,5 +1,6 @@
 from datetime import (
     datetime,
+    timedelta,
 )
 from forces.model import (
     Finding,
@@ -22,7 +23,7 @@ async def test_set_exit_code() -> None:
         title="dummy title",
         state=FindingState.OPEN,
         exploitability=5.0,
-        severity=9.0,
+        severity=5.1,
         url="https://dummy-url.com",
         vulnerabilities=[
             Vulnerability(
@@ -30,11 +31,11 @@ async def test_set_exit_code() -> None:
                 where="somewhere",
                 specific="port 21",
                 state=VulnerabilityState.OPEN,
-                severity=9.0,
-                report_date=datetime.utcnow().isoformat(
+                severity=5.1,
+                report_date=(datetime.utcnow() - timedelta(hours=5)).isoformat(
                     sep=" ", timespec="seconds"
                 ),
-                exploitability=4.5,
+                exploitability=5.0,
                 root_nickname=None,
             )
         ],
@@ -42,7 +43,7 @@ async def test_set_exit_code() -> None:
     test_config = ForcesConfig(
         group="test_group",
         strict=True,
-        breaking_severity=4.0,
+        breaking_severity=5.0,
         grace_period=0,
     )
     assert (
