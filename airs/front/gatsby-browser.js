@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-//
-// SPDX-License-Identifier: MPL-2.0
-
 import "./static/scss/index.scss";
 import "gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css";
 import "animate.css/animate.min.css";

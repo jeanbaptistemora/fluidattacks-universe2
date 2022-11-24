@@ -2,8 +2,7 @@
 slug: categories/re/
 title: RE
 description: Here at Fluid Attacks, we also use the technique of Reverse Engineering (RE) to detect security flaws, mainly when the source code is not available.
-keywords: Fluid Attacks, Techniques, RE, Reverse,
-  Engineering, Security, Testing, Ethical Hacking
+keywords: Fluid Attacks, Techniques, RE, Reverse, Engineering, Security, Testing, Ethical Hacking
 banner: re-bg
 template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634638/airs/categories/cover-sre_o0pqhq.webp
@@ -52,4 +51,3 @@ application security testing. This way, we guarantee minimal rates of
 false positives and false negatives in your software’s assessments.
 
 </div>
- 

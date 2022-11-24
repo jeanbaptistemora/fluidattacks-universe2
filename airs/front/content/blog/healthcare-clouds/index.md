@@ -8,8 +8,7 @@ tags: cloud, cybersecurity, compliance
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330889/blog/healthcare-clouds/cover_b77ciq.webp
 alt: several balloons floating in the air
 description: Cloud-based systems can be of great benefit to healthcare institutions, but they can also lead to security issues that must be handled and that we explain here.
-keywords: Health Care, Cloud, Information, Risks, Security, Protect,
-  Pentesting, Ethical Hacking
+keywords: Health Care, Cloud, Information, Risks, Security, Protect, Pentesting, Ethical Hacking
 author: Juan Aguirre
 writer: juanes
 name: Juan Esteban Aguirre González
@@ -145,19 +144,19 @@ cloud](http://www.networkworld.com/article/3121967/cloud-computing/9-keys-to-hav
 ## References
 
 1. [Why this hospital is moving to Amazon’s
-    cloud](http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html).
+   cloud](http://www.networkworld.com/article/3121957/cloud-computing/why-this-hospital-is-moving-to-amazon-s-cloud.html).
 
 2. [ClearDATA. 5 Risks Hospitals Face When Using The Public
-    Cloud](https://assets.sourcemedia.com/2c/ec/ab05b5b44513a7fc8170f0f6f75e/5-risks-hospitals-face-when-using-the-public-cloud-hit.pdf).
+   Cloud](https://assets.sourcemedia.com/2c/ec/ab05b5b44513a7fc8170f0f6f75e/5-risks-hospitals-face-when-using-the-public-cloud-hit.pdf).
 
 3. [Filkins, B. Cloudy with a Chance of Better Health
-    Care](https://www.sans.org/reading-room/whitepapers/analyst/cloudy-chance-health-care-security-compliance-fundamentals-protecting-e-h-35055).
+   Care](https://www.sans.org/reading-room/whitepapers/analyst/cloudy-chance-health-care-security-compliance-fundamentals-protecting-e-h-35055).
 
 4. [Rouse, M. HIPAA, Health Insurance Portability and Accountability
-    Act](http://searchhealthit.techtarget.com/definition/HITECH-Act).
+   Act](http://searchhealthit.techtarget.com/definition/HITECH-Act).
 
 5. [Rouse, M. HITECH
-    Act](http://searchhealthit.techtarget.com/definition/HITECH-Act).
+   Act](http://searchhealthit.techtarget.com/definition/HITECH-Act).
 
 6. [Salesforce. SaaS: Software as a
-    Service](https://www.salesforce.com/saas/).
+   Service](https://www.salesforce.com/saas/).
