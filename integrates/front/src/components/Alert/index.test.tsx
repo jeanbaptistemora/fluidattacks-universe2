@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { Alert } from ".";
@@ -17,23 +17,12 @@ describe("Alert", (): void => {
     expect(screen.queryByText("Alert message")).toBeInTheDocument();
   });
 
-  it("should render a closable alert and close it", async (): Promise<void> => {
+  it("should render a closable alert", (): void => {
     expect.hasAssertions();
 
-    const { rerender } = render(
-      <Alert closable={true}>{"Alert message"}</Alert>
-    );
+    render(<Alert closable={true}>{"Alert message"}</Alert>);
 
     expect(screen.queryByText("Alert message")).toBeInTheDocument();
     expect(screen.queryByRole("button")).toBeInTheDocument();
-
-    rerender(<Alert autoHide={true}>{"Alert 2 message"}</Alert>);
-
-    await waitFor(
-      (): void => {
-        expect(screen.queryByRole("button")).not.toBeInTheDocument();
-      },
-      { timeout: 8000 }
-    );
   });
 });
