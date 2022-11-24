@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from toolbox.drills.commit import (
     is_drills_commit,
     is_valid_summary,

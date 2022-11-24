@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 from toolbox.generic.commit import (
     has_short_line_length,
     is_under_100_deltas,
