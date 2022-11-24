@@ -26,5 +26,5 @@ def format_organization_finding_policy(
             modified_date=item["state"]["modified_date"],
             status=PolicyStateStatus[item["state"]["status"]],
         ),
-        tags=item.get("tags", {}),
+        tags=item.get("tags", set()),
     )

@@ -1,14 +1,12 @@
 from .dal import (
     add_organization_finding_policy,
     get_organization_finding_policies,
-    get_organization_finding_policy,
     update_finding_policy_status,
 )
 from aioextensions import (
     collect,
 )
 from custom_exceptions import (
-    FindingNamePolicyNotFound,
     InvalidFindingNamePolicy,
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
@@ -61,18 +59,6 @@ from uuid import (
 from vulnerabilities import (
     domain as vulns_domain,
 )
-
-
-async def get_finding_policy(
-    *, org_name: str, finding_policy_id: str
-) -> OrgFindingPolicyItem:
-    finding_policy = await get_organization_finding_policy(
-        org_name=org_name, finding_policy_id=finding_policy_id
-    )
-    if finding_policy:
-        return finding_policy
-
-    raise FindingNamePolicyNotFound()
 
 
 async def get_finding_policies(

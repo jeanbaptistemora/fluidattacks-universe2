@@ -30,9 +30,6 @@ from itertools import (
     chain,
 )
 import json
-from typing import (
-    Optional,
-)
 
 with open(FI_DB_MODEL_PATH, mode="r", encoding="utf-8") as file:
     TABLE = tables.load_tables(json.load(file))[0]
@@ -54,27 +51,6 @@ def _build_org_policy_finding(
             status=item["state"]["status"],
         ),
     )
-
-
-async def get_org_finding_policy(
-    *,
-    org_name: str,
-    finding_policy_id: str,
-) -> Optional[OrgFindingPolicyItem]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_metadata"],
-        values={
-            "name": org_name,
-            "uuid": finding_policy_id,
-        },
-    )
-    item = await operations.get_item(
-        facets=(TABLE.facets["org_finding_policy_metadata"],),
-        key=primary_key,
-        table=TABLE,
-    )
-
-    return _build_org_policy_finding(item=item) if item else None
 
 
 async def get_org_finding_policies(
