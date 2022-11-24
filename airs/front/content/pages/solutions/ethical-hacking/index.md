@@ -19,10 +19,13 @@ Our certified ethical hackers use methods and tools
 in a similar way to unethical hackers.
 However,
 the difference is that our hackers first obtain your permission
-and then they do a reconnaissance of your IT infrastructure,
+and then attack your system
+with the goal of helping you proactively look for
+and understand the threats to your technology.
+They do a reconnaissance of your IT infrastructure,
 applications or source code
 and try to get access and exploit flaws through ethical pentesting
-in order to collect and analyze information
+to collect and analyze information
 that can be useful to improve your organization's data protection.
 
 Contrary to other ethical hacking services,
@@ -49,10 +52,23 @@ before your software goes into production.
         When it comes to detecting and reporting vulnerabilities,
         our hackers can go at the pace of your company's developers,
         which is not possible with traditional hacking solutions.
-        In this way, you save both money
-        in remediation and time in release to production."
+        In this way,
+        your proactive security stance saves your company
+        both money in remediation and time in release to production."
       image="airs/solutions/ethical-hacking/icon1"
       title="Simultaneous security assessment"
+    />
+  </div>
+
+  <div>
+    <solution-card
+      description="Fluid Attacks' Ethical Hacking
+      targets risks to a wide variety of systems,
+      including web and mobile applications,
+      containers, operational technology,
+      the Internet of Things, among others."
+      image="airs/solutions/ethical-hacking/icon2"
+      title="Secure apps, networks, cloud infrastructure and more"
     />
   </div>
 
@@ -63,7 +79,7 @@ before your software goes into production.
         systems were detected by the manual method only.
         That is, ethical hackers can find
         the vulnerabilities automated tools can't."
-      image="airs/solutions/ethical-hacking/icon2"
+      image="airs/solutions/ethical-hacking/icon3"
       title="Report of critical severity vulnerabilities"
     />
   </div>
@@ -72,11 +88,11 @@ before your software goes into production.
     <solution-card
       description="With our solution, you are not paying for a so-called
         'automatic hacking' process. Rather than assigning
-        only one professional to evaluate your IT systems'
+        only one professional to evaluate threats to your IT systems'
         security using an automated tool, at Fluid Attacks,
         Ethical Hacking is usually performed by 10 ethical
         or white hat hackers on average per project."
-      image="airs/solutions/ethical-hacking/icon3"
+      image="airs/solutions/ethical-hacking/icon4"
       title="10 hackers assigned on average"
     />
   </div>
@@ -88,8 +104,24 @@ before your software goes into production.
         In other words, the price you pay for our
         Ethical Hacking solution will be proportional
         to your investment in software development."
-      image="airs/solutions/ethical-hacking/icon4"
+      image="airs/solutions/ethical-hacking/icon5"
       title="Price of hacking based on scope"
+    />
+  </div>
+
+  <div>
+    <solution-card
+      description="We check that your systems comply
+      with our rich catalog of security requirements,
+      expertly curated from international standards
+      (e.g., PCI DSS, OWASP, NIST, GDPR, HIPAA)
+      and not limited to the most talked about.
+      Since we conduct assessments continuously,
+      we enable your security posture
+      to be beyond what is expected by any standard
+      but required in today's threat landscape."
+      image="airs/solutions/ethical-hacking/icon6"
+      title="Meet compliance requirements and then some"
     />
   </div>
 
