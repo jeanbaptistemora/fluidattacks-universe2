@@ -70,7 +70,7 @@ const UPDATE_TOE_PORT: DocumentNode = gql`
     $canGetSeenFirstTimeBy: Boolean!
     $groupName: String!
     $hasRecentAttack: Boolean
-    $port: String!
+    $port: Int!
     $rootId: String!
     $shouldGetNewToePort: Boolean!
   ) {

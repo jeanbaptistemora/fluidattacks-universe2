@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type {
@@ -15,22 +15,31 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { ActionButtons } from "./ActionButtons";
+import { HandleAdditionModal } from "./HandleAdditionModal";
+
 import { Filters, useFilters } from "components/Filter";
 import type { IFilter } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
-import { GET_TOE_PORTS } from "scenes/Dashboard/containers/GroupToePortsView/queries";
+import {
+  GET_TOE_PORTS,
+  UPDATE_TOE_PORT,
+} from "scenes/Dashboard/containers/GroupToePortsView/queries";
 import type {
   IGroupToePortsViewProps,
   IToePortAttr,
   IToePortData,
   IToePortEdge,
   IToePortsConnection,
+  IUpdateToePortResultAttr,
 } from "scenes/Dashboard/containers/GroupToePortsView/types";
 import { authzPermissionsContext } from "utils/authz/config";
+import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const NOSEENFIRSTTIMEBY = "no seen first time by";
 
@@ -60,6 +69,8 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
   );
 
   const { groupName } = useParams<{ groupName: string }>();
+  const [isAdding, setIsAdding] = useState(false);
+  const [isMarkingAsAttacked, setIsMarkingAsAttacked] = useState(false);
   const [selectedToePortDatas, setSelectedToePortDatas] = useState<
     IToePortData[]
   >([]);
@@ -88,6 +99,26 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
   );
 
   // // GraphQL operations
+  const [handleUpdateToePort] = useMutation<IUpdateToePortResultAttr>(
+    UPDATE_TOE_PORT,
+    {
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - The toe port is not present":
+              msgError(t("group.toe.ports.alerts.nonPresent"));
+              break;
+            case "Exception - The toe port has been updated by another operation":
+              msgError(t("group.toe.ports.alerts.alreadyUpdate"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred updating the toe port", error);
+          }
+        });
+      },
+    }
+  );
   const getToePortsVariables = {
     canGetAttackedAt,
     canGetAttackedBy,
@@ -364,6 +395,57 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     void refetch();
   }, [refetch]);
 
+  function toggleAdd(): void {
+    setIsAdding(!isAdding);
+  }
+
+  const handleOnMarkAsAttackedCompleted = (
+    result: FetchResult<IUpdateToePortResultAttr>
+  ): void => {
+    if (!_.isNil(result.data) && result.data.updateToePort.success) {
+      msgSuccess(
+        t("group.toe.ports.alerts.markAsAttacked.success"),
+        t("groupAlerts.updatedTitle")
+      );
+      void refetch();
+      setSelectedToePortDatas([]);
+    }
+  };
+
+  async function handleMarkAsAttacked(): Promise<void> {
+    const presentSelectedToePortDatas = selectedToePortDatas.filter(
+      (toePortData: IToePortData): boolean => toePortData.bePresent
+    );
+    setIsMarkingAsAttacked(true);
+    const results = await Promise.all(
+      presentSelectedToePortDatas.map(
+        async (
+          toePortData: IToePortData
+        ): Promise<FetchResult<IUpdateToePortResultAttr>> =>
+          handleUpdateToePort({
+            variables: {
+              ...getToePortsVariables,
+              address: toePortData.address,
+              bePresent: toePortData.bePresent,
+              groupName,
+              hasRecentAttack: true,
+              port: toePortData.port,
+              rootId: toePortData.rootId,
+              shouldGetNewToePort: false,
+            },
+          })
+      )
+    );
+    const errors = getErrors<IUpdateToePortResultAttr>(results);
+
+    if (!_.isEmpty(results) && _.isEmpty(errors)) {
+      handleOnMarkAsAttackedCompleted(results[0]);
+    } else {
+      void refetch();
+    }
+    setIsMarkingAsAttacked(false);
+  }
+
   function enabledRows(row: Row<IToePortData>): boolean {
     return row.original.bePresent;
   }
@@ -378,7 +460,16 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
         data={filteredToeLines}
         enableRowSelection={enabledRows}
         exportCsv={true}
-        extraButtons={undefined}
+        extraButtons={
+          <ActionButtons
+            arePortsSelected={selectedToePortDatas.length > 0}
+            isAdding={isAdding}
+            isInternal={isInternal}
+            isMarkingAsAttacked={isMarkingAsAttacked}
+            onAdd={toggleAdd}
+            onMarkAsAttacked={handleMarkAsAttacked}
+          />
+        }
         filters={
           <Filters
             dataset={toePorts}
@@ -394,6 +485,13 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
         sortingSetter={setSorting}
         sortingState={sorting}
       />
+      {isAdding ? (
+        <HandleAdditionModal
+          groupName={groupName}
+          handleCloseModal={toggleAdd}
+          refetchData={refetch}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };

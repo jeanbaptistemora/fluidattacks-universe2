@@ -1446,6 +1446,14 @@ export const enTranslations: ResourceKey = {
           title: "Add port",
         },
         address: "Address",
+        alerts: {
+          alreadyUpdate: "Something modified the port during the edition.",
+          markAsAttacked: {
+            success: "Port has been marked as attacked.",
+          },
+          nonPresent: "The port is not present.",
+          updatePort: "Port has been updated.",
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         bePresent: "Be present",
