@@ -48,6 +48,7 @@ class OrganizationStandardCompliance(NamedTuple):
 class OrganizationUnreliableIndicators(NamedTuple):
     covered_repositories: Optional[int] = None
     missed_repositories: Optional[int] = None
+    covered_commits: Optional[int] = None
     missed_commits: Optional[int] = None
     compliance_level: Optional[Decimal] = None
     compliance_weekly_trend: Optional[Decimal] = None
@@ -76,6 +77,7 @@ class OrganizationMetadataToUpdate(NamedTuple):
 
 class OrganizationUnreliableIndicatorsToUpdate(NamedTuple):
     missed_repositories: Optional[int] = None
+    covered_commits: Optional[int] = None
     covered_repositories: Optional[int] = None
     missed_commits: Optional[int] = None
     compliance_level: Optional[Decimal] = None

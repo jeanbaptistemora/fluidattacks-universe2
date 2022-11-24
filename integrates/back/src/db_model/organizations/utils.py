@@ -182,6 +182,7 @@ def format_unreliable_indicators(
         if "standard_compliances" in item
         else None,
         missed_repositories=item.get("missed_repositories", 0),
+        covered_commits=item.get("covered_commits", 0),
         missed_commits=item.get("missed_commits", 0),
         covered_repositories=item.get("covered_repositories", 0),
     )
@@ -221,6 +222,7 @@ def format_unreliable_indicators_item_to_update(
         if indicators.standard_compliances is not None
         else None,
         "missed_repositories": indicators.missed_repositories,
+        "covered_commits": indicators.covered_commits,
         "missed_commits": indicators.missed_commits,
         "covered_repositories": indicators.covered_repositories,
     }
