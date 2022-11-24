@@ -150,6 +150,8 @@ describe("GroupScopeView", (): void => {
         variables: {
           branch: "master",
           credentials: {
+            azureOrganization: "testorg1",
+            isPat: true,
             key: undefined,
             name: "credential name",
             password: "",
@@ -288,12 +290,16 @@ describe("GroupScopeView", (): void => {
       "credential name"
     );
     await userEvent.selectOptions(
-      screen.getByRole("combobox", { name: "credentials.type" }),
-      ["HTTPS"]
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["TOKEN"]
     );
     await userEvent.type(
       screen.getByRole("textbox", { name: "credentials.token" }),
       "token-test"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "credentials.azureOrganization" }),
+      "testorg1"
     );
 
     await userEvent.click(screen.getByRole("radio", { name: "No" }));

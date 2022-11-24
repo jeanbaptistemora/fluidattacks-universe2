@@ -18,12 +18,16 @@ interface IBasicEnvironmentUrl {
 }
 
 interface ICredentials {
+  auth: "" | "TOKEN" | "USER";
+  azureOrganization: string;
   id: string;
+  isPat: boolean;
   key: string;
   name: string;
   password: string;
   token: string;
   type: "" | "HTTPS" | "SSH";
+  typeCredential: "" | "SSH" | "TOKEN" | "USER";
   user: string;
 }
 interface ICredentialsAttr {

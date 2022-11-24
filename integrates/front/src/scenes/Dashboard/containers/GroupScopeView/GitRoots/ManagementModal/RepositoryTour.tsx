@@ -6,6 +6,10 @@ import { useTranslation } from "react-i18next";
 import type { Step } from "react-joyride";
 
 import type { IFormValues } from "../../types";
+import {
+  getRepositoryTourStepsText,
+  shouldHideRepositoryTourFooter,
+} from "../helpers";
 import { BaseStep, Tour } from "components/Tour";
 
 interface IRepositoryTourProps {
@@ -13,7 +17,6 @@ interface IRepositoryTourProps {
   finishTour: () => void;
   dirty: boolean;
   isGitAccessible: boolean;
-  isHttpsCredentialsTypeUser: boolean;
   runTour: boolean;
   values: IFormValues;
 }
@@ -23,7 +26,6 @@ const RepositoryTour: FC<IRepositoryTourProps> = ({
   finishTour,
   dirty,
   isGitAccessible,
-  isHttpsCredentialsTypeUser,
   runTour,
   values,
 }: Readonly<IRepositoryTourProps>): JSX.Element => {
@@ -67,22 +69,7 @@ const RepositoryTour: FC<IRepositoryTourProps> = ({
         <Fragment>
           {t("tours.addGitRoot.rootCredentials.content")}
           <ul>
-            <li>
-              {values.credentials.type === "HTTPS"
-                ? isHttpsCredentialsTypeUser
-                  ? values.credentials.user === "" ||
-                    values.credentials.password === ""
-                    ? t("tours.addGitRoot.rootCredentials.user")
-                    : undefined
-                  : values.credentials.token === ""
-                  ? t("tours.addGitRoot.rootCredentials.token")
-                  : undefined
-                : values.credentials.type === "SSH"
-                ? values.credentials.key === ""
-                  ? t("tours.addGitRoot.rootCredentials.key")
-                  : undefined
-                : t("tours.addGitRoot.rootCredentials.type")}
-            </li>
+            {getRepositoryTourStepsText(values)}
             {values.credentials.name === "" ? (
               <li>{t("tours.addGitRoot.rootCredentials.name")}</li>
             ) : undefined}
@@ -92,15 +79,7 @@ const RepositoryTour: FC<IRepositoryTourProps> = ({
           </ul>
         </Fragment>
       ),
-      hideFooter:
-        values.credentials.type === "" ||
-        values.credentials.name.length === 0 ||
-        (values.credentials.key.length === 0 &&
-          ((!isHttpsCredentialsTypeUser &&
-            values.credentials.token.length === 0) ||
-            (isHttpsCredentialsTypeUser &&
-              (values.credentials.user.length === 0 ||
-                values.credentials.password.length === 0)))),
+      hideFooter: shouldHideRepositoryTourFooter(values),
       placement: "left",
       target: "#git-root-add-credentials",
     },

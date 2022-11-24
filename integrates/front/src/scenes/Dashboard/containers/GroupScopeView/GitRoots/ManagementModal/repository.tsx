@@ -27,6 +27,7 @@ import {
   VALIDATE_GIT_ACCESS,
 } from "../../queries";
 import type { ICredentialsAttr, IFormValues } from "../../types";
+import { formatTypeCredentials } from "../../utils";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
@@ -43,7 +44,6 @@ import {
   FormikArrayField,
   FormikCheckbox,
   FormikDropdown,
-  FormikRadioGroup,
   FormikText,
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -109,8 +109,6 @@ const Repository: FC<IRepositoryProps> = ({
     !_.isNull(initialValues.credentials) && initialValues.credentials.id !== ""
   );
   const [hasSquad, setHasSquad] = useState(false);
-  const [isHttpsCredentialsTypeUser, setIsHttpsCredentialsTypeUser] =
-    useState(false);
   const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
 
   const goToDocumentation = useCallback((): void => {
@@ -202,20 +200,43 @@ const Repository: FC<IRepositoryProps> = ({
   }
 
   const submittableCredentials = (values: IFormValues): boolean => {
-    return values.useVpn
-      ? true
-      : values.credentials.type === "SSH"
-      ? !values.credentials.name ||
+    if (values.useVpn) {
+      return true;
+    }
+    if (values.credentials.typeCredential === "") {
+      return true;
+    }
+    if (
+      values.credentials.typeCredential === "SSH" &&
+      (!values.credentials.name ||
         !values.credentials.key ||
-        hasSshFormat(values.credentials.key) !== undefined
-      : !values.credentials.name ||
-        (isHttpsCredentialsTypeUser
-          ? !values.credentials.user || !values.credentials.password
-          : !values.credentials.token);
+        hasSshFormat(values.credentials.key) !== undefined)
+    ) {
+      return true;
+    }
+    if (
+      values.credentials.typeCredential === "USER" &&
+      (!values.credentials.name ||
+        !values.credentials.user ||
+        !values.credentials.password)
+    ) {
+      return true;
+    }
+    if (
+      values.credentials.typeCredential === "TOKEN" &&
+      (!values.credentials.name ||
+        !values.credentials.token ||
+        !values.credentials.azureOrganization)
+    ) {
+      return true;
+    }
+
+    return false;
   };
 
   function onChangeExits(event: ChangeEvent<HTMLInputElement>): void {
     if (event.target.value === "") {
+      formRef.current?.setFieldValue("credentials.typeCredential", "");
       formRef.current?.setFieldValue("credentials.type", "");
       formRef.current?.setFieldValue("credentials.name", "");
       formRef.current?.setFieldValue("credentials.id", "");
@@ -223,6 +244,10 @@ const Repository: FC<IRepositoryProps> = ({
       setDisabledCredsEdit(false);
     } else {
       const currentCred = groupedExistingCreds[event.target.value];
+      formRef.current?.setFieldValue(
+        "credentials.typeCredential",
+        formatTypeCredentials(currentCred)
+      );
       formRef.current?.setFieldValue("credentials.type", currentCred.type);
       formRef.current?.setFieldValue("credentials.name", currentCred.name);
       formRef.current?.setFieldValue("credentials.id", currentCred.id);
@@ -245,13 +270,45 @@ const Repository: FC<IRepositoryProps> = ({
         isCheckedHealthCheck,
         isDuplicated,
         isGitAccessible,
-        isHttpsCredentialsTypeUser,
         nicknames
       )}
     >
-      {({ dirty, errors, isSubmitting, values }): JSX.Element => {
+      {({
+        dirty,
+        errors,
+        isSubmitting,
+        setFieldValue,
+        values,
+      }): // eslint-disable-next-line
+        JSX.Element => {  // NOSONAR
         if (isSubmitting) {
           setShowSubmitAlert(false);
+        }
+
+        function onTypeChange(
+          event: React.ChangeEvent<HTMLSelectElement>
+        ): void {
+          event.preventDefault();
+          if (event.target.value === "SSH") {
+            setFieldValue("credentials.type", "SSH");
+            setFieldValue("credentials.auth", "");
+            setFieldValue("credentials.isPat", false);
+          }
+          if (event.target.value === "") {
+            setFieldValue("type", "");
+            setFieldValue("auth", "");
+            setFieldValue("isPat", false);
+          }
+          if (event.target.value === "USER") {
+            setFieldValue("credentials.type", "HTTPS");
+            setFieldValue("credentials.auth", "USER");
+            setFieldValue("credentials.isPat", false);
+          }
+          if (event.target.value === "TOKEN") {
+            setFieldValue("credentials.type", "HTTPS");
+            setFieldValue("credentials.auth", "TOKEN");
+            setFieldValue("credentials.isPat", true);
+          }
         }
 
         return (
@@ -329,15 +386,19 @@ const Repository: FC<IRepositoryProps> = ({
                     <Select
                       disabled={disabledCredsEdit}
                       label={t("group.scope.git.repo.credentials.type")}
-                      name={"credentials.type"}
+                      name={"credentials.typeCredential"}
+                      onChange={onTypeChange}
                       required={!isEditing}
                     >
                       <option value={""}>{""}</option>
-                      <option value={"HTTPS"}>
-                        {t("group.scope.git.repo.credentials.https")}
-                      </option>
                       <option value={"SSH"}>
                         {t("group.scope.git.repo.credentials.ssh")}
+                      </option>
+                      <option value={"USER"}>
+                        {t("group.scope.git.repo.credentials.userHttps")}
+                      </option>
+                      <option value={"TOKEN"}>
+                        {t("group.scope.git.repo.credentials.azureToken")}
                       </option>
                     </Select>
                   </Col>
@@ -362,16 +423,8 @@ const Repository: FC<IRepositoryProps> = ({
                     />
                   ) : values.credentials.type === "HTTPS" && !credExists ? (
                     <Fragment>
-                      <Field
-                        component={FormikRadioGroup}
-                        initialState={"Access Token"}
-                        labels={["User and Password", "Access Token"]}
-                        name={"httpsCredentialsType"}
-                        onSelect={setIsHttpsCredentialsTypeUser}
-                        type={"Radio"}
-                      />
-                      {isHttpsCredentialsTypeUser ? (
-                        <Fragment>
+                      {values.credentials.auth === "USER" ? (
+                        <Row>
                           <Col>
                             <Input
                               label={t("group.scope.git.repo.credentials.user")}
@@ -388,15 +441,35 @@ const Repository: FC<IRepositoryProps> = ({
                               required={true}
                             />
                           </Col>
-                        </Fragment>
+                        </Row>
                       ) : undefined}
-                      {isHttpsCredentialsTypeUser ? undefined : (
-                        <Input
-                          label={t("group.scope.git.repo.credentials.token")}
-                          name={"credentials.token"}
-                          required={true}
-                        />
-                      )}
+                      {values.credentials.auth === "TOKEN" ? (
+                        <Row>
+                          <Col>
+                            <Input
+                              label={t(
+                                "group.scope.git.repo.credentials.token"
+                              )}
+                              name={"credentials.token"}
+                              required={true}
+                            />
+                          </Col>
+                          {values.credentials.isPat ? (
+                            <Col>
+                              <Input
+                                label={t(
+                                  "group.scope.git.repo.credentials.azureOrganization.text"
+                                )}
+                                name={"credentials.azureOrganization"}
+                                required={true}
+                                tooltip={t(
+                                  "group.scope.git.repo.credentials.azureOrganization.tooltip"
+                                )}
+                              />
+                            </Col>
+                          ) : undefined}
+                        </Row>
+                      ) : undefined}
                     </Fragment>
                   ) : undefined}
                   {!showGitAlert && validateGitMsg.message !== "" ? (
@@ -483,7 +556,6 @@ const Repository: FC<IRepositoryProps> = ({
                 errors={errors}
                 finishTour={finishTour}
                 isGitAccessible={isGitAccessible}
-                isHttpsCredentialsTypeUser={isHttpsCredentialsTypeUser}
                 runTour={runTour}
                 values={values}
               />

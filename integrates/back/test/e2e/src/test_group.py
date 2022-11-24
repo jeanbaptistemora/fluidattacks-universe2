@@ -279,7 +279,7 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
     credential_type = Select(
         utils.wait_for_name(
             driver,
-            "credentials.type",
+            "credentials.typeCredential",
             timeout,
         )
     )
@@ -287,13 +287,19 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
     branch.send_keys("trunk")
     environment.send_keys("production")
     credential_name.send_keys(utils.rand_name("production-credential"))
-    credential_type.select_by_value("HTTPS")
+    credential_type.select_by_value("TOKEN")
     credential_token = utils.wait_for_name(
         driver,
         "credentials.token",
         timeout,
     )
     credential_token.send_keys("production-credential")
+    credential_org = utils.wait_for_name(
+        driver,
+        "credentials.azureOrganization",
+        timeout,
+    )
+    credential_org.send_keys("testorg1")
     reject_health_check = utils.wait_for_id(
         driver,
         "Yes",

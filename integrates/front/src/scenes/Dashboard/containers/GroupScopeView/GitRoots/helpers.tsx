@@ -56,7 +56,6 @@ const gitModalSchema = (
   isCheckedHealthCheck: boolean,
   isDuplicated: (field: string) => boolean,
   isGitAccessible: boolean,
-  isHttpsCredentialsTypeUser: boolean,
   nicknames: string[]
 ): InferType<TypedSchema> =>
   lazy(
@@ -64,6 +63,30 @@ const gitModalSchema = (
       object().shape({
         branch: string().required(translate.t("validations.required")),
         credentials: object({
+          azureOrganization: string().when(["type", "isPat"], {
+            is: (type: string, isPat: boolean): boolean =>
+              !credExists &&
+              type ===
+                (values.credentials.typeCredential === "TOKEN"
+                  ? "HTTPS"
+                  : "") &&
+              isPat,
+            otherwise: string(),
+            then: string()
+              .required(translate.t("validations.required"))
+              .test(
+                "hasValidValue",
+                translate.t("validations.invalidSpaceField"),
+                (value): boolean => {
+                  const regex = /\S/u;
+                  if (value === undefined) {
+                    return true;
+                  }
+
+                  return regex.test(value);
+                }
+              ),
+          }),
           id: string(),
           key: string()
             .when("type", {
@@ -118,7 +141,10 @@ const gitModalSchema = (
                 ),
           password: string()
             .when("type", {
-              is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
+              is:
+                !credExists && values.credentials.typeCredential === "USER"
+                  ? "HTTPS"
+                  : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -145,7 +171,10 @@ const gitModalSchema = (
             ),
           token: string()
             .when("type", {
-              is: !credExists && !isHttpsCredentialsTypeUser ? "HTTPS" : "",
+              is:
+                !credExists && values.credentials.typeCredential === "TOKEN"
+                  ? "HTTPS"
+                  : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -173,9 +202,15 @@ const gitModalSchema = (
           type: isEditing
             ? string()
             : string().required(translate.t("validations.required")),
+          typeCredential: isEditing
+            ? string()
+            : string().required(translate.t("validations.required")),
           user: string()
             .when("type", {
-              is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
+              is:
+                !credExists && values.credentials.typeCredential === "USER"
+                  ? "HTTPS"
+                  : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -507,6 +542,15 @@ function useGitSubmit(
                   _.isEmpty(credentials.token)
                   ? undefined
                   : {
+                      azureOrganization:
+                        _.isUndefined(credentials.azureOrganization) ||
+                        _.isUndefined(credentials.isPat) ||
+                        !credentials.isPat
+                          ? undefined
+                          : credentials.azureOrganization,
+                      isPat: _.isUndefined(credentials.isPat)
+                        ? false
+                        : credentials.isPat,
                       key: _.isEmpty(credentials.key)
                         ? undefined
                         : Buffer.from(credentials.key).toString("base64"),
@@ -591,15 +635,77 @@ function filterSelectIncludesHealthCheck(
   );
 }
 
+const getRepositoryTourStepsText = (
+  values: IFormValues
+): JSX.Element | undefined => {
+  if (
+    values.credentials.typeCredential === "USER" &&
+    (values.credentials.user === "" || values.credentials.password === "")
+  ) {
+    return <li>{translate.t("tours.addGitRoot.rootCredentials.user")}</li>;
+  }
+  if (
+    values.credentials.typeCredential === "TOKEN" &&
+    (values.credentials.token === "" ||
+      values.credentials.azureOrganization === "")
+  ) {
+    return <li>{translate.t("tours.addGitRoot.rootCredentials.token")}</li>;
+  }
+  if (
+    values.credentials.typeCredential === "SSH" &&
+    values.credentials.key === ""
+  ) {
+    return <li>{translate.t("tours.addGitRoot.rootCredentials.key")}</li>;
+  }
+  if (values.credentials.typeCredential === "") {
+    return <li>{translate.t("tours.addGitRoot.rootCredentials.type")}</li>;
+  }
+
+  return undefined;
+};
+
+const shouldHideRepositoryTourFooter = (values: IFormValues): boolean => {
+  if (
+    values.credentials.typeCredential === "" ||
+    values.credentials.name.length === 0
+  ) {
+    return true;
+  }
+  if (
+    values.credentials.typeCredential === "SSH" &&
+    values.credentials.key.length === 0
+  ) {
+    return true;
+  }
+  if (
+    values.credentials.typeCredential === "TOKEN" &&
+    (values.credentials.token.length === 0 ||
+      values.credentials.azureOrganization.length === 0)
+  ) {
+    return true;
+  }
+  if (
+    values.credentials.typeCredential === "USER" &&
+    (values.credentials.user.length === 0 ||
+      values.credentials.password.length === 0)
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 export {
   filterSelectStatus,
   filterSelectIncludesHealthCheck,
   GitIgnoreAlert,
+  getRepositoryTourStepsText,
   gitModalSchema,
   handleCreationError,
   handleUpdateError,
   handleActivationError,
   handleSyncError,
   hasCheckedItem,
+  shouldHideRepositoryTourFooter,
   useGitSubmit,
 };

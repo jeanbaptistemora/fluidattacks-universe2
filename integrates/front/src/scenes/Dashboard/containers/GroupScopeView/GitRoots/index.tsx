@@ -365,12 +365,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         cloningStatus: currentRow.cloningStatus,
         credentials: _.isNull(currentRow.credentials)
           ? {
+              auth: "",
+              azureOrganization: "",
               id: "",
+              isPat: false,
               key: "",
               name: "",
               password: "",
               token: "",
               type: "",
+              typeCredential: "",
               user: "",
             }
           : currentRow.credentials,

@@ -1045,6 +1045,12 @@ export const enTranslations: ResourceKey = {
             sync: "Sync",
           },
           credentials: {
+            azureOrganization: {
+              text: "Azure Organization",
+              tooltip:
+                "The name of the azure organization related to the personal access token",
+            },
+            azureToken: "Azure DevOps PAT",
             checkAccess: {
               noAccess: "Credentials are invalid",
               success: "Success - Access checked!",
@@ -1075,6 +1081,7 @@ export const enTranslations: ResourceKey = {
             token: "Repository access token",
             type: "Credential Type",
             user: "Repository user",
+            userHttps: "User and Password",
           },
           environment: "Environment kind",
           environmentHint: "(production, qa or other)",
@@ -3832,7 +3839,7 @@ export const enTranslations: ResourceKey = {
         invalid: "Enter a valid credential and press check button",
         key: "Paste a valid SSH key.",
         name: "Enter a credential name.",
-        token: "Enter a valid repository token.",
+        token: "Enter a valid repository token and azure organization.",
         type: "Select a credential type.",
         user: "Enter a valid user and password.",
       },
