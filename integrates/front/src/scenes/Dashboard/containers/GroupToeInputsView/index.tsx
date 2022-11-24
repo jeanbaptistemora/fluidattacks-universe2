@@ -10,7 +10,6 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -184,7 +183,12 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       return "";
     }
 
-    return moment(date).format("YYYY-MM-DD");
+    // eslint-disable-next-line new-cap
+    return Intl.DateTimeFormat("fr-CA", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(date);
   };
 
   const handleUpdateToeInputBePresent: (
