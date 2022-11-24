@@ -32,7 +32,11 @@ def retry_cmd(
     max_retries: int,
 ) -> Cmd[Result[_S, MaxRetriesReached]]:
     cmds = from_range(range(0, max_retries + 1)).map(
-        lambda i: cmd.bind(lambda r: next_cmd(i, r))
+        lambda i: cmd.bind(
+            lambda r: next_cmd(i + 1, r)
+            if i + 1 <= max_retries
+            else Cmd.from_cmd(lambda: r)
+        )
     )
     return (
         from_piter(cmds)
@@ -47,22 +51,18 @@ def retry_cmd(
     )
 
 
-def delay(
-    index: int,
+def cmd_if_fail(
     result: Result[_S, _F],
-    max_retries: int,
-    delay_fx: Callable[[int], float],
+    cmd: Cmd[None],
 ) -> Cmd[Result[_S, _F]]:
-    def _delay_fx(err: _F, retry_num: int) -> Cmd[Result[_S, _F]]:
-        def _action() -> None:
-            if retry_num <= max_retries:
-                LOG.info("retry #%2s waiting...", retry_num)
-                sleep(delay_fx(retry_num))
-
-        return Cmd.from_cmd(_action).map(lambda _: Result.failure(err))
+    def _cmd(err: _F) -> Cmd[Result[_S, _F]]:
+        fail: Result[_S, _F] = Result.failure(err)
+        return cmd.map(lambda _: fail)
 
     return (
-        result.map(lambda _: Cmd.from_cmd(lambda: result))
-        .alt(lambda e: _delay_fx(e, index + 1))
-        .to_union()
+        result.map(lambda _: Cmd.from_cmd(lambda: result)).alt(_cmd).to_union()
     )
+
+
+def sleep_cmd(delay: float) -> Cmd[None]:
+    return Cmd.from_cmd(lambda: sleep(delay))

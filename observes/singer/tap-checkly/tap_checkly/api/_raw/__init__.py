@@ -145,14 +145,19 @@ class RawClient:
             retry: int,
             result: Result[JsonObj | FrozenList[JsonObj] | None, HTTPError],
         ) -> Cmd[Result[JsonObj | FrozenList[JsonObj] | None, HTTPError]]:
-            _delay = _retry.delay(
-                retry, result, self._max_retries, lambda i: i ^ 2
+            retry_msg = Cmd.from_cmd(
+                lambda: LOG.info("retry #%2s waiting...", retry)
             )
+            delay = _retry.sleep_cmd(retry ^ 2)
+            _delay = _retry.cmd_if_fail(result, retry_msg + delay)
 
             def _to_result(
                 item: JsonObj | FrozenList[JsonObj] | None,
             ) -> Result[JsonObj | FrozenList[JsonObj] | None, HTTPError]:
-                return Result.success(item)
+                result: Result[
+                    JsonObj | FrozenList[JsonObj] | None, HTTPError
+                ] = Result.success(item)
+                return result
 
             if endpoint.startswith("/v1/check-results"):
                 return (
