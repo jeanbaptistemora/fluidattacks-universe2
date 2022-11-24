@@ -1,6 +1,3 @@
-from .dal import (
-    update_finding_policy_status,
-)
 from aioextensions import (
     collect,
 )
@@ -34,9 +31,6 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
-)
-from dynamodb.types import (
-    OrgFindingPolicyState as OrgFindingPolicyStateLegacy,
 )
 from itertools import (
     chain,
@@ -135,13 +129,13 @@ async def handle_finding_policy_acceptance(
     if finding_policy.state.status != PolicyStateStatus.SUBMITTED:
         raise PolicyAlreadyHandled()
 
-    await update_finding_policy_status(
-        org_name=organization_name,
+    await polices_model.update(
+        organization_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyStateLegacy(
+        state=OrgFindingPolicyState(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status=status.value,
+            status=status,
         ),
     )
 
@@ -167,13 +161,13 @@ async def submit_finding_policy(
     }:
         raise PolicyAlreadyHandled()
 
-    await update_finding_policy_status(
-        org_name=organization_name,
+    await polices_model.update(
+        organization_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyStateLegacy(
+        state=OrgFindingPolicyState(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status=PolicyStateStatus.SUBMITTED.value,
+            status=PolicyStateStatus.SUBMITTED,
         ),
     )
 
@@ -196,13 +190,13 @@ async def deactivate_finding_policy(
     if finding_policy.state.status != PolicyStateStatus.APPROVED:
         raise PolicyAlreadyHandled()
 
-    await update_finding_policy_status(
-        org_name=organization_name,
+    await polices_model.update(
+        organization_name=organization_name,
         finding_policy_id=finding_policy_id,
-        status=OrgFindingPolicyStateLegacy(
+        state=OrgFindingPolicyState(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
-            status=PolicyStateStatus.INACTIVE.value,
+            status=PolicyStateStatus.INACTIVE,
         ),
     )
 

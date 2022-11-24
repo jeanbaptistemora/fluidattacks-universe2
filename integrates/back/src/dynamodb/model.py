@@ -2,27 +2,19 @@ from aioextensions import (
     collect,
 )
 from boto3.dynamodb.conditions import (
-    Attr,
     Key,
 )
 from context import (
     FI_DB_MODEL_PATH,
-)
-from custom_exceptions import (
-    OrgFindingPolicyNotFound,
 )
 from dynamodb import (
     keys,
     operations,
     tables,
 )
-from dynamodb.exceptions import (
-    ConditionalCheckFailedException,
-)
 from dynamodb.types import (
     Item,
     OrgFindingPolicyItem,
-    OrgFindingPolicyState,
     PrimaryKey,
 )
 from itertools import (
@@ -71,46 +63,6 @@ async def add_organization_finding_policy(
     items.append(historic_state_item)
 
     await operations.batch_put_item(items=tuple(items), table=TABLE)
-
-
-async def update_organization_finding_policy_state(
-    *, org_name: str, finding_policy_id: str, state: OrgFindingPolicyState
-) -> None:
-    key_structure = TABLE.primary_key
-    metadata_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_metadata"],
-        values={"name": org_name, "uuid": finding_policy_id},
-    )
-    item = {
-        "state": dict(state._asdict()),
-    }
-    try:
-        await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists(),
-            item=item,
-            key=metadata_key,
-            table=TABLE,
-        )
-    except ConditionalCheckFailedException as ex:
-        raise OrgFindingPolicyNotFound() from ex
-
-    historic_state_key = keys.build_key(
-        facet=TABLE.facets["org_finding_policy_historic_state"],
-        values={
-            "iso8601utc": state.modified_date,
-            "uuid": finding_policy_id,
-        },
-    )
-    historic_state_item = {
-        key_structure.partition_key: historic_state_key.partition_key,
-        key_structure.sort_key: historic_state_key.sort_key,
-        **dict(state._asdict()),
-    }
-    await operations.put_item(
-        facet=TABLE.facets["org_finding_policy_historic_state"],
-        item=historic_state_item,
-        table=TABLE,
-    )
 
 
 async def _get_historic_state_items(*, policy_id: str) -> tuple[Item, ...]:
