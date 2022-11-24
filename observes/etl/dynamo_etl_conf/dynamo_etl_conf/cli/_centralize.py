@@ -40,18 +40,14 @@ LOG = logging.getLogger(__name__)
 
 @click.command()  # type: ignore[misc]
 @click.option("--schema", type=str, required=True)  # type: ignore[misc]
-@click.option("--tables", type=click.File("r"), required=True, help="dynamodb tables")  # type: ignore[misc]
+@click.option("--tables", type=str, required=True, help="dynamodb tables separated by coma")  # type: ignore[misc]
 @pass_ctx  # type: ignore[misc]
 def dynamo_tables(
     ctx: CmdContext,
     schema: str,
-    tables: IO[str],
+    tables: str,
 ) -> NoReturn:
-    _tables = (
-        load(tables)
-        .bind(lambda j: Unfolder(j["tables"]).to_list_of(str))
-        .unwrap()
-    )
+    _tables = tuple(tables.split(","))
     conn = connect(
         ctx.db_id,
         ctx.creds,
