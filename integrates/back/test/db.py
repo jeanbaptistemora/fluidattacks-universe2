@@ -23,6 +23,7 @@ from db_model import (
     group_comments as group_comments_model,
     groups as groups_model,
     organization_access as org_access_model,
+    organization_finding_policies as policies_model,
     organizations as orgs_model,
     roots as roots_model,
     stakeholders as stakeholders_model,
@@ -64,6 +65,9 @@ from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
 )
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -89,14 +93,8 @@ from db_model.toe_ports.types import (
 from db_model.types import (
     PoliciesToUpdate,
 )
-from dynamodb.types import (
-    OrgFindingPolicyItem,
-)
 from newutils import (
     datetime as datetime_utils,
-)
-from organizations_finding_policies import (
-    dal as dal_policies,
 )
 from typing import (
     Any,
@@ -556,15 +554,10 @@ async def populate_policies(data: list[Any]) -> bool:
 
 
 async def populate_organization_finding_policies(
-    data: tuple[OrgFindingPolicyItem, ...]
+    data: tuple[OrgFindingPolicy, ...]
 ) -> bool:
     await collect(
-        [
-            dal_policies.add_organization_finding_policy(
-                finding_policy=finding_policy
-            )
-            for finding_policy in data
-        ]
+        policies_model.add(policy=finding_policy) for finding_policy in data
     )
 
     return True

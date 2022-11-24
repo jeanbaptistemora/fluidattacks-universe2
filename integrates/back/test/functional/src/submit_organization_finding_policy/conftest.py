@@ -2,9 +2,11 @@
 from back.test import (
     db,
 )
-from dynamodb.types import (
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
+from db_model.organization_finding_policies.enums import (
+    PolicyStateStatus,
+)
+from db_model.organization_finding_policies.types import (
+    OrgFindingPolicy,
     OrgFindingPolicyState,
 )
 import pytest
@@ -22,43 +24,37 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     test_date = "2021-05-19T13:37:10+00:00"
     data: Dict[str, Any] = {
         "organization_finding_policies": (
-            OrgFindingPolicyItem(
-                org_name="orgtest",
+            OrgFindingPolicy(
+                organization_name="orgtest",
                 id="dd63f2df-522d-4bfa-ad85-837832c71164",
-                metadata=OrgFindingPolicyMetadata(
-                    name="031. Excessive privileges - AWS",
-                    tags=set(),
-                ),
+                name="031. Excessive privileges - AWS",
+                tags=set(),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
                     modified_date=test_date,
-                    status="REJECTED",
+                    status=PolicyStateStatus.REJECTED,
                 ),
             ),
-            OrgFindingPolicyItem(
-                org_name="orgtest",
+            OrgFindingPolicy(
+                organization_name="orgtest",
                 id="3be367f9-b06c-4f72-ab77-38268045a8ff",
-                metadata=OrgFindingPolicyMetadata(
-                    name="037. Technical information leak",
-                    tags=set(),
-                ),
+                name="037. Technical information leak",
+                tags=set(),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
                     modified_date=test_date,
-                    status="INACTIVE",
+                    status=PolicyStateStatus.INACTIVE,
                 ),
             ),
-            OrgFindingPolicyItem(
-                org_name="orgtest",
+            OrgFindingPolicy(
+                organization_name="orgtest",
                 id="f3f19b09-00e5-4bc7-b9ea-9999c9fe9f87",
-                metadata=OrgFindingPolicyMetadata(
-                    name="081. Lack of multi-factor authentication",
-                    tags=set(),
-                ),
+                name="081. Lack of multi-factor authentication",
+                tags=set(),
                 state=OrgFindingPolicyState(
                     modified_by=test_email,
                     modified_date=test_date,
-                    status="ACTIVE",
+                    status=PolicyStateStatus.ACTIVE,
                 ),
             ),
         )
