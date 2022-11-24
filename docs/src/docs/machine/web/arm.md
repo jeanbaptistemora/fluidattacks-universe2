@@ -50,7 +50,8 @@ We adopt our customers' policies.
 
 All customer data is consolidated
 in this ARM's section.
-Each organization has a data bucket
+Each [organization](/machine/web/creating-organization)
+has a data bucket
 that only users of that organization
 can access.
 
@@ -67,50 +68,11 @@ Information presented,
 among others,
 includes the following:
 
-- Vulnerabilities over time
+- Exposure over time
 - Vulnerability status
 - Vulnerability treatment
-- Average remediation time
-- Top vulnerabilities
-
-### Portfolios
-
-In the Analytics subsection,
-you have the data of all your groups.
-But if you want analytics for only a subset,
-you can go to the Portfolios subsection
-(we employ the same charts and indicators).
-
-Please check the tags
-in [Scope](/machine/web/arm#scope)
-for more information.
-
-### Stakeholders
-
-Some users can access
-your organization's data,
-but this permission
-does not guarantee access
-to groups or vulnerabilities,
-only access to organization-level analytics and policies.
-
-### Policies
-
-You can use vulnerability treatments
-to plan remediation.
-To control the correct use of them,
-you can define rules
-that will apply to all groups
-in your organization.
-
-Policies to define:
-
-1. Maximum number of calendar days
-  a finding can be temporarily accepted
-1. Temporary CVSS 3.1 score range
-  within which a finding can be accepted
-1. Maximum number of times
-  a finding can be temporarily accepted
+- Open vulnerabilities
+- Exposure management over time
 
 ### Groups
 
@@ -320,6 +282,45 @@ Some vulnerabilities
 can expose customer information;
 for context,
 we share the disclosed information in this section.
+
+### Portfolios
+
+In the Analytics subsection,
+you have the data of all your groups.
+But if you want analytics for only a subset,
+you can go to the Portfolios subsection
+(we employ the same charts and indicators).
+
+Please check the tags
+in [Scope](/machine/web/arm#scope)
+for more information.
+
+### Stakeholders
+
+Some users can access
+your organization's data,
+but this permission
+does not guarantee access
+to groups or vulnerabilities,
+only access to organization-level analytics and policies.
+
+### Policies
+
+You can use vulnerability treatments
+to plan remediation.
+To control the correct use of them,
+you can define rules
+that will apply to all groups
+in your organization.
+
+Policies to define:
+
+1. Maximum number of calendar days
+  a finding can be temporarily accepted
+1. Temporary CVSS 3.1 score range
+  within which a finding can be accepted
+1. Maximum number of times
+  a finding can be temporarily accepted
 
 ## Update
 
