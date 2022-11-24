@@ -695,6 +695,7 @@ const Machine = [
           },
           "machine/web/vulnerabilities/reporting-vulns",
           "machine/web/vulnerabilities/delete",
+          "machine/web/vulnerabilities/creating-an-event",
         ],
       },
       {
