@@ -13,6 +13,7 @@ import {
   Select,
   TextArea,
 } from ".";
+import { FormikNumber } from "components/Input/Formik";
 
 const schema = object().shape({
   input: string().required(),
@@ -89,5 +90,57 @@ describe("Input", (): void => {
     await user.type(screen.getByRole("spinbutton", { name: "number" }), "3");
 
     expect(screen.queryByRole("spinbutton")).toHaveValue(3);
+  });
+
+  it("should increase value by 1", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnChange: jest.Mock = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <FormikNumber
+        field={{
+          name: "name",
+          onBlur: (): void => undefined,
+          onChange: (event: React.ChangeEvent<HTMLInputElement>): void => {
+            handleOnChange(event.target.value);
+          },
+          value: "3",
+        }}
+        form={{ errors: {}, touched: {} }}
+        label={"label"}
+        name={"name"}
+      />
+    );
+
+    await user.click(screen.getAllByRole("button")[1]);
+
+    expect(handleOnChange).toHaveBeenCalledWith("4");
+  });
+
+  it("should decrease value by 1", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnChange: jest.Mock = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <FormikNumber
+        field={{
+          name: "name",
+          onBlur: (): void => undefined,
+          onChange: (event: React.ChangeEvent<HTMLInputElement>): void => {
+            handleOnChange(event.target.value);
+          },
+          value: "3",
+        }}
+        form={{ errors: {}, touched: {} }}
+        label={"label"}
+        name={"name"}
+      />
+    );
+
+    await user.click(screen.getAllByRole("button")[0]);
+
+    expect(handleOnChange).toHaveBeenCalledWith("2");
   });
 });
