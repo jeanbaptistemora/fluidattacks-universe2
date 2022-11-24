@@ -31,7 +31,7 @@ you need to enter the vulnerability
 and click on the button **Bulk edit**
 to enable the edition of vulnerabilities.
 
-![Vulnerabilities Deletion Enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211887/docs/web/vulnerabilities/deleting-vulns/vulns_delete_enabled_vhdnyp.webp)
+![Vulnerabilities Deletion Enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1669248328/docs/web/vulnerabilities/deleting-vulns/delete.png)
 
 After this
 you need to locate the vulnerabilities
@@ -40,7 +40,7 @@ and then click on the trash icon
 to the right of the window
 for a pop-up to show up.
 
-![Delete Vulnerabilities Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/web/vulnerabilities/deleting-vulns/delete_vuln_modal_iwybji.webp)
+![Delete Vulnerabilities Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1669248544/docs/web/vulnerabilities/deleting-vulns/delete_justification.png)
 
 Here you can select
 between three options
@@ -55,7 +55,7 @@ which can be one of the following:
   it was determined
   that the finding or vulnerability
   was not.
-- **Error when reporting:**
+- **Error while reporting:**
   Given that a vulnerability
   cannot be edited,
   this option must be selected
@@ -64,7 +64,7 @@ which can be one of the following:
   that corrects it.
 
 After this you may click on
-the **Proceed** button
+the **Confirm** button
 to complete the deletion process
 or you can click on the **Cancel** button
 to dismiss it.
