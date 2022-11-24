@@ -91,6 +91,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
     secureCodeReview: [
       "/blog/differences-between-sast-sca-dast/",
       "/blog/sastisfying-app-security/",
+      "/blog/secure-coding-practices/",
       "/blog/secure-code-review/",
     ],
     securityTesting: [
