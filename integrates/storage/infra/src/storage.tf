@@ -1,11 +1,7 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
 variable "branch" {}
 
 locals {
-  endpoint = var.branch == "trunk" ? "prod.integrates" : "${var.branch}.integrates"
+  endpoint = "integrates.${var.branch}"
   tags = {
     area = var.branch == "trunk" ? "cost" : "innovation"
   }
