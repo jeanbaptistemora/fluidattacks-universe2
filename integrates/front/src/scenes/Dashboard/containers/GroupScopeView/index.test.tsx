@@ -285,10 +285,65 @@ describe("GroupScopeView", (): void => {
       screen.getByRole("textbox", { name: "environment" }),
       "production"
     );
+
+    expect(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" })
+    ).toHaveValue("");
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["SSH"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "credentials.key" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.password" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.user" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.token" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "credentials.name" })
+    );
     await userEvent.type(
       screen.getByRole("textbox", { name: "credentials.name" }),
       "credential name"
     );
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["USER"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "credentials.user" })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.key" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.token" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.password" })
+    ).toBeInTheDocument();
+
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "credentials.typeCredential" }),
       ["TOKEN"]
