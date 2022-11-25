@@ -18,6 +18,9 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
+from fa_purity.json.primitive.factory import (
+    to_primitive,
+)
 from fa_purity.utils import (
     raise_exception,
 )
@@ -110,6 +113,32 @@ class RawFileCommitClient:
             )
 
         return files.map(lambda f: tuple(_build_relation(i) for i in f))
+
+    def has_files(self, id_obj: CommitDataId) -> Cmd[bool]:
+        statement = """
+        SELECT EXISTS (
+            SELECT 1 FROM {schema}.{table} WHERE
+                hash = %(hash)s
+                and namespace = %(namespace)s
+                and repository = %(repository)s
+        )
+        """
+        identifiers: Dict[str, str] = {
+            "schema": self._table.schema.name,
+            "table": self._table.name,
+        }
+        values: Dict[str, PrimitiveVal] = {
+            "hash": id_obj.hash.hash,
+            "namespace": id_obj.repo.namespace,
+            "repository": id_obj.repo.repository,
+        }
+        query = Query.dynamic_query(statement, freeze(identifiers))
+
+        return self._sql_client.execute(
+            query, QueryValues(freeze(values))
+        ) + self._sql_client.fetch_one().map(lambda x: x.unwrap()).map(
+            lambda r: to_primitive(r.data[0], bool).alt(Exception).unwrap()
+        )
 
     def init_table(self) -> Cmd[None]:
         statement = """
