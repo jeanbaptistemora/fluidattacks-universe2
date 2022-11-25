@@ -95,6 +95,7 @@ locals {
           Resource = [
             "arn:aws:s3:::docs-dev.fluidattacks.com",
             "arn:aws:s3:::docs-dev.fluidattacks.com/*",
+            "arn:aws:s3:::fluidattacks-terraform-states-prod/env:/*atfluid/*",
             "arn:aws:s3:::integrates/analytics/*atfluid",
             "arn:aws:s3:::integrates/analytics/*atfluid/*",
             "arn:aws:s3:::integrates/continuous-repositories/continuoustest*/*",
