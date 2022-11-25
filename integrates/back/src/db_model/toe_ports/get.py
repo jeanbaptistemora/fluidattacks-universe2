@@ -37,40 +37,48 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
-    List,
 )
 
 
-async def _get_toe_port(request: ToePortRequest) -> ToePort:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["toe_port_metadata"],
-        values={
-            "address": request.address,
-            "port": request.port,
-            "group_name": request.group_name,
-            "root_id": request.root_id,
-        },
+async def _get_toe_ports(
+    requests: tuple[ToePortRequest, ...]
+) -> tuple[ToePort, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["toe_port_metadata"],
+            values={
+                "address": request.address,
+                "port": request.port,
+                "group_name": request.group_name,
+                "root_id": request.root_id,
+            },
+        )
+        for request in requests
     )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).eq(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["toe_port_metadata"],),
-        table=TABLE,
-    )
-    if not response.items:
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+    if len(items) != len(requests):
         raise ToePortNotFound()
-    return format_toe_port(response.items[0])
+
+    response = {
+        ToePortRequest(
+            address=toe_port.address,
+            group_name=toe_port.group_name,
+            port=toe_port.port,
+            root_id=toe_port.root_id,
+        ): toe_port
+        for toe_port in tuple(format_toe_port(item) for item in items)
+    }
+
+    return tuple(response[request] for request in requests)
 
 
 class ToePortLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[ToePortRequest]
+        self, requests: Iterable[ToePortRequest]
     ) -> Iterable[ToePort]:
-        return await collect(tuple(map(_get_toe_port, requests)))
+        return await _get_toe_ports(tuple(requests))
 
 
 async def _get_toe_ports_by_group(
@@ -124,7 +132,7 @@ async def _get_toe_ports_by_group(
 class GroupToePortsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[GroupToePortsRequest]
+        self, requests: Iterable[GroupToePortsRequest]
     ) -> Iterable[ToePortsConnection]:
         return await collect(tuple(map(_get_toe_ports_by_group, requests)))
 
@@ -189,7 +197,7 @@ async def _get_toe_ports_by_root(
 class RootToePortsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[RootToePortsRequest]
+        self, requests: Iterable[RootToePortsRequest]
     ) -> Iterable[ToePortsConnection]:
         return await collect(tuple(map(_get_toe_ports_by_root, requests)))
 

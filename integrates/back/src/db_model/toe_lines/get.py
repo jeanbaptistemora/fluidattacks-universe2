@@ -36,40 +36,47 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
-    List,
-    Tuple,
+    Iterable,
 )
 
 
-async def get_toe_lines(request: ToeLinesRequest) -> ToeLines:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["toe_lines_metadata"],
-        values={
-            "group_name": request.group_name,
-            "root_id": request.root_id,
-            "filename": request.filename,
-        },
+async def _get_toe_lines(
+    requests: tuple[ToeLinesRequest, ...]
+) -> tuple[ToeLines, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["toe_lines_metadata"],
+            values={
+                "group_name": request.group_name,
+                "root_id": request.root_id,
+                "filename": request.filename,
+            },
+        )
+        for request in requests
     )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).eq(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["toe_lines_metadata"],),
-        table=TABLE,
-    )
-    if not response.items:
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+    if len(items) != len(requests):
         raise ToeLinesNotFound()
-    return format_toe_lines(item=response.items[0])
+
+    response = {
+        ToeLinesRequest(
+            filename=toe_lines.filename,
+            group_name=toe_lines.group_name,
+            root_id=toe_lines.root_id,
+        ): toe_lines
+        for toe_lines in tuple(format_toe_lines(item) for item in items)
+    }
+
+    return tuple(response[request] for request in requests)
 
 
 class ToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[ToeLinesRequest]
-    ) -> Tuple[ToeLines, ...]:
-        return await collect(tuple(map(get_toe_lines, requests)))
+        self, requests: Iterable[ToeLinesRequest]
+    ) -> tuple[ToeLines, ...]:
+        return await _get_toe_lines(tuple(requests))
 
 
 async def _get_toe_lines_by_group(
@@ -123,13 +130,13 @@ async def _get_toe_lines_by_group(
 class GroupToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[GroupToeLinesRequest]
-    ) -> Tuple[ToeLinesConnection, ...]:
+        self, requests: Iterable[GroupToeLinesRequest]
+    ) -> tuple[ToeLinesConnection, ...]:
         return await collect(tuple(map(_get_toe_lines_by_group, requests)))
 
     async def load_nodes(
         self, request: GroupToeLinesRequest
-    ) -> Tuple[ToeLines, ...]:
+    ) -> tuple[ToeLines, ...]:
         connection: ToeLinesConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
 
@@ -188,12 +195,12 @@ async def _get_toe_lines_by_root(
 class RootToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: List[RootToeLinesRequest]
-    ) -> Tuple[ToeLinesConnection, ...]:
+        self, requests: Iterable[RootToeLinesRequest]
+    ) -> tuple[ToeLinesConnection, ...]:
         return await collect(tuple(map(_get_toe_lines_by_root, requests)))
 
     async def load_nodes(
         self, request: RootToeLinesRequest
-    ) -> Tuple[ToeLines, ...]:
+    ) -> tuple[ToeLines, ...]:
         connection: ToeLinesConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
