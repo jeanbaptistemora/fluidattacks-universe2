@@ -75,7 +75,7 @@ class Extractor:
         )
         return Maybe.from_value(stamp)
 
-    def extract_data(self, repo: Repo) -> PureIter[CommitStamp]:
+    def extract_all(self, repo: Repo) -> PureIter[GitCommit]:
         # using `unsafe_from_cmd` assumes the repository
         # is read-only/unmodified
         _commits: Cmd[Iterable[GitCommit]] = Cmd.from_cmd(
@@ -84,9 +84,10 @@ class Extractor:
                 repo.iter_commits(no_merges=True, topo_order=True),
             ),
         )
-        commits: PureIter[GitCommit] = unsafe_from_cmd(_commits)
+        return unsafe_from_cmd(_commits)
 
-        return until_empty(commits.map(self._to_stamp))
+    def extract_new_data(self, repo: Repo) -> PureIter[CommitStamp]:
+        return until_empty(self.extract_all(repo).map(self._to_stamp))
 
     def extract_repo(self) -> Maybe[RepoRegistration]:
         if self._context.is_new:

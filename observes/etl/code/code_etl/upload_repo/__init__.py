@@ -40,9 +40,6 @@ from pathlib import (
 from pathos.threading import (  # type: ignore[import]
     ThreadPool,
 )
-from redshift_client.id_objs import (
-    TableId,
-)
 from redshift_client.sql_client import (
     new_client,
 )
@@ -70,7 +67,7 @@ def upload_or_register(
     LOG.debug("upload_or_register")
     LOG.debug(extractor.extract_repo())
     _register = actions.register(client, extractor.extract_repo())
-    _upload = actions.upload_stamps(client, extractor.extract_data(repo))
+    _upload = actions.upload_stamps(client, extractor.extract_new_data(repo))
     return _register.bind(lambda _: _upload)
 
 
@@ -97,11 +94,8 @@ def upload(
         lambda: LOG.error("InvalidGitRepositoryError at %s", repo_id)
     )
     return repo.map(
-        lambda r: info.bind(
-            lambda _: extractor.bind(
-                lambda ext: upload_or_register(client, ext, r)
-            )
-        )
+        lambda r: info
+        + extractor.bind(lambda ext: upload_or_register(client, ext, r))
     ).value_or(report)
 
 
