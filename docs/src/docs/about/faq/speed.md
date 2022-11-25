@@ -71,16 +71,6 @@ Subscription is based on the number of active developers
 in the project,
 which defines the number of resources allocated.
 
-## How can your manual reviews keep up with a client's big app portfolio?
-
-Based on our historical data,
-and thanks to our recruitment
-and training capabilities,
-as well as our ability
-to innovate internal processes,
-we are fully capable of taking on between **5** and **10**
-new applications each month.
-
 ## How long does it take you to review a new commit?
 
 The goal is **100% coverage**.
