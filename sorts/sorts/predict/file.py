@@ -22,6 +22,7 @@ from sorts.integrates.dal import (
 )
 from sorts.utils.logs import (
     log,
+    log_exception,
 )
 from sorts.utils.predict import (
     display_results,
@@ -77,7 +78,10 @@ def get_toes_to_update(
         )
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
         for toe_lines in group_toe_lines:
-            if toe_lines.filename == predicted_file_filename:
+            if (
+                toe_lines.filename == predicted_file_filename
+                and toe_lines.root_nickname == predicted_nickname
+            ):
                 toes_to_update.append(
                     ToeLines(
                         attacked_lines=toe_lines.attacked_lines,
@@ -87,7 +91,18 @@ def get_toes_to_update(
                         sorts_risk_level=predicted_file_prob,  # type: ignore
                     )
                 )
-                skipped_toes.remove(toe_lines)
+                try:
+                    skipped_toes.remove(toe_lines)
+                except ValueError as exc:
+                    log_exception(
+                        "warning",
+                        exc,
+                        message=(
+                            "Couldn't remove file "
+                            f"{toe_lines.root_nickname}/{toe_lines.filename} "
+                            "from skipped ToEs"
+                        ),
+                    )
                 break
 
     return toes_to_update, skipped_toes
@@ -105,6 +120,15 @@ def update_integrates_toes(
             group_toe_lines, reader
         )
         with ThreadPoolExecutor(max_workers=8) as executor:
+            for skipped_toe in skipped_toes:
+                executor.submit(
+                    update_toe_lines_sorts,
+                    group_name,
+                    skipped_toe.root_nickname,
+                    skipped_toe.filename,
+                    "1970-01-01",
+                )
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for toe_lines in toes_to_update:
                 executor.submit(
                     update_toe_lines_sorts,
@@ -113,15 +137,6 @@ def update_integrates_toes(
                     toe_lines.filename,
                     current_date,
                     toe_lines.sorts_risk_level,  # type: ignore
-                )
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            for skipped_toe in skipped_toes:
-                executor.submit(
-                    update_toe_lines_sorts,
-                    group_name,
-                    skipped_toe.root_nickname,
-                    skipped_toe.filename,
-                    "1970-01-01",
                 )
         log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
 
