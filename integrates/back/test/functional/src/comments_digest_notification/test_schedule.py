@@ -22,9 +22,11 @@ async def test_comments_digest_notification(
 ) -> None:
     assert populate
     mail_spy = mocker.spy(comments_digest, "mail_comments_digest")
+    comments_digest_spy = mocker.spy(comments_digest, "digest_comments")
 
     await comments_digest.main()
 
+    assert comments_digest_spy.call_count == 3
     assert mail_spy.call_count == 1
     mail_spy.assert_any_call(
         loaders=mock.ANY,
