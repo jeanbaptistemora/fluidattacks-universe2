@@ -1,7 +1,7 @@
 ---
 slug: solutions/ethical-hacking/
-title: 'Ethical Hacking: Security testing by expert intelligence'
-description: You can give Fluid Attacks’ ethical hackers permission to search for and discover what unethical hackers might exploit in your IT systems.
+title: 'Ethical Hacking: Security testing services by experts'
+description: You can have Fluid Attacks' ethical hackers constantly search for and find what threat actors might exploit in your IT systems, outdoing other hacking services.
 keywords: Fluid Attacks, Solutions, Ethical Hacking, Security, Continuous Hacking, Vulnerability
 identifier: Ethical Hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-ethical-hacking_zuhkms.webp

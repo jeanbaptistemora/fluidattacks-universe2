@@ -1056,8 +1056,9 @@ const pageTexts: ResourceKey = {
     },
     ethicalHacking: {
       paragraph:
-        "You can give our ethical hackers permission to search for and " +
-        "discover what unethical hackers might exploit in your IT systems.",
+        "You can have our ethical hackers constantly search for and " +
+        "find what threat actors might exploit in your IT systems," +
+        "outdoing other hacking services.",
       subtitle: "Ethical Hacking",
     },
     homeCards: {
@@ -1075,8 +1076,9 @@ const pageTexts: ResourceKey = {
       },
       ethicalHacking: {
         paragraph:
-          "You can give our ethical hackers permission to search for and discover " +
-          "what unethical hackers might exploit in your IT systems.",
+          "You can have our ethical hackers constantly search for and find " +
+          "what threat actors might exploit in your IT systems, outdoing " +
+          "other hacking services.",
         title: "Ethical Hacking",
       },
       penetrationTesting: {
