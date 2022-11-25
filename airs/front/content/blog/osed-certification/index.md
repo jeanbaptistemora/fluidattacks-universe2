@@ -7,7 +7,7 @@ category: interview
 tags: cybersecurity, red-team, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627390773/blog/osed-certification/cover-osed-certification_hspd3l.webp
 alt: Photo by Austin Park on Unsplash
-description: Óscar Uribe obtained the Offensive Security Exploit Developer (OSED) certification on June 15th. Here we talk to him about this achievement.
+description: Óscar Uribe obtained the Offensive Security Exploit Developer (OSED) certification on June 15. Here we talk to him about this achievement.
 keywords: Osed, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Course, Pentesting
 author: Felipe Zárate
 writer: fzarate
@@ -16,7 +16,7 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/JdSXY1nC5rc
 ---
 
-In this blog, we speak with **Óscar Uribe**, one of our **Security
+In this blog post, we speak with **Óscar Uribe**, one of our **Security
 Analysts**, who will complete two years with `Fluid Attacks`. We
 congratulate him for his achievement by obtaining **The Offensive
 Security Exploit Developer** (**OSED**) certification.
@@ -85,7 +85,7 @@ documentation.**
 **How to be prepared for such a long exam?**
 
 1. Usually, Offensive Security certifications are very long. That means
-    you always must be prepared for a long day. Hence it is important to
+    you always must be prepared for a long day. So it is important to
     take breaks from time to time to have a clear mind and not feel so
     exhausted.
 
@@ -134,8 +134,8 @@ prepared for the exam?**
     material is sufficient to pass the certification.
 
 2. **The exam is a roller coaster of emotions**. There are moments
-    where you feel bad because you have not advanced for a while, but
-    then you find something that had been missed and allows you to move
+    when you feel bad because you have not advanced for a while, but
+    then you find something that you had missed and allows you to move
     forward. When that happens, you get a boost of encouragement and
     confidence to continue with the exam.
 
@@ -170,14 +170,14 @@ that?**
 
 **Any tips for preparing for this particular exam?**
 
-1. I would recommend that before starting the course, you should study
+1. I would recommend that before starting the course, you study
     Reverse Engineering, Buffer Overflows and techniques to exploit
     them. Because the better these topics are understood, the better
     your performance will be during the exam and the course.
 
 **What’s next after this certification?**
 
-1. After this certification, I want to present the **OSEP**. Suppose
+1. After this certification, I want to take the **OSEP**. Suppose
     someone obtains the **[OSWE](../../about-us/certifications/oswe/)**,
     **OSED** and **OSEP** certifications. In that case, they are given a
     new certificate called **OSCE3**, which replaces the
@@ -189,7 +189,7 @@ Thank you so much, Oscar, for your time in sharing your experience with
 the OSED certification.
 
 We at `Fluid Attacks` are very proud of Oscar's achievement\!
-We do not stop at our mission
+We do not stop in our mission
 to offer the best [red team](../../solutions/red-teaming/) to our clients.
 That's why we are constantly facing new challenges
 and strengthening our [ethical hacking](../../solutions/ethical-hacking/)
@@ -199,3 +199,10 @@ If you want to [know more about the
 certifications](../certificates-comparison-i/) that the members of our
 red team have obtained, you can follow this
 [link](../../about-us/certifications/).
+
+Contact us
+if you want our red team to search for complex vulnerabilities
+in your software.
+Or enjoy our offer now of a [21-day free trial](../../free-trial/)
+of security testing with our automated tools.
+You can upgrade at any time to include red team operations.
