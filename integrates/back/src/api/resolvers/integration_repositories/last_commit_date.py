@@ -1,12 +1,12 @@
 from azure.devops.v6_0.git.models import (
     GitCommit,
 )
-from azure_repositories.types import (
-    CredentialsGitRepository,
-    CredentialsGitRepositoryCommit,
-)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.azure_repositories.types import (
+    CredentialsGitRepository,
+    CredentialsGitRepositoryCommit,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,

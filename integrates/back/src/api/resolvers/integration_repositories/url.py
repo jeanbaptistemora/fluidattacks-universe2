@@ -1,4 +1,4 @@
-from azure_repositories.types import (
+from db_model.azure_repositories.types import (
     CredentialsGitRepository,
 )
 from graphql.type.definition import (

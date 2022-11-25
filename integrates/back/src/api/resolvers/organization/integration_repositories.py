@@ -4,14 +4,14 @@ from aioextensions import (
 from azure.devops.v6_0.git.models import (
     GitRepository,
 )
-from azure_repositories.types import (
-    CredentialsGitRepository,
-)
-from azure_repositories.utils import (
-    filter_urls,
-)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.azure_repositories.types import (
+    CredentialsGitRepository,
+)
+from db_model.azure_repositories.utils import (
+    filter_urls,
 )
 from db_model.credentials.types import (
     Credentials,

@@ -6,22 +6,22 @@ from azure.devops.v6_0.git.models import (
     GitRepository,
     GitRepositoryStats,
 )
-from azure_repositories.dal import (
-    get_repositories_stats,
-)
-from azure_repositories.types import (
-    CredentialsGitRepository,
-    CredentialsGitRepositoryCommit,
-)
-from azure_repositories.utils import (
-    filter_urls,
-)
 from botocore.exceptions import (
     ClientError,
 )
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.azure_repositories.get import (
+    get_repositories_stats,
+)
+from db_model.azure_repositories.types import (
+    CredentialsGitRepository,
+    CredentialsGitRepositoryCommit,
+)
+from db_model.azure_repositories.utils import (
+    filter_urls,
 )
 from db_model.credentials.types import (
     Credentials,

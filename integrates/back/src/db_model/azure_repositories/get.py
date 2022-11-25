@@ -21,7 +21,7 @@ from azure.devops.v6_0.git.models import (
     GitRepository,
     GitRepositoryStats,
 )
-from azure_repositories.types import (
+from db_model.azure_repositories.types import (
     CredentialsGitRepositoryCommit,
 )
 from db_model.credentials.types import (

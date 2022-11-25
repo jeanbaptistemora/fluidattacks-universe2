@@ -218,15 +218,15 @@ async def test_get_organization_ver_1(
     )
 
     with mock.patch(
-        "azure_repositories.dal._get_repositories",
+        "db_model.azure_repositories.get._get_repositories",
         side_effect=get_repositories,
     ):
         with mock.patch(
-            "azure_repositories.dal._get_repositories_commits",
+            "db_model.azure_repositories.get._get_repositories_commits",
             side_effect=get_repositories_commits,
         ):
             with mock.patch(
-                "azure_repositories.dal._get_repositories_stats",
+                "db_model.azure_repositories.get._get_repositories_stats",
                 side_effect=get_repositories_stats,
             ):
                 await main()

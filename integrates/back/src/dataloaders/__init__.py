@@ -1,9 +1,9 @@
-from azure_repositories.dal import (
-    OrganizationRepositoriesCommitsLoader,
-    OrganizationRepositoriesLoader,
-)
 from collections import (
     defaultdict,
+)
+from db_model.azure_repositories.get import (
+    OrganizationRepositoriesCommitsLoader,
+    OrganizationRepositoriesLoader,
 )
 from db_model.companies.get import (
     CompanyLoader,
