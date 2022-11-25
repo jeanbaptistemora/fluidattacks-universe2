@@ -1,3 +1,6 @@
+from decimal import (
+    Decimal,
+)
 from forces.model import (
     Finding,
     ForcesConfig,
@@ -88,7 +91,7 @@ def test_filter_repo() -> None:
         where="somewhere",
         specific="port 21",
         state=VulnerabilityState.OPEN,
-        severity=6.0,
+        severity=Decimal("6.0"),
         report_date="",
         exploitability=4.5,
         root_nickname=None,

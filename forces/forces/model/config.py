@@ -1,3 +1,6 @@
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
@@ -27,5 +30,5 @@ class ForcesConfig(NamedTuple):
     repository_name: str | None = None
     strict: bool | None = False
     verbose_level: int = 3
-    breaking_severity: float = 0.0
+    breaking_severity: Decimal = Decimal("0.0")
     grace_period: int = 0

@@ -1,3 +1,6 @@
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
@@ -19,6 +22,6 @@ class Finding(NamedTuple):
     title: str
     state: FindingState
     exploitability: float
-    severity: float
+    severity: Decimal
     url: str
     vulnerabilities: list[Vulnerability]

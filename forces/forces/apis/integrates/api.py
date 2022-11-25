@@ -4,6 +4,9 @@ import asyncio
 from datetime import (
     datetime,
 )
+from decimal import (
+    Decimal,
+)
 from forces.apis.integrates.client import (
     ApiError,
     execute,
@@ -220,7 +223,7 @@ async def upload_report(
     report: ForcesData,
     log_file: str,
     git_metadata: dict[str, str],
-    severity_threshold: float,
+    severity_threshold: Decimal,
     **kwargs: datetime | str | int,
 ) -> bool:
     """
@@ -319,7 +322,7 @@ async def upload_report(
         "log": open(log_file, "rb"),
         "strictness": kwargs.pop("strictness"),
         "grace_period": kwargs.pop("grace_period"),
-        "severity_threshold": severity_threshold,
+        "severity_threshold": float(severity_threshold),
         "kind": kwargs.pop("kind", "all"),
     }
 

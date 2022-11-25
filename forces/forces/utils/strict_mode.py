@@ -2,6 +2,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from decimal import (
+    Decimal,
+)
 from forces.model import (
     Finding,
     ForcesConfig,
@@ -14,14 +17,16 @@ from forces.utils.logs import (
 
 def choose_min_breaking_severity(
     global_brk_severity: float | None, local_brk_severity: float | None
-) -> float:
-    global_brk_severity = (
-        float(global_brk_severity) if global_brk_severity is not None else 0.0
+) -> Decimal:
+    global_severity: Decimal = (
+        Decimal(str(global_brk_severity))
+        if global_brk_severity is not None
+        else Decimal("0.0")
     )
     return (
-        float(local_brk_severity)
+        Decimal(str(local_brk_severity))
         if local_brk_severity is not None
-        else global_brk_severity
+        else global_severity
     )
 
 
@@ -60,7 +65,7 @@ async def set_forces_exit_code(
                         "warning",
                         (
                             "Found an open vulnerability with a severity of "
-                            f"{vuln.severity} reported {time_diff.days} "
+                            f"{vuln.severity} reported {abs(time_diff.days)} "
                             "day(s) ago"
                         ),
                     )

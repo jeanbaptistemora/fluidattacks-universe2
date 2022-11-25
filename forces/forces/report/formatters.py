@@ -1,4 +1,7 @@
 import asyncio
+from decimal import (
+    Decimal,
+)
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
@@ -30,7 +33,7 @@ async def create_findings_dict(
             title=str(find["title"]),
             state=FindingState[str(find["state"]).upper()],
             exploitability=float(find["exploitability"]),
-            severity=float(find["severityScore"]),
+            severity=Decimal(str(find["severityScore"])),
             url=(
                 "https://app.fluidattacks.com/groups/"
                 f"{group}/vulns/{find['id']}"

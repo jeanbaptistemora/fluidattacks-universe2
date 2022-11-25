@@ -2,6 +2,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from decimal import (
+    Decimal,
+)
 from forces.model import (
     Finding,
     FindingState,
@@ -23,7 +26,7 @@ async def test_set_exit_code() -> None:
         title="dummy title",
         state=FindingState.OPEN,
         exploitability=5.0,
-        severity=5.1,
+        severity=Decimal("5.1"),
         url="https://dummy-url.com",
         vulnerabilities=[
             Vulnerability(
@@ -31,7 +34,7 @@ async def test_set_exit_code() -> None:
                 where="somewhere",
                 specific="port 21",
                 state=VulnerabilityState.OPEN,
-                severity=5.1,
+                severity=Decimal("5.1"),
                 report_date=(datetime.utcnow() - timedelta(hours=5)).isoformat(
                     sep=" ", timespec="seconds"
                 ),
@@ -43,7 +46,7 @@ async def test_set_exit_code() -> None:
     test_config = ForcesConfig(
         group="test_group",
         strict=True,
-        breaking_severity=5.0,
+        breaking_severity=Decimal(5.0),
         grace_period=0,
     )
     assert (

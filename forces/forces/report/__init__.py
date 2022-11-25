@@ -3,6 +3,9 @@
 from collections import (
     Counter,
 )
+from decimal import (
+    Decimal,
+)
 from forces.apis.integrates.api import (
     vulns_generator,
 )
@@ -237,7 +240,7 @@ async def generate_raw_report(
             where=str(vuln["where"]),
             specific=str(vuln["specific"]),
             state=VulnerabilityState[str(vuln["currentState"]).upper()],
-            severity=float(str(vuln["severity"]))
+            severity=Decimal(str(vuln["severity"]))
             if vuln["severity"] is not None
             else findings_dict[find_id].severity,
             report_date=str(vuln["reportDate"]),
