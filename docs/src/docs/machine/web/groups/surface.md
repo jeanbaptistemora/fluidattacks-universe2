@@ -20,7 +20,7 @@ such as URLs/IPs and
 **Languages** identify the different
 languages used in your code.
 
-![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022585/docs/web/groups/surface/surface.png)
+![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022585/docs/web/groups/surface/surface_section.png)
 
 ## Lines
 
@@ -32,7 +32,7 @@ filenames that compose them,
 being the ToE that the
 Hackers will validate.
 
-![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022667/docs/web/groups/surface/lines_sec.png)
+![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022667/docs/web/groups/surface/lines_table.png)
 
 This section shows a table providing
 the following information:
@@ -47,8 +47,8 @@ the following information:
 - **LOC (Lines of Code):**
   How many lines of code
   does this file have in total.
-- **Has vulnerabilities:**
-  If the file has avulnerability.
+- **Status:**
+  If the file is vulnerable.
 - **Modified date:**
   The last time the
   file was modified.
@@ -82,7 +82,7 @@ By clicking on the
 Filters button,
 you can access them.
 
-![Lines Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022808/docs/web/groups/surface/filters_lines.png)
+![Lines Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022808/docs/web/groups/surface/lines_filters.png)
 
 ## Inputs
 
@@ -92,7 +92,7 @@ section in Environment URLs/IP,
 giving us the entry points that
 the Hackers will validate.
 
-![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022927/docs/web/groups/surface/inputs_sec.png)
+![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022927/docs/web/groups/surface/inputs_table.png)
 
 This section shows a table
 providing the following information:
@@ -108,9 +108,9 @@ providing the following information:
   Specific Input in the
   component that will be
   tested by the Hacker.
-- **Has vulnerabilities:**
-  If the component has
-  any vulnerability.
+- **Status:**
+  If the component is
+  vulnerable.
 - **Seen at:**
   The date the component
   was added.
@@ -127,7 +127,7 @@ you will have access to that options
 filtering the information of
 your interest.
 
-![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668023023/docs/web/groups/surface/filters_inputs.png)
+![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668023023/docs/web/groups/surface/inputs_filters.png)
 
 ## Languages
 
@@ -147,6 +147,7 @@ providing the following information:
   by this language.
 - **Percentage:**
   The percentage of its usability
+
 ### Export button
 
 You can download the information
