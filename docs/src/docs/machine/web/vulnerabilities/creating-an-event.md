@@ -96,3 +96,29 @@ about why the solution was not effective.
 
 The **edit option** can be used if you
 need to change the event type.
+
+## Update affected reattacks
+
+With the **Update affected reattacks**
+button,
+you can indicate that an already
+created event affects the execution
+of one or more reattacks.
+
+![Update reattacks](https://res.cloudinary.com/fluid-attacks/image/upload/v1669413271/docs/web/vulnerabilities/creating-an-event/update_affected_reattacks.png)
+
+When you click on it,
+you will see a pop-up window where
+you can select the respective event
+and the reattacks that are being affected.
+
+![Update reattacks](https://res.cloudinary.com/fluid-attacks/image/upload/v1669413380/docs/web/vulnerabilities/creating-an-event/event_affected.png)
+
+By clicking on the **Confirm button,**
+the selected reattack(s) will go
+into a status called On hold.
+(If you want to know more about
+this status,
+follow this link.
+) By clicking on the **Cancel button,**
+you will abort the process.
