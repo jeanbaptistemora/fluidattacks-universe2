@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     email: str,
     organization_name: str,
     finding_policy_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     mutation: str = f"""
         mutation {{
             submitOrganizationFindingPolicy(

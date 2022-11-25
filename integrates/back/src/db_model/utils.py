@@ -32,7 +32,7 @@ def adjust_historic_dates(
     return tuple(new_historic)
 
 
-def get_date_as_utc_iso_format(date: datetime) -> str:
+def get_as_utc_iso_format(date: datetime) -> str:
     return date.astimezone(tz=timezone.utc).isoformat()
 
 
@@ -46,7 +46,7 @@ def get_min_iso_date(date: datetime) -> datetime:
 def get_first_day_iso_date() -> str:
     now = get_min_iso_date(datetime.now(tz=timezone.utc))
 
-    return get_date_as_utc_iso_format(
+    return get_as_utc_iso_format(
         now - timedelta(days=(now.isoweekday() - 1) % 7)
     )
 

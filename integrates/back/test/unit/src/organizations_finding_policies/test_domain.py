@@ -2,6 +2,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
 )
@@ -32,7 +35,7 @@ async def test_get_by_id() -> None:
         organization_name="okada",
         name="007. Cross-site request forgery",
         state=OrgFindingPolicyState(
-            modified_date="2021-04-26T13:37:10+00:00",
+            modified_date=datetime.fromisoformat("2021-04-26T13:37:10+00:00"),
             modified_by="test2@test.com",
             status=PolicyStateStatus.APPROVED,
         ),
@@ -52,7 +55,9 @@ async def test_get_finding_policies_by_org_name() -> None:
             organization_name="okada",
             name="007. Cross-site request forgery",
             state=OrgFindingPolicyState(
-                modified_date="2021-04-26T13:37:10+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2021-04-26T13:37:10+00:00"
+                ),
                 modified_by="test2@test.com",
                 status=PolicyStateStatus.APPROVED,
             ),

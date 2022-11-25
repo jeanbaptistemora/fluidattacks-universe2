@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
 )
@@ -12,17 +15,16 @@ from db_model.organization_finding_policies.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("submit_organization_finding_policy")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "user_manager@gmail.com"
-    test_date = "2021-05-19T13:37:10+00:00"
-    data: Dict[str, Any] = {
+    test_date = datetime.fromisoformat("2021-05-19T13:37:10+00:00")
+    data: dict[str, Any] = {
         "organization_finding_policies": (
             OrgFindingPolicy(
                 organization_name="orgtest",

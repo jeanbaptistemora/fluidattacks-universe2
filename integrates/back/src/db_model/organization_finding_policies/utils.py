@@ -5,6 +5,10 @@ from .types import (
     OrgFindingPolicy,
     OrgFindingPolicyState,
 )
+from datetime import (
+    datetime,
+    timezone,
+)
 from db_model import (
     TABLE,
 )
@@ -16,9 +20,11 @@ from typing import (
 )
 
 
-def serialize_sets(object_: Any) -> Any:
+def serialize(object_: Any) -> Any:
     if isinstance(object_, set):
         return list(object_)
+    if isinstance(object_, datetime):
+        return object_.astimezone(tz=timezone.utc).isoformat()
     return object_
 
 
@@ -33,7 +39,9 @@ def format_organization_finding_policy(
         or item[key_structure.sort_key].split("#")[1],
         state=OrgFindingPolicyState(
             modified_by=item["state"]["modified_by"],
-            modified_date=item["state"]["modified_date"],
+            modified_date=datetime.fromisoformat(
+                item["state"]["modified_date"]
+            ),
             status=PolicyStateStatus[item["state"]["status"]],
         ),
         tags=set(item["tags"]) if item.get("tags") else set(),

@@ -110,37 +110,31 @@ def format_toe_lines_item(
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         "attacked_at": ""
         if toe_lines.attacked_at is None
-        else db_model_utils.get_date_as_utc_iso_format(toe_lines.attacked_at),
+        else db_model_utils.get_as_utc_iso_format(toe_lines.attacked_at),
         "attacked_by": toe_lines.attacked_by,
         "attacked_lines": toe_lines.attacked_lines,
         "be_present": toe_lines.be_present,
         "be_present_until": ""
         if toe_lines.be_present_until is None
-        else db_model_utils.get_date_as_utc_iso_format(
-            toe_lines.be_present_until
-        ),
+        else db_model_utils.get_as_utc_iso_format(toe_lines.be_present_until),
         "comments": toe_lines.comments,
         "filename": toe_lines.filename,
         "first_attack_at": ""
         if toe_lines.first_attack_at is None
-        else db_model_utils.get_date_as_utc_iso_format(
-            toe_lines.first_attack_at
-        ),
+        else db_model_utils.get_as_utc_iso_format(toe_lines.first_attack_at),
         "group_name": toe_lines.group_name,
         "has_vulnerabilities": toe_lines.has_vulnerabilities,
         "last_author": toe_lines.last_author,
         "last_commit": toe_lines.last_commit,
         "loc": toe_lines.loc,
-        "modified_date": db_model_utils.get_date_as_utc_iso_format(
+        "modified_date": db_model_utils.get_as_utc_iso_format(
             toe_lines.modified_date
         ),
         "root_id": toe_lines.root_id,
-        "seen_at": db_model_utils.get_date_as_utc_iso_format(
-            toe_lines.seen_at
-        ),
+        "seen_at": db_model_utils.get_as_utc_iso_format(toe_lines.seen_at),
         "seen_first_time_by": toe_lines.seen_first_time_by,
         "sorts_risk_level": toe_lines.sorts_risk_level,
-        "sorts_risk_level_date": db_model_utils.get_date_as_utc_iso_format(
+        "sorts_risk_level_date": db_model_utils.get_as_utc_iso_format(
             toe_lines.sorts_risk_level_date
         )
         if toe_lines.sorts_risk_level_date

@@ -68,7 +68,7 @@ async def update_metadata(
         current_value,
     )
     metadata_item: Dict[str, Union[str, datetime]] = {
-        key: db_model_utils.get_date_as_utc_iso_format(value)
+        key: db_model_utils.get_as_utc_iso_format(value)
         if isinstance(value, datetime)
         else value
         for key, value in metadata._asdict().items()

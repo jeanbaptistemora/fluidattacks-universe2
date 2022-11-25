@@ -13,9 +13,6 @@ from db_model.organizations.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from typing import (
     NamedTuple,
 )
@@ -35,9 +32,7 @@ def _format_policies_for_resolver(
     return tuple(
         OrgFindingPolicyApi(
             id=policy.id,
-            last_status_update=datetime_utils.get_datetime_from_iso_str(
-                policy.state.modified_date
-            ),
+            last_status_update=policy.state.modified_date,
             name=policy.name,
             status=policy.state.status.value,
             tags=set(policy.tags),

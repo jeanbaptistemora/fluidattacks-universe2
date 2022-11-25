@@ -1,6 +1,9 @@
 from .enums import (
     PolicyStateStatus,
 )
+from datetime import (
+    datetime,
+)
 from typing import (
     NamedTuple,
 )
@@ -8,7 +11,7 @@ from typing import (
 
 class OrgFindingPolicyState(NamedTuple):
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     status: PolicyStateStatus
 
 

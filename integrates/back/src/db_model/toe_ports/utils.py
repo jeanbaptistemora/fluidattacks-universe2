@@ -74,26 +74,22 @@ def format_toe_port_item(
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         "attacked_at": None
         if toe_port.attacked_at is None
-        else db_model_utils.get_date_as_utc_iso_format(toe_port.attacked_at),
+        else db_model_utils.get_as_utc_iso_format(toe_port.attacked_at),
         "attacked_by": toe_port.attacked_by,
         "be_present": toe_port.be_present,
         "be_present_until": None
         if toe_port.be_present_until is None
-        else db_model_utils.get_date_as_utc_iso_format(
-            toe_port.be_present_until
-        ),
+        else db_model_utils.get_as_utc_iso_format(toe_port.be_present_until),
         "address": toe_port.address,
         "first_attack_at": None
         if toe_port.first_attack_at is None
-        else db_model_utils.get_date_as_utc_iso_format(
-            toe_port.first_attack_at
-        ),
+        else db_model_utils.get_as_utc_iso_format(toe_port.first_attack_at),
         "has_vulnerabilities": toe_port.has_vulnerabilities,
         "group_name": toe_port.group_name,
         "port": toe_port.port,
         "root_id": toe_port.root_id,
         "seen_at": None
         if toe_port.seen_at is None
-        else db_model_utils.get_date_as_utc_iso_format(toe_port.seen_at),
+        else db_model_utils.get_as_utc_iso_format(toe_port.seen_at),
         "seen_first_time_by": toe_port.seen_first_time_by,
     }

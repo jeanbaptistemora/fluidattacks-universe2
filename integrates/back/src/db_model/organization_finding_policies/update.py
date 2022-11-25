@@ -2,7 +2,7 @@ from .types import (
     OrgFindingPolicyState,
 )
 from .utils import (
-    serialize_sets,
+    serialize,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -12,6 +12,9 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from dynamodb import (
     keys,
@@ -37,7 +40,7 @@ async def update(
             "uuid": finding_policy_id,
         },
     )
-    state_item = json.loads(json.dumps(state, default=serialize_sets))
+    state_item = json.loads(json.dumps(state, default=serialize))
     try:
         item = {"state": state_item}
         await operations.update_item(
@@ -52,7 +55,7 @@ async def update(
     historic_state_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_historic_state"],
         values={
-            "iso8601utc": state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
             "uuid": finding_policy_id,
         },
     )

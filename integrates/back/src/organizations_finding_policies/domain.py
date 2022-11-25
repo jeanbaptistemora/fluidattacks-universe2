@@ -102,7 +102,7 @@ async def add_finding_policy(
             name=finding_name,
             state=OrgFindingPolicyState(
                 modified_by=email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=PolicyStateStatus.SUBMITTED,
             ),
             tags=tags,
@@ -134,7 +134,7 @@ async def handle_finding_policy_acceptance(
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
             modified_by=email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=status,
         ),
     )
@@ -166,7 +166,7 @@ async def submit_finding_policy(
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
             modified_by=email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=PolicyStateStatus.SUBMITTED,
         ),
     )
@@ -195,7 +195,7 @@ async def deactivate_finding_policy(
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
             modified_by=email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=PolicyStateStatus.INACTIVE,
         ),
     )
