@@ -31,6 +31,7 @@ from test_helpers import (
 )
 from typing import (
     Any,
+    Generator,
     Iterator,
     List,
     Set,
@@ -96,7 +97,7 @@ def test_group() -> Iterator[str]:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def test_prepare_cfn_json_data() -> None:
+def test_prepare_cfn_json_data() -> Generator:
     for path in chain(
         iglob("skims/test/data/lib_path/**/*.yaml", recursive=True),
         iglob("skims/test/data/parse_cfn/**/*.yaml", recursive=True),
@@ -107,6 +108,14 @@ def test_prepare_cfn_json_data() -> None:
         ) as target:
             source_data = load_as_yaml_without_line_number(source.read())
             target.write(json.dumps(source_data, indent=2))
+
+    yield
+
+    for path in chain(
+        iglob("skims/test/data/lib_path/**/*.yaml.json", recursive=True),
+        iglob("skims/test/data/parse_cfn/**/*.yaml.json", recursive=True),
+    ):
+        os.remove(path)
 
 
 def _exec_and_wait_command(cmd: List[str]) -> int:
