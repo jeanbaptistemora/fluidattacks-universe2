@@ -144,7 +144,7 @@ describe("groupToeLinesView", (): void => {
       [
         "group.toe.lines.root",
         "group.toe.lines.loc",
-        "group.toe.lines.hasVulnerabilities",
+        "group.toe.lines.status",
         "group.toe.lines.modifiedDate",
         "group.toe.lines.lastCommit",
         "group.toe.lines.coverage",
@@ -159,7 +159,7 @@ describe("groupToeLinesView", (): void => {
       [
         "integrates_1",
         "172",
-        "group.toe.lines.yes",
+        "Group.toe.lines.vulnerable",
         "2020-11-16",
         "f9e4beb",
         "70%",
@@ -172,7 +172,7 @@ describe("groupToeLinesView", (): void => {
       [
         "universe",
         "8",
-        "group.toe.lines.no",
+        "Group.toe.lines.safe",
         "2020-11-15",
         "f9e4beb",
         "50%",

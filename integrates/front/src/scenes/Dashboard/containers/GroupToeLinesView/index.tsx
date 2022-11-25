@@ -28,6 +28,7 @@ import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import {
   GET_TOE_LINES,
   VERIFY_TOE_LINES,
@@ -144,6 +145,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   };
   const formatBoolean = (value: boolean): string =>
     value ? t("group.toe.lines.yes") : t("group.toe.lines.no");
+  const formatHasVulnerabilityStatus = (value: boolean): string =>
+    value ? t("group.toe.lines.vulnerable") : t("group.toe.lines.safe");
   const formatSortsRiskLevel = (sortsRiskLevel: number): string =>
     sortsRiskLevel >= 0 ? `${sortsRiskLevel.toString()} %` : "n/a";
 
@@ -357,8 +360,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
     {
       accessorFn: (row: IToeLinesData): string =>
-        formatBoolean(row.hasVulnerabilities),
-      header: t("group.toe.lines.hasVulnerabilities"),
+        formatHasVulnerabilityStatus(row.hasVulnerabilities),
+      cell: (cell: ICellHelper<IToeLinesData>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      header: t("group.toe.lines.status"),
       id: "hasVulnerabilities",
     },
     {
@@ -487,10 +492,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     {
       id: "hasVulnerabilities",
       key: "hasVulnerabilities",
-      label: t("group.toe.lines.hasVulnerabilities"),
+      label: t("group.toe.lines.status"),
       selectOptions: [
-        { header: formatBoolean(true), value: "true" },
-        { header: formatBoolean(false), value: "false" },
+        { header: formatHasVulnerabilityStatus(true), value: "true" },
+        { header: formatHasVulnerabilityStatus(false), value: "false" },
       ],
       type: "select",
     },

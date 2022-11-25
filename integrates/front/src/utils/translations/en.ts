@@ -1381,10 +1381,6 @@ export const enTranslations: ResourceKey = {
             placeholder: "Extension",
             tooltip: "Filter by extension",
           },
-          hasVulnerabilities: {
-            placeholder: "Has vulnerabilities",
-            tooltip: "Filter by has vulnerabilities",
-          },
           modifiedDate: {
             placeholder: "Modified date (range)",
             tooltip: "Filter by modified date",
@@ -1401,6 +1397,10 @@ export const enTranslations: ResourceKey = {
             placeholder: "Seen at (range)",
             tooltip: "Filter by seen at",
           },
+          status: {
+            placeholder: "Status",
+            tooltip: "Filter by status",
+          },
         },
         firstAttackAt: "First attack at",
         formatters: {
@@ -1408,16 +1408,18 @@ export const enTranslations: ResourceKey = {
             tooltip: "Press enter to save",
           },
         },
-        hasVulnerabilities: "Has vulnerabilities",
         lastAuthor: "Last author",
         lastCommit: "Last commit",
         loc: "LOC",
         modifiedDate: "Modified date",
         no: "No",
         root: "Root",
+        safe: "Safe",
         seenAt: "Seen at",
         sortsRiskLevel: "Priority (IA/ML)",
         sortsSuggestions: "Suggested Vulnerabilities",
+        status: "Status",
+        vulnerable: "Vulnerable",
         yes: "Yes",
       },
       ports: {
