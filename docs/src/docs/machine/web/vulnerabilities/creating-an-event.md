@@ -48,3 +48,51 @@ the ARM will create the new event and
 send an email to all Project Managers.
 You can also click on the **Cancel button**
 to discard the creation of the event.
+
+## Closing an event
+
+When a user notifies that the
+event has been solved,
+or analysts find out they can
+now access previously blocked
+targets without problems,
+the event must be closed.
+You can identify that an event
+has a solution applied when
+it is pending status.
+To learn more about event statuses,
+click [here.](/machine/web/groups/events/#status-in-the-event)
+
+![status](https://res.cloudinary.com/fluid-attacks/image/upload/v1669378385/docs/web/vulnerabilities/creating-an-event/status.png)
+
+When you click on the event,
+you will see that you have three
+solutions to select:
+**Mark as solved,**
+**reject solution,**
+and **edit.**
+
+![three options](https://res.cloudinary.com/fluid-attacks/image/upload/v1669380423/docs/web/vulnerabilities/creating-an-event/three_options.png)
+
+If you see that the solution
+proposed by the customer is
+effective and you can close
+the event successfully,
+click on **Mark as solved**.
+A window will pop up where
+you have to enter the reason
+for closing the event.
+
+![Mark as solved](https://res.cloudinary.com/fluid-attacks/image/upload/v1669380536/docs/web/vulnerabilities/creating-an-event/mark_solved.png)
+
+Now,
+if you check that the event was not
+closed and the solution given was unsuccessful,
+click on **Reject solution**.
+Here you have to put observations
+about why the solution was not effective.
+
+![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1669380729/docs/web/vulnerabilities/creating-an-event/observation.png)
+
+The **edit option** can be used if you
+need to change the event type.
