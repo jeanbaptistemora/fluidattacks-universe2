@@ -17,6 +17,7 @@ const Input: FC<IInputProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  onPaste,
   placeholder,
   required,
   tooltip,
@@ -37,6 +38,7 @@ const Input: FC<IInputProps> = ({
     onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    onPaste={onPaste}
     placeholder={placeholder}
     required={required}
     tooltip={tooltip}

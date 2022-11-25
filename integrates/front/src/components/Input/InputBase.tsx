@@ -2,6 +2,7 @@ import type { FieldProps } from "formik";
 import _ from "lodash";
 import type {
   ChangeEvent,
+  ClipboardEvent,
   FC,
   FocusEvent,
   KeyboardEvent,
@@ -39,6 +40,7 @@ interface IInputBase<T = HTMLElement> extends IInput, IFormikHandlers<T> {
   disabled?: boolean;
   onFocus?: (event: FocusEvent<T>) => void;
   onKeyDown?: (event: KeyboardEvent<T>) => void;
+  onPaste?: (event: ClipboardEvent<T>) => void;
   validate?: (value: unknown) => string | undefined;
 }
 

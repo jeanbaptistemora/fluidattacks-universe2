@@ -134,7 +134,23 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
               function handleInteger(
                 event: React.KeyboardEvent<HTMLInputElement>
               ): void {
-                if (event.key.length > 1 || /\d/u.test(event.key)) return;
+                if (
+                  event.key.length > 1 ||
+                  /\d/u.test(event.key) ||
+                  event.key === "Control" ||
+                  event.key.toLocaleLowerCase() === "c" ||
+                  event.key.toLocaleLowerCase() === "v"
+                )
+                  return;
+                event.preventDefault();
+              }
+
+              function handleIntegerPaste(
+                event: React.ClipboardEvent<HTMLInputElement>
+              ): void {
+                const data = event.clipboardData.getData("Text");
+                if (/^\d*$/u.test(data)) return;
+
                 event.preventDefault();
               }
 
@@ -162,6 +178,7 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
                         label={t("group.toe.ports.addModal.fields.port")}
                         name={"port"}
                         onKeyDown={handleInteger}
+                        onPaste={handleIntegerPaste}
                         type={"number"}
                       />
                     </Col>

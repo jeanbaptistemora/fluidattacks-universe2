@@ -28,6 +28,7 @@ const FormikInput: FC<TInputProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  onPaste,
   placeholder,
   required,
   tooltip,
@@ -61,6 +62,7 @@ const FormikInput: FC<TInputProps> = ({
         onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
+        onPaste={onPaste}
         placeholder={placeholder}
         type={type}
         value={value}
