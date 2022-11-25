@@ -48,8 +48,8 @@ import logging
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
-from mailer import (
-    groups as groups_mail,
+from mailer.groups import (
+    send_mail_comments_digest,
 )
 from mailer.utils import (
     get_organization_name,
@@ -84,7 +84,7 @@ mail_comments_digest = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=3,
     sleep_seconds=2,
-)(groups_mail.send_mail_comments_digest)
+)(send_mail_comments_digest)
 
 
 class CommentsDataType(TypedDict):

@@ -73,6 +73,7 @@ TEST_GROUPS: set[str] = {
     "add_toe_port",
     "add_url_root",
     "approve_draft",
+    "comments_digest_notification",
     "compliance",
     "confirm_vulnerabilities_zero_risk",
     "deactivate_root",

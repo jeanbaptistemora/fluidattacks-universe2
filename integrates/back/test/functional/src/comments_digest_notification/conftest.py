@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -22,7 +25,9 @@ from db_model.organizations.types import (
     OrganizationState,
 )
 from db_model.stakeholders.types import (
+    NotificationsPreferences,
     Stakeholder,
+    StakeholderState,
 )
 from db_model.types import (
     Policies,
@@ -79,6 +84,14 @@ async def populate() -> bool:
                 ),
             },
         ],
+        "policies": [
+            {
+                "level": "group",
+                "subject": "johndoe@fluidattacks.com",
+                "object": "group",
+                "role": "user_manager",
+            }
+        ],
         "stakeholders": [
             Stakeholder(
                 email="johndoe@fluidattacks.com",
@@ -86,7 +99,27 @@ async def populate() -> bool:
                 is_registered=True,
                 last_name="Doe",
                 registration_date="2022-10-21T15:50:31.280182",
+                state=StakeholderState(
+                    modified_by="unknown",
+                    modified_date="2022-10-24T00:00:00",
+                    notifications_preferences=NotificationsPreferences(
+                        email=["NEW_COMMENT"],
+                    ),
+                ),
             ),
+        ],
+        "consultings": [
+            {
+                "group_comment": GroupComment(
+                    content="This is a test comment",
+                    creation_date="2022-11-24T15:09:37",
+                    email="johndoe@fluidattacks.com",
+                    full_name="John Doe",
+                    parent_id="0",
+                    group_name="group",
+                    id="123456789",
+                )
+            },
         ],
     }
     return await db.populate(data)
