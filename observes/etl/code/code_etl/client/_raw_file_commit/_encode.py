@@ -18,7 +18,7 @@ from typing import (
 
 def _to_dict(obj: RawFileCommitRelation) -> Dict[str, Optional[str]]:
     return {
-        "file": obj.file_path,
+        "file_path": obj.file_path,
         "namespace": obj.namespace,
         "repository": obj.repository,
         "hash": obj.hash,

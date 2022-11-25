@@ -122,7 +122,8 @@ class RawFileCommitClient:
             PRIMARY KEY (
                 namespace,
                 repository,
-                hash
+                hash,
+                file_path
             )
         ) SORTKEY (namespace, repository)
         """
