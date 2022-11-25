@@ -28854,6 +28854,62 @@ F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.jav
   21 | }
      ^ Col 0
 ",java.csrf_protections_disabled
+F337,lines,namespace/skims/test/data/lib_root/f337/csfr_protection_at_endpoint.cs,12,352,skims,337. Insecure session management - CSRF Fixation,Ensure unsafe HTTP methods has Action Filters for CSFR protection. in namespace/skims/test/data/lib_root/f337/csfr_protection_at_endpoint.cs,"
+   1 | namespace Controllers
+   2 | {
+   3 |     public class ExampleController : Controller
+   4 |     {
+   5 |         [HttpPost]
+   6 |         [ValidateAntiforgeryToken]
+   7 |         public ActionResult NotFail(anyModel obj)
+   8 |         {
+   9 |             return ExampleResponse(obj);
+  10 |         }
+  11 |
+> 12 |         [HttpPost]
+  13 |         public ActionResult Fail(anyModel obj)
+  14 |         {
+  15 |             return ExampleResponse(obj);
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.cs_has_not_csfr_protection
+F337,lines,namespace/skims/test/data/lib_root/f337/csfr_protection_at_endpoint.cs,5,352,skims,337. Insecure session management - CSRF Fixation,Ensure unsafe HTTP methods has Action Filters for CSFR protection. in namespace/skims/test/data/lib_root/f337/csfr_protection_at_endpoint.cs,"
+   1 | namespace Controllers
+   2 | {
+   3 |     public class ExampleController : Controller
+   4 |     {
+>  5 |         [HttpPost]
+   6 |         [ValidateAntiforgeryToken]
+   7 |         public ActionResult NotFail(anyModel obj)
+   8 |         {
+   9 |             return ExampleResponse(obj);
+  10 |         }
+  11 |
+  12 |         [HttpPost]
+  13 |         public ActionResult Fail(anyModel obj)
+  14 |         {
+  15 |             return ExampleResponse(obj);
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.cs_has_not_csfr_protection
+F337,lines,namespace/skims/test/data/lib_root/f337/no_csfr_protection.cs,5,352,skims,337. Insecure session management - CSRF Fixation,Ensure unsafe HTTP methods has Action Filters for CSFR protection. in namespace/skims/test/data/lib_root/f337/no_csfr_protection.cs,"
+   1 | namespace Controllers
+   2 | {
+   3 |     public class ExampleController : Controller
+   4 |     {
+>  5 |         [HttpPost]
+   6 |         public ActionResult Example(anyModel obj)
+   7 |         {
+   8 |             return ExampleResponse(obj);
+   9 |         }
+  10 |     }
+  11 | }
+     ^ Col 0
+",c_sharp.cs_has_not_csfr_protection
 F086,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,28,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
   13 |    </div>
