@@ -1270,10 +1270,6 @@ export const enTranslations: ResourceKey = {
             placeholder: "Component",
             tooltip: "Filter by component",
           },
-          hasVulnerabilities: {
-            placeholder: "Has vulnerabilities",
-            tooltip: "Filter by has vulnerabilities",
-          },
           root: {
             placeholder: "Root (refetch)",
             tooltip: "Filter by root",
@@ -1286,9 +1282,12 @@ export const enTranslations: ResourceKey = {
             placeholder: "Seen first time by",
             tooltip: "Filter by seen first time by",
           },
+          status: {
+            placeholder: "Status",
+            tooltip: "Filter by status",
+          },
         },
         firstAttackAt: "First attack at",
-        hasVulnerabilities: "Has vulnerabilities",
         no: "No",
         remove: {
           alerts: {
@@ -1296,8 +1295,11 @@ export const enTranslations: ResourceKey = {
           },
         },
         root: "Root",
+        safe: "Safe",
         seenAt: "Seen at",
         seenFirstTimeBy: "Seen first time by",
+        status: "Status",
+        vulnerable: "Vulnerable",
         yes: "Yes",
       },
       lines: {

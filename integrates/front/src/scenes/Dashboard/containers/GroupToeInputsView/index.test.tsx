@@ -132,7 +132,7 @@ describe("groupToeInputsView", (): void => {
       </MemoryRouter>
     );
     await waitFor((): void => {
-      expect(screen.queryByRole("table")).toBeInTheDocument();
+      expect(screen.queryAllByText("test_nickname")[0]).toBeInTheDocument();
     });
 
     expect(
@@ -141,7 +141,7 @@ describe("groupToeInputsView", (): void => {
       [
         "group.toe.inputs.root",
         "group.toe.inputs.entryPoint",
-        "group.toe.inputs.hasVulnerabilities",
+        "group.toe.inputs.status",
         "group.toe.inputs.seenAt",
         "group.toe.inputs.attackedAt",
         "group.toe.inputs.seenFirstTimeBy",
@@ -149,13 +149,14 @@ describe("groupToeInputsView", (): void => {
         .join("")
         .replace(/[^a-zA-Z ]/gu, "")
     );
+
     expect(
       screen.getAllByRole("row")[1].textContent?.replace(/[^a-zA-Z ]/gu, "")
     ).toStrictEqual(
       [
         "test_nickname",
         "idTest",
-        "group.toe.inputs.no",
+        "Group.toe.inputs.safe",
         "2000-01-01",
         "2020-01-02",
         "",
@@ -169,7 +170,7 @@ describe("groupToeInputsView", (): void => {
       [
         "test_nickname",
         "btnTest",
-        "group.toe.inputs.yes",
+        "Group.toe.inputs.vulnerable",
         "2020-03-14",
         "2021-02-02",
         "test@test.com",
@@ -177,14 +178,13 @@ describe("groupToeInputsView", (): void => {
         .join("")
         .replace(/[^a-zA-Z ]/gu, "")
     );
-
     expect(
       screen.getAllByRole("row")[3].textContent?.replace(/[^a-zA-Z ]/gu, "")
     ).toStrictEqual(
       [
         "",
         "-",
-        "group.toe.inputs.yes",
+        "Group.toe.inputs.vulnerable",
         "2020-01-11",
         "2021-02-11",
         "test2@test.com",
@@ -352,7 +352,7 @@ describe("groupToeInputsView", (): void => {
       </MemoryRouter>
     );
     await waitFor((): void => {
-      expect(screen.queryByRole("table")).toBeInTheDocument();
+      expect(screen.queryAllByText("test_nickname")[0]).toBeInTheDocument();
     });
 
     await userEvent.click(
@@ -378,7 +378,7 @@ describe("groupToeInputsView", (): void => {
       [
         "group.toe.inputs.root",
         "group.toe.inputs.entryPoint",
-        "group.toe.inputs.hasVulnerabilities",
+        "group.toe.inputs.status",
         "group.toe.inputs.seenAt",
         "group.toe.inputs.bePresent",
         "group.toe.inputs.attackedAt",
@@ -390,7 +390,7 @@ describe("groupToeInputsView", (): void => {
     );
 
     const row = screen.getByRole("row", {
-      name: "test_nickname idTest group.toe.inputs.no 2000-01-01 bePresentSwitch Yes 2020-01-02",
+      name: "test_nickname idTest Group.toe.inputs.safe 2000-01-01 bePresentSwitch Yes 2020-01-02",
     });
 
     await userEvent.click(

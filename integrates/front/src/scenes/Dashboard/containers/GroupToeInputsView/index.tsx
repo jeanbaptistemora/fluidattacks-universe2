@@ -23,6 +23,7 @@ import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import {
   GET_TOE_INPUTS,
   UPDATE_TOE_INPUT,
@@ -190,6 +191,8 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       year: "numeric",
     }).format(date);
   };
+  const formatHasVulnerabilityStatus = (value: boolean): string =>
+    value ? t("group.toe.inputs.vulnerable") : t("group.toe.inputs.safe");
 
   const handleUpdateToeInputBePresent: (
     rootId: string,
@@ -286,9 +289,11 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     },
     {
       accessorFn: (row: IToeInputData): string => {
-        return formatBoolean(row.hasVulnerabilities);
+        return formatHasVulnerabilityStatus(row.hasVulnerabilities);
       },
-      header: String(t("group.toe.inputs.hasVulnerabilities")),
+      cell: (cell: ICellHelper<IToeInputData>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      header: String(t("group.toe.inputs.status")),
       meta: { filterType: "select" },
     },
     {
@@ -382,10 +387,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     {
       id: "hasVulnerabilities",
       key: "hasVulnerabilities",
-      label: t("group.toe.inputs.hasVulnerabilities"),
+      label: t("group.toe.inputs.status"),
       selectOptions: [
-        { header: formatBoolean(true), value: "true" },
-        { header: formatBoolean(false), value: "false" },
+        { header: formatHasVulnerabilityStatus(true), value: "true" },
+        { header: formatHasVulnerabilityStatus(false), value: "false" },
       ],
       type: "select",
     },
