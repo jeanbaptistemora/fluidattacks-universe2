@@ -308,8 +308,16 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     await userEvent.click(screen.getAllByText("Status")[1]);
 
-    expect(screen.getByText("open")).toBeInTheDocument();
-    expect(screen.getByText("closed")).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", {
+        name: "Vulnerable",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", {
+        name: "Safe",
+      })
+    ).toBeInTheDocument();
 
     await userEvent.click(screen.getAllByText("Treatment")[1]);
 

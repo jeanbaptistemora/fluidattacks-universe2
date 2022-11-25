@@ -34,6 +34,7 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   {
@@ -106,7 +107,16 @@ const tableFilters: IFilter<IVulnRowAttr>[] = [
     id: "currentState",
     key: "currentState",
     label: "Status",
-    selectOptions: ["open", "closed"],
+    selectOptions: [
+      {
+        header: translate.t("searchFindings.header.status.stateLabel.open"),
+        value: "open",
+      },
+      {
+        header: translate.t("searchFindings.header.status.stateLabel.closed"),
+        value: "closed",
+      },
+    ],
     type: "select",
   },
   {
