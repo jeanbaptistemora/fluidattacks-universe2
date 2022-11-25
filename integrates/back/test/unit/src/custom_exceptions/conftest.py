@@ -2,11 +2,17 @@ import boto3
 from decimal import (
     Decimal,
 )
+from moto import (
+    mock_s3,
+)
 from moto.dynamodb2 import (
     mock_dynamodb2,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
+)
+from mypy_boto3_s3 import (
+    S3Client,
 )
 import os
 import pytest
@@ -21,6 +27,7 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+BUCKET_NAME = "unit_test_bucket"
 tables_names = ["integrates_vms"]
 key_schemas = {
     "integrates_vms": [
@@ -140,6 +147,13 @@ async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
         yield boto3.resource("dynamodb")
 
 
+@pytest.fixture(name="s3_client", scope="module")
+async def s_3() -> AsyncGenerator[S3Client, None]:
+    """Mocked S3 Fixture."""
+    with mock_s3():
+        yield boto3.client("s3")
+
+
 @pytest.fixture(scope="module", autouse=True)
 def create_tables(dynamo_resource: ServiceResource) -> None:
     for table in tables_names:
@@ -151,3 +165,8 @@ def create_tables(dynamo_resource: ServiceResource) -> None:
         )
         for item in data[table]:
             dynamo_resource.Table(table).put_item(Item=item)
+
+
+@pytest.fixture(scope="module", autouse=True)
+def create_bucket(s3_client: S3Client) -> None:
+    s3_client.create_bucket(Bucket=BUCKET_NAME)

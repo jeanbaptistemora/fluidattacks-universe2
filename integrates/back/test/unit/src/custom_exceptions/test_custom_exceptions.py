@@ -104,6 +104,7 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+BUCKET_NAME = "unit_test_bucket"
 TABLE_NAME = "integrates_vms"
 
 
@@ -146,7 +147,18 @@ async def test_exception_event_not_found(
     assert mock_table_resource.called is True
 
 
-async def test_exception_policy_not_found() -> None:
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
+async def test_exception_policy_not_found(
+    mock_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
     loaders: Dataloaders = get_new_context()
     org_name = "okada"
     finding_policy_id = "5d92c7eb-816f-43d5-9361-c0672837e7ab"
@@ -311,6 +323,7 @@ async def test_validate_past_acceptance_days(
             loaders=get_new_context(),
             values=values_accepted,
         )
+    assert mock_table_resource.called is True
 
 
 @mock.patch(
@@ -349,6 +362,7 @@ async def test_validate_acceptance_severity(
             loaders=get_new_context(),
             values=values_accepted,
         )
+    assert mock_table_resource.called is True
 
 
 async def test_validate_evidence_records_invalid_type() -> None:
@@ -414,6 +428,7 @@ async def test_validate_number_acceptances(
             loaders=get_new_context(),
             values=values_accepted,
         )
+    assert mock_table_resource.called is True
 
 
 def test_invalid_range_to_list() -> None:
@@ -422,7 +437,18 @@ def test_invalid_range_to_list() -> None:
         assert range_to_list(bad_range_value)
 
 
-async def test_validate_file_schema_invalid() -> None:
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+async def test_validate_file_schema_invalid(
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_update_item(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).update_item(**kwargs)
+
+    mock_table_resource.return_value.update_item.side_effect = mock_update_item
     finding_id = "463461507"
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
@@ -454,6 +480,7 @@ async def test_organization_not_found(
     with pytest.raises(OrganizationNotFound):
         new_loader: Dataloaders = get_new_context()
         await new_loader.organization.load("ORG#madeup-id")
+    assert mock_table_resource.called is True
 
 
 @mock.patch(
@@ -477,6 +504,7 @@ async def test_validate_group_tags(
         assert await validate_group_tags(
             loaders, "unittesting", ["test-groups"]
         )
+    assert mock_table_resource.called is True
 
 
 @mock.patch(
@@ -495,6 +523,7 @@ async def test_stakeholder_not_found(
     loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await loaders.stakeholder.load(email)
+    assert mock_resource.called is True
 
 
 async def test_exception_unable_to_send_sms() -> None:
@@ -512,8 +541,21 @@ async def test_exception_unable_to_send_sms() -> None:
                 )
 
 
-async def test_exception_unavailability_error() -> None:
-    bucket_name = "bad_test_bucket"
+@mock.patch(
+    "s3.operations.get_s3_resource",
+    new_callable=AsyncMock,
+)
+async def test_exception_unavailability_error(
+    mock_s3_client: AsyncMock,
+) -> None:
+    def mock_upload_fileobj(*args: Any) -> None:
+        if args[0] != BUCKET_NAME:
+            raise UnavailabilityError()
+
+    mock_s3_client.return_value.upload_fileobj.side_effect = (
+        mock_upload_fileobj
+    )
+    bad_bucket_name = "bad_test_bucket"
     file_name = "test-anim.gif"
     file_location = os.path.dirname(os.path.abspath(__file__))
     file_location = os.path.join(file_location, "mock/" + file_name)
@@ -521,13 +563,17 @@ async def test_exception_unavailability_error() -> None:
         with open(file_location, "rb"):
             test_file = UploadFile(filename=file_name)
             await s3_ops.upload_memory_file(
-                bucket_name,
+                bad_bucket_name,
                 test_file,
                 file_name,
             )
+    assert mock_s3_client.called is True
 
 
-@pytest.mark.asyncio
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     [
         "modified_by",
@@ -545,11 +591,18 @@ async def test_exception_unavailability_error() -> None:
     ],
 )
 async def test_send_treatment_report_mail_fail(
+    # pylint: disable=too-many-arguments
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
     modified_by: str,
     justification: str,
     vulnerability_id: str,
     is_approved: bool,
 ) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
+    mock_table_resource.return_value.query.side_effect = mock_query
     with pytest.raises(VulnNotFound):
         await send_treatment_report_mail(
             loaders=get_new_context(),
@@ -558,3 +611,4 @@ async def test_send_treatment_report_mail_fail(
             vulnerability_id=vulnerability_id,
             is_approved=is_approved,
         )
+    assert mock_table_resource.called is True
