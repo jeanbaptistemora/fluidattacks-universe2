@@ -33,6 +33,9 @@ from batch_dispatch.remove_roots import (
 from batch_dispatch.report import (
     report,
 )
+from batch_dispatch.update_organization_overview import (
+    update_organization_overview,
+)
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
@@ -62,6 +65,7 @@ ACTIONS = {
         remove_group_resources,
         remove_roots,
         report,
+        update_organization_overview,
         rebase,
     ]
 }

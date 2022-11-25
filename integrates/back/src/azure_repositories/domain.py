@@ -64,6 +64,7 @@ from itertools import (
 )
 import json
 import logging
+import logging.config
 from newutils.datetime import (
     DEFAULT_ISO_STR,
     get_as_utc_iso_format,
@@ -77,6 +78,9 @@ from organizations.domain import (
     get_group_names,
 )
 import os
+from settings import (
+    LOGGING,
+)
 import tempfile
 from typing import (
     Optional,
@@ -86,6 +90,9 @@ from urllib.parse import (
     urlparse,
 )
 
+logging.config.dictConfig(LOGGING)
+
+# Constants
 LOGGER = logging.getLogger(__name__)
 
 
