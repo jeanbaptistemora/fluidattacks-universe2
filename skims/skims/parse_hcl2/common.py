@@ -61,15 +61,20 @@ def iterate_resources(
                 expected_source,
                 *expected_kinds,
             )
-    elif isinstance(model, Block):
-        if (
+    elif (
+        isinstance(  # pylint: disable=too-many-boolean-expressions
+            model, Block
+        )
+        and (
             len(model.namespace) == 1 and model.namespace[0] == expected_source
-        ) or (
+        )
+        or (
             len(model.namespace) == 3
             and model.namespace[0] == expected_source
             and model.namespace[1] in expected_kinds
-        ):
-            yield model
+        )
+    ):
+        yield model
 
 
 def iterate_block_attributes(block: Block) -> Iterator[Attribute]:
