@@ -91,19 +91,17 @@ locals {
         {
           Sid    = "s3Write"
           Effect = "Allow"
-          Action = [
-            "s3:DeleteObject*",
-            "s3:PutObject",
-            "s3:PutObjectAcl",
-          ]
+          Action = ["s3:*"]
           Resource = [
-            "arn:aws:s3:::integrates/continuous-repositories/continuoustest*/*",
             "arn:aws:s3:::docs-dev.fluidattacks.com",
             "arn:aws:s3:::docs-dev.fluidattacks.com/*",
             "arn:aws:s3:::integrates/analytics/*atfluid",
             "arn:aws:s3:::integrates/analytics/*atfluid/*",
+            "arn:aws:s3:::integrates/continuous-repositories/continuoustest*/*",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com",
             "arn:aws:s3:::integrates.front.development.fluidattacks.com/*",
+            "arn:aws:s3:::integrates.*atfluid",
+            "arn:aws:s3:::integrates.*atfluid/*",
             "arn:aws:s3:::web.eph.fluidattacks.com",
             "arn:aws:s3:::web.eph.fluidattacks.com/*",
           ]
