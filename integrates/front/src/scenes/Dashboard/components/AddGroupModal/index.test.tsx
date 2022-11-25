@@ -69,6 +69,7 @@ describe("AddGroupModal component", (): void => {
     expect(
       screen.getByRole("textbox", { name: "description" })
     ).toBeInTheDocument();
+    expect(screen.getAllByRole("radio")).toHaveLength(3);
     expect(
       screen.getByRole("combobox", { name: "service" })
     ).toBeInTheDocument();
