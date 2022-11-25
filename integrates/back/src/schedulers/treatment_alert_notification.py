@@ -34,8 +34,8 @@ import logging
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
-from mailer import (
-    groups as groups_mail,
+from mailer.groups import (
+    send_mail_treatment_alert,
 )
 from mailer.utils import (
     get_organization_name,
@@ -66,11 +66,11 @@ logging.config.dictConfig(LOGGING)
 DAYS_TO_EXPIRING = 7
 LOGGER = logging.getLogger(__name__)
 
-mail_vulnerabilities_expiring = retry_on_exceptions(
+mail_treatment_alert = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=3,
     sleep_seconds=2,
-)(groups_mail.send_mail_vulnerabilities_expiring)
+)(send_mail_treatment_alert)
 
 
 class ExpiringDataType(TypedDict):
@@ -238,7 +238,7 @@ async def send_temporal_treatment_report() -> None:
         }
 
         try:
-            await mail_vulnerabilities_expiring(
+            await mail_treatment_alert(
                 loaders=loaders,
                 context=user_content,
                 email_to=email,

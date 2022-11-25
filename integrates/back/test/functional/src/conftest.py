@@ -138,6 +138,7 @@ TEST_GROUPS: set[str] = {
     "toe_inputs",
     "toe_lines",
     "toe_ports",
+    "treatment_alert_notification",
     "unfulfilled_standard_report_url_s3",
     "unsubscribe_from_group",
     "update_access_token",

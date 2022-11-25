@@ -1032,7 +1032,7 @@ async def send_mail_missing_environment_alert(
     )
 
 
-async def send_mail_vulnerabilities_expiring(
+async def send_mail_treatment_alert(
     *,
     loaders: Any,
     context: Dict[str, Any],

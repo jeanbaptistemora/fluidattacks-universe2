@@ -136,6 +136,7 @@
     ["stakeholder"]
     ["submit_draft"]
     ["submit_organization_finding_policy"]
+    ["treatment_alert_notification"]
     ["toe_inputs"]
     ["toe_lines"]
     ["toe_ports"]
