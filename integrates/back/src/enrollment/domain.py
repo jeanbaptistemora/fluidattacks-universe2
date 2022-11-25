@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     schedule,
 )
 from custom_exceptions import (
@@ -11,7 +12,12 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model import (
+    companies as companies_model,
     enrollment as enrollment_model,
+)
+from db_model.companies.types import (
+    Company,
+    Trial as CompanyTrial,
 )
 from db_model.enrollment.types import (
     Enrollment,
@@ -97,17 +103,32 @@ async def add_enrollment(
     if await exists(loaders, user_email):
         raise EnrollmentUserExists.new()
 
-    await enrollment_model.add(
-        enrollment=Enrollment(
-            email=user_email,
-            enrolled=True,
-            trial=Trial(
-                completed=False,
-                extension_date="",
-                extension_days=0,
-                start_date=datetime_utils.get_iso_date(),
+    await collect(
+        [
+            companies_model.add(
+                company=Company(
+                    domain=user_email.split("@")[1],
+                    trial=CompanyTrial(
+                        completed=False,
+                        extension_date="",
+                        extension_days=0,
+                        start_date=datetime_utils.get_iso_date(),
+                    ),
+                )
             ),
-        )
+            enrollment_model.add(
+                enrollment=Enrollment(
+                    email=user_email,
+                    enrolled=True,
+                    trial=Trial(
+                        completed=False,
+                        extension_date="",
+                        extension_days=0,
+                        start_date=datetime_utils.get_iso_date(),
+                    ),
+                )
+            ),
+        ]
     )
 
     group_names = await group_access_domain.get_stakeholder_groups_names(
