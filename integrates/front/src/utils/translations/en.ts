@@ -3629,7 +3629,7 @@ export const enTranslations: ResourceKey = {
         handleAcceptance: "Approve/Reject treatment",
       },
       close: "Close",
-      closed: "Closed",
+      closed: "Safe",
       commitHash: "Commit hash",
       contentTab: {
         code: {
@@ -3666,7 +3666,7 @@ export const enTranslations: ResourceKey = {
       },
       notApplicable: "n/a",
       onHold: "On Hold",
-      open: "Open",
+      open: "Vulnerable",
       requested: "Requested",
       searchTag: "Search Tag",
       searchText: "Search Text",
@@ -3731,7 +3731,6 @@ export const enTranslations: ResourceKey = {
         },
         where: "Location",
       },
-      vulnerabilityInfo: "vulnerability",
     },
     usersTable: {
       firstlogin: "First login",

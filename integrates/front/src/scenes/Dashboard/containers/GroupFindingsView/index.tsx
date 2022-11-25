@@ -91,8 +91,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       key: "state",
       label: "Status",
       selectOptions: [
-        { header: "Open", value: "open" },
-        { header: "Closed", value: "closed" },
+        {
+          header: t("searchFindings.header.status.stateLabel.open"),
+          value: "open",
+        },
+        {
+          header: t("searchFindings.header.status.stateLabel.closed"),
+          value: "closed",
+        },
       ],
       type: "select",
     },

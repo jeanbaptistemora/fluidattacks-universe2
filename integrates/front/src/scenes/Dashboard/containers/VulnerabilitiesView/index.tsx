@@ -13,7 +13,6 @@ import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
-import type { ICellHelper } from "components/Table/types";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
@@ -441,8 +440,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "currentState",
-      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
-        statusFormatter(cell.getValue()),
+      cell: (cell): JSX.Element => {
+        const labels: Record<string, string> = {
+          closed: t("searchFindings.tabVuln.closed"),
+          open: t("searchFindings.tabVuln.open"),
+        };
+
+        return statusFormatter(labels[cell.getValue<string>()]);
+      },
       header: t("searchFindings.tabVuln.vulnTable.status"),
       meta: { filterType: "select" },
     },

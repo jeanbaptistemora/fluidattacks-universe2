@@ -294,7 +294,7 @@ def test_finding_reattack(
     )
 
     # Reattack all vulnerabilities
-    status_filter.select_by_visible_text("Open")
+    status_filter.select_by_visible_text("Vulnerable")
     start_reattack = utils.wait_for_id(
         driver,
         "start-reattack",
@@ -396,7 +396,7 @@ def test_finding_vulnerabilities(
     table_row.click()
     assert utils.wait_for_text(
         driver,
-        "vulnerability",
+        "Details",
         timeout,
     )
     assert utils.wait_for_text(
@@ -437,7 +437,7 @@ def test_finding_vulnerabilities(
     close.click()
     assert utils.wait_for_hide_text(
         driver,
-        "Vulnerability",
+        "Details",
         timeout,
     )
 
