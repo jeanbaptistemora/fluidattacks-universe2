@@ -32,17 +32,9 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
     Union,
 )
-
-
-def serialize_sets(object_: Any) -> Any:
-    if isinstance(object_, set):
-        return list(object_)
-    return object_
 
 
 def format_files(files: list[dict[str, str]]) -> list[GroupFile]:
@@ -342,7 +334,7 @@ def format_treatment_summary_item(
 
 def format_code_language(
     code_language: CodeLanguage,
-) -> Dict[str, Union[str, int]]:
+) -> dict[str, Union[str, int]]:
     return {
         "language": code_language.language,
         "loc": code_language.loc,
@@ -351,7 +343,7 @@ def format_code_language(
 
 def format_unfulfilled_standard_item(
     unfulfilled_standard: UnfulfilledStandard,
-) -> Dict[str, Union[str, list[str]]]:
+) -> dict[str, Union[str, list[str]]]:
     return {
         "name": unfulfilled_standard.name,
         "unfulfilled_requirements": (

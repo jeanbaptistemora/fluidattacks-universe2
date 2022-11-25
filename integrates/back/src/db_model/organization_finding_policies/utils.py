@@ -7,7 +7,6 @@ from .types import (
 )
 from datetime import (
     datetime,
-    timezone,
 )
 from db_model import (
     TABLE,
@@ -15,17 +14,6 @@ from db_model import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Any,
-)
-
-
-def serialize(object_: Any) -> Any:
-    if isinstance(object_, set):
-        return list(object_)
-    if isinstance(object_, datetime):
-        return object_.astimezone(tz=timezone.utc).isoformat()
-    return object_
 
 
 def format_organization_finding_policy(

@@ -93,3 +93,11 @@ def format_policies_to_update(
         if policies_data.get("vulnerability_grace_period") is not None
         else None,
     )
+
+
+def serialize(object_: Any) -> Any:
+    if isinstance(object_, set):
+        return list(object_)
+    if isinstance(object_, datetime):
+        return object_.astimezone(tz=timezone.utc).isoformat()
+    return object_

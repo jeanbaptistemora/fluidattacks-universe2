@@ -1,14 +1,12 @@
 from .types import (
     OrgFindingPolicy,
 )
-from .utils import (
-    serialize,
-)
 from db_model import (
     TABLE,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb import (
     keys,

@@ -1,9 +1,6 @@
 from .types import (
     OrgFindingPolicyState,
 )
-from .utils import (
-    serialize,
-)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -15,6 +12,7 @@ from db_model import (
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb import (
     keys,

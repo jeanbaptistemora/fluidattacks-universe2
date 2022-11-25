@@ -1,9 +1,6 @@
 from .types import (
     Group,
 )
-from .utils import (
-    serialize_sets,
-)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -15,6 +12,9 @@ from db_model import (
 )
 from db_model.organizations.utils import (
     remove_org_id_prefix,
+)
+from db_model.utils import (
+    serialize,
 )
 from dynamodb import (
     keys,
@@ -66,7 +66,7 @@ async def add(*, group: Group) -> None:
     metadata_item = {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
-        **json.loads(json.dumps(group, default=serialize_sets)),
+        **json.loads(json.dumps(group, default=serialize)),
     }
     items.append(metadata_item)
     state_key = keys.build_key(
@@ -79,7 +79,7 @@ async def add(*, group: Group) -> None:
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
-        **json.loads(json.dumps(group.state, default=serialize_sets)),
+        **json.loads(json.dumps(group.state, default=serialize)),
     }
     items.append(historic_state_item)
 
