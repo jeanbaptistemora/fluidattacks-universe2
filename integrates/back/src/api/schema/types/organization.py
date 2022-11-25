@@ -3,6 +3,7 @@ from api.resolvers.organization import (
     billing,
     company,
     compliance,
+    covered_commits,
     covered_repositories,
     credentials,
     finding_policies,
@@ -32,6 +33,7 @@ ORGANIZATION.set_field("analytics", analytics.resolve)
 ORGANIZATION.set_field("billing", billing.resolve)
 ORGANIZATION.set_field("company", company.resolve)
 ORGANIZATION.set_field("compliance", compliance.resolve)
+ORGANIZATION.set_field("coveredCommits", covered_commits.resolve)
 ORGANIZATION.set_field("coveredRepositories", covered_repositories.resolve)
 ORGANIZATION.set_field("credentials", credentials.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)

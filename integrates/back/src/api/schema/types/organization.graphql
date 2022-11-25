@@ -21,6 +21,8 @@ type Organization {
   compliance: OrganizationCompliance!
   "Country where the organization is based"
   country: String
+  "Number of commits covered in the repositories of the scope"
+  coveredCommits: Int
   "Number of repositories covered in scope"
   coveredRepositories: Int
   "Credentials associated to the organization"
