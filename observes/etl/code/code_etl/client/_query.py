@@ -1,11 +1,11 @@
 from ._raw_objs import (
     RawCommitStamp,
 )
+from code_etl._utils import (
+    COMMIT_HASH_SENTINEL,
+)
 from code_etl.objs import (
     RepoId,
-)
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
 )
 from fa_purity.frozen import (
     freeze,

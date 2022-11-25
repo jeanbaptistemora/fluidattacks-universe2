@@ -31,6 +31,7 @@ def set_settings(settings_path: Path, python_env: Path) -> None:
         if file.read() == "":
             settings = {}
         else:
+            file.seek(0)
             settings = load(file)  # type: ignore[misc]
     with open(settings_path, "w+", encoding="UTF-8") as file:
         new_settings = settings | env_settings

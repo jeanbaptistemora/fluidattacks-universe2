@@ -1,3 +1,8 @@
+from code_etl._utils import (
+    COMMIT_HASH_SENTINEL,
+    DATE_NOW,
+    DATE_SENTINEL,
+)
 from code_etl.amend.core import (
     AmendUsers,
 )
@@ -17,11 +22,6 @@ from code_etl.objs import (
 )
 from code_etl.time_utils import (
     to_utc,
-)
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
-    DATE_NOW,
-    DATE_SENTINEL,
 )
 from dataclasses import (
     dataclass,

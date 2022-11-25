@@ -1,5 +1,5 @@
 from code_etl import (
-    utils,
+    _utils,
 )
 from code_etl.client import (
     Client,
@@ -38,4 +38,4 @@ def init_tables(
         client = new_client(connection, LOG).map(Client.new)
         return client.bind(lambda c: c.init_table(table)) + connection.commit()
 
-    return new_connection.bind(lambda c: utils.wrap_connection(c, _main))
+    return new_connection.bind(lambda c: _utils.wrap_connection(c, _main))

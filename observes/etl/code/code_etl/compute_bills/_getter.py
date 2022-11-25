@@ -2,6 +2,9 @@ from ._retry import (
     api_handler,
     retry_cmd,
 )
+from code_etl._utils import (
+    COMMIT_HASH_SENTINEL,
+)
 from code_etl.compute_bills.core import (
     Contribution,
 )
@@ -11,9 +14,6 @@ from code_etl.objs import (
     GroupId,
     RepoId,
     User,
-)
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
 )
 from datetime import (
     datetime,

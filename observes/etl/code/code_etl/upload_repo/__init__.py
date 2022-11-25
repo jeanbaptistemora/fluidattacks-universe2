@@ -1,3 +1,6 @@
+from code_etl import (
+    _utils,
+)
 from code_etl.client import (
     Client,
 )
@@ -22,6 +25,9 @@ from fa_purity.frozen import (
 )
 from fa_purity.maybe import (
     Maybe,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
 )
 from fa_purity.result import (
     Result,
@@ -113,24 +119,14 @@ def _upload_repos(
     def _pair(path: Path) -> Cmd[Tuple[Client, Path]]:
         return _new_client(path).map(lambda c: (c, path))
 
-    client_paths = tuple(map(_pair, repo_paths))
-    pool = ThreadPool()  # type: ignore[misc]
-
-    def _action() -> None:
-        LOG.debug("Concurrent action started!")
-
-        def _inner(cmd: Cmd[Tuple[Client, Path]]) -> None:
-            return unsafe_unwrap(
-                cmd.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
-            )
-
-        pool.map(  # type: ignore[misc]
-            _inner,
-            client_paths,
+    cmds = (
+        from_flist(repo_paths)
+        .map(_pair)
+        .map(
+            lambda a: a.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
         )
-
-    jobs = Cmd.from_cmd(_action)
-    return jobs
+    )
+    return _utils.cmds_in_threads(cmds.to_list())
 
 
 def upload_repos(

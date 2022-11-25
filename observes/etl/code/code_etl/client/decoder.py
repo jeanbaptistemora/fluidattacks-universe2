@@ -1,6 +1,9 @@
 from ._raw_objs import (
     RawCommitStamp,
 )
+from code_etl._utils import (
+    COMMIT_HASH_SENTINEL,
+)
 from code_etl.client._assert import (
     assert_not_none,
 )
@@ -14,9 +17,6 @@ from code_etl.objs import (
     RepoId,
     RepoRegistration,
     User,
-)
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
 )
 from fa_purity import (
     Maybe,

@@ -9,6 +9,9 @@ from ._raw_file_commit import (
     FileRelationFactory,
     RawFileCommitClient,
 )
+from code_etl._utils import (
+    COMMIT_HASH_SENTINEL,
+)
 from code_etl.client import (
     _query,
     decoder,
@@ -23,9 +26,6 @@ from code_etl.objs import (
     RepoContex,
     RepoId,
     RepoRegistration,
-)
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
 )
 from dataclasses import (
     dataclass,
