@@ -14,21 +14,12 @@ from db_model.organizations.get import (
 from db_model.organizations.types import (
     Organization,
 )
-import logging
-import logging.config
 from operator import (
     attrgetter,
 )
 from organizations.domain import (
     get_all_active_group_names,
 )
-from settings import (
-    LOGGING,
-)
-
-logging.config.dictConfig(LOGGING)
-
-LOGGER = logging.getLogger(__name__)
 
 
 async def main() -> None:
