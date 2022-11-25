@@ -12,6 +12,11 @@ type Me {
   drafts: [Finding!]
   "Enrollment information"
   enrollment: Enrollment!
+  @deprecated(
+    reason: """
+      This field will be removed after 2023/05/25.
+    """
+  )
   "Stakeholder findings to reattack"
   findingReattacks: [Finding]!
   "Indicates if user has rejected drafts"

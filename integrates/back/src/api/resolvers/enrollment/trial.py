@@ -1,6 +1,13 @@
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
+    Trial as EnrollmentTrial,
 )
 from enrollment import (
     domain as enrollment_domain,
@@ -13,15 +20,29 @@ from newutils import (
 )
 from typing import (
     Any,
+    cast,
+    Optional,
 )
 
 
 async def resolve(
     parent: Enrollment,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> dict[str, Any]:
-    trial: Trial = parent.trial
+    loaders: Dataloaders = info.context.loaders
+    domain = parent.email.split("@")[1]
+    company: Optional[Company] = await loaders.company.load(domain)
+    trial = (
+        company.trial
+        if company
+        else Trial(
+            completed=False,
+            extension_date="",
+            extension_days=0,
+            start_date="",
+        )
+    )
 
     return {
         "completed": trial.completed,
@@ -34,5 +55,7 @@ async def resolve(
         "start_date": datetime_utils.convert_from_iso_str(trial.start_date)
         if trial.start_date
         else "",
-        "state": enrollment_domain.get_enrollment_trial_state(trial),
+        "state": enrollment_domain.get_enrollment_trial_state(
+            cast(EnrollmentTrial, trial)
+        ),
     }

@@ -8,6 +8,11 @@ type Query {
     "User email"
     email: String!
   ): Enrollment!
+  @deprecated(
+    reason: """
+      This field will be removed after 2023/05/25.
+    """
+  )
 
   "Environment URL entity"
   environmentUrl(
