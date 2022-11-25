@@ -147,7 +147,7 @@ describe("groupToePortsView", (): void => {
       [
         "group.toe.ports.root",
         "group.toe.ports.port",
-        "group.toe.ports.hasVulnerabilities",
+        "group.toe.ports.status",
         "group.toe.ports.seenAt",
         "group.toe.ports.attackedAt",
         "group.toe.ports.seenFirstTimeBy",
@@ -161,7 +161,7 @@ describe("groupToePortsView", (): void => {
       [
         "test_nickname",
         "8080",
-        "group.toe.ports.no",
+        "Group.toe.ports.safe",
         "2000-01-01",
         "2020-01-02",
         "",
@@ -175,7 +175,7 @@ describe("groupToePortsView", (): void => {
       [
         "test_nickname",
         "8081",
-        "group.toe.ports.yes",
+        "Group.toe.ports.vulnerable",
         "2020-03-14",
         "2021-02-02",
         "test@test.com",
@@ -190,7 +190,7 @@ describe("groupToePortsView", (): void => {
       [
         "",
         "80",
-        "group.toe.ports.yes",
+        "Group.toe.ports.vulnerable",
         "2020-01-11",
         "2021-02-11",
         "test2@test.com",
@@ -350,7 +350,7 @@ describe("groupToePortsView", (): void => {
       [
         "group.toe.ports.root",
         "group.toe.ports.port",
-        "group.toe.ports.hasVulnerabilities",
+        "group.toe.ports.status",
         "group.toe.ports.seenAt",
         "group.toe.ports.bePresent",
         "group.toe.ports.attackedAt",
@@ -362,7 +362,7 @@ describe("groupToePortsView", (): void => {
     );
 
     const row = screen.getByRole("row", {
-      name: "test_nickname 8080 group.toe.ports.no 2000-01-01 bePresentSwitch Yes 2020-01-02",
+      name: "test_nickname 8080 Group.toe.ports.safe 2000-01-01 bePresentSwitch Yes 2020-01-02",
     });
 
     await userEvent.click(

@@ -24,6 +24,7 @@ import type { IFilter } from "components/Filter";
 import { Table } from "components/Table";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import type { ICellHelper } from "components/Table/types";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import {
   GET_TOE_PORTS,
   UPDATE_TOE_PORT,
@@ -187,6 +188,8 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
       year: "numeric",
     }).format(date);
   };
+  const formatHasVulnerabilityStatus = (value: boolean): string =>
+    value ? t("group.toe.ports.vulnerable") : t("group.toe.ports.safe");
 
   const storeUpdatedPort: (
     rootId: string,
@@ -295,10 +298,11 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
       header: t("group.toe.ports.port"),
     },
     {
-      accessorFn: (row: IToePortData): string => {
-        return formatBoolean(row.hasVulnerabilities);
-      },
-      header: String(t("group.toe.ports.hasVulnerabilities")),
+      accessorFn: (row: IToePortData): string =>
+        formatHasVulnerabilityStatus(row.hasVulnerabilities),
+      cell: (cell: ICellHelper<IToePortData>): JSX.Element =>
+        statusFormatter(cell.getValue()),
+      header: String(t("group.toe.ports.status")),
       meta: { filterType: "select" },
     },
     {
@@ -392,10 +396,10 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     {
       id: "hasVulnerabilities",
       key: "hasVulnerabilities",
-      label: t("group.toe.ports.hasVulnerabilities"),
+      label: t("group.toe.ports.status"),
       selectOptions: [
-        { header: formatBoolean(true), value: "true" },
-        { header: formatBoolean(false), value: "false" },
+        { header: formatHasVulnerabilityStatus(true), value: "true" },
+        { header: formatHasVulnerabilityStatus(false), value: "false" },
       ],
       type: "select",
     },
