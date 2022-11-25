@@ -3,9 +3,6 @@ from aioextensions import (
     run,
 )
 import asyncio
-from batch_dispatch.refresh_toe_lines import (
-    pull_repositories,
-)
 from custom_exceptions import (
     IndicatorAlreadyUpdated,
 )
@@ -34,6 +31,9 @@ from groups import (
 )
 import json
 import logging
+from newutils.git_self import (
+    pull_repositories,
+)
 from organizations import (
     domain as orgs_domain,
 )

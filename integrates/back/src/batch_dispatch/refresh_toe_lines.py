@@ -284,26 +284,6 @@ def get_non_present_toe_lines_to_update(
     )
 
 
-def make_group_dir(tmpdir: str, group_name: str) -> None:
-    group_dir = os.path.join(tmpdir, "groups", group_name, "fusion")
-    os.makedirs(group_dir, exist_ok=True)
-
-
-def pull_repositories(
-    tmpdir: str, group_name: str, optional_repo_nickname: Optional[str]
-) -> None:
-    make_group_dir(tmpdir, group_name)
-    call_melts = [
-        "CI=true",
-        "CI_COMMIT_REF_NAME=trunk",
-        f"melts drills --pull-repos {group_name}",
-    ]
-    if optional_repo_nickname:
-        call_melts.append(f"--name {optional_repo_nickname}")
-    os.system(" ".join(call_melts))  # nosec
-    os.system(f"chmod -R +r {os.path.join(tmpdir, 'groups')}")  # nosec
-
-
 async def refresh_active_root_repo_toe_lines(
     loaders: Dataloaders,
     group_name: str,
@@ -538,7 +518,7 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
 
     with tempfile.TemporaryDirectory() as tmpdir:
         os.chdir(tmpdir)
-        pull_repositories(tmpdir, group_name, optional_repo_nickname)
+        git_utils.pull_repositories(tmpdir, group_name, optional_repo_nickname)
         group_path = tmpdir + f"/groups/{group_name}"
         os.chdir(f"{group_path}/fusion")
         await refresh_root_repo_toe_lines(group_name, optional_repo_nickname)

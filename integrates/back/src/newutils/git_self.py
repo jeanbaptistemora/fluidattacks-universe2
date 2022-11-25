@@ -475,3 +475,23 @@ def rebase(
         return None
 
     return RebaseResult(path=path, line=line, rev=rev)
+
+
+def make_group_dir(tmpdir: str, group_name: str) -> None:
+    group_dir = os.path.join(tmpdir, "groups", group_name, "fusion")
+    os.makedirs(group_dir, exist_ok=True)
+
+
+def pull_repositories(
+    tmpdir: str, group_name: str, optional_repo_nickname: Optional[str]
+) -> None:
+    make_group_dir(tmpdir, group_name)
+    call_melts = [
+        "CI=true",
+        "CI_COMMIT_REF_NAME=trunk",
+        f"melts drills --pull-repos {group_name}",
+    ]
+    if optional_repo_nickname:
+        call_melts.append(f"--name {optional_repo_nickname}")
+    os.system(" ".join(call_melts))  # nosec
+    os.system(f"chmod -R +r {os.path.join(tmpdir, 'groups')}")  # nosec

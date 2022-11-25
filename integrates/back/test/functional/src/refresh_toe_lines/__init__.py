@@ -8,12 +8,14 @@ from back.test.functional.src.utils import (
 )
 from batch_dispatch import (
     dispatch,
-    refresh_toe_lines,
 )
 from dataloaders import (
     get_new_context,
 )
 import glob
+from newutils import (
+    git_self,
+)
 import os
 import shutil
 import sys
@@ -74,7 +76,7 @@ async def get_result(
             ],
         )
         monkeypatch.setattr(
-            refresh_toe_lines,
+            git_self,
             "pull_repositories",
             mocked_pull_repositories,
         )
