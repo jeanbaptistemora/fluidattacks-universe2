@@ -1,3 +1,6 @@
+from code_etl import (
+    _utils,
+)
 from code_etl.amend.core import (
     AmendUsers,
 )
@@ -13,7 +16,6 @@ from code_etl.objs import (
 )
 from fa_purity.cmd import (
     Cmd,
-    unsafe_unwrap,
 )
 from fa_purity.maybe import (
     Maybe,
@@ -99,12 +101,6 @@ def start(
         False,
         IsolationLvl.AUTOCOMMIT,
     )
-
-    def _action() -> None:
-        conn = unsafe_unwrap(connection)
-        try:
-            unsafe_unwrap(_start(conn, namespace, mailmap))
-        finally:
-            unsafe_unwrap(conn.close())
-
-    return Cmd.from_cmd(_action)
+    return _utils.wrap_connection(
+        connection, lambda c: _start(c, namespace, mailmap)
+    )

@@ -38,4 +38,4 @@ def init_tables(
         client = new_client(connection, LOG).map(Client.new)
         return client.bind(lambda c: c.init_table(table)) + connection.commit()
 
-    return new_connection.bind(lambda c: _utils.wrap_connection(c, _main))
+    return _utils.wrap_connection(new_connection, _main)

@@ -5,9 +5,6 @@ from fa_purity import (
     Cmd,
     FrozenList,
 )
-from fa_purity.cmd import (
-    unsafe_unwrap,
-)
 from fa_purity.cmd.core import (
     CmdUnwrapper,
     new_cmd,
@@ -54,17 +51,21 @@ def log_info(log: logging.Logger, msg: str, *args: str) -> Cmd[None]:
 
 
 def wrap_connection(
-    connection: DbConnection, action: Callable[[DbConnection], Cmd[None]]
-) -> Cmd[None]:
+    new_connection: Cmd[DbConnection],
+    action: Callable[[DbConnection], Cmd[_T]],
+) -> Cmd[_T]:
     """Ensures that connection is closed regardless of action errors"""
 
-    def _action() -> None:
-        try:
-            unsafe_unwrap(action(connection))
-        finally:
-            unsafe_unwrap(connection.close())
+    def _inner(connection: DbConnection) -> Cmd[_T]:
+        def _action(act: CmdUnwrapper) -> _T:
+            try:
+                return act.unwrap(action(connection))
+            finally:
+                act.unwrap(connection.close())
 
-    return Cmd.from_cmd(_action)
+        return new_cmd(_action)
+
+    return new_connection.bind(_inner)
 
 
 def cmds_in_threads(cmds: FrozenList[Cmd[None]]) -> Cmd[None]:

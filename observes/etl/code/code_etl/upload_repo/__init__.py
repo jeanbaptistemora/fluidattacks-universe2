@@ -32,6 +32,7 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result import (
     Result,
     ResultE,
+    ResultFactory,
 )
 from git.exc import (
     InvalidGitRepositoryError,
@@ -78,10 +79,11 @@ def upload_or_register(
 
 
 def _try_repo(raw: str) -> ResultE[Repo]:
+    factory: ResultFactory[Repo, Exception] = ResultFactory()
     try:
-        return Result.success(Repo(raw))
+        return factory.success(Repo(raw))
     except InvalidGitRepositoryError as err:
-        return Result.failure(err)
+        return factory.failure(err)
 
 
 def upload(
@@ -143,12 +145,6 @@ def upload_repos(
         False,
         IsolationLvl.AUTOCOMMIT,
     )
-
-    def _action() -> None:
-        conn = unsafe_unwrap(connection)
-        try:
-            unsafe_unwrap(_upload_repos(conn, namespace, repo_paths, mailmap))
-        finally:
-            unsafe_unwrap(conn.close())
-
-    return Cmd.from_cmd(_action)
+    return _utils.wrap_connection(
+        connection, lambda c: _upload_repos(c, namespace, repo_paths, mailmap)
+    )
