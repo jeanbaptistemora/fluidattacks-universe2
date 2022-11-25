@@ -28,10 +28,13 @@ def set_settings(settings_path: Path, python_env: Path) -> None:
         "python.linting.pylintEnabled": True,
     }
     with open(settings_path, "r+", encoding="UTF-8") as file:
-        settings = load(file)  # type: ignore[misc]
+        if file.read() == "":
+            settings = {}
+        else:
+            settings = load(file)  # type: ignore[misc]
     with open(settings_path, "w+", encoding="UTF-8") as file:
-        new_settings = settings | env_settings  # type: ignore[misc]
-        dump(new_settings, file, indent=2)  # type: ignore[misc]
+        new_settings = settings | env_settings
+        dump(new_settings, file, indent=2)
 
 
 def main(args: Tuple[str, ...]) -> None:
