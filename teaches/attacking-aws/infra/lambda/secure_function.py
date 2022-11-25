@@ -6,7 +6,7 @@ import boto3
 import json
 
 
-def lambda_handler(event, context):
+def lambda_handler(event):
     """Secure function."""
     client = boto3.client("iam")
     user = event["user"]
