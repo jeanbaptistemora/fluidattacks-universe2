@@ -8,6 +8,7 @@
     click
     fa-purity
     GitPython
+    gql
     pathos
     ratelimiter
     redshift-client
