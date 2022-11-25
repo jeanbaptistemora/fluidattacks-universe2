@@ -246,6 +246,7 @@ def iter_iam_user_policy(model: Any) -> Iterator[Any]:
 
 def iterate_managed_policy_arns(
     model: Any,
+    key: str = "",
 ) -> Iterator[Any]:
     for resource in chain(
         iterate_resources(
@@ -256,7 +257,7 @@ def iterate_managed_policy_arns(
         iterate_resources(model, "resource", "aws_iam_user_policy_attachment"),
     ):
         for block in resource.body:
-            if block.key != "policy_arn":
+            if key and block.key != key:
                 continue
             yield AWSIamManagedPolicyArns(
                 line=block.line, column=block.column, data=[block.val]

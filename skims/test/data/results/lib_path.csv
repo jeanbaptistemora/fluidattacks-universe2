@@ -19444,6 +19444,30 @@ F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   126 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_policy.tf,"
+  15 |     }
+  16 |   ]
+  17 | }
+  18 | EOF
+  19 | }
+  20 |
+  21 | resource ""aws_iam_policy"" ""test_policy"" {
+  22 |   name        = ""test_policy""
+  23 |   description = ""A test policy""
+  24 |
+> 25 |   policy = <<EOF
+  26 | {
+  27 |   ""Version"": ""2012-10-17"",
+  28 |   ""Statement"": [
+  29 |     {
+  30 |       ""Action"": [
+  31 |         ""ec2:Describe*""
+  32 |       ],
+  33 |       ""Effect"": ""Allow"",
+  34 |       ""Resource"": ""*""
+  35 |     },
+     ^ Col 0
+",terraform.tfm_iam_excessive_role_policy
 F325,lines,namespace/skims/test/data/lib_path/f325/json_principal_wildcard.json,8,250,skims,325. Excessive privileges - Wildcards,"The wildcard () is used to give access to any user, including anonymous users.
  in namespace/skims/test/data/lib_path/f325/json_principal_wildcard.json","
    1 | {

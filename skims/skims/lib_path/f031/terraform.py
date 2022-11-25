@@ -21,9 +21,10 @@ from model.core_model import (
 )
 from parse_hcl2.common import (
     get_attribute,
+    get_tree_value,
+    iterate_resources,
 )
 from parse_hcl2.structure.aws import (
-    iter_aws_iam_role,
     iter_iam_user_policy,
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
@@ -53,10 +54,32 @@ def action_has_full_access_to_ssm(actions: Union[str, List[str]]) -> bool:
     return False
 
 
-def check_role_name(role_iterator: Iterator[Any], name: str) -> bool:
+def check_resource_name(
+    managed_policies_iterator: Iterator[Any],
+    name_resource: str,
+) -> bool:
     if any(
-        (role_name := get_attribute(attr.data, "name"))
-        and role_name.val in name
+        not isinstance(policy.data[0], str)
+        and (value := str(get_tree_value(policy.data[0])))
+        and value.startswith("aws_iam_role")
+        and value.split(".")[1] == name_resource
+        for policy in managed_policies_iterator
+    ):
+        return True
+    return False
+
+
+def check_role_name(
+    managed_policies_iterator: Iterator[Any],
+    role_iterator: Iterator[Any],
+    name_role: str,
+) -> bool:
+    if any(
+        len(attr.namespace) > 1
+        and (res_name := attr.namespace[2])
+        and check_resource_name(managed_policies_iterator, res_name)
+        and (role_name := get_attribute(attr.body, "name"))
+        and role_name.val in name_role
         for attr in role_iterator
     ):
         return True
@@ -66,6 +89,7 @@ def check_role_name(role_iterator: Iterator[Any], name: str) -> bool:
 def action_has_attach_role(
     actions: Union[str, List[str]],
     resources: Union[str, List[str]],
+    managed_policies_iterator: Iterator[Any],
     role_iterator: Iterator[Any],
 ) -> bool:
     actions_list = actions if isinstance(actions, list) else [actions]
@@ -74,7 +98,13 @@ def action_has_attach_role(
         if action == "iam:Attach*" and any(
             re.split("::", res)[0].startswith("arn:aws:iam")
             and re.search(r"\$?[A-Za-z0-9_./{}]:role/", res)
-            and (check_role_name(role_iterator, re.split(":role/", res)[1]))
+            and (
+                check_role_name(
+                    managed_policies_iterator,
+                    role_iterator,
+                    re.split(":role/", res)[1],
+                )
+            )
             for res in resource_list
         ):
             return True
@@ -82,6 +112,7 @@ def action_has_attach_role(
 
 
 def _tfm_iam_role_excessive_privilege(
+    managed_policies_iterator: Iterator[Any],
     statements_iterator: Iterator[Any],
     role_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -89,7 +120,9 @@ def _tfm_iam_role_excessive_privilege(
         stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
         resources = stmt_raw.get("Resource", [])
         actions = stmt_raw.get("Action", [])
-        if action_has_attach_role(actions, resources, role_iterator):
+        if action_has_attach_role(
+            actions, resources, managed_policies_iterator, role_iterator
+        ):
             yield stmt
 
 
@@ -113,7 +146,10 @@ def terraform_admin_policy_attached(
         iterator=get_cloud_iterator(
             admin_policies_attached_iterate_vulnerabilities(
                 managed_policies_iterator=(
-                    terraform_iterate_managed_policy_arns(model=model)
+                    terraform_iterate_managed_policy_arns(
+                        model=model,
+                        key="policy_arn",
+                    )
                 )
             )
         ),
@@ -238,10 +274,15 @@ def tfm_iam_excessive_role_policy(
         description_key="src.lib_path.f031.iam_excessive_role_policy",
         iterator=get_cloud_iterator(
             _tfm_iam_role_excessive_privilege(
+                managed_policies_iterator=(
+                    terraform_iterate_managed_policy_arns(model=model)
+                ),
                 statements_iterator=terraform_iterate_iam_policy_documents(
                     model=model,
                 ),
-                role_iterator=iter_aws_iam_role(model=model),
+                role_iterator=iterate_resources(
+                    model, "resource", "aws_iam_role"
+                ),
             )
         ),
         path=path,
