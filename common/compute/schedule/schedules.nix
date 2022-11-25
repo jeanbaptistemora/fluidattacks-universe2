@@ -1418,14 +1418,14 @@
       "management:type" = "product";
     };
   };
-  integrates_vulnerabilities_expiring_report = {
+  integrates_treatment_alert_notification = {
     enabled = true;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
-      "schedulers.vulnerabilities_expiring_report.main"
+      "schedulers.treatment_alert_notification.main"
     ];
 
     schedule_expression = "cron(0 17 ? * 2-6 *)";
@@ -1441,7 +1441,7 @@
     ];
 
     tags = {
-      "Name" = "integrates_vulnerabilities_expiring_report";
+      "Name" = "integrates_treatment_alert_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
