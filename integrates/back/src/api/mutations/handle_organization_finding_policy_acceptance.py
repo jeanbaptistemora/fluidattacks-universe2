@@ -54,8 +54,8 @@ async def mutate(
 
     await policies_domain.handle_finding_policy_acceptance(
         loaders=loaders,
+        email=user_email,
         finding_policy_id=finding_policy_id,
-        modified_by=user_email,
         organization_name=organization_name,
         status=status_typed,
     )

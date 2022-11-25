@@ -81,10 +81,10 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
             updated_vuln_ids,
         ) = await update_finding_policy_in_groups(
             loaders=loaders,
+            email=item.subject,
             finding_name=finding_name,
             group_names=active_group_names,
-            status=finding_policy.state.status.value,
-            user_email=item.subject,
+            status=finding_policy.state.status,
             tags=set(finding_policy.tags),
         )
         await update_unreliable_indicators_by_deps(

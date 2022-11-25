@@ -49,8 +49,8 @@ async def mutate(
 
     await policies_domain.deactivate_finding_policy(
         loaders=loaders,
+        email=user_email,
         finding_policy_id=finding_policy_id,
-        modified_by=user_email,
         organization_name=organization_name,
     )
 

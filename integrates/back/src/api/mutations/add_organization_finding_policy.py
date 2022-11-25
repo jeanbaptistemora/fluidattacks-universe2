@@ -49,8 +49,8 @@ async def mutate(
 
     await policies_domain.add_finding_policy(
         loaders=loaders,
+        email=user_email,
         finding_name=finding_name.strip(),
-        modified_by=user_email,
         organization_name=organization_name,
         tags=set(tags) if tags is not None else set(),
     )

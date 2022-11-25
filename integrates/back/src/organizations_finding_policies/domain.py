@@ -80,8 +80,8 @@ async def get_finding_policy_by_name(
 async def add_finding_policy(
     *,
     loaders: Dataloaders,
+    email: str,
     finding_name: str,
-    modified_by: str,
     organization_name: str,
     tags: set[str],
 ) -> None:
@@ -101,7 +101,7 @@ async def add_finding_policy(
             organization_name=organization_name,
             name=finding_name,
             state=OrgFindingPolicyState(
-                modified_by=modified_by,
+                modified_by=email,
                 modified_date=datetime_utils.get_iso_date(),
                 status=PolicyStateStatus.SUBMITTED,
             ),
@@ -113,8 +113,8 @@ async def add_finding_policy(
 async def handle_finding_policy_acceptance(
     *,
     loaders: Dataloaders,
+    email: str,
     finding_policy_id: str,
-    modified_by: str,
     organization_name: str,
     status: PolicyStateStatus,
 ) -> None:
@@ -133,7 +133,7 @@ async def handle_finding_policy_acceptance(
         organization_name=organization_name,
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
-            modified_by=modified_by,
+            modified_by=email,
             modified_date=datetime_utils.get_iso_date(),
             status=status,
         ),
@@ -143,8 +143,8 @@ async def handle_finding_policy_acceptance(
 async def submit_finding_policy(
     *,
     loaders: Dataloaders,
+    email: str,
     finding_policy_id: str,
-    modified_by: str,
     organization_name: str,
 ) -> None:
     finding_policy: OrgFindingPolicy = (
@@ -165,7 +165,7 @@ async def submit_finding_policy(
         organization_name=organization_name,
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
-            modified_by=modified_by,
+            modified_by=email,
             modified_date=datetime_utils.get_iso_date(),
             status=PolicyStateStatus.SUBMITTED,
         ),
@@ -175,8 +175,8 @@ async def submit_finding_policy(
 async def deactivate_finding_policy(
     *,
     loaders: Dataloaders,
+    email: str,
     finding_policy_id: str,
-    modified_by: str,
     organization_name: str,
 ) -> None:
     finding_policy: OrgFindingPolicy = (
@@ -194,7 +194,7 @@ async def deactivate_finding_policy(
         organization_name=organization_name,
         finding_policy_id=finding_policy_id,
         state=OrgFindingPolicyState(
-            modified_by=modified_by,
+            modified_by=email,
             modified_date=datetime_utils.get_iso_date(),
             status=PolicyStateStatus.INACTIVE,
         ),
@@ -204,10 +204,10 @@ async def deactivate_finding_policy(
 async def update_finding_policy_in_groups(
     *,
     loaders: Dataloaders,
+    email: str,
     finding_name: str,
     group_names: list[str],
-    status: str,
-    user_email: str,
+    status: PolicyStateStatus,
     tags: set[str],
 ) -> tuple[list[str], list[str]]:
     group_drafts: tuple[
@@ -234,7 +234,7 @@ async def update_finding_policy_in_groups(
     await _apply_finding_policy(
         vulns=vulns,
         status=status,
-        user_email=user_email,
+        email=email,
         tags=tags,
     )
     return findings_ids, [vuln.id for vuln in vulns]
@@ -242,20 +242,20 @@ async def update_finding_policy_in_groups(
 
 async def _apply_finding_policy(
     vulns: tuple[Vulnerability, ...],
-    status: str,
-    user_email: str,
+    status: PolicyStateStatus,
+    email: str,
     tags: set[str],
 ) -> None:
     current_day: str = datetime_utils.get_iso_date()
-    if status not in {"APPROVED", "INACTIVE"}:
+    if status not in {PolicyStateStatus.APPROVED, PolicyStateStatus.INACTIVE}:
         return
-    if status == "APPROVED":
+    if status == PolicyStateStatus.APPROVED:
         await collect(
             (
                 _add_accepted_treatment(
                     current_day=current_day,
                     vulns=vulns,
-                    user_email=user_email,
+                    email=email,
                 ),
                 _add_tags_to_vulnerabilities(
                     vulns=vulns,
@@ -263,11 +263,11 @@ async def _apply_finding_policy(
                 ),
             )
         )
-    if status == "INACTIVE":
+    elif status == PolicyStateStatus.INACTIVE:
         await _add_new_treatment(
             current_day=current_day,
             vulns=vulns,
-            user_email=user_email,
+            email=email,
         )
 
 
@@ -275,7 +275,7 @@ async def _add_accepted_treatment(
     *,
     current_day: str,
     vulns: tuple[Vulnerability, ...],
-    user_email: str,
+    email: str,
 ) -> None:
     vulns_to_update = [
         vuln
@@ -289,7 +289,7 @@ async def _add_accepted_treatment(
         acceptance_submitted,
         acceptance_approved,
     ) = vulns_utils.get_treatment_from_org_finding_policy(
-        modified_date=current_day, user_email=user_email
+        modified_date=current_day, user_email=email
     )
     await collect(
         [
@@ -337,7 +337,7 @@ async def _add_new_treatment(
     *,
     current_day: str,
     vulns: tuple[Vulnerability, ...],
-    user_email: str,
+    email: str,
 ) -> None:
     vulns_to_update = [
         vuln
@@ -354,7 +354,7 @@ async def _add_new_treatment(
                 treatment=VulnerabilityTreatment(
                     modified_date=current_day,
                     status=VulnerabilityTreatmentStatus.NEW,
-                    modified_by=user_email,
+                    modified_by=email,
                 ),
             )
             for vuln in vulns_to_update
