@@ -71,7 +71,9 @@ resource "aws_iam_policy" "grafana" {
       {
         "Effect" : "Allow",
         "Action" : [
+          "s3:GetBucketLocation",
           "s3:ListBucket",
+          "s3:ListBucketMultipartUploads"
         ],
         "Resource" : [
           "${aws_s3_bucket.monitoring.arn}",
@@ -82,6 +84,7 @@ resource "aws_iam_policy" "grafana" {
         "Effect" : "Allow",
         "Action" : [
           "s3:GetObject",
+          "s3:ListMultipartUploadParts",
         ],
         "Resource" : [
           "${aws_s3_bucket.monitoring.arn}/*",
@@ -91,6 +94,7 @@ resource "aws_iam_policy" "grafana" {
         "Effect" : "Allow",
         "Action" : [
           "s3:GetObject",
+          "s3:ListMultipartUploadParts",
           "s3:PutObject",
         ],
         "Resource" : [
@@ -136,9 +140,14 @@ resource "okta_app_saml" "grafana" {
   }
 }
 
-
-resource "okta_app_user" "grafana" {
+resource "okta_app_user" "grafana_user_1" {
   app_id   = okta_app_saml.grafana.id
-  user_id  = "00ul9azo2c04YGZN2357"
-  username = "kamado@fluidattacks.com"
+  user_id  = "00u3fmne3smuCPHVt357"
+  username = "acuberos@fluidattacks.com"
+}
+
+resource "okta_app_user" "grafana_user_2" {
+  app_id   = okta_app_saml.grafana.id
+  user_id  = "00u1l65axaSd0IMke357"
+  username = "jrestrepo@fluidattacks.com"
 }
