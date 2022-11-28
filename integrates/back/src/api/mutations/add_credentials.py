@@ -4,6 +4,13 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from batch.dal import (
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 from custom_exceptions import (
     InvalidParameter,
 )
@@ -21,6 +28,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import json
 from newutils import (
     logs as logs_utils,
     validations as validation_utils,
@@ -70,7 +78,7 @@ async def mutate(
     name: str = credentials["name"]
     validation_utils.validate_space_field(name)
 
-    await orgs_domain.add_credentials(
+    credentials_id: str = await orgs_domain.add_credentials(
         loaders,
         CredentialAttributesToAdd(
             name=name,
@@ -92,6 +100,17 @@ async def mutate(
         info.context,
         "Security: Added credentials to organization"
         f" {organization_id} successfully",
+    )
+
+    await put_action(
+        action=Action.UPDATE_ORGANIZATION_REPOSITORIES,
+        vcpus=2,
+        product_name=Product.INTEGRATES,
+        queue="small",
+        additional_info=json.dumps({"credentials_id": credentials_id}),
+        entity=organization_id,
+        attempt_duration_seconds=7200,
+        subject="integrates@fluidattacks.com",
     )
 
     return SimplePayload(success=True)

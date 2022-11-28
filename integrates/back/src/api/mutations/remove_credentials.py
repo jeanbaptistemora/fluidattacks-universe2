@@ -4,6 +4,13 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from batch.dal import (
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +22,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import json
 from newutils import (
     logs as logs_utils,
 )
@@ -53,6 +61,17 @@ async def mutate(
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Removed credentials from {organization_id} successfully",
+    )
+
+    await put_action(
+        action=Action.UPDATE_ORGANIZATION_REPOSITORIES,
+        vcpus=2,
+        product_name=Product.INTEGRATES,
+        queue="small",
+        additional_info=json.dumps({"credentials_id": credentials_id}),
+        entity=organization_id,
+        attempt_duration_seconds=7200,
+        subject="integrates@fluidattacks.com",
     )
 
     return SimplePayload(success=True)

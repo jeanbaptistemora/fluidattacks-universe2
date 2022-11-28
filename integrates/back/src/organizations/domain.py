@@ -155,7 +155,7 @@ async def add_credentials(
     attributes: CredentialAttributesToAdd,
     organization_id: str,
     modified_by: str,
-) -> None:
+) -> str:
     if attributes.type is CredentialType.SSH:
         secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(attributes.key or "")
@@ -208,6 +208,8 @@ async def add_credentials(
         loaders, credential.organization_id, credential.state.name
     )
     await credentials_model.add(credential=credential)
+
+    return credential.id
 
 
 async def add_group_access(
