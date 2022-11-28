@@ -448,8 +448,11 @@ const pageTexts: ResourceKey = {
       description:
         "Entries with this tag talk about ethical hacking teams, " +
         "their members " +
-        "and their simulation of cyberattacks to identify security issues.",
-      metaDescription: "Read Fluid Attacks' blog posts tagged with Red Team.",
+        "and their simulation of cyberattacks by adversarial threat actors " +
+        "to identify security issues.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Red Team, " +
+        "which touch on the offensive security approach known as red teaming.",
       title: "red-team",
     },
     risk: {
