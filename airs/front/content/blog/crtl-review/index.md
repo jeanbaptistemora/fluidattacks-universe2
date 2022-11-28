@@ -2,13 +2,13 @@
 slug: crtl-review/
 title: A CRTL Review
 date: 2022-11-25
-subtitle: A Certified Red Team Leader (CRTL) Review
+subtitle: A Certified Red Team Lead (CRTL) Review
 category: opinions
-tags: cybersecurity, risk, company
+tags: cybersecurity, red-team, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/oleksii-khodakivskiy-RLQB7rX-pyY-unsplash.webp
 alt: Photo by Oleksii Khodakivskiy on Unsplash
-description: In this post we review the RTO-2 course and CRTL certification offered by Zero-Point Security
-keywords: RTO, CRTL, Red Team, Red Team Leader, Cybersecurity Success, Security Status, Ethical Hacking, Pentesting
+description: In this post we review the RTO-2 course and CRTL certification offered by Zero-Point Security.
+keywords: RTO, CRTL, Red Team, Red Team Lead, Cybersecurity Success, Security Status, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan
@@ -31,7 +31,7 @@ bypassing of modern enterprise Windows endpoint controls.
 
 In this post, I will take an overview of the course
 contents and will relate my experience on the exam that
-gave me the title of Certified Red Team Leader.
+gave me the title of Certified Red Team Lead.
 
 ## Red Team Ops II
 
