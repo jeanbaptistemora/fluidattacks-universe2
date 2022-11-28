@@ -30,13 +30,22 @@ from datetime import (
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
+from db_model.roots.types import (
+    GitRoot,
+)
+import glob
 from newutils.datetime import (
     get_now_minus_delta,
 )
+import os
 import pytest
-from schedulers.update_organization_repositories import (
-    main,
+from schedulers.update_organization_overview import (
+    main as update_organization_overview,
 )
+from schedulers.update_organization_repositories import (
+    main as update_organization_repositories,
+)
+import shutil
 from typing import (
     Any,
     Optional,
@@ -111,6 +120,34 @@ def get_repositories_stats(
     )
 
 
+async def get_covered_group_commits(
+    path: str,  # pylint: disable=unused-argument
+    folder: str,  # pylint: disable=unused-argument
+    group: str,  # pylint: disable=unused-argument
+    git_roots: tuple[GitRoot, ...],  # pylint: disable=unused-argument
+) -> int:
+    return 4
+
+
+def mocked_pull_repositories(
+    tmpdir: str, group_name: str, optional_repo_nickname: str
+) -> None:
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(f"{dirname}/../refresh_toe_lines", "mocks")
+    fusion_path = f"{tmpdir}/groups/{group_name}/fusion"
+    if optional_repo_nickname:
+        shutil.copytree(
+            f"{filename}/{optional_repo_nickname}",
+            f"{fusion_path}/{optional_repo_nickname}",
+        )
+    else:
+        shutil.copytree(filename, fusion_path)
+
+    git_mocks = glob.glob(f"{fusion_path}/*/.git_mock")
+    for git_mock in git_mocks:
+        os.rename(git_mock, git_mock.replace("/.git_mock", "/.git"))
+
+
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("organization")
 @pytest.mark.parametrize(
@@ -118,7 +155,10 @@ def get_repositories_stats(
     (("admin@gmail.com", "admin", 12),),
 )
 async def test_get_organization_ver_1(
-    populate: bool, email: str, role: str, permissions: int
+    populate: bool,
+    email: str,
+    role: str,
+    permissions: int,
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
@@ -185,6 +225,7 @@ async def test_get_organization_ver_1(
     )
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+    assert result["data"]["organization"]["coveredCommits"] == 0
     assert result["data"]["organization"]["coveredRepositories"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
@@ -229,10 +270,21 @@ async def test_get_organization_ver_1(
                 "db_model.azure_repositories.get._get_repositories_stats",
                 side_effect=get_repositories_stats,
             ):
-                await main()
+                await update_organization_repositories()
+
+    with mock.patch(
+        "azure_repositories.domain.pull_repositories",
+        side_effect=mocked_pull_repositories,
+    ):
+        with mock.patch(
+            "azure_repositories.domain.get_covered_group_commits",
+            side_effect=get_covered_group_commits,
+        ):
+            await update_organization_overview()
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
+    assert result["data"]["organization"]["coveredCommits"] == 4
     assert result["data"]["organization"]["coveredRepositories"] == 1
     assert result["data"]["organization"]["missedCommits"] == 10
     assert result["data"]["organization"]["missedRepositories"] == 2
@@ -273,7 +325,13 @@ async def test_get_organization_ver_1(
     )
     assert len(current_repositories) == 2
 
-    await main()
+    await update_organization_repositories()
+    with mock.patch(
+        "azure_repositories.domain.pull_repositories",
+        side_effect=mocked_pull_repositories,
+    ):
+        await update_organization_overview()
+
     loaders.organization_unreliable_integration_repositories.clear_all()
     loaders.organization_credentials.clear_all()
     loaders.group_roots.clear_all()
@@ -287,6 +345,7 @@ async def test_get_organization_ver_1(
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
+    assert result["data"]["organization"]["coveredCommits"] == 0
     assert result["data"]["organization"]["coveredRepositories"] == 1
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
