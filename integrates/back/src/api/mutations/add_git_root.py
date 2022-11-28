@@ -5,6 +5,8 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from batch.dal import (
+    generate_key_to_dynamod,
+    get_action,
     put_action,
 )
 from batch.enums import (
@@ -101,6 +103,8 @@ async def mutate(
             roles=roles,
         )
     )
+    group_name = str(kwargs["group_name"]).lower()
+    group: Group = await loaders.group.load(group_name)
     if (
         kwargs.get("credentials")
         and (
@@ -145,8 +149,31 @@ async def mutate(
             ],
         )
 
-    group_name = str(kwargs["group_name"]).lower()
-    group: Group = await loaders.group.load(group_name)
+        key = generate_key_to_dynamod(
+            action_name=Action.UPDATE_ORGANIZATION_OVERVIEW.value,
+            additional_info="*",
+            entity=group.organization_id,
+            subject="integrates@fluidattacks.com",
+        )
+        overview_action = await get_action(action_dynamo_pk=key)
+        if not overview_action:
+            await put_action(
+                action=Action.UPDATE_ORGANIZATION_OVERVIEW,
+                vcpus=2,
+                product_name=Product.INTEGRATES,
+                queue="small",
+                additional_info="*",
+                entity=group.organization_id,
+                attempt_duration_seconds=7200,
+                subject="integrates@fluidattacks.com",
+                dependsOn=[
+                    {
+                        "jobId": result_queue_sync.batch_job_id,
+                        "type": "SEQUENTIAL",
+                    },
+                ],
+            )
+
     await remove(
         repository=OrganizationIntegrationRepository(
             id=hashlib.sha256(kwargs["url"].encode("utf-8")).hexdigest(),

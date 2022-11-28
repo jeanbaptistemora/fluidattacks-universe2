@@ -18,7 +18,7 @@ from organizations.domain import (
 
 
 async def update_organization_overview(*, item: BatchProcessing) -> None:
-    organization_id: str = item.entity
+    organization_id: str = f'ORG#{item.entity.lstrip("org#")}'
     loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(
         organization_id

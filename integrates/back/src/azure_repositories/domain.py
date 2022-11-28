@@ -135,6 +135,7 @@ async def get_covered_nickname_commits(
         "rev-list",
         "--count",
         git_root.state.branch,
+        "--",
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
         stdin=asyncio.subprocess.DEVNULL,
