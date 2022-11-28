@@ -452,6 +452,7 @@ def rebase(
         "--format=%H",
         "--reverse",
         f"{rev_a}...{rev_b}",
+        "--",
         path,
     )
     revs: list[str] = [rev_a] + revs_str.splitlines()
