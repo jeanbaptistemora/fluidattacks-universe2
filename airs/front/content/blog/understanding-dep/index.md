@@ -19,23 +19,24 @@ source: https://unsplash.com/photos/0Yiy0XajJHQ
 
 In past blog entries, we’ve written a good amount of articles dealing
 with Windows exploit development, [most of them](../tags/vulnserver/)
-attacking Vulnserver, a vulnerble-by-design (`VbD`) server that is
-designed for such a noble endeavor. We also wrote a couple of articles
+attacking Vulnserver, a vulnerable-by-design (`VbD`) server that,
+as can be easily guessed, is designed for such a noble endeavor.
+We also wrote a couple of articles
 creating an exploit for [QuickZIP](../quickzip-exploit/) and [MiTec Net
 Scanner](../netscan-exploit/). All of those exploits relied on the
 ability to execute instructions written on the stack of the process.
 
 However, modern CPUs have a mechanism that allow the OS to prevent that.
 
-In this article, we will introduce that protecion and in forthcoming
+In this article, we will introduce that protection and in forthcoming
 articles we will check a way to bypass it, called `ROP` (Return-Oriented
 Programming).
 
 ## No-Execute bit
 
 The protection on the CPUs is known as the NX (No-Execute) bit. The OS
-will use such capability to mark some memory areas (remarkably the
-stack) as non-executable and thus, preventing common buffer overflow
+will use such capability to mark some memory areas (remarkably, the
+stack) as non-executable and thus, prevent common buffer overflow
 exploits like the ones we’ve used so far. Let’s clarify that.
 
 In `x86` architecture, when a function is called, a function frame is
@@ -54,7 +55,7 @@ can overwrite anything that’s below the stack, including the `Saved EBP`
 and `Saved EIP`. When the vulnerable function returns, it will get the
 `Saved EIP` value back from the stack and use it as the next instruction
 pointer. That’s why we usually overwrite the `Saved EIP` with a pointer
-to a `JMP ESP` instruction that allow us to redirect execution back to
+to a `JMP ESP` instruction that allows us to redirect execution back to
 the stack on where we put the shellcode.
 
 **Example overflowed vuln\_var.**
@@ -93,7 +94,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ```
 
-This a simple exploit that will take advantage of a buffer overflow
+This is a simple exploit that will take advantage of a buffer overflow
 vulnerability of the Vulnserver `TRUN` command.
 [Here](../vulnserver-trun/) you can see the full writeup of how to find
 that vulnerability using fuzzing and [here](../reversing-vulnserver/)
@@ -110,9 +111,9 @@ way:
    vuln_var     Saved EBP       Saved EIP          Shellcode       Fill buffer
 ```
 
-On where:
+Where:
 
-1. 2006 `A` are added to trigger the overflow.
+1. 2,006 `A`s are added to trigger the overflow.
 
 2. `0x625011AF` is a pointer to a `JMP ESP` instruction and will be
     placed on `Saved EIP`.
@@ -121,15 +122,15 @@ On where:
     instruction pointed by `Saved EIP` which holds the `JMP ESP`
     instruction.
 
-4. With that, the execution flow is now redirected to the stack on
+4. With that, the execution flow is now redirected to the stack
     where the shellcode was placed.
 
 5. The shellcode, in this case will execute three arbitrary
     instructions:
 
-    1. `xor eax eax` → Zero-out `EAX` register
+    1. `xor eax eax` → Zero-outs `EAX` register
 
-    2. `add al,0x8` → Make `EAX` = `0x00000008`
+    2. `add al,0x8` → Makes `EAX` = `0x00000008`
 
     3. `nop` → Does nothing
 
@@ -196,12 +197,12 @@ enabled, you will be asked to enter the `Bitlocker` recovery key after
 the reboot. **If you don’t have that information, please don’t change
 the `DEP` value or your system will become unusable.**
 
-With that in place, we can check again our exploit to see if `DEP`
+With that in place, we can check our exploit again to see if `DEP`
 really prevents the execution of the instructions of our shellcode.
 
-**NOTE:** We will talk about Hardware-based `DEP` which uses the NX bit
+**NOTE:** We will talk about Hardware-based `DEP`, which uses the NX bit
 of the CPU to mark memory regions as non-executable. Software-based
-`DEP` will only prevent SEH-based overflows and it’s not in the scope of
+`DEP` will only prevent SEH-based overflows, and that’s not in the scope of
 this article. You can get more information on SEH-based exploits
 [here](../vulnserver-gmon/).
 
@@ -223,7 +224,7 @@ Several things have happened:
     to `JMP ESP`.
 
 3. The `JMP ESP` instruction is performed and execution flow is
-    rediected to the stack on where our shellcode is placed.
+    redirected to the stack where our shellcode is placed.
 
 4. However, when it tries to execute the first instruction on the
     shellcode (`xor eax,eax`), an `Access violation` exception is
@@ -250,8 +251,20 @@ Programming](../bypassing-dep/).
 ## Conclusions
 
 This article shows a mechanism created to prevent the exploitation of
-buffer overflow vulnerabilities. `DEP` surely leaves behind common
-exploits. However, in the [next article](../bypassing-dep/) we will see
+buffer overflow vulnerabilities. `DEP` surely renders common
+exploits unsuccessful.
+However, in the [next article](../bypassing-dep/) we will see
 how to bypass `DEP` using Return-Oriented Programming and later we can
 create a fully working exploit that triggers a reverse TCP shell on a
 DEP-enabled application.
+
+At Fluid Attacks,
+we probe security measures
+to find weaknesses.
+We do that in research
+but also perform [red teaming](../../solutions/red-teaming/) operations
+for software development companies.
+Right now we offer a [21-day free trial](../../free-trial/)
+of our vulnerability scanning.
+You can upgrade at any time
+to include manual security testing by our hackers.
