@@ -10,7 +10,7 @@ namespace Controllers
 
             bool unsafe2 = myreg.Matches("testing", regex);
 
-            var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+            var expreg = @"^(([a-z])+.)+[A-Z]([a-z])+$";
             bool unsafe3 = myreg.Match("testing", expreg);
 
             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);

@@ -7,7 +7,7 @@ from symbolic_eval.types import (
 def cs_vuln_regex(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     value = args.graph.nodes[args.n_id]["value"]
     # Other insecure regex patterns must be added here
-    insecure_chars = (".*", ")*", "+)", "+.)", ")+", "/g", r"\s")
+    insecure_chars = ("(.*", "+)*", "+.)", "+)+", "+)?", "?)+")
     if any(c in value for c in insecure_chars):
         args.evaluation[args.n_id] = True
 

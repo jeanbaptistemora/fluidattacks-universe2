@@ -29492,7 +29492,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,11,405,skims,211. Asy
   10 |
 > 11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
   12 |
-  13 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
   15 |
   16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
@@ -29517,7 +29517,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,9,405,skims,211. Asym
   10 |
   11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
   12 |
-  13 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
   15 |
   16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
@@ -29539,7 +29539,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,14,405,skims,211. Asy
   10 |
   11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
   12 |
-  13 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
 > 14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
   15 |
   16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
@@ -29561,7 +29561,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,17,405,skims,211. Asy
   10 |
   11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
   12 |
-  13 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
   15 |
   16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
@@ -42393,7 +42393,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0)
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, CVE-2022-3704, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'CVE-2022-3704', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    38 |     actionmailer (7.0.2.3)
    39 |       actionpack (= 7.0.2.3)
    40 |       actionview (= 7.0.2.3)
@@ -43205,6 +43205,54 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (puma v=5.1.0) [CVE-
    35 | # sprockets.
    36 | gem ""terser"", "">= 1.1.4"", require: false
    37 |
+      ^ Col 0
+",gem.gem_gemfile
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails v7.0.2.3) [CVE-2022-3704],167,937,skims,011. Use of software with known vulnerabilities,Use of rails at version 7.0.2.3 with ['CVE-2022-3704'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+  157 |     puma (5.4.0)
+  158 |     racc (1.6.0)
+  159 |     rack (2.2.3)
+  160 |     rack-openid (1.4.2)
+  161 |       rack (>= 1.1.0)
+  162 |       ruby-openid (>= 2.1.8)
+  163 |     rack-protection (2.2.0)
+  164 |       rack
+  165 |     rack-test (1.1.0)
+  166 |       rack (>= 1.0, < 3)
+> 167 |     rails (7.0.2.3)
+  168 |       actioncable (= 7.0.2.3)
+  169 |       actionmailbox (= 7.0.2.3)
+  170 |       actionmailer (= 7.0.2.3)
+  171 |       actionpack (= 7.0.2.3)
+  172 |       actiontext (= 7.0.2.3)
+  173 |       actionview (= 7.0.2.3)
+  174 |       activejob (= 7.0.2.3)
+  175 |       activemodel (= 7.0.2.3)
+  176 |       activerecord (= 7.0.2.3)
+  177 |       activestorage (= 7.0.2.3)
+      ^ Col 0
+",gem.gem_gemfile_lock
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (rails v=7.0.4) [CVE-2022-3704],134,937,skims,011. Use of software with known vulnerabilities,Use of rails at version =7.0.4 with ['CVE-2022-3704'] in namespace/skims/test/data/lib_path/f011/Gemfile,"
+  124 |     gem ""debug"", "">= 1.1.0"", require: false
+  125 |   end
+  126 |
+  127 |   gem ""benchmark-ips""
+  128 | end
+  129 |
+  130 | platforms :ruby, :windows do
+  131 |   gem ""nokogiri"", ""= 1.8.1""
+  132 |   gem ""devise"", ""= 1.4.2"", :group => :development
+  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
+> 134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
+  135 |
+  136 |   # Needed for compiling the ActionDispatch::Journey parser.
+  137 |   gem ""racc"", "">=1.4.6"", require: false
+  138 |
+  139 |   # Active Record.
+  140 |   gem ""sqlite3"", ""~> 1.4""
+  141 |
+  142 |   group :development do
+  143 |     gem ""pg"", ""~> 1.3""
+  144 |     gem ""mysql2"", ""~> 0.5""
       ^ Col 0
 ",gem.gem_gemfile
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rails-html-sanitizer v^1.2.0) [CVE-2022-32209, GHSA-pg8v-g4xq-hww9]",176,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-32209', 'GHSA-pg8v-g4xq-hww9'] in namespace/skims/test/data/lib_path/f011/Gemfile","
