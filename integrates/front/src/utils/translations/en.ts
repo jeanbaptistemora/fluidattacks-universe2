@@ -2081,6 +2081,32 @@ export const enTranslations: ResourceKey = {
             tooltip: "Type of subscription",
           },
         },
+        overview: {
+          coveredCommits: {
+            content: "{{coveredCommits}}",
+            info: "Number of commits of all repositories of the organization",
+            title: "Covered commits",
+          },
+          coveredRepositories: {
+            content: "{{coveredRepositories}}",
+            info: "Number of repositories from all groups of the organization",
+            title: "Covered repositories",
+          },
+          missedCommits: {
+            content: "{{missedCommits}}",
+            info: "Number of commits of repositories out of the scope",
+            title: "Missed commits",
+          },
+          missedRepositories: {
+            content: "{{missedRepositories}}",
+            info: "Number of repositories out of the scope",
+            title: "Missed repositories",
+          },
+          title: {
+            info: "Scope information for {{organizationName}}",
+            text: "Scope overview",
+          },
+        },
         plan: "Plan",
         role: "Role",
         status: {
