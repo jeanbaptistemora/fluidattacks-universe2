@@ -5,8 +5,8 @@ for method JS_CRYPTO_CREDENTIAL and  TS_CRYPTO_CREDENTIALS of Finding 009,
 because the logic was incorrect and some of them were false positives.
 Executes F009 for the groups that had vulns deleted to confirm.
 
-Execution Time:    2022-11-18 at 13:20:53 UTC
-Finalization Time: 2022-11-18 at 13:21:54 UTC
+Execution Time:    2022-11-28 at 14:41:48 UTC
+Finalization Time: 2022-11-28 at 14:43:34 UTC
 """
 from aioextensions import (
     collect,
