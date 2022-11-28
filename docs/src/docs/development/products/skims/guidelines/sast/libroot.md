@@ -1,20 +1,13 @@
 ---
-id: sast
-title: SAST Vulnerabilities
-sidebar_label: sast
-slug: /development/skims/guidelines/checks/sast
+id: libroot
+title: Lib root vulnerabilities
+sidebar_label: Libroot
+slug: /development/products/skims/guidelines/sast/libroot
 ---
 
-SAST refers to "Static Application Security Testing", and it is performed
-by searching for deterministic vulnerabilities in code files.
-
-Methods are divided between several libraries, depending on the language
-in which the code is written.
-
-## Lib_root vulnerabilities
-
-For languages like C#, Java, JavaScript, TypeScript and Dart,
-the following three-step procedure is used:
+As mentioned in the introduction, for the languages supported by this library
+and that are in active development, the following three-step procedure
+is used:
 
 ## 1. Code parsing
 

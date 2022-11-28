@@ -459,7 +459,15 @@ const Development = [
             label: "Guidelines",
             items: [
               "development/products/skims/guidelines/sca",
-              "development/products/skims/guidelines/sast",
+              {
+                type: "category",
+                label: "SAST",
+                items: [
+                  "development/products/skims/guidelines/sast/intro",
+                  "development/products/skims/guidelines/sast/libroot",
+                  "development/products/skims/guidelines/sast/libpath",
+                ],
+              },
             ],
           },
         ],
