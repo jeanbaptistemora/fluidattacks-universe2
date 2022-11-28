@@ -24,6 +24,9 @@ from db_model.enums import (
     GitCloningStatus,
     Notification,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -150,7 +153,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     )
     if root.state.status != RootStatus.INACTIVE:
         if isinstance(root, GitRoot):
-            await batch_dal.put_action(
+            refresh_toe = await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,
                 entity=group_name,
                 subject=email,
@@ -171,6 +174,32 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                     },
                 ],
             )
+
+            group: Group = await loaders.group.load(group_name)
+            key = batch_dal.generate_key_to_dynamod(
+                action_name=Action.UPDATE_ORGANIZATION_OVERVIEW.value,
+                additional_info="*",
+                entity=group.organization_id,
+                subject="integrates@fluidattacks.com",
+            )
+            overview_action = await batch_dal.get_action(action_dynamo_pk=key)
+            if not overview_action:
+                await batch_dal.put_action(
+                    action=Action.UPDATE_ORGANIZATION_OVERVIEW,
+                    vcpus=2,
+                    product_name=Product.INTEGRATES,
+                    queue="small",
+                    additional_info="*",
+                    entity=group.organization_id,
+                    attempt_duration_seconds=7200,
+                    subject="integrates@fluidattacks.com",
+                    dependsOn=[
+                        {
+                            "jobId": refresh_toe.batch_job_id,
+                            "type": "SEQUENTIAL",
+                        },
+                    ],
+                )
 
         if isinstance(root, (GitRoot, URLRoot)):
             await batch_dal.put_action(
