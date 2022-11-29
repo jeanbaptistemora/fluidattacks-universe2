@@ -37,6 +37,8 @@ And you'd probably very much like to know
 just what the meaning of DevSecOps is.
 In this blog post,
 we will give you all the basics about this methodology.
+After reading it,
+be sure to check out the others in our [DevSecOps blog series](/../tags/devsecops/).
 
 ## DevOps vs DevSecOps
 
@@ -596,6 +598,7 @@ So,
 we invite organizations to automate tools and processes
 where it is possible
 and rely on ethical hackers to perform sophisticated security testing.
+This way they can achieve their DevSecOps goals.
 
 ## SecDevOps?
 

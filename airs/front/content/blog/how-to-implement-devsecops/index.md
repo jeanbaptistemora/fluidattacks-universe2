@@ -332,16 +332,16 @@ for correctly implementing the DevSecOps culture in your organization.
   and [software composition analysis](../../categories/sca/)
   (SCA)
   can come into play.
-  The former review code for vulnerabilities
-  whereas the latter review code dependencies.
+  The former reviews code for vulnerabilities
+  whereas the latter reviews code dependencies.
   In the testing phase,
   having a product ready to run and be tested,
   [dynamic application security testing](../../categories/dast/)
   (DAST) can be used.
-  This method do not access code
-  but send attack vectors to the endpoints of running applications.
+  This method does not access code
+  but sends attack vectors to the endpoints of running applications.
   [Penetration testing](../../solutions/penetration-testing/)
-  can be performed later,
+  can be performed later in the DevSecOps lifecycle,
   in the releasing phase.
   This method relies on hackers
   who try to bypass controls,
@@ -366,7 +366,7 @@ for correctly implementing the DevSecOps culture in your organization.
   of injecting speed.
   Process automation allows processes to take place
   consistently and iteratively.
-  The tools reduce burdens by delivering early warnings
+  DevSecOps automation tools reduce burdens by delivering early warnings
   or relevant information to developers
   for quick remediation of security issues.
   However,
@@ -515,7 +515,8 @@ integrated into the SDLC.
   related to their deployment configuration, data,
   and business logic.
 
-Some recommended considerations for tool selection include the following:
+Some recommended considerations for the selection
+of DevSecOps products include the following:
 
 - It is easy to install,
   configure and use.
@@ -550,6 +551,9 @@ that are pretty useful in the implementation of DevSecOps:
   It consolidates data obtained by different methods and tools,
   makes it easier to understand and analyze the detected problems,
   and prioritizes the key findings for prompt remediation.
+
+Learn [here](../devsecops-tools/)
+how `Fluid Attacks` uses DevSecOps tools.
 
 ## Implement DevSecOps with Fluid Attacks
 
@@ -594,6 +598,10 @@ For more information about `Fluid Attacks'` DevSecOps solution
 and how it can benefit your organization,
 follow [this link](../../solutions/devsecops/)
 or [contact](../../contact-us/) one of our experts.
+We also invite you
+to learn how our services are key
+to implement DevSecOps in AWS ([here](../aws-devsecops-with-fluid-attacks/))
+and Azure ([here](../azure-devsecops-with-fluid-attacks/)).
 Additionally,
 here are two of our posts
 that answer the following DevSecOps questions:

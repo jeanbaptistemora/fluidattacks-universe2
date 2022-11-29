@@ -169,13 +169,13 @@ With the purpose of supporting these capabilities,
 there are AWS DevSecOps tools
 (e.g., AWS code scanning and vulnerability management tools)
 that run automatically and continuously in the CI/CD pipeline.
-Tools that go seamlessly with the service AWS CodeBuild -which
+DevSecOps software that runs seamlessly with the service AWS CodeBuild -which
 compiles code, runs tests and produces software packages- can perform
 static application security testing (SAST),
 software composition analysis (SCA)
 and dynamic application security testing (DAST)
 at stages of development earlier than the traditional testing phase.
-The first analyzes source code for known security vulnerabilities,
+The first technique analyzes source code for known security vulnerabilities,
 the second finds vulnerable third-party software,
 and the third assesses the running app from the outside
 by sending attack vectors to its endpoints.

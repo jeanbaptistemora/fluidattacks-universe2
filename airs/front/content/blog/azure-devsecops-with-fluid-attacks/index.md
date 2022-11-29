@@ -164,7 +164,7 @@ and third-party components (e.g., outdated open-source libraries).
 If you consider the last control in the above list,
 you can see
 that an approach focused merely on using Azure DevOps security tools
-and other automated solutions falls short.
+and other DevSecOps software falls short.
 One strong reason is that automated tools yield results
 with significant rates of false positives and false negatives.
 Manual work is needed to review results

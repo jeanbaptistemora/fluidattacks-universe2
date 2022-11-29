@@ -45,12 +45,12 @@ This results in the protection of data
 and information technology (IT) infrastructure.
 [Much like](https://devops.com/how-to-become-a-devsecops-engineer/)
 individuals in other IT security roles,
-DevSecOps engineers are familiar with cybersecurity software
+a DevSecOps engineer is familiar with cybersecurity software
 and [DevSecOps best practices](../devsecops-best-practices/)
 such as conducting risk assessments and threat modeling.
 
-DevSecOps engineers promote cybersecurity awareness
-and are there to empower the rest of the team
+This DevSecOps specialist promotes cybersecurity awareness
+and is there to empower the rest of the team
 to generate the greatest value in the shortest possible time.
 In the process,
 they ask themselves the following questions:
@@ -156,7 +156,7 @@ these tests appropriately.
 
 When using these tests
 throughout the entire software development lifecycle (SDLC),
-they become part of your DevSecOps tools,
+they become part of your [DevSecOps tools](../devsecops-tools/),
 so to speak.
 Keep in mind,
 though,
@@ -223,6 +223,9 @@ auditing code dependencies
 and breaking the build,
 improve the overall results
 and help comply with security standards.
+Top DevSecOps companies are able to ingrain
+security in their development and operations processes
+without sacrificing speed.
 
 ## DevSecOps roles and DevSecOps engineers
 

@@ -22,11 +22,11 @@ that embeds security into every phase of software development.
 As we have said
 in [our advice on DevSecOps implementation](../how-to-implement-devsecops/),
 there are several tools
-that may be part of this culture in your organization.
-DevSecOps tools,
-which serve as a complement to the work of expert security testers
+that may be used as part of this culture in your organization.
+A DevSecOps tool,
+which serves as a complement to the work of expert security testers
 in this approach,
-are those that allow you to perform diverse testing methods automatically
+is that which allows you to perform diverse testing methods automatically
 throughout the entire software development lifecycle (SDLC).
 The experts perform the security testing methods manually
 to identify more complex and higher severity vulnerabilities
@@ -206,8 +206,9 @@ if it finds anything wrong.
 Breaking the build means
 preventing a vulnerable version of the system
 from being deployed into production.
-This is automatic and,
-as can be deduced,
+Therefore, it is among the automated tools
+for enforcing secure code development.
+It can be deduced that its work is
 customizable by every organization for each of their projects.
 For instance,
 the organization may define
@@ -223,7 +224,8 @@ so that there's no doubt about accuracy.
 
 `Fluid Attacks'` [Attack Resistance Management platform](https://docs.fluidattacks.com/machine/web/arm)
 is ready to run nonstop
-from the very start of your project.
+from the very start of your project,
+in every one of the DevSecOps stages.
 ARM is where our client organizations map
 every one of their digital assets,
 get results from every security testing method,
@@ -241,7 +243,8 @@ than an attack surface management (ASM) platform.
 
 At `Fluid Attacks`,
 we integrate DevSecOps tools
-into a single solution called [Continuous Hacking](../../services/continuous-hacking/).
+into a single solution called [Continuous Hacking](../../services/continuous-hacking/)
+throughout all the stages of the DevSecOps cycle.
 In our working scheme,
 developers deploy micro changes first
 on their repositories,
