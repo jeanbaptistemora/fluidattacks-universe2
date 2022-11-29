@@ -16,6 +16,7 @@ import { Table } from "components/Table";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
+import { OrganizationGroupOverview } from "scenes/Dashboard/containers/OrganizationGroupsView/overview";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
@@ -232,30 +233,40 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   return (
     <StrictMode>
       {_.isUndefined(data) || _.isEmpty(data) ? undefined : (
-        <Table
-          columns={tableHeaders}
-          data={filteredDataset}
-          extraButtons={
-            <Can do={"api_mutations_add_group_mutate"}>
-              <Button
-                id={"add-group"}
-                onClick={openNewGroupModal}
-                tooltip={
-                  runTour
-                    ? undefined
-                    : t("organization.tabs.groups.newGroup.new.tooltip")
-                }
-                variant={"primary"}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-                &nbsp;
-                {t("organization.tabs.groups.newGroup.new.text")}
-              </Button>
-            </Can>
-          }
-          filters={<Filters filters={filters} setFilters={setFilters} />}
-          id={"tblGroups"}
-        />
+        <React.Fragment>
+          <OrganizationGroupOverview
+            coveredCommits={data.organization.coveredCommits}
+            coveredRepositories={data.organization.coveredRepositories}
+            missedCommits={data.organization.missedCommits}
+            missedRepositories={data.organization.missedRepositories}
+            organizationName={data.organization.name}
+          />
+          <br />
+          <Table
+            columns={tableHeaders}
+            data={filteredDataset}
+            extraButtons={
+              <Can do={"api_mutations_add_group_mutate"}>
+                <Button
+                  id={"add-group"}
+                  onClick={openNewGroupModal}
+                  tooltip={
+                    runTour
+                      ? undefined
+                      : t("organization.tabs.groups.newGroup.new.tooltip")
+                  }
+                  variant={"primary"}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
+                  {t("organization.tabs.groups.newGroup.new.text")}
+                </Button>
+              </Can>
+            }
+            filters={<Filters filters={filters} setFilters={setFilters} />}
+            id={"tblGroups"}
+          />
+        </React.Fragment>
       )}
       {isGroupModalOpen ? (
         <AddGroupModal
