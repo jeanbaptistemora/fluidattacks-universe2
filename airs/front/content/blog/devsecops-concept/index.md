@@ -399,7 +399,7 @@ we make a brief summary:
 - **Break the build:**
   Preventing vulnerable code from reaching production
   and fixing it promptly,
-  thus cutting remediation time by [up to about 30%](https://try.fluidattacks.com/state-of-attacks-2022/).
+  thus cutting remediation time by [up to about 30%](https://try.fluidattacks.tech/state-of-attacks-2022/).
 
 And what are the phases of DevSecOps adoption?
 It's ideal
@@ -454,7 +454,7 @@ so an even better strategy is to have actual people use manual techniques
 and [SCA](../../categories/sca/))
 to find vulnerabilities in your software.
 In fact,
-our ethical hackers [found about 81%](https://try.fluidattacks.com/report/state-of-attacks-2021/)
+our ethical hackers [found about 81%](https://try.fluidattacks.tech/report/state-of-attacks-2021/)
 of the high and critical severity vulnerabilities reported
 in systems over an analysis period in 2020.
 In short,

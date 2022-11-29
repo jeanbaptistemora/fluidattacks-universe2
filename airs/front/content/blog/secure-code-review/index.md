@@ -79,7 +79,7 @@ from the threat actors' perspective,
 can review code to recognize the security issues
 that contribute most to the risk exposure of the target of evaluation.
 (For example,
-in our latest annual [State of Attacks report](https://try.fluidattacks.com/state-of-attacks-2022/),
+in our latest annual [State of Attacks report](https://try.fluidattacks.tech/state-of-attacks-2022/),
 we shared that **67.4%** of the total risk exposure
 in the assessed systems
 was reported by the manual method).
@@ -157,7 +157,7 @@ these dependencies and components
 to look for vulnerabilities to exploit.
 This is such a frequent problem that,
 in fact,
-as we reported in [State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/),
+as we reported in [State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/),
 the most common security issue
 among the evaluated systems
 was "[Use of software with known vulnerabilities](https://docs.fluidattacks.com/criteria/vulnerabilities/011),"

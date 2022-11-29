@@ -50,7 +50,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-17",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.whitePaper.whitePaper1Title"),
-      urlCard: "https://try.fluidattacks.com/report/cvssf/",
+      urlCard: "https://try.fluidattacks.tech/report/cvssf/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -62,7 +62,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-16",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report6Title"),
-      urlCard: "https://try.fluidattacks.com/state-of-attacks-2022/",
+      urlCard: "https://try.fluidattacks.tech/state-of-attacks-2022/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -74,7 +74,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-2",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report1Title"),
-      urlCard: "https://try.fluidattacks.com/report/state-of-attacks-2021/",
+      urlCard: "https://try.fluidattacks.tech/report/state-of-attacks-2021/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -86,7 +86,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-3",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report2Title"),
-      urlCard: "https://report2020.fluidattacks.com/",
+      urlCard: "https://try.fluidattacks.tech/report2020/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -110,7 +110,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-5",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report4Title"),
-      urlCard: "https://try.fluidattacks.com/report/owasp-benchmark/",
+      urlCard: "https://try.fluidattacks.tech/report/owasp-benchmark/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
@@ -122,7 +122,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-6",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report5Title"),
-      urlCard: "https://try.fluidattacks.com/report/owasp-samm/",
+      urlCard: "https://try.fluidattacks.tech/report/owasp-samm/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
@@ -156,7 +156,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-9",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.eBooks.ebook1Title"),
-      urlCard: "https://try.fluidattacks.com/us/ebook/",
+      urlCard: "https://try.fluidattacks.tech/us/ebook/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),

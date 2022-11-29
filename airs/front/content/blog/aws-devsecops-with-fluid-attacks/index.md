@@ -194,7 +194,7 @@ and ethical hackers should be added to the security testing strategy
 to complete the search for vulnerabilities and issues.
 
 The combination of automation and manual work is absolutely necessary.
-Our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+Our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 shows
 that **the totality** of critical severity vulnerabilities
 in the systems of our clients

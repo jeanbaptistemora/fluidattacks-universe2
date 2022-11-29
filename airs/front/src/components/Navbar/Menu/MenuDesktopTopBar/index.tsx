@@ -52,7 +52,7 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
         </Link>
       </DesktopTopbarItem>
       <DesktopTopbarItem className={"dn-m"}>
-        <AirsLink href={"https://try.fluidattacks.com/us/ebook/"}>
+        <AirsLink href={"https://try.fluidattacks.tech/us/ebook/"}>
           <TopBarButton>{"Download eBook"}</TopBarButton>
         </AirsLink>
       </DesktopTopbarItem>

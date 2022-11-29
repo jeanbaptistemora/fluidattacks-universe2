@@ -110,7 +110,7 @@ It's very important to look at the source code
 performing static application security testing
 manually alongside automated tools.
 To give you an idea,
-our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 shows
 that "[Non-encrypted confidential information](https://docs.fluidattacks.com/criteria/vulnerabilities/247/)"
 and "[Sensitive information in source code](https://docs.fluidattacks.com/criteria/vulnerabilities/009/)"
@@ -178,7 +178,7 @@ to remote code execution and malware attacks,
 among others.
 
 Log4j is just one of our problems.
-Our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+Our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 shows
 that "[Use of software with known vulnerabilities](https://docs.fluidattacks.com/criteria/vulnerabilities/011/)"
 is the type of vulnerability
@@ -353,7 +353,7 @@ with minimal false positive rates
 and boosting our experts' efficiency.
 In the process,
 we help you comply with [several security standards](https://docs.fluidattacks.com/criteria/compliance/)
-and [reduce remediation costs](https://try.fluidattacks.com/us/ebook/)
+and [reduce remediation costs](https://try.fluidattacks.tech/us/ebook/)
 by up to 90%.
 
 Click [here](../../free-trial/)

@@ -114,7 +114,7 @@ with an appropriate methodology**.
 Bear in mind that assessments carried out
 with automated security testing tools alone
 fail to detect risk exposure accurately.
-In our latest [State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+In our latest [State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 report,
 we show
 that **67.4%** of the risk exposure reported

@@ -171,7 +171,7 @@ Manual work is needed to review results
 and identify issues that a tool, say, for SAST or DAST, would not.
 
 Case in point:
-In our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/),
+In our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/),
 in which we show the analyses of security testing results of our clients
 over the span of one year,
 we found that it was our ethical hackers only,

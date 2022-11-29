@@ -203,7 +203,7 @@ they can see their aggregated risk exposure rise more dramatically
 than it otherwise would
 if one high to critical vulnerability is reported in their systems.
 
-Case on point: Our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+Case on point: Our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 documented
 that 98% of the vulnerabilities we detected in the systems of our clients
 were of a low or medium CVSS severity.

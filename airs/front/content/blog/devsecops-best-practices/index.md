@@ -295,7 +295,7 @@ have high rates of false positives
 and false negatives,
 we immensely value the manual work performed by experts.
 To give you an idea,
-[our analyses](https://try.fluidattacks.com/state-of-attacks-2022/)
+[our analyses](https://try.fluidattacks.tech/state-of-attacks-2022/)
 of security tests performed last year in our clients' systems
 show that **67.4% of the risk exposure was reported by manual methods only**.
 Thus,
@@ -318,7 +318,7 @@ pushing beyond periodic obligations.
 
 It is advisable to prevent the deployment of a system
 if a vulnerability is found in it.
-In our [State of Attacks 2022](https://try.fluidattacks.com/state-of-attacks-2022/),
+In our [State of Attacks 2022](https://try.fluidattacks.tech/state-of-attacks-2022/),
 we reported
 that clients who enabled our feature to break the build
 **took almost 30% less time**

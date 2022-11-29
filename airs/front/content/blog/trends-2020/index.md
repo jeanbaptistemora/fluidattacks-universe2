@@ -190,7 +190,7 @@ We will also return to the skin-in-the-game issue among others coming
 from scientific scrutiny about forecasting or prediction.
 
 We recently launched our **"State of Attacks" 2020 Report**. [Click here
-to read it](https://report2020.fluidattacks.com/). Among our results in
+to read it](https://try.fluidattacks.tech/report2020/). Among our results in
 working with customers, you will find one key takeaway worth noting now,
 in line with this post: [continuous
 hacking](../../services/continuous-hacking/) delivers more value. If
@@ -206,7 +206,7 @@ fixes.
 <div class="title">
 
 Figure 4. ["State of Attacks" 2020
-Report](https://report2020.fluidattacks.com/)
+Report](https://try.fluidattacks.tech/report2020/)
 
 </div>
 

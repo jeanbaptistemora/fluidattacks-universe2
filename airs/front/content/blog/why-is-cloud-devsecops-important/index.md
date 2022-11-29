@@ -101,7 +101,7 @@ which pose a serious risk to information security.
 Our pen testers repeatedly find credentials for cloud services
 in the source codes of clients.
 (This was evidenced clearly in our
-[2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/).)
+[2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/).)
 And to make things worse,
 these credentials are often for roles with excessive permissions.
 [Attackers who get their hands on them can](../secure-infra-code/)
@@ -183,7 +183,7 @@ These are the main benefits of implementing cloud DevSecOps:
   to keep pace with the competition.
 
 - **Faster vulnerability remediation:**
-  As our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+  As our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
   shows,
   the mean time to remediate security issues is reduced by 30%
   if organizations break the build (i.e.,

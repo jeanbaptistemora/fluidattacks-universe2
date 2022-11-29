@@ -17,19 +17,19 @@ const ResourcesSection: React.FC = (): JSX.Element => {
   const data = [
     {
       image: "resource-1",
-      url: "https://try.fluidattacks.com/us/ebook/",
+      url: "https://try.fluidattacks.tech/us/ebook/",
     },
     {
       image: "resource-2n",
-      url: "https://try.fluidattacks.com/report/cvssf/",
+      url: "https://try.fluidattacks.tech/report/cvssf/",
     },
     {
       image: "report-2022",
-      url: "https://try.fluidattacks.com/state-of-attacks-2022/",
+      url: "https://try.fluidattacks.tech/state-of-attacks-2022/",
     },
     {
       image: "resource-4",
-      url: "https://try.fluidattacks.com/report/owasp-samm/",
+      url: "https://try.fluidattacks.tech/report/owasp-samm/",
     },
   ];
 

@@ -218,7 +218,7 @@ We have evidence that customers
 continuously testing the robustness of their software and IT
 infrastructure do find more weaknesses and achieve a higher rate of
 fixes. To know more about this, check our **"State of Attacks" 2020
-Report**. [Click here to read it](https://report2020.fluidattacks.com/).
+Report**. [Click here to read it](https://try.fluidattacks.tech/report2020/).
 
 <div class="imgblock">
 
@@ -227,7 +227,7 @@ Report**. [Click here to read it](https://report2020.fluidattacks.com/).
 <div class="title">
 
 Figure 2. ["State of Attacks" 2020
-Report](https://report2020.fluidattacks.com/)
+Report](https://try.fluidattacks.tech/report2020/)
 
 </div>
 

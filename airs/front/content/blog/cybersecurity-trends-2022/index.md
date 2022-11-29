@@ -94,7 +94,7 @@ threat actors have been exploiting it throughout the year.
 
 Use of software dependencies with known vulnerabilities
 is a widespread issue.
-Our [2022 State of Attacks](https://try.fluidattacks.com/state-of-attacks-2022/)
+Our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 report shows
 that almost **75%** of the systems we assessed this year
 used vulnerable software components.
@@ -134,7 +134,7 @@ So what are teams doing wrong?
 The main theme of successful attacks in the cloud this year
 was **exploitation of vulnerabilities**.
 Again:
-We saw in our [annual report](https://try.fluidattacks.com/state-of-attacks-2022/)
+We saw in our [annual report](https://try.fluidattacks.tech/state-of-attacks-2022/)
 that using vulnerable software components was the biggest issue
 exposing systems to compromise.
 It's got repercussions worldwide:
@@ -172,7 +172,7 @@ integrate security from the beginning of product development.
 This is one of the main themes
 of [implementing the DevSecOps culture](../how-to-implement-devsecops/).
 Compared to last year,
-[we saw](https://try.fluidattacks.com/state-of-attacks-2022/)
+[we saw](https://try.fluidattacks.tech/state-of-attacks-2022/)
 a **32.5% increase** in systems using our
 [Continuous Hacking solution](../../services/continuous-hacking/).
 These systems' owners are constantly receiving security testing findings
@@ -266,7 +266,7 @@ requesting a combination of automated and manual
 static application security testing ([SAST](../../categories/sast/))
 to see if credentials are exposed in code,
 as this was another prominent, high-risk flaw
-that [we found](https://try.fluidattacks.com/state-of-attacks-2022/)
+that [we found](https://try.fluidattacks.tech/state-of-attacks-2022/)
 in systems this year.
 
 ### Risk-data-driven decision-making
