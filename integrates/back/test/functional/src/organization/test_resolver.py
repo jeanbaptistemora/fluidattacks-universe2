@@ -203,7 +203,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["minBreakingSeverity"] == 2
     assert result["data"]["organization"]["vulnerabilityGracePeriod"] == 5
     assert result["data"]["organization"]["name"] == org_name.lower()
-    assert sorted(groups) == []
+    assert sorted(groups) == sorted(["group1", "group3", "unittesting"])
     assert sorted(stakeholders) == sorted(org_stakeholders)
     assert (
         result["data"]["organization"]["integrationRepositoriesConnection"][
@@ -284,7 +284,7 @@ async def test_get_organization_ver_1(
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
-    assert result["data"]["organization"]["coveredCommits"] == 4
+    assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
     assert result["data"]["organization"]["missedCommits"] == 10
     assert result["data"]["organization"]["missedRepositories"] == 2

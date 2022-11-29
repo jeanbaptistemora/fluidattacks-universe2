@@ -227,6 +227,26 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 email=generic_data["global_vars"]["admin_email"],
             ),
         ],
+        "policies": [
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "group3",
+                "role": "admin",
+            },
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "unittesting",
+                "role": "admin",
+            },
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "group1",
+                "role": "admin",
+            },
+        ],
         "credentials": (
             Credentials(
                 id="3912827d-2b35-4e08-bd35-1bb24457951d",

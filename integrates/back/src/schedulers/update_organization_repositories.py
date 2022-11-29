@@ -26,17 +26,18 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
     organizations: tuple[Organization, ...] = await get_all_organizations()
     all_group_names: set[str] = set(await get_all_active_group_names(loaders))
+    all_group_names = {group.lower() for group in all_group_names}
     organizations_sorted_by_name = sorted(
         organizations, key=attrgetter("name")
     )
-    len_gorganizations_sorted_by_name = len(organizations_sorted_by_name)
+    len_organizations_sorted_by_name = len(organizations_sorted_by_name)
 
     await collect(
         tuple(
             update_organization_repositories(
                 organization=organization,
                 loaders=loaders,
-                progress=count / len_gorganizations_sorted_by_name,
+                progress=count / len_organizations_sorted_by_name,
                 all_group_names=all_group_names,
             )
             for count, organization in enumerate(organizations_sorted_by_name)

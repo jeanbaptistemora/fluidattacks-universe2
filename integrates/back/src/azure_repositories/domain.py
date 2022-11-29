@@ -166,7 +166,7 @@ async def get_covered_group_commits(
             get_covered_nickname_commits(path, folder, group, git_root)
             for git_root in git_roots
         ),
-        workers=2,
+        workers=1,
     )
 
     return sum(group_foder_coverted_commits)
@@ -183,7 +183,9 @@ async def update_organization_unreliable(
         loaders, organization.id
     )
     organization_group_names = tuple(
-        all_group_names.intersection(set(organization_group_names))
+        all_group_names.intersection(
+            set(group.lower() for group in organization_group_names)
+        )
     )
     if not organization_group_names:
         await update_unreliable_org_indicators(
@@ -193,11 +195,25 @@ async def update_organization_unreliable(
                 covered_commits=0,
             ),
         )
+        LOGGER.info(
+            "Updated covered commit stats for organization",
+            extra={
+                "extra": {
+                    "organization_id": organization.id,
+                    "organization_name": organization.name,
+                    "progress": round(progress, 2),
+                    "active_git_roots": 0,
+                    "covered_commits": 0,
+                }
+            },
+        )
+
         return
 
     groups_roots = await loaders.group_roots.load_many(
         organization_group_names
     )
+    covered_organization_commits: list[int] = []
     for group, roots in zip(organization_group_names, groups_roots):
         active_git_roots: tuple[GitRoot, ...] = tuple(
             root
@@ -207,21 +223,10 @@ async def update_organization_unreliable(
                 and root.state.status == RootStatus.ACTIVE
             )
         )
-        LOGGER.info(
-            "Updating covered commit stats for organization",
-            extra={
-                "extra": {
-                    "organization_id": organization.id,
-                    "organization_name": organization.name,
-                    "progress": round(progress, 2),
-                    "active_git_roots": len(active_git_roots),
-                }
-            },
-        )
 
         with tempfile.TemporaryDirectory() as tmpdir:
             clone_path, clone_repos = clone_mirrors(tmpdir=tmpdir, group=group)
-            covered_organization_commits: tuple[int, ...] = await collect(
+            covered_group_commits: tuple[int, ...] = await collect(
                 (
                     get_covered_group_commits(
                         path=clone_path,
@@ -231,16 +236,29 @@ async def update_organization_unreliable(
                     )
                     for repo in clone_repos
                 ),
-                workers=2,
+                workers=1,
             )
+            covered_organization_commits.append(sum(covered_group_commits))
 
-        await update_unreliable_org_indicators(
-            organization_id=organization.id,
-            organization_name=organization.name,
-            indicators=OrganizationUnreliableIndicatorsToUpdate(
-                covered_commits=sum(covered_organization_commits),
-            ),
-        )
+    await update_unreliable_org_indicators(
+        organization_id=organization.id,
+        organization_name=organization.name,
+        indicators=OrganizationUnreliableIndicatorsToUpdate(
+            covered_commits=sum(covered_organization_commits),
+        ),
+    )
+    LOGGER.info(
+        "Updated covered commit stats for organization",
+        extra={
+            "extra": {
+                "organization_id": organization.id,
+                "organization_name": organization.name,
+                "progress": round(progress, 2),
+                "active_git_roots": len(active_git_roots),
+                "covered_commits": sum(covered_organization_commits),
+            }
+        },
+    )
 
 
 def _get_id(repository: CredentialsGitRepository) -> str:
@@ -386,7 +404,12 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
     organization_group_names: tuple[str, ...] = await get_group_names(
         loaders, organization.id
     )
-    if not tuple(all_group_names.intersection(set(organization_group_names))):
+    organization_group_names = tuple(
+        all_group_names.intersection(
+            set(group.lower() for group in organization_group_names)
+        )
+    )
+    if not organization_group_names:
         await update_unreliable_org_indicators(
             organization_id=organization.id,
             organization_name=organization.name,
@@ -396,6 +419,17 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
                 covered_repositories=0,
             ),
         )
+        LOGGER.info(
+            "Organization integration repositories processed",
+            extra={
+                "extra": {
+                    "organization_id": organization.id,
+                    "organization_name": organization.name,
+                    "progress": round(progress, 2),
+                }
+            },
+        )
+
         return
 
     credentials: tuple[
@@ -474,6 +508,7 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
                     "organization_id": organization.id,
                     "organization_name": organization.name,
                     "progress": round(progress, 2),
+                    "covered_repositores": len(active_urls),
                 }
             },
         )
