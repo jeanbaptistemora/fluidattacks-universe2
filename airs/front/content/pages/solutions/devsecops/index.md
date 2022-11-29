@@ -1,7 +1,7 @@
 ---
 slug: solutions/devsecops/
 title: 'DevSecOps: Integration of security in the SDLC'
-description: With Fluid Attacks, you can integrate security into your DevOps approach at any time in your SDLC and ensure your team's accountability.
+description: With Fluid Attacks, you can integrate security into your DevOps approach throughout your software development lifecycle to achieve the DevSecOps methodology.
 keywords: Fluid Attacks, Solutions, DevSecOps, DevOps, Ethical Hacking, SDLC, Security
 identifier: DevSecOps
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-devsecops_jgeyje.webp

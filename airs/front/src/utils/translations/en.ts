@@ -1053,8 +1053,8 @@ const pageTexts: ResourceKey = {
     },
     devSecOps: {
       paragraph:
-        "You can integrate security into your DevOps approach at any time in " +
-        "your SDLC and ensure your team’s accountability.",
+        "You can integrate security into your DevOps approach throughout your " +
+        "software development lifecycle to achieve the DevSecOps methodology.",
       subtitle: "DevSecOps",
     },
     ethicalHacking: {
@@ -1073,8 +1073,8 @@ const pageTexts: ResourceKey = {
       },
       devSecOps: {
         paragraph:
-          "You can integrate security into your DevOps approach at any time in your SDLC " +
-          "and ensure your team’s accountability.",
+          "You can integrate security into your DevOps approach throughout your " +
+          "software development lifecycle to achieve the DevSecOps methodology.",
         title: "DevSecOps",
       },
       ethicalHacking: {
