@@ -2,39 +2,37 @@ platform = 'gitlab'
 endpoint_url = 'https://gitlab.com'
 project_id = "20741933"
 
-
 [syntax]
-  user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
-
+user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
 
 [tests]
 
-  [tests.pr_message_equals_commit_message]
-    fail = true
-    close_pr = true
+[tests.pr_message_equals_commit_message]
+fail = true
+close_pr = true
 
-  [tests.branch_equals_to_user]
-    fail = true
-    close_pr = true
+[tests.branch_equals_to_user]
+fail = true
+close_pr = true
 
-  [tests.pr_max_commits]
-    fail = true
-    close_pr = true
-    max_commits = 1
+[tests.pr_max_commits]
+fail = true
+close_pr = true
+max_commits = 1
 
-  [tests.commit_user_syntax]
-    fail = true
-    close_pr = true
+[tests.commit_user_syntax]
+fail = true
+close_pr = true
 
-  [tests.pr_user_syntax]
-    fail = true
-    close_pr = true
+[tests.pr_user_syntax]
+fail = true
+close_pr = true
 
-  [tests.pr_under_max_deltas]
-    fail = true
-    close_pr = true
-    max_deltas = 100
+[tests.pr_under_max_deltas]
+fail = true
+close_pr = true
+max_deltas = 150
 
-  [tests.first_pipeline_successful]
-    fail = true
-    close_pr = true
+[tests.first_pipeline_successful]
+fail = true
+close_pr = true
