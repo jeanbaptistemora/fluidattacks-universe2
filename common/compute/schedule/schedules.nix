@@ -702,7 +702,7 @@
       "schedulers.update_organization_overview.main"
     ];
 
-    schedule_expression = "cron(0 15 ? * 3 *)";
+    schedule_expression = "cron(30 19 ? * 3 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 2;
