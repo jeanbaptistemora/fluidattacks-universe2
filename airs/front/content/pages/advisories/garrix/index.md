@@ -48,7 +48,7 @@ is an example of a vulnerable URL:
 
 ## Vulnerability
 
-The XSS present in Microweber 1.3.1, allows an unauthenticated remote
+The XSS present in Microweber 1.3.1 allows an unauthenticated remote
 attacker to perform an Account Takeover. To trigger this vulnerability,
 we will need to send the following malicious link to an administrator in
 order to hack their account. The following is an example of a malicious URL:
@@ -81,7 +81,7 @@ to one that is under our control.
 
 ![hacked](https://user-images.githubusercontent.com/51862990/189453661-bba7b314-dfdd-4a91-887a-a78b51c112bf.png)
 
-## Our security police
+## Our security policy
 
 We have reserved the CVE-2022-0698 to refer to this issue from now on.
 
@@ -106,8 +106,8 @@ An updated version of Microweber is available at the vendor page.
 ## Credits
 
 The vulnerability was discovered by [Carlos
-Bello](https://www.linkedin.com/in/carlos-andres-bello) from the Offensive
-Team of `Fluid Attacks`.
+Bello](https://www.linkedin.com/in/carlos-andres-bello)
+from Fluid Attacks' Offensive Team.
 
 ## References
 
