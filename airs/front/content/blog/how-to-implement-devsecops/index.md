@@ -1,6 +1,6 @@
 ---
 slug: how-to-implement-devsecops/
-title: How to Implement DevSecOps
+title: 'Guide: How to Implement DevSecOps'
 date: 2022-06-28
 subtitle: Learn with Fluid Attacks about adopting this culture
 category: philosophy
