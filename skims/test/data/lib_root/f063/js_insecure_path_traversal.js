@@ -1,18 +1,20 @@
 const fs = require("fs");
 const pathmodule = require("path");
 
-function safePathInjection(req, res) {
-  const reqPath = __dirname + req.query.filename; // user-controlled path
-  const resolvedPath = pathmodule.resolve(reqPath); // resolve will resolve "../"
+function unsafeCases(req, res) {
 
-  if (resolvedPath.startsWith(__dirname + "/uploads")) {
-    // the requested filename cannot be retrieved outside of the "/uploads" folder
-    let data = fs.readFileSync(resolvedPath, { encoding: "utf8", flag: "r" }); // Compliant
-  }
+  const reqPath = req.query.filename; // user-controlled path
+  let data = fs.readFileSync(reqPath, { encoding: "utf8", flag: "r" }); // Noncompliant
+
 }
 
-function unsafePathInjection(req, res) {
-  const reqPath = __dirname + req.query.filename; // user-controlled path
+function safeCases(req, res) {
 
-  let data = fs.readFileSync(reqPath, { encoding: "utf8", flag: "r" }); // Noncompliant
+  let safedata = fs.readFileSync("./dir/downloads", { encoding: "utf8", flag: "r" });
+
+  const reqPath = req.query.filename;
+  const resolvedPath = pathmodule.resolve(reqPath); // resolve will sanitize the input
+  if (resolvedPath.startsWith(__dirname + '/uploads')) { // ensures a whitelist verification
+    let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); // Compliant
+  }
 }

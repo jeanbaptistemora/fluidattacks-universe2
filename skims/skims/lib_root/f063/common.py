@@ -22,21 +22,24 @@ from utils import (
 )
 
 
-def eval_insecure_path(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
+def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.triggers != {"resolve"}:
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers != {"resolve", "sanitize"}
+        ):
             return True
     return False
 
 
 def insecure_path_traversal(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
-
     for n_id in search_method_invocation_naive(graph, {"readFileSync"}):
         if (args_id := graph.nodes[n_id].get("arguments_id")) and (
             (test_id := g.match_ast(graph, args_id).get("__0__"))
-            and eval_insecure_path(graph, test_id, method)
+            and get_eval_danger(graph, test_id, method)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes

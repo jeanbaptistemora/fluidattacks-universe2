@@ -12184,25 +12184,27 @@ F063,lines,namespace/skims/test/data/lib_root/f063/zip_slip_injection.java,10,22
   21 |         while (entries.hasMoreElements()) {
      ^ Col 0
 ",java.java_zip_slip_injection
-F063,lines,namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js","
+F063,lines,namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js","
    1 | const fs = require(""fs"");
    2 | const pathmodule = require(""path"");
    3 |
-   4 | function safePathInjection(req, res) {
-   5 |   const reqPath = __dirname + req.query.filename; // user-controlled path
-   6 |   const resolvedPath = pathmodule.resolve(reqPath); // resolve will resolve ""../""
-   7 |
-   8 |   if (resolvedPath.startsWith(__dirname + ""/uploads"")) {
-   9 |     // the requested filename cannot be retrieved outside of the ""/uploads"" folder
-  10 |     let data = fs.readFileSync(resolvedPath, { encoding: ""utf8"", flag: ""r"" }); // Compliant
-  11 |   }
-  12 | }
-  13 |
-  14 | function unsafePathInjection(req, res) {
-  15 |   const reqPath = __dirname + req.query.filename; // user-controlled path
-  16 |
-> 17 |   let data = fs.readFileSync(reqPath, { encoding: ""utf8"", flag: ""r"" }); // Noncompliant
-  18 | }
+   4 | function unsafeCases(req, res) {
+   5 |
+   6 |   const reqPath = req.query.filename; // user-controlled path
+>  7 |   let data = fs.readFileSync(reqPath, { encoding: ""utf8"", flag: ""r"" }); // Noncompliant
+   8 |
+   9 | }
+  10 |
+  11 | function safeCases(req, res) {
+  12 |
+  13 |   let safedata = fs.readFileSync(""./dir/downloads"", { encoding: ""utf8"", flag: ""r"" });
+  14 |
+  15 |   const reqPath = req.query.filename;
+  16 |   const resolvedPath = pathmodule.resolve(reqPath); // resolve will sanitize the input
+  17 |   if (resolvedPath.startsWith(__dirname + '/uploads')) { // ensures a whitelist verification
+  18 |     let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); // Compliant
+  19 |   }
+  20 | }
      ^ Col 0
 ",javascript.js_insecure_path_traversal
 F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts","
@@ -12224,150 +12226,6 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts
   16 |
 > 17 |   let data = fs.readFileSync(reqPath, { encoding: ""utf8"", flag: ""r"" }); // Noncompliant
   18 | }
-     ^ Col 0
-",typescript.ts_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,5,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js","
-   1 | const libxmljs = require(""libxmljs"");
-   2 | const fs = require(""fs"");
-   3 |
-   4 | function xml_parser_vuln() {
->  5 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-   6 |
-   7 |   const config = {
-   8 |     noblanks: true,
-   9 |     noent: true,
-  10 |     nocdata: true,
-  11 |   };
-  12 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  13 |
-  14 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  15 | }
-  16 |
-  17 | function xml_parser_fail() {
-  18 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  19 |
-  20 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  21 |     noblanks: true,
-     ^ Col 0
-",javascript.js_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,18,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js","
-   8 |     noblanks: true,
-   9 |     noent: true,
-  10 |     nocdata: true,
-  11 |   };
-  12 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  13 |
-  14 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  15 | }
-  16 |
-  17 | function xml_parser_fail() {
-> 18 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  19 |
-  20 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  21 |     noblanks: true,
-  22 |     noent: true,
-  23 |     nocdata: true,
-  24 |   });
-  25 | }
-  26 |
-  27 | function xml_parser_good() {
-  28 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-     ^ Col 0
-",javascript.js_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,28,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js","
-  11 |   };
-  12 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  13 |
-  14 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  15 | }
-  16 |
-  17 | function xml_parser_fail() {
-  18 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  19 |
-  20 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  21 |     noblanks: true,
-  22 |     noent: true,
-  23 |     nocdata: true,
-  24 |   });
-  25 | }
-  26 |
-  27 | function xml_parser_good() {
-> 28 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  29 |
-  30 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  31 | }
-     ^ Col 0
-",javascript.js_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
-   1 | declare function require(name:string);
-   2 |
-   3 | const libxmljs = require(""libxmljs"");
-   4 | const fs = require(""fs"");
-   5 |
-   6 | function xml_parser_vuln() {
->  7 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-   8 |
-   9 |   const config = {
-  10 |     noblanks: true,
-  11 |     noent: true,
-  12 |     nocdata: true,
-  13 |   };
-  14 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  15 |
-  16 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  17 | }
-  18 |
-  19 | function xml_parser_fail() {
-  20 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  21 |
-     ^ Col 0
-",typescript.ts_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,20,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
-  10 |     noblanks: true,
-  11 |     noent: true,
-  12 |     nocdata: true,
-  13 |   };
-  14 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  15 |
-  16 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  17 | }
-  18 |
-  19 | function xml_parser_fail() {
-> 20 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  21 |
-  22 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  23 |     noblanks: true,
-  24 |     noent: true,
-  25 |     nocdata: true,
-  26 |   });
-  27 | }
-  28 |
-  29 | function xml_parser_good() {
-  30 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-     ^ Col 0
-",typescript.ts_insecure_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,30,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
-  13 |   };
-  14 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  15 |
-  16 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  17 | }
-  18 |
-  19 | function xml_parser_fail() {
-  20 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  21 |
-  22 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  23 |     noblanks: true,
-  24 |     noent: true,
-  25 |     nocdata: true,
-  26 |   });
-  27 | }
-  28 |
-  29 | function xml_parser_good() {
-> 30 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  31 |
-  32 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  33 | }
      ^ Col 0
 ",typescript.ts_insecure_path_traversal
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,23,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
