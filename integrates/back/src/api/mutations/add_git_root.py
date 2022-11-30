@@ -163,7 +163,7 @@ async def mutate(
                 product_name=Product.INTEGRATES,
                 queue="small",
                 additional_info="*",
-                entity=group.organization_id,
+                entity=group.organization_id.lower().lstrip("org#"),
                 attempt_duration_seconds=7200,
                 subject="integrates@fluidattacks.com",
                 dependsOn=[

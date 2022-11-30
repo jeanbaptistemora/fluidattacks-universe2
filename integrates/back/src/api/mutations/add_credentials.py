@@ -108,7 +108,7 @@ async def mutate(
         product_name=Product.INTEGRATES,
         queue="small",
         additional_info=json.dumps({"credentials_id": credentials_id}),
-        entity=organization_id,
+        entity=organization_id.lower().lstrip("org#"),
         attempt_duration_seconds=7200,
         subject="integrates@fluidattacks.com",
     )
