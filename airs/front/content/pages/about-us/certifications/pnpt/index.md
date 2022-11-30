@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-pnpt
 alt: Logo PNPT
 certification: yes
-certificationid: 20
+certificationid: 21
 ---
 
 [PNPT](https://certifications.tcm-sec.com/pnpt/)
