@@ -34,6 +34,9 @@ from db_model.roots.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from group_access.domain import (
+    get_stakeholders_email_by_preferences,
+)
 from mailer.utils import (
     get_organization_name,
 )
@@ -432,7 +435,6 @@ async def send_mail_added_root(
     *,
     loaders: Any,
     branch: str,
-    email_to: List[str],
     environment: str,
     group_name: str,
     health_check: bool,
@@ -452,6 +454,13 @@ async def send_mail_added_root(
     }
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
+    )
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    email_to: list[str] = await get_stakeholders_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
     await send_mails_async(
         loaders,

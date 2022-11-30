@@ -1,6 +1,15 @@
 import type { ApolloQueryResult, OperationVariables } from "@apollo/client";
+import type { ExecutionResult } from "graphql";
 
 import type { IGroups } from "scenes/Dashboard/types";
+
+interface IAddGitRootMutation {
+  addGitRoot: {
+    success: boolean;
+  };
+}
+
+type AddGitRootResult = ExecutionResult<IAddGitRootMutation>;
 
 interface IIntegrationRepositoriesAttr {
   defaultBranch: string;
@@ -57,4 +66,6 @@ export type {
   IOrganizationIntegrationRepositoriesAttr,
   IOrganizationWeakestProps,
   IOrganizationGroups,
+  IAddGitRootMutation,
+  AddGitRootResult,
 };

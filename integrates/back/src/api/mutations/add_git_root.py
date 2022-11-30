@@ -1,3 +1,6 @@
+from aioextensions import (
+    schedule,
+)
 from api.mutations import (
     AddRootPayload,
 )
@@ -19,9 +22,6 @@ from batch_dispatch import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -42,9 +42,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 import hashlib
 from machine.availability import (
@@ -94,16 +91,6 @@ async def mutate(
         loaders, user_email, required_credentials=True, **kwargs
     )
     group_name = root.group_name
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
-    )
-    group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group.load(group_name)
     if (
         kwargs.get("credentials")
@@ -188,18 +175,19 @@ async def mutate(
         )
     )
 
-    await groups_mail.send_mail_added_root(
-        loaders=loaders,
-        branch=root.state.branch,
-        email_to=users_email,
-        environment=root.state.environment,
-        group_name=group_name,
-        health_check=root.state.includes_health_check,
-        root_nickname=root.state.nickname,
-        root_url=root.state.url,
-        responsible=user_email,
-        modified_date=root.state.modified_date,
-        vpn_required=root.state.use_vpn,
+    schedule(
+        groups_mail.send_mail_added_root(
+            loaders=loaders,
+            branch=root.state.branch,
+            environment=root.state.environment,
+            group_name=group_name,
+            health_check=root.state.includes_health_check,
+            root_nickname=root.state.nickname,
+            root_url=root.state.url,
+            responsible=user_email,
+            modified_date=root.state.modified_date,
+            vpn_required=root.state.use_vpn,
+        )
     )
 
     logs_utils.cloudwatch_log(
