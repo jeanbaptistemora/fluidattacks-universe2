@@ -62,7 +62,7 @@ async def get_data_one_group(
             _get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities
         ),
-        workers=32,
+        workers=16,
     )
 
     if min_date:

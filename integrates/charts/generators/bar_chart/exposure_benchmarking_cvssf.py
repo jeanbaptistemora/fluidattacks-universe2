@@ -94,7 +94,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
             _get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities
         ),
-        workers=32,
+        workers=16,
     )
 
     number_of_reattacks = sum(
@@ -128,7 +128,7 @@ async def get_data_many_groups(
 ) -> Benchmarking:
     groups_data: tuple[Benchmarking, ...] = await collect(
         tuple(get_data_one_group(group, loaders) for group in groups),
-        workers=24,
+        workers=16,
     )
 
     exposure: Decimal = (
