@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_ORGANIZATION_CREDENTIALS } from "../OrganizationCredentialsView/queries";
+import { GET_ORGANIZATION_CREDENTIALS } from "scenes/Dashboard/containers/OrganizationCredentialsView/queries";
 import { OrganizationWeakest } from "scenes/Dashboard/containers/OrganizationWeakestView/index";
 import {
   GET_ORGANIZATION_GROUPS,
@@ -51,6 +51,15 @@ describe("OrganizationWeakestView", (): void => {
                   defaultBranch: "main",
                   lastCommitDate: "2022-11-09 02:34:40+00:00",
                   url: "https://testrepo.com/testorg1/testproject1/_git/testrepo",
+                },
+              },
+              {
+                __typename: "IntegrationRepositoriesEdge",
+                node: {
+                  __typename: "OrganizationIntegrationRepositories",
+                  defaultBranch: "main",
+                  lastCommitDate: "2022-10-19 02:34:40+00:00",
+                  url: "https://testrepo.com/testorg1/testproject1/_git/testsecondrepo",
                 },
               },
             ],
@@ -114,6 +123,7 @@ describe("OrganizationWeakestView", (): void => {
           credentials: [
             {
               __typename: "Credentials",
+              azureOrganization: "testorg1",
               id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
               isPat: true,
               isToken: true,
@@ -208,6 +218,101 @@ describe("OrganizationWeakestView", (): void => {
     });
 
     expect(screen.getByRole("textbox", { name: "branch" })).toHaveValue("main");
+    expect(screen.getAllByRole("textbox")).toHaveLength(5);
+    expect(screen.getAllByRole("button")).toHaveLength(7);
+    expect(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" })
+    ).not.toBeDisabled();
+  });
+
+  it("should handle select group to add many", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[
+            mockedOrgCredentials,
+            mocksOrganizationGroups,
+            mocksOrgRepositories,
+          ]}
+        >
+          <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
+            <authzGroupContext.Provider value={new PureAbility<string>([])}>
+              <Route path={"/orgs/:organizationName/outofscope"}>
+                <OrganizationWeakest
+                  organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
+                />
+              </Route>
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("cell", {
+          name: "https://testrepo.com/testorg1/testproject1/_git/testrepo",
+        })
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("combobox", { name: "groupName" })
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByRole("button")[0]).toBeDisabled();
+
+    await userEvent.click(screen.getAllByRole("checkbox")[0]);
+
+    await waitFor((): void => {
+      expect(screen.getAllByRole("button")[0]).not.toBeDisabled();
+    });
+
+    await userEvent.click(screen.getAllByRole("button")[0]);
+
+    await waitFor((): void => {
+      expect(screen.getByRole("combobox")).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByText("group.scope.common.add")
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByRole("option", {
+        name: "group1",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("option", {
+        name: "group2",
+      })
+    ).not.toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "groupName" }),
+      ["group1"]
+    );
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox", { name: "branch" })).toHaveValue(
+        "main"
+      );
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "url" })
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByRole("textbox")).toHaveLength(4);
+    expect(screen.getAllByRole("button")).toHaveLength(7);
+    expect(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" })
+    ).toBeDisabled();
   });
 
   it("should handle empty", async (): Promise<void> => {
