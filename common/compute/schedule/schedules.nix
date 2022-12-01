@@ -702,7 +702,7 @@
       "schedulers.update_organization_overview.main"
     ];
 
-    schedule_expression = "cron(30 19 ? * 3 *)";
+    schedule_expression = "cron(30 16 ? * 5 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 2;
@@ -907,12 +907,12 @@
       "batch"
     ];
 
-    schedule_expression = "cron(5 0,4,8,11,14,18,21 ? * 2-6 *)";
+    schedule_expression = "cron(5 4,8,14,18,21 ? * 2-6 *)";
     size = "small";
     awsRole = "prod_integrates";
     attempts = 1;
     timeout = 10800;
-    parallel = 20;
+    parallel = 22;
 
     environment = [
       "CACHIX_AUTH_TOKEN"
