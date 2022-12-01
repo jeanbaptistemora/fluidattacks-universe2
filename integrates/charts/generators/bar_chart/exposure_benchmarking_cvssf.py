@@ -93,8 +93,9 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
         tuple(
             _get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities
+            if vulnerability.verification
         ),
-        workers=16,
+        workers=4,
     )
 
     number_of_reattacks = sum(
@@ -121,7 +122,6 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_many_groups(
-    *,
     organization_id: str,
     groups: tuple[str, ...],
     loaders: Dataloaders,
@@ -299,7 +299,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
             )
             for group_name in group_names
         ),
-        workers=24,
+        workers=8,
     )
 
     all_organizations_data: tuple[Benchmarking, ...] = await collect(
@@ -311,7 +311,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ),
-        workers=24,
+        workers=8,
     )
 
     all_portfolios_data: tuple[Benchmarking, ...] = await collect(
@@ -323,7 +323,7 @@ async def generate() -> None:  # pylint: disable=too-many-locals
             )
             for portfolio in portfolios
         ),
-        workers=24,
+        workers=8,
     )
 
     best_exposure: Decimal = get_best_exposure(

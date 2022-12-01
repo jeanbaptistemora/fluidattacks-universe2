@@ -82,7 +82,7 @@ class GroupBenchmarking(NamedTuple):
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_data(
-    *, group: str, loaders: Dataloaders
+    group: str, loaders: Dataloaders
 ) -> GroupBenchmarking:
     finding_severity: dict[str, Decimal] = {}
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -116,8 +116,9 @@ async def get_group_data(
         tuple(
             _get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities
+            if vulnerability.verification
         ),
-        workers=16,
+        workers=4,
     )
 
     number_of_reattacks = sum(
@@ -157,7 +158,7 @@ async def get_data_one_organization(
             get_group_data(group=group.lower(), loaders=loaders)
             for group in groups
         ),
-        workers=16,
+        workers=8,
     )
 
     counter: Counter[str] = sum(
@@ -489,7 +490,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ),
-        workers=32,
+        workers=8,
     )
 
     all_portfolios_data: tuple[
@@ -503,7 +504,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             )
             for portfolios in portfolios
         ),
-        workers=32,
+        workers=8,
     )
 
     best_cvssf = get_best_organization(

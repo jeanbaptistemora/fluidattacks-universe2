@@ -37,7 +37,7 @@ async def get_data_many_groups(
 ) -> list[PortfoliosGroupsInfo]:
     groups_data = await collect(
         tuple(generate_one(group, loaders) for group in groups),
-        workers=16,
+        workers=2,
     )
 
     return sorted(groups_data, key=attrgetter("value"), reverse=True)

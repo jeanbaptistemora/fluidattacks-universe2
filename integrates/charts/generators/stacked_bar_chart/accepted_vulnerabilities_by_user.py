@@ -64,26 +64,24 @@ async def get_data_one_group(group: str) -> Counter[str]:
 
     temporarily = Counter(
         [
-            f"{vuln.treatment.modified_by}/"  # type: ignore
-            f"{TreatmentStatus.ACCEPTED}"
+            f"{vuln.treatment.modified_by}/{TreatmentStatus.ACCEPTED}"
             for vuln in vulnerabilities
-            if vuln.treatment.status  # type: ignore
-            == TreatmentStatus.ACCEPTED
+            if vuln.treatment
+            and vuln.treatment.status == TreatmentStatus.ACCEPTED
             and vuln.state.status == StateStatus.OPEN
         ]
     )
     permanently = Counter(
         [
             (
-                f"{vuln.treatment.modified_by}"  # type: ignore
+                f"{vuln.treatment.modified_by}"
                 "/"
                 f"{TreatmentStatus.ACCEPTED_UNDEFINED}"
             )
             for vuln in vulnerabilities
-            if vuln.treatment.status  # type: ignore
-            == TreatmentStatus.ACCEPTED_UNDEFINED
-            and vuln.treatment.acceptance_status  # type: ignore
-            == AcceptanceStatus.APPROVED
+            if vuln.treatment
+            and vuln.treatment.status == TreatmentStatus.ACCEPTED_UNDEFINED
+            and vuln.treatment.acceptance_status == AcceptanceStatus.APPROVED
             and vuln.state.status == StateStatus.OPEN
         ]
     )
