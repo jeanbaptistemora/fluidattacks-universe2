@@ -28,6 +28,14 @@ is mean to be a follow-up of the
 [RTO](https://training.zeropointsecurity.co.uk/courses/red-team-ops)
 course, focusing on advanced OPSEC tactics, including
 bypassing of modern enterprise Windows endpoint controls.
+This means that RTO-2 is an advanced course and it's
+recommended to have taken and passed at least the RTO
+exam to try this course and associated certification.
+
+By the time of this writing, RTO-2 is listed at £399.00
+which includes lifetime access to the course contents
+and an exam voucher. You can pay an extra (£425.00 in total)
+for 40 hours of lab access which is highly recommended.
 
 In this post, I will take an overview of the course
 contents and will relate my experience on the exam that
@@ -158,7 +166,11 @@ After I was enrolled on *RTO-2*, it took me about three
 weeks to complete the material twice (yes, twice) because
 there was a lot of new concepts for me to digest.
 
-I then scheduled the exam to start on November 21 at
+The course fee includes an exam attempt. You can schedule it
+on the platform anytime after you start the course where
+you can pick a start day and hour.
+
+For example, I scheduled the exam to start on November 21 at
 9am.
 
 For the exam, you are given with 72 hours or
@@ -169,12 +181,16 @@ you must collect all the flags to pass the exam.
 
 You must enter the flags in a scoring system
 provided with the exam which checks the value and
-give the points. In the end, it took me around
+give the points. You don't need to write a report, just
+enter the flags. In the end, it took me around
 11 hours to complete the exam:
 
 ![Time spent](https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/Screenshot_2022-11-22_160255.webp)
 
 ![Flags](https://res.cloudinary.com/fluid-attacks/image/upload/v1669229599/blog/crtl-review/Screenshot_2022-11-22_160334.webp)
+
+However, as the exam is designed to last 5 days, you must
+wait until the fifth day to get the certification.
 
 ## Exam tips
 
@@ -210,10 +226,27 @@ the exam:
 
 ## Exam results
 
-I'm writing this article on Nov 23, just two days after
-finishing the exam. I must wait until the next friday to
-obtain the certification. I will update this section
-once I have it!
+After passing the five days of the exam time, I received
+and email with the certification:
+
+![Cert](https://res.cloudinary.com/fluid-attacks/image/upload/v1669901155/blog/crtl-review/cert1.webp)
+
+## Comparison
+
+I've taken several certifications to date related to
+Red Teaming, including *eCPTXv2*, *CRTE*, *CRTP*, *CRTO*
+*PNPT* and *OSCP*. Most of them are focused on exploiting
+misconfigurations and vulnerabilities, some of them in
+realistic AD environments. As RTO-2 is heavily focused
+on defense evasion, the certifications that come closer
+to it are *eCPTXv2* and *CRTE*, the former includes some
+of the contents found in RTO-2 like evasions on *ETW*,
+*EDRs* and things like syscall unhooking and stealth
+Office macros.
+
+*Attack Surface Reduction* and
+*Windows Defender Appplication Control* are the chapters
+that were new for me.
 
 ## Conclusions
 
