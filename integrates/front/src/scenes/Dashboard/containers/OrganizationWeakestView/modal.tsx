@@ -1,23 +1,34 @@
-import type { ApolloError } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { Form, Formik } from "formik";
-import React, { useCallback, useContext, useState } from "react";
+import _ from "lodash";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import type { IPlusModalProps } from "./types";
+import type {
+  AddGitRootResult,
+  IAddGitRootMutation,
+  IIntegrationRepositoriesAttr,
+  IPlusModalProps,
+} from "./types";
 
-import {
-  handleCreationError,
-  handleUpdateError,
-  useGitSubmit,
-} from "../GroupScopeView/GitRoots/helpers";
-import { ManagementModal } from "../GroupScopeView/GitRoots/ManagementModal";
-import { ADD_GIT_ROOT, UPDATE_GIT_ROOT } from "../GroupScopeView/queries";
 import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
+import { ManagementModal } from "scenes/Dashboard/containers/GroupScopeView/GitRoots/ManagementModal";
+import { ADD_GIT_ROOT } from "scenes/Dashboard/containers/GroupScopeView/queries";
+import type { IFormValues } from "scenes/Dashboard/containers/GroupScopeView/types";
+import {
+  getAddGitRootCredentialsVariables,
+  getAreAllMutationValid,
+  handleAddedError,
+} from "scenes/Dashboard/containers/OrganizationWeakestView/utils";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
 
 export const PlusModal: React.FC<IPlusModalProps> = ({
   organizationId,
@@ -25,13 +36,23 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
   changeOrganizationPermissions,
   groupNames,
   isOpen,
-  refetchRepositories,
-  repository,
   onClose,
+  refetchRepositories,
+  repositories,
+  setSelectedRepositories,
+  setSelectedRow,
 }: IPlusModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [branch] = repository.defaultBranch.split("/").slice(-1);
+  const branches = useMemo((): string[] => {
+    return repositories.map(
+      (repository: IIntegrationRepositoriesAttr): string => {
+        const [branch] = repository.defaultBranch.split("/").slice(-1);
+
+        return branch;
+      }
+    );
+  }, [repositories]);
   const groupCtxt: IGroupContext = useContext(groupContext);
 
   const [isManagingRoot, setIsManagingRoot] = useState<
@@ -44,39 +65,79 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
   });
 
   const closeModal: () => void = useCallback((): void => {
+    setSelectedRow(undefined);
     setIsManagingRoot(false);
     setGroupName("");
     changeOrganizationPermissions();
     setRootModalMessages({ message: "", type: "success" });
-  }, [changeOrganizationPermissions, setRootModalMessages]);
+  }, [changeOrganizationPermissions, setRootModalMessages, setSelectedRow]);
 
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
-    onCompleted: async (): Promise<void> => {
-      await refetchRepositories();
-      closeModal();
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleCreationError(graphQLErrors, setRootModalMessages);
-    },
-  });
+  const [addGitRoot] = useMutation<IAddGitRootMutation>(ADD_GIT_ROOT);
 
-  const [updateGitRoot] = useMutation(UPDATE_GIT_ROOT, {
-    onCompleted: async (): Promise<void> => {
-      await refetchRepositories();
-      setGroupName("");
-      closeModal();
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleUpdateError(graphQLErrors, setRootModalMessages, "root");
-    },
-  });
+  const handleGitSubmit = useCallback(
+    async ({
+      branch,
+      credentials,
+      environment,
+      gitignore,
+      includesHealthCheck,
+      nickname,
+      useVpn,
+    }: IFormValues): Promise<void> => {
+      mixpanel.track("AddGitRoot");
+      try {
+        const chunkSize = 5;
+        const repositoriesChunks = _.chunk(repositories, chunkSize);
+        const addedChuncks = repositoriesChunks.map(
+          (chunck): (() => Promise<AddGitRootResult[]>) =>
+            async (): Promise<AddGitRootResult[]> => {
+              const added = chunck.map(
+                async (repository): Promise<AddGitRootResult> =>
+                  addGitRoot({
+                    variables: {
+                      branch: branch.trim(),
+                      credentials:
+                        getAddGitRootCredentialsVariables(credentials),
+                      environment,
+                      gitignore,
+                      groupName,
+                      includesHealthCheck: includesHealthCheck ?? false,
+                      nickname,
+                      url: repository.url.trim(),
+                      useVpn,
+                    },
+                  })
+              );
 
-  const handleGitSubmit = useGitSubmit(
-    addGitRoot,
-    groupName,
-    isManagingRoot,
-    setRootModalMessages,
-    updateGitRoot
+              return Promise.all(added);
+            }
+        );
+
+        const results = await addedChuncks.reduce(
+          async (previousValue, currentValue): Promise<AddGitRootResult[]> => [
+            ...(await previousValue),
+            ...(await currentValue()),
+          ],
+          Promise.resolve<AddGitRootResult[]>([])
+        );
+        const areAllMutationValid = getAreAllMutationValid(results);
+        if (areAllMutationValid.every(Boolean)) {
+          await refetchRepositories();
+          setSelectedRepositories([]);
+          closeModal();
+        }
+      } catch (addError: unknown) {
+        handleAddedError(addError, setRootModalMessages);
+      }
+    },
+    [
+      addGitRoot,
+      closeModal,
+      groupName,
+      refetchRepositories,
+      repositories,
+      setSelectedRepositories,
+    ]
   );
 
   const onConfirmPlus = useCallback(
@@ -110,7 +171,9 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
         >
           <Form>
             <Select
-              label={t("organization.tabs.weakest.modal.select")}
+              label={t("organization.tabs.weakest.modal.select", {
+                count: repositories.length,
+              })}
               name={"groupName"}
             >
               <option value={""}>{""}</option>
@@ -131,7 +194,7 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
           finishTour={onClose}
           groupName={groupName}
           initialValues={{
-            branch,
+            branch: branches[0],
             cloningStatus: {
               message: "",
               status: "UNKNOWN",
@@ -159,11 +222,11 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
             nickname: "",
             secrets: [],
             state: "ACTIVE",
-            url: repository.url,
+            url: repositories[0].url,
             useVpn: false,
           }}
           isEditing={isManagingRoot.mode === "EDIT"}
-          manyRows={false}
+          manyRows={repositories.length > 1}
           modalMessages={rootModalMessages}
           nicknames={[]}
           onClose={closeModal}

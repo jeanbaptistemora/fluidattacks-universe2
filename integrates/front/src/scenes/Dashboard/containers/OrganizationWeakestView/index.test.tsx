@@ -175,7 +175,7 @@ describe("OrganizationWeakestView", (): void => {
       screen.queryByRole("combobox", { name: "groupName" })
     ).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button"));
+    fireEvent.click(screen.getAllByRole("button")[1]);
 
     await waitFor((): void => {
       expect(screen.getByRole("combobox")).toBeInTheDocument();

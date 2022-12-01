@@ -20,7 +20,7 @@ interface IIntegrationRepositoriesAttr {
 interface IPlusModalProps {
   groupNames: string[];
   isOpen: boolean;
-  repository: IIntegrationRepositoriesAttr;
+  repositories: IIntegrationRepositoriesAttr[];
   organizationId: string;
   refetchRepositories: (
     variables?: Partial<OperationVariables> | undefined
@@ -28,6 +28,8 @@ interface IPlusModalProps {
   changeGroupPermissions: (groupName: string) => void;
   changeOrganizationPermissions: () => void;
   onClose: () => void;
+  setSelectedRow: (row: IIntegrationRepositoriesAttr | undefined) => void;
+  setSelectedRepositories: (rows: IIntegrationRepositoriesAttr[]) => void;
 }
 
 interface IOrganizationWeakestProps {

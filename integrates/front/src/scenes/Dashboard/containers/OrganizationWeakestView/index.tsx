@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
-import { faPlug } from "@fortawesome/free-solid-svg-icons";
+import { faPlug, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
@@ -68,6 +68,9 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
 
   const [selectedRow, setSelectedRow] =
     useState<IIntegrationRepositoriesAttr>();
+  const [selectedRepositories, setSelectedRepositories] = useState<
+    IIntegrationRepositoriesAttr[]
+  >([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // GraphQl queries
@@ -193,6 +196,11 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
     },
     []
   );
+  const handlePlusManyRoots = useCallback((): void => {
+    if (selectedRepositories.length > 0) {
+      setIsOpen(true);
+    }
+  }, [selectedRepositories.length]);
 
   const onCloseModal: () => void = useCallback((): void => {
     setIsOpen(false);
@@ -354,9 +362,30 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
           ...(groupNames.length > 0 ? plusColumn : []),
         ]}
         data={integrationRepositories}
+        extraButtons={
+          groupNames.length > 0 && integrationRepositories.length > 0 ? (
+            <Button
+              disabled={selectedRepositories.length === 0}
+              id={"add-many-repositories"}
+              onClick={handlePlusManyRoots}
+              tooltip={t(
+                "organization.tabs.weakest.buttons.addRepositories.tooltip"
+              )}
+              variant={"primary"}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              &nbsp;
+              {t("organization.tabs.weakest.buttons.addRepositories.text")}
+            </Button>
+          ) : undefined
+        }
         id={"tblOrganizationCredentials"}
+        rowSelectionSetter={
+          groupNames.length > 0 ? setSelectedRepositories : undefined
+        }
+        rowSelectionState={selectedRepositories}
       />
-      {selectedRow ? (
+      {selectedRow || selectedRepositories.length > 0 ? (
         <PlusModal
           changeGroupPermissions={changeGroupPermissions}
           changeOrganizationPermissions={changeOrganizationPermissions}
@@ -365,7 +394,11 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
           onClose={onCloseModal}
           organizationId={organizationId}
           refetchRepositories={refetchRepositories}
-          repository={selectedRow}
+          repositories={
+            selectedRow === undefined ? selectedRepositories : [selectedRow]
+          }
+          setSelectedRepositories={setSelectedRepositories}
+          setSelectedRow={setSelectedRow}
         />
       ) : undefined}
     </React.StrictMode>

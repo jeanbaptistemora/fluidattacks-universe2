@@ -206,7 +206,7 @@ const Repository: FC<IRepositoryProps> = ({
   }
 
   const submittableCredentials = (values: IFormValues): boolean => {
-    if (values.useVpn) {
+    if (values.useVpn || credExists) {
       return true;
     }
     if (values.credentials.typeCredential === "") {

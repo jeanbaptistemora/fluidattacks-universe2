@@ -2292,9 +2292,9 @@ export const enTranslations: ResourceKey = {
             tooltip: "Integrate with Azure DevOps by adding PAT credentials",
           },
           addRepositories: {
-            text: "Add roots",
+            text: "Add new roots",
             tooltip:
-              "Add many roots with same branch, credentials, env, and health check",
+              "Add many roots with same branch, credential, env and health check",
           },
         },
         formatter: {
