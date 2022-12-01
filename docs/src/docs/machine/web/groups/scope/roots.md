@@ -14,12 +14,12 @@ about these service types,
 click [here](/machine/web/groups/services).
 
 If your group has
-[White services](about/glossary/#white-box)
-it will have [Git Roots](machine/web/groups/scope/roots/#git-roots)
-and [Environment URLs](machine/web/groups/scope/roots/#environment-urls-table),
-or if your group has [Black services](about/glossary/#black-box),
-you will have [IP Roots](machine/web/groups/scope/roots/#ip-roots)
-and [URL roots](machine/web/groups/scope/roots/#url-roots).
+[White services](/about/glossary/#white-box)
+it will have [Git Roots](/machine/web/groups/scope/roots/#git-roots)
+and [Environment URLs](/machine/web/groups/scope/roots/#environment-urls-table),
+or if your group has [Black services](/about/glossary/#black-box),
+you will have [IP Roots](/machine/web/groups/scope/roots/#ip-roots)
+and [URL roots](/machine/web/groups/scope/roots/#url-roots).
 
 ## Git Roots
 
@@ -145,7 +145,7 @@ The information you have to fill in is as follows:
   the plus symbol;
   you can add many as you need.
   If you want to know how to do it,
-  you can enter [here](machine/web/groups/scope/exclusions).
+  you can enter [here](/machine/web/groups/scope/exclusions).
 
 When you fill in the required fields,
 click on **Confirm**,
@@ -191,9 +191,9 @@ of an active root,
 you need to click on it.
 A pop-up window will appear,
 where you can navigate three tabs:
-[Git repository](machine/web/groups/scope/roots/#git-roots),
-[Environment URLs](machine/web/groups/scope/roots/#environment-urls-table)
-and [Secrets](machine/web/groups/scope/roots/#secrets)
+[Git repository](/machine/web/groups/scope/roots/#git-roots),
+[Environment URLs](/machine/web/groups/scope/roots/#environment-urls-table)
+and [Secrets](/machine/web/groups/scope/roots/#secrets)
 
 ![Managing Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668171709/docs/web/groups/scope/managing_git_root.png)
 
@@ -210,11 +210,11 @@ to include in the security tests.
 
 If you want to know how to edit
 or add an environment,
-enter [here](machine/web/groups/scope/roots/#managing-git-root-environments).
+enter [here](/machine/web/groups/scope/roots/#managing-git-root-environments).
 Now,
 if you're going to add or edit secrets,
 you can learn how to do it
-[here](machine/web/groups/scope/roots/#secrets).
+[here](/machine/web/groups/scope/roots/#secrets).
 
 ### Deactivate a Git Root
 
@@ -277,7 +277,7 @@ of mistakes when adding a root,
 but if you just
 need to update the URL,
 branch or any other root attributes,
-refer to [Managing Git Root](machine/web/groups/scope/roots/#managing-git-root).
+refer to [Managing Git Root](/machine/web/groups/scope/roots/#managing-git-root).
 
 #### Moved to another group
 
@@ -437,7 +437,7 @@ the trash button.
 :::note
 You can also find in the Environment URLs
 view how to add secrets.
-Click [here](machine/web/groups/scope/roots#secrets)
+Click [here](/machine/web/groups/scope/roots#secrets)
 if you want to know more.
 :::
 
