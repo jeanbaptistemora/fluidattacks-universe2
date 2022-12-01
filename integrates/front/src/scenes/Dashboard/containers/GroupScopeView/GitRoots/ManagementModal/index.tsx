@@ -20,6 +20,7 @@ interface IManagementModalProps {
   groupName: string;
   initialValues: IFormValues | undefined;
   isEditing: boolean;
+  manyRows: boolean | undefined;
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
@@ -64,6 +65,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     url: "",
     useVpn: false,
   },
+  manyRows = false,
   modalMessages,
   nicknames,
   onClose,
@@ -83,7 +85,9 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       minWidth={700}
       onClose={onClose}
       open={true}
-      title={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
+      title={t(`group.scope.common.${isEditing ? "edit" : "add"}`, {
+        count: manyRows ? 2 : 1,
+      })}
     >
       <MemoryRouter
         initialEntries={[canUpdateRootState ? "/repository" : "/secrets"]}
@@ -151,6 +155,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                       finishTour={finishTour}
                       initialValues={initialValues}
                       isEditing={isEditing}
+                      manyRows={manyRows}
                       modalMessages={modalMessages}
                       nicknames={nicknames}
                       onClose={onClose}

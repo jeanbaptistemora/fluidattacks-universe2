@@ -639,6 +639,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             isManagingRoot.mode === "EDIT" ? managementInitialValues : undefined
           }
           isEditing={isManagingRoot.mode === "EDIT"}
+          manyRows={false}
           modalMessages={rootModalMessages}
           nicknames={nicknames}
           onClose={closeModal}

@@ -57,6 +57,7 @@ import {
 interface IRepositoryProps {
   initialValues: IFormValues;
   isEditing: boolean;
+  manyRows: boolean | undefined;
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
@@ -69,6 +70,7 @@ const Repository: FC<IRepositoryProps> = ({
   initialValues,
   isEditing,
   nicknames,
+  manyRows = false,
   modalMessages,
   onClose,
   onSubmit,
@@ -103,10 +105,14 @@ const Repository: FC<IRepositoryProps> = ({
 
   const [isGitAccessible, setIsGitAccessible] = useState(true);
   const [credExists, setCredExists] = useState(
-    !_.isNull(initialValues.credentials) && initialValues.credentials.id !== ""
+    (!_.isNull(initialValues.credentials) &&
+      initialValues.credentials.id !== "") ||
+      manyRows
   );
   const [disabledCredsEdit, setDisabledCredsEdit] = useState(
-    !_.isNull(initialValues.credentials) && initialValues.credentials.id !== ""
+    (!_.isNull(initialValues.credentials) &&
+      initialValues.credentials.id !== "") ||
+      manyRows
   );
   const [hasSquad, setHasSquad] = useState(false);
   const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
@@ -240,8 +246,8 @@ const Repository: FC<IRepositoryProps> = ({
       formRef.current?.setFieldValue("credentials.type", "");
       formRef.current?.setFieldValue("credentials.name", "");
       formRef.current?.setFieldValue("credentials.id", "");
-      setCredExists(false);
-      setDisabledCredsEdit(false);
+      setCredExists(manyRows || false);
+      setDisabledCredsEdit(manyRows || false);
     } else {
       const currentCred = groupedExistingCreds[event.target.value];
       formRef.current?.setFieldValue(
@@ -319,18 +325,20 @@ const Repository: FC<IRepositoryProps> = ({
                   {t("group.scope.git.repo.title")}
                 </Text>
                 <Row align={"center"}>
-                  <div>
-                    <Label required={true}>
-                      {t("group.scope.git.repo.url")}
-                    </Label>
-                    <Field
-                      component={FormikText}
-                      id={"git-root-add-repo-url"}
-                      name={"url"}
-                      type={"text"}
-                      validate={composeValidators([validTextField])}
-                    />
-                  </div>
+                  {manyRows ? undefined : (
+                    <div>
+                      <Label required={true}>
+                        {t("group.scope.git.repo.url")}
+                      </Label>
+                      <Field
+                        component={FormikText}
+                        id={"git-root-add-repo-url"}
+                        name={"url"}
+                        type={"text"}
+                        validate={composeValidators([validTextField])}
+                      />
+                    </div>
+                  )}
                   <Col id={"git-root-add-repo-branch"}>
                     <Input
                       label={t("group.scope.git.repo.branch")}
@@ -505,35 +513,39 @@ const Repository: FC<IRepositoryProps> = ({
                 setIsHealthChecked={setIsCheckedHealthCheck}
                 values={values}
               />
-              <Can do={"update_git_root_filter"}>
-                <fieldset className={"bn"}>
-                  <Label
-                    htmlFor={"group.scope.git.filter"}
-                    tooltip={
-                      runTour ? undefined : t("group.scope.git.filter.tooltip")
-                    }
-                  >
-                    <QuestionButton onClick={goToDocumentation}>
-                      <FontAwesomeIcon icon={faQuestionCircle} />
-                    </QuestionButton>
-                    &nbsp;
-                    {t("group.scope.git.filter.exclude")}
-                  </Label>
-                  <GitIgnoreAlert gitignore={values.gitignore} />
-                  <FormikArrayField
-                    allowEmpty={true}
-                    initialValue={""}
-                    name={"gitignore"}
-                  >
-                    {(fieldName: string): JSX.Element => (
-                      <Input
-                        name={fieldName}
-                        placeholder={t("group.scope.git.filter.placeholder")}
-                      />
-                    )}
-                  </FormikArrayField>
-                </fieldset>
-              </Can>
+              {manyRows ? undefined : (
+                <Can do={"update_git_root_filter"}>
+                  <fieldset className={"bn"}>
+                    <Label
+                      htmlFor={"group.scope.git.filter"}
+                      tooltip={
+                        runTour
+                          ? undefined
+                          : t("group.scope.git.filter.tooltip")
+                      }
+                    >
+                      <QuestionButton onClick={goToDocumentation}>
+                        <FontAwesomeIcon icon={faQuestionCircle} />
+                      </QuestionButton>
+                      &nbsp;
+                      {t("group.scope.git.filter.exclude")}
+                    </Label>
+                    <GitIgnoreAlert gitignore={values.gitignore} />
+                    <FormikArrayField
+                      allowEmpty={true}
+                      initialValue={""}
+                      name={"gitignore"}
+                    >
+                      {(fieldName: string): JSX.Element => (
+                        <Input
+                          name={fieldName}
+                          placeholder={t("group.scope.git.filter.placeholder")}
+                        />
+                      )}
+                    </FormikArrayField>
+                  </fieldset>
+                </Can>
+              )}
               {!showSubmitAlert && modalMessages.message !== "" ? (
                 <Alert
                   onTimeOut={setShowSubmitAlert}

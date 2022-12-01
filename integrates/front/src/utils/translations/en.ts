@@ -916,6 +916,8 @@ export const enTranslations: ResourceKey = {
       common: {
         add: "Add new root",
         addTooltip: "Add a new git root to this group",
+        // eslint-disable-next-line camelcase -- It is required for react-i18next
+        add_plural: "Add new roots",
         changeWarning:
           "This is a change in the scope of the test service, which may involve closing or reporting new vulnerabilities.",
         confirm: "Confirm change",
@@ -954,6 +956,8 @@ export const enTranslations: ResourceKey = {
         },
         edit: "Edit root",
         editTooltip: "Edit the selected git root",
+        // eslint-disable-next-line camelcase -- It is required for react-i18next
+        edit_plural: "Edit roots",
         errors: {
           duplicateNickname:
             "An active root with the same Nickname already exists please type a new nickname",
@@ -2287,6 +2291,11 @@ export const enTranslations: ResourceKey = {
             text: "Integrate",
             tooltip: "Integrate with Azure DevOps by adding PAT credentials",
           },
+          addRepositories: {
+            text: "Add roots",
+            tooltip:
+              "Add many roots with same branch, credentials, env, and health check",
+          },
         },
         formatter: {
           plus: {
@@ -2295,6 +2304,8 @@ export const enTranslations: ResourceKey = {
         },
         modal: {
           select: "In which group the root will be added",
+          // eslint-disable-next-line camelcase -- It is required for react-i18next
+          select_plural: "In which group the roots will be added",
           title: "Select group",
         },
         table: {

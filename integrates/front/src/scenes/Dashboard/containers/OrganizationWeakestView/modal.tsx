@@ -163,6 +163,7 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
             useVpn: false,
           }}
           isEditing={isManagingRoot.mode === "EDIT"}
+          manyRows={false}
           modalMessages={rootModalMessages}
           nicknames={[]}
           onClose={closeModal}
