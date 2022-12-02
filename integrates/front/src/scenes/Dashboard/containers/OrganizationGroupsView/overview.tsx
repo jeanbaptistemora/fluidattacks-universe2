@@ -8,17 +8,17 @@ import { Text } from "components/Text";
 import { OverviewCard } from "scenes/Dashboard/containers/OrganizationBillingView/Overview/Card";
 
 interface IOrganizationGroupOverviewProps {
-  coveredCommits: number;
+  coveredAuthors: number;
   coveredRepositories: number;
-  missedCommits: number;
+  missedAuthors: number;
   missedRepositories: number;
   organizationName: string;
 }
 
 const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
-  coveredCommits,
+  coveredAuthors,
   coveredRepositories,
-  missedCommits,
+  missedAuthors,
   missedRepositories,
   organizationName,
 }: IOrganizationGroupOverviewProps): JSX.Element => {
@@ -41,12 +41,12 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
           <Col lg={25} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.groups.overview.coveredCommits.content",
-                { coveredCommits }
+                "organization.tabs.groups.overview.coveredAuthors.content",
+                { coveredAuthors }
               )}
-              info={t("organization.tabs.groups.overview.coveredCommits.info")}
+              info={t("organization.tabs.groups.overview.coveredAuthors.info")}
               title={t(
-                "organization.tabs.groups.overview.coveredCommits.title"
+                "organization.tabs.groups.overview.coveredAuthors.title"
               )}
             />
           </Col>
@@ -67,11 +67,11 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
           <Col lg={25} md={50} sm={100}>
             <OverviewCard
               content={t(
-                "organization.tabs.groups.overview.missedCommits.content",
-                { missedCommits }
+                "organization.tabs.groups.overview.missedAuthors.content",
+                { missedAuthors }
               )}
-              info={t("organization.tabs.groups.overview.missedCommits.info")}
-              title={t("organization.tabs.groups.overview.missedCommits.title")}
+              info={t("organization.tabs.groups.overview.missedAuthors.info")}
+              title={t("organization.tabs.groups.overview.missedAuthors.title")}
             />
           </Col>
           <Col lg={25} md={50} sm={100}>

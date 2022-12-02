@@ -2086,20 +2086,20 @@ export const enTranslations: ResourceKey = {
           },
         },
         overview: {
-          coveredCommits: {
-            content: "{{coveredCommits}}",
-            info: "Number of commits of all repositories of the organization",
-            title: "Covered commits",
+          coveredAuthors: {
+            content: "{{coveredAuthors}}",
+            info: "Number of authors of all repositories of the organization",
+            title: "Covered authors",
           },
           coveredRepositories: {
             content: "{{coveredRepositories}}",
             info: "Number of repositories from all groups of the organization",
             title: "Covered repositories",
           },
-          missedCommits: {
-            content: "{{missedCommits}}",
-            info: "Number of commits of repositories out of the scope",
-            title: "Missed commits",
+          missedAuthors: {
+            content: "{{missedAuthors}}",
+            info: "Number of authors of repositories out of the scope",
+            title: "Missed authors",
           },
           missedRepositories: {
             content: "{{missedRepositories}}",
