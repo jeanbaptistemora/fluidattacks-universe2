@@ -25,6 +25,11 @@ interface IOrganizationGroupsProps {
 
 interface IGetOrganizationGroups {
   organization: {
+    name: string;
+    coveredAuthors: number;
+    coveredRepositories: number;
+    missedAuthors: number;
+    missedRepositories: number;
     groups: IGroupData[];
   };
 }

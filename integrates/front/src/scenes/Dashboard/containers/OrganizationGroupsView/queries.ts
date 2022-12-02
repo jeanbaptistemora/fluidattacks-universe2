@@ -4,6 +4,10 @@ import type { DocumentNode } from "graphql";
 export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
   query GetOrganizationGroups($organizationId: String!) {
     organization(organizationId: $organizationId) {
+      coveredAuthors
+      coveredRepositories
+      missedAuthors
+      missedRepositories
       name
       groups {
         name
