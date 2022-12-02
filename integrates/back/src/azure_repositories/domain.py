@@ -78,6 +78,7 @@ from organizations.domain import (
     get_group_names,
 )
 import os
+import re
 from settings import (
     LOGGING,
 )
@@ -115,19 +116,6 @@ def clone_mirrors(tmpdir: str, group: str) -> tuple[str, list[str]]:
 async def get_covered_nickname_commits(
     path: str, folder: str, group: str, git_root: GitRoot
 ) -> int:
-    if folder != git_root.state.nickname:
-        return 0
-
-    Git().execute(
-        [
-            "git",
-            "config",
-            "--global",
-            "--add",
-            "safe.directory",
-            os.path.join(path, folder),
-        ]
-    )
     proc = await asyncio.create_subprocess_exec(
         "git",
         "-C",
@@ -158,21 +146,85 @@ async def get_covered_nickname_commits(
     return 0
 
 
-async def get_covered_group_commits(
+async def get_covered_nickname_authors(
+    path: str, folder: str, group: str, git_root: GitRoot
+) -> set[str]:
+    proc = await asyncio.create_subprocess_exec(
+        "git",
+        "-C",
+        os.path.join(path, folder),
+        "shortlog",
+        "-sne",
+        git_root.state.branch,
+        "--",
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stdin=asyncio.subprocess.DEVNULL,
+    )
+    stdout, stderr = await proc.communicate()
+    if proc.returncode == 0:
+        pattern = r"(?<=\<).+(?=\>)"
+        authors = re.findall(pattern, stdout.decode())
+
+        return set(author.lower() for author in authors)
+
+    LOGGER.error(
+        "Error getting data over repository",
+        extra={
+            "extra": {
+                "error": stderr.decode(),
+                "group": group,
+                "repository": folder,
+            }
+        },
+    )
+
+    return set()
+
+
+async def get_covered_nickname(
+    path: str, folder: str, group: str, git_root: GitRoot
+) -> tuple[int, set[str]]:
+    if folder != git_root.state.nickname:
+        return (0, set())
+
+    Git().execute(
+        [
+            "git",
+            "config",
+            "--global",
+            "--add",
+            "safe.directory",
+            os.path.join(path, folder),
+        ]
+    )
+
+    return (
+        await get_covered_nickname_commits(path, folder, group, git_root),
+        await get_covered_nickname_authors(path, folder, group, git_root),
+    )
+
+
+async def get_covered_group(
     path: str, folder: str, group: str, git_roots: tuple[GitRoot, ...]
-) -> int:
-    group_foder_coverted_commits: tuple[int, ...] = await collect(
+) -> tuple[int, set[str]]:
+    group_foder_coverted: tuple[tuple[int, set[str]], ...] = await collect(
         tuple(
-            get_covered_nickname_commits(path, folder, group, git_root)
+            get_covered_nickname(path, folder, group, git_root)
             for git_root in git_roots
         ),
         workers=1,
     )
 
-    return sum(group_foder_coverted_commits)
+    return (
+        sum(commit for commit, _ in group_foder_coverted),
+        set(
+            set().union(*list(authors for _, authors in group_foder_coverted))
+        ),
+    )
 
 
-async def update_organization_unreliable(
+async def update_organization_unreliable(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
     loaders: Dataloaders,
@@ -192,7 +244,9 @@ async def update_organization_unreliable(
             organization_id=organization.id,
             organization_name=organization.name,
             indicators=OrganizationUnreliableIndicatorsToUpdate(
+                covered_authors=0,
                 covered_commits=0,
+                missed_authors=0,
             ),
         )
         LOGGER.info(
@@ -203,6 +257,7 @@ async def update_organization_unreliable(
                     "organization_name": organization.name,
                     "progress": round(progress, 2),
                     "active_git_roots": 0,
+                    "covered_authors": 0,
                     "covered_commits": 0,
                 }
             },
@@ -213,7 +268,7 @@ async def update_organization_unreliable(
     groups_roots = await loaders.group_roots.load_many(
         organization_group_names
     )
-    covered_organization_commits: list[int] = []
+    covered_organization: list[tuple[int, set[str]]] = []
     for group, roots in zip(organization_group_names, groups_roots):
         active_git_roots: tuple[GitRoot, ...] = tuple(
             root
@@ -226,9 +281,9 @@ async def update_organization_unreliable(
 
         with tempfile.TemporaryDirectory() as tmpdir:
             clone_path, clone_repos = clone_mirrors(tmpdir=tmpdir, group=group)
-            covered_group_commits: tuple[int, ...] = await collect(
+            covered_group: tuple[tuple[int, set[str]], ...] = await collect(
                 (
-                    get_covered_group_commits(
+                    get_covered_group(
                         path=clone_path,
                         folder=repo,
                         group=group,
@@ -238,13 +293,78 @@ async def update_organization_unreliable(
                 ),
                 workers=1,
             )
-            covered_organization_commits.append(sum(covered_group_commits))
 
+            covered_organization.append(
+                (
+                    sum(commit for commit, _ in covered_group),
+                    set(
+                        set().union(
+                            *list(authors for _, authors in covered_group)
+                        )
+                    ),
+                )
+            )
+
+    credentials: tuple[
+        Credentials, ...
+    ] = await loaders.organization_credentials.load(organization.id)
+    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
+        credentials
+    )
+    all_repositories: tuple[
+        tuple[GitRepository, ...], ...
+    ] = await loaders.organization_integration_repositories.load_many(
+        pat_credentials
+    )
+    organization_roots: tuple[Root, ...] = tuple(
+        chain.from_iterable(groups_roots)
+    )
+    urls: set[str] = {
+        unquote_plus(urlparse(root.state.url.lower()).path)
+        for root in organization_roots
+        if isinstance(root, GitRoot)
+    }
+    repositories: tuple[CredentialsGitRepository, ...] = tuple(
+        CredentialsGitRepository(
+            credential=credential,
+            repository=repository,
+        )
+        for credential, _repositories in zip(pat_credentials, all_repositories)
+        for repository in _repositories
+        if filter_urls(
+            repository=repository,
+            urls=urls,
+        )
+    )
+    repositories_dates: tuple[str, ...] = await collect(
+        tuple(
+            _get_commit_date(loaders=loaders, repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
+    repositories_authors: tuple[set[str], ...] = await collect(
+        tuple(
+            _get_missed_authors(loaders=loaders, repository=repository)
+            for repository, date in zip(repositories, repositories_dates)
+            if get_datetime_from_iso_str(date).timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+        ),
+        workers=1,
+    )
     await update_unreliable_org_indicators(
         organization_id=organization.id,
         organization_name=organization.name,
         indicators=OrganizationUnreliableIndicatorsToUpdate(
-            covered_commits=sum(covered_organization_commits),
+            covered_authors=len(
+                set(
+                    set().union(
+                        *list(authors for _, authors in covered_organization)
+                    )
+                )
+            ),
+            missed_authors=len(list(set().union(*list(repositories_authors)))),
+            covered_commits=sum(commit for commit, _ in covered_organization),
         ),
     )
     LOGGER.info(
@@ -255,7 +375,21 @@ async def update_organization_unreliable(
                 "organization_name": organization.name,
                 "progress": round(progress, 2),
                 "active_git_roots": len(active_git_roots),
-                "covered_commits": sum(covered_organization_commits),
+                "covered_commits": sum(
+                    commit for commit, _ in covered_organization
+                ),
+                "covered_authors": len(
+                    set(
+                        set().union(
+                            *list(
+                                authors for _, authors in covered_organization
+                            )
+                        )
+                    )
+                ),
+                "missed_authors": len(
+                    list(set().union(*list(repositories_authors)))
+                ),
             }
         },
     )
@@ -273,6 +407,26 @@ def _get_branch(repository: CredentialsGitRepository) -> str:
         if repository.repository.default_branch is not None
         else "main"
     )
+
+
+async def _get_missed_authors(
+    *, loaders: Dataloaders, repository: CredentialsGitRepository
+) -> set[str]:
+    git_commits: tuple[
+        GitCommit, ...
+    ] = await loaders.organization_integration_repositories_commits.load(
+        CredentialsGitRepositoryCommit(
+            credential=repository.credential,
+            project_name=repository.repository.project.name,
+            repository_id=repository.repository.id,
+            total=True,
+        )
+    )
+
+    if git_commits:
+        return {commit.author.email.lower() for commit in git_commits}
+
+    return set()
 
 
 async def _get_commit_date(
@@ -326,6 +480,7 @@ async def _update(
     repositories_dates: tuple[str, ...],
     covered_repositores: int,
 ) -> None:
+
     await collect(
         tuple(
             update_unreliable_repositories(

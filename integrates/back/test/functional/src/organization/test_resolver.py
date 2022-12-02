@@ -27,6 +27,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.azure_repositories.types import (
+    CredentialsGitRepository,
+)
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
@@ -120,13 +123,21 @@ def get_repositories_stats(
     )
 
 
-async def get_covered_group_commits(
+async def get_covered_group(
     path: str,  # pylint: disable=unused-argument
     folder: str,  # pylint: disable=unused-argument
     group: str,  # pylint: disable=unused-argument
     git_roots: tuple[GitRoot, ...],  # pylint: disable=unused-argument
-) -> int:
-    return 4
+) -> tuple[int, set[str]]:
+    return (4, {"devtest1@test.com"})
+
+
+async def _get_missed_authors(
+    *,
+    loaders: Dataloaders,  # pylint: disable=unused-argument
+    repository: CredentialsGitRepository,  # pylint: disable=unused-argument
+) -> set[str]:
+    return {"devtest2@test.com"}
 
 
 def mocked_pull_repositories(
@@ -277,10 +288,23 @@ async def test_get_organization_ver_1(
         side_effect=mocked_pull_repositories,
     ):
         with mock.patch(
-            "azure_repositories.domain.get_covered_group_commits",
-            side_effect=get_covered_group_commits,
+            "azure_repositories.domain.get_covered_group",
+            side_effect=get_covered_group,
         ):
-            await update_organization_overview()
+            with mock.patch(
+                "azure_repositories.domain._get_missed_authors",
+                side_effect=_get_missed_authors,
+            ):
+                with mock.patch(
+                    "db_model.azure_repositories.get._get_repositories",
+                    side_effect=get_repositories,
+                ):
+                    with mock.patch(
+                        "db_model.azure_repositories.get."
+                        "_get_repositories_commits",
+                        side_effect=get_repositories_commits,
+                    ):
+                        await update_organization_overview()
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
