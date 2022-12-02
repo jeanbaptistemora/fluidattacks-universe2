@@ -94,14 +94,6 @@ def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
             yield act
 
 
-def _has_admin_access(managed_policies: Node) -> Iterator[Node]:
-    if managed_policies:
-        for man_pol in managed_policies.data:
-            # IAM role should not have AdministratorAccess policy
-            if "AdministratorAccess" in man_pol.raw:
-                yield man_pol
-
-
 def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
     for policy in policies.data if policies else []:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
@@ -143,9 +135,6 @@ def _cfn_iam_is_role_over_privileged_iter_vulns(
     iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
-        managed_policies = iam_res.inner.get("ManagedPolicyArns")
-        yield from _has_admin_access(managed_policies)
-
         policies = iam_res.inner.get("Policies")
         yield from _check_policy_documents(policies, file_ext)
 

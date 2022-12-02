@@ -3664,43 +3664,6 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_dns_access
-F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,7,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
-   1 | ---
-   2 | Resources:
-   3 |   AWS_IAM_Role_1:
-   4 |     Type: AWS::IAM::Role
-   5 |     Properties:
-   6 |       ManagedPolicyArns:
->  7 |         - arn:aws:iam::aws:policy/AdministratorAccess
-   8 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
-   9 |         - arn:aws:iam::aws:policy/IAMFullAccess
-  10 |         - arn:aws:iam::aws:policy/SecretsManagerReadWrite
-  11 |         - arn:aws:iam::aws:policy/PowerUserAccess
-     ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json","
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""AWS_IAM_Role_1"": {
-   4 |       ""Type"": ""AWS::IAM::Role"",
-   5 |       ""Properties"": {
-   6 |         ""ManagedPolicyArns"": [
->  7 |           ""arn:aws:iam::aws:policy/AdministratorAccess"",
-   8 |           ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"",
-   9 |           ""arn:aws:iam::aws:policy/IAMFullAccess"",
-  10 |           ""arn:aws:iam::aws:policy/SecretsManagerReadWrite"",
-  11 |           ""arn:aws:iam::aws:policy/PowerUserAccess""
-  12 |         ]
-  13 |       }
-  14 |     }
-  15 |   }
-  16 | }
-     ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
 - Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
@@ -4871,32 +4834,6 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   32 |         - arn:aws:iam::aws:policy/AdministratorAccess
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,32,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
- in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
-  13 |             Action:
-  14 |               - sts:AssumeRole
-  15 |       Path: /
-  16 |       Policies:
-  17 |         - PolicyName: root
-  18 |           PolicyDocument:
-  19 |             Version: '2012-10-17'
-  20 |             Statement:
-  21 |               - Effect: Allow
-  22 |                 Action: iam:*
-  23 |                 Resource: '*'
-  24 |         - PolicyName: root
-  25 |           PolicyDocument:
-  26 |             Version: '2012-10-17'
-  27 |             Statement:
-  28 |               - Effect: Allow
-  29 |                 Action: '*'
-  30 |                 Resource: s3:GetObject
-  31 |       ManagedPolicyArns:
-> 32 |         - arn:aws:iam::aws:policy/AdministratorAccess
-  33 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
-     ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,29,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
 - Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
@@ -5025,32 +4962,6 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   52 |           ""arn:aws:iam::aws:policy/AdministratorAccess"",
   53 |           ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
   54 |         ]
-     ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,52,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
- in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
-  38 |             ""PolicyName"": ""root"",
-  39 |             ""PolicyDocument"": {
-  40 |               ""Version"": ""2012-10-17"",
-  41 |               ""Statement"": [
-  42 |                 {
-  43 |                   ""Effect"": ""Allow"",
-  44 |                   ""Action"": ""*"",
-  45 |                   ""Resource"": ""s3:GetObject""
-  46 |                 }
-  47 |               ]
-  48 |             }
-  49 |           }
-  50 |         ],
-  51 |         ""ManagedPolicyArns"": [
-> 52 |           ""arn:aws:iam::aws:policy/AdministratorAccess"",
-  53 |           ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
-  54 |         ]
-  55 |       }
-  56 |     }
-  57 |   }
-  58 | }
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf","

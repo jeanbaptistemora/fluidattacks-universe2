@@ -185,18 +185,20 @@ def admin_policies_attached_iterate_vulnerabilities(
     managed_policies_iterator: Iterator[Union[Node, AWSIamManagedPolicyArns]],
 ) -> Iterator[Union[Node, AWSIamManagedPolicyArns]]:
     elevated_policies = {
-        "arn:aws:iam::aws:policy/PowerUserAccess",
-        "arn:aws:iam::aws:policy/IAMFullAccess",
-        "arn:aws:iam::aws:policy/AdministratorAccess",
+        "PowerUserAccess",
+        "IAMFullAccess",
+        "AdministratorAccess",
     }
     for policies in managed_policies_iterator:
         if isinstance(policies, Node):
             yield from (
                 policy
                 for policy in policies.data
-                if policy.raw in elevated_policies
+                if policy.raw
+                and policy.raw.split("/")[-1] in elevated_policies
             )
         elif any(
-            policy in elevated_policies for policy in policies.data or []
+            policy.split("/")[-1] in elevated_policies
+            for policy in policies.data or []
         ):
             yield policies
