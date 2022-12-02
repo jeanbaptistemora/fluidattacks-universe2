@@ -22,6 +22,7 @@ class CredentialsGitRepositoryCommit(NamedTuple):
     credential: Credentials
     project_name: str
     repository_id: str
+    total: bool = False
 
 
 class CredentialsGitRepositoryResolver(NamedTuple):

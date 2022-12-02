@@ -111,6 +111,7 @@ def _get_repositories_commits(
     access_token: str,
     repository_id: str,
     project_name: str,
+    total: bool = False,
 ) -> tuple[GitCommit, ...]:
     credentials = BasicAuthentication("", access_token)
     connection = Connection(
@@ -119,7 +120,9 @@ def _get_repositories_commits(
     try:
         git_client: GitClient = connection.clients_v6_0.get_git_client()
         commits: list[GitCommit] = git_client.get_commits(
-            search_criteria=GitQueryCommitsCriteria(top=1),
+            search_criteria=GitQueryCommitsCriteria()
+            if total
+            else GitQueryCommitsCriteria(top=1),
             repository_id=repository_id,
             project=project_name,
         )

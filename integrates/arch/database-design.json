@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Nov 24, 2022, 02:54 PM",
+    "DateLastModified": "Dec 02, 2022, 10:51 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1036,6 +1036,14 @@
         },
         {
           "AttributeName": "covered_commits",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "missed_authors",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "covered_authors",
           "AttributeType": "N"
         }
       ],
@@ -13626,7 +13634,9 @@
             "missed_repositories",
             "missed_commits",
             "covered_repositories",
-            "covered_commits"
+            "covered_commits",
+            "covered_authors",
+            "missed_authors"
           ],
           "DataAccess": {
             "MySql": {}

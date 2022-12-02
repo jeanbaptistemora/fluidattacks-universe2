@@ -185,6 +185,8 @@ def format_unreliable_indicators(
         covered_commits=item.get("covered_commits", 0),
         missed_commits=item.get("missed_commits", 0),
         covered_repositories=item.get("covered_repositories", 0),
+        missed_authors=item.get("missed_authors", 0),
+        covered_authors=item.get("covered_authors", 0),
     )
 
 
@@ -225,6 +227,8 @@ def format_unreliable_indicators_item_to_update(
         "covered_commits": indicators.covered_commits,
         "missed_commits": indicators.missed_commits,
         "covered_repositories": indicators.covered_repositories,
+        "missed_authors": indicators.missed_authors,
+        "covered_authors": indicators.covered_authors,
     }
 
     return {key: value for key, value in item.items() if value is not None}
