@@ -3,6 +3,7 @@ from api.resolvers.organization import (
     billing,
     company,
     compliance,
+    covered_authors,
     covered_commits,
     covered_repositories,
     credentials,
@@ -15,6 +16,7 @@ from api.resolvers.organization import (
     max_number_acceptances,
     min_acceptance_severity,
     min_breaking_severity,
+    missed_authors,
     missed_commits,
     missed_repositories,
     organization_id,
@@ -33,6 +35,7 @@ ORGANIZATION.set_field("analytics", analytics.resolve)
 ORGANIZATION.set_field("billing", billing.resolve)
 ORGANIZATION.set_field("company", company.resolve)
 ORGANIZATION.set_field("compliance", compliance.resolve)
+ORGANIZATION.set_field("coveredAuthors", covered_authors.resolve)
 ORGANIZATION.set_field("coveredCommits", covered_commits.resolve)
 ORGANIZATION.set_field("coveredRepositories", covered_repositories.resolve)
 ORGANIZATION.set_field("credentials", credentials.resolve)
@@ -50,6 +53,7 @@ ORGANIZATION.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 ORGANIZATION.set_field(
     "maxAcceptanceSeverity", max_acceptance_severity.resolve
 )
+ORGANIZATION.set_field("missedAuthors", missed_authors.resolve)
 ORGANIZATION.set_field("missedCommits", missed_commits.resolve)
 ORGANIZATION.set_field("missedRepositories", missed_repositories.resolve)
 ORGANIZATION.set_field(

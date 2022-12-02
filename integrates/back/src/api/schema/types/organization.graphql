@@ -21,8 +21,15 @@ type Organization {
   compliance: OrganizationCompliance!
   "Country where the organization is based"
   country: String
+  "Number of authors in the repositories of the scope"
+  coveredAuthors: Int
   "Number of commits covered in the repositories of the scope"
   coveredCommits: Int
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/02.
+      """
+    )
   "Number of repositories covered in scope"
   coveredRepositories: Int
   "Credentials associated to the organization"
@@ -61,8 +68,15 @@ type Organization {
   the build in strict mode
   """
   minBreakingSeverity: Float!
+  "Number of authors of integration repositories out of the scope"
+  missedAuthors: Int
   "Number of commits of integration repositories out of the scope"
   missedCommits: Int
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/02.
+      """
+    )
   "Number of integration repositories out of the scope"
   missedRepositories: Int
   "Name of the organization"
