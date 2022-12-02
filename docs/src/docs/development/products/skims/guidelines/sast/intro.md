@@ -19,15 +19,22 @@ analyze code in the following languages:
 - Kotlin and Go (Not in active development at the moment)
 - C#, Java, JavaScript, TypeScript and Dart (In active development)
 
-For the languages in active development at the moment, the code is parsed
-using OS libraries, then an optimization algorithm generates a simplified
-and common graph called the Syntax Graph, which is finally used to search for
-vulnerabilities in the code.
-
-Right now, the methods are able to search different kinds of vulnerabilities
-in single files of code.
-
 ## Lib path vulnerabilities
 
-This library includes generally all extension files that can be used to
-set up Infrastructure As Code.
+This library includes checks for the most common tools that can be used to
+set up Infrastructure As Code, among them, terraform, cloud formation,
+Kubernetes, bash scripting and Dockerfiles.
+
+## Lib http vulnerabilities
+
+This library checks environments and endpoints that host client applications
+and reviews vulnerabilities in the http responses, such as missing or
+miss configured headers.
+
+## Lib ssl vulnerabilities
+
+This library checks environments for vulnerabilities related to
+connections, handshakes and other server-related checks.
+
+For a more detail explanation of each library and its methods, refer to each
+section in this documentation.

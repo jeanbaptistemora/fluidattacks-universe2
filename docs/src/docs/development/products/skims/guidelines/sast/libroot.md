@@ -5,9 +5,20 @@ sidebar_label: Libroot
 slug: /development/products/skims/guidelines/sast/libroot
 ---
 
+The lib_root module of skims searches deterministic vulnerabilities in
+code files for the most commonly used development languages in our clients'
+stack.
+
 As mentioned in the introduction, for the languages supported by this library
 and that are in active development, the following three-step procedure
 is used:
+
+1. Parse the code file into a graph object using third-party libraries
+1. Optimize the parsed graph to improve execution speed and development
+1. Search vulnerabilities in the optimized graph and create report
+
+For developers, the following sections explain in more detail this process and
+the algorithms used in this module.
 
 ## 1. Code parsing
 
