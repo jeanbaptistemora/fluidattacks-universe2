@@ -80,6 +80,36 @@ def load_benchmark_skims_results() -> Dict[str, List[Result]]:
     return mapping
 
 
+def calculate_positive_results(
+    result: Result,
+    true_positives: int,
+    false_positives: int,
+) -> Tuple[bool, int, int]:
+    if result.is_vulnerable:
+        success = True
+        true_positives += 1
+    else:
+        success = False
+        false_positives += 1
+
+    return success, true_positives, false_positives
+
+
+def calculate_negative_results(
+    result: Result,
+    true_negatives: int,
+    false_negatives: int,
+) -> Tuple[bool, int, int]:
+    if result.is_vulnerable:
+        success = False
+        false_negatives += 1
+    else:
+        success = True
+        true_negatives += 1
+
+    return success, true_negatives, false_negatives
+
+
 def load_skims_results() -> Score:
     errors_per_category: Dict[Optional[str], int] = {}
     false_negatives: int = 0
@@ -89,9 +119,7 @@ def load_skims_results() -> Score:
 
     skims_findings = load_benchmark_skims_results()
     for test, result in load_benchmark_expected_results().items():
-        success: bool = False
         skims_results = skims_findings.get(test, [])
-
         # We must check skims had said vulnerable against the expected
         # type of vulnerability.
         # It does not make sense to compare different CWE, for instance
@@ -103,17 +131,21 @@ def load_skims_results() -> Score:
             skims_result.is_vulnerable and skims_result.shares_cwe_with(result)
             for skims_result in skims_results
         ):
-            if result.is_vulnerable:
-                success = True
-                true_positives += 1
-            else:
-                false_positives += 1
+            (
+                success,
+                true_positives,
+                false_positives,
+            ) = calculate_positive_results(
+                result, true_positives, false_positives
+            )
         else:
-            if result.is_vulnerable:
-                false_negatives += 1
-            else:
-                success = True
-                true_negatives += 1
+            (
+                success,
+                true_negatives,
+                false_negatives,
+            ) = calculate_negative_results(
+                result, true_negatives, false_negatives
+            )
 
         errors_per_category.setdefault(result.category, 0)
         if not success and errors_per_category[result.category] < 3:
