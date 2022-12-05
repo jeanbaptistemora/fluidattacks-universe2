@@ -236,8 +236,10 @@ async def test_get_organization_ver_1(
     )
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
+    assert result["data"]["organization"]["coveredAuthors"] == 0
     assert result["data"]["organization"]["coveredCommits"] == 0
     assert result["data"]["organization"]["coveredRepositories"] == 0
+    assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
     assert len(result["data"]["organization"]["credentials"]) == 2
@@ -308,8 +310,10 @@ async def test_get_organization_ver_1(
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
+    assert result["data"]["organization"]["coveredAuthors"] == 1
     assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
+    assert result["data"]["organization"]["missedAuthors"] == 1
     assert result["data"]["organization"]["missedCommits"] == 10
     assert result["data"]["organization"]["missedRepositories"] == 2
 
@@ -369,8 +373,10 @@ async def test_get_organization_ver_1(
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
+    assert result["data"]["organization"]["coveredAuthors"] == 0
     assert result["data"]["organization"]["coveredCommits"] == 0
     assert result["data"]["organization"]["coveredRepositories"] == 1
+    assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
 
