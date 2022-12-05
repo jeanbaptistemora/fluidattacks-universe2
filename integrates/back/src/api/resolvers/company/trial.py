@@ -33,8 +33,8 @@ def resolve(
 
     return {
         "completed": trial.completed,
-        "extension_date": trial.extension_date,
+        "extension_date": trial.extension_date or "",
         "extension_days": trial.extension_days,
-        "start_date": trial.start_date,
+        "start_date": trial.start_date or "",
         "state": _get_state(trial),
     }

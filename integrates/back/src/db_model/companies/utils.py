@@ -2,6 +2,9 @@ from .types import (
     Company,
     Trial,
 )
+from datetime import (
+    datetime,
+)
 from dynamodb.types import (
     Item,
 )
@@ -10,9 +13,13 @@ from dynamodb.types import (
 def format_trial(item: Item) -> Trial:
     return Trial(
         completed=item["completed"],
-        extension_date=item["extension_date"],
+        extension_date=datetime.fromisoformat(item["extension_date"])
+        if item.get("extension_date")
+        else None,
         extension_days=item["extension_days"],
-        start_date=item["start_date"],
+        start_date=datetime.fromisoformat(item["start_date"])
+        if item.get("start_date")
+        else None,
     )
 
 

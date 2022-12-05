@@ -10,6 +10,9 @@ from contextlib import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -17,7 +20,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-import simplejson
+import simplejson as json
 
 
 async def add(*, company: Company) -> None:
@@ -29,7 +32,7 @@ async def add(*, company: Company) -> None:
     item = {
         key_structure.partition_key: key.partition_key,
         key_structure.sort_key: key.sort_key,
-        **simplejson.loads(simplejson.dumps(company)),
+        **json.loads(json.dumps(company, default=serialize)),
     }
 
     with suppress(ConditionalCheckFailedException):

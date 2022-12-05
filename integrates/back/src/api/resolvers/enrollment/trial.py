@@ -15,9 +15,6 @@ from enrollment import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from typing import (
     Any,
     cast,
@@ -38,23 +35,17 @@ async def resolve(
         if company
         else Trial(
             completed=False,
-            extension_date="",
+            extension_date=None,
             extension_days=0,
-            start_date="",
+            start_date=None,
         )
     )
 
     return {
         "completed": trial.completed,
-        "extension_date": datetime_utils.convert_from_iso_str(
-            trial.extension_date
-        )
-        if trial.extension_date
-        else "",
+        "extension_date": trial.extension_date or "",
         "extension_days": trial.extension_days,
-        "start_date": datetime_utils.convert_from_iso_str(trial.start_date)
-        if trial.start_date
-        else "",
+        "start_date": trial.start_date or "",
         "state": enrollment_domain.get_enrollment_trial_state(
             cast(EnrollmentTrial, trial)
         ),

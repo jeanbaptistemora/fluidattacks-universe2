@@ -110,9 +110,9 @@ async def add_enrollment(
                     domain=user_email.split("@")[1],
                     trial=CompanyTrial(
                         completed=False,
-                        extension_date="",
+                        extension_date=None,
                         extension_days=0,
-                        start_date=datetime_utils.get_iso_date(),
+                        start_date=datetime_utils.get_utc_now(),
                     ),
                 )
             ),
