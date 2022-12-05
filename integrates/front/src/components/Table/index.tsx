@@ -66,14 +66,12 @@ const Table = <TData extends RowData>({
   sortingSetter = undefined,
   sortingState = undefined,
 }: Readonly<ITableProps<TData>>): JSX.Element => {
+  const [pagSize, setPagSize] = useStoredState("pagSize", 10);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [pagination, setPagination] = useStoredState<PaginationState>(
-    "tblPagination",
-    {
-      pageIndex: 0,
-      pageSize: 10,
-    }
-  );
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: pagSize,
+  });
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -110,6 +108,7 @@ const Table = <TData extends RowData>({
   };
 
   const table = useReactTable<TData>({
+    autoResetAll: false,
     columns,
     data,
     enableColumnFilters,
@@ -200,6 +199,12 @@ const Table = <TData extends RowData>({
         .flatRows.map((row: Row<TData>): TData => row.original)
     );
   }, [rowSelection, rowSelectionSetter, table]);
+
+  useEffect((): void => {
+    setPagSize(pagination.pageSize);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination]);
 
   return (
     <div className={"w-100"} id={id}>
