@@ -19,3 +19,10 @@ lib_root.f060.insecure_certificate_validation:
 lib_path.f060.json_disable_host_check:
   en: The host check is disabled in config file.
   es: El chequeo de hosts esta desabilitado en el archivo de configuracion.
+lib_root.f060.common_unsafe_origin:
+  en: >-
+    While performing communication between windows objects of different origins
+    we must validate the identity of those origins.
+  es: >-
+    Al realizar la comunicación entre objetos windows de diferentes orígenes
+    debemos validar la identidad de dichos orígenes.

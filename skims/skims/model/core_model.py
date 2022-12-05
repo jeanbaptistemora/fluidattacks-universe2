@@ -3840,6 +3840,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TS_UNSAFE_ORIGIN = MethodInfo(
+        file_name="typescript",
+        name="typescript_unsafe_origin",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_UNSAFE_ORIGIN = MethodInfo(
+        file_name="javascript",
+        name="javascript_unsafe_origin",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
         file_name="javascript",
         name="javascript_unsafe_http_xframe_options",
