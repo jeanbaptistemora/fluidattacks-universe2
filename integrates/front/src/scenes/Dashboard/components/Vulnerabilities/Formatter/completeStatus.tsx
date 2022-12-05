@@ -8,7 +8,7 @@ import { getBgColor } from "utils/colors";
 const CompleteStatus: React.FC<IStatus> = ({
   status,
 }: IStatus): JSX.Element => {
-  if (["-", "", undefined, null].includes(status)) return <div />;
+  if (["-", "", undefined, null].includes(status)) return <span />;
 
   const formatedStatus: string = _.capitalize(status).replace("_", " ");
   const currentStateBgColor = getBgColor(_.capitalize(status));
