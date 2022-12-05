@@ -11,6 +11,7 @@ interface ITextProps {
   bright?: Nums1To9 | 0;
   decor?: TDecor[];
   disp?: "block" | "inline-block" | "inline";
+  fontSize?: string;
   hoverBright?: Nums1To9 | 0;
   hoverTone?: TColor;
   mb?: Nums1To7 | 0;
@@ -99,6 +100,7 @@ const Text = styled.p.attrs(
     bright = 1,
     decor = [],
     disp = "block",
+    fontSize = "initial",
     fs = "no",
     fw = 4,
     tone = "dark",
@@ -110,6 +112,7 @@ const Text = styled.p.attrs(
     color: #${colors[tone][bright]};
     display: ${disp};
     font-style: ${styles[fs]};
+    font-size: ${fontSize};
     font-weight: ${fw * 100};
     text-align: ${ta};
     text-decoration: ${decor.map((el): string => decors[el]).join(" ")};

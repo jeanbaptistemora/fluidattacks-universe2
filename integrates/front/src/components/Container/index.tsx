@@ -14,6 +14,7 @@ interface IContainerProps {
   borderBL?: string;
   borderBR?: string;
   display?: TDisplay;
+  fontFamily?: string;
   height?: string;
   margin?: string;
   maxHeight?: string;
@@ -47,6 +48,7 @@ const Container = styled.div.attrs({
     borderBL = "0px 0px",
     borderBR = "0px 0px",
     display = "block",
+    fontFamily = "initial",
     height = "max-content",
     margin = "0",
     maxHeight = "100%",
@@ -77,6 +79,7 @@ border-bottom-right-radius: ${borderBR};
 border-bottom-left-radius: ${borderBL};
 display: ${display};
 flex-wrap: ${wrap};
+font-family: ${fontFamily};
 height: ${height};
 margin: ${margin};
 max-height: ${maxHeight};
