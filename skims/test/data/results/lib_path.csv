@@ -29175,6 +29175,11 @@ F060,lines,namespace/skims/test/data/lib_path/f060/json_disable_host_check.json,
   16 | }
      ^ Col 0
 ",conf_files.json_disable_host_check
+F060,lines,namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,2,396,skims,060. Insecure service configuration - Host verification,While performing communication between windows objects of different origins we must validate the identity of those origins. in namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,"
+    | var iframe = document.getElementById(""testiframe"");
+> 2 | iframe.contentWindow.postMessage(""secret"", ""*""); // Noncompliant: * is used
+    ^ Col 0
+",javascript.javascript_unsafe_origin
 F060,lines,namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,2,396,skims,060. Insecure service configuration - Host verification,While performing communication between windows objects of different origins we must validate the identity of those origins. in namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,"
     | var iframe = document.getElementById(""testiframe"");
 > 2 | iframe.contentWindow.postMessage(""secret"", ""*""); // Noncompliant: * is used
