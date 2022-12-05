@@ -29,6 +29,7 @@ describe("Input", (): void => {
     expect(typeof InputNumber).toBe("function");
     expect(typeof Select).toBe("function");
     expect(typeof TextArea).toBe("function");
+    expect(typeof InputArray).toBe("function");
   });
 
   it("should render Input components", (): void => {
@@ -146,5 +147,31 @@ describe("Input", (): void => {
     await user.click(screen.getAllByRole("button")[0]);
 
     expect(handleOnChange).toHaveBeenCalledWith("2");
+  });
+
+  it("should add and remove textbox in an inputArray", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const user = userEvent.setup();
+
+    render(
+      <Formik
+        initialValues={{ input: "" }}
+        onSubmit={jest.fn()}
+        validationSchema={schema}
+      >
+        <Form name={"testForm"}>
+          <InputArray label={"array"} name={"input"} />
+        </Form>
+      </Formik>
+    );
+
+    await user.click(screen.getAllByRole("button")[0]);
+
+    expect(screen.getAllByRole("textbox")).toHaveLength(1);
+
+    await user.click(screen.getAllByRole("button")[0]);
+
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   });
 });
