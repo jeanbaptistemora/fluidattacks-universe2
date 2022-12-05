@@ -3,6 +3,19 @@ locals {
     policies = {
       aws = [
         {
+          Sid    = "dynamoRead"
+          Effect = "Allow"
+          Action = [
+            "dynamodb:BatchGet*",
+            "dynamodb:Describe*",
+            "dynamodb:Get*",
+            "dynamodb:List*",
+            "dynamodb:Query*",
+            "dynamodb:Scan*",
+          ]
+          Resource = ["*"]
+        },
+        {
           Sid    = "batchRead"
           Effect = "Allow"
           Action = [
