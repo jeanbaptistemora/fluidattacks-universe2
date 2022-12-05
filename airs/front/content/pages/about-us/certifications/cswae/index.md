@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cswae
 alt: Logo C)SWAE
 certification: yes
-certificationid: 26
+certificationid: 27
 ---
 
 [C)SWAE](https://www.mile2.com/cswae_outline/)

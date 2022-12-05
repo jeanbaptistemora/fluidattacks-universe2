@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-crte
 alt: Logo CRTE
 certification: yes
-certificationid: 18
+certificationid: 19
 ---
 
 [CRTE](https://www.pentesteracademy.com/redteamlab)
