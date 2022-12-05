@@ -18,18 +18,12 @@ from typing import (
 )
 
 
-def is_insecure_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
 def insecure_http_headers(graph: Graph, method: MethodsEnum) -> List[str]:
     vuln_nodes: List[str] = []
     for n_id in yield_syntax_graph_object_creation(graph, {"HttpHeaders"}):
-        if is_insecure_header(graph, n_id, method):
-            vuln_nodes.append(n_id)
+        for path in get_backward_paths(graph, n_id):
+            evaluation = evaluate(method, graph, path, n_id)
+            if evaluation and evaluation.danger:
+                vuln_nodes.append(n_id)
 
     return vuln_nodes

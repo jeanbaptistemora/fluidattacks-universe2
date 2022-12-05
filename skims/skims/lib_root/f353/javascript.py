@@ -1,5 +1,5 @@
-from lib_root.utilities.c_sharp import (
-    yield_syntax_graph_member_access,
+from lib_root.f353.common import (
+    insecure_jwt_decode,
 )
 from lib_sast.types import (
     ShardDb,
@@ -14,9 +14,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
 )
 from typing import (
     Iterable,
@@ -37,14 +34,8 @@ def decode_insecure_jwt_token(
                 continue
             graph = shard.syntax_graph
 
-            for nid in yield_syntax_graph_member_access(graph, {"decode"}):
-                if graph.nodes[nid].get("member") == "jwt" and not any(
-                    graph.nodes[n_id]["label_type"] == "MethodInvocation"
-                    and graph.nodes[n_id].get("expression") == "jwt.verify"
-                    for path in get_backward_paths(graph, nid)
-                    for n_id in path
-                ):
-                    yield shard, nid
+            for nid in insecure_jwt_decode(graph):
+                yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f353.js_decode_insecure_jwt_token",

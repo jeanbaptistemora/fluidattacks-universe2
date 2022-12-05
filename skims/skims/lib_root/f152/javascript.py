@@ -1,5 +1,5 @@
-from lib_root.utilities.c_sharp import (
-    yield_syntax_graph_object_creation,
+from lib_root.f152.common import (
+    insecure_http_headers,
 )
 from lib_sast.types import (
     ShardDb,
@@ -9,7 +9,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
@@ -17,23 +16,9 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
-)
 from typing import (
     Iterable,
 )
-
-
-def is_insecure_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
 
 
 def javascript_insecure_header_xframe_options(
@@ -50,11 +35,8 @@ def javascript_insecure_header_xframe_options(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in yield_syntax_graph_object_creation(
-                graph, {"HttpHeaders"}
-            ):
-                if is_insecure_header(graph, n_id, method):
-                    yield shard, n_id
+            for n_id in insecure_http_headers(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f152.ts_unsafe_http_xframe_options",
