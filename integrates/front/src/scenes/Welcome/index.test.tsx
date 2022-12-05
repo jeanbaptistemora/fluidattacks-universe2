@@ -45,6 +45,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },

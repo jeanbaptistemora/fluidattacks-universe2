@@ -35,6 +35,11 @@ interface ICheckGitAccessResult {
 
 interface IGetStakeholderGroupsResult {
   me: {
+    company: {
+      trial: {
+        startDate: string;
+      };
+    };
     organizations: {
       country: string;
       groups: {

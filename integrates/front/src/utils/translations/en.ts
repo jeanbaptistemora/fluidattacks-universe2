@@ -289,8 +289,10 @@ export const enTranslations: ResourceKey = {
       no: "No",
       yes: "Yes",
     },
+    companyAlreadyInTrial:
+      "Your company is already in trial. Please contact your manager to request access.",
     corporateOnly:
-      "Only corporate users are allowed. Please contact your manager to request access.",
+      "Only corporate users are allowed. Please switch accounts and try again",
     credentials: {
       auth: {
         azureToken: "Azure DevOps PAT",

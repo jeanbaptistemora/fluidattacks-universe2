@@ -42,6 +42,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@personal.com",
           },
@@ -90,6 +91,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -183,6 +185,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -341,6 +344,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -434,6 +438,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -644,6 +649,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
+            company: { trial: { startDate: "" } },
             organizations: [
               {
                 country: "Colombia",

@@ -77,6 +77,11 @@ const ADD_ORGANIZATION = gql`
 const GET_STAKEHOLDER_GROUPS = gql`
   query GetStakeholderGroups {
     me {
+      company {
+        trial {
+          startDate
+        }
+      }
       organizations {
         country
         groups {

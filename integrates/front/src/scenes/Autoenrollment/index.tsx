@@ -367,6 +367,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     return <div />;
   }
 
+  const { trial } = data.me.company;
+
+  if (trial.startDate) {
+    return <Announce message={t("autoenrollment.companyAlreadyInTrial")} />;
+  }
+
   if (hasPersonalEmail) {
     return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
