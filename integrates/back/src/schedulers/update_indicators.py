@@ -241,6 +241,39 @@ async def update_vulnerabilities_indicators(
     )
 
 
+async def _get_historic_treatment(
+    loaders: Dataloaders, vulnerability_id: str
+) -> tuple[VulnerabilityTreatment, ...]:
+    return await loaders.vulnerability_historic_treatment.load(
+        vulnerability_id
+    )
+
+
+async def _get_historic_state(
+    loaders: Dataloaders, vulnerability_id: str
+) -> tuple[VulnerabilityState, ...]:
+    return await loaders.vulnerability_historic_state.load(vulnerability_id)
+
+
+async def _get_vulnerability_data(
+    loaders: Dataloaders, vuln_id: str
+) -> tuple[
+    tuple[VulnerabilityTreatment, ...],
+    tuple[VulnerabilityState, ...],
+]:
+    historics = await collect(
+        (
+            _get_historic_treatment(loaders, vuln_id),
+            _get_historic_state(loaders, vuln_id),
+        )
+    )
+
+    return (
+        cast(tuple[VulnerabilityTreatment, ...], historics[0]),
+        cast(tuple[VulnerabilityState, ...], historics[1]),
+    )
+
+
 @retry_on_exceptions(
     exceptions=(UnavailabilityError,),
     max_attempts=10,
@@ -268,16 +301,28 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
         for finding in findings
     }
     vulnerabilities_severity = [
-        findings_severity[vulnerability.finding_id] for vulnerability in vulns
+        findings_severity[vuln.finding_id] for vuln in vulns
     ]
-    historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulns]
+    vulnerabilities_historics: tuple[
+        tuple[
+            tuple[VulnerabilityTreatment, ...],
+            tuple[VulnerabilityState, ...],
+        ],
+        ...,
+    ] = await collect(
+        tuple(
+            _get_vulnerability_data(loaders, str(vulnerability.id))
+            for vulnerability in vulns
+        ),
+        workers=16,
     )
-    historic_treatments = (
-        await loaders.vulnerability_historic_treatment.load_many(
-            [vuln.id for vuln in vulns]
-        )
+
+    historic_states: tuple[tuple[VulnerabilityState, ...], ...] = tuple(
+        historic[1] for historic in vulnerabilities_historics
     )
+    historic_treatments: tuple[
+        tuple[VulnerabilityTreatment, ...], ...
+    ] = tuple(historic[0] for historic in vulnerabilities_historics)
 
     if vulns:
         first_day, last_day = get_first_week_dates(vulns, min_date)
@@ -397,7 +442,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     sleep_seconds=5,
 )
 async def create_register_by_month(  # pylint: disable=too-many-locals
-    *, loaders: Dataloaders, group: str
+    loaders: Dataloaders, group: str
 ) -> RegisterByTime:
     found: int = 0
     accepted: int = 0
@@ -419,14 +464,26 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     vulnerabilities_severity = [
         findings_severity[vuln.finding_id] for vuln in vulns_nzr
     ]
-    historic_states = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulns_nzr]
+    vulnerabilities_historics: tuple[
+        tuple[
+            tuple[VulnerabilityTreatment, ...],
+            tuple[VulnerabilityState, ...],
+        ],
+        ...,
+    ] = await collect(
+        tuple(
+            _get_vulnerability_data(loaders, str(vulnerability.id))
+            for vulnerability in vulns_nzr
+        ),
+        workers=16,
     )
-    historic_treatments = (
-        await loaders.vulnerability_historic_treatment.load_many(
-            [vuln.id for vuln in vulns_nzr]
-        )
+
+    historic_states: tuple[tuple[VulnerabilityState, ...], ...] = tuple(
+        historic[1] for historic in vulnerabilities_historics
     )
+    historic_treatments: tuple[
+        tuple[VulnerabilityTreatment, ...], ...
+    ] = tuple(historic[0] for historic in vulnerabilities_historics)
 
     if vulns_nzr:
         first_day, last_day = get_first_dates(historic_states)
