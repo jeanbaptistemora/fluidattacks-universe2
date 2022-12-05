@@ -25,6 +25,9 @@ from decimal import (
 from freezegun import (
     freeze_time,
 )
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
+)
 from newutils.datetime import (
     get_now_minus_delta,
 )
@@ -33,9 +36,16 @@ from newutils.vulnerabilities import (
 )
 import pytest
 from typing import (
+    Any,
     Dict,
     List,
     Tuple,
+)
+from unittest import (
+    mock,
+)
+from unittest.mock import (
+    AsyncMock,
 )
 from vulnerabilities.domain import (
     get_open_vulnerabilities_specific_by_type,
@@ -52,6 +62,10 @@ pytestmark = [
 ]
 
 
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     ["finding_id", "expected"],
     [
@@ -183,12 +197,21 @@ pytestmark = [
     ],
 )
 async def test_get_open_vulnerabilities_specific_by_type(
-    finding_id: str, expected: Dict[str, Tuple[Dict[str, str], ...]]
+    mock_table_resource: AsyncMock,
+    finding_id: str,
+    expected: Dict[str, Tuple[Dict[str, str], ...]],
+    dynamo_resource: ServiceResource,
 ) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        table_name = "integrates_vms"
+        return dynamo_resource.Table(table_name).query(**kwargs)
+
     loaders: Dataloaders = get_new_context()
+    mock_table_resource.return_value.query.side_effect = mock_query
     results = await get_open_vulnerabilities_specific_by_type(
         loaders, finding_id
     )
+    assert mock_table_resource.called is True
     assert results == expected  # type: ignore
 
 
