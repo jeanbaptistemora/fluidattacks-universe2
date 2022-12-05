@@ -118,6 +118,7 @@ TEST_GROUPS: set[str] = {
     "remove_stakeholder_organization_access",
     "remove_tags",
     "remove_toe_input",
+    "remove_toe_port",
     "remove_vulnerability",
     "report",
     "request_vulnerabilities_hold",

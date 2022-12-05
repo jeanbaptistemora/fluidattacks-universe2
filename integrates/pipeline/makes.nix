@@ -182,6 +182,7 @@
     ["remove_files_s3"]
     ["remove_finding_s3"]
     ["remove_group_s3"]
+    ["remove_toe_port"]
     ["report_machine_s3"]
     ["subscribe_to_entity_report_s3"]
     ["sync_git_root_s3"]

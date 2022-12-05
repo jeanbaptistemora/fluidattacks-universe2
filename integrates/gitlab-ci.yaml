@@ -2130,6 +2130,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__remove_toe_port:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'remove_toe_port'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__remove_vulnerability:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4288,11 +4317,11 @@
     - /integrates/back/test/functional__remove_files_s3
     - /integrates/back/test/functional__remove_finding_s3
     - /integrates/back/test/functional__remove_group_s3
+    - /integrates/back/test/functional__remove_toe_port
     - /integrates/back/test/functional__report_machine_s3
     - /integrates/back/test/functional__subscribe_to_entity_report_s3
     - /integrates/back/test/functional__sync_git_root_s3
     - /integrates/back/test/functional__unfulfilled_standard_report_url_s3
-    - /integrates/back/test/functional__update_event_evidence_s3
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4321,6 +4350,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_event_evidence_s3
     - /integrates/back/test/functional__update_evidence_s3
     - /integrates/back/test/functional__update_git_root_s3
     - /integrates/back/test/functional__update_group_s3

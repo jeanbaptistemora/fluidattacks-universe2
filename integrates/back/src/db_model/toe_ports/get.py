@@ -172,7 +172,7 @@ class GroupToePortsLoader(DataLoader):
 
     async def load_nodes(
         self, request: GroupToePortsRequest
-    ) -> Iterable[ToePort]:
+    ) -> tuple[ToePort, ...]:
         connection: ToePortsConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
 
