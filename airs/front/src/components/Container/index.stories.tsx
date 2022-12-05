@@ -23,7 +23,7 @@ Default.args = {
   width: "500px",
 };
 
-const Grid: Story = (): JSX.Element => (
+const FlexBox: Story = (): JSX.Element => (
   <Container
     direction={"row"}
     display={"flex"}
@@ -45,5 +45,5 @@ const Grid: Story = (): JSX.Element => (
   </Container>
 );
 
-export { Default, Grid };
+export { Default, FlexBox };
 export default config;

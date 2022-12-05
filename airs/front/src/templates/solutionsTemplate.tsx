@@ -124,12 +124,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
               title={translate.t("solutions.informations.subtitle")}
             />
             <Container center={true} maxWidth={"1440px"} ph={4} pv={5}>
-              <Grid
-                columns={"1fr 1fr 1fr"}
-                columnsMd={"1fr 1fr"}
-                columnsSm={"1fr"}
-                gap={"1rem"}
-              >
+              <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
                 {solutionData.map((solution): JSX.Element => {
                   return (
                     <VerticalCard
