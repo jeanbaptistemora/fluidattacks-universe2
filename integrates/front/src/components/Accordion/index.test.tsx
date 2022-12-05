@@ -23,26 +23,26 @@ describe("Accordion", (): void => {
     expect(screen.queryByText("Accordion content")).toBeInTheDocument();
   });
 
-  it("should render a collapsed Accordion", async (): Promise<void> => {
+  it("should render a collapsed Accordion and open it", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { rerender } = render(
-      <Accordion header={"Accordion header"}>
+    const { container } = render(
+      <Accordion
+        header={"Accordion header"}
+        iconSide={"left"}
+        initCollapsed={true}
+      >
         <p>{"Accordion content"}</p>
       </Accordion>
     );
 
-    expect(screen.queryByText("Accordion header")).toBeInTheDocument();
+    expect(container.querySelector(".comp-container")).toHaveStyle(`height: 0`);
 
     await userEvent.click(screen.getByText("Accordion header"));
     await waitFor((): void => {
-      rerender(
-        <Accordion header={"Accordion header"} initCollapsed={true}>
-          {""}
-        </Accordion>
+      expect(container.querySelector(".comp-container")).not.toHaveStyle(
+        `height: 0`
       );
-
-      expect(screen.queryByText("Accordion content")).not.toBeInTheDocument();
     });
   });
 });
