@@ -53,7 +53,7 @@ describe("AddGroupModal component", (): void => {
             isOpen={true}
             onClose={jest.fn()}
             organization={"okada"}
-            runTour={false}
+            runTour={true}
           />
         </MockedProvider>
       </MemoryRouter>

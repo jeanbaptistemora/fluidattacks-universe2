@@ -7,6 +7,7 @@ import { object, string } from "yup";
 import {
   Checkbox,
   Input,
+  InputArray,
   InputDate,
   InputNumber,
   Label,
@@ -47,6 +48,7 @@ describe("Input", (): void => {
           <InputNumber label={"number"} name={"number"} />
           <Select label={"select"} name={"select"} />
           <TextArea label={"textArea"} name={"textArea"} />
+          <InputArray label={"array"} name={"input"} />
         </Form>
       </Formik>
     );
@@ -58,6 +60,8 @@ describe("Input", (): void => {
       screen.queryByRole("textbox", { name: "textArea" })
     ).toBeInTheDocument();
     expect(screen.queryByText("label")).toBeInTheDocument();
+
+    expect(screen.queryByText("array")).toBeInTheDocument();
 
     ["checkbox", "input", "date", "number", "select", "textArea"].forEach(
       (label: string): void => {
