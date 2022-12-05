@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,7,1006,skims,428. Inappropriate coding practices - invalid file,Make sure the host property is different from  in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
+F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,7,1006,skims,428. Inappropriate coding practices - invalid file,Files are stored in the repository that cannot be verified because their content is not compatible with their extension. in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
    1 | [
    2 | //This is a comment to be adjusted in production.
    3 |
@@ -14,7 +14,7 @@ F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,7,
   12 | ]
      ^ Col 0
 ",json_files.json_inapropiate_use_of_comments
-F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,2,1006,skims,428. Inappropriate coding practices - invalid file,Make sure the host property is different from  in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
+F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,2,1006,skims,428. Inappropriate coding practices - invalid file,Files are stored in the repository that cannot be verified because their content is not compatible with their extension. in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
    1 | [
 >  2 | //This is a comment to be adjusted in production.
    3 |
