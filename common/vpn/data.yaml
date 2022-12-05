@@ -27,7 +27,7 @@ VPN_DATA_RAW:
               name: ENC[AES256_GCM,data:rRwD4saWFA==,iv:bdT7LU2YU32MhiTkoFtLRiwzcdtpItTyeA/+kcxIwyQ=,tag:KjncewWRVLTHJUbvOWsVMg==,type:str]
             - ip: ENC[AES256_GCM,data:AlYJR9+xER/Ure/5RA==,iv:WxheEA8BO8wEzannHVVC/EypKf2B6UIVkcjhM89JW4M=,tag:RNi/L18Rc16B9rev0IbVTQ==,type:str]
               name: ENC[AES256_GCM,data:05qFKejF76o=,iv:nXxK+pEy5+s+1+LvFBTQvA9l/LoZINFKSlYk1V3FEhc=,tag:xyWkdG3SPZNP5BLxX6woIQ==,type:str]
-        - domain: ENC[AES256_GCM,data:20187OUfwtd1Udo=,iv:2llBG9u0zV8YHz1I5YzUsGoDp2ImrsCOvWtolrCLo9s=,tag:Tt24Siy18HAHmqrNGWQOtA==,type:str]
+        - domain: ENC[AES256_GCM,data:5ssm3VkBPtC7ycs=,iv:R7M+MkxFnA3voVnySbiwbd2otQkIHFhM+2SrYE251dE=,tag:Rgu1a6mFqFiYgjN1c7oU5g==,type:str]
           hosts:
             - ip: ENC[AES256_GCM,data:XcfQ7X0wvTJp+nDCxg==,iv:W10lIC6mIuqN+13fbUhWv+Q/mlfOADL12DSP7BvAUA4=,tag:SUy8Vc8w02EfpE4KdTgHvQ==,type:str]
               name: ENC[AES256_GCM,data:YEZKFw==,iv:aEsIPwf6OABy90gt3BHHZPhUEkAEV/gC3s0muWwTInQ=,tag:sNPMT9z9J58kg2iFgNHrCw==,type:str]
@@ -252,8 +252,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-11-29T18:33:11Z"
-    mac: ENC[AES256_GCM,data:yBder8kdLadvvK1Oh0Es/oZbqHWnVyHkMj74hpP3mHxmAFojFVaTzmdCJHGXfLxjIEkTKxCEYNLAuJNV9wxfG2hWNLlIDiyUJS7Xy9XuWAJ0VF/nZdQzeqB+EY4UBTYwrHry+l45zrgagi0AEXSye0htTF2guFqh64VjJQoqIT4=,iv:l9cLXYA+PEASli6Cu/zVcsq5WAafP2rCOjGDMh9/WLM=,tag:SAlYllC7OhXahQtlAQyHSw==,type:str]
+    lastmodified: "2022-12-05T22:45:44Z"
+    mac: ENC[AES256_GCM,data:K92Thp4tfLXg5UcEIr3sPTlgsTqXOriSDQZbCYCN9aRujBX7HD71NTb/3NoaEmuQ987fMqKWcnmFVSWLQXsRJj3mIHvnrHdWkduSyaqzn2WYp03so2lKrJKeo0gq7Zlq8jfT8i7SVB/mPYs7I28F44v780dF66I1QqMWNtcsGVY=,iv:fCnbwKhkdfmljZU22c+Qgjrw+3fNYFkkGrtGiuFpJaU=,tag:npqgj4SRpbvEl9ZFAz7QYg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
