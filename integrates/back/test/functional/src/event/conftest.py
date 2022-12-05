@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.event_comments.types import (
     EventComment,
 )
@@ -14,9 +17,6 @@ from db_model.events.types import (
     EventEvidence,
     EventEvidences,
     EventState,
-)
-from newutils.datetime import (
-    convert_to_iso_str,
 )
 import pytest
 from typing import (
@@ -76,7 +76,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     event_id="418900971",
                     id="43455343453",
                     content="This is a test comment",
-                    creation_date=convert_to_iso_str("2019-05-28 15:09:37"),
+                    creation_date=datetime.fromisoformat(
+                        "2019-05-28T20:09:37+00:00"
+                    ),
                     email="admin@gmail.com",
                     full_name="test one",
                     parent_id="0",

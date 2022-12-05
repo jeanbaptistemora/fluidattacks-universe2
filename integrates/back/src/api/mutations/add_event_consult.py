@@ -20,13 +20,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
     stakeholders as stakeholders_utils,
     validations,
-)
-from newutils.datetime import (
-    get_as_utc_iso_format,
-    get_now,
 )
 from sessions import (
     domain as sessions_domain,
@@ -55,13 +52,12 @@ async def mutate(
     user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
-    today = get_as_utc_iso_format(get_now())
     email = str(user_info["user_email"])
 
     comment_data = EventComment(
         event_id=event_id,
         parent_id=str(parent_comment),
-        creation_date=today,
+        creation_date=datetime_utils.get_utc_now(),
         content=content,
         id=comment_id,
         email=email,

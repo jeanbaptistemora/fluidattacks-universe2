@@ -32,6 +32,10 @@ def format_comment_date(date_string: str) -> str:
     return formatted_date
 
 
+def format_comment_datetime(date: datetime) -> str:
+    return get_as_str(date, date_format="%Y/%m/%d %H:%M:%S")
+
+
 def get_from_str(
     date_str: str,
     date_format: str = DEFAULT_DATE_FORMAT,

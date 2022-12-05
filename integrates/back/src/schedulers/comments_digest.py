@@ -12,6 +12,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Notification,
 )
@@ -65,10 +68,7 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Tuple,
     TypedDict,
     Union,
 )
@@ -89,47 +89,51 @@ mail_comments_digest = retry_on_exceptions(
 
 class CommentsDataType(TypedDict):
     org_name: str
-    email_to: Tuple[str, ...]
-    group_comments: Tuple[
+    email_to: tuple[str, ...]
+    group_comments: tuple[
         Union[GroupComment, EventComment, FindingComment], ...
     ]
-    event_comments: Dict[
-        str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    event_comments: dict[
+        str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
     ]
-    finding_comments: Dict[
-        str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    finding_comments: dict[
+        str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
     ]
 
 
-def days_since_comment(date: str) -> int:
-    days = (
-        datetime_utils.get_now()
-        - datetime_utils.get_datetime_from_iso_str(date)
-    ).days
+def _get_days_since_comment(date: Union[str, datetime]) -> int:
+    if isinstance(date, datetime):
+        days = (datetime_utils.get_utc_now() - date).days
+    else:
+        days = (
+            datetime_utils.get_now()
+            - datetime_utils.get_datetime_from_iso_str(date)
+        ).days
+
     return days
 
 
 def last_comments(
-    comments: Tuple[Union[GroupComment, EventComment, FindingComment], ...],
-) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments: tuple[Union[GroupComment, EventComment, FindingComment], ...],
+) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
     return tuple(
         comment
         for comment in comments
-        if days_since_comment(comment.creation_date) < comments_age
+        if _get_days_since_comment(comment.creation_date) < comments_age
     )
 
 
 async def group_comments(
     loaders: Dataloaders, group_name: str
-) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments = await loaders.group_comments.load(group_name)
     return last_comments(comments)
 
 
 async def instance_comments(
     loaders: Dataloaders, instance_id: str, instance_type: str
-) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     if instance_type == "event":
         return last_comments(await loaders.event_comments.load(instance_id))
 
@@ -148,9 +152,9 @@ async def instance_comments(
 
 async def group_instance_comments(
     loaders: Dataloaders,
-    group_instances: Tuple[Union[Event, Finding], ...],
+    group_instances: tuple[Union[Event, Finding], ...],
     instance_type: str,
-) -> Dict[str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
+) -> dict[str, tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
     comments = await collect(
         [
             instance_comments(loaders, instance.id, instance_type)
@@ -177,9 +181,9 @@ async def group_instance_comments(
 
 
 def unique_emails(
-    comment_data: Dict[str, CommentsDataType],
-    email_list: Tuple[str, ...],
-) -> Tuple[str, ...]:
+    comment_data: dict[str, CommentsDataType],
+    email_list: tuple[str, ...],
+) -> tuple[str, ...]:
     if comment_data:
         email_list += comment_data.popitem()[1]["email_to"]
         unique_emails(comment_data, email_list)
@@ -189,7 +193,7 @@ def unique_emails(
 
 async def finding_comments(
     loaders: Dataloaders, finding_id: str
-) -> Tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
@@ -206,16 +210,13 @@ def format_comment(comment: str) -> str:
 
 
 def digest_comments(
-    items: Tuple[Union[GroupComment, EventComment, FindingComment], ...]
-) -> List[Dict[str, Optional[str]]]:
+    items: tuple[Union[GroupComment, EventComment, FindingComment], ...]
+) -> list[dict[str, Optional[str]]]:
     return [
         {
-            "date": datetime_utils.get_as_str(
-                datetime_utils.get_datetime_from_iso_str(
-                    comment.creation_date
-                ),
-                "%Y-%m-%d %H:%M:%S %Z",
-            ),
+            "date": datetime_utils.convert_from_iso_str(comment.creation_date)
+            if isinstance(comment.creation_date, str)
+            else datetime_utils.get_as_str(comment.creation_date),
             "name": comment.full_name.rstrip()
             if comment.full_name
             else comment.email.split("@")[0],
@@ -246,7 +247,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    groups_stakeholders: Tuple[Tuple[Stakeholder, ...], ...] = await collect(
+    groups_stakeholders: tuple[tuple[Stakeholder, ...], ...] = await collect(
         [
             group_access_domain.get_group_stakeholders(
                 loaders,
@@ -256,7 +257,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    group_stakeholders_email: Tuple[Tuple[str, ...], ...] = tuple(
+    group_stakeholders_email: tuple[tuple[str, ...], ...] = tuple(
         tuple(
             stakeholder.email
             for stakeholder in group_stakeholders
@@ -266,8 +267,8 @@ async def send_comment_digest() -> None:
         for group_stakeholders in groups_stakeholders
     )
 
-    groups_comments: Tuple[
-        Tuple[Union[GroupComment, EventComment, FindingComment], ...], ...
+    groups_comments: tuple[
+        tuple[Union[GroupComment, EventComment, FindingComment], ...], ...
     ] = await collect(
         [group_comments(loaders, group_name) for group_name in groups_names]
     )
@@ -279,9 +280,9 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    events_comments: Tuple[
-        Dict[
-            str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    events_comments: tuple[
+        dict[
+            str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
         ],
         ...,
     ] = await collect(
@@ -291,13 +292,13 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
+    groups_findings: tuple[
+        tuple[Finding, ...], ...
     ] = await loaders.group_findings.load_many(groups_names)
 
-    findings_comments: Tuple[
-        Dict[
-            str, Tuple[Union[GroupComment, EventComment, FindingComment], ...]
+    findings_comments: tuple[
+        dict[
+            str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
         ],
         ...,
     ] = await collect(
@@ -307,7 +308,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    groups_data: Dict[str, CommentsDataType] = dict(
+    groups_data: dict[str, CommentsDataType] = dict(
         zip(
             groups_names,
             [
@@ -343,7 +344,7 @@ async def send_comment_digest() -> None:
     }
 
     for email in unique_emails(dict(groups_data), ()):
-        user_content: Dict[str, Any] = {
+        user_content: dict[str, Any] = {
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],

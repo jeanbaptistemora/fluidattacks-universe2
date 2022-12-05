@@ -3,6 +3,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -221,7 +224,9 @@ async def populate() -> bool:
                     event_id="418900971",
                     id="43455343453",
                     content="This is a test comment",
-                    creation_date="2022-11-24T15:09:37",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-24T15:09:37"
+                    ),
                     email="johndoe@fluidattacks.com",
                     full_name="John Doe",
                     parent_id="0",

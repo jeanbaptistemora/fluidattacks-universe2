@@ -138,7 +138,7 @@ async def test_add_comment() -> None:
     user_email = "integratesmanager@gmail.com"
     comment_id = str(round(time() * 1000))
     parent_comment = "0"
-    today = datetime_utils.get_as_str(datetime_utils.get_now())
+    today = datetime_utils.get_utc_now()
     comment_data = EventComment(
         event_id=event_id,
         parent_id=parent_comment,
@@ -296,7 +296,7 @@ async def test_remove_event() -> None:
     group_name = "deletegroup"
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_as_str(datetime_utils.get_now())
+    today = datetime_utils.get_utc_now()
     comment_data = EventComment(
         event_id=event_id,
         parent_id=parent_comment,

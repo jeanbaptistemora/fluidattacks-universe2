@@ -10,6 +10,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -29,7 +32,7 @@ async def add(*, event_comment: EventComment) -> None:
     item = {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
-        **json.loads(json.dumps(event_comment)),
+        **json.loads(json.dumps(event_comment, default=serialize)),
     }
     condition_expression = Attr(key_structure.partition_key).not_exists()
     try:
