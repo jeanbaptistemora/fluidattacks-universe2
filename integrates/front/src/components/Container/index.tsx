@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
+type TAlign = "center" | "end" | "start" | "stretch" | "unset";
+type TDisplay = "block" | "flex" | "ib" | "inline" | "none";
+type TWrap = "nowrap" | "unset" | "wrap";
+
 interface IContainerProps {
+  align?: TAlign;
+  bgColor?: string;
+  bgImage?: string;
+  bgImagePos?: string;
+  borderTl?: string;
+  borderTR?: string;
+  borderBL?: string;
+  borderBR?: string;
+  display?: TDisplay;
   height?: string;
   margin?: string;
   maxHeight?: string;
@@ -11,14 +24,29 @@ interface IContainerProps {
   pl?: string;
   pr?: string;
   pt?: string;
+  position?: string;
+  positionBottom?: string;
+  positionLeft?: string;
+  positionRight?: string;
+  positionTop?: string;
   scroll?: "none" | "x" | "xy" | "y";
   width?: string;
+  wrap?: TWrap;
 }
 
 const Container = styled.div.attrs({
   className: "comp-container",
 })<IContainerProps>`
   ${({
+    align = "unset",
+    bgColor = "transparent",
+    bgImage = "",
+    bgImagePos = "",
+    borderTl = "0px 0px",
+    borderTR = "0px 0px",
+    borderBL = "0px 0px",
+    borderBR = "0px 0px",
+    display = "block",
     height = "max-content",
     margin = "0",
     maxHeight = "100%",
@@ -29,9 +57,26 @@ const Container = styled.div.attrs({
     pl = "0",
     pr = "0",
     pt = "0",
+    position = "static",
+    positionBottom = "",
+    positionLeft = "",
+    positionRight = "",
+    positionTop = "",
     scroll = "y",
     width = "auto",
+    wrap = "unset",
   }): string => `
+align-items: ${align};
+background-color: ${bgColor};
+background-image: ${bgImage};
+background-size: ${bgImagePos};
+background-repeat: no-repeat;
+border-top-left-radius: ${borderTl};
+border-top-right-radius: ${borderTR};
+border-bottom-right-radius: ${borderBR};
+border-bottom-left-radius: ${borderBL};
+display: ${display};
+flex-wrap: ${wrap};
 height: ${height};
 margin: ${margin};
 max-height: ${maxHeight};
@@ -44,6 +89,11 @@ padding-bottom: ${pb};
 padding-left: ${pl};
 padding-right: ${pr};
 padding-top: ${pt};
+position: ${position};
+bottom: ${positionBottom};
+left: ${positionLeft};
+top: ${positionTop};
+right: ${positionRight};
 transition: all 0.3s ease;
 width: ${width};
 
