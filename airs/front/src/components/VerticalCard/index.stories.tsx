@@ -27,6 +27,7 @@ Default.args = {
     "for continuous delivery, testing and deployment.",
   image:
     "https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp",
+  imagePadding: false,
   link: "",
   subtitle: "Best practices and a description of the basics",
   title: "What Is DevSecOps?",

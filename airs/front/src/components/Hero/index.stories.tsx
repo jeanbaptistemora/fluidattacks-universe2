@@ -17,11 +17,13 @@ const Template: Story<React.PropsWithChildren<IHeroProps>> = (
 
 const Default = Template.bind({});
 Default.args = {
+  bgColor: "#2e2e38",
   button1Link: "/test/",
   button1Text: "Go to test",
   button2Link: "/other-test/",
   button2Text: "Go to other test",
   image: "airs/solutions/Index/application-security-solutions",
+  matomoAction: "Test",
   paragraph:
     "This is a test paragraph that should show the behavior of the Hero",
   title: "This is a test title",

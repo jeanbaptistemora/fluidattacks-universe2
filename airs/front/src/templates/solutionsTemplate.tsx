@@ -140,6 +140,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                       btnVariant={"primary"}
                       description={solution.paragraph}
                       image={`airs/solutions/${solution.image}`}
+                      imagePadding={true}
                       key={solution.title}
                       link={solution.link}
                       title={solution.title}

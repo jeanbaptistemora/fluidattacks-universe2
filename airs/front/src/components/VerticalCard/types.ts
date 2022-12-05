@@ -10,6 +10,7 @@ interface IVerticalCard {
   date?: string;
   description: string;
   image: string;
+  imagePadding?: boolean;
   link: string;
   subMinHeight?: string;
   titleMinHeight?: string;

@@ -22,6 +22,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   date = "",
   description,
   image,
+  imagePadding = false,
   minWidth,
   minWidthMd,
   minWidthSm,
@@ -51,13 +52,13 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         widthMd={widthMd}
         widthSm={widthSm}
       >
-        {image.startsWith("https") ? (
-          <img alt={alt} className={"br2 br--top"} src={image} />
-        ) : (
-          <Container minHeight={titleMinHeight} ph={3}>
+        <Container ph={imagePadding ? 3 : 0} pt={imagePadding ? 3 : 0}>
+          {image.startsWith("https") ? (
+            <img alt={alt} className={"br2 br--top"} src={image} />
+          ) : (
             <CloudImage alt={alt} src={image} styles={"br2 br--top"} />
-          </Container>
-        )}
+          )}
+        </Container>
         <Container display={"flex"} justify={"around"} ph={3} pt={3}>
           <Text color={"#8f8fa3"} size={"small"}>
             {fDate}
@@ -116,13 +117,13 @@ const VerticalCard: React.FC<IVerticalCard> = ({
       widthMd={widthMd}
       widthSm={widthSm}
     >
-      {image.startsWith("https") ? (
-        <img alt={alt} className={"br2 br--top"} src={image} />
-      ) : (
-        <Container minHeight={titleMinHeight} ph={3}>
+      <Container ph={imagePadding ? 3 : 0} pt={imagePadding ? 3 : 0}>
+        {image.startsWith("https") ? (
+          <img alt={alt} className={"br2 br--top"} src={image} />
+        ) : (
           <CloudImage alt={alt} src={image} styles={"br2 br--top"} />
-        </Container>
-      )}
+        )}
+      </Container>
       <Container minHeight={titleMinHeight} ph={3} pt={3}>
         <AirsLink href={link}>
           <Title color={"#2e2e38"} hColor={"#bf0b1a"} level={2} size={"small"}>
