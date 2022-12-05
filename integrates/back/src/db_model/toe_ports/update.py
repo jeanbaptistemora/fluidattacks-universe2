@@ -6,12 +6,14 @@ from .types import (
     ToePortMetadataToUpdate,
 )
 from .utils import (
+    format_state_item,
     format_toe_port_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
+    InvalidParameter,
     ToePortAlreadyUpdated,
 )
 from datetime import (
@@ -30,9 +32,38 @@ from dynamodb.exceptions import (
 from dynamodb.model import (
     TABLE,
 )
-from typing import (
-    Union,
+from dynamodb.types import (
+    Item,
 )
+
+
+def _format_metadata_item(metadata: ToePortMetadataToUpdate) -> Item:
+    metadata_item: Item = {
+        key: db_model_utils.get_as_utc_iso_format(value)
+        if isinstance(value, datetime)
+        else value
+        for key, value in metadata._asdict().items()
+        if value is not None
+        and key
+        not in {
+            "clean_attacked_at",
+            "clean_be_present_until",
+            "clean_first_attack_at",
+            "clean_seen_at",
+            "state",
+        }
+    }
+    metadata_item["state"] = format_state_item(metadata.state)
+    if metadata.clean_attacked_at:
+        metadata_item["attacked_at"] = None
+    if metadata.clean_be_present_until:
+        metadata_item["be_present_until"] = None
+    if metadata.clean_first_attack_at:
+        metadata_item["first_attack_at"] = None
+    if metadata.clean_seen_at:
+        metadata_item["seen_at"] = None
+
+    return metadata_item
 
 
 async def update_metadata(
@@ -67,29 +98,7 @@ async def update_metadata(
         gsi_2_index,
         current_value,
     )
-    metadata_item: dict[str, Union[str, datetime, None]] = {
-        key: db_model_utils.get_as_utc_iso_format(value)
-        if isinstance(value, datetime)
-        else value
-        for key, value in metadata._asdict().items()
-        if value is not None
-        and key
-        not in {
-            "clean_attacked_at",
-            "clean_be_present_until",
-            "clean_first_attack_at",
-            "clean_seen_at",
-        }
-    }
-    if metadata.clean_attacked_at:
-        metadata_item["attacked_at"] = None
-    if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = None
-    if metadata.clean_first_attack_at:
-        metadata_item["first_attack_at"] = None
-    if metadata.clean_seen_at:
-        metadata_item["seen_at"] = None
-
+    metadata_item = _format_metadata_item(metadata)
     conditions = tuple(
         Attr(attr_name).not_exists()
         if current_value_item[attr_name] is None
@@ -122,3 +131,26 @@ async def update_metadata(
             )
     except ConditionalCheckFailedException as ex:
         raise ToePortAlreadyUpdated() from ex
+
+    if not isinstance(metadata_item["state"]["modified_date"], str):
+        raise InvalidParameter("modified_date")
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_port_historic_metadata"],
+        values={
+            "address": current_value.address,
+            "port": current_value.port,
+            "group_name": current_value.group_name,
+            "root_id": current_value.root_id,
+            "iso8601utc": metadata_item["state"]["modified_date"],
+        },
+    )
+    await operations.put_item(
+        facet=TABLE.facets["toe_port_historic_metadata"],
+        item={
+            **dict(current_value_item | metadata_item),
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+        },
+        table=TABLE,
+    )

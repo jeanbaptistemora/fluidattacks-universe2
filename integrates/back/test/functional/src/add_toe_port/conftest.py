@@ -14,6 +14,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_ports.types import (
     ToePort,
+    ToePortState,
 )
 import pytest
 from typing import (
@@ -112,6 +113,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=True,
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="test1@test.com",
+                state=ToePortState(
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    )
+                ),
                 root_id="7a9759ad-218a-4a98-9210-31dd78d61580",
             ),
         ),

@@ -22,6 +22,7 @@ from db_model.roots.types import (
 from db_model.toe_ports.types import (
     ToePort,
     ToePortMetadataToUpdate,
+    ToePortState,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -84,6 +85,7 @@ async def add(  # pylint: disable=too-many-arguments
         has_vulnerabilities=has_vulnerabilities,
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
+        state=ToePortState(modified_date=datetime_utils.get_utc_now()),
         root_id=root_id,
     )
     await toe_ports_model.add(toe_port=toe_port)
@@ -166,6 +168,7 @@ async def update(
     )
 
     metadata = ToePortMetadataToUpdate(
+        state=ToePortState(modified_date=datetime_utils.get_utc_now()),
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,

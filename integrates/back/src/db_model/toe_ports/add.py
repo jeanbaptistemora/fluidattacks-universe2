@@ -11,6 +11,7 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
+    InvalidParameter,
     RepeatedToePort,
 )
 from dynamodb import (
@@ -61,3 +62,26 @@ async def add(*, toe_port: ToePort) -> None:
         )
     except ConditionalCheckFailedException as ex:
         raise RepeatedToePort() from ex
+
+    if not isinstance(toe_port_item["state"]["modified_date"], str):
+        raise InvalidParameter("modified_date")
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_port_historic_metadata"],
+        values={
+            "address": toe_port.address,
+            "port": toe_port.port,
+            "group_name": toe_port.group_name,
+            "root_id": toe_port.root_id,
+            "iso8601utc": toe_port_item["state"]["modified_date"],
+        },
+    )
+    await operations.put_item(
+        facet=TABLE.facets["toe_port_historic_metadata"],
+        item={
+            **toe_port_item,
+            key_structure.partition_key: historic_key.partition_key,
+            key_structure.sort_key: historic_key.sort_key,
+        },
+        table=TABLE,
+    )

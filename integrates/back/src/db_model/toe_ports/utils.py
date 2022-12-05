@@ -65,6 +65,7 @@ def format_toe_port(
         if item.get("seen_at")
         else None,
         seen_first_time_by=item.get("seen_first_time_by"),
+        state=format_state(item.get("state", {})),
     )
 
 
@@ -111,4 +112,5 @@ def format_toe_port_item(
         if toe_port.seen_at is None
         else db_model_utils.get_as_utc_iso_format(toe_port.seen_at),
         "seen_first_time_by": toe_port.seen_first_time_by,
+        "state": format_state_item(toe_port.state),
     }

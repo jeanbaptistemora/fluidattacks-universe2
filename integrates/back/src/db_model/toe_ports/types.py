@@ -28,6 +28,7 @@ class ToePort(NamedTuple):
     root_id: str
     seen_at: Optional[datetime]
     seen_first_time_by: Optional[str]
+    state: ToePortState
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.address, self.port))
@@ -68,6 +69,7 @@ class RootToePortsRequest(NamedTuple):
 
 
 class ToePortMetadataToUpdate(NamedTuple):
+    state: ToePortState
     attacked_at: Optional[datetime] = None
     attacked_by: Optional[str] = None
     be_present: Optional[bool] = None
