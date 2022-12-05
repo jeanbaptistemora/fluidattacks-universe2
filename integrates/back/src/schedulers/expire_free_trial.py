@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from companies import (
+    domain as companies_domain,
+)
 from custom_exceptions import (
     InvalidManagedChange,
 )
@@ -11,9 +14,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-    EnrollmentMetadataToUpdate,
+from db_model.companies.types import (
+    Company,
+    CompanyMetadataToUpdate,
     Trial,
 )
 from db_model.groups.enums import (
@@ -21,9 +24,6 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
-)
-from enrollment import (
-    domain as enrollment_domain,
 )
 from groups import (
     domain as groups_domain,
@@ -41,6 +41,9 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from typing import (
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -49,23 +52,22 @@ FREE_TRIAL_DAYS = 21
 LOGGER = logging.getLogger(__name__)
 
 
-async def expire(
+async def _expire(
     loaders: Dataloaders,
     group: Group,
-    enrollment: Enrollment,
+    company: Company,
 ) -> None:
     try:
         LOGGER.info(
             "Will expire group %s, created_by %s, start_date %s",
             group.name,
             group.created_by,
-            enrollment.trial.start_date,
+            company.trial.start_date,
         )
-        await enrollment_domain.update_metadata(
-            loaders=loaders,
-            email=group.created_by,
-            metadata=EnrollmentMetadataToUpdate(
-                trial=enrollment.trial._replace(completed=True)
+        await companies_domain.update_metadata(
+            domain=company.domain,
+            metadata=CompanyMetadataToUpdate(
+                trial=company.trial._replace(completed=True)
             ),
         )
         await groups_domain.update_group_managed(
@@ -92,7 +94,7 @@ def _get_days_since(date: datetime) -> int:
     return (datetime_utils.get_utc_now() - date).days
 
 
-def get_remaining_days(trial: Trial) -> int:
+def _get_remaining_days(trial: Trial) -> int:
     days: int = 0
     if trial.extension_date:
         days = trial.extension_days - _get_days_since(trial.extension_date)
@@ -102,26 +104,26 @@ def get_remaining_days(trial: Trial) -> int:
     return max(0, days)
 
 
-def has_expired(trial: Trial) -> bool:
+def _has_expired(trial: Trial) -> bool:
     return (
         not trial.completed
         and trial.start_date is not None
-        and get_remaining_days(trial) == 0
+        and _get_remaining_days(trial) == 0
     )
 
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
-    group_authors = tuple(group.created_by for group in groups)
-    enrollments: tuple[Enrollment, ...] = await loaders.enrollment.load_many(
-        group_authors
+    domains = tuple(group.created_by.split("@")[1] for group in groups)
+    companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
+        domains
     )
 
     await collect(
         tuple(
-            expire(loaders, group, enrollment)
-            for group, enrollment in zip(groups, enrollments)
-            if has_expired(enrollment.trial)
+            _expire(loaders, group, company)
+            for group, company in zip(groups, companies)
+            if company and _has_expired(company.trial)
         )
     )

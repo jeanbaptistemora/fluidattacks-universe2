@@ -11,6 +11,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
+    companies as companies_model,
     compliance as compliance_model,
     credentials as creds_model,
     enrollment as enrollment_model,
@@ -31,6 +32,9 @@ from db_model import (
     toe_lines as toe_lines_model,
     toe_ports as toe_ports_model,
     vulnerabilities as vulns_model,
+)
+from db_model.companies.types import (
+    Company,
 )
 from db_model.credentials.types import (
     Credentials,
@@ -614,6 +618,11 @@ async def populate_compliances(data: list[dict[str, Any]]) -> bool:
         )
         for compliance in data
     )
+    return True
+
+
+async def populate_companies(data: list[Company]) -> bool:
+    await collect(companies_model.add(company=company) for company in data)
     return True
 
 
