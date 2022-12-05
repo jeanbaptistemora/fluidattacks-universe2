@@ -218,6 +218,17 @@ def load_templates_blocking(content: str, fmt: str) -> Iterator[Node]:
             yield template  # NOSONAR
 
 
+def load_templates_comments(content: str, fmt: str) -> Iterator[tuple]:
+    try:
+        load_cfn(
+            stream=content,
+            fmt=fmt,
+        )
+
+    except Exception as exc:  # pylint: disable=broad-except
+        yield exc.args
+
+
 async def load(content: str, fmt: str) -> Any:
     if fmt in {"yml", "yaml"}:
         return await in_process(load_as_yaml, content)

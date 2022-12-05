@@ -7,7 +7,11 @@ from lib_path.f428.json import (
 from model.core_model import (
     Vulnerabilities,
 )
+from parse_cfn.loader import (
+    load_templates_comments,
+)
 from typing import (
+    Any,
     Callable,
     Tuple,
 )
@@ -15,12 +19,12 @@ from typing import (
 
 @SHIELD_BLOCKING
 def run_json_unapropiated_comment(
-    content: str,
-    path: str,
+    content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return json_unapropiated_comment(
         content=content,
         path=path,
+        template=template,
     )
 
 
@@ -34,9 +38,10 @@ def analyze(
     results: Tuple[Vulnerabilities, ...] = ()
     content = content_generator()
     if file_extension in {"json"}:
-        results = (
-            *results,
-            run_json_unapropiated_comment(content, path),
-        )
+        for template in load_templates_comments(content, fmt=file_extension):
+            results = (
+                *results,
+                run_json_unapropiated_comment(content, path, template),
+            )
 
     return results

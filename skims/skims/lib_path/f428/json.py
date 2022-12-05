@@ -13,19 +13,27 @@ from typing import (
 
 
 def _json_line_comments(
-    content: str,
+    template: Any,
 ) -> Iterator[Any]:
-    for line_number, line in enumerate(content.splitlines(), start=1):
-        if re.search(r"(([^\S]|^)\/\/.*$)", line):
-            yield (line_number, 0)
+    if isinstance(template, tuple):
+        for line in template[0].splitlines():
+
+            if re.search(
+                r"Unable to parse stream: No terminal defined for '/'", line
+            ):
+                yield (0, 0)
 
 
-def json_unapropiated_comment(content: str, path: str) -> Vulnerabilities:
+def json_unapropiated_comment(
+    content: str,
+    path: str,
+    template: Any,
+) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key="lib_path.f428.json_unapropiated_comment",
         iterator=_json_line_comments(
-            content=content,
+            template=template,
         ),
         path=path,
         method=MethodsEnum.JSON_INAPROPIATE_USE_OF_COMMENTS,

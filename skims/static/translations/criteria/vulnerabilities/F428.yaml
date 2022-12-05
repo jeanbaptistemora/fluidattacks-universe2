@@ -1,8 +1,10 @@
 ---
 lib_path.f428.json_unapropiated_comment:
   en: >-
-    Files are stored in the repository that cannot be verified
-    because their content is not compatible with their extension.
+    File cannot be verified because its content
+     contains comments that make it incompatible with the parser
+     of its extension.
   es: >-
-    En el repositorio se almacenan archivos que no se pueden verificar
-    debido a que su contenido no es compatible con su extensión.
+    En archivo  no se pueden verificar debido a que su contenido
+    contiene comentarios que lo hacen incompatible con el parser
+    de su extenxion.
