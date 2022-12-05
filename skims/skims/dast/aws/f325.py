@@ -19,6 +19,7 @@ from model.core_model import (
     AwsCredentials,
     Vulnerability,
 )
+import re
 from typing import (
     Any,
     Callable,
@@ -333,6 +334,27 @@ def _get_wildcard_nodes(act_res: List, pattern: Pattern) -> str:
         if pattern.match(act):
             return act
     return ""
+
+
+def _is_statement_miss_configured(stmt: Dict[str, Any]) -> Any:
+    wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+    effect = stmt.get("Effect")
+    no_action = stmt.get("NotAction")
+    no_resource = stmt.get("NotResource")
+    if effect == "Allow":
+        if no_action and isinstance(no_action, List):
+            return True
+
+        if no_resource and isinstance(no_resource, List):
+            return True
+
+        action = stmt.get("Action")
+        if action:
+            return _get_wildcard_nodes(
+                action if isinstance(action, List) else [action],
+                wildcard_action,
+            )
+    return False
 
 
 CHECKS: Tuple[
