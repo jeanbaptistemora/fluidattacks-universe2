@@ -39,3 +39,7 @@ resource "aws_iam_user" "graphana_user" {
     "management:type"    = "product"
   }
 }
+
+resource "aws_iam_access_key" "graphana_user_creds" {
+  user = aws_iam_user.graphana_user.arn
+}
