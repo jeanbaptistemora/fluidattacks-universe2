@@ -25,6 +25,7 @@ from typing import (
     Coroutine,
     Dict,
     List,
+    Pattern,
     Tuple,
 )
 from zone import (
@@ -325,6 +326,13 @@ async def iam_has_wildcard_resource_on_write_action(
             )
 
     return vulns
+
+
+def _get_wildcard_nodes(act_res: List, pattern: Pattern) -> str:
+    for act in act_res:
+        if pattern.match(act):
+            return act
+    return ""
 
 
 CHECKS: Tuple[
