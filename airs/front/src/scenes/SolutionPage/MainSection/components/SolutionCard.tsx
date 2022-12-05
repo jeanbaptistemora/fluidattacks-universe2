@@ -15,8 +15,6 @@ const SolutionCard: React.FC<ISimpleCardProps> = ({
     title={title}
     titleColor={"#2e2e38"}
     titleMinHeight={"64px"}
-    width={"464px"}
-    widthSm={"100%"}
   />
 );
 
