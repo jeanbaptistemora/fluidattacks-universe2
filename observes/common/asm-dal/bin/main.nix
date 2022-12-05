@@ -1,7 +1,7 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
@@ -9,11 +9,14 @@
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-common-asm-dal-env-bin";
+  makeScript {
+    name = "asm-dal";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = ''
+      asm-dal "$@"
+    '';
   }
