@@ -209,22 +209,6 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     await log(
         "info", f"Running the DevSecOps agent in [bright_yellow]{kind}[/] kind"
     )
-    if repo_name:
-        await log(
-            "info",
-            (
-                f"Running DevSecOps agent for vulnerabilities in the repo: "
-                f"[bright_yellow]{repo_name}[/]"
-            ),
-        )
-    else:
-        await log(
-            "warning",
-            (
-                "If the repository name is not specified, it will run on "
-                "[bright_yellow]all[/] the existing repositories in ASM"
-            ),
-        )
 
     if kind == "dynamic":
         kind_chg = KindEnum.DYNAMIC

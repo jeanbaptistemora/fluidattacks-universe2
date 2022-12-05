@@ -67,8 +67,9 @@ async def entrypoint(
                 await log(
                     "warning",
                     (
+                        "No specific repository name has been set. "
                         "The vulnerabilities of [bright_yellow]all[/] "
-                        "repositories will be scanned"
+                        "repositories registered in the ARM will be scanned"
                     ),
                 )
 
@@ -76,8 +77,8 @@ async def entrypoint(
                 await log(
                     "info",
                     (
-                        "Running forces on the repository: "
-                        f"[bright_yellow]{config.repository_name}[/]"
+                        f"Running DevSecOps agent for vulnerabilities in the "
+                        f"repo: [bright_yellow]{config.repository_name}[/]"
                     ),
                 )
 
