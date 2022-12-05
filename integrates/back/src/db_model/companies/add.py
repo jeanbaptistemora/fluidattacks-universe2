@@ -20,7 +20,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-import simplejson as json
+import simplejson
 
 
 async def add(*, company: Company) -> None:
@@ -32,7 +32,7 @@ async def add(*, company: Company) -> None:
     item = {
         key_structure.partition_key: key.partition_key,
         key_structure.sort_key: key.sort_key,
-        **json.loads(json.dumps(company, default=serialize)),
+        **simplejson.loads(simplejson.dumps(company, default=serialize)),
     }
 
     with suppress(ConditionalCheckFailedException):

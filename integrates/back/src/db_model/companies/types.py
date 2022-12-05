@@ -17,3 +17,7 @@ class Trial(NamedTuple):
 class Company(NamedTuple):
     domain: str
     trial: Trial
+
+
+class CompanyMetadataToUpdate(NamedTuple):
+    trial: Optional[Trial] = None
