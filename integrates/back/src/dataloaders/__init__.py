@@ -112,6 +112,7 @@ from db_model.toe_lines.get import (
 from db_model.toe_ports.get import (
     GroupToePortsLoader,
     RootToePortsLoader,
+    ToePortHistoricLoader,
     ToePortLoader,
 )
 from db_model.vulnerabilities.get import (
@@ -221,6 +222,7 @@ class Dataloaders(NamedTuple):
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     toe_port: ToePortLoader
+    toe_port_historic: ToePortHistoricLoader
     stakeholder: StakeholderLoader
     stakeholder_groups_access: StakeholderGroupsAccessLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
@@ -401,6 +403,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         toe_input_historic=ToeInputHistoricLoader(),
         toe_lines=ToeLinesLoader(),
         toe_port=ToePortLoader(),
+        toe_port_historic=ToePortHistoricLoader(),
         user_credentials=UserCredentialsLoader(),
         vulnerability=vulnerability_loader,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),

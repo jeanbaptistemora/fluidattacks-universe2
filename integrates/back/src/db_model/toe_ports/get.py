@@ -81,6 +81,40 @@ class ToePortLoader(DataLoader):
         return await _get_toe_ports(tuple(requests))
 
 
+async def _get_historic_toe_port(
+    request: ToePortRequest,
+) -> tuple[ToePort, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_port_historic_metadata"],
+        values={
+            "address": request.address,
+            "port": request.port,
+            "group_name": request.group_name,
+            "root_id": request.root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with("STATE#")
+        ),
+        facets=(TABLE.facets["toe_port_historic_metadata"],),
+        table=TABLE,
+    )
+    return tuple(map(format_toe_port, response.items))
+
+
+class ToePortHistoricLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[ToePortRequest]
+    ) -> tuple[tuple[ToePort, ...], ...]:
+        return await collect(
+            tuple(_get_historic_toe_port(request) for request in requests)
+        )
+
+
 async def _get_toe_ports_by_group(
     request: GroupToePortsRequest,
 ) -> ToePortsConnection:
