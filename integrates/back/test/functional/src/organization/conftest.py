@@ -5,6 +5,9 @@ from back.test import (
 from collections import (
     defaultdict,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -254,7 +257,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 owner="admin@gmail.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-10T14:58:10+00:00"
+                    ),
                     name="SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0gK"),
@@ -268,7 +273,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 state=CredentialsState(
                     azure_organization="testorg1",
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-10T14:58:10+00:00"
+                    ),
                     name="pat token",
                     type=CredentialType.HTTPS,
                     secret=HttpsPatSecret(token="VGVzdCBTU0gK"),

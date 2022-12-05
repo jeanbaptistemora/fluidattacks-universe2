@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     CredentialType,
 )
@@ -23,7 +26,7 @@ class SshSecret(NamedTuple):
 
 class CredentialsState(NamedTuple):
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     name: str
     type: CredentialType
     is_pat: bool

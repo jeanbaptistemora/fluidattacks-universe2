@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -26,14 +29,13 @@ import os
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_credentials")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
         "credentials": (
             Credentials(
@@ -42,7 +44,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 owner="user_manager@fluidattacks.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-11 11:32:15+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
                     name="Ssh key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
@@ -55,7 +59,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 owner="user@gmail.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-11 11:32:15+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
                     name="Token",
                     type=CredentialType.HTTPS,
                     secret=HttpsPatSecret(token="token test"),
@@ -68,7 +74,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 owner="user@gmail.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-11 11:32:15+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
                     name="User and password",
                     type=CredentialType.HTTPS,
                     secret=HttpsSecret(

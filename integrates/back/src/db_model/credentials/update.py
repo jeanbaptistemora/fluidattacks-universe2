@@ -13,6 +13,10 @@ from db_model.credentials.types import (
 from db_model.credentials.utils import (
     validate_secret,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -37,7 +41,7 @@ async def update_credential_state(
             "id": credential_id,
         },
     )
-    state_item = json.loads(json.dumps(state))
+    state_item = json.loads(json.dumps(state, default=serialize))
     credential_item = {"state": state_item}
     if force_update_owner or current_value.secret != state.secret:
         gsi_2_index = TABLE.indexes["gsi_2"]
@@ -58,7 +62,9 @@ async def update_credential_state(
     await operations.update_item(
         condition_expression=(
             Attr(key_structure.partition_key).exists()
-            & Attr("state.modified_date").eq(current_value.modified_date)
+            & Attr("state.modified_date").eq(
+                get_as_utc_iso_format(current_value.modified_date)
+            )
         ),
         item=credential_item,
         key=credential_key,

@@ -196,7 +196,7 @@ async def add_credentials(
         owner=modified_by,
         state=CredentialsState(
             modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             name=attributes.name,
             secret=secret,
             type=attributes.type,
@@ -780,7 +780,7 @@ async def update_credentials(
 
     new_state = CredentialsState(
         modified_by=modified_by,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         name=credentials_name,
         secret=secret,
         is_pat=bool(attributes.is_pat),

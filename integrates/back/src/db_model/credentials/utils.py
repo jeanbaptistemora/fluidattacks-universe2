@@ -1,6 +1,9 @@
 from custom_exceptions import (
     InvalidCredentialSecret,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -42,7 +45,9 @@ def format_credential(item: Item) -> Credentials:
         owner=item["owner"],
         state=CredentialsState(
             modified_by=item["state"]["modified_by"],
-            modified_date=item["state"]["modified_date"],
+            modified_date=datetime.fromisoformat(
+                item["state"]["modified_date"]
+            ),
             name=item["state"]["name"],
             is_pat=item["state"].get("is_pat", False),
             azure_organization=item["state"].get("azure_organization", None),

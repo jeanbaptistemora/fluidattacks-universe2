@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -24,14 +27,13 @@ import os
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_credentials")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
         "credentials": (
             Credentials(
@@ -40,7 +42,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 owner="user_manager@fluidattacks.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-11 11:32:15+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
                     name="Good SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
@@ -53,7 +57,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 owner="user@gmail.com",
                 state=CredentialsState(
                     modified_by="admin@gmail.com",
-                    modified_date="2022-02-11 11:32:15+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
                     name="Bad SSH Key",
                     type=CredentialType.SSH,
                     secret=SshSecret(key="VGVzdCBTU0ggS2V5Cg=="),

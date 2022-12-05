@@ -16,6 +16,9 @@ from db_model.credentials.types import (
 from db_model.credentials.utils import (
     validate_secret,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -49,7 +52,7 @@ async def add(*, credential: Credentials) -> None:
         key_structure.sort_key: metadata_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
-        **json.loads(json.dumps(credential)),
+        **json.loads(json.dumps(credential, default=serialize)),
     }
     condition_expression = Attr(key_structure.partition_key).not_exists()
     try:

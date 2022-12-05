@@ -557,7 +557,7 @@ def _format_root_credential_new(
         owner=user_email,
         state=CredentialsState(
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             name=credentials["name"],
             secret=secret,
             type=credential_type,
