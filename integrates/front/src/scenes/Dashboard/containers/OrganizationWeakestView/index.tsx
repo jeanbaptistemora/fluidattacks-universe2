@@ -381,7 +381,9 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
         }
         id={"tblOrganizationCredentials"}
         rowSelectionSetter={
-          groupNames.length > 0 ? setSelectedRepositories : undefined
+          groupNames.length > 0 && integrationRepositories.length > 0
+            ? setSelectedRepositories
+            : undefined
         }
         rowSelectionState={selectedRepositories}
       />

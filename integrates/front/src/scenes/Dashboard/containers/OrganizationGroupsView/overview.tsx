@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
@@ -39,54 +40,66 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
         </Text>
         <Row>
           <Col lg={25} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.groups.overview.coveredAuthors.content",
-                { coveredAuthors }
-              )}
-              info={t("organization.tabs.groups.overview.coveredAuthors.info")}
-              title={t(
-                "organization.tabs.groups.overview.coveredAuthors.title"
-              )}
-            />
+            <Link to={`/orgs/${organizationName}/outofscope`}>
+              <OverviewCard
+                content={t(
+                  "organization.tabs.groups.overview.coveredAuthors.content",
+                  { coveredAuthors }
+                )}
+                info={t(
+                  "organization.tabs.groups.overview.coveredAuthors.info"
+                )}
+                title={t(
+                  "organization.tabs.groups.overview.coveredAuthors.title"
+                )}
+              />
+            </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.groups.overview.coveredRepositories.content",
-                { coveredRepositories }
-              )}
-              info={t(
-                "organization.tabs.groups.overview.coveredRepositories.info"
-              )}
-              title={t(
-                "organization.tabs.groups.overview.coveredRepositories.title"
-              )}
-            />
+            <Link to={`/orgs/${organizationName}/outofscope`}>
+              <OverviewCard
+                content={t(
+                  "organization.tabs.groups.overview.coveredRepositories.content",
+                  { coveredRepositories }
+                )}
+                info={t(
+                  "organization.tabs.groups.overview.coveredRepositories.info"
+                )}
+                title={t(
+                  "organization.tabs.groups.overview.coveredRepositories.title"
+                )}
+              />
+            </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.groups.overview.missedAuthors.content",
-                { missedAuthors }
-              )}
-              info={t("organization.tabs.groups.overview.missedAuthors.info")}
-              title={t("organization.tabs.groups.overview.missedAuthors.title")}
-            />
+            <Link to={`/orgs/${organizationName}/outofscope`}>
+              <OverviewCard
+                content={t(
+                  "organization.tabs.groups.overview.missedAuthors.content",
+                  { missedAuthors }
+                )}
+                info={t("organization.tabs.groups.overview.missedAuthors.info")}
+                title={t(
+                  "organization.tabs.groups.overview.missedAuthors.title"
+                )}
+              />
+            </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.groups.overview.missedRepositories.content",
-                { missedRepositories }
-              )}
-              info={t(
-                "organization.tabs.groups.overview.missedRepositories.info"
-              )}
-              title={t(
-                "organization.tabs.groups.overview.missedRepositories.title"
-              )}
-            />
+            <Link to={`/orgs/${organizationName}/outofscope`}>
+              <OverviewCard
+                content={t(
+                  "organization.tabs.groups.overview.missedRepositories.content",
+                  { missedRepositories }
+                )}
+                info={t(
+                  "organization.tabs.groups.overview.missedRepositories.info"
+                )}
+                title={t(
+                  "organization.tabs.groups.overview.missedRepositories.title"
+                )}
+              />
+            </Link>
           </Col>
         </Row>
       </Row>
