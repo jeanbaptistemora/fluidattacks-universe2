@@ -13,6 +13,7 @@ makeScript {
       outputs."/common/utils/git"
       outputs."/common/utils/sops"
       outputs."/common/utils/common"
+      outputs."/observes/common/list-groups"
     ];
   };
   entrypoint = ./entrypoint.sh;

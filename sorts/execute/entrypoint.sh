@@ -37,9 +37,8 @@ function main {
       'REDSHIFT_PASSWORD' \
       'REDSHIFT_PORT' \
       'REDSHIFT_USER' \
-    && use_git_repo_services \
     && groups_file="$(mktemp)" \
-    && ls -1 groups > "${groups_file}" \
+    && list_groups "${groups_file}" \
     && execute_chunk_parallel execute "${groups_file}" "${parallel}" "batch"
 
 }
