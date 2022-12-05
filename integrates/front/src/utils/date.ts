@@ -13,4 +13,10 @@ function isWithInAWeek(date: Moment): boolean {
 const formatIsoDate = (value: string): string =>
   moment(value).format("YYYY-MM-DD hh:mm:ss");
 
-export { formatIsoDate, isWithInAWeek };
+const getDatePlusDeltaDays = (date: string, days: number): string =>
+  moment(date).add(days, "days").format("YYYY-MM-DD hh:mm:ss");
+
+const getRemainingDays = (value: string): number =>
+  moment(value).diff(moment(), "days");
+
+export { formatIsoDate, getDatePlusDeltaDays, getRemainingDays, isWithInAWeek };

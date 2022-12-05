@@ -9,6 +9,8 @@ import React, { StrictMode, useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { getTrialTip } from "./utils";
+
 import { Button } from "components/Button";
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -93,6 +95,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     setIsGroupModalOpen(false);
     void refetchGroups();
   }, [enableTour, refetchGroups, user]);
+
   // Auxiliary functions
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]
@@ -156,7 +159,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         const showSuspendedTip =
           text === t(`organization.tabs.groups.status.underReview`);
         const infoTip = showTrialTip
-          ? t(`organization.tabs.groups.status.trialTip`)
+          ? getTrialTip(data?.organization.company, t)
           : t(`organization.tabs.groups.status.underReviewTip`);
 
         return formatLinkHandler(

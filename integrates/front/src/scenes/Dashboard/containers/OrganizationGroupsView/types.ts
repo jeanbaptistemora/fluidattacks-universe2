@@ -30,8 +30,24 @@ interface IGetOrganizationGroups {
     coveredRepositories: number;
     missedAuthors: number;
     missedRepositories: number;
+    company: ITrialData;
     groups: IGroupData[];
   };
 }
 
-export type { IGroupData, IOrganizationGroupsProps, IGetOrganizationGroups };
+interface ITrialData {
+  trial: {
+    completed: boolean;
+    extensionDate: string;
+    extensionDays: number;
+    startDate: string;
+    state: "EXTENDED_END" | "EXTENDED" | "TRIAL_ENDED" | "TRIAL";
+  };
+}
+
+export type {
+  IGroupData,
+  IOrganizationGroupsProps,
+  IGetOrganizationGroups,
+  ITrialData,
+};

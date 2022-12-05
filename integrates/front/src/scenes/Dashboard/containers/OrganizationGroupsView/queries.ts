@@ -8,6 +8,15 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
       coveredRepositories
       missedAuthors
       missedRepositories
+      company {
+        trial {
+          completed
+          extensionDate
+          extensionDays
+          startDate
+          state
+        }
+      }
       name
       groups {
         name

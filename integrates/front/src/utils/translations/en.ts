@@ -2118,6 +2118,7 @@ export const enTranslations: ResourceKey = {
           managed: "Subscribed",
           notManaged: "Subscribed",
           trial: "Free-trial",
+          trialDaysTip: "You have {{ remainingDays }} days left",
           trialTip: "You have active a Free-Trial subscription",
           underReview: "Suspended",
           underReviewTip:
