@@ -40,7 +40,17 @@ def parse(line: str) -> Optional[ContentSecurityPolicyHeader]:
         values = list(filter(None, values))
 
         for value in values:
-            components = value.split(" ")
+            # Values list could have directives in different forms
+            if ": " in value:
+                # Separated by : "frame-ancestors: none"
+                components = value.split(":", maxsplit=1)
+            elif "=" in value:
+                # Separated by = "upgrade-insecure-requests=1"
+                components = value.split("=", maxsplit=1)
+            else:
+                # Separated by " " "default-src 'self'"
+                components = value.split(" ")
+
             components = list(map(methodcaller("strip"), components))
             components = list(filter(None, components))
 
