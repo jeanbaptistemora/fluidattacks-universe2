@@ -48,13 +48,17 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              coveredAuthors: 2,
+              coveredRepositories: 1,
               groups: [
                 {
                   description: "Continuous type test group",
                   events: [],
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "unittesting",
+                  openFindings: 2,
                   service: "WHITE",
                   subscription: "continuous",
                   userRole: "user",
@@ -64,7 +68,9 @@ describe("Organization groups view", (): void => {
                   events: [],
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "oneshottest",
+                  openFindings: 1,
                   service: "WHITE",
                   subscription: "oneshot",
                   userRole: "user_manager",
@@ -74,12 +80,16 @@ describe("Organization groups view", (): void => {
                   events: [],
                   hasMachine: true,
                   hasSquad: false,
+                  managed: "MANAGED",
                   name: "pendingGroup",
+                  openFindings: 2,
                   service: "WHITE",
                   subscription: "continuous",
                   userRole: "customer_manager",
                 },
               ],
+              missedAuthors: 3,
+              missedRepositories: 1,
               name: "okada",
             },
           },
@@ -106,6 +116,30 @@ describe("Organization groups view", (): void => {
     });
 
     expect(screen.getAllByRole("row")).toHaveLength(4);
+    expect(
+      screen.queryByText("organization.tabs.groups.overview.title.text")
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        "organization.tabs.groups.overview.coveredAuthors.content"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "organization.tabs.groups.overview.coveredRepositories.content"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "organization.tabs.groups.overview.missedAuthors.content"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "organization.tabs.groups.overview.missedRepositories.content"
+      )
+    ).toBeInTheDocument();
 
     const UNIT_TESTING_ROW_AT = 1;
 
@@ -186,13 +220,17 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              coveredAuthors: 2,
+              coveredRepositories: 1,
               groups: [
                 {
                   description: "Continuous type test group",
                   events: [],
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "unittesting",
+                  openFindings: 1,
                   service: "WHITE",
                   subscription: "continuous",
                   userRole: "user",
@@ -202,12 +240,16 @@ describe("Organization groups view", (): void => {
                   events: [],
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "oneshottest",
+                  openFindings: 2,
                   service: "WHITE",
                   subscription: "oneshot",
                   userRole: "user_manager",
                 },
               ],
+              missedAuthors: 4,
+              missedRepositories: 3,
               name: "okada",
             },
           },
@@ -245,6 +287,8 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
+              coveredAuthors: 2,
+              coveredRepositories: 1,
               groups: [
                 {
                   description: "Continuous type test group",
@@ -253,7 +297,9 @@ describe("Organization groups view", (): void => {
                   hasForces: true,
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "unittesting",
+                  openFindings: 1,
                   service: "WHITE",
                   subscription: "continuous",
                   userRole: "user",
@@ -265,7 +311,9 @@ describe("Organization groups view", (): void => {
                   hasForces: false,
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "oneshottest",
+                  openFindings: 2,
                   service: "WHITE",
                   subscription: "oneshot",
                   userRole: "user_manager",
@@ -277,12 +325,16 @@ describe("Organization groups view", (): void => {
                   hasForces: true,
                   hasMachine: true,
                   hasSquad: true,
+                  managed: "MANAGED",
                   name: "akame",
+                  openFindings: 1,
                   service: "WHITE",
                   subscription: "continuous",
                   userRole: "user_manager",
                 },
               ],
+              missedAuthors: 4,
+              missedRepositories: 3,
               name: "okada",
             },
           },
