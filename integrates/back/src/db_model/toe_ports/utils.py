@@ -1,6 +1,7 @@
 from .types import (
     ToePort,
     ToePortEdge,
+    ToePortState,
 )
 from datetime import (
     datetime,
@@ -20,6 +21,24 @@ from dynamodb.utils import (
 from typing import (
     Optional,
 )
+
+
+def format_state(item: Item) -> ToePortState:
+    return ToePortState(
+        modified_date=datetime.fromisoformat(item["modified_date"])
+        if "modified_date" in item
+        else None,
+    )
+
+
+def format_state_item(state: ToePortState) -> Item:
+    return {
+        "modified_date": db_model_utils.get_as_utc_iso_format(
+            state.modified_date
+        )
+        if state.modified_date
+        else None
+    }
 
 
 def format_toe_port(

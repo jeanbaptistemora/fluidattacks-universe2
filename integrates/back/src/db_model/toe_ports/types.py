@@ -11,6 +11,10 @@ from typing import (
 )
 
 
+class ToePortState(NamedTuple):
+    modified_date: Optional[datetime]
+
+
 class ToePort(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: Optional[str]
