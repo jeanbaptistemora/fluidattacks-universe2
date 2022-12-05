@@ -4,17 +4,9 @@
   ...
 }:
 makeScript {
-  replace = {
-    __argData__ = ./data;
-  };
-  entrypoint = ./entrypoint.sh;
+  entrypoint = "populate";
   name = "integrates-storage-dev";
-  searchPaths = {
-    bin = [
-      outputs."/deployTerraform/integratesStorageDev"
-    ];
-    source = [
-      outputs."/common/utils/aws"
-    ];
-  };
+  searchPaths.source = [
+    outputs."/integrates/storage/dev/lib/populate"
+  ];
 }

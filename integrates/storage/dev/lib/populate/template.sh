@@ -20,24 +20,25 @@ function _prepare_data {
       "${data}/continuous-data/bills/${bill_year}/${bill_month}"
 }
 
-function main {
+function populate {
+  local sync_path="${1:-}"
   local data="__argData__"
-  local tmp
+  local mutable_data
   local branch
   local endpoint
 
   : \
     && branch="${CI_COMMIT_REF_NAME}" \
     && deploy-terraform-for-integratesStorageDev \
-    && tmp="$(mktemp -d)" \
-    && copy "${data}" "${tmp}" \
-    && _prepare_data "${tmp}" "${branch}" \
+    && mutable_data="$(mktemp -d)" \
+    && copy "${data}" "${mutable_data}" \
+    && _prepare_data "${mutable_data}" "${branch}" \
     && endpoint="integrates.${branch}" \
     && aws_s3_sync \
-      "${data}" \
-      "s3://${endpoint}" \
+      "${mutable_data}" \
+      "s3://${endpoint}${sync_path}" \
+      --size-only \
       --delete \
+    && rm -rf "${mutable_data}" \
     || return 1
 }
-
-main "${@}"
