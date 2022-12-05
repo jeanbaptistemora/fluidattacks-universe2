@@ -3,48 +3,45 @@
 Populates gsi2 with the domain name of the company,
 which will be used to validate trial uniqueness per company
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-12-05 at 19:37:59 UTC
+Finalization Time: 2022-12-05 at 19:38:00 UTC
 """
 from aioextensions import (
     collect,
     run,
 )
+import csv
+from datetime import (
+    datetime,
+)
 from db_model import (
-    stakeholders as stakeholders_model,
-    TABLE,
+    companies as companies_model,
 )
-from dynamodb import (
-    operations,
-)
-from dynamodb.types import (
-    PrimaryKey,
+from db_model.companies.types import (
+    Company,
+    Trial,
 )
 import time
 
 
-async def process_stakeholder(email: str) -> None:
-    domain_name = email.split("@")[1]
-    company = domain_name.split(".")[0]
-
-    await operations.update_item(
-        item={"pk_2": f"CO#{company}", "sk_2": f"ENROLL#{email}"},
-        key=PrimaryKey(
-            partition_key=f"ENROLL#{email}", sort_key=f"ENROLL#{email}"
-        ),
-        table=TABLE,
+async def process_trial(row: dict[str, str]) -> None:
+    await companies_model.add(
+        company=Company(
+            domain=row["domain"],
+            trial=Trial(
+                completed=row["completed"] == str(True),
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(row["start_date"]),
+            ),
+        )
     )
 
 
 async def main() -> None:
-    all_stakeholders = await stakeholders_model.get_all_stakeholders()
-    await collect(
-        tuple(
-            process_stakeholder(stakeholder.email)
-            for stakeholder in all_stakeholders
-        ),
-        workers=100,
-    )
+    with open("/path/to/trial.csv", "r", encoding="utf8") as trial_csv:
+        reader = csv.DictReader(trial_csv, delimiter=",")
+        await collect([process_trial(row) for row in reader])
 
 
 if __name__ == "__main__":
