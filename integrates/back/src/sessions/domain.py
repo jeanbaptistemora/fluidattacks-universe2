@@ -186,11 +186,11 @@ async def verify_session_token(content: Dict[str, Any], email: str) -> None:
         raise InvalidAuthorization()
 
 
-async def create_session_web_new(request: Request, email: str) -> None:
+async def create_session_web(request: Request, email: str) -> None:
     session_key: str = request.session["session_key"]
 
     # Check if there is a session already
-    request.session["is_concurrent"] = bool(await get_session_key_new(email))
+    request.session["is_concurrent"] = bool(await get_session_key(email))
 
     # Proccede overwritting the user session
     # This means that if a session did exist before, this one will
@@ -203,7 +203,7 @@ async def create_session_web_new(request: Request, email: str) -> None:
     )
 
 
-async def get_session_key_new(email: str) -> Optional[str]:
+async def get_session_key(email: str) -> Optional[str]:
     session_key: Optional[str] = None
     with contextlib.suppress(StakeholderNotFound):
         loaders: Dataloaders = get_new_context()
@@ -212,7 +212,7 @@ async def get_session_key_new(email: str) -> Optional[str]:
     return session_key
 
 
-async def remove_session_key_new(email: str) -> None:
+async def remove_session_key(email: str) -> None:
     await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             session_key="",
@@ -221,7 +221,7 @@ async def remove_session_key_new(email: str) -> None:
     )
 
 
-async def check_session_web_validity_new(request: Request, email: str) -> None:
+async def check_session_web_validity(request: Request, email: str) -> None:
     try:
         session_key: str = request.session["session_key"]
 
@@ -237,12 +237,12 @@ async def check_session_web_validity_new(request: Request, email: str) -> None:
             )
         # Check if the stakeholder has an active session but it's different
         # than the one in the cookie
-        if await get_session_key_new(email) == session_key:
+        if await get_session_key(email) == session_key:
             # Session and cookie are ok and up to date
             pass
         else:
             # Session or the cookie are expired, let's logout the stakeholder
-            await remove_session_key_new(email)
+            await remove_session_key(email)
             request.session.clear()
             raise SecureAccessException()
     except (KeyError, StakeholderNotFound):

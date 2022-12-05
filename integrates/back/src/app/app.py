@@ -148,9 +148,7 @@ async def app(request: Request) -> HTMLResponse:
     email = user_info["user_email"]
     try:
         if FI_ENVIRONMENT == "production":
-            await sessions_domain.check_session_web_validity_new(
-                request, email
-            )
+            await sessions_domain.check_session_web_validity(request, email)
         response = templates.main_app(request)
     except SecureAccessException:
         response = await logout(request)
@@ -321,7 +319,7 @@ async def logout(request: Request) -> HTMLResponse:
 
     user_email = user_info["user_email"]
     await sessions_domain.remove_session_token(user_info, user_email)
-    await sessions_domain.remove_session_key_new(user_email)
+    await sessions_domain.remove_session_key(user_email)
     await analytics.mixpanel_track(user_email, "Logout")
 
     request.session.clear()
