@@ -5,6 +5,9 @@ from back.test import (
 from collections import (
     defaultdict,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enrollment.types import (
     Enrollment,
     Trial,
@@ -76,9 +79,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 enrolled=True,
                 trial=Trial(
                     completed=True,
-                    extension_date="2017-04-06T00:45:11+00:00",
+                    extension_date=datetime.fromisoformat(
+                        "2017-04-06T00:45:11+00:00"
+                    ),
                     extension_days=5,
-                    start_date="2017-04-06T00:45:11+00:00",
+                    start_date=datetime.fromisoformat(
+                        "2017-04-06T00:45:11+00:00"
+                    ),
                 ),
             ),
         ),

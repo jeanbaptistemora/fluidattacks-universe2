@@ -278,15 +278,14 @@ async def send_upgrade_squad_notification(
 
 
 async def send_trial_ending_notification(
-    loaders: Any, email_to: str, group_name: str, start_date: str
+    loaders: Any, email_to: str, group_name: str, start_date: datetime
 ) -> None:
     fname = await get_recipient_first_name(loaders, email_to)
     org_name = await get_organization_name(loaders, group_name)
-    trial_start_date = datetime_utils.get_datetime_from_iso_str(start_date)
     context = {
         "expires_date": datetime_utils.get_date_from_iso_str(
             datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(trial_start_date, days=21)
+                datetime_utils.get_plus_delta(start_date, days=21)
             )
         ),
         "vulnerabilities_link": (

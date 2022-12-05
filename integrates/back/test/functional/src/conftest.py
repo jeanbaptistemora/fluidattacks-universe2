@@ -250,9 +250,9 @@ def generic_data(  # pylint: disable=too-many-locals
                     enrolled=True,
                     trial=Trial(
                         completed=True,
-                        extension_date="",
+                        extension_date=None,
                         extension_days=0,
-                        start_date="",
+                        start_date=None,
                     ),
                 ),
                 Enrollment(
@@ -260,9 +260,9 @@ def generic_data(  # pylint: disable=too-many-locals
                     enrolled=True,
                     trial=Trial(
                         completed=True,
-                        extension_date="",
+                        extension_date=None,
                         extension_days=0,
-                        start_date="",
+                        start_date=None,
                     ),
                 ),
                 Enrollment(
@@ -270,9 +270,9 @@ def generic_data(  # pylint: disable=too-many-locals
                     enrolled=True,
                     trial=Trial(
                         completed=False,
-                        extension_date="",
+                        extension_date=None,
                         extension_days=0,
-                        start_date="",
+                        start_date=None,
                     ),
                 ),
             ),

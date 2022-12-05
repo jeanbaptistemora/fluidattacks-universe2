@@ -1,8 +1,13 @@
+from datetime import (
+    datetime,
+)
+from db_model.enrollment.enums import (
+    EnrollmentTrialState,
+)
 from db_model.enrollment.types import (
     Trial,
 )
 from enrollment.domain import (
-    EnrollmentTrialState,
     get_enrollment_trial_state,
 )
 from freezegun import (
@@ -20,47 +25,51 @@ pytestmark = [
     ["trial", "state"],
     [
         [
-            Trial(
+            Trial(  # type:ignore
                 completed=False,
-                start_date="",
+                start_date=None,
                 extension_days=0,
-                extension_date="",
+                extension_date=None,
             ),
             EnrollmentTrialState.TRIAL_ENDED,
         ],
         [
-            Trial(
+            Trial(  # type:ignore
                 completed=False,
-                start_date="2021-12-20T00:00:00+00:00",
+                extension_date=None,
                 extension_days=0,
-                extension_date="",
+                start_date=datetime.fromisoformat("2021-12-20T00:00:00+00:00"),
             ),
             EnrollmentTrialState.TRIAL,
         ],
         [
-            Trial(
+            Trial(  # type:ignore
                 completed=True,
-                start_date="2021-12-01T00:00:00+00:00",
+                extension_date=None,
                 extension_days=0,
-                extension_date="",
+                start_date=datetime.fromisoformat("2021-12-01T00:00:00+00:00"),
             ),
             EnrollmentTrialState.TRIAL_ENDED,
         ],
         [
-            Trial(
+            Trial(  # type:ignore
                 completed=True,
-                start_date="2021-12-01T00:00:00+00:00",
+                extension_date=datetime.fromisoformat(
+                    "2021-12-30T00:00:00+00:00"
+                ),
                 extension_days=9,
-                extension_date="2021-12-30T00:00:00+00:00",
+                start_date=datetime.fromisoformat("2021-12-01T00:00:00+00:00"),
             ),
             EnrollmentTrialState.EXTENDED,
         ],
         [
-            Trial(
+            Trial(  # type:ignore
                 completed=True,
-                start_date="2021-11-01T00:00:00+00:00",
+                extension_date=datetime.fromisoformat(
+                    "2021-12-01T00:00:00+00:00"
+                ),
                 extension_days=9,
-                extension_date="2021-12-01T00:00:00+00:00",
+                start_date=datetime.fromisoformat("2021-11-01T00:00:00+00:00"),
             ),
             EnrollmentTrialState.EXTENDED_ENDED,
         ],

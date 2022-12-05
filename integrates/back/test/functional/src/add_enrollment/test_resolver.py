@@ -14,6 +14,9 @@ from enrollment import (
 from freezegun import (
     freeze_time,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import pytest
 from pytest_mock import (
     MockerFixture,
@@ -52,7 +55,11 @@ async def test_should_add_enrollment(
     loaders.enrollment.clear_all()
     enrollment: Enrollment = await loaders.enrollment.load(email)
     assert enrollment.enrolled
-    assert enrollment.trial.start_date == "2022-10-21T15:58:31.280182+00:00"
+    assert enrollment.trial.start_date
+    assert (
+        datetime_utils.get_as_utc_iso_format(enrollment.trial.start_date)
+        == "2022-10-21T15:58:31.280182+00:00"
+    )
 
     assert mail_spy.await_count == 1
     mail_spy.assert_any_call(mock.ANY, email, "unit test", "testgroup")

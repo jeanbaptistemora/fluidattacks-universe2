@@ -4,6 +4,9 @@ from .types import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -28,7 +31,7 @@ async def add(*, enrollment: Enrollment) -> None:
         item = {
             key_structure.partition_key: enrollment_key.partition_key,
             key_structure.sort_key: enrollment_key.sort_key,
-            **json.loads(json.dumps(enrollment)),
+            **json.loads(json.dumps(enrollment, default=serialize)),
         }
     else:
         item["enrolled"] = True

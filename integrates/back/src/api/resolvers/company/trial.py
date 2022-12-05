@@ -2,7 +2,7 @@ from db_model.companies.types import (
     Company,
     Trial,
 )
-from enrollment.domain import (
+from db_model.enrollment.enums import (
     EnrollmentTrialState,
 )
 from graphql.type.definition import (

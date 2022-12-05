@@ -146,9 +146,9 @@ async def process_stakeholder(
                 enrolled=True,
                 trial=Trial(
                     completed=True,
-                    extension_date=datetime_utils.get_iso_date(),
+                    extension_date=datetime_utils.get_utc_now(),
                     extension_days=0,
-                    start_date=datetime_utils.get_iso_date(),
+                    start_date=datetime_utils.get_utc_now(),
                 ),
             )
         )

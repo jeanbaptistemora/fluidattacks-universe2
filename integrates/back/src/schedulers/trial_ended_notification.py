@@ -61,10 +61,8 @@ async def send_trial_ended_notification() -> None:
             enrollment.enrolled
             and enrollment.trial.start_date
             and (
-                datetime_utils.get_now().date()
-                - datetime_utils.get_date_from_iso_str(
-                    enrollment.trial.start_date
-                )
+                datetime_utils.get_utc_now().date()
+                - enrollment.trial.start_date.date()
             ).days
             == TRIAL_DAYS
         ):

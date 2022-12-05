@@ -19,6 +19,9 @@ from db_model.companies.types import (
     Company,
     Trial as CompanyTrial,
 )
+from db_model.enrollment.enums import (
+    EnrollmentTrialState,
+)
 from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
@@ -29,9 +32,6 @@ from db_model.organizations.types import (
 )
 from decorators import (
     retry_on_exceptions,
-)
-from enum import (
-    Enum,
 )
 from group_access import (
     domain as group_access_domain,
@@ -62,13 +62,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 TRIAL_PERIOD_DAYS: int = 21
 EXTENDED_TRIAL_PERIOD_DAYS: int = 9
-
-
-class EnrollmentTrialState(str, Enum):
-    EXTENDED: str = "EXTENDED"
-    EXTENDED_ENDED: str = "EXTENDED_ENDED"
-    TRIAL: str = "TRIAL"
-    TRIAL_ENDED: str = "TRIAL_ENDED"
 
 
 mail_free_trial_start = retry_on_exceptions(
@@ -122,9 +115,9 @@ async def add_enrollment(
                     enrolled=True,
                     trial=Trial(
                         completed=False,
-                        extension_date="",
+                        extension_date=None,
                         extension_days=0,
-                        start_date=datetime_utils.get_iso_date(),
+                        start_date=datetime_utils.get_utc_now(),
                     ),
                 )
             ),
@@ -161,28 +154,24 @@ def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
     if not trial.start_date:
         return EnrollmentTrialState.TRIAL_ENDED
 
-    trial_date = datetime_utils.get_datetime_from_iso_str(trial.start_date)
     if (
         datetime_utils.get_plus_delta(
-            trial_date,
+            trial.start_date,
             days=TRIAL_PERIOD_DAYS,
         )
-        > datetime_utils.get_now()
+        > datetime_utils.get_utc_now()
     ):
         return EnrollmentTrialState.TRIAL
 
     if not trial.extension_days or not trial.extension_date:
         return EnrollmentTrialState.TRIAL_ENDED
 
-    extended_trial_date = datetime_utils.get_datetime_from_iso_str(
-        trial.extension_date
-    )
     if (
         datetime_utils.get_plus_delta(
-            extended_trial_date,
+            trial.extension_date,
             days=EXTENDED_TRIAL_PERIOD_DAYS,
         )
-        > datetime_utils.get_now()
+        > datetime_utils.get_utc_now()
     ):
         return EnrollmentTrialState.EXTENDED
 

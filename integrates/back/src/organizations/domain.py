@@ -318,9 +318,9 @@ async def complete_register_for_organization_invitation(
                 enrolled=True,
                 trial=Trial(
                     completed=True,
-                    extension_date="",
+                    extension_date=None,
                     extension_days=0,
-                    start_date="",
+                    start_date=None,
                 ),
             )
         )

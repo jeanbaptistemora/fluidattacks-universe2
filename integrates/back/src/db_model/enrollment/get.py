@@ -44,9 +44,9 @@ async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
                 enrolled=False,
                 trial=Trial(
                     completed=False,
-                    extension_date="",
+                    extension_date=None,
                     extension_days=0,
-                    start_date="",
+                    start_date=None,
                 ),
             ),
         )

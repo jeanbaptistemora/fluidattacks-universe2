@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enrollment.types import (
     Enrollment,
     Trial,
@@ -45,9 +48,11 @@ async def populate() -> bool:
                 enrolled=True,
                 trial=Trial(
                     completed=False,
-                    extension_date="",
+                    extension_date=None,
                     extension_days=0,
-                    start_date="2022-10-21T15:58:31.280182",
+                    start_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                 ),
             ),
             Enrollment(
@@ -55,9 +60,11 @@ async def populate() -> bool:
                 enrolled=True,
                 trial=Trial(
                     completed=False,
-                    extension_date="",
+                    extension_date=None,
                     extension_days=0,
-                    start_date="2022-10-22T15:58:31.280182",
+                    start_date=datetime.fromisoformat(
+                        "2022-10-22T15:58:31.280182"
+                    ),
                 ),
             ),
             Enrollment(
@@ -65,9 +72,13 @@ async def populate() -> bool:
                 enrolled=True,
                 trial=Trial(
                     completed=False,
-                    extension_date="2022-11-11T15:58:31.280182",
+                    extension_date=datetime.fromisoformat(
+                        "2022-11-11T15:58:31.280182"
+                    ),
                     extension_days=1,
-                    start_date="2022-10-21T15:58:31.280182",
+                    start_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                 ),
             ),
             Enrollment(
@@ -75,9 +86,11 @@ async def populate() -> bool:
                 enrolled=True,
                 trial=Trial(
                     completed=True,
-                    extension_date="",
+                    extension_date=None,
                     extension_days=0,
-                    start_date="2022-10-21T15:58:31.280182",
+                    start_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                 ),
             ),
         ],

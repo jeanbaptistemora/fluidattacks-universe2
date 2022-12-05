@@ -8,6 +8,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
@@ -85,19 +88,16 @@ async def expire(
         )
 
 
-def get_days_since(date: str) -> int:
-    return (
-        datetime_utils.get_now()
-        - datetime_utils.get_datetime_from_iso_str(date)
-    ).days
+def _get_days_since(date: datetime) -> int:
+    return (datetime_utils.get_utc_now() - date).days
 
 
 def get_remaining_days(trial: Trial) -> int:
-    days = (
-        trial.extension_days - get_days_since(trial.extension_date)
-        if trial.extension_date
-        else FREE_TRIAL_DAYS - get_days_since(trial.start_date)
-    )
+    days: int = 0
+    if trial.extension_date:
+        days = trial.extension_days - _get_days_since(trial.extension_date)
+    elif trial.start_date:
+        days = FREE_TRIAL_DAYS - _get_days_since(trial.start_date)
 
     return max(0, days)
 
@@ -105,7 +105,7 @@ def get_remaining_days(trial: Trial) -> int:
 def has_expired(trial: Trial) -> bool:
     return (
         not trial.completed
-        and trial.start_date != ""
+        and trial.start_date is not None
         and get_remaining_days(trial) == 0
     )
 
