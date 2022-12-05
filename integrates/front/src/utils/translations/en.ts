@@ -2987,6 +2987,11 @@ export const enTranslations: ResourceKey = {
       editable: "Edit",
       editableTooltip: "Modify the evidence for this finding",
       evidenceExploit: "Exploitation evidence",
+      fields: {
+        modal: {
+          continue: "Continue",
+        },
+      },
       remove: "Delete",
       removeTooltip: "Delete this evidence",
       tabTitle: "Evidence",
