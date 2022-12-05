@@ -1,6 +1,13 @@
+import moment from "moment";
 import type { ConfigurableValidator } from "revalidate";
 
 import { calcPrivilegesRequired } from "utils/cvss";
+import {
+  formatIsoDate,
+  getDatePlusDeltaDays,
+  getRemainingDays,
+  isWithInAWeek,
+} from "utils/date";
 import { getEnvironment } from "utils/environment";
 import {
   formatDate,
@@ -1079,5 +1086,53 @@ describe("formatHelpers", (): void => {
     const checkFormat = formatDuration(value);
 
     expect(checkFormat).toBe("-");
+  });
+});
+
+describe("date", (): void => {
+  it("Should return correct remaining days", (): void => {
+    expect.hasAssertions();
+
+    const value = new Date(new Date().getTime() + 864001000).toISOString();
+    const checkRemainingDays = getRemainingDays(value);
+
+    expect(checkRemainingDays).toBe(10);
+  });
+
+  it("Should return correct formatted iso date", (): void => {
+    expect.hasAssertions();
+
+    const value = "2022-12-01T00:00:00";
+    const checkRemainingDays = formatIsoDate(value);
+
+    expect(checkRemainingDays).toBe("2022-12-01 12:00:00");
+  });
+
+  it("Should return correct date plus delta days", (): void => {
+    expect.hasAssertions();
+
+    const date = "2022-12-01T00:00:00";
+    const days = 7;
+    const checkDatePlusDeltaDays = getDatePlusDeltaDays(date, days);
+
+    expect(checkDatePlusDeltaDays).toBe("2022-12-08 12:00:00");
+  });
+
+  it("Should return true if date is whitin a week", (): void => {
+    expect.hasAssertions();
+
+    const date = moment(new Date(new Date().getTime() - 6 * 86400000));
+    const checkDatePlusDeltaDays = isWithInAWeek(date);
+
+    expect(checkDatePlusDeltaDays).toBe(true);
+  });
+
+  it("Should return false if date is out of a week", (): void => {
+    expect.hasAssertions();
+
+    const date = moment(new Date(new Date().getTime() - 8 * 86400000));
+    const checkDatePlusDeltaDays = isWithInAWeek(date);
+
+    expect(checkDatePlusDeltaDays).toBe(false);
   });
 });

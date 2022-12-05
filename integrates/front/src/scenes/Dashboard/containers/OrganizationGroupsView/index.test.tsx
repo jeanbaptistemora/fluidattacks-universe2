@@ -147,13 +147,31 @@ describe("Organization groups view", (): void => {
       /organization.tabs.groups.newGroup.new.text/u
     );
     expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshottest");
+    expect(screen.getAllByRole("row")[2].textContent).toContain(
+      "tabs.groups.status"
+    );
     expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshot");
+    expect(screen.getAllByRole("row")[2].textContent).toContain(
+      "tabs.groups.vulnerabilities.open"
+    );
+    expect(screen.getAllByRole("row")[2].textContent).toContain(
+      "One-shot type test group"
+    );
     expect(screen.getAllByRole("row")[2].textContent).toContain(
       "userModal.roles.userManager"
     );
 
     expect(screen.getAllByRole("row")[3].textContent).toContain("Pendinggroup");
+    expect(screen.getAllByRole("row")[3].textContent).toContain(
+      "tabs.groups.status"
+    );
     expect(screen.getAllByRole("row")[3].textContent).toContain("Machine");
+    expect(screen.getAllByRole("row")[3].textContent).toContain(
+      "tabs.groups.vulnerabilities.open"
+    );
+    expect(screen.getAllByRole("row")[3].textContent).toContain(
+      "Continuous group for deletion"
+    );
     expect(screen.getAllByRole("row")[3].textContent).toContain(
       "userModal.roles.customerManager"
     );

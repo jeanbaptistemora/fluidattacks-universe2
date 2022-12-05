@@ -110,8 +110,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           ? "Squad"
           : "Machine";
       const vulnerabilities: string = group.openFindings
-        ? `${group.openFindings} types found`
-        : "In process";
+        ? t("organization.tabs.groups.vulnerabilities.open", {
+            openFindings: group.openFindings,
+          })
+        : t("organization.tabs.groups.vulnerabilities.inProcess");
       const eventFormat: string =
         _.isUndefined(group.events) || _.isEmpty(group.events)
           ? "None"
@@ -183,7 +185,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
         return formatLinkHandler(link, text);
       },
-      header: t("organization.tabs.groups.vulnerabilities"),
+      header: t("organization.tabs.groups.vulnerabilities.header"),
     },
     {
       accessorKey: "description",

@@ -2129,7 +2129,11 @@ export const enTranslations: ResourceKey = {
         },
         text: "Groups",
         tooltip: "Groups that belong to the organization",
-        vulnerabilities: "Vulnerabilities",
+        vulnerabilities: {
+          header: "Vulnerabilities",
+          inProcess: "In process",
+          open: "{{ openFindings }} types found",
+        },
       },
       policies: {
         errors: {
