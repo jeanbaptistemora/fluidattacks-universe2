@@ -272,7 +272,18 @@ module "prod_observes_aws" {
 
   name   = "prod_observes"
   policy = local.prod_observes.policies.aws
-
+  assume_role_policy = [
+    {
+      Sid    = "graphanaUserAccess",
+      Effect = "Allow",
+      Principal = {
+        "AWS" = [
+          aws_iam_user.graphana_user.arn
+        ]
+      },
+      Action = "sts:AssumeRole",
+    },
+  ]
   tags = {
     "Name"               = "prod_observes"
     "management:area"    = "cost"
