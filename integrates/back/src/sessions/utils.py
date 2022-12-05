@@ -36,6 +36,9 @@ from jwcrypto.jwt import (
 import logging
 import logging.config
 import secrets
+from sessions.types import (
+    UserAccessInfo,
+)
 from settings import (
     LOGGING,
 )
@@ -154,3 +157,11 @@ def validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
         raise ExpiredToken()
 
     return payload
+
+
+def format_user_access_info(user: Dict[str, str]) -> UserAccessInfo:
+    return UserAccessInfo(
+        first_name=user.get("given_name", ""),
+        last_name=user.get("family_name", ""),
+        user_email=user["email"],
+    )

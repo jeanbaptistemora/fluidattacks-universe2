@@ -1,21 +1,6 @@
-from .views.types import (
-    UserAccessInfo,
-)
 from authlib.integrations.starlette_client import (
     OAuth,
     OAuthError,
-)
-from datetime import (
-    datetime,
-    timedelta,
-)
-from db_model import (
-    stakeholders as stakeholders_model,
-)
-from db_model.stakeholders.types import (
-    StakeholderMetadataToUpdate,
-    StakeholderSessionToken,
-    StateSessionType,
 )
 from decorators import (
     retry_on_exceptions,
@@ -23,56 +8,13 @@ from decorators import (
 from httpx import (
     ConnectTimeout,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
-from sessions import (
-    domain as sessions_domain,
-    utils as sessions_utils,
-)
-from settings import (
-    JWT_COOKIE_NAME,
-    JWT_COOKIE_SAMESITE,
-    SESSION_COOKIE_AGE,
-)
 from starlette.requests import (
     Request,
-)
-from starlette.responses import (
-    HTMLResponse,
 )
 from typing import (
     Any,
     Dict,
 )
-
-
-async def create_session_token(user: UserAccessInfo) -> str:
-    jti = sessions_utils.calculate_hash_token()["jti"]
-    user_email = user.user_email
-    expiration_time = datetime_utils.get_as_epoch(
-        datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)
-    )
-    jwt_token: str = sessions_domain.encode_token(
-        expiration_time=expiration_time,
-        payload=dict(
-            user_email=user_email,
-            first_name=user.first_name,
-            last_name=user.last_name,
-            jti=jti,
-        ),
-        subject="starlette_session",
-    )
-    await stakeholders_model.update_metadata(
-        email=user_email,
-        metadata=StakeholderMetadataToUpdate(
-            session_token=StakeholderSessionToken(
-                jti=jti, state=StateSessionType.IS_VALID
-            )
-        ),
-    )
-
-    return jwt_token
 
 
 async def get_bitbucket_oauth_userinfo(
@@ -122,15 +64,3 @@ async def get_jwt_userinfo(
 
 def get_redirect_url(request: Request, pattern: str) -> Any:
     return request.url_for(pattern).replace("http:", "https:")
-
-
-def set_token_in_response(response: HTMLResponse, token: str) -> HTMLResponse:
-    response.set_cookie(
-        key=JWT_COOKIE_NAME,
-        samesite=JWT_COOKIE_SAMESITE,
-        value=token,
-        secure=True,
-        httponly=True,
-        max_age=SESSION_COOKIE_AGE,
-    )
-    return response

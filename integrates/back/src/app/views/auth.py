@@ -1,11 +1,5 @@
 # Starlette authz-related views/functions
 
-from .types import (
-    UserAccessInfo,
-)
-from .utils import (
-    format_user_access_info,
-)
 from aioextensions import (
     collect,
 )
@@ -52,6 +46,10 @@ from organizations import (
 )
 from sessions import (
     domain as sessions_domain,
+    utils as sessions_utils,
+)
+from sessions.types import (
+    UserAccessInfo,
 )
 from settings.auth import (
     OAUTH,
@@ -209,13 +207,13 @@ async def complete_register(
 async def handle_user(
     request: Request, response: HTMLResponse, user: Dict[str, str]
 ) -> None:
-    user_info: UserAccessInfo = format_user_access_info(user)
+    user_info: UserAccessInfo = sessions_utils.format_user_access_info(user)
     session_key = str(uuid.uuid4())
     request.session["session_key"] = session_key
 
     await log_stakeholder_in(get_new_context(), user_info)
-    jwt_token = await utils.create_session_token(user_info)
-    utils.set_token_in_response(response, jwt_token)
+    jwt_token = await sessions_domain.create_session_token(user_info)
+    sessions_domain.set_token_in_response(response, jwt_token)
     await sessions_domain.create_session_web(request, user_info.user_email)
 
 

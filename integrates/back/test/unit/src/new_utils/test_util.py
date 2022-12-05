@@ -2,9 +2,6 @@
 from app.views.auth import (
     log_stakeholder_in,
 )
-from app.views.types import (
-    UserAccessInfo,
-)
 from back.test.unit.src.utils import (
     create_dummy_session,
     create_dummy_simple_session,
@@ -63,6 +60,9 @@ import pytz
 from sessions import (
     domain as sessions_domain,
     utils as sessions_utils,
+)
+from sessions.types import (
+    UserAccessInfo,
 )
 from settings import (
     JWT_COOKIE_NAME,

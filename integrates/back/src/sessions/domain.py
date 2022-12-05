@@ -15,6 +15,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+    timedelta,
+)
 from db_model import (
     stakeholders as stakeholders_model,
 )
@@ -42,12 +46,20 @@ from sessions import (
     function,
     utils as sessions_utils,
 )
+from sessions.types import (
+    UserAccessInfo,
+)
 from settings import (
     JWT_COOKIE_NAME,
+    JWT_COOKIE_SAMESITE,
     LOGGING,
+    SESSION_COOKIE_AGE,
 )
 from starlette.requests import (
     Request,
+)
+from starlette.responses import (
+    HTMLResponse,
 )
 from typing import (
     Any,
@@ -154,6 +166,46 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 def get_request_store(context: Any) -> collections.defaultdict:
     """Returns customized store attribute of a Django/Starlette request"""
     return context.store if hasattr(context, "store") else context.state.store
+
+
+async def create_session_token(user: UserAccessInfo) -> str:
+    jti = sessions_utils.calculate_hash_token()["jti"]
+    user_email = user.user_email
+    expiration_time = int(
+        (datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)).timestamp()
+    )
+    jwt_token: str = encode_token(
+        expiration_time=expiration_time,
+        payload=dict(
+            user_email=user_email,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            jti=jti,
+        ),
+        subject="starlette_session",
+    )
+    await stakeholders_model.update_metadata(
+        email=user_email,
+        metadata=StakeholderMetadataToUpdate(
+            session_token=StakeholderSessionToken(
+                jti=jti, state=StateSessionType.IS_VALID
+            )
+        ),
+    )
+
+    return jwt_token
+
+
+def set_token_in_response(response: HTMLResponse, token: str) -> HTMLResponse:
+    response.set_cookie(
+        key=JWT_COOKIE_NAME,
+        samesite=JWT_COOKIE_SAMESITE,
+        value=token,
+        secure=True,
+        httponly=True,
+        max_age=SESSION_COOKIE_AGE,
+    )
+    return response
 
 
 async def remove_session_token(content: Dict[str, Any], email: str) -> None:
