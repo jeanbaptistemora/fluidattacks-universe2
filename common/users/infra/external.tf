@@ -41,5 +41,5 @@ resource "aws_iam_user" "graphana_user" {
 }
 
 resource "aws_iam_access_key" "graphana_user_creds" {
-  user = aws_iam_user.graphana_user.arn
+  user = aws_iam_user.graphana_user.name
 }
