@@ -1,20 +1,8 @@
-from concurrent.futures import (
-    Future,
-)
 from concurrent.futures.process import (
     ProcessPoolExecutor,
 )
-from concurrent.futures.thread import (
-    ThreadPoolExecutor,
-)
 from ctx import (
     CTX,
-)
-from datetime import (
-    datetime,
-)
-from functools import (
-    partial,
 )
 from lib_path import (
     f009,
@@ -100,24 +88,21 @@ from model import (
     core_model,
 )
 import os
-from os import (
-    cpu_count,
-)
 from os.path import (
     split,
     splitext,
 )
-import psutil
+import reactivex
+from reactivex import (
+    operators as ops,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
-import time
 from typing import (
     Any,
     Dict,
-    Iterator,
     List,
-    Optional,
     Set,
     Tuple,
 )
@@ -290,41 +275,6 @@ def _analyze_one_path(  # noqa: MC0001
     )
 
 
-def _wait_until_memory_usage(
-    percent: float,
-    timeout: Optional[float] = None,
-    interval: Optional[float] = None,
-) -> None:
-    interval = interval or 0.05
-    current_date = datetime.now()
-    while psutil.virtual_memory().percent > percent:
-        if timeout:
-            elapsed_time = current_date - datetime.now()
-            if elapsed_time.seconds > timeout:
-                raise TimeoutError()
-        time.sleep(interval)
-
-
-def _execute_partial_analyze_one_path(
-    fun: partial,
-) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
-    return fun()
-
-
-def _result_or_cancel(fut: Future, timeout: Optional[float] = None) -> Any:
-    try:
-        return fut.result(timeout)
-    finally:
-        fut.cancel()
-
-
-def _result_iterator(futures: List[Future]) -> Iterator[Any]:
-    # reverse to keep finishing order
-    futures.reverse()
-    while futures:
-        yield _result_or_cancel(futures.pop())
-
-
 def analyze(
     *,
     paths: Paths,
@@ -338,29 +288,30 @@ def analyze(
     unique_paths_count: int = len(all_paths)
 
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-        futures: List[Future] = []
-        for index, path in enumerate(all_paths, start=1):
-            _wait_until_memory_usage(80, 60)
-            futures.append(
-                executor.submit(
-                    _analyze_one_path,
-                    index=index,
-                    path=path,
-                    unique_nu_paths=set(paths.nu_paths),
-                    unique_nv_paths=set(paths.nv_paths),
-                    unique_paths_count=unique_paths_count,
+        reactivex.of(*all_paths).pipe(
+            ops.flat_map_indexed(
+                lambda path, index: reactivex.from_future(  # type: ignore
+                    executor.submit(  # type: ignore
+                        _analyze_one_path,
+                        index=index,
+                        path=path,
+                        unique_nu_paths=set(paths.nu_paths),
+                        unique_nv_paths=set(paths.nv_paths),
+                        unique_paths_count=unique_paths_count,
+                    )
                 )
-            )
-        result: Tuple[
-            Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]], ...
-        ] = tuple(_result_iterator(futures))
-
-    with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-        for finding, vuln in (
-            (finding, vuln)
-            for vulns_result in result
-            for finding, vulns_list in vulns_result.items()
-            for vulns in vulns_list
-            for vuln in vulns
-        ):
-            worker.submit(stores[finding].store, vuln)
+            ),
+            ops.flat_map(
+                lambda res: reactivex.of(  # type: ignore
+                    *[
+                        (finding, vuln)
+                        for finding, vulns_list in res.items()  # type: ignore
+                        for vulns in vulns_list
+                        for vuln in vulns
+                    ]
+                )
+            ),
+        ).subscribe(
+            on_next=lambda i: stores[i[0]].store(i[1]),  # type: ignore
+            on_error=lambda e: log_blocking("exception", e),  # type: ignore
+        )
