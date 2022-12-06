@@ -49,9 +49,6 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-from stakeholders.domain import (
-    is_fluid_staff,
-)
 from typing import (
     Any,
     Dict,
@@ -139,24 +136,6 @@ def unique_emails(
     return tuple(set(email_list))
 
 
-async def get_fluid_stakeholders(
-    loaders: Dataloaders, group_name: str, notification: str, roles: set[str]
-) -> List[str]:
-    stakeholders = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=notification,
-            roles=roles,
-        )
-    )
-    return [
-        stakeholder
-        for stakeholder in stakeholders
-        if is_fluid_staff(stakeholder)
-    ]
-
-
 async def send_temporal_treatment_report() -> None:
     loaders: Dataloaders = get_new_context()
     groups_names = await orgs_domain.get_all_active_group_names(loaders)
@@ -184,7 +163,7 @@ async def send_temporal_treatment_report() -> None:
 
     groups_stakeholders_email: Tuple[List[str], ...] = await collect(
         [
-            get_fluid_stakeholders(
+            group_access_domain.get_stakeholders_email_by_preferences(
                 loaders=loaders,
                 group_name=group_name,
                 notification=Notification.UPDATED_TREATMENT,
