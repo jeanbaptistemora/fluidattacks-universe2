@@ -74,11 +74,7 @@ async def set_forces_exit_code(
                     vuln.report_date, "%Y-%m-%d %H:%M:%S"
                 )
                 time_diff: timedelta = current_date - report_date
-                if (
-                    vuln.state == VulnerabilityState.OPEN
-                    and vuln.severity >= config.breaking_severity
-                    and abs(time_diff.days) >= config.grace_period
-                ):
+                if not check_policy_compliance(config, vuln):
                     await log(
                         "warning",
                         (
