@@ -10,6 +10,7 @@ interface IContainerProps {
   bgImage?: string;
   bgImagePos?: string;
   borderTl?: string;
+  borderTop?: string;
   borderTR?: string;
   borderBL?: string;
   borderBR?: string;
@@ -44,6 +45,7 @@ const Container = styled.div.attrs({
     bgImage = "",
     bgImagePos = "",
     borderTl = "0px 0px",
+    borderTop = "",
     borderTR = "0px 0px",
     borderBL = "0px 0px",
     borderBR = "0px 0px",
@@ -73,6 +75,7 @@ background-color: ${bgColor};
 background-image: ${bgImage};
 background-size: ${bgImagePos};
 background-repeat: no-repeat;
+border-top: ${borderTop};
 border-top-left-radius: ${borderTl};
 border-top-right-radius: ${borderTR};
 border-bottom-right-radius: ${borderBR};

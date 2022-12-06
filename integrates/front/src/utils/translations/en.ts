@@ -1637,6 +1637,17 @@ export const enTranslations: ResourceKey = {
   login: {
     auth: "Sign in to Fluid Attacks' ARM Platform",
     bitbucket: "Continue with Bitbucket",
+    generalData: {
+      description:
+        "Now enjoy the new section of ARM called Compliance. In this section, " +
+        "you can visualize the percentage of compliance your organization and groups have " +
+        "concerning different cybersecurity standards and you will be able to see how your " +
+        "organization is positioned concerning other companies.",
+      newFeature: "New Feature",
+      privacy: "All the information will be securely saved as a per the",
+      subtitle:
+        "How am I in compliance with security standards as an organization?",
+    },
     google: "Continue with Google",
     microsoft: "Continue with Microsoft",
     newuser: "If you are a new user, click below to sign up.",

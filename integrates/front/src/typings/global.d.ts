@@ -1,7 +1,7 @@
 //Typings for img files
 declare module "*.png" {
-  const value: any;
-  export = value;
+  const path: string;
+  export = path;
 }
 
 declare module "*.svg" {
