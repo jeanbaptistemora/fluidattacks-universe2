@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f004.member_access.c_sharp import (
     cs_remote_command_execution,
 )
+from symbolic_eval.f004.member_access.typescript import (
+    ts_remote_command_execution,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -15,6 +18,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REMOTE_COMMAND_EXECUTION: cs_remote_command_execution,
+    MethodsEnum.TS_REMOTE_COMMAND_EXECUTION: ts_remote_command_execution,
 }
 
 
