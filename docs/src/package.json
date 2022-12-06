@@ -27,15 +27,27 @@
   "name": "docs",
   "overrides": {
     "ansi-html": "0.0.9",
+    "babel-loader": {
+      "loader-utils": "2.0.4"
+    },
     "browserslist": "4.21.1",
     "css-what": "6.1.0",
+    "file-loader": {
+      "loader-utils": "2.0.4"
+    },
     "glob-parent": "5.1.2",
     "got": "11.8.5",
     "immer": "9.0.15",
     "nth-check": "2.0.1",
     "prompts": "2.4.2",
+    "react-dev-utils": {
+      "loader-utils": "3.2.1"
+    },
     "trim": "0.0.3",
-    "unset-value": "2.0.1"
+    "unset-value": "2.0.1",
+    "url-loader": {
+      "loader-utils": "2.0.4"
+    }
   },
   "private": true,
   "scripts": {
