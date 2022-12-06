@@ -96,7 +96,8 @@ async def entrypoint(
         if report.summary.total > 0:
             await log("info", f"{tasks['processing']}{footer}")
             forces_report: ForcesReport = format_rich_report(
-                report, config.verbose_level, config.kind
+                config,
+                report,
             )
             await log("info", f"{tasks['formatting']}{footer}")
             rich_log(forces_report.findings_report)

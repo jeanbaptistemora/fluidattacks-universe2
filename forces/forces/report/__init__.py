@@ -33,6 +33,9 @@ from forces.report.styles import (
     style_report,
     style_summary,
 )
+from forces.utils.strict_mode import (
+    check_policy_compliance,
+)
 from operator import (
     attrgetter,
 )
@@ -102,7 +105,9 @@ def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
     return summary_table
 
 
-def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
+def format_vuln_table(
+    config: ForcesConfig, vulns: tuple[Vulnerability, ...]
+) -> Table:
     """
     Helper method to create the nested vulns table\n
     @param `vulns`: A list of dicts with each vuln's data
@@ -122,15 +127,21 @@ def format_vuln_table(vulns: tuple[Vulnerability, ...]) -> Table:
             vuln_table.add_row(
                 key,
                 style_report(key, attrgetter(key)(vuln)),
-                end_section=key == "state",
+                end_section=False if config.strict else key == "state",
+            )
+        if config.strict:
+            compliance = check_policy_compliance(config, vuln)
+            vuln_table.add_row(
+                "compliance",
+                "[green]Yes[/]" if compliance else "[red]No, breaks build[/]",
+                end_section=True,
             )
     return vuln_table
 
 
 def format_rich_report(
+    config: ForcesConfig,
     report: ForcesData,
-    verbose_level: int,
-    kind: KindEnum,
 ) -> ForcesReport:
     """Outputs a rich-formatted table containing the reported data of findings
     and associated vulns of an ASM group\n
@@ -150,14 +161,16 @@ def format_rich_report(
         width=80,
         border_style="gold1",
     )
-    last_key: str = "accepted" if verbose_level == 1 else "vulnerabilities"
+    last_key: str = (
+        "accepted" if config.verbose_level == 1 else "vulnerabilities"
+    )
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data", overflow="fold")
     for find in report.findings:
         filtered_vulns = filter_vulnerabilities(
-            find.vulnerabilities, verbose_level
+            find.vulnerabilities, config.verbose_level
         )
-        if filtered_vulns or verbose_level == 1:
+        if filtered_vulns or config.verbose_level == 1:
             find_summary: Counter = Counter(
                 [vuln.state for vuln in find.vulnerabilities]
             )
@@ -178,8 +191,10 @@ def format_rich_report(
                 if is_exploit := key == "exploitability":
                     key = "exploit"
 
-                if key == "vulnerabilities" and verbose_level != 1:
-                    vulns_data: Table = format_vuln_table(filtered_vulns)
+                if key == "vulnerabilities" and config.verbose_level != 1:
+                    vulns_data: Table = format_vuln_table(
+                        config, filtered_vulns
+                    )
                     report_table.add_row("vulns", vulns_data, end_section=True)
                 elif key != "vulnerabilities":
                     report_table.add_row(
@@ -193,7 +208,7 @@ def format_rich_report(
                         end_section=key == last_key,
                     )
 
-    summary_table = format_summary_report(report.summary, kind)
+    summary_table = format_summary_report(report.summary, config.kind)
     return ForcesReport(
         findings_report=report_table, summary_report=summary_table
     )
