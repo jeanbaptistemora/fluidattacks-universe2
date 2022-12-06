@@ -39,6 +39,9 @@ from itertools import (
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -79,7 +82,9 @@ async def process_event(loaders: Dataloaders, event: Event) -> None:
     key_structure = TABLE.primary_key
     item = {
         "created_by": creation_state.modified_by,
-        "created_date": creation_state.modified_date,
+        "created_date": datetime_utils.get_as_utc_iso_format(
+            creation_state.modified_date
+        ),
     }
     print("item", item)
     await operations.update_item(

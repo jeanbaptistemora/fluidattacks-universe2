@@ -68,7 +68,7 @@ async def get_data_one_group(
         if event.state.status != EventStateStatus.SOLVED
         else (
             get_date_from_iso_str(event.event_date),
-            get_date_from_iso_str(event.state.modified_date),
+            event.state.modified_date.date(),
         )
         for event in sorted_events
     )

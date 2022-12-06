@@ -31,6 +31,9 @@ from dynamodb import (
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -54,7 +57,9 @@ async def remove_state(
         facet=TABLE.facets["event_historic_state"],
         values={
             "id": event_id,
-            "iso8601utc": state.modified_date,
+            "iso8601utc": datetime_utils.get_as_utc_iso_format(
+                state.modified_date
+            ),
         },
     )
     await operations.delete_item(key=historic_state_key, table=TABLE)

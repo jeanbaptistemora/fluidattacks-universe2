@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.types import (
     Event,
     EventState,
@@ -13,7 +16,7 @@ from newutils import (
 def _format_state_item(state: EventState) -> dict[str, str]:
     item = {
         "analyst": state.modified_by,
-        "date": datetime_utils.convert_from_iso_str(state.modified_date),
+        "date": datetime_utils.get_as_str(state.modified_date),
         "state": state.status.value,
     }
     if state.other:
@@ -29,9 +32,10 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> list[dict[str, str]]:
-    state: list[
-        EventState
-    ] = await info.context.loaders.event_historic_state.load(parent.id)
+    loaders: Dataloaders = info.context.loaders
+    state: tuple[EventState, ...] = await loaders.event_historic_state.load(
+        parent.id
+    )
     historic_state = list(_format_state_item(item) for item in state)
 
     return historic_state

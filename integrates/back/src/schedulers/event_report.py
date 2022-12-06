@@ -8,6 +8,7 @@ from dataloaders import (
 )
 from datetime import (
     date as date_type,
+    datetime,
 )
 from db_model.events.types import (
     Event,
@@ -35,11 +36,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def days_to_date(date: str) -> int:
-    days = (
-        datetime_utils.get_now()
-        - datetime_utils.get_datetime_from_iso_str(date)
-    ).days
+def days_to_date(date: datetime) -> int:
+    days = (datetime_utils.get_utc_now() - date).days
+
     return days
 
 

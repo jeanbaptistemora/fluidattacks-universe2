@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.events.enums import (
     EventStateStatus,
     EventType,
@@ -25,7 +28,7 @@ from unittest import (
 
 @freeze_time("2022-09-19")
 def test_days_to_date() -> None:
-    date = "2022-09-10T00:00:00+00:00"
+    date = datetime.fromisoformat("2022-09-10T00:00:00+00:00")
     days = days_to_date(date)
     assert days == 9
 
@@ -45,7 +48,7 @@ async def test_send_event_report() -> None:
         id="11111111",
         state=EventState(
             modified_by="unittesting@fluidattacks.com",
-            modified_date="2022-09-10T00:00:00+00:00",
+            modified_date=datetime.fromisoformat("2022-09-10T00:00:00+00:00"),
             status=EventStateStatus.CREATED,
         ),
         type=EventType["AUTHORIZATION_SPECIAL_ATTACK"],

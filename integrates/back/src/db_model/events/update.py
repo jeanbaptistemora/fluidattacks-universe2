@@ -26,6 +26,7 @@ from db_model.events.utils import (
     format_metadata_item,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from decimal import (
@@ -131,7 +132,7 @@ async def update_state(
         condition_expression = Attr(
             key_structure.partition_key
         ).exists() & Attr("state.modified_date").eq(
-            current_value.state.modified_date
+            get_as_utc_iso_format(current_value.state.modified_date)
         )
         await operations.update_item(
             condition_expression=condition_expression,
@@ -146,7 +147,7 @@ async def update_state(
         facet=TABLE.facets["event_historic_state"],
         values={
             "id": current_value.id,
-            "iso8601utc": state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
         },
     )
     historic_item = {

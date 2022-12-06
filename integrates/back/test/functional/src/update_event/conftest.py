@@ -61,7 +61,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
@@ -70,14 +72,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                     EventState(
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-28T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-28T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.SOLVED,
                         reason=EventSolutionReason.TOE_CHANGE_APPROVED,
                     ),
@@ -116,7 +122,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
@@ -125,14 +133,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                     EventState(
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-28T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-28T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.SOLVED,
                         reason=EventSolutionReason.TOE_WILL_REMAIN_UNCHANGED,
                     ),
@@ -171,7 +183,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
@@ -180,14 +194,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                     EventState(
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-28T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-28T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.SOLVED,
                         reason=EventSolutionReason.OTHER,
                         other="other reason",
@@ -227,7 +245,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
@@ -236,14 +256,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                     EventState(
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-28T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-28T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.SOLVED,
                         reason=EventSolutionReason.PROBLEM_SOLVED,
                     ),
@@ -282,7 +306,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
@@ -291,14 +317,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                     EventState(
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-06-28T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-28T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.SOLVED,
                         reason=EventSolutionReason.SUPPLIES_WERE_GIVEN,
                     ),

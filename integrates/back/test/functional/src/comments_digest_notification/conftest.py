@@ -209,14 +209,18 @@ async def populate() -> bool:
                     ),
                     state=EventState(
                         modified_by="unittest@fluidattacks.com",
-                        modified_date="2018-06-27T12:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T12:00:00+00:00"
+                        ),
                         status=EventStateStatus.OPEN,
                     ),
                 ),
                 "historic_state": [
                     EventState(
                         modified_by="unittest@fluidattacks.com",
-                        modified_date="2018-06-27T19:40:05+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-06-27T19:40:05+00:00"
+                        ),
                         status=EventStateStatus.CREATED,
                     ),
                 ],

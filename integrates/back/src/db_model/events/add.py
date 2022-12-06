@@ -17,6 +17,7 @@ from db_model.events.utils import (
     format_event_item,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -68,7 +69,7 @@ async def add(*, event: Event) -> None:
         facet=TABLE.facets["event_historic_state"],
         values={
             "id": event.id,
-            "iso8601utc": event.state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(event.state.modified_date),
         },
     )
     historic_state_item = {

@@ -29,7 +29,7 @@ class EventEvidences(NamedTuple):
 
 class EventState(NamedTuple):
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     status: EventStateStatus
     comment_id: Optional[str] = None
     other: Optional[str] = None

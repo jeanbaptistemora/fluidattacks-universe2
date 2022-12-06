@@ -125,7 +125,9 @@ def format_event(item: Item) -> Event:
         state=EventState(
             comment_id=item["state"].get("comment_id"),
             modified_by=item["state"]["modified_by"],
-            modified_date=item["state"]["modified_date"],
+            modified_date=datetime.fromisoformat(
+                item["state"]["modified_date"]
+            ),
             status=EventStateStatus[item["state"]["status"]],
             other=item["state"].get("other"),
             reason=EventSolutionReason[item["state"]["reason"]]
@@ -173,7 +175,7 @@ def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
 def format_state(item: Item) -> EventState:
     return EventState(
         modified_by=item["modified_by"],
-        modified_date=item["modified_date"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
         status=EventStateStatus[item["status"]],
         other=item.get("other"),
         reason=EventSolutionReason[item["reason"]]

@@ -19,7 +19,6 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
-    timezone,
 )
 from db_model import (
     events as events_model,
@@ -45,6 +44,9 @@ import logging.config
 from newutils import (
     events as events_utils,
 )
+from newutils.datetime import (
+    DEFAULT_ISO_STR,
+)
 from settings import (
     LOGGING,
 )
@@ -63,18 +65,14 @@ def adjust_historic_dates(
 ) -> tuple[EventState, ...]:
     """Ensure dates are not the same and in ascending order."""
     new_historic = []
-    comparison_date = ""
+    comparison_date = datetime.fromisoformat(DEFAULT_ISO_STR)
     for entry in historic:
         if entry.modified_date > comparison_date:
             comparison_date = entry.modified_date
         else:
-            fixed_date = datetime.fromisoformat(comparison_date) + timedelta(
-                seconds=1
-            )
-            comparison_date = fixed_date.astimezone(
-                tz=timezone.utc
-            ).isoformat()
+            comparison_date += timedelta(seconds=1)
         new_historic.append(entry._replace(modified_date=comparison_date))
+
     return tuple(new_historic)
 
 

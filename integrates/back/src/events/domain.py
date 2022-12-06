@@ -216,11 +216,11 @@ async def add_event(
         raise InvalidDate()
 
     group: Group = await loaders.group.load(group_name)
-    created_date = datetime_utils.get_iso_date()
+    created_date = datetime_utils.get_utc_now()
     event = Event(
         client=group.organization_id,
         created_by=hacker_email,
-        created_date=created_date,
+        created_date=datetime_utils.get_as_utc_iso_format(created_date),
         description=kwargs["detail"],
         event_date=datetime_utils.get_as_utc_iso_format(event_date),
         evidences=EventEvidences(),
@@ -230,7 +230,7 @@ async def add_event(
         root_id=root_id,
         state=EventState(
             modified_by=hacker_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(event_date),
+            modified_date=event_date,
             status=EventStateStatus.OPEN,
         ),
         type=EventType[kwargs["event_type"]],
@@ -295,14 +295,14 @@ async def get_evidence_link(
 
 
 async def get_solving_state(
-    loaders: Any, event_id: str
+    loaders: Dataloaders, event_id: str
 ) -> Optional[EventState]:
     historic_states: tuple[
         EventState, ...
     ] = await loaders.event_historic_state.load(event_id)
     for state in sorted(
         historic_states,
-        key=lambda state: datetime.fromisoformat(state.modified_date),
+        key=lambda state: state.modified_date,
     ):
         if state.status == EventStateStatus.SOLVED:
             return state
@@ -311,10 +311,14 @@ async def get_solving_state(
 
 
 async def get_solving_date(loaders: Any, event_id: str) -> Optional[str]:
-    """Returns the date of the last closing state"""
+    """Returns the date of the last closing state."""
     last_closing_state = await get_solving_state(loaders, event_id)
 
-    return last_closing_state.modified_date if last_closing_state else None
+    return (
+        datetime_utils.get_as_utc_iso_format(last_closing_state.modified_date)
+        if last_closing_state
+        else None
+    )
 
 
 async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
@@ -429,7 +433,7 @@ async def solve_event(  # pylint: disable=too-many-locals
         group_name=group_name,
         state=EventState(
             modified_by=hacker_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             other=other_reason,
             reason=reason,
             status=EventStateStatus.SOLVED,
@@ -492,7 +496,7 @@ async def reject_solution(
         group_name=event.group_name,
         state=EventState(
             modified_by=stakeholder_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             comment_id=comment_id,
             status=EventStateStatus.CREATED,
         ),
@@ -534,7 +538,7 @@ async def request_verification(
         group_name=event.group_name,
         state=EventState(
             modified_by=stakeholder_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             comment_id=comment_id,
             status=EventStateStatus.VERIFICATION_REQUESTED,
         ),
@@ -595,7 +599,7 @@ async def update_event(
             group_name=event.group_name,
             state=EventState(
                 modified_by=stakeholder_email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 other=other_solving_reason,
                 reason=solving_reason,
                 status=event.state.status,
@@ -672,7 +676,7 @@ async def update_solving_reason(
         group_name=group_name,
         state=EventState(
             modified_by=stakeholder_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             other=other_reason,
             reason=reason,
             status=event.state.status,
