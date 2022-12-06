@@ -280,14 +280,14 @@
       "management:type" = "product";
     };
   };
-  integrates_comments_digest = {
+  integrates_comments_digest_notification = {
     enabled = true;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
-      "schedulers.comments_digest.main"
+      "schedulers.comments_digest_notification.main"
     ];
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
@@ -303,7 +303,7 @@
     ];
 
     tags = {
-      "Name" = "integrates_comments_digest";
+      "Name" = "integrates_comments_digest_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
