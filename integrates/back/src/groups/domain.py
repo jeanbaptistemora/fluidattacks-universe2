@@ -58,6 +58,7 @@ from db_model import (
     groups as groups_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
+    toe_ports as toe_ports_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
@@ -1347,6 +1348,7 @@ async def remove_resources(
     )
     await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
     await toe_lines_model.remove_group_toe_lines(group_name=group_name)
+    await toe_ports_model.remove_group_toe_ports(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
     await groups_model.remove(group_name=group_name)
 
