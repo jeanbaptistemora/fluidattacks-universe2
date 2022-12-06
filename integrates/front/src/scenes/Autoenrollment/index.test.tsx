@@ -69,6 +69,43 @@ describe("Autoenrollment", (): void => {
     mockedFetch.reset();
   });
 
+  it("should render company already in trial", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
+      request: {
+        query: GET_STAKEHOLDER_GROUPS,
+      },
+      result: {
+        data: {
+          me: {
+            company: { trial: { startDate: "2022-12-06T07:40:16.114232" } },
+            organizations: [],
+            userEmail: "jdoe@fluidattacks.com",
+          },
+        },
+      },
+    };
+
+    const mockedFetch = fetch as FetchMockStatic & typeof fetch;
+    mockedFetch.mock(EMAIL_DOMAINS_URL, { status: 200, text: "" });
+    mockedFetch.mock(COUNTRIES_URL, { body: "[]", status: 200 });
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <MockedProvider cache={getCache()} mocks={[groupsMock]}>
+          <Autoenrollment />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await expect(
+      screen.findByText("autoenrollment.companyAlreadyInTrial")
+    ).resolves.toBeInTheDocument();
+
+    mockedFetch.reset();
+  });
+
   it("should validate with HTTPS access token", async (): Promise<void> => {
     expect.hasAssertions();
 
