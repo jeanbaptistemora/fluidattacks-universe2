@@ -139,12 +139,12 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[RawCommitStamp]:
         return factory.success(row)
     except KeyError as err:
         return factory.failure(
-            Exception(f"Failed `CommitTableRow` decode i.e. {err}")
+            Exception(f"Failed `RawCommitStamp` decode i.e. {err}")
         )
     except UnwrapError as err:
         error = cast(UnwrapError[PrimitiveVal, Exception], err)
         return factory.failure(error.container.unwrap_fail()).alt(
-            lambda e: Exception(f"Failed `CommitTableRow` decode i.e. {e}")
+            lambda e: Exception(f"Failed `RawCommitStamp` decode i.e. {e}")
         )
 
 

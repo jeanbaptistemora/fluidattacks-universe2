@@ -27,6 +27,9 @@ from fa_purity import (
     ResultE,
     Stream,
 )
+from fa_purity.frozen import (
+    freeze,
+)
 from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
@@ -43,10 +46,12 @@ from redshift_client.id_objs import (
     TableId,
 )
 from redshift_client.sql_client import (
+    Query,
     QueryValues,
     SqlClient,
 )
 from typing import (
+    Dict,
     Optional,
 )
 
@@ -74,7 +79,7 @@ def _delta_fields(old: RawCommitStamp, new: RawCommitStamp) -> FrozenList[str]:
 
 @dataclass(frozen=True)
 class RawClient:
-    # exposes utilities from and to DB using raw objs i.e. CommitTableRow
+    # exposes utilities from and to DB using raw objs i.e. RawCommitStamp
     _sql_client: SqlClient
     _table: TableId
 
@@ -171,3 +176,40 @@ class RawClient:
                 )
             )
         return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
+
+    def init_table_2_query(self) -> Cmd[None]:
+        statement = """
+            CREATE TABLE IF NOT EXISTS {schema}.{table} (
+                author_email VARCHAR(256),
+                author_name VARCHAR(256),
+                authored_at TIMESTAMPTZ,
+                committer_email VARCHAR(256),
+                committer_name VARCHAR(256),
+                committed_at TIMESTAMPTZ,
+                hash CHAR(40),
+                fa_hash CHAR(64),
+                message VARCHAR(4096),
+                summary VARCHAR(256),
+                total_insertions INTEGER,
+                total_deletions INTEGER,
+                total_lines INTEGER,
+                total_files INTEGER,
+
+                namespace VARCHAR(64),
+                repository VARCHAR(4096),
+                seen_at TIMESTAMPTZ,
+
+                PRIMARY KEY (
+                    namespace,
+                    repository,
+                    hash
+                )
+            ) SORTKEY (namespace, repository)
+            """
+        identifiers: Dict[str, str] = {
+            "schema": self._table.schema.name,
+            "table": self._table.name,
+        }
+        return self._sql_client.execute(
+            Query.dynamic_query(statement, freeze(identifiers)), None
+        )
