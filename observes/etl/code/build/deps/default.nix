@@ -11,6 +11,7 @@
   override_1 = python_pkgs:
     python_pkgs
     // {
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       import-linter = import ./import-linter {
         inherit lib python_pkgs;

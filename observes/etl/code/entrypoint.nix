@@ -9,6 +9,17 @@
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
 
+  arch-lint = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/arch_lint";
+      rev = "753e5bd2ed248adc92951611b09780dcedb4e0b6";
+      ref = "refs/tags/v1.0.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
+
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
@@ -45,7 +56,7 @@
         };
     };
 
-  local_pkgs = {inherit fa-purity redshift-client utils-logger;};
+  local_pkgs = {inherit arch-lint fa-purity redshift-client utils-logger;};
   out = import ./. {
     inherit python_version;
     nixpkgs = nixpkgs // local_pkgs;

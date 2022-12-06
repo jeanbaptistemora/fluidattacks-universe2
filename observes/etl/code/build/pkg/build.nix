@@ -10,13 +10,11 @@ lib.buildPythonPackage rec {
   pname = metadata.name;
   version = metadata.version;
   format = "pyproject";
-  arch_check = ./check/arch.sh;
   type_check = ./check/types.sh;
   test_check = ./check/tests.sh;
   checkPhase = [
     ''
-      source ${arch_check} \
-      && source ${type_check} \
+      source ${type_check} \
       && source ${test_check}
     ''
   ];

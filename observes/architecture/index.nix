@@ -53,7 +53,7 @@ in {
   etl = {
     dynamo = standard_3 "${etlsPath}/dynamo_etl_conf";
     code =
-      (standard_2 "${etlsPath}/code")
+      (standard_3 "${etlsPath}/code")
       // {
         src = "${etlsPath}/code/code_etl";
       };
