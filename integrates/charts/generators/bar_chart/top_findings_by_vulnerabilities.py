@@ -120,6 +120,7 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
                 ],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
                     rotate=0,
                 ),
