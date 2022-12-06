@@ -189,7 +189,7 @@ async def add_comment(
 
 
 async def add_event(
-    loaders: Any,
+    loaders: Dataloaders,
     hacker_email: str,
     group_name: str,
     file: Optional[UploadFile] = None,
@@ -273,7 +273,9 @@ async def add_event(
     return event.id
 
 
-async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
+async def get_unsolved_events(
+    loaders: Dataloaders, group_name: str
+) -> list[Event]:
     events: tuple[Event, ...] = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
@@ -286,7 +288,7 @@ async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
 
 
 async def get_evidence_link(
-    loaders: Any, event_id: str, file_name: str
+    loaders: Dataloaders, event_id: str, file_name: str
 ) -> str:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
@@ -310,18 +312,18 @@ async def get_solving_state(
     return None
 
 
-async def get_solving_date(loaders: Any, event_id: str) -> Optional[str]:
+async def get_solving_date(
+    loaders: Dataloaders, event_id: str
+) -> Optional[datetime]:
     """Returns the date of the last closing state."""
     last_closing_state = await get_solving_state(loaders, event_id)
 
-    return (
-        datetime_utils.get_as_utc_iso_format(last_closing_state.modified_date)
-        if last_closing_state
-        else None
-    )
+    return last_closing_state.modified_date if last_closing_state else None
 
 
-async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
+async def has_access_to_event(
+    loaders: Dataloaders, email: str, event_id: str
+) -> bool:
     """Verify if the user has access to a event submission."""
     event: Event = await loaders.event.load(event_id)
     return await authz.has_access_to_group(loaders, email, event.group_name)
@@ -340,7 +342,7 @@ async def remove_event(event_id: str, group_name: str) -> None:
 
 
 async def remove_evidence(
-    loaders: Any, evidence_id: EventEvidenceId, event_id: str
+    loaders: Dataloaders, evidence_id: EventEvidenceId, event_id: str
 ) -> None:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
@@ -608,7 +610,7 @@ async def update_event(
 
 
 async def update_evidence(
-    loaders: Any,
+    loaders: Dataloaders,
     event_id: str,
     evidence_id: EventEvidenceId,
     file: UploadFile,
@@ -717,7 +719,7 @@ async def validate_evidence(
 
 
 async def request_vulnerabilities_hold(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     event_id: str,
     user_info: dict[str, str],
@@ -776,7 +778,7 @@ async def request_vulnerabilities_hold(
 
 
 async def get_unsolved_events_by_root(
-    loaders: Any, group_name: str
+    loaders: Dataloaders, group_name: str
 ) -> dict[str, tuple[Event, ...]]:
     unsolved_events_by_root: DefaultDict[
         Optional[str], list[Event]

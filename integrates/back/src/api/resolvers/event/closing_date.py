@@ -5,7 +5,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.datetime import (
-    convert_from_iso_str,
+    get_as_str,
 )
 
 
@@ -16,7 +16,8 @@ async def resolve(
 ) -> str:
     solving_date = parent.unreliable_indicators.unreliable_solving_date
     if solving_date:
-        closing_date = convert_from_iso_str(solving_date)
+        closing_date = get_as_str(solving_date)
     else:
         closing_date = "-"
+
     return closing_date

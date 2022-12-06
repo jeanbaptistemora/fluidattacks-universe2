@@ -54,9 +54,6 @@ from newutils.validations import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Any,
-)
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -72,7 +69,7 @@ mail_free_trial_start = retry_on_exceptions(
 
 
 async def exists(
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
 ) -> bool:
     try:
@@ -84,7 +81,7 @@ async def exists(
 
 async def add_enrollment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     full_name: str,
 ) -> None:
@@ -139,7 +136,7 @@ async def add_enrollment(
 
 
 async def update_metadata(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     metadata: EnrollmentMetadataToUpdate,
 ) -> None:

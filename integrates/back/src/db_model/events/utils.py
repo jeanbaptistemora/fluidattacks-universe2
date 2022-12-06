@@ -188,5 +188,9 @@ def format_unreliable_indicators(
     item: Item,
 ) -> EventUnreliableIndicators:
     return EventUnreliableIndicators(
-        unreliable_solving_date=item.get("unreliable_solving_date"),
+        unreliable_solving_date=datetime.fromisoformat(
+            item["unreliable_solving_date"]
+        )
+        if item.get("unreliable_solving_date")
+        else None,
     )
