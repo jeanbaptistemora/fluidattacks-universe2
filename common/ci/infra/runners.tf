@@ -83,28 +83,29 @@ module "runners" {
   }
 
   # Workers
-  docker_machine_options        = each.value.docker_machine_options
-  docker_machine_spot_price_bid = ""
-  docker_machine_instance_type  = each.value.instance
-  runners_gitlab_url            = "https://gitlab.com"
-  runners_executor              = "docker+machine"
-  runners_root_size             = each.value.root_size
-  runners_concurrent            = 1000
-  runners_ebs_optimized         = true
-  runners_idle_count            = 3
-  runners_idle_time             = 1800
-  runners_image                 = "docker"
-  runners_limit                 = 1000
-  runners_max_builds            = 30
-  runners_monitoring            = false
-  runners_name                  = "common-ci-${each.key}"
-  runners_output_limit          = 4096
-  runners_privileged            = false
-  runners_pull_policy           = "always"
-  runners_request_concurrency   = 10
-  runners_request_spot_instance = true
-  runners_use_private_address   = false
-  subnet_id_runners             = data.aws_subnet.main.id
+  enable_docker_machine_ssm_access = true
+  docker_machine_options           = each.value.docker_machine_options
+  docker_machine_spot_price_bid    = ""
+  docker_machine_instance_type     = each.value.instance
+  runners_gitlab_url               = "https://gitlab.com"
+  runners_executor                 = "docker+machine"
+  runners_root_size                = each.value.root_size
+  runners_concurrent               = 1000
+  runners_ebs_optimized            = true
+  runners_idle_count               = 3
+  runners_idle_time                = 1800
+  runners_image                    = "docker"
+  runners_limit                    = 1000
+  runners_max_builds               = 30
+  runners_monitoring               = false
+  runners_name                     = "common-ci-${each.key}"
+  runners_output_limit             = 4096
+  runners_privileged               = false
+  runners_pull_policy              = "always"
+  runners_request_concurrency      = 10
+  runners_request_spot_instance    = true
+  runners_use_private_address      = false
+  subnet_id_runners                = data.aws_subnet.main.id
   runners_machine_autoscaling = [
     {
       periods = [

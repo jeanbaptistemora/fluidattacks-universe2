@@ -1,6 +1,30 @@
 # Schedule expressions:
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 {
+  common_ci_clean_keys = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/common/ci/clean-keys"
+    ];
+
+    schedule_expression = "cron(0 10 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_common";
+    attempts = 1;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = ["CACHIX_AUTH_TOKEN"];
+
+    tags = {
+      "Name" = "common_ci_clean_keys";
+      "management:area" = "cost";
+      "management:product" = "common";
+      "management:type" = "product";
+    };
+  };
   forces_process_groups_break = {
     enabled = true;
     command = [
