@@ -21,6 +21,7 @@ function main {
   local used_keys
 
   : \
+    && aws_login "prod_common" "3600" \
     && keys=$(_get_keys) \
     && used_keys=$(_get_used_keys) \
     && while read -r key; do
