@@ -196,3 +196,14 @@ and remediation costs would be higher than in development phases.
 </div>
 
 </faq-container>
+
+<div>
+<solution-cta
+  paragraph="We are offering organizations a comprehensive solution
+    to find their systems' vulnerabilities throughout the SDLC
+    with very low rates of false positives and false negatives.
+    Don't miss out on the benefits, and ask us about our 21-day
+    free trial for a taste of our Security Testing solution."
+  title="Get started with Fluid Attacks' Security Testing right now"
+/>
+</div>

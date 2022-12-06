@@ -20,7 +20,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, headtitle, identifier, image, keywords, slug, title } =
+  const { description, headtitle, image, keywords, slug, title } =
     data.markdownRemark.frontmatter;
   const { htmlAst } = data.markdownRemark;
 
@@ -57,7 +57,6 @@ const SolutionIndex: React.FC<IQueryData> = ({
             <SolutionPage
               description={description}
               htmlAst={htmlAst}
-              identifier={identifier}
               image={image}
               title={title}
             />

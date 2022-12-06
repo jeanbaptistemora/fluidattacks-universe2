@@ -127,3 +127,17 @@ so that they can withstand attacks by malicious hackers.
 </div>
 
 </faq-container>
+
+<div>
+<solution-cta
+  paragraph="Organizations who test their IT systems' security constantly
+    through realistic attacks are aware of their preparedness
+    to face the ever-evolving threat landscape.
+    Don't miss out on the benefits, and ask us about our Breach and
+    Attack Simulation solution. If first you'd like a taste of
+    our automated security testing, check out the 21-day
+    free trial and upgrade to include Breach
+    and Attack Simulation at any time."
+  title="Get started with Fluid Attacks' BAS solution right now"
+/>
+</div>

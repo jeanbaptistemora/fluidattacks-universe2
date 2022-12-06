@@ -142,3 +142,16 @@ before moving into production.
 </div>
 
 </faq-container>
+
+<div>
+<solution-cta
+  paragraph="As cyberattacks keep multiplying, organizations
+    that continuously test their systems, predicting the moves
+    of threat actors, have a better chance of succeeding against them.
+    Don't miss out on the benefits, and ask us about our
+    Penetration Testing solution. If first you'd like a taste
+    of our automated security testing, check out the 21-day free trial
+    and upgrade to include Penetration Testing at any time."
+  title="Get started with Fluid Attacks' Penetration Testing right now"
+/>
+</div>

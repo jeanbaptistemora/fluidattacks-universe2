@@ -269,3 +269,13 @@ in our [dedicated blog post](../../blog/devsecops-tools/).
 </div>
 
 </faq-container>
+
+<div>
+<solution-cta
+  paragraph="This culture is gaining strength as an increasing
+    number of organizations are building more secure software day by day.
+    Don't miss out on the benefits, and ask us about our 21-day free trial
+    for a taste of our DevSecOps solution"
+  title="Get started with Fluid Attacks' DevSecOps right now"
+/>
+</div>

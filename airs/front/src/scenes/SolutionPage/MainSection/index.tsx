@@ -9,6 +9,7 @@ import { GridContainer } from "./components/GridContainer";
 import { Header2 } from "./components/Header2";
 import { Paragraph } from "./components/Paragraph";
 import { SolutionCard } from "./components/SolutionCard";
+import { SolutionCtaBanner } from "./components/SolutionCtaBanner";
 import { SolutionFaq } from "./components/SolutionFaq";
 import { SolutionSlideShow } from "./components/SolutionSlideShow";
 import { TextContainer } from "./components/TextContainer";
@@ -27,6 +28,7 @@ const MainSection: React.FC<IMainProps> = ({ htmlAst }): JSX.Element => {
       h2: Header2,
       p: Paragraph,
       "solution-card": SolutionCard,
+      "solution-cta": SolutionCtaBanner,
       "solution-faq": SolutionFaq,
       "solution-slide": SolutionSlideShow,
       "text-container": TextContainer,

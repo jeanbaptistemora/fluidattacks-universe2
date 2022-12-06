@@ -129,3 +129,16 @@ employees and security staff do not know this.
 </div>
 
 </faq-container>
+
+<div>
+<solution-cta
+  paragraph="Organizations who test the effectiveness of their prevention,
+    detection and response strategies constantly through realistic attacks
+    are one step ahead of adversarial threat actors.
+    Don't miss out on the benefits, and ask us about our Red Teaming solution.
+    If first you'd like a taste of our automated security testing,
+    check out the 21-day free trial and upgrade
+    to include Red Teaming at any time."
+  title="Get started with Fluid Attacks' Red Teaming right now"
+/>
+</div>
