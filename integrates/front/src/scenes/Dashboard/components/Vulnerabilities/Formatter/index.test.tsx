@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
+import { vulnerabilityFormatter } from "./vulnerabilityFormat";
+
 import { statusFormatter } from ".";
 import { Table } from "components/Table";
 
@@ -43,6 +45,11 @@ describe("Formatter", (): void => {
 
   interface IRandomData {
     currentState: string;
+    where?: string;
+    specific?: string;
+    verification?: string;
+    vulnerabilityType?: string;
+    treatment?: string;
   }
 
   const columns: ColumnDef<IRandomData>[] = [
@@ -404,5 +411,131 @@ describe("Formatter", (): void => {
     );
 
     jest.clearAllMocks();
+  });
+
+  it("should have vulnerability format", (): void => {
+    expect.hasAssertions();
+
+    const vulnColumns: ColumnDef<IRandomData>[] = [
+      {
+        accessorKey: "where",
+        cell: (cell): JSX.Element =>
+          vulnerabilityFormatter({
+            reattack: cell.row.original.verification,
+            source: cell.row.original.vulnerabilityType,
+            specific: cell.row.original.specific as string,
+            status: cell.row.original.currentState,
+            treatment: cell.row.original.treatment,
+            where: cell.getValue(),
+          }),
+        header: "Vulnerability",
+      },
+    ];
+
+    const vulnData: IRandomData[] = [
+      {
+        currentState: "closed",
+        specific: "here",
+        treatment: "New",
+        verification: "Requested",
+        vulnerabilityType: "Infra",
+        where: "testing",
+      },
+      {
+        currentState: "open",
+        specific: "here",
+        verification: "Masked",
+        vulnerabilityType: "Code",
+        where: "testing2",
+      },
+      {
+        currentState: "closed",
+        specific: "here",
+        treatment: "In progress",
+        vulnerabilityType: "App",
+        where: "testing3",
+      },
+      {
+        currentState: "open",
+        specific: "here",
+        vulnerabilityType: "App",
+        where: "testing4",
+      },
+    ];
+
+    render(
+      <Table
+        columns={vulnColumns}
+        data={vulnData}
+        enableColumnFilters={true}
+        id={"testTable"}
+      />
+    );
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByText("testing|here")).toBeInTheDocument();
+
+    expect(screen.getAllByText("Vulnerable")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Vulnerable")[0]).toHaveStyle(
+      `background-color: ${variants.red.bgColor};
+      border: 1px solid ${variants.red.borderColor};
+      color: ${variants.red.color};`
+    );
+
+    expect(screen.getAllByText("Safe")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Safe")[0]).toHaveStyle(
+      `background-color: ${variants.green.bgColor};
+      border: 1px solid ${variants.green.borderColor};
+      color: ${variants.green.color};`
+    );
+
+    expect(screen.getByText("Infra")).toBeInTheDocument();
+    expect(screen.getByText("Infra")).toHaveStyle(
+      `background-color: ${variants.blue.bgColor};
+      border: 1px solid ${variants.blue.borderColor};
+      color: ${variants.blue.color};`
+    );
+
+    expect(screen.getByText("Code")).toBeInTheDocument();
+    expect(screen.getByText("Code")).toHaveStyle(
+      `background-color: ${variants.blue.bgColor};
+      border: 1px solid ${variants.blue.borderColor};
+      color: ${variants.blue.color};`
+    );
+
+    expect(screen.getAllByText("App")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("App")[0]).toHaveStyle(
+      `background-color: ${variants.blue.bgColor};
+      border: 1px solid ${variants.blue.borderColor};
+      color: ${variants.blue.color};`
+    );
+
+    expect(screen.getByText("Requested")).toBeInTheDocument();
+    expect(screen.getByText("Requested")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.getByText("New")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("In progress")).toBeInTheDocument();
+    expect(screen.getByText("In progress")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("Masked")).toBeInTheDocument();
+    expect(screen.getByText("Masked")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
   });
 });
