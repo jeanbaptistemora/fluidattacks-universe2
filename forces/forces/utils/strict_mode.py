@@ -8,6 +8,7 @@ from decimal import (
 from forces.model import (
     Finding,
     ForcesConfig,
+    Vulnerability,
     VulnerabilityState,
 )
 from forces.utils.logs import (
@@ -27,6 +28,23 @@ def choose_min_breaking_severity(
         Decimal(str(local_brk_severity))
         if local_brk_severity is not None
         else global_severity
+    )
+
+
+def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
+    """
+    Returns `False` if the vulnerability does not comply with the Agent strict
+    mode org policies (severity threshold and the grace period)
+    """
+    current_date: datetime = datetime.utcnow() - timedelta(hours=5)
+    report_date: datetime = datetime.strptime(
+        vuln.report_date, "%Y-%m-%d %H:%M:%S"
+    )
+    time_diff: timedelta = current_date - report_date
+    return not (
+        vuln.state == VulnerabilityState.OPEN
+        and vuln.severity >= config.breaking_severity
+        and abs(time_diff.days) >= config.grace_period
     )
 
 
@@ -64,9 +82,9 @@ async def set_forces_exit_code(
                     await log(
                         "warning",
                         (
-                            "Found an open vulnerability with a severity of "
-                            f"{vuln.severity} reported {abs(time_diff.days)} "
-                            "day(s) ago"
+                            f"In finding {finding.title}: Found an open "
+                            f"vulnerability with a severity of {vuln.severity}"
+                            f" reported {abs(time_diff.days)} day(s) ago"
                         ),
                     )
                     return 1
