@@ -161,6 +161,15 @@ locals {
           ]
         },
         {
+          Sid    = "redshiftSavedQueries"
+          Effect = "Allow"
+          Action = [
+            "redshift:CreateSavedQuery",
+            "redshift:ModifySavedQuery",
+            "redshift:DeleteSavedQueries",
+          ]
+        },
+        {
           Sid    = "redshiftExecuteSqlOnConsole"
           Effect = "Allow"
           Action = [
