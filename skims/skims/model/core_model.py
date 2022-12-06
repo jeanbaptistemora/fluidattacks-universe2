@@ -1464,6 +1464,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_REMOTE_COMMAND_EXECUTION = MethodInfo(
+        file_name="typescript",
+        name="typescript_remote_command_execution",
+        module="lib_root",
+        finding=FindingEnum.F004,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
         file_name="java",
         name="csrf_protections_disabled",
