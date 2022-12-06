@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cpsa
 alt: Logo CRT
 certification: yes
-certificationid: 31
+certificationid: 32
 ---
 
 [CRT](https://www.crest-approved.org/certification-careers/crest-certifications/crest-registered-penetration-tester/)

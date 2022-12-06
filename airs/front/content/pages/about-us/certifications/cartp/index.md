@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cartp
 alt: Logo CARTP
 certification: yes
-certificationid: 21
+certificationid: 22
 ---
 
 [CARTP](https://www.credential.net/group/283019)

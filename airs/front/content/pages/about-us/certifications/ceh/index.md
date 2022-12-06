@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ceh-1
 alt: Logo CEH
 certification: yes
-certificationid: 25
+certificationid: 26
 ---
 
 [CEH](https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/)
