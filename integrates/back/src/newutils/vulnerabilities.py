@@ -816,7 +816,7 @@ def format_vulnerability_zero_risk_item(
 
 def ignore_advisories(where: Optional[str]) -> str:
     if where is not None:
-        where = re.sub(r"(\s*\(.*\))?(\s*\[.*\])?", "", where)
+        where = re.sub(r"(\s+\(.*\))?(\s+\[.*\])?", "", where)
     return str(where)
 
 
