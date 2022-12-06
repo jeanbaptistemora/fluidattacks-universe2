@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from custom_exceptions import (
     UnableToSendMail,
 )
@@ -5,14 +8,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model import (
-    stakeholders as stakeholders_model,
-)
-from db_model.enrollment.types import (
-    Enrollment,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
+from db_model.companies.types import (
+    Company,
 )
 from decorators import (
     retry_on_exceptions,
@@ -25,6 +22,12 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    Optional,
 )
 
 # Constants
@@ -40,25 +43,24 @@ mail_upgrade_squad_notification = retry_on_exceptions(
 
 async def send_upgrade_squad_notification() -> None:
     loaders: Dataloaders = get_new_context()
+    groups = await orgs_domain.get_all_active_groups(loaders)
+    domains = tuple(group.created_by.split("@")[1] for group in groups)
+    companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
+        domains
+    )
 
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await stakeholders_model.get_all_stakeholders()
-
-    for stakeholder in stakeholders:
-        enrollment: Enrollment = await loaders.enrollment.load(
-            stakeholder.email
+    await collect(
+        tuple(
+            mail_upgrade_squad_notification(loaders, group.created_by)
+            for group, company in zip(groups, companies)
+            if (
+                company
+                and company.trial.start_date
+                and datetime_utils.get_days_since(company.trial.start_date)
+                == TRIAL_DAYS
+            )
         )
-        if (
-            enrollment.enrolled
-            and enrollment.trial.start_date
-            and (
-                datetime_utils.get_utc_now().date()
-                - enrollment.trial.start_date.date()
-            ).days
-            == TRIAL_DAYS
-        ):
-            await mail_upgrade_squad_notification(loaders, stakeholder.email)
+    )
 
 
 async def main() -> None:

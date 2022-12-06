@@ -223,3 +223,7 @@ def convert_from_iso_str(iso8601utc_str: str) -> str:
 
 def get_first_day_next_month(date: datetime) -> datetime:
     return date.replace(day=1) + relativedelta(months=+1)
+
+
+def get_days_since(date: datetime) -> int:
+    return (get_utc_now() - date).days

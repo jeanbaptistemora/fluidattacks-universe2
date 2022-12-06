@@ -11,13 +11,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.companies.types import (
     Company,
     CompanyMetadataToUpdate,
-    Trial,
 )
 from db_model.groups.enums import (
     GroupManaged,
@@ -32,9 +28,6 @@ import logging
 from mailer import (
     groups as groups_mail,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -48,7 +41,6 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-FREE_TRIAL_DAYS = 21
 LOGGER = logging.getLogger(__name__)
 
 
@@ -90,28 +82,6 @@ async def _expire(
         )
 
 
-def _get_days_since(date: datetime) -> int:
-    return (datetime_utils.get_utc_now() - date).days
-
-
-def _get_remaining_days(trial: Trial) -> int:
-    days: int = 0
-    if trial.extension_date:
-        days = trial.extension_days - _get_days_since(trial.extension_date)
-    elif trial.start_date:
-        days = FREE_TRIAL_DAYS - _get_days_since(trial.start_date)
-
-    return max(0, days)
-
-
-def _has_expired(trial: Trial) -> bool:
-    return (
-        not trial.completed
-        and trial.start_date is not None
-        and _get_remaining_days(trial) == 0
-    )
-
-
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
@@ -124,6 +94,6 @@ async def main() -> None:
         tuple(
             _expire(loaders, group, company)
             for group, company in zip(groups, companies)
-            if company and _has_expired(company.trial)
+            if company and companies_domain.has_expired(company.trial)
         )
     )
