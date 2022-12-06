@@ -15,3 +15,23 @@ large:
   cpu: 8
   memory: 15200
   queue: large
+observes_nano:
+  cpu: 1
+  memory: 1900
+  queue: observes_small
+observes_clone:
+  cpu: 2
+  memory: 3800
+  queue: observes_clone
+observes_small:
+  cpu: 2
+  memory: 3800
+  queue: observes_small
+observes_medium:
+  cpu: 4
+  memory: 7600
+  queue: observes_medium
+observes_large_no_spot:
+  cpu: 8
+  memory: 15200
+  queue: observes_large_no_spot

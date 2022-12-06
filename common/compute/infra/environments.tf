@@ -25,7 +25,6 @@ locals {
     observes = {
       product = "observes"
       subnets = [
-        data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
       ]
       type = "SPOT"
@@ -47,6 +46,15 @@ locals {
     clone = merge(
       local.machine_sizes.small,
       local.config.common,
+      {
+        subnets = [
+          data.aws_subnet.batch_clone.id,
+        ]
+      }
+    )
+    observes_clone = merge(
+      local.machine_sizes.small,
+      local.config.observes,
       {
         subnets = [
           data.aws_subnet.batch_clone.id,

@@ -5,9 +5,9 @@
   "description": "Compute module architecture sizes",
   "type": "object",
   "additionalProperties": false,
-  "propertyNames": { "pattern": "^[a-z]+$" },
+  "propertyNames": { "pattern": "^[a-z_]+$" },
   "patternProperties": {
-    "^[a-z]+$": {
+    "^[a-z_]+$": {
       "type": "object",
       "additionalProperties": false,
       "required": [ "cpu", "memory", "queue" ],
@@ -16,7 +16,7 @@
         "memory": { "type": "integer" },
         "queue": {
           "type": "string",
-          "pattern": "^[a-z]+$"
+          "pattern": "^[a-z_]+$"
         }
       }
     }

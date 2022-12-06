@@ -1480,7 +1480,7 @@
     ];
 
     schedule_expression = "cron(0 12-23/2 ? * 2-6 *)";
-    size = "medium";
+    size = "observes_medium";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 2 * 3600;
@@ -1507,7 +1507,7 @@
     ];
 
     schedule_expression = "cron(0 2,17 * * ? *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 2;
     timeout = 4 * 3600;
@@ -1534,7 +1534,7 @@
     ];
 
     schedule_expression = "cron(0 12-23/3 ? * 2-6 *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 3 * 3600;
@@ -1560,7 +1560,7 @@
     ];
 
     schedule_expression = "cron(0 11 ? * 1-5 *)";
-    size = "medium";
+    size = "observes_medium";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 3 * 3600;
@@ -1587,7 +1587,7 @@
     ];
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 2;
     timeout = 5 * 3600;
@@ -1614,7 +1614,7 @@
     ];
 
     schedule_expression = "cron(0 11 * * ? *)";
-    size = "small";
+    size = "observes_small";
     awsRole = "prod_observes";
     attempts = 2;
     timeout = 24 * 3600;
@@ -1640,7 +1640,7 @@
     ];
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 2;
     timeout = 5 * 3600;
@@ -1666,7 +1666,7 @@
     ];
 
     schedule_expression = "cron(0 4 1 * ? *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 4;
     timeout = 5 * 3600;
@@ -1692,7 +1692,7 @@
     ];
 
     schedule_expression = "cron(0 12 ? * 2-6 *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 2;
     timeout = 24 * 3600;
@@ -1718,7 +1718,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 1 * 3600;
@@ -1744,7 +1744,7 @@
     ];
 
     schedule_expression = "cron(0 * * * ? *)";
-    size = "nano";
+    size = "observes_nano";
     awsRole = "prod_observes";
     attempts = 1;
     timeout = 1 * 3600;
