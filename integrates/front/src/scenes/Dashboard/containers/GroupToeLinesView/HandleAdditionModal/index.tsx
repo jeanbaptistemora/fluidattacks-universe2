@@ -61,13 +61,11 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
       },
       onError: (errors: ApolloError): void => {
         errors.graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Toe lines already exists":
-              msgError(t("group.toe.lines.addModal.alerts.alreadyExists"));
-              break;
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred adding toe input", error);
+          if (error.message === "Exception - Toe lines already exists") {
+            msgError(t("group.toe.lines.addModal.alerts.alreadyExists"));
+          } else {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred adding toe input", error);
           }
         });
       },

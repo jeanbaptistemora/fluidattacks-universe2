@@ -119,17 +119,18 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          switch (error.message) {
-            case "Exception - Provided payment method could not be created":
-              msgError(
-                t(
-                  "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
-                )
-              );
-              break;
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.error("Couldn't create payment method", error);
+          if (
+            error.message ===
+            "Exception - Provided payment method could not be created"
+          ) {
+            msgError(
+              t(
+                "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
+              )
+            );
+          } else {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't create payment method", error);
           }
         });
       },

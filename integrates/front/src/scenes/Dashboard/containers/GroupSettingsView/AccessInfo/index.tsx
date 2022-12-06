@@ -58,16 +58,14 @@ const AccessInfo: React.FC = (): JSX.Element => {
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Invalid markdown":
-            msgError(t("validations.invalidMarkdown"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred updating group access info",
-              updateError
-            );
+        if (message === "Exception - Invalid markdown") {
+          msgError(t("validations.invalidMarkdown"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred updating group access info",
+            updateError
+          );
         }
       });
     },
@@ -84,16 +82,14 @@ const AccessInfo: React.FC = (): JSX.Element => {
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Invalid markdown":
-            msgError(t("validations.invalidMarkdown"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred updating group access info",
-              updateError
-            );
+        if (message === "Exception - Invalid markdown") {
+          msgError(t("validations.invalidMarkdown"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred updating group access info",
+            updateError
+          );
         }
       });
     },

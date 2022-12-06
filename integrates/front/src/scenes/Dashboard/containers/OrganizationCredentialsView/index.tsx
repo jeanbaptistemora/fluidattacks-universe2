@@ -62,10 +62,9 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
       },
       onError: (errors: ApolloError): void => {
         errors.graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred adding credentials", error);
+          if (error.message) {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred adding credentials", error);
           }
         });
       },
