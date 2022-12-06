@@ -154,7 +154,10 @@ def format_rich_report(
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data", overflow="fold")
     for find in report.findings:
-        if find.vulnerabilities:
+        filtered_vulns = filter_vulnerabilities(
+            find.vulnerabilities, verbose_level
+        )
+        if filtered_vulns or verbose_level == 1:
             find_summary: Counter = Counter(
                 [vuln.state for vuln in find.vulnerabilities]
             )
@@ -176,18 +179,7 @@ def format_rich_report(
                     key = "exploit"
 
                 if key == "vulnerabilities" and verbose_level != 1:
-                    filtered_vulns: tuple[
-                        Vulnerability, ...
-                    ] = filter_vulnerabilities(value, verbose_level)
-                    vulns_data: Table | str = ""
-                    if filtered_vulns:
-                        vulns_data = format_vuln_table(filtered_vulns)
-                    elif verbose_level == 2:
-                        vulns_data = "None currently open"
-                    elif verbose_level == 3:
-                        vulns_data = "None currently open or closed"
-                    else:
-                        vulns_data = "None currently open, closed or accepted"
+                    vulns_data: Table = format_vuln_table(filtered_vulns)
                     report_table.add_row("vulns", vulns_data, end_section=True)
                 elif key != "vulnerabilities":
                     report_table.add_row(
