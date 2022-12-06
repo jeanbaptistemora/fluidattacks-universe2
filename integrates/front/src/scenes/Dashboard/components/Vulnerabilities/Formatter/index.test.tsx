@@ -473,7 +473,7 @@ describe("Formatter", (): void => {
     );
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByText("testing|here")).toBeInTheDocument();
+    expect(screen.getByText("testing | here")).toBeInTheDocument();
 
     expect(screen.getAllByText("Vulnerable")[0]).toBeInTheDocument();
     expect(screen.getAllByText("Vulnerable")[0]).toHaveStyle(

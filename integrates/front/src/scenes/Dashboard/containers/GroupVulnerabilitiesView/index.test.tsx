@@ -243,10 +243,6 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     expect(screen.getByText("Vulnerability")).toBeInTheDocument();
     expect(screen.getByText("Type")).toBeInTheDocument();
-    expect(screen.getByText("Status")).toBeInTheDocument();
-    expect(screen.getByText("Treatment")).toBeInTheDocument();
-    expect(screen.getByText("Reattack")).toBeInTheDocument();
-    expect(screen.getByText("Source")).toBeInTheDocument();
     expect(screen.getByText("Found")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Evidence")).toBeInTheDocument();
@@ -302,9 +298,9 @@ describe("GroupVulnerabilitiesView", (): void => {
     );
     await userEvent.click(screen.getByText("Filter"));
 
-    expect(screen.getAllByText("Status")[1]).toBeInTheDocument();
-    expect(screen.getAllByText("Treatment")[1]).toBeInTheDocument();
-    expect(screen.getAllByText("Reattack")[1]).toBeInTheDocument();
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("Treatment")).toBeInTheDocument();
+    expect(screen.getByText("Reattack")).toBeInTheDocument();
 
     await userEvent.click(screen.getAllByText("Status")[1]);
 

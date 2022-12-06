@@ -14,7 +14,6 @@ import {
   isPendingToAcceptance,
 } from "./utils";
 
-import { formatState, formatStatus } from "../GroupFindingsView/utils";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
@@ -24,6 +23,7 @@ import { Modal } from "components/Modal";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
+import { vulnerabilityFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/vulnerabilityFormat";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
@@ -38,7 +38,16 @@ import { translate } from "utils/translations/translate";
 
 const tableColumns: ColumnDef<IVulnRowAttr>[] = [
   {
-    accessorFn: (row): string => `${row.where} | ${row.specific}`,
+    accessorKey: "where",
+    cell: (cell): JSX.Element =>
+      vulnerabilityFormatter({
+        reattack: cell.row.original.verification as string,
+        source: cell.row.original.vulnerabilityType,
+        specific: cell.row.original.specific,
+        status: cell.row.original.currentState,
+        treatment: cell.row.original.treatment,
+        where: cell.getValue(),
+      }),
     enableColumnFilter: false,
     header: "Vulnerability",
   },
@@ -52,26 +61,6 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
     },
     enableColumnFilter: false,
     header: "Type",
-  },
-  {
-    accessorKey: "currentState",
-    cell: (cell): JSX.Element => formatState(cell.getValue()),
-    header: "Status",
-  },
-  {
-    accessorKey: "treatment",
-    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
-    header: "Treatment",
-  },
-  {
-    accessorKey: "verification",
-    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
-    header: "Reattack",
-  },
-  {
-    accessorKey: "vulnerabilityType",
-    cell: (cell): JSX.Element => formatStatus(cell.getValue()),
-    header: "Source",
   },
   {
     accessorKey: "reportDate",
