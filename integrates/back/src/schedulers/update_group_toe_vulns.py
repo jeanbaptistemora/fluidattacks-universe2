@@ -4,6 +4,7 @@ from aioextensions import (
 from custom_exceptions import (
     ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
+    ToePortAlreadyUpdated,
 )
 from dataloaders import (
     Dataloaders,
@@ -19,6 +20,10 @@ from db_model.toe_inputs.types import (
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
+)
+from db_model.toe_ports.types import (
+    GroupToePortsRequest,
+    ToePort,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -62,6 +67,12 @@ from toe.lines import (
 from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
+from toe.ports import (
+    domain as toe_ports_domain,
+)
+from toe.ports.types import (
+    ToePortAttributesToUpdate,
+)
 from typing import (
     Any,
 )
@@ -103,7 +114,7 @@ async def process_toe_inputs(
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    updations = []
+    updates = []
     inputs_types = {VulnerabilityType.INPUTS, VulnerabilityType.PORTS}
 
     for toe_input in group_toe_inputs:
@@ -125,7 +136,7 @@ async def process_toe_inputs(
         )
 
         if toe_input.has_vulnerabilities != has_vulnerabilities:
-            updations.append(
+            updates.append(
                 update_toe_input(
                     toe_input,
                     ToeInputAttributesToUpdate(
@@ -134,7 +145,7 @@ async def process_toe_inputs(
                 )
             )
 
-    await collect(tuple(updations))
+    await collect(tuple(updates))
 
 
 @retry_on_exceptions(
@@ -162,7 +173,7 @@ async def process_toe_lines(
         GroupToeLinesRequest(group_name=group_name)
     )
 
-    updations = []
+    updates = []
 
     for toe_line in group_toe_lines:
         has_vulnerabilities = (
@@ -176,7 +187,7 @@ async def process_toe_lines(
         )
 
         if toe_line.has_vulnerabilities != has_vulnerabilities:
-            updations.append(
+            updates.append(
                 update_toe_lines(
                     toe_line,
                     ToeLinesAttributesToUpdate(
@@ -185,7 +196,57 @@ async def process_toe_lines(
                 )
             )
 
-    await collect(tuple(updations))
+    await collect(tuple(updates))
+
+
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+)
+async def update_toe_port(
+    current_value: ToePort, attributes: ToePortAttributesToUpdate
+) -> None:
+    await toe_ports_domain.update(
+        current_value,
+        attributes,
+        is_moving_toe_port=True,
+    )
+
+
+@retry_on_exceptions(
+    exceptions=(ToePortAlreadyUpdated,),
+)
+async def process_toe_ports(
+    group_name: str, open_vulnerabilities: tuple[Vulnerability, ...]
+) -> None:
+    loaders = get_new_context()
+    group_toe_ports = await loaders.group_toe_ports.load_nodes(
+        GroupToePortsRequest(group_name=group_name)
+    )
+    updates = []
+
+    for toe_port in group_toe_ports:
+        has_vulnerabilities: bool = (
+            any(
+                vulnerability.root_id == toe_port.root_id
+                and vulnerability.state.specific == toe_port.port
+                for vulnerability in open_vulnerabilities
+                if vulnerability.type is VulnerabilityType.PORTS
+            )
+            if toe_port.be_present
+            else False
+        )
+
+        if toe_port.has_vulnerabilities != has_vulnerabilities:
+            updates.append(
+                update_toe_port(
+                    toe_port,
+                    ToePortAttributesToUpdate(
+                        has_vulnerabilities=has_vulnerabilities,
+                    ),
+                )
+            )
+
+    await collect(tuple(updates))
 
 
 async def get_open_vulnerabilities(
@@ -228,6 +289,7 @@ async def process_group(group_name: str) -> None:
                 group_name,
                 open_vulnerabilities,
             ),
+            process_toe_ports(group_name, open_vulnerabilities),
         )
     )
 
