@@ -10,6 +10,9 @@ from dataloaders import (
 from db_model.companies.types import (
     Company,
 )
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -52,12 +55,11 @@ async def send_upgrade_squad_notification() -> None:
         tuple(
             mail_upgrade_squad_notification(loaders, group.created_by)
             for group, company in zip(groups, companies)
-            if (
-                company
-                and company.trial.start_date
-                and datetime_utils.get_days_since(company.trial.start_date)
-                == TRIAL_DAYS
-            )
+            if group.state.managed == GroupManaged.TRIAL
+            and company
+            and company.trial.start_date
+            and datetime_utils.get_days_since(company.trial.start_date)
+            == TRIAL_DAYS
         )
     )
 

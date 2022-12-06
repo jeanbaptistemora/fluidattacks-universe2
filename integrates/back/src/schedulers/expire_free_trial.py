@@ -94,6 +94,8 @@ async def main() -> None:
         tuple(
             _expire(loaders, group, company)
             for group, company in zip(groups, companies)
-            if company and companies_domain.has_expired(company.trial)
+            if group.state.managed == GroupManaged.TRIAL
+            and company
+            and companies_domain.has_expired(company.trial)
         )
     )

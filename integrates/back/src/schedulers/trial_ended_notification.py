@@ -1,24 +1,20 @@
+from aioextensions import (
+    collect,
+)
 from custom_exceptions import (
     UnableToSendMail,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
-from db_model import (
-    stakeholders as stakeholders_model,
+from db_model.companies.types import (
+    Company,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
+from db_model.groups.enums import (
+    GroupManaged,
 )
 from decorators import (
     retry_on_exceptions,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 from mailchimp_transactional.api_client import (
     ApiClientError,
@@ -29,12 +25,18 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
 )
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    Optional,
+)
 
 # Constants
 TRIAL_DAYS = 22
 
 
-mail_analytics_notification = retry_on_exceptions(
+mail_trial_ended_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=4,
     sleep_seconds=2,
@@ -42,33 +44,26 @@ mail_analytics_notification = retry_on_exceptions(
 
 
 async def send_trial_ended_notification() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
+    groups = await orgs_domain.get_all_active_groups(loaders)
+    domains = tuple(group.created_by.split("@")[1] for group in groups)
+    companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
+        domains
+    )
 
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await stakeholders_model.get_all_stakeholders()
-
-    for stakeholder in stakeholders:
-        enrollment: Enrollment = await loaders.enrollment.load(
-            stakeholder.email
-        )
-
-        groups_name = await group_access_domain.get_stakeholder_groups_names(
-            loaders, stakeholder.email, True
-        )
-
-        if (
-            enrollment.enrolled
-            and enrollment.trial.start_date
-            and (
-                datetime_utils.get_utc_now().date()
-                - enrollment.trial.start_date.date()
-            ).days
-            == TRIAL_DAYS
-        ):
-            await mail_analytics_notification(
-                loaders, stakeholder.email, groups_name[0]
+    await collect(
+        tuple(
+            mail_trial_ended_notification(
+                loaders, group.created_by, group.name
             )
+            for group, company in zip(groups, companies)
+            if group.state.managed == GroupManaged.TRIAL
+            and company
+            and company.trial.start_date
+            and datetime_utils.get_days_since(company.trial.start_date)
+            == TRIAL_DAYS
+        )
+    )
 
 
 async def main() -> None:
