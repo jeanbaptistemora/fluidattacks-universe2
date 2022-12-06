@@ -72,7 +72,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     description="ARM unit test",
                     type=EventType.OTHER,
-                    event_date="2018-06-27T12:00:00+00:00",
+                    event_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     evidences=EventEvidences(
                         image_1=EventEvidence(
                             file_name=(

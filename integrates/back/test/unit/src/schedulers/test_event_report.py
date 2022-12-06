@@ -41,7 +41,7 @@ async def test_send_event_report() -> None:
         created_by="unittesting@fluidattacks.com",
         created_date=datetime_utils.get_utc_now(),
         description="Something happened.",
-        event_date="2022-09-10T00:00:00+00:00",
+        event_date=datetime.fromisoformat("2022-09-10T00:00:00+00:00"),
         evidences=EventEvidences(),
         group_name="unittesting",
         hacker="unittesting@fluidattacks.com",

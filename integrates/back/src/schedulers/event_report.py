@@ -7,7 +7,6 @@ from dataloaders import (
     get_new_context,
 )
 from datetime import (
-    date as date_type,
     datetime,
 )
 from db_model.events.types import (
@@ -67,21 +66,15 @@ async def send_event_report() -> None:
 
     if events_filtered:
         for event in events_filtered:
-            group_name = event.group_name
-            event_type = event.type
-            description = event.description
-            report_date: date_type = datetime_utils.get_date_from_iso_str(
-                event.event_date
-            )
             await events_mail.send_mail_event_report(
                 loaders=loaders,
-                group_name=group_name,
+                group_name=event.group_name,
                 event_id=event.id,
-                event_type=event_type,
-                description=description,
+                event_type=event.type,
+                description=event.description,
                 root_id=event.root_id,
                 reminder_notification=True,
-                report_date=report_date,
+                report_date=event.event_date.date(),
             )
     else:
         LOGGER.info("- event report NOT sent")

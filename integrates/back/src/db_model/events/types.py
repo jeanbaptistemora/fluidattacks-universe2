@@ -45,7 +45,7 @@ class Event(NamedTuple):
     created_by: str
     created_date: datetime
     description: str
-    event_date: str
+    event_date: datetime
     evidences: EventEvidences
     group_name: str
     hacker: str

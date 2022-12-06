@@ -117,7 +117,7 @@ def format_event(item: Item) -> Event:
         created_by=item["created_by"],
         created_date=datetime.fromisoformat(item["created_date"]),
         description=item["description"],
-        event_date=item["event_date"],
+        event_date=datetime.fromisoformat(item["event_date"]),
         evidences=format_evidences(item["evidences"]),
         group_name=item["group_name"],
         hacker=item["hacker"],
@@ -148,7 +148,7 @@ def format_event_item(event: Event) -> Item:
         "created_by": event.created_by,
         "created_date": get_as_utc_iso_format(event.created_date),
         "description": event.description,
-        "event_date": event.event_date,
+        "event_date": get_as_utc_iso_format(event.event_date),
         "evidences": json.loads(
             json.dumps(event.evidences, default=serialize)
         ),

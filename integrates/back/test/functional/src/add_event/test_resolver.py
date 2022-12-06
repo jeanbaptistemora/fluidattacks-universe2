@@ -14,6 +14,9 @@ from db_model.events.types import (
     EventEvidences,
     GroupEventsRequest,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import pytest
 from typing import (
     Any,
@@ -60,7 +63,10 @@ async def test_add_event(
     )
     assert event.client == "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     assert event.description == "hacker create new event"
-    assert event.event_date == "2020-02-01T00:00:00+00:00"
+    assert (
+        datetime_utils.get_as_utc_iso_format(event.event_date)
+        == "2020-02-01T00:00:00+00:00"
+    )
     assert event.evidences == EventEvidences()
     assert event.group_name == group_name
     assert event.hacker == email

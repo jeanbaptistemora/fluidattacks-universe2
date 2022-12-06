@@ -34,8 +34,7 @@ from db_model.events.types import (
     GroupEventsRequest,
 )
 from newutils.datetime import (
-    get_date_from_iso_str,
-    get_now,
+    get_utc_now,
 )
 from operator import (
     attrgetter,
@@ -63,10 +62,7 @@ async def get_data_one_group(
         sorted(
             [
                 EventsInfo(
-                    days=(
-                        get_now().date()
-                        - get_date_from_iso_str(event.event_date)
-                    ).days,
+                    days=(get_utc_now().date() - event.event_date.date()).days,
                     name=event.id,
                 )
                 for event in events_group

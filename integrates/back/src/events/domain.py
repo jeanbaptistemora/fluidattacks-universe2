@@ -31,7 +31,6 @@ from dataloaders import (
     Dataloaders,
 )
 from datetime import (
-    date as date_type,
     datetime,
 )
 from db_model import (
@@ -222,7 +221,7 @@ async def add_event(
         created_by=hacker_email,
         created_date=created_date,
         description=kwargs["detail"],
-        event_date=datetime_utils.get_as_utc_iso_format(event_date),
+        event_date=event_date,
         evidences=EventEvidences(),
         group_name=group_name,
         hacker=hacker_email,
@@ -255,9 +254,6 @@ async def add_event(
             loaders, event.id, EventEvidenceId.IMAGE_1, image, event_date
         )
 
-    report_date: date_type = datetime_utils.get_date_from_iso_str(
-        event.event_date
-    )
     schedule(
         events_mail.send_mail_event_report(
             loaders=loaders,
@@ -266,7 +262,7 @@ async def add_event(
             event_type=event.type,
             description=event.description,
             root_id=event.root_id,
-            report_date=report_date,
+            report_date=event.event_date.date(),
         )
     )
 
@@ -453,7 +449,7 @@ async def solve_event(  # pylint: disable=too-many-locals
             reason=reason.value,
             other=other,
             is_closed=True,
-            report_date=datetime_utils.get_date_from_iso_str(event.event_date),
+            report_date=event.event_date.date(),
         )
     )
 
