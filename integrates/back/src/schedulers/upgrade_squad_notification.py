@@ -5,7 +5,6 @@ from custom_exceptions import (
     UnableToSendMail,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.companies.types import (
@@ -42,7 +41,7 @@ mail_upgrade_squad_notification = retry_on_exceptions(
 
 
 async def send_upgrade_squad_notification() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
     companies: tuple[Optional[Company], ...] = await loaders.company.load_many(

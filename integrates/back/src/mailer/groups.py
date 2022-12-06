@@ -14,6 +14,9 @@ from context import (
     FI_MAIL_PRODUCTION,
     FI_MAIL_REVIEWERS,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     date,
     datetime,
@@ -241,7 +244,7 @@ async def send_devsecops_agent_notification(
 
 
 async def send_trial_reports_notification(
-    loaders: Any, email_to: str, group_name: str
+    loaders: Dataloaders, email_to: str, group_name: str
 ) -> None:
     fname = await get_recipient_first_name(loaders, email_to)
     org_name = await get_organization_name(loaders, group_name)
@@ -261,7 +264,7 @@ async def send_trial_reports_notification(
 
 
 async def send_upgrade_squad_notification(
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: str,
 ) -> None:
     fname = await get_recipient_first_name(loaders, email_to)
@@ -278,7 +281,10 @@ async def send_upgrade_squad_notification(
 
 
 async def send_trial_ending_notification(
-    loaders: Any, email_to: str, group_name: str, start_date: datetime
+    loaders: Dataloaders,
+    email_to: str,
+    group_name: str,
+    start_date: datetime,
 ) -> None:
     fname = await get_recipient_first_name(loaders, email_to)
     org_name = await get_organization_name(loaders, group_name)
@@ -318,7 +324,7 @@ async def send_how_improve_notification(
 
 
 async def send_trial_ended_notification(
-    loaders: Any, email_to: str, group_name: str
+    loaders: Dataloaders, email_to: str, group_name: str
 ) -> None:
     fname = await get_recipient_first_name(loaders, email_to)
     org_name = await get_organization_name(loaders, group_name)
