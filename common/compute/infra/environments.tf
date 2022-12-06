@@ -1,44 +1,71 @@
 locals {
-  environments = {
+  machine_sizes = {
     small = {
       max_vcpus = 10000
       instances = ["c5ad.large"]
-      product   = "common"
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-      type = "SPOT"
     }
     medium = {
       max_vcpus = 10000
       instances = ["c5ad.xlarge"]
-      product   = "common"
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-      type = "SPOT"
     }
     large = {
       max_vcpus = 10000
       instances = ["c5ad.2xlarge"]
-      product   = "common"
+    }
+  }
+  config = {
+    common = {
+      product = "common"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
       ]
       type = "SPOT"
     }
-    clone = {
-      max_vcpus = 10000
-      instances = ["c5ad.large"]
-      product   = "common"
+    observes = {
+      product = "observes"
       subnets = [
         data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
       ]
       type = "SPOT"
     }
+  }
+  environments = {
+    small = merge(
+      local.machine_sizes.small,
+      local.config.common
+    )
+    medium = merge(
+      local.machine_sizes.medium,
+      local.config.common
+    )
+    large = merge(
+      local.machine_sizes.large,
+      local.config.common
+    )
+    clone = merge(
+      local.machine_sizes.small,
+      local.config.common,
+      {
+        subnets = [
+          data.aws_subnet.batch_clone.id,
+        ]
+      }
+    )
+    observes_small = merge(
+      local.machine_sizes.small,
+      local.config.observes
+    )
+    observes_medium = merge(
+      local.machine_sizes.medium,
+      local.config.observes
+    )
+    observes_large_no_spot = merge(
+      local.machine_sizes.large,
+      local.config.observes,
+      { type = "EC2" }
+    )
   }
 }
 
