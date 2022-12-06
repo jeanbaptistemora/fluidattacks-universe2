@@ -23,20 +23,23 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if param_identifier:
         param_name = node_to_str(graph, param_identifier)
     type_id = match_ast_d(graph, args.n_id, "type_arguments")
-    param_type = None
-    if type_id:
-        param_type = node_to_str(graph, type_id)
+    var_id = match_ast_d(graph, args.n_id, "type_identifier")
+    param_var = None
+    if var_id:
+        param_var = node_to_str(graph, var_id)
 
     c_ids = adj_ast(graph, args.n_id)
-    invalid_childs = {"this", ".", "?", ";", "type_arguments"}
+    invalid_childs = {"this", ".", "?", ";", "="}
+    invalid_nodes = {param_identifier, type_id, var_id}
     return build_parameter_node(
         args,
         param_name,
-        param_type,
+        param_var,
         None,
         c_ids=(
             _id
             for _id in c_ids
-            if graph.nodes[_id]["label_type"] not in invalid_childs
+            if _id not in invalid_nodes
+            and graph.nodes[_id]["label_type"] not in invalid_childs
         ),
     )
