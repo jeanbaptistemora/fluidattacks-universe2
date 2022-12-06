@@ -177,6 +177,21 @@ that ensure that software is secure before every deployment.
 
 <div>
 <solution-faq
+  title="Why is DevSecOps important?">
+
+As the number of cyber threats and the cost of cyberattacks skyrocket,
+it is necessary to understand
+that system security is just as important as functionality and innovation.
+By committing to security from the early stages of the SDLC,
+teams reduce time spent on remediation,
+as well as its associated costs,
+and create technology that is secure for users.
+
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
   title="What are the advantages of DevSecOps vs. DevOps?">
 
 DevOps enables collaboration between the development and operations teams
@@ -204,14 +219,51 @@ to collaborate,
 shift security considerations to earlier stages of development,
 conduct training on secure coding,
 perform security assessments
-(our recommendation is that always,
-including in DevSecOps,
-security tools be used in combination with manual pentesting)
 and remediation,
 decide on security-driven policies,
 among other practices.
 We offer a detailed roadmap
 in our [dedicated blog post](../../blog/how-to-implement-devsecops/).
+
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="What are DevSecOps best practices?">
+
+Actions that support your implementation of security throughout the SDLC
+include making everyone across teams aware
+of their accountability for security,
+leveraging human knowledge
+to quickly and continuously test small changes to the system
+for vulnerabilities,
+and preventing vulnerable changes from being deployed.
+Learn about these and more practices
+in our [dedicated blog post](../../blog/devsecops-best-practices/).
+
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="How are application security testing tools used in DevSecOps?">
+
+Tools can be used in combination with manual assessments
+in the implementation of security testing
+throughout the development and operations cycle.
+Our recommendation is that always,
+including in DevSecOps,
+security tools be used in combination with manual pentesting.
+Some security testing techniques may be conducted earlier than others.
+For example,
+SAST can be done manually in combination with tools
+as soon as there's code to review,
+but manual and automated DAST can be introduced only
+if there's a build artifact to attack.
+Learn more about how we use DevSecOps tools
+in combination with manual security testing
+in our [dedicated blog post](../../blog/devsecops-tools/).
 
 </solution-faq>
 </div>
