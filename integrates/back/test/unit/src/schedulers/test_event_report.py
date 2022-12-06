@@ -39,7 +39,7 @@ async def test_send_event_report() -> None:
     new_event = Event(
         client="c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
         created_by="unittesting@fluidattacks.com",
-        created_date=datetime_utils.get_iso_date(),
+        created_date=datetime_utils.get_utc_now(),
         description="Something happened.",
         event_date="2022-09-10T00:00:00+00:00",
         evidences=EventEvidences(),

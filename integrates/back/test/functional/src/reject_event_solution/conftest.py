@@ -35,7 +35,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
-                    created_date="2018-06-27T12:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     description="ARM unit test",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
@@ -95,7 +97,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
-                    created_date="2018-06-27T12:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     description="ARM unit test",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
@@ -146,7 +150,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
-                    created_date="2018-06-27T12:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     description="ARM unit test",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
@@ -197,7 +203,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
-                    created_date="2018-06-27T12:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     description="ARM unit test",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",
@@ -248,7 +256,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     created_by="unittest@fluidattacks.com",
-                    created_date="2018-06-27T12:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-06-27T12:00:00+00:00"
+                    ),
                     description="ARM unit test",
                     type=EventType.OTHER,
                     event_date="2018-06-27T12:00:00+00:00",

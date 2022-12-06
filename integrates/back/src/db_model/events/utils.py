@@ -18,6 +18,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb.types import (
@@ -114,7 +115,7 @@ def format_event(item: Item) -> Event:
     return Event(
         client=item["client"],
         created_by=item["created_by"],
-        created_date=item["created_date"],
+        created_date=datetime.fromisoformat(item["created_date"]),
         description=item["description"],
         event_date=item["event_date"],
         evidences=format_evidences(item["evidences"]),
@@ -145,7 +146,7 @@ def format_event_item(event: Event) -> Item:
     return {
         "client": event.client,
         "created_by": event.created_by,
-        "created_date": event.created_date,
+        "created_date": get_as_utc_iso_format(event.created_date),
         "description": event.description,
         "event_date": event.event_date,
         "evidences": json.loads(

@@ -220,7 +220,7 @@ async def add_event(
     event = Event(
         client=group.organization_id,
         created_by=hacker_email,
-        created_date=datetime_utils.get_as_utc_iso_format(created_date),
+        created_date=created_date,
         description=kwargs["detail"],
         event_date=datetime_utils.get_as_utc_iso_format(event_date),
         evidences=EventEvidences(),

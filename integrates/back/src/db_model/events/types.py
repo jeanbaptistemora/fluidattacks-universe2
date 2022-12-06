@@ -43,7 +43,7 @@ class EventUnreliableIndicators(NamedTuple):
 class Event(NamedTuple):
     client: str
     created_by: str
-    created_date: str
+    created_date: datetime
     description: str
     event_date: str
     evidences: EventEvidences
