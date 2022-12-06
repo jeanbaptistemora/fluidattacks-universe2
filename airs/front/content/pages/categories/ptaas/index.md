@@ -2,7 +2,7 @@
 slug: categories/ptaas/
 title: Penetration Testing as a Service
 headtitle: PTaaS
-description: We offer you PTaaS as a continuous evaluation of systems using automatic and manual techniques and providing real-time vulnerability reports via our platform.
+description: We offer PTaaS as continuous penetration testing on systems with techniques used by threat actors and provide real-time vulnerability reports via our platform.
 keywords: PTaaS, Penetration, Testing, Pentesting, Service, Cybersecurity, Vulnerability, Ethical Hacking
 banner: ptaas-bg
 template: category
@@ -25,7 +25,8 @@ display minimal rates of false positives and false negatives.
 
 ### Timely vulnerability reports
 
-As part of the PTaaS, you can receive frequent, real-time updates on the
+Thanks to our continuous penetration testing,
+you can receive frequent, real-time updates on the
 results of our red team’s constant analyses via our ARM to keep you on
 your toes and make the right cybersecurity decisions for your company
 promptly.

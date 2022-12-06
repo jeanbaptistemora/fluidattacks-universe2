@@ -7,7 +7,7 @@ category: philosophy
 tags: pentesting, cybersecurity, security-testing, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1666278975/blog/what-is-manual-penetration-testing/cover_manual_pentesting.webp
 alt: Photo by ian dooley on Unsplash
-description: After reading this blog post, you will understand what manual penetration testing is, how it works and how it differs from so-called "automated pentesting."
+description: This blog post explains what manual penetration testing is, how it works to discover vulnerabilities and how it differs from so-called "automated pentesting."
 keywords: Manual Penetration Testing, Automated Penetration Testing, Black Box, White Box, Gray Box, Vulnerability Scanning, Pentester, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
@@ -402,6 +402,7 @@ on what to base your choice of the right pentesting provider
 for your organization,
 read our blog post "[Choosing the Right Pentesting Team](../choosing-pentesting-team/)."
 If you are interested in learning about the PTaaS model
+(which involves continuous penetration testing)
 and its benefits for your company,
 we invite you to read "[Penetration Testing as a Service](../what-is-ptaas/)."
 Any doubt?

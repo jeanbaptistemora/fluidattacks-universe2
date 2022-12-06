@@ -1,7 +1,7 @@
 ---
 slug: solutions/penetration-testing/
-title: 'Penetration Testing: Security testing through the eyes of the attacker'
-description: Fluid Attacks' skilled and experienced ethical hackers are responsible for simulating real attacks on your systems to find complex and varied vulnerabilities.
+title: 'Penetration Testing: Security tests imitating the attacker'
+description: You can have Fluid Attacks perform continuous penetration testing, including simulated attacks on your systems, to discover vulnerabilities tools cannot find.
 keywords: Fluid Attacks, Solutions, Pen Testing, Manual Security Testing, Manual Penetration Testing, Manual Pentesting, Ethical Hacking
 identifier: Penetration Testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-penetration-testing_ty3kro.webp
@@ -112,6 +112,9 @@ with the goal of bypassing defenses.
 That is why
 it can be as accurate
 as the skills of the ethical hackers performing it allow it to be.
+We perform continuous pentesting,
+which means
+that our professionals test your systems permanently as you make changes.
 
 </solution-faq>
 </div>
@@ -137,6 +140,23 @@ If it is performed continuously and early in the SDLC,
 as we do not tire of recommending,
 then you can eliminate spots through which malicious hackers could get in
 before moving into production.
+
+</solution-faq>
+</div>
+
+<div>
+<solution-faq
+  title="What is manual pentesting?">
+
+We argue that automated tools cannot perform penetration testing.
+Therefore,
+manual pen testing is the only kind there is.
+So the answer to this question is the same
+as that to the first question of this FAQ.
+Remember,
+vulnerability scanning cannot do
+what shines the brightest in manual penetration testing: simulation
+of real attack scenarios.
 
 </solution-faq>
 </div>

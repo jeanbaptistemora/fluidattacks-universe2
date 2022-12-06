@@ -568,15 +568,14 @@ const pageTexts: ResourceKey = {
     },
     ptaas: {
       paragraph:
-        "We possess certified hackers with the ability to deconstruct your software " +
-        "through the complex technique of Reverse Engineering (RE). RE mixes different " +
-        "methods and can give our hackers a broad understanding of your systems " +
-        "and applications' security to identify vulnerabilities.",
+        "We offer PTaaS as continuous penetration testing on systems " +
+        "with the same techniques used by threat actors and provide " +
+        "real-time vulnerability reports through our platform.",
       subtitle: "PTaaS",
     },
     re: {
       paragraph:
-        "We possess certified hackers with the ability to deconstruct your software " +
+        "We have certified hackers with the ability to deconstruct your software " +
         "through the complex technique of Reverse Engineering (RE). RE mixes different " +
         "methods and can give our hackers a broad understanding of your systems " +
         "and applications' security to identify vulnerabilities.",
@@ -1086,8 +1085,9 @@ const pageTexts: ResourceKey = {
       },
       penetrationTesting: {
         paragraph:
-          "You can have simulated attacks on your systems performed by our pentesters " +
-          "to discover vulnerabilities automated tools cannot find.",
+          "You can have us perform continuous penetration testing, including " +
+          "simulated attacks on your systems, to discover " +
+          "vulnerabilities tools cannot find.",
         title: "Penetration Testing",
       },
       redTeaming: {
@@ -1126,8 +1126,9 @@ const pageTexts: ResourceKey = {
     },
     penetrationTesting: {
       paragraph:
-        "You can have simulated attacks on your systems performed by our " +
-        "pentesters to discover vulnerabilities automated tools cannot find.",
+        "You can have us perform continuous penetration testing, including " +
+        "simulated attacks on your systems, to discover vulnerabilities " +
+        "tools cannot find.",
       subtitle: "Penetration Testing",
     },
     redTeaming: {

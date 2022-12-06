@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, pentesting, security-testing, hacking, company, red-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1663789228/blog/what-is-ptaas/cover_ptaas.webp
 alt: Photo by Dulcey Lima on Unsplash
-description: It is common to hear about penetration testing as a service (PTaaS). Here we help you understand what it is and what benefits it can offer to your organization.
+description: Penetration testing as a service (PTaaS) is continuous pentesting to find complex vulnerabilities. Learn here the benefits it can offer to your organization.
 keywords: Penetration Testing As A Service, Ptaas, Pen Testing, Manual Pen Test, Automated Tools, Vulnerability Scanning, Devsecops, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
@@ -268,7 +268,7 @@ and test your software at the pace of your development team
 and their micro changes.
 On our Attack Resistance Management platform ([ARM](https://app.fluidattacks.com/)),
 you continuously receive detailed reports
-as the assessment advances.
+as the continuous pentesting advances.
 These make it easy for you to understand your risk exposure
 and prioritize security issues for their remediation.
 Your developers can maintain communication and collaboration with our hackers,
