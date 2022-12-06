@@ -21,6 +21,7 @@ PLATFORMS = {
     "pypi": "pip",
     "rubygems": "gem",
     "go": "go",
+    "packagist": "composer",
 }
 
 
