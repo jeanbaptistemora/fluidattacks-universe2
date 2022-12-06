@@ -39735,6 +39735,56 @@ F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,19,78,skims,004. Remo
   26 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,8,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
+   1 | //Noncompliant
+   2 |
+   3 | const execa = require('execa');
+   4 |
+   5 | async function injection_args(req, res) {
+   6 |   const cmd = ""ls -la ""+req.query.arg;
+   7 |
+>  8 |   const {stdout} = await execa.command(cmd);
+   9 | };
+  10 |
+  11 | const cp = require('child_process');
+  12 |
+  13 | function vuln_injection_command(req, res) {
+  14 |   const cmd = 'ls '+req.query.arg;
+  15 |
+  16 |   const out = cp.execSync(cmd);
+  17 | }
+  18 |
+  19 | //Compliant
+  20 |
+  21 | function sec_injection_command(req, res) {
+     ^ Col 0
+",typescript.typescript_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,16,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
+   6 |   const cmd = ""ls -la ""+req.query.arg;
+   7 |
+   8 |   const {stdout} = await execa.command(cmd);
+   9 | };
+  10 |
+  11 | const cp = require('child_process');
+  12 |
+  13 | function vuln_injection_command(req, res) {
+  14 |   const cmd = 'ls '+req.query.arg;
+  15 |
+> 16 |   const out = cp.execSync(cmd);
+  17 | }
+  18 |
+  19 | //Compliant
+  20 |
+  21 | function sec_injection_command(req, res) {
+  22 |   const out = cp.execFileSync(""ls"", [req.query.arg]); // Compliant
+  23 | }
+  24 |
+  25 |
+  26 | async function sec_injection_args(req, res) {
+     ^ Col 0
+",typescript.typescript_remote_command_execution
 F371,lines,namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,18,79,skims,371. DOM-Based cross-site scripting (XSS),BypassSecurityTrust is used in the Angular sanitizer configuration. in namespace/skims/test/data/lib_root/f371/js_uses_bypass_security_truster.js,"
    3 | @Component({
    4 |   selector: ""my-app"",
