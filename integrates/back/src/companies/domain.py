@@ -1,6 +1,3 @@
-from datetime import (
-    datetime,
-)
 from db_model import (
     companies as companies_model,
 )

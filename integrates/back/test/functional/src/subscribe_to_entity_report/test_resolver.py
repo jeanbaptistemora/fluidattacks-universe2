@@ -18,7 +18,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("subscribe_to_entity_report_s3")
+@pytest.mark.resolver_test_group("subscribe_to_entity_report")
 @pytest.mark.parametrize(
     ["email"],
     [

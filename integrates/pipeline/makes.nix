@@ -1,6 +1,8 @@
 {
   gitlabCi,
   inputs,
+  lib,
+  projectPath,
   ...
 }: let
   chartsTemplate = {
@@ -15,189 +17,18 @@
     };
     stage = "analytics";
   };
-  backSrcModules = [
-    "analytics"
-    "api"
-    "app"
-    "authz"
-    "azure_repositories"
-    "batch"
-    "batch_dispatch"
-    "billing"
-    "cli"
-    "context"
-    "custom_exceptions"
-    "dataloaders"
-    "db_model"
-    "decorators"
-    "dynamodb"
-    "enrollment"
-    "event_comments"
-    "events"
-    "finding_comments"
-    "findings"
-    "forces"
-    "group_access"
-    "group_comments"
-    "groups"
-    "machine"
-    "mailer"
-    "newutils"
-    "notifications"
-    "organizations"
-    "organizations_finding_policies"
-    "remove_stakeholder"
-    "reports"
-    "roots"
-    "s3"
-    "schedulers"
-    "search"
-    "server"
-    "sessions"
-    "settings"
-    "sms"
-    "stakeholders"
-    "subscriptions"
-    "tags"
-    "telemetry"
-    "toe"
-    "unreliable_indicators"
-    "verify"
-    "vulnerabilities"
-    "vulnerability_files"
-  ];
-  functionalTests = [
-    ["abandoned_trial_notification"]
-    ["accept_legal"]
-    ["acknowledge_concurrent_session"]
-    ["activate_root"]
-    ["add_credentials"]
-    ["add_draft"]
-    ["add_enrollment"]
-    ["add_event"]
-    ["add_event_consult"]
-    ["add_files_to_db"]
-    ["add_finding_consult"]
-    ["add_group"]
-    ["add_group_consult"]
-    ["add_group_tags"]
-    ["add_organization"]
-    ["add_stakeholder"]
-    ["add_toe_input"]
-    ["add_toe_lines"]
-    ["add_toe_port"]
-    ["add_url_root"]
-    ["approve_draft"]
-    ["batch"]
-    ["comments_digest_notification"]
-    ["compliance"]
-    ["confirm_vulnerabilities_zero_risk"]
-    ["deactivate_root"]
-    ["delete_obsolete_groups"]
-    ["download_event_file"]
-    ["download_file"]
-    ["event"]
-    ["events"]
-    ["expire_free_trial"]
-    ["finding"]
-    ["grant_stakeholder_access"]
-    ["grant_stakeholder_organization_access"]
-    ["groups_languages_distribution"]
-    ["groups_with_forces"]
-    ["handle_vulnerabilities_acceptance"]
-    ["invalidate_access_token"]
-    ["machine_queue_all"]
-    ["me"]
-    ["move_root"]
-    ["organization"]
-    ["organization_id"]
-    ["organization_vulnerabilities"]
-    ["refresh_toe_inputs"]
-    ["refresh_toe_lines"]
-    ["reject_draft"]
-    ["reject_event_solution"]
-    ["reject_vulnerabilities_zero_risk"]
-    ["remove_credentials"]
-    ["remove_group_tag"]
-    ["remove_stakeholder"]
-    ["remove_stakeholder_access"]
-    ["remove_stakeholder_organization_access"]
-    ["remove_tags"]
-    ["remove_vulnerability"]
-    ["report"]
-    ["request_event_verification"]
-    ["request_vulnerabilities_hold"]
-    ["request_vulnerabilities_verification"]
-    ["request_vulnerabilities_zero_risk"]
-    ["requeue_actions"]
-    ["reset_expired_accepted_findings"]
-    ["resources"]
-    ["solve_event"]
-    ["stakeholder"]
-    ["submit_draft"]
-    ["submit_organization_finding_policy"]
-    ["treatment_alert_notification"]
-    ["toe_inputs"]
-    ["toe_lines"]
-    ["toe_ports"]
-    ["unsubscribe_from_group"]
-    ["update_access_token"]
-    ["update_compliance"]
-    ["update_credentials"]
-    ["update_event"]
-    ["update_event_solving_reason"]
-    ["update_evidence_description"]
-    ["update_finding_description"]
-    ["update_forces_access_token"]
-    ["update_git_environments"]
-    ["update_group_access_info"]
-    ["update_group_disambiguation"]
-    ["update_group_info"]
-    ["update_group_managed"]
-    ["update_group_policies"]
-    ["update_group_stakeholder"]
-    ["update_ip_root"]
-    ["update_notification_preferences"]
-    ["update_organization_policies"]
-    ["update_organization_stakeholder"]
-    ["update_severity"]
-    ["update_stakeholder_phone"]
-    ["update_toe_input"]
-    ["update_toe_lines_attacked_lines"]
-    ["update_toe_lines_sorts"]
-    ["update_toe_port"]
-    ["update_toe_vulnerabilities"]
-    ["update_tours"]
-    ["update_url_root"]
-    ["update_vulnerabilities_treatment"]
-    ["update_vulnerability_description"]
-    ["add_forces_execution_s3"]
-    ["add_git_root_s3"]
-    ["batch_dispatch_s3"]
-    ["download_vulnerability_file_s3"]
-    ["forces_executions_s3"]
-    ["group_s3"]
-    ["remove_event_evidence_s3"]
-    ["remove_evidence_s3"]
-    ["remove_files_s3"]
-    ["remove_finding_s3"]
-    ["remove_group_s3"]
-    ["remove_toe_port"]
-    ["report_machine_s3"]
-    ["subscribe_to_entity_report_s3"]
-    ["sync_git_root_s3"]
-    ["unfulfilled_standard_report_url_s3"]
-    ["update_event_evidence_s3"]
-    ["update_evidence_s3"]
-    ["update_git_root_s3"]
-    ["update_group_s3"]
-    ["update_vulnerability_treatment"]
-    ["upload_file"]
-    ["validate_git_access"]
-    ["verify_stakeholder"]
-    ["verify_vulnerabilities_request"]
-    ["vulnerability"]
-  ];
+  listDirectories = path: let
+    content = builtins.readDir (projectPath path);
+    directories =
+      lib.filterAttrs
+      (key: value: value == "directory" && !lib.hasPrefix "__" key)
+      content;
+  in
+    builtins.attrNames directories;
+  backSrcModules = listDirectories "/integrates/back/src";
+  functionalTests =
+    builtins.map (test: [test])
+    (listDirectories "/integrates/back/test/functional/src");
   gitlabJobDependencies = 40;
   functionalCoverageCombine = (
     builtins.genList

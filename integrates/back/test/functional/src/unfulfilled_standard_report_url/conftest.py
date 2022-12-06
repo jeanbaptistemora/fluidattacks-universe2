@@ -42,7 +42,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("unfulfilled_standard_report_url_s3")
+@pytest.mark.resolver_test_group("unfulfilled_standard_report_url")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {

@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_finding_description")
+@pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -27,7 +27,7 @@ async def test_update_finding_description(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_finding_description")
+@pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
     ["email"],
     [

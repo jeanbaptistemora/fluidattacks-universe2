@@ -18,7 +18,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_git_root_s3")
+@pytest.mark.resolver_test_group("add_git_root")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -97,7 +97,7 @@ async def test_add_git_root(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_git_root_s3")
+@pytest.mark.resolver_test_group("add_git_root")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -129,7 +129,7 @@ async def test_add_git_root_fail_1(populate: bool, email: str) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_git_root_s3")
+@pytest.mark.resolver_test_group("add_git_root")
 @pytest.mark.parametrize(
     ["email"],
     [

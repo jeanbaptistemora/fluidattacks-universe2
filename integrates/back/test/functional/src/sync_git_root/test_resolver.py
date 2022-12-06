@@ -12,7 +12,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("sync_git_root_s3")
+@pytest.mark.resolver_test_group("sync_git_root")
 @pytest.mark.parametrize(
     ["email", "root_id", "expected_status"],
     [
@@ -38,7 +38,7 @@ async def test_sync_git_root(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("sync_git_root_s3")
+@pytest.mark.resolver_test_group("sync_git_root")
 @pytest.mark.parametrize(
     ["email", "root_id", "expected_error"],
     [

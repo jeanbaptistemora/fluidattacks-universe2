@@ -9,7 +9,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_git_root_s3")
+@pytest.mark.resolver_test_group("add_git_root")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict) -> bool:
     data: dict = {

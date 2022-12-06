@@ -26,7 +26,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch_dispatch_s3")
+@pytest.mark.resolver_test_group("batch_dispatch")
 async def test_clone_roots_real_ssh(
     generic_data: Dict[str, Any],
 ) -> None:

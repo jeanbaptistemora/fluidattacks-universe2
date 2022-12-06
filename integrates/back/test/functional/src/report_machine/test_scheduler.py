@@ -37,7 +37,7 @@ from unittest import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine_s3")
+@pytest.mark.resolver_test_group("report_machine")
 async def test_persist_result(populate: bool) -> None:
     assert populate
     with open(
@@ -127,7 +127,7 @@ async def test_persist_result(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine_s3")
+@pytest.mark.resolver_test_group("report_machine")
 async def test_report_f079(populate: bool) -> None:
     assert populate
     with open(
@@ -208,7 +208,7 @@ async def test_report_f079(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine_s3")
+@pytest.mark.resolver_test_group("report_machine")
 async def test_duplicated_reports(populate: bool) -> None:
     assert populate
     with open(
@@ -286,7 +286,7 @@ async def test_duplicated_reports(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine_s3")
+@pytest.mark.resolver_test_group("report_machine")
 async def test_approval(populate: bool) -> None:
     assert populate
     with open(
@@ -359,7 +359,7 @@ async def test_approval(populate: bool) -> None:
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("report_machine_s3")
+@pytest.mark.resolver_test_group("report_machine")
 async def test_report_inputs(populate: bool) -> None:
     assert populate
     with open(

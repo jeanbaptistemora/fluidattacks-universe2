@@ -15,11 +15,33 @@ function main {
     --resolver-test-group "${resolver_test_group}"
     -vv
   )
+  local needs_s3=(
+    add_forces_execution
+    add_git_root
+    batch_dispatch
+    download_vulnerability_file
+    forces_executions
+    group
+    remove_event_evidence
+    remove_evidence
+    remove_files
+    remove_finding
+    remove_group
+    remove_toe_port
+    report_machine
+    subscribe_to_entity_report
+    sync_git_root
+    unfulfilled_standard_report_url
+    update_event_evidence
+    update_evidence
+    update_git_root
+    update_group
+  )
 
   source __argIntegratesBackEnv__/template dev \
     && sops_export_vars integrates/secrets/development.yaml \
       TEST_SSH_KEY \
-    && if [[ ${resolver_test_group} =~ "s3"$ ]]; then DAEMON=true integrates-storage; fi \
+    && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then DAEMON=true integrates-storage; fi \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \

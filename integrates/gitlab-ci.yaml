@@ -506,7 +506,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__add_forces_execution_s3:
+/integrates/back/test/functional__add_forces_execution:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -527,7 +527,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'add_forces_execution_s3'
+    - m . /integrates/back/test/functional 'add_forces_execution'
   stage: test-code
   tags:
     - small
@@ -535,7 +535,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__add_git_root_s3:
+/integrates/back/test/functional__add_git_root:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -556,7 +556,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'add_git_root_s3'
+    - m . /integrates/back/test/functional 'add_git_root'
   stage: test-code
   tags:
     - small
@@ -883,7 +883,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__batch_dispatch_s3:
+/integrates/back/test/functional__batch_dispatch:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -904,7 +904,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'batch_dispatch_s3'
+    - m . /integrates/back/test/functional 'batch_dispatch'
   stage: test-code
   tags:
     - small
@@ -1028,35 +1028,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__delete_obsolete_groups:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'delete_obsolete_groups'
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__download_event_file:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1115,7 +1086,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__download_vulnerability_file_s3:
+/integrates/back/test/functional__download_vulnerability_file:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1136,7 +1107,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'download_vulnerability_file_s3'
+    - m . /integrates/back/test/functional 'download_vulnerability_file'
   stage: test-code
   tags:
     - small
@@ -1260,7 +1231,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__forces_executions_s3:
+/integrates/back/test/functional__forces_executions:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1281,7 +1252,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'forces_executions_s3'
+    - m . /integrates/back/test/functional 'forces_executions'
   stage: test-code
   tags:
     - small
@@ -1347,7 +1318,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__group_s3:
+/integrates/back/test/functional__group:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1368,7 +1339,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'group_s3'
+    - m . /integrates/back/test/functional 'group'
   stage: test-code
   tags:
     - small
@@ -1840,7 +1811,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__remove_event_evidence_s3:
+/integrates/back/test/functional__remove_event_evidence:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1861,7 +1832,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_event_evidence_s3'
+    - m . /integrates/back/test/functional 'remove_event_evidence'
   stage: test-code
   tags:
     - small
@@ -1869,7 +1840,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__remove_evidence_s3:
+/integrates/back/test/functional__remove_evidence:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1890,7 +1861,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_evidence_s3'
+    - m . /integrates/back/test/functional 'remove_evidence'
   stage: test-code
   tags:
     - small
@@ -1898,7 +1869,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__remove_files_s3:
+/integrates/back/test/functional__remove_files:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1919,7 +1890,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_files_s3'
+    - m . /integrates/back/test/functional 'remove_files'
   stage: test-code
   tags:
     - small
@@ -1927,7 +1898,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__remove_finding_s3:
+/integrates/back/test/functional__remove_finding:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1948,7 +1919,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_finding_s3'
+    - m . /integrates/back/test/functional 'remove_finding'
   stage: test-code
   tags:
     - small
@@ -1956,7 +1927,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__remove_group_s3:
+/integrates/back/test/functional__remove_group:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -1977,7 +1948,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'remove_group_s3'
+    - m . /integrates/back/test/functional 'remove_group'
   stage: test-code
   tags:
     - small
@@ -2217,7 +2188,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__report_machine_s3:
+/integrates/back/test/functional__report_machine:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -2238,7 +2209,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'report_machine_s3'
+    - m . /integrates/back/test/functional 'report_machine'
   stage: test-code
   tags:
     - small
@@ -2391,35 +2362,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__reset_expired_accepted_findings:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'reset_expired_accepted_findings'
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__resources:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2565,7 +2507,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__subscribe_to_entity_report_s3:
+/integrates/back/test/functional__subscribe_to_entity_report:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -2586,7 +2528,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'subscribe_to_entity_report_s3'
+    - m . /integrates/back/test/functional 'subscribe_to_entity_report'
   stage: test-code
   tags:
     - small
@@ -2594,7 +2536,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__sync_git_root_s3:
+/integrates/back/test/functional__sync_git_root:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -2615,7 +2557,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'sync_git_root_s3'
+    - m . /integrates/back/test/functional 'sync_git_root'
   stage: test-code
   tags:
     - small
@@ -2739,7 +2681,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__unfulfilled_standard_report_url_s3:
+/integrates/back/test/functional__unfulfilled_standard_report_url:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -2760,7 +2702,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'unfulfilled_standard_report_url_s3'
+    - m . /integrates/back/test/functional 'unfulfilled_standard_report_url'
   stage: test-code
   tags:
     - small
@@ -2884,6 +2826,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__update_description:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'update_description'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_event:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2913,7 +2884,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_event_evidence_s3:
+/integrates/back/test/functional__update_event_evidence:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -2934,7 +2905,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_event_evidence_s3'
+    - m . /integrates/back/test/functional 'update_event_evidence'
   stage: test-code
   tags:
     - small
@@ -2971,6 +2942,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__update_evidence:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'update_evidence'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_evidence_description:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -2993,64 +2993,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'update_evidence_description'
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_evidence_s3:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_evidence_s3'
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_finding_description:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_finding_description'
   stage: test-code
   tags:
     - small
@@ -3116,7 +3058,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_git_root_s3:
+/integrates/back/test/functional__update_git_root:
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
@@ -3137,7 +3079,36 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/test/functional 'update_git_root_s3'
+    - m . /integrates/back/test/functional 'update_git_root'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
+/integrates/back/test/functional__update_group:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'update_group'
   stage: test-code
   tags:
     - small
@@ -3283,35 +3254,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/test/functional 'update_group_policies'
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_group_s3:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_group_s3'
   stage: test-code
   tags:
     - small
@@ -4157,6 +4099,8 @@
     - /integrates/back/test/functional__add_event_consult
     - /integrates/back/test/functional__add_files_to_db
     - /integrates/back/test/functional__add_finding_consult
+    - /integrates/back/test/functional__add_forces_execution
+    - /integrates/back/test/functional__add_git_root
     - /integrates/back/test/functional__add_group
     - /integrates/back/test/functional__add_group_consult
     - /integrates/back/test/functional__add_group_tags
@@ -4168,24 +4112,22 @@
     - /integrates/back/test/functional__add_url_root
     - /integrates/back/test/functional__approve_draft
     - /integrates/back/test/functional__batch
+    - /integrates/back/test/functional__batch_dispatch
     - /integrates/back/test/functional__comments_digest_notification
     - /integrates/back/test/functional__compliance
     - /integrates/back/test/functional__confirm_vulnerabilities_zero_risk
     - /integrates/back/test/functional__deactivate_root
-    - /integrates/back/test/functional__delete_obsolete_groups
     - /integrates/back/test/functional__download_event_file
     - /integrates/back/test/functional__download_file
+    - /integrates/back/test/functional__download_vulnerability_file
     - /integrates/back/test/functional__event
     - /integrates/back/test/functional__events
     - /integrates/back/test/functional__expire_free_trial
     - /integrates/back/test/functional__finding
+    - /integrates/back/test/functional__forces_executions
     - /integrates/back/test/functional__grant_stakeholder_access
     - /integrates/back/test/functional__grant_stakeholder_organization_access
-    - /integrates/back/test/functional__groups_languages_distribution
-    - /integrates/back/test/functional__groups_with_forces
-    - /integrates/back/test/functional__handle_vulnerabilities_acceptance
-    - /integrates/back/test/functional__invalidate_access_token
-    - /integrates/back/test/functional__machine_queue_all
+    - /integrates/back/test/functional__group
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4214,6 +4156,11 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__groups_languages_distribution
+    - /integrates/back/test/functional__groups_with_forces
+    - /integrates/back/test/functional__handle_vulnerabilities_acceptance
+    - /integrates/back/test/functional__invalidate_access_token
+    - /integrates/back/test/functional__machine_queue_all
     - /integrates/back/test/functional__me
     - /integrates/back/test/functional__move_root
     - /integrates/back/test/functional__organization
@@ -4225,35 +4172,30 @@
     - /integrates/back/test/functional__reject_event_solution
     - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
     - /integrates/back/test/functional__remove_credentials
+    - /integrates/back/test/functional__remove_event_evidence
+    - /integrates/back/test/functional__remove_evidence
+    - /integrates/back/test/functional__remove_files
+    - /integrates/back/test/functional__remove_finding
+    - /integrates/back/test/functional__remove_group
     - /integrates/back/test/functional__remove_group_tag
     - /integrates/back/test/functional__remove_stakeholder
     - /integrates/back/test/functional__remove_stakeholder_access
     - /integrates/back/test/functional__remove_stakeholder_organization_access
     - /integrates/back/test/functional__remove_tags
+    - /integrates/back/test/functional__remove_toe_port
     - /integrates/back/test/functional__remove_vulnerability
     - /integrates/back/test/functional__report
+    - /integrates/back/test/functional__report_machine
     - /integrates/back/test/functional__request_event_verification
     - /integrates/back/test/functional__request_vulnerabilities_hold
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
     - /integrates/back/test/functional__requeue_actions
-    - /integrates/back/test/functional__reset_expired_accepted_findings
     - /integrates/back/test/functional__resources
     - /integrates/back/test/functional__solve_event
     - /integrates/back/test/functional__stakeholder
     - /integrates/back/test/functional__submit_draft
     - /integrates/back/test/functional__submit_organization_finding_policy
-    - /integrates/back/test/functional__treatment_alert_notification
-    - /integrates/back/test/functional__toe_inputs
-    - /integrates/back/test/functional__toe_lines
-    - /integrates/back/test/functional__toe_ports
-    - /integrates/back/test/functional__unsubscribe_from_group
-    - /integrates/back/test/functional__update_access_token
-    - /integrates/back/test/functional__update_compliance
-    - /integrates/back/test/functional__update_credentials
-    - /integrates/back/test/functional__update_event
-    - /integrates/back/test/functional__update_event_solving_reason
-    - /integrates/back/test/functional__update_evidence_description
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4282,9 +4224,27 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /integrates/back/test/functional__update_finding_description
+    - /integrates/back/test/functional__subscribe_to_entity_report
+    - /integrates/back/test/functional__sync_git_root
+    - /integrates/back/test/functional__toe_inputs
+    - /integrates/back/test/functional__toe_lines
+    - /integrates/back/test/functional__toe_ports
+    - /integrates/back/test/functional__treatment_alert_notification
+    - /integrates/back/test/functional__unfulfilled_standard_report_url
+    - /integrates/back/test/functional__unsubscribe_from_group
+    - /integrates/back/test/functional__update_access_token
+    - /integrates/back/test/functional__update_compliance
+    - /integrates/back/test/functional__update_credentials
+    - /integrates/back/test/functional__update_description
+    - /integrates/back/test/functional__update_event
+    - /integrates/back/test/functional__update_event_evidence
+    - /integrates/back/test/functional__update_event_solving_reason
+    - /integrates/back/test/functional__update_evidence
+    - /integrates/back/test/functional__update_evidence_description
     - /integrates/back/test/functional__update_forces_access_token
     - /integrates/back/test/functional__update_git_environments
+    - /integrates/back/test/functional__update_git_root
+    - /integrates/back/test/functional__update_group
     - /integrates/back/test/functional__update_group_access_info
     - /integrates/back/test/functional__update_group_disambiguation
     - /integrates/back/test/functional__update_group_info
@@ -4304,24 +4264,6 @@
     - /integrates/back/test/functional__update_toe_vulnerabilities
     - /integrates/back/test/functional__update_tours
     - /integrates/back/test/functional__update_url_root
-    - /integrates/back/test/functional__update_vulnerabilities_treatment
-    - /integrates/back/test/functional__update_vulnerability_description
-    - /integrates/back/test/functional__add_forces_execution_s3
-    - /integrates/back/test/functional__add_git_root_s3
-    - /integrates/back/test/functional__batch_dispatch_s3
-    - /integrates/back/test/functional__download_vulnerability_file_s3
-    - /integrates/back/test/functional__forces_executions_s3
-    - /integrates/back/test/functional__group_s3
-    - /integrates/back/test/functional__remove_event_evidence_s3
-    - /integrates/back/test/functional__remove_evidence_s3
-    - /integrates/back/test/functional__remove_files_s3
-    - /integrates/back/test/functional__remove_finding_s3
-    - /integrates/back/test/functional__remove_group_s3
-    - /integrates/back/test/functional__remove_toe_port
-    - /integrates/back/test/functional__report_machine_s3
-    - /integrates/back/test/functional__subscribe_to_entity_report_s3
-    - /integrates/back/test/functional__sync_git_root_s3
-    - /integrates/back/test/functional__unfulfilled_standard_report_url_s3
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4350,10 +4292,8 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /integrates/back/test/functional__update_event_evidence_s3
-    - /integrates/back/test/functional__update_evidence_s3
-    - /integrates/back/test/functional__update_git_root_s3
-    - /integrates/back/test/functional__update_group_s3
+    - /integrates/back/test/functional__update_vulnerabilities_treatment
+    - /integrates/back/test/functional__update_vulnerability_description
     - /integrates/back/test/functional__update_vulnerability_treatment
     - /integrates/back/test/functional__upload_file
     - /integrates/back/test/functional__validate_git_access
@@ -4855,6 +4795,28 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /lintPython/dirOfModules/integrates/cli
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/lintPython/dirOfModules/integrates/companies:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /lintPython/dirOfModules/integrates/companies
   stage: lint-code
   tags:
     - small

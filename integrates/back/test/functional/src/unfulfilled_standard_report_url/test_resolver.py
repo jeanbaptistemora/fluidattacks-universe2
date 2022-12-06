@@ -22,7 +22,7 @@ from typing import (
         ["customer_manager@fluidattacks.com"],
     ],
 )
-@pytest.mark.resolver_test_group("unfulfilled_standard_report_url_s3")
+@pytest.mark.resolver_test_group("unfulfilled_standard_report_url")
 async def test_get_unfulfilled_standard_report_url(
     populate: bool, email: str
 ) -> None:
