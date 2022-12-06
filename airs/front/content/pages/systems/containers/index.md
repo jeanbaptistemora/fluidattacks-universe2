@@ -57,6 +57,6 @@ is reliant on the work of our certified ethical hackers.
 Whenever vulnerabilities are detected and reported,
 you and your team can learn about them
 and manage their remediation promptly
-from our attack surface management platform.
+from our Attack Resistance Management platform.
 
 </div>

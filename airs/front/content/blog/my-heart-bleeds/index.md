@@ -307,7 +307,7 @@ We at `Fluid Attacks`
 offer [Software Composition Analysis](../../categories/sca/)
 to find vulnerable software components in our clients' systems.
 Our clients can then [manage these vulnerabilities](../../solutions/vulnerability-management/)
-in our attack surface management platform.
+in our Attack Resistance Management platform.
 
 ## References
 
