@@ -3,33 +3,41 @@ locals {
     small = {
       max_vcpus = 10000
       instances = ["c5ad.large"]
+      product   = "common"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
       ]
+      type = "SPOT"
     }
     medium = {
       max_vcpus = 10000
       instances = ["c5ad.xlarge"]
+      product   = "common"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
       ]
+      type = "SPOT"
     }
     large = {
       max_vcpus = 10000
       instances = ["c5ad.2xlarge"]
+      product   = "common"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
       ]
+      type = "SPOT"
     }
     clone = {
       max_vcpus = 10000
       instances = ["c5ad.large"]
+      product   = "common"
       subnets = [
         data.aws_subnet.batch_clone.id,
       ]
+      type = "SPOT"
     }
   }
 }
@@ -107,7 +115,7 @@ resource "aws_batch_compute_environment" "main" {
   compute_resources {
     bid_percentage = 100
     image_id       = "ami-0c09d65d2051ada93"
-    type           = "SPOT"
+    type           = each.value.type
 
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
@@ -122,7 +130,7 @@ resource "aws_batch_compute_environment" "main" {
     tags = {
       "Name"               = each.key
       "management:area"    = "cost"
-      "management:product" = "common"
+      "management:product" = each.value.product
       "management:type"    = "product"
     }
 
@@ -135,7 +143,7 @@ resource "aws_batch_compute_environment" "main" {
   tags = {
     "Name"               = each.key
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = each.value.product
     "management:type"    = "product"
   }
 
@@ -155,7 +163,7 @@ resource "aws_batch_job_queue" "main" {
   tags = {
     "Name"               = each.key
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = each.value.product
     "management:type"    = "product"
   }
 }
