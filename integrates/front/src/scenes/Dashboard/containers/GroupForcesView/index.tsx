@@ -107,7 +107,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       .split(" ")
       .map(
         (item: string): string =>
-          item[0].toUpperCase() + item.substr(1).toLowerCase()
+          item[0].toUpperCase() + item.slice(1).toLowerCase()
       )
       .join(" ");
 

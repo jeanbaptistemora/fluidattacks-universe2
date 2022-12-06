@@ -36,7 +36,6 @@ const SecretValue: React.FC<{
           const { clipboard } = navigator;
 
           await clipboard.writeText(secretValue);
-          document.execCommand("copy");
         }, [secretValue])}
         variant={"secondary"}
       >

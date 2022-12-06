@@ -46,7 +46,6 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
         msgError(t("updateForcesToken.copy.failed"));
       } else {
         await clipboard.writeText(currentToken ?? "");
-        document.execCommand("copy");
         msgSuccess(
           t("updateForcesToken.copy.successfully"),
           t("updateForcesToken.copy.success")

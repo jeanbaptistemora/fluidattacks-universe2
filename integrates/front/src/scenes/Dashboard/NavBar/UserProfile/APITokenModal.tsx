@@ -84,7 +84,6 @@ const APITokenModal: FC<IAPITokenModalProps> = ({
       await clipboard.writeText(
         mtResponse.data?.updateAccessToken.sessionJwt ?? ""
       );
-      document.execCommand("copy");
       msgSuccess(
         t("updateAccessToken.copy.successfully"),
         t("updateAccessToken.copy.success")
