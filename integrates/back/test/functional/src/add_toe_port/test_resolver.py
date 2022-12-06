@@ -64,6 +64,12 @@ async def test_add_toe_port(
     assert toe_port.port == port
     assert toe_port.root_id == root_id
     assert toe_port.seen_first_time_by == email
+    historic: tuple[ToePort, ...] = await loaders.toe_port_historic.load(
+        ToePortRequest(
+            group_name=group_name, address=address, port=port, root_id=root_id
+        )
+    )
+    assert len(historic) == 1
 
 
 @pytest.mark.asyncio

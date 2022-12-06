@@ -70,6 +70,12 @@ async def test_update_toe_port(
         )
     )
     assert toe_port.be_present == be_present
+    historic: tuple[ToePort, ...] = await loaders.toe_port_historic.load(
+        ToePortRequest(
+            group_name=group_name, address=address, port=port, root_id=root_id
+        )
+    )
+    assert len(historic) == 2
 
 
 @pytest.mark.asyncio
