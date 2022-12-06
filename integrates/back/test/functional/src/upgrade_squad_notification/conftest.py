@@ -5,8 +5,8 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
+from db_model.companies.types import (
+    Company,
     Trial,
 )
 from db_model.groups.enums import (
@@ -38,20 +38,30 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_enrollment")
+@pytest.mark.resolver_test_group("upgrade_squad_notification")
 @pytest.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
-        "enrollments": [
-            Enrollment(
-                email="janedoe@janedoe.com",
-                enrolled=True,
+        "companies": [
+            Company(
+                domain="johndoe.com",
                 trial=Trial(
                     completed=False,
                     extension_date=None,
                     extension_days=0,
                     start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+            Company(
+                domain="janedoe.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-28T15:58:31.280182"
                     ),
                 ),
             ),
@@ -70,6 +80,27 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@johndoe.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="janedoe@janedoe.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup2",
+                    organization_id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="janedoe@janedoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -98,19 +129,23 @@ async def populate() -> bool:
                     ),
                 ),
             },
-        ],
-        "policies": [
             {
-                "level": "organization",
-                "subject": "johndoe@johndoe.com",
-                "object": "testorg",
-                "role": "user_manager",
-            },
-            {
-                "level": "group",
-                "subject": "johndoe@johndoe.com",
-                "object": "testgroup",
-                "role": "user_manager",
+                "organization": Organization(
+                    created_by="janedoe@janedoe.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    country="Colombia",
+                    id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
+                    name="testorg2",
+                    policies=Policies(
+                        modified_by="janedoe@janedoe.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="janedoe@janedoe.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
             },
         ],
         "stakeholders": [

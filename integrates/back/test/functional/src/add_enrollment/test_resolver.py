@@ -5,6 +5,9 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.companies.types import (
+    Company,
+)
 from db_model.enrollment.types import (
     Enrollment,
 )
@@ -41,7 +44,7 @@ async def test_should_add_enrollment(
             }
         }
     """
-    email = "johndoe@fluidattacks.com"
+    email = "johndoe@johndoe.com"
     loaders = get_new_context()
     result = await get_graphql_result(
         data={"query": query},
@@ -52,12 +55,14 @@ async def test_should_add_enrollment(
     assert "errors" not in result
     assert result["data"]["addEnrollment"]["success"]
 
+    loaders.company.clear_all()
     loaders.enrollment.clear_all()
+    company: Company = await loaders.company.load(email.split("@")[1])
     enrollment: Enrollment = await loaders.enrollment.load(email)
     assert enrollment.enrolled
-    assert enrollment.trial.start_date
+    assert company.trial.start_date
     assert (
-        datetime_utils.get_as_utc_iso_format(enrollment.trial.start_date)
+        datetime_utils.get_as_utc_iso_format(company.trial.start_date)
         == "2022-10-21T15:58:31.280182+00:00"
     )
 
@@ -77,7 +82,7 @@ async def test_should_validate_uniqueness(populate: bool) -> None:
             }
         }
     """
-    email = "janedoe@fluidattacks.com"
+    email = "janedoe@janedoe.com"
     loaders = get_new_context()
     result = await get_graphql_result(
         data={"query": query},
