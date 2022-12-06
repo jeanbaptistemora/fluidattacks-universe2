@@ -640,7 +640,7 @@ async def update_evidence(
         group_name=group_name,
         evidence_info=EventEvidence(
             file_name=file_name,
-            modified_date=datetime_utils.get_as_utc_iso_format(update_date),
+            modified_date=update_date,
         ),
         evidence_id=evidence_id,
     )

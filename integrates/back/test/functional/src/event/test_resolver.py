@@ -61,11 +61,11 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert result["data"]["event"]["subscription"] == "CONTINUOUS"
     assert result["data"]["event"]["evidences"] == {
         "file1": {
-            "date": "2019-03-11 10:57:45",
+            "date": "2019-03-11 15:57:45+00:00",
             "fileName": "unittesting_418900971_evidence_file_1.csv",
         },
         "image1": {
-            "date": "2019-03-11 10:57:45",
+            "date": "2019-03-11 15:57:45+00:00",
             "fileName": "unittesting_418900971_evidence_image_1.png",
         },
         "image2": None,

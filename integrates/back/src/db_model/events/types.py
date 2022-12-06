@@ -3,6 +3,9 @@ from .enums import (
     EventStateStatus,
     EventType,
 )
+from datetime import (
+    datetime,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -11,7 +14,7 @@ from typing import (
 
 class EventEvidence(NamedTuple):
     file_name: str
-    modified_date: str
+    modified_date: datetime
 
 
 class EventEvidences(NamedTuple):

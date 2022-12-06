@@ -25,6 +25,9 @@ from db_model.events.enums import (
 from db_model.events.utils import (
     format_metadata_item,
 )
+from db_model.utils import (
+    serialize,
+)
 from decimal import (
     Decimal,
 )
@@ -55,7 +58,7 @@ async def update_evidence(
     attribute = f"evidences.{str(evidence_id.value).lower()}"
     await operations.update_item(
         item={
-            attribute: json.loads(json.dumps(evidence_info))
+            attribute: json.loads(json.dumps(evidence_info, default=serialize))
             if evidence_info
             else None
         },
@@ -100,7 +103,7 @@ async def update_state(
     state: EventState,
 ) -> None:
     key_structure = TABLE.primary_key
-    state_item = json.loads(json.dumps(state))
+    state_item = json.loads(json.dumps(state, default=serialize))
     gsi_2_index = TABLE.indexes["gsi_2"]
 
     try:
@@ -175,7 +178,9 @@ async def update_unreliable_indicators(
         f"unreliable_indicators.{key}": Decimal(str(value))
         if isinstance(value, float)
         else value
-        for key, value in json.loads(json.dumps(indicators)).items()
+        for key, value in json.loads(
+            json.dumps(indicators, default=serialize)
+        ).items()
         if value is not None
     }
     current_value_item = {
@@ -183,7 +188,7 @@ async def update_unreliable_indicators(
         if isinstance(value, float)
         else value
         for key, value in json.loads(
-            json.dumps(current_value.unreliable_indicators)
+            json.dumps(current_value.unreliable_indicators, default=serialize)
         ).items()
     }
     conditions = (

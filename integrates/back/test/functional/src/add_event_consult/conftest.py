@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.events.enums import (
     EventStateStatus,
     EventType,
@@ -15,15 +18,14 @@ from db_model.events.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_event_consult")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "events": [
             {
                 "event": Event(
@@ -41,13 +43,17 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900971_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900971_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(

@@ -16,6 +16,9 @@ from db_model.events.enums import (
 from db_model.events.utils import (
     format_event_item,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -71,7 +74,7 @@ async def add(*, event: Event) -> None:
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
-        **json.loads(json.dumps(event.state)),
+        **json.loads(json.dumps(event.state, default=serialize)),
     }
     items.append(historic_state_item)
 

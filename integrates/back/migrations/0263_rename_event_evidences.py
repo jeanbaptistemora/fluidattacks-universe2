@@ -43,6 +43,9 @@ import logging.config
 from magic import (
     Magic,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -111,7 +114,7 @@ async def update_evidence(
         group_name=event.group_name,
         evidence_info=EventEvidence(
             file_name=file_name,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
         ),
         evidence_id=evidence_id,
     )

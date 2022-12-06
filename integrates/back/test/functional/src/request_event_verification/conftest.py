@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.events.enums import (
     EventSolutionReason,
     EventStateStatus,
@@ -41,13 +44,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900971_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900971_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(
@@ -84,13 +91,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900972_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900971_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(
@@ -127,13 +138,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900973_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900971_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(
@@ -170,13 +185,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900974_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900971_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(
@@ -221,13 +240,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             file_name=(
                                 "unittesting_418900975_evidence_image_1.png"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                         file_1=EventEvidence(
                             file_name=(
                                 "unittesting_418900975_evidence_file_1.csv"
                             ),
-                            modified_date="2019-03-11T15:57:45+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-11T15:57:45+00:00"
+                            ),
                         ),
                     ),
                     state=EventState(

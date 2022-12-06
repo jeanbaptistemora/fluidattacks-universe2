@@ -215,7 +215,7 @@ async def test_update_event_evidence() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["updateEventEvidence"]
 
-    date_str = datetime_utils.get_as_str(datetime_utils.get_now())
+    today = datetime_utils.get_iso_date()
     query = """
         query GetEvent($eventId: String!) {
             event(identifier: $eventId) {
@@ -233,7 +233,7 @@ async def test_update_event_evidence() -> None:
         == "unittesting_540462628_evidence_image_1.gif"
     )
     assert result["data"]["event"]["evidenceDate"].split(" ")[0] == (
-        date_str.split(" ")[0]
+        today.split("T")[0]
     )
 
 
