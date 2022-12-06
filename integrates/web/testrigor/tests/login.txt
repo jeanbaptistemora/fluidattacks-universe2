@@ -3,3 +3,9 @@ check that page contains "Continue with Microsoft"
 check that page contains "Continue with Bitbucket"
 press "Continue with Google"
 check that page contains "Sign in"
+go back
+press "Continue with Bitbucket"
+check that page contains "Continue"
+go back
+press "Continue with Microsoft"
+check that page contains "Sign in"
