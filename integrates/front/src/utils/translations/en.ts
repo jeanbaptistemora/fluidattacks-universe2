@@ -627,6 +627,8 @@ export const enTranslations: ResourceKey = {
         rootPlaceholder: "Search by nickname...",
         type: "Type",
         wrongFileType: "Evidence files must have .pdf, .zip or .csv extension",
+        wrongImageName:
+          "Evidence name must start with the name of the current group",
         wrongImageType:
           "Evidence images must have .gif/.png extension for animation" +
           "/exploitation and .png for evidences",

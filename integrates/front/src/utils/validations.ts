@@ -377,6 +377,20 @@ const validEvidenceImage: Validator = (
     ? undefined
     : translate.t("group.events.form.wrongImageType");
 
+const isValidEvidenceName: (groupName: string) => Validator =
+  (groupName: string): Validator =>
+  (file: FileList | undefined): string | undefined => {
+    return _.isUndefined(file) ||
+      (!_.isUndefined(file) &&
+        [...Array(file.length).keys()].every((index: number): boolean =>
+          file[index].name
+            .toLowerCase()
+            .startsWith(groupName.toLocaleLowerCase())
+        ))
+      ? undefined
+      : translate.t("group.events.form.wrongImageName");
+  };
+
 const validExploitFile: Validator = (value: FileList): string | undefined =>
   hasExtension(["exp", "py"], _.first(value))
     ? undefined
@@ -647,6 +661,7 @@ export {
   dateTimeBeforeToday,
   dateTimeBetween,
   isValidVulnsFile,
+  isValidEvidenceName,
   validTag,
   validField,
   isValidFileName,
