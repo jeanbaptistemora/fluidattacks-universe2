@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type TVariant = "blue" | "gray" | "green" | "orange" | "red";
+type TVariant = "blue" | "gray" | "green" | "orange" | "red" | "redNoBd";
 
 interface ITagProps {
   variant: TVariant;
@@ -36,6 +36,11 @@ const variants: Record<TVariant, IVariant> = {
   red: {
     bgColor: "#fdd8da",
     borderColor: "#bf0b1a",
+    color: "#bf0b1a",
+  },
+  redNoBd: {
+    bgColor: "#fdd8da",
+    borderColor: "#fdd8da",
     color: "#bf0b1a",
   },
 };

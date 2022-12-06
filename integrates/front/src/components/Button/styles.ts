@@ -74,9 +74,9 @@ const variants: Record<TVariant, IVariant> = {
   },
   input: {
     bgColor: "transparent",
-    bgColorHover: "#d2d2da",
+    bgColorHover: "#f4f4f6",
     borderColor: "#d2d2da",
-    borderRadius: 0,
+    borderRadius: 5,
     borderSize: 1,
     color: "#121216",
     colorHover: "#fff",

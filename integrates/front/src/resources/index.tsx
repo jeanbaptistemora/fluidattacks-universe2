@@ -6,6 +6,7 @@ import loginLogo from "./loginLogo.png";
 import loginMicrosoftLogo from "./loginMicrosoftLogo.png";
 import loginNewFeat from "./loginNewFeat.png";
 import lotScan from "./scan.json";
+import signUpBGR from "./SignUpBGR.png";
 
 export {
   lotCircleXMark,
@@ -16,4 +17,5 @@ export {
   loginGoogleLogo,
   loginMicrosoftLogo,
   loginBitBucketLogo,
+  signUpBGR,
 };
