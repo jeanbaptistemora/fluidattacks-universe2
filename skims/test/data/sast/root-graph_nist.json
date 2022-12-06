@@ -25218,6 +25218,7 @@
             "true_id": "927"
           },
           "92": {
+            "HouseController": "93",
             "block_id": "110",
             "label_type": "Class",
             "name": "HouseController"
