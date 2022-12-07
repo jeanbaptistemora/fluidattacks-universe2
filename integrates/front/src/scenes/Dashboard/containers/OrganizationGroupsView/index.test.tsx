@@ -186,7 +186,14 @@ describe("Organization groups view", (): void => {
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
     ).toContain("userModal.roles.user");
 
+    expect(screen.getAllByRole("link")).toHaveLength(16);
+    expect(screen.getAllByRole("link")[0]).toHaveAttribute(
+      "href",
+      "/orgs/okada/outofscope"
+    );
+
     await userEvent.click(screen.getByRole("cell", { name: "Unittesting" }));
+    jest.clearAllMocks();
   });
 
   it("should show an error", async (): Promise<void> => {
