@@ -3,11 +3,6 @@ from symbolic_eval.types import (
     SymbolicEvaluation,
 )
 
-requests = {
-    "query",
-    "req",
-}
-
 
 def js_insecure_logging(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if "query" in args.graph.nodes[args.n_id]["member"]:

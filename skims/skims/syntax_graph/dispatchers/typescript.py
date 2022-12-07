@@ -418,6 +418,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "regex",
             "string",
             "template_string",
         },

@@ -2,9 +2,9 @@
 lib_path.f428.json_unapropiated_comment:
   en: >-
     File cannot be verified because its content
-     contains comments that make it incompatible with the parser
-     of its extension.
+    contains comments that make it incompatible with the parser
+    of its extension.
   es: >-
-    En archivo  no se pueden verificar debido a que su contenido
-    contiene comentarios que lo hacen incompatible con el parser
-    de su extenxion.
+    El archivo  no se puede verificar debido a que su contenido
+    contiene comentarios, lo cual lo hacen incompatible con el parser
+    de su extension.

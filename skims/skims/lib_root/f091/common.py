@@ -23,18 +23,14 @@ from utils import (
 
 
 def is_logger_unsafe(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    if test_node := graph.nodes[n_id].get("arguments_id"):
-        for path in get_backward_paths(graph, test_node):
-            evaluation = evaluate(method, graph, path, test_node)
-            if (
-                evaluation
-                and evaluation.danger
-                and not (
-                    "sanitized" in evaluation.triggers
-                    and "characters" in evaluation.triggers
-                )
-            ):
-                return True
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers != {"sanitized", "characters"}
+        ):
+            return True
 
     return False
 
@@ -62,9 +58,10 @@ def insecure_logging(graph: Graph, method: MethodsEnum) -> List[NId]:
         f_name = graph.nodes[n_id]["expression"]
         obj, funct = split_function_name(f_name)
         if (
-            obj.lower() in danger_objects
+            obj in danger_objects
             and funct in danger_methods
-            and is_logger_unsafe(graph, n_id, method)
+            and (test_nid := graph.nodes[n_id].get("arguments_id"))
+            and is_logger_unsafe(graph, test_nid, method)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
