@@ -61,16 +61,16 @@
   }:
     scheduled_job {
       inherit name attempts timeout command;
-      size = "nano";
+      size = "observes_clone";
     }
     // {
-      queue = "clone";
+      queue = "observes_clone";
     };
 in {
   computeOnAwsBatch = {
     observesAnnounceKitEtl = scheduled_job {
       name = "announcekit_etl";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/announcekit"];
@@ -78,7 +78,7 @@ in {
 
     observesBugsnagEtl = scheduled_job {
       name = "bugsnag_etl";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/bugsnag"];
@@ -86,7 +86,7 @@ in {
 
     observesChecklyEtl = scheduled_job {
       name = "checkly_etl";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
@@ -94,7 +94,7 @@ in {
 
     observesDelightedEtl = scheduled_job {
       name = "delighted_etl";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 12 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/delighted"];
@@ -102,7 +102,7 @@ in {
 
     observesFormstackEtl = scheduled_job {
       name = "formstack_etl";
-      size = "small";
+      size = "observes_small";
       attempts = 3;
       timeout = 4 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
@@ -110,7 +110,7 @@ in {
 
     observesGitlabEtlChallenges = composition [with_universe_token scheduled_job] {
       name = "gitlab_challenges_etl";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
@@ -118,7 +118,7 @@ in {
 
     observesGitlabEtlDefault = composition [with_universe_token scheduled_job] {
       name = "gitlab_default_etl";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
@@ -126,7 +126,7 @@ in {
 
     observesGitlabEtlProduct = composition [with_universe_token scheduled_job] {
       name = "gitlab_product_etl";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 6 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
@@ -134,7 +134,7 @@ in {
 
     observesGitlabEtlServices = composition [with_universe_token scheduled_job] {
       name = "gitlab_services_etl";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
@@ -142,7 +142,7 @@ in {
 
     observesMailchimpEtl = scheduled_job {
       name = "mailchimp_etl";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
@@ -150,7 +150,7 @@ in {
 
     observesMandrillEtl = scheduled_job {
       name = "mandrill_etl";
-      size = "nano";
+      size = "observes_nano";
       attempts = 1;
       timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mandrill"];
@@ -165,7 +165,7 @@ in {
 
     observesCodeEtlUpload = composition [with_universe_token scheduled_job] {
       name = "code_upload";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 8 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
@@ -173,7 +173,7 @@ in {
 
     observesDynamoV2Etl = scheduled_job {
       name = "dynamo_etl_v2";
-      size = "nano";
+      size = "observes_nano";
       attempts = 3;
       timeout = 2 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
@@ -181,7 +181,7 @@ in {
 
     observesDynamoV2EtlBig = scheduled_job {
       name = "dynamo_etl_v2_big";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 48 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
@@ -189,7 +189,7 @@ in {
 
     observesDynamoParallel = parrallel_job 15 (scheduled_job {
       name = "dynamo_etl_parallel";
-      size = "large";
+      size = "observes_large_no_spot";
       attempts = 1;
       timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
@@ -197,7 +197,7 @@ in {
 
     observesDynamoPrepare = scheduled_job {
       name = "dynamo_etl_prepare";
-      size = "nano";
+      size = "observes_nano";
       attempts = 1;
       timeout = 1800;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/prepare"];
@@ -205,7 +205,7 @@ in {
 
     observesDynamoV3EtlBig = scheduled_job {
       name = "dynamo_etl_v3_big";
-      size = "medium";
+      size = "observes_medium";
       attempts = 1;
       timeout = 48 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
