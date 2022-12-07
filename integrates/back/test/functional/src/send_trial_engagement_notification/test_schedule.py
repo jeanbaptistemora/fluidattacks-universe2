@@ -1,4 +1,7 @@
 # pylint: disable=import-error
+from datetime import (
+    datetime,
+)
 from freezegun import (
     freeze_time,
 )
@@ -56,6 +59,10 @@ async def test_send_trial_engagement_notification(
         send_trial_engagement_notification,
         "mail_upgrade_squad_notification",
     )
+    mail_trial_ending_notification = mocker.spy(
+        send_trial_engagement_notification,
+        "mail_trial_ending_notification",
+    )
 
     await send_trial_engagement_notification.main()
 
@@ -65,6 +72,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="janedoe@janedoe.com",
             group_name="testgroup2",
+            start_date=datetime.fromisoformat(
+                "2022-11-08T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_send_define_treatments_notification.await_count == 1
@@ -73,6 +83,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="uiguaran@uiguaran.com",
             group_name="testgroup3",
+            start_date=datetime.fromisoformat(
+                "2022-11-06T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_send_add_repositories_notification.await_count == 1
@@ -81,6 +94,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="abuendia@abuendia.com",
             group_name="testgroup4",
+            start_date=datetime.fromisoformat(
+                "2022-11-04T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_support_channels_notification.await_count == 1
@@ -89,6 +105,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="avicario@avicario.com",
             group_name="testgroup5",
+            start_date=datetime.fromisoformat(
+                "2022-11-02T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_analytics_notification.await_count == 1
@@ -97,6 +116,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="fariza@fariza.com",
             group_name="testgroup6",
+            start_date=datetime.fromisoformat(
+                "2022-10-31T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_devsecops_agent_notification.await_count == 1
@@ -105,6 +127,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="snassar@snassar.com",
             group_name="testgroup7",
+            start_date=datetime.fromisoformat(
+                "2022-10-29T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_trial_reports_notification.await_count == 1
@@ -113,6 +138,9 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="jbuendia@jbuendia.com",
             group_name="testgroup8",
+            start_date=datetime.fromisoformat(
+                "2022-10-27T15:58:31.280182+00:00"
+            ),
         ),
     )
     assert mail_upgrade_squad_notification.await_count == 1
@@ -121,5 +149,19 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="johndoe@johndoe.com",
             group_name="testgroup",
+            start_date=datetime.fromisoformat(
+                "2022-10-25T15:58:31.280182+00:00"
+            ),
+        ),
+    )
+    assert mail_trial_ending_notification.await_count == 1
+    mail_trial_ending_notification.assert_any_call(
+        mock.ANY,
+        TrialEngagementInfo(
+            email_to="rremedios@rremedios.com",
+            group_name="testgroup9",
+            start_date=datetime.fromisoformat(
+                "2022-10-23T15:58:31.280182+00:00"
+            ),
         ),
     )

@@ -87,6 +87,12 @@ mail_upgrade_squad_notification = retry_on_exceptions(
     sleep_seconds=2,
 )(groups_mail.send_upgrade_squad_notification)
 
+mail_trial_ending_notification = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(groups_mail.send_trial_ending_notification)
+
 
 async def send_trial_engagement_notification() -> None:
     notifications: dict[
@@ -100,6 +106,7 @@ async def send_trial_engagement_notification() -> None:
         13: mail_devsecops_agent_notification,
         15: mail_trial_reports_notification,
         17: mail_upgrade_squad_notification,
+        19: mail_trial_ending_notification,
     }
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
@@ -115,6 +122,7 @@ async def send_trial_engagement_notification() -> None:
                 TrialEngagementInfo(
                     email_to=group.created_by,
                     group_name=group.name,
+                    start_date=company.trial.start_date,
                 ),
             )
             for group, company in zip(groups, companies)

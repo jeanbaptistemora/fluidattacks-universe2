@@ -282,26 +282,23 @@ async def send_upgrade_squad_notification(
 
 
 async def send_trial_ending_notification(
-    loaders: Dataloaders,
-    email_to: str,
-    group_name: str,
-    start_date: datetime,
+    loaders: Dataloaders, info: TrialEngagementInfo
 ) -> None:
-    fname = await get_recipient_first_name(loaders, email_to)
-    org_name = await get_organization_name(loaders, group_name)
+    fname = await get_recipient_first_name(loaders, info.email_to)
+    org_name = await get_organization_name(loaders, info.group_name)
     context = {
         "expires_date": datetime_utils.get_date_from_iso_str(
             datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(start_date, days=21)
+                datetime_utils.get_plus_delta(info.start_date, days=21)
             )
         ),
         "vulnerabilities_link": (
-            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns"
+            f"{BASE_URL}/orgs/{org_name}/groups/{info.group_name}/vulns"
         ),
     }
     await send_mails_async(
         loaders,
-        email_to=[email_to],
+        email_to=[info.email_to],
         context=context,
         tags=[],
         subject=(f"[{fname}], your free trial ends in 3 days."),
