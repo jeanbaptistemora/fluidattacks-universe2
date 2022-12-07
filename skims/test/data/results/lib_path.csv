@@ -216,7 +216,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,8,117,skims,
 >  8 |   log.info(userName);
    9 |
   10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = q.query.username.replace(/\f/g, """");
+  11 |   const userName2 = userName.replace(/\f/g, """");
   12 |   console.info(userName2);
   13 | }
   14 |
@@ -241,7 +241,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,7,117,skims,
    8 |   log.info(userName);
    9 |
   10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = q.query.username.replace(/\f/g, """");
+  11 |   const userName2 = userName.replace(/\f/g, """");
   12 |   console.info(userName2);
   13 | }
   14 |
@@ -265,7 +265,7 @@ F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,12,117,skims
    8 |   log.info(userName);
    9 |
   10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = q.query.username.replace(/\f/g, """");
+  11 |   const userName2 = userName.replace(/\f/g, """");
 > 12 |   console.info(userName2);
   13 | }
   14 |

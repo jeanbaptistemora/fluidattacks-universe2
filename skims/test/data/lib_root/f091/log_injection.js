@@ -8,7 +8,7 @@ function unsafe_log(req, _res) {
   log.info(userName);
 
   // UNSAFE: Incorrectly sanitized user input
-  const userName2 = q.query.username.replace(/\f/g, "");
+  const userName2 = userName.replace(/\f/g, "");
   console.info(userName2);
 }
 
