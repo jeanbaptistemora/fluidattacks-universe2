@@ -29,9 +29,6 @@ from symbolic_eval.utils import (
 from typing import (
     Iterable,
 )
-from utils import (
-    graph as g,
-)
 
 
 def is_argument_vuln(
@@ -51,7 +48,7 @@ def remote_command_execution(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     typescript = GraphLanguage.TYPESCRIPT
-    danger_methods = {"command", "execSync"}
+    danger_methods = {"execa.command", "execSync"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(typescript):
@@ -60,12 +57,7 @@ def remote_command_execution(
             graph = shard.syntax_graph
 
             for n_id in search_method_invocation_naive(graph, danger_methods):
-                if (
-                    is_argument_vuln(graph, n_id)
-                    and (args_id := graph.nodes[n_id].get("arguments_id"))
-                    and (args := g.match_ast(graph, args_id))
-                    and (len(args) == 1)
-                ):
+                if is_argument_vuln(graph, n_id):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

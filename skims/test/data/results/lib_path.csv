@@ -39818,7 +39818,7 @@ F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,8,78,ski
    6 |   const cmd = ""ls -la ""+req.query.arg;
    7 |
 >  8 |   const {stdout} = await execa.command(cmd);
-   9 | };
+   9 | }
   10 |
   11 | const cp = require('child_process');
   12 |
@@ -39838,7 +39838,7 @@ F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,16,78,sk
    6 |   const cmd = ""ls -la ""+req.query.arg;
    7 |
    8 |   const {stdout} = await execa.command(cmd);
-   9 | };
+   9 | }
   10 |
   11 | const cp = require('child_process');
   12 |
