@@ -1,8 +1,9 @@
 import type { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
-type TSize = "lg" | "md" | "sm" | "xl" | "xs";
+type TSize = "lg" | "md" | "sm" | "xl" | "xs" | "xxs";
 type TVariant =
+  | "carousel"
   | "ghost"
   | "input"
   | "primary"
@@ -60,9 +61,23 @@ const sizes: Record<TSize, ISize> = {
     ph: 9,
     pv: 6,
   },
+  xxs: {
+    fontSize: 7,
+    ph: 6,
+    pv: 6,
+  },
 };
 
 const variants: Record<TVariant, IVariant> = {
+  carousel: {
+    bgColor: "#dddde3",
+    bgColorHover: "#dddde3",
+    borderColor: "#d2d2da",
+    borderRadius: 5,
+    borderSize: 1,
+    color: "#121216",
+    colorHover: "#fff",
+  },
   ghost: {
     bgColor: "#80808000",
     bgColorHover: "#80808040",
