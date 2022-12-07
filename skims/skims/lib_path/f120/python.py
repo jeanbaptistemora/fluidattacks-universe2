@@ -69,8 +69,17 @@ def pip_incomplete_dependencies_list(
         client_dependencies_names = list(
             map(_get_name, requirements.parse(content))
         )
-        for name in dependencies_names:
-            if name not in client_dependencies_names:
+        # Standardize equivalent dependencies to different hyphenated names.
+        # e.g. "typing-extensions" vs "typing_extensions"
+        dep_standard_names = [
+            dep.replace("-", "_") for dep in dependencies_names
+        ]
+        client_standard_names = [
+            dep.replace("-", "_") for dep in client_dependencies_names
+        ]
+
+        for name, std_name in zip(dependencies_names, dep_standard_names):
+            if std_name not in client_standard_names:
                 yield name
 
     return get_vulnerabilities_for_incomplete_deps(
