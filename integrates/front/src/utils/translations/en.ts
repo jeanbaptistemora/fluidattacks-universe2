@@ -3830,6 +3830,12 @@ export const enTranslations: ResourceKey = {
       tooltip: "Create new organization",
     },
   },
+  signup: {
+    subtitle:
+      "Search for vulnerabilities in your application for FREE and " +
+      "enjoy all Machine Plan benefits:",
+    title: "Start your 21-day trial",
+  },
   table: {
     allOptions: "--All options--",
     clearFilters: "Clear Filters",

@@ -9,6 +9,7 @@ interface IContainerProps {
   bgColor?: string;
   bgImage?: string;
   bgImagePos?: string;
+  borderBottom?: string;
   borderTl?: string;
   borderTop?: string;
   borderTR?: string;
@@ -17,6 +18,8 @@ interface IContainerProps {
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
+  letterSpacing?: string;
+  lineHeight?: string;
   margin?: string;
   maxHeight?: string;
   maxWidth?: string;
@@ -32,6 +35,7 @@ interface IContainerProps {
   positionRight?: string;
   positionTop?: string;
   scroll?: "none" | "x" | "xy" | "y";
+  textAlign?: string;
   width?: string;
   wrap?: TWrap;
 }
@@ -44,6 +48,7 @@ const Container = styled.div.attrs({
     bgColor = "transparent",
     bgImage = "",
     bgImagePos = "",
+    borderBottom = "",
     borderTl = "0px 0px",
     borderTop = "",
     borderTR = "0px 0px",
@@ -52,6 +57,8 @@ const Container = styled.div.attrs({
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
+    letterSpacing = "",
+    lineHeight = "normal",
     margin = "0",
     maxHeight = "100%",
     maxWidth = "100%",
@@ -67,6 +74,7 @@ const Container = styled.div.attrs({
     positionRight = "",
     positionTop = "",
     scroll = "y",
+    textAlign = "",
     width = "auto",
     wrap = "unset",
   }): string => `
@@ -75,6 +83,7 @@ background-color: ${bgColor};
 background-image: ${bgImage};
 background-size: ${bgImagePos};
 background-repeat: no-repeat;
+border-bottom: ${borderBottom};
 border-top: ${borderTop};
 border-top-left-radius: ${borderTl};
 border-top-right-radius: ${borderTR};
@@ -84,6 +93,8 @@ display: ${display};
 flex-wrap: ${wrap};
 font-family: ${fontFamily};
 height: ${height};
+letter-spacing: ${letterSpacing};
+line-height: ${lineHeight};
 margin: ${margin};
 max-height: ${maxHeight};
 max-width: ${maxWidth};
@@ -100,6 +111,7 @@ bottom: ${positionBottom};
 left: ${positionLeft};
 top: ${positionTop};
 right: ${positionRight};
+text-align: ${textAlign};
 transition: all 0.3s ease;
 width: ${width};
 
