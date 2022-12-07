@@ -276,7 +276,9 @@ def format_verification(verification_item: Item) -> FindingVerification:
     return FindingVerification(
         comment_id=verification_item["comment_id"],
         modified_by=verification_item["modified_by"],
-        modified_date=verification_item["modified_date"],
+        modified_date=datetime.fromisoformat(
+            verification_item["modified_date"]
+        ),
         status=FindingVerificationStatus[verification_item["status"]],
         vulnerability_ids=verification_item["vulnerability_ids"]
         if "vulnerability_ids" in verification_item
@@ -288,7 +290,7 @@ def format_verification_item(verification: FindingVerification) -> Item:
     return {
         "comment_id": verification.comment_id,
         "modified_by": verification.modified_by,
-        "modified_date": verification.modified_date,
+        "modified_date": get_as_utc_iso_format(verification.modified_date),
         "status": verification.status.value,
         "vulnerability_ids": verification.vulnerability_ids
         if verification.vulnerability_ids

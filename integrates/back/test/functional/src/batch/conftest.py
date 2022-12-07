@@ -260,7 +260,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343434",
                         modified_by="test1@gmail.com",
-                        modified_date="2020-01-01T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-01T00:45:12+00:00"
+                        ),
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",
@@ -383,7 +385,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343434",
                         modified_by="test1@gmail.com",
-                        modified_date="2020-01-01T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-01T00:45:12+00:00"
+                        ),
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",

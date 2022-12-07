@@ -43,6 +43,7 @@ from db_model.findings.constants import (
     ME_DRAFTS_INDEX_METADATA,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -386,7 +387,7 @@ async def update_verification(
     condition_expression = Attr(key_structure.partition_key).exists()
     if current_value:
         condition_expression &= Attr("verification.modified_date").eq(
-            current_value.modified_date
+            get_as_utc_iso_format(current_value.modified_date)
         )
     try:
         await operations.update_item(
@@ -402,7 +403,7 @@ async def update_verification(
         facet=TABLE.facets["finding_historic_verification"],
         values={
             "id": finding_id,
-            "iso8601utc": verification.modified_date,
+            "iso8601utc": get_as_utc_iso_format(verification.modified_date),
         },
     )
     historic_verification_item = {

@@ -358,9 +358,7 @@ async def _finding_reattacked(  # pylint: disable=too-many-arguments
             _common_generate_count_report(
                 content=content,
                 date_range=date_range,
-                date_report=datetime_utils.get_datetime_from_iso_str(
-                    verification.modified_date
-                ),
+                date_report=verification.modified_date,
                 field="reattacked",
                 group=group,
                 to_add=len(verification.vulnerability_ids),

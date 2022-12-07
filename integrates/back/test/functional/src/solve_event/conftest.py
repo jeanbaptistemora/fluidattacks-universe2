@@ -413,7 +413,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343434",
                         modified_by="test2@gmail.com",
-                        modified_date="2022-02-01T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-01T00:45:12+00:00"
+                        ),
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
@@ -422,7 +424,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343435",
                         modified_by="customer_manager@fluidattacks.com",
-                        modified_date="2022-02-04T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-04T00:45:15+00:00"
+                        ),
                         status=FindingVerificationStatus.ON_HOLD,
                         vulnerability_ids={
                             "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",

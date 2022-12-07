@@ -642,7 +642,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=requester_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         status=FindingVerificationStatus.REQUESTED,
         vulnerability_ids=vulnerability_ids,
     )
@@ -972,7 +972,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    today = datetime_utils.get_iso_date()
+    today = datetime_utils.get_utc_now()
     user_email = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
@@ -1023,7 +1023,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     await vulns_domain.verify(
         context=context,
         loaders=loaders,
-        modified_date=today,
+        modified_date=datetime_utils.get_as_utc_iso_format(today),
         closed_vulns_ids=closed_vulns_ids,
         vulns_to_close_from_file=vulns_to_close_from_file,
     )

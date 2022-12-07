@@ -745,7 +745,7 @@ async def request_vulnerabilities_hold(
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         status=FindingVerificationStatus.ON_HOLD,
         vulnerability_ids=vulnerability_ids,
     )

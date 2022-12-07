@@ -30,6 +30,9 @@ from db_model.findings.constants import (
 from db_model.findings.enums import (
     FindingStateStatus,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb import (
     keys,
     operations,
@@ -98,7 +101,9 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
             facet=TABLE.facets["finding_historic_verification"],
             values={
                 "id": finding.id,
-                "iso8601utc": finding.verification.modified_date,
+                "iso8601utc": get_as_utc_iso_format(
+                    finding.verification.modified_date
+                ),
             },
         )
         historic_verification_item = {

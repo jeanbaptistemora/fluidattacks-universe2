@@ -44,7 +44,7 @@ class FindingState(NamedTuple):
 class FindingVerification(NamedTuple):
     comment_id: str
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     status: FindingVerificationStatus
     vulnerability_ids: Optional[set[str]] = None
 

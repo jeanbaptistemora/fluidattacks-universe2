@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -23,15 +26,14 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding_consult")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "findings": [
             {
                 "finding": Finding(
@@ -106,7 +108,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343434",
                         modified_by="test1@gmail.com",
-                        modified_date="2020-01-01T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-01T00:45:12+00:00"
+                        ),
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
@@ -196,7 +200,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     FindingVerification(
                         comment_id="42343434",
                         modified_by="test1@gmail.com",
-                        modified_date="2020-01-01T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-01T00:45:12+00:00"
+                        ),
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "be09edb7-cd5c-47ed-bee4-97c645acdce8",

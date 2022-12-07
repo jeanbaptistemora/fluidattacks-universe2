@@ -326,7 +326,7 @@ def _format_verification(state: Dict[str, str]) -> FindingVerification:
     return FindingVerification(
         comment_id=str(state["comment"]),
         modified_by=state.get("user", ""),
-        modified_date=get_as_utc_iso_format(get_from_str(state["date"])),
+        modified_date=get_from_str(state["date"]),
         status=FindingVerificationStatus[str(state["status"]).upper()],
         vulnerability_ids=set(state["vulns"]) if "vulns" in state else None,
     )
