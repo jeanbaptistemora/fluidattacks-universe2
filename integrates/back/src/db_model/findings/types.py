@@ -5,6 +5,9 @@ from .enums import (
     FindingStatus,
     FindingVerificationStatus,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -23,7 +26,7 @@ class DraftRejection(NamedTuple):
     other: str
     reasons: set[DraftRejectionReason]
     rejected_by: str
-    rejection_date: str
+    rejection_date: datetime
     submitted_by: str
 
 

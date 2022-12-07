@@ -8,6 +8,9 @@ from custom_exceptions import (
     IncompleteDraft,
     NotSubmitted,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     findings as findings_model,
 )
@@ -189,7 +192,7 @@ async def reject_draft(
         other=other if other else "",
         reasons=reasons,
         rejected_by=reviewer_email,
-        rejection_date=rejection_date,
+        rejection_date=datetime.fromisoformat(rejection_date),
         submitted_by=finding.state.modified_by,
     )
     new_state = FindingState(

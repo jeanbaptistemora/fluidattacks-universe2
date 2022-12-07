@@ -19,9 +19,15 @@ from .types import (
     FindingVerification,
     FindingVerificationSummary,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from decimal import (
     Decimal,
@@ -311,7 +317,9 @@ def format_rejection(
                 for reason in rejection_item["reasons"]
             },
             rejected_by=rejection_item["rejected_by"],
-            rejection_date=rejection_item["rejection_date"],
+            rejection_date=datetime.fromisoformat(
+                rejection_item["rejection_date"]
+            ),
             submitted_by=rejection_item["submitted_by"],
         )
         if rejection_item is not None
@@ -327,7 +335,7 @@ def format_rejection_item(
             "other": rejection.other,
             "reasons": {str(reason.value) for reason in rejection.reasons},
             "rejected_by": rejection.rejected_by,
-            "rejection_date": rejection.rejection_date,
+            "rejection_date": get_as_utc_iso_format(rejection.rejection_date),
             "submitted_by": rejection.submitted_by,
         }
         if rejection is not None

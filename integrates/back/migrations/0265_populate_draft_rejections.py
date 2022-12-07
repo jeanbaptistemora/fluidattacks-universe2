@@ -170,7 +170,7 @@ async def update_finding_historic_state(
         else "",
         reasons=reasons,
         rejected_by=old_state.modified_by,
-        rejection_date=old_state.modified_date,
+        rejection_date=datetime.fromisoformat(old_state.modified_date),
         submitted_by=helper.submitted_by,
     )
     new_state: FindingState = old_state._replace(rejection=rejection)
