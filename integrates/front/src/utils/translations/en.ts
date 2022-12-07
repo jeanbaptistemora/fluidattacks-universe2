@@ -714,9 +714,11 @@ export const enTranslations: ResourceKey = {
         locations: "Number of instances of the vulnerability",
         reattack: "Current reattack status",
         severity: "Risk scoring according to CVSS 3.1",
+        source: "Type of exposure source",
         status:
-          "Current state of the vulnerability: Open if the vulnerabilty persists, " +
-          "Closed if it was solved",
+          "Current state of the vulnerability: Vulnerable if the vulnerabilty " +
+          "persists, Safe if it was solved",
+        treatment: "Current treatment status",
         type: "Vulnerability title",
         where: "Exact location of the vulnerability.",
       },
