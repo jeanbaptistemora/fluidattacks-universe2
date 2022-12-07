@@ -2,7 +2,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 
 import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
@@ -126,7 +126,7 @@ describe("Update access token modal", (): void => {
   it("should render a new access token", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const expirationTime: string = moment()
+    const expirationTime: string = dayjs()
       .add(1, "month")
       .toISOString()
       .substring(0, yyyymmdd);
