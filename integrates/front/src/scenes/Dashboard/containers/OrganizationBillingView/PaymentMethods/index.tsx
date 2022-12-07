@@ -251,12 +251,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           graphQLErrors.forEach((error): void => {
             switch (error.message) {
               case "Exception - Cannot perform action. Please add a valid payment method first":
-                msgError(
-                  t(
-                    "organization.tabs.billing.paymentMethods.remove.errors.noPaymentMethod"
-                  )
-                );
-                break;
               case "Exception - Invalid payment method. Provided payment method does not exist for this organization":
                 msgError(
                   t(

@@ -241,6 +241,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       } catch (updateError: unknown) {
         switch (String(updateError).slice(7)) {
           case "Exception - Cannot perform action. Please add a valid payment method first":
+          case "Exception - Invalid customer. Provided customer does not have a payment method":
             msgError(
               t(
                 "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
@@ -251,13 +252,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
             msgError(
               t(
                 "organization.tabs.billing.groups.updateSubscription.errors.alreadyActive"
-              )
-            );
-            break;
-          case "Exception - Invalid customer. Provided customer does not have a payment method":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
               )
             );
             break;
