@@ -162,6 +162,14 @@ resource "cloudflare_record" "status" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "status.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
+  value   = "dashboards.checklyhq.com"
+  proxied = false
+  ttl     = 1
+}
+resource "cloudflare_record" "status2" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "status2.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
   value   = "checkly-dashboards.com"
   proxied = false
   ttl     = 1
