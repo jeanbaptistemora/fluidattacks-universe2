@@ -2,8 +2,21 @@ from aioextensions import (
     collect,
     run,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
 from async_lru import (
     alru_cache,
+)
+from botocore.exceptions import (
+    ClientError,
+    ConnectTimeoutError,
+    HTTPClientError,
+    ReadTimeoutError,
 )
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
@@ -15,6 +28,9 @@ from charts.utils import (
     format_cvssf,
     iterate_groups,
     json_dump,
+)
+from custom_exceptions import (
+    UnavailabilityError as CustomUnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -37,6 +53,12 @@ from db_model.toe_lines.types import (
 from decimal import (
     Decimal,
 )
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
+)
 from itertools import (
     chain,
 )
@@ -48,6 +70,22 @@ LINES_ADJUSTMENT: Decimal = Decimal("1000.0")
 
 
 @alru_cache(maxsize=None, typed=True)
+@retry_on_exceptions(
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        ClientPayloadError,
+        ConnectionResetError,
+        ConnectTimeoutError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        ReadTimeoutError,
+        ServerTimeoutError,
+        UnavailabilityError,
+    ),
+    sleep_seconds=30,
+    max_attempts=5,
+)
 async def generate_one(
     group_name: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
