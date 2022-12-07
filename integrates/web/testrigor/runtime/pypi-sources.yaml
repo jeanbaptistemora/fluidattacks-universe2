@@ -1,5 +1,5 @@
 closure:
-  certifi: 2022.9.24
+  certifi: 2022.12.7
   cffi: 1.15.1
   charset-normalizer: 2.1.1
   cryptography: 38.0.3
@@ -8,15 +8,17 @@ closure:
   jwcrypto: 1.4.2
   pycparser: "2.21"
   requests: 2.28.1
-  urllib3: 1.26.12
+  types-requests: 2.28.11.5
+  types-urllib3: 1.26.25.4
+  urllib3: 1.26.13
   wrapt: 1.14.1
 links:
-  - name: certifi-2022.9.24-py3-none-any.whl
-    sha256: 10pkhgnxd22ca8c9bc3d207rza6cyrq67qslhd441yb83lps7hch
-    url: https://files.pythonhosted.org/packages/1d/38/fa96a426e0c0e68aabc68e896584b83ad1eec779265a028e156ce509630e/certifi-2022.9.24-py3-none-any.whl
-  - name: certifi-2022.9.24.tar.gz
-    sha256: 056fpl8l6f8p4c087zj1yvsk87n2aff0vinv2abvm9p54h8n170d
-    url: https://files.pythonhosted.org/packages/cb/a4/7de7cd59e429bd0ee6521ba58a75adaec136d32f91a761b28a11d8088d44/certifi-2022.9.24.tar.gz
+  - name: certifi-2022.12.7-py3-none-any.whl
+    sha256: 065wqxligjai8la891i71s921q7xmpyc3krixhc6fvcjbqpj7lsa
+    url: https://files.pythonhosted.org/packages/71/4c/3db2b8021bd6f2f0ceb0e088d6b2d49147671f25832fb17970e9b583d742/certifi-2022.12.7-py3-none-any.whl
+  - name: certifi-2022.12.7.tar.gz
+    sha256: 1qx9a09rssb1fa6jwmpn332irnqlm9j4v108nij5j4cp7964p0im
+    url: https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz
   - name: cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 11gmbafr477z9yi4wnhssjq0yl22qkvgkxvy1rwdv3ikg1xxp8jl
     url: https://files.pythonhosted.org/packages/18/8f/5ff70c7458d61fa8a9752e5ee9c9984c601b0060aae0c619316a1e1f1ee5/cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
@@ -113,12 +115,24 @@ links:
   - name: requests-2.28.1.tar.gz
     sha256: 10vrr7bijzrypvms3g2sgz8vya7f9ymmcv423ikampgy0aqrjmbw
     url: https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz
-  - name: urllib3-1.26.12-py2.py3-none-any.whl
-    sha256: 15z9xsfhxg94ypa1r7907cg91rsg2hsvnzv3d83gp2jsin3xsc5r
-    url: https://files.pythonhosted.org/packages/6f/de/5be2e3eed8426f871b170663333a0f627fc2924cc386cd41be065e7ea870/urllib3-1.26.12-py2.py3-none-any.whl
-  - name: urllib3-1.26.12.tar.gz
-    sha256: 0km7yj8vmv6qvm3psx37qsvsickd77gyhsijzjbpk6764gs6ra9z
-    url: https://files.pythonhosted.org/packages/b2/56/d87d6d3c4121c0bcec116919350ca05dc3afd2eeb7dc88d07e8083f8ea94/urllib3-1.26.12.tar.gz
+  - name: types_requests-2.28.11.5-py3-none-any.whl
+    sha256: 1afqbyqg03aqarggcg2cqikyg9i7zal2m58vic6z5d616dd4l789
+    url: https://files.pythonhosted.org/packages/fd/17/61e0d7203f3133aecead2d8b75f89d7b3c6664560e70d9030e69eb3c0d87/types_requests-2.28.11.5-py3-none-any.whl
+  - name: types-requests-2.28.11.5.tar.gz
+    sha256: 0apfm5y1vgcwlfqac095m9458cqxwbw53abx1627l65ndz63gpx7
+    url: https://files.pythonhosted.org/packages/62/2c/8f1647d9dcc91e53129ade955824c1059292eea9d9e43b94fe090dd8a2ef/types-requests-2.28.11.5.tar.gz
+  - name: types_urllib3-1.26.25.4-py3-none-any.whl
+    sha256: 0jby67bl80dmmyw2mw4sm4dcphrzdah8js1hf9ppk274if59wszd
+    url: https://files.pythonhosted.org/packages/ab/35/7b813668050bfe0820ad84df0ba668adb6abb41ca2bb0f16ad4deabca279/types_urllib3-1.26.25.4-py3-none-any.whl
+  - name: types-urllib3-1.26.25.4.tar.gz
+    sha256: 1vnsr46bszyg29d9xv7zk5d9jxrqmfdbd3spmjqn5j7f51j5bigf
+    url: https://files.pythonhosted.org/packages/37/67/c0751b0f672b0822b11ece210b211bdd1e08d6e21aa62e6d297b054127d7/types-urllib3-1.26.25.4.tar.gz
+  - name: urllib3-1.26.13-py2.py3-none-any.whl
+    sha256: 1z21pgc451h1qcx1g74wnmj4wddswxh9p06m5vkwj2dakbchbk27
+    url: https://files.pythonhosted.org/packages/65/0c/cc6644eaa594585e5875f46f3c83ee8762b647b51fc5b0fb253a242df2dc/urllib3-1.26.13-py2.py3-none-any.whl
+  - name: urllib3-1.26.13.tar.gz
+    sha256: 1a6y3m90q4i605p7q2ajgpm7si7rj35p2llx2bhzpnv8rq6xv0y0
+    url: https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz
   - name: wrapt-1.14.1-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 10sk6ggx6vmy5r230v4rcmd2qhf7azgvnhy4rjakillqgln84cij
     url: https://files.pythonhosted.org/packages/d9/ab/3ba5816dd466ffd7242913708771d258569825ab76fd29d7fd85b9361311/wrapt-1.14.1-cp39-cp39-macosx_10_9_x86_64.whl

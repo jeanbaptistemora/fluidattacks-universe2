@@ -27,8 +27,8 @@ def _get_test_content(test_content: str) -> str:
 
 def _get_tests() -> list[dict[str, str]]:
     tests = []
-    for file in glob.glob("./tests/*.txt"):
-        with open(file, "r") as test_file:
+    for file in glob.glob("tests/*.txt"):
+        with open(file, "r", encoding="utf-8") as test_file:
             tests.append(
                 {
                     "customSteps": _get_test_content(test_file.read()),
@@ -56,6 +56,12 @@ def _execute_tests() -> None:
             "url": f"https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/",
         },
     )
+    task_id = response.json()["taskId"]
+    print(
+        "View details at https://app.testrigor.com/test-suites/"
+        f"{TESTRIGOR_SUITE_ID}/runs/{task_id}"
+    )
+
     if response.status_code != 200:
         raise Exception("Couldn't execute tests")
 
@@ -63,7 +69,8 @@ def _execute_tests() -> None:
 def _check_completion() -> None:
     while True:
         response = requests.get(
-            f"https://api.testrigor.com/api/v1/apps/{TESTRIGOR_SUITE_ID}/status",
+            "https://api.testrigor.com/api/v1/apps/"
+            f"{TESTRIGOR_SUITE_ID}/status",
             headers={
                 "accept": "application/json",
                 "auth-token": TESTRIGOR_AUTH_TOKEN,
@@ -74,7 +81,7 @@ def _check_completion() -> None:
         if response.status_code == 200:
             print("Test finished successfully")
             break
-        elif response.status_code in [227, 228]:
+        if response.status_code in {227, 228}:
             print("Test is not finished yet")
         elif response.status_code == 230:
             print("Test finished but failed")

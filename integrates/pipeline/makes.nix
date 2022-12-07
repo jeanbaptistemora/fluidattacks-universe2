@@ -541,6 +541,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/integratesTestrigorE2e";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintTerraform/integratesInfra";
             gitlabExtra = gitlabLint;
           }

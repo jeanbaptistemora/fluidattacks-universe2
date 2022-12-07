@@ -58,9 +58,10 @@ def _get_token() -> str:
 
 
 def append_session(test_content: str) -> str:
+    js_instruction = "execute JavaScript in the browser"
     instruction = f"""
     open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/"
-    execute JavaScript in the browser text starting from next line and ending with [END]
+    {js_instruction} text starting from next line and ending with [END]
         document.cookie = "integrates_session={_get_token()}"
     [END]
     """

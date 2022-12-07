@@ -18,7 +18,7 @@ function main {
       TESTRIGOR_AUTH_TOKEN \
       TESTRIGOR_SUITE_ID \
     && pushd integrates/web/testrigor \
-    && python3 execute.py \
+    && python3 src/execute.py \
     && popd \
     || return 1
 }
