@@ -38,6 +38,12 @@ from typing import (
     Optional,
 )
 
+mail_add_stakeholders_notification = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(groups_mail.send_add_stakeholders_notification)
+
 mail_upgrade_squad_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=4,
@@ -49,6 +55,7 @@ async def send_trial_engagement_notification() -> None:
     notifications: dict[
         int, Callable[[Dataloaders, TrialEngagementInfo], Awaitable[None]]
     ] = {
+        3: mail_add_stakeholders_notification,
         17: mail_upgrade_squad_notification,
     }
     loaders = get_new_context()
@@ -64,6 +71,7 @@ async def send_trial_engagement_notification() -> None:
                 loaders,
                 TrialEngagementInfo(
                     email_to=group.created_by,
+                    group_name=group.name,
                 ),
             )
             for group, company in zip(groups, companies)
