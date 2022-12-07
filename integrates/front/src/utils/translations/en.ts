@@ -3007,6 +3007,10 @@ export const enTranslations: ResourceKey = {
       fields: {
         modal: {
           continue: "Continue",
+          error: "Invalid file.",
+          message:
+            "Are you sure this is the correct evidence corresponding to this type?",
+          title: "Preview new evidence",
         },
       },
       remove: "Delete",

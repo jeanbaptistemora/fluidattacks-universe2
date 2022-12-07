@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading, react/no-multi-comp */
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FieldValidator } from "formik";
 import { Field } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
@@ -36,6 +37,8 @@ interface IEvidenceImageProps {
   validate?: unknown;
   onClick: () => void;
   onDelete?: () => void;
+  shouldPreviewValidation: FieldValidator[];
+  shouldPreview: boolean;
 }
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */
 
@@ -46,6 +49,8 @@ const maxDescriptionLength: ConfigurableValidator = maxLength(
 
 const RenderForm: React.FC<IEvidenceImageProps> = ({
   acceptedMimes,
+  shouldPreview,
+  shouldPreviewValidation,
   description,
   isDescriptionEditable,
   isRemovable = false,
@@ -64,7 +69,10 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
         accept={acceptedMimes}
         component={FormikFileInput}
         id={name}
+        multiple={false}
         name={getFieldName("file")}
+        shouldPreview={shouldPreview && isRemovable}
+        shouldPreviewValidation={shouldPreviewValidation}
         validate={validate}
       />
       {isDescriptionEditable ? (

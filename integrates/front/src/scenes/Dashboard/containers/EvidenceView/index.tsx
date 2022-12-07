@@ -44,6 +44,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
   composeValidators,
+  isValidEvidenceName,
   isValidFileSize,
   validEvidenceImage,
 } from "utils/validations";
@@ -55,7 +56,8 @@ interface IEvidenceItem {
 }
 
 const EvidenceView: React.FC = (): JSX.Element => {
-  const { findingId } = useParams<{ findingId: string }>();
+  const { findingId, groupName } =
+    useParams<{ findingId: string; groupName: string }>();
   const { t } = useTranslation();
 
   // State management
@@ -182,6 +184,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
+  const validEvidenceName: FieldValidator = isValidEvidenceName(groupName);
 
   return (
     <React.StrictMode>
@@ -276,9 +279,20 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           // eslint-disable-next-line react/jsx-no-bind
                           onClick={openImage}
                           onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                          shouldPreview={true}
+                          shouldPreviewValidation={[
+                            validEvidenceImage,
+                            maxFileSize,
+                            ...(_.isEmpty(evidence.url)
+                              ? []
+                              : [validEvidenceName]),
+                          ]}
                           validate={composeValidators([
                             validEvidenceImage,
                             maxFileSize,
+                            ...(_.isEmpty(evidence.url)
+                              ? []
+                              : [validEvidenceName]),
                           ])}
                         />
                       );
