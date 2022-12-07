@@ -43,7 +43,7 @@ def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
 def check_template_integrity(template: Node) -> bool:
     return bool(
         template
-        and getattr(template, "raw")
+        and hasattr(template, "raw")
         and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
     )

@@ -65,7 +65,10 @@ def get_insecure_generate_secret_vulns(
         if all(char in exclude_chars for char in charset):
             yield gen_secret_str_node.inner["ExcludeCharacters"]
 
-    if not require_each_include_type:
+    if (
+        not require_each_include_type
+        and "RequireEachIncludedType" in gen_secret_str_node.inner
+    ):
         yield gen_secret_str_node.inner["RequireEachIncludedType"]
 
     if password_length < min_length:

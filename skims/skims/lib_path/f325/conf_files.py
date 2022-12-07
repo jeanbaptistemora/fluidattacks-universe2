@@ -17,8 +17,10 @@ from typing import (
 def _json_principal_wildcard(
     template: Any,
 ) -> Iterator[Any]:
-    if isinstance(template, Node) and (
-        statement := template.inner.get("Statement")
+    if (
+        isinstance(template, Node)
+        and (hasattr(template.inner, "get"))
+        and (statement := template.inner.get("Statement"))
     ):
         for elem in statement.data:
             if (

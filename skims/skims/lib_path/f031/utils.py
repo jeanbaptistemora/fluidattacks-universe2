@@ -159,7 +159,9 @@ def permissive_policy_iterate_vulnerabilities(
 
         actions = stmt_raw.get("Action", [])
         resources = stmt_raw.get("Resource", [])
-        has_permissive_resources = any(map(is_resource_permissive, resources))
+        has_permissive_resources = isinstance(
+            resources, (list, tuple)
+        ) and any(map(is_resource_permissive, resources))
         has_permissive_actions = any(map(is_action_permissive, actions))
         if (
             isinstance(stmt, Node)
@@ -200,5 +202,6 @@ def admin_policies_attached_iterate_vulnerabilities(
         elif any(
             policy.split("/")[-1] in elevated_policies
             for policy in policies.data or []
+            if hasattr(policy, "split")
         ):
             yield policies

@@ -19,6 +19,7 @@ def _json_anon_connection_config(
 ) -> Iterator[Any]:
     if (
         isinstance(template, Node)
+        and (hasattr(template.inner, "get"))
         and (allowed_hosts := template.inner.get("AllowedHosts"))
         and allowed_hosts.data == "*"
     ):
@@ -28,8 +29,10 @@ def _json_anon_connection_config(
 def _json_disable_host_check(
     template: Any,
 ) -> Iterator[Any]:
-    if isinstance(template, Node) and (
-        scripts := getattr(template.inner.get("scripts"), "data", None)
+    if (
+        isinstance(template, Node)
+        and (hasattr(template.inner, "get"))
+        and (scripts := getattr(template.inner.get("scripts"), "data", None))
     ):
         for script in scripts.values():
             if " --disable-host-check" in script.data:

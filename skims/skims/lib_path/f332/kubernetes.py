@@ -47,7 +47,7 @@ def check_port(port: Node) -> bool:
 def _kubernetes_insecure_port(template: Node) -> Iterator[Tuple[int, int]]:
     if (
         isinstance(template, Node)
-        and getattr(template, "raw")
+        and hasattr(template, "raw")
         and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
         and (ports := get_node_by_keys(template, ["spec", "ports"]))

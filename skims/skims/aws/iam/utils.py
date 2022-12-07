@@ -75,7 +75,11 @@ def yield_statements_from_policy(
 def yield_statements_from_policy_document(
     document: Union[Any, Node]
 ) -> Iterator[Union[Any, Node]]:
-    if isinstance(document, Node) and document.inner.get("Statement", None):
+    if (
+        isinstance(document, Node)
+        and hasattr(document.inner, "get")
+        and document.inner.get("Statement", None)
+    ):
         statement = document.inner.get("Statement", None)
         if isinstance(statement.inner, dict):
             yield patch_statement(statement)

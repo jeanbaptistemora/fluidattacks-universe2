@@ -1,6 +1,9 @@
 from asyncio import (
     sleep,
 )
+from contextlib import (
+    suppress,
+)
 from ctx import (
     TOOLS_SEMVER_MATCH,
 )
@@ -100,7 +103,8 @@ def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
     cur_node = node
     for key in keys:
         if key in cur_node.inner:
-            cur_node = cur_node.inner[key]
+            with suppress(TypeError):
+                cur_node = cur_node.inner[key]
         else:
             return None
     return cur_node

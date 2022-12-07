@@ -51,13 +51,15 @@ def _k8s_image_has_digest(
 ) -> Iterator[Tuple[int, int]]:
     if (
         isinstance(template, Node)
-        and getattr(template, "raw")
+        and hasattr(template, "raw")
         and hasattr(template.raw, "get")
         and template.raw.get("apiVersion")
         and (template_images := get_values_by_key(template, "image", set()))
     ):
         vulns = filter(
-            lambda image: not check_digest(image.data), template_images
+            lambda image: isinstance(image.data, str)
+            and not check_digest(image.data),
+            template_images,
         )
 
         yield from vulns
