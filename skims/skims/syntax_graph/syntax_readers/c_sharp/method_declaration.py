@@ -9,7 +9,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
-    match_ast_group,
+    match_ast_group_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -17,24 +17,26 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    method = args.ast_graph.nodes[args.n_id]
-    name_id = method["label_field_name"]
-    parameters_id = method["label_field_parameters"]
-    block_id = method.get("label_field_body")
+    graph = args.ast_graph
+    n_attrs = graph.nodes[args.n_id]
+    name_id = n_attrs["label_field_name"]
+    name = node_to_str(graph, name_id)
+    block_id = n_attrs.get("label_field_body")
 
-    name = node_to_str(args.ast_graph, name_id)
-
+    parameters_id = n_attrs["label_field_parameters"]
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
-        parameters_id = None
+        parameters_list = []
+    else:
+        parameters_list = [parameters_id]
 
-    match_childs = match_ast_group(
-        args.ast_graph, args.n_id, "attribute_list", "modifier"
+    attributes_id = match_ast_group_d(
+        args.ast_graph,
+        args.n_id,
+        "attribute_list",
     )
-    attributes_id = match_childs.get("attribute_list")
 
     children_nid = {
         "attributes_id": attributes_id,
-        "parameters_id": parameters_id,
+        "parameters_id": parameters_list,
     }
-
     return build_method_declaration_node(args, name, block_id, children_nid)

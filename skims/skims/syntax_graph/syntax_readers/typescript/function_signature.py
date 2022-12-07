@@ -23,8 +23,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     parameters_id = n_attrs["label_field_parameters"]
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
-        parameters_id = None
+        parameters_list = []
+    else:
+        parameters_list = [parameters_id]
 
-    children_nid = {"parameters_id": parameters_id}
+    children_nid = {"parameters_id": parameters_list}
 
     return build_method_declaration_node(args, name, None, children_nid)

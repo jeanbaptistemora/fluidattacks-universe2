@@ -33,11 +33,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
             graph, f_signature, "formal_parameter_list"
         )
 
-    if parameters_id and "__0__" not in match_ast(
-        graph, parameters_id, "(", ")"
-    ):
-        parameters_id = None
+    parameters_list = []
+    if parameters_id and "__0__" in match_ast(graph, parameters_id, "(", ")"):
+        parameters_list = [parameters_id]
 
-    children_nid = {"parameters_id": parameters_id}
+    children_nid = {"parameters_id": parameters_list}
 
     return build_method_declaration_node(args, name, block_id, children_nid)

@@ -15,6 +15,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
     params = arrow_id.get("label_field_parameter") or arrow_id.get(
         "label_field_parameters"
     )
-    children_nid = {"parameters_id": params}
+    if not params:
+        params_list = []
+    else:
+        params_list = [params]
+    children_nid = {"parameters_id": params_list}
 
     return build_method_declaration_node(args, None, block_id, children_nid)

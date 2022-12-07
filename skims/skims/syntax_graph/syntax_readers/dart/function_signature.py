@@ -10,7 +10,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     adj_ast,
-    match_ast_d,
+    match_ast_group_d,
     search_pred_until_type,
 )
 from utils.graph.text_nodes import (
@@ -36,7 +36,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         body_parents,
     )
     if last_c and (class_childs := list(adj_ast(graph, class_pred))):
-        pm_id = match_ast_d(graph, args.n_id, "formal_parameter_list")
+        pm_id = match_ast_group_d(graph, args.n_id, "formal_parameter_list")
         children = {"parameters_id": pm_id}
         body_id = class_childs[class_childs.index(last_c) + 1]
         return build_method_declaration_node(args, m_name, body_id, children)
