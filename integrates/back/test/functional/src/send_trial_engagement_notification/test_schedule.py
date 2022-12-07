@@ -63,6 +63,10 @@ async def test_send_trial_engagement_notification(
         send_trial_engagement_notification,
         "mail_trial_ending_notification",
     )
+    mail_how_improve_notification = mocker.spy(
+        send_trial_engagement_notification,
+        "mail_how_improve_notification",
+    )
 
     await send_trial_engagement_notification.main()
 
@@ -162,6 +166,17 @@ async def test_send_trial_engagement_notification(
             group_name="testgroup9",
             start_date=datetime.fromisoformat(
                 "2022-10-23T15:58:31.280182+00:00"
+            ),
+        ),
+    )
+    assert mail_how_improve_notification.await_count == 1
+    mail_how_improve_notification.assert_any_call(
+        mock.ANY,
+        TrialEngagementInfo(
+            email_to="rmontiel@rmontiel.com",
+            group_name="testgroup10",
+            start_date=datetime.fromisoformat(
+                "2022-10-22T15:58:31.280182+00:00"
             ),
         ),
     )

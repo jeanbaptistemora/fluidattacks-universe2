@@ -307,13 +307,12 @@ async def send_trial_ending_notification(
 
 
 async def send_how_improve_notification(
-    loaders: Any,
-    email_to: str,
+    loaders: Dataloaders, info: TrialEngagementInfo
 ) -> None:
-    fname = await get_recipient_first_name(loaders, email_to)
+    fname = await get_recipient_first_name(loaders, info.email_to)
     await send_mails_async(
         loaders,
-        email_to=[email_to],
+        email_to=[info.email_to],
         context={},
         tags=[],
         subject=(f"[{fname}], how can we improve?"),

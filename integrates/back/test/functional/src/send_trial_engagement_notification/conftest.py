@@ -142,6 +142,17 @@ async def populate() -> bool:
                     ),
                 ),
             ),
+            Company(
+                domain="rmontiel.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-22T15:58:31.280182"
+                    ),
+                ),
+            ),
         ],
         "groups": [
             {
@@ -333,6 +344,27 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "group": Group(
+                    created_by="rmontiel@rmontiel.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup10",
+                    organization_id="5ee9880b-5e19-44ba-baf1-f2601bdf7d33",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="rmontiel@rmontiel.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
         ],
         "organizations": [
             {
@@ -497,6 +529,24 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    created_by="rmontiel@rmontiel.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    country="Colombia",
+                    id="5ee9880b-5e19-44ba-baf1-f2601bdf7d33",
+                    name="testorg10",
+                    policies=Policies(
+                        modified_by="rmontiel@rmontiel.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="rmontiel@rmontiel.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
@@ -552,6 +602,12 @@ async def populate() -> bool:
                 first_name="Renata",
                 is_registered=True,
                 last_name="Remedios",
+            ),
+            Stakeholder(
+                email="rmontiel@rmontiel.com",
+                first_name="Rebeca",
+                is_registered=True,
+                last_name="Montiel",
             ),
         ],
     }
