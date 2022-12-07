@@ -87,6 +87,17 @@ async def populate() -> bool:
                     ),
                 ),
             ),
+            Company(
+                domain="avicario.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-11-02T15:58:31.280182"
+                    ),
+                ),
+            ),
         ],
         "groups": [
             {
@@ -173,6 +184,27 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "group": Group(
+                    created_by="avicario@avicario.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup5",
+                    organization_id="5ee9880b-5e19-44ba-baf1-f2601bdf7d28",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="avicario@avicario.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
         ],
         "organizations": [
             {
@@ -247,6 +279,24 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    created_by="avicario@avicario.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    country="Colombia",
+                    id="5ee9880b-5e19-44ba-baf1-f2601bdf7d28",
+                    name="testorg5",
+                    policies=Policies(
+                        modified_by="avicario@avicario.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="avicario@avicario.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
@@ -272,6 +322,12 @@ async def populate() -> bool:
                 first_name="Amaranta",
                 is_registered=True,
                 last_name="Buendia",
+            ),
+            Stakeholder(
+                email="avicario@avicario.com",
+                first_name="Angela",
+                is_registered=True,
+                last_name="Vicario",
             ),
         ],
     }
