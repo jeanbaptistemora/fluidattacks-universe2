@@ -157,6 +157,9 @@ async def requeue_actions() -> bool:
     actions_to_requeue = _filter_duplicated_actions(
         actions_to_requeue, Action.REFRESH_TOE_LINES
     )
+    actions_to_requeue = _filter_duplicated_actions(
+        actions_to_requeue, Action.REFRESH_TOE_PORTS
+    )
     actions_to_requeue = await _filter_non_requeueable_actions(
         actions_to_requeue
     )

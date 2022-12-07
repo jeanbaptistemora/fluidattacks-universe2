@@ -455,6 +455,7 @@ async def remove_group(
             Action.EXECUTE_MACHINE.value,
             Action.REFRESH_TOE_INPUTS.value,
             Action.REFRESH_TOE_LINES.value,
+            Action.REFRESH_TOE_PORTS.value,
             Action.CLONE_ROOTS.value,
         }
         group_actions: list[BatchProcessing] = [
