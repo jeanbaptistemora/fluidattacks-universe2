@@ -147,3 +147,23 @@ TYPESCRIPT_PRIMARY_TYPES = {
     "type_query",
     "union_type",
 }
+
+DART_PRIMARY_TYPES = {
+    "annotation",
+    "assignable_expression",
+    "assignment_expression",
+    "await_expression",
+    "binary_expression",
+    "boolean_literal",
+    "conditional_expression",
+    "function_expression",
+    "identifier_list",
+    "identifier",
+    "initialized_identifier",
+    "number_literal",
+    "reserved_word",
+    "selector",
+    "string_literal",
+    "unary_expression",
+    "update_expression",
+}
