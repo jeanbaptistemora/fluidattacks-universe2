@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     run,
 )
 from async_lru import (
@@ -22,16 +23,22 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.roots.types import (
+    Root,
+)
 from db_model.toe_inputs.types import (
-    GroupToeInputsRequest,
+    RootToeInputsRequest,
     ToeInput,
 )
 from db_model.toe_lines.types import (
-    GroupToeLinesRequest,
+    RootToeLinesRequest,
     ToeLines,
 )
 from decimal import (
     Decimal,
+)
+from itertools import (
+    chain,
 )
 
 PENDING: Decimal = Decimal("6850.95")
@@ -45,17 +52,35 @@ async def generate_one(
     group_name: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
     group: Group = await loaders.group.load(group_name)
-    toe_lines: tuple[ToeLines, ...] = await loaders.group_toe_lines.load_nodes(
-        GroupToeLinesRequest(
-            group_name=group_name,
-        )
+    group_roots: tuple[Root] = await loaders.group_roots.load(group_name)
+    all_toe_lines: tuple[tuple[ToeLines, ...], ...] = await collect(
+        tuple(
+            loaders.root_toe_lines.load_nodes(
+                RootToeLinesRequest(
+                    group_name=group_name,
+                    root_id=root.id,
+                )
+            )
+            for root in group_roots
+        ),
+        workers=1,
     )
-    toe_inputs: tuple[
-        ToeInput, ...
-    ] = await loaders.group_toe_inputs.load_nodes(
-        GroupToeInputsRequest(
-            group_name=group_name,
-        )
+    all_toe_inputs: tuple[tuple[ToeInput, ...], ...] = await collect(
+        tuple(
+            loaders.root_toe_inputs.load_nodes(
+                RootToeInputsRequest(
+                    group_name=group_name,
+                    root_id=root.id,
+                )
+            )
+            for root in group_roots
+        ),
+        workers=1,
+    )
+
+    toe_lines: tuple[ToeLines, ...] = tuple(chain.from_iterable(all_toe_lines))
+    toe_inputs: tuple[ToeInput, ...] = tuple(
+        chain.from_iterable(all_toe_inputs)
     )
     tested_lines: Decimal = Decimal(
         sum([line.attacked_lines for line in toe_lines if line.attacked_at])
