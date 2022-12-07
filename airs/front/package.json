@@ -124,6 +124,15 @@
         "engine.io": "6.2.1"
       }
     },
+    "gatsby-cli": {
+      "pretty-error": {
+        "renderkid": {
+          "strip-ansi": {
+            "ansi-regex": "3.0.1"
+          }
+        }
+      }
+    },
     "gatsby-plugin-sass": {
       "resolve-url-loader": {
         "loader-utils": "2.0.4"
