@@ -20,15 +20,13 @@ from group_access.domain import (
 from mailer.groups import (
     send_mail_comment,
 )
-from newutils.datetime import (
-    get_as_str,
-    get_now,
+from newutils import (
+    datetime as datetime_utils,
 )
 import pytest
 import time
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -49,7 +47,7 @@ from typing import (
 async def test_add_group_consult(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
     )
@@ -72,9 +70,8 @@ async def test_add_group_consult_with_suppress(
     assert populate
     loaders: Dataloaders = get_new_context()
     group_name: str = "group1"
-    current_time = get_as_str(get_now())
     comment_id = int(round(time.time() * 1000))
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
     )
@@ -87,7 +84,7 @@ async def test_add_group_consult_with_suppress(
         group_name=group_name,
         id=comment_id,  # type: ignore
         content="Test consult",
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         full_name=str.join(" ", [user.first_name or "", user.last_name or ""]),
         parent_id="0",
         email=user.email,
@@ -125,7 +122,7 @@ async def test_add_group_consult_with_suppress(
 async def test_add_group_consult_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
     )
@@ -151,7 +148,7 @@ async def test_add_group_consult_without_squad(
 ) -> None:
     assert populate
     group_name: str = "group3"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
     )

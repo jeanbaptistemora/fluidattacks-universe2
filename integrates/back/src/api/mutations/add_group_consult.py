@@ -51,9 +51,6 @@ async def mutate(
     group_name = group_name.lower()
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_id = int(round(time.time() * 1000))
     content = parameters["content"]
     validations_utils.validate_fields([content])
@@ -62,7 +59,7 @@ async def mutate(
         group_name=group_name,
         id=str(comment_id),
         content=content,
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         full_name=str.join(
             " ", [user_info["first_name"], user_info["last_name"]]
         ),

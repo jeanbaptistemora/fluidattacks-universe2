@@ -101,16 +101,8 @@ class CommentsDataType(TypedDict):
     ]
 
 
-def _get_days_since_comment(date: Union[str, datetime]) -> int:
-    if isinstance(date, datetime):
-        days = (datetime_utils.get_utc_now() - date).days
-    else:
-        days = (
-            datetime_utils.get_now()
-            - datetime_utils.get_datetime_from_iso_str(date)
-        ).days
-
-    return days
+def _get_days_since_comment(date: datetime) -> int:
+    return (datetime_utils.get_utc_now() - date).days
 
 
 def last_comments(
@@ -214,9 +206,7 @@ def digest_comments(
 ) -> list[dict[str, Optional[str]]]:
     return [
         {
-            "date": datetime_utils.convert_from_iso_str(comment.creation_date)
-            if isinstance(comment.creation_date, str)
-            else datetime_utils.get_as_str(comment.creation_date),
+            "date": datetime_utils.get_as_str(comment.creation_date),
             "name": comment.full_name.rstrip()
             if comment.full_name
             else comment.email.split("@")[0],

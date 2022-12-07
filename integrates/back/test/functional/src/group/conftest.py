@@ -682,7 +682,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "group_comment": GroupComment(
                     content="This is a test comment",
-                    creation_date="2019-05-28T20:09:37+00:00",
+                    creation_date=datetime.fromisoformat(
+                        "2019-05-28T20:09:37+00:00"
+                    ),
                     email="admin@gmail.com",
                     full_name="test one",
                     parent_id="0",

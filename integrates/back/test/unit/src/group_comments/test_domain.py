@@ -6,14 +6,14 @@ from back.test.unit.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.group_comments.types import (
     GroupComment,
 )
 from group_comments.domain import (
     add_comment,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 import pytest
 import time
@@ -26,14 +26,13 @@ pytestmark = [
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
     group_name = "unittesting"
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
     comment_data = GroupComment(
         id=str(comment_id),
         content="Test comment",
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         full_name="unittesting",
         parent_id="0",
         email="unittest@fluidattacks.com",

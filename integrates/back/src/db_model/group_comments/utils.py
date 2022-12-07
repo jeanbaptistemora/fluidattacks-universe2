@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.group_comments.types import (
     GroupComment,
 )
@@ -11,7 +14,7 @@ def format_group_comments(item: Item) -> GroupComment:
         group_name=item["group_name"],
         id=item["id"],
         parent_id=item["parent_id"],
-        creation_date=item["creation_date"],
+        creation_date=datetime.fromisoformat(item["creation_date"]),
         full_name=item.get("full_name"),
         content=item["content"],
         email=item["email"],

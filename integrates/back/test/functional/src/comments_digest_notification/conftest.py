@@ -168,7 +168,9 @@ async def populate() -> bool:
             {
                 "group_comment": GroupComment(
                     content="This is a test comment",
-                    creation_date="2022-11-24T15:09:37",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-24T15:09:37"
+                    ),
                     email="johndoe@fluidattacks.com",
                     full_name="John Doe",
                     parent_id="0",

@@ -42,6 +42,7 @@ from groups.domain import (
 )
 from newutils.datetime import (
     convert_from_iso_str,
+    get_utc_now,
     is_valid_format,
 )
 from newutils.group_comments import (
@@ -88,7 +89,7 @@ async def test_list_comments() -> None:
         group_name="unittesting",
         content="Now we can post comments on groups",
         parent_id="0",
-        creation_date="2018-12-27T21:30:28+00:00",
+        creation_date=datetime.fromisoformat("2018-12-27T21:30:28+00:00"),
         id="1545946228675",
         full_name="Miguel de Orellana",
         email="unittest@fluidattacks.com",
@@ -113,14 +114,13 @@ async def test_list_comments() -> None:
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
     group_name = "unittesting"
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
     comment_data = GroupComment(
         id=str(comment_id),
         content="Test comment",
-        creation_date=current_time,
+        creation_date=get_utc_now(),
         full_name="unittesting",
         parent_id="0",
         email="unittest@fluidattacks.com",

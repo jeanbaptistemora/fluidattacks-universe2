@@ -26,12 +26,6 @@ def as_zone(
     return date.astimezone(tz=pytz.timezone(zone))
 
 
-def format_comment_date(date_string: str) -> str:
-    comment_date = get_from_str(date_string)
-    formatted_date = get_as_str(comment_date, date_format="%Y/%m/%d %H:%M:%S")
-    return formatted_date
-
-
 def format_comment_datetime(date: datetime) -> str:
     return get_as_str(date, date_format="%Y/%m/%d %H:%M:%S")
 
