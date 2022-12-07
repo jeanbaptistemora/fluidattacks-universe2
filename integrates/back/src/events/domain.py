@@ -12,6 +12,7 @@ from collections import (
 )
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from custom_exceptions import (
     EventAlreadyClosed,
@@ -147,18 +148,20 @@ async def save_evidence(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
         FI_AWS_S3_MAIN_BUCKET,
         file_object,
-        f"evidences/{file_name}",
+        f"{FI_AWS_S3_PATH_PREFIX}evidences/{file_name}",
     )
 
 
 async def search_evidence(file_name: str) -> list[str]:
     return await s3_ops.list_files(
-        FI_AWS_S3_MAIN_BUCKET, f"evidences/{file_name}"
+        FI_AWS_S3_MAIN_BUCKET, f"{FI_AWS_S3_PATH_PREFIX}evidences/{file_name}"
     )
 
 
 async def remove_file_evidence(file_name: str) -> None:
-    await s3_ops.remove_file(FI_AWS_S3_MAIN_BUCKET, file_name)
+    await s3_ops.remove_file(
+        FI_AWS_S3_MAIN_BUCKET, f"{FI_AWS_S3_PATH_PREFIX}{file_name}"
+    )
 
 
 async def add_comment(
@@ -288,7 +291,9 @@ async def get_evidence_link(
 ) -> str:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
-    file_url = f"evidences/{group_name}/{event_id}/{file_name}"
+    file_url = (
+        f"{FI_AWS_S3_PATH_PREFIX}evidences/{group_name}/{event_id}/{file_name}"
+    )
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_MAIN_BUCKET)
 
 
@@ -348,7 +353,10 @@ async def remove_evidence(
             event.evidences, str(evidence_id.value).lower(), None
         )
     ) and isinstance(evidence, EventEvidence):
-        full_name = f"evidences/{group_name}/{event_id}/{evidence.file_name}"
+        full_name = (
+            f"{FI_AWS_S3_PATH_PREFIX}evidences"
+            f"/{group_name}/{event_id}/{evidence.file_name}"
+        )
         await s3_ops.remove_file(FI_AWS_S3_MAIN_BUCKET, full_name)
         await events_model.update_evidence(
             event_id=event_id,

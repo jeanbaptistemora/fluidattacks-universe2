@@ -3,6 +3,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from contextlib import (
     suppress,
@@ -63,7 +64,10 @@ async def snippet_already_exists(
         else vulnerability_modified_date.isoformat()
     )
     client = await get_s3_resource()
-    file_key = f"snippets/VULN#{vulnerability_id}#STATE#{modified_date}"
+    file_key = (
+        f"{FI_AWS_S3_PATH_PREFIX}snippets"
+        f"/VULN#{vulnerability_id}#STATE#{modified_date}"
+    )
     with suppress(client.exceptions.NoSuchKey):
         await client.get_object_acl(Bucket=FI_AWS_S3_MAIN_BUCKET, Key=file_key)
         return True
@@ -74,7 +78,7 @@ async def upload_snippet(
     vulnerability_id: str, vulnerability_modified_date: str, contents: str
 ) -> None:
     file_key = (
-        f"snippets/VULN#{vulnerability_id}#STATE"
+        f"{FI_AWS_S3_PATH_PREFIX}snippets/VULN#{vulnerability_id}#STATE"
         f"#{vulnerability_modified_date}"
     )
     with tempfile.NamedTemporaryFile() as snippet_file:
@@ -138,7 +142,10 @@ async def get_snippet(
         else vulnerability_modified_date.isoformat()
     )
     client = await get_s3_resource()
-    file_key = f"snippets/VULN#{vulnerability_id}#STATE#{modified_date}"
+    file_key = (
+        f"{FI_AWS_S3_PATH_PREFIX}snippets"
+        f"/VULN#{vulnerability_id}#STATE#{modified_date}"
+    )
     with tempfile.NamedTemporaryFile() as snippet_file:
         try:
             await client.download_fileobj(

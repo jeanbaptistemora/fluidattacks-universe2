@@ -1,5 +1,6 @@
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 import logging
 from s3 import (
@@ -35,7 +36,7 @@ async def expose_bytes_as_url(
     await s3_ops.upload_memory_file(
         FI_AWS_S3_MAIN_BUCKET,
         uploaded_file,
-        f"reports/{file_name}",
+        f"{FI_AWS_S3_PATH_PREFIX}reports/{file_name}",
     )
     return await sign_url(path=file_name, seconds=ttl)
 
@@ -43,7 +44,9 @@ async def expose_bytes_as_url(
 # Default ttl for reports is 1 hour = 3600 seconds
 async def sign_url(path: str, seconds: float = 3600) -> str:
     return await s3_ops.sign_url(
-        f"reports/{path}", seconds, FI_AWS_S3_MAIN_BUCKET
+        f"{FI_AWS_S3_PATH_PREFIX}reports/{path}",
+        seconds,
+        FI_AWS_S3_MAIN_BUCKET,
     )
 
 
@@ -62,7 +65,7 @@ async def upload_report_from_file_descriptor(report: Any) -> str:
     await s3_ops.upload_memory_file(
         FI_AWS_S3_MAIN_BUCKET,
         report,
-        f"reports/{file_name}",
+        f"{FI_AWS_S3_PATH_PREFIX}reports/{file_name}",
     )
     return file_name
 

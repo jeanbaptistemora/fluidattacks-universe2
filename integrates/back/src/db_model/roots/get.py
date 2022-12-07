@@ -9,6 +9,7 @@ from boto3.dynamodb.conditions import (
 )
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from contextlib import (
     suppress,
@@ -354,7 +355,7 @@ class RootMachineExecutionsLoader(DataLoader):
 async def get_download_url(
     group_name: str, root_nickname: str
 ) -> Optional[str]:
-    bucket_path: str = "continuous-repositories"
+    bucket_path: str = f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
     file_exits = bool(
@@ -370,13 +371,14 @@ async def get_download_url(
         ClientMethod="get_object",
         Params={
             "Bucket": FI_AWS_S3_MAIN_BUCKET,
-            "Key": f"continuous-repositories/{object_name}",
+            "Key": f"{bucket_path}/{object_name}",
         },
         ExpiresIn=1800,
     )
 
 
 async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
+    bucket_path: str = f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
 
@@ -384,7 +386,7 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
         ClientMethod="put_object",
         Params={
             "Bucket": FI_AWS_S3_MAIN_BUCKET,
-            "Key": f"continuous-repositories/{object_name}",
+            "Key": f"{bucket_path}/{object_name}",
         },
         ExpiresIn=1800,
     )
@@ -398,7 +400,7 @@ async def get_upload_url_post(
 
     return await client.generate_presigned_post(
         FI_AWS_S3_MAIN_BUCKET,
-        f"continuous-repositories/{object_name}",
+        f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories/{object_name}",
         ExpiresIn=1800,
     )
 

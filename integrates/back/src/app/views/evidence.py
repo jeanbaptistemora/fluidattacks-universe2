@@ -5,6 +5,7 @@ import aiohttp
 import authz
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from dataloaders import (
     Dataloaders,
@@ -73,7 +74,9 @@ async def enforce_group_level_role(
     return response  # type: ignore
 
 
-async def get_evidence(request: Request) -> Response:
+async def get_evidence(  # pylint: disable=too-many-locals
+    request: Request,
+) -> Response:
     user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
     loaders: Dataloaders = get_new_context()
@@ -109,9 +112,12 @@ async def get_evidence(request: Request) -> Response:
     ):
         if file_id is None:
             return Response("Error - Unsent image ID", media_type="text/html")
-        evidences = await list_s3_evidences(
-            f"evidences/{group_name.lower()}/{finding_id}/{file_id}"
+
+        evidences_path: str = (
+            f"{FI_AWS_S3_PATH_PREFIX}evidences"
+            f"/{group_name.lower()}/{finding_id}/{file_id}"
         )
+        evidences = await list_s3_evidences(evidences_path)
         if evidences:
             for evidence in evidences:
                 start = evidence.find(finding_id) + len(finding_id)

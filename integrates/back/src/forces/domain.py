@@ -1,5 +1,6 @@
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from db_model import (
     forces as forces_model,
@@ -52,7 +53,7 @@ async def save_log_execution(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
         FI_AWS_S3_MAIN_BUCKET,
         file_object,
-        f"forces/{file_name}",
+        f"{FI_AWS_S3_PATH_PREFIX}forces/{file_name}",
     )
 
 
@@ -136,7 +137,7 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
             FI_AWS_S3_MAIN_BUCKET,
-            f"forces/{group_name}/{execution_id}.log",
+            f"{FI_AWS_S3_PATH_PREFIX}forces/{group_name}/{execution_id}.log",
             file.name,
         )
         with open(file.name, encoding="utf-8") as reader:
@@ -149,7 +150,7 @@ async def get_vulns_execution(
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
             FI_AWS_S3_MAIN_BUCKET,
-            f"forces/{group_name}/{execution_id}.json",
+            f"{FI_AWS_S3_PATH_PREFIX}forces/{group_name}/{execution_id}.json",
             file.name,
         )
         with open(file.name, encoding="utf-8") as reader:

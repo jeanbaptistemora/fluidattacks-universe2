@@ -15,6 +15,7 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_REGION_NAME,
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
     FI_ENVIRONMENT,
 )
 from custom_exceptions import (
@@ -1793,7 +1794,7 @@ async def finish_machine_execution(
 
 
 async def is_in_s3(group_name: str, root_nickname: str) -> bool:
-    bucket_path: str = "continuous-repositories"
+    bucket_path: str = f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories"
     return bool(
         await s3_operations.list_files(
             bucket=FI_AWS_S3_MAIN_BUCKET,
