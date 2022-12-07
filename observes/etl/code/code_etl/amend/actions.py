@@ -6,6 +6,7 @@ from code_etl.amend.core import (
 )
 from code_etl.client import (
     Client,
+    CommitStampDiff,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -53,7 +54,7 @@ def _update(
             .map(lambda a: a.amend_commit_stamp_users(_item))
             .value_or(_item)
         )
-        return client.delta_update(item, fixed)
+        return client.delta_update(CommitStampDiff.from_stamps(item, fixed))
     return Cmd.from_cmd(lambda: None)
 
 

@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._delta_update import (
+    CommitStampDiff,
+)
 from ._raw import (
     RawClient,
 )
@@ -183,18 +186,10 @@ class Client:
             lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
         )
 
-    def delta_update(
-        self, old: CommitStamp, new: CommitStamp, ignore_fa_hash: bool = True
-    ) -> Cmd[None]:
-        if old != new:
-            info = Cmd.from_cmd(
-                lambda: LOG.info("delta update %s", old.commit.commit_id)
-            )
-            return info.bind(
-                lambda _: self._inner.raw.delta_update(
-                    encoder.from_stamp(old),
-                    encoder.from_stamp(new),
-                    ignore_fa_hash,
-                )
-            )
-        return Cmd.from_cmd(lambda: LOG.debug("no changes"))
+    def delta_update(self, diff: CommitStampDiff) -> Cmd[None]:
+        return diff.delta_update(LOG, self._inner.raw)
+
+
+__all__ = [
+    "CommitStampDiff",
+]

@@ -151,13 +151,8 @@ class RawClient:
         self,
         old: RawCommitStamp,
         new: RawCommitStamp,
-        ignore_fa_hash: bool = True,
     ) -> Cmd[None]:
         _fields = _delta_fields(old, new)
-        if ignore_fa_hash and _fields == ("fa_hash",):
-            return Cmd.from_cmd(
-                lambda: LOG.warning("delta fa_hash update skipped")
-            )
         if len(_fields) > 0:
             changes = tuple(
                 f"{f}: {getattr(old, f)} -> {getattr(new, f)}" for f in _fields  # type: ignore[misc]
