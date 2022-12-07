@@ -39,7 +39,7 @@ TABLE_NAME = "integrates_vms"
 @pytest.mark.parametrize(
     ["table", "length"],
     [
-        ["integrates_vms", 15],
+        ["integrates_vms", 22],
     ],
 )
 def test_create_tables(

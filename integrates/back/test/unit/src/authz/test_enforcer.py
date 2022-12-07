@@ -1,16 +1,30 @@
 import authz
+from authz.enforcer import (
+    get_organization_level_enforcer,
+)
+from authz.model import (
+    get_organization_level_roles_model,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model import (
     group_access as group_access_model,
-    organization_access as org_access_model,
     stakeholders as stakeholders_model,
+)
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
 )
 import pytest
 from typing import (
     Any,
+)
+from unittest import (
+    mock,
+)
+from unittest.mock import (
+    AsyncMock,
 )
 
 # Constants
@@ -18,49 +32,71 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+TABLE_NAME = "integrates_vms"
+
 
 # pylint: disable=consider-using-dict-items
-@pytest.mark.changes_db
-async def test_organization_level_enforcer() -> None:
-    test_cases = {
-        # Common user, group
-        (
-            "test@tests.com",
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
+@pytest.mark.parametrize(
+    ["email", "organization_id", "role"],
+    [
+        [
+            "integrates@fluidattacks.com",
             "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
-        ),
-        # Fluid user, group
-        (
-            "test@fluidattacks.com",
+            "admin",
+        ],
+        [
+            "integratesuser@gmail.com",
             "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-        ),
-    }
-    for subject, organization_id in test_cases:
-        model = authz.get_organization_level_roles_model(subject)
+            "user_manager",
+        ],
+        [
+            "unittesting@fluidattacks.com",
+            "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            "user",
+        ],
+        [
+            "unittesting@gmail.com",
+            "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
+            "admin",
+        ],
+    ],
+)
+async def test_organization_level_enforcer(
+    # pylint: disable=too-many-arguments
+    mock_resource: AsyncMock,
+    mock_table_resource: AsyncMock,
+    email: str,
+    organization_id: str,
+    role: str,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
 
-        for role in model:
-            await stakeholders_model.remove(email=subject)
-            await org_access_model.remove(
-                email=subject, organization_id=organization_id
-            )
-            await authz.grant_organization_level_role(
-                get_new_context(), subject, organization_id, role
-            )
-            enforcer = await authz.get_organization_level_enforcer(
-                get_new_context(), subject
-            )
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
-            for action in model[role]["actions"]:
-                assert enforcer(
-                    organization_id, action
-                ), f"{role} should be able to do {action}"
-
-            for other_role in model:
-                for action in (
-                    model[other_role]["actions"] - model[role]["actions"]
-                ):
-                    assert not enforcer(
-                        organization_id, action
-                    ), f"{role} should not be able to do {action}"
+    model = get_organization_level_roles_model(email)
+    mock_table_resource.return_value.query.side_effect = mock_query
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    enforcer = await get_organization_level_enforcer(get_new_context(), email)
+    for action in model[role]["actions"]:
+        assert enforcer(
+            organization_id, action
+        ), f"{role} should be able to do {action}"
+    for other_role in model:
+        for action in model[other_role]["actions"] - model[role]["actions"]:
+            assert not enforcer(
+                organization_id, action
+            ), f"{role} should not be able to do {action}"
 
 
 # pylint: disable=consider-using-dict-items
