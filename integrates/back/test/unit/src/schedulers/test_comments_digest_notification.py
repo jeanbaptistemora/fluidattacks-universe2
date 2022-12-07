@@ -1,3 +1,6 @@
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
 )
@@ -19,6 +22,8 @@ from pytz import (
 )
 from schedulers.comments_digest_notification import (
     _get_days_since_comment,
+    group_comments,
+    instance_comments,
     last_comments,
 )
 from typing import (
@@ -79,3 +84,37 @@ def test_last_comments(
     comments: tuple[Union[GroupComment, EventComment, FindingComment], ...],
 ) -> None:
     assert len(last_comments(comments)) == 2
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    [
+        "group_name",
+    ],
+    [
+        [
+            "unittesting",
+        ],
+    ],
+)
+@freeze_time("2018-12-28T06:00:00.0")
+async def test_group_comments(
+    group_name: str,
+) -> None:
+    comments = await group_comments(get_new_context(), group_name)
+    assert len(comments) == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ["instance_id", "instance_type"],
+    [
+        ["422286126", "finding"],
+    ],
+)
+@freeze_time("2019-08-21T06:00:00.0")
+async def test_instance_comments(instance_id: str, instance_type: str) -> None:
+    comments = await instance_comments(
+        get_new_context(), instance_id, instance_type
+    )
+    assert len(comments) == 1
