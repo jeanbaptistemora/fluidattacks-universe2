@@ -69,6 +69,12 @@ mail_analytics_notification = retry_on_exceptions(
     sleep_seconds=2,
 )(analytics_mail.send_trial_analytics_notification)
 
+mail_devsecops_agent_notification = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(groups_mail.send_devsecops_agent_notification)
+
 mail_upgrade_squad_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=4,
@@ -85,6 +91,7 @@ async def send_trial_engagement_notification() -> None:
         7: mail_send_add_repositories_notification,
         9: mail_support_channels_notification,
         11: mail_analytics_notification,
+        13: mail_devsecops_agent_notification,
         17: mail_upgrade_squad_notification,
     }
     loaders = get_new_context()
