@@ -57,6 +57,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+toe_ports_remove = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_ports_domain.remove)
 toe_ports_update = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_ports_domain.update)
@@ -65,7 +68,7 @@ toe_ports_update = retry_on_exceptions(
 def get_non_present_toe_ports_to_update(
     root: IPRoot,
     root_toe_ports: tuple[ToePort, ...],
-) -> Tuple[Tuple[ToePort, ToePortAttributesToUpdate], ...]:
+) -> tuple[tuple[ToePort, ToePortAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting non present toe ports to update",
         extra={
@@ -81,6 +84,85 @@ def get_non_present_toe_ports_to_update(
         )
         for toe_port in root_toe_ports
         if root.state.status == RootStatus.INACTIVE and toe_port.be_present
+    )
+
+
+def get_toe_ports_to_remove(
+    root: IPRoot,
+    root_toe_ports: tuple[ToePort, ...],
+) -> tuple[ToePort, ...]:
+    LOGGER.info(
+        "Getting toe ports to remove",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    return tuple(
+        toe_port
+        for toe_port in root_toe_ports
+        if root.state.status == RootStatus.INACTIVE
+        and toe_port.seen_at is None
+    )
+
+
+def get_present_toe_ports_to_update(
+    root: IPRoot,
+    root_toe_ports: tuple[ToePort, ...],
+) -> tuple[tuple[ToePort, ToePortAttributesToUpdate], ...]:
+    LOGGER.info(
+        "Getting present toe ports to update",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    return tuple(
+        (
+            toe_port,
+            ToePortAttributesToUpdate(be_present=True),
+        )
+        for toe_port in root_toe_ports
+        if root.state.status == RootStatus.ACTIVE and not toe_port.be_present
+    )
+
+
+async def refresh_active_root_toe_ports(
+    loaders: Dataloaders,
+    group_name: str,
+    root: IPRoot,
+) -> None:
+    LOGGER.info(
+        "Refreshing active toe ports",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
+    )
+    root_toe_ports = await loaders.root_toe_ports.load_nodes(
+        RootToePortsRequest(group_name=group_name, root_id=root.id)
+    )
+    present_toe_ports_to_update = get_present_toe_ports_to_update(
+        root, root_toe_ports
+    )
+    await collect(
+        tuple(
+            toe_ports_update(
+                current_value, attrs_to_update, is_moving_toe_port=True
+            )
+            for current_value, attrs_to_update in present_toe_ports_to_update
+        ),
+    )
+    LOGGER.info(
+        "Finish refreshing active toe ports",
+        extra={
+            "extra": {
+                "repo_nickname": root.state.nickname,
+            }
+        },
     )
 
 
@@ -154,13 +236,21 @@ async def refresh_root_toe_ports(
         and root.state.status == RootStatus.INACTIVE
         and root.state.nickname not in active_roots
     )
-    inactive_roots_to_proccess = tuple(
+    active_roots_to_process = tuple(
+        root
+        for root in active_roots.values()
+        if not optional_repo_nickname
+        or root.state.nickname == optional_repo_nickname
+    )
+    for root in active_roots_to_process:
+        await refresh_active_root_toe_ports(loaders, group_name, root)
+    inactive_roots_to_process = tuple(
         root_repo
         for root_repo in inactive_roots
         if not optional_repo_nickname
         or root_repo.state.nickname == optional_repo_nickname
     )
-    for root in inactive_roots_to_proccess:
+    for root in inactive_roots_to_process:
         await refresh_inactive_root_toe_ports(loaders, group_name, root)
 
 
