@@ -4,14 +4,12 @@ import asyncio
 from datetime import (
     datetime,
 )
-from decimal import (
-    Decimal,
-)
 from forces.apis.integrates.client import (
     ApiError,
     execute,
 )
 from forces.model import (
+    ForcesConfig,
     ForcesData,
     VulnerabilityState,
 )
@@ -218,13 +216,13 @@ async def vulns_generator(
 
 
 @SHIELD
-async def upload_report(
-    group: str,
-    report: ForcesData,
-    log_file: str,
+async def upload_report(  # pylint: disable=too-many-arguments
+    config: ForcesConfig,
+    execution_id: str,
     git_metadata: dict[str, str],
-    severity_threshold: Decimal,
-    **kwargs: datetime | str | int,
+    log_file: str,
+    report: ForcesData,
+    exit_code: str,
 ) -> bool:
     """
     Upload report execution to Integrates.
@@ -241,7 +239,6 @@ async def upload_report(
     :param git_metadata: Repository metadata.
     :param date: Forces execution date.
     """
-    # pylint: disable=consider-using-with
     query = """
         mutation ForcesDoUploadReport(
             $group_name: String!
@@ -284,7 +281,7 @@ async def upload_report(
                 success
             }
         }
-        """
+    """
     open_vulns: list[dict[str, float | str]] = []
     closed_vulns: list[dict[str, float | str]] = []
     accepted_vulns: list[dict[str, float | str]] = []
@@ -305,34 +302,32 @@ async def upload_report(
         elif vuln.state == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)
 
-    params: dict[str, Any] = {
-        "group_name": group,
-        "execution_id": kwargs.pop("execution_id"),
-        "date": kwargs.pop(
-            "date", datetime.utcnow()
-        ).isoformat(),  # type: ignore
-        "exit_code": str(kwargs.pop("exit_code")),
-        "git_branch": git_metadata["git_branch"],
-        "git_commit": git_metadata["git_commit"],
-        "git_origin": git_metadata["git_origin"],
-        "git_repo": git_metadata["git_repo"],
-        "open": open_vulns,
-        "accepted": accepted_vulns,
-        "closed": closed_vulns,
-        "log": open(log_file, "rb"),
-        "strictness": kwargs.pop("strictness"),
-        "grace_period": kwargs.pop("grace_period"),
-        "severity_threshold": float(severity_threshold),
-        "kind": kwargs.pop("kind", "all"),
-    }
+    with open(log_file, "rb") as forces_log:
+        params: dict[str, Any] = {
+            "group_name": config.group,
+            "execution_id": execution_id,
+            "date": datetime.utcnow().isoformat(),
+            "exit_code": exit_code,
+            "git_branch": git_metadata["git_branch"],
+            "git_commit": git_metadata["git_commit"],
+            "git_origin": git_metadata["git_origin"],
+            "git_repo": git_metadata["git_repo"],
+            "open": open_vulns,
+            "accepted": accepted_vulns,
+            "closed": closed_vulns,
+            "log": forces_log,
+            "strictness": "strict" if config.strict else "lax",
+            "grace_period": config.grace_period,
+            "severity_threshold": float(config.breaking_severity),
+            "kind": config.kind.value,
+        }
 
-    response: dict[str, dict[str, bool]] = await execute(
-        query=query,
-        operation_name="ForcesDoUploadReport",
-        variables=params,
-        default={},
-        **kwargs,
-    )
+        response: dict[str, dict[str, bool]] = await execute(
+            query=query,
+            operation_name="ForcesDoUploadReport",
+            variables=params,
+            default={},
+        )
     return response.get("addForcesExecution", {}).get("success", False)
 
 

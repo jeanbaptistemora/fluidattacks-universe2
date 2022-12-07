@@ -115,18 +115,13 @@ async def entrypoint(
             temp_file.seek(os.SEEK_SET)
             await in_thread(output.write, temp_file.read())
         exit_code = await set_forces_exit_code(config, report.findings)
-        execution_id = str(uuid.uuid4()).replace("-", "")
         await upload_report(
-            group=config.group,
-            execution_id=execution_id,
+            config=config,
+            execution_id=str(uuid.uuid4()).replace("-", ""),
             exit_code=str(exit_code),
             report=report,
             log_file=temp_file.name,
-            strictness="strict" if config.strict else "lax",
             git_metadata=metadata,
-            kind=config.kind.value,
-            grace_period=config.grace_period,
-            severity_threshold=config.breaking_severity,
         )
         await log("info", f"{tasks['uploading']}{footer}")
         await log("info", f"Success execution: {exit_code == 0}")
