@@ -3,7 +3,10 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import dayjs, { extend } from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { GraphQLError } from "graphql";
+import _ from "lodash";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -28,30 +31,11 @@ jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
 
 const timeFromNow: (value: string) => string = (value: string): string => {
   const date = new Date(value);
+  if (_.isEmpty(value) || isNaN(date.getTime())) return "-";
 
-  if (isNaN(date.getTime())) return "-";
+  extend(relativeTime);
 
-  const dateDiff = new Date().getTime() - date.getTime();
-
-  switch (true) {
-    case dateDiff < 60000:
-      return `${Math.floor(dateDiff / 1000)} seconds ago`;
-
-    case dateDiff < 60000 * 60:
-      return `${Math.floor(dateDiff / 60000)} minutes ago`;
-
-    case dateDiff < 60000 * 60 * 24:
-      return `${Math.floor(dateDiff / (60000 * 60))} hours ago`;
-
-    case dateDiff < 60000 * 60 * 24 * 30:
-      return `${Math.floor(dateDiff / (60000 * 60 * 24))} days ago`;
-
-    case dateDiff < 60000 * 60 * 24 * 30 * 12:
-      return `${Math.floor(dateDiff / (60000 * 60 * 24 * 30))} months ago`;
-
-    default:
-      return `${Math.floor(dateDiff / (60000 * 60 * 24 * 30 * 12))} years ago`;
-  }
+  return dayjs(value, "YYYY-MM-DD hh:mm:ss").fromNow();
 };
 
 describe("Group stakeholders view", (): void => {
