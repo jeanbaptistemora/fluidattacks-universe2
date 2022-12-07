@@ -108,93 +108,6 @@
       "management:type" = "product";
     };
   };
-  integrates_add_repositories_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.add_repositories_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "add_repositories_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_add_stakeholders_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.add_stakeholders_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "add_stakeholders_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_analytics_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.analytics_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "analytics_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_clean_ephemerals = {
     enabled = true;
     command = [
@@ -304,64 +217,6 @@
 
     tags = {
       "Name" = "integrates_comments_digest_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_define_treatments_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.define_treatments_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "define_treatments_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_devsecops_agent_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.devsecops_agent_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "devsecops_agent_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
@@ -653,35 +508,6 @@
 
     tags = {
       "Name" = "integrates_numerator_report_digest";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_how_improve_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.how_improve_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_how_improve_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
@@ -1123,35 +949,6 @@
       "management:type" = "product";
     };
   };
-  integrates_support_channels_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.support_channels_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "support_channels_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_temporal_treatment_report = {
     enabled = true;
     command = [
@@ -1176,93 +973,6 @@
 
     tags = {
       "Name" = "integrates_temporal_treatment_report";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_trial_ended_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.trial_ended_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_trial_ended_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_trial_ending_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.trial_ending_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_trial_ending_notification";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
-  integrates_trial_reports_notification = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.trial_reports_notification.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "nano";
-    awsRole = "prod_integrates";
-    attempts = 1;
-    timeout = 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "trial_reports_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
@@ -1413,14 +1123,14 @@
       "management:type" = "product";
     };
   };
-  integrates_upgrade_squad_notification = {
+  integrates_send_trial_engagement_notification = {
     enabled = true;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
-      "schedulers.upgrade_squad_notification.main"
+      "schedulers.send_trial_engagement_notification.main"
     ];
 
     schedule_expression = "cron(0 15 ? * * *)";
@@ -1436,7 +1146,7 @@
     ];
 
     tags = {
-      "Name" = "integrates_upgrade_squad_notification";
+      "Name" = "integrates_send_trial_engagement_notification";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
