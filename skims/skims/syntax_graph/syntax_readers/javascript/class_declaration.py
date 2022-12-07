@@ -7,6 +7,10 @@ from syntax_graph.syntax_nodes.class_decl import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Dict,
+    List,
+)
 from utils.graph.text_nodes import (
     node_to_str,
 )
@@ -18,4 +22,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
     name = node_to_str(args.ast_graph, name_id)
     block_id = class_node["label_field_body"]
 
-    return build_class_node(args, name, block_id, None)
+    children_nid: Dict[str, List[NId]] = {
+        "attributes_id": [],
+    }
+
+    return build_class_node(args, name, block_id, children_nid)

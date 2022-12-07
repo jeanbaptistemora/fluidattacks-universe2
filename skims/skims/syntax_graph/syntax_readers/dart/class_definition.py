@@ -14,12 +14,18 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     class_node = args.ast_graph.nodes[args.n_id]
-
     name_id = class_node.get("label_field_name")
     name = node_to_str(args.ast_graph, name_id)
-
     block_id = class_node.get("label_field_body")
 
-    attributes = class_node.get("label_field_type_parameters")
+    attributes_id = class_node.get("label_field_type_parameters")
+    if attributes_id:
+        attributes_list = [attributes_id]
+    else:
+        attributes_list = []
 
-    return build_class_node(args, name, block_id, attributes)
+    children_nid = {
+        name: attributes_list,
+    }
+
+    return build_class_node(args, name, block_id, children_nid)
