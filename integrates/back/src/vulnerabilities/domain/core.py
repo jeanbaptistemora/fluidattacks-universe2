@@ -145,9 +145,6 @@ async def confirm_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
@@ -155,7 +152,7 @@ async def confirm_vulnerabilities_zero_risk(
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         parent_id="0",
     )
     await comments_domain.add(loaders, comment_data)
@@ -550,9 +547,6 @@ async def reject_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
@@ -560,7 +554,7 @@ async def reject_vulnerabilities_zero_risk(
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         parent_id="0",
     )
     await comments_domain.add(loaders, comment_data)
@@ -632,9 +626,6 @@ async def request_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = user_info["user_email"]
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
@@ -642,7 +633,7 @@ async def request_vulnerabilities_zero_risk(
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         parent_id="0",
     )
     await comments_domain.add(loaders, comment_data)

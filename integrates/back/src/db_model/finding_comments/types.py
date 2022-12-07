@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -10,7 +13,7 @@ from typing import (
 class FindingComment(NamedTuple):
     comment_type: CommentType
     content: str
-    creation_date: str
+    creation_date: datetime
     email: str
     finding_id: str
     id: str

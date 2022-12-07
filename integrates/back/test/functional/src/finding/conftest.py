@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -319,7 +322,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     content="This is a test observations",
                     email="admin@gmail.com",
                     full_name="test one",
-                    creation_date="2019-05-28T20:09:37+00:00",
+                    creation_date=datetime.fromisoformat(
+                        "2019-05-28T20:09:37+00:00"
+                    ),
                     parent_id="0",
                 )
             },
@@ -331,7 +336,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     content="This is a test observations",
                     email="admin@gmail.com",
                     full_name="test one",
-                    creation_date="2019-05-28T20:09:37+00:00",
+                    creation_date=datetime.fromisoformat(
+                        "2019-05-28T20:09:37+00:00"
+                    ),
                     parent_id="0",
                 )
             },

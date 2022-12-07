@@ -395,7 +395,9 @@ async def populate() -> bool:
                     content="This is a finding comment test",
                     email="admin@gmail.com",
                     full_name="Test User",
-                    creation_date="2022-11-24T15:09:37",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-24T15:09:37+00:00"
+                    ),
                     parent_id="0",
                 )
             },

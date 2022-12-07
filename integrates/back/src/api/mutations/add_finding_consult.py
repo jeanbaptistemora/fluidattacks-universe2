@@ -8,6 +8,9 @@ from custom_exceptions import (
     InvalidDraftConsult,
     PermissionDenied,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -56,17 +59,14 @@ async def _add_finding_consult(
     user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
-    finding: Finding = await info.context.loaders.finding.load(finding_id)
-    group_name: str = finding.group_name
+    loaders: Dataloaders = info.context.loaders
+    finding: Finding = await loaders.finding.load(finding_id)
     is_finding_released = bool(finding.approval)
     content = parameters["content"]
     if param_type == "consult" and not is_finding_released:
         raise InvalidDraftConsult()
 
     comment_id = str(round(time() * 1000))
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_data = FindingComment(
         finding_id=finding_id,
         id=comment_id,
@@ -74,14 +74,14 @@ async def _add_finding_consult(
         if param_type != "consult"
         else CommentType.COMMENT,
         parent_id=str(parameters.get("parent_comment")),
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
         full_name=" ".join([user_data["first_name"], user_data["last_name"]]),
         content=content,
         email=user_email,
     )
     try:
         await findings_domain.add_comment(
-            info, user_email, comment_data, finding_id, group_name
+            loaders, user_email, comment_data, finding_id, finding.group_name
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
@@ -94,6 +94,7 @@ async def _add_finding_consult(
         info.context,
         f"Security: Added comment in finding {finding_id} successfully",
     )
+
     return comment_id
 
 

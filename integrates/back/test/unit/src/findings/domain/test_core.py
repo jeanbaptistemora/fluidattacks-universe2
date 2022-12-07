@@ -48,8 +48,7 @@ from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
 from newutils.datetime import (
-    get_as_utc_iso_format,
-    get_now,
+    get_utc_now,
 )
 import pytest
 from pytz import (
@@ -365,10 +364,9 @@ async def test_has_access_to_finding(dynamo_resource: ServiceResource) -> None:
 
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
-    request = await create_dummy_session("unittest@fluidattacks.com")
-    info = create_dummy_info(request)
+    loaders: Dataloaders = get_new_context()
     finding_id = "463461507"
-    current_time = get_as_utc_iso_format(get_now())
+    current_time = get_utc_now()
     comment_id = str(round(time.time() * 1000))
     comment_data = FindingComment(
         finding_id=finding_id,
@@ -381,7 +379,7 @@ async def test_add_comment() -> None:
         email="unittest@fluidattacks.com",
     )
     await add_comment(
-        info,
+        loaders,
         "unittest@fluidattacks.com",
         comment_data,
         finding_id,
@@ -402,14 +400,14 @@ async def test_add_comment() -> None:
     assert finding_comments[-1].content == "Test comment"
     assert finding_comments[-1].full_name == "unittesting"
 
-    current_time = get_as_utc_iso_format(get_now())
+    current_time = get_utc_now()
     new_comment_data = comment_data._replace(
         id=str(round(time.time() * 1000)),
         creation_date=current_time,
         parent_id=str(comment_id),
     )
     await add_comment(
-        info,
+        loaders,
         "unittest@fluidattacks.com",
         new_comment_data,
         finding_id,

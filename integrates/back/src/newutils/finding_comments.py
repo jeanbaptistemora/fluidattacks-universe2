@@ -5,8 +5,7 @@ from dynamodb.types import (
     Item,
 )
 from newutils.datetime import (
-    convert_from_iso_str,
-    format_comment_date,
+    format_comment_datetime,
 )
 
 
@@ -25,16 +24,13 @@ def _get_fullname(objective_data: FindingComment) -> str:
 
 def format_finding_consulting_resolve(finding_comment: FindingComment) -> Item:
     fullname = _get_fullname(objective_data=finding_comment)
+    comment_date: str = format_comment_datetime(finding_comment.creation_date)
     return {
         "content": finding_comment.content,
-        "created": format_comment_date(
-            convert_from_iso_str(finding_comment.creation_date)
-        ),
+        "created": comment_date,
         "email": finding_comment.email,
         "fullname": fullname if fullname else finding_comment.email,
         "id": finding_comment.id,
-        "modified": format_comment_date(
-            convert_from_iso_str(finding_comment.creation_date)
-        ),
+        "modified": comment_date,
         "parent": finding_comment.parent_id,
     }

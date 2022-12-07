@@ -83,9 +83,6 @@ from findings.types import (
     FindingDescriptionToUpdate,
     Tracking,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
-)
 import logging
 import logging.config
 from machine.availability import (
@@ -147,13 +144,12 @@ class VulnsProperties(TypedDict):
 
 
 async def add_comment(
-    info: GraphQLResolveInfo,
+    loaders: Dataloaders,
     user_email: str,
     comment_data: FindingComment,
     finding_id: str,
     group_name: str,
 ) -> None:
-    loaders: Dataloaders = info.context.loaders
     param_type = comment_data.comment_type
     parent_comment = (
         str(comment_data.parent_id) if comment_data.parent_id else "0"
@@ -656,9 +652,6 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id=finding.id,
         verification=verification,
     )
-    current_time = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now()
-    )
     comment_data = FindingComment(
         finding_id=finding_id,
         comment_type=CommentType.VERIFICATION,
@@ -667,7 +660,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
-        creation_date=current_time,
+        creation_date=datetime_utils.get_utc_now(),
     )
     await comments_domain.add(loaders, comment_data)
     await collect(map(vulns_domain.request_verification, vulnerabilities))
@@ -927,9 +920,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
                 id=str(round(time() * 1000)),
                 comment_type=comment_type,
                 parent_id="0",
-                creation_date=datetime_utils.get_as_utc_iso_format(
-                    datetime_utils.get_now()
-                ),
+                creation_date=datetime_utils.get_utc_now(),
                 full_name=full_name,
                 content=justification,
                 email=email,

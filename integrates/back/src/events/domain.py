@@ -765,9 +765,7 @@ async def request_vulnerabilities_hold(
         parent_id="0",
         id=comment_id,
         email=user_email,
-        creation_date=datetime_utils.get_as_utc_iso_format(
-            datetime_utils.get_now()
-        ),
+        creation_date=datetime_utils.get_utc_now(),
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
     )
     await finding_comments_domain.add(loaders, comment_data)

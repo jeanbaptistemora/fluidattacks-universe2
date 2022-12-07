@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
+from datetime import (
+    datetime,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -36,7 +39,7 @@ async def test_list_comments() -> None:
             id="1566336916294",
             parent_id="0",
             comment_type=CommentType.COMMENT,
-            creation_date="2019-08-20T21:35:16+00:00",
+            creation_date=datetime.fromisoformat("2019-08-20T21:35:16+00:00"),
             content="This is a comenting test",
             email="unittest@fluidattacks.com",
             full_name="unit test",
