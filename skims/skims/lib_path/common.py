@@ -159,7 +159,9 @@ def get_matching_lines_blocking(
     # But we count tabs as '1' char width
     # This forces the parser to not offset when a file contains tabs
     grammar.parseWithTabs()
-
+    content = "\n".join(
+        line for line in content.splitlines() if len(line) < 1000
+    )
     matches: Tuple[core_model.GrammarMatch, ...] = tuple(
         core_model.GrammarMatch(
             start_column=col(start_char, content) - 1,

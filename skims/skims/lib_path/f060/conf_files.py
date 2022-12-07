@@ -29,7 +29,7 @@ def _json_disable_host_check(
     template: Any,
 ) -> Iterator[Any]:
     if isinstance(template, Node) and (
-        scripts := template.inner.get("scripts").data
+        scripts := getattr(template.inner.get("scripts"), "data", None)
     ):
         for script in scripts.values():
             if " --disable-host-check" in script.data:

@@ -19,7 +19,7 @@ def _json_https_flag_missing(
 ) -> Iterator[Any]:
     required_flags = {" -S", " --tls", " --ssl"}
     if isinstance(template, Node) and (
-        scripts := template.inner.get("scripts").data
+        scripts := getattr(template.inner.get("scripts"), "data", None)
     ):
         for script in scripts.values():
             if "http-server" in script.data and not any(
