@@ -13,11 +13,7 @@ import {
   CenteredMaxWidthContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import {
-  capitalizeDashedString,
-  capitalizeObject,
-  capitalizePlainString,
-} from "../utils/utilities";
+import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
 
 const blogTagTemplate: React.FC<IQueryData> = ({
   pageContext,
@@ -191,7 +187,7 @@ const blogTagTemplate: React.FC<IQueryData> = ({
         }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${capitalizePlainString(
+        title={`Blogs about ${capitalizeDashedString(
           tagName
         )} | A Pentesting Company | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/tags/${tagName}`}
