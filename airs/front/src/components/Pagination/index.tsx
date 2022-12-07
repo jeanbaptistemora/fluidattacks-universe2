@@ -12,11 +12,10 @@ export const Pagination: React.FC<IPaginator> = ({
   pageCount,
 }: IPaginator): JSX.Element => (
   <ReactPaginate
-    activeClassName={"active"}
-    breakClassName={"page-item"}
-    breakLabel={"..."}
-    breakLinkClassName={"page-link"}
+    activeLinkClassName={"active"}
+    breakClassName={"break-item"}
     containerClassName={"pagination-container"}
+    marginPagesDisplayed={1}
     nextClassName={"page-item"}
     nextLabel={<FiChevronRight />}
     nextLinkClassName={"page-link"}
@@ -24,7 +23,7 @@ export const Pagination: React.FC<IPaginator> = ({
     pageClassName={"page-item"}
     pageCount={pageCount}
     pageLinkClassName={"page-link"}
-    pageRangeDisplayed={5}
+    pageRangeDisplayed={3}
     previousClassName={"page-item"}
     previousLabel={<FiChevronLeft />}
     previousLinkClassName={"page-link"}

@@ -1,10 +1,11 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React, { useCallback, useState } from "react";
+import React from "react";
 
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
 import { Pagination } from "../../../components/Pagination";
 import { VerticalCard } from "../../../components/VerticalCard";
+import { usePagination } from "../../../utils/hooks";
 
 export const BlogsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -62,20 +63,17 @@ export const BlogsList: React.FC = (): JSX.Element => {
     );
   });
 
-  const itemsPerPage = 9;
-  const pageCount = Math.ceil(listOfBlogs.length / itemsPerPage);
-  const [currentItems, setCurrentItems] = useState(
-    listOfBlogs.slice(0, itemsPerPage)
+  const cleanListOfBlogs: (JSX.Element | undefined)[] = listOfBlogs.filter(
+    (post): boolean => {
+      return post !== undefined;
+    }
   );
 
-  const handlePageClick = useCallback(
-    (prop: { selected: number }): void => {
-      const { selected } = prop;
-      const newOffset = (selected * itemsPerPage) % listOfBlogs.length;
-      const endOffset = newOffset + itemsPerPage;
-      setCurrentItems(listOfBlogs.slice(newOffset, endOffset));
-    },
-    [listOfBlogs]
+  const itemsPerPage = 9;
+
+  const { currentItems, handlePageClick, pageCount } = usePagination(
+    itemsPerPage,
+    cleanListOfBlogs
   );
 
   return (
