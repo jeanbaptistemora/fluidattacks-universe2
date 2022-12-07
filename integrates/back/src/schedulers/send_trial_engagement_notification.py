@@ -5,6 +5,7 @@ from custom_exceptions import (
     UnableToSendMail,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.companies.types import (
@@ -22,6 +23,9 @@ from mailchimp_transactional.api_client import (
 from mailer import (
     groups as groups_mail,
 )
+from mailer.groups import (
+    TrialEngagementInfo,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -29,12 +33,10 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Awaitable,
+    Callable,
     Optional,
 )
-
-# Constants
-TRIAL_DAYS = 17
-
 
 mail_upgrade_squad_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
@@ -43,7 +45,12 @@ mail_upgrade_squad_notification = retry_on_exceptions(
 )(groups_mail.send_upgrade_squad_notification)
 
 
-async def send_upgrade_squad_notification() -> None:
+async def send_trial_engagement_notification() -> None:
+    notifications: dict[
+        int, Callable[[Dataloaders, TrialEngagementInfo], Awaitable[None]]
+    ] = {
+        17: mail_upgrade_squad_notification,
+    }
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
@@ -53,16 +60,24 @@ async def send_upgrade_squad_notification() -> None:
 
     await collect(
         tuple(
-            mail_upgrade_squad_notification(loaders, group.created_by)
+            notification(
+                loaders,
+                TrialEngagementInfo(
+                    email_to=group.created_by,
+                ),
+            )
             for group, company in zip(groups, companies)
             if group.state.managed == GroupManaged.TRIAL
             and company
             and company.trial.start_date
-            and datetime_utils.get_days_since(company.trial.start_date)
-            == TRIAL_DAYS
+            and (
+                notification := notifications.get(
+                    datetime_utils.get_days_since(company.trial.start_date)
+                )
+            )
         )
     )
 
 
 async def main() -> None:
-    await send_upgrade_squad_notification()
+    await send_trial_engagement_notification()

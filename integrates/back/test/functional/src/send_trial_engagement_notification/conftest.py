@@ -38,7 +38,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("upgrade_squad_notification")
+@pytest.mark.resolver_test_group("send_trial_engagement_notification")
 @pytest.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
