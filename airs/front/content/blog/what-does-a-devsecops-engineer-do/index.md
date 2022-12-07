@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, devsecops, security-testing, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1654612014/blog/what-does-a-devsecops-engineer-do/cover_engineers.webp
 alt: Photo by Jeff Lemond on Unsplash
-description: Ever wondered what a DevSecOps engineer does? Learn all about their skills and functions with Fluid Attacks.
+description: Ever wondered what a DevSecOps engineer does? Learn all about the required skills, experience and functions to become one in the cybersecurity industry.
 keywords: Become Devsecops Engineer, Devsecops Engineer Skills, Devsecops Engineer Responsibilities, Devsecops Engineer Roles, Devsecops Engineer Certification, Security Testing, Software Development Lifecycle, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
