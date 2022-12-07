@@ -83,12 +83,13 @@ async def mutate(  # pylint: disable=too-many-arguments
             None if attacked_at_to_update is None else user_email
         )
         await toe_ports_domain.update(
-            current_value,
-            ToePortAttributesToUpdate(
+            current_value=current_value,
+            attributes=ToePortAttributesToUpdate(
                 attacked_at=attacked_at_to_update,
                 attacked_by=attacked_by_to_update,
                 be_present=be_present_to_update,
             ),
+            modified_by=user_email,
         )
         logs_utils.cloudwatch_log(
             info.context,

@@ -39,6 +39,8 @@ async def update_state(
     gsi_2_index = TABLE.indexes["gsi_2"]
     if state.modified_date is None:
         raise InvalidParameter("modified_date")
+    if state.modified_by is None:
+        raise InvalidParameter("modified_by")
 
     try:
         metadata_key = keys.build_key(

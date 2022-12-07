@@ -132,9 +132,7 @@ def get_present_toe_ports_to_update(
 
 
 async def refresh_active_root_toe_ports(
-    loaders: Dataloaders,
-    group_name: str,
-    root: IPRoot,
+    loaders: Dataloaders, group_name: str, root: IPRoot, modified_by: str
 ) -> None:
     LOGGER.info(
         "Refreshing active toe ports",
@@ -153,7 +151,10 @@ async def refresh_active_root_toe_ports(
     await collect(
         tuple(
             toe_ports_update(
-                current_value, attrs_to_update, is_moving_toe_port=True
+                current_value,
+                attrs_to_update,
+                modified_by,
+                is_moving_toe_port=True,
             )
             for current_value, attrs_to_update in present_toe_ports_to_update
         ),
@@ -169,9 +170,7 @@ async def refresh_active_root_toe_ports(
 
 
 async def refresh_inactive_root_toe_ports(
-    loaders: Dataloaders,
-    group_name: str,
-    root: IPRoot,
+    loaders: Dataloaders, group_name: str, root: IPRoot, modified_by: str
 ) -> None:
     LOGGER.info(
         "Refreshing inactive toe ports",
@@ -190,7 +189,10 @@ async def refresh_inactive_root_toe_ports(
     await collect(
         tuple(
             toe_ports_update(
-                current_value, attrs_to_update, is_moving_toe_port=True
+                current_value,
+                attrs_to_update,
+                modified_by,
+                is_moving_toe_port=True,
             )
             for current_value, attrs_to_update in (
                 non_present_toe_ports_to_update
@@ -214,7 +216,7 @@ async def refresh_inactive_root_toe_ports(
     ),
 )
 async def refresh_root_toe_ports(
-    group_name: str, optional_repo_nickname: Optional[str]
+    group_name: str, optional_repo_nickname: Optional[str], modified_by: str
 ) -> None:
     loaders = get_new_context()
     roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
@@ -245,7 +247,9 @@ async def refresh_root_toe_ports(
         or root.state.nickname == optional_repo_nickname
     )
     for root in active_roots_to_process:
-        await refresh_active_root_toe_ports(loaders, group_name, root)
+        await refresh_active_root_toe_ports(
+            loaders, group_name, root, modified_by
+        )
     inactive_roots_to_process = tuple(
         root_repo
         for root_repo in inactive_roots
@@ -253,15 +257,20 @@ async def refresh_root_toe_ports(
         or root_repo.state.nickname == optional_repo_nickname
     )
     for root in inactive_roots_to_process:
-        await refresh_inactive_root_toe_ports(loaders, group_name, root)
+        await refresh_inactive_root_toe_ports(
+            loaders, group_name, root, modified_by
+        )
 
 
 async def refresh_toe_ports(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
+    modified_by: str = item.subject
     optional_repo_nickname: Optional[str] = (
         None if item.additional_info == "*" else item.additional_info
     )
-    await refresh_root_toe_ports(group_name, optional_repo_nickname)
+    await refresh_root_toe_ports(
+        group_name, optional_repo_nickname, modified_by
+    )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,

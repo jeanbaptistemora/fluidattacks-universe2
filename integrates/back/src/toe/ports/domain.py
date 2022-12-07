@@ -54,6 +54,7 @@ async def add(  # pylint: disable=too-many-arguments
     port: str,
     root_id: str,
     attributes: ToePortAttributesToAdd,
+    modified_by: str,
 ) -> None:
     root: Root = await loaders.root.load((group_name, root_id))
     if not isinstance(root, IPRoot):
@@ -87,7 +88,7 @@ async def add(  # pylint: disable=too-many-arguments
             first_attack_at=first_attack_at,
             has_vulnerabilities=has_vulnerabilities,
             modified_date=datetime_utils.get_utc_now(),
-            modified_by=None,
+            modified_by=modified_by,
         ),
     )
     await toe_ports_model.add(toe_port=toe_port)
@@ -140,6 +141,7 @@ def _validate_update(
 async def update(
     current_value: ToePort,
     attributes: ToePortAttributesToUpdate,
+    modified_by: str,
     is_moving_toe_port: bool = False,
 ) -> None:
     if is_moving_toe_port is False:
@@ -197,6 +199,6 @@ async def update(
                 first_attack_at=updated_first_attack_at,
                 has_vulnerabilities=updated_has_vulnerabilities,
                 modified_date=datetime_utils.get_utc_now(),
-                modified_by=None,
+                modified_by=modified_by,
             ),
         )

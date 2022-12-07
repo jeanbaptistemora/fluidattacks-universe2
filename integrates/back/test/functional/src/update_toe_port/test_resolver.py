@@ -71,7 +71,9 @@ async def test_update_toe_port(
         )
     )
     assert toe_port.state.be_present == be_present
-    historic: tuple[ToePortState, ...] = await loaders.toe_port_historic.load(
+    historic: tuple[
+        ToePortState, ...
+    ] = await loaders.toe_port_historic_state.load(
         ToePortRequest(
             group_name=group_name, address=address, port=port, root_id=root_id
         )

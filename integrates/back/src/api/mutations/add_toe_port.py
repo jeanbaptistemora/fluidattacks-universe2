@@ -68,6 +68,7 @@ async def mutate(
                 has_vulnerabilities=False,
                 seen_first_time_by=user_email,
             ),
+            modified_by=user_email,
         )
         logs_utils.cloudwatch_log(
             info.context,

@@ -222,7 +222,7 @@ class Dataloaders(NamedTuple):
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     toe_port: ToePortLoader
-    toe_port_historic: ToePortHistoricStateLoader
+    toe_port_historic_state: ToePortHistoricStateLoader
     stakeholder: StakeholderLoader
     stakeholder_groups_access: StakeholderGroupsAccessLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
@@ -403,7 +403,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         toe_input_historic=ToeInputHistoricLoader(),
         toe_lines=ToeLinesLoader(),
         toe_port=ToePortLoader(),
-        toe_port_historic=ToePortHistoricStateLoader(),
+        toe_port_historic_state=ToePortHistoricStateLoader(),
         user_credentials=UserCredentialsLoader(),
         vulnerability=vulnerability_loader,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),

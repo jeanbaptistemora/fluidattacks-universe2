@@ -29,6 +29,8 @@ from dynamodb.model import (
 async def add(*, toe_port: ToePort, validate_state: bool = True) -> None:
     if validate_state and toe_port.state.modified_date is None:
         raise InvalidParameter("modified_date")
+    if validate_state and toe_port.state.modified_by is None:
+        raise InvalidParameter("modified_by")
 
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]

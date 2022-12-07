@@ -52,18 +52,18 @@ async def test_remove_toe_port(
     )
     toe_port: ToePort = await loaders.toe_port.load(request)
     assert toe_port.address == address
-    historic: tuple[ToePortState, ...] = await loaders.toe_port_historic.load(
-        request
-    )
+    historic: tuple[
+        ToePortState, ...
+    ] = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 1
     await toe_ports_model.remove(
         group_name=group_name, address=address, port=port, root_id=root_id
     )
     loaders.toe_port.clear(request)
-    loaders.toe_port_historic.clear(request)
+    loaders.toe_port_historic_state.clear(request)
     with pytest.raises(ToePortNotFound):
         await loaders.toe_port.load(request)
-    historic = await loaders.toe_port_historic.load(request)
+    historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 0
 
 
@@ -86,14 +86,14 @@ async def test_remove_group_toe_ports(
         port=toe_ports[1].port,
         root_id=toe_ports[1].root_id,
     )
-    historic: tuple[ToePortState, ...] = await loaders.toe_port_historic.load(
-        request
-    )
+    historic: tuple[
+        ToePortState, ...
+    ] = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 1
     await toe_ports_model.remove_group_toe_ports(group_name=group_name)
     loaders.group_toe_ports.clear(group_request)
-    loaders.toe_port_historic.clear(request)
+    loaders.toe_port_historic_state.clear(request)
     toe_ports = await loaders.group_toe_ports.load_nodes(group_request)
     assert len(toe_ports) == 0
-    historic = await loaders.toe_port_historic.load(request)
+    historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 0
