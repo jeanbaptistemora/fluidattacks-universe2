@@ -52,6 +52,7 @@ from syntax_graph.syntax_readers.typescript import (
     as_expression as typescript_as_expression,
     class_body as typescript_class_body,
     debugger_statement as typescript_debugger_statement,
+    empty_statement as typescript_empty_statement,
     enum_assignment as typescript_enum_assignment,
     enum_body as typescript_enum_body,
     enum_declaration as typescript_enum_declaration,
@@ -196,6 +197,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "enum_declaration",
         },
         syntax_reader=typescript_enum_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "empty_statement",
+        },
+        syntax_reader=typescript_empty_statement.reader,
     ),
     Dispatcher(
         applicable_types={
