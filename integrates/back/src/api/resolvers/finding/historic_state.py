@@ -12,7 +12,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.datetime import (
-    convert_from_iso_str,
+    get_as_str,
 )
 
 
@@ -28,7 +28,7 @@ async def resolve(
     return [
         {
             "analyst": state.modified_by,
-            "date": convert_from_iso_str(state.modified_date),
+            "date": get_as_str(state.modified_date),
             "source": str(state.source.value).lower(),
             "state": state.status.value,
         }

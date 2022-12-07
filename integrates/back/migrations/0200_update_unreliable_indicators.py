@@ -35,6 +35,9 @@ from dynamodb.exceptions import (
 import groups.domain as groups_domain
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from settings import (
     LOGGING,
 )
@@ -91,7 +94,7 @@ async def process_finding(
     if vulns_to_update or (
         finding.approval
         and finding_indicators.unreliable_newest_vulnerability_report_date
-        < finding.approval.modified_date
+        < datetime_utils.get_as_utc_iso_format(finding.approval.modified_date)
     ):
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,

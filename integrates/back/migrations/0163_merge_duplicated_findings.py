@@ -39,9 +39,6 @@ from groups import (
 from itertools import (
     chain,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 import time
 from typing import (
     Dict,
@@ -151,15 +148,11 @@ async def _get_duplicated_findings(
         return True
 
     creation_dates = [
-        datetime_utils.get_date_from_iso_str(
-            fin_duplicated.creation.modified_date
-        )
+        fin_duplicated.creation.modified_date.date()
         for fin_duplicated in duplicated_findings
         if fin_duplicated.creation is not None
     ]
-    findind_date = datetime_utils.get_date_from_iso_str(
-        finding.creation.modified_date
-    )
+    findind_date = finding.creation.modified_date.date()
     if findind_date >= min(creation_dates):
         print("\tDuplicated but not the oldest one")
         return True

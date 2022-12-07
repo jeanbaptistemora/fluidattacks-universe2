@@ -85,7 +85,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         facet=TABLE.facets["finding_historic_state"],
         values={
             "id": finding.id,
-            "iso8601utc": finding.state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(finding.state.modified_date),
         },
     )
     historic_state_item = {

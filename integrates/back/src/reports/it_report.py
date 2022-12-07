@@ -318,16 +318,14 @@ class ITReport:
                 finding
                 for finding in data
                 if finding.approval
-                and datetime.fromisoformat(finding.approval.modified_date)
-                >= self.min_release_date
+                and finding.approval.modified_date >= self.min_release_date
             )
         if self.max_release_date:
             filter_max_release_date = tuple(
                 finding
                 for finding in data
                 if finding.approval
-                and datetime.fromisoformat(finding.approval.modified_date)
-                <= self.max_release_date
+                and finding.approval.modified_date <= self.max_release_date
             )
 
         filtered_findings_ids: set[str] = set.intersection(

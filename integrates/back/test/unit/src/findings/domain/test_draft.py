@@ -11,11 +11,17 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from findings.domain import (
     approve_draft,
 )
 from freezegun import (
     freeze_time,
+)
+from newutils.datetime import (
+    get_as_utc_iso_format,
 )
 import pytest
 from starlette.responses import (
@@ -51,8 +57,8 @@ async def test_approve_draft() -> None:  # pylint: disable=too-many-locals
         user_email,
         requests_utils.get_source_new(context),
     )
-    expected_date = "2019-12-01T00:00:00+00:00"
-    assert isinstance(approval_date, str)
+    expected_date = datetime.fromisoformat("2019-12-01T00:00:00+00:00")
+    assert isinstance(approval_date, datetime)
     assert approval_date == expected_date
 
     all_vulns = await loaders.finding_vulnerabilities_all.load(finding_id)
@@ -62,9 +68,11 @@ async def test_approve_draft() -> None:  # pylint: disable=too-many-locals
         historic_state_loader.clear(vuln_id)
         historic_state = await historic_state_loader.load(vuln_id)
         for state in historic_state:
-            assert state.modified_date == expected_date
+            assert state.modified_date == get_as_utc_iso_format(expected_date)
 
         historic_treatment_loader.clear(vuln_id)
         historic_treatment = await historic_treatment_loader.load(vuln_id)
         for treatment in historic_treatment:
-            assert treatment.modified_date == expected_date
+            assert treatment.modified_date == get_as_utc_iso_format(
+                expected_date
+            )

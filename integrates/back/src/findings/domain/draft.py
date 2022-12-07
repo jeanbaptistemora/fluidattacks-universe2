@@ -27,7 +27,8 @@ from db_model.findings.types import (
     FindingState,
 )
 from db_model.utils import (
-    get_date_with_offset,
+    get_as_utc_iso_format,
+    get_datetime_with_offset,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -70,7 +71,7 @@ async def approve_draft(
     finding_id: str,
     user_email: str,
     source: Source,
-) -> str:
+) -> datetime:
     finding: Finding = await loaders.finding.load(finding_id)
 
     if finding.state.status == FindingStateStatus.APPROVED:
@@ -85,8 +86,8 @@ async def approve_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=get_date_with_offset(
-            finding.state.modified_date, datetime_utils.get_iso_date()
+        modified_date=get_datetime_with_offset(
+            finding.state.modified_date, datetime_utils.get_utc_now()
         ),
         source=source,
         status=FindingStateStatus.APPROVED,
@@ -114,10 +115,11 @@ async def approve_draft(
             loaders=loaders,
             finding_id=finding_id,
             vulnerability_id=vuln.id,
-            modified_date=new_state.modified_date,
+            modified_date=get_as_utc_iso_format(new_state.modified_date),
         )
         for vuln in finding_vulnerabilities
     )
+
     return new_state.modified_date
 
 
@@ -146,7 +148,7 @@ async def add_draft(
         min_time_to_remediate=draft_info.min_time_to_remediate,
         state=FindingState(
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             source=source,
             status=FindingStateStatus.CREATED,
         ),
@@ -185,14 +187,14 @@ async def reject_draft(
     if DraftRejectionReason.OTHER in reasons and not other:
         raise IncompleteDraft(fields=["other"])
 
-    rejection_date = get_date_with_offset(
-        finding.state.modified_date, datetime_utils.get_iso_date()
+    rejection_date = get_datetime_with_offset(
+        finding.state.modified_date, datetime_utils.get_utc_now()
     )
     rejection = DraftRejection(
         other=other if other else "",
         reasons=reasons,
         rejected_by=reviewer_email,
-        rejection_date=datetime.fromisoformat(rejection_date),
+        rejection_date=rejection_date,
         submitted_by=finding.state.modified_by,
     )
     new_state = FindingState(
@@ -247,8 +249,8 @@ async def submit_draft(
 
     new_state = FindingState(
         modified_by=user_email,
-        modified_date=get_date_with_offset(
-            finding.state.modified_date, datetime_utils.get_iso_date()
+        modified_date=get_datetime_with_offset(
+            finding.state.modified_date, datetime_utils.get_utc_now()
         ),
         source=source,
         status=FindingStateStatus.SUBMITTED,

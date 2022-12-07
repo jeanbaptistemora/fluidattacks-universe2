@@ -126,7 +126,7 @@ def get_updated_evidence_date(
 ) -> datetime:
     updated_date = evidence.modified_date
     if finding.approval:
-        release_date = datetime.fromisoformat(finding.approval.modified_date)
+        release_date = finding.approval.modified_date
         if release_date > evidence.modified_date:
             updated_date = release_date
 

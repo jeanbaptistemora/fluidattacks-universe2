@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -154,7 +157,9 @@ async def populate() -> bool:
                     group_name="group123",
                     state=FindingState(
                         modified_by="test@fluidattacks.com",
-                        modified_date="2017-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),

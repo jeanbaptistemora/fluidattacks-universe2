@@ -5,6 +5,9 @@ from back.test import (
 from collections import (
     defaultdict,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -23,15 +26,14 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_draft")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "findings": [
             {
                 "finding": Finding(
@@ -39,7 +41,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     state=FindingState(
                         modified_by="hacker@fluidattacks.com",
-                        modified_date="2017-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
@@ -79,13 +83,17 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:12+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:13+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:13+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.REJECTED,
                     ),

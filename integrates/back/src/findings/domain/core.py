@@ -189,7 +189,7 @@ async def remove_finding(
     deletion_state = FindingState(
         justification=justification,
         modified_by=email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         source=source,
         status=FindingStateStatus.DELETED,
     )
@@ -224,7 +224,7 @@ async def remove_finding(
             finding_id=finding.id,
             group_name=finding.group_name,
             state=deletion_state._replace(
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=FindingStateStatus.MASKED,
             ),
         )
@@ -555,7 +555,7 @@ async def mask_finding(
             group_name=finding.group_name,
             state=finding.state._replace(
                 modified_by=email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=FindingStateStatus.MASKED,
             ),
         )

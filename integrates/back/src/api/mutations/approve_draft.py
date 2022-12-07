@@ -44,11 +44,9 @@ from mailer import (
     findings as findings_mail,
 )
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
     requests as requests_utils,
-)
-from newutils.datetime import (
-    convert_from_iso_str,
 )
 from sessions import (
     domain as sessions_domain,
@@ -148,5 +146,5 @@ async def mutate(
         raise
 
     return ApproveDraftPayload(
-        release_date=convert_from_iso_str(approval_date), success=True
+        release_date=datetime_utils.get_as_str(approval_date), success=True
     )

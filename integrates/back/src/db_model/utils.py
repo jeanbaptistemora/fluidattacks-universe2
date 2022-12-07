@@ -32,6 +32,24 @@ def adjust_historic_dates(
     return tuple(new_historic)
 
 
+def adjust_finding_historic_dates(
+    historic: tuple[Any, ...],
+) -> tuple[Any, ...]:
+    """
+    Ensure dates are not the same and in ascending order.
+    Also add a minimum 1 second offset among them.
+    """
+    if not historic:
+        return tuple()
+    new_historic = [historic[0]]
+    base_date: datetime = historic[0].modified_date
+    for entry in historic[1:]:
+        base_date = get_datetime_with_offset(base_date, entry.modified_date)
+        new_historic.append(entry._replace(modified_date=base_date))
+
+    return tuple(new_historic)
+
+
 def get_as_utc_iso_format(date: datetime) -> str:
     return date.astimezone(tz=timezone.utc).isoformat()
 
@@ -60,6 +78,13 @@ def get_date_with_offset(
         datetime.fromisoformat(target_iso8601),
     )
     return max_date.astimezone(tz=timezone.utc).isoformat()
+
+
+def get_datetime_with_offset(
+    base_iso8601: datetime, target_iso8601: datetime, offset: int = 1
+) -> datetime:
+    """Guarantee at least n seconds separation between dates."""
+    return max(base_iso8601 + timedelta(seconds=offset), target_iso8601)
 
 
 def format_policies_to_update(

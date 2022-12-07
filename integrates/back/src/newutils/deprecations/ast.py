@@ -15,7 +15,7 @@ from graphql import (
     TypeDefinitionNode,
 )
 from newutils import (
-    datetime as date_utils,
+    datetime as datetime_utils,
 )
 from newutils.deprecations.filters import (
     filter_api_deprecation_dict,
@@ -40,7 +40,7 @@ def get_due_date(definition: str, field: str, reason: str) -> datetime:
     """
     match = search(r"\d{4}/\d{2}/\d{2}", reason)
     if match:
-        return date_utils.get_from_str(match.group(), "%Y/%m/%d")
+        return datetime_utils.get_from_str(match.group(), "%Y/%m/%d")
     raise InvalidDateFormat(
         expr=(
             "No deprecation date in the format YYYY/MM/DD found in reason "

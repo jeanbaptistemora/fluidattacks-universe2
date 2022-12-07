@@ -248,9 +248,7 @@ async def _draft_content(
                     date_report=datetime_utils.get_datetime_from_iso_str(
                         vuln.state.modified_date
                     ),
-                    date_submission=datetime_utils.get_datetime_from_iso_str(
-                        draft.submission.modified_date
-                    )
+                    date_submission=draft.submission.modified_date
                     if draft.submission
                     else None,
                     group=group,

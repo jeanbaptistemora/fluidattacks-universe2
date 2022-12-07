@@ -56,7 +56,7 @@ from db_model.toe_lines.types import (
     ToeLinesRequest,
 )
 from db_model.utils import (
-    get_date_with_offset,
+    get_datetime_with_offset,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -293,7 +293,7 @@ async def _process_finding(
             },
         )
         if source_finding.submission:
-            submission_date = get_date_with_offset(
+            submission_date = get_datetime_with_offset(
                 initial_state.modified_date,
                 source_finding.submission.modified_date,
             )
@@ -306,7 +306,7 @@ async def _process_finding(
                 ),
             )
             if source_finding.approval:
-                approval_date = get_date_with_offset(
+                approval_date = get_datetime_with_offset(
                     submission_date,
                     source_finding.approval.modified_date,
                 )

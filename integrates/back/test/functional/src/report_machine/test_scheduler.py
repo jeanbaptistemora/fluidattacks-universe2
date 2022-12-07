@@ -29,7 +29,6 @@ from server.report_machine import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 from unittest import (
     mock,
@@ -64,7 +63,7 @@ async def test_persist_result(populate: bool) -> None:
             await process_execution("group1_1234345")
 
             loaders = get_new_context()
-            group_findings: Tuple[
+            group_findings: tuple[
                 Finding, ...
             ] = await loaders.group_drafts_and_findings.load("group1")
             finding_001: Optional[Finding] = next(
@@ -77,7 +76,7 @@ async def test_persist_result(populate: bool) -> None:
             )
             assert finding_001 is not None
 
-            integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+            integrates_vulnerabilities: tuple[Vulnerability, ...] = tuple(
                 vuln
                 for vuln in await loaders.finding_vulnerabilities.load(
                     finding_001.id
@@ -156,7 +155,7 @@ async def test_report_f079(populate: bool) -> None:
             side_effect=mock.AsyncMock(return_value=sarif_report),
         ):
             loaders = get_new_context()
-            group_findings: Tuple[
+            group_findings: tuple[
                 Finding, ...
             ] = await loaders.group_drafts_and_findings.load("group1")
             finding_f079: Optional[Finding] = next(
@@ -195,7 +194,7 @@ async def test_report_f079(populate: bool) -> None:
                 != finding_f079.approval.modified_date
             )
 
-            integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+            integrates_vulnerabilities: tuple[Vulnerability, ...] = tuple(
                 vuln
                 for vuln in await loaders.finding_vulnerabilities.load(
                     finding_f079.id
@@ -250,7 +249,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         await process_execution("group1_1234345")
 
         loaders = get_new_context()
-        group_findings: Tuple[
+        group_findings: tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load("group1")
         finding_011: Optional[Finding] = next(
@@ -259,7 +258,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         )
         assert finding_011 is not None
 
-        integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        integrates_vulnerabilities: tuple[Vulnerability, ...] = tuple(
             vuln
             for vuln in await loaders.finding_vulnerabilities.load(
                 finding_011.id
@@ -272,7 +271,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         where_1 = integrates_vulnerabilities[0].state.where
         await process_execution("group1_4d3275db-5715-4258-a2d5-dc80c441b062")
         loaders.finding_vulnerabilities.clear(finding_011.id)
-        integrates_vulnerabilities_2: Tuple[Vulnerability, ...] = tuple(
+        integrates_vulnerabilities_2: tuple[Vulnerability, ...] = tuple(
             vuln
             for vuln in await loaders.finding_vulnerabilities.load(
                 finding_011.id
@@ -310,7 +309,7 @@ async def test_approval(populate: bool) -> None:
         side_effect=mock.AsyncMock(return_value=sarif_report),
     ):
         loaders = get_new_context()
-        findings: Tuple[
+        findings: tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load("group1")
         f_117: Optional[Finding] = next(
@@ -322,7 +321,7 @@ async def test_approval(populate: bool) -> None:
         assert f_117 is not None
         assert f_237 is None
 
-        f_117_vulns: Tuple[
+        f_117_vulns: tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(f_117.id)
         assert len(f_117_vulns) == 1
@@ -346,7 +345,7 @@ async def test_approval(populate: bool) -> None:
         assert f_237 is not None
 
         f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
-        f_237_vulns: Tuple[
+        f_237_vulns: tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(f_237.id)
         assert len(f_117_vulns) == 3
@@ -392,7 +391,7 @@ async def test_report_inputs(populate: bool) -> None:
         ),
     ):
         loaders = get_new_context()
-        findings: Tuple[
+        findings: tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load("group1")
         f_128: Optional[Finding] = next(

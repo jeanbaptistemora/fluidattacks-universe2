@@ -32,7 +32,7 @@ class DraftRejection(NamedTuple):
 
 class FindingState(NamedTuple):
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     source: Source
     status: FindingStateStatus
     rejection: Optional[DraftRejection] = None

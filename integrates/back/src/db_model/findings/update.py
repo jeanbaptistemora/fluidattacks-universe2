@@ -179,7 +179,7 @@ async def update_state(
         values={"group_name": group_name, "id": finding_id},
     )
     state = state._replace(
-        modified_date=db_model_utils.get_date_with_offset(
+        modified_date=db_model_utils.get_datetime_with_offset(
             current_value.modified_date,
             state.modified_date,
         )
@@ -193,7 +193,9 @@ async def update_state(
     try:
         await operations.update_item(
             condition_expression=Attr(key_structure.partition_key).exists()
-            & Attr("state.modified_date").eq(current_value.modified_date),
+            & Attr("state.modified_date").eq(
+                get_as_utc_iso_format(current_value.modified_date)
+            ),
             item=metadata_item,
             key=metadata_key,
             table=TABLE,
@@ -205,7 +207,7 @@ async def update_state(
         facet=TABLE.facets["finding_historic_state"],
         values={
             "id": finding_id,
-            "iso8601utc": state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
         },
     )
     historic_state_item = {
@@ -229,7 +231,9 @@ async def update_historic_state(
     if not historic_state:
         raise EmptyHistoric()
 
-    historic_state = db_model_utils.adjust_historic_dates(historic_state)
+    historic_state = db_model_utils.adjust_finding_historic_dates(
+        historic_state
+    )
     item = {"state": format_state_item(historic_state[-1])}
     creation = next(
         state
@@ -300,7 +304,7 @@ async def update_historic_state(
             facet=TABLE.facets["finding_historic_state"],
             values={
                 "id": finding_id,
-                "iso8601utc": entry.modified_date,
+                "iso8601utc": get_as_utc_iso_format(entry.modified_date),
             },
         )
         for entry in historic_state

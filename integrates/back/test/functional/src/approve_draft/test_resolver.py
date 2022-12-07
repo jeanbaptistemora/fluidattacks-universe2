@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -18,7 +21,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -43,7 +45,7 @@ async def test_approve_draft(
     populate: bool, email: str, finding_id: str, vuln_id: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
     assert "errors" not in result
@@ -55,13 +57,16 @@ async def test_approve_draft(
     assert finding.state.status == FindingStateStatus.APPROVED
 
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    approval_date: str = finding.approval.modified_date  # type: ignore
-    assert vuln.created_date == approval_date
+    assert finding.approval
+    approval_date: datetime = finding.approval.modified_date
+    assert datetime.fromisoformat(vuln.created_date) == approval_date
     finding_indicators: FindingUnreliableIndicators = (
         finding.unreliable_indicators
     )
     assert (
-        finding_indicators.unreliable_newest_vulnerability_report_date
+        datetime.fromisoformat(
+            finding_indicators.unreliable_newest_vulnerability_report_date
+        )
         == approval_date
     )
     assert (
@@ -69,7 +74,9 @@ async def test_approve_draft(
         == ""
     )
     assert (
-        finding_indicators.unreliable_oldest_vulnerability_report_date
+        datetime.fromisoformat(
+            finding_indicators.unreliable_oldest_vulnerability_report_date
+        )
         == approval_date
     )
 
@@ -87,7 +94,7 @@ async def test_approve_draft_fail(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
     assert "errors" in result

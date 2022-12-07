@@ -6,6 +6,7 @@ from graphql.type.definition import (
 )
 from newutils.datetime import (
     convert_from_iso_str,
+    get_as_str,
 )
 from typing import (
     Optional,
@@ -21,5 +22,5 @@ def resolve(
             unreliable_indicators.unreliable_oldest_vulnerability_report_date
         )
     if parent.creation:
-        return convert_from_iso_str(parent.creation.modified_date)
+        return get_as_str(parent.creation.modified_date)
     return None

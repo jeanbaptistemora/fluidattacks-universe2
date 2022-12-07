@@ -63,23 +63,17 @@ def adjust_historic_dates(
 ) -> tuple[bool, tuple[FindingState, ...]]:
     has_historic_changed = False
     new_historic = list(historic[:1])
-    comparison_date_str = historic[0].modified_date
+    comparison_date = historic[0].modified_date
 
     for entry in historic[1:]:
-        current_date = datetime.fromisoformat(entry.modified_date)
-        comparison_date = datetime.fromisoformat(comparison_date_str)
+        current_date = entry.modified_date
         elapsed = current_date - comparison_date
         if current_date > comparison_date and elapsed.seconds >= 1:
-            comparison_date_str = entry.modified_date
+            comparison_date = entry.modified_date
         else:
-            fixed_date = datetime.fromisoformat(
-                comparison_date_str
-            ) + timedelta(seconds=1)
-            comparison_date_str = datetime_utils.get_as_utc_iso_format(
-                fixed_date
-            )
+            comparison_date = comparison_date + timedelta(seconds=1)
             has_historic_changed = True
-        new_historic.append(entry._replace(modified_date=comparison_date_str))
+        new_historic.append(entry._replace(modified_date=comparison_date))
 
     return has_historic_changed, tuple(new_historic)
 
@@ -122,9 +116,7 @@ async def process_finding(
         vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
             vulns
         )
-        finding_approval_date = datetime.fromisoformat(
-            finding.approval.modified_date
-        )
+        finding_approval_date = finding.approval.modified_date
         if vulns_oldest_report_date < finding_approval_date:
             historic_state = replace_finding_historic_dates(
                 historic_state=historic_state,

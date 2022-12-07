@@ -152,7 +152,7 @@ def format_state(state_item: Item) -> FindingState:
     return FindingState(
         justification=StateRemovalJustification[state_item["justification"]],
         modified_by=state_item["modified_by"],
-        modified_date=state_item["modified_date"],
+        modified_date=datetime.fromisoformat(state_item["modified_date"]),
         rejection=format_rejection(state_item.get("rejection", None)),
         source=Source[state_item["source"]],
         status=FindingStateStatus[state_item["status"]],
@@ -163,7 +163,7 @@ def format_state_item(state: FindingState) -> Item:
     return {
         "justification": state.justification.value,
         "modified_by": state.modified_by,
-        "modified_date": state.modified_date,
+        "modified_date": get_as_utc_iso_format(state.modified_date),
         "rejection": format_rejection_item(state.rejection),
         "source": state.source.value,
         "status": state.status.value,

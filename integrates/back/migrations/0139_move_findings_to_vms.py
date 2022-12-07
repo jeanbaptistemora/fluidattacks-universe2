@@ -102,7 +102,6 @@ from newutils import (
 )
 from newutils.datetime import (
     get_as_str,
-    get_as_utc_iso_format,
     get_from_str,
     get_minus_delta,
     get_plus_delta,
@@ -269,7 +268,7 @@ def _format_source(source: str) -> Source:
 def _format_state(state: Dict[str, str]) -> FindingState:
     return FindingState(
         modified_by=state.get("analyst", ""),
-        modified_date=get_as_utc_iso_format(get_from_str(state["date"])),
+        modified_date=get_from_str(state["date"]),
         source=_format_source(state["source"]),
         status=FindingStateStatus[str(state["state"]).upper()],
         justification=FindingStateJustification[state["justification"]]

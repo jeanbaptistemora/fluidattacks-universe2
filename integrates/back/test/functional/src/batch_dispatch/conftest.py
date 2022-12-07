@@ -166,7 +166,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     state=FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
@@ -232,25 +234,33 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:12+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:13+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:13+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.REJECTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.APPROVED,
                     ),
@@ -291,7 +301,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="unittesting",
                     state=FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
@@ -357,25 +369,33 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:12+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:12+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:13+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:13+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.REJECTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2017-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.ASM,
                         status=FindingStateStatus.APPROVED,
                     ),
