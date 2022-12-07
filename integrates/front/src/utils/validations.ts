@@ -163,7 +163,7 @@ const validCsvInput: Validator = (value: string): string | undefined => {
     }
 
     const contentTextMatch: RegExpMatchArray | null =
-      /["',;](?:=|-|\+|@|\t|\r)/u.exec(value);
+      /["',;](?:[-=+@\t\r])/u.exec(value);
     if (!_.isNull(contentTextMatch)) {
       return translate.t("validations.invalidTextPattern", {
         chars: `'${contentTextMatch[0]}'`,
