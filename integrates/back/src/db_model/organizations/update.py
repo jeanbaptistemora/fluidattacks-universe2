@@ -28,6 +28,9 @@ from db_model.organizations.utils import (
 from db_model.types import (
     PoliciesToUpdate,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -129,7 +132,7 @@ async def update_state(
 ) -> None:
     organization_id = remove_org_id_prefix(organization_id)
     key_structure = TABLE.primary_key
-    state_item = json.loads(json.dumps(state))
+    state_item = json.loads(json.dumps(state, default=serialize))
     state_item = {
         key: None if not value else value
         for key, value in state_item.items()

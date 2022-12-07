@@ -13,6 +13,9 @@ from .types import (
     StakeholderTours,
     StateSessionType,
 )
+from db_model.utils import (
+    serialize,
+)
 from decimal import (
     Decimal,
 )
@@ -42,7 +45,7 @@ def format_session_token(item: Item) -> StakeholderSessionToken:
 
 def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
     item: Item = {
-        **json.loads(json.dumps(metadata)),
+        **json.loads(json.dumps(metadata, default=serialize)),
     }
     if (
         metadata.access_token

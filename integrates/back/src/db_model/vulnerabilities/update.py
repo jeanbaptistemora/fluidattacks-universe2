@@ -35,6 +35,9 @@ from db_model import (
     TABLE,
     utils as db_model_utils,
 )
+from db_model.utils import (
+    serialize,
+)
 from decimal import (
     Decimal,
 )
@@ -70,7 +73,9 @@ async def update_metadata(
 
     vulnerability_item = {
         key: None if not value else value
-        for key, value in json.loads(json.dumps(metadata)).items()
+        for key, value in json.loads(
+            json.dumps(metadata, default=serialize)
+        ).items()
         if value is not None
     }
     if vulnerability_item:
@@ -223,7 +228,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
     entry_type = historic_entry_type_to_str(entry)
-    entry_item = json.loads(json.dumps(entry))
+    entry_item = json.loads(json.dumps(entry, default=serialize))
     current_entry = get_current_entry(entry, current_value)
     current_zr_index_key = get_zr_index_key(current_value)
     new_zr_index_key = get_new_zr_index_key(current_value, entry)
@@ -310,7 +315,9 @@ async def update_historic(  # pylint: disable=too-many-locals
                 "id": current_value.id,
             },
         )
-        vulnerability_item = {entry_type: json.loads(json.dumps(latest_entry))}
+        vulnerability_item = {
+            entry_type: json.loads(json.dumps(latest_entry, default=serialize))
+        }
         if new_zr_index_key:
             vulnerability_item[
                 zr_index.primary_key.sort_key
@@ -371,7 +378,7 @@ async def update_historic(  # pylint: disable=too-many-locals
         {
             key_structure.partition_key: key.partition_key,
             key_structure.sort_key: key.sort_key,
-            **json.loads(json.dumps(entry)),
+            **json.loads(json.dumps(entry, default=serialize)),
         }
         for key, entry in zip(new_keys, historic)
     )
@@ -399,7 +406,9 @@ async def update_unreliable_indicators(
         f"unreliable_indicators.{key}": Decimal(str(value))
         if isinstance(value, float)
         else value
-        for key, value in json.loads(json.dumps(indicators)).items()
+        for key, value in json.loads(
+            json.dumps(indicators, default=serialize)
+        ).items()
         if value is not None
     }
     current_value_item = {
@@ -407,7 +416,7 @@ async def update_unreliable_indicators(
         if isinstance(value, float)
         else value
         for key, value in json.loads(
-            json.dumps(current_value.unreliable_indicators)
+            json.dumps(current_value.unreliable_indicators, default=serialize)
         ).items()
     }
     conditions = (

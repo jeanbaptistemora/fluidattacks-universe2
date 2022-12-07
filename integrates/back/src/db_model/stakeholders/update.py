@@ -14,6 +14,9 @@ from boto3.dynamodb.conditions import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    serialize,
+)
 from decimal import (
     Decimal,
 )
@@ -49,7 +52,8 @@ async def update_metadata(
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         "email": email,
         **json.loads(
-            json.dumps(format_metadata_item(metadata)), parse_float=Decimal
+            json.dumps(format_metadata_item(metadata), default=serialize),
+            parse_float=Decimal,
         ),
     }
     await operations.update_item(
@@ -66,7 +70,9 @@ async def update_state(
 ) -> None:
     email = user_email.lower().strip()
     key_structure = TABLE.primary_key
-    state_item = json.loads(json.dumps(state), parse_float=Decimal)
+    state_item = json.loads(
+        json.dumps(state, default=serialize), parse_float=Decimal
+    )
     state_item = {
         key: None if not value and value is not False else value
         for key, value in state_item.items()

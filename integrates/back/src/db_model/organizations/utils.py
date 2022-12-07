@@ -19,6 +19,9 @@ from db_model.types import (
     Policies,
     PoliciesToUpdate,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb.types import (
     Item,
 )
@@ -38,7 +41,7 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
     item = {
         "billing_customer": metadata.billing_customer,
         "payment_methods": [
-            json.loads(json.dumps(payment_method))
+            json.loads(json.dumps(payment_method, default=serialize))
             for payment_method in metadata.payment_methods
         ]
         if metadata.payment_methods is not None

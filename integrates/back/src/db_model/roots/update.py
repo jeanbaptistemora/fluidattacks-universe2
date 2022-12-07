@@ -30,6 +30,9 @@ from db_model.roots.types import (
     RootUnreliableIndicatorsToUpdate,
     URLRootState,
 )
+from db_model.utils import (
+    serialize,
+)
 from decimal import (
     Decimal,
 )
@@ -42,7 +45,6 @@ from dynamodb.exceptions import (
 )
 import simplejson as json
 from typing import (
-    List,
     Optional,
     Union,
 )
@@ -71,7 +73,7 @@ async def update_root_state(
         ),
     }
     metadata_facet, historic_facet = root_facets[type(state)]
-    state_item = json.loads(json.dumps(state))
+    state_item = json.loads(json.dumps(state, default=serialize))
 
     root_key = keys.build_key(
         facet=metadata_facet,
@@ -123,7 +125,7 @@ async def update_git_root_cloning(
     root_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
-    cloning_item = json.loads(json.dumps(cloning))
+    cloning_item = json.loads(json.dumps(cloning, default=serialize))
 
     root_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
@@ -175,7 +177,9 @@ async def update_unreliable_indicators(
         f"unreliable_indicators.{key}": (
             Decimal(str(value)) if isinstance(value, float) else value
         )
-        for key, value in json.loads(json.dumps(indicators)).items()
+        for key, value in json.loads(
+            json.dumps(indicators, default=serialize)
+        ).items()
         if value is not None
     }
     current_indicators = {
@@ -183,7 +187,7 @@ async def update_unreliable_indicators(
             Decimal(str(value)) if isinstance(value, float) else value
         )
         for key, value in json.loads(
-            json.dumps(current_value.unreliable_indicators)
+            json.dumps(current_value.unreliable_indicators, default=serialize)
         ).items()
         if value is not None
     }
@@ -212,7 +216,7 @@ async def finish_machine_execution(
     root_id: str,
     job_id: str,
     stopped_at: str,
-    findings_executed: List[MachineFindingResult],
+    findings_executed: list[MachineFindingResult],
     status: str,
 ) -> None:
     key_structure = TABLE.primary_key
@@ -225,7 +229,9 @@ async def finish_machine_execution(
         condition_expression=Attr(key_structure.partition_key).exists(),
         item={
             "stopped_at": stopped_at,
-            "findings_executed": json.loads(json.dumps(findings_executed)),
+            "findings_executed": json.loads(
+                json.dumps(findings_executed, default=serialize)
+            ),
             "status": status,
         },
         key=machine_execution_key,

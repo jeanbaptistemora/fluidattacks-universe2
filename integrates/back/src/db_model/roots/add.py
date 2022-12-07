@@ -16,6 +16,9 @@ from db_model.roots.types import (
     RootMachineExecution,
     Secret,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -40,7 +43,7 @@ async def add(*, root: Root) -> None:
         key_structure.sort_key: metadata_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
-        **json.loads(json.dumps(root)),
+        **json.loads(json.dumps(root, default=serialize)),
     }
     items.append(initial_metadata)
 
@@ -51,7 +54,7 @@ async def add(*, root: Root) -> None:
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
-        **json.loads(json.dumps(root.state)),
+        **json.loads(json.dumps(root.state, default=serialize)),
     }
     items.append(historic_state_item)
 
@@ -63,7 +66,7 @@ async def add(*, root: Root) -> None:
         historic_cloning_item = {
             key_structure.partition_key: cloning_key.partition_key,
             key_structure.sort_key: cloning_key.sort_key,
-            **json.loads(json.dumps(root.cloning)),
+            **json.loads(json.dumps(root.cloning, default=serialize)),
         }
         items.append(historic_cloning_item)
 

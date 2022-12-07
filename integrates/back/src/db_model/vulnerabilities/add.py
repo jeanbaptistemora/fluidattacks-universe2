@@ -14,6 +14,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    serialize,
+)
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
@@ -94,7 +97,7 @@ async def add(  # pylint: disable=too-many-locals
         gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
         gsi_5_index.primary_key.partition_key: gsi_5_key.partition_key,
         gsi_5_index.primary_key.sort_key: gsi_5_key.sort_key,
-        **json.loads(json.dumps(vulnerability)),
+        **json.loads(json.dumps(vulnerability, default=serialize)),
     }
     items.append(vulnerability_item)
 
@@ -108,7 +111,7 @@ async def add(  # pylint: disable=too-many-locals
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,
         key_structure.sort_key: state_key.sort_key,
-        **json.loads(json.dumps(vulnerability.state)),
+        **json.loads(json.dumps(vulnerability.state, default=serialize)),
     }
     items.append(historic_state_item)
 
@@ -123,7 +126,9 @@ async def add(  # pylint: disable=too-many-locals
         historic_treatment_item = {
             key_structure.partition_key: treatment_key.partition_key,
             key_structure.sort_key: treatment_key.sort_key,
-            **json.loads(json.dumps(vulnerability.treatment)),
+            **json.loads(
+                json.dumps(vulnerability.treatment, default=serialize)
+            ),
         }
         items.append(historic_treatment_item)
 
@@ -138,7 +143,9 @@ async def add(  # pylint: disable=too-many-locals
         historic_verification_item = {
             key_structure.partition_key: verification_key.partition_key,
             key_structure.sort_key: verification_key.sort_key,
-            **json.loads(json.dumps(vulnerability.verification)),
+            **json.loads(
+                json.dumps(vulnerability.verification, default=serialize)
+            ),
         }
         items.append(historic_verification_item)
 
@@ -153,7 +160,9 @@ async def add(  # pylint: disable=too-many-locals
         historic_zero_risk_item = {
             key_structure.partition_key: zero_risk_key.partition_key,
             key_structure.sort_key: zero_risk_key.sort_key,
-            **json.loads(json.dumps(vulnerability.zero_risk)),
+            **json.loads(
+                json.dumps(vulnerability.zero_risk, default=serialize)
+            ),
         }
         items.append(historic_zero_risk_item)
 
