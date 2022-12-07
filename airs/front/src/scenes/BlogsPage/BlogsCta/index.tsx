@@ -13,7 +13,7 @@ const BlogsCta: React.FC = (): JSX.Element => {
         button2Link={"/services/continuous-hacking/"}
         button2Text={"Learn more"}
         image={"/airs/blogs/blogs-cta"}
-        matomoAction={"Blogs"}
+        matomoAction={"Blogs-free-trial"}
         paragraph={translate.t("blog.ctaDescription")}
         size={"big"}
         sizeSm={"medium"}

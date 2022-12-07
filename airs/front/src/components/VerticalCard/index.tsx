@@ -2,7 +2,7 @@ import { decode } from "he";
 import { utc } from "moment";
 import React from "react";
 
-import { CardFooter } from "./styledComponents";
+import { CardFooter, Separator } from "./styledComponents";
 import type { IVerticalCard } from "./types";
 
 import { AirsLink } from "../AirsLink";
@@ -60,12 +60,15 @@ const VerticalCard: React.FC<IVerticalCard> = ({
           )}
         </Container>
         <Container display={"flex"} justify={"around"} ph={3} pt={3}>
-          <Text color={"#8f8fa3"} size={"small"}>
+          <Text color={"#8f8fa3"} size={"xs"}>
             {fDate}
           </Text>
-          <Text color={"#8f8fa3"} size={"small"} textAlign={"end"}>
+          <Text color={"#8f8fa3"} size={"xs"} textAlign={"end"}>
             {author}
           </Text>
+        </Container>
+        <Container ph={3}>
+          <Separator />
         </Container>
         <Container minHeight={titleMinHeight} mv={3} ph={3}>
           <AirsLink href={link}>

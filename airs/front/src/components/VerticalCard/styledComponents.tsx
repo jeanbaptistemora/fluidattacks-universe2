@@ -4,4 +4,8 @@ const CardFooter = styled.div`
   margin-top: auto;
 `;
 
-export { CardFooter };
+const Separator = styled.hr`
+  border: 1px solid #dddde3;
+`;
+
+export { CardFooter, Separator };
