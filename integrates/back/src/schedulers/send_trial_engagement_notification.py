@@ -50,6 +50,12 @@ mail_send_define_treatments_notification = retry_on_exceptions(
     sleep_seconds=2,
 )(groups_mail.send_define_treatments_notification)
 
+mail_send_add_repositories_notification = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(groups_mail.send_add_repositories_notification)
+
 mail_upgrade_squad_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=4,
@@ -63,6 +69,7 @@ async def send_trial_engagement_notification() -> None:
     ] = {
         3: mail_add_stakeholders_notification,
         5: mail_send_define_treatments_notification,
+        7: mail_send_add_repositories_notification,
         17: mail_upgrade_squad_notification,
     }
     loaders = get_new_context()
