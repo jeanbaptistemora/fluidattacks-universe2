@@ -15,8 +15,10 @@ from batch.types import (
 from custom_exceptions import (
     RepeatedToeInput,
     RepeatedToeLines,
+    RepeatedToePort,
     ToeInputAlreadyUpdated,
     ToeLinesAlreadyUpdated,
+    ToePortAlreadyUpdated,
 )
 from dataloaders import (
     Dataloaders,
@@ -39,6 +41,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRoot,
+    IPRoot,
     Root,
     URLRoot,
 )
@@ -54,6 +57,11 @@ from db_model.toe_lines.types import (
     RootToeLinesRequest,
     ToeLines,
     ToeLinesRequest,
+)
+from db_model.toe_ports.types import (
+    RootToePortsRequest,
+    ToePort,
+    ToePortRequest,
 )
 from db_model.utils import (
     get_datetime_with_offset,
@@ -101,6 +109,13 @@ from toe.lines import (
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
+)
+from toe.ports import (
+    domain as toe_ports_domain,
+)
+from toe.ports.types import (
+    ToePortAttributesToAdd,
+    ToePortAttributesToUpdate,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -496,6 +511,71 @@ async def _process_toe_lines(
         )
 
 
+toe_ports_add = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_ports_domain.add)
+toe_ports_update = retry_on_exceptions(
+    exceptions=(UnavailabilityError,), sleep_seconds=5
+)(toe_ports_domain.update)
+
+
+@retry_on_exceptions(
+    exceptions=(ToePortAlreadyUpdated,),
+)
+async def _process_toe_port(
+    loaders: Dataloaders,
+    target_group_name: str,
+    target_root_id: str,
+    toe_port: ToePort,
+    modified_by: str,
+) -> None:
+    if toe_port.seen_at is None:
+        return
+    attributes_to_add = ToePortAttributesToAdd(
+        attacked_at=toe_port.state.attacked_at,
+        attacked_by=toe_port.state.attacked_by,
+        be_present=False,
+        first_attack_at=toe_port.state.first_attack_at,
+        has_vulnerabilities=toe_port.state.has_vulnerabilities,
+        seen_first_time_by=toe_port.seen_first_time_by,
+        seen_at=toe_port.seen_at,
+    )
+    try:
+        await toe_ports_add(
+            loaders,
+            target_group_name,
+            toe_port.address,
+            toe_port.port,
+            target_root_id,
+            attributes_to_add,
+            modified_by,
+            is_moving_toe_port=True,
+        )
+    except RepeatedToePort:
+        current_value: ToePort = await loaders.toe_port.load(
+            ToePortRequest(
+                address=toe_port.address,
+                port=toe_port.port,
+                group_name=toe_port.group_name,
+                root_id=toe_port.root_id,
+            )
+        )
+        attributes_to_update = ToePortAttributesToUpdate(
+            attacked_at=toe_port.state.attacked_at,
+            attacked_by=toe_port.state.attacked_by,
+            first_attack_at=toe_port.state.first_attack_at,
+            has_vulnerabilities=toe_port.state.has_vulnerabilities,
+            seen_at=toe_port.seen_at,
+            seen_first_time_by=toe_port.seen_first_time_by,
+        )
+        await toe_ports_update(
+            current_value,
+            attributes_to_update,
+            modified_by,
+            is_moving_toe_port=True,
+        )
+
+
 async def move_root(*, item: BatchProcessing) -> None:
     info = json.loads(item.additional_info)
     target_group_name = info["target_group_name"]
@@ -588,6 +668,31 @@ async def move_root(*, item: BatchProcessing) -> None:
         )
         await put_action(
             action=Action.REFRESH_TOE_LINES,
+            entity=target_group_name,
+            subject=item.subject,
+            additional_info=target_root.state.nickname,
+            product_name=Product.INTEGRATES,
+        )
+    if isinstance(root, IPRoot):
+        LOGGER.info("Updating ToE ports")
+        await collect(
+            tuple(
+                _process_toe_port(
+                    loaders,
+                    target_group_name,
+                    target_root_id,
+                    toe_port,
+                    item.subject,
+                )
+                for toe_port in await loaders.root_toe_ports.load_nodes(
+                    RootToePortsRequest(
+                        group_name=source_group_name, root_id=source_root_id
+                    )
+                )
+            )
+        )
+        await put_action(
+            action=Action.REFRESH_TOE_PORTS,
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,

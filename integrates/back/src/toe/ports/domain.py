@@ -55,15 +55,17 @@ async def add(  # pylint: disable=too-many-arguments
     root_id: str,
     attributes: ToePortAttributesToAdd,
     modified_by: str,
+    is_moving_toe_port: bool = False,
 ) -> None:
     root: Root = await loaders.root.load((group_name, root_id))
     if not isinstance(root, IPRoot):
         raise InvalidRootType()
-    validate_active_root(root)
-    if root.state.address != address:
-        raise InvalidIpAddressInRoot()
-    if not 0 <= int(port) <= 65535:
-        raise InvalidPort(expr=f'"values": "{port}"')
+    if is_moving_toe_port is False:
+        validate_active_root(root)
+        if root.state.address != address:
+            raise InvalidIpAddressInRoot()
+        if not 0 <= int(port) <= 65535:
+            raise InvalidPort(expr=f'"values": "{port}"')
 
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at
