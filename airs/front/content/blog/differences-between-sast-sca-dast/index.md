@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, security-testing, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1661360632/blog/differences-between-sast-sca-dast/cover_differences.webp
 alt: Photo by Ravi Kumar on Unsplash
-description: Fluid Attacks presents the differences between SAST, SCA and DAST and argues how these methods should be combined to achieve comprehensive security testing.
+description: Learn the difference between SAST, SCA and DAST and when to use each. They're best combined for comprehensive security testing and building secure applications.
 keywords: Sast Vs Sca, Security Testing, Application Security, Sca And Sast, Dast Sast Sca, Source Code, Continuous Hacking, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
