@@ -96,6 +96,12 @@ mail_how_improve_notification = retry_on_exceptions(
     sleep_seconds=2,
 )(groups_mail.send_how_improve_notification)
 
+mail_trial_ended_notification = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(groups_mail.send_trial_ended_notification)
+
 
 async def send_trial_engagement_notification() -> None:
     notifications: dict[
@@ -111,6 +117,7 @@ async def send_trial_engagement_notification() -> None:
         17: mail_upgrade_squad_notification,
         19: mail_trial_ending_notification,
         20: mail_how_improve_notification,
+        22: mail_trial_ended_notification,
     }
     loaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
