@@ -237,6 +237,6 @@ class RootToePortsLoader(DataLoader):
 
     async def load_nodes(
         self, request: RootToePortsRequest
-    ) -> Iterable[ToePort]:
+    ) -> tuple[ToePort, ...]:
         connection: ToePortsConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
