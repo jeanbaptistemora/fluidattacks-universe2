@@ -11,7 +11,7 @@ Valid commit messages
 have the structure:
 
 ```markup
-[product]\[type]([scope]): #[issue-number]{.issue-part} [title] // This is the commit title
+[product]\[type]([scope]): #[issue-number] [title] // This is the commit title
                // This blank line separates the commit title from the commit body
 [body]         // This is the commit body. It CAN have multiple lines
 ```
@@ -20,11 +20,6 @@ have the structure:
   that must be replaced
   in a final commit message
   (**[]** symbols must be removed)
-- **{variable}** are **optional** variables
-  that must be replaced
-  or removed
-  in a final commit message
-  (**{}** symbols must be removed)
 - **// Comment** are comments
   that must be removed
   in a final commit message
@@ -101,7 +96,7 @@ for the integrates repository:
 1. **Commit title**
    must be meaningful.
    Avoid using things like
-   `feat(build)[integrates]: #5.1 feature`.
+   `feat(build)[integrates]: #5 feature`.
 
 1. If **commit title**
    has **sol** type,
@@ -157,24 +152,13 @@ Where:
   - Remove file A with B purpose
   ```
 
-- Do **not** use the word '**part**'
-  for splitting commits
-  or MRs for a single issue.
-  Use **#[issue-number]{.issue-part}**
-  instead as shown in [Example](#Example)
-
 ## Example
 
 Here is an example
-of a compliant commit message
-(Notice how the issue has
-a '**.1**' right after,
-meaning that such commit
-is the part 1 for solving
-the issue):
+of a compliant commit message:
 
 ```markup
-integrates\feat(build): #13.1 add type_check
+integrates\feat(build): #13 add type_check
 
 - Add type_check function
 - Remove unnecessary print_output function

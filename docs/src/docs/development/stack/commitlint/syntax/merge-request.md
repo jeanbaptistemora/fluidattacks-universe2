@@ -16,34 +16,35 @@ with only three differences:
    of all its commits.
    The relevance list is:
 
-    ```markup
-    rever
-    feat
-    perf
-    fix
-    refac
-    test
-    style
-    sol
-    ```
+   ```markup
+   rever
+   feat
+   perf
+   fix
+   refac
+   test
+   style
+   sol
+   ```
 
-    Where `revert`
-    has the highest
-    and `sol`
-    the lowest relevance.
+   Where `revert`
+   has the highest
+   and `sol`
+   the lowest relevance.
 
-    For example,
-    if your MR has one `feat`,
-    one `test`
-    and one `style` commit,
-    the [type] of your MR
-    must be `feat`.
+   For example,
+   if your MR has one `feat`,
+   one `test`
+   and one `style` commit,
+   the [type] of your MR
+   must be `feat`.
+
 1. They **can** (not mandatory) implement
-    a `Closes #{issue-number}`
-    in their footer,
-    which triggers the automatic closing
-    of the referenced issue
-    once the MR gets accepted
+   a `Closes #{issue-number}`
+   in their footer,
+   which triggers the automatic closing
+   of the referenced issue
+   once the MR gets accepted
 
 ## Merge Request example
 
@@ -51,7 +52,7 @@ Here is an example
 of a compliant Merge Request Message:
 
 ```markup
-integrates\feat(build): #13.3 new checks to dangerfile
+integrates\feat(build): #13 new checks to dangerfile
 
 - Add type_check
 - Add deltas_check
