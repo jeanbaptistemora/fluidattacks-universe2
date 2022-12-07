@@ -21,12 +21,28 @@ from typing import (
 )
 
 
+def exclude_review_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
+    return tuple(
+        group
+        for group in groups
+        if group.state.managed != GroupManaged.UNDER_REVIEW
+    )
+
+
+def filter_trial_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
+    return tuple(
+        group
+        for group in groups
+        if group.state.managed
+        in {GroupManaged.TRIAL, GroupManaged.UNDER_REVIEW}
+    )
+
+
 def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
     return tuple(
         group
         for group in groups
         if group.state.status == GroupStateStatus.ACTIVE
-        and group.state.managed != GroupManaged.UNDER_REVIEW
     )
 
 

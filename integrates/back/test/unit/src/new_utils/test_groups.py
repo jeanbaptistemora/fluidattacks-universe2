@@ -23,8 +23,6 @@ import pytest
         (GroupManaged.MANAGED, GroupStateStatus.ACTIVE, True),
         # Inactive
         (GroupManaged.MANAGED, GroupStateStatus.DELETED, False),
-        # Active but under review
-        (GroupManaged.UNDER_REVIEW, GroupStateStatus.ACTIVE, False),
     ],
 )
 def test_filter_active_groups(

@@ -84,7 +84,7 @@ async def _expire(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    groups = await orgs_domain.get_all_active_groups(loaders)
+    groups = await orgs_domain.get_all_trial_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
     companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
         domains
@@ -94,8 +94,6 @@ async def main() -> None:
         tuple(
             _expire(loaders, group, company)
             for group, company in zip(groups, companies)
-            if group.state.managed == GroupManaged.TRIAL
-            and company
-            and companies_domain.has_expired(company.trial)
+            if company and companies_domain.has_expired(company.trial)
         )
     )

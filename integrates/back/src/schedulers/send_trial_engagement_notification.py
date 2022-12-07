@@ -11,9 +11,6 @@ from dataloaders import (
 from db_model.companies.types import (
     Company,
 )
-from db_model.groups.enums import (
-    GroupManaged,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -116,7 +113,7 @@ async def send_trial_engagement_notification() -> None:
         20: mail_how_improve_notification,
     }
     loaders = get_new_context()
-    groups = await orgs_domain.get_all_active_groups(loaders)
+    groups = await orgs_domain.get_all_trial_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
     companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
         domains
@@ -133,8 +130,7 @@ async def send_trial_engagement_notification() -> None:
                 ),
             )
             for group, company in zip(groups, companies)
-            if group.state.managed == GroupManaged.TRIAL
-            and company
+            if company
             and company.trial.start_date
             and (
                 notification := notifications.get(
