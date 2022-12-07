@@ -6,6 +6,12 @@ from .common import (
 from context import (
     BASE_URL,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from mailer.types import (
+    TrialEngagementInfo,
+)
 from mailer.utils import (
     get_organization_name,
 )
@@ -36,16 +42,16 @@ async def send_mail_analytics(
 
 
 async def send_trial_analytics_notification(
-    loaders: Any, email_to: str, group_name: str
+    loaders: Dataloaders, info: TrialEngagementInfo
 ) -> None:
-    fname = await get_recipient_first_name(loaders, email_to)
-    org_name = await get_organization_name(loaders, group_name)
+    fname = await get_recipient_first_name(loaders, info.email_to)
+    org_name = await get_organization_name(loaders, info.group_name)
     context = {
         "analytics_link": f"{BASE_URL}/orgs/{org_name}/analytics",
     }
     await send_mails_async(
         loaders,
-        email_to=[email_to],
+        email_to=[info.email_to],
         context=context,
         tags=[],
         subject=(

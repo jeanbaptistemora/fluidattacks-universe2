@@ -40,6 +40,9 @@ from db_model.stakeholders.types import (
 from group_access.domain import (
     get_stakeholders_email_by_preferences,
 )
+from mailer.types import (
+    TrialEngagementInfo,
+)
 from mailer.utils import (
     get_organization_name,
 )
@@ -50,15 +53,9 @@ from typing import (
     Any,
     Dict,
     List,
-    NamedTuple,
     Optional,
     Tuple,
 )
-
-
-class TrialEngagementInfo(NamedTuple):
-    email_to: str
-    group_name: str
 
 
 async def send_mail_free_trial_start(

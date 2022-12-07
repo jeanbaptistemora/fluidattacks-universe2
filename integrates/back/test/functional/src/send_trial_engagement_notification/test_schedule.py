@@ -2,7 +2,7 @@
 from freezegun import (
     freeze_time,
 )
-from mailer.groups import (
+from mailer.types import (
     TrialEngagementInfo,
 )
 import pytest
@@ -39,6 +39,10 @@ async def test_send_trial_engagement_notification(
     mail_support_channels_notification = mocker.spy(
         send_trial_engagement_notification,
         "mail_support_channels_notification",
+    )
+    mail_analytics_notification = mocker.spy(
+        send_trial_engagement_notification,
+        "mail_analytics_notification",
     )
     mail_upgrade_squad_notification = mocker.spy(
         send_trial_engagement_notification,
@@ -77,6 +81,14 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="avicario@avicario.com",
             group_name="testgroup5",
+        ),
+    )
+    assert mail_analytics_notification.await_count == 1
+    mail_analytics_notification.assert_any_call(
+        mock.ANY,
+        TrialEngagementInfo(
+            email_to="fariza@fariza.com",
+            group_name="testgroup6",
         ),
     )
     assert mail_upgrade_squad_notification.await_count == 1
