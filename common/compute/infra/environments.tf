@@ -22,6 +22,22 @@ locals {
       ]
       type = "SPOT"
     }
+    integrates = {
+      product = "integrates"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+      type = "SPOT"
+    }
+    skims = {
+      product = "skims"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+      type = "SPOT"
+    }
     observes = {
       product = "observes"
       subnets = [
@@ -29,6 +45,7 @@ locals {
       ]
       type = "SPOT"
     }
+
   }
   environments = {
     small = merge(
@@ -52,6 +69,18 @@ locals {
         ]
       }
     )
+    integrates_small = merge(
+      local.machine_sizes.small,
+      local.config.integrates
+    )
+    integrates_medium = merge(
+      local.machine_sizes.medium,
+      local.config.integrates
+    )
+    integrates_large = merge(
+      local.machine_sizes.large,
+      local.config.integrates,
+    )
     observes_clone = merge(
       local.machine_sizes.small,
       local.config.observes,
@@ -73,6 +102,18 @@ locals {
       local.machine_sizes.large,
       local.config.observes,
       { type = "EC2" }
+    )
+    skims_small = merge(
+      local.machine_sizes.small,
+      local.config.skims
+    )
+    skims_medium = merge(
+      local.machine_sizes.medium,
+      local.config.skims
+    )
+    skims_large = merge(
+      local.machine_sizes.large,
+      local.config.skims,
     )
   }
 }

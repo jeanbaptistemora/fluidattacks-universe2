@@ -15,6 +15,22 @@ large:
   cpu: 8
   memory: 15200
   queue: large
+integrates_nano:
+  cpu: 1
+  memory: 1900
+  queue: integrates_small
+integrates_small:
+  cpu: 2
+  memory: 3800
+  queue: integrates_small
+integrates_medium:
+  cpu: 4
+  memory: 7600
+  queue: integrates_medium
+integrates_large:
+  cpu: 8
+  memory: 15200
+  queue: integrates_large
 observes_nano:
   cpu: 1
   memory: 1900
@@ -35,3 +51,19 @@ observes_large_no_spot:
   cpu: 8
   memory: 15200
   queue: observes_large_no_spot
+skims_nano:
+  cpu: 1
+  memory: 1900
+  queue: skims_small
+skims_small:
+  cpu: 2
+  memory: 3800
+  queue: skims_small
+skims_medium:
+  cpu: 4
+  memory: 7600
+  queue: skims_medium
+skims_large:
+  cpu: 8
+  memory: 15200
+  queue: skims_large
