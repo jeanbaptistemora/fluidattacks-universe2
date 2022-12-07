@@ -1040,12 +1040,6 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             finding_ids=[finding.id],
             vulnerability_ids=list(persisted_vulns),
         )
-        await collect(
-            [
-                upload_snippet(loaders, git_root, vuln_id, sarif_vulns)
-                for vuln_id in persisted_vulns
-            ]
-        )
     else:
         reattack_future.close()
 
