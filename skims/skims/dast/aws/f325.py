@@ -197,10 +197,7 @@ async def kms_has_master_keys_exposed_to_everyone(
 def resource_all(resource: Any) -> bool:
     """Check if an action is permitted for any resource."""
     if isinstance(resource, List):
-        aux = []
-        for i in resource:
-            aux.append(resource_all(i))
-        success = any(aux)
+        success = any(map(resource_all, resource))
     elif isinstance(resource, str):
         success = resource == "*"
     else:
@@ -329,32 +326,148 @@ async def iam_has_wildcard_resource_on_write_action(
     return vulns
 
 
-def _get_wildcard_nodes(act_res: List, pattern: Pattern) -> str:
-    for act in act_res:
+def _get_wildcard_nodes(
+    act_res: List,
+    pattern: Pattern,
+    policy: Dict[str, Any],
+    policy_statements: List[Dict[str, Any]],
+    index: int,
+) -> List[Location]:
+    locations: List[Location] = []
+    action = policy_statements[index]["Action"]
+    for index_act, act in enumerate(act_res):
         if pattern.match(act):
-            return act
-    return ""
+            locations = [
+                *locations,
+                Location(
+                    access_patterns=(
+                        f"/Document/Statement/{index}/Effect",
+                        f"/Document/Statement/{index}/Action",
+                    ),
+                    arn=(f"{policy['Arn']}"),
+                    values=(
+                        policy_statements[index]["Effect"],
+                        action[index_act]
+                        if isinstance(action, List)
+                        else action,
+                    ),
+                    description=t(
+                        "src.lib_path.f325.iam_is_policy_miss_configured"
+                    ),
+                ),
+            ]
+    return locations
 
 
-def _is_statement_miss_configured(stmt: Dict[str, Any]) -> Any:
+def _is_statement_miss_configured(
+    stmt: Dict[str, Any],
+    index: int,
+    policy: Dict[str, Any],
+    policy_statements: List[Dict[str, Any]],
+) -> Any:
     wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
     effect = stmt.get("Effect")
     no_action = stmt.get("NotAction")
     no_resource = stmt.get("NotResource")
+    locations: List[Location] = []
     if effect == "Allow":
         if no_action and isinstance(no_action, List):
-            return True
+            locations = [
+                *locations,
+                Location(
+                    access_patterns=(
+                        f"/Document/Statement/{index}/NotAction",
+                    ),
+                    arn=(f"{policy['Arn']}"),
+                    values=(no_action,),
+                    description=t(
+                        "src.lib_path.f325.iam_is_policy_miss_configured"
+                    ),
+                ),
+            ]
 
         if no_resource and isinstance(no_resource, List):
-            return True
+            locations = [
+                *locations,
+                Location(
+                    access_patterns=(
+                        f"/Document/Statement/{index}/NotResource",
+                    ),
+                    arn=(f"{policy['Arn']}"),
+                    values=(no_resource,),
+                    description=t(
+                        "src.lib_path.f325.iam_is_policy_miss_configured"
+                    ),
+                ),
+            ]
 
         action = stmt.get("Action")
         if action:
-            return _get_wildcard_nodes(
-                action if isinstance(action, List) else [action],
-                wildcard_action,
+            locations = [
+                *locations,
+                *_get_wildcard_nodes(
+                    action if isinstance(action, List) else [action],
+                    wildcard_action,
+                    policy,
+                    policy_statements,
+                    index,
+                ),
+            ]
+    return locations
+
+
+async def iam_is_policy_miss_configured(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_policies",
+        parameters={"Scope": "Local", "OnlyAttached": True},
+    )
+    method = core_model.MethodsEnum.AWS_IAM_IS_POLICY_MISS_CONFIGURED
+
+    policies = response.get("Policies", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if policies:
+        for policy in policies:
+            locations: List[Location] = []
+            pol_ver: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="get_policy_version",
+                parameters={
+                    "PolicyArn": str(policy["Arn"]),
+                    "VersionId": str(policy["DefaultVersionId"]),
+                },
             )
-    return False
+            policy_names = pol_ver.get("PolicyVersion", {})
+            pol_access = ast.literal_eval(
+                str(policy_names.get("Document", {}))
+            )
+            policy_statements = ast.literal_eval(
+                str(pol_access.get("Statement", []))
+            )
+            if not isinstance(policy_statements, List):
+                policy_statements = [policy_statements]
+
+            for index, policy_statement in enumerate(policy_statements):
+                locations = [
+                    *locations,
+                    *_is_statement_miss_configured(
+                        policy_statement, index, policy, policy_statements
+                    ),
+                ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=policy_names,
+                ),
+            )
+
+    return vulns
 
 
 CHECKS: Tuple[
@@ -364,4 +477,5 @@ CHECKS: Tuple[
     kms_has_master_keys_exposed_to_everyone,
     iam_has_privileges_over_iam,
     iam_has_wildcard_resource_on_write_action,
+    iam_is_policy_miss_configured,
 )
