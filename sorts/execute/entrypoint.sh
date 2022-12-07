@@ -4,11 +4,18 @@ function execute {
   local group="${1}"
   local success
 
-  { clone_services_repository "${group}" || true; } \
-    && if ! test -e "groups/${group}/fusion"; then
-      echo '[WARNING] No repositories to test' \
-        && return 0
-    fi \
+  for i in {1..10}; do
+    if clone_services_repository "${group}"; then
+      break
+    else
+      echo "[WARNING] Pull repo try #${i} failed"
+      sleep 15
+    fi
+  done
+  if ! test -e "groups/${group}/fusion"; then
+    echo '[WARNING] No repositories to test' \
+      && return 0
+  fi \
     && echo '[INFO] Running sorts:' \
     && if sorts "groups/${group}" "${current_date}"; then
       echo "[INFO] Succesfully executed on: ${group}" \
