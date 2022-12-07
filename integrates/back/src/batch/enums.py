@@ -25,6 +25,7 @@ class Action(Enum):
     HANDLE_FINDING_POLICY = "handle_finding_policy"
     REFRESH_TOE_INPUTS = "refresh_toe_inputs"
     REFRESH_TOE_LINES = "refresh_toe_lines"
+    REFRESH_TOE_PORTS = "refresh_toe_ports"
     CLONE_ROOTS = "clone_roots"
     REMOVE_ROOTS = "remove_roots"
     REMOVE_GROUP_RESOURCES = "remove_group_resources"

@@ -24,6 +24,9 @@ from batch_dispatch.refresh_toe_inputs import (
 from batch_dispatch.refresh_toe_lines import (
     refresh_toe_lines,
 )
+from batch_dispatch.refresh_toe_ports import (
+    refresh_toe_ports,
+)
 from batch_dispatch.remove_group_resources import (
     remove_group_resources,
 )
@@ -65,6 +68,7 @@ ACTIONS = {
         move_root,
         refresh_toe_inputs,
         refresh_toe_lines,
+        refresh_toe_ports,
         remove_group_resources,
         remove_roots,
         report,
