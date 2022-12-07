@@ -5,6 +5,7 @@ import type { ILinkProps } from "./types";
 
 const InternalLink = styled(Link)<ILinkProps>`
   ${({ decoration = "none" }): string => `
+    color: inherit;
     text-decoration: ${decoration};
   `}
 `;

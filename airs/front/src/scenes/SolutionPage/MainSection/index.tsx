@@ -11,6 +11,7 @@ import { Paragraph } from "./components/Paragraph";
 import { SolutionCard } from "./components/SolutionCard";
 import { SolutionCtaBanner } from "./components/SolutionCtaBanner";
 import { SolutionFaq } from "./components/SolutionFaq";
+import { SolutionLink } from "./components/SolutionLink";
 import { SolutionSlideShow } from "./components/SolutionSlideShow";
 import { TextContainer } from "./components/TextContainer";
 
@@ -23,6 +24,7 @@ interface IMainProps {
 const MainSection: React.FC<IMainProps> = ({ htmlAst }): JSX.Element => {
   const renderAst = new (rehypeReact as any)({
     components: {
+      a: SolutionLink,
       "faq-container": FaqContainer,
       "grid-container": GridContainer,
       h2: Header2,

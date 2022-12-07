@@ -4,7 +4,7 @@ import { InternalLink } from "./styledComponents";
 import type { ILinkProps } from "./types";
 
 interface IAirsLinkProps extends ILinkProps {
-  children: JSX.Element;
+  children: React.ReactNode;
   href: string;
 }
 
@@ -47,3 +47,4 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
 };
 
 export { AirsLink };
+export type { IAirsLinkProps };

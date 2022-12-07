@@ -45,7 +45,7 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
         </Container>
       </Container>
       <Container
-        display={description === "none" ? "none" : "flex"}
+        display={description === "none" ? "none" : "block"}
         justify={"start"}
       >
         {children}
