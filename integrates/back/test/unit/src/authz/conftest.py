@@ -21,72 +21,9 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-tables_names = ["fi_authz", "integrates_vms"]
-key_schemas = {
-    "fi_authz": [
-        {"AttributeName": "subject", "KeyType": "HASH"},
-        {"AttributeName": "object", "KeyType": "RANGE"},
-    ],
-    "integrates_vms": [
-        {"AttributeName": "pk", "KeyType": "HASH"},
-        {"AttributeName": "sk", "KeyType": "RANGE"},
-    ],
-}
-attribute_definitions = {
-    "fi_authz": [
-        {"AttributeName": "subject", "AttributeType": "S"},
-        {"AttributeName": "object", "AttributeType": "S"},
-    ],
-    "integrates_vms": [
-        {"AttributeName": "sk", "AttributeType": "S"},
-        {"AttributeName": "pk", "AttributeType": "S"},
-    ],
-}
+tables_names = ["integrates_vms"]
+
 data: Dict[str, List[Any]] = dict(
-    fi_authz=[
-        dict(
-            level="user",
-            object="unittesting",
-            role="admin",
-            subject="unittest@fluidattacks.com",
-        ),
-        dict(
-            level="group",
-            object="oneshottest",
-            role="reattacker",
-            subject="integrateshacker@fluidattacks.com",
-        ),
-        dict(
-            level="group",
-            object="unittesting",
-            role="hacker",
-            subject="integrateshacker@fluidattacks.com",
-        ),
-        dict(
-            level="group",
-            object="unittesting",
-            role="user_manager",
-            subject="integratesuser@gmail.com",
-        ),
-        dict(
-            level="user",
-            object="unittesting",
-            role="user",
-            subject="integratesuser2@gmail.com",
-        ),
-        dict(
-            level="organization",
-            object="org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-            role="customer_manager",
-            subject="unittest2@fluidattacks.com",
-        ),
-        dict(
-            level="group",
-            object="unittesting",
-            role="hacker",
-            subject="continuoushacking@gmail.com",
-        ),
-    ],
     integrates_vms=[
         dict(
             role="hacker",
@@ -105,14 +42,6 @@ data: Dict[str, List[Any]] = dict(
             has_access=True,
             pk="USER#integratesuser@gmail.com",
             email="integratesuser@gmail.com",
-        ),
-        dict(
-            group_name="unittesting",
-            responsability="Tester",
-            sk="GROUP#unittesting",
-            has_access=True,
-            pk="USER#unittest@fluidattacks.com",
-            email="unittest@fluidattacks.com",
         ),
         dict(
             role="user_manager",
@@ -187,6 +116,21 @@ data: Dict[str, List[Any]] = dict(
             first_name="Continuous",
             email="continuoushacking@gmail.com",
             sk_2="USER#continuoushacking@gmail.com",
+        ),
+        dict(
+            is_concurrent_session=False,
+            is_registered=True,
+            role="user",
+            last_name="Buendia",
+            last_login_date="2019-10-29T18:40:37+00:00",
+            legal_remember=True,
+            registration_date="2018-02-28T16:54:12+00:00",
+            sk="USER#integratesuser2@gmail.com",
+            pk_2="USER#all",
+            pk="USER#integratesuser2@gmail.com",
+            first_name="Aureliano",
+            email="integratesuser2@gmail.com",
+            sk_2="USER#integratesuser2@gmail.com",
         ),
         dict(
             is_concurrent_session="False",
@@ -352,12 +296,19 @@ async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
 
 
 @pytest.fixture(scope="module", autouse=True)
-def create_tables(dynamo_resource: ServiceResource) -> None:
+def create_tables(
+    dynamodb_tables_args: dict, dynamo_resource: ServiceResource
+) -> None:
     for table in tables_names:
         dynamo_resource.create_table(
             TableName=table,
-            KeySchema=key_schemas[table],  # type: ignore
-            AttributeDefinitions=attribute_definitions[table],  # type: ignore
+            KeySchema=dynamodb_tables_args[table]["key_schema"],
+            AttributeDefinitions=dynamodb_tables_args[table][
+                "attribute_definitions"
+            ],
+            GlobalSecondaryIndexes=dynamodb_tables_args[table][
+                "global_secondary_indexes"
+            ],
         )
         for item in data[table]:
             dynamo_resource.Table(table).put_item(Item=item)

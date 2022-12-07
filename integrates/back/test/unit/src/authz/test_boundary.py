@@ -22,13 +22,22 @@ from typing import (
 from unittest import (
     mock,
 )
+from unittest.mock import (
+    AsyncMock,
+)
 
 # Constants
 pytestmark = [
     pytest.mark.asyncio,
 ]
 
+TABLE_NAME = "integrates_vms"
 
+
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     ["email", "role"],
     [
@@ -37,18 +46,31 @@ pytestmark = [
         ["integrateshacker@fluidattacks.com", "hacker"],
     ],
 )
-async def test_get_user_level_actions_model(email: str, role: str) -> None:
+async def test_get_user_level_actions(
+    mock_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+    email: str,
+    role: str,
+) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
     loaders: Dataloaders = get_new_context()
-    with mock.patch(
-        "authz.enforcer.get_user_level_role", new_callable=mock.AsyncMock
-    ) as mock_get_user_level_role:
-        mock_get_user_level_role.return_value = role
-        assert await get_user_level_actions(
-            loaders, email
-        ) == get_user_level_roles_model(email).get(role, {}).get("actions")
-    assert mock_get_user_level_role.called is True
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    assert await get_user_level_actions(
+        loaders, email
+    ) == get_user_level_roles_model(email).get(role, {}).get("actions")
+    assert mock_resource.called is True
 
 
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     ["email", "group", "role"],
     [
@@ -61,33 +83,40 @@ async def test_get_user_level_actions_model(email: str, role: str) -> None:
         ["integratesuser@gmail.com", "oneshottest", "user"],
     ],
 )
-async def test_get_group_level_actions_model(
-    email: str, group: str, role: str, dynamo_resource: ServiceResource
+async def test_get_group_level_actions(  # pylint: disable=too-many-arguments
+    mock_resource: AsyncMock,
+    mock_table_resource: AsyncMock,
+    email: str,
+    group: str,
+    role: str,
+    dynamo_resource: ServiceResource,
 ) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
     def mock_query(**kwargs: Any) -> Any:
-        table_name = "integrates_vms"
-        return dynamo_resource.Table(table_name).query(**kwargs)
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
     loaders: Dataloaders = get_new_context()
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
-    ) as mock_table_resource:
-        mock_table_resource.return_value.query.side_effect = mock_query
-        with mock.patch(
-            "authz.enforcer.get_user_level_role", new_callable=mock.AsyncMock
-        ) as mock_get_user_level_role:
-            mock_get_user_level_role.return_value = role
-            group_level_actions = await get_group_level_actions(
-                loaders, email, group
-            )
-    assert mock_table_resource.called is True
-    assert mock_get_user_level_role.called is True
+    mock_table_resource.return_value.query.side_effect = mock_query
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    group_level_actions = await get_group_level_actions(loaders, email, group)
     expected_actions = (
         get_group_level_roles_model(email).get(role, {}).get("actions")
     )
     assert group_level_actions == expected_actions
+    assert mock_table_resource.called is True
+    assert mock_resource.called is True
 
 
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
 @pytest.mark.parametrize(
     ["email", "organization_id", "organization_level_role"],
     [
@@ -103,30 +132,26 @@ async def test_get_group_level_actions_model(
         ],
     ],
 )
-async def test_get_organization_level_actions(
+async def test_get_organization_level(  # pylint: disable=too-many-arguments
+    mock_resource: AsyncMock,
+    mock_table_resource: AsyncMock,
     email: str,
     organization_id: str,
     organization_level_role: str,
     dynamo_resource: ServiceResource,
 ) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
+
     def mock_query(**kwargs: Any) -> Any:
-        table_name = "integrates_vms"
-        return dynamo_resource.Table(table_name).query(**kwargs)
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
     loaders: Dataloaders = get_new_context()
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
-    ) as mock_table_resource:
-        mock_table_resource.return_value.query.side_effect = mock_query
-        with mock.patch(
-            "authz.enforcer.get_user_level_role", new_callable=mock.AsyncMock
-        ) as mock_get_user_level_role:
-            mock_get_user_level_role.return_value = organization_level_role
-            organization_level_actions = await get_organization_level_actions(
-                loaders, email, organization_id
-            )
-    assert mock_table_resource.called is True
-    assert mock_get_user_level_role.called is True
+    mock_table_resource.return_value.query.side_effect = mock_query
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    organization_level_actions = await get_organization_level_actions(
+        loaders, email, organization_id
+    )
 
     expected_actions = (
         get_organization_level_roles_model(email)
@@ -134,3 +159,5 @@ async def test_get_organization_level_actions(
         .get("actions")
     )
     assert organization_level_actions == expected_actions
+    assert mock_table_resource.called is True
+    assert mock_resource.called is True
