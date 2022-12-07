@@ -48,6 +48,10 @@ async def test_send_trial_engagement_notification(
         send_trial_engagement_notification,
         "mail_devsecops_agent_notification",
     )
+    mail_trial_reports_notification = mocker.spy(
+        send_trial_engagement_notification,
+        "mail_trial_reports_notification",
+    )
     mail_upgrade_squad_notification = mocker.spy(
         send_trial_engagement_notification,
         "mail_upgrade_squad_notification",
@@ -101,6 +105,14 @@ async def test_send_trial_engagement_notification(
         TrialEngagementInfo(
             email_to="snassar@snassar.com",
             group_name="testgroup7",
+        ),
+    )
+    assert mail_trial_reports_notification.await_count == 1
+    mail_trial_reports_notification.assert_any_call(
+        mock.ANY,
+        TrialEngagementInfo(
+            email_to="jbuendia@jbuendia.com",
+            group_name="testgroup8",
         ),
     )
     assert mail_upgrade_squad_notification.await_count == 1
