@@ -54,8 +54,10 @@ export const BlogsList: React.FC = (): JSX.Element => {
         description={description}
         image={image}
         link={slug}
+        subMinHeight={"56px"}
         subtitle={subtitle}
         title={title}
+        titleMinHeight={"64px"}
       />
     );
   });

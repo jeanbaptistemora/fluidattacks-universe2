@@ -20,6 +20,10 @@ const pageTexts: ResourceKey = {
       "For more information, you can read our Disclosure Policy ",
   },
   blog: {
+    ctaDescription:
+      "Discover benefits of our Continuous Hacking solution, " +
+      "which hundreds of organizations are already enjoying.",
+    ctaTitle: "Start your 21-day free trial",
     description:
       "Read our blog posts to learn about cybersecurity concepts, " +
       "approaches, trends, news, techniques and more.",
