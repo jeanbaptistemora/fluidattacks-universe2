@@ -12,6 +12,7 @@ from db_model.toe_ports.types import (
     GroupToePortsRequest,
     ToePort,
     ToePortRequest,
+    ToePortState,
 )
 import pytest
 
@@ -51,7 +52,7 @@ async def test_remove_toe_port(
     )
     toe_port: ToePort = await loaders.toe_port.load(request)
     assert toe_port.address == address
-    historic: tuple[ToePort, ...] = await loaders.toe_port_historic.load(
+    historic: tuple[ToePortState, ...] = await loaders.toe_port_historic.load(
         request
     )
     assert len(historic) == 1
@@ -85,7 +86,7 @@ async def test_remove_group_toe_ports(
         port=toe_ports[1].port,
         root_id=toe_ports[1].root_id,
     )
-    historic: tuple[ToePort, ...] = await loaders.toe_port_historic.load(
+    historic: tuple[ToePortState, ...] = await loaders.toe_port_historic.load(
         request
     )
     assert len(historic) == 1

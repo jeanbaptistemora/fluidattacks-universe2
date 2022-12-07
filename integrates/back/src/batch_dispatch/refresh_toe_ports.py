@@ -83,7 +83,8 @@ def get_non_present_toe_ports_to_update(
             ToePortAttributesToUpdate(be_present=False),
         )
         for toe_port in root_toe_ports
-        if root.state.status == RootStatus.INACTIVE and toe_port.be_present
+        if root.state.status == RootStatus.INACTIVE
+        and toe_port.state.be_present
     )
 
 
@@ -125,7 +126,8 @@ def get_present_toe_ports_to_update(
             ToePortAttributesToUpdate(be_present=True),
         )
         for toe_port in root_toe_ports
-        if root.state.status == RootStatus.ACTIVE and not toe_port.be_present
+        if root.state.status == RootStatus.ACTIVE
+        and not toe_port.state.be_present
     )
 
 

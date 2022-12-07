@@ -232,11 +232,11 @@ async def process_toe_ports(
                 for vulnerability in open_vulnerabilities
                 if vulnerability.type is VulnerabilityType.PORTS
             )
-            if toe_port.be_present
+            if toe_port.state.be_present
             else False
         )
 
-        if toe_port.has_vulnerabilities != has_vulnerabilities:
+        if toe_port.state.has_vulnerabilities != has_vulnerabilities:
             updates.append(
                 update_toe_port(
                     toe_port,

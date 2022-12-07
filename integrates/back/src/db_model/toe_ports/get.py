@@ -7,8 +7,10 @@ from .types import (
     ToePort,
     ToePortRequest,
     ToePortsConnection,
+    ToePortState,
 )
 from .utils import (
+    format_state,
     format_toe_port,
     format_toe_port_edge,
 )
@@ -81,11 +83,11 @@ class ToePortLoader(DataLoader):
         return await _get_toe_ports(tuple(requests))
 
 
-async def _get_historic_toe_port(
+async def _get_historic_state(
     request: ToePortRequest,
-) -> tuple[ToePort, ...]:
+) -> tuple[ToePortState, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["toe_port_historic_metadata"],
+        facet=TABLE.facets["toe_port_historic_state"],
         values={
             "address": request.address,
             "port": request.port,
@@ -99,19 +101,19 @@ async def _get_historic_toe_port(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with("STATE#")
         ),
-        facets=(TABLE.facets["toe_port_historic_metadata"],),
+        facets=(TABLE.facets["toe_port_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_toe_port, response.items))
+    return tuple(map(format_state, response.items))
 
 
-class ToePortHistoricLoader(DataLoader):
+class ToePortHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToePortRequest]
-    ) -> tuple[tuple[ToePort, ...], ...]:
+    ) -> tuple[tuple[ToePortState, ...], ...]:
         return await collect(
-            tuple(_get_historic_toe_port(request) for request in requests)
+            tuple(_get_historic_state(request) for request in requests)
         )
 
 

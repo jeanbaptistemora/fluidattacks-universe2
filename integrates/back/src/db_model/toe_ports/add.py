@@ -26,7 +26,10 @@ from dynamodb.model import (
 )
 
 
-async def add(*, toe_port: ToePort) -> None:
+async def add(*, toe_port: ToePort, validate_state: bool = True) -> None:
+    if validate_state and toe_port.state.modified_date is None:
+        raise InvalidParameter("modified_date")
+
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_port_metadata"]
@@ -42,10 +45,10 @@ async def add(*, toe_port: ToePort) -> None:
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "be_present": str(toe_port.be_present).lower(),
+            "be_present": str(toe_port.state.be_present).lower(),
+            "group_name": toe_port.group_name,
             "address": toe_port.address,
             "port": toe_port.port,
-            "group_name": toe_port.group_name,
             "root_id": toe_port.root_id,
         },
     )
@@ -67,7 +70,7 @@ async def add(*, toe_port: ToePort) -> None:
         raise InvalidParameter("modified_date")
 
     historic_key = keys.build_key(
-        facet=TABLE.facets["toe_port_historic_metadata"],
+        facet=TABLE.facets["toe_port_historic_state"],
         values={
             "address": toe_port.address,
             "port": toe_port.port,
@@ -77,9 +80,9 @@ async def add(*, toe_port: ToePort) -> None:
         },
     )
     await operations.put_item(
-        facet=TABLE.facets["toe_port_historic_metadata"],
+        facet=TABLE.facets["toe_port_historic_state"],
         item={
-            **toe_port_item,
+            **toe_port_item["state"],
             key_structure.partition_key: historic_key.partition_key,
             key_structure.sort_key: historic_key.sort_key,
         },

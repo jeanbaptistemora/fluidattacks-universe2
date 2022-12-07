@@ -98,27 +98,28 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "toe_ports": (
             ToePort(
-                attacked_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
-                attacked_by="admin@gmail.com",
-                be_present=True,
-                be_present_until=None,
                 address="192.168.1.2",
                 port="8080",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=True,
                 seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
                 seen_first_time_by="test1@test.com",
+                root_id="7a9759ad-218a-4a98-9210-31dd78d61580",
                 state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
                     modified_date=datetime.fromisoformat(
                         "2000-01-01T05:00:00+00:00"
-                    )
+                    ),
+                    modified_by="admin@gmail.com",
                 ),
-                root_id="7a9759ad-218a-4a98-9210-31dd78d61580",
             ),
         ),
     }

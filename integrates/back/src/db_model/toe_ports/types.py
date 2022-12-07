@@ -12,23 +12,24 @@ from typing import (
 
 
 class ToePortState(NamedTuple):
-    modified_date: Optional[datetime]
-
-
-class ToePort(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: Optional[str]
     be_present: bool
     be_present_until: Optional[datetime]
     first_attack_at: Optional[datetime]
-    group_name: str
     has_vulnerabilities: bool
+    modified_by: Optional[str]
+    modified_date: Optional[datetime]
+
+
+class ToePort(NamedTuple):
+    group_name: str
     address: str
     port: str
     root_id: str
+    state: ToePortState
     seen_at: Optional[datetime]
     seen_first_time_by: Optional[str]
-    state: ToePortState
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.address, self.port))

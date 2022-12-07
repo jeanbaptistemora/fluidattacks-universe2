@@ -19,4 +19,4 @@ from typing import (
 async def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[datetime]:
-    return parent.first_attack_at
+    return parent.state.first_attack_at

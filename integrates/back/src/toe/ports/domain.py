@@ -21,7 +21,6 @@ from db_model.roots.types import (
 )
 from db_model.toe_ports.types import (
     ToePort,
-    ToePortMetadataToUpdate,
     ToePortState,
 )
 from newutils import (
@@ -74,19 +73,22 @@ async def add(  # pylint: disable=too-many-arguments
         attributes.seen_at or first_attack_at or datetime_utils.get_utc_now()
     )
     toe_port = ToePort(
-        attacked_at=attributes.attacked_at,
-        attacked_by=attributes.attacked_by,
-        be_present=attributes.be_present,
-        be_present_until=be_present_until,
         address=address,
         port=port,
-        first_attack_at=first_attack_at,
         group_name=group_name,
-        has_vulnerabilities=has_vulnerabilities,
+        root_id=root_id,
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
-        state=ToePortState(modified_date=datetime_utils.get_utc_now()),
-        root_id=root_id,
+        state=ToePortState(
+            attacked_at=attributes.attacked_at,
+            attacked_by=attributes.attacked_by,
+            be_present=attributes.be_present,
+            be_present_until=be_present_until,
+            first_attack_at=first_attack_at,
+            has_vulnerabilities=has_vulnerabilities,
+            modified_date=datetime_utils.get_utc_now(),
+            modified_by=None,
+        ),
     )
     await toe_ports_model.add(toe_port=toe_port)
 
@@ -108,7 +110,7 @@ def _validate_update(
 ) -> None:
     if (
         attributes.be_present is None
-        and current_value.be_present is False
+        and current_value.state.be_present is False
         and attributes.attacked_at is not None
     ):
         raise ToePortNotPresent()
@@ -116,8 +118,8 @@ def _validate_update(
         raise ToePortNotPresent()
     if (
         attributes.attacked_at is not None
-        and current_value.attacked_at is not None
-        and attributes.attacked_at <= current_value.attacked_at
+        and current_value.state.attacked_at is not None
+        and attributes.attacked_at <= current_value.state.attacked_at
     ):
         raise InvalidToePortAttackedAt()
     if (
@@ -143,47 +145,58 @@ async def update(
     if is_moving_toe_port is False:
         _validate_update(current_value, attributes)
 
-    be_present_until = (
-        None
-        if attributes.be_present is None
-        else _get_optional_be_present_until(attributes.be_present)
+    updated_attacked_at = (
+        current_value.state.attacked_at
+        if attributes.attacked_at is None
+        else attributes.attacked_at
     )
-    current_be_present = (
-        current_value.be_present
+    updated_attacked_by = (
+        current_value.state.attacked_by
+        if attributes.attacked_by is None
+        else attributes.attacked_by
+    )
+    updated_be_present = (
+        current_value.state.be_present
         if attributes.be_present is None
         else attributes.be_present
     )
-    first_attack_at = None
+    updated_be_present_until = (
+        current_value.state.be_present_until
+        if attributes.be_present is None
+        else _get_optional_be_present_until(attributes.be_present)
+    )
+    updated_first_attack_at = current_value.state.first_attack_at
     if attributes.first_attack_at is not None:
-        first_attack_at = attributes.first_attack_at
-    elif not current_value.first_attack_at and attributes.attacked_at:
-        first_attack_at = attributes.attacked_at
-    has_vulnerabilities = (
+        updated_first_attack_at = attributes.first_attack_at
+    elif not current_value.state.first_attack_at and attributes.attacked_at:
+        updated_first_attack_at = attributes.attacked_at
+    updated_has_vulnerabilities = (
         get_has_vulnerabilities(
-            current_be_present, attributes.has_vulnerabilities
+            updated_be_present, attributes.has_vulnerabilities
         )
         if attributes.has_vulnerabilities is not None
         or attributes.be_present is not None
-        else None
+        else current_value.state.has_vulnerabilities
     )
 
-    metadata = ToePortMetadataToUpdate(
-        state=ToePortState(modified_date=datetime_utils.get_utc_now()),
-        attacked_at=attributes.attacked_at,
-        attacked_by=attributes.attacked_by,
-        be_present=attributes.be_present,
-        be_present_until=be_present_until,
-        first_attack_at=first_attack_at,
-        has_vulnerabilities=has_vulnerabilities,
-        seen_at=attributes.seen_at,
-        seen_first_time_by=attributes.seen_first_time_by,
-        clean_attacked_at=attributes.clean_attacked_at,
-        clean_be_present_until=attributes.be_present is not None
-        and be_present_until is None,
-        clean_first_attack_at=attributes.clean_first_attack_at,
-        clean_seen_at=attributes.clean_seen_at,
-    )
-    await toe_ports_model.update_metadata(
-        current_value=current_value,
-        metadata=metadata,
-    )
+    if not (
+        updated_attacked_at == current_value.state.attacked_at
+        and updated_attacked_by == current_value.state.attacked_by
+        and updated_be_present == current_value.state.be_present
+        and updated_be_present_until == current_value.state.be_present_until
+        and updated_has_vulnerabilities
+        == current_value.state.has_vulnerabilities
+    ):
+        await toe_ports_model.update_state(
+            current_value=current_value,
+            state=ToePortState(
+                attacked_at=updated_attacked_at,
+                attacked_by=updated_attacked_by,
+                be_present=updated_be_present,
+                be_present_until=updated_be_present_until,
+                first_attack_at=updated_first_attack_at,
+                has_vulnerabilities=updated_has_vulnerabilities,
+                modified_date=datetime_utils.get_utc_now(),
+                modified_by=None,
+            ),
+        )
