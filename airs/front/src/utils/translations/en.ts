@@ -21,9 +21,8 @@ const pageTexts: ResourceKey = {
   },
   blog: {
     description:
-      "Read Fluid Attacks' blog posts about IT, pentesting, " +
-      "hacking challenges writeups, information security, " +
-      "and ethical hacking recent trends.",
+      "Read our blog posts to learn about cybersecurity concepts, " +
+      "approaches, trends, news, techniques and more.",
     keywords:
       "Blog, Articles, Opinion, Challenge, Pentesting, Security," +
       "Ethical Hacking, Trends",
@@ -46,6 +45,7 @@ const pageTexts: ResourceKey = {
           "you discover similar content more easily.",
       },
     },
+    title: "Fluid Attacks Blog",
   },
   blogFooter: {
     authorHeader: "Author",

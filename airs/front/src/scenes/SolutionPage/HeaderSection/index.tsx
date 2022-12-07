@@ -31,7 +31,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
     <Container bgColor={"#f4f4f6"} ph={4} pv={5}>
       <Container center={true} maxWidth={"1200px"}>
         <Title
-          color={"2e2e38"}
+          color={"#2e2e38"}
           level={1}
           mb={3}
           size={"big"}
