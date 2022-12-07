@@ -65,6 +65,17 @@ async def populate() -> bool:
                     ),
                 ),
             ),
+            Company(
+                domain="uiguaran.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-11-06T15:58:31.280182"
+                    ),
+                ),
+            ),
         ],
         "groups": [
             {
@@ -101,6 +112,27 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="janedoe@janedoe.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="uiguaran@uiguaran.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup3",
+                    organization_id="5ee9880b-5e19-44ba-baf1-f2601bdf7d26",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.TRIAL,
+                        modified_by="uiguaran@uiguaran.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -147,6 +179,24 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    created_by="uiguaran@uiguaran.com",
+                    created_date="2022-10-21T15:58:31.280182",
+                    country="Colombia",
+                    id="5ee9880b-5e19-44ba-baf1-f2601bdf7d26",
+                    name="testorg3",
+                    policies=Policies(
+                        modified_by="uiguaran@uiguaran.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                    ),
+                    state=OrganizationState(
+                        modified_by="uiguaran@uiguaran.com",
+                        modified_date="2022-10-21T15:58:31.280182",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
@@ -160,6 +210,12 @@ async def populate() -> bool:
                 first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
+            ),
+            Stakeholder(
+                email="uiguaran@uiguaran.com",
+                first_name="Ursula",
+                is_registered=True,
+                last_name="Iguaran",
             ),
         ],
     }
