@@ -51,7 +51,7 @@ class FindingVerification(NamedTuple):
 
 class FindingEvidence(NamedTuple):
     description: str
-    modified_date: str
+    modified_date: datetime
     url: str
 
 
@@ -190,7 +190,7 @@ class Finding(NamedTuple):
 
 class FindingEvidenceToUpdate(NamedTuple):
     description: Optional[str] = None
-    modified_date: Optional[str] = None
+    modified_date: Optional[datetime] = None
     url: Optional[str] = None
 
 

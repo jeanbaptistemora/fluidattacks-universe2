@@ -163,12 +163,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         evidence1=FindingEvidence(
                             description="evidence1",
                             url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
-                            modified_date="2020-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-11-19T13:37:10+00:00"
+                            ),
                         ),
                         records=FindingEvidence(
                             description="records",
                             url="group1-3c475384-834c-47b0-ac71-a41a022e401c-records",
-                            modified_date="2111-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2111-11-19T13:37:10+00:00"
+                            ),
                         ),
                     ),
                 ),

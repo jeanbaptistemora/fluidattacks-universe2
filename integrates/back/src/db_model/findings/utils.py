@@ -64,10 +64,18 @@ def has_rejected_drafts(*, drafts: tuple[Finding, ...]) -> bool:
     )
 
 
+def format_evidence(item: Item) -> FindingEvidence:
+    return FindingEvidence(
+        description=item["description"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
+        url=item["url"],
+    )
+
+
 def format_evidence_item(evidence: FindingEvidence) -> Item:
     return {
         "description": evidence.description,
-        "modified_date": evidence.modified_date,
+        "modified_date": get_as_utc_iso_format(evidence.modified_date),
         "url": evidence.url,
     }
 
@@ -108,7 +116,7 @@ def format_finding(item: Item) -> Finding:
         )
     evidences = FindingEvidences(
         **{
-            name: FindingEvidence(**evidence)
+            name: format_evidence(evidence)
             for name, evidence in item["evidences"].items()
         }
     )

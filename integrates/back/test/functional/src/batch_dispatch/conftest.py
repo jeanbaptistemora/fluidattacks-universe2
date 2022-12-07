@@ -213,7 +213,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                                 "group1-3c475384-834c-47b0"
                                 "-ac71-a41a022e401c-evidence5"
                             ),
-                            modified_date="2020-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-11-19T13:37:10+00:00"
+                            ),
                         ),
                         records=FindingEvidence(
                             description="records",
@@ -221,7 +223,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                                 "group1-3c475384-834c-47b0-"
                                 "ac71-a41a022e401c-records"
                             ),
-                            modified_date="2111-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2111-11-19T13:37:10+00:00"
+                            ),
                         ),
                     ),
                 ),
@@ -332,7 +336,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                                 "unittesting-3c475384-834c-47b0"
                                 "-ac71-a41a022e401c-evidence5"
                             ),
-                            modified_date="2020-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-11-19T13:37:10+00:00"
+                            ),
                         ),
                         records=FindingEvidence(
                             description="records",
@@ -340,7 +346,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                                 "unittesting-3c475384-834c-47b0-"
                                 "ac71-a41a022e401c-records"
                             ),
-                            modified_date="2111-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2111-11-19T13:37:10+00:00"
+                            ),
                         ),
                     ),
                 ),

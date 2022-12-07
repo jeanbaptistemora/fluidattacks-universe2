@@ -165,7 +165,7 @@ async def update_evidence(
     if evidence:
         evidence_to_update = FindingEvidenceToUpdate(
             url=filename,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             description=description,
         )
         await findings_model.update_evidence(
@@ -178,7 +178,7 @@ async def update_evidence(
     else:
         evidence = FindingEvidence(
             description=description or "",
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             url=filename,
         )
         await findings_model.add_evidence(

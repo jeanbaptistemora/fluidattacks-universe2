@@ -18,6 +18,7 @@ from .types import (
     FindingVerificationSummary,
 )
 from .utils import (
+    format_evidence_item,
     format_evidences_item,
     format_state_item,
     format_treatment_summary_item,
@@ -41,6 +42,9 @@ from db_model import (
 from db_model.findings.constants import (
     ME_DRAFTS_INDEX_METADATA,
 )
+from db_model.utils import (
+    serialize,
+)
 from dynamodb import (
     keys,
     operations,
@@ -48,9 +52,13 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+from dynamodb.types import (
+    Item,
+)
 from enum import (
     Enum,
 )
+import simplejson as json
 from typing import (
     Optional,
 )
@@ -69,11 +77,14 @@ async def update_evidence(
         values={"group_name": group_name, "id": finding_id},
     )
     attribute = f"evidences.{evidence_name.value}"
+    evidence_item: Item = json.loads(json.dumps(evidence, default=serialize))
     await operations.update_item(
-        condition_expression=Attr(attribute).eq(current_value._asdict()),
+        condition_expression=Attr(attribute).eq(
+            format_evidence_item(current_value)
+        ),
         item={
             f"{attribute}.{key}": value
-            for key, value in evidence._asdict().items()
+            for key, value in evidence_item.items()
             if value is not None
         },
         key=metadata_key,

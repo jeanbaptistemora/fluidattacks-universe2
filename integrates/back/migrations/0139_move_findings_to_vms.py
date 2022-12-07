@@ -432,9 +432,7 @@ def _format_masked_evidences(old_finding: FindingType) -> FindingEvidences:
         )
         evidence = FindingEvidence(
             description=MASKED,
-            modified_date=get_as_utc_iso_format(get_from_str(date))
-            if date
-            else MASKED,
+            modified_date=get_from_str(date) if date else MASKED,
             url=MASKED,
         )
         evidences = evidences._replace(**{new_name: evidence})
@@ -450,11 +448,8 @@ def _format_non_masked_evidences(old_finding: FindingType) -> FindingEvidences:
         old_evidence = findings_utils.get_evidence(
             old_name, finding_files, old_finding
         )
-        date = get_as_utc_iso_format(
-            get_from_str(
-                old_evidence.get("date", "")
-                or old_evidence.get("upload_date", "")
-            )
+        date = get_from_str(
+            old_evidence.get("date", "") or old_evidence.get("upload_date", "")
         )
         evidence = FindingEvidence(
             description=old_evidence["description"],

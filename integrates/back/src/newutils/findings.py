@@ -124,12 +124,12 @@ async def is_valid_finding_titles(titles: list[str]) -> bool:
 def get_updated_evidence_date(
     finding: Finding, evidence: FindingEvidence
 ) -> datetime:
-    evidence_date = datetime.fromisoformat(evidence.modified_date)
-    updated_date = evidence_date
+    updated_date = evidence.modified_date
     if finding.approval:
         release_date = datetime.fromisoformat(finding.approval.modified_date)
-        if release_date > evidence_date:
+        if release_date > evidence.modified_date:
             updated_date = release_date
+
     return updated_date
 
 

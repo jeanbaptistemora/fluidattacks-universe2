@@ -256,7 +256,9 @@ async def populate() -> bool:
                         evidence1=FindingEvidence(
                             description="evidence1",
                             url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
-                            modified_date="2020-11-19T13:37:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-11-19T13:37:10+00:00"
+                            ),
                         ),
                     ),
                     state=FindingState(
