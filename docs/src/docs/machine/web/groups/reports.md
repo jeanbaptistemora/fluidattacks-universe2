@@ -140,6 +140,35 @@ available for one hour.
 - **Recommendation:**
   Suggestions that can be applied
   to fix related vulnerability.
+- **External BTS:**
+  Customer Bug Tracking System URL
+  used to fix the vulnerability.
+- **Compromised Attributes:**
+  Data or information that was
+  compromised as a result of
+  exploiting the vulnerability.
+  **Example:** Users, IDs, passwords.
+- **Tags:**
+  Tag to identify the vulnerability.
+- **Business Critically:**
+  Numerical value to classify the
+  severity of vulnerabilities
+  defined by customers for
+  their internal use.
+- **Type:**
+  The location where the vulnerability
+  was found.
+  Possible values:
+  app,
+  code,
+  infra.
+- **Report Moment:**
+  Vulnerability confirmation date.
+- **Close Moment:**
+  Vulnerability fixing date.
+- **Age in days:**
+  Days have passed since the
+  vulnerability was confirmed.
 
 ## Report Filters
 
