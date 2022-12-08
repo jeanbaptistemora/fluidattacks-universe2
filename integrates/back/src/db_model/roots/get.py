@@ -360,8 +360,7 @@ async def get_download_url(
     client = await get_s3_resource()
     file_exits = bool(
         await list_files(
-            bucket=FI_AWS_S3_MAIN_BUCKET,
-            name=f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
+            f"{bucket_path}/{group_name}/{root_nickname}.tar.gz",
         )
     )
     if not file_exits:

@@ -1,5 +1,4 @@
 from context import (
-    FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
 import logging
@@ -34,7 +33,6 @@ async def expose_bytes_as_url(
     await uploaded_file.write(content)
     await uploaded_file.seek(0)
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_MAIN_BUCKET,
         uploaded_file,
         f"{FI_AWS_S3_PATH_PREFIX}reports/{file_name}",
     )
@@ -46,7 +44,6 @@ async def sign_url(path: str, seconds: float = 3600) -> str:
     return await s3_ops.sign_url(
         f"{FI_AWS_S3_PATH_PREFIX}reports/{path}",
         seconds,
-        FI_AWS_S3_MAIN_BUCKET,
     )
 
 
@@ -63,7 +60,6 @@ async def upload_report_from_file_descriptor(report: Any) -> str:
     file_path = report.filename
     file_name: str = file_path.split("_")[-1]
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_MAIN_BUCKET,
         report,
         f"{FI_AWS_S3_PATH_PREFIX}reports/{file_name}",
     )

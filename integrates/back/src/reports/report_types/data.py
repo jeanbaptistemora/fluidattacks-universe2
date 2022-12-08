@@ -2,7 +2,6 @@ from . import (
     technical as technical_report,
 )
 from context import (
-    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
 from dataloaders import (
@@ -51,9 +50,7 @@ async def _append_evidences(
     }
 
     # Walk everything under the S3 evidences bucket and save relevant info
-    for key in await list_files(
-        EVIDENCES_BUCKET, f"{FI_AWS_S3_PATH_PREFIX}evidences/{group}"
-    ):
+    for key in await list_files(f"{FI_AWS_S3_PATH_PREFIX}evidences/{group}"):
         _, extension = os.path.splitext(key)
 
         if extension in target_folders:
@@ -68,7 +65,7 @@ async def _append_evidences(
             os.makedirs(target_name, exist_ok=True)
             target_name = os.path.join(target_name, os.path.basename(key))
             if not os.path.isdir(target_name):
-                await download_file(EVIDENCES_BUCKET, key, target_name)
+                await download_file(key, target_name)
                 # Append extension in case it doesn't have one
                 if extension == "":
                     mime = Magic(mime=True)

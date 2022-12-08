@@ -85,7 +85,6 @@ async def upload_snippet(
         snippet_file.write(contents.encode("utf-8", errors="ignore"))
         snippet_file.seek(os.SEEK_SET)
         await upload_memory_file(
-            FI_AWS_S3_MAIN_BUCKET,
             snippet_file,
             file_key,
         )

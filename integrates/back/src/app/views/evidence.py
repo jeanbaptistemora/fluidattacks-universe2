@@ -4,7 +4,6 @@
 import aiohttp
 import authz
 from context import (
-    FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
 from dataloaders import (
@@ -47,7 +46,6 @@ from typing import (
     Sequence,
 )
 
-BUCKET_S3 = FI_AWS_S3_MAIN_BUCKET
 download_evidence_file = retry_on_exceptions(
     exceptions=(
         aiohttp.ClientError,
@@ -125,7 +123,7 @@ async def get_evidence(  # pylint: disable=too-many-locals
                 localtmp = utils.replace_all(
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )
-                await download_evidence_file(BUCKET_S3, evidence, localtmp)
+                await download_evidence_file(evidence, localtmp)
                 return retrieve_image(localtmp)
         else:
             return JSONResponse(
@@ -146,7 +144,7 @@ async def get_evidence(  # pylint: disable=too-many-locals
 
 
 async def list_s3_evidences(prefix: str) -> List[str]:
-    return list(await list_files(BUCKET_S3, prefix))
+    return list(await list_files(prefix))
 
 
 def retrieve_image(img_file: str) -> Response:

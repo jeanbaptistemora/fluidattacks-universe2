@@ -88,7 +88,7 @@ async def append_extensions(  # pylint: disable=too-many-locals
     target_name = os.path.join(directory, os.path.basename(full_name))
     evidence_id = os.path.basename(full_name).split("-")[-1]
     if not os.path.isdir(target_name):
-        await download_file(EVIDENCES_BUCKET, full_name, target_name)
+        await download_file(full_name, target_name)
         mime = Magic(mime=True)
         mime_type = mime.from_file(target_name)
         if mime_type in target_extensions:
@@ -142,14 +142,14 @@ async def append_extensions(  # pylint: disable=too-many-locals
                     )
                     print(f"{upload_name} upload successful: {success}")
                     if success:
-                        await remove_file(EVIDENCES_BUCKET, full_name)
+                        await remove_file(full_name)
                         print(f"{full_name} file removed")
 
 
 async def process_evidences(group: str) -> None:
     with tempfile.TemporaryDirectory() as directory:
         os.makedirs(directory, exist_ok=True)
-        for key in await list_files(EVIDENCES_BUCKET, group):
+        for key in await list_files(group):
             _, extension = os.path.splitext(key)
             if extension == "":
                 await append_extensions(directory, key)

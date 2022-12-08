@@ -1,4 +1,7 @@
 import boto3
+from context import (
+    FI_AWS_S3_MAIN_BUCKET,
+)
 from decimal import (
     Decimal,
 )
@@ -27,7 +30,7 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-BUCKET_NAME = "test_bucket"
+BUCKET_NAME = FI_AWS_S3_MAIN_BUCKET
 
 tables_names = ["integrates_vms"]
 key_schemas = {

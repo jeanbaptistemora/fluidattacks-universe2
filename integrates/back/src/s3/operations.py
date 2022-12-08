@@ -4,6 +4,9 @@ from aioextensions import (
 from botocore.exceptions import (
     ClientError,
 )
+from context import (
+    FI_AWS_S3_MAIN_BUCKET,
+)
 from custom_exceptions import (
     ErrorUploadingFileS3,
     UnavailabilityError,
@@ -35,19 +38,26 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def download_file(bucket: str, file_name: str, file_path: str) -> None:
+async def download_file(
+    file_name: str,
+    file_path: str,
+    bucket: str = FI_AWS_S3_MAIN_BUCKET,
+) -> None:
     client = await get_s3_resource()
     await client.download_file(bucket, file_name, file_path)
 
 
-async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
+async def list_files(
+    name: Optional[str] = None,
+    bucket: str = FI_AWS_S3_MAIN_BUCKET,
+) -> List[str]:
     client = await get_s3_resource()
     resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
 
     return [item["Key"] for item in resp.get("Contents", [])]
 
 
-async def remove_file(bucket: str, name: str) -> None:
+async def remove_file(name: str, bucket: str = FI_AWS_S3_MAIN_BUCKET) -> None:
     client = await get_s3_resource()
     try:
         response = await client.delete_object(Bucket=bucket, Key=name)
@@ -59,7 +69,9 @@ async def remove_file(bucket: str, name: str) -> None:
         raise UnavailabilityError() from ex
 
 
-async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
+async def sign_url(
+    file_name: str, expire_mins: float, bucket: str = FI_AWS_S3_MAIN_BUCKET
+) -> str:
     client = await get_s3_resource()
     try:
         return str(
@@ -76,7 +88,7 @@ async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
 
 
 async def upload_memory_file(
-    bucket: str, file_object: object, file_name: str
+    file_object: object, file_name: str, bucket: str = FI_AWS_S3_MAIN_BUCKET
 ) -> None:
     valid_in_memory_files = (TemporaryFileWrapper, UploadFile)
     if not isinstance(file_object, valid_in_memory_files):
@@ -99,7 +111,7 @@ async def upload_memory_file(
 
 
 async def sing_upload_url(
-    file_name: str, expire_mins: float, bucket: str
+    file_name: str, expire_mins: float, bucket: str = FI_AWS_S3_MAIN_BUCKET
 ) -> Dict[str, Dict[str, str]]:
     params = {
         "conditions": [

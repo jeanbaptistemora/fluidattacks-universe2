@@ -18,7 +18,6 @@ function main {
     --cov-report 'xml:coverage.xml'
     --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
-    --exitfirst
     --no-cov-on-fail
     --verbose
   )

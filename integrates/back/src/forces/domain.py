@@ -1,5 +1,4 @@
 from context import (
-    FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
 from dataloaders import (
@@ -45,7 +44,6 @@ from typing import (
 
 async def save_log_execution(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_MAIN_BUCKET,
         file_object,
         f"{FI_AWS_S3_PATH_PREFIX}forces/{file_name}",
     )
@@ -124,7 +122,6 @@ def format_forces_email(group_name: str) -> str:
 async def get_log_execution(group_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
-            FI_AWS_S3_MAIN_BUCKET,
             f"{FI_AWS_S3_PATH_PREFIX}forces/{group_name}/{execution_id}.log",
             file.name,
         )
@@ -137,7 +134,6 @@ async def get_vulns_execution(
 ) -> dict[str, Any]:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
-            FI_AWS_S3_MAIN_BUCKET,
             f"{FI_AWS_S3_PATH_PREFIX}forces/{group_name}/{execution_id}.json",
             file.name,
         )

@@ -12,9 +12,6 @@ from aioextensions import (
     collect,
     run,
 )
-from context import (
-    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -42,13 +39,13 @@ PROD: bool = True
 
 
 async def _process_evidence(full_name: str) -> None:
-    await remove_file(EVIDENCES_BUCKET, full_name)
+    await remove_file(full_name)
     print(f"Removed: {full_name}")
 
 
 async def _process_finding(finding: Finding) -> None:
     evidences: List[str] = await list_files(
-        EVIDENCES_BUCKET, f"{finding.group_name}/{finding.id}/"
+        f"{finding.group_name}/{finding.id}/"
     )
 
     if not evidences:

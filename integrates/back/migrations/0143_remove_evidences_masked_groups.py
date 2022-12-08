@@ -15,9 +15,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from context import (
-    FI_AWS_S3_MAIN_BUCKET as EVIDENCES_BUCKET,
-)
 from groups import (
     dal as groups_dal,
 )
@@ -34,7 +31,7 @@ PROD: bool = True
 
 
 async def _process_evidence(full_name: str) -> None:
-    await remove_file(EVIDENCES_BUCKET, full_name)
+    await remove_file(full_name)
     print(f"Removed: {full_name}")
 
 
@@ -52,10 +49,7 @@ async def main() -> None:
 
     groups_evidences = tuple(
         chain.from_iterable(
-            await collect(
-                list_files(EVIDENCES_BUCKET, f"{group}/")
-                for group in masked_groups
-            )
+            await collect(list_files(f"{group}/") for group in masked_groups)
         )
     )
     print(f"Evidences masked groups: {len(groups_evidences)}")

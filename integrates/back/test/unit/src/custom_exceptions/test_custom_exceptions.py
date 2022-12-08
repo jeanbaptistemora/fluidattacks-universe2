@@ -123,9 +123,9 @@ async def test_exception_error_uploading_file_s3() -> None:
     with pytest.raises(ErrorUploadingFileS3):
         with open(file_location, "rb") as data:
             await s3_ops.upload_memory_file(
-                bucket_name,
                 data,
                 file_name,
+                bucket_name,
             )
 
 
@@ -563,9 +563,9 @@ async def test_exception_unavailability_error(
         with open(file_location, "rb"):
             test_file = UploadFile(filename=file_name)
             await s3_ops.upload_memory_file(
-                bad_bucket_name,
                 test_file,
                 file_name,
+                bad_bucket_name,
             )
     assert mock_s3_client.called is True
 
