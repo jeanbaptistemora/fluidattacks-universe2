@@ -9,7 +9,7 @@ from typing import (
 
 
 class SubscriptionState(NamedTuple):
-    modified_date: Optional[str] = None
+    modified_date: Optional[str]
 
 
 class Subscription(NamedTuple):

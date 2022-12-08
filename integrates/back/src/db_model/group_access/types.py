@@ -17,7 +17,7 @@ class GroupInvitation(NamedTuple):
 
 
 class GroupAccessState(NamedTuple):
-    modified_date: Optional[str] = None
+    modified_date: Optional[str]
 
 
 class GroupAccess(NamedTuple):
