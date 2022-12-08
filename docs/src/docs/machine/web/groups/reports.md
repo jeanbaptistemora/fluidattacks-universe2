@@ -100,6 +100,47 @@ available for one hour.
 
 ![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1667342446/docs/web/groups/reports/technical_report.png)
 
+## Definitions of Technical report columns
+
+- **Related Finding:**
+  [Vulnerability type](/criteria/vulnerabilities/)
+- **Finding Id:**
+  Vulnerability identifier composed
+  by random numbers and letters.
+- **Vulnerability Id:**
+  Location identifier composed by
+  random numbers and letters.
+- **Where:**
+  Location of the vulnerability
+  found with the specific path
+  where it is located.
+- **Stream:**
+  Steps to reach the vulnerability
+  in dynamic environments.
+- **Specific:**
+  Indicates exactly where the
+  vulnerability was found
+  (line, field or port).
+- **Description:**
+  Vulnerability description.
+- **Status:**
+  Vulnerability status can be
+  safe or vulnerable.
+- **Severity:**
+  Vulnerability score based on CVSS
+  3.1 standard.
+- **Requirements:**
+  Unfulfilled [requirement(s)](/criteria/requirements/)
+  based on security standards.
+- **Impact:**
+  How your application is affected by
+  related vulnerability.
+- **Threat:**
+  How the attacker can exploit the system.
+- **Recommendation:**
+  Suggestions that can be applied
+  to fix related vulnerability.
+
 ## Report Filters
 
 If you want to customize
