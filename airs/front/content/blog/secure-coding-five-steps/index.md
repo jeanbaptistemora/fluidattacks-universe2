@@ -277,8 +277,8 @@ when you receive reports in the Fluid Attacks'
 ## Conclusions and opinions
 
 The actual contributions of this five-step approach are not very clear.
-The authors only spoke of having conducted surveys
-targeting the students before and after the training.
+The authors only spoke of having conducted surveys of students
+before and after the training.
 (You can see the paper
 to know the characteristics of the participants
 and the results in numbers).
