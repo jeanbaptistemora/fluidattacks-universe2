@@ -69,50 +69,6 @@ def trails_not_multiregion(
     )
 
 
-@api(risk=LOW, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def files_not_validated(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if trails have log file validation enabled.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    trails = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="cloudtrail",
-        func="describe_trails",
-        param="trailList",
-        retry=retry,
-    )
-
-    msg_open: str = "File validation is not enabled on trails"
-    msg_closed: str = "File validation is enabled on trails"
-
-    vulns, safes = [], []
-
-    if trails:
-        for trail in trails:
-            trail_arn = trail["TrailARN"]
-
-            (vulns if not trail["LogFileValidationEnabled"] else safes).append(
-                (trail_arn, "Must have file validation enabled")
-            )
-
-    return _get_result_as_tuple(
-        service="CloudTrail",
-        objects="trails",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def is_trail_bucket_public(
