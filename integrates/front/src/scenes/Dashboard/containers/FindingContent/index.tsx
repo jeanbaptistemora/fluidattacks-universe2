@@ -355,15 +355,17 @@ const FindingContent: React.FC = (): JSX.Element => {
                   >
                     {t("searchFindings.tabRecords.tabTitle")}
                   </Tab>
-                  <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
-                    <Tab
-                      id={"machineItem"}
-                      link={`${url}/machine`}
-                      tooltip={t("searchFindings.tabMachine.tooltip")}
-                    >
-                      {t("searchFindings.tabMachine.tabTitle")}
-                    </Tab>
-                  </Can>
+                  {headerData.finding.hacker === "machine@fluidattacks.com" ? (
+                    <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
+                      <Tab
+                        id={"machineItem"}
+                        link={`${url}/machine`}
+                        tooltip={t("searchFindings.tabMachine.tooltip")}
+                      >
+                        {t("searchFindings.tabMachine.tabTitle")}
+                      </Tab>
+                    </Can>
+                  ) : undefined}
                   {isDraft ? undefined : (
                     <Have I={"has_squad"}>
                       <Can do={"api_resolvers_finding_consulting_resolve"}>
@@ -410,11 +412,15 @@ const FindingContent: React.FC = (): JSX.Element => {
                     exact={true}
                     path={`${path}/evidence`}
                   />
-                  <Route
-                    component={MachineView}
-                    exact={true}
-                    path={`${path}/machine`}
-                  />
+                  {headerData.finding.hacker === "machine@fluidattacks.com" ? (
+                    <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
+                      <Route
+                        component={MachineView}
+                        exact={true}
+                        path={`${path}/machine`}
+                      />
+                    </Can>
+                  ) : undefined}
                   <Route
                     component={TrackingView}
                     exact={true}
