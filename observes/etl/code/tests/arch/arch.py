@@ -18,7 +18,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "cli",
         ("init_tables", "compute_bills", "upload_repo", "migration"),
         "amend",
-        ("client", "asm"),
+        ("client", "arm"),
         ("factories", "mailmap"),
         "objs",
         ("_logger", "_patch", "_utils", "str_utils", "time_utils"),
@@ -40,7 +40,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "actions",
         "core",
     ),
-    "code_etl.asm": (
+    "code_etl.arm": (
         "_ignored_paths",
         "_raw_client",
     ),
