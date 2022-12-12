@@ -1,7 +1,7 @@
 import { PureAbility } from "@casl/ability";
 import type { ColumnDef } from "@tanstack/react-table";
 import { render, screen, within } from "@testing-library/react";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 
 import { statusFormatter } from "./Formatter";
@@ -126,7 +126,7 @@ describe("VulnComponent", (): void => {
       ],
       id: "a09c79fc-33fb-4abd-9f20-f3ab1f500bd0",
       lastTreatmentDate: "2019-07-05 09:56:40",
-      lastVerificationDate: moment()
+      lastVerificationDate: dayjs()
         .subtract(numberOfDays, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       organizationName: undefined,
@@ -171,7 +171,7 @@ describe("VulnComponent", (): void => {
       ],
       id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
       lastTreatmentDate: "2019-07-05 09:56:40",
-      lastVerificationDate: moment()
+      lastVerificationDate: dayjs()
         .subtract(numberOfDaysOldThanAWeek, "days")
         .format("YYYY-MM-DD hh:mm:ss"),
       organizationName: undefined,
