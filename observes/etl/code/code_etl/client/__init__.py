@@ -36,7 +36,6 @@ from enum import (
 from fa_purity import (
     Cmd,
     FrozenList,
-    PureIter,
     ResultE,
     Stream,
 )

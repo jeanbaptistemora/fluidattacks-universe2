@@ -30,6 +30,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         ("core", "_retry"),
     ),
     "code_etl.client": (
+        "_delta_update",
         "_raw",
         ("encoder", "_query", "decoder"),
         "_raw_file_commit",

@@ -47,6 +47,8 @@ class GraphQlAsmClient:
 
     def get(self, query: str, values: FrozenDict[str, str]) -> Cmd[JsonObj]:
         def _action() -> JsonObj:
-            return from_any(self._inner.client.execute(gql(query), dict(values))).unwrap()  # type: ignore[misc]
+            return from_any(
+                self._inner.client.execute(gql(query), dict(values))  # type: ignore[misc]
+            ).unwrap()
 
         return Cmd.from_cmd(_action)
