@@ -14,6 +14,11 @@ from typing import (
     ["email"],
     [
         ["admin@fluidattacks.com"],
+        ["customer_manager@fluidattacks.com"],
+        ["hacker@fluidattacks.com"],
+        ["reattacker@fluidattacks.com"],
+        ["resourcer@fluidattacks.com"],
+        ["reviewer@fluidattacks.com"],
     ],
 )
 async def test_get_toe_ports(populate: bool, email: str) -> None:
@@ -90,7 +95,6 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
         ["architect@fluidattacks.com"],
         ["architect@gmail.com"],
         ["hacker@gmail.com"],
-        ["reattacker@fluidattacks.com"],
         ["reattacker@gmail.com"],
         ["user@fluidattacks.com"],
         ["user@gmail.com"],
