@@ -1,9 +1,8 @@
-import type { Moment } from "moment";
-import moment from "moment";
+import dayjs from "dayjs";
 
-function isWithInAWeek(date: Moment): boolean {
+function isWithInAWeek(date: dayjs.Dayjs): boolean {
   const numberOfDays: number = 7;
-  const weekOld: Moment = moment()
+  const weekOld: dayjs.Dayjs = dayjs()
     .subtract(numberOfDays, "days")
     .startOf("day");
 
@@ -11,12 +10,12 @@ function isWithInAWeek(date: Moment): boolean {
 }
 
 const formatIsoDate = (value: string): string =>
-  moment(value).format("YYYY-MM-DD hh:mm:ss");
+  dayjs(value).format("YYYY-MM-DD hh:mm:ss");
 
 const getDatePlusDeltaDays = (date: string, days: number): string =>
-  moment(date).add(days, "days").format("YYYY-MM-DD hh:mm:ss");
+  dayjs(date).add(days, "days").format("YYYY-MM-DD hh:mm:ss");
 
 const getRemainingDays = (value: string): number =>
-  moment(value).diff(moment(), "days");
+  dayjs(value).diff(dayjs(), "days");
 
 export { formatIsoDate, getDatePlusDeltaDays, getRemainingDays, isWithInAWeek };

@@ -1,5 +1,5 @@
+import dayjs from "dayjs";
 import _ from "lodash";
-import moment from "moment";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
@@ -108,7 +108,7 @@ const formatVulnerabilities: (
       vulnerability.verification === "Verified"
         ? Boolean(
             isWithInAWeek(
-              moment(vulnerability.lastVerificationDate, "YYYY-MM-DD hh:mm:ss")
+              dayjs(vulnerability.lastVerificationDate, "YYYY-MM-DD hh:mm:ss")
             )
           )
         : true;

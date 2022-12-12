@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import type { ConfigurableValidator } from "revalidate";
 
 import { calcPrivilegesRequired } from "utils/cvss";
@@ -1121,7 +1121,7 @@ describe("date", (): void => {
   it("Should return true if date is whitin a week", (): void => {
     expect.hasAssertions();
 
-    const date = moment(new Date(new Date().getTime() - 6 * 86400000));
+    const date = dayjs(new Date(new Date().getTime() - 6 * 86400000));
     const checkDatePlusDeltaDays = isWithInAWeek(date);
 
     expect(checkDatePlusDeltaDays).toBe(true);
@@ -1130,7 +1130,7 @@ describe("date", (): void => {
   it("Should return false if date is out of a week", (): void => {
     expect.hasAssertions();
 
-    const date = moment(new Date(new Date().getTime() - 8 * 86400000));
+    const date = dayjs(new Date(new Date().getTime() - 8 * 86400000));
     const checkDatePlusDeltaDays = isWithInAWeek(date);
 
     expect(checkDatePlusDeltaDays).toBe(false);
