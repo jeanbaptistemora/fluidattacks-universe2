@@ -19,7 +19,7 @@ def _json_line_comments(
         for line in template[0].splitlines():
 
             if re.search(
-                r"Unable to parse stream: No terminal defined for '/'", line
+                r"Unable to parse stream: No terminal defined for", line
             ):
                 yield (0, 0)
 

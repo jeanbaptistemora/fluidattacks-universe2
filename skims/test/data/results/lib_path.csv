@@ -43118,7 +43118,31 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    47 |       <groupId>org.apache.tomcat.embed</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.3.2) [CVE-2021-22118],67,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework:spring-web at version 5.3.2 with ['CVE-2021-22118'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.2.19.RELEASE) [GHSA-4wrc-f8pq-fpqp],73,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework:spring-web at version 5.2.19.RELEASE with ['GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+   63 |     </dependency>
+   64 |     <dependency>
+   65 |       <groupId>org.springframework</groupId>
+   66 |       <artifactId>spring-web</artifactId>
+   67 |       <version>5.3.2</version>
+   68 |       <scope>test</scope>
+   69 |     </dependency>
+   70 |     <dependency>
+   71 |       <groupId>org.springframework</groupId>
+   72 |       <artifactId>spring-web</artifactId>
+>  73 |       <version>5.2.19.RELEASE</version>
+   74 |       <scope>test</scope>
+   75 |     </dependency>
+   76 |     <dependency>
+   77 |       <groupId>junit</groupId>
+   78 |       <artifactId>junit</artifactId>
+   79 |       <version>${junit.version}</version>
+   80 |       <scope>test</scope>
+   81 |     </dependency>
+   82 |     <dependency>
+   83 |       <groupId>org.springframework.security</groupId>
+      ^ Col 0
+",maven.maven_pom_xml
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.3.2) [CVE-2021-22118, GHSA-4wrc-f8pq-fpqp]",67,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework:spring-web at version 5.3.2 with ['CVE-2021-22118', 'GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    57 |     </dependency>
    58 |     <dependency>
    59 |       <groupId>com.newrelic.agent.java</groupId>
