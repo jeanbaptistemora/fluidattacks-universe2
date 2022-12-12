@@ -29,6 +29,9 @@ from symbolic_eval.f091.method_invocation import (
 from symbolic_eval.f107.method_invocation import (
     evaluate as evaluate_method_f107,
 )
+from symbolic_eval.f211.method_invocation import (
+    evaluate as evaluate_method_f211,
+)
 from symbolic_eval.f338.method_invocation import (
     evaluate as evaluate_method_f338,
 )
@@ -62,6 +65,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F059: evaluate_method_f059,
     FindingEnum.F091: evaluate_method_f091,
     FindingEnum.F107: evaluate_method_f107,
+    FindingEnum.F211: evaluate_method_f211,
     FindingEnum.F338: evaluate_method_f338,
     FindingEnum.F368: evaluate_method_f368,
 }
@@ -110,15 +114,20 @@ def evaluate_method_expression(
             logs.log_blocking("warning", cast(str, error))
             invoc_eval = {}
 
-        eb_id = args.graph.nodes[md_id]["block_id"]
+        eb_id = args.graph.nodes[md_id].get("block_id")
 
-        d_expression = any(
-            args.generic(
-                args.fork(n_id=eb_id, path=fwd + bck, evaluation=invoc_eval)
-            ).danger
-            for fwd in get_inv_forward_paths(args.graph, eb_id)
-            for _, *bck in iter_backward_paths(args.graph, eb_id)
-        )
+        if eb_id:
+            d_expression = any(
+                args.generic(
+                    args.fork(
+                        n_id=eb_id, path=fwd + bck, evaluation=invoc_eval
+                    )
+                ).danger
+                for fwd in get_inv_forward_paths(args.graph, eb_id)
+                for _, *bck in iter_backward_paths(args.graph, eb_id)
+            )
+        else:
+            d_expression = args.generic(args.fork_n_id(md_id)).danger
     else:
         d_expression = args.generic(args.fork_n_id(expr_id)).danger
 
