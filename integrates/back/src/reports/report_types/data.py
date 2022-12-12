@@ -1,9 +1,6 @@
 from . import (
     technical as technical_report,
 )
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -50,7 +47,7 @@ async def _append_evidences(
     }
 
     # Walk everything under the S3 evidences bucket and save relevant info
-    for key in await list_files(f"{FI_AWS_S3_PATH_PREFIX}evidences/{group}"):
+    for key in await list_files(f"evidences/{group}"):
         _, extension = os.path.splitext(key)
 
         if extension in target_folders:

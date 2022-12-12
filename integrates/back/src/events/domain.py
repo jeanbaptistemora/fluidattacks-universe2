@@ -10,9 +10,6 @@ import authz
 from collections import (
     defaultdict,
 )
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventHasNotBeenSolved,
@@ -146,18 +143,16 @@ LOGGER = logging.getLogger(__name__)
 async def save_evidence(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
         file_object,
-        f"{FI_AWS_S3_PATH_PREFIX}evidences/{file_name}",
+        f"evidences/{file_name}",
     )
 
 
 async def search_evidence(file_name: str) -> list[str]:
-    return await s3_ops.list_files(
-        f"{FI_AWS_S3_PATH_PREFIX}evidences/{file_name}"
-    )
+    return await s3_ops.list_files(f"evidences/{file_name}")
 
 
 async def remove_file_evidence(file_name: str) -> None:
-    await s3_ops.remove_file(f"{FI_AWS_S3_PATH_PREFIX}{file_name}")
+    await s3_ops.remove_file(f"{file_name}")
 
 
 async def add_comment(
@@ -287,9 +282,7 @@ async def get_evidence_link(
 ) -> str:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
-    file_url = (
-        f"{FI_AWS_S3_PATH_PREFIX}evidences/{group_name}/{event_id}/{file_name}"
-    )
+    file_url = f"evidences/{group_name}/{event_id}/{file_name}"
     return await s3_ops.sign_url(file_url, 10)
 
 
@@ -349,10 +342,7 @@ async def remove_evidence(
             event.evidences, str(evidence_id.value).lower(), None
         )
     ) and isinstance(evidence, EventEvidence):
-        full_name = (
-            f"{FI_AWS_S3_PATH_PREFIX}evidences"
-            f"/{group_name}/{event_id}/{evidence.file_name}"
-        )
+        full_name = f"evidences/{group_name}/{event_id}/{evidence.file_name}"
         await s3_ops.remove_file(full_name)
         await events_model.update_evidence(
             event_id=event_id,

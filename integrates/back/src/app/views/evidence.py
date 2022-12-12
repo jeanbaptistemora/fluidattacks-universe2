@@ -3,9 +3,6 @@
 
 import aiohttp
 import authz
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -112,8 +109,7 @@ async def get_evidence(  # pylint: disable=too-many-locals
             return Response("Error - Unsent image ID", media_type="text/html")
 
         evidences_path: str = (
-            f"{FI_AWS_S3_PATH_PREFIX}evidences"
-            f"/{group_name.lower()}/{finding_id}/{file_id}"
+            f"evidences/{group_name.lower()}/{finding_id}/{file_id}"
         )
         evidences = await list_s3_evidences(evidences_path)
         if evidences:

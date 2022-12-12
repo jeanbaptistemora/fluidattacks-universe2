@@ -4,9 +4,6 @@ from aioextensions import (
 from back.src.settings.logger import (
     LOGGING,
 )
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -256,7 +253,7 @@ class CertificateCreator(CreatorPdf):
         # Fetch signature resource
         with tempfile.NamedTemporaryFile(mode="w+") as file:
             await s3_ops.download_file(
-                f"{FI_AWS_S3_PATH_PREFIX}resources/certificate/signature.png",
+                "resources/certificate/signature.png",
                 file.name,
             )
             self.cert_context[

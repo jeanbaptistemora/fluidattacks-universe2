@@ -3,9 +3,6 @@ from billing.domain import (
     save_file,
     search_file,
 )
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from mypy_boto3_s3 import (
     S3Client,
 )
@@ -58,7 +55,7 @@ async def test_save_file(
         mock_list_objects_v2
     )
     assert f"resources/{file_name}" in await list_files(
-        f"{FI_AWS_S3_PATH_PREFIX}resources/{file_name}"
+        f"resources/{file_name}"
     )
     assert mock_s3_client.call_count == 2
 
@@ -105,7 +102,7 @@ async def test_remove_file(
     def mock_list_objects_v2(**kwargs: Any) -> Any:
         return s3_client.list_objects_v2(**kwargs)
 
-    file_name = f"{FI_AWS_S3_PATH_PREFIX}unittesting-test-file.csv"
+    file_name = "unittesting-test-file.csv"
     mock_s3_client.return_value.delete_object.side_effect = mock_delete_object
     await remove_file(file_name)
     mock_s3_client.return_value.list_objects_v2.side_effect = (

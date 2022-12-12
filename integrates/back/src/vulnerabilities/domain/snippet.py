@@ -78,7 +78,7 @@ async def upload_snippet(
     vulnerability_id: str, vulnerability_modified_date: str, contents: str
 ) -> None:
     file_key = (
-        f"{FI_AWS_S3_PATH_PREFIX}snippets/VULN#{vulnerability_id}#STATE"
+        f"snippets/VULN#{vulnerability_id}#STATE"
         f"#{vulnerability_modified_date}"
     )
     with tempfile.NamedTemporaryFile() as snippet_file:

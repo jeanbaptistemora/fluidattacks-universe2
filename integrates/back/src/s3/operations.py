@@ -6,6 +6,7 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
+    FI_AWS_S3_PATH_PREFIX,
 )
 from custom_exceptions import (
     ErrorUploadingFileS3,
@@ -44,7 +45,9 @@ async def download_file(
     bucket: str = FI_AWS_S3_MAIN_BUCKET,
 ) -> None:
     client = await get_s3_resource()
-    await client.download_file(bucket, file_name, file_path)
+    await client.download_file(
+        bucket, file_name, f"{FI_AWS_S3_PATH_PREFIX}{file_path}"
+    )
 
 
 async def list_files(
@@ -52,7 +55,9 @@ async def list_files(
     bucket: str = FI_AWS_S3_MAIN_BUCKET,
 ) -> List[str]:
     client = await get_s3_resource()
-    resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
+    resp = await client.list_objects_v2(
+        Bucket=bucket, Prefix=f"{FI_AWS_S3_PATH_PREFIX}{name}"
+    )
 
     return [item["Key"] for item in resp.get("Contents", [])]
 
@@ -60,7 +65,9 @@ async def list_files(
 async def remove_file(name: str, bucket: str = FI_AWS_S3_MAIN_BUCKET) -> None:
     client = await get_s3_resource()
     try:
-        response = await client.delete_object(Bucket=bucket, Key=name)
+        response = await client.delete_object(
+            Bucket=bucket, Key=f"{FI_AWS_S3_PATH_PREFIX}{name}"
+        )
         status_code = response["ResponseMetadata"]["HTTPStatusCode"]
         if status_code not in [200, 204]:
             raise UnavailabilityError()
@@ -77,7 +84,10 @@ async def sign_url(
         return str(
             await client.generate_presigned_url(
                 ClientMethod="get_object",
-                Params={"Bucket": bucket, "Key": file_name},
+                Params={
+                    "Bucket": bucket,
+                    "Key": f"{FI_AWS_S3_PATH_PREFIX}{file_name}",
+                },
                 ExpiresIn=expire_mins,
                 HttpMethod="GET",
             )
@@ -103,7 +113,7 @@ async def upload_memory_file(
         await client.upload_fileobj(
             bytes_object,
             bucket,
-            file_name.lstrip("/"),
+            f"{FI_AWS_S3_PATH_PREFIX}{file_name.lstrip('/')}",
         )
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
@@ -117,7 +127,7 @@ async def sing_upload_url(
         "conditions": [
             {"acl": "private"},
             {"bucket": bucket},
-            ["starts-with", "$key", file_name],
+            ["starts-with", "$key", f"{FI_AWS_S3_PATH_PREFIX}{file_name}"],
             ["content-length-range", 1, 5368709120],
         ]
     }
@@ -126,7 +136,7 @@ async def sing_upload_url(
     try:
         return await client.generate_presigned_post(
             bucket,
-            file_name,
+            f"{FI_AWS_S3_PATH_PREFIX}{file_name}",
             Fields=None,
             Conditions=params["conditions"],
             ExpiresIn=expire_mins,

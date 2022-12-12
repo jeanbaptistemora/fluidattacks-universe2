@@ -355,7 +355,7 @@ class RootMachineExecutionsLoader(DataLoader):
 async def get_download_url(
     group_name: str, root_nickname: str
 ) -> Optional[str]:
-    bucket_path: str = f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories"
+    bucket_path: str = "continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
     file_exits = bool(
@@ -370,7 +370,7 @@ async def get_download_url(
         ClientMethod="get_object",
         Params={
             "Bucket": FI_AWS_S3_MAIN_BUCKET,
-            "Key": f"{bucket_path}/{object_name}",
+            "Key": f"{FI_AWS_S3_PATH_PREFIX}{bucket_path}/{object_name}",
         },
         ExpiresIn=1800,
     )

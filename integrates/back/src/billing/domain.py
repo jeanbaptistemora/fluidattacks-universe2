@@ -18,9 +18,6 @@ from billing.types import (
     Price,
     Subscription,
 )
-from context import (
-    FI_AWS_S3_PATH_PREFIX,
-)
 from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
@@ -109,19 +106,19 @@ TRIAL_DAYS: int = 14
 async def save_file(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
         file_object,
-        f"{FI_AWS_S3_PATH_PREFIX}resources/{file_name}",
+        f"resources/{file_name}",
     )
 
 
 async def search_file(file_name: str) -> list[str]:
     return await s3_ops.list_files(
-        f"{FI_AWS_S3_PATH_PREFIX}resources/{file_name}",
+        f"resources/{file_name}",
     )
 
 
 async def remove_file(file_name: str) -> None:
     await s3_ops.remove_file(
-        f"{FI_AWS_S3_PATH_PREFIX}resources/{file_name}",
+        f"resources/{file_name}",
     )
 
 
@@ -141,7 +138,7 @@ async def get_document_link(
         file_url = f"billing/{org_name}/{business_name}/{file_name}"
 
     return await s3_ops.sign_url(
-        f"{FI_AWS_S3_PATH_PREFIX}resources/{file_url}",
+        f"resources/{file_url}",
         10,
     )
 
