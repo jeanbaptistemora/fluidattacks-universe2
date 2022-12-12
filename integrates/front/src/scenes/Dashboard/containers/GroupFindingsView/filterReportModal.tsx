@@ -105,6 +105,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   });
 
   const handleRequestGroupReport = useCallback(
+    // NOSONAR
     (
       age: number | undefined,
       closingDate: string | undefined,
@@ -120,7 +121,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       verifications: string[],
       verificationCode: string
     ): void => {
-      // NOSONAR
       const reportType = "XLS";
       mixpanel.track("GroupReportRequest", { reportType });
 
