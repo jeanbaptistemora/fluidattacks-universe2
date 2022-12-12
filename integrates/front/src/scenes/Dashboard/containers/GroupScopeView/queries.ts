@@ -36,7 +36,6 @@ const GET_ROOTS: DocumentNode = gql`
           address
           id
           nickname
-          port
           state
         }
         ... on URLRoot {
@@ -332,14 +331,8 @@ const ADD_IP_ROOT = gql`
     $address: String!
     $groupName: String!
     $nickname: String!
-    $port: Int!
   ) {
-    addIpRoot(
-      address: $address
-      groupName: $groupName
-      nickname: $nickname
-      port: $port
-    ) {
+    addIpRoot(address: $address, groupName: $groupName, nickname: $nickname) {
       success
     }
   }

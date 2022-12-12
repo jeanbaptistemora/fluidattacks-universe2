@@ -88,7 +88,6 @@ interface IIPRootAttr {
   address: string;
   id: string;
   nickname: string;
-  port: number;
   state: "ACTIVE" | "INACTIVE";
 }
 

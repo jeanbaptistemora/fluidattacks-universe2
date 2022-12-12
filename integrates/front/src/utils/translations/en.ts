@@ -1125,7 +1125,6 @@ export const enTranslations: ResourceKey = {
       ip: {
         address: "Address",
         nickname: "Nickname",
-        port: "Port",
         title: "IP Roots",
       },
       url: {

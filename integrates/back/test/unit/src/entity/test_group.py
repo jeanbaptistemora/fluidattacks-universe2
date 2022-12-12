@@ -606,7 +606,6 @@ async def test_add_ip_root_black() -> None:
           address: "8.8.8.8"
           groupName: "oneshottest"
           nickname: "test_ip"
-          port: 53
         ) {
           success
         }
@@ -625,7 +624,6 @@ async def test_add_ip_root_white() -> None:
           address: "8.8.8.8"
           groupName: "unittesting"
           nickname: "test_ip"
-          port: 53
         ) {
           success
         }
@@ -644,26 +642,6 @@ async def test_add_ip_root_invalid_ip() -> None:
           address: "randomstr"
           groupName: "oneshottest"
           nickname: "test_ip"
-          port: 53
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "value is not valid" in result["errors"][0]["message"]
-
-
-async def test_add_ip_root_invalid_port() -> None:
-    query = """
-      mutation {
-        addIpRoot(
-          address: "8.8.8.8"
-          groupName: "oneshottest"
-          nickname: "test_ip"
-          port: -2600
         ) {
           success
         }
@@ -683,7 +661,6 @@ async def test_add_ip_root_uniqueness() -> None:
           address: "1.1.1.1"
           groupName: "oneshottest"
           nickname: "test_ip_1"
-          port: 53
         ) {
           success
         }

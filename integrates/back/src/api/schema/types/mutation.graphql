@@ -294,8 +294,6 @@ type Mutation {
     groupName: String!
     "Nickname of the root"
     nickname: String!
-    "Indicates the port to test. Zero means all ports"
-    port: Int!
   ): AddRootPayload!
 
   "Adds a machine execution to git root"

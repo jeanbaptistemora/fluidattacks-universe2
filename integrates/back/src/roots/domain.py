@@ -353,7 +353,7 @@ async def add_ip_root(
 ) -> str:
     group_name = str(kwargs["group_name"]).lower()
     address: str = kwargs["address"]
-    port = str(kwargs["port"])
+    port = str(0)
     is_valid: bool = (
         validations.is_valid_ip(address) and 0 <= int(port) <= 65535
     )

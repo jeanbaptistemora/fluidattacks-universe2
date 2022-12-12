@@ -1,10 +1,10 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { number, object, string } from "yup";
+import { object, string } from "yup";
 
+import type { IIPRootAttr } from "../../types";
 import { Modal, ModalConfirm } from "components/Modal";
-import type { IIPRootAttr } from "scenes/Dashboard/containers/GroupToeInputsView/HandleAdditionModal/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 
@@ -15,7 +15,6 @@ interface IManagementModalProps {
     address: string;
     id: string;
     nickname: string;
-    port: number;
   }) => Promise<void>;
 }
 
@@ -24,7 +23,6 @@ const validations = object().shape({
   nickname: string()
     .required()
     .matches(/^[a-zA-Z_0-9-]{1,128}$/u),
-  port: number().required(),
 });
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
@@ -33,7 +31,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     address: "",
     id: "",
     nickname: "",
-    port: 0,
     state: "ACTIVE",
   },
   onClose,
@@ -56,31 +53,17 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <div className={"flex"}>
-              <div className={"w-70 mr3"}>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t("group.scope.ip.address")}
-                </ControlLabel>
-                <Field
-                  component={FormikText}
-                  disabled={isEditing}
-                  name={"address"}
-                  type={"text"}
-                />
-              </div>
-              <div className={"w-30"}>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t("group.scope.ip.port")}
-                </ControlLabel>
-                <Field
-                  component={FormikText}
-                  disabled={isEditing}
-                  name={"port"}
-                  type={"number"}
-                />
-              </div>
+            <div>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t("group.scope.ip.address")}
+              </ControlLabel>
+              <Field
+                component={FormikText}
+                disabled={isEditing}
+                name={"address"}
+                type={"text"}
+              />
             </div>
             <div>
               <ControlLabel>

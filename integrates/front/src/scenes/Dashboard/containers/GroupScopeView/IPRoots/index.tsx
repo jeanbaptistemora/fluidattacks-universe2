@@ -120,17 +120,19 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       address,
       id,
       nickname,
-      port,
     }: {
       address: string;
       id: string;
       nickname: string;
-      port: number;
     }): Promise<void> => {
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
           await addIpRoot({
-            variables: { address: address.trim(), groupName, nickname, port },
+            variables: {
+              address: address.trim(),
+              groupName,
+              nickname,
+            },
           });
         } else {
           await updateIpRoot({
@@ -198,10 +200,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                   {
                     accessorKey: "address",
                     header: String(t("group.scope.ip.address")),
-                  },
-                  {
-                    accessorKey: "port",
-                    header: String(t("group.scope.ip.port")),
                   },
                   {
                     accessorKey: "nickname",
