@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f211.literal.c_sharp import (
     cs_vuln_regex,
 )
+from symbolic_eval.f211.literal.java import (
+    java_vuln_regex,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -15,6 +18,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_VULN_REGEX: cs_vuln_regex,
+    MethodsEnum.JAVA_VULN_REGEX: java_vuln_regex,
 }
 
 

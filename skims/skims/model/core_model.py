@@ -4056,6 +4056,15 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_VULN_REGEX = MethodInfo(
+        file_name="java",
+        name="java_vuln_regex",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+
     CS_REGEX_INJETCION = MethodInfo(
         file_name="csharp",
         name="csharp_regex_injection",

@@ -8,6 +8,9 @@ from lib_root.f211.javascript import (
 from lib_root.f211.typescript import (
     regex_injection as ts_regex_injection,
 )
+from lib_root.f211.java import (
+    java_vuln_regular_expression,
+)
 from model import (
     core_model,
     graph_model,
@@ -19,4 +22,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, csharp_regex_injection),
     (FINDING, js_regex_injection),
     (FINDING, ts_regex_injection),
+    (FINDING, java_vuln_regular_expression),
 )
