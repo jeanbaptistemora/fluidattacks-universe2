@@ -2,9 +2,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.enums import (
-    Source,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -14,6 +11,9 @@ from db_model.vulnerabilities.enums import (
 from machine.jobs import (
     get_finding_code_from_title,
     queue_job_new,
+)
+from newutils.vulnerabilities import (
+    is_machine_vuln,
 )
 from organizations import (
     domain as orgs_domain,
@@ -44,7 +44,7 @@ async def main() -> None:
             vulns_to_reattack = tuple(
                 vuln
                 for vuln in vulns
-                if vuln.state.source == Source.MACHINE
+                if is_machine_vuln(vuln)
                 and vuln.verification
                 and vuln.verification.status
                 == VulnerabilityVerificationStatus.REQUESTED

@@ -820,6 +820,13 @@ def ignore_advisories(where: Optional[str]) -> str:
     return str(where)
 
 
+def is_machine_vuln(vuln: Vulnerability) -> bool:
+    return (
+        vuln.state.source == Source.MACHINE
+        or vuln.hacker_email == "machine@fluidattacks.com"
+    )
+
+
 async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
     loaders: Any,
     group_name: str,
@@ -868,7 +875,7 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
                     ToeInputRequest(
                         component=where,
                         entry_point=""
-                        if vulnerability.state.source == Source.MACHINE
+                        if is_machine_vuln(vulnerability)
                         else specific,
                         group_name=group_name,
                         root_id=vulnerability.root_id,

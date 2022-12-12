@@ -112,6 +112,7 @@ from newutils.string import (
 )
 from newutils.vulnerabilities import (
     ignore_advisories,
+    is_machine_vuln,
 )
 from organizations_finding_policies import (
     domain as policies_domain,
@@ -976,7 +977,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
         if vuln.state.status == VulnerabilityStateStatus.OPEN
-        and vuln.state.source == Source.MACHINE
+        and is_machine_vuln(vuln)
         and vuln.root_id == git_root.id
     )
 
