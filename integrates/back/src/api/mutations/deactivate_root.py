@@ -32,6 +32,7 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
+    IPRoot,
     Root,
     URLRoot,
 )
@@ -204,6 +205,14 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         if isinstance(root, (GitRoot, URLRoot)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
+                entity=group_name,
+                subject=email,
+                additional_info=root.state.nickname,
+                product_name=Product.INTEGRATES,
+            )
+        if isinstance(root, IPRoot):
+            await batch_dal.put_action(
+                action=Action.REFRESH_TOE_PORTS,
                 entity=group_name,
                 subject=email,
                 additional_info=root.state.nickname,
