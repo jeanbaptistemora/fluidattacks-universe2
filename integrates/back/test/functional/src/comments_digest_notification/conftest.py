@@ -129,7 +129,9 @@ async def populate() -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2022-11-24T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-11-24T22:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.SQUAD,

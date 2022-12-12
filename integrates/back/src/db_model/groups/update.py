@@ -28,6 +28,7 @@ from db_model.types import (
     PoliciesToUpdate,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -108,7 +109,7 @@ async def update_state(
         facet=TABLE.facets["group_historic_state"],
         values={
             "name": group_name,
-            "iso8601utc": state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
         },
     )
     historic_item = {

@@ -18,6 +18,9 @@ from .types import (
     GroupUnreliableIndicators,
     UnfulfilledStandard,
 )
+from datetime import (
+    datetime,
+)
 from db_model.organizations.utils import (
     add_org_id_prefix,
     format_policies,
@@ -279,7 +282,7 @@ def format_state(state: Item) -> GroupState:
         managed=format_state_managed(state["managed"]),
         justification=format_state_justification(state.get("justification")),
         modified_by=state["modified_by"],
-        modified_date=state["modified_date"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
         payment_id=state["payment_id"] if state.get("payment_id") else None,
         pending_deletion_date=state.get("pending_deletion_date"),
         service=GroupService[state["service"]]

@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -40,7 +43,9 @@ def test_filter_active_groups(
             has_squad=False,
             managed=managed,
             modified_by="johndoe@fluidattacks.com",
-            modified_date="2022-10-21T15:58:31.280182",
+            modified_date=datetime.fromisoformat(
+                "2022-10-21T15:58:31.280182+00:00"
+            ),
             service=GroupService.WHITE,
             status=status,
             tier=GroupTier.FREE,

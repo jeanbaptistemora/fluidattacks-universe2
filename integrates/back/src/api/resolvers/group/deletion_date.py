@@ -10,8 +10,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.datetime import (
-    convert_from_iso_str,
+from newutils import (
+    datetime as datetime_utils,
 )
 from typing import (
     Optional,
@@ -25,7 +25,7 @@ async def resolve(
     **_kwargs: None,
 ) -> Optional[str]:
     return (
-        convert_from_iso_str(parent.state.modified_date)
+        datetime_utils.get_as_str(parent.state.modified_date)
         if parent.state.status == GroupStateStatus.DELETED
         else None
     )

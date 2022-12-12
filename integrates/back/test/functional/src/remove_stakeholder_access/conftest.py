@@ -5,6 +5,9 @@ from back.test import (
 from collections import (
     defaultdict,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -111,7 +114,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2020-05-20T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.OTHER,

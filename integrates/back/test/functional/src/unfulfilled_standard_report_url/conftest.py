@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.compliance.types import (
     ComplianceStandard,
     ComplianceUnreliableIndicators,
@@ -85,7 +88,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2020-05-20T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         status=GroupStateStatus.ACTIVE,
                         tags={"testing"},
                         tier=GroupTier.SQUAD,

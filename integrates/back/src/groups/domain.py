@@ -356,7 +356,7 @@ async def add_group(
                 has_squad=has_squad,
                 managed=managed,
                 modified_by=email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 service=service,
                 status=GroupStateStatus.ACTIVE,
                 tier=tier,
@@ -499,7 +499,7 @@ async def remove_group(
         group_name=group_name,
         organization_id=group.organization_id,
         state=group.state._replace(
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             has_machine=False,
             has_squad=False,
             justification=justification,
@@ -550,12 +550,12 @@ async def update_group_managed(
                 organization_id=group.organization_id,
                 state=GroupState(
                     comments=comments,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     has_machine=group.state.has_machine,
                     has_squad=group.state.has_squad,
                     managed=managed,
                     payment_id=group.state.payment_id,
-                    justification=GroupStateUpdationJustification["NONE"],
+                    justification=GroupStateUpdationJustification.NONE,
                     modified_by=email,
                     service=group.state.service,
                     status=GroupStateStatus.ACTIVE,
@@ -596,11 +596,11 @@ async def update_group_payment_id(
             organization_id=group.organization_id,
             state=GroupState(
                 comments=comments,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 has_machine=group.state.has_machine,
                 has_squad=group.state.has_squad,
                 managed=managed,
-                justification=GroupStateUpdationJustification["NONE"],
+                justification=GroupStateUpdationJustification.NONE,
                 modified_by=email,
                 payment_id=payment_id,
                 service=group.state.service,
@@ -662,7 +662,7 @@ async def update_group(
         organization_id=group.organization_id,
         state=GroupState(
             comments=comments,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             has_machine=has_machine,
             has_squad=has_squad,
             managed=group.state.managed,
@@ -1580,7 +1580,7 @@ async def set_pending_deletion_date(
         organization_id=group.organization_id,
         state=group.state._replace(
             modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             pending_deletion_date=pending_deletion_date,
         ),
     )
@@ -1596,7 +1596,7 @@ async def remove_pending_deletion_date(
         organization_id=group.organization_id,
         state=group.state._replace(
             modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             pending_deletion_date="",
         ),
     )
@@ -1617,12 +1617,12 @@ async def update_group_tags(
             organization_id=group.organization_id,
             state=GroupState(
                 comments=group.state.comments,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 has_machine=group.state.has_machine,
                 has_squad=group.state.has_squad,
                 managed=group.state.managed,
                 payment_id=group.state.payment_id,
-                justification=GroupStateUpdationJustification["NONE"],
+                justification=GroupStateUpdationJustification.NONE,
                 modified_by=email,
                 service=group.state.service,
                 status=GroupStateStatus.ACTIVE,

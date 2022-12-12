@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -18,15 +21,14 @@ from db_model.groups.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("resources")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "groups": [
             {
                 "group": Group(
@@ -40,7 +42,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         has_squad=False,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2020-05-20T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.OTHER,

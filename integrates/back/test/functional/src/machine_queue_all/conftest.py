@@ -1,6 +1,9 @@
 from back.test import (  # pylint: disable=import-error
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -38,15 +41,14 @@ from db_model.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("machine_queue_all")
 @pytest.fixture(scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "groups": [
             {
                 "group": Group(
@@ -61,7 +63,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.OTHER,
@@ -82,7 +86,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.OTHER,
@@ -103,7 +109,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.DELETED,
                         tier=GroupTier.OTHER,

@@ -8,6 +8,9 @@ from .enums import (
     GroupSubscriptionType,
     GroupTier,
 )
+from datetime import (
+    datetime,
+)
 from db_model.types import (
     CodeLanguage,
     Policies,
@@ -16,7 +19,6 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    List,
     NamedTuple,
     Optional,
     Union,
@@ -34,7 +36,7 @@ class GroupState(NamedTuple):
     has_squad: bool
     managed: GroupManaged
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     status: GroupStateStatus
     tier: GroupTier
     type: GroupSubscriptionType
@@ -60,7 +62,7 @@ class UnfulfilledStandard(NamedTuple):
 
 class GroupUnreliableIndicators(NamedTuple):
     closed_vulnerabilities: Optional[int] = None
-    code_languages: Optional[List[CodeLanguage]] = None
+    code_languages: Optional[list[CodeLanguage]] = None
     exposed_over_time_cvssf: Optional[RegisterByTime] = None
     exposed_over_time_month_cvssf: Optional[RegisterByTime] = None
     exposed_over_time_year_cvssf: Optional[RegisterByTime] = None

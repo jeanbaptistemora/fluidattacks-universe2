@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -107,7 +110,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2020-05-20T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         service=GroupService.BLACK,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.SQUAD,
@@ -129,7 +134,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_squad=False,
                         managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
-                        modified_date="2020-05-20T22:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         service=GroupService.BLACK,
                         status=GroupStateStatus.DELETED,
                         tier=GroupTier.SQUAD,
@@ -152,7 +159,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@fluidattacks.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.FREE,

@@ -2,6 +2,9 @@ import asyncio
 from asyncio import (
     AbstractEventLoop,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enrollment.types import (
     Enrollment,
     Trial,
@@ -472,7 +475,9 @@ def generic_data(  # pylint: disable=too-many-locals
                             has_squad=True,
                             managed=GroupManaged["MANAGED"],
                             modified_by="unknown",
-                            modified_date="2020-05-20T22:00:00+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-05-20T22:00:00+00:00"
+                            ),
                             service=GroupService.WHITE,
                             status=GroupStateStatus.ACTIVE,
                             tier=GroupTier.OTHER,
@@ -494,7 +499,9 @@ def generic_data(  # pylint: disable=too-many-locals
                             has_squad=True,
                             managed=GroupManaged["MANAGED"],
                             modified_by="unknown",
-                            modified_date="2020-05-20T22:00:00+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-05-20T22:00:00+00:00"
+                            ),
                             service=GroupService.WHITE,
                             status=GroupStateStatus.ACTIVE,
                             tier=GroupTier.OTHER,
@@ -516,7 +523,9 @@ def generic_data(  # pylint: disable=too-many-locals
                             has_squad=True,
                             managed=GroupManaged["MANAGED"],
                             modified_by="unknown",
-                            modified_date="2020-05-20T22:00:00+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-05-20T22:00:00+00:00"
+                            ),
                             service=GroupService.BLACK,
                             status=GroupStateStatus.ACTIVE,
                             tier=GroupTier.OTHER,
@@ -538,7 +547,9 @@ def generic_data(  # pylint: disable=too-many-locals
                             has_squad=False,
                             managed=GroupManaged["MANAGED"],
                             modified_by="unknown",
-                            modified_date="2020-05-20T22:00:00+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-05-20T22:00:00+00:00"
+                            ),
                             service=GroupService.BLACK,
                             status=GroupStateStatus.ACTIVE,
                             tier=GroupTier.OTHER,

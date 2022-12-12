@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -42,15 +45,14 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("groups_languages_distribution")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "groups": [
             {
                 "group": Group(
@@ -65,7 +67,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         has_squad=True,
                         managed=GroupManaged.MANAGED,
                         modified_by="user_manager@fomain.com",
-                        modified_date="2022-09-12T19:10:00-05:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-12T19:10:00-05:00"
+                        ),
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.SQUAD,
                         type=GroupSubscriptionType.CONTINUOUS,

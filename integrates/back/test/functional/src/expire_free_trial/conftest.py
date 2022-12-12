@@ -104,7 +104,9 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.FREE,
@@ -125,7 +127,9 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.FREE,
@@ -146,7 +150,9 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
                         modified_by="uiguaran@uiguaran.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.FREE,
@@ -167,7 +173,9 @@ async def populate() -> bool:
                         has_squad=False,
                         managed=GroupManaged.MANAGED,
                         modified_by="abuendia@abuendia.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182"
+                        ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.FREE,
