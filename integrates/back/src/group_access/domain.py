@@ -65,13 +65,10 @@ from newutils.group_access import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Any,
-)
 
 
 async def add_access(
-    loaders: Any, email: str, group_name: str, role: str
+    loaders: Dataloaders, email: str, group_name: str, role: str
 ) -> None:
     await update(
         loaders=loaders,
@@ -85,7 +82,9 @@ async def add_access(
     await authz.grant_group_level_role(loaders, email, group_name, role)
 
 
-async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
+async def get_access_by_url_token(
+    loaders: Dataloaders, url_token: str
+) -> GroupAccess:
     try:
         token_content = sessions_domain.decode_token(url_token)
         group_name: str = token_content["group_name"]
@@ -99,7 +98,7 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
 
 
 async def get_reattackers(
-    loaders: Any, group_name: str, active: bool = True
+    loaders: Dataloaders, group_name: str, active: bool = True
 ) -> list[str]:
     stakeholders = await get_group_stakeholders_emails(
         loaders, group_name, active
@@ -153,7 +152,7 @@ async def get_group_stakeholders_emails(
     ]
 
 
-async def get_managers(loaders: Any, group_name: str) -> list[str]:
+async def get_managers(loaders: Dataloaders, group_name: str) -> list[str]:
     stakeholders = await get_group_stakeholders_emails(
         loaders, group_name, active=True
     )
@@ -211,7 +210,7 @@ async def get_stakeholders_subscribed_to_consult(
 
 async def get_stakeholders_email_by_preferences(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     notification: str,
     roles: set[str],
@@ -234,7 +233,7 @@ async def get_stakeholders_email_by_preferences(
 
 async def get_stakeholders_email_by_roles(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     roles: set[str],
 ) -> list[str]:
@@ -257,7 +256,7 @@ async def get_stakeholders_email_by_roles(
     return email_list
 
 
-async def exists(loaders: Any, group_name: str, email: str) -> bool:
+async def exists(loaders: Dataloaders, group_name: str, email: str) -> bool:
     try:
         await loaders.group_access.load(
             GroupAccessRequest(group_name=group_name, email=email)
@@ -267,7 +266,9 @@ async def exists(loaders: Any, group_name: str, email: str) -> bool:
         return False
 
 
-async def remove_access(loaders: Any, email: str, group_name: str) -> None:
+async def remove_access(
+    loaders: Dataloaders, email: str, group_name: str
+) -> None:
     await group_access_model.remove(email=email, group_name=group_name)
 
     if email and group_name:
@@ -352,7 +353,7 @@ def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
 
 
 async def get_stakeholder_role(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     group_name: str,
     is_registered: bool,

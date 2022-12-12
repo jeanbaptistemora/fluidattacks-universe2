@@ -6,6 +6,9 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     findings as findings_model,
 )
@@ -41,10 +44,7 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
-    Any,
     cast,
-    Dict,
-    List,
     Optional,
 )
 
@@ -81,7 +81,7 @@ async def download_evidence_file(
 
 async def get_records_from_file(
     group_name: str, finding_id: str, file_name: str
-) -> List[Dict[object, object]]:
+) -> list[dict[object, object]]:
     file_path = await download_evidence_file(group_name, finding_id, file_name)
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
@@ -100,7 +100,7 @@ async def get_records_from_file(
 
 
 async def remove_evidence(
-    loaders: Any, evidence_id: str, finding_id: str
+    loaders: Dataloaders, evidence_id: str, finding_id: str
 ) -> None:
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
@@ -120,7 +120,7 @@ async def remove_evidence(
 
 
 async def update_evidence(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     evidence_id: str,
     file_object: UploadFile,
@@ -155,7 +155,7 @@ async def update_evidence(
             )
             if old_records:
                 file_object = await finding_utils.append_records_to_file(
-                    cast(List[Dict[str, str]], old_records), file_object
+                    cast(list[dict[str, str]], old_records), file_object
                 )
 
     await findings_storage.save_evidence(file_object, full_name)
@@ -190,7 +190,7 @@ async def update_evidence(
 
 
 async def update_evidence_description(
-    loaders: Any, finding_id: str, evidence_id: str, description: str
+    loaders: Dataloaders, finding_id: str, evidence_id: str, description: str
 ) -> None:
     validations_utils.validate_fields([description])
     validations_utils.validate_field_length(description, 5000)

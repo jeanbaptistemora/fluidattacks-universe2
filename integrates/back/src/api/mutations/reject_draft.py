@@ -10,6 +10,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Notification,
     Source,
@@ -68,31 +71,32 @@ async def mutate(
     reasons: list[str],
     other: Optional[str] = None,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     try:
         # Graphql returns optional string args as "None" instead of None
         other_reason: Optional[str] = other if other != str(None) else None
-
-        finding_loader = info.context.loaders.finding
         user_info = await sessions_domain.get_jwt_content(info.context)
+        source = requests_utils.get_source_new(info.context)
         rejection: DraftRejection = await findings_domain.reject_draft(
-            context=info.context,
+            loaders=loaders,
             finding_id=finding_id,
             reasons={DraftRejectionReason[reason] for reason in reasons},
             other=other_reason.strip() if other_reason else None,
             reviewer_email=user_info["user_email"],
+            source=source,
         )
-        stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
+        stakeholder: Stakeholder = await loaders.stakeholder.load(
             rejection.rejected_by
         )
         if (
-            requests_utils.get_source_new(info.context) != Source.MACHINE
+            source != Source.MACHINE
             and Notification.NEW_DRAFT
             in stakeholder.state.notifications_preferences.email
         ):
-            finding: Finding = await finding_loader.load(finding_id)
+            finding: Finding = await loaders.finding.load(finding_id)
             schedule(
                 findings_mail.send_mail_reject_draft(
-                    loaders=info.context.loaders,
+                    loaders=loaders,
                     draft_id=finding.id,
                     draft_title=finding.title,
                     group_name=finding.group_name,

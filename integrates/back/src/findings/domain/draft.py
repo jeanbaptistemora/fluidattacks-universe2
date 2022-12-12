@@ -8,6 +8,9 @@ from custom_exceptions import (
     IncompleteDraft,
     NotSubmitted,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -45,7 +48,6 @@ from findings.types import (
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
-    requests as requests_utils,
     validations as validation_utils,
 )
 from newutils.findings import (
@@ -55,9 +57,6 @@ from newutils.validations import (
     validate_field_length,
 )
 from typing import (
-    Any,
-    Dict,
-    List,
     Optional,
 )
 import uuid
@@ -67,7 +66,7 @@ from vulnerabilities import (
 
 
 async def approve_draft(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     user_email: str,
     source: Source,
@@ -123,7 +122,7 @@ async def approve_draft(
     return new_state.modified_date
 
 
-def validate_draft_inputs(*, kwargs: List[str]) -> None:
+def validate_draft_inputs(*, kwargs: list[str]) -> None:
     for value in kwargs:
         if isinstance(value, str):
             validate_field_length(value, 5000)
@@ -162,12 +161,13 @@ async def add_draft(
     return draft
 
 
-async def reject_draft(
-    context: Any,
+async def reject_draft(  # pylint: disable=too-many-arguments
+    loaders: Dataloaders,
     finding_id: str,
     reasons: set[DraftRejectionReason],
     other: Optional[str],
     reviewer_email: str,
+    source: Source,
 ) -> DraftRejection:
     if other:
         validation_utils.validate_fields([other])
@@ -177,8 +177,7 @@ async def reject_draft(
             is_greater_than_limit=False,
         )
 
-    finding_loader = context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -201,7 +200,7 @@ async def reject_draft(
         modified_by=reviewer_email,
         modified_date=rejection_date,
         rejection=rejection,
-        source=requests_utils.get_source_new(context),
+        source=source,
         status=FindingStateStatus.REJECTED,
     )
     await findings_model.update_state(
@@ -214,7 +213,7 @@ async def reject_draft(
 
 
 async def submit_draft(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     user_email: str,
     source: Source,
@@ -238,7 +237,7 @@ async def submit_draft(
         for evidence in get_formatted_evidence(finding).values()
     )
     if not has_severity or not has_vulns:
-        required_fields: Dict[str, bool] = {
+        required_fields: dict[str, bool] = {
             "evidences": has_evidence,
             "severity": has_severity,
             "vulnerabilities": has_vulns,

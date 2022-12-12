@@ -42,7 +42,6 @@ from mailer import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
     TypedDict,
 )
@@ -52,7 +51,7 @@ class VulnsProperties(TypedDict):
     remaining_exposure: int
     severity_level: str
     severity_score: Decimal
-    vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
+    vulns_props: dict[str, dict[str, dict[str, Any]]]
 
 
 async def get_vuln_nickname(
