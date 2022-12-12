@@ -15,6 +15,7 @@ interface IContainerProps {
   borderTR?: string;
   borderBL?: string;
   borderBR?: string;
+  boxShadow?: string;
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
@@ -30,6 +31,7 @@ interface IContainerProps {
   pl?: string;
   pr?: string;
   pt?: string;
+  pbMd?: string;
   position?: string;
   positionBottom?: string;
   positionLeft?: string;
@@ -38,6 +40,7 @@ interface IContainerProps {
   scroll?: "none" | "x" | "xy" | "y";
   textAlign?: string;
   width?: string;
+  widthMd?: string;
   wrap?: TWrap;
 }
 
@@ -55,6 +58,7 @@ const Container = styled.div.attrs({
     borderTR = "0px 0px",
     borderBL = "0px 0px",
     borderBR = "0px 0px",
+    boxShadow = "",
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
@@ -70,6 +74,7 @@ const Container = styled.div.attrs({
     pl = "0",
     pr = "0",
     pt = "0",
+    pbMd = "0",
     position = "static",
     positionBottom = "",
     positionLeft = "",
@@ -78,6 +83,7 @@ const Container = styled.div.attrs({
     scroll = "y",
     textAlign = "",
     width = "auto",
+    widthMd = "auto",
     wrap = "unset",
   }): string => `
 align-items: ${align};
@@ -91,6 +97,7 @@ border-top-left-radius: ${borderTl};
 border-top-right-radius: ${borderTR};
 border-bottom-right-radius: ${borderBR};
 border-bottom-left-radius: ${borderBL};
+box-shadow: ${boxShadow};
 display: ${display};
 flex-wrap: ${wrap};
 font-family: ${fontFamily};
@@ -117,6 +124,15 @@ right: ${positionRight};
 text-align: ${textAlign};
 transition: all 0.3s ease;
 width: ${width};
+
+@media screen and (min-width: 86em) {
+   width: ${width};
+    }
+
+@media screen and (max-width: 86em) {
+   width: ${widthMd === "auto" ? width : widthMd};
+   padding-bottom: ${pbMd === "0" ? pb : pbMd};
+    }
 
 ::-webkit-scrollbar {
   width: 8px;

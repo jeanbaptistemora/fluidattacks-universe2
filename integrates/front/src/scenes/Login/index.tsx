@@ -59,8 +59,10 @@ export const Login: React.FC = (): JSX.Element => {
           align={"center"}
           display={"flex"}
           height={"700px"}
+          maxWidth={"350px"}
           position={"absolute"}
-          width={"350px"}
+          width={"100%"}
+          widthMd={"30%"}
           wrap={"wrap"}
         >
           <Container
@@ -92,10 +94,16 @@ export const Login: React.FC = (): JSX.Element => {
               </Text>
             </Container>
           </Container>
-          <Container maxWidth={"350px"} pt={"32px"} width={"100%"}>
+          <Container maxWidth={"350px"} pt={"32px"} widthMd={"300px"}>
             <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
-              <Container display={"flex"} wrap={"wrap"}>
-                <Container minWidth={"40px"} />
+              <Container
+                align={"center"}
+                display={"flex"}
+                justify={"center"}
+                widthMd={"100%"}
+                wrap={"wrap"}
+              >
+                <Container width={"40px"} widthMd={"0px"} />
                 <Container
                   bgImage={`url(${loginGoogleLogo})`}
                   bgImagePos={"100% 100%"}
@@ -111,14 +119,24 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"350px"} pt={"16px"} width={"100%"}>
+          <Container
+            maxWidth={"350px"}
+            pt={"16px"}
+            width={"100%"}
+            widthMd={"300px"}
+          >
             <Button
               onClick={handleMicrosoftLogin}
               size={"lg"}
               variant={"input"}
             >
-              <Container display={"flex"} wrap={"wrap"}>
-                <Container minWidth={"40px"} />
+              <Container
+                align={"center"}
+                display={"flex"}
+                justify={"center"}
+                wrap={"wrap"}
+              >
+                <Container width={"40px"} widthMd={"0px"} />
                 <Container
                   bgImage={`url(${loginMicrosoftLogo})`}
                   bgImagePos={"100% 100%"}
@@ -135,14 +153,24 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"350px"} pt={"16px"} width={"100%"}>
+          <Container
+            maxWidth={"350px"}
+            pt={"16px"}
+            width={"100%"}
+            widthMd={"300px"}
+          >
             <Button
               onClick={handleBitbucketLogin}
               size={"lg"}
               variant={"input"}
             >
-              <Container display={"flex"} wrap={"wrap"}>
-                <Container minWidth={"40px"} />
+              <Container
+                align={"center"}
+                display={"flex"}
+                justify={"center"}
+                wrap={"wrap"}
+              >
+                <Container width={"40px"} widthMd={"0px"} />
                 <Container
                   bgImage={`url(${loginBitBucketLogo})`}
                   bgImagePos={"100% 100%"}
@@ -164,6 +192,7 @@ export const Login: React.FC = (): JSX.Element => {
             display={"flex"}
             justify={"center"}
             pb={"60px"}
+            pbMd={"10px"}
             pt={"32px"}
             width={"350px"}
             wrap={"wrap"}
@@ -209,7 +238,7 @@ export const Login: React.FC = (): JSX.Element => {
                 </ExternalLink>
               </Text>
             </Container>
-            <Container pt={"7px"} width={"25px"}>
+            <Container width={"25px"}>
               <Text bright={9} tone={"light"}>
                 {"and"}
               </Text>
@@ -270,9 +299,13 @@ export const Login: React.FC = (): JSX.Element => {
             <Container
               align={"start"}
               bgImage={`url(${loginNewFeat})`}
-              bgImagePos={"90% 100%"}
-              height={"440px"}
-              width={"720px"}
+              bgImagePos={"100% 100%"}
+              borderBL={"10px"}
+              borderBR={"10px"}
+              borderTR={"10px"}
+              borderTl={"10px"}
+              height={"370px"}
+              width={"620px"}
             />
           </Container>
         </Container>
