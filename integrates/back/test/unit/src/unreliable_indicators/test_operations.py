@@ -1,6 +1,9 @@
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -51,7 +54,7 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         unreliable_closed_vulnerabilities=0,
         unreliable_open_vulnerabilities=1,
         unreliable_newest_vulnerability_report_date=(
-            "2020-01-03T17:46:10+00:00"
+            datetime.fromisoformat("2020-01-03T17:46:10+00:00")
         ),
         unreliable_oldest_open_vulnerability_report_date=(
             "2020-01-03T17:46:10+00:00"

@@ -398,6 +398,13 @@ def get_report_days(report_date: str) -> int:
     return days
 
 
+def get_report_days_datetime(report_date: Optional[datetime]) -> int:
+    """Gets amount of days from a report date."""
+    return (
+        (datetime_utils.get_utc_now() - report_date).days if report_date else 0
+    )
+
+
 def get_severity_level(severity: Decimal) -> str:
     if severity <= 3.9:
         return "low"

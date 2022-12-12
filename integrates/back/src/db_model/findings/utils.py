@@ -220,7 +220,11 @@ def format_unreliable_indicators_item(
             indicators.unreliable_closed_vulnerabilities
         ),
         "unreliable_newest_vulnerability_report_date": (
-            indicators.unreliable_newest_vulnerability_report_date
+            get_as_utc_iso_format(
+                indicators.unreliable_newest_vulnerability_report_date
+            )
+            if indicators.unreliable_newest_vulnerability_report_date
+            else ""
         ),
         "unreliable_oldest_open_vulnerability_report_date": (
             indicators.unreliable_oldest_open_vulnerability_report_date
@@ -250,7 +254,13 @@ def format_unreliable_indicators(
             indicators_item["unreliable_closed_vulnerabilities"]
         ),
         unreliable_newest_vulnerability_report_date=(
-            indicators_item["unreliable_newest_vulnerability_report_date"]
+            datetime.fromisoformat(
+                indicators_item["unreliable_newest_vulnerability_report_date"]
+            )
+            if indicators_item.get(
+                "unreliable_newest_vulnerability_report_date"
+            )
+            else None
         ),
         unreliable_oldest_open_vulnerability_report_date=(
             indicators_item["unreliable_oldest_open_vulnerability_report_date"]

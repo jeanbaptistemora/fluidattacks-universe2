@@ -10,6 +10,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -266,7 +269,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=3,
         unreliable_newest_vulnerability_report_date=(
-            "2022-02-09T00:00:00+00:00"
+            datetime.fromisoformat("2022-02-09T00:00:00+00:00")
         ),
         unreliable_oldest_open_vulnerability_report_date=(
             "2018-04-08T00:43:11+00:00"

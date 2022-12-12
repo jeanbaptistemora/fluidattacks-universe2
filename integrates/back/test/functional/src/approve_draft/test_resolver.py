@@ -64,9 +64,7 @@ async def test_approve_draft(
         finding.unreliable_indicators
     )
     assert (
-        datetime.fromisoformat(
-            finding_indicators.unreliable_newest_vulnerability_report_date
-        )
+        finding_indicators.unreliable_newest_vulnerability_report_date
         == approval_date
     )
     assert (

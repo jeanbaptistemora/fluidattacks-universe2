@@ -100,8 +100,9 @@ data: Dict[str, List[Any]] = dict(
                     192.168.1.6, 192.168.1.7, 192.168.1.8, 192.168.1.9,
                     192.168.100.101, 192.168.100.104, 192.168.100.105,
                     192.168.100.108, 192.168.100.111""",
-                unreliable_newest_vulnerability_report_date="""2019-09-16
-                    T21:01:24+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2019-09-16T21:01:24+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("1"),
                     requested=Decimal("1"),
@@ -241,8 +242,9 @@ data: Dict[str, List[Any]] = dict(
                 practicies for strong passwords.""",
             unreliable_indicators=dict(
                 unreliable_where="test/data/lib_path/f060/csharp.cs",
-                unreliable_newest_vulnerability_report_date="""2020-01-03
-                    T17:46:10+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2020-01-03T17:46:10+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("0"),
                     requested=Decimal("0"),
@@ -384,8 +386,9 @@ data: Dict[str, List[Any]] = dict(
             recommendation="Recomendacion de prueba.",
             unreliable_indicators=dict(
                 unreliable_where="192.168.1.19",
-                unreliable_newest_vulnerability_report_date="""2019-04-08
-                    T00:45:15+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2019-04-08T00:45:15+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("0"),
                     requested=Decimal("0"),

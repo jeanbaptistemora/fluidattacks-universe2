@@ -103,8 +103,9 @@ data: Dict[str, List[Any]] = dict(
                 legítimos.""",
             unreliable_indicators=dict(
                 unreliable_where="path/to/file2.ext",
-                unreliable_newest_vulnerability_report_date="""2019-01-15
-                    T16:04:14+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2019-01-15T16:04:14+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("0"),
                     requested=Decimal("0"),
@@ -237,8 +238,9 @@ data: Dict[str, List[Any]] = dict(
                 practicies for strong passwords.""",
             unreliable_indicators=dict(
                 unreliable_where="test/data/lib_path/f060/csharp.cs",
-                unreliable_newest_vulnerability_report_date="""2020-01-03
-                    T17:46:10+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2020-01-03T17:46:10+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("0"),
                     requested=Decimal("0"),
@@ -378,8 +380,9 @@ data: Dict[str, List[Any]] = dict(
                 ningún nombre o versión.""",
             unreliable_indicators=dict(
                 unreliable_where="192.168.1.9",
-                unreliable_newest_vulnerability_report_date="""2020-09-12
-                    T13:45:48+00:00""",
+                unreliable_newest_vulnerability_report_date=(
+                    "2020-09-12T13:45:48+00:00"
+                ),
                 unreliable_verification_summary=dict(
                     verified=Decimal("0"),
                     requested=Decimal("0"),
