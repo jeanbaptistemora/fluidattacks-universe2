@@ -208,6 +208,28 @@ available for one hour.
 - **Last reattack Requester:**
   Email of the user who requested
   the most recent reattack.
+- **CVSSv3.1 string vector,**
+  **Attack Vector,**
+  **Attack Complexity,**
+  **Privileges Required,**
+  **User Interaction,**
+  **Severity Scope,**
+  **Confidentiality Impact,**
+  **Integrity Impact,**
+  **Availability Impact,**
+  **Exploitability,**
+  **Remediation Level and**
+  **Report Confidence:**
+  All these columns are part
+  of the Severity Score
+  [CVSS](https://www.first.org/cvss/v3.1/specification-document)
+  values.
+- **Commit Hash:**
+  Commit identifier where the
+  vulnerability was found.
+- **Root Nickname:**
+  The nickname of that root
+  where the vulnerability was found.
 
 ## Report Filters
 
