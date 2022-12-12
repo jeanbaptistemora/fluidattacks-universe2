@@ -12,6 +12,7 @@ from typing import (
 
 
 class ToeInputState(NamedTuple):
+    modified_by: Optional[str]
     modified_date: Optional[str]
 
 

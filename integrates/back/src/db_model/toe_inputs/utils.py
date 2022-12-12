@@ -29,6 +29,7 @@ def format_toe_input(
 ) -> ToeInput:
     return ToeInput(
         state=ToeInputState(
+            modified_by=item.get("state", {}).get("modified_by"),
             modified_date=item.get("state", {}).get("modified_date"),
         ),
         attacked_at=datetime.fromisoformat(item["attacked_at"])
@@ -98,7 +99,8 @@ def format_toe_input_item(
         else db_model_utils.get_as_utc_iso_format(toe_input.seen_at),
         "seen_first_time_by": toe_input.seen_first_time_by,
         "unreliable_root_id": toe_input.unreliable_root_id,
-        "state": {"modified_date": toe_input.state.modified_date}
-        if toe_input.state.modified_date
-        else None,
+        "state": {
+            "modified_by": toe_input.state.modified_by,
+            "modified_date": toe_input.state.modified_date,
+        },
     }

@@ -48,7 +48,10 @@ async def test_add() -> None:
         has_vulnerabilities=False,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="new@test.com",
-        state=ToeInputState(modified_date="2022-11-11T05:00:00+00:00"),
+        state=ToeInputState(
+            modified_by="new@test.com",
+            modified_date="2022-11-11T05:00:00+00:00",
+        ),
         unreliable_root_id="",
     )
     await toe_inputs_domain.add(
@@ -116,7 +119,10 @@ async def test_delete() -> None:
             seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
             seen_first_time_by="new@test.com",
             unreliable_root_id="",
-            state=ToeInputState(modified_date="2022-11-11T05:00:00+00:00"),
+            state=ToeInputState(
+                modified_by="new@test.com",
+                modified_date="2022-11-11T05:00:00+00:00",
+            ),
         ),
     )
 
@@ -162,8 +168,9 @@ async def test_update() -> None:
         unreliable_root_id="",
     )
     await toe_inputs_domain.update(
-        current_value,
-        attributes,
+        current_value=current_value,
+        attributes=attributes,
+        modified_by="edited@test.com",
         is_moving_toe_input=True,
     )
     loaders = get_new_context()
@@ -187,6 +194,9 @@ async def test_update() -> None:
         group_name=group_name,
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
-        state=ToeInputState(modified_date="2022-11-11T15:00:00+00:00"),
+        state=ToeInputState(
+            modified_by="edited@test.com",
+            modified_date="2022-11-11T15:00:00+00:00",
+        ),
         unreliable_root_id="",
     )

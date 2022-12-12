@@ -29,6 +29,9 @@ from newutils import (
 from roots.domain import (
     remove_environment_url_id,
 )
+from sessions import (
+    domain as sessions_domain,
+)
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
@@ -60,6 +63,8 @@ async def mutate(
     logs_utils.cloudwatch_log(
         info.context, f"Security: remove git envs {url_id} from root {root_id}"
     )
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
     try:
         inputs_to_update: tuple[
             ToeInput, ...
@@ -74,10 +79,11 @@ async def mutate(
         await collect(
             tuple(
                 toe_inputs_domain.update(
-                    current_value,
-                    ToeInputAttributesToUpdate(
+                    current_value=current_value,
+                    attributes=ToeInputAttributesToUpdate(
                         be_present=False,
                     ),
+                    modified_by=user_email,
                 )
                 for current_value in inputs_to_update
                 if current_value.component.startswith(url)

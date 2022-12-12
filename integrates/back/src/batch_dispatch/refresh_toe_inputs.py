@@ -160,7 +160,10 @@ async def refresh_active_root_toe_inputs(
     await collect(
         tuple(
             toe_inputs_update(
-                current_value, attrs_to_update, is_moving_toe_input=True
+                current_value=current_value,
+                attributes=attrs_to_update,
+                modified_by="machine@fluidattacks.com",
+                is_moving_toe_input=True,
             )
             for current_value, attrs_to_update in (
                 present_toe_inputs_to_update
@@ -204,7 +207,10 @@ async def refresh_inactive_root_toe_inputs(
     await collect(
         tuple(
             toe_inputs_update(
-                current_value, attrs_to_update, is_moving_toe_input=True
+                current_value=current_value,
+                attributes=attrs_to_update,
+                modified_by="machine@fluidattacks.com",
+                is_moving_toe_input=True,
             )
             for current_value, attrs_to_update in (
                 non_present_toe_inputs_to_update

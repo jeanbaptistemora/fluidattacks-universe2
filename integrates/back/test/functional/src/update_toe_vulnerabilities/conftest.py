@@ -271,6 +271,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 unreliable_root_id="",
                 state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_iso_date(),
                 ),
             ),
@@ -292,6 +293,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="test@test.com",
                 unreliable_root_id="",
                 state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_iso_date(),
                 ),
             ),
@@ -315,6 +317,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_iso_date(),
                 ),
             ),

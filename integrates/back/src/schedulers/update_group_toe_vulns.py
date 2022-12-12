@@ -98,8 +98,9 @@ async def update_toe_input(
     current_value: ToeInput, attributes: ToeInputAttributesToUpdate
 ) -> None:
     await toe_inputs_domain.update(
-        current_value,
-        attributes,
+        current_value=current_value,
+        attributes=attributes,
+        modified_by="machine@fluidattacks.com",
         is_moving_toe_input=True,
     )
 

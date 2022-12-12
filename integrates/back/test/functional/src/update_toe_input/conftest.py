@@ -125,7 +125,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=None,
                 seen_first_time_by="",
-                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
+                state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
+                    modified_date="2022-02-02T06:00:00+00:00",
+                ),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToeInput(
@@ -144,7 +147,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
                 seen_first_time_by="test@test.com",
-                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
+                state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
+                    modified_date="2022-02-02T06:00:00+00:00",
+                ),
                 unreliable_root_id="",
             ),
             ToeInput(
@@ -165,7 +171,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
                 seen_first_time_by="test2@test.com",
-                state=ToeInputState(modified_date="2022-02-02T06:00:00+00:00"),
+                state=ToeInputState(
+                    modified_by="hacker@fluidattacks.com",
+                    modified_date="2022-02-02T06:00:00+00:00",
+                ),
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             ),
         ),

@@ -89,7 +89,10 @@ async def add_input(
         has_vulnerabilities=current_toe_input.has_vulnerabilities,
         seen_at=current_toe_input.seen_at,
         seen_first_time_by=current_toe_input.seen_first_time_by,
-        state=ToeInputState(modified_date=get_iso_date()),
+        state=ToeInputState(
+            modified_by="machine@fluidattacks.com",
+            modified_date=get_iso_date(),
+        ),
         unreliable_root_id=new_root_id,
     )
     await toe_inputs_model.add(toe_input=new_toe_input)

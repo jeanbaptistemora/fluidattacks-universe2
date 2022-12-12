@@ -89,7 +89,10 @@ async def add(  # pylint: disable=too-many-arguments
         first_attack_at=first_attack_at,
         group_name=group_name,
         has_vulnerabilities=has_vulnerabilities,
-        state=ToeInputState(modified_date=datetime_utils.get_iso_date()),
+        state=ToeInputState(
+            modified_by=attributes.seen_first_time_by,
+            modified_date=datetime_utils.get_iso_date(),
+        ),
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         unreliable_root_id=attributes.unreliable_root_id,
@@ -244,6 +247,7 @@ async def remove(
 async def update(
     current_value: ToeInput,
     attributes: ToeInputAttributesToUpdate,
+    modified_by: str,
     is_moving_toe_input: bool = False,
 ) -> None:
     if is_moving_toe_input is False:
@@ -306,7 +310,10 @@ async def update(
     )
 
     metadata = ToeInputMetadataToUpdate(
-        state=ToeInputState(modified_date=datetime_utils.get_iso_date()),
+        state=ToeInputState(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+        ),
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,

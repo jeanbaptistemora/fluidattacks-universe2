@@ -86,7 +86,10 @@ async def update_metadata(
             "state",
         }
     }
-    metadata_item["state"] = {"modified_date": metadata.state.modified_date}
+    metadata_item["state"] = {
+        "modified_by": metadata.state.modified_by,
+        "modified_date": metadata.state.modified_date,
+    }
     if metadata.clean_attacked_at:
         metadata_item["attacked_at"] = ""
     if metadata.clean_be_present_until:

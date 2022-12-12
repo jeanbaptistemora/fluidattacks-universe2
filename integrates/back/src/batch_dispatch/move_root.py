@@ -438,8 +438,9 @@ async def _process_toe_input(
             unreliable_root_id=target_root_id,
         )
         await toe_inputs_update(
-            current_value,
-            attributes_to_update,
+            current_value=current_value,
+            attributes=attributes_to_update,
+            modified_by="machine@fluidattacks.com",
             is_moving_toe_input=True,
         )
 
