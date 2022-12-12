@@ -168,7 +168,17 @@ async def test_user_level_enforcer() -> None:
                     ), f"{role} should not be able to do {action}"
 
 
-async def test_group_service_attributes_enforcer() -> None:
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+async def test_group_service_attributes_enforcer(
+    mock_table_resource: AsyncMock,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
+
     loaders: Dataloaders = get_new_context()
     # All attributes must be tested for this test to succeed
     # This prevents someone to add a new attribute without testing it
@@ -179,7 +189,6 @@ async def test_group_service_attributes_enforcer() -> None:
         for attrs in authz.SERVICE_ATTRIBUTES.values()
         for attr in set(attrs).union({"non_existing_attribute"})
     }
-
     for group_name, attribute, result in [
         ("unittesting", "can_report_vulnerabilities", True),
         ("unittesting", "has_service_black", False),
@@ -202,6 +211,7 @@ async def test_group_service_attributes_enforcer() -> None:
         ("oneshottest", "must_only_have_fluidattacks_hackers", True),
         ("oneshottest", "non_existing_attribute", False),
     ]:
+        mock_table_resource.return_value.query.side_effect = mock_query
         enforcer = authz.get_group_service_attributes_enforcer(
             await loaders.group.load(group_name)
         )
@@ -210,6 +220,7 @@ async def test_group_service_attributes_enforcer() -> None:
             enforcer(attribute) == result
         ), f"{group_name} attribute: {attribute}, should have value {result}"
 
+        assert mock_table_resource.called is True
         attributes_remaining_to_test.remove((group_name, attribute))
 
     assert not attributes_remaining_to_test, (
