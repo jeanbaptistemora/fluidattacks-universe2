@@ -11,6 +11,9 @@ from lib_path.f011.go import (
     go_mod,
     GO_REQ_MOD_DEP,
 )
+from lib_path.f011.maven import (
+    maven_pom_xml,
+)
 from lib_path.f011.pip import (
     pip_requirements_txt,
 )
@@ -221,5 +224,48 @@ def test_pip_requirements_txt() -> None:
         if not equal_props:
             assertion = not assertion
             break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_maven_pom_xml() -> None:
+    pom_xml_ver: Pattern[str] = re.compile(
+        r"<version>(\$\{)?(?P<version>[^\}]*)\}?</version>"
+    )
+    path = "skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    generator_dep = maven_pom_xml.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    pkg_ver = (
+        "junit.version",
+        "spring.version",
+        "mockito.version",
+        "slf4j.version",
+        "apache.camel.version",
+    )
+    for line_num, line in enumerate(file_contents.splitlines(), 1):
+        if matched := re.search(pom_xml_ver, line):
+            version: str = matched.group("version")
+
+            try:
+                next_dep = next(generator_dep)
+                line_d, item = itemgetter("line", "item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            equal_props: bool = (
+                version == item or version in pkg_ver
+            ) and line_num == line_d
+            if not equal_props:
+                assertion = not assertion
+                break
 
     assert assertion
