@@ -1481,7 +1481,7 @@
     ];
 
     schedule_expression = "cron(0 11-23/2 * * ? *)";
-    size = "nano";
+    size = "skims_nano";
     awsRole = "prod_skims";
     attempts = 3;
     timeout = 86400;
@@ -1509,7 +1509,7 @@
     ];
 
     schedule_expression = "cron(0 10 * * ? *)";
-    size = "nano";
+    size = "skims_nano";
     awsRole = "prod_skims";
     attempts = 3;
     timeout = 86400;
@@ -1536,7 +1536,7 @@
     ];
 
     schedule_expression = "cron(0 0 1 1-12/3 ? *)";
-    size = "large";
+    size = "sorts_large";
     awsRole = "prod_sorts";
     attempts = 1;
     timeout = 86400;
@@ -1564,7 +1564,7 @@
     ];
 
     schedule_expression = "cron(0 23 ? * 7 *)";
-    size = "nano";
+    size = "sorts_nano";
     awsRole = "prod_sorts";
     attempts = 3;
     timeout = 86400;
@@ -1592,7 +1592,7 @@
     ];
 
     schedule_expression = "cron(0 23 ? * 7 *)";
-    size = "nano";
+    size = "sorts_nano";
     awsRole = "prod_sorts";
     attempts = 3;
     timeout = 86400;
@@ -1619,7 +1619,7 @@
     ];
 
     schedule_expression = "cron(0 5 ? * 6 *)";
-    size = "nano";
+    size = "sorts_nano";
     awsRole = "prod_sorts";
     attempts = 3;
     timeout = 129600;
