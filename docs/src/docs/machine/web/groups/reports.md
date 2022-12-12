@@ -103,7 +103,7 @@ available for one hour.
 ## Definitions of Technical report columns
 
 - **Related Finding:**
-  [Vulnerability type](/criteria/vulnerabilities/)
+   [Vulnerability type](/criteria/vulnerabilities/)
 - **Finding Id:**
   Vulnerability identifier composed
   by random numbers and letters.
@@ -130,7 +130,7 @@ available for one hour.
   Vulnerability score based on CVSS
   3.1 standard.
 - **Requirements:**
-  Unfulfilled [requirement(s)](/criteria/requirements/)
+  Unfulfilled [Requirement(s)](/criteria/requirements/)
   based on security standards.
 - **Impact:**
   How your application is affected by
@@ -177,7 +177,7 @@ available for one hour.
 - **First Treatment Justification:**
   Treatment applied justification.
 - **First Treatment expiration Moment:**
-  For temporal treatments,
+  For [Temporal treatments](/machine/web/vulnerabilities/management/treatments),
   this date shows the date which
   treatment expires.
 - **First Assigned:**
@@ -209,17 +209,17 @@ available for one hour.
   Email of the user who requested
   the most recent reattack.
 - **CVSSv3.1 string vector,**
-  **Attack Vector,**
-  **Attack Complexity,**
-  **Privileges Required,**
-  **User Interaction,**
-  **Severity Scope,**
-  **Confidentiality Impact,**
-  **Integrity Impact,**
-  **Availability Impact,**
-  **Exploitability,**
-  **Remediation Level and**
-  **Report Confidence:**
+   **Attack Vector,**
+   **Attack Complexity,**
+   **Privileges Required,**
+   **User Interaction,**
+   **Severity Scope,**
+   **Confidentiality Impact,**
+   **Integrity Impact,**
+   **Availability Impact,**
+   **Exploitability,**
+   **Remediation Level and**
+   **Report Confidence:**
   All these columns are part
   of the Severity Score
   [CVSS](https://www.first.org/cvss/v3.1/specification-document)
