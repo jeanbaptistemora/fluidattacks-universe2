@@ -87,9 +87,9 @@ FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
 
 
 class SkimsBatchQueue(Enum):
-    SMALL: str = "small"
-    MEDIUM: str = "medium"
-    LARGE: str = "large"
+    SMALL: str = "skims_small"
+    MEDIUM: str = "skims_medium"
+    LARGE: str = "skims_large"
     CLONE: str = "clone"
 
 
