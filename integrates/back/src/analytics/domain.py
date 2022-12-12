@@ -184,7 +184,15 @@ async def handle_graphic_request(request: Request) -> Response:
         PermissionError,
         ValueError,
     ) as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
+        LOGGER.exception(
+            ex,
+            extra=dict(
+                extra=dict(
+                    query_params=request.query_params,
+                    url=request.url,
+                )
+            ),
+        )
         response = templates_utils.graphic_error(request)
     else:
         response = templates_utils.graphic_view(
@@ -220,7 +228,15 @@ async def handle_graphic_csv_request(request: Request) -> Response:
         PermissionError,
         ValueError,
     ) as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
+        LOGGER.exception(
+            ex,
+            extra=dict(
+                extra=dict(
+                    query_params=request.query_params,
+                    url=request.url,
+                )
+            ),
+        )
         return templates_utils.graphic_error(request)
     else:
         reader = csv.reader(document.split("\n"), delimiter=",")
