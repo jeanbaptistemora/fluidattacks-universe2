@@ -169,6 +169,45 @@ available for one hour.
 - **Age in days:**
   Days have passed since the
   vulnerability was confirmed.
+- **First Treatment:**
+  First confirmed treatment defined
+  to the vulnerability.
+- **First Treatment Moment:**
+  Date on which the treatment was defined.
+- **First Treatment Justification:**
+  Treatment applied justification.
+- **First Treatment expiration Moment:**
+  For temporal treatments,
+  this date shows the date which
+  treatment expires.
+- **First Assigned:**
+  Who was the first person to be
+  assigned this vulnerability.
+- **Current Treatment:**
+  The current treatment of the vulnerability.
+- **Current Treatment Moment:**
+  Date on which current treatment was applied.
+- **Current Treatment Justification:**
+  Justification for applying current treatment.
+- **Current Treatment expiration Moment:**
+  Expiration date for  current treatment.
+- **Current Assigned:**
+  The name of the person who is
+  currently assigned to the vulnerability.
+- **Pending Reattack:**
+  Whether they have requested a reattack or not.
+- **# Requested Reattacks:**
+  The total number of times reattacks
+  have been requested.
+- **Remediation Effectiveness:**
+  The effectiveness percentage of the
+  remediation of that vulnerability.
+- **Last requested reattack:**
+  The date on which the most recent
+  reattachment was requested.
+- **Last reattack Requester:**
+  Email of the user who requested
+  the most recent reattack.
 
 ## Report Filters
 
