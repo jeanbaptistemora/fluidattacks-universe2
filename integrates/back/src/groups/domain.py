@@ -239,7 +239,7 @@ async def complete_register_for_group_invitation(
                 ),
                 responsibility=responsibility,
                 state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
+                    modified_date=datetime_utils.get_utc_now()
                 ),
             ),
         )
@@ -381,7 +381,7 @@ async def add_group(
             metadata=GroupAccessMetadataToUpdate(
                 has_access=True,
                 state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
+                    modified_date=datetime_utils.get_utc_now()
                 ),
             ),
         )
@@ -1074,9 +1074,7 @@ async def invite_to_group(
             ),
             responsibility=responsibility,
             role=role,
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         ),
     )
     confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"

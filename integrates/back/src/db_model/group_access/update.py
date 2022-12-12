@@ -7,6 +7,9 @@ from .utils import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb import (
     keys,
     operations,
@@ -44,7 +47,7 @@ async def update_metadata(
             "email": email,
             "name": group_name,
             # The modified date will always exist here
-            "iso8601utc": metadata.state.modified_date
+            "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date)
             if metadata.state.modified_date
             else "",
         },

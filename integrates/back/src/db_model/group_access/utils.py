@@ -5,6 +5,12 @@ from .types import (
     GroupConfirmDeletion,
     GroupInvitation,
 )
+from datetime import (
+    datetime,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb.types import (
     Item,
 )
@@ -37,7 +43,11 @@ def format_group_access(item: Item) -> GroupAccess:
         responsibility=item.get("responsibility"),
         role=item.get("role"),
         state=GroupAccessState(
-            modified_date=item.get("state", {}).get("modified_date")
+            modified_date=datetime.fromisoformat(
+                item["state"]["modified_date"]
+            )
+            if item.get("state", {}).get("modified_date")
+            else None
         ),
     )
 
@@ -68,7 +78,11 @@ def format_metadata_item(
         else None,
         "responsibility": metadata.responsibility,
         "role": metadata.role,
-        "state": {"modified_date": metadata.state.modified_date}
+        "state": {
+            "modified_date": get_as_utc_iso_format(
+                metadata.state.modified_date
+            )
+        }
         if metadata.state.modified_date
         else None,
     }

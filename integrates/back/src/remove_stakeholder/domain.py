@@ -205,9 +205,7 @@ async def confirm_deletion_mail(
         group_name="confirm_deletion",
         metadata=GroupAccessMetadataToUpdate(
             expiration_time=expiration_time,
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
             confirm_deletion=GroupConfirmDeletion(
                 is_used=False,
                 url_token=url_token,

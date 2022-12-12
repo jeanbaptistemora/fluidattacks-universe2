@@ -60,7 +60,7 @@ async def resolve(
                 email=parent.email,
                 group_name=group_name,
                 state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
+                    modified_date=datetime_utils.get_utc_now()
                 ),
             )
         else:

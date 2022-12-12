@@ -209,7 +209,7 @@ async def grant_group_level_role(
         raise ValueError(f"Invalid role value: {role}")
     metadata = GroupAccessMetadataToUpdate(
         role=role,
-        state=GroupAccessState(modified_date=datetime_utils.get_iso_date()),
+        state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
     )
     with suppress(StakeholderNotInGroup):
         group_access: GroupAccess = await loaders.group_access.load(
@@ -285,7 +285,7 @@ async def revoke_group_level_role(
                 changes=GroupAccessMetadataToUpdate(
                     role="",
                     state=GroupAccessState(
-                        modified_date=datetime_utils.get_iso_date()
+                        modified_date=datetime_utils.get_utc_now()
                     ),
                 ),
             )

@@ -545,7 +545,7 @@ async def populate_policies(data: list[Any]) -> bool:
                 metadata=GroupAccessMetadataToUpdate(
                     has_access=True,
                     state=GroupAccessState(
-                        modified_date=datetime_utils.get_iso_date()
+                        modified_date=datetime_utils.get_utc_now()
                     ),
                 ),
             )

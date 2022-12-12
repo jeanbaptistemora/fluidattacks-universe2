@@ -22,8 +22,8 @@ from group_access import (
 )
 from newutils.datetime import (
     get_as_epoch,
-    get_iso_date,
     get_now_plus_delta,
+    get_utc_now,
 )
 import pytest
 from remove_stakeholder.domain import (
@@ -78,7 +78,7 @@ async def confirm_deletion_mail(
                 is_used=False, url_token=url_token
             ),
             expiration_time=expiration_time,
-            state=GroupAccessState(modified_date=get_iso_date()),
+            state=GroupAccessState(modified_date=get_utc_now()),
         ),
     )
 

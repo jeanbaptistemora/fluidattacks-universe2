@@ -2,6 +2,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
@@ -84,7 +87,7 @@ async def test_group_access_changes() -> None:
     loaders: Dataloaders = get_new_context()
     email = "another_user@gmail.com"
     group_name = "unittesting"
-    dummy_date: str = "2022-11-01T06:07:57+00:00"
+    dummy_date = datetime.fromisoformat("2022-11-01T06:07:57+00:00")
     assert not await exists(loaders, group_name, email)
 
     await add_access(
@@ -110,9 +113,7 @@ async def test_group_access_changes() -> None:
         email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
             responsibility="Responsible for testing the historic facet",
         ),
     )

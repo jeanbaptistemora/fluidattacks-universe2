@@ -79,9 +79,7 @@ async def add_access(
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
             has_access=True,
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         ),
     )
     await authz.grant_group_level_role(loaders, email, group_name, role)
@@ -363,9 +361,7 @@ async def get_stakeholder_role(
         group_access = GroupAccess(
             email=email,
             group_name=group_name,
-            state=GroupAccessState(
-                modified_date=datetime_utils.get_iso_date()
-            ),
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         )
     else:
         group_access = await loaders.group_access.load(

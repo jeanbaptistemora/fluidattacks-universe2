@@ -101,7 +101,7 @@ async def update_information(
                     responsibility=responsibility,
                     role=role,
                     state=GroupAccessState(
-                        modified_date=datetime_utils.get_iso_date()
+                        modified_date=datetime_utils.get_utc_now()
                     ),
                 ),
             )
@@ -249,7 +249,7 @@ async def update_invited_stakeholder(
                 responsibility=responsibility,
                 role=role,
                 state=GroupAccessState(
-                    modified_date=datetime_utils.get_iso_date()
+                    modified_date=datetime_utils.get_utc_now()
                 ),
             ),
         )

@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -17,7 +20,7 @@ class GroupInvitation(NamedTuple):
 
 
 class GroupAccessState(NamedTuple):
-    modified_date: Optional[str]
+    modified_date: Optional[datetime]
 
 
 class GroupAccess(NamedTuple):
