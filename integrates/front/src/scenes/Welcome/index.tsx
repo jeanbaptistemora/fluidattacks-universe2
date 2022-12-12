@@ -4,20 +4,16 @@ import Bugsnag from "@bugsnag/js";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { GET_STAKEHOLDER_ENROLLMENT } from "./queries";
 import type { IGetStakeholderEnrollmentResult } from "./types";
 
-import { Announce } from "components/Announce";
 import { Autoenrollment } from "scenes/Autoenrollment";
 import { Dashboard } from "scenes/Dashboard";
 import { Logger } from "utils/logger";
 import { initializeZendesk } from "utils/widgets";
 
 const Welcome: React.FC = (): JSX.Element => {
-  const { t } = useTranslation();
-
   const { data } = useQuery<IGetStakeholderEnrollmentResult>(
     GET_STAKEHOLDER_ENROLLMENT,
     {
@@ -53,7 +49,7 @@ const Welcome: React.FC = (): JSX.Element => {
 
   if (isEnrolled) {
     if (sessionStorage.getItem("trial") === "true") {
-      return <Announce message={t("autoenrollment.notElegible")} />;
+      return <Dashboard />;
     }
 
     return <Dashboard />;

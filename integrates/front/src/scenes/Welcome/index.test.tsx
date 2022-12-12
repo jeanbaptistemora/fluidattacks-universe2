@@ -97,34 +97,4 @@ describe("Welcome", (): void => {
 
     await expect(screen.findByRole("main")).resolves.toBeInTheDocument();
   });
-
-  it("should render not elegible", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const enrollmentMock: MockedResponse<IGetStakeholderEnrollmentResult> = {
-      request: {
-        query: GET_STAKEHOLDER_ENROLLMENT,
-      },
-      result: {
-        data: {
-          me: {
-            enrollment: { enrolled: true },
-            userEmail: "jdoe@fluidattacks.com",
-            userName: "John Doe",
-          },
-        },
-      },
-    };
-    sessionStorage.setItem("trial", "true");
-
-    render(
-      <MockedProvider cache={getCache()} mocks={[enrollmentMock]}>
-        <Welcome />
-      </MockedProvider>
-    );
-
-    await expect(
-      screen.findByText("autoenrollment.notElegible")
-    ).resolves.toBeInTheDocument();
-  });
 });

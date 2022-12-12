@@ -18,6 +18,7 @@ interface IContainerProps {
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
+  justify?: string;
   letterSpacing?: string;
   lineHeight?: string;
   margin?: string;
@@ -57,6 +58,7 @@ const Container = styled.div.attrs({
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
+    justify = "",
     letterSpacing = "",
     lineHeight = "normal",
     margin = "0",
@@ -93,6 +95,7 @@ display: ${display};
 flex-wrap: ${wrap};
 font-family: ${fontFamily};
 height: ${height};
+justify-content: ${justify};
 letter-spacing: ${letterSpacing};
 line-height: ${lineHeight};
 margin: ${margin};

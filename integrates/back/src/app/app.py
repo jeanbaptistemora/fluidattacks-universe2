@@ -406,6 +406,7 @@ STARLETTE_APP = Starlette(
             "/reject_access_organization/{url_token:path}",
             reject_access_organization,
         ),
+        Route("/SignUp", templates.login),
         Mount(
             "/static",
             StaticFiles(directory=f"{TEMPLATES_DIR}/static"),

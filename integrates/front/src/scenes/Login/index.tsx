@@ -1,35 +1,29 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
-
-import { faBitbucket, faWindows } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import { LoginButton, LoginContainer, LoginGrid } from "./components";
-
+import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { ExternalLink } from "components/ExternalLink";
-import google from "resources/google.svg";
-import logo from "resources/logo.svg";
-import style from "scenes/Login/index.css";
+import { Tag } from "components/Tag";
+import { Text } from "components/Text";
 import {
-  CI_COMMIT_SHA,
-  CI_COMMIT_SHORT_SHA,
-  INTEGRATES_DEPLOYMENT_DATE,
-} from "utils/ctx";
+  loginBGR,
+  loginBitBucketLogo,
+  loginGoogleLogo,
+  loginLogo,
+  loginMicrosoftLogo,
+  loginNewFeat,
+} from "resources";
 
 export const Login: React.FC = (): JSX.Element => {
-  const { hash } = useLocation();
   const { t } = useTranslation();
-
+  const hash = useLocation();
   useEffect((): void => {
-    if (hash === "#trial") {
+    if (hash.pathname === "/SignUp") {
       sessionStorage.setItem("trial", "true");
     } else {
       sessionStorage.removeItem("trial");
@@ -37,84 +31,252 @@ export const Login: React.FC = (): JSX.Element => {
   }, [hash]);
 
   // Event handlers
-  function handleBitbucketLogin(): void {
+  const handleBitbucketLogin: () => void = useCallback((): void => {
     mixpanel.track("Login Bitbucket");
     window.location.assign("/dblogin");
-  }
-  function handleGoogleLogin(): void {
+  }, []);
+  const handleGoogleLogin: () => void = useCallback((): void => {
     mixpanel.track("Login Google");
     window.location.assign("/dglogin");
-  }
-  function handleMicrosoftLogin(): void {
+  }, []);
+  const handleMicrosoftLogin: () => void = useCallback((): void => {
     mixpanel.track("Login Azure");
     window.location.assign("/dalogin");
-  }
+  }, []);
 
   return (
-    <LoginContainer>
-      <LoginGrid>
-        <img alt={"logo"} className={style.logo} src={logo} />
-        <p className={`tc mt4 mb4 ${style["text-color"]}`} id={"login-auth"}>
-          {t("login.auth")}
-        </p>
-        <LoginButton
-          className={"btn-lgoogle mb2 black"}
-          icon={
-            <img alt={"google"} className={style["ico-google"]} src={google} />
-          }
-          id={"login-google"}
-          onClick={handleGoogleLogin}
-          text={t("login.google")}
-        />
-        <LoginButton
-          className={"btn-lazure mb2 white"}
-          icon={
-            <FontAwesomeIcon
-              className={"f3"}
-              fixedWidth={true}
-              icon={faWindows}
-            />
-          }
-          id={"login-microsoft"}
-          onClick={handleMicrosoftLogin}
-          text={t("login.microsoft")}
-        />
-        <LoginButton
-          className={"btn-lbitbucket mb0 white"}
-          icon={
-            <FontAwesomeIcon
-              className={"f3"}
-              fixedWidth={true}
-              icon={faBitbucket}
-            />
-          }
-          id={"login-bitbucket"}
-          onClick={handleBitbucketLogin}
-          text={t("login.bitbucket")}
-        />
-        <div className={`mb0 tc ${style["text-color"]}`}>
-          <p>
-            <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-              {t("login.termsOfUseLinkText")}
-            </ExternalLink>
-            {"|"}
-            <ExternalLink href={"https://fluidattacks.com/privacy/"}>
-              {t("login.privacyLinkText")}
-            </ExternalLink>
-          </p>
-          <p className={"mb0"}>
-            {t("info.deploymentDate")}&nbsp;
-            {INTEGRATES_DEPLOYMENT_DATE}
-          </p>
-          <ExternalLink
-            className={style["link-default"]}
-            href={`https://gitlab.com/fluidattacks/universe/-/tree/${CI_COMMIT_SHA}`}
+    <Container display={"flex"} height={"100%"} width={"100%"} wrap={"wrap"}>
+      <Container
+        align={"center"}
+        bgColor={"#ffffff"}
+        display={"flex"}
+        height={"100%"}
+        justify={"center"}
+        width={"33%"}
+        wrap={"wrap"}
+      >
+        <Container
+          align={"center"}
+          display={"flex"}
+          height={"700px"}
+          position={"absolute"}
+          width={"350px"}
+          wrap={"wrap"}
+        >
+          <Container
+            align={"center"}
+            display={"flex"}
+            justify={"center"}
+            width={"350px"}
+            wrap={"wrap"}
           >
-            {t("info.commit")}&nbsp;
-            {CI_COMMIT_SHORT_SHA}
-          </ExternalLink>
-        </div>
-      </LoginGrid>
-    </LoginContainer>
+            <Container
+              bgImage={`url(${loginLogo})`}
+              bgImagePos={"100% 100%"}
+              height={"109px"}
+              width={"237px"}
+            />
+          </Container>
+
+          <Container
+            align={"center"}
+            display={"flex"}
+            justify={"center"}
+            pt={"100px"}
+            width={"350px"}
+            wrap={"wrap"}
+          >
+            <Container id={"login-auth"}>
+              <Text fontSize={"36px"} fw={9} tone={"dark"}>
+                {"Log in"}
+              </Text>
+            </Container>
+          </Container>
+          <Container maxWidth={"350px"} pt={"32px"} width={"100%"}>
+            <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
+              <Container display={"flex"} wrap={"wrap"}>
+                <Container minWidth={"40px"} />
+                <Container
+                  bgImage={`url(${loginGoogleLogo})`}
+                  bgImagePos={"100% 100%"}
+                  height={"24px"}
+                  width={"24px"}
+                />
+                <Container minWidth={"20px"} />
+                <Container pt={"2px"} width={"220px"}>
+                  <Text bright={9} fontSize={"18px"}>
+                    {"Continue with Google"}
+                  </Text>
+                </Container>
+              </Container>
+            </Button>
+          </Container>
+          <Container maxWidth={"350px"} pt={"16px"} width={"100%"}>
+            <Button
+              onClick={handleMicrosoftLogin}
+              size={"lg"}
+              variant={"input"}
+            >
+              <Container display={"flex"} wrap={"wrap"}>
+                <Container minWidth={"40px"} />
+                <Container
+                  bgImage={`url(${loginMicrosoftLogo})`}
+                  bgImagePos={"100% 100%"}
+                  height={"24px"}
+                  pl={"20px"}
+                  width={"24px"}
+                />
+                <Container minWidth={"20px"} />
+                <Container pt={"2px"} width={"220px"}>
+                  <Text bright={9} fontSize={"18px"}>
+                    {"Continue with Microsoft"}
+                  </Text>
+                </Container>
+              </Container>
+            </Button>
+          </Container>
+          <Container maxWidth={"350px"} pt={"16px"} width={"100%"}>
+            <Button
+              onClick={handleBitbucketLogin}
+              size={"lg"}
+              variant={"input"}
+            >
+              <Container display={"flex"} wrap={"wrap"}>
+                <Container minWidth={"40px"} />
+                <Container
+                  bgImage={`url(${loginBitBucketLogo})`}
+                  bgImagePos={"100% 100%"}
+                  height={"24px"}
+                  pl={"20px"}
+                  width={"24px"}
+                />
+                <Container minWidth={"20px"} />
+                <Container pt={"2px"} width={"220px"}>
+                  <Text bright={9} fontSize={"18px"}>
+                    {"Continue with Bitbucket"}
+                  </Text>
+                </Container>
+              </Container>
+            </Button>
+          </Container>
+          <Container
+            align={"center"}
+            display={"flex"}
+            justify={"center"}
+            pb={"60px"}
+            pt={"32px"}
+            width={"350px"}
+            wrap={"wrap"}
+          >
+            <Container width={"169px"}>
+              <Text bright={7} fontSize={"16px"} tone={"dark"}>
+                {"Don't have an account?"}
+                &nbsp;
+              </Text>
+            </Container>
+            <Container borderBottom={"1.5px solid #bf0b1a"}>
+              <Text fontSize={"14px"}>
+                <Link to={"/SignUp"}>{"Sign Up"}</Link>
+              </Text>
+            </Container>
+          </Container>
+          <Container
+            align={"center"}
+            borderTop={"1.5px solid #b0b0bf"}
+            display={"flex"}
+            justify={"center"}
+            pt={"15px"}
+            width={"350px"}
+            wrap={"wrap"}
+          >
+            <Container>
+              <Text bright={9} fontSize={"14px"} tone={"light"}>
+                {t("login.generalData.privacy")}
+              </Text>
+            </Container>
+          </Container>
+          <Container
+            align={"center"}
+            display={"flex"}
+            justify={"center"}
+            width={"350px"}
+            wrap={"wrap"}
+          >
+            <Container positionLeft={"0%"} width={"94px"}>
+              <Text bright={9} tone={"light"}>
+                <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+                  {"Terms of use"}
+                </ExternalLink>
+              </Text>
+            </Container>
+            <Container pt={"7px"} width={"25px"}>
+              <Text bright={9} tone={"light"}>
+                {"and"}
+              </Text>
+            </Container>
+
+            <Container width={"98px"}>
+              <Text bright={9} tone={"light"}>
+                <ExternalLink href={"https://fluidattacks.com/privacy/"}>
+                  {"Privacy policy"}
+                </ExternalLink>
+              </Text>
+            </Container>
+          </Container>
+        </Container>
+      </Container>
+      <Container
+        display={"flex"}
+        height={"100%"}
+        maxHeight={"100%"}
+        scroll={"none"}
+        width={"67%"}
+        wrap={"wrap"}
+      >
+        <Container
+          align={"center"}
+          bgImage={`url(${loginBGR})`}
+          bgImagePos={"100% 100%"}
+          display={"flex"}
+          height={"100%"}
+          justify={"center"}
+          scroll={"none"}
+          width={"100%"}
+          wrap={"wrap"}
+        >
+          <Container maxHeight={"740px"}>
+            <Tag variant={"redNoBd"}>
+              <Container height={"30px"} pt={"7px"} width={"108px"}>
+                <Text fontSize={"16px"} fw={9} ta={"center"} tone={"red"}>
+                  {t("login.generalData.newFeature")}
+                </Text>
+              </Container>
+            </Tag>
+            <Container maxWidth={"696px"} pt={"24px"} width={"100%"}>
+              <Text fontSize={"36px"} fw={9} tone={"light"}>
+                {t("login.generalData.subtitle")}
+              </Text>
+            </Container>
+            <Container
+              maxWidth={"696px"}
+              pb={"30px"}
+              pt={"24px"}
+              width={"100%"}
+            >
+              <Text bright={6} fontSize={"20px"} tone={"light"}>
+                {t("login.generalData.description")}
+              </Text>
+            </Container>
+            <Container
+              align={"start"}
+              bgImage={`url(${loginNewFeat})`}
+              bgImagePos={"90% 100%"}
+              height={"440px"}
+              width={"720px"}
+            />
+          </Container>
+        </Container>
+      </Container>
+    </Container>
   );
 };

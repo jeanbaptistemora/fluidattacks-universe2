@@ -1,9 +1,0 @@
-:global .login-grid {
-  width: 400px;
-}
-
-@media screen and (min-height: 530px) {
-  :global .login-grid {
-    max-height: 100vh;
-  }
-}
