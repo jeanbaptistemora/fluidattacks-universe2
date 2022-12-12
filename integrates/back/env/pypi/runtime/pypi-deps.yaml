@@ -10,6 +10,7 @@ ariadne:
   extras:
     - asgi-file-uploads
 async-lru: 1.0.2
+arch-lint: 1.1.0
 Authlib: 0.15.4
 azure-devops: 6.0.0b4
 backports.csv: 1.0.7
