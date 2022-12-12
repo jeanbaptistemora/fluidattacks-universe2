@@ -20,11 +20,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     name_id = class_node["label_field_name"]
     block_id = class_node["label_field_body"]
     name = node_to_str(args.ast_graph, name_id)
+    attrl_ids = match_ast_group_d(args.ast_graph, args.n_id, "attribute_list")
 
-    attributes_id = match_ast_group_d(
-        args.ast_graph, args.n_id, "attribute_list"
-    )
-    children_nid = {
-        "attributes_id": attributes_id,
-    }
-    return build_class_node(args, name, block_id, children_nid)
+    return build_class_node(args, name, block_id, attrl_ids)

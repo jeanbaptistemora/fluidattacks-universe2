@@ -24,8 +24,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
     else:
         attributes_list = []
 
-    children_nid = {
-        name: attributes_list,
-    }
-
-    return build_class_node(args, name, block_id, children_nid)
+    return build_class_node(args, name, block_id, attributes_list)
