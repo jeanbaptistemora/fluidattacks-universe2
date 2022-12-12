@@ -13,7 +13,7 @@ from aioextensions import (
     run,
 )
 from forces.domain import (
-    add_forces_user,
+    add_forces_stakeholder,
 )
 from graphql.type import (
     GraphQLResolveInfo,
@@ -47,7 +47,7 @@ async def update_group(group_name: str) -> None:
     info = GraphQLResolveInfo(
         None, None, None, None, None, None, None, None, None, None, {}
     )
-    await add_forces_user(info, group_name)
+    await add_forces_stakeholder(info.context.loaders, group_name, "")
 
 
 async def main() -> None:

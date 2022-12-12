@@ -82,7 +82,9 @@ async def mutate(
         service=service,
         subscription=subscription_type,
     )
-    await forces_domain.add_forces_user(info, group_name)
+    await forces_domain.add_forces_stakeholder(
+        loaders=loaders, group_name=group_name, modified_by=email
+    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Created group {group_name} successfully",

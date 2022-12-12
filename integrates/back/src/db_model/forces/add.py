@@ -16,6 +16,9 @@ from db_model import (
 from db_model.forces.utils import (
     format_forces_item,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb import (
     keys,
     operations,
@@ -38,7 +41,9 @@ async def add(*, forces_execution: ForcesExecution) -> None:
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "execution_date": forces_execution.execution_date,
+            "execution_date": get_as_utc_iso_format(
+                forces_execution.execution_date
+            ),
             "name": forces_execution.group_name,
         },
     )

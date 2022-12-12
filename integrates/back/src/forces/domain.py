@@ -2,6 +2,9 @@ from context import (
     FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     forces as forces_model,
 )
@@ -15,16 +18,10 @@ from db_model.group_access.types import (
 from db_model.groups.types import (
     GroupMetadataToUpdate,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
-)
 from groups import (
     domain as groups_domain,
 )
 import json
-from newutils import (
-    datetime as datetime_utils,
-)
 from newutils.forces import (
     format_forces_vulnerabilities_to_add,
 )
@@ -35,9 +32,6 @@ import os
 import re
 from s3 import (
     operations as s3_ops,
-)
-from sessions import (
-    domain as sessions_domain,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -63,21 +57,16 @@ async def add_forces_execution(
     log: Union[UploadFile, None] = None,
     **execution_attributes: Any,
 ) -> None:
-    if "severity_threshold" in execution_attributes:
-        orgs_domain.validate_min_breaking_severity(
-            execution_attributes["severity_threshold"]
-        )
-    if "grace_period" in execution_attributes:
-        orgs_domain.validate_vulnerability_grace_period(
-            execution_attributes["grace_period"]
-        )
-
+    orgs_domain.validate_min_breaking_severity(
+        execution_attributes["severity_threshold"]
+    )
+    orgs_domain.validate_vulnerability_grace_period(
+        execution_attributes["grace_period"]
+    )
     forces_execution = ForcesExecution(
         id=execution_attributes["execution_id"],
         group_name=group_name,
-        execution_date=datetime_utils.get_as_utc_iso_format(
-            execution_attributes["date"]
-        ),
+        execution_date=execution_attributes["date"],
         commit=execution_attributes["git_commit"],
         repo=execution_attributes["git_repo"],
         branch=execution_attributes["git_branch"],
@@ -91,7 +80,6 @@ async def add_forces_execution(
             execution_attributes["vulnerabilities"]
         ),
     )
-
     vulnerabilities = execution_attributes.pop("vulnerabilities")
     log_name = f'{group_name}/{execution_attributes["execution_id"]}.log'
     vulns_name = f'{group_name}/{execution_attributes["execution_id"]}.json'
@@ -105,31 +93,31 @@ async def add_forces_execution(
         await forces_model.add(forces_execution=forces_execution)
 
 
-async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> None:
-    user_email = format_forces_user_email(group_name)
-    user_data = await sessions_domain.get_jwt_content(info.context)
-    modified_by = user_data["user_email"]
+async def add_forces_stakeholder(
+    loaders: Dataloaders,
+    group_name: str,
+    modified_by: str,
+) -> None:
+    forces_email = format_forces_email(group_name)
     await groups_domain.invite_to_group(
-        loaders=info.context.loaders,
-        email=user_email,
+        loaders=loaders,
+        email=forces_email,
         responsibility="Forces service user",
         role="service_forces",
         group_name=group_name,
         modified_by=modified_by,
     )
-    loaders = info.context.loaders
 
     # Give permissions directly, no confirmation required
     group_access: GroupAccess = await loaders.group_access.load(
-        GroupAccessRequest(group_name=group_name, email=user_email)
+        GroupAccessRequest(group_name=group_name, email=forces_email)
     )
     await groups_domain.complete_register_for_group_invitation(
-        loaders=info.context.loaders,
-        group_access=group_access,
+        loaders, group_access
     )
 
 
-def format_forces_user_email(group_name: str) -> str:
+def format_forces_email(group_name: str) -> str:
     return f"forces.{group_name}@fluidattacks.com"
 
 

@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.forces.enums import (
     VulnerabilityExploitState,
 )
@@ -37,7 +40,7 @@ class ExecutionVulnerabilities(NamedTuple):
 class ForcesExecution(NamedTuple):
     id: str
     group_name: str
-    execution_date: str
+    execution_date: datetime
     commit: str
     repo: str
     branch: str

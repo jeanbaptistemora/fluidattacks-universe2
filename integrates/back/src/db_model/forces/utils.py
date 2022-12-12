@@ -1,7 +1,13 @@
+from datetime import (
+    datetime,
+)
 from db_model.forces.types import (
     ExecutionVulnerabilities,
     ExploitResult,
     ForcesExecution,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from decimal import (
     Decimal,
@@ -63,7 +69,7 @@ def format_forces_execution(item: Item) -> ForcesExecution:
     return ForcesExecution(
         id=item["id"],
         group_name=item["group_name"],
-        execution_date=item["execution_date"],
+        execution_date=datetime.fromisoformat(item["execution_date"]),
         commit=item["commit"],
         repo=item["repo"],
         branch=item["branch"],
@@ -83,7 +89,7 @@ def format_forces_item(execution: ForcesExecution) -> Item:
     return {
         "id": execution.id,
         "group_name": execution.group_name,
-        "execution_date": execution.execution_date,
+        "execution_date": get_as_utc_iso_format(execution.execution_date),
         "commit": execution.commit,
         "repo": execution.repo,
         "branch": execution.branch,

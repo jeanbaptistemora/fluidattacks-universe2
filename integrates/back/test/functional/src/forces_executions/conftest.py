@@ -2,9 +2,15 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.forces.types import (
     ExecutionVulnerabilities,
     ForcesExecution,
+)
+from decimal import (
+    Decimal,
 )
 import pytest
 from typing import (
@@ -22,7 +28,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "execution": ForcesExecution(
                     group_name="group1",
                     id="123",
-                    execution_date="2020-02-05T00:00:00+00:00",
+                    execution_date=datetime.fromisoformat(
+                        "2020-02-05T00:00:00+00:00"
+                    ),
                     exit_code="1",
                     branch="master",
                     commit="6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6",
@@ -31,7 +39,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     repo="Repository",
                     grace_period=0,
                     kind="dynamic",
-                    severity_threshold=0.0,  # type: ignore
+                    severity_threshold=Decimal("0.0"),
                     strictness="strict",
                     vulnerabilities=ExecutionVulnerabilities(
                         num_of_accepted_vulnerabilities=1,

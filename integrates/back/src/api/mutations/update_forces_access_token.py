@@ -49,7 +49,7 @@ async def mutate(
     responsible = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
 
-    email = forces_domain.format_forces_user_email(group_name)
+    email = forces_domain.format_forces_email(group_name)
     if not await stakeholders_domain.exists(loaders, email):
         logs_utils.cloudwatch_log(
             info.context,
