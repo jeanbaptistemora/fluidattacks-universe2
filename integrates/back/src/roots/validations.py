@@ -200,12 +200,11 @@ def is_valid_ip(address: str) -> bool:
 
 def is_ip_unique(
     address: str,
-    port: str,
     roots: Tuple[Root, ...],
     include_inactive: bool = False,
 ) -> bool:
-    return (address, port) not in tuple(
-        (root.state.address, root.state.port)
+    return address not in tuple(
+        root.state.address
         for root in roots
         if isinstance(root, IPRoot)
         and (root.state.status == RootStatus.ACTIVE or include_inactive)

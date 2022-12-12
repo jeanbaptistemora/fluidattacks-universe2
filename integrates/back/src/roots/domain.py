@@ -348,7 +348,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
 
 
 async def add_ip_root(
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
@@ -373,7 +373,6 @@ async def add_ip_root(
         and group.state.type != GroupSubscriptionType.ONESHOT
         and not validations.is_ip_unique(
             address,
-            port,
             await loaders.organization_roots.load(organization_name),
             include_inactive=True,
         )
@@ -1176,9 +1175,7 @@ async def activate_root(
                 )
 
         elif isinstance(root, IPRoot):
-            if not validations.is_ip_unique(
-                root.state.address, root.state.port, org_roots
-            ):
+            if not validations.is_ip_unique(root.state.address, org_roots):
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(
@@ -1520,7 +1517,6 @@ async def move_root(
     elif isinstance(root, IPRoot):
         if not validations.is_ip_unique(
             root.state.address,
-            root.state.port,
             target_group_roots,
             include_inactive=True,
         ):
