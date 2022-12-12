@@ -18,6 +18,7 @@ makeScript {
     ];
     source = [
       outputs."/integrates/back/env/pypi/unit-tests"
+      outputs."/integrates/storage/dev/lib/populate"
       (makeTemplate {
         replace = {
           __argCriteriaVulnerabilities__ =

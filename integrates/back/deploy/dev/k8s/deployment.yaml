@@ -26,7 +26,8 @@ spec:
           command: [sh]
           args:
             - -c
-            - m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
+            - m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/storage/dev;
+              m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
               m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back/deploy/probes/readiness;
               m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back eph
           env:
@@ -101,38 +102,6 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 28022
-            initialDelaySeconds: 120
-            periodSeconds: 60
-            successThreshold: 1
-            failureThreshold: 10
-            timeoutSeconds: 60
-        - name: storage
-          image: ghcr.io/fluidattacks/makes:22.11
-          imagePullPolicy: Always
-          command: [m]
-          args:
-            - gitlab:fluidattacks/universe@${CI_COMMIT_SHA}
-            - /integrates/storage
-          env:
-            - name: MAKES_K8S_COMPAT
-              value: "1"
-          resources:
-            requests:
-              cpu: 600m
-              memory: 2000Mi
-            limits:
-              cpu: 4000m
-              memory: 3000Mi
-          envFrom:
-            - secretRef:
-                name: integrates-${CI_COMMIT_REF_NAME}
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-            readOnlyRootFilesystem: false
-          readinessProbe:
-            tcpSocket:
-              port: 29000
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1

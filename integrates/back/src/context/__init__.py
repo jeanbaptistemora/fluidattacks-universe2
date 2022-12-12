@@ -80,7 +80,11 @@ try:
     BASE_URL = "https://app.fluidattacks.com"
     FI_AWS_REDSHIFT_PORT = 5439
     FI_AWS_REGION_NAME = "us-east-1"
-    FI_AWS_S3_MAIN_BUCKET = "integrates"
+    FI_AWS_S3_MAIN_BUCKET = (
+        "integrates"
+        if FI_ENVIRONMENT == "production"
+        else f"integrates.{CI_COMMIT_REF_NAME}"
+    )
     FI_AWS_S3_PATH_PREFIX = os.environ.get("AWS_S3_PATH_PREFIX", "")
 except KeyError as exe:
     print("Environment variable " + exe.args[0] + " doesn't exist")

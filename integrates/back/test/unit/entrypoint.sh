@@ -25,7 +25,8 @@ function main {
   source __argIntegratesBackEnv__/template dev \
     && if [ "$test_group" = "not_changes_db" ]; then
       DAEMON=true integrates-db \
-        && DAEMON=true integrates-storage \
+        && export AWS_S3_PATH_PREFIX="test/unit/${test_group}/" \
+        && populate "false" "/test/unit/${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \
@@ -34,7 +35,8 @@ function main {
         || return 1
     elif [ "$test_group" = "changes_db" ]; then
       DAEMON=true integrates-db \
-        && DAEMON=true integrates-storage \
+        && export AWS_S3_PATH_PREFIX="test/unit/${test_group}/" \
+        && populate "false" "/test/unit/${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \

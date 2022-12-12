@@ -14,7 +14,6 @@ from mypy_boto3_dynamodb import (
 from mypy_boto3_s3 import (
     S3Client,
 )
-import os
 import pytest
 from typing import (
     Any,
@@ -130,14 +129,6 @@ data: Dict[str, List[Any]] = dict(
         ),
     ]
 )
-
-
-@pytest.fixture(scope="function", autouse=True)
-def aws_credentials() -> None:
-    """Mocked AWS Credentials for moto."""
-    os.environ["AWS_ACCESS_KEY_ID"] = "testing"
-    os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
-    os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
 
 
 @pytest.fixture(name="dynamo_resource", scope="module")

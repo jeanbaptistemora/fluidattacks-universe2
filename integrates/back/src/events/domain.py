@@ -152,7 +152,7 @@ async def search_evidence(file_name: str) -> list[str]:
 
 
 async def remove_file_evidence(file_name: str) -> None:
-    await s3_ops.remove_file(f"{file_name}")
+    await s3_ops.remove_file(file_name)
 
 
 async def add_comment(

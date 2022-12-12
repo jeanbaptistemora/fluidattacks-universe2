@@ -25,6 +25,7 @@ in
       ];
       source = [
         outputs."/common/utils/sops"
+        outputs."/integrates/storage/dev/lib/populate"
         pythonRequirements
       ];
     };

@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  export BATCH_BIN
   local resolver_test_group="${1}"
+  export BATCH_BIN
   export COVERAGE_FILE=.coverage."${resolver_test_group}"
   local populate_db="${2:-false}"
   local pytest_args=(
@@ -41,7 +41,11 @@ function main {
   source __argIntegratesBackEnv__/template dev \
     && sops_export_vars integrates/secrets/development.yaml \
       TEST_SSH_KEY \
-    && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then DAEMON=true integrates-storage; fi \
+    && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then
+      : \
+        && export AWS_S3_PATH_PREFIX="test/functional/${resolver_test_group}/" \
+        && populate "false" "/test/functional/${resolver_test_group}"
+    fi \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \

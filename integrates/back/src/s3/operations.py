@@ -46,7 +46,7 @@ async def download_file(
 ) -> None:
     client = await get_s3_resource()
     await client.download_file(
-        bucket, file_name, f"{FI_AWS_S3_PATH_PREFIX}{file_path}"
+        bucket, f"{FI_AWS_S3_PATH_PREFIX}{file_name}", file_path
     )
 
 
@@ -59,7 +59,10 @@ async def list_files(
         Bucket=bucket, Prefix=f"{FI_AWS_S3_PATH_PREFIX}{name}"
     )
 
-    return [item["Key"] for item in resp.get("Contents", [])]
+    return [
+        item["Key"].replace(FI_AWS_S3_PATH_PREFIX, "")
+        for item in resp.get("Contents", [])
+    ]
 
 
 async def remove_file(name: str, bucket: str = FI_AWS_S3_MAIN_BUCKET) -> None:

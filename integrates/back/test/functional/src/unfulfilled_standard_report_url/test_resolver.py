@@ -31,7 +31,4 @@ async def test_get_unfulfilled_standard_report_url(
     result: dict[str, Any] = await get_result(
         user=email, group_name=group_name
     )
-    assert (
-        "/integrates/reports/pdf/"
-        in result["data"]["unfulfilledStandardReportUrl"]
-    )
+    assert "/reports/pdf/" in result["data"]["unfulfilledStandardReportUrl"]

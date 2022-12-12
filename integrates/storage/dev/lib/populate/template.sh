@@ -4,7 +4,8 @@ function _deploy_infra {
   deploy_infra="${1}"
 
   if [ "${deploy_infra}" == "true" ]; then
-    deploy-terraform-for-integratesStorageDev
+    # Multiple deploys fail due to state locking
+    deploy-terraform-for-integratesStorageDev || true
   elif [ "${deploy_infra}" == "false" ]; then
     info "Skipping infra deployment."
   else
@@ -52,6 +53,7 @@ function populate {
       "s3://${endpoint}${sync_path}" \
       --size-only \
       --delete \
+      "${@:3}" \
     && rm -rf "${mutable_data}" \
     || return 1
 }

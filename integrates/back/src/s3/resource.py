@@ -4,9 +4,6 @@ from aiobotocore.config import (
 )
 from context import (
     FI_AWS_REGION_NAME,
-    FI_ENVIRONMENT,
-    FI_MINIO_PASS,
-    FI_MINIO_USER,
 )
 from contextlib import (
     AsyncExitStack,
@@ -16,12 +13,6 @@ from typing import (
 )
 
 RESOURCE_OPTIONS = {
-    "aws_access_key_id": (
-        FI_MINIO_USER if FI_ENVIRONMENT == "development" else None
-    ),
-    "aws_secret_access_key": (
-        FI_MINIO_PASS if FI_ENVIRONMENT == "development" else None
-    ),
     "config": AioConfig(
         # The time in seconds till a timeout exception is thrown when
         # attempting to make a connection. [60]
@@ -37,12 +28,6 @@ RESOURCE_OPTIONS = {
         # Signature version for signing URLs
         # https://boto3.amazonaws.com/v1/documentation/api/1.9.42/guide/s3.html#generating-presigned-urls
         signature_version="s3v4",
-    ),
-    "endpoint_url": (
-        # FP: the endpoint is hosted in a local environment
-        "http://localhost:9000"  # NOSONAR
-        if FI_ENVIRONMENT == "development"
-        else None
     ),
     "region_name": FI_AWS_REGION_NAME,
     "service_name": "s3",
