@@ -410,7 +410,7 @@ class ITReport:
                 self._get_vulnerability_data(vulnerability)
                 for vulnerability in vulnerabilities_filtered
             ),
-            workers=2,
+            workers=8,
         )
 
         for vulnerability, historics in zip(
