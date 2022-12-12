@@ -200,6 +200,12 @@ def test_lib_path() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("lib_root")
+def test_lib_root() -> None:
+    _run_no_group("lib_root")
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("lib_ssl")
 @pytest.mark.usefixtures("test_mocks_ssl_safe", "test_mocks_ssl_unsafe")
 def test_lib_ssl() -> None:
