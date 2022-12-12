@@ -1049,8 +1049,8 @@
     schedule_expression = "cron(0 9,18 ? * 2-6 *)";
     size = "medium";
     awsRole = "prod_integrates";
-    attempts = 3;
-    timeout = 172800;
+    attempts = 2;
+    timeout = 216000;
     parallel = 1;
 
     environment = [
