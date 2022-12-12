@@ -69,7 +69,6 @@ async def test_upload_test_file(
     assert bool(s3_mock.get_object(Bucket=BUCKET_NAME, Key=file_name))
 
 
-@pytest.mark.skip(reason="Test failing when making bucket global")
 @mock.patch(
     "s3.operations.get_s3_resource",
     new_callable=mock.AsyncMock,
@@ -77,25 +76,23 @@ async def test_upload_test_file(
 async def test_download_evidence_file(
     mock_s3_resource: mock.AsyncMock, s3_mock: S3Client
 ) -> None:
-    async def side_effect(*args: Any) -> None:
-        s3_mock.download_file(*args)
+    def mock_download_file(*args: Any) -> Any:
+        return s3_mock.download_file(*args)
+
+    def mock_list_objects_v2(**kwargs: Any) -> Any:
+        return s3_mock.list_objects_v2(**kwargs)
 
     group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_route_1.png"
-    file_key = "/".join(
-        ["evidences", group_name.lower(), finding_id, file_name]
+
+    mock_s3_resource.return_value.download_file.side_effect = (
+        mock_download_file
     )
-    mock_s3_resource.return_value.download_file = side_effect
-    with mock.patch(
-        "findings.storage.search_evidence"
-    ) as mock_search_evidence:
-        mock_search_evidence.return_value = bool(
-            s3_mock.get_object(Bucket=BUCKET_NAME, Key=file_key)
-        )
-        test_data = await download_evidence_file(
-            group_name, finding_id, file_name
-        )
+    mock_s3_resource.return_value.list_objects_v2.side_effect = (
+        mock_list_objects_v2
+    )
+    test_data = await download_evidence_file(group_name, finding_id, file_name)
 
     expected_output = os.path.abspath(
         # FP: local testing
@@ -104,29 +101,29 @@ async def test_download_evidence_file(
     assert test_data == expected_output
 
 
-@pytest.mark.skip(reason="Test failing when making bucket global")
-async def test_get_records_from_file(s3_mock: S3Client) -> None:
-    def side_effect(bucket: str, file_name: str, file_path: str) -> None:
-        if bool(bucket and file_name and file_path):
-            s3_mock.download_file(file_name, file_path, BUCKET_NAME)
+@mock.patch(
+    "s3.operations.get_s3_resource",
+    new_callable=mock.AsyncMock,
+)
+async def test_get_records_from_file(
+    mock_s3_resource: mock.AsyncMock, s3_mock: S3Client
+) -> None:
+    def mock_download_file(*args: Any) -> Any:
+        return s3_mock.download_file(*args)
+
+    def mock_list_objects_v2(**kwargs: Any) -> Any:
+        return s3_mock.list_objects_v2(**kwargs)
 
     group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_file.csv"
-    file_key = "/".join(
-        ["evidences", group_name.lower(), finding_id, file_name]
+    mock_s3_resource.return_value.download_file.side_effect = (
+        mock_download_file
     )
-    with mock.patch("s3.operations.download_file") as mock_download:
-        mock_download.side_effect = side_effect
-        with mock.patch(
-            "findings.storage.search_evidence"
-        ) as mock_search_evidence:
-            mock_search_evidence.return_value = bool(
-                s3_mock.get_object(Bucket=BUCKET_NAME, Key=file_key)
-            )
-            test_data = await get_records_from_file(
-                group_name, finding_id, file_name
-            )
+    mock_s3_resource.return_value.list_objects_v2.side_effect = (
+        mock_list_objects_v2
+    )
+    test_data = await get_records_from_file(group_name, finding_id, file_name)
     expected_output = [
         OrderedDict(
             [
