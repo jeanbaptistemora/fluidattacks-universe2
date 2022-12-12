@@ -57,7 +57,7 @@ async def test_update_unreliable_indicators_by_deps() -> None:
             datetime.fromisoformat("2020-01-03T17:46:10+00:00")
         ),
         unreliable_oldest_open_vulnerability_report_date=(
-            "2020-01-03T17:46:10+00:00"
+            datetime.fromisoformat("2020-01-03T17:46:10+00:00")
         ),
         unreliable_oldest_vulnerability_report_date=(
             "2020-01-03T17:46:10+00:00"

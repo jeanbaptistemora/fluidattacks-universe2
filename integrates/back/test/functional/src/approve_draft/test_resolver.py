@@ -69,7 +69,7 @@ async def test_approve_draft(
     )
     assert (
         finding_indicators.unreliable_oldest_open_vulnerability_report_date
-        == ""
+        is None
     )
     assert (
         datetime.fromisoformat(

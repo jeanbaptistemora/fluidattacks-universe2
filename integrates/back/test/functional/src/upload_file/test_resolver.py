@@ -272,7 +272,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             datetime.fromisoformat("2022-02-09T00:00:00+00:00")
         ),
         unreliable_oldest_open_vulnerability_report_date=(
-            "2018-04-08T00:43:11+00:00"
+            datetime.fromisoformat("2018-04-08T00:43:11+00:00")
         ),
         unreliable_oldest_vulnerability_report_date=(
             "2018-04-08T00:43:11+00:00"

@@ -115,10 +115,12 @@ data: Dict[str, List[Any]] = dict(
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("0"),
                 ),
-                unreliable_oldest_vulnerability_report_date="""2019-08-30
-                    T14:30:13+00:00""",
-                unreliable_oldest_open_vulnerability_report_date="""2019-08-30
-                    T14:30:13+00:00""",
+                unreliable_oldest_vulnerability_report_date=(
+                    "2019-08-30T14:30:13+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=(
+                    "2019-08-30T14:30:13+00:00"
+                ),
                 unreliable_closed_vulnerabilities=Decimal("4"),
                 unreliable_status="OPEN",
             ),
@@ -257,10 +259,12 @@ data: Dict[str, List[Any]] = dict(
                     in_progress=Decimal("1"),
                     accepted_undefined=Decimal("0"),
                 ),
-                unreliable_oldest_vulnerability_report_date="""2020-01-03
-                    T17:46:10+00:00""",
-                unreliable_oldest_open_vulnerability_report_date="""2020-01-03
-                    T17:46:10+00:00""",
+                unreliable_oldest_vulnerability_report_date=(
+                    "2020-01-03T17:46:10+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=(
+                    "2020-01-03T17:46:10+00:00"
+                ),
                 unreliable_closed_vulnerabilities=Decimal("0"),
                 unreliable_status="OPEN",
             ),
@@ -401,10 +405,12 @@ data: Dict[str, List[Any]] = dict(
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("1"),
                 ),
-                unreliable_oldest_vulnerability_report_date="""2019-04-08
-                    T00:45:15+00:00""",
-                unreliable_oldest_open_vulnerability_report_date="""2019-04-08
-                    T00:45:15+00:00""",
+                unreliable_oldest_vulnerability_report_date=(
+                    "2019-04-08T00:45:15+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=(
+                    "2019-04-08T00:45:15+00:00"
+                ),
                 unreliable_closed_vulnerabilities=Decimal("1"),
                 unreliable_status="OPEN",
             ),
@@ -502,8 +508,9 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_source="ASM",
                 unreliable_last_reattack_date="2020-02-19T15:41:04+00:00",
                 unreliable_last_reattack_requester="integratesuser@gmail.com",
-                unreliable_last_requested_reattack_date="""2020-02-18
-                    T15:41:04+00:00""",
+                unreliable_last_requested_reattack_date=(
+                    "2020-02-18T15:41:04+00:00"
+                ),
                 unreliable_efficacy=0,
                 unreliable_treatment_changes=0,
             ),
