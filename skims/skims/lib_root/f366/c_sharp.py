@@ -20,6 +20,7 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Optional,
     Set,
 )
 from utils import (
@@ -34,6 +35,32 @@ def is_in_path(graph: Graph, method_id: NId, class_id: NId) -> bool:
     return False
 
 
+def class_is_safe(graph: Graph, c_id: NId) -> bool:
+    if (attr_cid := g.match_ast_d(graph, c_id, "AttributeList")) and (
+        childc_id := g.adj_ast(graph, attr_cid)
+    ):
+        class_filters = [graph.nodes[n_id].get("name") for n_id in childc_id]
+        if "SecurityCritical" not in class_filters:
+            return True
+
+    return False
+
+
+def get_vuln_filter(graph: Graph, m_id: NId, c_id: NId) -> Optional[NId]:
+    if (attr_mid := g.match_ast_d(graph, m_id, "AttributeList")) and (
+        child_mid := g.adj_ast(graph, attr_mid)
+    ):
+        for filter_node in child_mid:
+            if (
+                (filter_name := graph.nodes[filter_node].get("name"))
+                and filter_name == "SecuritySafeCritical"
+                and is_in_path(graph, m_id, c_id)
+            ):
+
+                return filter_node
+    return None
+
+
 def get_vuln_nodes(graph: Graph) -> Set[NId]:
     vuln_nodes: Set[NId] = set()
     for c_id in g.filter_nodes(
@@ -41,11 +68,7 @@ def get_vuln_nodes(graph: Graph) -> Set[NId]:
         graph.nodes,
         g.pred_has_labels(label_type="Class"),
     ):
-        if not (
-            (attr_cid := g.match_ast_d(graph, c_id, "AttributeList"))
-            and (childc_id := g.adj_ast(graph, attr_cid)[0])
-            and graph.nodes[childc_id].get("name") == "SecurityCritical"
-        ):
+        if class_is_safe(graph, c_id):
             continue
 
         for m_id in g.filter_nodes(
@@ -53,13 +76,8 @@ def get_vuln_nodes(graph: Graph) -> Set[NId]:
             graph.nodes,
             g.pred_has_labels(label_type="MethodDeclaration"),
         ):
-            if (
-                (attr_mid := g.match_ast_d(graph, m_id, "AttributeList"))
-                and (child_id := g.adj_ast(graph, attr_mid)[0])
-                and graph.nodes[child_id].get("name") == "SecuritySafeCritical"
-                and is_in_path(graph, m_id, c_id)
-            ):
-                vuln_nodes.add(m_id)
+            if vuln := get_vuln_filter(graph, m_id, c_id):
+                vuln_nodes.add(vuln)
     return vuln_nodes
 
 
