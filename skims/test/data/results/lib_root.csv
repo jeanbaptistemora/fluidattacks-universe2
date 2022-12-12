@@ -4735,6 +4735,56 @@ F211,lines,namespace/skims/test/data/lib_root/f211/regex_injection.cs,10,405,ski
   12 | }
      ^ Col 0
 ",csharp.csharp_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+   5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+> 12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",typescript.ts_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,5,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+>  5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+  12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",typescript.ts_regex_injection
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,11,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
