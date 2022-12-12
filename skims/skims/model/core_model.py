@@ -4064,6 +4064,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_REGEX_INJETCION = MethodInfo(
+        file_name="typescript",
+        name="ts_regex_injection",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_REGEX_INJETCION = MethodInfo(
+        file_name="javascript",
+        name="js_regex_injection",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
         name="java_info_leak_stacktrace",
