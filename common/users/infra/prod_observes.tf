@@ -168,6 +168,7 @@ locals {
             "redshift:ModifySavedQuery",
             "redshift:DeleteSavedQueries",
           ]
+          Resource = ["*"]
         },
         {
           Sid    = "redshiftExecuteSqlOnConsole"
