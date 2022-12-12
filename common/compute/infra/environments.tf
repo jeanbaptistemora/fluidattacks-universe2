@@ -38,6 +38,14 @@ locals {
       ]
       type = "SPOT"
     }
+    sorts = {
+      product = "sorts"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+      type = "SPOT"
+    }
     observes = {
       product = "observes"
       subnets = [
@@ -114,6 +122,14 @@ locals {
     skims_large = merge(
       local.machine_sizes.large,
       local.config.skims,
+    )
+    sorts_small = merge(
+      local.machine_sizes.small,
+      local.config.sorts
+    )
+    sorts_large = merge(
+      local.machine_sizes.large,
+      local.config.sorts,
     )
   }
 }
