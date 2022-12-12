@@ -9,6 +9,7 @@ from model.core_model import (
 )
 from typing import (
     Callable,
+    Set,
     Tuple,
 )
 
@@ -22,7 +23,7 @@ def run_non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
 def analyze(
     path: str,
     raw_content_generator: Callable[[], bytes],
-    unique_nu_paths: str,
+    unique_nu_paths: Set[str],
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
