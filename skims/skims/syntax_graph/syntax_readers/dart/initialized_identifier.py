@@ -27,10 +27,26 @@ def reader(args: SyntaxGraphArgs) -> NId:
         var_name = node_to_str(args.ast_graph, c_ids[0])
         return build_variable_declaration_node(args, var_name, None, c_ids[2])
 
+    name = None
+    expr_id = None
+    if (
+        identifiers := [
+            _id
+            for _id in c_ids
+            if args.ast_graph.nodes[_id]["label_type"] == "identifier"
+        ]
+    ) and len(identifiers) == 2:
+        name = args.ast_graph.nodes[identifiers[0]]["label_text"]
+        expr_id = identifiers[1]
+
     ignored_types = {"="}
     filtered_ids = [
         _id
         for _id in c_ids
         if args.ast_graph.nodes[_id]["label_type"] not in ignored_types
+        and args.ast_graph.nodes[_id].get("label_text") != name
     ]
-    return build_initialized_identifier_node(args, iter(filtered_ids))
+
+    return build_initialized_identifier_node(
+        args, name, expr_id, iter(filtered_ids)
+    )

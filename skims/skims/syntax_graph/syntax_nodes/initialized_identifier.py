@@ -6,16 +6,26 @@ from syntax_graph.types import (
 )
 from typing import (
     Iterator,
+    Optional,
 )
 
 
 def build_initialized_identifier_node(
-    args: SyntaxGraphArgs, c_ids: Iterator[NId]
+    args: SyntaxGraphArgs,
+    name: Optional[str],
+    expr_id: Optional[NId],
+    c_ids: Iterator[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="InitializedIdentifier",
     )
+
+    if name:
+        args.syntax_graph.nodes[args.n_id]["variable"] = name
+
+    if expr_id:
+        args.syntax_graph.nodes[args.n_id]["expression_id"] = expr_id
 
     for c_id in c_ids:
         args.syntax_graph.add_edge(
