@@ -10,7 +10,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
-    group_access as group_access_model,
     stakeholders as stakeholders_model,
 )
 from mypy_boto3_dynamodb import (
@@ -100,39 +99,78 @@ async def test_organization_level_enforcer(
 
 
 # pylint: disable=consider-using-dict-items
+@mock.patch(
+    "dynamodb.operations.get_table_resource",
+    new_callable=AsyncMock,
+)
+@mock.patch(
+    "dynamodb.operations.get_resource",
+    new_callable=AsyncMock,
+)
+@pytest.mark.parametrize(
+    ["subject", "group", "role"],
+    [
+        [
+            "integrates@fluidattacks.com",
+            "unittesting",
+            "admin",
+        ],
+        [
+            "integratesuser@gmail.com",
+            "unittesting",
+            "user_manager",
+        ],
+        [
+            "integrateshacker@fluidattacks.com",
+            "unittesting",
+            "hacker",
+        ],
+        [
+            "continuoushacking@gmail.com",
+            "oneshottest",
+            "user_manager",
+        ],
+        [
+            "integrateshacker@fluidattacks.com",
+            "oneshottest",
+            "reattacker",
+        ],
+        [
+            "integratesuser@gmail.com",
+            "oneshottest",
+            "user",
+        ],
+    ],
+)
 @pytest.mark.changes_db
-async def test_group_level_enforcer() -> None:
-    test_cases = {
-        # Common user, group
-        ("test@tests.com", "test"),
-        # Fluid user, group
-        ("test@fluidattacks.com", "unittesting"),
-    }
-    for subject, group in test_cases:
-        model = authz.get_group_level_roles_model(subject)
+async def test_get_group_level_enforcer(
+    # pylint: disable=too-many-arguments
+    mock_resource: AsyncMock,
+    mock_table_resource: AsyncMock,
+    subject: str,
+    group: str,
+    role: str,
+    dynamo_resource: ServiceResource,
+) -> None:
+    def mock_batch_get_item(**kwargs: Any) -> Any:
+        return dynamo_resource.batch_get_item(**kwargs)
 
-        for role in model:
-            await stakeholders_model.remove(email=subject)
-            await group_access_model.remove(email=subject, group_name=group)
-            await authz.grant_group_level_role(
-                get_new_context(), subject, group, role
-            )
-            enforcer = await authz.get_group_level_enforcer(
-                get_new_context(), subject
-            )
+    def mock_query(**kwargs: Any) -> Any:
+        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
-            for action in model[role]["actions"]:
-                assert enforcer(
-                    group, action
-                ), f"{role} should be able to do {action}"
-
-            for other_role in model:
-                for action in (
-                    model[other_role]["actions"] - model[role]["actions"]
-                ):
-                    assert not enforcer(
-                        group, action
-                    ), f"{role} should not be able to do {action}"
+    model = authz.get_group_level_roles_model(subject)
+    mock_table_resource.return_value.query.side_effect = mock_query
+    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    enforcer = await authz.get_group_level_enforcer(get_new_context(), subject)
+    for action in model[role]["actions"]:
+        assert enforcer(group, action), f"{role} should be able to do {action}"
+    for other_role in model:
+        for action in model[other_role]["actions"] - model[role]["actions"]:
+            assert not enforcer(
+                group, action
+            ), f"{role} should not be able to do {action}"
+    assert mock_table_resource.called is True
+    assert mock_resource.called is True
 
 
 # pylint: disable=consider-using-dict-items
