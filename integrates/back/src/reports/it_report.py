@@ -65,7 +65,6 @@ from findings import (
 )
 from findings.domain.core import (
     get_report_days,
-    get_report_days_datetime,
     get_severity_score,
 )
 from itertools import (
@@ -254,7 +253,7 @@ class ITReport:
     @staticmethod
     def _get_last_report_days(finding: Finding) -> int:
         unreliable_indicators = finding.unreliable_indicators
-        return get_report_days_datetime(
+        return get_report_days(
             unreliable_indicators.unreliable_newest_vulnerability_report_date
         )
 

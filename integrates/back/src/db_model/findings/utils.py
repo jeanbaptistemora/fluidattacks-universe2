@@ -234,7 +234,11 @@ def format_unreliable_indicators_item(
             else ""
         ),
         "unreliable_oldest_vulnerability_report_date": (
-            indicators.unreliable_oldest_vulnerability_report_date
+            get_as_utc_iso_format(
+                indicators.unreliable_oldest_vulnerability_report_date
+            )
+            if indicators.unreliable_oldest_vulnerability_report_date
+            else ""
         ),
         "unreliable_open_vulnerabilities": (
             indicators.unreliable_open_vulnerabilities
@@ -278,7 +282,13 @@ def format_unreliable_indicators(
             else None
         ),
         unreliable_oldest_vulnerability_report_date=(
-            indicators_item["unreliable_oldest_vulnerability_report_date"]
+            datetime.fromisoformat(
+                indicators_item["unreliable_oldest_vulnerability_report_date"]
+            )
+            if indicators_item.get(
+                "unreliable_oldest_vulnerability_report_date"
+            )
+            else None
         ),
         unreliable_open_vulnerabilities=int(
             indicators_item["unreliable_open_vulnerabilities"]

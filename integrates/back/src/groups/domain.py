@@ -1815,9 +1815,7 @@ async def get_oldest_finding_date(
         group_name
     )
     ages: list[datetime] = [
-        datetime.fromisoformat(
-            finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
-        )
+        finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
         for finding in findings
         if finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
     ]

@@ -13,6 +13,6 @@ def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
     unreliable_indicators = parent.unreliable_indicators
-    return findings_domain.get_report_days_datetime(
+    return findings_domain.get_report_days(
         unreliable_indicators.unreliable_oldest_open_vulnerability_report_date
     )

@@ -152,7 +152,7 @@ class FindingUnreliableIndicators(NamedTuple):
     unreliable_closed_vulnerabilities: int = 0
     unreliable_newest_vulnerability_report_date: Optional[datetime] = None
     unreliable_oldest_open_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_vulnerability_report_date: str = ""
+    unreliable_oldest_vulnerability_report_date: Optional[datetime] = None
     unreliable_open_vulnerabilities: int = 0
     unreliable_status: FindingStatus = FindingStatus.CLOSED
     unreliable_treatment_summary: FindingTreatmentSummary = (

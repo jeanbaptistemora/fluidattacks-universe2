@@ -389,16 +389,7 @@ async def get_pending_verification_findings(
     )
 
 
-def get_report_days(report_date: str) -> int:
-    """Gets amount of days from a report date."""
-    days = 0
-    if report_date:
-        date = datetime.fromisoformat(report_date)
-        days = (datetime_utils.get_now() - date).days
-    return days
-
-
-def get_report_days_datetime(report_date: Optional[datetime]) -> int:
+def get_report_days(report_date: Optional[datetime]) -> int:
     """Gets amount of days from a report date."""
     return (
         (datetime_utils.get_utc_now() - report_date).days if report_date else 0
