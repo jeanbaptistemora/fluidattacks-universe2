@@ -94,6 +94,9 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     if treatment := kwargs.get("treatment"):
         must_filters.append({"treatment.status": str(treatment).upper()})
 
+    if vulnerability_type := kwargs.get("type"):
+        must_filters.append({"type": str(vulnerability_type).upper()})
+
     if state := kwargs.get("stateStatus"):
         must_filters.append({"state.status": str(state).upper()})
 
