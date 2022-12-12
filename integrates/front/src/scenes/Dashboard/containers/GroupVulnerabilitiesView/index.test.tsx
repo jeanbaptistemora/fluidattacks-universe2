@@ -298,6 +298,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     );
     await userEvent.click(screen.getByText("Filter"));
 
+    expect(screen.getByText("Source")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Treatment")).toBeInTheDocument();
     expect(screen.getByText("Reattack")).toBeInTheDocument();
@@ -321,6 +322,19 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("New")).toBeInTheDocument();
     expect(screen.getByText("Temporarily accepted")).toBeInTheDocument();
     expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByText("Reattack")[1]);
+
+    expect(screen.getByText("Masked")).toBeInTheDocument();
+    expect(screen.getAllByText("Requested")[1]).toBeInTheDocument();
+    expect(screen.getByText("On_hold")).toBeInTheDocument();
+    expect(screen.getByText("Verified")).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByText("Source")[1]);
+
+    expect(screen.getByText("app")).toBeInTheDocument();
+    expect(screen.getByText("infra")).toBeInTheDocument();
+    expect(screen.getByText("code")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });

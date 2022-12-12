@@ -27,6 +27,7 @@ const formatVulnAttribute: (state: string) => string = (
   const vulnParameters: Record<string, string> = {
     currentState: "stateStatus",
     treatment: "treatment",
+    type: "type",
     verification: "verificationStatus",
   };
 

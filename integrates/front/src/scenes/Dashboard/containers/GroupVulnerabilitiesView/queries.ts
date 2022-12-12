@@ -37,6 +37,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
     $groupName: String!
     $search: String
     $treatment: String
+    $type: String
     $stateStatus: String
     $verificationStatus: String
     $zeroRisk: VulnerabilityZeroRiskStatus
@@ -48,6 +49,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
         first: $first
         search: $search
         treatment: $treatment
+        type: $type
         stateStatus: $stateStatus
         verificationStatus: $verificationStatus
         zeroRisk: $zeroRisk

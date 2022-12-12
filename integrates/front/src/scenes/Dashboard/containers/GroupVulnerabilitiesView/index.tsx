@@ -109,6 +109,32 @@ const tableFilters: IFilter<IVulnRowAttr>[] = [
     type: "select",
   },
   {
+    id: "type",
+    key: "vulnerabilityType",
+    label: "Source",
+    selectOptions: [
+      {
+        header: translate.t(
+          "searchFindings.tabVuln.vulnTable.vulnerabilityType.inputs"
+        ),
+        value: "INPUTS",
+      },
+      {
+        header: translate.t(
+          "searchFindings.tabVuln.vulnTable.vulnerabilityType.ports"
+        ),
+        value: "PORTS",
+      },
+      {
+        header: translate.t(
+          "searchFindings.tabVuln.vulnTable.vulnerabilityType.lines"
+        ),
+        value: "LINES",
+      },
+    ],
+    type: "select",
+  },
+  {
     id: "treatment",
     key: "treatment",
     label: "Treatment",
