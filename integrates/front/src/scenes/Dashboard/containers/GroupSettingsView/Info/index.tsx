@@ -2,13 +2,13 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import dayjs from "dayjs";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import moment from "moment";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -142,7 +142,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           language: values.language,
           managed: values.managed,
           sprintDuration: Number(values.sprintDuration),
-          sprintStartDate: moment(values.sprintStartDate).toISOString(),
+          sprintStartDate: dayjs(values.sprintStartDate).toISOString(),
         },
       });
     },
