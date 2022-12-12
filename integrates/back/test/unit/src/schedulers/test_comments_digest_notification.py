@@ -10,6 +10,9 @@ from db_model.event_comments.types import (
 from db_model.finding_comments.types import (
     FindingComment,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from db_model.group_comments.types import (
     GroupComment,
 )
@@ -22,9 +25,12 @@ from pytz import (
 )
 from schedulers.comments_digest_notification import (
     _get_days_since_comment,
+    CommentsDataType,
     group_comments,
+    group_instance_comments,
     instance_comments,
     last_comments,
+    unique_emails,
 )
 from typing import (
     Union,
@@ -118,3 +124,70 @@ async def test_instance_comments(instance_id: str, instance_type: str) -> None:
         get_new_context(), instance_id, instance_type
     )
     assert len(comments) == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ["group_name", "instance_type"],
+    [
+        ["unittesting", "finding"],
+    ],
+)
+@freeze_time("2019-08-21T06:00:00.0")
+async def test_group_instance_comments(
+    group_name: str, instance_type: str
+) -> None:
+    loaders = get_new_context()
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
+    comments = await group_instance_comments(
+        loaders, group_findings, instance_type
+    )
+    assert len(comments) == 1
+
+
+@pytest.mark.parametrize(
+    ["groups_data"],
+    [
+        [
+            {
+                "oneshottest": {
+                    "org_name": "okada",
+                    "email_to": (
+                        "continuoushack2@gmail.com",
+                        "customer_manager@fluidattacks.com",
+                        "integratesmanager@fluidattacks.com",
+                        "integratesmanager@gmail.com",
+                        "integratesresourcer@fluidattacks.com",
+                        "integratesuser2@gmail.com",
+                        "integratesuser@gmail.com",
+                    ),
+                    "group_comments": (),
+                    "event_comments": {},
+                    "finding_comments": {},
+                },
+                "unittesting": {
+                    "org_name": "okada",
+                    "email_to": (
+                        "continuoushack2@gmail.com",
+                        "continuoushacking@gmail.com",
+                        "integratesmanager@fluidattacks.com",
+                        "integratesmanager@gmail.com",
+                        "integratesresourcer@fluidattacks.com",
+                        "integratesuser2@gmail.com",
+                        "unittest2@fluidattacks.com",
+                    ),
+                    "group_comments": (),
+                    "event_comments": {},
+                    "finding_comments": {},
+                },
+            }
+        ],
+    ],
+)
+async def test_unique_emails(
+    groups_data: dict[str, CommentsDataType],
+) -> None:
+    emails = unique_emails(dict(groups_data), ())
+    assert len(emails) == 7
