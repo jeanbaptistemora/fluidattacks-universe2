@@ -59,6 +59,7 @@ export const Login: React.FC = (): JSX.Element => {
           align={"center"}
           display={"flex"}
           height={"700px"}
+          justify={"center"}
           maxWidth={"350px"}
           position={"absolute"}
           width={"100%"}
@@ -100,6 +101,7 @@ export const Login: React.FC = (): JSX.Element => {
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
+                width={"310px"}
                 widthMd={"100%"}
                 wrap={"wrap"}
               >
@@ -111,7 +113,7 @@ export const Login: React.FC = (): JSX.Element => {
                   width={"24px"}
                 />
                 <Container minWidth={"20px"} />
-                <Container pt={"2px"} width={"220px"}>
+                <Container pt={"2px"} width={"200px"}>
                   <Text bright={9} fontSize={"18px"}>
                     {"Continue with Google"}
                   </Text>
@@ -119,12 +121,7 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container
-            maxWidth={"350px"}
-            pt={"16px"}
-            width={"100%"}
-            widthMd={"300px"}
-          >
+          <Container maxWidth={"350px"} pt={"16px"} widthMd={"300px"}>
             <Button
               onClick={handleMicrosoftLogin}
               size={"lg"}
@@ -134,6 +131,8 @@ export const Login: React.FC = (): JSX.Element => {
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
+                width={"310px"}
+                widthMd={"100%"}
                 wrap={"wrap"}
               >
                 <Container width={"40px"} widthMd={"0px"} />
@@ -145,7 +144,7 @@ export const Login: React.FC = (): JSX.Element => {
                   width={"24px"}
                 />
                 <Container minWidth={"20px"} />
-                <Container pt={"2px"} width={"220px"}>
+                <Container pt={"2px"} width={"200px"}>
                   <Text bright={9} fontSize={"18px"}>
                     {"Continue with Microsoft"}
                   </Text>
@@ -153,12 +152,7 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container
-            maxWidth={"350px"}
-            pt={"16px"}
-            width={"100%"}
-            widthMd={"300px"}
-          >
+          <Container maxWidth={"350px"} pt={"16px"} widthMd={"300px"}>
             <Button
               onClick={handleBitbucketLogin}
               size={"lg"}
@@ -168,6 +162,8 @@ export const Login: React.FC = (): JSX.Element => {
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
+                width={"310px"}
+                widthMd={"100%"}
                 wrap={"wrap"}
               >
                 <Container width={"40px"} widthMd={"0px"} />
@@ -179,7 +175,7 @@ export const Login: React.FC = (): JSX.Element => {
                   width={"24px"}
                 />
                 <Container minWidth={"20px"} />
-                <Container pt={"2px"} width={"220px"}>
+                <Container pt={"2px"} width={"200px"}>
                   <Text bright={9} fontSize={"18px"}>
                     {"Continue with Bitbucket"}
                   </Text>
@@ -212,46 +208,27 @@ export const Login: React.FC = (): JSX.Element => {
           <Container
             align={"center"}
             borderTop={"1.5px solid #b0b0bf"}
-            display={"flex"}
+            display={"inline"}
             justify={"center"}
-            pt={"15px"}
             width={"350px"}
-            wrap={"wrap"}
           >
-            <Container>
-              <Text bright={9} fontSize={"14px"} tone={"light"}>
-                {t("login.generalData.privacy")}
-              </Text>
-            </Container>
+            <Text bright={9} fontSize={"14px"} ta={"center"} tone={"light"}>
+              {t("login.generalData.privacy")}
+              <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+                {"Terms of use"}
+              </ExternalLink>
+              {"and"}
+              <ExternalLink href={"https://fluidattacks.com/privacy/"}>
+                {"Privacy policy"}
+              </ExternalLink>
+            </Text>
           </Container>
           <Container
             align={"center"}
             display={"flex"}
             justify={"center"}
             width={"350px"}
-            wrap={"wrap"}
-          >
-            <Container positionLeft={"0%"} width={"94px"}>
-              <Text bright={9} tone={"light"}>
-                <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-                  {"Terms of use"}
-                </ExternalLink>
-              </Text>
-            </Container>
-            <Container width={"25px"}>
-              <Text bright={9} tone={"light"}>
-                {"and"}
-              </Text>
-            </Container>
-
-            <Container width={"98px"}>
-              <Text bright={9} tone={"light"}>
-                <ExternalLink href={"https://fluidattacks.com/privacy/"}>
-                  {"Privacy policy"}
-                </ExternalLink>
-              </Text>
-            </Container>
-          </Container>
+          />
         </Container>
       </Container>
       <Container
@@ -273,15 +250,35 @@ export const Login: React.FC = (): JSX.Element => {
           width={"100%"}
           wrap={"wrap"}
         >
-          <Container maxHeight={"740px"}>
-            <Tag variant={"redNoBd"}>
-              <Container height={"30px"} pt={"7px"} width={"108px"}>
-                <Text fontSize={"16px"} fw={9} ta={"center"} tone={"red"}>
-                  {t("login.generalData.newFeature")}
-                </Text>
-              </Container>
-            </Tag>
-            <Container maxWidth={"696px"} pt={"24px"} width={"100%"}>
+          <Container
+            display={"flex"}
+            heightMd={"900px"}
+            maxHeight={"740px"}
+            maxWidth={"696px"}
+            widthMd={"90%"}
+            wrap={"wrap"}
+          >
+            <Container maxHeight={"70px"} ptMd={"15px"}>
+              <Tag variant={"redNoBd"}>
+                <Container
+                  height={"30px"}
+                  maxHeight={"37px"}
+                  pt={"7px"}
+                  width={"108px"}
+                >
+                  <Text fontSize={"16px"} fw={9} ta={"center"} tone={"red"}>
+                    {t("login.generalData.newFeature")}
+                  </Text>
+                </Container>
+              </Tag>
+            </Container>
+
+            <Container
+              maxWidth={"696px"}
+              pt={"24px"}
+              ptMd={"0px"}
+              width={"100%"}
+            >
               <Text fontSize={"36px"} fw={9} tone={"light"}>
                 {t("login.generalData.subtitle")}
               </Text>
@@ -289,7 +286,9 @@ export const Login: React.FC = (): JSX.Element => {
             <Container
               maxWidth={"696px"}
               pb={"30px"}
+              pbMd={"0px"}
               pt={"24px"}
+              ptMd={"0px"}
               width={"100%"}
             >
               <Text bright={6} fontSize={"20px"} tone={"light"}>
@@ -305,7 +304,9 @@ export const Login: React.FC = (): JSX.Element => {
               borderTR={"10px"}
               borderTl={"10px"}
               height={"370px"}
+              heightMd={"43%"}
               width={"620px"}
+              widthMd={"90%"}
             />
           </Container>
         </Container>

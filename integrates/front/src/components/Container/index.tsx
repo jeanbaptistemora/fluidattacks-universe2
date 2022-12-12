@@ -19,6 +19,7 @@ interface IContainerProps {
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
+  heightMd?: string;
   justify?: string;
   letterSpacing?: string;
   lineHeight?: string;
@@ -32,6 +33,7 @@ interface IContainerProps {
   pr?: string;
   pt?: string;
   pbMd?: string;
+  ptMd?: string;
   position?: string;
   positionBottom?: string;
   positionLeft?: string;
@@ -62,6 +64,7 @@ const Container = styled.div.attrs({
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
+    heightMd = "auto",
     justify = "",
     letterSpacing = "",
     lineHeight = "normal",
@@ -75,6 +78,7 @@ const Container = styled.div.attrs({
     pr = "0",
     pt = "0",
     pbMd = "0",
+    ptMd = "0",
     position = "static",
     positionBottom = "",
     positionLeft = "",
@@ -132,6 +136,8 @@ width: ${width};
 @media screen and (max-width: 86em) {
    width: ${widthMd === "auto" ? width : widthMd};
    padding-bottom: ${pbMd === "0" ? pb : pbMd};
+   padding-top: ${ptMd === "0" ? pt : ptMd};
+   height: ${heightMd === "auto" ? height : heightMd};
     }
 
 ::-webkit-scrollbar {
