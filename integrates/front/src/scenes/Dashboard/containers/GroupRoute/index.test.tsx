@@ -39,7 +39,6 @@ describe("groupRoute", (): void => {
         result: {
           data: {
             group: {
-              deletionDate: "",
               name: "test",
               organization: "okada",
               serviceAttributes: ["has_asm"],

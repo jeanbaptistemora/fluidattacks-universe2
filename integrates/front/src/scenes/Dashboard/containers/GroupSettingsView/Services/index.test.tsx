@@ -132,7 +132,6 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            deletionDate: null,
             name: "unittesting",
             organization: "org1",
             serviceAttributes: [],
@@ -150,7 +149,6 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            deletionDate: null,
             name: "unittesting",
             organization: "org1",
             serviceAttributes: [],
@@ -168,7 +166,6 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            deletionDate: null,
             name: "unittesting",
             organization: "org1",
             serviceAttributes: [],

@@ -56,7 +56,6 @@ async def test_group() -> None:
           meanRemediateMediumSeverity
           openFindings
           subscription
-          deletionDate
           userDeletion
           tags
           description
@@ -144,7 +143,6 @@ async def test_group() -> None:
     assert result["data"]["group"]["meanRemediateMediumSeverity"] == 287
     assert result["data"]["group"]["openFindings"] == 5
     assert result["data"]["group"]["subscription"] == "continuous"
-    assert result["data"]["group"]["deletionDate"] is None
     assert result["data"]["group"]["userDeletion"] is None
     assert sorted(result["data"]["group"]["tags"])[0] == "test-groups"
     assert (

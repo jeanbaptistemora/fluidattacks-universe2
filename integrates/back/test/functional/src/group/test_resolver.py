@@ -65,7 +65,6 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["meanRemediateMediumSeverity"] == 4
     assert result["data"]["group"]["openFindings"] == 2
     assert result["data"]["group"]["subscription"] == "continuous"
-    assert result["data"]["group"]["deletionDate"] is None
     assert result["data"]["group"]["userDeletion"] is None
     assert result["data"]["group"]["tags"] == ["testing"]
     assert result["data"]["group"]["description"] == "this is group1"

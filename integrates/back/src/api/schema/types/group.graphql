@@ -31,6 +31,11 @@ type Group {
   credentials: [Credentials!]
   "Removal date of the group from ARM if applicable"
   deletionDate: String
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/12.
+      """
+    )
   "Brief description to identify the group"
   description: String
   "Necessary clarifications on what should be tested"

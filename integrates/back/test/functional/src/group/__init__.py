@@ -41,7 +41,6 @@ async def get_result(
                 minBreakingSeverity
                 openFindings
                 subscription
-                deletionDate
                 userDeletion
                 tags
                 description

@@ -1,6 +1,5 @@
 interface IGroupData {
   group: {
-    deletionDate: string;
     organization: string;
     serviceAttributes: string[];
   };
