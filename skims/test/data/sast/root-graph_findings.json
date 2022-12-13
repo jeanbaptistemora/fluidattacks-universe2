@@ -1309,7 +1309,7 @@
         },
         "language": "java"
       },
-      "path": "skims/test/data/lib_root/f063/Test.java",
+      "path": "skims/test/data/lib_root/f063/java_path_traversal.java",
       "syntax": {
         "13": [
           {
@@ -5215,7 +5215,7 @@
     }
   },
   "shards_by_path": {
-    "skims/test/data/lib_root/f063/Test.java": 0,
+    "skims/test/data/lib_root/f063/java_path_traversal.java": 0,
     "skims/test/data/lib_root/f160/Test.java": 1
   }
 }

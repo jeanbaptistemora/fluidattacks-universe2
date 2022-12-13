@@ -563,8 +563,8 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134.
   35 |             var SecPolicyBuilder = new CorsPolicyBuilder();
      ^ Col 0
 ",c_sharp.csharp_insecure_cors
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
- in namespace/skims/test/data/lib_root/f066/has_console_functions.cs","
+F066,lines,namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
+ in namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs","
    1 | using System;
    2 |
    3 | namespace Example
@@ -864,7 +864,7 @@ F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.jav
   20 | }
      ^ Col 0
 ",java.java_has_print_statements
-F066,lines,namespace/skims/test/data/lib_root/f052/javascript.js,16,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,16,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,"
    1 | const crypto = require(""crypto"");
    2 |
    3 | let keyString = ""*4wQZgn+U2RW_mb="";
@@ -935,75 +935,7 @@ F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,24
   32 | export default router;
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,"
-    1 | function functionAWithConsoleLog() {
-    2 |     var a = 13
-    3 |     var b = 31
-    4 |     var c = Math.floor((Math.random() * 100) + 1);
->   5 |     console.log()
-    6 |     localStorage.getItem('key');
-    7 |     try {
-    8 |         if(a == """") throw ""empty"";
-    9 |         if(isNaN(a)) throw ""not a number"";
-   10 |         c = Number(a);
-   11 |         if(c < 5) throw ""too low"";
-   12 |         if(c > 10) throw ""too high"";
-   13 |     }
-   14 |     catch(err) {
-   15 |         // a comment
-   16 |         /* a comment */
-   17 |         /*
-   18 |             a comment
-   19 |         */
-   20 |     }
-   21 |
-      ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,66,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,"
-   56 |             break;
-   57 |         case 6:
-   58 |             day = ""Saturday"";
-   59 |             break;
-   60 |     }
-   61 | }
-   62 |
-   63 | function functionBWithConsoleLog() {
-   64 |     var a = 13
-   65 |     var b = 31
->  66 |     console.log(a+b)
-   67 |     localStorage.clear();
-   68 |     try {
-   69 |         if(a == """") throw ""empty"";
-   70 |         if(isNaN(a)) throw ""not a number"";
-   71 |         c = Number(a);
-   72 |         if(c < 5) throw ""too low"";
-   73 |         if(c > 10) throw ""too high"";
-   74 |     }
-   75 |     catch(err) {
-   76 |         //console.log(a+b)
-      ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/has_console_functions.js,"
-  1 | function has_console_functions() {
-  2 |   const text = ""Hello world"";
-  3 |
-  4 |   console.log(text);
-  5 |
-> 6 |   console.log(""Lorem Ipsum"");
-  7 | }
-    ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.js,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/has_console_functions.js,"
-  1 | function has_console_functions() {
-  2 |   const text = ""Hello world"";
-  3 |
-> 4 |   console.log(text);
-  5 |
-  6 |   console.log(""Lorem Ipsum"");
-  7 | }
-    ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
    1 |
    2 | try {
    3 |     var a = 1 / 0;
@@ -1027,7 +959,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,6,200,skims,066
   21 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,13,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,13,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
    3 |     var a = 1 / 0;
    4 | }
    5 | catch (err) {
@@ -1051,7 +983,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,13,200,skims,06
   23 | try {
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
   10 |     var a = 1 / 0;
   11 | }
   12 | catch {
@@ -1075,7 +1007,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,20,200,skims,06
   30 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,27,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,27,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
   17 |     var a = 1 / 0;
   18 | }
   19 | catch (err) {
@@ -1099,7 +1031,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,27,200,skims,06
   37 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,36,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,36,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
   26 | catch (err) {
   27 |     console.log(""error"");
   28 |     console.warn(err);
@@ -1123,7 +1055,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,36,200,skims,06
   46 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,44,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,44,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
   27 |     console.log(""error"");
   28 |     console.warn(err);
   29 |     throw err;
@@ -1146,6 +1078,74 @@ F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,44,200,skims,06
   46 | }
   47 |
      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log_open.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log_open.js,"
+    1 | function functionAWithConsoleLog() {
+    2 |     var a = 13
+    3 |     var b = 31
+    4 |     var c = Math.floor((Math.random() * 100) + 1);
+>   5 |     console.log()
+    6 |     localStorage.getItem('key');
+    7 |     try {
+    8 |         if(a == """") throw ""empty"";
+    9 |         if(isNaN(a)) throw ""not a number"";
+   10 |         c = Number(a);
+   11 |         if(c < 5) throw ""too low"";
+   12 |         if(c > 10) throw ""too high"";
+   13 |     }
+   14 |     catch(err) {
+   15 |         // a comment
+   16 |         /* a comment */
+   17 |         /*
+   18 |             a comment
+   19 |         */
+   20 |     }
+   21 |
+      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log_open.js,66,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log_open.js,"
+   56 |             break;
+   57 |         case 6:
+   58 |             day = ""Saturday"";
+   59 |             break;
+   60 |     }
+   61 | }
+   62 |
+   63 | function functionBWithConsoleLog() {
+   64 |     var a = 13
+   65 |     var b = 31
+>  66 |     console.log(a+b)
+   67 |     localStorage.clear();
+   68 |     try {
+   69 |         if(a == """") throw ""empty"";
+   70 |         if(isNaN(a)) throw ""not a number"";
+   71 |         c = Number(a);
+   72 |         if(c < 5) throw ""too low"";
+   73 |         if(c > 10) throw ""too high"";
+   74 |     }
+   75 |     catch(err) {
+   76 |         //console.log(a+b)
+      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,"
+  1 | function has_console_functions() {
+  2 |   const text = ""Hello world"";
+  3 |
+  4 |   console.log(text);
+  5 |
+> 6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,"
+  1 | function has_console_functions() {
+  2 |   const text = ""Hello world"";
+  3 |
+> 4 |   console.log(text);
+  5 |
+  6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
 ",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
    8 |     {
@@ -1195,7 +1195,7 @@ F066,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,21
   26 | export default router;
      ^ Col 0
 ",typescript.ts_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.ts,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/has_console_functions.ts,"
+F066,lines,namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,"
   1 | function has_console_fns(): void {
   2 |   const text = ""Hello world"";
   3 |
@@ -1205,7 +1205,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.ts,6,20
   7 | }
     ^ Col 0
 ",typescript.ts_uses_console_log
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.ts,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/has_console_functions.ts,"
+F066,lines,namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,"
   1 | function has_console_fns(): void {
   2 |   const text = ""Hello world"";
   3 |
@@ -1215,7 +1215,7 @@ F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.ts,4,20
   7 | }
     ^ Col 0
 ",typescript.ts_uses_console_log
-F059,lines,namespace/skims/test/data/lib_root/f059/test.java,3,209,skims,059. Sensitive information stored in logs,The application displays sensitive info in the logs in namespace/skims/test/data/lib_root/f059/test.java,"
+F059,lines,namespace/skims/test/data/lib_root/f059/java_insecure_log.java,3,209,skims,059. Sensitive information stored in logs,The application displays sensitive info in the logs in namespace/skims/test/data/lib_root/f059/java_insecure_log.java,"
   1 | public class Test{
   2 |     public void insecure(){
 > 3 |   log.info(""Dangerous"" + System.getenv()); // Insecure
@@ -1264,7 +1264,7 @@ F234,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,234. Te
   10 | }
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/Test.java,"
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
    1 | t java.io.File;
    2 |
    3 | c class Test {
@@ -1282,7 +1282,7 @@ F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. La
   15 |
      ^ Col 5
 ",query.query_f063
-F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/Test.java,"
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
    1 |
    2 |
    3 |
@@ -1300,7 +1300,7 @@ F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. La
   15 |
      ^ Col 33
 ",query.query_f063
-F063,lines,namespace/skims/test/data/lib_root/f063/open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/open_redirect.cs,"
+F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,"
    1 | using System;
    2 |
    3 | public partial class WebForm : System.Web.UI.Page
@@ -1329,8 +1329,8 @@ F098,lines,namespace/skims/test/data/lib_root/f098/path_injection.cs,10,22,skims
   13 | }
      ^ Col 0
 ",c_sharp.c_sharp_path_injection
-F063,lines,namespace/skims/test/data/lib_root/f063/zip_slip_injection.java,10,22,skims,063. Lack of data validation - Path Traversal,"The file names in a zip archive are not properly validated and sanitize before accessing them.
- in namespace/skims/test/data/lib_root/f063/zip_slip_injection.java","
+F063,lines,namespace/skims/test/data/lib_root/f063/java_zip_slip_injection.java,10,22,skims,063. Lack of data validation - Path Traversal,"The file names in a zip archive are not properly validated and sanitize before accessing them.
+ in namespace/skims/test/data/lib_root/f063/java_zip_slip_injection.java","
    1 | import java.io.File;
    2 | class zip_slip {
    3 |     public static List<String> zipSlipNoncompliant(ZipFile zipFile) throws IOException {
@@ -1604,7 +1604,7 @@ F353,lines,namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.ts,
   17 | }
      ^ Col 0
 ",javascript.js_decode_insecure_jwt_token
-F052,lines,namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,7,310,skims,052. Insecure encryption algorithm,A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true in namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,"
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypto.cs,7,310,skims,052. Insecure encryption algorithm,A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true in namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypto.cs,"
   1 | using System;
   2 |
   3 | public class ExampleClass
@@ -1677,7 +1677,7 @@ F350,lines,namespace/skims/test/data/lib_root/f350/insecure_trust_manager.java,9
   21 | rustManager my_sec_manager = trustManagerFactory.getTrustManagers();
      ^ Col 4
 ",java.java_use_insecure_trust_manager
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/insecure_connection.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,"
    1 | @Component
    2 | public class InsecureConnection {
    3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
@@ -1701,7 +1701,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,6,31
   21 |
      ^ Col 0
 ",java.java_insecure_connection
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/insecure_connection.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,"
    3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
    4 |  public void TlsVerification() {
    5 |   try {
@@ -1725,6 +1725,78 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,13,3
   23 | public class SecureConnection {
      ^ Col 0
 ",java.java_insecure_connection
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |    public static void insecure() {
+   6 |       AesManaged aes_insecure = new AesManaged
+   7 |       {
+   8 |          KeySize = 128,
+   9 |          BlockSize = 128,
+> 10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+  10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+> 20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+  27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+> 27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+  31 |    public static void secure() {
+  32 |       AesManaged aes_secure = new AesManaged
+  33 |       {
+  34 |          KeySize = 128,
+  35 |          BlockSize = 128,
+  36 |          Mode = CipherMode.CTS,
+  37 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
    1 | ng System.Security.Cryptography;
    2 |
@@ -1788,7 +1860,189 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,12,3
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+> 15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+> 13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+>  9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+>  6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rijndael.cs,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rijndael.cs,"
+   1 | tem;
+   2 | tem.IO;
+   3 | tem.Security.Cryptography;
+   4 |
+   5 | t {
+   6 |  static void Main() {
+>  7 | ndaelManaged aes_insecure3 = new RijndaelManaged
+   8 |
+   9 | KeySize = 128,
+  10 | BlockSize = 128,
+  11 | Mode = CipherMode.CTS,
+  12 | Padding = PaddingMode.PKCS7
+  13 |
+  14 |
+  15 |
+     ^ Col 9
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+   6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+>  9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+>  6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+> 13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
+     ^ Col 0
+",c_sharp.c_sharp_rsa_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+> 10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+  13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
+     ^ Col 0
+",c_sharp.c_sharp_rsa_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,"
    1 | import com.ibm.mq.*;
    2 | import com.ibm.mq.jmqi.JmqiUtils;
    3 | import org.apache.log4j.Logger;
@@ -1809,79 +2063,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/cipher_jmqi.java,10,310,skims
   18 | }
      ^ Col 0
 ",java.java_insecure_cipher_jmqi
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
-   1 | using System;
-   2 | using System.IO;
-   3 | using System.Security.Cryptography;
-   4 | class Test {
-   5 |    public static void insecure() {
-   6 |       AesManaged aes_insecure = new AesManaged
-   7 |       {
-   8 |          KeySize = 128,
-   9 |          BlockSize = 128,
-> 10 |          Mode = CipherMode.CBC,
-  11 |          Padding = PaddingMode.PKCS7
-  12 |       };
-  13 |
-  14 |       var cipher_mode = CipherMode.OFB;
-  15 |
-  16 |       AesManaged aes_insecure1 = new AesManaged
-  17 |       {
-  18 |          KeySize = 128,
-  19 |          BlockSize = 128,
-  20 |          Mode = cipher_mode,
-  21 |          Padding = PaddingMode.PKCS7
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
-  10 |          Mode = CipherMode.CBC,
-  11 |          Padding = PaddingMode.PKCS7
-  12 |       };
-  13 |
-  14 |       var cipher_mode = CipherMode.OFB;
-  15 |
-  16 |       AesManaged aes_insecure1 = new AesManaged
-  17 |       {
-  18 |          KeySize = 128,
-  19 |          BlockSize = 128,
-> 20 |          Mode = cipher_mode,
-  21 |          Padding = PaddingMode.PKCS7
-  22 |       };
-  23 |
-  24 |       AesManaged aes_insecure2 = new AesManaged();
-  25 |       aes_insecure2.BlockSize = 128;
-  26 |       aes_insecure2.KeySize = 128;
-  27 |       aes_insecure2.Mode = cipher_mode;
-  28 |
-  29 |    }
-  30 |
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_aes_managed.cs,"
-  17 |       {
-  18 |          KeySize = 128,
-  19 |          BlockSize = 128,
-  20 |          Mode = cipher_mode,
-  21 |          Padding = PaddingMode.PKCS7
-  22 |       };
-  23 |
-  24 |       AesManaged aes_insecure2 = new AesManaged();
-  25 |       aes_insecure2.BlockSize = 128;
-  26 |       aes_insecure2.KeySize = 128;
-> 27 |       aes_insecure2.Mode = cipher_mode;
-  28 |
-  29 |    }
-  30 |
-  31 |    public static void secure() {
-  32 |       AesManaged aes_secure = new AesManaged
-  33 |       {
-  34 |          KeySize = 128,
-  35 |          BlockSize = 128,
-  36 |          Mode = CipherMode.CTS,
-  37 |          Padding = PaddingMode.PKCS7
-     ^ Col 0
-",c_sharp.c_sharp_managed_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_cipher.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_cipher.java,"
    1 | mport javax.net.ssl.SSLContext;
    2 | mport javax.net.ssl.SSLSession;
    3 |
@@ -1905,73 +2087,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_cipher.java,9,310,sk
   21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
      ^ Col 1
 ",java.java_insecure_cipher_ssl
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,"
-   1 | import * as CryptoJS from 'crypto-js';
-   2 |
-   3 | export class EncryptionService {
-   4 |   constructor() {}
-   5 |
-   6 |  unsafe1(plainText: string, key: string) {
->  7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
-   8 |       mode: CryptoJS.mode.ECB,
-   9 |     });
-  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  11 |   }
-  12 |
-  13 |   unsafe2(plainText: string, key: string) {
-  14 |   const cipher_mode = CryptoJS.mode.CBC;
-  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
-  16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
-  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  18 |   }
-  19 |
-  20 |  safe(plainText: string, key: string) {
-  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
-     ^ Col 0
-",typescript.typescript_insecure_encrypt
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_ciphers.ts,"
-   6 |  unsafe1(plainText: string, key: string) {
-   7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
-   8 |       mode: CryptoJS.mode.ECB,
-   9 |     });
-  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  11 |   }
-  12 |
-  13 |   unsafe2(plainText: string, key: string) {
-  14 |   const cipher_mode = CryptoJS.mode.CBC;
-  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
-> 16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
-  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  18 |   }
-  19 |
-  20 |  safe(plainText: string, key: string) {
-  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
-  22 |       mode: CryptoJS.mode.GCM,
-  23 |     });
-  24 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-  25 |   }
-  26 |
-     ^ Col 0
-",typescript.typescript_insecure_encrypt
-F052,lines,namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/insecure_rijndael.cs,"
-   1 | tem;
-   2 | tem.IO;
-   3 | tem.Security.Cryptography;
-   4 |
-   5 | t {
-   6 |  static void Main() {
->  7 | ndaelManaged aes_insecure3 = new RijndaelManaged
-   8 |
-   9 | KeySize = 128,
-  10 | BlockSize = 128,
-  11 | Mode = CipherMode.CTS,
-  12 | Padding = PaddingMode.PKCS7
-  13 |
-  14 |
-  15 |
-     ^ Col 9
-",c_sharp.c_sharp_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
    3 | public class Main {
@@ -1995,7 +2111,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,11,310,skims,052. I
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
    3 | public class Main {
@@ -2019,7 +2135,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,10,310,skims,052. I
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
    3 | public class Main {
@@ -2043,7 +2159,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,9,310,skims,052. In
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
    3 | public class Main {
@@ -2067,7 +2183,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,8,310,skims,052. In
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
    3 | public class Main {
@@ -2091,7 +2207,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,7,310,skims,052. In
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    2 |
    3 | public class Main {
    4 |
@@ -2115,7 +2231,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,12,310,skims,052. I
   22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    3 | public class Main {
    4 |
    5 |     public static void unsafe(String[] args) {
@@ -2139,7 +2255,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,13,310,skims,052. I
   23 |         SSLContext.getInstance(""SSLv3"");//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    4 |
    5 |     public static void unsafe(String[] args) {
    6 |
@@ -2163,7 +2279,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,14,310,skims,052. I
   24 |
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    5 |     public static void unsafe(String[] args) {
    6 |
    7 |         Cipher c = Cipher.getInstance(""DES"");//
@@ -2187,7 +2303,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,15,310,skims,052. I
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    6 |
    7 |         Cipher c = Cipher.getInstance(""DES"");//
    8 |         Cipher c = Cipher.getInstance(""DESede"");//
@@ -2211,7 +2327,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,16,310,skims,052. I
   26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    7 |         Cipher c = Cipher.getInstance(""DES"");//
    8 |         Cipher c = Cipher.getInstance(""DESede"");//
    9 |         Cipher c = Cipher.getInstance(""RSA"");//
@@ -2235,7 +2351,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,17,310,skims,052. I
   27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    8 |         Cipher c = Cipher.getInstance(""DESede"");//
    9 |         Cipher c = Cipher.getInstance(""RSA"");//
   10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
@@ -2259,7 +2375,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,18,310,skims,052. I
   28 |
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,19,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,19,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
    9 |         Cipher c = Cipher.getInstance(""RSA"");//
   10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
   11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
@@ -2283,7 +2399,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,19,310,skims,052. I
   29 |         DigestUtils.sha1Hex(""test""); //
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
   11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
   12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
@@ -2307,7 +2423,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,20,310,skims,052. I
   30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
   12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
   13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
@@ -2331,7 +2447,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,21,310,skims,052. I
   31 |
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
   13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
   14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
@@ -2355,7 +2471,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,22,310,skims,052. I
   32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
      ^ Col 0
 ",java.java_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
   14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
   15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
@@ -2379,52 +2495,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,23,310,skims,052. I
   33 |
      ^ Col 0
 ",java.java_insecure_cipher_ssl
-F052,lines,namespace/skims/test/data/lib_root/f052/javascript.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript.js,"
-   1 | const crypto = require(""crypto"");
-   2 |
-   3 | let keyString = ""*4wQZgn+U2RW_mb="";
-   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-   5 |
->  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
-   7 |
-   8 | let encrypted = """";
-   9 | cipher.on(""readable"", () => {
-  10 |   let chunk;
-  11 |   while (null !== (chunk = cipher.read())) {
-  12 |     encrypted += chunk.toString(""hex"");
-  13 |   }
-  14 | });
-  15 | cipher.on(""end"", () => {
-  16 |   console.log(encrypted);
-  17 | });
-  18 |
-  19 | cipher.write(""some clear text data"");
-  20 | cipher.end();
-     ^ Col 0
-",javascript.javascript_insecure_create_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,"
-   1 | import { Router } from ""express"";
-   2 | import crypto from ""crypto"";
-   3 |
-   4 | const router = Router();
-   5 |
-   6 | router.get(""/test139/:target"", function (req, res) {
-   7 |   let target = req.params[""target""];
->  8 |   const hash = crypto.createHash(""RSA-MD4"");
-   9 |
-  10 |   hash.on(""readable"", () => {
-  11 |     const data = hash.read();
-  12 |     if (data) {
-  13 |       res.json({ hash: data.toString(""hex"") });
-  14 |     }
-  15 |   });
-  16 |   hash.write(target);
-  17 |   hash.end();
-  18 | });
-  19 |
-  20 | export default router;
-     ^ Col 0
-",javascript.javascript_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
    2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
@@ -2497,6 +2567,29 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,13,310,
   23 |         padding: CryptoJS.pad.AnsiX923
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+>  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+  16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
+",javascript.javascript_insecure_create_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,"
    1 | import { Router } from ""express"";
    2 | let CryptoJS = require(""crypto-js"");
@@ -2593,6 +2686,29 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,26,310
   33 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_hash.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_hash.js,"
+   1 | import { Router } from ""express"";
+   2 | import crypto from ""crypto"";
+   3 |
+   4 | const router = Router();
+   5 |
+   6 | router.get(""/test139/:target"", function (req, res) {
+   7 |   let target = req.params[""target""];
+>  8 |   const hash = crypto.createHash(""RSA-MD4"");
+   9 |
+  10 |   hash.on(""readable"", () => {
+  11 |     const data = hash.read();
+  12 |     if (data) {
+  13 |       res.json({ hash: data.toString(""hex"") });
+  14 |     }
+  15 |   });
+  16 |   hash.write(target);
+  17 |   hash.end();
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
    4 | .security.NoSuchAlgorithmException
    5 | .security.spec.ECGenParameterSpec
@@ -3001,170 +3117,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310,skims,052. Ins
   23 | }
      ^ Col 0
 ",go.go_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
-   1 | using System;
-   2 | class cipher{
-   3 |
-   4 |    public void Encrypt()
-   5 |  {
-   6 |       var insecure_rsa = new RSACryptoServiceProvider();
-   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
-   8 |
-   9 |   var insecure_dsa = new DSACng(1024);
-  10 |       var secure_dsa = new DSACng();
-  11 |       var secure_dsa2 = new DSACng(2048);
-  12 |
-  13 |       var insecure_rsa = new RSACng(1024);
-  14 |       int key = 1024;
-> 15 |       var insecure_rsa2 = new RSACng(key);
-  16 |       var secure_rsa = new RSACng();
-  17 |       int secure_key = 2048;
-  18 |       var secure_rsa2 = new RSACng(secure_key);
-  19 |  }
-  20 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
-   1 | using System;
-   2 | class cipher{
-   3 |
-   4 |    public void Encrypt()
-   5 |  {
-   6 |       var insecure_rsa = new RSACryptoServiceProvider();
-   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
-   8 |
-   9 |   var insecure_dsa = new DSACng(1024);
-  10 |       var secure_dsa = new DSACng();
-  11 |       var secure_dsa2 = new DSACng(2048);
-  12 |
-> 13 |       var insecure_rsa = new RSACng(1024);
-  14 |       int key = 1024;
-  15 |       var insecure_rsa2 = new RSACng(key);
-  16 |       var secure_rsa = new RSACng();
-  17 |       int secure_key = 2048;
-  18 |       var secure_rsa2 = new RSACng(secure_key);
-  19 |  }
-  20 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
-   1 | using System;
-   2 | class cipher{
-   3 |
-   4 |    public void Encrypt()
-   5 |  {
-   6 |       var insecure_rsa = new RSACryptoServiceProvider();
-   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
-   8 |
->  9 |   var insecure_dsa = new DSACng(1024);
-  10 |       var secure_dsa = new DSACng();
-  11 |       var secure_dsa2 = new DSACng(2048);
-  12 |
-  13 |       var insecure_rsa = new RSACng(1024);
-  14 |       int key = 1024;
-  15 |       var insecure_rsa2 = new RSACng(key);
-  16 |       var secure_rsa = new RSACng();
-  17 |       int secure_key = 2048;
-  18 |       var secure_rsa2 = new RSACng(secure_key);
-  19 |  }
-  20 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_keys.cs,"
-   1 | using System;
-   2 | class cipher{
-   3 |
-   4 |    public void Encrypt()
-   5 |  {
->  6 |       var insecure_rsa = new RSACryptoServiceProvider();
-   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
-   8 |
-   9 |   var insecure_dsa = new DSACng(1024);
-  10 |       var secure_dsa = new DSACng();
-  11 |       var secure_dsa2 = new DSACng(2048);
-  12 |
-  13 |       var insecure_rsa = new RSACng(1024);
-  14 |       int key = 1024;
-  15 |       var insecure_rsa2 = new RSACng(key);
-  16 |       var secure_rsa = new RSACng();
-  17 |       int secure_key = 2048;
-  18 |       var secure_rsa2 = new RSACng(secure_key);
-  19 |  }
-  20 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
-   1 | ystem;
-   2 | wtbuild {
-   3 |
-   4 | ic static void Main() {
-   5 |
-   6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
-   8 |
->  9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
-  11 |
-  12 |  key_eval = false;
-  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
-  14 |
-  15 |
-     ^ Col 7
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
-   1 | ystem;
-   2 | wtbuild {
-   3 |
-   4 | ic static void Main() {
-   5 |
->  6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
-   8 |
-   9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
-  11 |
-  12 |  key_eval = false;
-  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
-  14 |
-  15 |
-     ^ Col 7
-",c_sharp.c_sharp_insecure_keys
-F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
-   1 | using System;
-   2 | class jwtbuild {
-   3 |
-   4 |    public static void Main() {
-   5 |
-   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
-   8 |
-   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-  10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
-  11 |
-  12 |    bool key_eval = false;
-> 13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
-  14 |    }
-  15 | }
-     ^ Col 0
-",c_sharp.c_sharp_rsa_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
-   1 | using System;
-   2 | class jwtbuild {
-   3 |
-   4 |    public static void Main() {
-   5 |
-   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
-   8 |
-   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-> 10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
-  11 |
-  12 |    bool key_eval = false;
-  13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
-  14 |    }
-  15 | }
-     ^ Col 0
-",c_sharp.c_sharp_rsa_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,"
    1 | import crypto from 'crypto';
    2 |
@@ -3209,6 +3161,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,4,310,s
   19 | }
      ^ Col 0
 ",typescript.ts_insecure_create_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,"
+   1 | import * as CryptoJS from 'crypto-js';
+   2 |
+   3 | export class EncryptionService {
+   4 |   constructor() {}
+   5 |
+   6 |  unsafe1(plainText: string, key: string) {
+>  7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+  16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,"
+   6 |  unsafe1(plainText: string, key: string) {
+   7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+> 16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+  22 |       mode: CryptoJS.mode.GCM,
+  23 |     });
+  24 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  25 |   }
+  26 |
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,"
    1 | import { Router } from ""express"";
    2 | let CryptoJS = require(""crypto-js"");
@@ -3305,7 +3305,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,26,310
   33 | export default router;
      ^ Col 0
 ",typescript.typescript_insecure_encrypt
-F052,lines,namespace/skims/test/data/lib_root/f052/typescript_insecure_hash.ts,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/typescript_insecure_hash.ts,"
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_hash.ts,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_hash.ts,"
    1 | import { Router } from ""express"";
    2 | import crypto from ""crypto"";
    3 |
@@ -3413,7 +3413,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,9,31
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
   16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
   17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
@@ -3437,7 +3437,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,25,310,skims,052. I
   35 |
      ^ Col 0
 ",java.java_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,26,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,26,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
   17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
   18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
@@ -3461,7 +3461,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,26,310,skims,052. I
   36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
      ^ Col 0
 ",java.java_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,27,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,27,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
   18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
   19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
@@ -3485,7 +3485,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,27,310,skims,052. I
   37 |
      ^ Col 0
 ",java.java_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,29,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,29,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
   20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
@@ -3509,7 +3509,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,29,310,skims,052. I
   39 |     }
      ^ Col 0
 ",java.java_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,30,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,30,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
   21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
   22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
@@ -3653,7 +3653,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310,skims,052. Ins
   23 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   24 |
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
   26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
@@ -3677,7 +3677,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,34,310,skims,052. I
   44 |
      ^ Col 0
 ",java.java_insecure_key_ec
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,32,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,32,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
   23 |         SSLContext.getInstance(""SSLv3"");//
   24 |
@@ -3701,7 +3701,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,32,310,skims,052. I
   42 |
      ^ Col 0
 ",java.java_insecure_key_rsa
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   28 |
   29 |         DigestUtils.sha1Hex(""test""); //
   30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
@@ -3897,7 +3897,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,20
   26 | export default router;
      ^ Col 0
 ",typescript.ts_insecure_rsa_keypair
-F052,lines,namespace/skims/test/data/lib_root/f052/java.java,36,310,skims,052. Insecure encryption algorithm,Use of insecure password encoder in namespace/skims/test/data/lib_root/f052/java.java,"
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,36,310,skims,052. Insecure encryption algorithm,Use of insecure password encoder in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   26 | MessageDigest md = MessageDigest.getInstance(""mD5""); //
   27 | MessageDigest md = MessageDigest.getInstance(""Md2""); //
   28 |
@@ -3939,8 +3939,8 @@ F148,lines,namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs,8,319,
   15 |
      ^ Col 7
 ",c_sharp.cs_insecure_channel
-F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs,18,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs","
    1 | ing System;
    2 | ass jwtbuild {
    3 |
@@ -3963,8 +3963,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,18,319,skims,
   20 |
      ^ Col 2
 ",c_sharp.c_sharp_verify_decoder
-F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,17,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs,17,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs","
    1 | ing System;
    2 | ass jwtbuild {
    3 |
@@ -3987,8 +3987,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,17,319,skims,
   20 |
      ^ Col 2
 ",c_sharp.c_sharp_verify_decoder
-F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,12,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs,12,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs","
    1 | ing System;
    2 | ass jwtbuild {
    3 |
@@ -4011,8 +4011,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,12,319,skims,
   20 |
      ^ Col 2
 ",c_sharp.c_sharp_verify_decoder
-F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,8,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs,8,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_decoder_test.cs","
    1 | sing System;
    2 | lass jwtbuild {
    3 |
@@ -4035,8 +4035,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,8,319,skims,0
   20 |
      ^ Col 1
 ",c_sharp.c_sharp_verify_decoder
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs,15,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs","
    5 |
    6 |       var decodedtoken1 = decoder.Decode(token, secret, verify: false);
    7 |       var json_deco = decoder.Decode(token, secret, verify: true);
@@ -4060,8 +4060,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sen
   25 |       var json2 = JwtBuilder.Create()
      ^ Col 0
 ",c_sharp.c_sharp_jwt_signed
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs,30,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs","
   13 |
   14 |
   15 |       var decodedtoken2 = new JwtBuilder()
@@ -4085,8 +4085,8 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,30,319,skims,017. Sen
   33 | }
      ^ Col 0
 ",c_sharp.c_sharp_jwt_signed
-F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
- in namespace/skims/test/data/lib_root/f017/test.cs","
+F017,lines,namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs,25,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
+ in namespace/skims/test/data/lib_root/f017/c_sharp_sensitive_jwt.cs","
   13 |
   14 |
   15 |       var decodedtoken2 = new JwtBuilder()
@@ -4206,8 +4206,8 @@ F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,15,319,skims,022. U
   24 | }
      ^ Col 0
 ",kotlin.kotlin_unencrypted_channel
-F016,lines,namespace/skims/test/data/lib_root/f016/service_point_manager_disabled.cs,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,"A AppContext.SetSwitch method call sets Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols to true
- in namespace/skims/test/data/lib_root/f016/service_point_manager_disabled.cs","
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_service_point_manager_disabled.cs,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,"A AppContext.SetSwitch method call sets Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols to true
+ in namespace/skims/test/data/lib_root/f016/c_sharp_service_point_manager_disabled.cs","
   1 | using System;
   2 |
   3 | public class ExampleClass
@@ -4236,8 +4236,8 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls
   14 |
      ^ Col 22
 ",c_sharp.c_sharp_weak_protocol
-F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
- in namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs","
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
+ in namespace/skims/test/data/lib_root/f016/c_sharp_httpclient_no_revocation_list.cs","
    1 | ng System.Net.Http;
    2 |
    3 | ss ExampleClass
@@ -4251,8 +4251,8 @@ F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list
   11 |
      ^ Col 3
 ",c_sharp.c_sharp_httpclient_no_revocation_list
-F016,lines,namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
- in namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs","
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
+ in namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_access_protocol.cs","
    1 | using System;
    2 | using Microsoft.WindowsAzure.Storage;
    3 | using Microsoft.WindowsAzure.Storage.File;
@@ -4313,7 +4313,7 @@ F034,lines,namespace/skims/test/data/lib_root/f034/ts_weak_random.ts,6,330,skims
   11 | export default router;
      ^ Col 0
 ",typescript.typescript_weak_random
-F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,11,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,"
+F007,lines,namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,11,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,"
    1 | import java.net.URI;
    2 | import java.net.URISyntaxException;
    3 | import java.util.Map;
@@ -4337,7 +4337,7 @@ F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.jav
   21 | }
      ^ Col 0
 ",java.csrf_protections_disabled
-F007,lines,namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,10,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/csrf_protections_disabled.java,"
+F007,lines,namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,10,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,"
    1 | import java.net.URI;
    2 | import java.net.URISyntaxException;
    3 | import java.util.Map;
@@ -4655,7 +4655,7 @@ F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_co
   11 |   };
      ^ Col 0
 ",typescript.typescript_non_secure_construction_of_cookies
-F060,lines,namespace/skims/test/data/lib_root/f060/cert_validation.cs,8,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/cert_validation.cs,"
+F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,8,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,"
    1 | using System;
    2 | using System.IO;
    3 | using System.Security.Cryptography;
@@ -4679,7 +4679,7 @@ F060,lines,namespace/skims/test/data/lib_root/f060/cert_validation.cs,8,396,skim
   21 |         if (development) return true; // for development, trust all certificates
      ^ Col 0
 ",c_sharp.c_sharp_insecure_certificate_validation
-F060,lines,namespace/skims/test/data/lib_root/f060/cert_validation.cs,13,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/cert_validation.cs,"
+F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,13,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,"
    3 | using System.Security.Cryptography;
    4 | class Test {
    5 |
@@ -5152,7 +5152,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Ins
   15 |
      ^ Col 9
 ",c_sharp.c_sharp_insecure_deserialization
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,10,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,10,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,"
    1 | namespace Controllers
    2 | {
    3 |     public class DBaccess
@@ -5176,7 +5176,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,10,521,skims,035. 
   21 |
      ^ Col 0
 ",c_sharp.csharp_no_password
-F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,15,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/test_db.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,15,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,"
    5 |         public void dbauth()
    6 |         {
    7 |             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
@@ -5200,7 +5200,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,15,521,skims,035. 
   25 |             var con_str3 = con_str + password;
      ^ Col 0
 ",c_sharp.csharp_no_password
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,14,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/Test.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,14,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
    1 | ï»¿public class Startup
    2 | {
    3 |     public void start(IServiceCollection services)
@@ -5221,7 +5221,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,14,521,skims,035. Wea
   18 | }
      ^ Col 0
 ",c_sharp.csharp_weak_credential_policy
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/Test.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,13,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
    1 | ï»¿public class Startup
    2 | {
    3 |     public void start(IServiceCollection services)
@@ -5242,7 +5242,7 @@ F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Wea
   18 | }
      ^ Col 0
 ",c_sharp.csharp_weak_credential_policy
-F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,9,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/Test.cs,"
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,9,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
    1 | ï»¿public class Startup
    2 | {
    3 |     public void start(IServiceCollection services)
@@ -5363,8 +5363,8 @@ F083,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,22
   32 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
      ^ Col 0
 ",typescript.ts_xml_parser
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,16,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
- in namespace/skims/test/data/lib_root/f042/test.cs","
+F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,16,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs","
    6 |     public class CookieExample
    7 |     {
    8 |         public static void Main(string[] args)
@@ -5388,8 +5388,8 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,16,614,skims,042. Ins
   26 |
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,20,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
- in namespace/skims/test/data/lib_root/f042/test.cs","
+F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,20,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs","
   10 |             var test = true;
   11 |             var secure_cookie = new HttpCookie(key , value);
   12 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
@@ -5413,8 +5413,8 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,20,614,skims,042. Ins
   30 |
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,31,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
- in namespace/skims/test/data/lib_root/f042/test.cs","
+F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,31,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs","
   15 |
   16 |             var insecure_cookie = new HttpCookie(key , value);
   17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
@@ -5438,8 +5438,8 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,31,614,skims,042. Ins
   35 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,27,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
- in namespace/skims/test/data/lib_root/f042/test.cs","
+F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,27,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs","
   15 |
   16 |             var insecure_cookie = new HttpCookie(key , value);
   17 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
@@ -5794,8 +5794,8 @@ F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,22,77
   31 | }
      ^ Col 0
 ",java.java_upload_size_limit
-F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,17,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
- in namespace/skims/test/data/lib_root/f004/test.cs","
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs,17,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs","
    6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
    7 |     {
    8 |         public IActionResult Index()
@@ -5819,8 +5819,8 @@ F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,17,78,skims,004. Remo
   26 | }
      ^ Col 0
 ",query.query_f004
-F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,13,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
- in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs,13,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs","
    1 | using System.Diagnostics;
    2 |
    3 | namespace Application
@@ -5839,8 +5839,8 @@ F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,1
   16 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
-F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
- in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs,11,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs","
    1 | using System.Diagnostics;
    2 |
    3 | namespace Application
@@ -5859,8 +5859,8 @@ F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,1
   16 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
-F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,19,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
- in namespace/skims/test/data/lib_root/f004/test.cs","
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs,19,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs","
    6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
    7 |     {
    8 |         public IActionResult Index()
@@ -6210,8 +6210,8 @@ F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml
   15 | export default App;
      ^ Col 0
 ",typescript.ts_uses_dangerously_set_html
-F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
- in namespace/skims/test/data/lib_root/f008/test.cs","
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+ in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
    1 | namespace Controllers
    2 | {
    3 |     public class Calculate
@@ -6232,7 +6232,7 @@ F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Refle
   18 | }
      ^ Col 0
 ",query.query_f008
-F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    13 |     //console.log()
    14 |     //localStorage.setItem(""key"")
    15 |     //eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
@@ -6256,7 +6256,7 @@ F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,23,79,skim
    33 |             c = Number(a);
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,42,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,42,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    32 |         else {
    33 |             c = Number(a);
    34 |         }
@@ -6280,7 +6280,7 @@ F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,42,79,skim
    52 |         // a comment
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,46,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,46,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    36 |             throw ""too low"";
    37 |         }
    38 |         else if(c > 10) {
@@ -6304,7 +6304,7 @@ F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,46,79,skim
    56 |         */
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,57,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,57,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    47 |     }
    48 |
    49 |
@@ -6537,8 +6537,8 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,27,843,skims,127. Lac
   37 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
      ^ Col 0
 ",query.query_f127
-F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
- in namespace/skims/test/data/lib_root/f001/test.cs","
+F001,lines,namespace/skims/test/data/lib_root/f001/c_sharp_sql_injection.cs,13,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
+ in namespace/skims/test/data/lib_root/f001/c_sharp_sql_injection.cs","
    3 | using WebApplication1.Controllers;
    4 |
    5 | namespace WebApplicationDotNetCore.Controllers
@@ -6562,8 +6562,8 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,13,89,skims,001. SQL 
   23 |     }
      ^ Col 0
 ",c_sharp.c_sharp_sql_injection
-F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
- in namespace/skims/test/data/lib_root/f001/test.cs","
+F001,lines,namespace/skims/test/data/lib_root/f001/c_sharp_sql_injection.cs,15,89,skims,001. SQL injection - C Sharp SQL API,"Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.
+ in namespace/skims/test/data/lib_root/f001/c_sharp_sql_injection.cs","
    4 |
    5 | namespace WebApplicationDotNetCore.Controllers
    6 | {
@@ -6587,7 +6587,7 @@ F001,lines,namespace/skims/test/data/lib_root/f001/test.cs,15,89,skims,001. SQL 
   24 | }
      ^ Col 0
 ",c_sharp.c_sharp_sql_injection
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,23,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    13 |     @Query(value = ""SELECT * FROM schema.table "" +
    14 |         ""WHERE CODE = ?1"", nativeQuery = true)
    15 |     List<Parameter> findByParameterType(String parameterTypeCode);
@@ -6611,7 +6611,7 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java.java,23,89,skims,012. SQ
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
       ^ Col 0
 ",java.java_jpa_like
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,26,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,26,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    16 |     /* Secure */
    17 |     @Query(""select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}"")
    18 |     List<User> findContainingEscaped(String namePart);
@@ -6635,7 +6635,7 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java.java,26,89,skims,012. SQ
    36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
       ^ Col 0
 ",java.java_jpa_like
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,36,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,36,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    26 |     @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
    27 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    28 |     /* LIKE statement secure */
@@ -6659,7 +6659,7 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java.java,36,89,skims,012. SQ
    46 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
       ^ Col 0
 ",java.java_jpa_like
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,39,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,39,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    29 |     @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
    30 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    31 |     /* LIKE statement secure */
@@ -6683,7 +6683,7 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java.java,39,89,skims,012. SQ
    49 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
       ^ Col 0
 ",java.java_jpa_like
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,42,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,42,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    34 |
@@ -6707,7 +6707,7 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java.java,42,89,skims,012. SQ
    52 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10"")
       ^ Col 0
 ",java.java_jpa_like
-F012,lines,namespace/skims/test/data/lib_root/f012/java.java,45,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java.java,"
+F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,45,89,skims,012. SQL injection - Java Persistence API,LIKE statement without escape in namespace/skims/test/data/lib_root/f012/java_sql_injection.java,"
    35 |     /* LIKE statement injection */
    36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
    37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
@@ -6918,8 +6918,8 @@ F368,lines,namespace/skims/test/data/lib_root/f368/host_key.java,17,923,skims,36
   27 |   java.util.Properties config = new java.util.Properties();
      ^ Col 0
 ",java.java_host_key_checking
-F011,lines,namespace/skims/test/data/lib_root/f011/xsl_transform_object.cs,12,937,skims,011. Use of software with known vulnerabilities,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
- in namespace/skims/test/data/lib_root/f011/xsl_transform_object.cs","
+F011,lines,namespace/skims/test/data/lib_root/f011/c_sharp_xsl_transform_object.cs,12,937,skims,011. Use of software with known vulnerabilities,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
+ in namespace/skims/test/data/lib_root/f011/c_sharp_xsl_transform_object.cs","
    1 | ng System;
    2 | ng System.Xml;
    3 | ng System.Xml.XPath;
@@ -6941,8 +6941,8 @@ F011,lines,namespace/skims/test/data/lib_root/f011/xsl_transform_object.cs,12,93
   19 |
      ^ Col 3
 ",c_sharp.c_sharp_xsl_transform_object
-F011,lines,namespace/skims/test/data/lib_root/f011/schema_by_url.cs,8,937,skims,011. Use of software with known vulnerabilities,"Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to specify external XML schema in the form of an URI. If the URI String is tainted, it may lead to parsing of a malicious XML schema
- in namespace/skims/test/data/lib_root/f011/schema_by_url.cs","
+F011,lines,namespace/skims/test/data/lib_root/f011/c_sharp_schema_by_url.cs,8,937,skims,011. Use of software with known vulnerabilities,"Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to specify external XML schema in the form of an URI. If the URI String is tainted, it may lead to parsing of a malicious XML schema
+ in namespace/skims/test/data/lib_root/f011/c_sharp_schema_by_url.cs","
    1 | using System;
    2 |
    3 | class ExampleClass
