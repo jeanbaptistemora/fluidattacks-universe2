@@ -1,10 +1,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f008.member_access.c_sharp import (
-    cs_insec_addheader_write,
-)
-from symbolic_eval.f008.member_access.common import (
+from symbolic_eval.f008.method_invocation.common import (
     common_reflected_xss,
 )
 from symbolic_eval.types import (
@@ -17,7 +14,6 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_INSEC_ADDHEADER_WRITE: cs_insec_addheader_write,
     MethodsEnum.JS_REFLECTED_XSS: common_reflected_xss,
     MethodsEnum.TS_REFLECTED_XSS: common_reflected_xss,
 }
