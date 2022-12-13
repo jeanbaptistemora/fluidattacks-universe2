@@ -56,8 +56,11 @@ interface IEvidenceItem {
 }
 
 const EvidenceView: React.FC = (): JSX.Element => {
-  const { findingId, groupName } =
-    useParams<{ findingId: string; groupName: string }>();
+  const { findingId, groupName, organizationName } = useParams<{
+    findingId: string;
+    groupName: string;
+    organizationName: string;
+  }>();
   const { t } = useTranslation();
 
   // State management
@@ -184,7 +187,10 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
-  const validEvidenceName: FieldValidator = isValidEvidenceName(groupName);
+  const validEvidenceName: FieldValidator = isValidEvidenceName(
+    organizationName,
+    groupName
+  );
 
   return (
     <React.StrictMode>
@@ -283,16 +289,12 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           shouldPreviewValidation={[
                             validEvidenceImage,
                             maxFileSize,
-                            ...(_.isEmpty(evidence.url)
-                              ? []
-                              : [validEvidenceName]),
+                            validEvidenceName,
                           ]}
                           validate={composeValidators([
                             validEvidenceImage,
                             maxFileSize,
-                            ...(_.isEmpty(evidence.url)
-                              ? []
-                              : [validEvidenceName]),
+                            validEvidenceName,
                           ])}
                         />
                       );

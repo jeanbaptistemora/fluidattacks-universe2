@@ -163,12 +163,24 @@ describe("Evidence image", (): void => {
 
     const handleClick: jest.Mock = jest.fn();
     const handleUpdate: jest.Mock = jest.fn();
-    const validEvidenceName: FieldValidator = isValidEvidenceName("image");
+    const validEvidenceName: FieldValidator = isValidEvidenceName(
+      "orgimage",
+      "groupimage"
+    );
     const file: File[] = [new File([""], "image.png", { type: "image/png" })];
-    const image0 = new File(["nonvalidone"], "nonvalidone.png", {
-      type: "image/png",
-    });
-    const image1 = new File(["image1"], "image1.png", { type: "image/png" });
+    const image0 = new File(
+      ["orgimage-groupimage-01234b6789.png"],
+      "orgimage-groupimage-01#34b6789.png",
+      {
+        type: "image/png",
+      }
+    );
+    const image1 = new File(
+      ["orgimage-groupimage-01234b6789"],
+      "orgimage-groupimage-012345g789.png",
+      { type: "image/png" }
+    );
+
     render(
       <Formik
         initialValues={{ evidence1: { file } }}

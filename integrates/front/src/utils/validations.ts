@@ -377,16 +377,26 @@ const validEvidenceImage: Validator = (
     ? undefined
     : translate.t("group.events.form.wrongImageType");
 
-const isValidEvidenceName: (groupName: string) => Validator =
-  (groupName: string): Validator =>
+const isValidEvidenceName: (
+  organizationName: string,
+  groupName: string
+) => Validator =
+  (organizationName: string, groupName: string): Validator =>
   (file: FileList | undefined): string | undefined => {
     return _.isUndefined(file) ||
       (!_.isUndefined(file) &&
-        [...Array(file.length).keys()].every((index: number): boolean =>
-          file[index].name
-            .toLowerCase()
-            .startsWith(groupName.toLocaleLowerCase())
-        ))
+        [...Array(file.length).keys()].every((index: number): boolean => {
+          const filename = file[index].name.toLocaleLowerCase();
+          const extensions = getFileExtension(file[index]);
+          const starts = `${organizationName.toLocaleLowerCase()}-${groupName.toLocaleLowerCase()}-`;
+          const [ends] = filename.split(starts).slice(-1);
+          const regex = /^[a-zA-Z0-9]{10}$/u;
+
+          return (
+            filename.startsWith(starts) &&
+            regex.test(ends.replace(`.${extensions}`, ""))
+          );
+        }))
       ? undefined
       : translate.t("group.events.form.wrongImageName");
   };
