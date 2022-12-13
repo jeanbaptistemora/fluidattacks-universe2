@@ -112,12 +112,17 @@ async def update_metadata(
         )
         gsi_2_index = TABLE.indexes["gsi_2"]
         metadata_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
+    condition_expression = Attr(key_structure.partition_key).exists()
+    if current_value.state.modified_date is None:
+        condition_expression &= Attr("state.modified_date").not_exists()
+    else:
+        condition_expression &= Attr("state.modified_date").eq(
+            current_value.state.modified_date
+        )
     try:
         if metadata_item:
             await operations.update_item(
-                condition_expression=Attr(
-                    key_structure.partition_key
-                ).exists(),
+                condition_expression=condition_expression,
                 item=metadata_item,
                 key=metadata_key,
                 table=TABLE,
