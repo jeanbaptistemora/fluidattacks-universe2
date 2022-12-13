@@ -9,6 +9,7 @@ from syntax_graph.types import (
 )
 from utils.graph import (
     match_ast,
+    match_ast_d,
     match_ast_group_d,
 )
 from utils.graph.text_nodes import (
@@ -19,6 +20,10 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     n_attrs = graph.nodes[args.n_id]
+    declaration_n_id = match_ast_d(args.ast_graph, args.n_id, "identifier")
+    declaration_node = args.ast_graph.nodes[declaration_n_id]
+    declaration_line = declaration_node["label_l"]
+    graph.nodes[args.n_id]["label_l"] = declaration_line
     name_id = n_attrs["label_field_name"]
     name = node_to_str(graph, name_id)
     block_id = n_attrs.get("label_field_body")
