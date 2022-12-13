@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    InvalidRootType,
     InvalidToeInputAttackedAt,
     InvalidToeInputAttackedBy,
     ToeInputNotPresent,
@@ -68,6 +69,8 @@ async def add(  # pylint: disable=too-many-arguments
         root: Root = await loaders.root.load(
             (group_name, attributes.unreliable_root_id)
         )
+        if not isinstance(root, (GitRoot, URLRoot)):
+            raise InvalidRootType()
         validate_active_root(root)
         await validate_component(loaders, root, formatted_component)
 
