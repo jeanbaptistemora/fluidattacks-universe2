@@ -99,14 +99,6 @@ async def update_metadata(
     if metadata.clean_seen_at:
         metadata_item["seen_at"] = ""
 
-    conditions = (
-        Attr(attr_name).eq(current_value_item[attr_name])
-        for attr_name in metadata_item
-        if attr_name and current_value_item[attr_name] is not None
-    )
-    condition_expression = Attr(key_structure.partition_key).exists()
-    for condition in conditions:
-        condition_expression &= condition
     if "be_present" in metadata_item:
         gsi_2_key = keys.build_key(
             facet=GSI_2_FACET,
@@ -123,7 +115,9 @@ async def update_metadata(
     try:
         if metadata_item:
             await operations.update_item(
-                condition_expression=condition_expression,
+                condition_expression=Attr(
+                    key_structure.partition_key
+                ).exists(),
                 item=metadata_item,
                 key=metadata_key,
                 table=TABLE,
