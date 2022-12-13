@@ -131,7 +131,7 @@ def unique_emails(
 ) -> Tuple[str, ...]:
     if expiring_data:
         email_list += expiring_data.popitem()[1]["email_to"]
-        unique_emails(expiring_data, email_list)
+        return unique_emails(expiring_data, email_list)
 
     return tuple(set(email_list))
 
