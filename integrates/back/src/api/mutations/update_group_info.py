@@ -114,7 +114,7 @@ async def mutate(
                 else None,
                 sprint_start_date=get_min_iso_date(
                     sprint_start_date.astimezone(tzn)
-                ).isoformat()
+                )
                 if sprint_start_date
                 else None,
             ),

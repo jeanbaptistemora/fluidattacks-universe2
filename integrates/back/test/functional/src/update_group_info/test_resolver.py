@@ -38,7 +38,7 @@ async def test_update_group_info(
     business_id: str = "420938281"
     business_name: str = "Testing Company and Sons"
     sprint_duration: int = 2
-    sprint_start_date: str = "2022-05-30T00:00:00"
+    sprint_start_date: str = "2022-05-30T00:00:00+00:00"
     result: dict[str, Any] = await get_result(
         business_id=business_id,
         business_name=business_name,

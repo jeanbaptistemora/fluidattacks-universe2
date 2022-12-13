@@ -106,7 +106,10 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["businessId"] == "1867"
     assert result["data"]["group"]["businessName"] == "Testing Company"
     assert result["data"]["group"]["sprintDuration"] == 3
-    assert result["data"]["group"]["sprintStartDate"] == "2022-06-06T00:00:00"
+    assert (
+        result["data"]["group"]["sprintStartDate"]
+        == "2022-06-06T00:00:00+00:00"
+    )
 
 
 @pytest.mark.asyncio

@@ -30,14 +30,14 @@ from datetime import (
     datetime,
     timezone,
 )
+from db_model import (
+    utils as db_model_utils,
+)
 from db_model.findings.types import (
     Finding,
 )
 from db_model.groups.types import (
     Group,
-)
-from db_model.utils import (
-    get_min_iso_date,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -81,14 +81,16 @@ class FormatSprint(NamedTuple):
 
 
 def get_last_sprint_start_date(
-    *, sprint_start_date: str, sprint_length: int
+    *, sprint_start_date: Optional[datetime], sprint_length: int
 ) -> datetime:
-    end_date: datetime = get_min_iso_date(datetime.now()).astimezone(
-        tz=timezone.utc
-    )
-    start_date: datetime = datetime_utils.get_datetime_from_iso_str(
-        sprint_start_date
+    end_date: datetime = db_model_utils.get_min_iso_date(
+        datetime.now()
     ).astimezone(tz=timezone.utc)
+    start_date: datetime = (
+        sprint_start_date.astimezone(tz=timezone.utc)
+        if sprint_start_date
+        else db_model_utils.get_first_day_iso_date()
+    )
 
     sprint_dates: DatetimeIndex = date_range(
         start=start_date.isoformat(),

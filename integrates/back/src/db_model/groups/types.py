@@ -115,7 +115,7 @@ class Group(NamedTuple):
     files: Optional[list[GroupFile]] = None
     policies: Optional[Policies] = None
     sprint_duration: int = 1
-    sprint_start_date: str = ""
+    sprint_start_date: Optional[datetime] = None
 
 
 class GroupMetadataToUpdate(NamedTuple):
@@ -128,4 +128,5 @@ class GroupMetadataToUpdate(NamedTuple):
     files: Optional[list[GroupFile]] = None
     language: Optional[GroupLanguage] = None
     sprint_duration: Optional[int] = None
-    sprint_start_date: Optional[str] = None
+    sprint_start_date: Optional[datetime] = None
+    clean_sprint_start_date: bool = False

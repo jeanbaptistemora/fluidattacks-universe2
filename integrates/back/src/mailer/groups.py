@@ -901,20 +901,14 @@ async def send_mail_updated_group_information(
             {
                 "Sprint Start Date": {
                     "from": datetime_utils.get_as_str(
-                        datetime_utils.get_datetime_from_iso_str(
-                            group.sprint_start_date
-                        ),
-                        "%Y-%m-%d",
+                        group.sprint_start_date, "%Y-%m-%d"
                     ),
                     "to": datetime_utils.get_as_str(
-                        datetime_utils.get_datetime_from_iso_str(
-                            metadata.sprint_start_date
-                        ),
-                        "%Y-%m-%d",
+                        metadata.sprint_start_date, "%Y-%m-%d"
                     ),
                 }
             }
-            if metadata.sprint_start_date
+            if group.sprint_start_date and metadata.sprint_start_date
             else {}
         ),
     }

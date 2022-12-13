@@ -61,12 +61,10 @@ def get_min_iso_date(date: datetime) -> datetime:
     )
 
 
-def get_first_day_iso_date() -> str:
+def get_first_day_iso_date() -> datetime:
     now = get_min_iso_date(datetime.now(tz=timezone.utc))
 
-    return get_as_utc_iso_format(
-        now - timedelta(days=(now.isoweekday() - 1) % 7)
-    )
+    return now - timedelta(days=(now.isoweekday() - 1) % 7)
 
 
 def get_date_with_offset(

@@ -89,9 +89,9 @@ def format_group(item: Item) -> Group:
         if item.get("policies")
         else None,
         sprint_duration=int(item.get("sprint_duration", 1)),
-        sprint_start_date=item.get(
-            "sprint_start_date", get_first_day_iso_date()
-        ),
+        sprint_start_date=datetime.fromisoformat(item["sprint_start_date"])
+        if item.get("sprint_start_date")
+        else get_first_day_iso_date(),
         state=format_state(item["state"]),
     )
 
@@ -270,12 +270,16 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "disambiguation": metadata.disambiguation,
         "context": metadata.context,
         "sprint_duration": metadata.sprint_duration,
-        "sprint_start_date": metadata.sprint_start_date,
+        "sprint_start_date": get_as_utc_iso_format(metadata.sprint_start_date)
+        if metadata.sprint_start_date
+        else None,
         "files": format_files_items(metadata.files)
         if metadata.files is not None
         else None,
         "language": metadata.language.value if metadata.language else None,
     }
+    if metadata.clean_sprint_start_date:
+        item["sprint_start_date"] = ""
     return {
         key: None if not value else value
         for key, value in item.items()

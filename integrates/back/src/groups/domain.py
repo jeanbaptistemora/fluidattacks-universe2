@@ -357,9 +357,7 @@ async def add_group(
             ),
             organization_id=organization.id,
             sprint_duration=1,
-            sprint_start_date=get_min_iso_date(
-                datetime.fromisoformat(datetime_utils.get_iso_date())
-            ).isoformat(),
+            sprint_start_date=get_min_iso_date(datetime_utils.get_utc_now()),
         )
     )
     await orgs_domain.add_group_access(loaders, organization.id, group_name)

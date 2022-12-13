@@ -103,7 +103,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     business_id="1867",
                     business_name="Testing Company",
                     sprint_duration=3,
-                    sprint_start_date="2022-06-06T00:00:00",
+                    sprint_start_date=datetime.fromisoformat(
+                        "2022-06-06T00:00:00+00:00"
+                    ),
                 ),
                 "unreliable_indicators": GroupUnreliableIndicators(
                     closed_vulnerabilities=1,
