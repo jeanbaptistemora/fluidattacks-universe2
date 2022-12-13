@@ -163,7 +163,7 @@ async def populate() -> bool:
                 registration_date="2022-10-21T15:50:31.280182",
                 state=StakeholderState(
                     modified_by="unknown",
-                    modified_date="2022-10-24T00:00:00",
+                    modified_date="2022-10-24T00:00:00+00:00",
                     notifications_preferences=NotificationsPreferences(
                         email=["NEW_COMMENT"],
                     ),
@@ -175,7 +175,7 @@ async def populate() -> bool:
                 "group_comment": GroupComment(
                     content="This is a test comment",
                     creation_date=datetime.fromisoformat(
-                        "2022-11-24T15:09:37"
+                        "2022-11-24T15:09:37+00:00"
                     ),
                     email="johndoe@fluidattacks.com",
                     full_name="John Doe",
@@ -245,7 +245,7 @@ async def populate() -> bool:
                     id="43455343453",
                     content="This is a test comment",
                     creation_date=datetime.fromisoformat(
-                        "2022-11-24T15:09:37"
+                        "2022-11-24T15:09:37+00:00"
                     ),
                     email="johndoe@fluidattacks.com",
                     full_name="John Doe",

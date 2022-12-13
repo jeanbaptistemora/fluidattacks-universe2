@@ -345,7 +345,7 @@ data: Dict[str, List[Any]] = dict(
                 tags=["test-groups", "test-updates", "test-tag"],
                 status="ACTIVE",
             ),
-            sprint_start_date="2022-05-31T00:00:00",
+            sprint_start_date="2022-05-31T00:00:00+00:00",
             business_id="14441323",
             sprint_duration=2,
         ),
