@@ -7,14 +7,7 @@ import { EntryPointField } from "./EntryPointField";
 import { EnvironmentUrlField } from "./EnvironmentUrlField";
 import { RootField } from "./RootField";
 import type { IFormValues, IHandleAdditionModalFormProps, Root } from "./types";
-import {
-  getGitRootHost,
-  getIpRootHost,
-  getUrlRootHost,
-  isGitRoot,
-  isIPRoot,
-  isURLRoot,
-} from "./utils";
+import { getGitRootHost, getUrlRootHost, isGitRoot, isURLRoot } from "./utils";
 
 import { ModalConfirm } from "components/Modal";
 import { Col100, Col50, Row } from "styles/styledComponents";
@@ -39,8 +32,6 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
       ? undefined
       : isGitRoot(selectedRoot) && !_.isUndefined(environmentUrl)
       ? getGitRootHost(environmentUrl)
-      : isIPRoot(selectedRoot)
-      ? getIpRootHost(selectedRoot)
       : isURLRoot(selectedRoot)
       ? getUrlRootHost(selectedRoot)
       : undefined;

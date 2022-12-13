@@ -11,10 +11,17 @@ import { ADD_TOE_INPUT, GET_ROOTS } from "./queries";
 import type {
   IAddToeInputResultAttr,
   IFormValues,
+  IGitRootAttr,
   IHandleAdditionModalProps,
+  IURLRootAttr,
   Root,
 } from "./types";
-import { isGitRoot } from "./utils";
+import {
+  isActiveGitRoot,
+  isActiveURLRoot,
+  isGitRoot,
+  isURLRoot,
+} from "./utils";
 
 import { Modal } from "components/Modal";
 import { Logger } from "utils/logger";
@@ -40,12 +47,13 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
       variables: { groupName },
     }
   );
-  const roots =
+  const roots: (IGitRootAttr | IURLRootAttr)[] =
     rootsData === undefined
       ? []
-      : rootsData.group.roots.filter(
-          (root): boolean => root.state === "ACTIVE"
-        );
+      : [
+          ...rootsData.group.roots.filter(isGitRoot).filter(isActiveGitRoot),
+          ...rootsData.group.roots.filter(isURLRoot).filter(isActiveURLRoot),
+        ];
 
   // GraphQL operations
   const [handleAddToeInput] = useMutation<IAddToeInputResultAttr>(

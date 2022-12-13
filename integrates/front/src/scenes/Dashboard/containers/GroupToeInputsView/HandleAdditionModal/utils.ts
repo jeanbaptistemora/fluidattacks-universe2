@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import type { IGitRootAttr, IIPRootAttr, IURLRootAttr, Root } from "./types";
+import type { IGitRootAttr, IURLRootAttr, Root } from "./types";
 
 const getGitRootHost = (environmentUrl: string): string => {
   if (environmentUrl.endsWith("/")) {
@@ -9,9 +9,6 @@ const getGitRootHost = (environmentUrl: string): string => {
 
   return `${environmentUrl}/`;
 };
-
-const getIpRootHost = (root: IIPRootAttr): string =>
-  root.port ? `${root.address}:${root.port}/` : `${root.address}/`;
 
 const getUrlRootHost = (root: IURLRootAttr): string => {
   const urlRootWithPort = root.port
@@ -28,17 +25,20 @@ const getUrlRootHost = (root: IURLRootAttr): string => {
 const isGitRoot = (root: Root): root is IGitRootAttr =>
   root.__typename === "GitRoot";
 
-const isIPRoot = (root: Root): root is IIPRootAttr =>
-  root.__typename === "IPRoot";
-
 const isURLRoot = (root: Root): root is IURLRootAttr =>
   root.__typename === "URLRoot";
 
+const isActiveGitRoot = (root: IGitRootAttr): boolean =>
+  root.state === "ACTIVE";
+
+const isActiveURLRoot = (root: IURLRootAttr): boolean =>
+  root.state === "ACTIVE";
+
 export {
+  isActiveGitRoot,
+  isActiveURLRoot,
   isGitRoot,
-  isIPRoot,
   isURLRoot,
   getGitRootHost,
-  getIpRootHost,
   getUrlRootHost,
 };

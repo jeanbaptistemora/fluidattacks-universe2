@@ -38,11 +38,8 @@ const GET_ROOTS: DocumentNode = gql`
         }
         ... on IPRoot {
           __typename
-          address
           id
           nickname
-          port
-          state
         }
         ... on URLRoot {
           __typename

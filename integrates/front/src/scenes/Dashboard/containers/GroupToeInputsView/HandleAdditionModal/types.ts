@@ -35,11 +35,8 @@ interface IGitRootAttr {
 
 interface IIPRootAttr {
   __typename: "IPRoot";
-  address: string;
   id: string;
   nickname: string;
-  port: number;
-  state: "ACTIVE" | "INACTIVE";
 }
 
 interface IURLRootAttr {
