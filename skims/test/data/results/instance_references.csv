@@ -1,29 +1,4 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F034,lines,OWASP/src/App.java,22,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in OWASP/src/App.java","
-   12 |         float rand = new java.util.Random().nextFloat();
-   13 |
-   14 |         String cookieName = ""testInstanceReference"";
-   15 |
-   16 |         // this should initialize a new instance to be used in subsequent statements
-   17 |         User currentUser = new User(""Jane Doe"");
-   18 |
-   19 |         currentUser.setUserId(Float.toString(rand));
-   20 |
-   21 |         String cookieKey = currentUser.getUserId();
->  22 |         request.getSession().setAttribute(cookieName, cookieKey);
-   23 |     }
-   24 |
-   25 |     public void test_01() {
-   26 |         HttpServletRequest request = new HttpServletRequest();
-   27 |
-   28 |         int rand = new java.util.Random().nextFloat();
-   29 |         String cookieName = ""testInstanceReference"";
-   30 |
-   31 |         User currentUser = new User(""Jane"", Float.toString(rand));
-   32 |         String cookieKey = currentUser.lastName;
-      ^ Col 0
-",query.query_f034
 F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in OWASP/src/App.java","
    24 |
@@ -72,31 +47,6 @@ F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random nu
    52 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
    53 |         currentUser.userId = Float.toString(rand);
    54 |
-      ^ Col 0
-",query.query_f034
-F034,lines,OWASP/src/App.java,55,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in OWASP/src/App.java","
-   45 |     }
-   46 |
-   47 |     public void test_03() {
-   48 |         HttpServletRequest request = new HttpServletRequest();
-   49 |
-   50 |         int rand = new java.util.Random().nextFloat();
-   51 |
-   52 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
-   53 |         currentUser.userId = Float.toString(rand);
-   54 |
->  55 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
-   56 |     }
-   57 |
-   58 |     public void test_04() {
-   59 |         HttpServletRequest request = new HttpServletRequest();
-   60 |
-   61 |         User currentUser = new User(""Jane"", ""Doe"", Generate.createSecureRandom());
-   62 |
-   63 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
-   64 |     }
-   65 |
       ^ Col 0
 ",query.query_f034
 F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.

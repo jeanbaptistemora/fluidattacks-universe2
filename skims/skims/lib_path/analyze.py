@@ -4,9 +4,6 @@ from concurrent.futures.process import (
 from ctx import (
     CTX,
 )
-from datetime import (
-    datetime,
-)
 from functools import (
     partial,
 )
@@ -98,7 +95,6 @@ from os.path import (
     split,
     splitext,
 )
-import psutil
 import reactivex
 from reactivex import (
     operators as ops,
@@ -106,12 +102,10 @@ from reactivex import (
 from state.ephemeral import (
     EphemeralStore,
 )
-import time
 from typing import (
     Any,
     Dict,
     List,
-    Optional,
     Set,
     Tuple,
 )
@@ -121,6 +115,9 @@ from utils.fs import (
 )
 from utils.logs import (
     log_blocking,
+)
+from utils.system import (
+    wait_until_memory_usage,
 )
 
 # Constants
@@ -284,27 +281,12 @@ def _analyze_one_path(  # noqa: MC0001
     )
 
 
-def _wait_until_memory_usage(
-    percent: float,
-    timeout: Optional[float] = None,
-    interval: Optional[float] = None,
-) -> None:
-    interval = interval or 0.01
-    current_date = datetime.now()
-    while psutil.virtual_memory().percent > percent:
-        if timeout:
-            elapsed_time = current_date - datetime.now()
-            if elapsed_time.seconds > timeout:
-                raise TimeoutError()
-        time.sleep(interval)
-
-
-def handle_result(
+def _handle_result(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     result: Tuple[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     stores[result[0]].store(result[1])
-    _wait_until_memory_usage(90)
+    wait_until_memory_usage(90)
 
 
 def analyze(
@@ -344,6 +326,6 @@ def analyze(
                 )
             ),
         ).subscribe(
-            on_next=partial(handle_result, stores),
+            on_next=partial(_handle_result, stores),
             on_error=lambda e: log_blocking("exception", e),  # type: ignore
         )

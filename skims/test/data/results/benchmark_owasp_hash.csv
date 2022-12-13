@@ -1,54 +1,4 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00003.java,70,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00003.java","
-   60 | eak;
-   61 |
-   62 |
-   63 |
-   64 |
-   65 |
-   66 |
-   67 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   68 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   69 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  70 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   71 | [] input = { (byte)'?' };
-   72 | ct inputParam = param;
-   73 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   74 | inputParam instanceof java.io.InputStream) {
-   75 | e[] strInput = new byte[1000];
-   76 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   77 | (i == -1) {
-   78 | sponse.getWriter().println(
-   79 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   80 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00029.java,58,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00029.java","
-  48 | ng[] values = map.get(""BenchmarkTest00029"");
-  49 | values != null) param = values[0];
-  50 |
-  51 |
-  52 |
-  53 |
-  54 |
-  55 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  56 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  57 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 58 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  59 | [] input = { (byte)'?' };
-  60 | ct inputParam = param;
-  61 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  62 | inputParam instanceof java.io.InputStream) {
-  63 | e[] strInput = new byte[1000];
-  64 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  65 | (i == -1) {
-  66 | sponse.getWriter().println(
-  67 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  68 |
-     ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,53,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java","
   43 |
@@ -149,31 +99,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.j
    97 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00074.java,76,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00074.java","
-   66 | 790.put(""keyA-98790"", ""a-Value""); // put some stuff in the collection
-   67 | 790.put(""keyB-98790"", param); // put it in a collection
-   68 | 790.put(""keyC"", ""another-Value""); // put some stuff in the collection
-   69 |  (String)map98790.get(""keyB-98790""); // get it back out
-   70 |
-   71 |
-   72 |
-   73 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   74 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   75 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  76 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   77 | [] input = { (byte)'?' };
-   78 | ct inputParam = bar;
-   79 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   80 | inputParam instanceof java.io.InputStream) {
-   81 | e[] strInput = new byte[1000];
-   82 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   83 | (i == -1) {
-   84 | sponse.getWriter().println(
-   85 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   86 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,67,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java","
    57 |   bar = (7*42) - num > 200 ? ""This should never happen"" : param;
@@ -224,31 +149,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.j
    79 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00143.java,78,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00143.java","
-   68 | ault:
-   69 |    bar = ""bobs_your_uncle"";
-   70 |    break;
-   71 |
-   72 |
-   73 |
-   74 |
-   75 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   76 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   77 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  78 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   79 | [] input = { (byte)'?' };
-   80 | ct inputParam = bar;
-   81 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   82 | inputParam instanceof java.io.InputStream) {
-   83 | e[] strInput = new byte[1000];
-   84 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   85 | (i == -1) {
-   86 | sponse.getWriter().println(
-   87 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   88 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java","
    65 |   map13848.put(""keyC"", ""another-Value""); // put some stuff in the collection
@@ -298,56 +198,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.j
    86 |      response.getWriter().println(
    87 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00226.java,74,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00226.java","
-   64 | 895.put(""keyB-56895"", param); // put it in a collection
-   65 | 895.put(""keyC"", ""another_Value""); // put some stuff in the collection
-   66 |  (String)map56895.get(""keyB-56895""); // get it back out
-   67 |  (String)map56895.get(""keyA-56895""); // get safe value back out
-   68 |
-   69 |
-   70 |
-   71 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   72 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   73 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  74 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   75 | [] input = { (byte)'?' };
-   76 | ct inputParam = bar;
-   77 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   78 | inputParam instanceof java.io.InputStream) {
-   79 | e[] strInput = new byte[1000];
-   80 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   81 | (i == -1) {
-   82 | sponse.getWriter().println(
-   83 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   84 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00227.java,82,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00227.java","
-   72 | g f15913 = e15913.split("" "")[0]; // split it on a space
-   73 | wasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-   74 | g g15913 = ""barbarians_at_the_gate"";  // This is static so this whole flow is 'safe'
-   75 | g bar = thing.doSomething(g15913); // reflection
-   76 |
-   77 |
-   78 |
-   79 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   80 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   81 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  82 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   83 | [] input = { (byte)'?' };
-   84 | ct inputParam = bar;
-   85 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   86 | inputParam instanceof java.io.InputStream) {
-   87 | e[] strInput = new byte[1000];
-   88 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   89 | (i == -1) {
-   90 | sponse.getWriter().println(
-   91 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   92 |
-      ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java","
@@ -524,56 +374,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.j
    87 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00273.java,71,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00273.java","
-   61 | esList.remove(0); // remove the 1st safe value
-   62 |
-   63 | = valuesList.get(0); // get the param value
-   64 |
-   65 |
-   66 |
-   67 |
-   68 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   69 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   70 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  71 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   72 | [] input = { (byte)'?' };
-   73 | ct inputParam = bar;
-   74 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   75 | inputParam instanceof java.io.InputStream) {
-   76 | e[] strInput = new byte[1000];
-   77 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   78 | (i == -1) {
-   79 | sponse.getWriter().println(
-   80 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   81 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00274.java,61,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00274.java","
-  51 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |
-  54 | g bar = org.springframework.web.util.HtmlUtils.htmlEscape(param);
-  55 |
-  56 |
-  57 |
-  58 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  59 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  60 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 61 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  62 | [] input = { (byte)'?' };
-  63 | ct inputParam = bar;
-  64 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  65 | inputParam instanceof java.io.InputStream) {
-  66 | e[] strInput = new byte[1000];
-  67 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  68 | (i == -1) {
-  69 | sponse.getWriter().println(
-  70 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  71 |
-     ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java","
   45 |
@@ -672,31 +472,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.j
   65 | sponse.getWriter().println(
   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   67 |
-     ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00374.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00374.java","
-  45 |
-  46 |
-  47 | wasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  48 | g bar = thing.doSomething(param);
-  49 |
-  50 |
-  51 |
-  52 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  53 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  54 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 55 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  56 | [] input = { (byte)'?' };
-  57 | ct inputParam = bar;
-  58 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  59 | inputParam instanceof java.io.InputStream) {
-  60 | e[] strInput = new byte[1000];
-  61 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  62 | (i == -1) {
-  63 | sponse.getWriter().println(
-  64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  65 |
      ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,71,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -1124,31 +899,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.j
   68 |
      ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00638.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00638.java","
-  45 | aram == null) param = """";
-  46 |
-  47 |
-  48 | g bar = org.apache.commons.lang.StringEscapeUtils.escapeHtml(param);
-  49 |
-  50 |
-  51 |
-  52 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  53 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  54 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 55 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  56 | [] input = { (byte)'?' };
-  57 | ct inputParam = bar;
-  58 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  59 | inputParam instanceof java.io.InputStream) {
-  60 | e[] strInput = new byte[1000];
-  61 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  62 | (i == -1) {
-  63 | sponse.getWriter().println(
-  64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  65 |
-     ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,69,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java","
    59 |    bar = valuesList.get(0); // get the param value
@@ -1299,31 +1049,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.j
   65 |
      ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00710.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00710.java","
-  47 | param = """";
-  48 |
-  49 |
-  50 | g bar = org.apache.commons.lang.StringEscapeUtils.escapeHtml(param);
-  51 |
-  52 |
-  53 |
-  54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  58 | [] input = { (byte)'?' };
-  59 | ct inputParam = bar;
-  60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  61 | inputParam instanceof java.io.InputStream) {
-  62 | e[] strInput = new byte[1000];
-  63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  64 | (i == -1) {
-  65 | sponse.getWriter().println(
-  66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  67 |
-     ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,69,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java","
    59 |
@@ -1397,56 +1122,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.j
    76 | sponse.getWriter().println(
    77 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    78 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00796.java,73,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00796.java","
-   63 | 213.put(""keyA-72213"", ""a-Value""); // put some stuff in the collection
-   64 | 213.put(""keyB-72213"", param); // put it in a collection
-   65 | 213.put(""keyC"", ""another-Value""); // put some stuff in the collection
-   66 |  (String)map72213.get(""keyB-72213""); // get it back out
-   67 |
-   68 |
-   69 |
-   70 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   71 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   72 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  73 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   74 | [] input = { (byte)'?' };
-   75 | ct inputParam = bar;
-   76 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   77 | inputParam instanceof java.io.InputStream) {
-   78 | e[] strInput = new byte[1000];
-   79 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   80 | (i == -1) {
-   81 | sponse.getWriter().println(
-   82 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   83 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00797.java,72,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00797.java","
-   62 | aram != null && param.length() > 1) {
-   63 | tringBuilder sbxyz97281 = new StringBuilder(param);
-   64 | ar = sbxyz97281.replace(param.length()-""Z"".length(), param.length(),""Z"").toString();
-   65 |
-   66 |
-   67 |
-   68 |
-   69 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   70 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   71 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  72 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   73 | [] input = { (byte)'?' };
-   74 | ct inputParam = bar;
-   75 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   76 | inputParam instanceof java.io.InputStream) {
-   77 | e[] strInput = new byte[1000];
-   78 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   79 | (i == -1) {
-   80 | sponse.getWriter().println(
-   81 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   82 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,69,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -1624,56 +1299,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.j
   62 |
      ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00875.java,64,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00875.java","
-   54 | esList.remove(0); // remove the 1st safe value
-   55 |
-   56 | = valuesList.get(1); // get the last 'safe' value
-   57 |
-   58 |
-   59 |
-   60 |
-   61 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   62 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   63 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  64 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   65 | [] input = { (byte)'?' };
-   66 | ct inputParam = bar;
-   67 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   68 | inputParam instanceof java.io.InputStream) {
-   69 | e[] strInput = new byte[1000];
-   70 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   71 | (i == -1) {
-   72 | sponse.getWriter().println(
-   73 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   74 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00876.java,60,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00876.java","
-  50 | um = 106;
-  51 |
-  52 |  (7*18) + num > 200 ? ""This_should_always_happen"" : param;
-  53 |
-  54 |
-  55 |
-  56 |
-  57 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  58 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  59 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 60 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  61 | [] input = { (byte)'?' };
-  62 | ct inputParam = bar;
-  63 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  64 | inputParam instanceof java.io.InputStream) {
-  65 | e[] strInput = new byte[1000];
-  66 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  67 | (i == -1) {
-  68 | sponse.getWriter().println(
-  69 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  70 |
-     ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java","
    56 | (theCookie.getName().equals(""BenchmarkTest00961"")) {
@@ -1749,106 +1374,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.j
    64 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01041.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01041.java","
-   47 |
-   48 | L Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-   49 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   50 |
-   51 | g bar = new Test().doSomething(request, param);
-   52 |
-   53 |
-   54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   58 | [] input = { (byte)'?' };
-   59 | ct inputParam = bar;
-   60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   61 | inputParam instanceof java.io.InputStream) {
-   62 | e[] strInput = new byte[1000];
-   63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   64 | (i == -1) {
-   65 | sponse.getWriter().println(
-   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   67 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01042.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01042.java","
-   47 |
-   48 | L Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-   49 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   50 |
-   51 | g bar = new Test().doSomething(request, param);
-   52 |
-   53 |
-   54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   58 | [] input = { (byte)'?' };
-   59 | ct inputParam = bar;
-   60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   61 | inputParam instanceof java.io.InputStream) {
-   62 | e[] strInput = new byte[1000];
-   63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   64 | (i == -1) {
-   65 | sponse.getWriter().println(
-   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   67 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01043.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01043.java","
-   47 |
-   48 | L Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-   49 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   50 |
-   51 | g bar = new Test().doSomething(request, param);
-   52 |
-   53 |
-   54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   58 | [] input = { (byte)'?' };
-   59 | ct inputParam = bar;
-   60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   61 | inputParam instanceof java.io.InputStream) {
-   62 | e[] strInput = new byte[1000];
-   63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   64 | (i == -1) {
-   65 | sponse.getWriter().println(
-   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   67 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01044.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01044.java","
-   47 |
-   48 | L Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-   49 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   50 |
-   51 | g bar = new Test().doSomething(request, param);
-   52 |
-   53 |
-   54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   58 | [] input = { (byte)'?' };
-   59 | ct inputParam = bar;
-   60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   61 | inputParam instanceof java.io.InputStream) {
-   62 | e[] strInput = new byte[1000];
-   63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   64 | (i == -1) {
-   65 | sponse.getWriter().println(
-   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   67 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java","
    53 | values != null && values.hasMoreElements()) {
@@ -1872,31 +1397,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.j
    71 | sponse.getWriter().println(
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01124.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01124.java","
-   56 |
-   57 |
-   58 | te: We don't URL decode header names because people don't normally do that
-   59 |
-   60 | g bar = new Test().doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -1972,31 +1472,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.j
    64 | sponse.getWriter().println(
    65 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    66 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01168.java,59,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01168.java","
-   49 |
-   50 | L Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-   51 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   52 |
-   53 | g bar = new Test().doSomething(request, param);
-   54 |
-   55 |
-   56 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   57 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   58 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  59 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   60 | [] input = { (byte)'?' };
-   61 | ct inputParam = bar;
-   62 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   63 | inputParam instanceof java.io.InputStream) {
-   64 | e[] strInput = new byte[1000];
-   65 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   66 | (i == -1) {
-   67 | sponse.getWriter().println(
-   68 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   69 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -2099,31 +1574,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.j
    59 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01248.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01248.java","
-   42 |
-   43 | g param = request.getParameter(""BenchmarkTest01248"");
-   44 | aram == null) param = """";
-   45 |
-   46 | g bar = new Test().doSomething(request, param);
-   47 |
-   48 |
-   49 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   50 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   51 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  52 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   53 | [] input = { (byte)'?' };
-   54 | ct inputParam = bar;
-   55 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   56 | inputParam instanceof java.io.InputStream) {
-   57 | e[] strInput = new byte[1000];
-   58 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   59 | (i == -1) {
-   60 | sponse.getWriter().println(
-   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   62 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,54,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java","
    44 | g param = """";
@@ -2197,81 +1647,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.j
    71 | sponse.getWriter().println(
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01414.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01414.java","
-   56 |
-   57 |
-   58 |
-   59 |
-   60 | g bar = new Test().doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01415.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01415.java","
-   56 |
-   57 |
-   58 |
-   59 |
-   60 | g bar = new Test().doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01416.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01416.java","
-   56 |
-   57 |
-   58 |
-   59 |
-   60 | g bar = new Test().doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -2374,56 +1749,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.j
    62 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01579.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01579.java","
-   45 | alues != null && values.length > 0)
-   46 | am = values[0];
-   47 | param = """";
-   48 |
-   49 | g bar = new Test().doSomething(request, param);
-   50 |
-   51 |
-   52 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   53 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   54 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  55 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   56 | [] input = { (byte)'?' };
-   57 | ct inputParam = bar;
-   58 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   59 | inputParam instanceof java.io.InputStream) {
-   60 | e[] strInput = new byte[1000];
-   61 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   62 | (i == -1) {
-   63 | sponse.getWriter().println(
-   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   65 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01580.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01580.java","
-   45 | alues != null && values.length > 0)
-   46 | am = values[0];
-   47 | param = """";
-   48 |
-   49 | g bar = new Test().doSomething(request, param);
-   50 |
-   51 |
-   52 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   53 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   54 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  55 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   56 | [] input = { (byte)'?' };
-   57 | ct inputParam = bar;
-   58 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   59 | inputParam instanceof java.io.InputStream) {
-   60 | e[] strInput = new byte[1000];
-   61 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   62 | (i == -1) {
-   63 | sponse.getWriter().println(
-   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   65 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,63,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -2524,31 +1849,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.j
    73 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01654.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01654.java","
-   56 | m = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-   57 |
-   58 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   59 |
-   60 | g bar = new Test().doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,54,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java","
    44 |   String param = scr.getTheValue(""BenchmarkTest01757"");
@@ -2622,56 +1922,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.j
    57 | sponse.getWriter().println(
    58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    59 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01765.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01765.java","
-   42 |
-   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-   44 | g param = scr.getTheValue(""BenchmarkTest01765"");
-   45 |
-   46 | g bar = new Test().doSomething(request, param);
-   47 |
-   48 |
-   49 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   50 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   51 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  52 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   53 | [] input = { (byte)'?' };
-   54 | ct inputParam = bar;
-   55 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   56 | inputParam instanceof java.io.InputStream) {
-   57 | e[] strInput = new byte[1000];
-   58 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   59 | (i == -1) {
-   60 | sponse.getWriter().println(
-   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   62 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01766.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01766.java","
-   42 |
-   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-   44 | g param = scr.getTheValue(""BenchmarkTest01766"");
-   45 |
-   46 | g bar = new Test().doSomething(request, param);
-   47 |
-   48 |
-   49 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   50 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   51 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  52 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   53 | [] input = { (byte)'?' };
-   54 | ct inputParam = bar;
-   55 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   56 | inputParam instanceof java.io.InputStream) {
-   57 | e[] strInput = new byte[1000];
-   58 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   59 | (i == -1) {
-   60 | sponse.getWriter().println(
-   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   62 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,71,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -2874,56 +2124,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.j
    71 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01996.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01996.java","
-   56 |
-   57 |
-   58 | te: We don't URL decode header names because people don't normally do that
-   59 |
-   60 | g bar = doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01997.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01997.java","
-   56 |
-   57 |
-   58 | te: We don't URL decode header names because people don't normally do that
-   59 |
-   60 | g bar = doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java","
    46 | eaders != null && headers.hasMoreElements()) {
@@ -2998,31 +2198,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.j
    65 |      response.getWriter().println(
    66 | ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source.""
       ^ Col 0
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02121.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02121.java","
-   42 |
-   43 | g param = request.getParameter(""BenchmarkTest02121"");
-   44 | aram == null) param = """";
-   45 |
-   46 | g bar = doSomething(request, param);
-   47 |
-   48 |
-   49 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   50 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   51 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  52 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   53 | [] input = { (byte)'?' };
-   54 | ct inputParam = bar;
-   55 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   56 | inputParam instanceof java.io.InputStream) {
-   57 | e[] strInput = new byte[1000];
-   58 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   59 | (i == -1) {
-   60 | sponse.getWriter().println(
-   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   62 |
-      ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,54,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java","
@@ -3122,31 +2297,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.j
    62 | sponse.getWriter().println(
    63 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    64 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02219.java,57,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02219.java","
-   47 | values != null) param = values[0];
-   48 |
-   49 |
-   50 |
-   51 | g bar = doSomething(request, param);
-   52 |
-   53 |
-   54 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   55 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   56 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  57 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   58 | [] input = { (byte)'?' };
-   59 | ct inputParam = bar;
-   60 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   61 | inputParam instanceof java.io.InputStream) {
-   62 | e[] strInput = new byte[1000];
-   63 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   64 | (i == -1) {
-   65 | sponse.getWriter().println(
-   66 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   67 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -3374,81 +2524,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.j
    60 |
       ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02391.java,53,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02391.java","
-  43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-  44 | g param = scr.getTheParameter(""BenchmarkTest02391"");
-  45 | aram == null) param = """";
-  46 |
-  47 | g bar = doSomething(request, param);
-  48 |
-  49 |
-  50 | ava.util.Properties benchmarkprops = new java.util.Properties();
-  51 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-  52 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
-> 53 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-  54 | [] input = { (byte)'?' };
-  55 | ct inputParam = bar;
-  56 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-  57 | inputParam instanceof java.io.InputStream) {
-  58 | e[] strInput = new byte[1000];
-  59 |  i = ((java.io.InputStream) inputParam).read(strInput);
-  60 | (i == -1) {
-  61 | sponse.getWriter().println(
-  62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-  63 |
-     ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02392.java,53,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02392.java","
-   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-   44 | g param = scr.getTheParameter(""BenchmarkTest02392"");
-   45 | aram == null) param = """";
-   46 |
-   47 | g bar = doSomething(request, param);
-   48 |
-   49 |
-   50 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   51 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   52 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  53 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   54 | [] input = { (byte)'?' };
-   55 | ct inputParam = bar;
-   56 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   57 | inputParam instanceof java.io.InputStream) {
-   58 | e[] strInput = new byte[1000];
-   59 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   60 | (i == -1) {
-   61 | sponse.getWriter().println(
-   62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   63 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02393.java,53,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02393.java","
-   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-   44 | g param = scr.getTheParameter(""BenchmarkTest02393"");
-   45 | aram == null) param = """";
-   46 |
-   47 | g bar = doSomething(request, param);
-   48 |
-   49 |
-   50 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   51 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   52 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  53 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   54 | [] input = { (byte)'?' };
-   55 | ct inputParam = bar;
-   56 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   57 | inputParam instanceof java.io.InputStream) {
-   58 | e[] strInput = new byte[1000];
-   59 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   60 | (i == -1) {
-   61 | sponse.getWriter().println(
-   62 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   63 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java","
    42 |
@@ -3524,31 +2599,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.j
   62 |
      ^ Col 7
 ",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02478.java,55,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02478.java","
-   45 | alues != null && values.length > 0)
-   46 | am = values[0];
-   47 | param = """";
-   48 |
-   49 | g bar = doSomething(request, param);
-   50 |
-   51 |
-   52 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   53 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   54 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  55 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   56 | [] input = { (byte)'?' };
-   57 | ct inputParam = bar;
-   58 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   59 | inputParam instanceof java.io.InputStream) {
-   60 | e[] strInput = new byte[1000];
-   61 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   62 | (i == -1) {
-   63 | sponse.getWriter().println(
-   64 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   65 |
-      ^ Col 7
-",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,63,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java","
    53 | d then check to see if its in the middle of the query string and if so, trim off what comes after.
@@ -3622,31 +2672,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.j
    71 | sponse.getWriter().println(
    72 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
    73 |
-      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02577.java,66,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02577.java","
-   56 | m = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-   57 |
-   58 |  = java.net.URLDecoder.decode(param, ""UTF-8"");
-   59 |
-   60 | g bar = doSomething(request, param);
-   61 |
-   62 |
-   63 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   64 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   65 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  66 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   67 | [] input = { (byte)'?' };
-   68 | ct inputParam = bar;
-   69 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   70 | inputParam instanceof java.io.InputStream) {
-   71 | e[] strInput = new byte[1000];
-   72 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   73 | (i == -1) {
-   74 | sponse.getWriter().println(
-   75 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   76 |
       ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,54,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
@@ -3798,31 +2823,6 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.j
   58 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
   59 |
      ^ Col 7
-",query.query_f052
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02677.java,52,310,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02677.java","
-   42 |
-   43 | wasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-   44 | g param = scr.getTheValue(""BenchmarkTest02677"");
-   45 |
-   46 | g bar = doSomething(request, param);
-   47 |
-   48 |
-   49 | ava.util.Properties benchmarkprops = new java.util.Properties();
-   50 | enchmarkprops.load(this.getClass().getClassLoader().getResourceAsStream(""benchmark.properties""));
-   51 | ng algorithm = benchmarkprops.getProperty(""hashAlg1"", ""SHA512"");
->  52 | .security.MessageDigest md = java.security.MessageDigest.getInstance(algorithm);
-   53 | [] input = { (byte)'?' };
-   54 | ct inputParam = bar;
-   55 | inputParam instanceof String) input = ((String) inputParam).getBytes();
-   56 | inputParam instanceof java.io.InputStream) {
-   57 | e[] strInput = new byte[1000];
-   58 |  i = ((java.io.InputStream) inputParam).read(strInput);
-   59 | (i == -1) {
-   60 | sponse.getWriter().println(
-   61 | nput source requires a POST, not a GET. Incompatible UI for the InputStream source.""
-   62 |
-      ^ Col 7
 ",query.query_f052
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,53,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,"
   43 |

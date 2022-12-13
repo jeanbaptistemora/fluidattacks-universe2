@@ -1,11 +1,14 @@
-from concurrent.futures.thread import (
-    ThreadPoolExecutor,
+from concurrent.futures.process import (
+    ProcessPoolExecutor,
 )
 from contextlib import (
-    suppress,
+    ExitStack,
 )
 from ctx import (
     CTX,
+)
+from functools import (
+    partial,
 )
 from lib_root import (
     f001,
@@ -63,14 +66,18 @@ from lib_root import (
 )
 from lib_sast.types import (
     Paths,
-    ShardDb,
 )
 from model import (
     core_model,
     graph_model,
 )
-from os import (
-    cpu_count,
+from model.core_model import (
+    Vulnerability,
+)
+import os
+import reactivex
+from reactivex import (
+    operators as ops,
 )
 from sast import (
     query as sast_query,
@@ -83,10 +90,12 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
-    Optional,
 )
 from utils.logs import (
     log_blocking,
+)
+from utils.system import (
+    wait_until_memory_usage,
 )
 
 QUERIES: graph_model.Queries = (
@@ -146,65 +155,57 @@ QUERIES: graph_model.Queries = (
 )
 
 
+def _handle_result(
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    result: Vulnerability,
+) -> None:
+    stores[result.finding].store(result)
+    wait_until_memory_usage(90)
+
+
 def analyze(
     *,
-    paths: Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
+    paths: Paths,
 ) -> None:
-    if not any(finding in CTX.config.checks for finding, _ in QUERIES):
-        # No findings will be executed, early abort
-        return
-
-    graph_db = get_graph_db(paths.ok_paths)
-    shard_db = ShardDb(paths=paths)
     queries: graph_model.Queries = tuple(
         (finding, query)
         for finding, query in QUERIES
         if finding in CTX.config.checks
     )
-    queries_len: int = len(queries)
-
-    for idx, (finding, query) in enumerate(queries, start=1):
-        log_blocking(
-            "info",
-            "Executing query %s of %s, finding %s",
-            idx,
-            queries_len,
-            finding.name,
-        )
-        if stores[finding].has_errors:
-            log_blocking(
-                "warning",
-                (
-                    "The query %s of %s, finding %s cannot be executed,"
-                    " there are some previous errors"
-                ),
-                idx,
-                queries_len,
-                finding.name,
+    context_stack = ExitStack()
+    context_stack_1 = ExitStack()
+    executor = context_stack.enter_context(
+        ProcessPoolExecutor(max_workers=os.cpu_count())
+    )
+    executor_1 = context_stack_1.enter_context(
+        ProcessPoolExecutor(max_workers=os.cpu_count())
+    )
+    reactivex.from_iterable(paths.ok_paths).pipe(
+        ops.map(lambda path: (path,)),  # type: ignore
+        ops.flat_map(
+            lambda paths: reactivex.from_future(  # type: ignore
+                executor.submit(get_graph_db, paths)  # type: ignore
             )
-            continue
-
-        # Ideally should be in_process but memory requirements constraint us
-        # for now
-        vulnerabilities: Optional[core_model.Vulnerabilities] = None
-        with suppress(Exception):
-            vulnerabilities = query(shard_db, graph_db)
-
-        if vulnerabilities is None:
-            log_blocking(
-                "error",
-                "An error has occurred executing query %s of %s, finding %s",
-                idx,
-                queries_len,
-                finding.name,
+        ),
+        ops.flat_map(
+            lambda graph: reactivex.from_iterable(  # type: ignore
+                (query, graph) for _, query in queries
             )
-            stores[finding]._replace(has_errors=True)
-        else:
-            with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-                worker.map(
-                    lambda x: stores[  # pylint: disable=unnecessary-lambda
-                        x.finding
-                    ].store(x),
-                    vulnerabilities,
-                )
+        ),
+        ops.flat_map(
+            lambda item: reactivex.from_future(  # type: ignore
+                executor_1.submit(item[0], None, item[1])  # type: ignore
+            )
+        ),
+        ops.flat_map(
+            lambda results: reactivex.from_iterable(  # type: ignore
+                result for result in results  # type: ignore
+            )
+        ),
+    ).subscribe(
+        on_next=partial(_handle_result, stores),
+        on_error=lambda e: log_blocking("exception", e),
+    )
+    context_stack.close()
+    context_stack_1.close()

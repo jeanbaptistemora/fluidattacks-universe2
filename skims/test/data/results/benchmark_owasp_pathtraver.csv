@@ -119,30 +119,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00028.j
   70 |     try {
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00040.java,50,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00040.java,"
-  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  41 |   // some code
-  42 |   response.setContentType(""text/html;charset=UTF-8"");
-  43 |
-  44 |
-  45 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-  46 |   String param = scr.getTheParameter(""BenchmarkTest00040"");
-  47 |   if (param == null) param = """";
-  48 |
-  49 |
-> 50 |   java.io.File fileTarget = new java.io.File(param);
-  51 |   response.getWriter().println(
-  52 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  53 | );
-  54 |   if (fileTarget.exists()) {
-  55 |    response.getWriter().println(
-  56 | "" And file already exists.""
-  57 | );
-  58 |   } else { response.getWriter().println(
-  59 | "" But file doesn't exist yet.""
-  60 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00045.java,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00045.java,"
   53 |
   54 |   try (
@@ -911,30 +887,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00526.j
   74 | ); }
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00527.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00527.java,"
-  55 |      }
-  56 |     }
-  57 |    }
-  58 |   }
-  59 |
-  60 |
-  61 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  62 |   String bar = thing.doSomething(param);
-  63 |
-  64 |
-> 65 |   java.io.File fileTarget = new java.io.File(bar, ""/Test.txt"");
-  66 |   response.getWriter().println(
-  67 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  68 | );
-  69 |   if (fileTarget.exists()) {
-  70 |    response.getWriter().println(
-  71 | "" And file already exists.""
-  72 | );
-  73 |   } else { response.getWriter().println(
-  74 | "" But file doesn't exist yet.""
-  75 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00528.java,80,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00528.java,"
   70 |   // Mac requires an extra slash for some reason.
   71 |   String startURIslashes = """";
@@ -983,174 +935,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00529.j
   79 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00619.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00619.java,"
-  51 |    valuesList.add(""safe"");
-  52 |    valuesList.add( param );
-  53 |    valuesList.add( ""moresafe"" );
-  54 |
-  55 |    valuesList.remove(0); // remove the 1st safe value
-  56 |
-  57 |    bar = valuesList.get(0); // get the param value
-  58 |   }
-  59 |
-  60 |
-> 61 |   java.io.File fileTarget = new java.io.File(new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR),bar);
-  62 |   response.getWriter().println(
-  63 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  64 | );
-  65 |   if (fileTarget.exists()) {
-  66 |    response.getWriter().println(
-  67 | "" And file already exists.""
-  68 | );
-  69 |   } else { response.getWriter().println(
-  70 | "" But file doesn't exist yet.""
-  71 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00623.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00623.java,"
-  45 |   if (param == null) param = """";
-  46 |
-  47 |
-  48 |   String bar = """";
-  49 |   if (param != null) {
-  50 |    bar = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
-  51 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
-  52 |   }
-  53 |
-  54 |
-> 55 |   java.io.File fileTarget = new java.io.File(bar, ""/Test.txt"");
-  56 |   response.getWriter().println(
-  57 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  58 | );
-  59 |   if (fileTarget.exists()) {
-  60 |    response.getWriter().println(
-  61 | "" And file already exists.""
-  62 | );
-  63 |   } else { response.getWriter().println(
-  64 | "" But file doesn't exist yet.""
-  65 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,"
-  48 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  49 |   String bar = thing.doSomething(param);
-  50 |
-  51 |
-  52 |   String fileName = null;
-  53 |   java.io.FileOutputStream fos = null;
-  54 |
-  55 |   try {
-  56 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  57 |
-> 58 |    fos = new java.io.FileOutputStream(new java.io.File(fileName),false);
-  59 |          response.getWriter().println(
-  60 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  61 | );
-  62 |
-  63 |   } catch (Exception e) {
-  64 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  65 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  66 |   } finally {
-  67 |    if (fos != null) {
-  68 |     try {
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,58,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00624.java,"
-  48 | sp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  49 | bar = thing.doSomething(param);
-  50 |
-  51 |
-  52 | fileName = null;
-  53 | .FileOutputStream fos = null;
-  54 |
-  55 |
-  56 | me = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  57 |
-> 58 | new java.io.FileOutputStream(new java.io.File(fileName),false);
-  59 | response.getWriter().println(
-  60 | eady to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  61 |
-  62 |
-  63 |  (Exception e) {
-  64 | .out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  65 | em.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  66 | ly {
-  67 | s != null) {
-  68 |
-     ^ Col 9
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00627.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00627.java,"
-  51 |    org.apache.commons.codec.binary.Base64.encodeBase64( param.getBytes() ) ));
-  52 |   }
-  53 |
-  54 |
-  55 |   String fileName = null;
-  56 |   java.io.FileOutputStream fos = null;
-  57 |
-  58 |   try {
-  59 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  60 |
-> 61 |    fos = new java.io.FileOutputStream(fileName, false);
-  62 |          response.getWriter().println(
-  63 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  64 | );
-  65 |
-  66 |   } catch (Exception e) {
-  67 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  68 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  69 |   } finally {
-  70 |    if (fos != null) {
-  71 |     try {
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,61,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,"
-  51 |   int num = 196;
-  52 |   if ( (500/42) + num > 200 )
-  53 |      bar = param;
-  54 |   else bar = ""This should never happen"";
-  55 |
-  56 |
-  57 |   String fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  58 |         java.io.InputStream is = null;
-  59 |
-  60 |   try {
-> 61 |    java.nio.file.Path path = java.nio.file.Paths.get(fileName);
-  62 |    is = java.nio.file.Files.newInputStream(path, java.nio.file.StandardOpenOption.READ);
-  63 |    byte[] b = new byte[1000];
-  64 |    int size = is.read(b);
-  65 |    response.getWriter().println(
-  66 | ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName) + ""' is:\n\n""
-  67 | );
-  68 |    response.getWriter().println(
-  69 | org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  70 | );
-  71 |    is.close();
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00629.java,"
-  52 |   if ( (500/42) + num > 200 )
-  53 |      bar = param;
-  54 |   else bar = ""This should never happen"";
-  55 |
-  56 |
-  57 |   String fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  58 |         java.io.InputStream is = null;
-  59 |
-  60 |   try {
-  61 |    java.nio.file.Path path = java.nio.file.Paths.get(fileName);
-> 62 |    is = java.nio.file.Files.newInputStream(path, java.nio.file.StandardOpenOption.READ);
-  63 |    byte[] b = new byte[1000];
-  64 |    int size = is.read(b);
-  65 |    response.getWriter().println(
-  66 | ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName) + ""' is:\n\n""
-  67 | );
-  68 |    response.getWriter().println(
-  69 | org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  70 | );
-  71 |    is.close();
-  72 |   } catch (Exception e) {
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00696.java,72,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00696.java,"
   62 |     case 'C':
   63 |     case 'D':
@@ -1197,30 +981,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00697.j
   65 |   } else { response.getWriter().println(
   66 | "" But file doesn't exist yet.""
   67 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00698.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00698.java,"
-  44 |   String param;
-  45 |   if (values != null && values.length > 0)
-  46 |     param = values[0];
-  47 |   else param = """";
-  48 |
-  49 |
-  50 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  51 |   String bar = thing.doSomething(param);
-  52 |
-  53 |
-> 54 |   java.io.File fileTarget = new java.io.File(bar, ""/Test.txt"");
-  55 |   response.getWriter().println(
-  56 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  57 | );
-  58 |   if (fileTarget.exists()) {
-  59 |    response.getWriter().println(
-  60 | "" And file already exists.""
-  61 | );
-  62 |   } else { response.getWriter().println(
-  63 | "" But file doesn't exist yet.""
-  64 | ); }
      ^ Col 0
 ",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,63,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00700.java,"
@@ -1367,30 +1127,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00787.j
   84 |     try {
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00788.java,71,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00788.java,"
-  61 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
-  62 |   String bar = thing.doSomething(param);
-  63 |
-  64 |
-  65 |   String fileName = null;
-  66 |   java.io.FileOutputStream fos = null;
-  67 |
-  68 |   try {
-  69 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  70 |
-> 71 |    fos = new java.io.FileOutputStream(fileName);
-  72 |          response.getWriter().println(
-  73 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  74 | );
-  75 |
-  76 |      } catch (Exception e) {
-  77 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  78 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  79 |   } finally {
-  80 |    if (fos != null) {
-  81 |     try {
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00949.java,65,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00949.java,"
   55 |    for (javax.servlet.http.Cookie theCookie : theCookies) {
   56 |     if (theCookie.getName().equals(""BenchmarkTest00949"")) {
@@ -1511,54 +1247,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00956.j
    86 |
       ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01025.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01025.java,"
-  43 |   String param = """";
-  44 |   if (request.getHeader(""BenchmarkTest01025"") != null) {
-  45 |    param = request.getHeader(""BenchmarkTest01025"");
-  46 |   }
-  47 |
-  48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |   String bar = new Test().doSomething(request, param);
-  52 |
-> 53 |   java.io.File fileTarget = new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR, bar);
-  54 |   response.getWriter().println(
-  55 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  56 | );
-  57 |   if (fileTarget.exists()) {
-  58 |    response.getWriter().println(
-  59 | "" And file already exists.""
-  60 | );
-  61 |   } else { response.getWriter().println(
-  62 | "" But file doesn't exist yet.""
-  63 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01029.java,64,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01029.java,"
-  54 |   // Mac requires an extra slash for some reason.
-  55 |   String startURIslashes = """";
-  56 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  57 |          if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  58 |           startURIslashes = ""/"";
-  59 |          else startURIslashes = ""//"";
-  60 |
-  61 |   try {
-  62 |    java.net.URI fileURI = new java.net.URI(""file"", null, startURIslashes
-  63 |     + org.owasp.benchmark.helpers.Utils.TESTFILES_DIR.replace('\\', java.io.File.separatorChar).replace(' ', '_') + bar,
-> 64 |    java.io.File fileTarget = new java.io.File(fileURI);
-  65 |             response.getWriter().println(
-  66 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  67 | );
-  68 |             if (fileTarget.exists()) {
-  69 |             response.getWriter().println(
-  70 | "" And file already exists.""
-  71 | );
-  72 |             } else { response.getWriter().println(
-  73 | "" But file doesn't exist yet.""
-  74 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.java,"
   49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
@@ -1595,54 +1283,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01032.j
   57 | me = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
   58 |
 > 59 | new java.io.FileOutputStream(new java.io.File(fileName),false);
-  60 | response.getWriter().println(
-  61 | eady to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  62 |
-  63 |
-  64 |  (Exception e) {
-  65 | .out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  66 | em.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  67 | ly {
-  68 | s != null) {
-  69 |
-     ^ Col 9
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,"
-  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |   String bar = new Test().doSomething(request, param);
-  52 |
-  53 |   String fileName = null;
-  54 |   java.io.FileOutputStream fos = null;
-  55 |
-  56 |   try {
-  57 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  58 |
-> 59 |    fos = new java.io.FileOutputStream(new java.io.File(fileName));
-  60 |          response.getWriter().println(
-  61 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  62 | );
-  63 |
-  64 |   } catch (Exception e) {
-  65 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  66 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  67 |   } finally {
-  68 |    if (fos != null) {
-  69 |     try {
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01033.java,"
-  49 |  java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 | bar = new Test().doSomething(request, param);
-  52 |
-  53 | fileName = null;
-  54 | .FileOutputStream fos = null;
-  55 |
-  56 |
-  57 | me = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  58 |
-> 59 | new java.io.FileOutputStream(new java.io.File(fileName));
   60 | response.getWriter().println(
   61 | eady to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
   62 |
@@ -1895,79 +1535,7 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01231.j
   58 | ); }
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01232.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01232.java,"
-  38 |
-  39 |  @Override
-  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  41 |   response.setContentType(""text/html;charset=UTF-8"");
-  42 |
-  43 |   String param = request.getParameter(""BenchmarkTest01232"");
-  44 |   if (param == null) param = """";
-  45 |
-  46 |   String bar = new Test().doSomething(request, param);
-  47 |
-> 48 |   java.io.File fileTarget = new java.io.File(new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR),bar);
-  49 |   response.getWriter().println(
-  50 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  51 | );
-  52 |   if (fileTarget.exists()) {
-  53 |    response.getWriter().println(
-  54 | "" And file already exists.""
-  55 | );
-  56 |   } else { response.getWriter().println(
-  57 | "" But file doesn't exist yet.""
-  58 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01234.java,48,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01234.java,"
-  38 |
-  39 |  @Override
-  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  41 |   response.setContentType(""text/html;charset=UTF-8"");
-  42 |
-  43 |   String param = request.getParameter(""BenchmarkTest01234"");
-  44 |   if (param == null) param = """";
-  45 |
-  46 |   String bar = new Test().doSomething(request, param);
-  47 |
-> 48 |   java.io.File fileTarget = new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR, bar);
-  49 |   response.getWriter().println(
-  50 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  51 | );
-  52 |   if (fileTarget.exists()) {
-  53 |    response.getWriter().println(
-  54 | "" And file already exists.""
-  55 | );
-  56 |   } else { response.getWriter().println(
-  57 | "" But file doesn't exist yet.""
-  58 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01235.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01235.java,"
-  49 |   // Mac requires an extra slash for some reason.
-  50 |   String startURIslashes = """";
-  51 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  52 |          if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  53 |           startURIslashes = ""/"";
-  54 |          else startURIslashes = ""//"";
-  55 |
-  56 |   try {
-  57 |    java.net.URI fileURI = new java.net.URI(""file:"" + startURIslashes
-  58 |     + org.owasp.benchmark.helpers.Utils.TESTFILES_DIR.replace('\\', '/').replace(' ', '_') + bar);
-> 59 |    java.io.File fileTarget = new java.io.File(fileURI);
-  60 |    response.getWriter().println(
-  61 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  62 | );
-  63 |    if (fileTarget.exists()) {
-  64 |     response.getWriter().println(
-  65 | "" And file already exists.""
-  66 | );
-  67 |    } else { response.getWriter().println(
-  68 | "" But file doesn't exist yet.""
-  69 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01236.java,59,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01236.java,"
   49 |   // Mac requires an extra slash for some reason.
   50 |   String startURIslashes = """";
   51 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
@@ -2111,30 +1679,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01330.j
   69 |
      ^ Col 9
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01403.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01403.java,"
-  52 |      if (value.equals(""BenchmarkTest01403"")) {
-  53 |       param = name;
-  54 |          flag = false;
-  55 |      }
-  56 |     }
-  57 |    }
-  58 |   }
-  59 |
-  60 |   String bar = new Test().doSomething(request, param);
-  61 |
-> 62 |   java.io.File fileTarget = new java.io.File(new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR),bar);
-  63 |   response.getWriter().println(
-  64 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  65 | );
-  66 |   if (fileTarget.exists()) {
-  67 |    response.getWriter().println(
-  68 | "" And file already exists.""
-  69 | );
-  70 |   } else { response.getWriter().println(
-  71 | "" But file doesn't exist yet.""
-  72 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.java,"
    57 |    }
    58 |   }
@@ -2183,222 +1727,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01405.j
    77 | Problem getting FileInputStream: ""
       ^ Col 15
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01408.java,68,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01408.java,"
-   58 |   }
-   59 |
-   60 |   String bar = new Test().doSomething(request, param);
-   61 |
-   62 |   String fileName = null;
-   63 |   java.io.FileOutputStream fos = null;
-   64 |
-   65 |   try {
-   66 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-   67 |
->  68 |    fos = new java.io.FileOutputStream(fileName, false);
-   69 |          response.getWriter().println(
-   70 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-   71 | );
-   72 |
-   73 |   } catch (Exception e) {
-   74 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-   75 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-   76 |   } finally {
-   77 |    if (fos != null) {
-   78 |     try {
-      ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01494.java,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01494.java,"
-  39 |  @Override
-  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  41 |   response.setContentType(""text/html;charset=UTF-8"");
-  42 |
-  43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-  44 |   String param = scr.getTheParameter(""BenchmarkTest01494"");
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = new Test().doSomething(request, param);
-  48 |
-> 49 |   java.io.File fileTarget = new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR, bar);
-  50 |   response.getWriter().println(
-  51 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  52 | );
-  53 |   if (fileTarget.exists()) {
-  54 |    response.getWriter().println(
-  55 | "" And file already exists.""
-  56 | );
-  57 |   } else { response.getWriter().println(
-  58 | "" But file doesn't exist yet.""
-  59 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01495.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01495.java,"
-   50 |   // Mac requires an extra slash for some reason.
-   51 |   String startURIslashes = """";
-   52 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-   53 |          if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-   54 |           startURIslashes = ""/"";
-   55 |          else startURIslashes = ""//"";
-   56 |
-   57 |   try {
-   58 |    java.net.URI fileURI = new java.net.URI(""file"", null, startURIslashes
-   59 |     + org.owasp.benchmark.helpers.Utils.TESTFILES_DIR.replace('\\', java.io.File.separatorChar).replace(' ', '_') + bar,
->  60 |    java.io.File fileTarget = new java.io.File(fileURI);
-   61 |             response.getWriter().println(
-   62 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-   63 | );
-   64 |             if (fileTarget.exists()) {
-   65 |             response.getWriter().println(
-   66 | "" And file already exists.""
-   67 | );
-   68 |             } else { response.getWriter().println(
-   69 | "" But file doesn't exist yet.""
-   70 | ); }
-      ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01496.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01496.java,"
-   44 |   String param = scr.getTheParameter(""BenchmarkTest01496"");
-   45 |   if (param == null) param = """";
-   46 |
-   47 |   String bar = new Test().doSomething(request, param);
-   48 |
-   49 |   String fileName = null;
-   50 |   java.io.FileInputStream fis = null;
-   51 |
-   52 |   try {
-   53 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
->  54 |    fis = new java.io.FileInputStream(fileName);
-   55 |    byte[] b = new byte[1000];
-   56 |    int size = fis.read(b);
-   57 |    response.getWriter().println(
-   58 | ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName) + ""' is:\n\n""
-   59 | );
-   60 |    response.getWriter().println(
-   61 | org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-   62 | );
-   63 |   } catch (Exception e) {
-   64 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
-      ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,"
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = new Test().doSomething(request, param);
-  48 |
-  49 |   String fileName = null;
-  50 |   java.io.FileOutputStream fos = null;
-  51 |
-  52 |   try {
-  53 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  54 |
-> 55 |    fos = new java.io.FileOutputStream(new java.io.File(fileName));
-  56 |          response.getWriter().println(
-  57 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  58 | );
-  59 |
-  60 |   } catch (Exception e) {
-  61 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  62 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  63 |   } finally {
-  64 |    if (fos != null) {
-  65 |     try {
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01497.java,"
-  45 | am == null) param = """";
-  46 |
-  47 | bar = new Test().doSomething(request, param);
-  48 |
-  49 | fileName = null;
-  50 | .FileOutputStream fos = null;
-  51 |
-  52 |
-  53 | me = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  54 |
-> 55 | new java.io.FileOutputStream(new java.io.File(fileName));
-  56 | response.getWriter().println(
-  57 | eady to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  58 |
-  59 |
-  60 |  (Exception e) {
-  61 | .out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  62 | em.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  63 | ly {
-  64 | s != null) {
-  65 |
-     ^ Col 9
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01498.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01498.java,"
-  50 |
-  51 |   try (
-  52 |    // Create the file first so the test won't throw an exception if it doesn't exist.
-  53 |    // Note: Don't actually do this because this method signature could cause a tool to find THIS file constructor
-  54 |    // as a vuln, rather than the File signature we are trying to actually test.
-  55 |    // If necessary, just run the benchmark twice. The 1st run should create all the necessary files.
-  56 |    //new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar).createNewFile();
-  57 |
-  58 |
-  59 |          java.io.FileOutputStream fos = new java.io.FileOutputStream(
-> 60 |              new java.io.FileInputStream(fileName).getFD());
-  61 |      ) {
-  62 |          response.getWriter().println(
-  63 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  64 | );
-  65 |
-  66 |   } catch (Exception e) {
-  67 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  68 |   }
-  69 |  }  // end doPost
-  70 |
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,53,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,"
-  43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-  44 |   String param = scr.getTheParameter(""BenchmarkTest01500"");
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = new Test().doSomething(request, param);
-  48 |
-  49 |   String fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  50 |         java.io.InputStream is = null;
-  51 |
-  52 |   try {
-> 53 |    java.nio.file.Path path = java.nio.file.Paths.get(fileName);
-  54 |    is = java.nio.file.Files.newInputStream(path, java.nio.file.StandardOpenOption.READ);
-  55 |    byte[] b = new byte[1000];
-  56 |    int size = is.read(b);
-  57 |    response.getWriter().println(
-  58 | ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName) + ""' is:\n\n""
-  59 | );
-  60 |    response.getWriter().println(
-  61 | org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  62 | );
-  63 |    is.close();
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,54,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01500.java,"
-  44 |   String param = scr.getTheParameter(""BenchmarkTest01500"");
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = new Test().doSomething(request, param);
-  48 |
-  49 |   String fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  50 |         java.io.InputStream is = null;
-  51 |
-  52 |   try {
-  53 |    java.nio.file.Path path = java.nio.file.Paths.get(fileName);
-> 54 |    is = java.nio.file.Files.newInputStream(path, java.nio.file.StandardOpenOption.READ);
-  55 |    byte[] b = new byte[1000];
-  56 |    int size = is.read(b);
-  57 |    response.getWriter().println(
-  58 | ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName) + ""' is:\n\n""
-  59 | );
-  60 |    response.getWriter().println(
-  61 | org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  62 | );
-  63 |    is.close();
-  64 |   } catch (Exception e) {
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.java,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
   42 |
@@ -2421,78 +1749,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01571.j
   59 |   } else { response.getWriter().println(
   60 | "" But file doesn't exist yet.""
   61 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,"
-  46 |     param = values[0];
-  47 |   else param = """";
-  48 |
-  49 |   String bar = new Test().doSomething(request, param);
-  50 |
-  51 |         String fileName = null;
-  52 |         java.io.FileInputStream fis = null;
-  53 |
-  54 |         try {
-  55 |           fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-> 56 |           fis = new java.io.FileInputStream(new java.io.File(fileName));
-  57 |           byte[] b = new byte[1000];
-  58 |           int size = fis.read(b);
-  59 |           response.getWriter().println(
-  60 |             ""The beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  61 |               + ""' is:\n\n"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  62 |           );
-  63 |         } catch (Exception e) {
-  64 |             System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
-  65 |             response.getWriter().println(
-  66 |               ""Problem getting FileInputStream: ""
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,56,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01572.java,"
-  46 | ues[0];
-  47 | """";
-  48 |
-  49 | new Test().doSomething(request, param);
-  50 |
-  51 | fileName = null;
-  52 | .FileInputStream fis = null;
-  53 |
-  54 |
-  55 | ame = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-> 56 |  new java.io.FileInputStream(new java.io.File(fileName));
-  57 | ] b = new byte[1000];
-  58 | ize = fis.read(b);
-  59 | nse.getWriter().println(
-  60 | e beginning of file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  61 |  ""' is:\n\n"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(new String(b,0,size))
-  62 |
-  63 |  (Exception e) {
-  64 | tem.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
-  65 | ponse.getWriter().println(
-  66 | Problem getting FileInputStream: ""
-     ^ Col 15
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01642.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01642.java,"
-  52 |   String param = queryString.substring(paramLoc + paramval.length()); // 1st assume ""BenchmarkTest01642"" param is last pa
-  53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
-  54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  55 |   if (ampersandLoc != -1) {
-  56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  57 |   }
-  58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  59 |
-  60 |   String bar = new Test().doSomething(request, param);
-  61 |
-> 62 |   java.io.File fileTarget = new java.io.File(org.owasp.benchmark.helpers.Utils.TESTFILES_DIR, bar);
-  63 |   response.getWriter().println(
-  64 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  65 | );
-  66 |   if (fileTarget.exists()) {
-  67 |    response.getWriter().println(
-  68 | "" And file already exists.""
-  69 | );
-  70 |   } else { response.getWriter().println(
-  71 | "" But file doesn't exist yet.""
-  72 | ); }
      ^ Col 0
 ",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01643.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01643.java,"
@@ -3383,30 +2639,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02205.j
   69 |     try {
      ^ Col 0
 ",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02302.java,62,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02302.java,"
-  52 |      if (value.equals(""BenchmarkTest02302"")) {
-  53 |       param = name;
-  54 |          flag = false;
-  55 |      }
-  56 |     }
-  57 |    }
-  58 |   }
-  59 |
-  60 |   String bar = doSomething(request, param);
-  61 |
-> 62 |   java.io.File fileTarget = new java.io.File(bar, ""/Test.txt"");
-  63 |   response.getWriter().println(
-  64 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  65 | );
-  66 |   if (fileTarget.exists()) {
-  67 |    response.getWriter().println(
-  68 | "" And file already exists.""
-  69 | );
-  70 |   } else { response.getWriter().println(
-  71 | "" But file doesn't exist yet.""
-  72 | ); }
-     ^ Col 0
-",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02303.java,"
    57 |    }
    58 |   }
@@ -3478,78 +2710,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02304.j
    76 |   } catch (Exception e) {
    77 |    System.out.println(""Couldn't open FileInputStream on file: '"" + fileName + ""'"");
       ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02377.java,49,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02377.java,"
-  39 |  @Override
-  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  41 |   response.setContentType(""text/html;charset=UTF-8"");
-  42 |
-  43 |   org.owasp.benchmark.helpers.SeparateClassRequest scr = new org.owasp.benchmark.helpers.SeparateClassRequest( request );
-  44 |   String param = scr.getTheParameter(""BenchmarkTest02377"");
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = doSomething(request, param);
-  48 |
-> 49 |   java.io.File fileTarget = new java.io.File(bar, ""/Test.txt"");
-  50 |   response.getWriter().println(
-  51 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  52 | );
-  53 |   if (fileTarget.exists()) {
-  54 |    response.getWriter().println(
-  55 | "" And file already exists.""
-  56 | );
-  57 |   } else { response.getWriter().println(
-  58 | "" But file doesn't exist yet.""
-  59 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02378.java,60,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02378.java,"
-  50 |   // Mac requires an extra slash for some reason.
-  51 |   String startURIslashes = """";
-  52 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  53 |          if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  54 |           startURIslashes = ""/"";
-  55 |          else startURIslashes = ""//"";
-  56 |
-  57 |   try {
-  58 |    java.net.URI fileURI = new java.net.URI(""file:"" + startURIslashes
-  59 |     + org.owasp.benchmark.helpers.Utils.TESTFILES_DIR.replace('\\', '/').replace(' ', '_') + bar);
-> 60 |    java.io.File fileTarget = new java.io.File(fileURI);
-  61 |    response.getWriter().println(
-  62 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  63 | );
-  64 |    if (fileTarget.exists()) {
-  65 |     response.getWriter().println(
-  66 | "" And file already exists.""
-  67 | );
-  68 |    } else { response.getWriter().println(
-  69 | "" But file doesn't exist yet.""
-  70 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02383.java,55,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02383.java,"
-  45 |   if (param == null) param = """";
-  46 |
-  47 |   String bar = doSomething(request, param);
-  48 |
-  49 |   String fileName = null;
-  50 |   java.io.FileOutputStream fos = null;
-  51 |
-  52 |   try {
-  53 |    fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + bar;
-  54 |
-> 55 |    fos = new java.io.FileOutputStream(fileName);
-  56 |          response.getWriter().println(
-  57 |    ""Now ready to write to file: "" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileName)
-  58 | );
-  59 |
-  60 |      } catch (Exception e) {
-  61 |    System.out.println(""Couldn't open FileOutputStream on file: '"" + fileName + ""'"");
-  62 | //   System.out.println(""File exception caught and swallowed: "" + e.getMessage());
-  63 |   } finally {
-  64 |    if (fos != null) {
-  65 |     try {
-     ^ Col 0
 ",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02463.java,51,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02463.java,"
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -3741,30 +2901,6 @@ F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02556.j
   70 |   } else { response.getWriter().println(
   71 | "" But file doesn't exist yet.""
   72 | ); }
-     ^ Col 0
-",query.query_f063
-F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02559.java,73,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02559.java,"
-  63 |   // Mac requires an extra slash for some reason.
-  64 |   String startURIslashes = """";
-  65 |         if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  66 |          if (System.getProperty(""os.name"").indexOf(""Windows"") != -1)
-  67 |           startURIslashes = ""/"";
-  68 |          else startURIslashes = ""//"";
-  69 |
-  70 |   try {
-  71 |    java.net.URI fileURI = new java.net.URI(""file:"" + startURIslashes
-  72 |     + org.owasp.benchmark.helpers.Utils.TESTFILES_DIR.replace('\\', '/').replace(' ', '_') + bar);
-> 73 |    java.io.File fileTarget = new java.io.File(fileURI);
-  74 |    response.getWriter().println(
-  75 | ""Access to file: '"" + org.owasp.esapi.ESAPI.encoder().encodeForHTML(fileTarget.toString()) + ""' created.""
-  76 | );
-  77 |    if (fileTarget.exists()) {
-  78 |     response.getWriter().println(
-  79 | "" And file already exists.""
-  80 | );
-  81 |    } else { response.getWriter().println(
-  82 | "" But file doesn't exist yet.""
-  83 | ); }
      ^ Col 0
 ",query.query_f063
 F063,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,67,22,skims,063. Lack of data validation - Path Traversal,Path traversal in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02560.java,"
