@@ -13,7 +13,7 @@ To see the credentials that exist,
 you have to go to the main page
 in the tab called credentials.
 
-![Main Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1668699808/docs/web/credentials/credentials.png)
+![Main Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1670949034/docs/web/credentials/globla_credentials.png)
 
 ## Credentials table
 
@@ -27,8 +27,9 @@ are described below:
   The name of the credential.
 - **Type:**
   Which type of credential it is,
-  can be [HTTPS](machine/web/groups/scope/roots#adding-a-root-with-the-https)
-  or [SSH](machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key).
+  can be [HTTPS](/machine/web/groups/scope/roots#adding-a-root-with-the-https-user-and-password),
+  [SSH](/machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key)
+  or [Azure DevOps PTA](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pta)
 - **Owner:**
   The person who created the credential.
 
@@ -46,10 +47,9 @@ Here,
 you will have to enter a unique
 credential name and select the
 credential type (
-[HTTPS](/machine/web/groups/scope/roots/#adding-a-root-with-the-https)
-or
+[HTTPS](/machine/web/groups/scope/roots/#adding-a-root-with-the-https),
 [SSH](/machine/web/groups/scope/roots/#adding-a-root-with-the-ssh-key)
-).
+or [Azure DevOps PTA](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pta)).
 
 ### Edit
 
@@ -63,6 +63,9 @@ to enable editing of the credential
 and change its information.
 
 ![Edit Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1660670043/docs/web/credentials/credent_edit_button.png)
+
+According to the Credential type
+will enable the fields for editing.
 
 ### Remove
 
