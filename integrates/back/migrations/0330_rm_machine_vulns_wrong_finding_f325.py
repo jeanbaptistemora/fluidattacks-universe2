@@ -10,6 +10,14 @@ that had vulns deleted to confirm.
 
 Execution Time:    2022-12-13 at 12:32:01 UTC
 Finalization Time: 2022-12-13 at 12:34:38 UTC
+
+The migration was re-executed because the machine vulns were not correctly
+filtered. Only the source is not enough, so hacker email was added as option.
+
+Details of second execution:
+
+Execution Time:    2022-12-13 at 18:59:49 UTC
+Finalization Time: 2022-12-13 at 19:01:28 UTC
 """
 from aioextensions import (
     collect,
@@ -74,7 +82,10 @@ async def main() -> None:
             vuln
             for vuln in vulns
             if (
-                vuln.state.source == Source.MACHINE
+                (
+                    vuln.state.source == Source.MACHINE
+                    or vuln.hacker_email == "machine@fluidattacks.com"
+                )
                 and vuln.skims_method is not None
                 and vuln.skims_method.endswith(
                     "cfn_iam_is_role_over_privileged"
