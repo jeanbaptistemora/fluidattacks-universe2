@@ -6258,6 +6258,23 @@ F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79
   18 | }
      ^ Col 0
 ",query.query_f008
+F008,lines,namespace/skims/test/data/lib_root/f008/ts_reflected_xss.ts,6,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/ts_reflected_xss.ts","
+   1 | import sanitizeHtml from ""sanitize-html"";
+   2 |
+   3 | function vuln(req, res) {
+   4 |   const tainted = req.query.name;
+   5 |
+>  6 |   res.send(tainted); // Noncompliant
+   7 | };
+   8 |
+   9 | function safe(req, res) {
+  10 |   const tainted = req.query.name;
+  11 |
+  12 |   res.send(sanitizeHtml(tainted)); // compliant
+  13 | };
+     ^ Col 0
+",typescript.ts_reflected_xss
 F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    13 |     //console.log()
    14 |     //localStorage.setItem(""key"")
