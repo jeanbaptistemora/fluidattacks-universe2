@@ -27,25 +27,70 @@ For example:
 1. When this happens, we have to go through all the already-created cars
    and add the new `price` attribute accordingly.
 
-## How to write migrations?
+## Writing migration scripts
 
-### Where are the migrations stored?
+:::note
+All migration scripts are kept in the repo for traceability purposes,
+but are _not_ required to be maintained
+and kept up with the rest of the codebase when breaking changes take place.
+:::
 
 You can find
 all the already-executed migrations
 [here](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/migrations).
-Make sure you use the latest of them
-as inspiration if you're creating your own migration!
+The latest of them may be helpful
+as inspiration when creating your own migration.
 
 ### Basic properties
 
-All migration scripts have:
+All migration scripts have a comment including:
 
 1. A basic description of what they do
 1. An `Execution time` that specifies when it started running.
 1. A `Finalization Time` that specifies when it finished running.
 
-## How to run migrations?
+### The main function
+
+Your migration script should contain a main function,
+which will be called when the migration runs.
+
+```py
+from aioextensions import (
+    run,
+)
+import time
+
+
+async def main() -> None:
+   """Your code goes here"""
+
+
+if __name__ == "__main__":
+    execution_time = time.strftime(
+        "Execution Time:     %Y-%m-%d at %H:%M:%S %Z"
+    )
+    run(main())
+    finalization_time = time.strftime(
+        "Finalization Time:  %Y-%m-%d at %H:%M:%S %Z"
+    )
+    print(f"{execution_time}\n{finalization_time}")
+```
+
+You can call dataloaders,
+domain functions,
+data model functions
+and even direct calls to the corresponding datastore module,
+depending of the level of abstraction
+best suited to achieve the intended change.
+
+## Running migrations
+
+:::note
+Data migrations tend to be risky operations,
+as they may introduce inconsistencies and errors,
+and therefore,
+it is advised to request a review in the Merge Request before running it.
+:::
 
 ### Dry runs
 
@@ -71,7 +116,13 @@ It is the `dev` argument what allows Makes know that it should do a dry run.
 This approach allows you to locally test your migration
 until you feel comfortable enough to run it on production.
 
-### Using Batch
+### Running locally
+
+If you have the required role to modify the database,
+migrations can be executed from your machine by running:
+`m . /integrates/db/migration prod /absolute/path/to/script.py`
+
+### Running on AWS Batch
 
 Once you know that your migration
 does what it is supposed to do,
@@ -91,6 +142,11 @@ from your own machine that is faster and more reliable.
 
 ## Restoring to a previous state
 
-:::caution
-WIP
-:::
+If something goes wrong,
+you have the option to restore data from a backup.
+
+1. Follow the instructions at https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.Tutorial.html
+    to restore a Point In Time into a new table.
+1. Restore the data by reading from the recovery table,
+   and writing into the main table
+1. Remove the recovery table

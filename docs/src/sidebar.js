@@ -426,11 +426,7 @@ const Development = [
               "development/products/integrates/back/migrations",
             ],
           },
-          {
-            type: "category",
-            label: "Frontend",
-            items: ["development/products/integrates/front/intro"],
-          },
+          "development/products/integrates/frontend",
         ],
       },
       "development/products/melts",

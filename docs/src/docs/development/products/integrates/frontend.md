@@ -1,13 +1,13 @@
 ---
-id: intro
-title: Front
-sidebar_label: Front
-slug: /development/products/integrates/front
+id: frontend
+title: Frontend
+sidebar_label: Frontend
+slug: /development/products/integrates/frontend
 ---
 
 ## Overview
 
-Integrates' frontend is a web application
+Integrates' frontend is a client-side rendered web application
 built with [React][react] and [TypeScript][ts].
 
 ## Browser support
@@ -17,7 +17,7 @@ in the [requirements](/machine/web/arm#requirements) section.
 
 Thanks to [TypeScript][ts],
 we can use newer ECMAScript language features,
-as it already takes care of that when transpiling,
+as it takes care of downleveling as needed when transpiling,
 but as for runtime features,
 it is important to ensure compatibility.
 
