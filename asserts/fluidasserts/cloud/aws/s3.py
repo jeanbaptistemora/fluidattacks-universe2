@@ -90,65 +90,6 @@ def bucket_has_authenticated_access(
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_buckets_without_default_encryption(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if Amazon S3 buckets do not have Default Encryption feature enable.
-
-    :param key_id: AWS Key Id.
-    :param secret: AWS Key Secret.
-    :returns: - ``OPEN`` if there are buckets without default encryption.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-
-    :rtype: :class:`fluidasserts.Result`
-
-    """
-    msg_open: str = "Buckets do not have Default Encryption feature enable."
-    msg_closed: str = "Buckets have Default Encryption feature enable."
-    vulns, safes = [], []
-    message = (
-        "The repository must have the default encryption enabled, enable it"
-    )
-
-    buckets = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="s3",
-        func="list_buckets",
-        param="Buckets",
-        retry=retry,
-    )
-    for bucket_name in map(lambda x: x["Name"], buckets):
-        try:
-            aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="s3",
-                func="get_bucket_encryption",
-                Bucket=bucket_name,
-                retry=retry,
-                retry_times=3,
-            )
-            safes.append((bucket_name, message))
-        except aws.ClientErr:
-            vulns.append((bucket_name, message))
-
-    return _get_result_as_tuple(
-        service="KMS",
-        objects="Keys",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def buckets_allow_unauthorized_public_access(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
