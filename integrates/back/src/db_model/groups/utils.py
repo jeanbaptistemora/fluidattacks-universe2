@@ -29,6 +29,7 @@ from db_model.types import (
     CodeLanguage,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     get_first_day_iso_date,
 )
 from dynamodb.types import (
@@ -46,10 +47,26 @@ def format_files(files: list[dict[str, str]]) -> list[GroupFile]:
             description=file["description"],
             file_name=file["file_name"],
             modified_by=file["modified_by"],
-            modified_date=file["modified_date"]
+            modified_date=datetime.fromisoformat(file["modified_date"])
             if file.get("modified_date")
             else None,
         )
+        for file in files
+    ]
+
+
+def format_files_items(
+    files: list[GroupFile],
+) -> list[dict[str, Optional[str]]]:
+    return [
+        {
+            "description": file.description,
+            "file_name": file.file_name,
+            "modified_by": file.modified_by,
+            "modified_date": get_as_utc_iso_format(file.modified_date)
+            if file.modified_date
+            else None,
+        }
         for file in files
     ]
 
@@ -254,7 +271,7 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "context": metadata.context,
         "sprint_duration": metadata.sprint_duration,
         "sprint_start_date": metadata.sprint_start_date,
-        "files": [file._asdict() for file in metadata.files]
+        "files": format_files_items(metadata.files)
         if metadata.files is not None
         else None,
         "language": metadata.language.value if metadata.language else None,

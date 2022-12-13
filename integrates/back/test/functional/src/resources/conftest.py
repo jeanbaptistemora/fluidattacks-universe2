@@ -56,25 +56,33 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             description="Test",
                             file_name="test.zip",
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2019-03-01T20:21+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-03-01T20:21+00:00"
+                            ),
                         ),
                         GroupFile(
                             description="Test",
                             file_name="shell.exe",
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2019-04-24T19:56+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-24T19:56+00:00"
+                            ),
                         ),
                         GroupFile(
                             description="Test",
                             file_name="shell2.exe",
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2019-04-24T19:59+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-24T19:59+00:00"
+                            ),
                         ),
                         GroupFile(
                             description="Test",
                             file_name="asdasd.py",
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2019-08-06T19:28+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-08-06T19:28+00:00"
+                            ),
                         ),
                     ],
                 ),

@@ -96,7 +96,7 @@ class GroupFile(NamedTuple):
     description: str
     file_name: str
     modified_by: str
-    modified_date: Optional[str] = None
+    modified_date: Optional[datetime] = None
 
 
 class Group(NamedTuple):

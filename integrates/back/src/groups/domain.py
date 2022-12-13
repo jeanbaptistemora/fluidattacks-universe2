@@ -1153,7 +1153,7 @@ async def add_file(
     group_name: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
-    modified_date: str = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     validations.validate_fields([description])
     validations.validate_field_length(description, 200)
     validations.validate_file_name(file_name)
@@ -1175,7 +1175,7 @@ async def add_file(
             file_name=file_name,
             file_description=description,
             is_added=True,
-            modified_date=modified_date,
+            modified_date=modified_date.date(),
         )
     files_to_update.append(group_file_to_add)
     await update_metadata(
@@ -1218,7 +1218,7 @@ async def remove_file(
         organization_id=group.organization_id,
     )
     uploaded_date = (
-        datetime_utils.get_date_from_iso_str(file_to_remove.modified_date)
+        file_to_remove.modified_date.date()
         if file_to_remove.modified_date
         else None
     )
@@ -1228,7 +1228,7 @@ async def remove_file(
         responsible=email,
         file_name=file_name,
         file_description=file_to_remove.description,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now().date(),
         uploaded_date=uploaded_date,
     )
 
@@ -1241,7 +1241,7 @@ async def send_mail_file_report(
     file_name: str,
     file_description: str,
     is_added: bool = False,
-    modified_date: str,
+    modified_date: date,
     uploaded_date: Optional[date] = None,
 ) -> None:
     roles: set[str] = {
@@ -1266,7 +1266,7 @@ async def send_mail_file_report(
         is_added=is_added,
         file_name=file_name,
         file_description=file_description,
-        report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
+        report_date=modified_date,
         email_to=stakeholders_email,
         uploaded_date=uploaded_date,
     )

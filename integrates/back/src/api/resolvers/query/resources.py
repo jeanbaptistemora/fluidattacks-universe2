@@ -17,8 +17,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.datetime import (
-    convert_from_iso_str,
+from newutils import (
+    datetime as datetime_utils,
 )
 from typing import (
     Any,
@@ -36,7 +36,7 @@ def _format_group_files(group_files: list[GroupFile]) -> list[Resource]:
             "description": file.description,
             "file_name": file.file_name,
             "uploader": file.modified_by,
-            "upload_date": convert_from_iso_str(file.modified_date)
+            "upload_date": datetime_utils.get_as_str(file.modified_date)
             if file.modified_date
             else None,
         }
