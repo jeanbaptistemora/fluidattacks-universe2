@@ -1,156 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,8,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.js","
-   1 | import { parse } from ""url"";
-   2 |
-   3 | function unsafe_log(req, _res) {
-   4 |   const q = parse(req.url, true);
-   5 |   const userName = q.query.username;
-   6 |   // UNSAFE: Unsanitized user input
-   7 |   Logger.info(userName);
->  8 |   log.info(userName);
-   9 |
-  10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = userName.replace(/\f/g, """");
-  12 |   console.info(userName2);
-  13 | }
-  14 |
-  15 |
-  16 |
-  17 | function safe_log(req, res) {
-  18 |   const q = parse(req.url, true);
-  19 |   const username = q.query.username.replace(/\n|\r/g, """");
-  20 |   // SAFE: Sanitized input from the user
-  21 |   console.info(username);
-     ^ Col 0
-",javascript.javascript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,7,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.js","
-   1 | import { parse } from ""url"";
-   2 |
-   3 | function unsafe_log(req, _res) {
-   4 |   const q = parse(req.url, true);
-   5 |   const userName = q.query.username;
-   6 |   // UNSAFE: Unsanitized user input
->  7 |   Logger.info(userName);
-   8 |   log.info(userName);
-   9 |
-  10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = userName.replace(/\f/g, """");
-  12 |   console.info(userName2);
-  13 | }
-  14 |
-  15 |
-  16 |
-  17 | function safe_log(req, res) {
-  18 |   const q = parse(req.url, true);
-  19 |   const username = q.query.username.replace(/\n|\r/g, """");
-  20 |   // SAFE: Sanitized input from the user
-  21 |   console.info(username);
-     ^ Col 0
-",javascript.javascript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.js,12,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.js","
-   2 |
-   3 | function unsafe_log(req, _res) {
-   4 |   const q = parse(req.url, true);
-   5 |   const userName = q.query.username;
-   6 |   // UNSAFE: Unsanitized user input
-   7 |   Logger.info(userName);
-   8 |   log.info(userName);
-   9 |
-  10 |   // UNSAFE: Incorrectly sanitized user input
-  11 |   const userName2 = userName.replace(/\f/g, """");
-> 12 |   console.info(userName2);
-  13 | }
-  14 |
-  15 |
-  16 |
-  17 | function safe_log(req, res) {
-  18 |   const q = parse(req.url, true);
-  19 |   const username = q.query.username.replace(/\n|\r/g, """");
-  20 |   // SAFE: Sanitized input from the user
-  21 |   console.info(username);
-  22 | }
-     ^ Col 0
-",javascript.javascript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.ts,11,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.ts","
-   1 | import { parse } from ""url"";
-   2 | import {Logger, log} from ""logging.ts"";
-   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
-   4 |
-   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
-   6 |   const q: ReqUrl = parse(req.url, true);
-   7 |
-   8 |   const userName: string = q.query.username;
-   9 |   // UNSAFE: Unsanitized user input
-  10 |   Logger.info(userName);
-> 11 |   log.info(userName);
-  12 |
-  13 |   // UNSAFE: Incorrectly sanitized user input
-  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
-  15 |   console.info(userName2);
-  16 | }
-  17 |
-  18 |
-  19 |
-  20 | function safe_log(req: HttpReq, res: HttpRes) {
-  21 |   const q: ReqUrl = parse(req.url, true);
-     ^ Col 0
-",typescript.typescript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.ts,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.ts","
-   1 | import { parse } from ""url"";
-   2 | import {Logger, log} from ""logging.ts"";
-   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
-   4 |
-   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
-   6 |   const q: ReqUrl = parse(req.url, true);
-   7 |
-   8 |   const userName: string = q.query.username;
-   9 |   // UNSAFE: Unsanitized user input
-> 10 |   Logger.info(userName);
-  11 |   log.info(userName);
-  12 |
-  13 |   // UNSAFE: Incorrectly sanitized user input
-  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
-  15 |   console.info(userName2);
-  16 | }
-  17 |
-  18 |
-  19 |
-  20 | function safe_log(req: HttpReq, res: HttpRes) {
-  21 |   const q: ReqUrl = parse(req.url, true);
-     ^ Col 0
-",typescript.typescript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/log_injection.ts,15,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/log_injection.ts","
-   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
-   6 |   const q: ReqUrl = parse(req.url, true);
-   7 |
-   8 |   const userName: string = q.query.username;
-   9 |   // UNSAFE: Unsanitized user input
-  10 |   Logger.info(userName);
-  11 |   log.info(userName);
-  12 |
-  13 |   // UNSAFE: Incorrectly sanitized user input
-  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
-> 15 |   console.info(userName2);
-  16 | }
-  17 |
-  18 |
-  19 |
-  20 | function safe_log(req: HttpReq, res: HttpRes) {
-  21 |   const q: ReqUrl = parse(req.url, true);
-  22 |   const username: string = q.query.username.replace(/\n|\r/g, """");
-  23 |   // SAFE: Sanitized input from the user
-  24 |   console.info(username);
-  25 | }
-     ^ Col 0
-",typescript.typescript_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.cs","
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
    5 | {
    6 |     public void LogSomething(HttpRequest id)
@@ -174,8 +24,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,14,117,skims,091. Log
   24 |     }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.cs","
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,18,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
    5 | {
    6 |     public void LogSomething(HttpRequest id)
    7 |     {
@@ -199,8 +49,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,18,117,skims,091. Log
   25 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.cs","
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
    1 | using System;
    2 | using Microsoft.AspNetCore.Mvc;
    3 |
@@ -224,8 +74,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.cs,10,117,skims,091. Log
   21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
      ^ Col 0
 ",c_sharp.c_sharp_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.java,9,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.java","
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,9,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
    1 | public class Test{
    2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
    3 |         String param1 = req.getParameter(""param"");
@@ -249,8 +99,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,9,117,skims,091. Lo
   21 |     }
      ^ Col 0
 ",java.java_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.java,4,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.java","
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,4,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
    1 | public class Test{
    2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
    3 |         String param1 = req.getParameter(""param"");
@@ -274,8 +124,8 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,4,117,skims,091. Lo
   21 |     }
      ^ Col 0
 ",java.java_insecure_logging
-F091,lines,namespace/skims/test/data/lib_root/f091/test.java,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
- in namespace/skims/test/data/lib_root/f091/test.java","
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
    2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
    3 |         String param1 = req.getParameter(""param"");
    4 |         Logger.info(""Param1: "" + param1); // Insecure
@@ -299,175 +149,157 @@ F091,lines,namespace/skims/test/data/lib_root/f091/test.java,14,117,skims,091. L
   22 | }
      ^ Col 0
 ",java.java_insecure_logging
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
-   3 |
-   4 |  private static final String ALL_ORIGINS = ""*"";
-   5 |
-   6 |  public WebFilter insecure1(){
-   7 |   return (ServerWebExchange ctx, WebFilterChain chain)-> {
-   8 |    ServerHttpRequest req = ctx.getRequest();
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,8,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   1 | import { parse } from ""url"";
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+   7 |   Logger.info(userName);
+>  8 |   log.info(userName);
    9 |
-  10 |    if (CorsUtils.isCorsRequest(request)){
-  11 |     ServerHttpResponse req = ctx.getResponse();
-  12 |     HttpHeaders headers = response.getHeaders();
-> 13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
-  14 |    }
-  15 |    return chain.filter(ctx);
-  16 |   };
-  17 |  }
-  18 |
-  19 |   public void insecure2(CorsRegistry registry) {
-  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
-  21 |   }
-  22 |
-  23 |  public void insecure3() {
-     ^ Col 0
-",java.java_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,20,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
-  10 |    if (CorsUtils.isCorsRequest(request)){
-  11 |     ServerHttpResponse req = ctx.getResponse();
-  12 |     HttpHeaders headers = response.getHeaders();
-  13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
-  14 |    }
-  15 |    return chain.filter(ctx);
-  16 |   };
-  17 |  }
-  18 |
-  19 |   public void insecure2(CorsRegistry registry) {
-> 20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
-  21 |   }
-  22 |
-  23 |  public void insecure3() {
-  24 |     CorsConfiguration config = new CorsConfiguration();
-  25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
-  26 |   }
-  27 |
-  28 |  public void secure() {
-  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
-  30 |     CorsConfiguration config = new CorsConfiguration();
-     ^ Col 0
-",java.java_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors.java,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors.java,"
-  14 |    }
-  15 |    return chain.filter(ctx);
-  16 |   };
-  17 |  }
-  18 |
-  19 |   public void insecure2(CorsRegistry registry) {
-  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
-  21 |   }
-  22 |
-  23 |  public void insecure3() {
-  24 |     CorsConfiguration config = new CorsConfiguration();
-> 25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
-  26 |   }
-  27 |
-  28 |  public void secure() {
-  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
-  30 |     CorsConfiguration config = new CorsConfiguration();
-  31 |   config.addAllowedOrigin(ALLOWED_ORIGIN); // Safe
-  32 |   }
-  33 |
-  34 | }
-     ^ Col 0
-",java.java_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-   3 |
-   4 | namespace AspNet5SQLite
-   5 | {
-   6 |     public class Startup
-   7 |     {
-   8 |         // Setting an insecure cors policy attribute
-   9 |         public void ConfigureServices(IServiceCollection services)
-  10 |         {
-  11 |             var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
-  12 |             policy.Headers.Add(""*"");
-> 13 |             policy.Origins.Add(""*"");
-  14 |             policy.SupportsCredentials = true;
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+  12 |   console.info(userName2);
+  13 | }
+  14 |
   15 |
-  16 |         }
-  17 |     }
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,7,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   1 | import { parse } from ""url"";
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+>  7 |   Logger.info(userName);
+   8 |   log.info(userName);
+   9 |
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+  12 |   console.info(userName2);
+  13 | }
+  14 |
+  15 |
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,12,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+   7 |   Logger.info(userName);
+   8 |   log.info(userName);
+   9 |
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+> 12 |   console.info(userName2);
+  13 | }
+  14 |
+  15 |
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+  22 | }
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,11,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   1 | import { parse } from ""url"";
+   2 | import {Logger, log} from ""logging.ts"";
+   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
+   4 |
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+  10 |   Logger.info(userName);
+> 11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+  15 |   console.info(userName2);
+  16 | }
+  17 |
   18 |
-  19 |     public class Startup2
-  20 |     {
-  21 |         //Setting the insecure cors policy directly
-  22 |         public void ConfigureServices(IServiceCollection services)
-  23 |         {
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
      ^ Col 0
-",c_sharp.csharp_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,26,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-  16 |         }
-  17 |     }
+",typescript.typescript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   1 | import { parse } from ""url"";
+   2 | import {Logger, log} from ""logging.ts"";
+   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
+   4 |
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+> 10 |   Logger.info(userName);
+  11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+  15 |   console.info(userName2);
+  16 | }
+  17 |
   18 |
-  19 |     public class Startup2
-  20 |     {
-  21 |         //Setting the insecure cors policy directly
-  22 |         public void ConfigureServices(IServiceCollection services)
-  23 |         {
-  24 |             services.AddCors(options =>
-  25 |             {
-> 26 |                 options.AddPolicy(name: ""corsGlobalPolicy"",
-  27 |                     builder =>
-  28 |                     {
-  29 |                         builder.WithOrigins(Configuration[""Origins:localdev""])
-  30 |                             .AllowAnyOrigin()
-  31 |                             .AllowAnyMethod();
-  32 |                     });
-  33 |             });
-  34 |         }
-  35 |
-  36 |         public void ConfigureServices(IServiceCollection services)
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
      ^ Col 0
-",c_sharp.csharp_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,40,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-  30 |                             .AllowAnyOrigin()
-  31 |                             .AllowAnyMethod();
-  32 |                     });
-  33 |             });
-  34 |         }
-  35 |
-  36 |         public void ConfigureServices(IServiceCollection services)
-  37 |         {
-  38 |             services.AddCors(c =>
-  39 |             {
-> 40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-  41 |             });
-  42 |         }
-  43 |     }
-  44 |
-  45 |     //Enabling insecure cors policy via attribute
-  46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
-  47 |     public class ItemsController : ApiController
-  48 |     {
-  49 |         public HttpResponseMessage GetAll() {}
-  50 |     }
+",typescript.typescript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,15,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+  10 |   Logger.info(userName);
+  11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+> 15 |   console.info(userName2);
+  16 | }
+  17 |
+  18 |
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
+  22 |   const username: string = q.query.username.replace(/\n|\r/g, """");
+  23 |   // SAFE: Sanitized input from the user
+  24 |   console.info(username);
+  25 | }
      ^ Col 0
-",c_sharp.csharp_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,46,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-  31 |                             .AllowAnyMethod();
-  32 |                     });
-  33 |             });
-  34 |         }
-  35 |
-  36 |         public void ConfigureServices(IServiceCollection services)
-  37 |         {
-  38 |             services.AddCors(c =>
-  39 |             {
-  40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-  41 |             });
-  42 |         }
-  43 |     }
-  44 |
-  45 |     //Enabling insecure cors policy via attribute
-> 46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
-  47 |     public class ItemsController : ApiController
-  48 |     {
-  49 |         public HttpResponseMessage GetAll() {}
-  50 |     }
-  51 | }
-     ^ Col 0
-",c_sharp.csharp_insecure_cors_origin
-F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
+",typescript.typescript_insecure_logging
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
    4 | {
    5 |     public class Controllers
    6 |     {
@@ -491,7 +323,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134.
   24 |
      ^ Col 0
 ",c_sharp.csharp_insecure_cors
-F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
    7 |         public void Configure(IApplicationBuilder app)
    8 |         {
    9 |             // Should report
@@ -515,7 +347,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,17,16,skims,134.
   27 |                 .AllowAnyOrigin());
      ^ Col 0
 ",c_sharp.csharp_insecure_cors
-F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
   13 |             corsBuilder.AllowAnyMethod();
   14 |             corsBuilder.AllowAnyOrigin();
   15 |
@@ -539,7 +371,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,23,16,skims,134.
   33 |             SecCorsBuilder.AllowAnyMethod();
      ^ Col 0
 ",c_sharp.csharp_insecure_cors
-F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
   15 |
   16 |             var policyBuilder = new CorsPolicyBuilder();
   17 |             var policy = policyBuilder
@@ -563,6 +395,174 @@ F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,25,16,skims,134.
   35 |             var SecPolicyBuilder = new CorsPolicyBuilder();
      ^ Col 0
 ",c_sharp.csharp_insecure_cors
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+   3 |
+   4 | namespace AspNet5SQLite
+   5 | {
+   6 |     public class Startup
+   7 |     {
+   8 |         // Setting an insecure cors policy attribute
+   9 |         public void ConfigureServices(IServiceCollection services)
+  10 |         {
+  11 |             var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+  12 |             policy.Headers.Add(""*"");
+> 13 |             policy.Origins.Add(""*"");
+  14 |             policy.SupportsCredentials = true;
+  15 |
+  16 |         }
+  17 |     }
+  18 |
+  19 |     public class Startup2
+  20 |     {
+  21 |         //Setting the insecure cors policy directly
+  22 |         public void ConfigureServices(IServiceCollection services)
+  23 |         {
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,26,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  16 |         }
+  17 |     }
+  18 |
+  19 |     public class Startup2
+  20 |     {
+  21 |         //Setting the insecure cors policy directly
+  22 |         public void ConfigureServices(IServiceCollection services)
+  23 |         {
+  24 |             services.AddCors(options =>
+  25 |             {
+> 26 |                 options.AddPolicy(name: ""corsGlobalPolicy"",
+  27 |                     builder =>
+  28 |                     {
+  29 |                         builder.WithOrigins(Configuration[""Origins:localdev""])
+  30 |                             .AllowAnyOrigin()
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,40,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  30 |                             .AllowAnyOrigin()
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+> 40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+  46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,46,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+  40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+> 46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+  51 | }
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+   3 |
+   4 |  private static final String ALL_ORIGINS = ""*"";
+   5 |
+   6 |  public WebFilter insecure1(){
+   7 |   return (ServerWebExchange ctx, WebFilterChain chain)-> {
+   8 |    ServerHttpRequest req = ctx.getRequest();
+   9 |
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+> 13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,20,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+  13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+> 20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+  25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+> 25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+  31 |   config.addAllowedOrigin(ALLOWED_ORIGIN); // Safe
+  32 |   }
+  33 |
+  34 | }
+     ^ Col 0
+",java.java_insecure_cors_origin
 F066,lines,namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
  in namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs","
    1 | using System;
@@ -601,8 +601,8 @@ F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13
   17 | }
      ^ Col 0
 ",csharp.csharp_info_leak_errors
-F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java","
    1 | import java.io.File;
    2 | import java.nio.file.Files.*;
    3 |
@@ -626,8 +626,8 @@ F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,200,skims,237. Te
   21 |         try {
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,13,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,13,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java","
    3 |
    4 | public class Test {
    5 |     public static void main(String[] args){
@@ -651,8 +651,8 @@ F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,13,200,skims,237. T
   23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,18,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java","
    8 |         System.out.println(createTempFile(""xxx"", null));
    9 |         } catch (Exception e) {}
   10 |
@@ -676,8 +676,8 @@ F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,200,skims,237. T
   28 | /*
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,23,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java","
   13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
   14 |         } catch (Exception e) {}
   15 |
@@ -701,8 +701,8 @@ F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,200,skims,237. T
   33 |  */
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f234/Test.java,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f234/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f234/java_println_statements.java","
    1 | import org.apache.logging.log4j.Logger;
    2 | import org.apache.logging.log4j.LogManager;
    3 |
@@ -726,8 +726,8 @@ F237,lines,namespace/skims/test/data/lib_root/f234/Test.java,11,200,skims,237. T
   21 |     } catch (ArithmeticException exc) {
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f234/Test.java,35,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f234/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,35,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f234/java_println_statements.java","
   18 |
   19 |     try {
   20 |       int a = 1 / 0;
@@ -1227,7 +1227,7 @@ F059,lines,namespace/skims/test/data/lib_root/f059/java_insecure_log.java,3,209,
   9 | }
     ^ Col 0
 ",java.java_sensitive_log_info
-F234,lines,namespace/skims/test/data/lib_root/f234/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f234/Test.java,"
+F234,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f234/java_println_statements.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
    8 |   public static void main(String[ ] args) {
@@ -1251,7 +1251,7 @@ F234,lines,namespace/skims/test/data/lib_root/f234/Test.java,16,209,skims,234. T
   26 |       int a = 1 / 0;
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F234,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/Test.java,"
+F234,lines,namespace/skims/test/data/lib_root/f237/java_print_stacktrace.java,7,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/java_print_stacktrace.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         try {
@@ -1313,7 +1313,7 @@ F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,8,22
   10 | }
      ^ Col 0
 ",c_sharp.c_sharp_open_redirect
-F098,lines,namespace/skims/test/data/lib_root/f098/path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/path_injection.cs,"
+F098,lines,namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,"
    1 | using System;
    2 | using System.IO;
    3 |
@@ -1470,31 +1470,7 @@ F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.
   25 |     parameterHeaders.setBasicAuth();
      ^ Col 0
 ",java.java_insecure_authentication
-F309,lines,namespace/skims/test/data/lib_root/f309/insecure_jwt_token.ts,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/insecure_jwt_token.ts,"
-   1 |
-   2 | import jwt from 'jsonwebtoken';
-   3 |
-   4 | export function unsafeJwt<T extends Object> (payload: T): string {
-   5 |     const privateKey: string = ""mykey"";
-   6 |     let allowed_algos: Array<string> = ['HS256'];
-   7 |     const options: jwt.SignOptions = { expiresIn: 10000, algorithms:  allowed_algos};
-   8 |     try {
->  9 |       return jwt.sign(payload, privateKey, options);
-  10 |     } catch (e) {
-  11 |       throw new Error(e.message);
-  12 |     }
-  13 | }
-  14 |
-  15 | export function safeJwt<T extends Object> (payload: T): string {
-  16 |     const privateKey: string = ""mykey"";
-  17 |     let allowed_algos: Array<string> = ['PS384'];
-  18 |     const options: jwt.SignOptions = { expiresIn: 10000, issuer: ""None"", algorithms:  allowed_algos};
-  19 |     try {
-  20 |       return jwt.sign(payload, privateKey, options)
-  21 |     } catch (e) {
-     ^ Col 0
-",typescript.ts_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 |
    3 | function unsafejwt() {
@@ -1518,7 +1494,7 @@ F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,8,
   21 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,5,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,5,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 |
    3 | function unsafejwt() {
@@ -1542,7 +1518,7 @@ F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,5,
   21 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
    2 |
    3 | function unsafejwt() {
    4 |     // Default value of algorithm is vulnerable
@@ -1566,7 +1542,31 @@ F309,lines,namespace/skims/test/data/lib_root/f309/uses_insecure_jwt_token.js,12
   22 |     jwt.verify(token, key, verify_config);
      ^ Col 0
 ",javascript.js_uses_insecure_jwt_token
-F353,lines,namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.js,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.js,"
+F309,lines,namespace/skims/test/data/lib_root/f309/ts_insecure_jwt_token.ts,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/ts_insecure_jwt_token.ts,"
+   1 |
+   2 | import jwt from 'jsonwebtoken';
+   3 |
+   4 | export function unsafeJwt<T extends Object> (payload: T): string {
+   5 |     const privateKey: string = ""mykey"";
+   6 |     let allowed_algos: Array<string> = ['HS256'];
+   7 |     const options: jwt.SignOptions = { expiresIn: 10000, algorithms:  allowed_algos};
+   8 |     try {
+>  9 |       return jwt.sign(payload, privateKey, options);
+  10 |     } catch (e) {
+  11 |       throw new Error(e.message);
+  12 |     }
+  13 | }
+  14 |
+  15 | export function safeJwt<T extends Object> (payload: T): string {
+  16 |     const privateKey: string = ""mykey"";
+  17 |     let allowed_algos: Array<string> = ['PS384'];
+  18 |     const options: jwt.SignOptions = { expiresIn: 10000, issuer: ""None"", algorithms:  allowed_algos};
+  19 |     try {
+  20 |       return jwt.sign(payload, privateKey, options)
+  21 |     } catch (e) {
+     ^ Col 0
+",typescript.ts_insecure_jwt_token
+F353,lines,namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 |
    3 | function unsafeVerifyJwt() {
@@ -1584,7 +1584,7 @@ F353,lines,namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.js,
   15 | }
      ^ Col 0
 ",javascript.js_decode_insecure_jwt_token
-F353,lines,namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.ts,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/decode_insecure_jwt_token.ts,"
+F353,lines,namespace/skims/test/data/lib_root/f353/ts_decode_insecure_jwt_token.ts,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/ts_decode_insecure_jwt_token.ts,"
    1 |
    2 | import jwt from 'jsonwebtoken';
    3 |
@@ -1652,8 +1652,8 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivati
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_obsolete_key_derivation
-F350,lines,namespace/skims/test/data/lib_root/f350/insecure_trust_manager.java,9,310,skims,350. Insecure digital certificates - Chain of trust,"The application uses an insecure trust manager for the ssl context
- in namespace/skims/test/data/lib_root/f350/insecure_trust_manager.java","
+F350,lines,namespace/skims/test/data/lib_root/f350/java_insecure_trust_manager.java,9,310,skims,350. Insecure digital certificates - Chain of trust,"The application uses an insecure trust manager for the ssl context
+ in namespace/skims/test/data/lib_root/f350/java_insecure_trust_manager.java","
    1 | rt javax.net.ssl.TrustManagerFactory;
    2 |
    3 | ic class Test {
@@ -3921,7 +3921,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,36
   46 | Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
      ^ Col 8
 ",java.java_insecure_pass
-F148,lines,namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs,8,319,skims,148. Use of an insecure channel - FTP,"Customer information is transmitted over a channel that does not use encryption, so credentials and confidential information can be captured in plain text. in namespace/skims/test/data/lib_root/f148/ftp_insecure_metodo.cs","
+F148,lines,namespace/skims/test/data/lib_root/f148/c_sharp_ftp_insecure_method.cs,8,319,skims,148. Use of an insecure channel - FTP,"Customer information is transmitted over a channel that does not use encryption, so credentials and confidential information can be captured in plain text. in namespace/skims/test/data/lib_root/f148/c_sharp_ftp_insecure_method.cs","
    1 | sing System;
    2 | ystem.Net;
    3 | ystem.Net.FtpClient;
@@ -4383,7 +4383,7 @@ F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file
   19 | }
      ^ Col 0
 ",c_sharp.c_sharp_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,8,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,"
    1 | import java.io.File;
    2 | import java.nio.file.Files.*;
    3 |
@@ -4407,7 +4407,7 @@ F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,378,skims,160. Ex
   21 |         try {
      ^ Col 0
 ",java.java_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,18,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,"
    8 |         System.out.println(createTempFile(""xxx"", null));
    9 |         } catch (Exception e) {}
   10 |
@@ -4431,7 +4431,7 @@ F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,378,skims,160. E
   28 | /*
      ^ Col 0
 ",java.java_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,23,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/java_create_temp_file.java,"
   13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
   14 |         } catch (Exception e) {}
   15 |
@@ -4455,7 +4455,7 @@ F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,378,skims,160. E
   33 |  */
      ^ Col 0
 ",java.java_file_create_temp_file
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,21,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,21,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4479,7 +4479,7 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,21,382,skims,423. I
 > 21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,20,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,20,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4503,7 +4503,7 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,20,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,19,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,19,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4527,7 +4527,7 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,19,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,16,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,16,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4551,7 +4551,7 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,16,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,15,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,15,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4575,7 +4575,7 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,15,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,14,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/Test.java,"
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,14,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         System.exit(0);
@@ -4599,8 +4599,8 @@ F423,lines,namespace/skims/test/data/lib_root/f423/Test.java,14,382,skims,423. I
   21 | Runtime.getRuntime().halt(0);
      ^ Col 0
 ",java.java_uses_exit_method
-F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js,5,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
- in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js","
+F280,lines,namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js,5,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js","
   1 | function vuln (req, res) {
   2 |     const value = req.query.value;
   3 |
@@ -4612,8 +4612,8 @@ F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_co
   9 |   };
     ^ Col 0
 ",javascript.javascript_non_secure_construction_of_cookies
-F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js,4,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
- in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.js","
+F280,lines,namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js,4,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js","
   1 | function vuln (req, res) {
   2 |     const value = req.query.value;
   3 |
@@ -4625,8 +4625,8 @@ F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_co
   9 |   };
     ^ Col 0
 ",javascript.javascript_non_secure_construction_of_cookies
-F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts,7,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
- in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts","
+F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts,7,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts","
    1 | declare var module: any;
    2 |
    3 | function ts_vuln (req, res) {
@@ -4640,8 +4640,8 @@ F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_co
   11 |   };
      ^ Col 0
 ",typescript.typescript_non_secure_construction_of_cookies
-F280,lines,namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts,6,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
- in namespace/skims/test/data/lib_root/f280/non_secure_construction_of_cookies.ts","
+F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts,6,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts","
    1 | declare var module: any;
    2 |
    3 | function ts_vuln (req, res) {
@@ -4719,6 +4719,22 @@ F060,lines,namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,2,396,ski
   5 | secframe.contentWindow.postMessage(""hello"", ""https://secure.example.com""); // Compliant
     ^ Col 0
 ",typescript.typescript_unsafe_origin
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/c_sharp_regex_injection.cs","
+   1 | using System;
+   2 | using System.Text.RegularExpressions;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |
+   7 |     protected void Page_Load(object sender, EventArgs e)
+   8 |     {
+   9 |         string findTerm = Request.Form[""findTerm""];
+> 10 |         Match m = Regex.Match(SearchableText, ""^term="" + findTerm);
+  11 |     }
+  12 | }
+     ^ Col 0
+",csharp.csharp_regex_injection
 F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
  in namespace/skims/test/data/lib_root/f211/js_regex_injection.js","
    1 | const escapeStringRegexp = require('escape-string-regexp');
@@ -4769,22 +4785,6 @@ F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,5,405,s
   21 | }
      ^ Col 0
 ",javascript.js_regex_injection
-F211,lines,namespace/skims/test/data/lib_root/f211/regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
- in namespace/skims/test/data/lib_root/f211/regex_injection.cs","
-   1 | using System;
-   2 | using System.Text.RegularExpressions;
-   3 |
-   4 | public partial class WebForm : System.Web.UI.Page
-   5 | {
-   6 |
-   7 |     protected void Page_Load(object sender, EventArgs e)
-   8 |     {
-   9 |         string findTerm = Request.Form[""findTerm""];
-> 10 |         Match m = Regex.Match(SearchableText, ""^term="" + findTerm);
-  11 |     }
-  12 | }
-     ^ Col 0
-",csharp.csharp_regex_injection
 F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
  in namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts","
    1 | const escapeStringRegexp = require('escape-string-regexp');
@@ -4835,6 +4835,106 @@ F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,5,405,s
   21 | }
      ^ Col 0
 ",typescript.ts_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,11,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   1 | using System.Text.RegularExpressions;
+   2 | namespace Controllers
+   3 | {
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(string regex, string input)
+   7 |         {
+   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
+   9 |             bool unsafe = myreg.IsMatch(""testing"");
+  10 |
+> 11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
+  12 |
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
+  15 |
+  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
+  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  18 |
+  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
+  20 |
+  21 |             string safeInput = reg.Escape(expreg);
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,9,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   1 | using System.Text.RegularExpressions;
+   2 | namespace Controllers
+   3 | {
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(string regex, string input)
+   7 |         {
+   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
+>  9 |             bool unsafe = myreg.IsMatch(""testing"");
+  10 |
+  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
+  12 |
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
+  15 |
+  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
+  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  18 |
+  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
+  20 |
+  21 |             string safeInput = reg.Escape(expreg);
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,14,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(string regex, string input)
+   7 |         {
+   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
+   9 |             bool unsafe = myreg.IsMatch(""testing"");
+  10 |
+  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
+  12 |
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+> 14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
+  15 |
+  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
+  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  18 |
+  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
+  20 |
+  21 |             string safeInput = reg.Escape(expreg);
+  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  23 |
+  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,17,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   7 |         {
+   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
+   9 |             bool unsafe = myreg.IsMatch(""testing"");
+  10 |
+  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
+  12 |
+  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
+  15 |
+  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
+> 17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  18 |
+  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
+  20 |
+  21 |             string safeInput = reg.Escape(expreg);
+  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  23 |
+  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  25 |
+  26 |             Regex myreg2 = new Regex(regex, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  27 |             bool safe4 = myreg2.IsMatch(input, regex);
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
 F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/java_vuln_regex.java","
    1 | public class Test{
@@ -4860,107 +4960,7 @@ F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,sk
   21 |   input.matches(regex);  // Safe
      ^ Col 0
 ",java.java_vuln_regex
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,11,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/test.cs","
-   1 | using System.Text.RegularExpressions;
-   2 | namespace Controllers
-   3 | {
-   4 |     public class Controller : Controller
-   5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
-   7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
-  10 |
-> 11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
-  18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-     ^ Col 0
-",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,9,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/test.cs","
-   1 | using System.Text.RegularExpressions;
-   2 | namespace Controllers
-   3 | {
-   4 |     public class Controller : Controller
-   5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
-   7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
->  9 |             bool unsafe = myreg.IsMatch(""testing"");
-  10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
-  18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-     ^ Col 0
-",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,14,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/test.cs","
-   4 |     public class Controller : Controller
-   5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
-   7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
-  10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-> 14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
-  18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
-  23 |
-  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-     ^ Col 0
-",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,17,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/test.cs","
-   7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
-  10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-> 17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
-  18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
-  23 |
-  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-  25 |
-  26 |             Regex myreg2 = new Regex(regex, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-  27 |             bool safe4 = myreg2.IsMatch(input, regex);
-     ^ Col 0
-",c_sharp.csharp_vuln_regular_expression
-F413,lines,namespace/skims/test/data/lib_root/f413/insecure_assembly_load.cs,10,434,skims,413. Insecure file upload - DLL Injection,Potentially untrusted HTTP request input reaches a method that loads an assembly. in namespace/skims/test/data/lib_root/f413/insecure_assembly_load.cs,"
+F413,lines,namespace/skims/test/data/lib_root/f413/c_sharp_insecure_assembly_load.cs,10,434,skims,413. Insecure file upload - DLL Injection,Potentially untrusted HTTP request input reaches a method that loads an assembly. in namespace/skims/test/data/lib_root/f413/c_sharp_insecure_assembly_load.cs,"
    1 | using System;
    2 | using System.Reflection;
    3 |
@@ -4975,7 +4975,7 @@ F413,lines,namespace/skims/test/data/lib_root/f413/insecure_assembly_load.cs,10,
   12 | }
      ^ Col 0
 ",csharp.csharp_insecure_assembly_load
-F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
    1 | ass XmlSerializerTestCase : Controller
    2 |
    3 | c ActionResult unsecuredeserialization(HttpRequest typeName)
@@ -4999,7 +4999,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,10,502,
   21 | /secure
      ^ Col 9
 ",c_sharp.c_sharp_check_xml_serializer
-F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
    1 | lass XmlSerializerTestCase : Controller
    2 |
    3 | ic ActionResult unsecuredeserialization(HttpRequest typeName)
@@ -5023,7 +5023,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   21 | //secure
      ^ Col 8
 ",c_sharp.c_sharp_check_xml_serializer
-F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,19,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,"
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,19,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
    5 | /insecure
    6 | pe t = Type.GetType(typeName);
    7 | mlSerializer insec_serial = new XmlSerializer(t);
@@ -5047,8 +5047,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,19,502,
   25 |
      ^ Col 9
 ",c_sharp.c_sharp_check_xml_serializer
-F096,lines,namespace/skims/test/data/lib_root/f096/js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
- in namespace/skims/test/data/lib_root/f096/js_deserialization.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs","
    1 | g System.Web.Script.Serialization;
    2 |
    3 | ic class ExampleClass
@@ -5061,8 +5061,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/js_deserialization.cs,7,502,s
   10 |
      ^ Col 4
 ",c_sharp.c_sharp_js_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/type_name_handling.cs,9,502,skims,096. Insecure deserialization,"A Newtonsoft.Json.TypeNameHandling enumeration value other than None should not be referenced.
- in namespace/skims/test/data/lib_root/f096/type_name_handling.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_type_name_handling.cs,9,502,skims,096. Insecure deserialization,"A Newtonsoft.Json.TypeNameHandling enumeration value other than None should not be referenced.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_type_name_handling.cs","
    1 | using Newtonsoft.Json;
    2 |
    3 | public class ExampleClass
@@ -5076,8 +5076,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/type_name_handling.cs,9,502,s
   11 | }
      ^ Col 0
 ",c_sharp.c_sharp_type_name_handling
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
- in namespace/skims/test/data/lib_root/f096/test.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
    2 | em.Runtime.Serialization.IFormatter;
    3 | Controllers
@@ -5095,8 +5095,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Ins
   15 |
      ^ Col 10
 ",c_sharp.c_sharp_insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
- in namespace/skims/test/data/lib_root/f096/test.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,9,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
    1 | m.Runtime.Serialization.Formatters.Binary;
    2 | m.Runtime.Serialization.IFormatter;
    3 | ontrollers
@@ -5114,8 +5114,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,9,502,skims,096. Inse
   15 |
      ^ Col 11
 ",c_sharp.c_sharp_insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
- in namespace/skims/test/data/lib_root/f096/test.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,12,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
    1 | rialization.Formatters.Binary;
    2 | rialization.IFormatter;
    3 |
@@ -5133,8 +5133,8 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,12,502,skims,096. Ins
   15 |
      ^ Col 23
 ",c_sharp.c_sharp_insecure_deserialization
-F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
- in namespace/skims/test/data/lib_root/f096/test.cs","
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,10,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
    1 | tem.Runtime.Serialization.Formatters.Binary;
    2 | tem.Runtime.Serialization.IFormatter;
    3 |  Controllers
@@ -5515,7 +5515,7 @@ F135,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,9,6
   16 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xss_protection
-F131,lines,namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs,21,644,skims,131. Insecure or unset HTTP headers - Strict Transport Security,"The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small in namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs","
+F131,lines,namespace/skims/test/data/lib_root/f131/c_sharp_check_default_usehsts.cs,21,644,skims,131. Insecure or unset HTTP headers - Strict Transport Security,"The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small in namespace/skims/test/data/lib_root/f131/c_sharp_check_default_usehsts.cs","
    8 | namespace codetest
    9 | {
   10 |     public class Startup
@@ -5539,8 +5539,8 @@ F131,lines,namespace/skims/test/data/lib_root/f131/check_default_usehsts.cs,21,6
   28 | }
      ^ Col 0
 ",c_sharp.check_default_usehsts
-F414,lines,namespace/skims/test/data/lib_root/f414/disabled_http_header_check.cs,9,644,skims,414. Insecure service configuration - Header Checking,"property EnableHeaderChecking set in false disabled the encoding of the carriage return and newline characters, \r and \n, that are found in response headers.
- in namespace/skims/test/data/lib_root/f414/disabled_http_header_check.cs","
+F414,lines,namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs,9,644,skims,414. Insecure service configuration - Header Checking,"property EnableHeaderChecking set in false disabled the encoding of the carriage return and newline characters, \r and \n, that are found in response headers.
+ in namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs","
    1 |
    2 | iguration;
    3 |
@@ -5554,7 +5554,7 @@ F414,lines,namespace/skims/test/data/lib_root/f414/disabled_http_header_check.cs
   11 |
      ^ Col 21
 ",csharp.csharp_disabled_http_header_check
-F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,12,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/eval_open.js,"
+F143,lines,namespace/skims/test/data/lib_root/f143/js_eval_open.js,12,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/js_eval_open.js,"
    2 |     var a = 13
    3 |     var c = Math.floor((Math.random() * 100) + 1);
    4 |     localStorage.getItem('key');
@@ -5578,7 +5578,7 @@ F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,12,676,skims,143
   22 |     }
      ^ Col 0
 ",javascript.js_uses_eval
-F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,5,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+F143,lines,namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,5,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,"
   1 | function insec_use_of_eval(req){
   2 |     let input = req.query.input;
   3 |     eval(input); // Noncompliant
@@ -5587,7 +5587,7 @@ F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,5,676,skims,143.
   6 | }
     ^ Col 0
 ",typescript.ts_uses_eval
-F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,4,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+F143,lines,namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,4,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,"
   1 | function insec_use_of_eval(req){
   2 |     let input = req.query.input;
   3 |     eval(input); // Noncompliant
@@ -5596,7 +5596,7 @@ F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,4,676,skims,143.
   6 | }
     ^ Col 0
 ",typescript.ts_uses_eval
-F143,lines,namespace/skims/test/data/lib_root/f143/uses_eval.ts,3,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/uses_eval.ts,"
+F143,lines,namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,3,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/ts_uses_eval.ts,"
   1 | function insec_use_of_eval(req){
   2 |     let input = req.query.input;
 > 3 |     eval(input); // Noncompliant
@@ -5640,7 +5640,7 @@ F152,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,9,6
   16 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xframe_options
-F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,12,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
+F366,lines,namespace/skims/test/data/lib_root/f366/c_sharp_transparency_conflict.cs,12,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/c_sharp_transparency_conflict.cs,"
    2 | using System.Security;
    3 |
    4 | namespace MyLibrary
@@ -5664,7 +5664,7 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,12,749,skims,366. Ina
   22 |         }
      ^ Col 0
 ",c_sharp.csharp_conflicting_annotations
-F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,19,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
+F366,lines,namespace/skims/test/data/lib_root/f366/c_sharp_transparency_conflict.cs,19,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/c_sharp_transparency_conflict.cs,"
    9 |     [LastFilter]
   10 |     public class HaveFails
   11 |     {
@@ -5688,8 +5688,8 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,19,749,skims,366. Ina
   29 |         [OtherFilter]
      ^ Col 0
 ",c_sharp.csharp_conflicting_annotations
-F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
- in namespace/skims/test/data/lib_root/f338/test.cs","
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,12,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
    1 | amespace Controllers
    2 |
    3 |    public class Encrypt
@@ -5707,8 +5707,8 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,749,skims,338. Ins
   15 |
      ^ Col 1
 ",c_sharp.csharp_check_hashes_salt
-F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
- in namespace/skims/test/data/lib_root/f338/test.cs","
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,8,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
    1 | espace Controllers
    2 |
    3 |  public class Encrypt
@@ -5726,8 +5726,8 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,8,749,skims,338. Inse
   15 |
      ^ Col 3
 ",c_sharp.csharp_check_hashes_salt
-F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
- in namespace/skims/test/data/lib_root/f338/test.cs","
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
    1 | mespace Controllers
    2 |
    3 |   public class Encrypt
@@ -5745,8 +5745,8 @@ F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,10,749,skims,338. Ins
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
-F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,13,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
- in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,13,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
    3 | @Bean(name = ""multipartResolver"")
    4 | public CommonsMultipartResolver multipartResolver() {
    5 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -5770,8 +5770,8 @@ F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,13,77
   23 |   return multipartResolver;
      ^ Col 0
 ",java.java_upload_size_limit
-F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,28,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
- in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,28,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
   11 | @Bean(name = ""multipartResolver"")
   12 | public CommonsMultipartResolver multipartResolver() {
   13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -5795,8 +5795,8 @@ F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,28,77
   31 | }
      ^ Col 0
 ",java.java_upload_size_limit
-F354,lines,namespace/skims/test/data/lib_root/f354/insecure_file_size.java,22,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
- in namespace/skims/test/data/lib_root/f354/insecure_file_size.java","
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,22,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
   11 | @Bean(name = ""multipartResolver"")
   12 | public CommonsMultipartResolver multipartResolver() {
   13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -6200,7 +6200,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/ts_uses_bypass_security_trust
   24 |
      ^ Col 1
 ",typecript.ts_use_of_bypass_security_trust_url
-F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Jsx file. in namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,"
+F371,lines,namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Jsx file. in namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,"
    1 | import React from ""react"";
    2 |
    3 | const App = () => {
@@ -6218,7 +6218,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml
   15 | export default App;
      ^ Col 0
 ",javascript.js_uses_dangerously_set_html
-F371,lines,namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Tsx file. in namespace/skims/test/data/lib_root/f371/has_dangerously_set_innerhtml.jsx,"
+F371,lines,namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,11,79,skims,371. DOM-Based cross-site scripting (XSS),DangerouslySetInnerHtml is used in Tsx file. in namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,"
    1 | import React from ""react"";
    2 |
    3 | const App = () => {
@@ -6757,8 +6757,8 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,45,89
    55 |
       ^ Col 0
 ",java.java_jpa_like
-F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Internal service information should not be stored in the source code, especially AD configurations, as it is obtained from the admon-chanel configuration file.
- in namespace/skims/test/data/lib_root/f320/test.cs","
+F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,7,90,skims,320. Insecure service configuration - LDAP,"Internal service information should not be stored in the source code, especially AD configurations, as it is obtained from the admon-chanel configuration file.
+ in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
    1 | using System;
    2 | class cipher{
    3 |
@@ -6774,8 +6774,8 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insec
   13 | }
      ^ Col 0
 ",query.query_f320
-F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
- in namespace/skims/test/data/lib_root/f320/test.cs","
+F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
    1 | stem;
    2 | pher{
    3 |
@@ -6791,7 +6791,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insec
   13 |
      ^ Col 8
 ",c_sharp.csharp_ldap_connections_authenticated
-F107,lines,namespace/skims/test/data/lib_root/f107/ldap_injection.cs,11,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/ldap_injection.cs,"
+F107,lines,namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,11,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,"
    1 | stem;
    2 | stem.DirectoryServices;
    3 |
@@ -6808,8 +6808,8 @@ F107,lines,namespace/skims/test/data/lib_root/f107/ldap_injection.cs,11,90,skims
   14 |
      ^ Col 8
 ",c_sharp.c_sharp_ldap_injection
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
- in namespace/skims/test/data/lib_root/f100/test.cs","
+F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
+ in namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs","
    1 | using System.Net;
    2 | using System;
    3 | namespace testmod
@@ -6896,7 +6896,7 @@ F085,lines,namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,1,922,
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
 ",typescript.typescript_client_storage
-F368,lines,namespace/skims/test/data/lib_root/f368/host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/host_key.java,"
+F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
    1 | import com.jcraft.jsch.JSch;
    2 | import com.jcraft.jsch.Session;
    3 |
@@ -6920,7 +6920,7 @@ F368,lines,namespace/skims/test/data/lib_root/f368/host_key.java,11,923,skims,36
   21 | }
      ^ Col 0
 ",java.java_host_key_checking
-F368,lines,namespace/skims/test/data/lib_root/f368/host_key.java,17,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/host_key.java,"
+F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,17,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
    7 |   Session session = ssh.getSession(ManagementProperties.getValues(""USER""), ManagementProperties.getValues(""SERVERNAME""),
    8 |   java.util.Properties config = new java.util.Properties();
    9 |   String check = ""No"";
@@ -6981,7 +6981,7 @@ F011,lines,namespace/skims/test/data/lib_root/f011/c_sharp_schema_by_url.cs,8,93
   10 | }
      ^ Col 0
 ",c_sharp.c_sharp_schema_by_url
-F416,lines,namespace/skims/test/data/lib_root/f416/xaml_injection.cs,11,94,skims,416. XAML injection,Potentially untrusted HTTP request input reaches a System.Windows.Markup.XamlReader Load method in namespace/skims/test/data/lib_root/f416/xaml_injection.cs,"
+F416,lines,namespace/skims/test/data/lib_root/f416/c_sharp_xaml_injection.cs,11,94,skims,416. XAML injection,Potentially untrusted HTTP request input reaches a System.Windows.Markup.XamlReader Load method in namespace/skims/test/data/lib_root/f416/c_sharp_xaml_injection.cs,"
    1 | using System;
    2 | using System.IO;
    3 |

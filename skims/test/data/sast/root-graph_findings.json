@@ -3968,7 +3968,7 @@
         },
         "language": "java"
       },
-      "path": "skims/test/data/lib_root/f160/Test.java",
+      "path": "skims/test/data/lib_root/f160/java_create_temp_file.java",
       "syntax": {
         "102": [
           {
@@ -5211,11 +5211,11 @@
   "shards_by_language_class": {
     "c_sharp": {},
     "java": {
-      ".Test": "skims/test/data/lib_root/f160/Test.java"
+      ".Test": "skims/test/data/lib_root/f160/java_create_temp_file.java"
     }
   },
   "shards_by_path": {
     "skims/test/data/lib_root/f063/java_path_traversal.java": 0,
-    "skims/test/data/lib_root/f160/Test.java": 1
+    "skims/test/data/lib_root/f160/java_create_temp_file.java": 1
   }
 }
