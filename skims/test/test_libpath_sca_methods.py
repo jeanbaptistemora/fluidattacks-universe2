@@ -20,6 +20,9 @@ from lib_path.f011.pip import (
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
+from lib_path.f393.npm import (
+    npm_yarn_lock_dev,
+)
 from operator import (
     itemgetter,
 )
@@ -267,5 +270,32 @@ def test_maven_pom_xml() -> None:
             if not equal_props:
                 assertion = not assertion
                 break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_npm_yarn_lock_dev() -> None:
+    path = "skims/test/data/lib_path/f011/yarn.lock"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    generator_dep = npm_yarn_lock_dev.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    pkg_info = ("xmldom", "0.4.0", 483)
+    try:
+        next_dep = next(generator_dep)
+        pkg_item = itemgetter("item")(next_dep[0])
+        line_dep, version = itemgetter("line", "item")(next_dep[1])
+    except StopIteration:
+        assertion = not assertion
+    equal_props: bool = pkg_info == (pkg_item, version, line_dep)
+    if not equal_props:
+        assertion = not assertion
 
     assert assertion
