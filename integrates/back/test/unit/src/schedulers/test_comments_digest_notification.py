@@ -7,6 +7,9 @@ from datetime import (
 from db_model.event_comments.types import (
     EventComment,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -26,6 +29,9 @@ from pytz import (
 from schedulers.comments_digest_notification import (
     _get_days_since_comment,
     CommentsDataType,
+    digest_comments,
+    finding_comments,
+    format_comment,
     group_comments,
     group_instance_comments,
     instance_comments,
@@ -33,6 +39,8 @@ from schedulers.comments_digest_notification import (
     unique_emails,
 )
 from typing import (
+    Any,
+    List,
     Union,
 )
 
@@ -186,8 +194,191 @@ async def test_group_instance_comments(
         ],
     ],
 )
-async def test_unique_emails(
+def test_unique_emails(
     groups_data: dict[str, CommentsDataType],
 ) -> None:
     emails = unique_emails(dict(groups_data), ())
     assert len(emails) == 9
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    [
+        "finding_id",
+    ],
+    [
+        [
+            "422286126",
+        ],
+    ],
+)
+@freeze_time("2019-08-21T06:00:00.0")
+async def test_finding_comments(
+    finding_id: str,
+) -> None:
+    comments = await finding_comments(get_new_context(), finding_id)
+    assert len(comments) == 1
+
+
+@pytest.mark.parametrize(
+    ["comments"],
+    [
+        [
+            [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                + " Maecenas at tincidunt sapien. Ut vel ante augue. Vivamus"
+                + " nisl felis, mollis vitae risus vel, faucibus tincidunt"
+                + " nibh. Nunc pretium ut enim finibus mattis. Sed molestie"
+                + " justo tortor, non convallis ligula bibendum at."
+                + " Suspendisse augue odio, commodo quis sem et, lobortis"
+                + " feugiat nisi. Vivamus fringilla auctor auctor. Nam"
+                + " pellentesque, mauris et ultrices mollis, ipsum tellus"
+                + " consectetur mauris, eu pharetra nisl nulla at elit. Nunc"
+                + " facilisis est sed nibh ornare, non lobortis odio posuere."
+                + " Donec finibus semper purus, ut facilisis lorem.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                + " Maecenas at tincidunt sapien. Ut vel ante augue. Vivamus"
+                + " nisl felis, mollis vitae risus vel, faucibus tincidunt"
+                + " nibh. Nunc pretium ut enim finibus mattis. Sed molestie"
+                + " justo tortor, non convallis ligula bibendum at."
+                + " Suspendisse augue odio, commodo quis sem et, lobortis"
+                + " feugiat nisi. Vivamus fringilla auctor",
+            ],
+        ],
+    ],
+)
+def test_format_comment(
+    comments: List[str],
+) -> None:
+    assert len(format_comment(comments[0])) == 503
+    assert len(format_comment(comments[1])) == 365
+
+
+@pytest.mark.parametrize(
+    ["items", "outputs"],
+    [
+        [
+            [
+                (
+                    GroupComment(
+                        group_name="unittesting",
+                        id="1670952875435",
+                        parent_id="0",
+                        creation_date=datetime(
+                            2022,
+                            12,
+                            13,
+                            17,
+                            34,
+                            35,
+                            434861,
+                            tzinfo=UTC,
+                        ),
+                        content="Testing comment",
+                        email="integratesuser2@testing.com",
+                        full_name="Testing User",
+                    ),
+                ),
+                (
+                    EventComment(
+                        event_id="141919677",
+                        id="1670952924164",
+                        parent_id="0",
+                        creation_date=datetime(
+                            2022,
+                            12,
+                            13,
+                            17,
+                            35,
+                            24,
+                            164124,
+                            tzinfo=UTC,
+                        ),
+                        content="Testing comment",
+                        email="integratesuser2@testing.com",
+                        full_name="Testing User",
+                    ),
+                ),
+                (
+                    FindingComment(
+                        comment_type=CommentType.COMMENT,
+                        content="Testing comment",
+                        creation_date=datetime(
+                            2022,
+                            12,
+                            13,
+                            17,
+                            34,
+                            15,
+                            641328,
+                            tzinfo=UTC,
+                        ),
+                        email="integratesuser2@testing.com",
+                        finding_id="bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
+                        id="1670952855641",
+                        parent_id="0",
+                        full_name="Testing User",
+                    ),
+                    FindingComment(
+                        comment_type=CommentType.COMMENT,
+                        content="Testing reply",
+                        creation_date=datetime(
+                            2022,
+                            12,
+                            13,
+                            17,
+                            34,
+                            23,
+                            70498,
+                            tzinfo=UTC,
+                        ),
+                        email="integratesuser2@testing.com",
+                        finding_id="bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
+                        id="1670952863070",
+                        parent_id="1670952855641",
+                        full_name="Testing User",
+                    ),
+                ),
+            ],
+            [
+                [
+                    {
+                        "comment": "Testing comment",
+                        "date": "2022-12-13 12:34:35",
+                        "instance_id": None,
+                        "name": "Testing User",
+                    }
+                ],
+                [
+                    {
+                        "comment": "Testing comment",
+                        "date": "2022-12-13 12:35:24",
+                        "instance_id": None,
+                        "name": "Testing User",
+                    }
+                ],
+                [
+                    {
+                        "comment": "Testing comment",
+                        "date": "2022-12-13 12:34:15",
+                        "instance_id": "bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
+                        "name": "Testing User",
+                    },
+                    {
+                        "comment": "Testing reply",
+                        "date": "2022-12-13 12:34:23",
+                        "instance_id": "bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
+                        "name": "Testing User",
+                    },
+                ],
+            ],
+        ],
+    ],
+)
+def test_digest_comments(
+    items: Any,
+    outputs: Any,
+) -> None:
+    assert digest_comments(items[0]) == outputs[0]
+    assert digest_comments(items[1]) == outputs[1]
+    assert digest_comments(items[2]) == outputs[2]
