@@ -601,56 +601,6 @@ F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13
   17 | }
      ^ Col 0
 ",csharp.csharp_info_leak_errors
-F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f037/Test.java","
-   1 | import org.apache.logging.log4j.Logger;
-   2 | import org.apache.logging.log4j.LogManager;
-   3 |
-   4 | public class Test {
-   5 |
-   6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
-   7 |
-   8 |   public static void main(String[ ] args) {
-   9 |     try {
-  10 |       int[] myNumbers = {1, 2, 3};
-> 11 |       System.out.println(myNumbers[10]);
-  12 |     } catch (IndexException e) {
-  13 |       if (e.toString() == ""Error""){
-  14 |         System.out.println(""Error"");
-  15 |       }
-  16 |       e.printStackTrace();
-  17 |     }
-  18 |
-  19 |     try {
-  20 |       int a = 1 / 0;
-  21 |     } catch (ArithmeticException exc) {
-     ^ Col 0
-",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,35,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f037/Test.java","
-  18 |
-  19 |     try {
-  20 |       int a = 1 / 0;
-  21 |     } catch (ArithmeticException exc) {
-  22 |       logger.info(exc);
-  23 |     }
-  24 |
-  25 |     try {
-  26 |       int a = 1 / 0;
-  27 |     } catch (ArithmeticException exc) {
-  28 |       System.out.println(""An error has occurred"");
-  29 |       logger.error(String.format(""Ocurred error %s"", exc.getMessage()));
-  30 |     }
-  31 |
-  32 |     try {
-  33 |       int a = 1 / 0;
-  34 |     } catch (ArithmeticException exc) {
-> 35 |       System.out.println(exc);
-  36 |     }
-  37 |   }
-  38 | }
-     ^ Col 0
-",java.java_has_print_statements
 F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
  in namespace/skims/test/data/lib_path/f160/Test.java","
    1 | import java.io.File;
@@ -749,6 +699,56 @@ F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,23,200,skims,237. T
   31 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
   32 |  *
   33 |  */
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f234/Test.java,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f234/Test.java","
+   1 | import org.apache.logging.log4j.Logger;
+   2 | import org.apache.logging.log4j.LogManager;
+   3 |
+   4 | public class Test {
+   5 |
+   6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
+   7 |
+   8 |   public static void main(String[ ] args) {
+   9 |     try {
+  10 |       int[] myNumbers = {1, 2, 3};
+> 11 |       System.out.println(myNumbers[10]);
+  12 |     } catch (IndexException e) {
+  13 |       if (e.toString() == ""Error""){
+  14 |         System.out.println(""Error"");
+  15 |       }
+  16 |       e.printStackTrace();
+  17 |     }
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f234/Test.java,35,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f234/Test.java","
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+  22 |       logger.info(exc);
+  23 |     }
+  24 |
+  25 |     try {
+  26 |       int a = 1 / 0;
+  27 |     } catch (ArithmeticException exc) {
+  28 |       System.out.println(""An error has occurred"");
+  29 |       logger.error(String.format(""Ocurred error %s"", exc.getMessage()));
+  30 |     }
+  31 |
+  32 |     try {
+  33 |       int a = 1 / 0;
+  34 |     } catch (ArithmeticException exc) {
+> 35 |       System.out.println(exc);
+  36 |     }
+  37 |   }
+  38 | }
      ^ Col 0
 ",java.java_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
@@ -864,173 +864,6 @@ F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.jav
   20 | }
      ^ Col 0
 ",java.java_has_print_statements
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-   1 |
-   2 | try {
-   3 |     var a = 1 / 0;
-   4 | }
-   5 | catch (err) {
->  6 |     console.log(`${err}`);
-   7 | }
-   8 |
-   9 | try {
-  10 |     var a = 1 / 0;
-  11 | }
-  12 | catch {
-  13 |     console.log(""error"");
-  14 | }
-  15 |
-  16 | try {
-  17 |     var a = 1 / 0;
-  18 | }
-  19 | catch (err) {
-  20 |     console.log(err);
-  21 | }
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,13,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-   3 |     var a = 1 / 0;
-   4 | }
-   5 | catch (err) {
-   6 |     console.log(`${err}`);
-   7 | }
-   8 |
-   9 | try {
-  10 |     var a = 1 / 0;
-  11 | }
-  12 | catch {
-> 13 |     console.log(""error"");
-  14 | }
-  15 |
-  16 | try {
-  17 |     var a = 1 / 0;
-  18 | }
-  19 | catch (err) {
-  20 |     console.log(err);
-  21 | }
-  22 |
-  23 | try {
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-  10 |     var a = 1 / 0;
-  11 | }
-  12 | catch {
-  13 |     console.log(""error"");
-  14 | }
-  15 |
-  16 | try {
-  17 |     var a = 1 / 0;
-  18 | }
-  19 | catch (err) {
-> 20 |     console.log(err);
-  21 | }
-  22 |
-  23 | try {
-  24 |     var a = 1 / 0;
-  25 | }
-  26 | catch (err) {
-  27 |     console.log(""error"");
-  28 |     console.warn(err);
-  29 |     throw err;
-  30 | }
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,27,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-  17 |     var a = 1 / 0;
-  18 | }
-  19 | catch (err) {
-  20 |     console.log(err);
-  21 | }
-  22 |
-  23 | try {
-  24 |     var a = 1 / 0;
-  25 | }
-  26 | catch (err) {
-> 27 |     console.log(""error"");
-  28 |     console.warn(err);
-  29 |     throw err;
-  30 | }
-  31 |
-  32 | try {
-  33 |     var a = 1 / 0;
-  34 | }
-  35 | catch (err) {
-  36 |     console.log(""error"" + err);
-  37 | }
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,36,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-  26 | catch (err) {
-  27 |     console.log(""error"");
-  28 |     console.warn(err);
-  29 |     throw err;
-  30 | }
-  31 |
-  32 | try {
-  33 |     var a = 1 / 0;
-  34 | }
-  35 | catch (err) {
-> 36 |     console.log(""error"" + err);
-  37 | }
-  38 |
-  39 | try {
-  40 |     var a = 1 / 0;
-  41 | }
-  42 | catch (err) {
-  43 |     var b = ""error""
-  44 |     console.log(b);
-  45 |     console.error(err);
-  46 | }
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,44,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
-  27 |     console.log(""error"");
-  28 |     console.warn(err);
-  29 |     throw err;
-  30 | }
-  31 |
-  32 | try {
-  33 |     var a = 1 / 0;
-  34 | }
-  35 | catch (err) {
-  36 |     console.log(""error"" + err);
-  37 | }
-  38 |
-  39 | try {
-  40 |     var a = 1 / 0;
-  41 | }
-  42 | catch (err) {
-  43 |     var b = ""error""
-> 44 |     console.log(b);
-  45 |     console.error(err);
-  46 | }
-  47 |
-     ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f052/javascript.js,16,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f052/javascript.js,"
-   1 | const crypto = require(""crypto"");
-   2 |
-   3 | let keyString = ""*4wQZgn+U2RW_mb="";
-   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-   5 |
-   6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
-   7 |
-   8 | let encrypted = """";
-   9 | cipher.on(""readable"", () => {
-  10 |   let chunk;
-  11 |   while (null !== (chunk = cipher.read())) {
-  12 |     encrypted += chunk.toString(""hex"");
-  13 |   }
-  14 | });
-  15 | cipher.on(""end"", () => {
-> 16 |   console.log(encrypted);
-  17 | });
-  18 |
-  19 | cipher.write(""some clear text data"");
-  20 | cipher.end();
-     ^ Col 0
-",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
     1 | function functionAWithConsoleLog() {
     2 |     var a = 13
@@ -1078,6 +911,29 @@ F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,66,200,skim
    75 |     catch(err) {
    76 |         //console.log(a+b)
       ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f052/javascript.js,16,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/javascript.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+   6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+> 16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
 ",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,"
    8 |     {
@@ -1146,6 +1002,150 @@ F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.js,4,20
   6 |   console.log(""Lorem Ipsum"");
   7 | }
     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+   1 |
+   2 | try {
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+>  6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,13,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+   6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+> 13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+> 20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,27,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+> 27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,36,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+> 36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+  44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/javascript.js,44,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/javascript.js,"
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+> 44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+  47 |
+     ^ Col 0
 ",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
    8 |     {
@@ -1227,7 +1227,7 @@ F059,lines,namespace/skims/test/data/lib_root/f059/test.java,3,209,skims,059. Se
   9 | }
     ^ Col 0
 ",java.java_sensitive_log_info
-F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
+F234,lines,namespace/skims/test/data/lib_root/f234/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f234/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
    8 |   public static void main(String[ ] args) {
@@ -1725,413 +1725,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/insecure_connection.java,13,3
   23 | public class SecureConnection {
      ^ Col 0
 ",java.java_insecure_connection
-F052,lines,namespace/skims/test/data/lib_path/f052/javascript.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/javascript.js,"
-   1 | const crypto = require(""crypto"");
-   2 |
-   3 | let keyString = ""*4wQZgn+U2RW_mb="";
-   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
-   5 |
->  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
-   7 |
-   8 | let encrypted = """";
-   9 | cipher.on(""readable"", () => {
-  10 |   let chunk;
-  11 |   while (null !== (chunk = cipher.read())) {
-  12 |     encrypted += chunk.toString(""hex"");
-  13 |   }
-  14 | });
-  15 | cipher.on(""end"", () => {
-  16 |   console.log(encrypted);
-  17 | });
-  18 |
-  19 | cipher.write(""some clear text data"");
-  20 | cipher.end();
-     ^ Col 0
-",javascript.javascript_insecure_create_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-   4 | .security.NoSuchAlgorithmException
-   5 | .security.spec.ECGenParameterSpec
-   6 | .security.spec.RSAKeyGenParameterSpec
-   7 | x.crypto.Cipher
-   8 | x.crypto.NoSuchPaddingException
-   9 |
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-> 14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-   5 | .security.spec.ECGenParameterSpec
-   6 | .security.spec.RSAKeyGenParameterSpec
-   7 | x.crypto.Cipher
-   8 | x.crypto.NoSuchPaddingException
-   9 |
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-> 15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-   6 | .security.spec.RSAKeyGenParameterSpec
-   7 | x.crypto.Cipher
-   8 | x.crypto.NoSuchPaddingException
-   9 |
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-> 16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-   7 | x.crypto.Cipher
-   8 | x.crypto.NoSuchPaddingException
-   9 |
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-> 17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,19,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-   9 |
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-> 19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  10 | {
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-> 20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  11 | n(args: Array<String>) {
-  12 |  {
-  13 |  val c1 = Cipher.getInstance(""AES"")
-  14 |  val c2 = Cipher.getInstance(""DES"")
-  15 |  val c3 = Cipher.getInstance(""DESede"")
-  16 |  val c4 = Cipher.getInstance(""RSA"")
-  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-> 21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-     ^ Col 11
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  12 | {
-  13 | val c1 = Cipher.getInstance(""AES"")
-  14 | val c2 = Cipher.getInstance(""DES"")
-  15 | val c3 = Cipher.getInstance(""DESede"")
-  16 | val c4 = Cipher.getInstance(""RSA"")
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-> 22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  13 | val c1 = Cipher.getInstance(""AES"")
-  14 | val c2 = Cipher.getInstance(""DES"")
-  15 | val c3 = Cipher.getInstance(""DESede"")
-  16 | val c4 = Cipher.getInstance(""RSA"")
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-> 23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  14 | val c2 = Cipher.getInstance(""DES"")
-  15 | val c3 = Cipher.getInstance(""DESede"")
-  16 | val c4 = Cipher.getInstance(""RSA"")
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-> 24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  15 | val c3 = Cipher.getInstance(""DESede"")
-  16 | val c4 = Cipher.getInstance(""RSA"")
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-> 25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 | val k3 = ECGenParameterSpec(""secp521r1"")
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  16 | val c4 = Cipher.getInstance(""RSA"")
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-> 26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 | val k3 = ECGenParameterSpec(""secp521r1"")
-  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-> 27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 | val k3 = ECGenParameterSpec(""secp521r1"")
-  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-> 28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 | val k3 = ECGenParameterSpec(""secp521r1"")
-  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-  38 | val spec1: ConnectionSpec = (
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,29,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-> 29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 | val k3 = ECGenParameterSpec(""secp521r1"")
-  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-  38 | val spec1: ConnectionSpec = (
-  39 |     ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-     ^ Col 12
-",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,40,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  30 |         val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 |         val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 |         val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 |         val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 |         val k3 = ECGenParameterSpec(""secp521r1"")
-  36 |         val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-  38 |         val spec1: ConnectionSpec = (
-  39 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-> 40 |                 .tlsVersions(TlsVersion.TLS_1_1)
-  41 |                 .build()
-  42 |         )
-  43 |         val spec2: ConnectionSpec = (
-  44 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  45 |                 .tlsVersions(TlsVersion.TLS_1_2)
-  46 |                 .build()
-  47 |         )
-  48 |
-  49 |         val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
-  50 |         val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
-     ^ Col 4
-",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
    1 | ng System.Security.Cryptography;
    2 |
@@ -2786,6 +2379,29 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,23,310,skims,052. I
   33 |
      ^ Col 0
 ",java.java_insecure_cipher_ssl
+F052,lines,namespace/skims/test/data/lib_root/f052/javascript.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+>  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+  16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
+",javascript.javascript_insecure_create_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/javascript_insecure_hash.js,"
    1 | import { Router } from ""express"";
    2 | import crypto from ""crypto"";
@@ -2977,6 +2593,390 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,26,310
   33 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+   4 | .security.NoSuchAlgorithmException
+   5 | .security.spec.ECGenParameterSpec
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+> 14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+   5 | .security.spec.ECGenParameterSpec
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+> 15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+> 16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+> 17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,19,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+> 19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+> 20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+> 21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+     ^ Col 11
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  12 | {
+  13 | val c1 = Cipher.getInstance(""AES"")
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+> 22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  13 | val c1 = Cipher.getInstance(""AES"")
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+> 23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+> 24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+> 25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+> 26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+> 27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+> 28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 | val spec1: ConnectionSpec = (
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,29,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+> 29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 | val spec1: ConnectionSpec = (
+  39 |     ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+     ^ Col 12
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,40,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  30 |         val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |         val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |         val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 |         val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |         val k3 = ECGenParameterSpec(""secp521r1"")
+  36 |         val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |         val spec1: ConnectionSpec = (
+  39 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+> 40 |                 .tlsVersions(TlsVersion.TLS_1_1)
+  41 |                 .build()
+  42 |         )
+  43 |         val spec2: ConnectionSpec = (
+  44 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |                 .tlsVersions(TlsVersion.TLS_1_2)
+  46 |                 .build()
+  47 |         )
+  48 |
+  49 |         val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+  50 |         val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
+     ^ Col 4
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -3329,30 +3329,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/typescript_insecure_hash.ts,9
   21 | export default router
      ^ Col 0
 ",Typescript.typescript_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,49,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  35 | rSpec(""secp521r1"")
-  36 | rSpec(""c2pnb208w1"")
-  37 |
-  38 | pec = (
-  39 | lder(ConnectionSpec.MODERN_TLS)
-  40 | lsVersion.TLS_1_1)
-  41 |
-  42 |
-  43 | pec = (
-  44 | lder(ConnectionSpec.MODERN_TLS)
-  45 | lsVersion.TLS_1_2)
-  46 |
-  47 |
-  48 |
-> 49 |  = MessageDigest.getInstance(""SHA1"")
-  50 |  = MessageDigest.getInstance(""SHA-512"")
-  51 | mException) {
-  52 | xception) {
-  53 |
-  54 |
-  55 |
-     ^ Col 34
-",kotlin.kotlin_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
    1 | ng System.Security.Cryptography;
    2 |
@@ -3557,6 +3533,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java.java,30,310,skims,052. I
   40 |
      ^ Col 0
 ",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,49,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  35 | rSpec(""secp521r1"")
+  36 | rSpec(""c2pnb208w1"")
+  37 |
+  38 | pec = (
+  39 | lder(ConnectionSpec.MODERN_TLS)
+  40 | lsVersion.TLS_1_1)
+  41 |
+  42 |
+  43 | pec = (
+  44 | lder(ConnectionSpec.MODERN_TLS)
+  45 | lsVersion.TLS_1_2)
+  46 |
+  47 |
+  48 |
+> 49 |  = MessageDigest.getInstance(""SHA1"")
+  50 |  = MessageDigest.getInstance(""SHA-512"")
+  51 | mException) {
+  52 | xception) {
+  53 |
+  54 |
+  55 |
+     ^ Col 34
+",kotlin.kotlin_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -3653,54 +3653,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310,skims,052. Ins
   23 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  24 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  25 |  c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  26 |  c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 |  c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 |  c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 |  c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 |  c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 |  k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-> 34 |  k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 |  k3 = ECGenParameterSpec(""secp521r1"")
-  36 |  k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-  38 |  spec1: ConnectionSpec = (
-  39 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  40 |      .tlsVersions(TlsVersion.TLS_1_1)
-  41 |      .build()
-  42 |
-  43 |  spec2: ConnectionSpec = (
-  44 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-     ^ Col 15
-",kotlin.kotlin_insecure_key
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_path/f052/kotlin.kt,"
-  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  32 |
-  33 |  val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  34 |  val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  35 |  val k3 = ECGenParameterSpec(""secp521r1"")
-> 36 |  val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  37 |
-  38 |  val spec1: ConnectionSpec = (
-  39 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  40 |          .tlsVersions(TlsVersion.TLS_1_1)
-  41 |          .build()
-  42 |  )
-  43 |  val spec2: ConnectionSpec = (
-  44 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  45 |          .tlsVersions(TlsVersion.TLS_1_2)
-  46 |          .build()
-     ^ Col 11
-",kotlin.kotlin_insecure_key
 F052,lines,namespace/skims/test/data/lib_root/f052/java.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java.java,"
   24 |
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
@@ -3835,6 +3787,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,20
   30 | router.get(""/test130"", test);
      ^ Col 0
 ",javascript.javascript_insecure_rsa_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  24 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |  k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+> 34 |  k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |  k3 = ECGenParameterSpec(""secp521r1"")
+  36 |  k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |  spec1: ConnectionSpec = (
+  39 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |      .tlsVersions(TlsVersion.TLS_1_1)
+  41 |      .build()
+  42 |
+  43 |  spec2: ConnectionSpec = (
+  44 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+     ^ Col 15
+",kotlin.kotlin_insecure_key
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |  val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 |  val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |  val k3 = ECGenParameterSpec(""secp521r1"")
+> 36 |  val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |  val spec1: ConnectionSpec = (
+  39 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |          .tlsVersions(TlsVersion.TLS_1_1)
+  41 |          .build()
+  42 |  )
+  43 |  val spec2: ConnectionSpec = (
+  44 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |          .tlsVersions(TlsVersion.TLS_1_2)
+  46 |          .build()
+     ^ Col 11
+",kotlin.kotlin_insecure_key
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
    1 | import { Router } from ""express"";
    2 | const router = Router();
