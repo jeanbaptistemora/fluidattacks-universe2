@@ -1,10 +1,10 @@
 import type { MutationFunction } from "@apollo/client";
+import dayjs from "dayjs";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import moment from "moment";
 import React, { Fragment } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -45,9 +45,9 @@ const APITokenModal: FC<IAPITokenModalProps> = ({
   const msToSec: number = 1000;
   const yyyymmdd: number = 10;
 
-  const sixMonthsLater: string = moment().add(6, "months").format("YYYY-MM-DD");
+  const sixMonthsLater: string = dayjs().add(6, "months").format("YYYY-MM-DD");
 
-  const oneDayLater: string = moment().add(1, "day").format("YYYY-MM-DD");
+  const oneDayLater: string = dayjs().add(1, "day").format("YYYY-MM-DD");
 
   const [data, refetch] = useGetAPIToken();
   const accessToken: IGetAccessTokenDictAttr | undefined = _.isUndefined(data)
