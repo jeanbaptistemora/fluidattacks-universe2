@@ -6,6 +6,9 @@ from . import (
     grant_stakeholder,
     put_mutation,
 )
+from asyncio import (
+    sleep,
+)
 from back.test.functional.src.update_group_policies import (
     update_group_policies,
 )
@@ -98,6 +101,7 @@ async def test_update_vulnerabilities_treatment(
         assigned=assigned,
         acceptance_date=acceptance_date,
     )
+    await sleep(5)
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
     vulnerability_response: dict[str, Any] = await get_vulnerability(
