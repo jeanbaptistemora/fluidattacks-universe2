@@ -23,6 +23,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "monitoring_athena_results" {
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "monitoring_athena_results" {
+  bucket = aws_s3_bucket.monitoring_athena_results.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
 resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = aws_s3_bucket.monitoring.id
   acl    = "private"
@@ -39,6 +49,16 @@ resource "aws_cloudwatch_log_group" "monitoring" {
 resource "aws_athena_database" "monitoring" {
   name   = "common_monitoring"
   bucket = aws_s3_bucket.monitoring_athena_results.bucket
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "monitoring" {
+  bucket = aws_s3_bucket.monitoring.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
 
 resource "aws_athena_workgroup" "monitoring" {
