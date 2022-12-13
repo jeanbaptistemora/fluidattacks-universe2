@@ -2440,6 +2440,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS = MethodInfo(
+        file_name="aws",
+        name="s3_buckets_allow_unauthorized_public_access",
+        module="dast",
+        finding=FindingEnum.F203,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
