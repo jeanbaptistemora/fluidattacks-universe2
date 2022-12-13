@@ -62,8 +62,6 @@ async def test_personal(populate: bool) -> None:
 @pytest.mark.resolver_test_group("add_organization")
 async def test_only_one_org_during_trial(populate: bool) -> None:
     assert populate
-    result = await get_result(
-        user="johndoe@fluidattacks.com", org="anotherorg"
-    )
+    result = await get_result(user="johndoe@johndoe.com", org="anotherorg")
     assert "errors" in result
     assert result["errors"][0]["message"] == TrialRestriction().args[0]

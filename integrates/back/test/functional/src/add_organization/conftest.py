@@ -2,6 +2,13 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -27,21 +34,34 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
+        "companies": [
+            Company(
+                domain="johndoe.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+        ],
         "groups": [],
         "organizations": [
             {
                 "organization": Organization(
-                    created_by="johndoe@fluidattacks.com",
+                    created_by="johndoe@johndoe.com",
                     created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="967e17db-6345-4504-a5c4-285e5f8068c6",
                     name="trialorg",
                     policies=Policies(
-                        modified_by="johndoe@fluidattacks.com",
+                        modified_by="johndoe@johndoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                     ),
                     state=OrganizationState(
-                        modified_by="johndoe@fluidattacks.com",
+                        modified_by="johndoe@johndoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         status=OrganizationStateStatus.ACTIVE,
                     ),
@@ -52,7 +72,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             *generic_data["db_data"]["policies"],
             {
                 "level": "organization",
-                "subject": "johndoe@fluidattacks.com",
+                "subject": "johndoe@johndoe.com",
                 "object": "ORG#967e17db-6345-4504-a5c4-285e5f8068c6",
                 "role": "user_manager",
             },
@@ -60,7 +80,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "stakeholders": [
             *generic_data["db_data"]["stakeholders"],
             Stakeholder(
-                email="johndoe@fluidattacks.com",
+                email="johndoe@johndoe.com",
                 first_name="John",
                 is_registered=True,
                 last_name="Doe",

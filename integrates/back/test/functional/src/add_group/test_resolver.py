@@ -126,7 +126,7 @@ async def test_only_one_group_during_trial(populate: bool) -> None:
     org_name: str = "trialorg"
     group_name: str = "trialgroup2"
     result: dict[str, Any] = await get_result(
-        user="johndoe@fluidattacks.com", org=org_name, group=group_name
+        user="johndoe@johndoe.com", org=org_name, group=group_name
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == TrialRestriction().args[0]
@@ -164,7 +164,7 @@ async def test_restrict_services_during_trial(
     org_name: str = "trialorg2"
     group_name: str = "trialgroup2"
     result: dict[str, Any] = await get_result(
-        user="janedoe@fluidattacks.com",
+        user="janedoe@janedoe.com",
         org=org_name,
         group=group_name,
         has_squad=has_squad,

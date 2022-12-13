@@ -178,11 +178,10 @@ def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
 async def is_trial(
     loaders: Dataloaders, user_email: str, organization: Organization
 ) -> bool:
-    enrollment: Enrollment = await loaders.enrollment.load(user_email)
-    trial = enrollment.trial
-    is_old = trial.completed and not trial.start_date
-    has_payment_method = trial.completed and organization.payment_methods
+    domain = user_email.split("@")[1]
+    company: Company = await loaders.company.load(domain)
+    in_trial = company and not company.trial.completed
 
-    if is_old or has_payment_method:
+    if not in_trial or organization.payment_methods:
         return False
     return True

@@ -5,6 +5,10 @@ from back.test import (
 from datetime import (
     datetime,
 )
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -41,6 +45,30 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "companies": [
+            Company(
+                domain="johndoe.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+            Company(
+                domain="janedoe.com",
+                trial=Trial(
+                    completed=False,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+        ],
         "organizations": [
             {
                 "organization": Organization(
@@ -62,17 +90,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
             {
                 "organization": Organization(
-                    created_by="johndoe@fluidattacks.com",
+                    created_by="johndoe@johndoe.com",
                     created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="54b37c94-ebd4-416d-97b3-dee412fc2a1d",
                     name="trialorg",
                     policies=Policies(
-                        modified_by="johndoe@fluidattacks.com",
+                        modified_by="johndoe@johndoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                     ),
                     state=OrganizationState(
-                        modified_by="johndoe@fluidattacks.com",
+                        modified_by="johndoe@johndoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         status=OrganizationStateStatus.ACTIVE,
                     ),
@@ -80,17 +108,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
             {
                 "organization": Organization(
-                    created_by="janedoe@fluidattacks.com",
+                    created_by="janedoe@janedoe.com",
                     created_date="2022-10-21T15:58:31.280182",
                     country="Colombia",
                     id="56f222da-c912-4441-a015-36ec2aad58fc",
                     name="trialorg2",
                     policies=Policies(
-                        modified_by="janedoe@fluidattacks.com",
+                        modified_by="janedoe@janedoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                     ),
                     state=OrganizationState(
-                        modified_by="janedoe@fluidattacks.com",
+                        modified_by="janedoe@janedoe.com",
                         modified_date="2022-10-21T15:58:31.280182",
                         status=OrganizationStateStatus.ACTIVE,
                     ),
@@ -152,7 +180,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
             {
                 "group": Group(
-                    created_by="johndoe@fluidattacks.com",
+                    created_by="johndoe@johndoe.com",
                     created_date=datetime.fromisoformat(
                         "2022-10-21T15:58:31.280182"
                     ),
@@ -164,7 +192,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         has_machine=True,
                         has_squad=False,
                         managed=GroupManaged.TRIAL,
-                        modified_by="johndoe@fluidattacks.com",
+                        modified_by="johndoe@johndoe.com",
                         modified_date=datetime.fromisoformat(
                             "2022-10-21T15:58:31.280182"
                         ),
@@ -180,13 +208,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             *generic_data["db_data"]["policies"],
             {
                 "level": "organization",
-                "subject": "johndoe@fluidattacks.com",
+                "subject": "johndoe@johndoe.com",
                 "object": "ORG#54b37c94-ebd4-416d-97b3-dee412fc2a1d",
                 "role": "user_manager",
             },
             {
                 "level": "organization",
-                "subject": "janedoe@fluidattacks.com",
+                "subject": "janedoe@janedoe.com",
                 "object": "ORG#56f222da-c912-4441-a015-36ec2aad58fc",
                 "role": "user_manager",
             },
@@ -194,14 +222,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "stakeholders": [
             *generic_data["db_data"]["stakeholders"],
             Stakeholder(
-                email="johndoe@fluidattacks.com",
+                email="johndoe@johndoe.com",
                 first_name="John",
                 is_registered=True,
                 last_name="Doe",
                 role="user_manager",
             ),
             Stakeholder(
-                email="janedoe@fluidattacks.com",
+                email="janedoe@janedoe.com",
                 first_name="Jane",
                 is_registered=True,
                 last_name="Doe",

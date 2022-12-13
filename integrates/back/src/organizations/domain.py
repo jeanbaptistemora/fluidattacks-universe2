@@ -38,6 +38,9 @@ from db_model import (
     portfolios as portfolios_model,
     roots as roots_model,
 )
+from db_model.companies.types import (
+    Company,
+)
 from db_model.constants import (
     POLICIES_FORMATTED,
 )
@@ -419,12 +422,11 @@ async def add_organization(
     if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
         raise InvalidOrganization("Invalid name")
 
-    enrollment: Enrollment = await loaders.enrollment.load(email)
-    trial = enrollment.trial
-    is_old = trial.completed and not trial.start_date
-    if not is_old and await loaders.stakeholder_organizations_access.load(
-        email
-    ):
+    company: Optional[Company] = await loaders.company.load(
+        email.split("@")[1]
+    )
+    in_trial = company and not company.trial.completed
+    if in_trial and await loaders.stakeholder_organizations_access.load(email):
         raise TrialRestriction()
 
     modified_date = datetime_utils.get_iso_date()
