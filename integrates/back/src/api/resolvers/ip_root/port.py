@@ -6,5 +6,5 @@ from graphql.type.definition import (
 )
 
 
-def resolve(parent: IPRoot, _info: GraphQLResolveInfo) -> int:
-    return int(parent.state.port)
+def resolve(_parent: IPRoot, _info: GraphQLResolveInfo) -> int:
+    return 0

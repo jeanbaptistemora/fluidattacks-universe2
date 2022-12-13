@@ -503,7 +503,7 @@ async def test_get_roots() -> None:
             "__typename": "IPRoot",
             "address": "127.0.0.1",
             "id": "d312f0b9-da49-4d2b-a881-bed438875e99",
-            "port": 8080,
+            "port": 0,
         },
     ]
 

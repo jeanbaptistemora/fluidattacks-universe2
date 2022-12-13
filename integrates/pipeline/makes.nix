@@ -410,11 +410,7 @@ in {
           }
           {
             output = "/integrates/back/lint/schema";
-            gitlabExtra =
-              gitlabLint
-              // {
-                allow_failure = true;
-              };
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/integrates/back/lint/schema/deprecations";
