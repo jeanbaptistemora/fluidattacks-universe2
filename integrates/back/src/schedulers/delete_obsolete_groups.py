@@ -51,16 +51,13 @@ async def _remove_groups(
     obsolete_groups: tuple[Group, ...],
     user_email: str,
 ) -> None:
-    today = datetime_utils.get_now().date()
+    today = datetime_utils.get_utc_now().date()
     groups_to_remove = [
         group
         for group in obsolete_groups
         if (
             group.state.pending_deletion_date
-            and datetime_utils.get_datetime_from_iso_str(
-                group.state.pending_deletion_date
-            ).date()
-            <= today
+            and group.state.pending_deletion_date.date() <= today
         )
     ]
     if groups_to_remove:
@@ -107,14 +104,12 @@ async def _set_group_pending_deletion_dates(
     obsolete_groups: tuple[Group, ...],
     user_email: str,
 ) -> None:
-    pending_deletion_date: str = datetime_utils.get_as_utc_iso_format(
-        datetime_utils.get_now_plus_delta(weeks=1)
-    )
     groups_to_set_pending_deletion_date = [
         group
         for group in obsolete_groups
         if not group.state.pending_deletion_date
     ]
+    pending_deletion_date = datetime_utils.get_now_plus_delta(weeks=1)
     if groups_to_set_pending_deletion_date:
         await collect(
             [

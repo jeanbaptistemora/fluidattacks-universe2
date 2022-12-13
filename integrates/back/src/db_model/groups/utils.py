@@ -284,7 +284,11 @@ def format_state(state: Item) -> GroupState:
         modified_by=state["modified_by"],
         modified_date=datetime.fromisoformat(state["modified_date"]),
         payment_id=state["payment_id"] if state.get("payment_id") else None,
-        pending_deletion_date=state.get("pending_deletion_date"),
+        pending_deletion_date=datetime.fromisoformat(
+            state["pending_deletion_date"]
+        )
+        if state.get("pending_deletion_date")
+        else None,
         service=GroupService[state["service"]]
         if state.get("service")
         else None,

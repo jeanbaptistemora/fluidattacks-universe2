@@ -44,7 +44,7 @@ class GroupState(NamedTuple):
     comments: Optional[str] = None
     justification: Optional[GroupStatusJustification] = None
     payment_id: Optional[str] = None
-    pending_deletion_date: Optional[str] = None
+    pending_deletion_date: Optional[datetime] = None
     service: Optional[GroupService] = None
 
 

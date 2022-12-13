@@ -1572,7 +1572,7 @@ async def update_indicators(
 async def set_pending_deletion_date(
     group: Group,
     modified_by: str,
-    pending_deletion_date: str,
+    pending_deletion_date: datetime,
 ) -> None:
     """Update pending deletion date in group's state."""
     await update_state(
@@ -1597,7 +1597,7 @@ async def remove_pending_deletion_date(
         state=group.state._replace(
             modified_by=modified_by,
             modified_date=datetime_utils.get_utc_now(),
-            pending_deletion_date="",
+            pending_deletion_date=None,
         ),
     )
 

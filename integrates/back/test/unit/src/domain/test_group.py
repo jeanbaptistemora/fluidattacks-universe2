@@ -40,10 +40,8 @@ from groups.domain import (
     send_mail_devsecops_agent,
     set_pending_deletion_date,
 )
-from newutils.datetime import (
-    convert_from_iso_str,
-    get_utc_now,
-    is_valid_format,
+from newutils import (
+    datetime as datetime_utils,
 )
 from newutils.group_comments import (
     format_group_consulting_resolve,
@@ -120,7 +118,7 @@ async def test_add_comment() -> None:
     comment_data = GroupComment(
         id=str(comment_id),
         content="Test comment",
-        creation_date=get_utc_now(),
+        creation_date=datetime_utils.get_utc_now(),
         full_name="unittesting",
         parent_id="0",
         email="unittest@fluidattacks.com",
@@ -228,7 +226,7 @@ async def test_set_pending_deletion_date() -> None:
     loaders: Dataloaders = get_new_context()
     group_name = "unittesting"
     user_email = "integratesmanager@gmail.com"
-    test_date = "2022-04-06T16:46:23+00:00"
+    test_date = datetime.fromisoformat("2022-04-06T16:46:23+00:00")
     group: Group = await loaders.group.load(group_name)
     assert group.state.pending_deletion_date is None
 
@@ -237,11 +235,7 @@ async def test_set_pending_deletion_date() -> None:
     )
     loaders.group.clear(group_name)
     group_updated: Group = await loaders.group.load(group_name)
-    assert is_valid_format(
-        convert_from_iso_str(
-            group_updated.state.pending_deletion_date  # type: ignore
-        )
-    )
+    assert group_updated.state.pending_deletion_date is not None
     assert group_updated.state.pending_deletion_date == test_date
     assert group_updated.state.modified_by == user_email
 
