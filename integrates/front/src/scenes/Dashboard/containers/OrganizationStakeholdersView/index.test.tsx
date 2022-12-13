@@ -8,8 +8,8 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import dayjs from "dayjs";
 import { GraphQLError } from "graphql";
-import moment from "moment";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -112,7 +112,7 @@ describe("Organization users view", (): void => {
     expect(screen.getByText("Customer Manager")).toBeInTheDocument();
     expect(screen.getByText("2020-06-01")).toBeInTheDocument();
     expect(
-      screen.getByText(moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow())
+      screen.getByText(dayjs("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow())
     ).toBeInTheDocument();
 
     expect(screen.getByText("testuser2@gmail.com")).toBeInTheDocument();
