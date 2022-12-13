@@ -24,7 +24,7 @@ module.exports = {
   coverageReporters: ["text", "lcov"],
   coverageThreshold: {
     global: {
-      branches: 58,
+      branches: 59,
     },
   },
   maxWorkers: 1,
