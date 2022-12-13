@@ -305,33 +305,32 @@ the root will be deactivated in the
 current group and created in
 the selected group.
 
-## Protocols to clone a Git repository
+## Credential Type
 
-To clone a Git repository
-in the Scope section,
-you can do it with the
-protocol **HTTPS** or
-**SSH key (Security Shell)**,
-which you can use for authentication.
+To clone a Git repository in
+the Scope section,
+you can do it with:
+**Protocol HTTPS (User and Password),**
+**SSH key (Security Shell)**
+or **Azure Organization (Access Token)**.
+You can use any of these for authentication.
 
-## Adding a root with the HTTPS​
+### Adding a root with the HTTPS​ (User and Password)​
 
-With HTTPS,
-you can access it in two ways:
-**User and Password**
-or **Access Token**.
+With HTTPS you can access by
+putting **User** and **Password**.
 
-![Adding Root HTTPS](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_https.png)
+![Adding Root HTTPS](https://res.cloudinary.com/fluid-attacks/image/upload/v1670942450/docs/web/groups/scope/https.png)
 
-When selecting
-**User and Password** option,
-you have to fill in the fields
-that say **Repository user**
-and **Repository password**,
+When selecting **User** and
+**Password option**,
+you have to fill in the fields that
+say **Repository user** and
+**Repository password**,
 followed by clicking on the
-**Check Access** button.
+**Check Access button**.
 
-![Adding Root Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_option.png)
+![Adding Root Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1670942553/docs/web/groups/scope/password_user.png)
 
 Remember that the **Check Access**
 button helps us to validate if the
@@ -343,7 +342,7 @@ you will get invalid Credentials,
 and if they are valid,
 you will get Success access.
 
-## Adding a root with the SSH key
+### Adding a root with the SSH key
 
 With SSH keys,
 you can connect to your repository
@@ -353,16 +352,52 @@ If you need to set up an SSH Key,
 we recommend reading this document:
 [Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account)
 .
-We show you how to generate
-your private and public keys
-step by step.
+To add such a credential,
+click on the **SSH** option.
+Here will enable the **Private SSH Key**
+field for you to add.
 
-![Adding Root SSH](https://res.cloudinary.com/fluid-attacks/image/upload/v1658955062/docs/web/groups/scope/adding_root_ssh.png)
+![Adding Root SSH](https://res.cloudinary.com/fluid-attacks/image/upload/v1670942728/docs/web/groups/scope/ssh.png)
 
 Remember to click on the
 **Check Access** button
 or validation if the credential
 gives access to clone the repository.
+
+### Adding a root with the Azure DevOps PTA
+
+**Azure DevOps** is a platform that
+provides software development services,
+among those able to have repository
+management and control the source code.
+We invite you to access the official
+documentation of
+[Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/user-guide/what-is-azure-devops?toc=%2Fazure%2Fdevops%2Fget-started%2Ftoc.json&view=azure-devops)
+if you want more information.
+
+In the ARM,
+if you want to add
+**Azure DevOps PTA (Personal Access Token)**
+repositories, you have to select
+that type of credential.
+There,
+you will be prompted for a Repository
+access token and Azure Organization.
+
+![Adding Root azure](https://res.cloudinary.com/fluid-attacks/image/upload/v1670943031/docs/web/groups/scope/azure.png)
+
+After entering these data,
+click on **Check Access**.
+If the information given is correct,
+the Root will be created successfully.
+
+:::note
+Remember that you can also add
+all this credentials types in
+**Global Credential**.
+For more information,
+click [here](/machine/web/machine/web/global-credentials/).
+:::
 
 ## Status in Git Root
 
@@ -384,6 +419,7 @@ We manage a total of 5 status.
   meaning it has not yet
   been cloned or is glued
   for this action.
+
 ## Environment URLs
 
 Here you see the environments
