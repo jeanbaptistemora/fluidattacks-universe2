@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import moment from "moment";
+import dayjs from "dayjs";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -48,7 +48,7 @@ describe("AdditionalInfo", (): void => {
     ],
     id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
     lastTreatmentDate: "2019-07-05 09:56:40",
-    lastVerificationDate: moment()
+    lastVerificationDate: dayjs()
       .subtract(numberOfDays, "days")
       .format("YYYY-MM-DD hh:mm:ss"),
     organizationName: undefined,
