@@ -20,4 +20,16 @@ describe("InfoDropdown", (): void => {
 
     expect(screen.queryByText("InfoDropdown content")).toBeInTheDocument();
   });
+
+  it("should display the content sup", (): void => {
+    expect.hasAssertions();
+
+    render(
+      <InfoDropdown sup={false}>
+        <p>{"InfoDropdown content"}</p>
+      </InfoDropdown>
+    );
+
+    expect(screen.queryByText("InfoDropdown content")).toBeInTheDocument();
+  });
 });
