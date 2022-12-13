@@ -5178,9 +5178,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JSON_INAPROPIATE_USE_OF_COMMENTS = MethodInfo(
+    JSON_INAPPROPRIATE_USE_OF_COMMENTS = MethodInfo(
         file_name="json_files",
-        name="json_inapropiate_use_of_comments",
+        name="json_inappropriate_use_of_comments",
         module="lib_path",
         finding=FindingEnum.F428,
         developer=DeveloperEnum.JHON_ROMERO,

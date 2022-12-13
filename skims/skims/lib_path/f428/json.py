@@ -36,5 +36,5 @@ def json_unapropiated_comment(
             template=template,
         ),
         path=path,
-        method=MethodsEnum.JSON_INAPROPIATE_USE_OF_COMMENTS,
+        method=MethodsEnum.JSON_INAPPROPRIATE_USE_OF_COMMENTS,
     )
