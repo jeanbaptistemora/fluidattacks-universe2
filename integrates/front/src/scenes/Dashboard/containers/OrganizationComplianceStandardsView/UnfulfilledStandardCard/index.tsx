@@ -28,12 +28,9 @@ const UnfulfilledStandardCard: FC<IUnfulfilledStandardCardProps> = (
     unfulfilledStandard: { title, unfulfilledRequirements },
   } = props;
   const { t } = useTranslation();
-  const areManyRequirements = unfulfilledRequirements.length > 2;
 
   // Handle state
-  const [showAllRequirements, setShowAllRequirements] = useState(
-    !areManyRequirements
-  );
+  const [showAllRequirements, setShowAllRequirements] = useState(false);
 
   // Handle actions
   function handleShowAll(): void {
@@ -49,9 +46,6 @@ const UnfulfilledStandardCard: FC<IUnfulfilledStandardCardProps> = (
       <FontAwesomeIcon icon={faAngleDown} />
     );
   }
-  function getRequirementsAlignment(areManyItems: boolean): "center" | "start" {
-    return areManyItems ? "start" : "center";
-  }
 
   return (
     <Card>
@@ -64,45 +58,43 @@ const UnfulfilledStandardCard: FC<IUnfulfilledStandardCardProps> = (
         <Col lg={100} md={100} sm={100}>
           <Text mb={2} mt={3} size={"small"} ta={"center"}>
             {t("organization.tabs.compliance.tabs.standards.cards.requirement")}
-            {areManyRequirements ? ` (${unfulfilledRequirements.length})` : ""}
+            {` (${unfulfilledRequirements.length})`}
           </Text>
-          {areManyRequirements ? (
-            <div className={"mb2 mt3"}>
-              <Button
-                disp={"block"}
-                onClick={handleShowAll}
-                variant={getButtonVariant(showAllRequirements)}
-              >
-                <div className={"flex flex-row justify-between"}>
-                  <div>
-                    <Text size={"small"} ta={"start"}>
-                      {t(
-                        "organization.tabs.compliance.tabs.standards.cards.showAll"
-                      )}
-                    </Text>
-                  </div>
-                  <div>
-                    <Text size={"small"} ta={"end"}>
-                      {getButtonAngle(showAllRequirements)}
-                    </Text>
-                  </div>
+          <div className={"mb2 mt3"}>
+            <Button
+              disp={"block"}
+              onClick={handleShowAll}
+              variant={getButtonVariant(showAllRequirements)}
+            >
+              <div className={"flex flex-row justify-between"}>
+                <div>
+                  <Text size={"small"} ta={"start"}>
+                    {t(
+                      "organization.tabs.compliance.tabs.standards.cards.showAll"
+                    )}
+                  </Text>
                 </div>
-              </Button>
-            </div>
-          ) : undefined}
+                <div>
+                  <Text size={"small"} ta={"end"}>
+                    {getButtonAngle(showAllRequirements)}
+                  </Text>
+                </div>
+              </div>
+            </Button>
+          </div>
           {showAllRequirements
             ? unfulfilledRequirements.map(
                 (requirement: IUnfulfilledRequirementAttr): JSX.Element => (
                   <Text
                     key={requirement.id}
                     size={"small"}
-                    ta={getRequirementsAlignment(areManyRequirements)}
+                    ta={"start"}
                     tone={"red"}
                   >
                     <ExternalLink
                       href={`${BASE_CRITERIA_URL}requirements/${requirement.id}`}
                     >
-                      {`${requirement.id} ${requirement.title}`}
+                      {`${requirement.id}. ${requirement.title}`}
                     </ExternalLink>
                   </Text>
                 )

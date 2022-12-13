@@ -116,18 +116,19 @@ describe("OrganizationComplianceStandardsView", (): void => {
       </MockedProvider>
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(
-          "organization.tabs.compliance.tabs.standards.unfulfilledStandards.title (2)"
-        )
-      ).toBeInTheDocument();
       expect(screen.getByText("Group 1")).toBeInTheDocument();
       expect(screen.getByText("STANDARDNAME1")).toBeInTheDocument();
-      expect(screen.getAllByText("001 requirement1")[0]).toBeInTheDocument();
-      expect(screen.getByText("002 requirement2")).toBeInTheDocument();
+      expect(
+        screen.getAllByText(
+          "organization.tabs.compliance.tabs.standards.unfulfilledStandards.title (2)"
+        )[0]
+      ).toBeInTheDocument();
       expect(screen.getByText("STANDARDNAME2")).toBeInTheDocument();
-      expect(screen.getAllByText("001 requirement1")[1]).toBeInTheDocument();
-      expect(screen.getByText("003 requirement3")).toBeInTheDocument();
+      expect(
+        screen.getAllByText(
+          "organization.tabs.compliance.tabs.standards.unfulfilledStandards.title (2)"
+        )[0]
+      ).toBeInTheDocument();
     });
   });
 
