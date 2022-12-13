@@ -274,6 +274,10 @@ async def update_finding_unreliable_indicators(  # noqa: C901
                 result.get(EntityAttr.verification_summary)
             )
         ),
+        clean_unreliable_newest_vulnerability_report_date=(
+            EntityAttr.newest_vulnerability_report_date in result
+            and result[EntityAttr.newest_vulnerability_report_date] is None
+        ),
     )
 
     await findings_model.update_unreliable_indicators(

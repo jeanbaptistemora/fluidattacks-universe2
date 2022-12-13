@@ -336,18 +336,14 @@ async def get_max_open_severity(
 async def get_newest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
-) -> str:
+) -> Optional[datetime]:
     finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulns: tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
     report_dates = vulns_utils.get_report_dates(vulns)
-    newest_report_date: str = (
-        datetime_utils.get_as_utc_iso_format(max(report_dates))
-        if report_dates
-        else ""
-    )
-    return newest_report_date
+
+    return max(report_dates) if report_dates else None
 
 
 async def get_open_vulnerabilities(

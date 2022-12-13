@@ -247,7 +247,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
                     unreliable_newest_vulnerability_report_date=(
-                        "2020-12-26T05:45:00+00:00"
+                        datetime.fromisoformat("2020-12-26T05:45:00+00:00")
                     ),
                     unreliable_oldest_open_vulnerability_report_date=(
                         "2020-02-24T05:45:00+00:00"

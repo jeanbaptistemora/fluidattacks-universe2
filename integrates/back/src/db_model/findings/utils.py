@@ -263,7 +263,11 @@ def format_unreliable_indicators_to_update_item(
             indicators.unreliable_closed_vulnerabilities
         ),
         "unreliable_newest_vulnerability_report_date": (
-            indicators.unreliable_newest_vulnerability_report_date
+            get_as_utc_iso_format(
+                indicators.unreliable_newest_vulnerability_report_date
+            )
+            if indicators.unreliable_newest_vulnerability_report_date
+            else None
         ),
         "unreliable_oldest_open_vulnerability_report_date": (
             indicators.unreliable_oldest_open_vulnerability_report_date
@@ -287,6 +291,8 @@ def format_unreliable_indicators_to_update_item(
         if indicators.unreliable_verification_summary
         else None,
     }
+    if indicators.clean_unreliable_newest_vulnerability_report_date:
+        item["unreliable_newest_vulnerability_report_date"] = ""
 
     return {key: value for key, value in item.items() if value is not None}
 
