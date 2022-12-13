@@ -1,6 +1,9 @@
 from model.core_model import (
     MethodsEnum,
 )
+from symbolic_eval.f211.method_invocation.common import (
+    common_regex_injection,
+)
 from symbolic_eval.f211.method_invocation.java import (
     java_vuln_regex,
 )
@@ -15,6 +18,8 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_VULN_REGEX: java_vuln_regex,
+    MethodsEnum.JS_REGEX_INJETCION: common_regex_injection,
+    MethodsEnum.TS_REGEX_INJETCION: common_regex_injection,
 }
 
 
