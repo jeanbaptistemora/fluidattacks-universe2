@@ -190,4 +190,4 @@ async def test_unique_emails(
     groups_data: dict[str, CommentsDataType],
 ) -> None:
     emails = unique_emails(dict(groups_data), ())
-    assert len(emails) == 7
+    assert len(emails) == 9

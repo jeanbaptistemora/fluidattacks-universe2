@@ -178,7 +178,7 @@ def unique_emails(
 ) -> tuple[str, ...]:
     if comment_data:
         email_list += comment_data.popitem()[1]["email_to"]
-        unique_emails(comment_data, email_list)
+        return unique_emails(comment_data, email_list)
 
     return tuple(set(email_list))
 
