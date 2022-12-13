@@ -601,8 +601,8 @@ F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13
   17 | }
      ^ Col 0
 ",csharp.csharp_info_leak_errors
-F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/Test.java","
    1 | import java.io.File;
    2 | import java.nio.file.Files.*;
    3 |
@@ -626,8 +626,8 @@ F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,200,skims,237. Te
   21 |         try {
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,13,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,13,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/Test.java","
    3 |
    4 | public class Test {
    5 |     public static void main(String[] args){
@@ -651,8 +651,8 @@ F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,13,200,skims,237. T
   23 |         System.out.println(File.createTempFile(""xxx"", attrs=""xxx""));
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/Test.java","
    8 |         System.out.println(createTempFile(""xxx"", null));
    9 |         } catch (Exception e) {}
   10 |
@@ -676,8 +676,8 @@ F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,200,skims,237. T
   28 | /*
      ^ Col 0
 ",java.java_has_print_statements
-F237,lines,namespace/skims/test/data/lib_path/f160/Test.java,23,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_path/f160/Test.java","
+F237,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f160/Test.java","
   13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
   14 |         } catch (Exception e) {}
   15 |
@@ -864,54 +864,6 @@ F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.jav
   20 | }
      ^ Col 0
 ",java.java_has_print_statements
-F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
-    1 | function functionAWithConsoleLog() {
-    2 |     var a = 13
-    3 |     var b = 31
-    4 |     var c = Math.floor((Math.random() * 100) + 1);
->   5 |     console.log()
-    6 |     localStorage.getItem('key');
-    7 |     try {
-    8 |         if(a == """") throw ""empty"";
-    9 |         if(isNaN(a)) throw ""not a number"";
-   10 |         c = Number(a);
-   11 |         if(c < 5) throw ""too low"";
-   12 |         if(c > 10) throw ""too high"";
-   13 |     }
-   14 |     catch(err) {
-   15 |         // a comment
-   16 |         /* a comment */
-   17 |         /*
-   18 |             a comment
-   19 |         */
-   20 |     }
-   21 |
-      ^ Col 0
-",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,66,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
-   56 |             break;
-   57 |         case 6:
-   58 |             day = ""Saturday"";
-   59 |             break;
-   60 |     }
-   61 | }
-   62 |
-   63 | function functionBWithConsoleLog() {
-   64 |     var a = 13
-   65 |     var b = 31
->  66 |     console.log(a+b)
-   67 |     localStorage.clear();
-   68 |     try {
-   69 |         if(a == """") throw ""empty"";
-   70 |         if(isNaN(a)) throw ""not a number"";
-   71 |         c = Number(a);
-   72 |         if(c < 5) throw ""too low"";
-   73 |         if(c > 10) throw ""too high"";
-   74 |     }
-   75 |     catch(err) {
-   76 |         //console.log(a+b)
-      ^ Col 0
-",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f052/javascript.js,16,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f052/javascript.js,"
    1 | const crypto = require(""crypto"");
    2 |
@@ -982,6 +934,54 @@ F066,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,24
   31 |
   32 | export default router;
      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,"
+    1 | function functionAWithConsoleLog() {
+    2 |     var a = 13
+    3 |     var b = 31
+    4 |     var c = Math.floor((Math.random() * 100) + 1);
+>   5 |     console.log()
+    6 |     localStorage.getItem('key');
+    7 |     try {
+    8 |         if(a == """") throw ""empty"";
+    9 |         if(isNaN(a)) throw ""not a number"";
+   10 |         c = Number(a);
+   11 |         if(c < 5) throw ""too low"";
+   12 |         if(c > 10) throw ""too high"";
+   13 |     }
+   14 |     catch(err) {
+   15 |         // a comment
+   16 |         /* a comment */
+   17 |         /*
+   18 |             a comment
+   19 |         */
+   20 |     }
+   21 |
+      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,66,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/ConsoleLogOpen.js,"
+   56 |             break;
+   57 |         case 6:
+   58 |             day = ""Saturday"";
+   59 |             break;
+   60 |     }
+   61 | }
+   62 |
+   63 | function functionBWithConsoleLog() {
+   64 |     var a = 13
+   65 |     var b = 31
+>  66 |     console.log(a+b)
+   67 |     localStorage.clear();
+   68 |     try {
+   69 |         if(a == """") throw ""empty"";
+   70 |         if(isNaN(a)) throw ""not a number"";
+   71 |         c = Number(a);
+   72 |         if(c < 5) throw ""too low"";
+   73 |         if(c > 10) throw ""too high"";
+   74 |     }
+   75 |     catch(err) {
+   76 |         //console.log(a+b)
+      ^ Col 0
 ",javascript.js_uses_console_log
 F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/has_console_functions.js,"
   1 | function has_console_functions() {
@@ -1264,7 +1264,7 @@ F234,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,234. Te
   10 | }
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,"
+F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/Test.java,"
    1 | t java.io.File;
    2 |
    3 | c class Test {
@@ -1282,7 +1282,7 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   15 |
      ^ Col 5
 ",query.query_f063
-F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,"
+F063,lines,namespace/skims/test/data/lib_root/f063/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/Test.java,"
    1 |
    2 |
    3 |
@@ -4110,7 +4110,7 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,25,319,skims,017. Sen
   33 | }
      ^ Col 0
 ",c_sharp.c_sharp_jwt_signed
-F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,10,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,10,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
    1 | package f022
    2 |
    3 | import org.apache.commons.net.ftp.FTPClient
@@ -4134,7 +4134,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,10,319,skims,022. U
   21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
      ^ Col 0
 ",kotlin.kotlin_unencrypted_channel
-F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,12,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,12,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
    2 |
    3 | import org.apache.commons.net.ftp.FTPClient
    4 | import org.apache.commons.net.ftp.FTPSClient
@@ -4158,7 +4158,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,12,319,skims,022. U
   22 |         ConnectionSpec.MODERN_TLS
      ^ Col 0
 ",kotlin.kotlin_unencrypted_channel
-F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,19,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,19,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
    4 | import org.apache.commons.net.ftp.FTPSClient
    5 | import org.apache.commons.net.smtp.SMTPClient
    6 | import org.apache.commons.net.smtp.SMTPSClient
@@ -4182,7 +4182,7 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,19,319,skims,022. U
   24 | }
      ^ Col 0
 ",kotlin.kotlin_unencrypted_channel
-F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/kotlin.kt,"
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,15,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
    4 | import org.apache.commons.net.ftp.FTPSClient
    5 | import org.apache.commons.net.smtp.SMTPClient
    6 | import org.apache.commons.net.smtp.SMTPSClient
@@ -4268,8 +4268,8 @@ F016,lines,namespace/skims/test/data/lib_root/f016/insecure_shared_access_protoc
   13 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_shared_access_protocol
-F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
- in namespace/skims/test/data/lib_path/f034/Test.java","
+F034,lines,namespace/skims/test/data/lib_root/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+ in namespace/skims/test/data/lib_root/f034/Test.java","
    1 |
    2 | public class BenchmarkTest00167 extends HttpServlet {
    3 |  @Override
@@ -4383,7 +4383,7 @@ F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file
   19 | }
      ^ Col 0
 ",c_sharp.c_sharp_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,8,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
    1 | import java.io.File;
    2 | import java.nio.file.Files.*;
    3 |
@@ -4407,7 +4407,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,8,378,skims,160. Ex
   21 |         try {
      ^ Col 0
 ",java.java_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,18,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
    8 |         System.out.println(createTempFile(""xxx"", null));
    9 |         } catch (Exception e) {}
   10 |
@@ -4431,7 +4431,7 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,18,378,skims,160. E
   28 | /*
      ^ Col 0
 ",java.java_file_create_temp_file
-F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,23,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_path/f160/Test.java,"
+F160,lines,namespace/skims/test/data/lib_root/f160/Test.java,23,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in namespace/skims/test/data/lib_root/f160/Test.java,"
   13 |         System.out.println(createTempFile(""xxx"", attrs=""xxx""));
   14 |         } catch (Exception e) {}
   15 |
@@ -6282,7 +6282,7 @@ F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Refle
   18 | }
      ^ Col 0
 ",query.query_f008
-F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
    13 |     //console.log()
    14 |     //localStorage.setItem(""key"")
    15 |     //eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
@@ -6306,7 +6306,7 @@ F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,23,79,skim
    33 |             c = Number(a);
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,42,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,42,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
    32 |         else {
    33 |             c = Number(a);
    34 |         }
@@ -6330,7 +6330,7 @@ F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,42,79,skim
    52 |         // a comment
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,46,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,46,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
    36 |             throw ""too low"";
    37 |         }
    38 |         else if(c > 10) {
@@ -6354,7 +6354,7 @@ F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,46,79,skim
    56 |         */
       ^ Col 0
 ",javascript.js_uses_innerhtml
-F371,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js,57,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_path/f066/ConsoleLogClose.js","
+F371,lines,namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js,57,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/ConsoleLogClose.js","
    47 |     }
    48 |
    49 |

@@ -1,146 +1,146 @@
 {
   "F001": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F004": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F007": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F008": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F009": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F010": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F011": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F012": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F015": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F016": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F017": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F020": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F021": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F022": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F023": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F024": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F031": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F034": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F035": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F036": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F037": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F042": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F043": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F044": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F046": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F048": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F052": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F055": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F056": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F058": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F059": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F060": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F061": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F063": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {
         "13-36-39-40-50-63-85-95": [
           {
@@ -380,492 +380,492 @@
         ]
       }
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F064": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F065": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F066": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F070": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F071": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F073": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F075": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F079": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F080": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F082": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F083": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F085": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F086": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F089": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F091": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F092": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F094": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F096": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F097": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F098": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F099": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F100": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F103": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F107": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F109": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F112": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+    "skims/test/data/lib_root/f063/Test.java": {
       "23": {}
     },
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F117": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F120": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F127": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F128": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F129": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F130": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F131": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F132": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F133": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F134": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F135": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F143": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F148": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F149": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F152": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F153": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F157": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F160": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F164": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F165": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F176": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F177": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F182": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F183": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F200": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F203": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F206": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F207": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F211": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F234": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F236": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F237": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F239": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F241": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F246": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F247": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F250": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F252": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F256": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F257": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F258": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F259": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F266": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F267": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F268": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F277": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F279": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F280": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F281": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F300": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F309": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F313": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F320": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F325": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F332": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F333": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F335": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F337": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F338": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F343": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F346": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F350": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F353": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F354": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F363": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F366": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F368": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F371": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F372": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F380": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F381": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F393": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F394": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F396": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F398": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F400": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F401": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F402": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F403": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F405": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F406": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F407": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F408": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F409": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F411": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F412": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F413": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F414": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F416": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F418": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F423": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F426": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F427": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   },
   "F428": {
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {},
-    "skims/test/data/lib_path/f160/Test.java": {}
+    "skims/test/data/lib_root/f063/Test.java": {},
+    "skims/test/data/lib_root/f160/Test.java": {}
   }
 }

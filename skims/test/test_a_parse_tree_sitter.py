@@ -43,8 +43,8 @@ from utils.encodings import (
         ),
         (
             (
-                "skims/test/data/lib_path/f160/Test.java",
-                "skims/test/data/lib_path/f063_path_traversal/Test.java",
+                "skims/test/data/lib_root/f160/Test.java",
+                "skims/test/data/lib_root/f063/Test.java",
             ),
             "findings",
         ),
