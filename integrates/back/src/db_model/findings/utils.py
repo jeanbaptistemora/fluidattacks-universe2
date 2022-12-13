@@ -277,7 +277,11 @@ def format_unreliable_indicators_to_update_item(
             else None
         ),
         "unreliable_oldest_vulnerability_report_date": (
-            indicators.unreliable_oldest_vulnerability_report_date
+            get_as_utc_iso_format(
+                indicators.unreliable_oldest_vulnerability_report_date
+            )
+            if indicators.unreliable_oldest_vulnerability_report_date
+            else None
         ),
         "unreliable_open_vulnerabilities": (
             indicators.unreliable_open_vulnerabilities
@@ -299,6 +303,8 @@ def format_unreliable_indicators_to_update_item(
         item["unreliable_newest_vulnerability_report_date"] = ""
     if indicators.clean_unreliable_oldest_open_vulnerability_report_date:
         item["unreliable_oldest_open_vulnerability_report_date"] = ""
+    if indicators.clean_unreliable_oldest_vulnerability_report_date:
+        item["unreliable_oldest_vulnerability_report_date"] = ""
 
     return {key: value for key, value in item.items() if value is not None}
 

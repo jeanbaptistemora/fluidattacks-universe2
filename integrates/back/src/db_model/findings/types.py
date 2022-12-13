@@ -210,7 +210,7 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_closed_vulnerabilities: Optional[int] = None
     unreliable_newest_vulnerability_report_date: Optional[datetime] = None
     unreliable_oldest_open_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_vulnerability_report_date: Optional[str] = None
+    unreliable_oldest_vulnerability_report_date: Optional[datetime] = None
     unreliable_open_vulnerabilities: Optional[int] = None
     unreliable_status: Optional[FindingStatus] = None
     unreliable_treatment_summary: Optional[FindingTreatmentSummary] = None
@@ -220,3 +220,4 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_where: Optional[str] = None
     clean_unreliable_newest_vulnerability_report_date: bool = False
     clean_unreliable_oldest_open_vulnerability_report_date: bool = False
+    clean_unreliable_oldest_vulnerability_report_date: bool = False

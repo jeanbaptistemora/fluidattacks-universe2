@@ -239,7 +239,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         datetime.fromisoformat("2020-02-24T05:45:00+00:00")
                     ),
                     unreliable_oldest_vulnerability_report_date=(
-                        "2018-04-01T05:45:00+00:00"
+                        datetime.fromisoformat("2018-04-01T05:45:00+00:00")
                     ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
@@ -325,7 +325,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         datetime.fromisoformat("2020-02-24T05:45:00+00:00")
                     ),
                     unreliable_oldest_vulnerability_report_date=(
-                        "2018-04-01T05:45:00+00:00"
+                        datetime.fromisoformat("2018-04-01T05:45:00+00:00")
                     ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",

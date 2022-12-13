@@ -1074,18 +1074,14 @@ async def get_oldest_open_vulnerability_report_date(
 async def get_oldest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
-) -> str:
+) -> Optional[datetime]:
     finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulns: tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
     report_dates = vulns_utils.get_report_dates(vulns)
-    oldest_report_date: str = (
-        datetime_utils.get_as_utc_iso_format(min(report_dates))
-        if report_dates
-        else ""
-    )
-    return oldest_report_date
+
+    return min(report_dates) if report_dates else None
 
 
 async def get_vulnerabilities_to_reattack(
