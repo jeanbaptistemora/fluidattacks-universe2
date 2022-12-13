@@ -6,7 +6,7 @@ from enum import (
 )
 
 
-class DraftRejectionReason(Enum):
+class DraftRejectionReason(str, Enum):
     CONSISTENCY: str = "CONSISTENCY"
     EVIDENCE: str = "EVIDENCE"
     NAMING: str = "NAMING"
@@ -16,12 +16,12 @@ class DraftRejectionReason(Enum):
     WRITING: str = "WRITING"
 
 
-class FindingCvssVersion(Enum):
+class FindingCvssVersion(str, Enum):
     V31: str = "3.1"
     V20: str = "2.0"
 
 
-class FindingEvidenceName(Enum):
+class FindingEvidenceName(str, Enum):
     # pylint: disable=invalid-name
     animation: str = "animation"
     evidence1: str = "evidence1"
@@ -33,12 +33,12 @@ class FindingEvidenceName(Enum):
     records: str = "records"
 
 
-class FindingSorts(Enum):
+class FindingSorts(str, Enum):
     NO: str = "NO"
     YES: str = "YES"
 
 
-class FindingStateStatus(Enum):
+class FindingStateStatus(str, Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"
     DELETED: str = "DELETED"
@@ -47,12 +47,12 @@ class FindingStateStatus(Enum):
     SUBMITTED: str = "SUBMITTED"
 
 
-class FindingStatus(Enum):
+class FindingStatus(str, Enum):
     CLOSED: str = "CLOSED"
     OPEN: str = "OPEN"
 
 
-class FindingVerificationStatus(Enum):
+class FindingVerificationStatus(str, Enum):
     MASKED: str = "MASKED"
     REQUESTED: str = "REQUESTED"
     ON_HOLD: str = "ON_HOLD"

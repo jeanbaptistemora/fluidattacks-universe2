@@ -11,20 +11,17 @@ from .types import (
     FindingEvidenceToUpdate,
     FindingMetadataToUpdate,
     FindingState,
-    FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
-    FindingVerificationSummary,
 )
 from .utils import (
     format_evidence_item,
     format_evidences_item,
     format_state_item,
-    format_treatment_summary_item,
     format_unreliable_indicators_item,
+    format_unreliable_indicators_to_update_item,
     format_verification_item,
-    format_verification_summary_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -337,15 +334,10 @@ async def update_unreliable_indicators(
         values={"group_name": group_name, "id": finding_id},
     )
     unreliable_indicators_item = {
-        f"unreliable_indicators.{key}": value.value
-        if isinstance(value, Enum)
-        else format_treatment_summary_item(value)
-        if isinstance(value, FindingTreatmentSummary)
-        else format_verification_summary_item(value)
-        if isinstance(value, FindingVerificationSummary)
-        else value
-        for key, value in indicators._asdict().items()
-        if value is not None
+        f"unreliable_indicators.{key}": value
+        for key, value in format_unreliable_indicators_to_update_item(
+            indicators
+        ).items()
     }
     current_value_item = {
         f"unreliable_indicators.{key}": value

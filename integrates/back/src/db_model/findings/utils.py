@@ -16,6 +16,7 @@ from .types import (
     FindingState,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
+    FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
     FindingVerificationSummary,
 )
@@ -252,6 +253,42 @@ def format_unreliable_indicators_item(
             indicators.unreliable_verification_summary
         ),
     }
+
+
+def format_unreliable_indicators_to_update_item(
+    indicators: FindingUnreliableIndicatorsToUpdate,
+) -> Item:
+    item = {
+        "unreliable_closed_vulnerabilities": (
+            indicators.unreliable_closed_vulnerabilities
+        ),
+        "unreliable_newest_vulnerability_report_date": (
+            indicators.unreliable_newest_vulnerability_report_date
+        ),
+        "unreliable_oldest_open_vulnerability_report_date": (
+            indicators.unreliable_oldest_open_vulnerability_report_date
+        ),
+        "unreliable_oldest_vulnerability_report_date": (
+            indicators.unreliable_oldest_vulnerability_report_date
+        ),
+        "unreliable_open_vulnerabilities": (
+            indicators.unreliable_open_vulnerabilities
+        ),
+        "unreliable_status": indicators.unreliable_status,
+        "unreliable_where": indicators.unreliable_where,
+        "unreliable_treatment_summary": format_treatment_summary_item(
+            indicators.unreliable_treatment_summary
+        )
+        if indicators.unreliable_treatment_summary
+        else None,
+        "unreliable_verification_summary": format_verification_summary_item(
+            indicators.unreliable_verification_summary
+        )
+        if indicators.unreliable_verification_summary
+        else None,
+    }
+
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_unreliable_indicators(
