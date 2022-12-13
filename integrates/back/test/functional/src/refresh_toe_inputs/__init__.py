@@ -38,6 +38,7 @@ async def refresh_toe_inputs(
         subject=user,
         additional_info="*",
         product_name=Product.INTEGRATES,
+        queue=batch_dal.IntegratesBatchQueue.SMALL,
     )
     batch_action = await get_batch_job(
         action_name="refresh_toe_inputs", entity=group_name

@@ -4,6 +4,7 @@ from aioextensions import (
 from batch.dal import (
     delete_action,
     get_actions_by_name,
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -462,7 +463,7 @@ async def queue_sync_git_roots(
             entity=group_name,
             subject=user_email,
             additional_info=additional_info,
-            queue="clone",
+            queue=IntegratesBatchQueue.CLONE,
             product_name=Product.INTEGRATES,
             dynamodb_pk=None,
         )
@@ -473,7 +474,7 @@ async def queue_sync_git_roots(
                 entity=group_name,
                 product_name=Product.INTEGRATES,
                 subject="integrates@fluidattacks.com",
-                queue="small",
+                queue=IntegratesBatchQueue.SMALL,
                 dependsOn=[
                     {
                         "jobId": result_clone.batch_job_id,
@@ -488,7 +489,7 @@ async def queue_sync_git_roots(
                     entity=group_name,
                     product_name=Product.INTEGRATES,
                     subject="integrates@fluidattacks.com",
-                    queue="small",
+                    queue=IntegratesBatchQueue.SMALL,
                     attempt_duration_seconds=14400,
                     dependsOn=[
                         {

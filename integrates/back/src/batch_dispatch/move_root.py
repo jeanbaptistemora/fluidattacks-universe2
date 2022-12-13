@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from batch.dal import (
     delete_action,
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -652,6 +653,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             subject=item.subject,
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=IntegratesBatchQueue.SMALL,
         )
     if isinstance(root, GitRoot):
         LOGGER.info("Updating ToE lines")
@@ -677,6 +679,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             subject=item.subject,
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=IntegratesBatchQueue.SMALL,
         )
     if isinstance(root, IPRoot):
         LOGGER.info("Updating ToE ports")
@@ -702,6 +705,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             subject=item.subject,
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=IntegratesBatchQueue.SMALL,
         )
     stakeholder: Stakeholder = await loaders.stakeholder.load(item.subject)
     if (

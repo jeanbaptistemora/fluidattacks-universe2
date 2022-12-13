@@ -28,7 +28,7 @@ def format_job_payload(job_description: BatchProcessing) -> JobPayload:
 
 
 async def get_job_payloads(
-    queues: List[str], statuses: List[JobStatus]
+    queues: List[batch_dal.IntegratesBatchQueue], statuses: List[JobStatus]
 ) -> Set[JobPayload]:
     queues_jobs = await batch_dal.list_queues_jobs(
         queues=queues, statuses=statuses

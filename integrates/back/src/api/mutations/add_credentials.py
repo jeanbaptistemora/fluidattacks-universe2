@@ -5,6 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from batch.dal import (
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -106,7 +107,7 @@ async def mutate(
         action=Action.UPDATE_ORGANIZATION_REPOSITORIES,
         vcpus=2,
         product_name=Product.INTEGRATES,
-        queue="small",
+        queue=IntegratesBatchQueue.SMALL,
         additional_info=json.dumps({"credentials_id": credentials_id}),
         entity=organization_id.lower().lstrip("org#"),
         attempt_duration_seconds=7200,

@@ -10,6 +10,7 @@ from ariadne.utils import (
 from batch.dal import (
     generate_key_to_dynamod,
     get_action,
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -110,7 +111,7 @@ async def mutate(
                 entity=root.group_name,
                 product_name=Product.INTEGRATES,
                 subject="integrates@fluidattacks.com",
-                queue="small",
+                queue=IntegratesBatchQueue.SMALL,
                 dependsOn=[
                     {
                         "jobId": result_queue_sync.batch_job_id,
@@ -148,7 +149,7 @@ async def mutate(
                 action=Action.UPDATE_ORGANIZATION_OVERVIEW,
                 vcpus=2,
                 product_name=Product.INTEGRATES,
-                queue="small",
+                queue=IntegratesBatchQueue.SMALL,
                 additional_info="*",
                 entity=group.organization_id.lower().lstrip("org#"),
                 attempt_duration_seconds=7200,

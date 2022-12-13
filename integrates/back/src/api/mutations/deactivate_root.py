@@ -156,6 +156,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 subject=email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
                 dependsOn=[
                     {
                         "jobId": (
@@ -163,6 +164,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                                 action=Action.REMOVE_ROOTS,
                                 entity=group_name,
                                 subject=email,
+                                queue=batch_dal.IntegratesBatchQueue.SMALL,
                                 additional_info=root.state.nickname,
                                 product_name=Product.INTEGRATES,
                             )
@@ -185,7 +187,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                     action=Action.UPDATE_ORGANIZATION_OVERVIEW,
                     vcpus=2,
                     product_name=Product.INTEGRATES,
-                    queue="small",
+                    queue=batch_dal.IntegratesBatchQueue.SMALL,
                     additional_info="*",
                     entity=group.organization_id.lower().lstrip("org#"),
                     attempt_duration_seconds=7200,
@@ -205,6 +207,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 subject=email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
             )
         if isinstance(root, IPRoot):
             await batch_dal.put_action(
@@ -213,6 +216,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 subject=email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
             )
     await update_unreliable_indicators_by_deps(
         EntityDependency.deactivate_root,

@@ -82,7 +82,7 @@ async def mutate(
                 "source_root_id": root_id,
             },
         ),
-        queue="small",
+        queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
     root: Root = await loaders.root.load((group_name, root_id))
@@ -93,6 +93,7 @@ async def mutate(
             subject=email,
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=batch_dal.IntegratesBatchQueue.SMALL,
         )
     if isinstance(root, (GitRoot, URLRoot)):
         await batch_dal.put_action(
@@ -101,6 +102,7 @@ async def mutate(
             subject=email,
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=batch_dal.IntegratesBatchQueue.SMALL,
         )
     if isinstance(root, IPRoot):
         await batch_dal.put_action(
@@ -109,6 +111,7 @@ async def mutate(
             subject=email,
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
+            queue=batch_dal.IntegratesBatchQueue.SMALL,
         )
 
     logs_utils.cloudwatch_log(

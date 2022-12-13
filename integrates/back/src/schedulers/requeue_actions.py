@@ -190,6 +190,11 @@ async def requeue_actions() -> bool:
                 except KeyError:
                     if action.action_name == Action.EXECUTE_MACHINE.value:
                         kwargs = {"memory": 7200, "vcpus": 4}
+            product = (
+                Product.INTEGRATES
+                if action.action_name != Action.EXECUTE_MACHINE.value
+                else Product.SKIMS
+            )
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,
@@ -200,12 +205,8 @@ async def requeue_actions() -> bool:
                     ),
                     action_dynamo_pk=action.key,
                     entity=action.entity,
-                    queue=action.queue,
-                    product_name=(
-                        Product.INTEGRATES.value
-                        if action.action_name != Action.EXECUTE_MACHINE.value
-                        else Product.SKIMS.value
-                    ),
+                    queue=batch_dal.to_queue(action.queue, product),
+                    product_name=product.value,
                     **kwargs,
                 )
             )

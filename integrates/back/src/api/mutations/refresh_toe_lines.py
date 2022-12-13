@@ -47,7 +47,7 @@ async def mutate(
         group_name = parameters["group_name"]
         user_info = await sessions_domain.get_jwt_content(info.context)
         action = Action.REFRESH_TOE_LINES
-        queue = "small"
+        queue = batch_dal.IntegratesBatchQueue.SMALL
         job_payloads = await batch_domain.get_job_payloads(
             queues=[queue],
             statuses=[

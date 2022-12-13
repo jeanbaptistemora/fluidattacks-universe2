@@ -37,6 +37,7 @@ async def refresh_toe_ports(
         entity=group_name,
         subject=user,
         additional_info="*",
+        queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
     batch_action = await get_batch_job(

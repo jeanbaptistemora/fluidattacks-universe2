@@ -171,5 +171,7 @@ async def populate_db(dynamodb: ServiceResource) -> bool:
     with mock.patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
         mock_put_item.side_effect = side_effect
         for item in data:
-            await batch_dal.put_action_to_dynamodb(**item)
+            await batch_dal.put_action_to_dynamodb(
+                queue=batch_dal.IntegratesBatchQueue.SMALL, **item
+            )
     return True

@@ -1,5 +1,6 @@
 from batch.dal import (
     delete_action,
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -58,7 +59,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
             additional_info=",".join(
                 [root.state.nickname for root in group_roots]
             ),
-            queue="small",
+            queue=IntegratesBatchQueue.SMALL,
             product_name=Product.INTEGRATES,
         )
         success = root_removal.success

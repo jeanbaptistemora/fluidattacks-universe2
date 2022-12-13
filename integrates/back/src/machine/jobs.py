@@ -5,6 +5,7 @@ from batch.dal import (
     describe_jobs,
     get_actions_by_name,
     put_action,
+    SkimsBatchQueue,
 )
 from batch.enums import (
     Action,
@@ -39,9 +40,6 @@ from db_model.roots.types import (
     MachineFindingResult,
     Root,
     RootMachineExecution,
-)
-from enum import (
-    Enum,
 )
 import json
 import logging
@@ -81,13 +79,6 @@ QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]
 )
-
-
-class SkimsBatchQueue(Enum):
-    SMALL: str = "skims_small"
-    MEDIUM: str = "skims_medium"
-    LARGE: str = "skims_large"
-    CLONE: str = "clone"
 
 
 class JobArguments(NamedTuple):
@@ -305,7 +296,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
                 action=Action.EXECUTE_MACHINE,
                 vcpus=4,
                 product_name=Product.SKIMS,
-                queue=queue.value,
+                queue=queue,
                 entity=group_name,
                 additional_info=json.dumps(
                     {
@@ -395,3 +386,8 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
         complete=jobs[0] if jobs else None,
         specific=jobs[0] if jobs else None,
     )
+
+
+__all__ = [
+    "SkimsBatchQueue",
+]

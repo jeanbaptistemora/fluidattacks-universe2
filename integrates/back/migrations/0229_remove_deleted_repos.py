@@ -10,6 +10,7 @@ from aioextensions import (
     run,
 )
 from batch.dal import (
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -49,7 +50,7 @@ async def process_group(
             additional_info=",".join(
                 [root.state.nickname for root in group_roots]
             ),
-            queue="small",
+            queue=IntegratesBatchQueue.SMALL,
             product_name=Product.INTEGRATES,
         )
         success = root_removal.success

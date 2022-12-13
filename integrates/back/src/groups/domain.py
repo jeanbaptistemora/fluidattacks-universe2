@@ -504,7 +504,7 @@ async def remove_group(
         entity=group_name,
         subject=email,
         additional_info="remove_group",
-        queue="small",
+        queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
     if FI_ENVIRONMENT == "development":

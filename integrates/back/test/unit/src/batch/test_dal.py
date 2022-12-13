@@ -5,9 +5,11 @@ from batch.dal import (
     delete_action,
     get_action,
     get_actions,
+    IntegratesBatchQueue,
     mapping_to_key,
     put_action_to_batch,
     put_action_to_dynamodb,
+    to_queue,
 )
 from batch.enums import (
     Product,
@@ -29,6 +31,7 @@ from newutils.datetime import (
 import pytest
 from typing import (
     List,
+    Optional,
 )
 from unittest import (
     mock,
@@ -165,23 +168,25 @@ async def test_put_action_to_batch(dynamodb: ServiceResource) -> None:
         mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
         pending_actions: List[BatchProcessing] = await get_actions()
     assert mock_scan.called is True
+
+    async def _put(action: BatchProcessing) -> Optional[str]:
+        product = (
+            Product.SKIMS
+            if action.action_name == "execute-machine"
+            else Product.INTEGRATES
+        )
+        return await put_action_to_batch(
+            entity=action.entity,
+            action_name=action.action_name,
+            action_dynamo_pk=action.key,
+            queue=to_queue(action.queue, product),
+            product_name=product.value,
+        )
+
     assert all(
         result is None
         for result in await collect(
-            [
-                put_action_to_batch(
-                    entity=action.entity,
-                    action_name=action.action_name,
-                    action_dynamo_pk=action.key,
-                    queue=action.queue,
-                    product_name=(
-                        Product.SKIMS
-                        if action.action_name == "execute-machine"
-                        else Product.INTEGRATES
-                    ).value,
-                )
-                for action in pending_actions
-            ],
+            [_put(action) for action in pending_actions],
             workers=20,
         )
     )
@@ -231,7 +236,7 @@ async def test_put_action_to_dynamodb(dynamodb: ServiceResource) -> None:
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 4
     with mock.patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
         mock_put_item.side_effect = side_effect
-        await put_action_to_dynamodb(**item)
+        await put_action_to_dynamodb(queue=IntegratesBatchQueue.SMALL, **item)
     assert mock_put_item.called is True
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
     assert (

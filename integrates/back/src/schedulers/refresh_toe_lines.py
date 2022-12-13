@@ -2,6 +2,7 @@ from aioextensions import (
     collect,
 )
 from batch.dal import (
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -30,7 +31,7 @@ async def main() -> None:
             entity=group_name,
             product_name=Product.INTEGRATES,
             subject="integrates@fluidattacks.com",
-            queue="small",
+            queue=IntegratesBatchQueue.SMALL,
         )
         for group_name in group_names
     )
@@ -41,7 +42,7 @@ async def main() -> None:
             entity=group_name,
             product_name=Product.INTEGRATES,
             subject="integrates@fluidattacks.com",
-            queue="small",
+            queue=IntegratesBatchQueue.SMALL,
             attempt_duration_seconds=14400,
             dependsOn=[
                 {

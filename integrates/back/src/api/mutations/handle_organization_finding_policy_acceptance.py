@@ -5,6 +5,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from batch.dal import (
+    IntegratesBatchQueue,
     put_action,
 )
 from batch.enums import (
@@ -67,6 +68,7 @@ async def mutate(
             subject=user_email,
             additional_info=organization_name,
             product_name=Product.INTEGRATES,
+            queue=IntegratesBatchQueue.SMALL,
         )
 
     return SimplePayload(success=True)

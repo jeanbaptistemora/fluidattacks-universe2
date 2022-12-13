@@ -132,6 +132,7 @@ async def mutate(
                 subject=user_email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
             )
         if isinstance(root, (GitRoot, URLRoot)):
             await batch_dal.put_action(
@@ -140,6 +141,7 @@ async def mutate(
                 subject=user_email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
             )
         if isinstance(root, IPRoot):
             await batch_dal.put_action(
@@ -148,6 +150,7 @@ async def mutate(
                 subject=user_email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                queue=batch_dal.IntegratesBatchQueue.SMALL,
             )
 
     return SimplePayload(success=True)

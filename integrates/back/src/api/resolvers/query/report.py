@@ -204,7 +204,7 @@ async def _get_url_group_report(  # NOSONAR
             additional_info=additional_info,
             vcpus=4,
             attempt_duration_seconds=7200,
-            queue="medium",
+            queue=batch_dal.IntegratesBatchQueue.MEDIUM,
             product_name=Product.INTEGRATES,
             memory=7600,
         )

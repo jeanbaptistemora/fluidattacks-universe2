@@ -4,7 +4,14 @@ from aioextensions import (
 import asyncio
 import authz
 from batch.dal import (
+    IntegratesBatchQueue,
     put_action_to_dynamodb,
+    SkimsBatchQueue,
+    to_queue,
+)
+from batch.enums import (
+    Action,
+    Product,
 )
 from dataloaders import (
     Dataloaders,
@@ -611,8 +618,32 @@ async def populate_credentials(data: tuple[Credentials, ...]) -> bool:
     return True
 
 
+def get_product(action_name: str) -> Product:
+    return (
+        Product.INTEGRATES
+        if action_name != Action.EXECUTE_MACHINE.value
+        else Product.SKIMS
+    )
+
+
+def set_queue(raw: dict[str, Any]) -> dict[str, Any]:
+    _result = raw.copy()
+    product = get_product(raw["action_name"])
+    if "queue" in raw:
+        _result["queue"] = to_queue(raw["queue"], product)
+        return _result
+    _result["queue"] = (
+        IntegratesBatchQueue.SMALL
+        if product is Product.INTEGRATES
+        else SkimsBatchQueue.SMALL
+    )
+    return _result
+
+
 async def populate_actions(data: tuple[dict[str, Any], ...]) -> bool:
-    await collect((put_action_to_dynamodb(**action)) for action in data)
+    await collect(
+        (put_action_to_dynamodb(**set_queue(action))) for action in data
+    )
     return True
 
 

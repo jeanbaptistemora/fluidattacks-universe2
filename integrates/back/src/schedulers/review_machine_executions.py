@@ -121,7 +121,7 @@ async def main() -> None:
                 put_action_to_batch(
                     action_name=Action.EXECUTE_MACHINE.value,
                     vcpus=8,
-                    queue=SkimsBatchQueue.LARGE.value,
+                    queue=SkimsBatchQueue.LARGE,
                     entity=action.entity,
                     attempt_duration_seconds=86400,
                     action_dynamo_pk=action.key,
