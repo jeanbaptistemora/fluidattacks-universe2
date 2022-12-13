@@ -10,7 +10,6 @@ from datetime import (
 )
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
 )
 from db_model.enums import (
     GitCloningStatus,
@@ -77,16 +76,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             Enrollment(
                 email="user@gmail.com",
                 enrolled=True,
-                trial=Trial(
-                    completed=True,
-                    extension_date=datetime.fromisoformat(
-                        "2017-04-06T00:45:11+00:00"
-                    ),
-                    extension_days=5,
-                    start_date=datetime.fromisoformat(
-                        "2017-04-06T00:45:11+00:00"
-                    ),
-                ),
             ),
         ),
         "events": [

@@ -7,7 +7,6 @@ from datetime import (
 )
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -120,32 +119,14 @@ def generic_data(  # pylint: disable=too-many-locals
                 Enrollment(
                     email=admin_email,
                     enrolled=True,
-                    trial=Trial(
-                        completed=True,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=None,
-                    ),
                 ),
                 Enrollment(
                     email=admin_fluid_email,
                     enrolled=True,
-                    trial=Trial(
-                        completed=True,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=None,
-                    ),
                 ),
                 Enrollment(
                     email=customer_manager_fluid_email,
                     enrolled=True,
-                    trial=Trial(
-                        completed=False,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=None,
-                    ),
                 ),
             ),
             "stakeholders": [

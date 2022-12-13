@@ -54,7 +54,6 @@ from db_model.credentials.types import (
 )
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
 )
 from db_model.enums import (
     CredentialType,
@@ -319,12 +318,6 @@ async def complete_register_for_organization_invitation(
             enrollment=Enrollment(
                 email=email,
                 enrolled=True,
-                trial=Trial(
-                    completed=True,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=None,
-                ),
             )
         )
 

@@ -1,3 +1,5 @@
+# type: ignore
+
 # pylint: disable=invalid-name
 """
 Populate the enrollment items for the old stakeholders

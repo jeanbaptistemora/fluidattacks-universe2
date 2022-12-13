@@ -17,7 +17,7 @@ from db_model import (
 )
 from db_model.companies.types import (
     Company,
-    Trial as CompanyTrial,
+    Trial,
 )
 from db_model.enrollment.enums import (
     EnrollmentTrialState,
@@ -25,7 +25,6 @@ from db_model.enrollment.enums import (
 from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
-    Trial,
 )
 from db_model.organizations.types import (
     Organization,
@@ -98,7 +97,7 @@ async def add_enrollment(
             companies_model.add(
                 company=Company(
                     domain=user_email.split("@")[1],
-                    trial=CompanyTrial(
+                    trial=Trial(
                         completed=False,
                         extension_date=None,
                         extension_days=0,
@@ -110,12 +109,6 @@ async def add_enrollment(
                 enrollment=Enrollment(
                     email=user_email,
                     enrolled=True,
-                    trial=Trial(
-                        completed=False,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=datetime_utils.get_utc_now(),
-                    ),
                 )
             ),
         ]

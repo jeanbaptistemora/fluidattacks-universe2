@@ -1,6 +1,5 @@
 from .types import (
     Enrollment,
-    Trial,
 )
 from .utils import (
     format_enrollment,
@@ -42,12 +41,6 @@ async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
             Enrollment(  # Fallback for this entity
                 email=email,
                 enrolled=False,
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=None,
-                ),
             ),
         )
         enrollments.append(enrollment)

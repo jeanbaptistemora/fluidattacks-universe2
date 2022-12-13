@@ -65,7 +65,6 @@ from db_model.constants import (
 )
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
 )
 from db_model.enums import (
     Notification,
@@ -266,12 +265,6 @@ async def complete_register_for_group_invitation(
                 enrollment=Enrollment(
                     email=email,
                     enrolled=True,
-                    trial=Trial(
-                        completed=True,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=None,
-                    ),
                 )
             )
         )

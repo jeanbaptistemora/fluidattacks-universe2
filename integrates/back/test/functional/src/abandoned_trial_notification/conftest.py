@@ -2,12 +2,8 @@
 from back.test import (
     db,
 )
-from datetime import (
-    datetime,
-)
 from db_model.enrollment.types import (
     Enrollment,
-    Trial,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -24,14 +20,6 @@ async def populate() -> bool:
             Enrollment(
                 email="johndoe@fluidattacks.com",
                 enrolled=True,
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
-                    ),
-                ),
             ),
         ],
         "stakeholders": [
