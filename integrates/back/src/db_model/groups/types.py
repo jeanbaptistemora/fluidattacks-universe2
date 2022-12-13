@@ -101,7 +101,7 @@ class GroupFile(NamedTuple):
 
 class Group(NamedTuple):
     created_by: str
-    created_date: str
+    created_date: datetime
     description: str
     language: GroupLanguage
     name: str

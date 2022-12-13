@@ -98,7 +98,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="unknown",
-                    created_date="2022-11-24T22:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-11-24T22:00:00+00:00"
+                    ),
                     description="-",
                     language=GroupLanguage.EN,
                     name="group",

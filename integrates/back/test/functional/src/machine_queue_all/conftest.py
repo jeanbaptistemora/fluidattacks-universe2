@@ -53,7 +53,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "group": Group(
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     description="Test group with Machine services",
                     language=GroupLanguage.EN,
                     name="machinegroup",
@@ -76,7 +78,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "group": Group(
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     description="Test group with Squad services",
                     language=GroupLanguage.EN,
                     name="squadgroup",
@@ -99,7 +103,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "group": Group(
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     description="Test group with Machine services",
                     language=GroupLanguage.EN,
                     name="deletedgroup",

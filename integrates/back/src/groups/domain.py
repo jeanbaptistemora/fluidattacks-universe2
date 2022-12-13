@@ -347,7 +347,7 @@ async def add_group(
     await groups_model.add(
         group=Group(
             created_by=email,
-            created_date=datetime_utils.get_iso_date(),
+            created_date=datetime_utils.get_utc_now(),
             description=description,
             language=language,
             name=group_name,

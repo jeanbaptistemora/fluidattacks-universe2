@@ -112,11 +112,9 @@ async def missing_environment_alert() -> None:
 
     if groups:
         for group in groups:
-            creation_date: date = datetime_utils.get_date_from_iso_str(
-                group.created_date
-            )
+            creation_date: date = group.created_date.date()
             group_date_delta: int = (
-                datetime_utils.get_now().date() - creation_date
+                datetime_utils.get_utc_now().date() - creation_date
             ).days
             has_env: bool = await has_environment(loaders, group.name)
             if (

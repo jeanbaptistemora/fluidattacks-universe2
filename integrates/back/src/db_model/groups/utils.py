@@ -74,7 +74,7 @@ def format_files_items(
 def format_group(item: Item) -> Group:
     return Group(
         created_by=item["created_by"],
-        created_date=item["created_date"],
+        created_date=datetime.fromisoformat(item["created_date"]),
         agent_token=item.get("agent_token"),
         business_id=item.get("business_id"),
         business_name=item.get("business_name"),

@@ -466,7 +466,9 @@ def generic_data(  # pylint: disable=too-many-locals
                 {
                     "group": Group(
                         created_by="unknown",
-                        created_date="2020-05-20T22:00:00+00:00",
+                        created_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         description="-",
                         language=GroupLanguage.EN,
                         name="group1",
@@ -490,7 +492,9 @@ def generic_data(  # pylint: disable=too-many-locals
                 {
                     "group": Group(
                         created_by="unknown",
-                        created_date="2020-05-20T22:00:00+00:00",
+                        created_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         description="-",
                         language=GroupLanguage.EN,
                         name="unittesting",
@@ -514,7 +518,9 @@ def generic_data(  # pylint: disable=too-many-locals
                 {
                     "group": Group(
                         created_by="unknown",
-                        created_date="2020-05-20T22:00:00+00:00",
+                        created_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         description="-",
                         language=GroupLanguage.EN,
                         name="group2",
@@ -538,7 +544,9 @@ def generic_data(  # pylint: disable=too-many-locals
                 {
                     "group": Group(
                         created_by="unknown",
-                        created_date="2020-05-20T22:00:00+00:00",
+                        created_date=datetime.fromisoformat(
+                            "2020-05-20T22:00:00+00:00"
+                        ),
                         description="-",
                         language=GroupLanguage.EN,
                         name="group3",

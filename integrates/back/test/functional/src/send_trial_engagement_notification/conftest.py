@@ -169,7 +169,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="johndoe@johndoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup",
@@ -192,7 +194,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="janedoe@janedoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup2",
@@ -215,7 +219,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="uiguaran@uiguaran.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup3",
@@ -238,7 +244,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="abuendia@abuendia.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup4",
@@ -261,7 +269,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="avicario@avicario.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup5",
@@ -284,7 +294,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="fariza@fariza.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup6",
@@ -307,7 +319,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="snassar@snassar.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup7",
@@ -330,7 +344,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="jbuendia@jbuendia.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup8",
@@ -353,7 +369,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="rremedios@rremedios.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup9",
@@ -376,7 +394,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="rmontiel@rmontiel.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup10",
@@ -399,7 +419,9 @@ async def populate() -> bool:
             {
                 "group": Group(
                     created_by="rmoscote@rmoscote.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182"
+                    ),
                     description="test description",
                     language=GroupLanguage.EN,
                     name="testgroup11",

@@ -32,7 +32,6 @@ from db_model.groups.types import (
     Group,
 )
 from newutils.datetime import (
-    get_date_from_iso_str,
     get_utc_now,
 )
 from operator import (
@@ -55,7 +54,7 @@ async def get_data_one_group(
 ) -> EventsAvailability:
     current_date: date = get_utc_now().date()
     group: Group = await loaders.group.load(group_name)
-    creation_date = get_date_from_iso_str(group.created_date)
+    creation_date = group.created_date.date()
     events_group: tuple[Event, ...] = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )

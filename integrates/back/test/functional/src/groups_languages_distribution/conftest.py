@@ -57,7 +57,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "group": Group(
                     created_by="user_manager@domain.com",
-                    created_date="2022-09-12T19:00:00-05:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-09-12T19:00:00-05:00"
+                    ),
                     description="Test group",
                     language=GroupLanguage.EN,
                     name="test_group_1",
