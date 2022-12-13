@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
 import { Buttons } from "./styles";
 
+import { useCarousel } from "../../utils/hooks";
 import { Button } from "components/Button";
 
 interface ICarouselProps {
@@ -12,29 +13,19 @@ interface ICarouselProps {
 
 const Carousel: React.FC<ICarouselProps> = ({
   contents,
-  initSelection = 0,
   tabs,
 }: Readonly<ICarouselProps>): JSX.Element => {
-  const [selection, setSelection] = useState(initSelection);
-  const handleClicks: (() => void)[] = tabs.map(
-    (_, idx): (() => void) =>
-      (): void => {
-        setSelection(idx);
-      }
-  );
+  const timePerProgress = 70;
+  const numberOfCycles = tabs.length;
+  const { cycle } = useCarousel(timePerProgress, numberOfCycles);
 
   return (
     <Fragment>
-      {contents[selection]}
-      <Buttons selection={selection}>
+      {contents[cycle]}
+      <Buttons selection={cycle}>
         {tabs.map(
-          (el: string, idx): JSX.Element => (
-            <Button
-              key={el}
-              onClick={handleClicks[idx]}
-              size={"xxs"}
-              variant={"carousel"}
-            >
+          (el: string): JSX.Element => (
+            <Button key={el} size={"xxs"} variant={"carousel"}>
               {el}
             </Button>
           )
