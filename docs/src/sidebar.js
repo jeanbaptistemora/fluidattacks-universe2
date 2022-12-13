@@ -468,6 +468,7 @@ const Development = [
                   "development/products/skims/guidelines/sast/libpath",
                 ],
               },
+              "development/products/skims/guidelines/dast",
             ],
           },
         ],

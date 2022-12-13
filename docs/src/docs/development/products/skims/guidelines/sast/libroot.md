@@ -40,7 +40,16 @@ For example, a method declaration node can have several children, such as
 the arguments list, the execution block of the method, and any modifiers or
 annotations unique to each language.
 
-These graphs are generally very good representations of the code, however,
+The parser node definitions and rules for each language is stored inside a
+JSON object usually called "node-types" in the library repository.
+For instance, the JavaScript logic can be found in this
+[file](https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/node-types.json)
+
+This object gives all the possible attributes, children and other details about
+each node type that each language has. This information is crucial for the
+next step in this module.
+
+The AST graphs are generally very good representations of the code, however,
 we have found that the AST graphs have two major problems:
 
 - They usually contain a lot of unnecessary information, such as
@@ -106,6 +115,12 @@ into the relevant concept that it represents.
 After all the nodes have been parsed, the syntax graph goes through another
 process that generates the **control flow** connections
 between the major declaration nodes.
+
+When making adjustments or adding functionalities to this module,
+the node_types object (Mentioned in the first step) from the parser library
+of each language must always be verified, to ensure the code is covering
+all the possible cases from the language and to avoid any code execution
+errors on client files.
 
 ### 2.2 Syntax CFG
 
