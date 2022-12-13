@@ -23926,6 +23926,16 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-11T05:00:00+00:00"
+                  }
+                }
               }
             },
             {
@@ -24018,6 +24028,16 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-11T05:00:00+00:00"
+                  }
+                }
               }
             },
             {
@@ -24100,6 +24120,16 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-11T05:00:00+00:00"
+                  }
+                }
               }
             }
           ],
@@ -24125,7 +24155,8 @@
             "last_author",
             "last_commit",
             "sorts_suggestions",
-            "sorts_risk_level_date"
+            "sorts_risk_level_date",
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
