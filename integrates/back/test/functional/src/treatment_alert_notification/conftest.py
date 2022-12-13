@@ -247,7 +247,7 @@ async def populate() -> bool:
                         datetime.fromisoformat("2020-12-26T05:45:00+00:00")
                     ),
                     unreliable_oldest_open_vulnerability_report_date=(
-                        "2020-02-24T05:45:00+00:00"
+                        datetime.fromisoformat("2020-02-24T05:45:00+00:00")
                     ),
                     unreliable_oldest_vulnerability_report_date=(
                         "2018-04-01T05:45:00+00:00"
