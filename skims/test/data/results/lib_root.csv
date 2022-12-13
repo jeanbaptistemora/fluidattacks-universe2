@@ -4719,6 +4719,31 @@ F060,lines,namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,2,396,ski
   5 | secframe.contentWindow.postMessage(""hello"", ""https://secure.example.com""); // Compliant
     ^ Col 0
 ",typescript.typescript_unsafe_origin
+F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,19,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/js_regex_injection.js","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+   5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+  12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+> 19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",javascript.js_regex_injection
 F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
  in namespace/skims/test/data/lib_root/f211/js_regex_injection.js","
    1 | const escapeStringRegexp = require('escape-string-regexp');
