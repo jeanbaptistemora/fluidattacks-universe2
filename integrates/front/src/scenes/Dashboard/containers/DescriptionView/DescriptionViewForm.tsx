@@ -1,10 +1,15 @@
 import { Field, Form, useFormikContext } from "formik";
-import yaml from "js-yaml";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
+
+import {
+  getRequerimentsData,
+  getRequirementsText,
+  getVulnsData,
+} from "./utils";
 
 import { ExternalLink } from "components/ExternalLink";
 import { Tooltip } from "components/Tooltip";
@@ -13,10 +18,6 @@ import type {
   IFinding,
   IFindingDescriptionData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import type {
-  IRequirementData,
-  IVulnData,
-} from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { validateNotEmpty } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   Col100,
@@ -76,9 +77,6 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const isDescriptionPristine = !dirty;
 
   const criteriaIdSlice: number = 3;
-  const baseUrl: string =
-    "https://gitlab.com/api/v4/projects/20741933/repository/files";
-  const branchRef: string = "trunk";
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [reqsList, setReqsList] = useState<string[]>([]);
@@ -101,55 +99,15 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
     ? data.finding.title.slice(0, criteriaIdSlice)
     : "";
 
-  function getRequirementsText(
-    requirements: string[],
-    language: string | undefined,
-    criteriaData: Record<string, IRequirementData> | undefined
-  ): string[] {
-    if (criteriaData === undefined) {
-      return requirements;
-    }
-    const requirementsSummaries: string[] = requirements.map(
-      (key: string): string => {
-        const summary =
-          language === "ES"
-            ? criteriaData[key].es.summary
-            : criteriaData[key].en.summary;
-
-        return `${key}. ${summary}`;
-      }
-    );
-
-    return requirementsSummaries;
-  }
-
   useEffect((): void => {
     async function fetchData(): Promise<void> {
-      const vulnsFileId: string =
-        "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
-      const vulnsResponseFile: Response = await fetch(
-        `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
-      );
-      const vulnsYamlFile: string = await vulnsResponseFile.text();
-      const vulnsData = vulnsYamlFile
-        ? (yaml.load(vulnsYamlFile) as Record<string, IVulnData>)
-        : undefined;
-
-      const requirementsFileId: string =
-        "common%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
-      const requirementsResponseFile: Response = await fetch(
-        `${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`
-      );
-      const requirementsYamlFile: string =
-        await requirementsResponseFile.text();
-      const requirementsData = requirementsYamlFile
-        ? (yaml.load(requirementsYamlFile) as Record<string, IRequirementData>)
-        : undefined;
+      const vulnsData = await getVulnsData();
+      const requirementsData = await getRequerimentsData();
 
       if (!_.isNil(vulnsData) && !_.isNil(findingNumber)) {
         const { requirements } = vulnsData[findingNumber];
         setReqsList(
-          getRequirementsText(requirements, groupLanguage, requirementsData)
+          getRequirementsText(requirements, requirementsData, groupLanguage)
         );
         const titlesList = Object.keys(vulnsData).map((key: string): string => {
           return groupLanguage === "ES"
