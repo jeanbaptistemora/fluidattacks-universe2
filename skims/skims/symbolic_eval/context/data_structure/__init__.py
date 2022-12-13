@@ -30,16 +30,25 @@ def search_data_element(
     if not (obj_id and al_id):
         return None
 
-    var_name = graph.nodes[n_attrs["object_id"]].get("symbol") or ""
-    access_id = g.adj_ast(graph, al_id)[0]
+    args_ids = g.adj_ast(graph, al_id)
+    var_name = graph.nodes[obj_id].get("symbol")
+    if not (
+        var_name
+        and len(args_ids) == 1
+        and graph.nodes[args_ids[0]]["label_type"] == "Literal"
+    ):
+        return None
+
+    access_nid = graph.nodes[args_ids[0]]
+
     try:
         m_path = get_lookup_path(graph, path, method_id)
     except ValueError:
         return None
-    access_nid = graph.nodes[access_id]
+
     if access_nid.get("value_type") == "number":
         with suppress(ValueError):
-            access_val = int(access_nid.get("value"))
+            access_val = int(access_nid["value"])
             return get_element_by_idx(graph, m_path, var_name, access_val)
     elif access_nid.get("value_type") == "string":
         access_key = str(access_nid["value"])
