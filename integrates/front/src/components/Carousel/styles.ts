@@ -15,7 +15,7 @@ const Buttons = styled.div<IButtonsProps>`
     color: #fff;
     margin-right: 8px;
     margin-top: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 55%;
   }
 
   button:nth-child(${({ selection }): number => selection + 1}) {

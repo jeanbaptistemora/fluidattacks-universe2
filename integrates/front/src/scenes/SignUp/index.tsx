@@ -121,8 +121,13 @@ export const SignUp: React.FC = (): JSX.Element => {
           width={"105%"}
           wrap={"wrap"}
         >
-          <Container height={"800px"}>
-            <Container pb={"48px"}>
+          <Container
+            align={"center"}
+            justify={"center"}
+            maxHeight={"800px"}
+            pl={"20px"}
+          >
+            <Container pb={"48px"} pbMd={"10px"}>
               <Container
                 letterSpacing={"2px"}
                 maxWidth={"696px"}
@@ -139,6 +144,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                 maxWidth={"568px"}
                 pt={"24px"}
                 width={"100%"}
+                widthMd={"85%"}
               >
                 <Text bright={0} fontSize={"20px"} tone={"light"}>
                   {t("signup.subtitle")}
@@ -155,7 +161,11 @@ export const SignUp: React.FC = (): JSX.Element => {
                     <Container letterSpacing={"1.2px"} pr={"16px"}>
                       <FontAwesomeIcon color={"#f4f4f6"} icon={benefit.icon} />
                     </Container>
-                    <Container lineHeight={"24px"} maxWidth={"522px"}>
+                    <Container
+                      lineHeight={"24px"}
+                      maxWidth={"522px"}
+                      widthMd={"75%"}
+                    >
                       <Text bright={0} fontSize={"16px"} tone={"light"}>
                         {benefit.data}
                       </Text>
@@ -170,7 +180,9 @@ export const SignUp: React.FC = (): JSX.Element => {
               borderBR={"15px"}
               borderTR={"15px"}
               borderTl={"15px"}
+              heightMd={"40%"}
               width={"568px"}
+              widthMd={"95%"}
             >
               <Container pl={"40px"}>
                 <Carousel
@@ -181,6 +193,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                         key={el}
                         pr={"40px"}
                         pt={"40px"}
+                        ptMd={"10px"}
                         scroll={"none"}
                       >
                         {el === 2 ? <StarsMedium /> : <StarsFull />}
@@ -189,7 +202,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                             {quotes[el].quote}
                           </Text>
                         </Container>
-                        <Container pt={"24px"}>
+                        <Container pt={"24px"} ptMd={"10px"}>
                           <Text bright={7} fontSize={"20px"} tone={"dark"}>
                             {quotes[el].reference}
                           </Text>
