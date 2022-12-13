@@ -60,7 +60,7 @@ export const Login: React.FC = (): JSX.Element => {
           display={"flex"}
           height={"700px"}
           justify={"center"}
-          maxWidth={"350px"}
+          maxWidth={"390px"}
           position={"absolute"}
           width={"100%"}
           widthMd={"30%"}
@@ -70,7 +70,7 @@ export const Login: React.FC = (): JSX.Element => {
             align={"center"}
             display={"flex"}
             justify={"center"}
-            width={"350px"}
+            width={"390px"}
             wrap={"wrap"}
           >
             <Container
@@ -86,7 +86,7 @@ export const Login: React.FC = (): JSX.Element => {
             display={"flex"}
             justify={"center"}
             pt={"100px"}
-            width={"350px"}
+            width={"390px"}
             wrap={"wrap"}
           >
             <Container id={"login-auth"}>
@@ -95,13 +95,13 @@ export const Login: React.FC = (): JSX.Element => {
               </Text>
             </Container>
           </Container>
-          <Container maxWidth={"350px"} pt={"32px"} widthMd={"300px"}>
+          <Container maxWidth={"390px"} pt={"32px"} widthMd={"300px"}>
             <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
               <Container
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
-                width={"310px"}
+                width={"350px"}
                 widthMd={"100%"}
                 wrap={"wrap"}
               >
@@ -121,7 +121,7 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"350px"} pt={"16px"} widthMd={"300px"}>
+          <Container maxWidth={"390px"} pt={"16px"} widthMd={"300px"}>
             <Button
               onClick={handleMicrosoftLogin}
               size={"lg"}
@@ -131,7 +131,7 @@ export const Login: React.FC = (): JSX.Element => {
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
-                width={"310px"}
+                width={"350px"}
                 widthMd={"100%"}
                 wrap={"wrap"}
               >
@@ -152,7 +152,7 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"350px"} pt={"16px"} widthMd={"300px"}>
+          <Container maxWidth={"390px"} pt={"16px"} widthMd={"300px"}>
             <Button
               onClick={handleBitbucketLogin}
               size={"lg"}
@@ -162,7 +162,7 @@ export const Login: React.FC = (): JSX.Element => {
                 align={"center"}
                 display={"flex"}
                 justify={"center"}
-                width={"310px"}
+                width={"350px"}
                 widthMd={"100%"}
                 wrap={"wrap"}
               >
@@ -210,6 +210,7 @@ export const Login: React.FC = (): JSX.Element => {
             borderTop={"1.5px solid #b0b0bf"}
             display={"inline"}
             justify={"center"}
+            pt={"15px"}
             width={"350px"}
           >
             <Text bright={9} fontSize={"14px"} ta={"center"} tone={"light"}>
