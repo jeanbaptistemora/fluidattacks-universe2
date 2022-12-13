@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 const router = Router();
+
 function routa(req, res) {
   let key = Math.random().toString();
   res.cookie("rememberKey", key);
@@ -8,4 +9,5 @@ function routa(req, res) {
 }
 router.get("/test148", routa);
 
-export default router;
+//Should not report
+const ran_numb = Math.random();
