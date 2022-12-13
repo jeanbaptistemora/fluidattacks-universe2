@@ -5640,26 +5640,52 @@ F152,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,9,6
   16 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xframe_options
-F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
-   1 | using System;
+F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,12,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
    2 | using System.Security;
    3 |
    4 | namespace MyLibrary
    5 | {
-   6 |
-   7 |     [SecurityCritical]
-   8 |     public class Foo
-   9 |     {
-> 10 |         [SecuritySafeCritical]
-  11 |         public void Bar()
-  12 |         {
-  13 |         }
-  14 |
-  15 |         public void Testeo()
+   6 |     // Should fail pointing to lines 12 and 19
+   7 |     [FilterOne]
+   8 |     [SecurityCritical]
+   9 |     [LastFilter]
+  10 |     public class HaveFails
+  11 |     {
+> 12 |         [SecuritySafeCritical]
+  13 |         [Fone]
+  14 |         [Hello]
+  15 |         public void FailsFirsFilter()
   16 |         {
   17 |         }
-  18 |     }
-  19 | }
+  18 |
+  19 |         [SecuritySafeCritical]
+  20 |         public void MethodWhithOneFilter()
+  21 |         {
+  22 |         }
+     ^ Col 0
+",c_sharp.csharp_conflicting_annotations
+F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,19,749,skims,366. Inappropriate coding practices - Transparency Conflict,Members should not have conflicting transparency annotations in namespace/skims/test/data/lib_root/f366/test.cs,"
+   9 |     [LastFilter]
+  10 |     public class HaveFails
+  11 |     {
+  12 |         [SecuritySafeCritical]
+  13 |         [Fone]
+  14 |         [Hello]
+  15 |         public void FailsFirsFilter()
+  16 |         {
+  17 |         }
+  18 |
+> 19 |         [SecuritySafeCritical]
+  20 |         public void MethodWhithOneFilter()
+  21 |         {
+  22 |         }
+  23 |
+  24 |         public void MethodWithoutFilters()
+  25 |         {
+  26 |         }
+  27 |
+  28 |         [FilterOne]
+  29 |         [OtherFilter]
      ^ Col 0
 ",c_sharp.csharp_conflicting_annotations
 F338,lines,namespace/skims/test/data/lib_root/f338/test.cs,12,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
