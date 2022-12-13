@@ -4,9 +4,9 @@ import type { PureAbility } from "@casl/ability";
 import { faPlug, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import moment from "moment";
 import React, {
   useCallback,
   useContext,
@@ -49,7 +49,7 @@ const formatDate: (date: Date | string | null | undefined) => string = (
     return "-";
   }
 
-  const result: string = moment(date).format("YYYY-MM-DD hh:mm:ss");
+  const result: string = dayjs(date).format("YYYY-MM-DD hh:mm:ss");
 
   return result === "Invalid date" ? "-" : result;
 };
