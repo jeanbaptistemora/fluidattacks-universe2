@@ -5,12 +5,12 @@ aiodataloader: 0.2.1
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
 aiohttp: 3.8.1
+arch-lint: 1.1.0
 ariadne:
   version: 0.15.1
   extras:
     - asgi-file-uploads
 async-lru: 1.0.2
-arch-lint: 1.1.0
 Authlib: 0.15.4
 azure-devops: 6.0.0b4
 backports.csv: 1.0.7
