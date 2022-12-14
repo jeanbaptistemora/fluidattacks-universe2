@@ -1,11 +1,11 @@
+import dayjs from "dayjs";
 import { graphql, useStaticQuery } from "gatsby";
-import moment from "moment";
 import React, { useCallback, useState } from "react";
 
 import { Button } from "../../../components/Button";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
-import { Date, Select, TextArea } from "../../../components/Input";
+import { Select, TextArea } from "../../../components/Input";
 import { Pagination } from "../../../components/Pagination";
 import { Text } from "../../../components/Typography";
 import { VerticalCard } from "../../../components/VerticalCard";
@@ -70,6 +70,8 @@ export const BlogsList: React.FC = (): JSX.Element => {
     (category, index): boolean => categoriesListRaw.indexOf(category) === index
   );
 
+  const datesList = ["Last month", "Last 6 months", "Last year"];
+
   const allPosts: INodes[] = data.allMarkdownRemark.edges;
 
   const [selectedAuthor, setSelectedAuthor] = useState("All");
@@ -92,7 +94,21 @@ export const BlogsList: React.FC = (): JSX.Element => {
   };
 
   const filterDates = (post: INodes, date: string): boolean => {
-    return date === "" || moment(post.node.frontmatter.date).isAfter(date);
+    if (date === "Last month") {
+      return dayjs(post.node.frontmatter.date).isAfter(
+        dayjs().subtract(1, "months")
+      );
+    } else if (date === "Last 6 months") {
+      return dayjs(post.node.frontmatter.date).isAfter(
+        dayjs().subtract(6, "months")
+      );
+    } else if (date === "Last year") {
+      return dayjs(post.node.frontmatter.date).isAfter(
+        dayjs().subtract(1, "year")
+      );
+    }
+
+    return true;
   };
 
   const filterTitles = (post: INodes, title: string): boolean => {
@@ -184,7 +200,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
     [resetPagination]
   );
 
-  const changeInitialDate = useCallback(
+  const changeDate = useCallback(
     (date: string): void => {
       setSelectedDate(date);
       resetPagination();
@@ -224,7 +240,11 @@ export const BlogsList: React.FC = (): JSX.Element => {
             onChange={changeTag}
             options={tagsList}
           />
-          <Date label={"Release date:"} onChange={changeInitialDate} />
+          <Select
+            label={"Release date:"}
+            onChange={changeDate}
+            options={datesList}
+          />
           <TextArea
             label={"Filter by title:"}
             onChange={changeTitle}
