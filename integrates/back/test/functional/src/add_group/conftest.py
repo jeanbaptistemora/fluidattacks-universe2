@@ -73,7 +73,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     created_by=generic_data["global_vars"]["user_email"],
-                    created_date="2019-11-22T20:07:57+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2019-11-22T20:07:57+00:00"
+                    ),
                     country="Colombia",
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="orgtest",
@@ -93,13 +95,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     created_by="johndoe@johndoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="54b37c94-ebd4-416d-97b3-dee412fc2a1d",
                     name="trialorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
@@ -113,13 +117,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     created_by="janedoe@janedoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="56f222da-c912-4441-a015-36ec2aad58fc",
                     name="trialorg2",
                     policies=Policies(
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@janedoe.com",
@@ -192,7 +198,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "group": Group(
                     created_by="johndoe@johndoe.com",
                     created_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                     description="-",
                     language=GroupLanguage.EN,
@@ -204,7 +210,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@johndoe.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-10-21T15:58:31.280182"
+                            "2022-10-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,

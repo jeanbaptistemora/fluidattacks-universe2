@@ -130,7 +130,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     id="fd672241-f99d-4f19-961c-3c7dd80be47c",
                     name="testorganization",
                     policies=Policies(

@@ -50,7 +50,7 @@ async def populate() -> bool:
                     extension_date=None,
                     extension_days=0,
                     start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                 ),
             ),
@@ -74,7 +74,7 @@ async def populate() -> bool:
                     ),
                     extension_days=1,
                     start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                 ),
             ),
@@ -85,7 +85,7 @@ async def populate() -> bool:
                     extension_date=None,
                     extension_days=0,
                     start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                 ),
             ),
@@ -95,7 +95,7 @@ async def populate() -> bool:
                 "group": Group(
                     created_by="johndoe@johndoe.com",
                     created_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                     description="test description",
                     language=GroupLanguage.EN,
@@ -107,7 +107,7 @@ async def populate() -> bool:
                         managed=GroupManaged.TRIAL,
                         modified_by="johndoe@johndoe.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-10-21T15:58:31.280182"
+                            "2022-10-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -120,7 +120,7 @@ async def populate() -> bool:
                 "group": Group(
                     created_by="janedoe@janedoe.com",
                     created_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                     description="test description",
                     language=GroupLanguage.EN,
@@ -132,7 +132,7 @@ async def populate() -> bool:
                         managed=GroupManaged.TRIAL,
                         modified_by="janedoe@janedoe.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-10-21T15:58:31.280182"
+                            "2022-10-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -145,7 +145,7 @@ async def populate() -> bool:
                 "group": Group(
                     created_by="uiguaran@uiguaran.com",
                     created_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                     description="test description",
                     language=GroupLanguage.EN,
@@ -157,7 +157,7 @@ async def populate() -> bool:
                         managed=GroupManaged.TRIAL,
                         modified_by="uiguaran@uiguaran.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-10-21T15:58:31.280182"
+                            "2022-10-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -170,7 +170,7 @@ async def populate() -> bool:
                 "group": Group(
                     created_by="abuendia@abuendia.com",
                     created_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182"
+                        "2022-10-21T15:58:31.280182+00:00"
                     ),
                     description="test description",
                     language=GroupLanguage.EN,
@@ -182,7 +182,7 @@ async def populate() -> bool:
                         managed=GroupManaged.MANAGED,
                         modified_by="abuendia@abuendia.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-10-21T15:58:31.280182"
+                            "2022-10-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -196,13 +196,15 @@ async def populate() -> bool:
             {
                 "organization": Organization(
                     created_by="johndoe@johndoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="e314a87c-223f-44bc-8317-75900f2ffbc7",
                     name="testorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
@@ -216,13 +218,15 @@ async def populate() -> bool:
             {
                 "organization": Organization(
                     created_by="janedoe@janedoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="5ee9880b-5e19-44ba-baf1-f2601bdf7d25",
                     name="testorg2",
                     policies=Policies(
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@janedoe.com",
@@ -236,13 +240,15 @@ async def populate() -> bool:
             {
                 "organization": Organization(
                     created_by="uiguaran@uiguaran.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="a2204896-fbd0-4c55-8163-4cb3b018551c",
                     name="testorg3",
                     policies=Policies(
                         modified_by="uiguaran@uiguaran.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="uiguaran@uiguaran.com",
@@ -256,13 +262,15 @@ async def populate() -> bool:
             {
                 "organization": Organization(
                     created_by="abuendia@abuendia.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="5399f49f-6e2c-4712-af72-5ea6e34cf15d",
                     name="testorg4",
                     policies=Policies(
                         modified_by="abuendia@abuendia.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="abuendia@abuendia.com",

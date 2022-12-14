@@ -56,7 +56,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     created_by=generic_data["global_vars"][
                         "customer_manager_fluid_email"
                     ],
-                    created_date="2019-11-22T20:07:57+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2019-11-22T20:07:57+00:00"
+                    ),
                     country="Colombia",
                     id=organization_id,
                     name="orgtest5",

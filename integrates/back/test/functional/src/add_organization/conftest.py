@@ -52,13 +52,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "organization": Organization(
                     created_by="johndoe@johndoe.com",
-                    created_date="2022-10-21T15:58:31.280182",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
                     country="Colombia",
                     id="967e17db-6345-4504-a5c4-285e5f8068c6",
                     name="trialorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date="2022-10-21T15:58:31.280182+00:00",
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",

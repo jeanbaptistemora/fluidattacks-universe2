@@ -80,7 +80,9 @@ async def populate() -> bool:
             {
                 "organization": Organization(
                     created_by="test@fluidattacks.com",
-                    created_date="2019-11-22T20:07:57+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2019-11-22T20:07:57+00:00"
+                    ),
                     country="Colombia",
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="org123",

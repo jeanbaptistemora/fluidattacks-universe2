@@ -33,7 +33,9 @@ def test_filter_active_groups(
 ) -> None:
     group = Group(
         created_by="johndoe@fluidattacks.com",
-        created_date=datetime.fromisoformat("2022-10-21T15:58:31.280182"),
+        created_date=datetime.fromisoformat(
+            "2022-10-21T15:58:31.280182+00:00"
+        ),
         description="test description",
         language=GroupLanguage.EN,
         name="testgroup",

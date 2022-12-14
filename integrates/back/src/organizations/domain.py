@@ -425,7 +425,7 @@ async def add_organization(
     modified_date = datetime_utils.get_utc_now()
     organization = Organization(
         created_by=email,
-        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
+        created_date=modified_date,
         country=country,
         id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),

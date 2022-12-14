@@ -31,7 +31,7 @@ from unittest import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_enrollment")
-@freeze_time("2022-10-21T15:58:31.280182")
+@freeze_time("2022-10-21T15:58:31.280182+00:00")
 async def test_should_add_enrollment(
     populate: bool, mocker: MockerFixture
 ) -> None:
@@ -72,7 +72,7 @@ async def test_should_add_enrollment(
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_enrollment")
-@freeze_time("2022-10-21T15:58:31.280182")
+@freeze_time("2022-10-21T15:58:31.280182+00:00")
 async def test_should_validate_uniqueness(populate: bool) -> None:
     assert populate
     query = """

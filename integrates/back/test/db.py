@@ -132,7 +132,7 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
             user_email=item.email,
             state=StakeholderState(
                 modified_by=item.email,
-                modified_date="2022-10-21T15:58:31.280182",
+                modified_date="2022-10-21T15:58:31.280182+00:00",
                 notifications_preferences=NotificationsPreferences(
                     email=[
                         "ACCESS_GRANTED",
