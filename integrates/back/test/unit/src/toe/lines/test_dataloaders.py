@@ -12,6 +12,7 @@ from db_model.toe_lines.types import (
     ToeLinesConnection,
     ToeLinesEdge,
     ToeLinesRequest,
+    ToeLinesState,
 )
 from dynamodb.types import (
     PageInfo,
@@ -64,6 +65,10 @@ async def test_get() -> None:
                 probability=50,
             ),
         ],
+        state=ToeLinesState(
+            modified_by="test2@test.com",
+            modified_date="2020-11-15T15:41:04+00:00",
+        ),
     )
     group_name = "unittesting"
     root_id = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
@@ -99,6 +104,10 @@ async def test_get() -> None:
                 finding_title="027. Insecure file upload", probability=100
             ),
         ],
+        state=ToeLinesState(
+            modified_by="test2@test.com",
+            modified_date="2020-11-16T15:41:04+00:00",
+        ),
     )
 
 
@@ -153,6 +162,10 @@ async def test_get_by_group() -> None:
                             probability=50,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-15T15:41:04+00:00",
+                    ),
                 ),
                 cursor=(
                     "eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU"
@@ -201,6 +214,10 @@ async def test_get_by_group() -> None:
                             probability=50,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-15T15:41:04+00:00",
+                    ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
@@ -244,6 +261,10 @@ async def test_get_by_group() -> None:
                             probability=100,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-16T15:41:04+00:00",
+                    ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"
@@ -306,6 +327,10 @@ async def test_get_by_root() -> None:
                             probability=50,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-15T15:41:04+00:00",
+                    ),
                 ),
                 cursor=(
                     "eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU"
@@ -354,6 +379,10 @@ async def test_get_by_root() -> None:
                             probability=50,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-15T15:41:04+00:00",
+                    ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
@@ -407,6 +436,10 @@ async def test_get_by_root() -> None:
                             probability=100,
                         ),
                     ],
+                    state=ToeLinesState(
+                        modified_by="test2@test.com",
+                        modified_date="2020-11-16T15:41:04+00:00",
+                    ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"

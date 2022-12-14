@@ -2,6 +2,7 @@ from .types import (
     SortsSuggestion,
     ToeLines,
     ToeLinesEdge,
+    ToeLinesState,
 )
 from datetime import (
     datetime,
@@ -71,6 +72,10 @@ def format_toe_lines(item: Item) -> ToeLines:
         )
         if item.get("sorts_suggestions")
         else None,
+        state=ToeLinesState(
+            modified_by=item.get("state", {}).get("modified_by"),
+            modified_date=item.get("state", {}).get("modified_date"),
+        ),
     )
 
 
@@ -144,4 +149,8 @@ def format_toe_lines_item(
         )
         if toe_lines.sorts_suggestions
         else None,
+        "state": {
+            "modified_by": toe_lines.state.modified_by,
+            "modified_date": toe_lines.state.modified_date,
+        },
     }

@@ -7,6 +7,7 @@ from datetime import (
 from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
+    ToeLinesState,
 )
 from freezegun import (
     freeze_time,
@@ -72,6 +73,10 @@ async def test_add() -> None:
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2018-08-01T05:00:00+00:00"),
         sorts_risk_level=100,
+        state=ToeLinesState(
+            modified_by="machine@fluidattacks.com",
+            modified_date="2017-08-01T05:00:00+00:00",
+        ),
     )
 
 
@@ -125,4 +130,8 @@ async def test_update() -> None:
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=50,
+        state=ToeLinesState(
+            modified_by="machine@fluidattacks.com",
+            modified_date="2017-08-01T05:00:00+00:00",
+        ),
     )

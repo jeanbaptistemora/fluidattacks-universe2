@@ -18,6 +18,7 @@ from db_model.roots.types import (
 from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesMetadataToUpdate,
+    ToeLinesState,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -106,6 +107,14 @@ async def add(  # pylint: disable=too-many-arguments
         seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
         seen_first_time_by=attributes.seen_first_time_by,
         sorts_risk_level=attributes.sorts_risk_level,
+        state=ToeLinesState(
+            modified_by=attributes.seen_first_time_by
+            if attributes.seen_first_time_by
+            else "machine@fluidattacks.com",
+            modified_date=datetime_utils.get_as_utc_iso_format(
+                attributes.modified_date
+            ),
+        ),
     )
     await toe_lines_model.add(toe_lines=toe_lines)
 

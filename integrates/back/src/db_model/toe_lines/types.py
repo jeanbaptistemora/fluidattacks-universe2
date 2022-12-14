@@ -16,6 +16,11 @@ class SortsSuggestion(NamedTuple):
     probability: int
 
 
+class ToeLinesState(NamedTuple):
+    modified_by: Optional[str] = None
+    modified_date: Optional[str] = None
+
+
 class ToeLines(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: str
@@ -37,6 +42,7 @@ class ToeLines(NamedTuple):
     sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     sorts_suggestions: Optional[list[SortsSuggestion]] = None
+    state: ToeLinesState = ToeLinesState()
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))
