@@ -1,9 +1,9 @@
 import type { ApolloError, FetchResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
+import dayjs from "dayjs";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -115,7 +115,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = ({
       <Modal open={true} title={t("group.toe.lines.editModal.title")}>
         <Formik
           initialValues={{
-            attackedAt: moment(),
+            attackedAt: dayjs(),
             attackedLines: isOneSelected ? selectedToeLinesDatas[0].loc : "",
             comments: "",
           }}
