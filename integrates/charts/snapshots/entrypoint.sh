@@ -9,7 +9,8 @@ function main {
         INTEGRATES_API_TOKEN
     else
       DAEMON=true integrates-db \
-        && populate_storage
+        && export AWS_S3_PATH_PREFIX="charts-snapshots/" \
+        && populate_storage "/charts-snapshots"
     fi \
     && pushd integrates \
     && envGeckoDriver='__argGeckoDriver__' \

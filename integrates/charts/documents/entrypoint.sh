@@ -23,7 +23,8 @@ function main {
     && if test "${env}" = "dev"; then
       : \
         && DAEMON=true integrates-db \
-        && populate_storage
+        && export AWS_S3_PATH_PREFIX="charts-documents/" \
+        && populate_storage "/charts-documents"
     elif test "${env}" = "prod"; then
       :
     else

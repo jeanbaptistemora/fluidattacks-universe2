@@ -4,11 +4,7 @@
   ...
 }:
 makeScript {
-  entrypoint = ''
-    populate_storage "" --exclude "test/*"
-  '';
+  entrypoint = ./entrypoint.sh;
   name = "integrates-storage-dev";
-  searchPaths.source = [
-    outputs."/integrates/storage/dev/lib/populate"
-  ];
+  searchPaths.source = [outputs."/integrates/storage/dev/lib/populate"];
 }
