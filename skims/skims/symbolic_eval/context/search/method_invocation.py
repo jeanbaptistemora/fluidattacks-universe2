@@ -22,7 +22,7 @@ def method_modifies_symbol(args: SearchArgs) -> bool:
         obj_id = n_attr.get("object_id")
         if (
             obj_id and args.symbol == args.graph.nodes[obj_id].get("symbol")
-        ) or (args.symbol in expr_split):
+        ) or (len(expr_split) > 1 and args.symbol in expr_split[0:-1]):
             return True
     return False
 

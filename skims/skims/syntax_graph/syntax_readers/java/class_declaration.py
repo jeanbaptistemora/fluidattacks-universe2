@@ -7,9 +7,6 @@ from syntax_graph.syntax_nodes.class_decl import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from utils.graph import (
-    match_ast_group_d,
-)
 from utils.graph.text_nodes import (
     node_to_str,
 )
@@ -20,6 +17,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
     name_id = class_node["label_field_name"]
     block_id = class_node["label_field_body"]
     name = node_to_str(args.ast_graph, name_id)
-    attrl_ids = match_ast_group_d(args.ast_graph, args.n_id, "attribute_list")
-
-    return build_class_node(args, name, block_id, attrl_ids)
+    return build_class_node(args, name, block_id, None)
