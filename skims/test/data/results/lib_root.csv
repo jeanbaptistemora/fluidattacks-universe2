@@ -4935,31 +4935,6 @@ F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,17,405,
   27 |             bool safe4 = myreg2.IsMatch(input, regex);
      ^ Col 0
 ",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/java_vuln_regex.java","
-   1 | public class Test{
-   2 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
-   3 |   String regex = ""(A+)+"";
-   4 |   String input = request.getParameter(""input"");
-   5 |
->  6 |   input.matches(regex);  // Not-safe
-   7 | }
-   8 |
-   9 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
-  10 |   String regex = ""(A+)+"";
-  11 |   String input = request.getParameter(""input"");
-  12 |
-  13 |   input.matches(Pattern.quote(regex));  // Safe
-  14 |
-  15 | }
-  16 |
-  17 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
-  18 |   String regex = Pattern.quote(""(A+)+"");
-  19 |   String input = request.getParameter(""input"");
-  20 |
-  21 |   input.matches(regex);  // Safe
-     ^ Col 0
-",java.java_vuln_regex
 F413,lines,namespace/skims/test/data/lib_root/f413/c_sharp_insecure_assembly_load.cs,10,434,skims,413. Insecure file upload - DLL Injection,Potentially untrusted HTTP request input reaches a method that loads an assembly. in namespace/skims/test/data/lib_root/f413/c_sharp_insecure_assembly_load.cs,"
    1 | using System;
    2 | using System.Reflection;
