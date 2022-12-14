@@ -44,7 +44,7 @@ function main {
     && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then
       : \
         && export AWS_S3_PATH_PREFIX="test/functional/${resolver_test_group}/" \
-        && populate "false" "/test/functional/${resolver_test_group}"
+        && populate "/test/functional/${resolver_test_group}"
     fi \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
     && BATCH_BIN="$(command -v integrates-batch)" \

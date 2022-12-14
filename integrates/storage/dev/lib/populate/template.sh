@@ -1,18 +1,5 @@
 # shellcheck shell=bash
 
-function _deploy_infra {
-  deploy_infra="${1}"
-
-  if [ "${deploy_infra}" == "true" ]; then
-    # Multiple deploys fail due to state locking
-    deploy-terraform-for-integratesStorageDev || true
-  elif [ "${deploy_infra}" == "false" ]; then
-    info "Skipping infra deployment."
-  else
-    error "Must provide either 'true' or 'false'."
-  fi
-}
-
 function _prepare_data {
   local data="${1}"
   local branch="${2}"
@@ -34,8 +21,7 @@ function _prepare_data {
 }
 
 function populate {
-  local deploy_infra="${1:-true}"
-  local sync_path="${2:-}"
+  local sync_path="${1:-}"
   local data="__argData__"
   local mutable_data
   local branch
@@ -43,7 +29,7 @@ function populate {
 
   : \
     && branch="${CI_COMMIT_REF_NAME}" \
-    && _deploy_infra "${deploy_infra}" \
+    && { deploy-terraform-for-integratesStorageDev || true; } \
     && mutable_data="$(mktemp -d)" \
     && copy "${data}" "${mutable_data}" \
     && _prepare_data "${mutable_data}" "${branch}" \
@@ -53,7 +39,7 @@ function populate {
       "s3://${endpoint}${sync_path}" \
       --size-only \
       --delete \
-      "${@:3}" \
+      "${@:2}" \
     && rm -rf "${mutable_data}" \
     || return 1
 }
