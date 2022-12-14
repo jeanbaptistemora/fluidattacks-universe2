@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -11,7 +14,7 @@ class OrganizationInvitation(NamedTuple):
 
 
 class OrganizationAccessState(NamedTuple):
-    modified_date: Optional[str]
+    modified_date: Optional[datetime]
 
 
 class OrganizationAccess(NamedTuple):
