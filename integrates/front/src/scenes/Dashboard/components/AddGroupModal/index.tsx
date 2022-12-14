@@ -15,7 +15,7 @@ import { handleCreateError, handleUpdateError } from "./helpers";
 
 import { ExternalLink } from "components/ExternalLink";
 import { InfoDropdown } from "components/InfoDropdown";
-import { Select } from "components/Input";
+import { Input, Select } from "components/Input";
 import { Col } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -193,8 +193,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     <Text mb={1}>
                       {t("organization.tabs.groups.newGroup.name")}
                     </Text>
-                    <Field
-                      component={FormikText}
+                    <Input
                       id={"add-group-name"}
                       name={"name"}
                       type={"text"}
@@ -220,8 +219,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         "organization.tabs.groups.newGroup.description.tooltip"
                       )}
                     >
-                      <Field
-                        component={FormikText}
+                      <Input
                         id={"add-group-description"}
                         name={"description"}
                         type={"text"}
