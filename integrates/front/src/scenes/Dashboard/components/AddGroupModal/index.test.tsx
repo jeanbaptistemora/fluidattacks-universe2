@@ -79,4 +79,40 @@ describe("AddGroupModal component", (): void => {
     expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
     expect(screen.getByText("components.modal.cancel")).toBeInTheDocument();
   });
+
+  it("should allow to select any service", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleOnClose: jest.Mock = jest.fn();
+    render(
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <AddGroupModal
+            isOpen={true}
+            onClose={handleOnClose}
+            organization={"okada"}
+            runTour={false}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.getAllByRole("radio")).toHaveLength(3);
+    });
+
+    expect(screen.getAllByRole("radio")[0]).toBeChecked();
+
+    await userEvent.click(screen.getAllByRole("radio")[1]);
+
+    expect(screen.getAllByRole("radio")[0]).not.toBeChecked();
+    expect(screen.getAllByRole("radio")[1]).toBeChecked();
+
+    await userEvent.click(screen.getAllByRole("radio")[2]);
+
+    expect(screen.getAllByRole("radio")[1]).not.toBeChecked();
+    expect(screen.getAllByRole("radio")[2]).toBeChecked();
+  });
 });
