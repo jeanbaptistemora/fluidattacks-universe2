@@ -3,11 +3,13 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 
 interface IPaginator {
+  forcePage: number;
   onChange: (prop: { selected: number }) => void;
   pageCount: number;
 }
 
 export const Pagination: React.FC<IPaginator> = ({
+  forcePage,
   onChange,
   pageCount,
 }: IPaginator): JSX.Element => (
@@ -15,6 +17,7 @@ export const Pagination: React.FC<IPaginator> = ({
     activeLinkClassName={"active"}
     breakClassName={"break-item"}
     containerClassName={"pagination-container"}
+    forcePage={forcePage}
     marginPagesDisplayed={1}
     nextClassName={"page-item"}
     nextLabel={<FiChevronRight />}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useCarrousel = (
   delay: number,
@@ -39,27 +39,39 @@ const usePagination = (
   itemsToShow: number,
   listOfItems: (JSX.Element | undefined)[]
 ): {
-  currentItems: (JSX.Element | undefined)[];
+  currentPage: number;
+  endOffset: number;
   handlePageClick: (prop: { selected: number }) => void;
+  newOffset: number;
   pageCount: number;
+  resetPagination: () => void;
 } => {
-  const itemsPerPage = itemsToShow;
-  const pageCount = Math.ceil(listOfItems.length / itemsPerPage);
-  const [currentItems, setCurrentItems] = useState(
-    listOfItems.slice(0, itemsPerPage)
-  );
+  const pageCount = Math.ceil(listOfItems.length / itemsToShow);
+  const [newOffset, setNewOffset] = useState(0);
+  const [endOffset, setEndOffset] = useState(itemsToShow);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const handlePageClick = useCallback(
-    (prop: { selected: number }): void => {
-      const { selected } = prop;
-      const newOffset = (selected * itemsPerPage) % listOfItems.length;
-      const endOffset = newOffset + itemsPerPage;
-      setCurrentItems(listOfItems.slice(newOffset, endOffset));
-    },
-    [itemsPerPage, listOfItems]
-  );
+  const resetPagination = (): void => {
+    setNewOffset(0);
+    setEndOffset(itemsToShow);
+    setCurrentPage(0);
+  };
 
-  return { currentItems, handlePageClick, pageCount };
+  const handlePageClick = (prop: { selected: number }): void => {
+    const { selected } = prop;
+    setCurrentPage(selected);
+    setNewOffset((selected * itemsToShow) % listOfItems.length);
+    setEndOffset(((selected * itemsToShow) % listOfItems.length) + itemsToShow);
+  };
+
+  return {
+    currentPage,
+    endOffset,
+    handlePageClick,
+    newOffset,
+    pageCount,
+    resetPagination,
+  };
 };
 
 export { useCarrousel, usePagination };

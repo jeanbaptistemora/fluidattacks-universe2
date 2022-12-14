@@ -1,11 +1,16 @@
 import { graphql, useStaticQuery } from "gatsby";
-import React from "react";
+import moment from "moment";
+import React, { useCallback, useState } from "react";
 
+import { Button } from "../../../components/Button";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
+import { Date, Select, TextArea } from "../../../components/Input";
 import { Pagination } from "../../../components/Pagination";
+import { Text } from "../../../components/Typography";
 import { VerticalCard } from "../../../components/VerticalCard";
 import { usePagination } from "../../../utils/hooks";
+import { capitalizePlainString } from "../../../utils/utilities";
 
 export const BlogsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -25,12 +30,14 @@ export const BlogsList: React.FC = (): JSX.Element => {
             frontmatter {
               alt
               author
+              category
               date
               slug
               description
               image
               spanish
               subtitle
+              tags
               title
             }
           }
@@ -39,9 +46,89 @@ export const BlogsList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const posts: INodes[] = data.allMarkdownRemark.edges;
+  const authorsListRaw = data.allMarkdownRemark.edges.map(
+    (edge): string => edge.node.frontmatter.author
+  );
 
-  const listOfBlogs = posts.map((post): JSX.Element | undefined => {
+  const tagsListRaw = data.allMarkdownRemark.edges
+    .map((edge): string[] => edge.node.frontmatter.tags.split(", "))
+    .flat();
+
+  const categoriesListRaw = data.allMarkdownRemark.edges.map(
+    (edge): string => edge.node.frontmatter.category
+  );
+
+  const authorsList = authorsListRaw.filter(
+    (author, index): boolean => authorsListRaw.indexOf(author) === index
+  );
+
+  const tagsList = tagsListRaw.filter(
+    (tag, index): boolean => tagsListRaw.indexOf(tag) === index
+  );
+
+  const categoriesList = categoriesListRaw.filter(
+    (category, index): boolean => categoriesListRaw.indexOf(category) === index
+  );
+
+  const allPosts: INodes[] = data.allMarkdownRemark.edges;
+
+  const [selectedAuthor, setSelectedAuthor] = useState("All");
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filterAuthors = (post: INodes, author: string): boolean => {
+    return author === "All" || post.node.frontmatter.author === author;
+  };
+
+  const filterTags = (post: INodes, tag: string): boolean => {
+    return (
+      tag === "All" ||
+      post.node.frontmatter.tags
+        .split(", ")
+        .some((blogTag): boolean => blogTag === tag)
+    );
+  };
+
+  const filterDates = (post: INodes, date: string): boolean => {
+    return date === "" || moment(post.node.frontmatter.date).isAfter(date);
+  };
+
+  const filterTitles = (post: INodes, title: string): boolean => {
+    return (
+      title === "" || post.node.frontmatter.title.toLowerCase().includes(title)
+    );
+  };
+
+  const filterCategories = (post: INodes, category: string): boolean => {
+    return category === "All" || post.node.frontmatter.category === category;
+  };
+
+  const filterBlogs = (
+    author: string,
+    tag: string,
+    date: string,
+    title: string,
+    category: string,
+    blogs: INodes[]
+  ): INodes[] => {
+    return blogs
+      .filter((post): boolean => filterAuthors(post, author))
+      .filter((post): boolean => filterTags(post, tag))
+      .filter((post): boolean => filterDates(post, date))
+      .filter((post): boolean => filterTitles(post, title))
+      .filter((post): boolean => filterCategories(post, category));
+  };
+
+  const blogsCards = filterBlogs(
+    selectedAuthor,
+    selectedTag,
+    selectedDate,
+    selectedTitle,
+    selectedCategory,
+    allPosts
+  ).map((post): JSX.Element | undefined => {
     const { slug } = post.node.fields;
     const { alt, author, date, description, image, spanish, subtitle, title } =
       post.node.frontmatter;
@@ -54,6 +141,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
         date={date}
         description={description}
         image={image}
+        key={slug}
         link={slug}
         subMinHeight={"56px"}
         subtitle={subtitle}
@@ -63,7 +151,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
     );
   });
 
-  const cleanListOfBlogs: (JSX.Element | undefined)[] = listOfBlogs.filter(
+  const listOfBlogs: (JSX.Element | undefined)[] = blogsCards.filter(
     (post): boolean => {
       return post !== undefined;
     }
@@ -71,18 +159,118 @@ export const BlogsList: React.FC = (): JSX.Element => {
 
   const itemsPerPage = 9;
 
-  const { currentItems, handlePageClick, pageCount } = usePagination(
-    itemsPerPage,
-    cleanListOfBlogs
+  const {
+    currentPage,
+    endOffset,
+    handlePageClick,
+    newOffset,
+    pageCount,
+    resetPagination,
+  } = usePagination(itemsPerPage, listOfBlogs);
+
+  const changeAuthor = useCallback(
+    (author: string): void => {
+      setSelectedAuthor(author);
+      resetPagination();
+    },
+    [resetPagination]
+  );
+
+  const changeTag = useCallback(
+    (tag: string): void => {
+      setSelectedTag(tag);
+      resetPagination();
+    },
+    [resetPagination]
+  );
+
+  const changeInitialDate = useCallback(
+    (date: string): void => {
+      setSelectedDate(date);
+      resetPagination();
+    },
+    [resetPagination]
+  );
+
+  const changeTitle = useCallback(
+    (title: string): void => {
+      setSelectedTitle(title);
+      resetPagination();
+    },
+    [resetPagination]
+  );
+
+  const changeCategory = useCallback(
+    (category: string): VoidFunction => {
+      return (): void => {
+        setSelectedCategory(category);
+        resetPagination();
+      };
+    },
+    [resetPagination]
   );
 
   return (
     <Container bgColor={"#fff"}>
       <Container center={true} maxWidth={"1440px"} ph={4} pv={5}>
-        <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
-          {currentItems}
+        <Grid columns={4} columnsMd={2} columnsSm={1} gap={"1rem"}>
+          <Select
+            label={"Filter by author:"}
+            onChange={changeAuthor}
+            options={authorsList}
+          />
+          <Select
+            label={"Filter by tag:"}
+            onChange={changeTag}
+            options={tagsList}
+          />
+          <Date label={"Release date:"} onChange={changeInitialDate} />
+          <TextArea
+            label={"Filter by title:"}
+            onChange={changeTitle}
+            placeHolder={"Search"}
+          />
         </Grid>
-        <Pagination onChange={handlePageClick} pageCount={pageCount} />
+        <Container display={"flex"} justify={"center"} pv={5} wrap={"wrap"}>
+          <Container key={"All"} mh={2} mt={2} width={"auto"}>
+            <Button
+              onClick={changeCategory("All")}
+              selected={selectedCategory === "All"}
+            >
+              {"View all"}
+            </Button>
+          </Container>
+          {categoriesList.map((category: string): JSX.Element => {
+            return (
+              <Container key={category} mh={2} mt={2} width={"auto"}>
+                <Button
+                  onClick={changeCategory(category)}
+                  selected={selectedCategory === category}
+                >
+                  {capitalizePlainString(category)}
+                </Button>
+              </Container>
+            );
+          })}
+        </Container>
+        {listOfBlogs.length > 0 ? (
+          <React.Fragment>
+            <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
+              {listOfBlogs.slice(newOffset, endOffset)}
+            </Grid>
+            <Pagination
+              forcePage={currentPage}
+              onChange={handlePageClick}
+              pageCount={pageCount}
+            />
+          </React.Fragment>
+        ) : (
+          <Container>
+            <Text color={"#2e2e38"} size={"big"} textAlign={"center"}>
+              {"There are no blogs to display"}
+            </Text>
+          </Container>
+        )}
       </Container>
     </Container>
   );
