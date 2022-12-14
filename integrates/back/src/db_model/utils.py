@@ -123,4 +123,7 @@ def serialize(object_: Any) -> Any:
         return list(object_)
     if isinstance(object_, datetime):
         return object_.astimezone(tz=timezone.utc).isoformat()
+    if isinstance(object_, float):
+        return Decimal(str(object_))
+
     return object_
