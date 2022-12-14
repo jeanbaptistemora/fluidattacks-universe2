@@ -244,6 +244,12 @@ def add_f042_secure() -> None:
 
 
 def add_f043_dast_csp_rules() -> None:
+    header_test = (
+        "frame-src 'self' 'unsafe-inline' 'unsafe-eval';"
+        + "script-src 'self' 'sha256-/VMQIr9hp56zmea0sU1b7cNYQX0vlTIj1CFg=';"
+        + "frame-ancestors: 'none'; object-src: 'none';"
+        + "upgrade-insecure-requests=1;"
+    )
     _add_headers(
         "f043_dast_csp",
         "Content-Security-Policy",
@@ -262,6 +268,7 @@ def add_f043_dast_csp_rules() -> None:
             "frame-ancestors 'self'",
             "upgrade-insecure-requests;",
             "block-all-mixed-content;",
+            header_test,
         ],
     )
 

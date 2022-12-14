@@ -40,21 +40,19 @@ def parse(line: str) -> Optional[ContentSecurityPolicyHeader]:
         values = list(filter(None, values))
 
         for value in values:
-            # Values list could have directives in different forms
-            if ": " in value:
-                # Separated by : "frame-ancestors: none"
-                components = value.split(":", maxsplit=1)
-            elif "=" in value:
-                # Separated by = "upgrade-insecure-requests=1"
-                components = value.split("=", maxsplit=1)
-            else:
-                # Separated by " " "default-src 'self'"
-                components = value.split(" ")
-
+            components = value.split(" ")
             components = list(map(methodcaller("strip"), components))
             components = list(filter(None, components))
 
             if components:
+                # The directive could have different forms
+                if components[0].endswith(":"):
+                    # "frame-ancestors:"
+                    components[0] = components[0][:-1]
+                elif "=" in components[0] and len(components) == 1:
+                    # "upgrade-insecure-requests=1"
+                    components = components[0].split("=")
+
                 # Only the first directive is taken into account
                 # Later directives do not override the previous ones
                 directives.setdefault(components[0], components[1:])
