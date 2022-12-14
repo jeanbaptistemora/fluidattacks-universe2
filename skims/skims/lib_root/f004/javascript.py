@@ -27,11 +27,11 @@ def remote_command_execution(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    typescript = GraphLanguage.TYPESCRIPT
-    method = MethodsEnum.TS_REMOTE_COMMAND_EXECUTION
+    javascript = GraphLanguage.JAVASCRIPT
+    method = MethodsEnum.JS_REMOTE_COMMAND_EXECUTION
 
     def n_ids() -> Iterable[GraphShardNode]:
-        for shard in graph_db.shards_by_language(typescript):
+        for shard in graph_db.shards_by_language(javascript):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

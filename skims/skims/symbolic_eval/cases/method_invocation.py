@@ -74,7 +74,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F368: evaluate_method_f368,
 }
 
-ACCESSING_METHODS: Set[str] = set()
+MODIFYING_METHODS: Set[str] = {"add", "push", "put", "get"}
 
 
 def get_invocation_eval(
@@ -109,6 +109,9 @@ def evaluate_method_expression(
     args: SymbolicEvalArgs,
     expr_id: NId,
 ) -> bool:
+    if args.graph.nodes[expr_id].get("symbol") in MODIFYING_METHODS:
+        return False
+
     if md_id := solve_invocation(args.graph, args.path, expr_id):
         try:
             invoc_eval = get_invocation_eval(
@@ -141,7 +144,7 @@ def evaluate_method_expression(
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     n_attrs = args.graph.nodes[args.n_id]
 
-    if n_attrs.get("expression") in ACCESSING_METHODS and (
+    if n_attrs.get("expression") == "get" and (
         el_id := search_data_element(args.graph, args.path, args.n_id)
     ):
         args.evaluation[args.n_id] = args.generic(args.fork_n_id(el_id)).danger
