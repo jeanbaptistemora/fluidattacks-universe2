@@ -26,7 +26,7 @@ function main {
     && if [ "$test_group" = "not_changes_db" ]; then
       DAEMON=true integrates-db \
         && export AWS_S3_PATH_PREFIX="test/unit/${test_group}/" \
-        && populate "/test/unit/${test_group}" \
+        && populate_storage "/test/unit/${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \
@@ -36,7 +36,7 @@ function main {
     elif [ "$test_group" = "changes_db" ]; then
       DAEMON=true integrates-db \
         && export AWS_S3_PATH_PREFIX="test/unit/${test_group}/" \
-        && populate "/test/unit/${test_group}" \
+        && populate_storage "/test/unit/${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \

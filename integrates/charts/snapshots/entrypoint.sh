@@ -9,7 +9,7 @@ function main {
         INTEGRATES_API_TOKEN
     else
       DAEMON=true integrates-db \
-        && populate
+        && populate_storage
     fi \
     && pushd integrates \
     && envGeckoDriver='__argGeckoDriver__' \

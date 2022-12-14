@@ -23,7 +23,7 @@ function main {
     && if test "${env}" = "dev"; then
       : \
         && DAEMON=true integrates-db \
-        && populate
+        && populate_storage
     elif test "${env}" = "prod"; then
       :
     else

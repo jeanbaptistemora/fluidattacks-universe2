@@ -20,7 +20,7 @@ function _prepare_data {
       "${data}/continuous-data/bills/${bill_year}/${bill_month}"
 }
 
-function populate {
+function populate_storage {
   local sync_path="${1:-}"
   local data="__argData__"
   local mutable_data
@@ -40,6 +40,5 @@ function populate {
       --size-only \
       --delete \
       "${@:2}" \
-    && rm -rf "${mutable_data}" \
-    || return 1
+    && rm -rf "${mutable_data}"
 }

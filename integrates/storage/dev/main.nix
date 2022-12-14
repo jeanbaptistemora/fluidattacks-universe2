@@ -5,7 +5,7 @@
 }:
 makeScript {
   entrypoint = ''
-    populate "" --exclude "test/*"
+    populate_storage "" --exclude "test/*"
   '';
   name = "integrates-storage-dev";
   searchPaths.source = [
