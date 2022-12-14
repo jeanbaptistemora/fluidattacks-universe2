@@ -109,6 +109,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
+    print(await _get_vulns(loaders, finding_id, "group1"))
     assert await _get_vulns(loaders, finding_id, "group1") == [
         {
             "commit_hash": "111111111111111111111111111111111111111f",
@@ -135,6 +136,17 @@ async def test_upload_file(populate: bool, email: str) -> None:
         {
             "commit_hash": None,
             "repo_nickname": "universe",
+            "specific": "phone",
+            "state_status": "OPEN",
+            "stream": ["home", "blog", "articulo"],
+            "treatment_status": "NEW",
+            "type": "INPUTS",
+            "verification_status": None,
+            "where": "https://example.com",
+        },
+        {
+            "commit_hash": None,
+            "repo_nickname": "universe44",
             "specific": "4444",
             "state_status": "OPEN",
             "stream": None,
@@ -145,7 +157,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "universe",
+            "repo_nickname": "universe45",
             "specific": "4545",
             "state_status": "CLOSED",
             "stream": None,
@@ -156,7 +168,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "universe",
+            "repo_nickname": "universe46",
             "specific": "4646",
             "state_status": "CLOSED",
             "stream": None,
@@ -167,7 +179,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "universe",
+            "repo_nickname": "universe46",
             "specific": "4646",
             "state_status": "OPEN",
             "stream": None,
@@ -178,7 +190,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "universe",
+            "repo_nickname": "universe47",
             "specific": "4747",
             "state_status": "CLOSED",
             "stream": None,
@@ -186,28 +198,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "type": "PORTS",
             "verification_status": None,
             "where": "192.168.1.47",
-        },
-        {
-            "commit_hash": None,
-            "repo_nickname": "universe",
-            "specific": "8080",
-            "state_status": "OPEN",
-            "stream": None,
-            "treatment_status": "NEW",
-            "type": "PORTS",
-            "verification_status": None,
-            "where": "https://example.com",
-        },
-        {
-            "commit_hash": None,
-            "repo_nickname": "universe",
-            "specific": "phone",
-            "state_status": "OPEN",
-            "stream": ["home", "blog", "articulo"],
-            "treatment_status": "NEW",
-            "type": "INPUTS",
-            "verification_status": None,
-            "where": "https://example.com",
         },
     ]
 
@@ -277,10 +267,10 @@ async def test_upload_file(populate: bool, email: str) -> None:
         unreliable_oldest_vulnerability_report_date=(
             datetime.fromisoformat("2018-04-08T00:43:11+00:00")
         ),
-        unreliable_open_vulnerabilities=6,
+        unreliable_open_vulnerabilities=5,
         unreliable_status=FindingStatus.OPEN,
         unreliable_treatment_summary=FindingTreatmentSummary(
-            accepted=0, accepted_undefined=0, in_progress=0, new=6
+            accepted=0, accepted_undefined=0, in_progress=0, new=5
         ),
         unreliable_verification_summary=FindingVerificationSummary(
             requested=0, on_hold=0, verified=1

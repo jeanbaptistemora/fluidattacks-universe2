@@ -74,6 +74,17 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           }
         )
       );
+    } else if (
+      message.includes(
+        "Exception -  The vulnerability address and port do not exist in the toe ports"
+      )
+    ) {
+      const destructMsg: { msg: string; path: string } = JSON.parse(message);
+      msgError(
+        t("searchFindings.tabVuln.alerts.uploadFile.addressAndPortDoNotExist", {
+          path: destructMsg.path,
+        })
+      );
     } else {
       errorMessageHelper(message);
     }

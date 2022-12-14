@@ -3670,6 +3670,8 @@ export const enTranslations: ResourceKey = {
           "Remember to add tags to your vulnerabilities to ease their management",
         treatmentChange: "Vulnerability treatment will be changed",
         uploadFile: {
+          addressAndPortDoNotExist:
+            "Address and port for the new vulnerabilities of port type must exist on the port surface, error is located at '{{path}}'\n",
           inputUrlAndFieldDoNotExist:
             "URL and field for the new vulnerabilities of input type must exist on the input surface, error is located at '{{path}}'\n",
           invalidRoot:

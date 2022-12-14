@@ -17,8 +17,10 @@ from custom_exceptions import (
     RootNotFound,
     ToeInputNotFound,
     ToeLinesNotFound,
+    ToePortNotFound,
     VulnAlreadyClosed,
     VulnerabilityPathDoesNotExistInToeLines,
+    VulnerabilityPortFieldDoNotExistInToePorts,
     VulnerabilityUrlFieldDoNotExistInToeInputs,
 )
 from datetime import (
@@ -38,6 +40,9 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     ToeLinesRequest,
+)
+from db_model.toe_ports.types import (
+    ToePortRequest,
 )
 from db_model.utils import (
     adjust_historic_dates,
@@ -888,5 +893,23 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
                             index=f"{index}"
                         ) from exc  # noqa
                     return None
+
+        if vulnerability.type == VulnerabilityType.PORTS:
+            try:
+                await loaders.toe_port.load(
+                    ToePortRequest(
+                        address=where,
+                        port=vulnerability.state.specific,
+                        group_name=group_name,
+                        root_id=vulnerability.root_id,
+                    )
+                )
+            except ToePortNotFound as exc:
+                if raises:
+                    raise VulnerabilityPortFieldDoNotExistInToePorts(
+                        index=f"{index}"
+                    ) from exc
+                return None
+
         return vulnerability
     return None

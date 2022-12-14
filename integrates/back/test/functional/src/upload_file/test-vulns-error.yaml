@@ -3,7 +3,7 @@ ports:
   - host: 192.168.1.45
     port: '4545'
     state: closed
-    repo_nickname: universe123
+    repo_nickname: universe45
     source: analyst
     tool:
       name: tool-1

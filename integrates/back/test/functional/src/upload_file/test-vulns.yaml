@@ -39,18 +39,10 @@ lines:
       impact: direct
 
 ports:
-  - host: https://example.com
-    port: '8080'
-    state: open
-    repo_nickname: universe
-    source: analyst
-    tool:
-      name: tool-1
-      impact: direct
   - host: 192.168.1.44
     port: '4444'
     state: open
-    repo_nickname: universe
+    repo_nickname: universe44
     source: analyst
     tool:
       name: tool-1
@@ -58,7 +50,7 @@ ports:
   - host: 192.168.1.45
     port: '4545'
     state: closed
-    repo_nickname: universe
+    repo_nickname: universe45
     source: analyst
     tool:
       name: tool-1
@@ -66,7 +58,7 @@ ports:
   - host: 192.168.1.46
     port: '4646'
     state: open
-    repo_nickname: universe
+    repo_nickname: universe46
     source: escape
     tool:
       name: tool-1
@@ -75,7 +67,7 @@ ports:
     port: '4747'
     source: analyst
     state: closed
-    repo_nickname: universe
+    repo_nickname: universe47
     tool:
       name: tool-1
       impact: direct

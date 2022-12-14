@@ -1606,6 +1606,15 @@ class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
         super(VulnerabilityUrlFieldDoNotExistInToeInputs, self).__init__(msg)
 
 
+class VulnerabilityPortFieldDoNotExistInToePorts(CustomBaseException):
+    def __init__(self, index: str = "") -> None:
+        msg = (
+            '{"msg": "Exception -  The vulnerability address and port do not '
+            f'exist in the toe ports", "path": "/ports/{index}"}}'
+        )
+        super(VulnerabilityPortFieldDoNotExistInToePorts, self).__init__(msg)
+
+
 class LineDoesNotExistInTheLinesOfCodeRange(CustomBaseException):
     def __init__(self, line: str, index: str) -> None:
         msg = (

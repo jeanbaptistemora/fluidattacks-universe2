@@ -46,6 +46,8 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+    IPRoot,
+    IPRootState,
     RootEnvironmentUrl,
 )
 from db_model.toe_inputs.types import (
@@ -54,6 +56,10 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+)
+from db_model.toe_ports.types import (
+    ToePort,
+    ToePortState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -354,6 +360,111 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
                 "historic_state": [],
             },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="40190504-eeab-4640-af14-2af5673041e6",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.44",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="universe44",
+                        other=None,
+                        port="0",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="bb90e4a1-9e24-4d1b-af48-24fb5f09dc71",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.45",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="universe45",
+                        other=None,
+                        port="0",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="f54c209e-45e8-4960-9aa5-bb9c34987e09",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.46",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="universe46",
+                        other=None,
+                        port="0",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="715f2498-bb07-41a4-99bd-61bd008fa903",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.47",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="universe47",
+                        other=None,
+                        port="0",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date="2020-11-19T13:37:10+00:00",
+                    group_name="group1",
+                    id="30c85c00-d2ab-43f4-b75e-7ae27928c8a4",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.57",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="universe57",
+                        other=None,
+                        port="0",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
         ],
         "toe_inputs": (
             ToeInput(
@@ -449,6 +560,128 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
             ),
         ),
+        "toe_ports": (
+            ToePort(
+                address="192.168.1.44",
+                port="4444",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                root_id="40190504-eeab-4640-af14-2af5673041e6",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    modified_by="admin@gmail.com",
+                ),
+            ),
+            ToePort(
+                address="192.168.1.45",
+                port="4545",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                root_id="bb90e4a1-9e24-4d1b-af48-24fb5f09dc71",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    modified_by="admin@gmail.com",
+                ),
+            ),
+            ToePort(
+                address="192.168.1.46",
+                port="4646",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                root_id="f54c209e-45e8-4960-9aa5-bb9c34987e09",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    modified_by="admin@gmail.com",
+                ),
+            ),
+            ToePort(
+                address="192.168.1.47",
+                port="4747",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                root_id="715f2498-bb07-41a4-99bd-61bd008fa903",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    modified_by="admin@gmail.com",
+                ),
+            ),
+            ToePort(
+                address="192.168.1.57",
+                port="8001",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                root_id="30c85c00-d2ab-43f4-b75e-7ae27928c8a4",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    modified_by="admin@gmail.com",
+                ),
+            ),
+        ),
         "vulnerabilities": [
             {
                 "vulnerability": Vulnerability(
@@ -458,7 +691,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    root_id="40190504-eeab-4640-af14-2af5673041e6",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:43:11+00:00",
@@ -496,7 +729,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    root_id="bb90e4a1-9e24-4d1b-af48-24fb5f09dc71",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:44:11+00:00",
@@ -534,7 +767,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
-                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    root_id="f54c209e-45e8-4960-9aa5-bb9c34987e09",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:45:11+00:00",
@@ -604,7 +837,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdceb",
-                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    root_id="715f2498-bb07-41a4-99bd-61bd008fa903",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
                         modified_date="2018-04-08T00:44:11+00:00",
