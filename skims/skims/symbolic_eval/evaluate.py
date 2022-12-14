@@ -6,6 +6,7 @@ from model.graph_model import (
     NId,
 )
 from symbolic_eval.cases import (
+    argument,
     argument_list,
     array_access,
     array_creation,
@@ -64,6 +65,7 @@ from utils import (
 )
 
 EVALUATORS: Dict[str, Evaluator] = {
+    "Argument": argument.evaluate,
     "ArgumentList": argument_list.evaluate,
     "ArrayAccess": array_access.evaluate,
     "ArrayCreation": array_creation.evaluate,
