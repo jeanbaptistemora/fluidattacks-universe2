@@ -1,4 +1,4 @@
-# pylint: disable=too-many-lines, too-many-arguments, import-error
+# pylint: disable=too-many-arguments, import-error
 from api.schema import (
     SCHEMA,
 )
@@ -14,7 +14,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-import json
 import pytest
 from typing import (
     Any,
@@ -33,132 +32,6 @@ async def _get_result_async(
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
-
-
-async def test_group() -> None:
-    """Check for group mutation."""
-    variables = {"groupName": "unittesting"}
-    query = """
-      query GetGroupInfo($groupName: String!) {
-        group(groupName: $groupName){
-          name
-          hasSquad
-          hasForces
-          findings {
-              hacker
-          }
-          hasAsm
-          openVulnerabilities
-          closedVulnerabilities
-          lastClosedVulnerability
-          meanRemediate
-          meanRemediateLowSeverity
-          meanRemediateMediumSeverity
-          openFindings
-          subscription
-          userDeletion
-          tags
-          description
-          disambiguation
-          groupContext
-          consulting {
-            content
-          }
-          drafts {
-            age
-            openVulnerabilities
-          }
-          events {
-            hacker
-            detail
-          }
-          stakeholders {
-            email
-            invitationState
-            role
-            responsibility
-            firstLogin
-            lastLogin
-          }
-          __typename
-        }
-      }
-    """
-    expected_stakeholders = [
-        {
-            "email": "integratesmanager@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "REGISTERED",
-            "lastLogin": "2019-12-29 11:50:17",
-            "responsibility": "Test",
-            "role": "admin",
-        },
-        {
-            "email": "integratesuser2@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "REGISTERED",
-            "lastLogin": "2019-10-29 13:40:37",
-            "responsibility": "Test",
-            "role": "user",
-        },
-        {
-            "email": "integratesuser@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "REGISTERED",
-            "lastLogin": "2019-10-29 13:40:37",
-            "responsibility": "Test",
-            "role": "user_manager",
-        },
-        {
-            "email": "continuoushacking@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "REGISTERED",
-            "lastLogin": "2020-03-23 10:45:37",
-            "responsibility": "Test",
-            "role": "user_manager",
-        },
-        {
-            "email": "continuoushack2@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "REGISTERED",
-            "lastLogin": "2020-03-23 10:45:37",
-            "responsibility": "Test",
-            "role": "user_manager",
-        },
-    ]
-
-    data = {"query": query, "variables": variables}
-    result = await _get_result_async(data)
-
-    assert "errors" not in result
-    assert result["data"]["group"]["name"] == "unittesting"
-    assert result["data"]["group"]["hasSquad"]
-    assert result["data"]["group"]["hasForces"]
-    assert len(result["data"]["group"]["findings"]) == 6
-    assert result["data"]["group"]["openVulnerabilities"] == 31
-    assert result["data"]["group"]["closedVulnerabilities"] == 8
-    assert "lastClosedVulnerability" in result["data"]["group"]
-    assert result["data"]["group"]["meanRemediate"] == 245
-    assert result["data"]["group"]["meanRemediateLowSeverity"] == 232
-    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 287
-    assert result["data"]["group"]["openFindings"] == 5
-    assert result["data"]["group"]["subscription"] == "continuous"
-    assert result["data"]["group"]["userDeletion"] is None
-    assert sorted(result["data"]["group"]["tags"])[0] == "test-groups"
-    assert (
-        result["data"]["group"]["description"] == "Integrates unit test group"
-    )
-    assert result["data"]["group"]["disambiguation"] == "Disambiguation test"
-    assert result["data"]["group"]["groupContext"] == "Group context test"
-    assert len(result["data"]["group"]["drafts"]) == 2
-    assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
-    assert len(result["data"]["group"]["events"]) == 6
-    assert (
-        result["data"]["group"]["consulting"][0]["content"]
-        == "Now we can post comments on groups"
-    )
-    for stakeholder in expected_stakeholders:
-        assert stakeholder in result["data"]["group"]["stakeholders"]
 
 
 @pytest.mark.changes_db
@@ -183,56 +56,6 @@ async def test_add_group() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["addGroup"]
     assert result["data"]["addGroup"]["success"]
-
-
-@pytest.mark.changes_db
-async def test_add_group_tags() -> None:
-    """Check for addGroupTags mutation."""
-    query = """
-        mutation AddGroupTagsMutation(
-          $groupName: String!,
-          $tagsData: JSONString!
-        ) {
-            addGroupTags (
-                tags: $tagsData,
-                groupName: $groupName) {
-                success
-            }
-        }
-        """
-    variables = {
-        "groupName": "unittesting",
-        "tagsData": json.dumps(["testing"]),
-    }
-    data = {"query": query, "variables": variables}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addGroupTags"]
-    assert result["data"]["addGroupTags"]["success"]
-
-
-@pytest.mark.changes_db
-async def test_remove_group_tag() -> None:
-    """Check for removeGroupTag mutation."""
-    query = """
-        mutation RemoveGroupTagMutation(
-          $tagToRemove: String!,
-          $groupName: String!
-        ) {
-            removeGroupTag (
-            tag: $tagToRemove,
-            groupName: $groupName,
-            ) {
-            success
-            }
-        }
-    """
-    variables = {"groupName": "oneshottest", "tagToRemove": "another-tag"}
-    data = {"query": query, "variables": variables}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeGroupTag"]
-    assert result["data"]["removeGroupTag"]["success"]
 
 
 @pytest.mark.changes_db
@@ -1119,20 +942,3 @@ async def test_deactivate_root_nonexistent() -> None:
 
     assert "errors" in result
     assert "root not found" in result["errors"][0]["message"]
-
-
-@pytest.mark.changes_db
-async def test_unsubscribe_from_group() -> None:
-    query = """
-      mutation {
-        unsubscribeFromGroup(groupName: "metropolis"){
-          success
-        }
-      }
-    """
-    result = await _get_result_async(
-        {"query": query}, user="integratesuser@gmail.com"
-    )
-
-    assert "errors" not in result
-    assert result["data"]["unsubscribeFromGroup"]["success"]
