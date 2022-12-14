@@ -16,6 +16,7 @@ interface IContainerProps {
   borderBL?: string;
   borderBR?: string;
   boxShadow?: string;
+  boxSizing?: string;
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
@@ -34,6 +35,8 @@ interface IContainerProps {
   pt?: string;
   pbMd?: string;
   ptMd?: string;
+  prMd?: string;
+  plMd?: string;
   position?: string;
   positionBottom?: string;
   positionLeft?: string;
@@ -61,6 +64,7 @@ const Container = styled.div.attrs({
     borderBL = "0px 0px",
     borderBR = "0px 0px",
     boxShadow = "",
+    boxSizing = "",
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
@@ -79,6 +83,8 @@ const Container = styled.div.attrs({
     pt = "0",
     pbMd = "0",
     ptMd = "0",
+    prMd = "0",
+    plMd = "0",
     position = "static",
     positionBottom = "",
     positionLeft = "",
@@ -102,6 +108,7 @@ border-top-right-radius: ${borderTR};
 border-bottom-right-radius: ${borderBR};
 border-bottom-left-radius: ${borderBL};
 box-shadow: ${boxShadow};
+box-sizing: ${boxSizing};
 display: ${display};
 flex-wrap: ${wrap};
 font-family: ${fontFamily};
@@ -129,14 +136,17 @@ text-align: ${textAlign};
 transition: all 0.3s ease;
 width: ${width};
 
-@media screen and (min-width: 86em) {
+@media screen and (min-width: 64em) {
    width: ${width};
     }
 
-@media screen and (max-width: 86em) {
+@media screen and (max-width: 64em) {
+  box-sizing: ${boxSizing};
    width: ${widthMd === "auto" ? width : widthMd};
    padding-bottom: ${pbMd === "0" ? pb : pbMd};
    padding-top: ${ptMd === "0" ? pt : ptMd};
+   padding-left: ${plMd === "0" ? pl : plMd};
+   padding-right: ${prMd === "0" ? pr : prMd};
    height: ${heightMd === "auto" ? height : heightMd};
     }
 

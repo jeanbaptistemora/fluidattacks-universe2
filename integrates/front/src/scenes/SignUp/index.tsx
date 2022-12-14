@@ -108,6 +108,7 @@ export const SignUp: React.FC = (): JSX.Element => {
         maxHeight={"100%"}
         scroll={"none"}
         width={"50%"}
+        widthMd={"53%"}
         wrap={"wrap"}
       >
         <Container
@@ -126,6 +127,9 @@ export const SignUp: React.FC = (): JSX.Element => {
             justify={"center"}
             maxHeight={"800px"}
             pl={"20px"}
+            plMd={"0px"}
+            prMd={"0px"}
+            widthMd={"390px"}
           >
             <Container pb={"48px"} pbMd={"10px"}>
               <Container
@@ -134,15 +138,15 @@ export const SignUp: React.FC = (): JSX.Element => {
                 pt={"24px"}
                 width={"100%"}
               >
-                <Text bright={0} fontSize={"43px"} fw={9} tone={"light"}>
+                <Text bright={0} fontSize={"36px"} fw={9} tone={"light"}>
                   {t("signup.title")}
                 </Text>
               </Container>
               <Container
                 letterSpacing={"normal"}
-                lineHeight={"32px"}
+                lineHeight={"23px"}
                 maxWidth={"568px"}
-                pt={"24px"}
+                pt={"16px"}
                 width={"100%"}
                 widthMd={"85%"}
               >
@@ -155,14 +159,14 @@ export const SignUp: React.FC = (): JSX.Element => {
                   <Container
                     display={"flex"}
                     key={benefit.id}
-                    pt={"18px"}
+                    pt={"16px"}
                     wrap={"wrap"}
                   >
                     <Container letterSpacing={"1.2px"} pr={"16px"}>
                       <FontAwesomeIcon color={"#f4f4f6"} icon={benefit.icon} />
                     </Container>
                     <Container
-                      lineHeight={"24px"}
+                      lineHeight={"21px"}
                       maxWidth={"522px"}
                       widthMd={"75%"}
                     >
@@ -182,28 +186,28 @@ export const SignUp: React.FC = (): JSX.Element => {
               borderTl={"15px"}
               heightMd={"40%"}
               width={"568px"}
-              widthMd={"95%"}
+              widthMd={"371px"}
             >
-              <Container pl={"40px"}>
+              <Container pl={"24px"}>
                 <Carousel
                   contents={[...Array(3).keys()].map(
                     (el: number): JSX.Element => (
                       <Container
                         height={"auto"}
                         key={el}
-                        pr={"40px"}
-                        pt={"40px"}
-                        ptMd={"10px"}
+                        pr={"24px"}
+                        pt={"24px"}
+                        ptMd={"24px"}
                         scroll={"none"}
                       >
                         {el === 2 ? <StarsMedium /> : <StarsFull />}
                         <Container lineHeight={"1.4"}>
-                          <Text fontSize={"20px"} fw={9} tone={"dark"}>
+                          <Text fontSize={"16px"} fw={9} tone={"dark"}>
                             {quotes[el].quote}
                           </Text>
                         </Container>
-                        <Container pt={"24px"} ptMd={"10px"}>
-                          <Text bright={7} fontSize={"20px"} tone={"dark"}>
+                        <Container pt={"24px"} ptMd={"20px"}>
+                          <Text bright={7} fontSize={"16px"} tone={"dark"}>
                             {quotes[el].reference}
                           </Text>
                         </Container>
@@ -224,14 +228,17 @@ export const SignUp: React.FC = (): JSX.Element => {
         height={"100%"}
         justify={"center"}
         width={"50%"}
+        widthMd={"47%"}
         wrap={"wrap"}
       >
         <Container
           align={"center"}
           display={"flex"}
           height={"700px"}
+          heightMd={"643px"}
           justify={"center"}
           width={"473px"}
+          widthMd={"350px"}
           wrap={"wrap"}
         >
           <Container
@@ -241,94 +248,127 @@ export const SignUp: React.FC = (): JSX.Element => {
             width={"237px"}
           />
           <Container
+            align={"center"}
             display={"flex"}
+            justify={"center"}
             pt={"100px"}
+            ptMd={"32px"}
             width={"403px"}
             wrap={"wrap"}
           >
             <Container>
               <Text bright={3} fontSize={"36px"} fw={9} tone={"dark"}>
-                {"Sign up |"}
+                {"Sign up"}
               </Text>
             </Container>
-            <Container margin={"8px"}>
+            <Container pl={"7px"} widthMd={"0px"}>
+              <Text bright={3} fontSize={"36px"} fw={9} tone={"dark"}>
+                {"|"}
+              </Text>
+            </Container>
+            <Container margin={"8px"} ptMd={"12px"}>
               <Text bright={7} fontSize={"24px"} tone={"dark"}>
                 {"No credit card required."}
               </Text>
             </Container>
           </Container>
-          <Container pt={"32px"} width={"100%"}>
-            <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
-              <Container
-                align={"center"}
-                display={"flex"}
-                justify={"center"}
-                width={"435px"}
-                wrap={"wrap"}
+          <Container align={"center"} justify={"center"} widthMd={"350px"}>
+            <Container pt={"20px"} width={"100%"}>
+              <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
+                <Container
+                  align={"center"}
+                  boxSizing={"border-box"}
+                  display={"flex"}
+                  height={"32px"}
+                  justify={"center"}
+                  minWidth={"310px"}
+                  width={"435px"}
+                  widthMd={"100%"}
+                  wrap={"wrap"}
+                >
+                  <Container
+                    bgImage={`url(${loginGoogleLogo})`}
+                    bgImagePos={"100% 100%"}
+                    height={"24px"}
+                    width={"24px"}
+                  />
+                  <Container minWidth={"20px"} />
+                  <Container>
+                    <Text bright={9} fontSize={"18px"}>
+                      {"Continue with Google"}
+                    </Text>
+                  </Container>
+                </Container>
+              </Button>
+            </Container>
+            <Container pt={"16px"} width={"100%"}>
+              <Button
+                onClick={handleMicrosoftLogin}
+                size={"lg"}
+                variant={"input"}
               >
                 <Container
-                  bgImage={`url(${loginGoogleLogo})`}
-                  bgImagePos={"100% 100%"}
-                  height={"24px"}
-                  width={"24px"}
-                />
-                <Container minWidth={"20px"} />
-                <Container>
-                  <Text bright={9} fontSize={"18px"}>
-                    {"Continue with Google"}
-                  </Text>
+                  align={"center"}
+                  boxSizing={"border-box"}
+                  display={"flex"}
+                  height={"32px"}
+                  justify={"center"}
+                  minWidth={"310px"}
+                  width={"435px"}
+                  widthMd={"100%"}
+                  wrap={"wrap"}
+                >
+                  <Container width={"28px"} widthMd={"0px"} />
+                  <Container
+                    bgImage={`url(${loginMicrosoftLogo})`}
+                    bgImagePos={"100% 100%"}
+                    height={"24px"}
+                    width={"24px"}
+                  />
+                  <Container minWidth={"20px"} />
+                  <Container>
+                    <Text bright={9} fontSize={"18px"}>
+                      {"Continue with Microsoft"}
+                    </Text>
+                  </Container>
                 </Container>
-              </Container>
-            </Button>
-          </Container>
-          <Container pt={"32px"} width={"100%"}>
-            <Button
-              onClick={handleMicrosoftLogin}
-              size={"lg"}
-              variant={"input"}
-            >
-              <Container display={"flex"} width={"435px"} wrap={"wrap"}>
-                <Container minWidth={"115px"} />
+              </Button>
+            </Container>
+            <Container pt={"16px"} width={"100%"}>
+              <Button
+                onClick={handleBitbucketLogin}
+                size={"lg"}
+                variant={"input"}
+              >
                 <Container
-                  bgImage={`url(${loginMicrosoftLogo})`}
-                  bgImagePos={"100% 100%"}
-                  height={"24px"}
-                  pl={"20px"}
-                  width={"24px"}
-                />
-                <Container minWidth={"20px"} />
-                <Container pt={"2px"} width={"220px"}>
-                  <Text bright={9} fontSize={"18px"}>
-                    {"Continue with Microsoft"}
-                  </Text>
+                  align={"center"}
+                  boxSizing={"border-box"}
+                  display={"flex"}
+                  height={"32px"}
+                  justify={"center"}
+                  minWidth={"310px"}
+                  width={"435px"}
+                  widthMd={"100%"}
+                  wrap={"wrap"}
+                >
+                  <Container width={"28px"} widthMd={"0px"} />
+                  <Container
+                    bgImage={`url(${loginBitBucketLogo})`}
+                    bgImagePos={"100% 100%"}
+                    height={"24px"}
+                    width={"24px"}
+                  />
+                  <Container minWidth={"20px"} />
+                  <Container>
+                    <Text bright={9} fontSize={"18px"}>
+                      {"Continue with Bitbucket"}
+                    </Text>
+                  </Container>
                 </Container>
-              </Container>
-            </Button>
+              </Button>
+            </Container>
           </Container>
-          <Container pt={"32px"} width={"100%"}>
-            <Button
-              onClick={handleBitbucketLogin}
-              size={"lg"}
-              variant={"input"}
-            >
-              <Container display={"flex"} width={"435px"} wrap={"wrap"}>
-                <Container minWidth={"115px"} />
-                <Container
-                  bgImage={`url(${loginBitBucketLogo})`}
-                  bgImagePos={"100% 100%"}
-                  height={"24px"}
-                  pl={"20px"}
-                  width={"24px"}
-                />
-                <Container minWidth={"20px"} />
-                <Container pt={"2px"} width={"220px"}>
-                  <Text bright={9} fontSize={"18px"}>
-                    {"Continue with Bitbucket"}
-                  </Text>
-                </Container>
-              </Container>
-            </Button>
-          </Container>
+
           <Container
             align={"center"}
             display={"flex"}

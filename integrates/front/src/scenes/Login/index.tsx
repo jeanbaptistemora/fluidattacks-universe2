@@ -59,6 +59,7 @@ export const Login: React.FC = (): JSX.Element => {
           align={"center"}
           display={"flex"}
           height={"700px"}
+          heightMd={"643px"}
           justify={"center"}
           maxWidth={"390px"}
           position={"absolute"}
@@ -86,6 +87,7 @@ export const Login: React.FC = (): JSX.Element => {
             display={"flex"}
             justify={"center"}
             pt={"100px"}
+            ptMd={"50px"}
             width={"390px"}
             wrap={"wrap"}
           >
@@ -121,7 +123,12 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"390px"} pt={"16px"} widthMd={"300px"}>
+          <Container
+            maxWidth={"390px"}
+            pt={"16px"}
+            ptMd={"0px"}
+            widthMd={"300px"}
+          >
             <Button
               onClick={handleMicrosoftLogin}
               size={"lg"}
@@ -152,7 +159,12 @@ export const Login: React.FC = (): JSX.Element => {
               </Container>
             </Button>
           </Container>
-          <Container maxWidth={"390px"} pt={"16px"} widthMd={"300px"}>
+          <Container
+            maxWidth={"390px"}
+            pt={"16px"}
+            ptMd={"0px"}
+            widthMd={"300px"}
+          >
             <Button
               onClick={handleBitbucketLogin}
               size={"lg"}
@@ -280,7 +292,7 @@ export const Login: React.FC = (): JSX.Element => {
               ptMd={"0px"}
               width={"100%"}
             >
-              <Text fontSize={"36px"} fw={9} tone={"light"}>
+              <Text fontSize={"24px"} fw={9} tone={"light"}>
                 {t("login.generalData.subtitle")}
               </Text>
             </Container>
@@ -292,7 +304,7 @@ export const Login: React.FC = (): JSX.Element => {
               ptMd={"0px"}
               width={"100%"}
             >
-              <Text bright={6} fontSize={"20px"} tone={"light"}>
+              <Text bright={6} fontSize={"16px"} tone={"light"}>
                 {t("login.generalData.description")}
               </Text>
             </Container>
