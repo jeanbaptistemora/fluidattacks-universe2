@@ -5210,14 +5210,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CS_HAS_NOT_CSFR_PROTECTION = MethodInfo(
-        file_name="c_sharp",
-        name="cs_has_not_csfr_protection",
-        module="lib_root",
-        finding=FindingEnum.F337,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     JSON_INAPPROPRIATE_USE_OF_COMMENTS = MethodInfo(
         file_name="json_files",
         name="json_inappropriate_use_of_comments",
