@@ -88,6 +88,7 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
                   description={subtitle}
                   image={image}
                   link={slug}
+                  mh={2}
                   minWidth={"344px"}
                   minWidthSm={"270px"}
                   title={title}

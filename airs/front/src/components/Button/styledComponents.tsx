@@ -98,7 +98,12 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     type,
   })
 )<IStyledButtonProps>`
-  ${({ display = "inline-block", size = "md", variant = "ghost" }): string => {
+  ${({
+    display = "inline-block",
+    selected = false,
+    size = "md",
+    variant = "ghost",
+  }): string => {
     const { ph, pv } = sizes[size];
     const {
       bgColor,
@@ -111,7 +116,7 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     } = variants[variant];
 
     return `
-    background-color: ${bgColor};
+    background-color: ${selected ? bgColorHover : bgColor};
     border: ${borderSize}px solid ${borderColor};
     border-radius: ${borderRadius}px;
     color: ${color};

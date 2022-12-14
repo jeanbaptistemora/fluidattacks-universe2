@@ -31,6 +31,7 @@ const Button: FC<IButtonProps> = ({
   iconSide = "left",
   name,
   onClick,
+  selected,
   size,
   type,
   variant,
@@ -41,6 +42,7 @@ const Button: FC<IButtonProps> = ({
       display={display}
       name={name}
       onClick={onClick}
+      selected={selected}
       size={size}
       type={type}
       variant={variant}

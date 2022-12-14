@@ -13,6 +13,7 @@ type TVariant =
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   display?: TDisplay;
+  selected?: boolean;
   size?: TSize;
   variant?: TVariant;
 }

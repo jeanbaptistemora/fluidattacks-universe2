@@ -1,5 +1,7 @@
 import type { TDisplay, TVariant } from "../Button/types";
 
+type Nums0To7 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
 interface IVerticalCard {
   alt: string;
   author?: string;
@@ -14,6 +16,7 @@ interface IVerticalCard {
   link: string;
   subMinHeight?: string;
   titleMinHeight?: string;
+  mh?: Nums0To7;
   minWidth?: string;
   minWidthMd?: string;
   minWidthSm?: string;

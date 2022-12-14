@@ -23,6 +23,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   description,
   image,
   imagePadding = false,
+  mh = 0,
   minWidth,
   minWidthMd,
   minWidthSm,
@@ -43,7 +44,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         br={2}
         direction={"column"}
         display={"flex"}
-        mh={2}
+        mh={mh}
         minWidth={minWidth}
         minWidthMd={minWidthMd}
         minWidthSm={minWidthSm}
@@ -111,7 +112,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
       br={2}
       direction={"column"}
       display={"flex"}
-      mh={2}
+      mh={mh}
       minWidth={minWidth}
       minWidthMd={minWidthMd}
       minWidthSm={minWidthSm}
