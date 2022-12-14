@@ -266,7 +266,6 @@ async def test_finding() -> None:
     assert "historicState" in result["data"]["finding"]
     assert "vulnerabilitiesConnection" in result["data"]["finding"]
     assert "minTimeToRemediate" in result["data"]["finding"]
-    print(result["data"]["finding"]["vulnerabilitiesConnection"])
     assert (
         result["data"]["finding"]["vulnerabilitiesConnection"] == expected_vuln
     )

@@ -5,6 +5,7 @@ from context import (
     FI_AWS_S3_MAIN_BUCKET,
 )
 from custom_exceptions import (
+    InvalidFileName,
     InvalidFileType,
 )
 from dataloaders import (
@@ -199,3 +200,42 @@ async def test_validate_evidence_records_invalid_type() -> None:
             await validate_evidence(
                 evidence_id, uploaded_file, loaders, finding
             )
+
+
+async def test_validate_evidence_records_invalid_name() -> None:
+    loaders = get_new_context()
+    evidence_id = "evidence_route_1"
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(
+        filename, "mock/evidences/unittesting-422286126-evidence_route_1.png"
+    )
+    mime_type = "image/png"
+    finding_id = "422286126"
+    finding: Finding = await loaders.finding.load(finding_id)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "test-file-records.png", test_file, mime_type
+        )
+        with pytest.raises(InvalidFileName):
+            await validate_evidence(
+                evidence_id,
+                uploaded_file,
+                loaders,
+                finding,
+                validate_name=True,
+            )
+
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "okada-unittesting-0123456789.png", test_file, mime_type
+        )
+        test_data = await validate_evidence(
+            evidence_id,
+            uploaded_file,
+            loaders,
+            finding,
+            validate_name=True,
+        )
+    expected_output = True
+    assert isinstance(test_data, bool)
+    assert test_data == expected_output

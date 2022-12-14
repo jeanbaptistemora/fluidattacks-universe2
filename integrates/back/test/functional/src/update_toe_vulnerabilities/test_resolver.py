@@ -1,7 +1,6 @@
 from . import (
     get_result,
 )
-import pprint
 import pytest
 from schedulers import (
     update_group_toe_vulns as schedulers_update_group_toe_vulns,
@@ -22,7 +21,6 @@ async def test_update_toe_vulnerabilities(populate: bool, email: str) -> None:
     await schedulers_update_group_toe_vulns.main()
 
     result = await get_result(user=email, group_name=group_name)
-    pprint.pprint(result["data"]["group"]["toeInputs"])
     assert result["data"]["group"]["toeInputs"] == {
         "edges": [
             {
