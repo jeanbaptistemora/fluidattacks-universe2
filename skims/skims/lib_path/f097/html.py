@@ -17,14 +17,7 @@ from typing import (
 
 def has_reverse_tabnabbing(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
-        r"""
-        Check if an HTML file has links vulnerable to a reverse tabnabbing.
-
-        :param path: Path to the ``HTML`` source.
-        :rtype: :class:`fluidasserts.Result`
-        """
-        http_re = re.compile("^http(s)?://")
-
+        http_re = re.compile(r"^http(s)?://|^\{.*\}")
         html_obj = BeautifulSoup(content, features="html.parser")
 
         for ahref in html_obj.findAll("a", attrs={"href": http_re}):
