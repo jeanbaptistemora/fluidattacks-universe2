@@ -683,7 +683,7 @@ async def remove_organization(
             modified_by=modified_by,
             modified_date=datetime_utils.get_utc_now(),
             status=OrganizationStateStatus.DELETED,
-            pending_deletion_date="",
+            pending_deletion_date=None,
         ),
     )
     await credentials_model.remove_organization_credentials(

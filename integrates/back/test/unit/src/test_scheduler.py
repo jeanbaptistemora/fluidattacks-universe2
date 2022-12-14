@@ -2,6 +2,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -190,7 +193,7 @@ async def test_update_portfolios_indicators() -> None:
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_delete_obsolete_orgs() -> None:
-    loaders: Dataloaders
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_ids = []
     async for organization in iterate_organizations():
@@ -203,7 +206,6 @@ async def test_delete_obsolete_orgs() -> None:
 
     new_org_ids = []
     async for organization in iterate_organizations():
-        loaders = get_new_context()
         new_org: Organization = await loaders.organization.load(
             organization.id
         )
@@ -214,9 +216,12 @@ async def test_delete_obsolete_orgs() -> None:
 
     loaders = get_new_context()
     org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
-    test_org = await loaders.organization.load(org_id)
+    test_org: Organization = await loaders.organization.load(org_id)
     org_pending_deletion_date = test_org.state.pending_deletion_date
-    assert org_pending_deletion_date == "2020-01-30T00:00:00+00:00"
+    assert org_pending_deletion_date
+    assert org_pending_deletion_date == datetime.fromisoformat(
+        "2020-01-30T00:00:00+00:00"
+    )
 
     org_name = "okada"
     test_org = await loaders.organization.load(org_name)

@@ -67,7 +67,7 @@ async def _remove_organization(
 
 async def delete_obsolete_orgs() -> None:
     """Remove obsolete organizations."""
-    today = datetime_utils.get_now().date()
+    today = datetime_utils.get_utc_now()
     modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     async for organization in orgs_domain.iterate_organizations():
@@ -75,20 +75,13 @@ async def delete_obsolete_orgs() -> None:
             continue
 
         info(f"Working on organization {organization.name}")
-        org_pending_deletion_date_str = (
-            organization.state.pending_deletion_date
-        )
+        org_pending_deletion_date = organization.state.pending_deletion_date
         org_group_names = await orgs_domain.get_group_names(
             loaders, organization.id
         )
         if len(org_group_names) == 0:
-            if org_pending_deletion_date_str:
-                org_pending_deletion_date = (
-                    datetime_utils.get_datetime_from_iso_str(
-                        org_pending_deletion_date_str
-                    )
-                )
-                if org_pending_deletion_date.date() <= today:
+            if org_pending_deletion_date:
+                if org_pending_deletion_date.date() <= today.date():
                     await _remove_organization(
                         loaders,
                         organization.id,
@@ -96,9 +89,7 @@ async def delete_obsolete_orgs() -> None:
                         modified_by,
                     )
             else:
-                new_deletion_date = datetime_utils.get_as_utc_iso_format(
-                    datetime_utils.get_now_plus_delta(days=60)
-                )
+                new_deletion_date = datetime_utils.get_now_plus_delta(days=60)
                 await orgs_domain.update_state(
                     organization_id=organization.id,
                     organization_name=organization.name,
@@ -121,7 +112,7 @@ async def delete_obsolete_orgs() -> None:
                     modified_by=modified_by,
                     modified_date=datetime_utils.get_utc_now(),
                     status=OrganizationStateStatus.ACTIVE,
-                    pending_deletion_date="",
+                    pending_deletion_date=None,
                 ),
             )
 

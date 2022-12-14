@@ -40,7 +40,7 @@ class OrganizationState(NamedTuple):
     status: OrganizationStateStatus
     modified_by: str
     modified_date: datetime
-    pending_deletion_date: Optional[str] = None
+    pending_deletion_date: Optional[datetime] = None
 
 
 class OrganizationStandardCompliance(NamedTuple):
