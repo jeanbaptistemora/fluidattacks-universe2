@@ -134,7 +134,7 @@ def format_state(state: Item) -> OrganizationState:
     return OrganizationState(
         status=OrganizationStateStatus[state["status"]],
         modified_by=state["modified_by"],
-        modified_date=state["modified_date"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
         pending_deletion_date=state.get("pending_deletion_date"),
     )
 

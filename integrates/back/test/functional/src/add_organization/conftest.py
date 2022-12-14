@@ -62,7 +62,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                         status=OrganizationStateStatus.ACTIVE,
                     ),
                 ),

@@ -99,7 +99,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=OrganizationState(
                         status=OrganizationStateStatus.ACTIVE,
                         modified_by="user_manager@domain.com",
-                        modified_date="2022-09-12T18:00:00-05:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-12T23:00:00+00:00"
+                        ),
                     ),
                 )
             }

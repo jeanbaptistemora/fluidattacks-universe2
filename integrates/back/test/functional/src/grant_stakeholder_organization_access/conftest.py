@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -37,7 +40,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     state=OrganizationState(
                         modified_by=generic_data["global_vars"]["user_email"],
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                         status=OrganizationStateStatus.ACTIVE,
                     ),
                 ),

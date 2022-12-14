@@ -104,7 +104,7 @@ async def delete_obsolete_orgs() -> None:
                     organization_name=organization.name,
                     state=OrganizationState(
                         modified_by=modified_by,
-                        modified_date=datetime_utils.get_iso_date(),
+                        modified_date=datetime_utils.get_utc_now(),
                         status=organization.state.status,
                         pending_deletion_date=new_deletion_date,
                     ),
@@ -119,7 +119,7 @@ async def delete_obsolete_orgs() -> None:
                 organization_name=organization.name,
                 state=OrganizationState(
                     modified_by=modified_by,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     status=OrganizationStateStatus.ACTIVE,
                     pending_deletion_date="",
                 ),

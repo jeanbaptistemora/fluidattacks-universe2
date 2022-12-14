@@ -351,7 +351,9 @@ def generic_data(  # pylint: disable=too-many-locals
                         ),
                         state=OrganizationState(
                             modified_by=admin_email,
-                            modified_date="2019-11-22T20:07:57+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-11-22T20:07:57+00:00"
+                            ),
                             status=OrganizationStateStatus.ACTIVE,
                         ),
                     ),

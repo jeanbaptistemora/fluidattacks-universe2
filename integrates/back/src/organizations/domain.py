@@ -422,16 +422,16 @@ async def add_organization(
     if in_trial and await loaders.stakeholder_organizations_access.load(email):
         raise TrialRestriction()
 
-    modified_date = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     organization = Organization(
         created_by=email,
-        created_date=modified_date,
+        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
         country=country,
         id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),
         policies=Policies(
             modified_by=email,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
         ),
         state=OrganizationState(
             modified_by=email,
@@ -681,7 +681,7 @@ async def remove_organization(
         organization_name=organization_name,
         state=OrganizationState(
             modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=OrganizationStateStatus.DELETED,
             pending_deletion_date="",
         ),

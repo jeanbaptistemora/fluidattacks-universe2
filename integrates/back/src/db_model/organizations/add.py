@@ -14,6 +14,7 @@ from db_model.organizations.utils import (
     remove_org_id_prefix,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -83,7 +84,9 @@ async def add(*, organization: Organization) -> None:
         facet=TABLE.facets["organization_historic_state"],
         values={
             "id": organization.id,
-            "iso8601utc": organization.state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(
+                organization.state.modified_date
+            ),
         },
     )
     historic_state_item = {
