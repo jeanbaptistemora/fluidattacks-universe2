@@ -384,9 +384,14 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         )
     ):
         email_context["is_escape"] = True
+        stakeholders_email = [
+            stakeholder.email
+            for stakeholder in stakeholders
+            if is_fluid_staff(stakeholder.email)
+        ]
         await send_mails_async(
             loaders,
-            email_to=list(filter(is_fluid_staff, stakeholders_email)),
+            email_to=stakeholders_email,
             context=email_context,
             tags=GENERAL_TAG,
             subject=f"[ARM] {finding_title} {state} with escape in "

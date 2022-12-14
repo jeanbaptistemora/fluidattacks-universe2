@@ -1050,7 +1050,7 @@ async def send_mail_treatment_alert(
         email_to=[email_to],
         email_cc=email_cc,
         tags=GENERAL_TAG,
-        subject=f"[ARM] Temporal Treatment Alert [{user_login}]",
+        subject=f"[ARM] Temporary Treatment Alert [{user_login}]",
         context=context,
         template_name="vulnerabilities_expiring",
     )
