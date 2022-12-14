@@ -106,6 +106,8 @@ The combination of continuous automatic
 and manual security testing
 generates more accurate results.
 
+### Why is SAST important?
+
 It's very important to look at the source code
 performing static application security testing
 manually alongside automated tools.
@@ -159,6 +161,8 @@ that are listed in public databases
 or have been disclosed by security testers,
 researchers
 or vendors themselves.
+
+### Why is SCA important?
 
 Identifying the risk
 related to vulnerable open-source software dependencies
@@ -271,6 +275,24 @@ the attack surface may be more accurately defined,
 and the attacks may be specially crafted
 and up to date on the techniques used by threat actors.
 
+### Why is DAST important?
+
+We frequently publish [advisories](../../advisories/)
+of software vulnerable to cross-site scripting,
+cross-site request forgery
+and injection,
+among other security issues.
+As our research team can attest,
+an attacker need not have access to the source code
+to learn how to cause a great damage.
+They need only probe applications
+trying out creative ways to get unauthorized access.
+This is why DAST should be conducted constantly.
+By proactively attacking their own application from the outside,
+organizations can find issues before criminals do.
+Then developers can fix the application from the inside,
+effectively reducing risks.
+
 ### What are the benefits of DAST?
 
 Some of the most notable benefits
@@ -296,10 +318,12 @@ After all these definitions,
 what could be said about the validity
 of common comparisons like SAST vs SCA
 and SAST vs DAST?
+Which one is best?
 It's plain to see
 that these methods are executed with different scopes
 within the same object of assessment.
-They each benefit software security in their own way.
+They each benefit software security in their own way
+and offer their own advantages.
 So,
 if you ask us
 whether any one of these methods is better than the other two,
