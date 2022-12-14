@@ -13661,22 +13661,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": ""
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": ""
-                  }
-                }
               }
             },
             {
@@ -13691,22 +13675,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.961374+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.961408+00:00"
-                  }
-                }
               }
             },
             {
@@ -13721,22 +13689,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.969630+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.969646+00:00"
-                  }
-                }
               }
             },
             {
@@ -13751,22 +13703,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.942324+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.942336+00:00"
-                  }
-                }
               }
             },
             {
@@ -13781,22 +13717,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.944268+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.944280+00:00"
-                  }
-                }
               }
             },
             {
@@ -13811,22 +13731,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.965672+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.965690+00:00"
-                  }
-                }
               }
             },
             {
@@ -13841,22 +13745,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": ""
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": ""
-                  }
-                }
               }
             },
             {
@@ -13871,22 +13759,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "5"
-                  },
-                  "extension_date": {
-                    "S": "2019-06-10T20:07:57+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-06-01T20:07:57+00:00"
-                  }
-                }
               }
             },
             {
@@ -13901,22 +13773,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.955732+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.955784+00:00"
-                  }
-                }
               }
             },
             {
@@ -13931,22 +13787,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.936168+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.936189+00:00"
-                  }
-                }
               }
             },
             {
@@ -13961,22 +13801,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.948485+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.948504+00:00"
-                  }
-                }
               }
             },
             {
@@ -13991,22 +13815,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.958701+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.958726+00:00"
-                  }
-                }
               }
             },
             {
@@ -14021,22 +13829,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.940308+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.940319+00:00"
-                  }
-                }
               }
             },
             {
@@ -14051,22 +13843,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.938286+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.938298+00:00"
-                  }
-                }
               }
             },
             {
@@ -14081,22 +13857,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": ""
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": ""
-                  }
-                }
               }
             },
             {
@@ -14111,22 +13871,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.951154+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.951177+00:00"
-                  }
-                }
               }
             },
             {
@@ -14141,22 +13885,6 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "5"
-                  },
-                  "extension_date": {
-                    "S": "2019-06-10T20:07:57+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-06-01T20:07:57+00:00"
-                  }
-                }
               }
             },
             {
@@ -14171,33 +13899,12 @@
               },
               "enrolled": {
                 "BOOL": true
-              },
-              "trial": {
-                "M": {
-                  "extension_days": {
-                    "N": "0"
-                  },
-                  "extension_date": {
-                    "S": "2022-08-04T22:21:45.946275+00:00"
-                  },
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "start_date": {
-                    "S": "2022-08-04T22:21:45.946286+00:00"
-                  }
-                }
               }
             }
           ],
           "NonKeyAttributes": [
             "email",
-            "completed",
-            "enrolled",
-            "extension_date",
-            "extension_days",
-            "start_date",
-            "trial"
+            "enrolled"
           ],
           "DataAccess": {
             "MySql": {}
