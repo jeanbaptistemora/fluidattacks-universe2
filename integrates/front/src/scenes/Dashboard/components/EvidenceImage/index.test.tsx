@@ -6,7 +6,7 @@ import React from "react";
 
 import { Button } from "components/Button";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
-import { isValidEvidenceName } from "utils/validations";
+import { isValidEvidenceName, validEvidenceImage } from "utils/validations";
 
 describe("Evidence image", (): void => {
   const btnConfirm = "components.modal.confirm";
@@ -167,26 +167,28 @@ describe("Evidence image", (): void => {
       "orgimage",
       "groupimage"
     );
-    const file: File[] = [new File([""], "image.png", { type: "image/png" })];
     const image0 = new File(
-      ["orgimage-groupimage-01234b6789.png"],
+      ["orgimage-groupimage-01#34b6789.csv"],
+      "orgimage-groupimage-01#34b6789.csv",
+      {
+        type: "text/csv",
+      }
+    );
+    const image1 = new File(
+      ["orgimage-groupimage-01#34b6789.png"],
       "orgimage-groupimage-01#34b6789.png",
       {
         type: "image/png",
       }
     );
-    const image1 = new File(
+    const image2 = new File(
       ["orgimage-groupimage-01234b6789"],
       "orgimage-groupimage-012345g789.png",
       { type: "image/png" }
     );
 
     render(
-      <Formik
-        initialValues={{ evidence1: { file } }}
-        name={"editEvidences"}
-        onSubmit={handleUpdate}
-      >
+      <Formik initialValues={{}} name={"editEvidences"} onSubmit={handleUpdate}>
         <Form>
           <EvidenceImage
             content={"https://fluidattacks.com/test.png"}
@@ -197,7 +199,7 @@ describe("Evidence image", (): void => {
             name={"evidence1"}
             onClick={handleClick}
             shouldPreview={true}
-            shouldPreviewValidation={[validEvidenceName]}
+            shouldPreviewValidation={[validEvidenceImage, validEvidenceName]}
           />
           <Button type={"submit"} variant={"primary"}>
             {btnConfirm}
@@ -231,6 +233,17 @@ describe("Evidence image", (): void => {
     expect(
       screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
     ).toBeDisabled();
+    expect(
+      screen.queryByText("searchFindings.tabEvidence.fields.modal.error")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Evidence images must have .gif/.png extension for animation" +
+          "/exploitation and .png for evidences." +
+          " Evidence name must have the following format " +
+          "organizationName-groupName-10 alphanumeric chars.extension."
+      )
+    ).toBeInTheDocument();
 
     await userEvent.click(screen.getByText("components.modal.cancel"));
 
@@ -245,11 +258,43 @@ describe("Evidence image", (): void => {
       ).toBeInTheDocument();
     });
 
+    expect(
+      screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
+    ).toBeDisabled();
+    expect(
+      screen.queryByText("searchFindings.tabEvidence.fields.modal.error")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Evidence name must have the following format " +
+          "organizationName-groupName-10 alphanumeric chars.extension."
+      )
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("components.modal.cancel"));
+
+    expect(
+      screen.queryByText("searchFindings.tabEvidence.fields.modal.title")
+    ).not.toBeInTheDocument();
+
+    await userEvent.upload(screen.getByTestId("evidence1.file"), image2);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvidence.fields.modal.title")
+      ).toBeInTheDocument();
+    });
+
     expect(handlePreview).toHaveBeenCalledTimes(1);
     expect(screen.getAllByRole("img")).toHaveLength(2);
     expect(
       screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
     ).not.toBeDisabled();
+    expect(
+      screen.queryByText(
+        "Evidence name must have the following format " +
+          "organizationName-groupName-10 alphanumeric chars.extension."
+      )
+    ).not.toBeInTheDocument();
 
     await userEvent.click(
       screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
