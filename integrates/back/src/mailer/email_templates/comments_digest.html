@@ -8,7 +8,9 @@
       {{ banner_group('Comments Report') }}
       <div class="main-content">
         <p>Hi {{ name }},</p>
-        <p>Below is a short report of your last comments in the ARM:</p>
+        <p>Below is a brief report of the latest comments in your subscribed
+           groups:
+        </p>
         {% for group_name, group_data in groups_data.items() %}
         <br />
         <h4>
