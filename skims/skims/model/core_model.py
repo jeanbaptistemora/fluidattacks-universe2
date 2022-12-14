@@ -3776,6 +3776,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )
+    JS_INSECURE_COOKIE = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_cookie",
+        module="lib_root",
+        finding=FindingEnum.F128,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.DAST,
+    )
+    TS_INSECURE_COOKIE = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_cookie",
+        module="lib_root",
+        finding=FindingEnum.F128,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.DAST,
+    )
     SET_COOKIE_SAMESITE = MethodInfo(
         file_name="analyze_headers",
         name="set_cookie_samesite",
