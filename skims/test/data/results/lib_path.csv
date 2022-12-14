@@ -24400,14 +24400,8 @@ F086,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,28,353,s
   33 | </html>
      ^ Col 0
 ",html.html_has_not_sub_resource_integrity
-F086,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,29,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
+F086,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,35,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
  in namespace/skims/test/data/lib_path/f097/vulnerable.html","
-  14 |    <label>Password</label><input class=""form-control"" id=""password"" type=""password"" autocomplete=""off""/>
-  15 |
-  16 |    <button class=""btn btn-primary btn-block"" id=""btn-login"">
-  17 |     &nbsp; Sign In
-  18 |    </button>
-  19 |   </form>
   20 |  </body>
   21 |
   22 |  <!-- has_reverse_tabnabbing -->
@@ -24416,13 +24410,19 @@ F086,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,29,353,skims,
   25 |      Click me for a reverse tabnabbing
   26 |  </a>
   27 |
-  28 |  <!-- has_not_subresource_integrity -->
-> 29 |  <script src=""https://example.com/example-framework.js"">
-  30 |  </script>
-  31 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
-  32 |  </link>
+  28 |  <!-- has_reverse_tabnabbing as a variable -->
+  29 |  <a href=""{{Injected_Target}}""
+  30 |  target=""_blank"">
+  31 |   Click me for a reverse tabnabbing
+  32 |  </a>
   33 |
-  34 | </html>
+  34 |  <!-- has_not_subresource_integrity -->
+> 35 |  <script src=""https://example.com/example-framework.js"">
+  36 |  </script>
+  37 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
+  38 |  </link>
+  39 |
+  40 | </html>
      ^ Col 0
 ",html.html_has_not_sub_resource_integrity
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
@@ -26704,12 +26704,37 @@ F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,23,502,skims,
   25 |      Click me for a reverse tabnabbing
   26 |  </a>
   27 |
-  28 |  <!-- has_not_subresource_integrity -->
-  29 |  <script src=""https://example.com/example-framework.js"">
-  30 |  </script>
-  31 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
-  32 |  </link>
+  28 |  <!-- has_reverse_tabnabbing as a variable -->
+  29 |  <a href=""{{Injected_Target}}""
+  30 |  target=""_blank"">
+  31 |   Click me for a reverse tabnabbing
+  32 |  </a>
   33 |
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,29,502,skims,097. Reverse tabnabbing,"The system allows the introduction of a link to an external site controlled by a malicious actor.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  19 |   </form>
+  20 |  </body>
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+  23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+  27 |
+  28 |  <!-- has_reverse_tabnabbing as a variable -->
+> 29 |  <a href=""{{Injected_Target}}""
+  30 |  target=""_blank"">
+  31 |   Click me for a reverse tabnabbing
+  32 |  </a>
+  33 |
+  34 |  <!-- has_not_subresource_integrity -->
+  35 |  <script src=""https://example.com/example-framework.js"">
+  36 |  </script>
+  37 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
+  38 |  </link>
+  39 |
      ^ Col 0
 ",html.html_has_reverse_tabnabbing
 F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,Property expiration_date is either missing or misconfigured in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,"
