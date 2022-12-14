@@ -192,7 +192,8 @@ resource "aws_launch_template" "main" {
     "management:type"    = "product"
   }
 
-  user_data = filebase64("${path.module}/aws_batch_user_data")
+  user_data               = filebase64("${path.module}/aws_batch_user_data")
+  disable_api_termination = true
 }
 
 resource "aws_batch_compute_environment" "main" {
