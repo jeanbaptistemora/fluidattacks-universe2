@@ -17,7 +17,7 @@ function main {
         UNIVERSE_API_TOKEN
     elif test "${env}" == 'dev'; then
       DAEMON=true integrates-db \
-        && DAEMON=true integrates-storage
+        && populate
     fi \
     && pushd integrates \
     && python3 -m back.src.batch_dispatch.dispatch "${@:2}" \

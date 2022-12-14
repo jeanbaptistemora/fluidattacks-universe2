@@ -7,7 +7,7 @@ function main {
   source __argIntegratesBackEnv__/template "${env}" \
     && if test "${env}" = 'dev'; then
       DAEMON=true integrates-db \
-        && DAEMON=true integrates-storage
+        && populate
     fi \
     && pushd integrates \
     && python3 \

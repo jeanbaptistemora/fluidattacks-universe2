@@ -51,8 +51,6 @@ try:
     FI_MAIL_PROJECTS = os.environ["MAIL_PROJECTS"]
     FI_MAIL_REVIEWERS = os.environ["MAIL_REVIEWERS"]
     FI_MANDRILL_API_KEY = os.environ["MANDRILL_APIKEY"]
-    FI_MINIO_PASS = os.environ.get("MINIO_PASS", "")
-    FI_MINIO_USER = os.environ.get("MINIO_USER", "")
     FI_MIXPANEL_API_TOKEN = os.environ["MIXPANEL_API_TOKEN"]
     FI_NEW_RELIC_LICENSE_KEY = os.environ["NEW_RELIC_LICENSE_KEY"]
     FI_STARLETTE_SESSION_KEY = os.environ["STARLETTE_SESSION_KEY"]

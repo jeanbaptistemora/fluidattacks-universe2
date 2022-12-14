@@ -16,10 +16,10 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.python39
       outputs."/integrates/db"
-      outputs."/integrates/storage"
     ];
     source = [
       outputs."/integrates/back/charts/pypi"
+      outputs."/integrates/storage/dev/lib/populate"
       outputs."/common/utils/aws"
       outputs."/common/utils/common"
       (makeTemplate {

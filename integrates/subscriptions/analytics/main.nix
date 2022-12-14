@@ -13,7 +13,9 @@ makeScript {
     bin = [
       inputs.nixpkgs.python39
       outputs."/integrates/db"
-      outputs."/integrates/storage"
+    ];
+    source = [
+      outputs."/integrates/storage/dev/lib/populate"
     ];
   };
   entrypoint = ./entrypoint.sh;

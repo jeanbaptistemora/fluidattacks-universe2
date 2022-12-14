@@ -21,14 +21,14 @@ makeScript {
       inputs.nixpkgs.roboto
       inputs.nixpkgs.roboto-mono
       outputs."/integrates/db"
-      outputs."/integrates/storage"
     ];
     source = [
+      outputs."/common/utils/aws"
+      outputs."/integrates/storage/dev/lib/populate"
       (makePythonPypiEnvironment {
         name = "integrates-charts-snapshots";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/common/utils/aws"
       (makeTemplate {
         replace = {
           __argCriteriaVulnerabilities__ =

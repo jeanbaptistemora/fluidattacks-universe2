@@ -21,7 +21,6 @@ in
         inputs.nixpkgs.tokei
         outputs."/integrates/batch"
         outputs."/integrates/db"
-        outputs."/integrates/storage"
       ];
       source = [
         outputs."/common/utils/sops"

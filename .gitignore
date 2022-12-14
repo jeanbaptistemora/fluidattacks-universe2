@@ -1,12 +1,10 @@
 /**/*.isorted
 /**/.coverage*
-/**/.minio.sys
 /**/.terraform
 /**/__pycache__
 /.envrc.config
 /.DB
 /.Cache
-/.Storage
 /out
 /result*
 /state

@@ -6,7 +6,6 @@
 /*.xlsx
 /.Cache
 /.DB
-/.Storage
 /back/deploy/permissions_matrix/**/*.html
 /charts/collector/**/*.png
 /charts/generators/**/*.json

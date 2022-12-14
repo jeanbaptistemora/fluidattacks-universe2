@@ -14,7 +14,6 @@ makeScript {
     bin = [
       outputs."/integrates/batch"
       outputs."/integrates/db"
-      outputs."/integrates/storage"
     ];
     source = [
       outputs."/integrates/back/env/pypi/unit-tests"

@@ -18,11 +18,11 @@ makeScript {
       inputs.nixpkgs.ruby
       inputs.nixpkgs.openssl
       outputs."/integrates/db"
-      outputs."/integrates/storage"
       outputs."/melts"
     ];
     source = [
       outputs."/common/utils/env"
+      outputs."/integrates/storage/dev/lib/populate"
     ];
   };
   entrypoint = ./entrypoint.sh;
