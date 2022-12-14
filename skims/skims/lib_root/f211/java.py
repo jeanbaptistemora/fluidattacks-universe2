@@ -37,8 +37,19 @@ def is_node_danger(graph: Graph, n_id: NId) -> bool:
             evaluation
             and evaluation.danger
             and evaluation.triggers != {"SafeRegex"}
+            and evaluation.triggers == {"UserParams", "HttpParams"}
         ):
             return True
+    return False
+
+
+def analyze_method_vuln(graph: Graph, method_id: NId) -> bool:
+
+    args_id = g.get_ast_childs(graph, method_id, "ArgumentList")
+    if args_id:
+        args_nids = g.adj_ast(graph, args_id[0])
+        if args_nids and len(args_nids) >= 1:
+            return is_node_danger(graph, method_id)
     return False
 
 
@@ -62,7 +73,7 @@ def java_vuln_regular_expression(
             ):
                 if graph.nodes[nid].get(
                     "expression"
-                ) in regex_methods and is_node_danger(graph, nid):
+                ) in regex_methods and analyze_method_vuln(graph, nid):
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
