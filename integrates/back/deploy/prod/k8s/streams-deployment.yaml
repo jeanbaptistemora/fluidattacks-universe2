@@ -61,9 +61,9 @@ spec:
             exec:
               command:
                 - cat
-                - /tmp/healthy
-            initialDelaySeconds: 60
-            periodSeconds: 10
+                - /tmp/ready
+            initialDelaySeconds: 120
+            periodSeconds: 60
             successThreshold: 1
             failureThreshold: 10
             timeoutSeconds: 1

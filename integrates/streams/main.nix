@@ -17,7 +17,9 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli2
-      inputs.nixpkgs.jdk8_headless
+      # https://github.com/FasterXML/jackson-databind#jdk
+      # https://github.com/aws/aws-sdk-java/issues/2795#issuecomment-1226590872
+      inputs.nixpkgs.jdk11_headless
       inputs.nixpkgs.jq
       inputs.nixpkgs.python39
     ];

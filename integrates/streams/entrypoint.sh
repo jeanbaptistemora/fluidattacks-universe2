@@ -72,7 +72,7 @@ function run_dynamodb_consumer {
     && for property in "${properties[@]}"; do
       echo "${property}" >> "${properties_file}"
     done \
-    && touch /tmp/healthy \
+    && touch /tmp/ready \
     && java \
       -Djava.util.logging.config.file="logging.properties" \
       "com.amazonaws.services.dynamodbv2.streamsadapter.StreamsMultiLangDaemon" \

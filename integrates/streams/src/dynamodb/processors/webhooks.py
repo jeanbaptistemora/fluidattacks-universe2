@@ -96,8 +96,12 @@ def _is_released(group_name: str, finding_id: str) -> bool:
     response = TABLE_RESOURCE.get_item(
         Key={"pk": f"FIN#{finding_id}", "sk": f"GROUP#{group_name}"}
     )
-    item = response["Item"]
-    return item["state"]["status"] == "APPROVED"
+
+    if "Item" in response:
+        item = response["Item"]
+        return item["state"]["status"] == "APPROVED"
+
+    return False
 
 
 def _notify_client(vuln_id: str, group: str, event: HookEvent) -> None:
