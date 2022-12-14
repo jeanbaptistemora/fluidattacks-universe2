@@ -2,6 +2,30 @@ import boto3
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
 )
+from datetime import (
+    datetime,
+)
+from db_model.enums import (
+    Source,
+    StateRemovalJustification,
+)
+from db_model.findings.enums import (
+    FindingSorts,
+    FindingStateStatus,
+    FindingVerificationStatus,
+)
+from db_model.findings.types import (  # type: ignore
+    Finding,
+    Finding31Severity,
+    FindingEvidence,
+    FindingEvidences,
+    FindingState,
+    FindingStatus,
+    FindingTreatmentSummary,
+    FindingUnreliableIndicators,
+    FindingVerification,
+    FindingVerificationSummary,
+)
 from decimal import (
     Decimal,
 )
@@ -23,7 +47,10 @@ from typing import (
     AsyncGenerator,
     Dict,
     List,
+    Tuple,
 )
+
+# pylint: disable=too-many-lines
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -189,10 +216,10 @@ data: Dict[str, List[Any]] = dict(
             ),
             verification=dict(
                 modified_by="integratesuser@gmail.com",
-                vulnerability_ids=[
+                vulnerability_ids={
                     "3bcdb384-5547-4170-a0b6-3b397a245465",
                     "74632c0c-db08-47c2-b013-c70e5b67c49f",
-                ],
+                },
                 comment_id="1558048727999",
                 modified_date="2020-01-19T15:41:04+00:00",
                 status="REQUESTED",
@@ -647,6 +674,339 @@ data: Dict[str, List[Any]] = dict(
         ),
     ]
 )
+
+
+findings: Dict[str, Tuple[Finding, ...]] = {
+    '["463558592", "422286126"]': (
+        Finding(
+            hacker_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            id="463558592",
+            state=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-12-17T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            title="007. Cross-site request forgery",
+            approval=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-12-17T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            attack_vector_description="This is an attack vector",
+            creation=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:43:18+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.CREATED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            description="La aplicación permite engañar a un usuario \
+            autenticado por medio de links manipulados para \
+            ejecutaracciones sobre la aplicación sin su \
+            consentimiento.",
+            evidences=FindingEvidences(
+                animation=None,
+                evidence1=FindingEvidence(
+                    description="test",
+                    modified_date=datetime.fromisoformat(
+                        "2018-12-17T05:00:00+00:00"
+                    ),
+                    url="unittesting-463558592-evidence_route_1.png",
+                ),
+                evidence2=FindingEvidence(
+                    description="Test2",
+                    modified_date=datetime.fromisoformat(
+                        "2018-12-17T05:00:00+00:00"
+                    ),
+                    url="unittesting-463558592-evidence_route_2.jpg",
+                ),
+                evidence3=FindingEvidence(
+                    description="Test3",
+                    modified_date=datetime.fromisoformat(
+                        "2018-12-17T05:00:00+00:00"
+                    ),
+                    url="unittesting-463558592-evidence_route_3.png",
+                ),
+                evidence4=FindingEvidence(
+                    description="Test4",
+                    modified_date=datetime.fromisoformat(
+                        "2018-12-17T05:00:00+00:00"
+                    ),
+                    url="unittesting-463558592-evidence_route_4.png",
+                ),
+                evidence5=FindingEvidence(
+                    description="Test5",
+                    modified_date=datetime.fromisoformat(
+                        "2018-12-17T05:00:00+00:00"
+                    ),
+                    url="unittesting-463558592-evidence_route_5.png",
+                ),
+                exploitation=None,
+                records=None,
+            ),
+            min_time_to_remediate=18,
+            recommendation="Hacer uso de tokens en los formularios para la \
+            verificación de las peticiones realizadas por usuarios \
+            legítimos.",
+            requirements="REQ.0174. La aplicación debe garantizar que las \
+            peticiones que ejecuten transacciones no sigan un \
+            patróndiscernible.",
+            severity=Finding31Severity(
+                attack_complexity=Decimal("0.44"),
+                attack_vector=Decimal("0.62"),
+                availability_impact=Decimal("0"),
+                availability_requirement=Decimal("1"),
+                confidentiality_impact=Decimal("0.56"),
+                confidentiality_requirement=Decimal("1"),
+                exploitability=Decimal("0.91"),
+                integrity_impact=Decimal("0.22"),
+                integrity_requirement=Decimal("1.5"),
+                modified_attack_complexity=Decimal("0.44"),
+                modified_attack_vector=Decimal("0.62"),
+                modified_availability_impact=Decimal("0"),
+                modified_confidentiality_impact=Decimal("0.56"),
+                modified_integrity_impact=Decimal("0.22"),
+                modified_privileges_required=Decimal("0.62"),
+                modified_user_interaction=Decimal("0.62"),
+                modified_severity_scope=Decimal("0"),
+                privileges_required=Decimal("0.62"),
+                remediation_level=Decimal("0.95"),
+                report_confidence=Decimal("0.96"),
+                severity_scope=Decimal("0"),
+                user_interaction=Decimal("0.62"),
+            ),
+            sorts=FindingSorts.NO,
+            submission=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:45:11+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.SUBMITTED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            threat="Test.",
+            unreliable_indicators=FindingUnreliableIndicators(
+                unreliable_closed_vulnerabilities=1,
+                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2019-01-15T16:04:14+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2019-01-15T15:43:39+00:00"
+                ),
+                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2019-01-15T15:43:39+00:00"
+                ),
+                unreliable_open_vulnerabilities=1,
+                unreliable_status=FindingStatus.OPEN,
+                unreliable_treatment_summary=FindingTreatmentSummary(
+                    accepted=1, accepted_undefined=0, in_progress=0, new=0
+                ),
+                unreliable_verification_summary=FindingVerificationSummary(
+                    requested=0, on_hold=0, verified=0
+                ),
+                unreliable_where="path/to/file2.ext",
+            ),
+            verification=FindingVerification(
+                comment_id="1558048727999",
+                modified_by="integratesuser@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-01-19T15:41:04+00:00"
+                ),
+                status=FindingVerificationStatus.REQUESTED,
+                vulnerability_ids={
+                    "3bcdb384-5547-4170-a0b6-3b397a245465",
+                    "74632c0c-db08-47c2-b013-c70e5b67c49f",
+                },
+            ),
+        ),
+        Finding(
+            hacker_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            id="422286126",
+            state=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-07-09T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            title="060. Insecure service configuration - Host verification",
+            approval=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-07-09T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            attack_vector_description="This is an attack vector",
+            creation=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:43:18+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.CREATED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            description="The source code uses generic exceptions to handle \
+            unexpected errors. Catching generic exceptions obscures the \
+            problem that caused the error and promotes a generic way to \
+            handle different categories or sources of error. This may \
+            cause security vulnerabilities to materialize, as some special \
+            flows go unnoticed.",
+            evidences=FindingEvidences(
+                animation=FindingEvidence(
+                    description="Test description",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-animation.gif",
+                ),
+                evidence1=FindingEvidence(
+                    description="this is a test description",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_route_1.png",
+                ),
+                evidence2=FindingEvidence(
+                    description="exception",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_route_2.jpg",
+                ),
+                evidence3=FindingEvidence(
+                    description="Description",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_route_3.png",
+                ),
+                evidence4=FindingEvidence(
+                    description="changed for testing purposesese",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_route_4.png",
+                ),
+                evidence5=FindingEvidence(
+                    description="Test description",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_route_5.png",
+                ),
+                exploitation=FindingEvidence(
+                    description="test",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-exploitation.png",
+                ),
+                records=FindingEvidence(
+                    description="test",
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    url="unittesting-422286126-evidence_file.csv",
+                ),
+            ),
+            min_time_to_remediate=18,
+            recommendation="Implement password politicies with the best \
+                practicies for strong passwords.",
+            requirements="R359. Avoid using generic exceptions.",
+            severity=Finding31Severity(
+                attack_complexity=Decimal("0.77"),
+                attack_vector=Decimal("0.62"),
+                availability_impact=Decimal("0"),
+                availability_requirement=Decimal("1"),
+                confidentiality_impact=Decimal("0"),
+                confidentiality_requirement=Decimal("1"),
+                exploitability=Decimal("0.91"),
+                integrity_impact=Decimal("0.22"),
+                integrity_requirement=Decimal("1"),
+                modified_attack_complexity=Decimal("0.77"),
+                modified_attack_vector=Decimal("0.62"),
+                modified_availability_impact=Decimal("0"),
+                modified_confidentiality_impact=Decimal("0"),
+                modified_integrity_impact=Decimal("0.22"),
+                modified_privileges_required=Decimal("0.62"),
+                modified_user_interaction=Decimal("0.85"),
+                modified_severity_scope=Decimal("0"),
+                privileges_required=Decimal("0.62"),
+                remediation_level=Decimal("0.97"),
+                report_confidence=Decimal("0.92"),
+                severity_scope=Decimal("0"),
+                user_interaction=Decimal("0.85"),
+            ),
+            sorts=FindingSorts.NO,
+            submission=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:45:11+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.SUBMITTED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            threat="An attacker can get passwords of users and \
+                impersonatethem or used the credentials for practices \
+                maliciosus.",
+            unreliable_indicators=FindingUnreliableIndicators(
+                unreliable_closed_vulnerabilities=0,
+                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2020-01-03T17:46:10+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2020-01-03T17:46:10+00:00"
+                ),
+                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                    "2020-01-03T17:46:10+00:00"
+                ),
+                unreliable_open_vulnerabilities=1,
+                unreliable_status=FindingStatus.OPEN,
+                unreliable_treatment_summary=FindingTreatmentSummary(
+                    accepted=0, accepted_undefined=0, in_progress=1, new=0
+                ),
+                unreliable_verification_summary=FindingVerificationSummary(
+                    requested=0, on_hold=0, verified=0
+                ),
+                unreliable_where="test/data/lib_path/f060/csharp.cs",
+            ),
+            verification=None,
+        ),
+    )
+}
+
+
+@pytest.fixture(scope="function")
+def findings_data() -> Dict[str, Tuple[Finding, ...]]:
+    return findings
 
 
 @pytest.fixture(scope="module")

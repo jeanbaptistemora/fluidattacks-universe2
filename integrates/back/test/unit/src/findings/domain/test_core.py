@@ -2,6 +2,8 @@
 from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
+    get_mock_response,
+    get_mocked_path,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -44,6 +46,7 @@ from findings.types import (
 from freezegun import (
     freeze_time,
 )
+import json
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
@@ -60,6 +63,7 @@ from settings import (
 import time
 from typing import (
     Any,
+    Dict,
     List,
     Tuple,
 )
@@ -75,26 +79,33 @@ pytestmark = [
 ]
 
 
+@mock.patch(
+    get_mocked_path("finding_vulns_loader.load_many_chained"),
+    new_callable=mock.AsyncMock,
+)
+@pytest.mark.parametrize(
+    ["findings"],
+    [
+        [["463558592", "422286126"]],
+    ],
+)
 async def test_get_last_closed_vulnerability(
-    dynamo_resource: ServiceResource,
+    mock_load_many_chained: mock.AsyncMock,
+    findings: List,
+    findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        table_name = "integrates_vms"
-        return dynamo_resource.Table(table_name).query(**kwargs)
 
-    findings_to_get = ["463558592", "422286126"]
+    findings_to_get = json.dumps(findings)
+    findings_loader = findings_data[findings_to_get]
+    mock_load_many_chained.return_value = get_mock_response(
+        get_mocked_path("finding_vulns_loader.load_many_chained"),
+        findings_to_get,
+    )
     loaders: Dataloaders = get_new_context()
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
-    ) as mock_table_resource:
-        mock_table_resource.return_value.query.side_effect = mock_query
-        findings: Tuple[Finding, ...] = await loaders.finding.load_many(
-            findings_to_get
-        )
-        (
-            vuln_closed_days,
-            last_closed_vuln,
-        ) = await get_last_closed_vulnerability_info(loaders, findings)
+    (
+        vuln_closed_days,
+        last_closed_vuln,
+    ) = await get_last_closed_vulnerability_info(loaders, findings_loader)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
@@ -104,23 +115,20 @@ async def test_get_last_closed_vulnerability(
     assert last_closed_vuln.finding_id == "463558592"  # type: ignore
 
 
+@mock.patch(
+    get_mocked_path("get_open_vulnerabilities"), new_callable=mock.AsyncMock
+)
 async def test_get_max_open_severity(
-    dynamo_resource: ServiceResource,
+    mock_get_open_vulnerabilities: mock.AsyncMock,
+    findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        table_name = "integrates_vms"
-        return dynamo_resource.Table(table_name).query(**kwargs)
-
-    findings_to_get = ["463558592", "422286126"]
+    findings_to_get = '["463558592", "422286126"]'
+    findings: Tuple[Finding, ...] = findings_data[findings_to_get]
     loaders = get_new_context()
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
-    ) as mock_table_resource:
-        mock_table_resource.return_value.query.side_effect = mock_query
-        findings: Tuple[Finding, ...] = await loaders.finding.load_many(
-            findings_to_get
-        )
-        test_data = await get_max_open_severity(loaders, findings)
+    mock_get_open_vulnerabilities.return_value = get_mock_response(
+        get_mocked_path("get_open_vulnerabilities"), findings_to_get
+    )
+    test_data = await get_max_open_severity(loaders, findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1].id == "463558592"  # type: ignore
 
@@ -128,7 +136,9 @@ async def test_get_max_open_severity(
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    findings = await get_pending_verification_findings(loaders, group_name)
+    findings: Tuple[Finding, ...] = await get_pending_verification_findings(
+        loaders, group_name
+    )
     assert len(findings) >= 1
     assert findings[0].title == "038. Business information leak"
     assert findings[0].id == "436992569"
