@@ -27,11 +27,14 @@ from fa_purity.result.transform import (
 
 @dataclass(frozen=True)
 class IgnoredPath:
+    group: str
     nickname: str
     file_path: str
 
 
-def _decode_ignored_paths(raw: JsonObj) -> ResultE[FrozenList[IgnoredPath]]:
+def _decode_ignored_paths(
+    raw: JsonObj, group: str
+) -> ResultE[FrozenList[IgnoredPath]]:
     nickname = (
         Unfolder(JsonValue(raw))
         .uget("nickname")
@@ -43,12 +46,14 @@ def _decode_ignored_paths(raw: JsonObj) -> ResultE[FrozenList[IgnoredPath]]:
         .bind(lambda u: u.to_list_of(str).alt(Exception))
     )
     return nickname.bind(
-        lambda n: files.map(lambda fs: tuple(IgnoredPath(n, f) for f in fs))
+        lambda n: files.map(
+            lambda fs: tuple(IgnoredPath(group, n, f) for f in fs)
+        )
     ).alt(lambda e: Exception(f"decode_ignored_paths failed i.e. {e}"))
 
 
 def _decode_raw_ignored_paths(
-    raw: JsonObj,
+    raw: JsonObj, group: str
 ) -> ResultE[FrozenList[IgnoredPath]]:
     return (
         Unfolder(JsonValue(raw))
@@ -62,7 +67,7 @@ def _decode_raw_ignored_paths(
                     .map(
                         lambda i: i.to_json()
                         .alt(Exception)
-                        .bind(_decode_ignored_paths)
+                        .bind(lambda x: _decode_ignored_paths(x, group))
                     )
                     .transform(lambda p: all_ok(p.to_list()))
                 )
@@ -90,5 +95,5 @@ def get_ignored_paths(
     """
     values = {"groupName": group}
     return client.get(query, freeze(values)).map(
-        lambda j: _decode_raw_ignored_paths(j).unwrap()
+        lambda j: _decode_raw_ignored_paths(j, group).unwrap()
     )
