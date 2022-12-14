@@ -22,7 +22,7 @@ encrypted: yes
 | --------------------- | -------------------------------------------------------------------|
 | **Name**              | RushBet 2022.23.1-b490616d - UXSS                                  |
 | **Code name**         | [Miller](https://en.wikipedia.org/wiki/Mac_Miller)                 |
-| **Product**           | Badaso                                                             |
+| **Product**           | RushBet                                                            |
 | **Affected versions** | Version 2022.23.1-b490616d                                         |
 | **State**             | Public                                                             |
 | **Release date**      | 2022-11-30                                                         |
