@@ -50,12 +50,15 @@ const Body = <TData extends RowData>({
     };
   }
 
-  return _.isEmpty(data) ? (
-    <td colSpan={table.getVisibleLeafColumns().length}>
-      <Text ta={"center"}>{t("table.noDataIndication")}</Text>
-    </td>
-  ) : (
+  return (
     <tbody>
+      {_.isEmpty(data) ? (
+        <tr>
+          <td colSpan={table.getVisibleLeafColumns().length}>
+            <Text ta={"center"}>{t("table.noDataIndication")}</Text>
+          </td>
+        </tr>
+      ) : undefined}
       {table.getRowModel().rows.map((row): JSX.Element => {
         return (
           <Fragment key={row.id}>

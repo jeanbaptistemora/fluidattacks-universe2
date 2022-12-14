@@ -344,7 +344,7 @@ const Filters = <IData extends object>({
             switch (filter.type) {
               case "text": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Col>
                       <FormikInput
                         field={{
@@ -363,7 +363,7 @@ const Filters = <IData extends object>({
               }
               case "number": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Col>
                       <FormikNumber
                         field={{
@@ -382,7 +382,7 @@ const Filters = <IData extends object>({
               }
               case "numberRange": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Col lg={50} md={50}>
                       <FormikNumber
                         field={{
@@ -416,7 +416,7 @@ const Filters = <IData extends object>({
               }
               case "select": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Col>
                       <FormikSelect
                         field={{
@@ -444,7 +444,7 @@ const Filters = <IData extends object>({
               }
               case "dateRange": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Col lg={50} md={50}>
                       <FormikDate
                         field={{
@@ -476,7 +476,7 @@ const Filters = <IData extends object>({
               }
               case "checkBoxes": {
                 return (
-                  <Row>
+                  <Row key={filter.id}>
                     <Label> {filter.label} </Label>
                     {mappedOptions?.map((option): JSX.Element => {
                       return (
@@ -503,7 +503,7 @@ const Filters = <IData extends object>({
                 );
               }
               default: {
-                return <div />;
+                return <div key={filter.id} />;
               }
             }
           })}

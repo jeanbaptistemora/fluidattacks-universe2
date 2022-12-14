@@ -260,17 +260,13 @@ describe("GroupScopeView", (): void => {
       </authContext.Provider>
     );
 
-    await waitFor((): void => {
-      expect(screen.queryByText("group.scope.common.add")).toBeInTheDocument();
-    });
+    await expect(
+      screen.findByText("group.scope.common.add")
+    ).resolves.toBeInTheDocument();
+
     await userEvent.click(screen.getByText("group.scope.common.add"));
 
-    await waitFor((): void => {
-      expect(
-        screen.queryByRole("textbox", { name: "url" })
-      ).toBeInTheDocument();
-    });
-
+    expect(screen.queryByRole("textbox", { name: "url" })).toBeInTheDocument();
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     await userEvent.type(
@@ -294,12 +290,10 @@ describe("GroupScopeView", (): void => {
       screen.getByRole("combobox", { name: "credentials.typeCredential" }),
       ["SSH"]
     );
-    await waitFor((): void => {
-      expect(
-        screen.queryByRole("textbox", { name: "credentials.key" })
-      ).toBeInTheDocument();
-    });
 
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.key" })
+    ).toBeInTheDocument();
     expect(
       screen.queryByRole("textbox", { name: "credentials.password" })
     ).not.toBeInTheDocument();
@@ -320,17 +314,14 @@ describe("GroupScopeView", (): void => {
       screen.getByRole("textbox", { name: "credentials.name" }),
       "credential name"
     );
-
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "credentials.typeCredential" }),
       ["USER"]
     );
-    await waitFor((): void => {
-      expect(
-        screen.queryByRole("textbox", { name: "credentials.user" })
-      ).toBeInTheDocument();
-    });
 
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.user" })
+    ).toBeInTheDocument();
     expect(
       screen.queryByRole("textbox", { name: "credentials.key" })
     ).not.toBeInTheDocument();
@@ -359,20 +350,19 @@ describe("GroupScopeView", (): void => {
 
     await userEvent.click(screen.getByRole("radio", { name: "No" }));
     const numberOfRejectionCheckbox: number = 4;
-    await waitFor((): void => {
-      expect(
-        screen.queryAllByRole("checkbox", { checked: false })
-      ).toHaveLength(numberOfRejectionCheckbox);
-    });
+
+    expect(screen.queryAllByRole("checkbox", { checked: false })).toHaveLength(
+      numberOfRejectionCheckbox
+    );
+
     await userEvent.click(screen.getByDisplayValue("rejectA"));
     await userEvent.click(screen.getByDisplayValue("rejectB"));
     await userEvent.click(screen.getByDisplayValue("rejectC"));
 
-    await waitFor((): void => {
-      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
-        numberOfRejectionCheckbox - 1
-      );
-    });
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+      numberOfRejectionCheckbox - 1
+    );
+
     await userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {

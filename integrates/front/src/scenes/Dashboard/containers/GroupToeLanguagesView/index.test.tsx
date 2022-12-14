@@ -107,7 +107,7 @@ describe("groupToeLanguagesView", (): void => {
       </MemoryRouter>
     );
 
-    const numberOfRows: number = 1;
+    const numberOfRows: number = 2;
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });

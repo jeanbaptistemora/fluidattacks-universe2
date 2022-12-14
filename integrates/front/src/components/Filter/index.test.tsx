@@ -397,7 +397,7 @@ describe("Filters", (): void => {
     });
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")).toHaveLength(1);
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
   });
 
@@ -463,7 +463,7 @@ describe("Filters", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")).toHaveLength(1);
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
 
     await userEvent.click(
@@ -548,7 +548,7 @@ describe("Filters", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")).toHaveLength(1);
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
 
     await userEvent.click(
