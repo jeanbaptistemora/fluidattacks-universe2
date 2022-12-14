@@ -532,7 +532,7 @@ async def update_documents(
         documents = OrganizationDocuments(
             rut=DocumentFile(
                 file_name=rut_file_name,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
             )
         )
     if tax_id:
@@ -549,7 +549,7 @@ async def update_documents(
         documents = OrganizationDocuments(
             tax_id=DocumentFile(
                 file_name=tax_id_file_name,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
             )
         )
 

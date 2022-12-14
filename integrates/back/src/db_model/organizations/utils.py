@@ -12,6 +12,9 @@ from .types import (
     OrganizationUnreliableIndicators,
     OrganizationUnreliableIndicatorsToUpdate,
 )
+from datetime import (
+    datetime,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -140,13 +143,17 @@ def format_documents(documents: Item) -> OrganizationDocuments:
     return OrganizationDocuments(
         rut=DocumentFile(
             file_name=documents["rut"]["file_name"],
-            modified_date=documents["rut"]["modified_date"],
+            modified_date=datetime.fromisoformat(
+                documents["rut"]["modified_date"]
+            ),
         )
         if documents.get("rut")
         else None,
         tax_id=DocumentFile(
             file_name=documents["tax_id"]["file_name"],
-            modified_date=documents["tax_id"]["modified_date"],
+            modified_date=datetime.fromisoformat(
+                documents["tax_id"]["modified_date"]
+            ),
         )
         if documents.get("tax_id")
         else None,

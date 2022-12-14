@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -15,7 +18,7 @@ from typing import (
 
 class DocumentFile(NamedTuple):
     file_name: str
-    modified_date: str
+    modified_date: datetime
 
 
 class OrganizationDocuments(NamedTuple):
