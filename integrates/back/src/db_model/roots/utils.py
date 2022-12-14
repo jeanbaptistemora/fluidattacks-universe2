@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -28,9 +31,11 @@ def format_unreliable_indicators(
         unreliable_code_languages=unreliable_indicators.get(
             "unreliable_code_languages", []
         ),
-        unreliable_last_status_update=unreliable_indicators[
-            "unreliable_last_status_update"
-        ],
+        unreliable_last_status_update=datetime.fromisoformat(
+            unreliable_indicators["unreliable_last_status_update"]
+        )
+        if unreliable_indicators.get("unreliable_last_status_update")
+        else None,
     )
 
 

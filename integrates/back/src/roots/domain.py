@@ -296,15 +296,15 @@ async def add_git_root(  # pylint: disable=too-many-locals
         user_email=user_email,
         use_vpn=use_vpn,
     )
-    modified_date = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     root = GitRoot(
         cloning=GitRootCloning(
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
             reason="root created",
             status=GitCloningStatus("UNKNOWN"),
         ),
         created_by=user_email,
-        created_date=modified_date,
+        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
         group_name=group_name,
         id=root_id,
         organization_name=organization.name,
@@ -319,7 +319,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             gitignore=gitignore,
             includes_health_check=includes_health_check,
             modified_by=user_email,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
             nickname=nickname,
             other=None,
             reason=None,
@@ -385,17 +385,17 @@ async def add_ip_root(
         nickname, await loaders.group_roots.load(group_name)
     )
 
-    modified_date = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     root = IPRoot(
         created_by=user_email,
-        created_date=modified_date,
+        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,
         state=IPRootState(
             address=address,
             modified_by=user_email,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
             nickname=nickname,
             other=None,
             port=port,
@@ -481,17 +481,17 @@ async def add_url_root(  # pylint: disable=too-many-locals
         nickname, await loaders.group_roots.load(group_name)
     )
 
-    modified_date = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     root = URLRoot(
         created_by=user_email,
-        created_date=modified_date,
+        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,
         state=URLRootState(
             host=host,
             modified_by=user_email,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
             nickname=nickname,
             other=None,
             path=path,
@@ -1377,11 +1377,11 @@ async def get_last_status_update(loaders: Any, root_id: str) -> RootState:
     return with_current_status[0]
 
 
-async def get_last_status_update_date(loaders: Any, root_id: str) -> str:
+async def get_last_status_update_date(loaders: Any, root_id: str) -> datetime:
     """Returns the date where the status last changed"""
     last_status_update = await get_last_status_update(loaders, root_id)
 
-    return last_status_update.modified_date
+    return datetime.fromisoformat(last_status_update.modified_date)
 
 
 async def historic_cloning_grouped(

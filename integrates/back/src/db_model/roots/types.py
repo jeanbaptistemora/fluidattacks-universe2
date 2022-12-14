@@ -15,7 +15,6 @@ from enum import (
     Enum,
 )
 from typing import (
-    List,
     Literal,
     NamedTuple,
     Optional,
@@ -24,13 +23,13 @@ from typing import (
 
 
 class RootUnreliableIndicators(NamedTuple):
-    unreliable_code_languages: List[CodeLanguage] = []
-    unreliable_last_status_update: str = ""
+    unreliable_code_languages: list[CodeLanguage] = []
+    unreliable_last_status_update: Optional[datetime] = None
 
 
 class RootUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_code_languages: Optional[List[CodeLanguage]] = None
-    unreliable_last_status_update: Optional[str] = None
+    unreliable_code_languages: Optional[list[CodeLanguage]] = None
+    unreliable_last_status_update: Optional[datetime] = None
 
 
 class GitRootCloning(NamedTuple):
@@ -82,9 +81,9 @@ class GitRootState(NamedTuple):
     status: RootStatus
     url: str
     credential_id: Optional[str] = None
-    environment_urls: List[str] = []
-    git_environment_urls: List[RootEnvironmentUrl] = []
-    gitignore: List[str] = []
+    environment_urls: list[str] = []
+    git_environment_urls: list[RootEnvironmentUrl] = []
+    gitignore: list[str] = []
     other: Optional[str] = None
     reason: Optional[str] = None
     use_vpn: bool = False
@@ -176,7 +175,7 @@ class MachineFindingResult(NamedTuple):
 class RootMachineExecution(NamedTuple):
     job_id: str
     name: str
-    findings_executed: List[MachineFindingResult]
+    findings_executed: list[MachineFindingResult]
     queue: str
     root_id: str
     created_at: str

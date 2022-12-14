@@ -186,8 +186,7 @@ async def update_unreliable_indicators(
     }
 
     conditions = (
-        Attr(indicator_name).not_exists()
-        | Attr(indicator_name).eq(current_indicators[indicator_name])
+        Attr(indicator_name).eq(current_indicators.get(indicator_name))
         for indicator_name in unreliable_indicators
     )
     condition_expression = Attr(key_structure.partition_key).exists()
