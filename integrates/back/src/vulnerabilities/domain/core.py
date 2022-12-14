@@ -828,9 +828,13 @@ async def update_metadata_and_state(
                 specific=vulnerability.state.specific,
             ),
         )
-    elif vulnerability.state.status != new_state.status or (
-        vulnerability.state.tool != new_state.tool
-        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+    elif (
+        vulnerability.state.status != new_state.status
+        or (
+            vulnerability.state.tool != new_state.tool
+            and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        )
+        or vulnerability.state.source != new_state.source
     ):
         await vulns_model.update_historic_entry(
             current_value=vulnerability,
