@@ -588,6 +588,10 @@
     "skims/test/data/lib_root/f063/java_path_traversal.java": {},
     "skims/test/data/lib_root/f160/java_create_temp_file.java": {}
   },
+  "F192": {
+    "skims/test/data/lib_root/f063/java_path_traversal.java": {},
+    "skims/test/data/lib_root/f160/java_create_temp_file.java": {}
+  },
   "F200": {
     "skims/test/data/lib_root/f063/java_path_traversal.java": {},
     "skims/test/data/lib_root/f160/java_create_temp_file.java": {}
