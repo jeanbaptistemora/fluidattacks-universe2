@@ -35,7 +35,7 @@ const handleUpdateEvidenceError = (updateError: ApolloError): void => {
       case "Exception - Invalid File Type":
         msgError(translate.t("group.events.form.wrongImageType"));
         break;
-      case "Exception - Invalid File Name: Format [organizationName]-[groupName]-[10 alphanumeric char].extension":
+      case "Exception - Invalid File Name: Format organizationName-groupName-10 alphanumeric chars.extension":
         msgError(translate.t("group.events.form.wrongImageName"));
         break;
       default:

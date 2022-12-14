@@ -46,7 +46,11 @@ async def mutate(
         finding_id: str = kwargs["finding_id"]
         evidence_id: str = kwargs["evidence_id"]
         await findings_domain.update_evidence(
-            info.context.loaders, finding_id, evidence_id, file_object
+            info.context.loaders,
+            finding_id,
+            evidence_id,
+            file_object,
+            validate_name=True,
         )
         logs_utils.cloudwatch_log(
             info.context,

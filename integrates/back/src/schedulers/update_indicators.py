@@ -314,7 +314,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
             _get_vulnerability_data(loaders, str(vulnerability.id))
             for vulnerability in vulns
         ),
-        workers=64,
+        workers=48,
     )
 
     historic_states: tuple[tuple[VulnerabilityState, ...], ...] = tuple(
@@ -475,7 +475,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
             _get_vulnerability_data(loaders, str(vulnerability.id))
             for vulnerability in vulns_nzr
         ),
-        workers=64,
+        workers=48,
     )
 
     historic_states: tuple[tuple[VulnerabilityState, ...], ...] = tuple(

@@ -4,6 +4,15 @@ from collections import (
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
 )
+from custom_exceptions import (
+    InvalidFileType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
+)
 from findings.domain import (
     download_evidence_file,
     get_records_from_file,
@@ -157,11 +166,36 @@ async def test_validate_evidence_records() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "mock/evidences/test-file-records.csv")
     mime_type = "text/csv"
+    finding_id = "463558592"
+    loaders = get_new_context()
+    finding: Finding = await loaders.finding.load(finding_id)
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, mime_type
         )
-        test_data = await validate_evidence(evidence_id, uploaded_file)
+        test_data = await validate_evidence(
+            evidence_id, uploaded_file, loaders, finding
+        )
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
+
+
+async def test_validate_evidence_records_invalid_type() -> None:
+    loaders = get_new_context()
+    evidence_id = "fileRecords"
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(
+        filename, "mock/evidences/unittesting-422286126-evidence_route_1.png"
+    )
+    mime_type = "image/png"
+    finding_id = "422286126"
+    finding: Finding = await loaders.finding.load(finding_id)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, mime_type
+        )
+        with pytest.raises(InvalidFileType):
+            await validate_evidence(
+                evidence_id, uploaded_file, loaders, finding
+            )

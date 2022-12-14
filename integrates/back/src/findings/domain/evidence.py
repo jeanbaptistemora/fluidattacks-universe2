@@ -3,6 +3,7 @@ from backports import (
 )
 from custom_exceptions import (
     EvidenceNotFound,
+    InvalidFileName,
     InvalidFileSize,
     InvalidFileType,
 )
@@ -19,6 +20,12 @@ from db_model.findings.types import (
     Finding,
     FindingEvidence,
     FindingEvidenceToUpdate,
+)
+from db_model.groups.types import (
+    Group,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from findings import (
     storage as findings_storage,
@@ -119,16 +126,39 @@ async def remove_evidence(
     )
 
 
-async def update_evidence(
+async def validate_filename(
+    loaders: Dataloaders, filename: str, finding: Finding
+) -> None:
+    group: Group = await loaders.group.load(finding.group_name)
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    detail: str = (
+        "Format organizationName-groupName-10 alphanumeric chars.extension"
+    )
+    filename = filename.lower()
+    starts: str = f"{organization.name.lower()}-{group.name.lower()}-"
+    if not filename.startswith(starts):
+        raise InvalidFileName(detail)
+
+    ends: str = filename.rsplit(".", 1)[-1]
+    value: str = filename.replace(starts, "").replace(f".{ends}", "")
+    if len(value) != 10 or not value.isalnum():
+        raise InvalidFileName(detail)
+
+
+async def update_evidence(  # pylint: disable = too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
     evidence_id: str,
     file_object: UploadFile,
     description: Optional[str] = None,
+    validate_name: Optional[bool] = False,
 ) -> None:
-    await validate_evidence(evidence_id, file_object)
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
+    await validate_evidence(
+        evidence_id, file_object, loaders, finding, validate_name
+    )
     mime_type = await files_utils.get_uploaded_file_mime(file_object)
     try:
         extension = {
@@ -143,6 +173,7 @@ async def update_evidence(
         }[mime_type]
     except KeyError:
         extension = ""
+
     filename = f"{finding.group_name}-{finding.id}-{evidence_id}{extension}"
     full_name = f"{finding.group_name}/{finding.id}/{filename}"
     if evidence_id == "fileRecords":
@@ -211,7 +242,13 @@ async def update_evidence_description(
     )
 
 
-async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
+async def validate_evidence(
+    evidence_id: str,
+    file: UploadFile,
+    loaders: Dataloaders,
+    finding: Finding,
+    validate_name: Optional[bool] = False,
+) -> bool:
     mib = 1048576
     success = False
     allowed_mimes = []
@@ -234,4 +271,8 @@ async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
         success = True
     else:
         raise InvalidFileSize()
+
+    if validate_name:
+        await validate_filename(loaders, file.filename, finding)
+
     return success

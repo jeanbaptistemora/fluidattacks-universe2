@@ -675,6 +675,17 @@ class InvalidFileType(CustomBaseException):
         super(InvalidFileType, self).__init__(msg)
 
 
+class InvalidFileName(CustomBaseException):
+    """Exception to control type filename."""
+
+    def __init__(self, detail: str = "") -> None:
+        """Constructor"""
+        msg = "Exception - Invalid File Name"
+        if detail:
+            msg += f": {detail}"
+        super(InvalidFileName, self).__init__(msg)
+
+
 class InvalidFindingTitle(CustomBaseException):
     """Exception to control draft and finding titles"""
 

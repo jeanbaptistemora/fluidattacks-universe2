@@ -309,7 +309,9 @@ async def test_update_evidence() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/evidences/test-anim.gif")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile("test-anim.gif", test_file, "image/gif")
+        uploaded_file = UploadFile(
+            "okada-unittesting-0192837465.gif", test_file, "image/gif"
+        )
         variables = {
             "evidenceId": "ANIMATION",
             "findingId": "422286126",
@@ -357,7 +359,7 @@ async def test_update_evidence_records_append() -> None:
     filename = os.path.join(filename, "./mock/evidences/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
-            "test-file-records.csv", test_file, "text/csv"
+            "okada-unittesting-9876543210.csv", test_file, "text/csv"
         )
         variables = {
             "evidenceId": "RECORDS",

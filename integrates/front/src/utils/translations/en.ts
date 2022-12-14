@@ -629,7 +629,7 @@ export const enTranslations: ResourceKey = {
         wrongFileType: "Evidence files must have .pdf, .zip or .csv extension",
         wrongImageName:
           "Evidence name must have the following format " +
-          "[organizationName]-[groupName]-[10 alphanumeric char].extension",
+          "organizationName-groupName-10 alphanumeric chars.extension",
         wrongImageType:
           "Evidence images must have .gif/.png extension for animation" +
           "/exploitation and .png for evidences",

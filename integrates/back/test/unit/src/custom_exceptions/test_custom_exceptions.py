@@ -10,7 +10,6 @@ from custom_exceptions import (
     GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
-    InvalidFileType,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
     InvalidRange,
@@ -45,9 +44,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
-)
-from findings.domain import (
-    validate_evidence,
 )
 from freezegun import (
     freeze_time,
@@ -363,19 +359,6 @@ async def test_validate_acceptance_severity(
             values=values_accepted,
         )
     assert mock_table_resource.called is True
-
-
-async def test_validate_evidence_records_invalid_type() -> None:
-    evidence_id = "fileRecords"
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "mock/test-anim.gif")
-    mime_type = "image/gif"
-    with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(
-            "test-file-records.csv", test_file, mime_type
-        )
-        with pytest.raises(InvalidFileType):
-            await validate_evidence(evidence_id, uploaded_file)
 
 
 async def test_validate_group_services_config() -> None:

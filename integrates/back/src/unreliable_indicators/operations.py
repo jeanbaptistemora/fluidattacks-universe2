@@ -313,7 +313,7 @@ async def update_vulnerabilities_unreliable_indicators(
             )
             for vulnerability_id in set(vulnerability_ids)
         ),
-        workers=16,
+        workers=32,
     )
 
 
