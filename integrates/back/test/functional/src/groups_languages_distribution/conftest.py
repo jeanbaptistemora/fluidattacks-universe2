@@ -113,7 +113,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [],
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-09-12T19:10:00-05:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-12T19:10:00-05:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),

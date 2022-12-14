@@ -436,7 +436,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.UNKNOWN,
                         commit="6d4519f5d5b4223feb65fcbc5af68e8ef9964b62",
@@ -469,7 +471,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.UNKNOWN,
                         commit="6d4519f5d5b4223feb65fcbc5af68e8ef9964b62",
@@ -502,7 +506,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Failed to clone",
                         status=GitCloningStatus.FAILED,
                         commit="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
@@ -535,7 +541,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.FAILED,
                     ),
@@ -567,7 +575,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
@@ -598,7 +608,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),
@@ -635,7 +647,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.UNKNOWN,
                     ),
@@ -667,7 +681,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.UNKNOWN,
                     ),

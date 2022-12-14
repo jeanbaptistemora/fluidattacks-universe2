@@ -17,6 +17,7 @@ from db_model.roots.types import (
     Secret,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -61,7 +62,12 @@ async def add(*, root: Root) -> None:
     if isinstance(root, GitRoot):
         cloning_key = keys.build_key(
             facet=TABLE.facets["git_root_historic_cloning"],
-            values={"uuid": root.id, "iso8601utc": root.cloning.modified_date},
+            values={
+                "uuid": root.id,
+                "iso8601utc": get_as_utc_iso_format(
+                    root.cloning.modified_date
+                ),
+            },
         )
         historic_cloning_item = {
             key_structure.partition_key: cloning_key.partition_key,

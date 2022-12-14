@@ -31,6 +31,7 @@ from db_model.roots.types import (
     URLRootState,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb import (
@@ -132,7 +133,9 @@ async def update_git_root_cloning(
     await operations.update_item(
         condition_expression=(
             Attr(key_structure.partition_key).exists()
-            & Attr("cloning.modified_date").eq(current_value.modified_date)
+            & Attr("cloning.modified_date").eq(
+                get_as_utc_iso_format(current_value.modified_date)
+            )
         ),
         item=root_item,
         key=root_key,
@@ -142,7 +145,10 @@ async def update_git_root_cloning(
         await _update_indicator(RepoId(group_name, repo_nickname))
     historic_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_cloning"],
-        values={"uuid": root_id, "iso8601utc": cloning.modified_date},
+        values={
+            "uuid": root_id,
+            "iso8601utc": get_as_utc_iso_format(cloning.modified_date),
+        },
     )
     historic_item = {
         key_structure.partition_key: historic_key.partition_key,

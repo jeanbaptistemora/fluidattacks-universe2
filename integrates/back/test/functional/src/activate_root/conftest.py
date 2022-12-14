@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -22,28 +25,28 @@ from db_model.roots.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("activate_root")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
-    test_date = "2020-11-19T13:37:10+00:00"
     test_status = RootStatus.INACTIVE
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "roots": [
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date=test_date,
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),
                     created_by=test_email,
-                    created_date=test_date,
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group1",
                     id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     organization_name="orgtest",
@@ -60,7 +63,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         reason=None,
@@ -74,14 +77,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by=test_email,
-                    created_date=test_date,
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group2",
                     id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                     organization_name="orgtest",
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         port="8080",
@@ -102,7 +105,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=URLRootState(
                         host="app.fluidattacks.com",
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         path="/",
@@ -118,12 +121,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date=test_date,
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),
                     created_by=test_email,
-                    created_date=test_date,
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group2",
                     id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
                     organization_name="orgtest",
@@ -140,7 +145,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         reason=None,
@@ -154,7 +159,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by=test_email,
-                    created_date=test_date,
+                    created_date="2020-11-19T13:37:10+00:00",
                     group_name="group1",
                     id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
                     organization_name="orgtest",
@@ -162,7 +167,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         # FP: local testing
                         address="192.168.1.2",  # NOSONAR
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         port="8080",
@@ -183,7 +188,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=URLRootState(
                         host="test.fluidattacks.com",
                         modified_by=test_email,
-                        modified_date=test_date,
+                        modified_date="2020-11-19T13:37:10+00:00",
                         nickname="",
                         other=None,
                         path="/",

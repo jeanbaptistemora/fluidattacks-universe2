@@ -113,9 +113,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         isinstance(root, GitRoot)
         and root.cloning.status != GitCloningStatus.UNKNOWN
     ):
-        last_clone_date = str(
-            datetime_utils.get_date_from_iso_str(root.cloning.modified_date)
-        )
+        last_clone_date = str(root.cloning.modified_date.date())
         last_root_state = root.cloning.status.value
 
     root_vulnerabilities: Tuple[

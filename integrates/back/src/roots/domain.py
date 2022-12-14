@@ -299,7 +299,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     modified_date = datetime_utils.get_utc_now()
     root = GitRoot(
         cloning=GitRootCloning(
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             reason="root created",
             status=GitCloningStatus("UNKNOWN"),
         ),
@@ -976,7 +976,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 ) -> None:
     validation_utils.validate_field_length(message, 400)
     root: Root = await loaders.root.load((group_name, root_id))
-    modified_date: str = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
@@ -1020,7 +1020,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         send_mail_root_cloning_failed(  # type: ignore
             loaders=loaders,
             group_name=group_name,
-            modified_date=modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
             root=root,
             status=status,
         )
@@ -1109,7 +1109,7 @@ async def send_mail_root_cloning_status(
         email_to=users_email,
         group_name=group_name,
         last_successful_clone=last_cloning_successful,
-        root_creation_date=creation_date,
+        root_creation_date=datetime_utils.get_as_utc_iso_format(creation_date),
         root_nickname=root_nickname,
         root_id=root_id,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
@@ -1449,7 +1449,7 @@ async def is_failed_cloning(loaders: Any, root_id: str) -> bool:
     return has_failed
 
 
-async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
+async def get_first_cloning_date(loaders: Any, root_id: str) -> datetime:
     historic_cloning: Tuple[
         GitRootCloning, ...
     ] = await loaders.root_historic_cloning.load(root_id)

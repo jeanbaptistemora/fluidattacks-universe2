@@ -154,7 +154,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [],
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         reason="Clone failed",
                         status=GitCloningStatus.FAILED,
                     ),
@@ -182,7 +184,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [],
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
@@ -211,7 +215,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [],
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
@@ -239,7 +245,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_state": [],
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),

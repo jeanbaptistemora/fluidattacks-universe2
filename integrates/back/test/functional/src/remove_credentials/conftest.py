@@ -71,7 +71,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         reason="Repo added",
                         status=GitCloningStatus.UNKNOWN,
                     ),
@@ -103,7 +105,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         reason="Repo added",
                         status=GitCloningStatus.UNKNOWN,
                     ),
@@ -135,7 +139,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         reason="Repo added",
                         status=GitCloningStatus.UNKNOWN,
                     ),
@@ -166,7 +172,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         reason="Repo added",
                         status=GitCloningStatus.UNKNOWN,
                     ),
@@ -197,7 +205,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         reason="Repo added",
                         status=GitCloningStatus.UNKNOWN,
                     ),

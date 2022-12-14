@@ -90,7 +90,7 @@ def format_url_state(state: Item) -> URLRootState:
 
 def format_cloning(cloning: Item) -> GitRootCloning:
     return GitRootCloning(
-        modified_date=cloning["modified_date"],
+        modified_date=datetime.fromisoformat(cloning["modified_date"]),
         reason=cloning["reason"],
         status=GitCloningStatus(cloning["status"]),
         commit=cloning.get("commit"),

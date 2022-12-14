@@ -40,7 +40,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         reason="root creation",
                         status=GitCloningStatus("UNKNOWN"),
                     ),

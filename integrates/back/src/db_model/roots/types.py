@@ -33,7 +33,7 @@ class RootUnreliableIndicatorsToUpdate(NamedTuple):
 
 
 class GitRootCloning(NamedTuple):
-    modified_date: str
+    modified_date: datetime
     reason: str
     status: GitCloningStatus
     commit: Optional[str] = None

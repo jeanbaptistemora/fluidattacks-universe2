@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -17,20 +20,21 @@ from db_model.roots.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_git_root")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
         "roots": [
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
@@ -61,7 +65,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": GitRoot(
                     cloning=GitRootCloning(
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),

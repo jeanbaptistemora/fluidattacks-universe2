@@ -660,14 +660,11 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
 ) -> None:
     cloning_state: str = "failed" if is_failed else "changed"
     org_name = await get_organization_name(loaders, group_name)
-    last_clone_date = None
     cloning_time_delta = None
     days_to_clone = None
     last_clone_date_format: str = ""
     if last_successful_clone and not is_failed:
-        last_clone_date = datetime_utils.get_datetime_from_iso_str(
-            last_successful_clone.modified_date
-        )
+        last_clone_date = last_successful_clone.modified_date
         cloning_time_delta = report_date - last_clone_date
         days_to_clone = cloning_time_delta.days
         last_clone_date_format = last_clone_date.strftime("%Y/%m/%d")
