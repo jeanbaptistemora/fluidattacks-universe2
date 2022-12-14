@@ -1,4 +1,4 @@
-from lib_root.f008.common import (
+from lib_root.f192.common import (
     is_argument_vuln,
 )
 from lib_root.utilities.common import (
@@ -45,7 +45,7 @@ def reflected_xss(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f008.insec_addheader_write.description",
+        desc_key="src.lib_root.f192.reflected_params",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

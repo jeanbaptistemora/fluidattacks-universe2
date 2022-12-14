@@ -1,8 +1,5 @@
-from lib_root.f008.javascript import (
-    reflected_xss as js_reflected_xss,
-)
-from lib_root.f008.typescript import (
-    reflected_xss as ts_reflected_xss,
+from lib_root.f008.c_sharp import (
+    insec_addheader_write as c_sharp_insec_addheader_write,
 )
 from model import (
     core_model,
@@ -10,7 +7,4 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F008
-QUERIES: graph_model.Queries = (
-    (FINDING, js_reflected_xss),
-    (FINDING, ts_reflected_xss),
-)
+QUERIES: graph_model.Queries = ((FINDING, c_sharp_insec_addheader_write),)

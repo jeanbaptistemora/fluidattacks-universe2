@@ -1,0 +1,9 @@
+---
+src.lib_root.f192.reflected_params:
+  en: >
+    Included in the server error responses is unvalidated user input containing
+    special characters, which can lead to vulnerabilities such as XSS.
+  es: >-
+    En las respuestas de error del servidor se incluyen entradas de usuario no
+    validadas que contienen caracteres especiales, que pueden conducir a
+    vulnerabilidades como XSS.

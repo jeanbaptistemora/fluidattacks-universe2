@@ -4108,7 +4108,7 @@ class MethodsEnum(Enum):
         file_name="typescript",
         name="ts_reflected_xss",
         module="lib_root",
-        finding=FindingEnum.F008,
+        finding=FindingEnum.F192,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
@@ -4116,7 +4116,7 @@ class MethodsEnum(Enum):
         file_name="javascript",
         name="js_reflected_xss",
         module="lib_root",
-        finding=FindingEnum.F008,
+        finding=FindingEnum.F192,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )

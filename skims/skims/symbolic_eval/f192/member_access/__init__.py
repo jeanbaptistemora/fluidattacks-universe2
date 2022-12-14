@@ -1,7 +1,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f008.method_invocation.common import (
+from symbolic_eval.f192.member_access.common import (
     common_reflected_xss,
 )
 from symbolic_eval.types import (
