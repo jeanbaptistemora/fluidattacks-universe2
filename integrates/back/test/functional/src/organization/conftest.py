@@ -299,7 +299,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 branch="main",
-                last_commit_date="2022-11-02 09:37:57",
+                last_commit_date=datetime.fromisoformat(
+                    "2022-11-02T09:37:57+00:00"
+                ),
                 url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
                 commit_count=4,
             ),

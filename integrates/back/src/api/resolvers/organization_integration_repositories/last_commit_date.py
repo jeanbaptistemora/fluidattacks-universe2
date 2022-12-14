@@ -4,6 +4,9 @@ from db_model.integration_repositories.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Optional,
 )
@@ -15,7 +18,7 @@ async def resolve(
 ) -> Optional[str]:
 
     return (
-        parent.last_commit_date
-        if parent.last_commit_date is not None
+        datetime_utils.get_as_utc_iso_format(parent.last_commit_date)
+        if parent.last_commit_date
         else None
     )

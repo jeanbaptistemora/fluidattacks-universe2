@@ -13,6 +13,9 @@ from botocore.exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.azure_repositories.get import (
     get_repositories_stats,
 )
@@ -67,8 +70,6 @@ import logging
 import logging.config
 from newutils.datetime import (
     DEFAULT_ISO_STR,
-    get_as_utc_iso_format,
-    get_datetime_from_iso_str,
     get_now_minus_delta,
 )
 from newutils.git_self import (
@@ -336,7 +337,7 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
             urls=urls,
         )
     )
-    repositories_dates: tuple[str, ...] = await collect(
+    repositories_dates: tuple[datetime, ...] = await collect(
         tuple(
             _get_commit_date(loaders=loaders, repository=repository)
             for repository in repositories
@@ -347,8 +348,7 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
         tuple(
             _get_missed_authors(loaders=loaders, repository=repository)
             for repository, date in zip(repositories, repositories_dates)
-            if get_datetime_from_iso_str(date).timestamp()
-            > get_now_minus_delta(days=60).timestamp()
+            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
         ),
         workers=1,
     )
@@ -431,7 +431,7 @@ async def _get_missed_authors(
 
 async def _get_commit_date(
     *, loaders: Dataloaders, repository: CredentialsGitRepository
-) -> str:
+) -> datetime:
     git_commits: tuple[
         GitCommit, ...
     ] = await loaders.organization_integration_repositories_commits.load(
@@ -443,9 +443,9 @@ async def _get_commit_date(
     )
 
     if git_commits:
-        return get_as_utc_iso_format(git_commits[0].committer.date)
+        return git_commits[0].committer.date
 
-    return DEFAULT_ISO_STR
+    return datetime.fromisoformat(DEFAULT_ISO_STR)
 
 
 async def _get_repository_count(
@@ -477,7 +477,7 @@ async def _update(
     organization_name: str,
     repositories: tuple[CredentialsGitRepository, ...],
     repositories_stats: tuple[int, ...],
-    repositories_dates: tuple[str, ...],
+    repositories_dates: tuple[datetime, ...],
     covered_repositores: int,
 ) -> None:
 
@@ -496,8 +496,7 @@ async def _update(
             for repository, date, commit_count in zip(
                 repositories, repositories_dates, repositories_stats
             )
-            if get_datetime_from_iso_str(date).timestamp()
-            > get_now_minus_delta(days=60).timestamp()
+            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
         ),
         workers=4,
     )
@@ -505,8 +504,7 @@ async def _update(
     commit_counts = [
         commit_count
         for date, commit_count in zip(repositories_dates, repositories_stats)
-        if get_datetime_from_iso_str(date).timestamp()
-        > get_now_minus_delta(days=60).timestamp()
+        if date.timestamp() > get_now_minus_delta(days=60).timestamp()
     ]
     await update_unreliable_org_indicators(
         organization_id=organization_id,
@@ -524,13 +522,12 @@ async def _remove(
     organization_id: str,
     repositories: tuple[CredentialsGitRepository, ...],
     loaders: Dataloaders,
-    repositories_dates: tuple[str, ...],
+    repositories_dates: tuple[datetime, ...],
 ) -> None:
     repositories_ids: set[str] = {
         f"URL#{_get_id(repository)}#BRANCH#{_get_branch(repository).lower()}"
         for repository, date in zip(repositories, repositories_dates)
-        if get_datetime_from_iso_str(date).timestamp()
-        > get_now_minus_delta(days=60).timestamp()
+        if date.timestamp() > get_now_minus_delta(days=60).timestamp()
     }
     current_unreliable_repositories: tuple[
         OrganizationIntegrationRepository, ...
@@ -625,7 +622,7 @@ async def update_organization_repositories(  # pylint: disable=too-many-locals
             urls=urls,
         )
     )
-    repositories_dates: tuple[str, ...] = await collect(
+    repositories_dates: tuple[datetime, ...] = await collect(
         tuple(
             _get_commit_date(loaders=loaders, repository=repository)
             for repository in repositories

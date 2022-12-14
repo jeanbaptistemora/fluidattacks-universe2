@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from dynamodb.types import (
     PageInfo,
 )
@@ -11,7 +14,7 @@ class OrganizationIntegrationRepository(NamedTuple):
     id: str
     organization_id: str
     branch: str
-    last_commit_date: str
+    last_commit_date: Optional[datetime]
     commit_count: int
     url: str
 

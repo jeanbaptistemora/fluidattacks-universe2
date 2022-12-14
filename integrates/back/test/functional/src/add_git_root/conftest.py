@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
@@ -21,7 +24,9 @@ async def populate(generic_data: dict) -> bool:
                 ),
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 branch="refs/heads/trunk",
-                last_commit_date="2022-11-02 09:37:57",
+                last_commit_date=datetime.fromisoformat(
+                    "2022-11-02T09:37:57+00:00"
+                ),
                 url="https://gitlab.com/fluidattacks/universe",
                 commit_count=3,
             ),
