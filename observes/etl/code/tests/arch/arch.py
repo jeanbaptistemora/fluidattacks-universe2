@@ -48,7 +48,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_client",
         ("_encode", "_decode", "_factory"),
     ),
-    "code_etl.upload_repo": ("actions", "extractor"),
+    "code_etl.upload_repo": ("actions", ("extractor", "_ignored")),
 }
 
 

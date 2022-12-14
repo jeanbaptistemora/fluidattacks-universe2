@@ -16,7 +16,9 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    FrozenList,
+)
+from typing import (
+    FrozenSet,
 )
 
 
@@ -33,5 +35,10 @@ class ArmClient:
     def new(token: str) -> Cmd[ArmClient]:
         return GraphQlAsmClient.new(token).map(_ArmClient).map(ArmClient)
 
-    def get_ignored_paths(self, group: str) -> Cmd[FrozenList[IgnoredPath]]:
+    def get_ignored_paths(self, group: str) -> Cmd[FrozenSet[IgnoredPath]]:
         return _ignored_paths.get_ignored_paths(self._inner.client, group)
+
+
+__all__ = [
+    "IgnoredPath",
+]

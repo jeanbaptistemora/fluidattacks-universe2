@@ -23,6 +23,9 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result.transform import (
     all_ok,
 )
+from typing import (
+    FrozenSet,
+)
 
 
 @dataclass(frozen=True)
@@ -80,7 +83,7 @@ def _decode_raw_ignored_paths(
 
 def get_ignored_paths(
     client: GraphQlAsmClient, group: str
-) -> Cmd[FrozenList[IgnoredPath]]:
+) -> Cmd[FrozenSet[IgnoredPath]]:
     query = """
     query IgnoredPaths($groupName: String!){
         group(groupName: $groupName){
@@ -94,6 +97,8 @@ def get_ignored_paths(
     }
     """
     values = {"groupName": group}
-    return client.get(query, freeze(values)).map(
-        lambda j: _decode_raw_ignored_paths(j, group).unwrap()
+    return (
+        client.get(query, freeze(values))
+        .map(lambda j: _decode_raw_ignored_paths(j, group).unwrap())
+        .map(frozenset)
     )
