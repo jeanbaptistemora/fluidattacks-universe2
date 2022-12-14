@@ -679,6 +679,8 @@ export const enTranslations: ResourceKey = {
         onHold: "On hold:",
         reattack: "Pending reattack:",
         requested: "Requested:",
+        showLess: "Show less...",
+        showMore: "Show more...",
         title: "Description",
         value: "{{count}} day ago",
         // eslint-disable-next-line camelcase -- It is required for react-i18next
