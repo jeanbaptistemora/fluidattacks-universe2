@@ -5,10 +5,13 @@
       {% include 'layouts/components/dark_logo_header.html' %}
 
       {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Temporal Treatment Alert') }}
+      {{ banner_group('Temporary Treatment Alert') }}
       <div class="main-content">
         <p>Hi {{ name }},</p>
-        <p>These are vulnerabilities close to expiring:</p>
+        <p>
+          These are vulnerabilities whose temporary acceptance period
+          is close to expiring:
+        </p>
         <p>
         {% for group_name, group_data in groups_data.items() %}
           {%- if group_data["group_expiring_findings"] -%}
