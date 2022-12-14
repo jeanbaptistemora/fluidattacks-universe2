@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Row, RowData, Table } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
 import _ from "lodash";
-import type { FormEvent, MouseEventHandler } from "react";
+import type { ChangeEventHandler, FormEvent } from "react";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +21,7 @@ interface IBodyProps<TData extends RowData>
     | "rowSelectionSetter"
     | "selectionMode"
   > {
-  radioSelectionhandler: (row: Row<TData>) => MouseEventHandler;
+  radioSelectionhandler: (row: Row<TData>) => ChangeEventHandler;
   table: Table<TData>;
 }
 
@@ -41,6 +41,10 @@ const Body = <TData extends RowData>({
       event.stopPropagation();
       row.toggleExpanded();
     };
+  }
+
+  function handleClick(event: FormEvent): void {
+    event.stopPropagation();
   }
 
   function rowSelectionHandler(row: Row<TData>): (event: FormEvent) => void {
@@ -97,14 +101,16 @@ const Body = <TData extends RowData>({
                                 <input
                                   checked={row.getIsSelected()}
                                   disabled={!row.getCanSelect()}
-                                  onClick={radioSelectionhandler(row)}
+                                  onChange={radioSelectionhandler(row)}
+                                  onClick={handleClick}
                                   type={selectionMode}
                                 />
                               ) : (
                                 <input
                                   checked={row.getIsSelected()}
                                   disabled={!row.getCanSelect()}
-                                  onClick={rowSelectionHandler(row)}
+                                  onChange={rowSelectionHandler(row)}
+                                  onClick={handleClick}
                                   type={selectionMode}
                                 />
                               ))}

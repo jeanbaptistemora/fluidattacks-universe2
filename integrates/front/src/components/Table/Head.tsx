@@ -36,6 +36,10 @@ const Head = <TData extends RowData>({
     };
   }
 
+  function handleClick(event: FormEvent): void {
+    event.stopPropagation();
+  }
+
   function allRowSelectionHandler(): (event: FormEvent) => void {
     return (event: FormEvent): void => {
       event.stopPropagation();
@@ -89,7 +93,8 @@ const Head = <TData extends RowData>({
                               table.getIsSomeRowsSelected() ||
                               table.getIsAllRowsSelected()
                             }
-                            onClick={allRowSelectionHandler()}
+                            onChange={allRowSelectionHandler()}
+                            onClick={handleClick}
                             type={"checkbox"}
                           />
                         )}

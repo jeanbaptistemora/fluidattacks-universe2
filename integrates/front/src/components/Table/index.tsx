@@ -19,7 +19,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import _ from "lodash";
-import type { ChangeEvent, MouseEvent, MouseEventHandler } from "react";
+import type { ChangeEvent, ChangeEventHandler } from "react";
 import React, { isValidElement, useCallback, useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
@@ -88,8 +88,8 @@ const Table = <TData extends RowData>({
   }
 
   const radioSelectionhandler = useCallback(
-    (row: Row<TData>): MouseEventHandler =>
-      (event: MouseEvent<HTMLInputElement>): void => {
+    (row: Row<TData>): ChangeEventHandler =>
+      (event: ChangeEvent<HTMLInputElement>): void => {
         event.stopPropagation();
         setRowSelection({});
         row.toggleSelected();

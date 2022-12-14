@@ -27,6 +27,7 @@ const sharedStyles = css`
   background: none;
   border: none !important;
   box-shadow: none;
+  box-sizing: border-box;
   color: #121216;
   line-height: 1.25;
   outline: none;

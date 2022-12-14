@@ -163,14 +163,6 @@ const EventHeaderLabel: StyledComponent<
   className: "ph3 tc",
 })``;
 
-const Filters = styled.div.attrs({
-  className: "flex flex-wrap flex-auto mt2 justify-around",
-})``;
-
-const FlexAutoContainer = styled.div.attrs({
-  className: "flex-auto mh1 mv1",
-})``;
-
 const FormGroup: StyledComponent<
   "div",
   Record<string, unknown>
@@ -230,13 +222,6 @@ const InputGroup: StyledComponent<
   className: "relative dt",
 })``;
 
-const PanelCollapse: StyledComponent<
-  "div",
-  Record<string, boolean>
-> = styled.div.attrs({
-  className: "mb4 items-center hide-child panel-c",
-})``;
-
 const PanelCollapseBody: StyledComponent<
   "div",
   Record<string, unknown>
@@ -291,15 +276,6 @@ const RadioLabel: StyledComponent<
   })
 )``;
 
-const RangeContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "flex items-center",
-})``;
-
 const RemoveTag: StyledComponent<
   "div",
   Record<string, unknown>
@@ -333,10 +309,6 @@ const RowCenter: StyledComponent<
   className: "flex flex-wrap justify-center",
 })``;
 
-const Select = styled.select.attrs({
-  className: `${style["form-control"]} bg-white black-40 border-box`,
-})``;
-
 const Small: StyledComponent<
   "small",
   Record<string, unknown>
@@ -344,33 +316,8 @@ const Small: StyledComponent<
   className: "justify-center ph1 pv0",
 })``;
 
-const SelectContainer = styled.div.attrs({
-  className: "flex-auto mh1 mw6 mv1",
-})``;
-
-const InputText = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
-})``;
-
-const InputRange = styled.input.attrs({
-  className: `${style["form-control"]} black-40 center border-box mw4`,
-})``;
-
-const InputDateRange = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box mw5`,
-})``;
-
-const InputNumber = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
-})``;
-
 const SearchText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box pv2`,
-})``;
-
-const SelectDate = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
-  type: `date`,
 })``;
 
 const SwitchItem: StyledComponent<
@@ -384,15 +331,6 @@ const SwitchItem: StyledComponent<
 
 const TabContent = styled.div.attrs({
   className: "mt3",
-})``;
-
-const TableOptionsColBar: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "dib ma0 pa0 w-20",
 })``;
 
 export {
@@ -415,36 +353,24 @@ export {
   EventHeaderGrid,
   EventHeaderLabel,
   EvidenceDescription,
-  Filters,
-  FlexAutoContainer,
   FormGroup,
   HintFieldText,
-  InputDateRange,
-  InputNumber,
-  InputRange,
-  InputText,
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
   GraphicPanelCollapseHeader,
   InputGroup,
-  PanelCollapse,
   PanelCollapseBody,
   PanelCollapseHeader,
   QuestionButton,
   Radio,
   RadioLabel,
-  RangeContainer,
   RemoveTag,
   RequiredField,
   Row,
   RowCenter,
   Small,
   SearchText,
-  Select,
-  SelectContainer,
-  SelectDate,
   SwitchItem,
   TabContent,
-  TableOptionsColBar,
 };
