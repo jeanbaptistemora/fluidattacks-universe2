@@ -3,7 +3,7 @@ from enum import (
 )
 
 
-class VulnerabilityExploitState(str, Enum):
+class VulnerabilityExploitStatus(str, Enum):
     ACCEPTED: str = "ACCEPTED"
     CLOSED: str = "CLOSED"
     OPEN: str = "OPEN"

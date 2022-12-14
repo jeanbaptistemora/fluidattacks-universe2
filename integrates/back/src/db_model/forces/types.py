@@ -2,7 +2,7 @@ from datetime import (
     datetime,
 )
 from db_model.forces.enums import (
-    VulnerabilityExploitState,
+    VulnerabilityExploitStatus,
 )
 from decimal import (
     Decimal,
@@ -20,7 +20,7 @@ from typing import (
 class ExploitResult(NamedTuple):
     exploitability: str
     kind: str
-    state: VulnerabilityExploitState
+    state: VulnerabilityExploitStatus
     where: str
     who: str
 
