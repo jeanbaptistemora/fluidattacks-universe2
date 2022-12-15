@@ -338,7 +338,6 @@ def query_f320(
 
 
 QUERIES: graph_model.Queries = (
-    (core_model.FindingEnum.F004, query_f004),
     (core_model.FindingEnum.F008, query_f008),
     (core_model.FindingEnum.F021, query_f021),
     (core_model.FindingEnum.F034, query_f034),
