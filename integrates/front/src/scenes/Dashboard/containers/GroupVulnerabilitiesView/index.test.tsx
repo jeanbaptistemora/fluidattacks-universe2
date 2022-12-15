@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -12,6 +14,82 @@ import type { IGroupVulnerabilities } from "./types";
 import { GroupVulnerabilitiesView } from ".";
 import { getCache } from "utils/apollo";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
+
+const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
+const baseUrl: string =
+  "https://gitlab.com/api/v4/projects/20741933/repository/files";
+const branchRef: string = "trunk";
+const vulnsFileId: string =
+  "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
+  body: {
+    "038": {
+      en: {
+        description: "",
+        impact: "",
+        recommendation: "",
+        threat: "",
+        title: "Business information leak",
+      },
+      requirements: [],
+      score: {
+        base: {
+          attack_complexity: "",
+          attack_vector: "",
+          availability: "",
+          confidentiality: "",
+          integrity: "",
+          privileges_required: "",
+          scope: "",
+          user_interaction: "",
+        },
+        temporal: {
+          exploit_code_maturity: "",
+          remediation_level: "",
+          report_confidence: "",
+        },
+      },
+    },
+  },
+
+  status: 200,
+});
+const requirementsFileId: string =
+  "common%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
+  body: {
+    "176": {
+      category: "",
+      en: {
+        description: "",
+        summary: `
+          The system must restrict access
+          to system objects
+          that have sensitive content.
+          It should only allow access
+          to authorized users.
+        `,
+        title: "Restrict system objects",
+      },
+      references: [],
+    },
+    "177": {
+      category: "",
+      en: {
+        description: "",
+        summary: `
+          The system must not store
+          sensitive information
+          in temporary files or cache memory.
+        `,
+        title: "Avoid caching and temporary files",
+      },
+      references: [],
+    },
+  },
+
+  status: 200,
+});
 
 describe("GroupVulnerabilitiesView", (): void => {
   const mockGroupVulnerabilities: IGroupVulnerabilities = {
@@ -28,7 +106,7 @@ describe("GroupVulnerabilitiesView", (): void => {
               finding: {
                 id: "438679960",
                 severityScore: 2.7,
-                title: "001. Test draft title",
+                title: "038. Business information leak",
               },
               findingId: "438679960",
               groupName: "unittesting",
@@ -243,13 +321,16 @@ describe("GroupVulnerabilitiesView", (): void => {
 
     expect(screen.getByText("Vulnerability")).toBeInTheDocument();
     expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Criteria")).toBeInTheDocument();
     expect(screen.getByText("Found")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Evidence")).toBeInTheDocument();
     expect(
       screen.getByText("https://example.com/inputs | specific-1")
     ).toBeInTheDocument();
-    expect(screen.getByText("001. test draft title")).toBeInTheDocument();
+    expect(
+      screen.getByText("038. business information leak")
+    ).toBeInTheDocument();
     expect(screen.getAllByText("Vulnerable")[0]).toBeInTheDocument();
     expect(screen.getByText("In progress")).toBeInTheDocument();
     expect(screen.getByText("Requested")).toBeInTheDocument();

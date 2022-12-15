@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { requirementsTitleFormatter } from "./formatters/requirementTitleFormatter";
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type { IGroupVulnerabilities } from "./types";
 import {
@@ -14,6 +15,8 @@ import {
   isPendingToAcceptance,
 } from "./utils";
 
+import { getRequerimentsData, getVulnsData } from "../DescriptionView/utils";
+import type { IRequirementData, IVulnData } from "../GroupDraftsView/types";
 import { ActionButtons } from "../VulnerabilitiesView/ActionButtons";
 import { HandleAcceptanceModal } from "../VulnerabilitiesView/HandleAcceptanceModal";
 import type { IModalConfig } from "../VulnerabilitiesView/types";
@@ -61,6 +64,15 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
     },
     enableColumnFilter: false,
     header: "Type",
+  },
+  {
+    accessorFn: (row): string => String(row.requirements),
+    cell: (cell): JSX.Element =>
+      requirementsTitleFormatter({
+        reqsList: cell.row.original.requirements,
+      }),
+    enableColumnFilter: false,
+    header: "Criteria",
   },
   {
     accessorKey: "reportDate",
@@ -168,6 +180,12 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   );
   const [isRequestingVerify, setIsRequestingVerify] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [vulnData, setVulnData] = useState<
+    Record<string, IVulnData> | undefined
+  >();
+  const [requirementData, setRequirementData] = useState<
+    Record<string, IRequirementData> | undefined
+  >();
   const openRemediationModal = useCallback(
     (
       selectedVulnerabilities: IVulnRowAttr[],
@@ -211,6 +229,15 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
       variables: { first: 100, groupName, search: "" },
     }
   );
+
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
+      setVulnData(await getVulnsData());
+      setRequirementData(await getRequerimentsData());
+    }
+
+    void fetchData();
+  }, [setVulnData, setRequirementData]);
 
   const vulnerabilities = data === undefined ? [] : formatVulnerability(data);
   const size = data?.group.vulnerabilities.total;
@@ -334,7 +361,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
             onSearch={handleSearch}
             onVulnSelect={openRemediationModal}
             refetchData={refetch}
+            requirementData={requirementData}
             size={size}
+            vulnData={vulnData}
             vulnerabilities={filteredDataset}
           />
         </div>
