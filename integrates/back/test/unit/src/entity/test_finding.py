@@ -10,7 +10,6 @@ from back.test.unit.src.utils import (
 )
 from custom_exceptions import (
     FindingNotFound,
-    NotSubmitted,
 )
 from dataloaders import (
     apply_context_attrs,
@@ -547,23 +546,6 @@ async def test_update_description() -> None:
 
 
 @pytest.mark.changes_db
-async def test_reject_draft() -> None:
-    """Check for rejectDraft mutation."""
-    query = """
-        mutation {
-            rejectDraft(findingId: "836530833", reasons: [SCORING]) {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["rejectDraft"]
-    assert result["data"]["rejectDraft"]
-
-
-@pytest.mark.changes_db
 async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
     finding_id = "563827909"
@@ -590,22 +572,6 @@ async def test_remove_finding() -> None:
     loaders.finding.clear(finding_id)
     with pytest.raises(FindingNotFound):
         assert await loaders.finding.load(finding_id)
-
-
-@pytest.mark.changes_db
-async def test_approve_draft() -> None:
-    """Check for approveDraft mutation."""
-    query = """
-      mutation {
-        approveDraft(draftId: "836530833") {
-          success
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" in result
-    assert result["errors"][0]["message"] == str(NotSubmitted())
 
 
 @pytest.mark.changes_db
