@@ -19,6 +19,7 @@ from custom_exceptions import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from db_model import (
     TABLE,
@@ -277,9 +278,19 @@ async def get_machine_executions(
                 *result,
                 RootMachineExecution(
                     job_id=item["sk"].split("#")[-1],
-                    created_at=item["created_at"],
-                    started_at=item.get("started_at"),
-                    stopped_at=item.get("stopped_at"),
+                    created_at=datetime.fromisoformat(
+                        item["created_at"]
+                    ).astimezone(tz=timezone.utc),
+                    started_at=datetime.fromisoformat(
+                        item["started_at"]
+                    ).astimezone(tz=timezone.utc)
+                    if item.get("started_at")
+                    else None,
+                    stopped_at=datetime.fromisoformat(
+                        item["stopped_at"]
+                    ).astimezone(tz=timezone.utc)
+                    if item.get("stopped_at")
+                    else None,
                     name=item["name"],
                     root_id=item["pk"].split("#")[-1],
                     queue=item["queue"],
@@ -317,9 +328,19 @@ async def get_machine_executions_by_job_id(
     return tuple(
         RootMachineExecution(
             job_id=item["sk"].split("#")[-1],
-            created_at=item["created_at"],
-            started_at=item.get("started_at"),
-            stopped_at=item.get("stopped_at"),
+            created_at=datetime.fromisoformat(item["created_at"]).astimezone(
+                tz=timezone.utc
+            ),
+            started_at=datetime.fromisoformat(item["started_at"]).astimezone(
+                tz=timezone.utc
+            )
+            if item.get("started_at")
+            else None,
+            stopped_at=datetime.fromisoformat(item["stopped_at"]).astimezone(
+                tz=timezone.utc
+            )
+            if item.get("stopped_at")
+            else None,
             name=item["name"],
             queue=item["queue"],
             root_id=item["pk"].split("#")[-1],

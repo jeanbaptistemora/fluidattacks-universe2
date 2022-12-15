@@ -24,9 +24,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from dateutil.parser import (
-    parse as date_parse,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -120,13 +117,13 @@ def get_finding_code_from_title(finding_title: str) -> Optional[str]:
 
 
 def _get_job_execution_time(
-    job_execution_time: Optional[str],
+    job_execution_time: Optional[datetime],
     action_time: str,
     batch_jobs_dict: Dict[str, Any],
     job_execution: RootMachineExecution,
 ) -> Optional[int]:
     if job_execution_time:
-        return int(date_parse(job_execution_time).timestamp() * 1000)
+        return int(job_execution_time.timestamp() * 1000)
     if job_execution.status:
         return batch_jobs_dict.get(
             job_execution.job_id, {action_time: None}
@@ -177,9 +174,7 @@ async def list_(
         ]
         job_items.append(
             Job(
-                created_at=int(
-                    date_parse(job_execution.created_at).timestamp() * 1000
-                ),
+                created_at=int(job_execution.created_at.timestamp() * 1000),
                 exit_code=0,
                 exit_reason="",
                 id=job_execution.job_id,
@@ -364,22 +359,16 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
     active_jobs_from_batch = tuple(
         RootMachineExecution(
             job_id=entry_execution["jobId"],
-            created_at=datetime_utils.get_as_str(
-                datetime_utils.get_datetime_from_batch(
-                    entry_execution["createdAt"]
-                )
+            created_at=datetime_utils.get_datetime_from_batch(
+                entry_execution["createdAt"]
             ),
-            started_at=datetime_utils.get_as_str(
-                datetime_utils.get_datetime_from_batch(
-                    entry_execution["startedAt"]
-                )
+            started_at=datetime_utils.get_datetime_from_batch(
+                entry_execution["startedAt"]
             )
             if "startedAt" in entry_execution
             else None,
-            stopped_at=datetime_utils.get_as_str(
-                datetime_utils.get_datetime_from_batch(
-                    entry_execution["stoppedAt"]
-                )
+            stopped_at=datetime_utils.get_datetime_from_batch(
+                entry_execution["stoppedAt"]
             )
             if "stoppedAt" in entry_execution
             else None,

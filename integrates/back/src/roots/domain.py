@@ -1602,10 +1602,8 @@ async def add_machine_execution(
         job_id=job_id,
         name=current_job["jobName"],
         queue=current_job["jobQueue"].split("/")[-1],
-        created_at=datetime_utils.get_as_str(queue_date),
-        started_at=datetime_utils.get_as_str(start_date)
-        if start_date
-        else None,
+        created_at=queue_date,
+        started_at=start_date,
         findings_executed=kwargs.pop("findings_executed", []),
         commit=kwargs.pop("git_commit", ""),
         status=kwargs.pop("status", "RUNNABLE"),

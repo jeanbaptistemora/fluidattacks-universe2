@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.roots.types import (
     MachineFindingResult,
     RootMachineExecution,
@@ -36,8 +39,8 @@ def test_get_finding_code_from_title() -> None:
 def test_get_job_execution_time() -> None:
     job_id = "test"
     name = "skims-jobtest-unittesting"
-    created_at = "2020-01-01T01:00:00+00:00"
-    started_at = "2020-01-01T01:10:00+00:00"
+    created_at = datetime.fromisoformat("2020-01-01T01:00:00+00:00")
+    started_at = datetime.fromisoformat("2020-01-01T01:10:00+00:00")
     finding1 = MachineFindingResult(
         open=0,
         modified=0,

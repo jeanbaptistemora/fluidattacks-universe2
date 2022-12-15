@@ -108,9 +108,13 @@ async def add_machine_execution(
     machine_exectution = {
         key_structure.partition_key: machine_execution_key.partition_key,
         key_structure.sort_key: machine_execution_key.sort_key,
-        "created_at": execution.created_at,
-        "started_at": execution.started_at,
-        "stopped_at": execution.stopped_at,
+        "created_at": get_as_utc_iso_format(execution.created_at),
+        "started_at": get_as_utc_iso_format(execution.started_at)
+        if execution.started_at
+        else None,
+        "stopped_at": get_as_utc_iso_format(execution.stopped_at)
+        if execution.stopped_at
+        else None,
         "findings_executed": findings,
         "queue": execution.queue,
         "name": execution.name,

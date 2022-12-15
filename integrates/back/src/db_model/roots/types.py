@@ -178,9 +178,9 @@ class RootMachineExecution(NamedTuple):
     findings_executed: list[MachineFindingResult]
     queue: str
     root_id: str
-    created_at: str
-    started_at: Optional[str] = None
-    stopped_at: Optional[str] = None
+    created_at: datetime
+    started_at: Optional[datetime] = None
+    stopped_at: Optional[datetime] = None
     commit: Optional[str] = None
     success: bool = True
     status: Optional[str] = None
