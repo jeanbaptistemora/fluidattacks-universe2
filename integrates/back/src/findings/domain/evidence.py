@@ -133,11 +133,21 @@ async def validate_filename(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
+    filename = filename.lower()
+    validate_evidencename(
+        organization_name=organization.name.lower(),
+        group_name=group.name.lower(),
+        filename=filename,
+    )
+
+
+def validate_evidencename(
+    *, organization_name: str, group_name: str, filename: str
+) -> None:
     detail: str = (
         "Format organizationName-groupName-10 alphanumeric chars.extension"
     )
-    filename = filename.lower()
-    starts: str = f"{organization.name.lower()}-{group.name.lower()}-"
+    starts: str = f"{organization_name.lower()}-{group_name.lower()}-"
     if not filename.startswith(starts):
         raise InvalidFileName(detail)
 

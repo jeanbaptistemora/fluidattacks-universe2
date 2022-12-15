@@ -67,6 +67,9 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.roots.types import (
     Root,
 )
@@ -92,6 +95,9 @@ from finding_comments import (
 )
 from findings import (
     domain as findings_domain,
+)
+from findings.domain.evidence import (
+    validate_evidencename,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -193,22 +199,35 @@ async def add_event(
     validations.validate_field_length(kwargs["detail"], 300)
     events_validations.validate_type(EventType[kwargs["event_type"]])
     root_id: Optional[str] = kwargs.get("root_id")
+    group: Group = await loaders.group.load(group_name)
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
     if root_id:
         root: Root = await loaders.root.load((group_name, root_id))
         root_id = root.id
         if root.state.status != "ACTIVE":
             raise InvalidParameter(field="rootId")
     if file:
-        await validate_evidence(EventEvidenceId.FILE_1, file)
+        await validate_evidence(
+            group_name=group.name.lower(),
+            organization_name=organization.name.lower(),
+            evidence_id=EventEvidenceId.FILE_1,
+            file=file,
+        )
     if image:
-        await validate_evidence(EventEvidenceId.IMAGE_1, image)
+        await validate_evidence(
+            group_name=group.name.lower(),
+            organization_name=organization.name.lower(),
+            evidence_id=EventEvidenceId.IMAGE_1,
+            file=image,
+        )
 
     tzn = pytz.timezone(TIME_ZONE)
     event_date: datetime = kwargs["event_date"].astimezone(tzn)
     if event_date > datetime_utils.get_now():
         raise InvalidDate()
 
-    group: Group = await loaders.group.load(group_name)
     created_date = datetime_utils.get_utc_now()
     event = Event(
         client=group.organization_id,
@@ -677,7 +696,11 @@ async def update_solving_reason(
 
 
 async def validate_evidence(
-    evidence_id: EventEvidenceId, file: UploadFile
+    *,
+    group_name: str,
+    organization_name: str,
+    evidence_id: EventEvidenceId,
+    file: UploadFile,
 ) -> None:
     mib = 1048576
     validations.validate_file_name(file.filename)
@@ -706,6 +729,12 @@ async def validate_evidence(
 
     if await files_utils.get_file_size(file) > 10 * mib:
         raise InvalidFileSize()
+
+    validate_evidencename(
+        organization_name=organization_name.lower(),
+        group_name=group_name.lower(),
+        filename=file.filename.lower(),
+    )
 
 
 async def request_vulnerabilities_hold(

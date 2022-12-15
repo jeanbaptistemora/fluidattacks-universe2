@@ -10,6 +10,15 @@ from dataloaders import (
 from db_model.events.enums import (
     EventEvidenceId,
 )
+from db_model.events.types import (
+    Event,
+)
+from db_model.groups.types import (
+    Group,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -45,7 +54,17 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     evidence_id = EventEvidenceId[evidence_type]
-    await events_domain.validate_evidence(evidence_id, file)
+    event: Event = await loaders.event.load(event_id)
+    group: Group = await loaders.group.load(event.group_name)
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    await events_domain.validate_evidence(
+        group_name=group.name.lower(),
+        organization_name=organization.name.lower(),
+        evidence_id=evidence_id,
+        file=file,
+    )
 
     await events_domain.update_evidence(
         loaders,

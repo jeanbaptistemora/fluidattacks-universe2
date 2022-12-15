@@ -36,7 +36,7 @@ async def get_result(
     filename: str = f"{path}/test-anim.gif"
     with open(filename, "rb") as test_file:
         uploaded_file: UploadFile = UploadFile(
-            "test-anim.gif", test_file, "image/gif"
+            "orgtest-group1-lkjhgfdas2.gif", test_file, "image/gif"
         )
         variables: dict[str, Any] = {
             "eventId": event,

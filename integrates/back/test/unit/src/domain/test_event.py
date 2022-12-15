@@ -30,6 +30,12 @@ from db_model.events.enums import (
 from db_model.events.types import (
     Event,
 )
+from db_model.groups.types import (
+    Group,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 from events import (
     domain as events_domain,
 )
@@ -86,11 +92,11 @@ async def test_add_event_file_image() -> None:
     imagename = os.path.join(imagename, "./mock/test-anim.gif")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
-            "test-file-records.csv", test_file, "text/csv"
+            "okada-unittesting-0123456789.csv", test_file, "text/csv"
         )
         with open(imagename, "rb") as image_test:
             uploaded_image = UploadFile(
-                "test-anim.gif", image_test, "image/gif"
+                "okada-unittesting-0987654321.gif", image_test, "image/gif"
             )
             test_data = await events_domain.add_event(
                 get_new_context(),
@@ -269,24 +275,44 @@ async def test_validate_evidence_invalid_image_type() -> None:
     evidence_type = EventEvidenceId.IMAGE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group.load("unittesting")
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
         )
         with pytest.raises(InvalidFileType):
-            await events_domain.validate_evidence(evidence_type, uploaded_file)
+            await events_domain.validate_evidence(
+                group_name=group.name.lower(),
+                organization_name=organization.name.lower(),
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )
 
 
 async def test_validate_evidence_invalid_file_size() -> None:
     evidence_type = EventEvidenceId.IMAGE_1
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-big-image.jpg")
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group.load("unittesting")
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-big-image.jpg", test_file, "image/jpg"
         )
         with pytest.raises(InvalidFileSize):
-            await events_domain.validate_evidence(evidence_type, uploaded_file)
+            await events_domain.validate_evidence(
+                group_name=group.name.lower(),
+                organization_name=organization.name.lower(),
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )
 
 
 @pytest.mark.changes_db
