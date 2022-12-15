@@ -325,22 +325,9 @@ def validate_url_root_component(root: Root, component: str) -> None:
         raise InvalidRootComponent()
 
 
-def validate_ip_root_component(root: Root, component: str) -> None:
-    if isinstance(root, IPRoot):
-        host = (
-            f"{root.state.address}:{root.state.port}"
-            if root.state.port != "0"
-            else root.state.address
-        )
-        if component == host or component.startswith(f"{host}/"):
-            return
-        raise InvalidRootComponent()
-
-
 async def validate_component(loaders: Any, root: Root, component: str) -> None:
     await validate_git_root_component(loaders, root, component)
     validate_url_root_component(root, component)
-    validate_ip_root_component(root, component)
 
 
 def validate_git_root(root: Root) -> None:

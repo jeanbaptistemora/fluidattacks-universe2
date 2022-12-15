@@ -235,7 +235,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         nickname="",
                         other=None,
-                        port="8080",
                         reason=None,
                         status=RootStatus.ACTIVE,
                     ),

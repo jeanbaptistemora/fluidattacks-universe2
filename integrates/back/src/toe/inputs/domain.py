@@ -10,15 +10,8 @@ from datetime import (
 from db_model import (
     toe_inputs as toe_inputs_model,
 )
-from db_model.groups.enums import (
-    GroupService,
-)
-from db_model.groups.types import (
-    Group,
-)
 from db_model.roots.types import (
     GitRoot,
-    IPRoot,
     Root,
     URLRoot,
 )
@@ -154,86 +147,6 @@ def get_reduced_component(component: str, entry_point: str) -> str:
     host = _get_host(formatted_component)
     path = _get_path(formatted_component)
     return f"{host}/{path}/{entry_point}"
-
-
-def get_unreliable_component(  # pylint: disable=too-many-locals
-    component: str, group_roots: tuple[Root, ...], group: Group
-) -> tuple[Optional[Root], Optional[str]]:
-    if not component:
-        return None, None
-
-    has_black_service = group.state.service == GroupService.BLACK
-    has_white_service = group.state.service == GroupService.WHITE
-    formatted_component = _format_component(component)
-    host = _get_host(formatted_component)
-    port = _get_port(formatted_component)
-    path = _get_path(formatted_component)
-    protocol = _get_protocol(component.strip())
-    host_and_port = f"{host}:{port}" if port else host
-    for root in group_roots:
-        if has_white_service and isinstance(root, GitRoot):
-            for env_url in root.state.environment_urls:
-                formatted_root_url = _format_component(env_url)
-                formatted_root_host = _get_host(formatted_root_url)
-                formatted_root_port = _get_port(formatted_root_url)
-                root_www = _get_www(env_url)
-                root_host_and_port = (
-                    f"{formatted_root_host}:{formatted_root_port}"
-                    if formatted_root_port
-                    else formatted_root_host
-                )
-                root_protocol = _get_protocol(env_url.strip())
-                if f"{host}" == f"{formatted_root_host}":
-                    return _format_unreliable_component(
-                        root,
-                        f"{root_protocol.lower()}://{root_www}"
-                        f"{root_host_and_port}/{path}",
-                    )
-
-        if has_black_service and isinstance(root, URLRoot):
-            root_host_and_port = (
-                f"{root.state.host}:{root.state.port}"
-                if root.state.port
-                else root.state.host
-            )
-            formatted_root_url = _format_component(
-                (
-                    f"{root.state.protocol.lower()}://{root_host_and_port}"
-                    f"{root.state.path}"
-                )
-            )
-            formatted_root_host = _get_host(formatted_root_url)
-            formatted_root_path = _get_path(formatted_root_url)
-            formatted_root_port = _get_port(formatted_root_url)
-            if f"{host}/{path}".startswith(
-                f"{formatted_root_host}/{formatted_root_path}"
-            ) and (not port or port == formatted_root_port):
-                return _format_unreliable_component(
-                    root,
-                    f"{root.state.protocol.lower()}://{root_host_and_port}/"
-                    f"{path}",
-                )
-
-        if has_black_service and isinstance(root, IPRoot):
-            root_host_and_port = (
-                f"{root.state.address}:{root.state.port}"
-                if root.state.port
-                else root.state.address
-            )
-            formatted_root_url = _format_component(root_host_and_port)
-            formatted_root_host = _get_host(formatted_root_url)
-            formatted_root_port = _get_port(formatted_root_url)
-            if (
-                host == formatted_root_host
-                or host.startswith(f"{formatted_root_host}/")
-            ) and (not port or port == formatted_root_port):
-                return _format_unreliable_component(
-                    root, f"{root_host_and_port}/{path}"
-                )
-
-    return _format_unreliable_component(
-        None, f"{protocol}://{host_and_port}/{path}"
-    )
 
 
 async def remove(

@@ -45,7 +45,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         nickname="ip_1",
                         other=None,
-                        port="8080",
                         reason=None,
                         status=test_status,  # type: ignore
                     ),
@@ -68,7 +67,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         nickname="ip_1",
                         other=None,
-                        port="8081",
                         reason=None,
                         status=test_status,  # type: ignore
                     ),
@@ -91,7 +89,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         nickname="ip_3",
                         other=None,
-                        port="8080",
                         reason=None,
                         status=test_status,  # type: ignore
                     ),

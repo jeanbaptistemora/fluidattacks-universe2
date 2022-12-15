@@ -109,7 +109,6 @@ class IPRootState(NamedTuple):
     modified_date: datetime
     nickname: str
     other: Optional[str]
-    port: str
     reason: Optional[str]
     status: RootStatus
 

@@ -353,12 +353,7 @@ async def add_ip_root(
 ) -> str:
     group_name = str(kwargs["group_name"]).lower()
     address: str = kwargs["address"]
-    port = str(0)
-    is_valid: bool = (
-        validations.is_valid_ip(address) and 0 <= int(port) <= 65535
-    )
-
-    if not is_valid:
+    if not validations.is_valid_ip(address):
         raise InvalidParameter()
 
     group: Group = await loaders.group.load(group_name)
@@ -398,7 +393,6 @@ async def add_ip_root(
             modified_date=modified_date,
             nickname=nickname,
             other=None,
-            port=port,
             reason=None,
             status=RootStatus.ACTIVE,
         ),
@@ -850,7 +844,6 @@ async def update_ip_root(
         modified_date=datetime_utils.get_utc_now(),
         nickname=nickname,
         other=None,
-        port=root.state.port,
         reason=None,
         status=root.state.status,
     )
@@ -1188,7 +1181,6 @@ async def activate_root(
                     modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=None,
-                    port=root.state.port,
                     reason=None,
                     status=new_status,
                 ),
@@ -1278,7 +1270,6 @@ async def deactivate_root(
                     modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=other,
-                    port=root.state.port,
                     reason=reason,
                     status=new_status,
                 ),
@@ -1529,7 +1520,6 @@ async def move_root(
             address=root.state.address,
             group_name=target_group_name,
             nickname=root.state.nickname,
-            port=root.state.port,
         )
     else:
         if not validations.is_url_unique(

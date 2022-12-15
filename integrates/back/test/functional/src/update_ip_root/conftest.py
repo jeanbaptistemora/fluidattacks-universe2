@@ -153,7 +153,6 @@ async def populate() -> bool:
                         ),
                         nickname="test123",
                         other="",
-                        port="444",
                         reason="",
                         status=RootStatus.ACTIVE,
                     ),

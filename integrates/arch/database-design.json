@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 07, 2022, 02:25 PM",
+    "DateLastModified": "Dec 15, 2022, 02:49 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -13635,8 +13635,8 @@
             "missed_commits",
             "covered_repositories",
             "covered_commits",
-            "covered_authors",
-            "missed_authors"
+            "missed_authors",
+            "covered_authors"
           ],
           "DataAccess": {
             "MySql": {}
@@ -22292,9 +22292,6 @@
               },
               "address": {
                 "S": "127.0.0.1"
-              },
-              "port": {
-                "S": "8080"
               }
             },
             {
@@ -22318,9 +22315,6 @@
               },
               "address": {
                 "S": "127.0.0.1"
-              },
-              "port": {
-                "S": "8080"
               }
             }
           ],
@@ -22331,7 +22325,6 @@
             "modified_by",
             "nickname",
             "address",
-            "port",
             "other"
           ],
           "DataAccess": {
@@ -23858,12 +23851,12 @@
             "be_present_until",
             "pk_2",
             "sk_2",
+            "state",
             "has_vulnerabilities",
             "last_author",
             "last_commit",
             "sorts_suggestions",
-            "sorts_risk_level_date",
-            "state"
+            "sorts_risk_level_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24171,12 +24164,12 @@
             "filename",
             "root_id",
             "be_present_until",
+            "state",
             "has_vulnerabilities",
             "last_author",
             "last_commit",
             "sorts_suggestions",
-            "sorts_risk_level_date",
-            "state"
+            "sorts_risk_level_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -24730,14 +24723,14 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
             "first_attack_at",
             "attacked_at",
             "be_present",
             "attacked_by",
             "be_present_until",
-            "has_vulnerabilities",
-            "modified_by",
-            "modified_date"
+            "has_vulnerabilities"
           ],
           "DataAccess": {
             "MySql": {}

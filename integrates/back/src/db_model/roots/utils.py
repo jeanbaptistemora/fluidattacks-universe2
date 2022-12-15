@@ -66,7 +66,6 @@ def format_ip_state(state: Item) -> IPRootState:
         modified_date=datetime.fromisoformat(state["modified_date"]),
         nickname=state["nickname"],
         other=state.get("other"),
-        port=state["port"],
         reason=state.get("reason"),
         status=RootStatus[state["status"]],
     )
