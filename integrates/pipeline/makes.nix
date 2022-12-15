@@ -468,14 +468,6 @@ in {
                   "/integrates/back/deploy/dev"
                   "/integrates/front/deploy/dev"
                 ];
-                rules =
-                  [
-                    {
-                      "if" = "($CI_COMMIT_BRANCH != \"dacevedoatfluid\" && $CI_COMMIT_BRANCH != \"cbetancuratfluid\")";
-                      "when" = "never";
-                    }
-                  ]
-                  ++ gitlabPostDeployDev.rules;
               };
           }
           {

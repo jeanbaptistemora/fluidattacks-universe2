@@ -4644,8 +4644,6 @@
     - /integrates/back/deploy/dev
     - /integrates/front/deploy/dev
   rules:
-    - if: ($CI_COMMIT_BRANCH != "dacevedoatfluid" && $CI_COMMIT_BRANCH != "cbetancuratfluid")
-      when: never
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
