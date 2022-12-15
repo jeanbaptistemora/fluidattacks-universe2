@@ -23,7 +23,7 @@ function getRequirementsText(
   criteriaData: Record<string, IRequirementData> | undefined,
   language?: string
 ): string[] {
-  if (criteriaData === undefined) {
+  if (criteriaData === undefined || _.isEmpty(requirements)) {
     return requirements;
   }
   const requirementsSummaries: string[] = requirements.map(

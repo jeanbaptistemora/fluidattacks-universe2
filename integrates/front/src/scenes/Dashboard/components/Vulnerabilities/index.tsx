@@ -76,6 +76,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   onNextPage = undefined,
   onSearch = undefined,
   onVulnSelect = (): void => undefined,
+  vulnData = undefined,
+  requirementData = undefined,
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
   const attributes: PureAbility<string> = useContext(authzGroupContext);
@@ -270,7 +272,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}
         columns={[...columns, ...(canRemoveVulns ? deleteColumn : [])]}
-        data={formatVulnerabilities(vulnerabilities)}
+        data={formatVulnerabilities(vulnerabilities, vulnData, requirementData)}
         enableColumnFilters={enableColumnFilters}
         enableRowSelection={enabledRows}
         extraButtons={

@@ -1,12 +1,22 @@
+/* eslint @typescript-eslint/strict-boolean-expressions:0 */
+/* eslint @typescript-eslint/no-unnecessary-condition:0 */
 import dayjs from "dayjs";
 import _ from "lodash";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { getRequirementsText } from "scenes/Dashboard/containers/DescriptionView/utils";
+import type {
+  IRequirementData,
+  IVulnData,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
+import type { IReqFormat } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/formatters/types";
 import type { IGroups, IOrganizationGroups } from "scenes/Dashboard/types";
 import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
+
+const CRITERIA_ID_SLICE: number = 3;
 
 const getVulnerabilitiesIds: (vulnerabilities: IVulnRowAttr[]) => string[] = (
   vulnerabilities: IVulnRowAttr[]
@@ -86,9 +96,34 @@ const getVulnerabilitiesIndex: (
   );
 };
 
+const requirementsTitle = ({
+  findingTitle,
+  requirementsData,
+  vulnsData,
+}: IReqFormat): string[] => {
+  const findingNumber =
+    !_.isNil(findingTitle) && findingTitle
+      ? findingTitle.slice(0, CRITERIA_ID_SLICE)
+      : "";
+
+  if (!_.isNil(vulnsData) && !_.isNil(findingNumber)) {
+    const { requirements } = vulnsData[findingNumber] || [];
+
+    return getRequirementsText(requirements, requirementsData);
+  }
+
+  return [];
+};
+
 const formatVulnerabilities: (
-  vulnerabilities: IVulnRowAttr[]
-) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
+  vulnerabilities: IVulnRowAttr[],
+  vulnsData?: Record<string, IVulnData> | undefined,
+  requirementsData?: Record<string, IRequirementData> | undefined
+) => IVulnRowAttr[] = (
+  vulnerabilities: IVulnRowAttr[],
+  vulnsData?: Record<string, IVulnData> | undefined,
+  requirementsData?: Record<string, IRequirementData> | undefined
+): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
     const isPendingToApproval: boolean =
       vulnerability.treatment === "ACCEPTED_UNDEFINED" &&
@@ -112,6 +147,11 @@ const formatVulnerabilities: (
             )
           )
         : true;
+    const requirements: string[] = requirementsTitle({
+      findingTitle: vulnerability.finding?.title,
+      requirementsData,
+      vulnsData,
+    });
 
     return {
       ...vulnerability,
@@ -123,6 +163,7 @@ const formatVulnerabilities: (
         ? vulnerability.lastTreatmentDate.split(" ")[0]
         : "-",
       reportDate: vulnerability.reportDate.split(" ")[0],
+      requirements,
       treatment: isVulnOpen ? treatmentLabel : "-",
       treatmentAssigned: isVulnOpen
         ? (vulnerability.treatmentAssigned as string)

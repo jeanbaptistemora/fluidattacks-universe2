@@ -2,6 +2,10 @@ import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import type { Dispatch, SetStateAction } from "react";
 
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type {
+  IRequirementData,
+  IVulnData,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
 import type { IFinding } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/types";
 
 interface IVulnRowAttr {
@@ -37,6 +41,7 @@ interface IVulnRowAttr {
   where: string;
   zeroRisk: string | null;
   finding?: IFinding;
+  requirements?: string[];
 }
 
 interface ISnippet {
@@ -98,6 +103,8 @@ interface IVulnComponentProps {
     vulnerabilities: IVulnRowAttr[],
     clearSelected: () => void
   ) => void;
+  vulnData?: Record<string, IVulnData>;
+  requirementData?: Record<string, IRequirementData>;
 }
 
 interface IUpdateVulnerabilityForm {
