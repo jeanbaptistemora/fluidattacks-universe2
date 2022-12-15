@@ -49,7 +49,7 @@ def format_git_state(state: Item) -> GitRootState:
         gitignore=state["gitignore"],
         includes_health_check=state["includes_health_check"],
         modified_by=state["modified_by"],
-        modified_date=state["modified_date"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
         nickname=state["nickname"],
         other=state.get("other"),
         reason=state.get("reason"),
@@ -63,7 +63,7 @@ def format_ip_state(state: Item) -> IPRootState:
     return IPRootState(
         address=state["address"],
         modified_by=state["modified_by"],
-        modified_date=state["modified_date"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
         nickname=state["nickname"],
         other=state.get("other"),
         port=state["port"],
@@ -76,7 +76,7 @@ def format_url_state(state: Item) -> URLRootState:
     return URLRootState(
         host=state["host"],
         modified_by=state["modified_by"],
-        modified_date=state["modified_date"],
+        modified_date=datetime.fromisoformat(state["modified_date"]),
         nickname=state["nickname"],
         other=state.get("other"),
         path=state["path"],

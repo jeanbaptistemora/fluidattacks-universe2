@@ -110,7 +110,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         nickname="nickname1",
                         other=None,
                         reason=None,
@@ -144,7 +146,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         nickname="nickname2",
                         other=None,
                         reason=None,
@@ -177,7 +181,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         nickname="nickname3",
                         other=None,
                         reason=None,
@@ -210,7 +216,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         nickname="nickname4",
                         other=None,
                         reason=None,
@@ -244,7 +252,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-11 11:32:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-11 11:32:15+00:00"
+                        ),
                         nickname="nickname5",
                         other=None,
                         reason=None,

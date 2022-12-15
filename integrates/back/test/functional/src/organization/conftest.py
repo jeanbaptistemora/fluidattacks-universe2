@@ -205,7 +205,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="",
                         other=None,
                         reason=None,
@@ -226,7 +228,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2020-11-21T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-21T13:37:10+00:00"
+                        ),
                         nickname="",
                         other=None,
                         port="8080",

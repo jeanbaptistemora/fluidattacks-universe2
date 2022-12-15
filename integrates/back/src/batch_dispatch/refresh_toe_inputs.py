@@ -15,9 +15,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -248,7 +245,7 @@ async def refresh_root_toe_inputs(
     # then it is going to take the last modified root
     sorted_roots = sorted(
         roots,
-        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+        key=lambda root: root.state.modified_date,
     )
     active_roots = {
         root.state.nickname: root

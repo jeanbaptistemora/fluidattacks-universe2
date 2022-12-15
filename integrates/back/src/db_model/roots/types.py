@@ -76,7 +76,7 @@ class GitRootState(NamedTuple):
     environment: str
     includes_health_check: bool
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     nickname: str
     status: RootStatus
     url: str
@@ -106,7 +106,7 @@ class GitRoot(NamedTuple):
 class IPRootState(NamedTuple):
     address: str
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     nickname: str
     other: Optional[str]
     port: str
@@ -130,7 +130,7 @@ class IPRoot(NamedTuple):
 class URLRootState(NamedTuple):
     host: str
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     nickname: str
     other: Optional[str]
     path: str

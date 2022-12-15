@@ -62,7 +62,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="test_nickname_1",
                         other=None,
                         reason=None,
@@ -100,7 +102,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="test_nickname_2",
                         other=None,
                         reason=None,

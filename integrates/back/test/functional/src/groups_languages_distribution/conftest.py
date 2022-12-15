@@ -129,7 +129,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         includes_health_check=False,
                         modified_by="resources@domain.com",
-                        modified_date="2022-09-12T20:00:00-05:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-12T20:00:00-05:00"
+                        ),
                         nickname="nickname1",
                         status=RootStatus.ACTIVE,
                         url="https://domain.nickname1.git",

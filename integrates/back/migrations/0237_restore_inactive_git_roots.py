@@ -74,7 +74,10 @@ async def restore_inactive_root(
     # delete historic
     historic_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_state"],
-        values={"uuid": root_id, "iso8601utc": current_state.modified_date},
+        values={
+            "uuid": root_id,
+            "iso8601utc": current_state.modified_date,
+        },
     )
     await operations.delete_item(key=historic_key, table=TABLE)
 

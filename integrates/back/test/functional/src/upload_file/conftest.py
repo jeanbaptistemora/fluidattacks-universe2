@@ -315,7 +315,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe",
                         other=None,
                         reason=None,
@@ -353,7 +355,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe123",
                         other=None,
                         reason=None,
@@ -374,7 +378,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.44",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe44",
                         other=None,
                         port="0",
@@ -395,7 +401,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.45",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe45",
                         other=None,
                         port="0",
@@ -416,7 +424,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.46",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe46",
                         other=None,
                         port="0",
@@ -437,7 +447,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.47",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe47",
                         other=None,
                         port="0",
@@ -458,7 +470,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.57",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="universe57",
                         other=None,
                         port="0",

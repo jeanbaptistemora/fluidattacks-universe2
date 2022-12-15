@@ -170,7 +170,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         includes_health_check=False,
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         nickname="failedroot",
                         status=RootStatus.ACTIVE,
                         url=(
@@ -200,7 +202,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         includes_health_check=False,
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         nickname="inactiveroot",
                         status=RootStatus.INACTIVE,
                         url=(
@@ -231,7 +235,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         includes_health_check=False,
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         nickname="activeroot",
                         status=RootStatus.ACTIVE,
                         url=(
@@ -261,7 +267,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         environment="production",
                         includes_health_check=False,
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                         nickname="activesquadroot",
                         status=RootStatus.ACTIVE,
                         url=(

@@ -50,7 +50,10 @@ async def add(*, root: Root) -> None:
 
     state_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_state"],
-        values={"uuid": root.id, "iso8601utc": root.state.modified_date},
+        values={
+            "uuid": root.id,
+            "iso8601utc": get_as_utc_iso_format(root.state.modified_date),
+        },
     )
     historic_state_item = {
         key_structure.partition_key: state_key.partition_key,

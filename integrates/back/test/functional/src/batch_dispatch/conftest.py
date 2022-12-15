@@ -456,7 +456,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname1",
                         other="",
                         reason="",
@@ -491,7 +493,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname1",
                         other="",
                         reason="",
@@ -526,7 +530,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname2",
                         other="",
                         reason="",
@@ -560,7 +566,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname3",
                         other="",
                         reason="",
@@ -593,7 +601,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname4",
                         other="",
                         reason="",
@@ -632,7 +642,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="nickname5",
                         other=None,
                         reason=None,
@@ -666,7 +678,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname6",
                         other="",
                         reason="",
@@ -700,7 +714,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname8",
                         other="",
                         reason="",

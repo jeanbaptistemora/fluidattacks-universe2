@@ -618,7 +618,7 @@ async def remove_credentials(
             state=root.state._replace(
                 credential_id=None,
                 modified_by=modified_by,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
             ),
         )
         for root in organization_roots

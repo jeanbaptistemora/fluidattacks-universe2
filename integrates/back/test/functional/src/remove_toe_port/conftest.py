@@ -40,7 +40,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="root1",
                         other=None,
                         port="8080",
@@ -61,7 +63,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="root2",
                         other=None,
                         port="8081",
@@ -82,7 +86,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="root3",
                         other=None,
                         port="8082",
@@ -103,7 +109,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by="admin@gmail.com",
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="root2",
                         other=None,
                         port="8083",

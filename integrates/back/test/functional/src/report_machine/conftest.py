@@ -135,7 +135,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname",
                         other="",
                         reason="",
@@ -168,7 +170,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="nickname2",
                         other="",
                         reason="",

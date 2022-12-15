@@ -81,7 +81,9 @@ async def update_root_state(
     await operations.update_item(
         condition_expression=(
             Attr(key_structure.partition_key).exists()
-            & Attr("state.modified_date").eq(current_value.modified_date)
+            & Attr("state.modified_date").eq(
+                get_as_utc_iso_format(current_value.modified_date)
+            )
         ),
         item=root_item,
         key=root_key,
@@ -90,7 +92,10 @@ async def update_root_state(
 
     historic_key = keys.build_key(
         facet=historic_facet,
-        values={"uuid": root_id, "iso8601utc": state.modified_date},
+        values={
+            "uuid": root_id,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
+        },
     )
     historic_item = {
         key_structure.partition_key: historic_key.partition_key,

@@ -63,7 +63,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="git_1",
                         other=None,
                         reason=None,
@@ -84,7 +86,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=IPRootState(
                         address="192.168.1.1",
                         modified_by=test_email,
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="ip_1",
                         other=None,
                         port="8080",
@@ -105,7 +109,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=URLRootState(
                         host="app.fluidattacks.com",
                         modified_by=test_email,
-                        modified_date="2020-11-19T13:37:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
                         nickname="url_1",
                         other=None,
                         path="/",

@@ -148,7 +148,9 @@ async def populate() -> bool:
                     state=IPRootState(
                         address="https://gitlab.com/fluidattacks/test",
                         modified_by="test@fluidattacks.com",
-                        modified_date="2022-02-10T14:58:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-02-10T14:58:10+00:00"
+                        ),
                         nickname="test123",
                         other="",
                         port="444",

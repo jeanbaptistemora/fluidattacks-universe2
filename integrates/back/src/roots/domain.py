@@ -319,7 +319,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             gitignore=gitignore,
             includes_health_check=includes_health_check,
             modified_by=user_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             nickname=nickname,
             other=None,
             reason=None,
@@ -395,7 +395,7 @@ async def add_ip_root(
         state=IPRootState(
             address=address,
             modified_by=user_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             nickname=nickname,
             other=None,
             port=port,
@@ -491,7 +491,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         state=URLRootState(
             host=host,
             modified_by=user_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             nickname=nickname,
             other=None,
             path=path,
@@ -577,7 +577,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     other: Optional[str],
 ) -> None:
     root: Root = await loaders.root.load((group_name, root_id))
-    modified_date: str = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
@@ -622,7 +622,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     if urls_added or urls_deleted:
         await send_mail_environment(
             loaders=loaders,
-            date=modified_date,
+            date=datetime_utils.get_as_utc_iso_format(modified_date),
             group_name=group_name,
             git_root=root.state.nickname,
             git_root_url=root.state.url,
@@ -784,7 +784,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         gitignore=gitignore,
         includes_health_check=kwargs["includes_health_check"],
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         nickname=nickname,
         other=None,
         reason=None,
@@ -847,7 +847,7 @@ async def update_ip_root(
     new_state: IPRootState = IPRootState(
         address=root.state.address,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         nickname=nickname,
         other=None,
         port=root.state.port,
@@ -898,7 +898,7 @@ async def update_url_root(
     new_state: URLRootState = URLRootState(
         host=root.state.host,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         nickname=nickname,
         other=None,
         path=root.state.path,
@@ -961,7 +961,9 @@ async def send_mail_updated_root(
             root_nickname=new_state.nickname,
             new_root_content=new_root_content,
             old_state=old_state,
-            modified_date=new_state.modified_date,
+            modified_date=datetime_utils.get_as_utc_iso_format(
+                new_state.modified_date
+            ),
         )
 
 
@@ -1154,7 +1156,7 @@ async def activate_root(
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=None,
                     reason=None,
@@ -1183,7 +1185,7 @@ async def activate_root(
                 state=IPRootState(
                     address=root.state.address,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=None,
                     port=root.state.port,
@@ -1210,7 +1212,7 @@ async def activate_root(
                 state=URLRootState(
                     host=root.state.host,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=None,
                     path=root.state.path,
@@ -1247,7 +1249,7 @@ async def deactivate_root(
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=other,
                     reason=reason,
@@ -1273,7 +1275,7 @@ async def deactivate_root(
                 state=IPRootState(
                     address=root.state.address,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=other,
                     port=root.state.port,
@@ -1290,7 +1292,7 @@ async def deactivate_root(
                 state=URLRootState(
                     host=root.state.host,
                     modified_by=email,
-                    modified_date=datetime_utils.get_iso_date(),
+                    modified_date=datetime_utils.get_utc_now(),
                     nickname=root.state.nickname,
                     other=other,
                     path=root.state.path,
@@ -1339,7 +1341,7 @@ def get_root_ids_by_nicknames(
             for root in group_roots
             if root.state.status == RootStatus.ACTIVE
         ],
-        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+        key=lambda root: root.state.modified_date,
         reverse=False,
     )
     sorted_inactive_roots = sorted(
@@ -1348,7 +1350,7 @@ def get_root_ids_by_nicknames(
             for root in group_roots
             if root.state.status == RootStatus.INACTIVE
         ],
-        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+        key=lambda root: root.state.modified_date,
         reverse=False,
     )
     root_ids: Dict[str, str] = {}
