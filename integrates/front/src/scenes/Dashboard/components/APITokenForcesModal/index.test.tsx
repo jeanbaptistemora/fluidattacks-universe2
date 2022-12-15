@@ -9,6 +9,15 @@ import {
   GET_FORCES_TOKEN,
   UPDATE_FORCES_TOKEN_MUTATION,
 } from "scenes/Dashboard/components/APITokenForcesModal/queries";
+import { msgSuccess } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Record<string, unknown> => {
+  const mockedNotifications: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("../../../../utils/notifications");
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -103,6 +112,11 @@ describe("Update access token modal", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText(afterValue)).toBeInTheDocument();
     });
+
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "updateForcesToken.successfully",
+      "updateForcesToken.success"
+    );
 
     jest.clearAllMocks();
   });
