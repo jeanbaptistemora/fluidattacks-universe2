@@ -19,9 +19,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model import (
     events as events_model,
     roots as roots_model,
@@ -77,7 +74,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 def get_oldest_root(ip_roots: list[IPRoot]) -> IPRoot:
     return min(
         ip_roots,
-        key=lambda ip_root: datetime.fromisoformat(ip_root.created_date),
+        key=lambda ip_root: ip_root.created_date,
     )
 
 

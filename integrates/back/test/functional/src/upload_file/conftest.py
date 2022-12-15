@@ -375,7 +375,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="40190504-eeab-4640-af14-2af5673041e6",
                     organization_name="orgtest",
@@ -397,7 +399,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="bb90e4a1-9e24-4d1b-af48-24fb5f09dc71",
                     organization_name="orgtest",
@@ -419,7 +423,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="f54c209e-45e8-4960-9aa5-bb9c34987e09",
                     organization_name="orgtest",
@@ -441,7 +447,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="715f2498-bb07-41a4-99bd-61bd008fa903",
                     organization_name="orgtest",
@@ -463,7 +471,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="30c85c00-d2ab-43f4-b75e-7ae27928c8a4",
                     organization_name="orgtest",

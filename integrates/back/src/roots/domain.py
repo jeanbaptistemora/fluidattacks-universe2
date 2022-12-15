@@ -383,7 +383,7 @@ async def add_ip_root(
     modified_date = datetime_utils.get_utc_now()
     root = IPRoot(
         created_by=user_email,
-        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
+        created_date=modified_date,
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,

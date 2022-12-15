@@ -115,7 +115,7 @@ class IPRootState(NamedTuple):
 
 class IPRoot(NamedTuple):
     created_by: str
-    created_date: str
+    created_date: datetime
     group_name: str
     id: str
     organization_name: str

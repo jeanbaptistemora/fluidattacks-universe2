@@ -33,7 +33,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     organization_name="orgtest",
@@ -55,7 +57,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                     organization_name="orgtest",
@@ -77,7 +81,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group2",
                     id="213c45c1-da92-4905-aded-f857f0af4339",
                     organization_name="orgtest",
@@ -99,7 +105,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "root": IPRoot(
                     created_by="admin@gmail.com",
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group2",
                     id="7995fcdc-0eae-4362-8414-08b7b8c5a2ec",
                     organization_name="orgtest",
