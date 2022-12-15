@@ -106,6 +106,10 @@ locals {
       local.machine_sizes.medium,
       local.config.observes
     )
+    observes_large = merge(
+      local.machine_sizes.large,
+      local.config.observes,
+    )
     observes_large_no_spot = merge(
       local.machine_sizes.large,
       local.config.observes,
