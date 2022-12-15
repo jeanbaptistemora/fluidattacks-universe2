@@ -7,7 +7,7 @@ module "cluster" {
 
   # Nodes
   eks_managed_node_group_defaults = {
-    disk_size              = 30
+    disk_size              = 35
     capacity_type          = "SPOT"
     force_update_version   = true
     ebs_optimized          = true
