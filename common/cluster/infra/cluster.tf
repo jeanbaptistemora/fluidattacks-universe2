@@ -7,7 +7,6 @@ module "cluster" {
 
   # Nodes
   eks_managed_node_group_defaults = {
-    disk_size              = 35
     capacity_type          = "SPOT"
     force_update_version   = true
     ebs_optimized          = true
@@ -25,6 +24,18 @@ module "cluster" {
         "m5ad.xlarge",
       ]
 
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 35
+            volume_type           = "gp3"
+            encrypted             = true
+            delete_on_termination = true
+          }
+        }
+      }
+
       labels = {
         worker_group = "dev"
       }
@@ -38,6 +49,18 @@ module "cluster" {
         "m5d.large",
         "m5ad.large",
       ]
+
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 20
+            volume_type           = "gp3"
+            encrypted             = true
+            delete_on_termination = true
+          }
+        }
+      }
 
       labels = {
         worker_group = "prod_integrates"
