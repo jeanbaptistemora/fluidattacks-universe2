@@ -2,7 +2,10 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FINDING_HEADER: DocumentNode = gql`
-  query GetFindingHeader($findingId: String!) {
+  query GetFindingHeader(
+    $findingId: String!
+    $canRetrieveHacker: Boolean! = false
+  ) {
     finding(identifier: $findingId) {
       closedVulns: closedVulnerabilities
       id
@@ -10,6 +13,7 @@ const GET_FINDING_HEADER: DocumentNode = gql`
       releaseDate
       severityScore
       state
+      hacker @include(if: $canRetrieveHacker)
       title
       minTimeToRemediate
       currentState

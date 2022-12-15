@@ -47,6 +47,7 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
+        canRetrieveHacker: true,
         findingId: "438679960",
       },
     },
@@ -55,6 +56,7 @@ describe("FindingContent", (): void => {
         finding: {
           closedVulns: 0,
           currentState: "APPROVED",
+          hacker: "machine@fluidattacks.com",
           id: "438679960",
           minTimeToRemediate: 60,
           openVulns: 3,
@@ -81,6 +83,7 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
+        canRetrieveHacker: true,
         findingId: "438679960",
       },
     },
@@ -115,6 +118,7 @@ describe("FindingContent", (): void => {
     request: {
       query: GET_FINDING_HEADER,
       variables: {
+        canRetrieveHacker: true,
         findingId: "438679960",
       },
     },
@@ -123,6 +127,7 @@ describe("FindingContent", (): void => {
         finding: {
           closedVulns: 0,
           currentState: "CREATED",
+          hacker: "machine@fluidattacks.com",
           id: "438679960",
           minTimeToRemediate: 60,
           openVulns: 3,
@@ -171,18 +176,31 @@ describe("FindingContent", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
+    // eslint-disable-next-line
+    const mockedPermissions = new PureAbility<string>([  // NOSONAR
+      { action: "api_mutations_submit_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
+    ]);
 
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
-          <authzGroupContext.Provider
-            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
-          >
-            <Route
-              component={FindingContent}
-              path={"/:groupName/vulns/:findingId/description"}
-            />
-          </authzGroupContext.Provider>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <authzGroupContext.Provider
+              value={
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
+              }
+            >
+              <Route
+                component={FindingContent}
+                path={"/:groupName/vulns/:findingId/description"}
+              />
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -198,18 +216,30 @@ describe("FindingContent", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-
+    // eslint-disable-next-line
+    const mockedPermissions = new PureAbility<string>([  //NOSONAR
+      { action: "api_mutations_submit_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
+    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
-          <authzGroupContext.Provider
-            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
-          >
-            <Route
-              component={FindingContent}
-              path={"/:groupName/vulns/:findingId/description"}
-            />
-          </authzGroupContext.Provider>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <authzGroupContext.Provider
+              value={
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
+              }
+            >
+              <Route
+                component={FindingContent}
+                path={"/:groupName/vulns/:findingId/description"}
+              />
+            </authzGroupContext.Provider>
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -229,6 +259,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -236,7 +267,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -264,6 +299,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -271,7 +307,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -329,6 +369,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -339,7 +380,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -386,6 +431,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -396,7 +442,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -442,6 +492,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -452,7 +503,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -510,6 +565,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_approve_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -520,7 +576,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -577,6 +637,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_reject_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/drafts/438679960/description"]}>
@@ -587,7 +648,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -644,6 +709,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_reject_draft_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/drafts/438679960/description"]}>
@@ -654,7 +720,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -710,6 +780,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -720,7 +791,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
@@ -777,6 +852,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_remove_finding_mutate" },
+      { action: "api_resolvers_finding_hacker_resolve" },
     ]);
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -787,7 +863,11 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                new PureAbility([{ action: "can_report_vulnerabilities" }])
+                // eslint-disable-next-line
+                new PureAbility([  //NOSONAR
+                  { action: "can_report_vulnerabilities" },
+                  { action: "api_resolvers_finding_hacker_resolve" },
+                ])
               }
             >
               <Route
