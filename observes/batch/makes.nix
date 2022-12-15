@@ -189,7 +189,7 @@ in {
 
     observesDynamoParallel = parrallel_job 15 (scheduled_job {
       name = "dynamo_etl_parallel";
-      size = "observes_large_no_spot";
+      size = "observes_large";
       attempts = 1;
       timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
