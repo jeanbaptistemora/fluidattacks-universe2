@@ -6,3 +6,11 @@ lib_path.f097.has_reverse_tabnabbing:
   es: >-
     El sistema permite la introducción de un enlace
     a un sitio externo controlado por un actor malicioso.
+
+lib_root.f097.has_reverse_tabnabbing:
+  en: >
+    Use of window.open() method without "noopener, noreferrer" window features
+    allows target page to change the contents of original page.
+  es: >-
+    El uso de el método window.open() sin los attributos de ventana "noopener, noreferrer"
+    habilita a la página destino para cambiar los contenidos de la página original.

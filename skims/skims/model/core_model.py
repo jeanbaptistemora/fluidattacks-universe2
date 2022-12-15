@@ -5225,3 +5225,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_HAS_REVERSE_TABNABBING = MethodInfo(
+        file_name="javascript",
+        name="javascript_has_reverse_tabnabbing",
+        module="lib_root",
+        finding=FindingEnum.F097,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
