@@ -1,4 +1,5 @@
 import lotCircleXMark from "./circleXMark.json";
+import enrolledUserCase from "./EnrolledUserCase.png";
 import loginBGR from "./loginBGR.png";
 import loginBitBucketLogo from "./loginBitBucketLogo.png";
 import loginGoogleLogo from "./loginGoogleLogo.png";
@@ -12,6 +13,7 @@ import starMedium from "./StarMedium.png";
 import starSolid from "./StarSolid.png";
 
 export {
+  enrolledUserCase,
   lotCircleXMark,
   lotScan,
   loginBGR,

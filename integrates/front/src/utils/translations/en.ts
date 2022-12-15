@@ -3835,6 +3835,13 @@ export const enTranslations: ResourceKey = {
     },
   },
   signup: {
+    enrolledUser: {
+      button: "Go to the ARM dashboard",
+      subtitle1:
+        "There is already an account and active user with this email (",
+      subtitle2: ") in the ARM.",
+      title: "Oops! You're not eligible for the free trial.",
+    },
     subtitle:
       "Search for vulnerabilities in your application for FREE and " +
       "enjoy all Machine Plan benefits:",
