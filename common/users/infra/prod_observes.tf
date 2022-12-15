@@ -168,6 +168,7 @@ locals {
             "redshift:ModifySavedQuery",
             "redshift:DeleteSavedQueries",
             "redshift:DescribeSavedQueries",
+            "redshift:ListSavedQueries",
           ]
           Resource = ["*"]
         },
