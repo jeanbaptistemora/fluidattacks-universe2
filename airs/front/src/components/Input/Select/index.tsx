@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { StyledOption, StyledSelect } from "./styledComponents";
 import type { ISelectProps } from "./types";
 
-import { capitalizeDashedString } from "../../../utils/utilities";
+import { capitalizeDashedString, stringToUri } from "../../../utils/utilities";
 import { Container } from "../../Container";
 import { Text } from "../../Typography";
 
@@ -31,7 +31,7 @@ const Select: React.FC<ISelectProps> = ({
         {options.map((option): JSX.Element => {
           return (
             <StyledOption key={option} value={option}>
-              {capitalizeDashedString(option)}
+              {capitalizeDashedString(stringToUri(option))}
             </StyledOption>
           );
         })}

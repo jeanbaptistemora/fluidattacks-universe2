@@ -113,7 +113,8 @@ export const BlogsList: React.FC = (): JSX.Element => {
 
   const filterTitles = (post: INodes, title: string): boolean => {
     return (
-      title === "" || post.node.frontmatter.title.toLowerCase().includes(title)
+      title === "" ||
+      post.node.frontmatter.title.toLowerCase().includes(title.toLowerCase())
     );
   };
 
