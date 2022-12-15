@@ -7,19 +7,19 @@ import { Pagination } from "../../components/Pagination";
 import { Text, Title } from "../../components/Typography";
 import { VerticalCard } from "../../components/VerticalCard";
 import { usePagination } from "../../utils/hooks";
-import { capitalizePlainString } from "../../utils/utilities";
+import { capitalizeDashedString } from "../../utils/utilities";
 
-interface IBlogsCategoryProps {
-  categoryName: string;
-  categoryDescription: string | undefined;
+interface IBlogsTagProps {
+  tagName: string;
+  tagDescription: string | undefined;
 }
 
-const BlogsCategoryPage: React.FC<IBlogsCategoryProps> = ({
-  categoryName,
-  categoryDescription,
+const BlogsTagPage: React.FC<IBlogsTagProps> = ({
+  tagName,
+  tagDescription,
 }): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
-    query NewBlogCategoryList {
+    query NewBlogTagList {
       allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
@@ -51,8 +51,10 @@ const BlogsCategoryPage: React.FC<IBlogsCategoryProps> = ({
     }
   `);
 
-  const posts: INodes[] = data.allMarkdownRemark.edges.filter(
-    (edge): boolean => edge.node.frontmatter.category === categoryName
+  const posts: INodes[] = data.allMarkdownRemark.edges.filter((edge): boolean =>
+    edge.node.frontmatter.tags
+      .split(", ")
+      .some((blogTag): boolean => blogTag === tagName)
   );
 
   const blogsCards = posts.map((post): JSX.Element | undefined => {
@@ -99,11 +101,11 @@ const BlogsCategoryPage: React.FC<IBlogsCategoryProps> = ({
           size={"big"}
           textAlign={"center"}
         >
-          {capitalizePlainString(categoryName)}
+          {tagName === "hevd" ? "HEVD" : capitalizeDashedString(tagName)}
         </Title>
-        {categoryDescription === undefined ? undefined : (
+        {tagDescription === undefined ? undefined : (
           <Text color={"#2e2e38"} textAlign={"center"}>
-            {categoryDescription}
+            {tagDescription}
           </Text>
         )}
       </Container>
@@ -119,4 +121,4 @@ const BlogsCategoryPage: React.FC<IBlogsCategoryProps> = ({
   );
 };
 
-export { BlogsCategoryPage };
+export { BlogsTagPage };

@@ -9,13 +9,13 @@ import { VerticalCard } from "../../components/VerticalCard";
 import { usePagination } from "../../utils/hooks";
 import { capitalizeDashedString, stringToUri } from "../../utils/utilities";
 
-interface IBlogsAuthorPage {
+interface IBlogsAuthorProps {
   authorName: string;
   authorDescription: string | undefined;
   authorTitle: string | undefined;
 }
 
-const BlogsAuthorPage: React.FC<IBlogsAuthorPage> = ({
+const BlogsAuthorPage: React.FC<IBlogsAuthorProps> = ({
   authorName,
   authorDescription,
   authorTitle,
