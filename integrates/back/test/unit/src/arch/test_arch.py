@@ -2,7 +2,7 @@ from .arch import (
     project_dag,
 )
 from arch_lint.dag.check import (
-    check_dag,
+    check_dag_map,
 )
 from arch_lint.graph import (
     ImportGraph,
@@ -19,4 +19,4 @@ def test_dag_creation() -> None:
 @pytest.mark.xfail
 def test_dag() -> None:
     graph = ImportGraph.build_graph(ROOT, True)
-    check_dag(project_dag(), graph, graph.root)
+    check_dag_map(project_dag(), graph)

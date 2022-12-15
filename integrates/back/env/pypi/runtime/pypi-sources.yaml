@@ -9,7 +9,7 @@ closure:
   aiosignal: 1.3.1
   amqp: 5.1.1
   anyio: 3.6.2
-  arch-lint: 1.1.0
+  arch-lint: 2.0.0
   ariadne: 0.15.1
   asgiref: 3.5.2
   async-lru: 1.0.2
@@ -250,12 +250,12 @@ links:
   - name: anyio-3.6.2.tar.gz
     sha256: 08bljjq5xq0l9id36q3vvjgygirq7g7q2bs41hdg82p379khvsi5
     url: https://files.pythonhosted.org/packages/8b/94/6928d4345f2bc1beecbff03325cad43d320717f51ab74ab5a571324f4f5a/anyio-3.6.2.tar.gz
-  - name: arch_lint-1.1.0-py3-none-any.whl
-    sha256: 0prmy6g53cqhpwv0pwyv0c9x5hr2s5ix7aw3lmz9c1q7fmbvyv7w
-    url: https://files.pythonhosted.org/packages/84/68/859995f5c65d6a5b93333ab4fa6e350f0bc03c4ebf42e0f96d6f45b0b760/arch_lint-1.1.0-py3-none-any.whl
-  - name: arch_lint-1.1.0.tar.gz
-    sha256: 05gxd32mqby995nn2wy7vjn1r9c985wrb84195j0vx9gcd27aa0m
-    url: https://files.pythonhosted.org/packages/9b/19/4e8f45b21cf7f57e070300c0227599b7b45cedfb92dcc5a8ae54a1273a59/arch_lint-1.1.0.tar.gz
+  - name: arch_lint-2.0.0-py3-none-any.whl
+    sha256: 19p28x5i63yv7nq693xkap55fvdfmhp0m4f8gs4b8w3v48nks8d6
+    url: https://files.pythonhosted.org/packages/e9/0e/16ded59cb93d341b5d383bde838a02aa2dbc234467d55afd097e5a21afc2/arch_lint-2.0.0-py3-none-any.whl
+  - name: arch_lint-2.0.0.tar.gz
+    sha256: 0pd6n692f99ix2mdixpll7s2b75428gm15xz381mci602rfj9rf3
+    url: https://files.pythonhosted.org/packages/98/c4/ec7c4e7eec6d1b6177c1a63da30f8121a44bb0fc13af01eebda42d7478ef/arch_lint-2.0.0.tar.gz
   - name: ariadne-0.15.1-py3-none-any.whl
     sha256: 1k3w3bkag3cv5p7awjgl8fqfjmpfjakb9cha7adwy3xbjpl3ay68
     url: https://files.pythonhosted.org/packages/c9/32/e242cbf05e4ceab63b4bc29ea2aa6bf6418a7b15faf8ac512dc393d32250/ariadne-0.15.1-py3-none-any.whl
