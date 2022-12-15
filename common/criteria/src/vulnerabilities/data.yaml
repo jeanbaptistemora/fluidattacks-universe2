@@ -38703,8 +38703,8 @@
   en:
     title: Use of an insecure channel - Docker
     description: >
-      The docker configuration exposes ports in your container that are an open
-      door to your system. Expose only the ports that your application needs and 
+      The EXPOSE instruction informs Docker that the container listens on the specified 
+      network ports at runtime. Inform only the ports that your application needs and 
       avoid exposing ports such as HTTP (80).
     impact: >
       Capture confidential information and credentials in plain text.
@@ -38720,8 +38720,8 @@
   es:
     title: Use of an insecure channel - Docker
     description: >
-      La configuración docker expone puertos en su contenedor que 
-      suponen una puerta abierta a su sistema. Exponga solo los puertos
+      La instrucción EXPOSE informa a Docker que el contenedor escucha en los puertos
+      de red especificados en tiempo de ejecución. Informe solo los puertos
       que su aplicación necesita y evite exponer puertos como HTTP (80).
     impact: >
       Capturar información confidencial y credenciales en texto plano.
