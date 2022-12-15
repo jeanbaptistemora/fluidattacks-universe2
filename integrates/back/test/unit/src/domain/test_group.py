@@ -97,8 +97,8 @@ async def test_list_comments() -> None:
         "parent": "0",
         "created": "2018/12/27 16:30:28",
         "id": "1545946228675",
-        "fullname": "Miguel de Orellana at Fluid Attacks",
-        "email": "unittest@fluidattacks.com",
+        "fullname": "Fluid Attacks",
+        "email": "help@fluidattacks.com",
         "modified": "2018/12/27 16:30:28",
     }
     assert test_data[0] == expected_output

@@ -7,6 +7,17 @@ from dynamodb.types import (
 from newutils.datetime import (
     format_comment_datetime,
 )
+from newutils.stakeholders import (
+    is_fluid_staff,
+)
+
+
+def _get_email(objective_data: EventComment) -> str:
+    objective_email = objective_data.email
+    if is_fluid_staff(objective_email):
+        return "help@fluidattacks.com"
+
+    return objective_email
 
 
 def _get_fullname(objective_data: EventComment) -> str:
@@ -16,20 +27,21 @@ def _get_fullname(objective_data: EventComment) -> str:
     )
     real_name = objective_possible_fullname or objective_email
 
-    if "@fluidattacks.com" in objective_email:
-        return f"{real_name} at Fluid Attacks"
+    if is_fluid_staff(objective_email):
+        return "Fluid Attacks"
 
     return real_name
 
 
 def format_event_consulting_resolve(event_comment: EventComment) -> Item:
+    email = _get_email(objective_data=event_comment)
     fullname = _get_fullname(objective_data=event_comment)
     comment_date: str = format_comment_datetime(event_comment.creation_date)
     return {
         "content": event_comment.content,
         "created": comment_date,
-        "email": event_comment.email,
-        "fullname": fullname if fullname else event_comment.email,
+        "email": email,
+        "fullname": fullname if fullname else email,
         "id": event_comment.id,
         "modified": comment_date,
         "parent": event_comment.parent_id,
