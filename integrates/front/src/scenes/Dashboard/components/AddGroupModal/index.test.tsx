@@ -115,4 +115,40 @@ describe("AddGroupModal component", (): void => {
     expect(screen.getAllByRole("radio")[1]).not.toBeChecked();
     expect(screen.getAllByRole("radio")[2]).toBeChecked();
   });
+
+  it("should validate required fields", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleOnClose: jest.Mock = jest.fn();
+    render(
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <AddGroupModal
+            isOpen={true}
+            onClose={handleOnClose}
+            organization={"okada"}
+            runTour={false}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    expect(screen.getAllByText("Required field")).toHaveLength(2);
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "name" }),
+      "groupname"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "description" }),
+      "group description"
+    );
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    expect(screen.queryAllByText("Required field")).toHaveLength(0);
+  });
 });
