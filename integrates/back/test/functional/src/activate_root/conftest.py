@@ -46,7 +46,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus("UNKNOWN"),
                     ),
                     created_by=test_email,
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group1",
                     id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     organization_name="orgtest",
@@ -136,7 +138,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus("UNKNOWN"),
                     ),
                     created_by=test_email,
-                    created_date="2020-11-19T13:37:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
                     group_name="group2",
                     id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
                     organization_name="orgtest",

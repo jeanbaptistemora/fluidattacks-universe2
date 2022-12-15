@@ -161,7 +161,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus.FAILED,
                     ),
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     group_name="machinegroup",
                     id="0946d6c0-f3ec-4e3e-8281-3681e5c09909",
                     organization_name="testorganization",
@@ -193,7 +195,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus.OK,
                     ),
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     group_name="machinegroup",
                     id="3017530c-9923-4aa2-b22e-3b0e7a5f1ac2",
                     organization_name="testorganization",
@@ -226,7 +230,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus.OK,
                     ),
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     group_name="machinegroup",
                     id="8a02ba03-e81e-4d45-a0f5-82ed507da6d3",
                     organization_name="testorganization",
@@ -258,7 +264,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=GitCloningStatus.OK,
                     ),
                     created_by="customeradmin@gmail.com",
-                    created_date="2022-10-31T21:00:00+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-31T21:00:00+00:00"
+                    ),
                     group_name="squadgroup",
                     id="4fce481b-074d-433d-b894-123cbb323f97",
                     organization_name="testorganization",

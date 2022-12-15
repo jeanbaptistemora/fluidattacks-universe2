@@ -114,7 +114,7 @@ def format_root(item: Item) -> Root:
         return GitRoot(
             cloning=format_cloning(item["cloning"]),
             created_by=item.get("created_by", "-"),
-            created_date=item["created_date"],
+            created_date=datetime.fromisoformat(item["created_date"]),
             group_name=group_name,
             id=root_id,
             organization_name=organization_name,

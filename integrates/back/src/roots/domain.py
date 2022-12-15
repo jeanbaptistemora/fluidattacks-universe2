@@ -304,7 +304,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             status=GitCloningStatus("UNKNOWN"),
         ),
         created_by=user_email,
-        created_date=datetime_utils.get_as_utc_iso_format(modified_date),
+        created_date=modified_date,
         group_name=group_name,
         id=root_id,
         organization_name=organization.name,

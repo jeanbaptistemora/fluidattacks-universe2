@@ -264,7 +264,9 @@ async def populate() -> bool:
                         status=GitCloningStatus.OK,
                     ),
                     created_by="admin@gmail.com",
-                    created_date="2022-02-10T14:58:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-02-10T14:58:10+00:00"
+                    ),
                     group_name="kibi",
                     id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     organization_name="wano",
@@ -299,7 +301,9 @@ async def populate() -> bool:
                         status=GitCloningStatus.OK,
                     ),
                     created_by="admin@gmail.com",
-                    created_date="2022-02-10T14:58:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2022-02-10T14:58:10+00:00"
+                    ),
                     group_name="kibi",
                     id="8a62109b-316a-4a88-a1f1-767b80383864",
                     organization_name="wano",
