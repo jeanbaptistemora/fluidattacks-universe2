@@ -159,7 +159,7 @@ Root = Union[GitRoot, IPRoot, URLRoot]
 
 class RootState(NamedTuple):
     modified_by: str
-    modified_date: str
+    modified_date: datetime
     nickname: Optional[str]
     other: Optional[str]
     reason: Optional[str]

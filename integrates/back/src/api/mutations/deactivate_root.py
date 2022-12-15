@@ -102,9 +102,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         loaders,
         root.id,
     )
-    historic_state_date = datetime_utils.get_datetime_from_iso_str(
-        last_status_update.modified_date
-    )
+    historic_state_date = last_status_update.modified_date
     last_clone_date: str = "Never cloned"
     last_root_state: str = "Unknow"
     activated_by = last_status_update.modified_by
@@ -222,7 +220,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root_ids=[(root.group_name, root.id)],
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
-    root_age = (datetime_utils.get_now() - historic_state_date).days
+    root_age = (datetime_utils.get_utc_now() - historic_state_date).days
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     emails = await group_access_domain.get_stakeholders_email_by_preferences(
         loaders=loaders,

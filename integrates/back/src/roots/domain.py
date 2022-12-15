@@ -1383,7 +1383,7 @@ async def get_last_status_update_date(loaders: Any, root_id: str) -> datetime:
     """Returns the date where the status last changed"""
     last_status_update = await get_last_status_update(loaders, root_id)
 
-    return datetime.fromisoformat(last_status_update.modified_date)
+    return last_status_update.modified_date
 
 
 async def historic_cloning_grouped(
