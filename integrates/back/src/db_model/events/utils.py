@@ -168,6 +168,7 @@ def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
     item = {
         "client": metadata.client,
         "description": metadata.description,
+        "root_id": metadata.root_id,
         "type": metadata.type,
     }
     return {key: value for key, value in item.items() if value is not None}

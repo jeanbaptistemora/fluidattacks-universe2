@@ -61,6 +61,7 @@ class Event(NamedTuple):
 class EventMetadataToUpdate(NamedTuple):
     client: Optional[str] = None
     description: Optional[str] = None
+    root_id: Optional[str] = None
     type: Optional[EventType] = None
 
 
