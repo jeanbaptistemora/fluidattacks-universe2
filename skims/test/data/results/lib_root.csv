@@ -6245,6 +6245,24 @@ F371,lines,namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,1
   15 | export default App;
      ^ Col 0
 ",typescript.ts_uses_dangerously_set_html
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,11,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+ in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
+   1 | namespace Controllers
+   2 | {
+   3 |     public class Calculate
+   4 |     {
+   5 |         public static void ProcessRequest(HttpRequest req, HttpResponse res)
+   6 |         {
+   7 |             string name = req.QueryString[""name""];
+   8 |             res.Write(""Hello "" + name);
+   9 |
+  10 |             string value = req.QueryString[""value""];
+> 11 |             res.AddHeader(""X-Header"", value);
+  12 |         }
+  13 |     }
+  14 | }
+     ^ Col 0
+",query.query_f008
 F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
    1 | namespace Controllers
@@ -6257,14 +6275,10 @@ F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79
 >  8 |             res.Write(""Hello "" + name);
    9 |
   10 |             string value = req.QueryString[""value""];
-  11 |             if (value == null || !Regex.IsMatch(value, ""^[a-zA-Z0-9]+$""))
-  12 |             {
-  13 |               throw new InvalidOperationException(""Invalid value"");
-  14 |             }
-  15 |             res.AddHeader(""X-Header"", value);
-  16 |         }
-  17 |     }
-  18 | }
+  11 |             res.AddHeader(""X-Header"", value);
+  12 |         }
+  13 |     }
+  14 | }
      ^ Col 0
 ",query.query_f008
 F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
