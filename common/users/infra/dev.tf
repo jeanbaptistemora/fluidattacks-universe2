@@ -105,6 +105,8 @@ locals {
             "arn:aws:s3:::integrates.*atfluid/*",
             "arn:aws:s3:::web.eph.fluidattacks.com",
             "arn:aws:s3:::web.eph.fluidattacks.com/*",
+            "arn:aws:s3:::integrates.dev",
+            "arn:aws:s3:::integrates.dev/*",
           ]
         },
         {

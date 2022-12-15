@@ -155,7 +155,7 @@ resource "aws_s3_bucket_versioning" "storage_dev" {
   bucket = aws_s3_bucket.storage_dev.id
 
   versioning_configuration {
-    status = "Enabled"
+    status = "Disabled"
   }
 }
 
