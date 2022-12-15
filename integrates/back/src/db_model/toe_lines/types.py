@@ -39,10 +39,10 @@ class ToeLines(NamedTuple):
     root_id: str
     seen_at: datetime
     sorts_risk_level: int
+    state: ToeLinesState = ToeLinesState()
     sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     sorts_suggestions: Optional[list[SortsSuggestion]] = None
-    state: ToeLinesState = ToeLinesState()
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))
@@ -59,6 +59,7 @@ class ToeLinesConnection(NamedTuple):
 
 
 class ToeLinesMetadataToUpdate(NamedTuple):
+    state: ToeLinesState
     attacked_at: Optional[datetime] = None
     attacked_by: Optional[str] = None
     attacked_lines: Optional[int] = None

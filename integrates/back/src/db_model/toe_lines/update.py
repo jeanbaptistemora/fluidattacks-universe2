@@ -17,9 +17,6 @@ from datetime import (
 from db_model import (
     utils as db_model_utils,
 )
-from db_model.toe_lines.utils import (
-    format_toe_lines_item,
-)
 from dynamodb import (
     keys,
     operations,
@@ -32,6 +29,7 @@ from dynamodb.model import (
 )
 from typing import (
     Dict,
+    Optional,
     Union,
 )
 
@@ -51,40 +49,32 @@ async def update_metadata(
             "root_id": current_value.root_id,
         },
     )
-    current_gsi_2_key = keys.build_key(
-        facet=GSI_2_FACET,
-        values={
-            "be_present": str(current_value.be_present).lower(),
-            "filename": current_value.filename,
-            "group_name": current_value.group_name,
-            "root_id": current_value.root_id,
-        },
-    )
-    current_value_item = format_toe_lines_item(
-        metadata_key,
-        key_structure,
-        current_gsi_2_key,
-        gsi_2_index,
-        current_value,
-    )
-    metadata_item: Dict[str, Union[str, datetime]] = {
+    metadata_item: Dict[
+        str, Union[str, datetime, Dict[str, Optional[str]]]
+    ] = {
         key: db_model_utils.get_as_utc_iso_format(value)
         if isinstance(value, datetime)
         else value
         for key, value in metadata._asdict().items()
-        if value is not None and key not in {"clean_be_present_until"}
+        if value is not None and key not in {"clean_be_present_until", "state"}
+    }
+    metadata_item["state"] = {
+        "modified_by": metadata.state.modified_by,
+        "modified_date": metadata.state.modified_date,
     }
     if metadata.clean_be_present_until:
         metadata_item["be_present_until"] = ""
 
-    conditions = (
-        Attr(attr_name).eq(current_value_item[attr_name])
-        for attr_name in metadata_item
-        if current_value_item[attr_name] is not None
-    )
     condition_expression = Attr(key_structure.partition_key).exists()
-    for condition in conditions:
-        condition_expression &= condition
+    if current_value.state.modified_date is None:
+        condition_expression &= Attr("state.modified_date").not_exists()
+    else:
+        condition_expression &= Attr("state.modified_date").eq(
+            current_value.state.modified_date
+        )
+    print(current_value)
+    print(metadata_item)
+
     if "be_present" in metadata_item:
         gsi_2_key = keys.build_key(
             facet=GSI_2_FACET,

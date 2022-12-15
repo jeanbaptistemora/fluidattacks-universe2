@@ -20,6 +20,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+    ToeLinesState,
 )
 import pytest
 from typing import (
@@ -146,6 +147,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2021-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -171,6 +176,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=80,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -196,6 +205,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -221,6 +234,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=None,
@@ -242,6 +259,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2019-01-02T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
         ),
     }

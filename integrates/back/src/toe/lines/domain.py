@@ -219,6 +219,16 @@ async def update(
         sorts_suggestions=json.loads(json.dumps(attributes.sorts_suggestions))
         if attributes.sorts_suggestions is not None
         else None,
+        state=ToeLinesState(
+            modified_by=attributes.attacked_by
+            if attributes.attacked_by
+            else "machine@fluidattacks.com",
+            modified_date=datetime_utils.get_as_utc_iso_format(
+                last_modified_date
+            )
+            if attributes.modified_date
+            else datetime_utils.get_iso_date(),
+        ),
     )
     await toe_lines_model.update_metadata(
         current_value=current_value,

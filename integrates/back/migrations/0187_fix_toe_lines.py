@@ -30,6 +30,7 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesConnection,
     ToeLinesMetadataToUpdate,
+    ToeLinesState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -42,6 +43,9 @@ from groups import (
 )
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from settings import (
     LOGGING,
 )
@@ -64,6 +68,10 @@ async def process_group_lines(
     if current_toe_lines.attacked_lines > current_toe_lines.loc:
         new_attacked_lines = current_toe_lines.loc
         metadata = ToeLinesMetadataToUpdate(
+            state=ToeLinesState(
+                modified_by="machine@fluidattacks.com",
+                modified_date=datetime_utils.get_iso_date(),
+            ),
             attacked_lines=new_attacked_lines,
         )
         await toe_lines_model.update_metadata(

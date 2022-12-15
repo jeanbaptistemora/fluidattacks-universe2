@@ -131,7 +131,7 @@ async def test_update() -> None:
         seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=50,
         state=ToeLinesState(
-            modified_by="machine@fluidattacks.com",
-            modified_date="2017-08-01T05:00:00+00:00",
+            modified_by="hacker2@test.com",
+            modified_date="2020-08-01T05:00:00+00:00",
         ),
     )

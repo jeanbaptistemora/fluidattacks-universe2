@@ -90,6 +90,9 @@ from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from operator import (
     attrgetter,
 )
@@ -504,6 +507,7 @@ async def _process_toe_lines(
             has_vulnerabilities=toe_lines.has_vulnerabilities,
             seen_at=toe_lines.seen_at,
             sorts_risk_level=toe_lines.sorts_risk_level,
+            modified_date=datetime_utils.get_utc_now(),
         )
         await toe_lines_update(
             current_value,

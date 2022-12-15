@@ -65,13 +65,15 @@ async def mutate(
                 filename=filename, group_name=group_name, root_id=root_id
             )
         )
+        modified_date = datetime_utils.get_utc_now()
         await toe_lines_domain.update(
             current_value,
             ToeLinesAttributesToUpdate(
-                attacked_at=datetime_utils.get_utc_now(),
+                attacked_at=modified_date,
                 attacked_by=user_email,
                 attacked_lines=kwargs.get("attacked_lines", current_value.loc),
                 comments=comments,
+                modified_date=modified_date,
             ),
         )
         logs_utils.cloudwatch_log(
