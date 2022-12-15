@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Merge ip roots with the same address
+
+Execution Time:    2022-12-15 at 18:44:17 UTC
+Finalization Time: 2022-12-15 at 18:48:06 UTC
 """
 from aioextensions import (
     collect,
