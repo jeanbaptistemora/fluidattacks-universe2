@@ -1486,6 +1486,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_SQL_INJECTION = MethodInfo(
+        file_name="typescript",
+        name="ts_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F297,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_SQL_INJECTION = MethodInfo(
+        file_name="javascript",
+        name="js_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F297,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
         file_name="java",
         name="csrf_protections_disabled",

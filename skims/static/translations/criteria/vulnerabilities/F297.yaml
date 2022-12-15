@@ -1,0 +1,8 @@
+---
+src.lib_root.f297.user_controled_param:
+  en: >-
+    Dynamic SQL statements are generated without the required data validation
+    and without using parameterized statements or stored procedures.
+  es: >-
+    Las sentencias SQL dinámicas se generan sin la validación de datos necesaria
+    y sin utilizar sentencias parametrizadas o procedimientos almacenados.
