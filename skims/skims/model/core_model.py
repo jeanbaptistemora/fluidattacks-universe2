@@ -901,6 +901,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[181],
     )
+    F297: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F297",
+        cwe=89,
+        execution_queue=ExecutionQueue.sql,
+        requirements=[169, 173],
+    )
     F300: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F300",

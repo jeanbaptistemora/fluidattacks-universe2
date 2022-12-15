@@ -839,6 +839,14 @@
       "title": "281. Use of an insecure channel - AWS"
     }
   },
+  "F297": {
+    "EN": {
+      "title": "297. SQL injection - Code"
+    },
+    "ES": {
+      "title": "297. SQL injection - Code"
+    }
+  },
   "F300": {
     "EN": {
       "title": "300. Authentication mechanism absence or evasion - Azure"
