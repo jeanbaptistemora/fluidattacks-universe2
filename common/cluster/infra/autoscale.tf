@@ -103,7 +103,7 @@ resource "helm_release" "autoscaler" {
 
 
 resource "helm_release" "keda_autoscaler" {
-  chart      = "kedacore/keda"
+  chart      = "keda"
   name       = "keda-autoscaler"
   namespace  = "kube-system"
   repository = "https://kedacore.github.io/charts"
