@@ -7,6 +7,7 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -39,13 +40,18 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
   composeValidators,
+  isValidEvidenceName,
   required,
   validRecordsFile,
 } from "utils/validations";
 
 const RecordsView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const { findingId } = useParams<{ findingId: string }>();
+  const { findingId, groupName, organizationName } = useParams<{
+    findingId: string;
+    groupName: string;
+    organizationName: string;
+  }>();
 
   const [isEditing, setIsEditing] = useState(false);
   const handleEditClick: () => void = useCallback((): void => {
@@ -82,6 +88,9 @@ const RecordsView: React.FC = (): JSX.Element => {
   ): void => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
+        case "Exception - Invalid File Name: Format organizationName-groupName-10 alphanumeric chars.extension":
+          msgError(t("group.events.form.wrongImageName"));
+          break;
         case "Exception - Wrong File Structure":
           msgError(t("groupAlerts.invalidStructure"));
           break;
@@ -139,6 +148,10 @@ const RecordsView: React.FC = (): JSX.Element => {
     : Object.keys(recordData[0]).map((key: string): { accessorKey: string } => {
         return { accessorKey: key };
       });
+  const validEvidenceName: FieldValidator = isValidEvidenceName(
+    organizationName,
+    groupName
+  );
 
   return (
     <React.StrictMode>
@@ -180,7 +193,11 @@ const RecordsView: React.FC = (): JSX.Element => {
                     component={FormikFileInput}
                     id={"recordsFile"}
                     name={"filename"}
-                    validate={composeValidators([required, validRecordsFile])}
+                    validate={composeValidators([
+                      required,
+                      validEvidenceName,
+                      validRecordsFile,
+                    ])}
                   />
                   <Button
                     disabled={!dirty || updateRes.loading}
