@@ -4,8 +4,10 @@ from batch.enums import (
 from custom_exceptions import (
     CustomBaseException,
 )
+from datetime import (
+    datetime,
+)
 from typing import (
-    List,
     NamedTuple,
     Optional,
 )
@@ -44,7 +46,7 @@ class Job(NamedTuple):
 
 
 class JobContainer(NamedTuple):
-    command: List[str]
+    command: list[str]
 
 
 class JobDescription(NamedTuple):
@@ -65,7 +67,7 @@ class JobPayload(NamedTuple):
 class CloneResult(NamedTuple):
     success: bool
     commit: Optional[str] = None
-    commit_date: Optional[str] = None
+    commit_date: Optional[datetime] = None
     message: Optional[str] = None
 
 

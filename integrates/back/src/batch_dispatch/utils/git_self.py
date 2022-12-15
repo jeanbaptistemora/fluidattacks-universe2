@@ -113,9 +113,7 @@ async def clone_root(
                 result = CloneResult(
                     success=success,
                     commit=commit.hexsha,
-                    commit_date=datetime.fromtimestamp(
-                        commit.authored_date
-                    ).isoformat(),
+                    commit_date=datetime.fromtimestamp(commit.authored_date),
                     message=stderr,
                 )
                 shutil.rmtree(temp_dir, ignore_errors=True)

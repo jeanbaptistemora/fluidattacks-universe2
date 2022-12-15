@@ -16,6 +16,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -54,7 +57,7 @@ async def test_clone_roots(
         return_value=CloneResult(
             success=True,
             commit="6d4519f5d5b97235feb65fcbc8af68e8ef9964b3",
-            commit_date="12321312",
+            commit_date=datetime.fromisoformat("2020-12-26T05:45:00+00:00"),
         ),
     )
     action = BatchProcessing(

@@ -677,8 +677,7 @@ async def validate_requested_verification(
                 and root.cloning.commit == vulnerability.state.commit
                 and root.cloning.commit_date
                 and (
-                    datetime.now(timezone.utc)
-                    - datetime.fromisoformat(root.cloning.commit_date)
+                    datetime.now(timezone.utc) - root.cloning.commit_date
                 ).seconds
                 > (3600 * 20)
             ):

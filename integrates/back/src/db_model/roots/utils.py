@@ -94,7 +94,9 @@ def format_cloning(cloning: Item) -> GitRootCloning:
         reason=cloning["reason"],
         status=GitCloningStatus(cloning["status"]),
         commit=cloning.get("commit"),
-        commit_date=cloning.get("commit_date"),
+        commit_date=datetime.fromisoformat(cloning["commit_date"])
+        if cloning.get("commit_date")
+        else None,
     )
 
 

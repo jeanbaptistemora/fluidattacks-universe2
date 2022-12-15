@@ -972,7 +972,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     status: GitCloningStatus,
     message: str,
     commit: Optional[str] = None,
-    commit_date: Optional[str] = None,
+    commit_date: Optional[datetime] = None,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
     root: Root = await loaders.root.load((group_name, root_id))
