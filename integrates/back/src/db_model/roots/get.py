@@ -59,14 +59,11 @@ from s3.resource import (
     get_s3_resource,
 )
 from typing import (
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 
 
-async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
+async def _get_roots(*, root_ids: list[tuple[str, str]]) -> tuple[Root, ...]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["git_root_metadata"],
@@ -85,14 +82,14 @@ async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
 class RootLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[Tuple[str, str]]
-    ) -> Tuple[Root, ...]:
+        self, root_ids: list[tuple[str, str]]
+    ) -> tuple[Root, ...]:
         roots = {root.id: root for root in await _get_roots(root_ids=root_ids)}
 
         return tuple(roots[root_id] for _, root_id in root_ids)
 
 
-async def _get_group_roots(*, group_name: str) -> Tuple[Root, ...]:
+async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -122,8 +119,8 @@ async def _get_group_roots(*, group_name: str) -> Tuple[Root, ...]:
 class GroupRootsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Root, ...], ...]:
+        self, group_names: list[str]
+    ) -> tuple[tuple[Root, ...], ...]:
         return await collect(
             _get_group_roots(group_name=group_name)
             for group_name in group_names
@@ -132,7 +129,7 @@ class GroupRootsLoader(DataLoader):
 
 async def _get_organization_roots(
     *, organization_name: str
-) -> Tuple[Root, ...]:
+) -> tuple[Root, ...]:
     primary_key = keys.build_key(
         facet=ORG_INDEX_METADATA,
         values={"name": organization_name},
@@ -160,15 +157,15 @@ async def _get_organization_roots(
 class OrganizationRootsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, organization_names: List[str]
-    ) -> Tuple[Tuple[Root, ...], ...]:
+        self, organization_names: list[str]
+    ) -> tuple[tuple[Root, ...], ...]:
         return await collect(
             _get_organization_roots(organization_name=organization_name)
             for organization_name in organization_names
         )
 
 
-async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
+async def _get_historic_state(*, root_id: str) -> tuple[RootState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_state"],
         values={"uuid": root_id},
@@ -201,7 +198,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
     )
 
 
-async def _get_historic_cloning(*, root_id: str) -> Tuple[GitRootCloning, ...]:
+async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_cloning"],
         values={"uuid": root_id},
@@ -223,8 +220,8 @@ async def _get_historic_cloning(*, root_id: str) -> Tuple[GitRootCloning, ...]:
 class RootHistoricStatesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[str]
-    ) -> Tuple[Tuple[RootState, ...], ...]:
+        self, root_ids: list[str]
+    ) -> tuple[tuple[RootState, ...], ...]:
         return await collect(
             _get_historic_state(root_id=root_id) for root_id in root_ids
         )
@@ -233,8 +230,8 @@ class RootHistoricStatesLoader(DataLoader):
 class RootHistoricCloningLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[str]
-    ) -> Tuple[Tuple[GitRootCloning, ...], ...]:
+        self, root_ids: list[str]
+    ) -> tuple[tuple[GitRootCloning, ...], ...]:
         return await collect(
             _get_historic_cloning(root_id=root_id) for root_id in root_ids
         )
@@ -242,7 +239,7 @@ class RootHistoricCloningLoader(DataLoader):
 
 async def get_machine_executions(
     *, root_id: str, job_id: Optional[str] = None
-) -> Tuple[RootMachineExecution, ...]:
+) -> tuple[RootMachineExecution, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, **({"job_id": job_id} if job_id else {})},
@@ -262,7 +259,7 @@ async def get_machine_executions(
         facets=(TABLE.facets["machine_git_root_execution"],),
         table=TABLE,
     )
-    result: Tuple[RootMachineExecution, ...] = tuple()
+    result: tuple[RootMachineExecution, ...] = tuple()
     for item in response.items:
         findings = []
         with suppress(TypeError):
@@ -305,7 +302,7 @@ async def get_machine_executions(
 
 async def get_machine_executions_by_job_id(
     *, job_id: str, root_id: Optional[str] = None
-) -> Tuple[RootMachineExecution, ...]:
+) -> tuple[RootMachineExecution, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
@@ -362,8 +359,8 @@ async def get_machine_executions_by_job_id(
 class RootMachineExecutionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[str]
-    ) -> Tuple[Tuple[RootMachineExecution, ...], ...]:
+        self, root_ids: list[str]
+    ) -> tuple[tuple[RootMachineExecution, ...], ...]:
         machine_executions = await collect(
             get_machine_executions(root_id=root_id) for root_id in root_ids
         )
@@ -414,7 +411,7 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
 
 async def get_upload_url_post(
     group_name: str, root_nickname: str
-) -> Dict[str, Dict[str, str]]:
+) -> dict[str, dict[str, str]]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
 
@@ -427,7 +424,7 @@ async def get_upload_url_post(
 
 async def get_secrets(
     *, root_id: str, secret_key: Optional[str] = None
-) -> Tuple[Secret, ...]:
+) -> tuple[Secret, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_secret"],
         values={
@@ -462,7 +459,7 @@ async def get_secrets(
 
 async def get_environment_secrets(
     *, url_id: str, secret_key: Optional[str] = None
-) -> Tuple[Secret, ...]:
+) -> tuple[Secret, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_secret"],
         values={
@@ -500,7 +497,7 @@ async def get_environment_secrets(
 
 async def get_git_environment_urls(
     *, root_id: str, url_id: Optional[str] = None
-) -> Tuple[RootEnvironmentUrl, ...]:
+) -> tuple[RootEnvironmentUrl, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_url"],
         values={
@@ -587,8 +584,8 @@ async def get_git_environment_url_by_id(
 class RootSecretsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[str]
-    ) -> Tuple[Tuple[Secret, ...], ...]:
+        self, root_ids: list[str]
+    ) -> tuple[tuple[Secret, ...], ...]:
         return await collect(
             get_secrets(root_id=root_id) for root_id in root_ids
         )
@@ -597,8 +594,8 @@ class RootSecretsLoader(DataLoader):
 class GitEnvironmentSecretsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, urls_ids: List[str]
-    ) -> Tuple[Tuple[Secret, ...], ...]:
+        self, urls_ids: list[str]
+    ) -> tuple[tuple[Secret, ...], ...]:
         return await collect(
             get_environment_secrets(url_id=url_id) for url_id in urls_ids
         )
@@ -606,15 +603,15 @@ class GitEnvironmentSecretsLoader(DataLoader):
 
 class RootEnvironmentUrlsLoader(DataLoader):
     async def load_many_chained(
-        self, root_ids: List[str]
-    ) -> Tuple[RootEnvironmentUrl, ...]:
+        self, root_ids: list[str]
+    ) -> tuple[RootEnvironmentUrl, ...]:
         unchained_data = await self.load_many(root_ids)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, root_ids: List[str]
-    ) -> Tuple[Tuple[RootEnvironmentUrl, ...], ...]:
+        self, root_ids: list[str]
+    ) -> tuple[tuple[RootEnvironmentUrl, ...], ...]:
         return await collect(
             get_git_environment_urls(root_id=root_id) for root_id in root_ids
         )

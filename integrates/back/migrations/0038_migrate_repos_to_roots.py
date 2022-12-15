@@ -117,7 +117,13 @@ async def main() -> None:
         for root in roots:
             print(root["group_name"], root["url"], root["branch"])
     else:
-        await collect(roots_domain.add_git_root("", **root) for root in roots)
+        await collect(
+            roots_domain.add_git_root(
+                "",  # type: ignore
+                **root,
+            )
+            for root in roots
+        )
 
 
 if __name__ == "__main__":

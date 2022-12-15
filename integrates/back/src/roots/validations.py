@@ -9,6 +9,9 @@ from custom_exceptions import (
     RepeatedRootNickname,
     RequiredCredentials,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsRequest,
@@ -45,10 +48,7 @@ from roots import (
     utils as roots_utils,
 )
 from typing import (
-    Any,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 from urllib3.exceptions import (
@@ -83,7 +83,7 @@ async def validate_git_access(
 
 
 async def validate_credential_in_organization(
-    loaders: Any,
+    loaders: Dataloaders,
     credential_id: str,
     organization_id: str,
 ) -> None:
@@ -108,7 +108,7 @@ async def working_credentials(
     )
 
 
-def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
+def is_exclude_valid(exclude_patterns: list[str], url: str) -> bool:
     is_valid: bool = True
 
     # Get repository name
@@ -119,7 +119,7 @@ def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
         repo_name = repo_name[0:-4]
 
     for pattern in exclude_patterns:
-        pattern_as_list: List[str] = pattern.lower().split("/")
+        pattern_as_list: list[str] = pattern.lower().split("/")
         if (
             repo_name in pattern_as_list
             and pattern_as_list.index(repo_name) == 0
@@ -146,7 +146,7 @@ def is_valid_git_branch(branch_name: str) -> bool:
 
 
 def validate_nickname_is_unique(
-    nickname: str, roots: Tuple[Root, ...], old_nickname: str = ""
+    nickname: str, roots: tuple[Root, ...], old_nickname: str = ""
 ) -> None:
     if nickname != old_nickname and nickname in {
         root.state.nickname
@@ -160,7 +160,7 @@ def is_git_unique(
     url: str,
     branch: str,
     group_name: str,
-    roots: Tuple[Root, ...],
+    roots: tuple[Root, ...],
     include_inactive: bool = False,
 ) -> bool:
     """
@@ -200,7 +200,7 @@ def is_valid_ip(address: str) -> bool:
 
 def is_ip_unique(
     address: str,
-    roots: Tuple[Root, ...],
+    roots: tuple[Root, ...],
     include_inactive: bool = False,
 ) -> bool:
     return address not in tuple(
@@ -218,7 +218,7 @@ def is_url_unique(  # pylint: disable=too-many-arguments
     port: str,
     protocol: str,
     query: Optional[str],
-    roots: Tuple[Root, ...],
+    roots: tuple[Root, ...],
     include_inactive: bool = False,
 ) -> bool:
     return (host, path, port, protocol, query) not in tuple(
@@ -253,7 +253,7 @@ def _validate_aws_component(
 
 
 async def validate_git_root_component(
-    loaders: Any, root: Root, component: str
+    loaders: Dataloaders, root: Root, component: str
 ) -> None:
     if not isinstance(root, GitRoot):
         return
@@ -325,7 +325,9 @@ def validate_url_root_component(root: Root, component: str) -> None:
         raise InvalidRootComponent()
 
 
-async def validate_component(loaders: Any, root: Root, component: str) -> None:
+async def validate_component(
+    loaders: Dataloaders, root: Root, component: str
+) -> None:
     await validate_git_root_component(loaders, root, component)
     validate_url_root_component(root, component)
 

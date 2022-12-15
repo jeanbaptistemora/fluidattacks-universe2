@@ -58,7 +58,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "group": Group(
                     created_by="user_manager@domain.com",
                     created_date=datetime.fromisoformat(
-                        "2022-09-12T19:00:00-05:00"
+                        "2022-09-13T00:00:00+00:00"
                     ),
                     description="Test group",
                     language=GroupLanguage.EN,
@@ -70,7 +70,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         managed=GroupManaged.MANAGED,
                         modified_by="user_manager@fomain.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-09-12T19:10:00-05:00"
+                            "2022-09-13T00:00:00+00:00"
                         ),
                         status=GroupStateStatus.ACTIVE,
                         tier=GroupTier.SQUAD,
@@ -88,7 +88,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "organization": Organization(
                     created_by="user_manager@domain.com",
                     created_date=datetime.fromisoformat(
-                        "2022-09-12T18:00:00-05:00"
+                        "2022-09-12T23:00:00+00:00"
                     ),
                     country="Colombia",
                     id="c4fc4bde-93fa-44d1-981b-9ce16c5435e8",
@@ -96,7 +96,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     policies=Policies(
                         max_acceptance_days=15,
                         modified_by="user_manager@domain.com",
-                        modified_date="2022-09-12T18:10:00-05:00",
+                        modified_date="2022-09-12T23:00:00+00:00",
                     ),
                     state=OrganizationState(
                         status=OrganizationStateStatus.ACTIVE,
@@ -114,14 +114,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "root": GitRoot(
                     cloning=GitRootCloning(
                         modified_date=datetime.fromisoformat(
-                            "2022-09-12T19:10:00-05:00"
+                            "2022-09-13T00:00:00+00:00"
                         ),
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
                     created_by="admin@gmail.com",
                     created_date=datetime.fromisoformat(
-                        "2022-09-12T20:00:00-05:00"
+                        "2022-09-13T01:00:00+00:00"
                     ),
                     group_name="test_group_1",
                     id="2851c4f5-fa0a-4a41-991e-8ad2c36aead9",
@@ -132,7 +132,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         includes_health_check=False,
                         modified_by="resources@domain.com",
                         modified_date=datetime.fromisoformat(
-                            "2022-09-12T20:00:00-05:00"
+                            "2022-09-13T01:00:00+00:00"
                         ),
                         nickname="nickname1",
                         status=RootStatus.ACTIVE,
