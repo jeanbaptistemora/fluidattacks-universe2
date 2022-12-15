@@ -1,5 +1,5 @@
 ---
-src.lib_root.f297.user_controled_param:
+src.lib_root.f297.sql_injection:
   en: >-
     Dynamic SQL statements are generated without the required data validation
     and without using parameterized statements or stored procedures.
