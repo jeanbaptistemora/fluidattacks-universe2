@@ -1,4 +1,29 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F128,lines,namespace/skims/test/data/lib_root/f128/httpOnly.ts,39,1004,skims,128. Insecurely generated cookies - HttpOnly,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f128/httpOnly.ts","
+  29 |         try {
+  30 |           const jwtHelper = new JwtHelperService();
+  31 |           const decondeToken: any = jwtHelper.decodeToken(this.token);
+  32 |           // se valida si el token no ha expirado
+  33 |           if (jwtHelper.isTokenExpired(this.token)) {
+  34 |             throw new Error(""token expirado"");
+  35 |           }
+  36 |           // valida si el cliente viene en el token
+  37 |           if (decondeToken.cliente) {
+  38 |             const cliente: ICliente = JSON.parse(decondeToken.cliente);
+> 39 |             this.cookieService.set(SESSION_OBJECT_ID, this.token);
+  40 |             this.authService.setCurrentUser(cliente);
+  41 |             this.router.navigate(['main'], { replaceUrl: true });
+  42 |           } else {
+  43 |             this.router.navigate(['login'], { replaceUrl: true });
+  44 |           }
+  45 |         } catch (error) {
+  46 |           this.router.navigate(['login'], { replaceUrl: true });
+  47 |         }
+  48 |
+  49 |       });
+     ^ Col 0
+",typescript.typescript_insecure_cookie
 F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
  in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
    4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller

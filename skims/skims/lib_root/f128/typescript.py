@@ -35,7 +35,7 @@ def typescript_insecure_cookies(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in insecure_cookies(graph, method):
+            for n_id in insecure_cookies(graph):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
