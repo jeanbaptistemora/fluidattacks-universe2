@@ -21,6 +21,7 @@ from db_model.roots.types import (
 from db_model.toe_lines.types import (
     SortsSuggestion,
     ToeLines,
+    ToeLinesState,
 )
 import pytest
 from typing import (
@@ -155,6 +156,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         probability=100,
                     ),
                 ],
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -194,6 +199,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         probability=50,
                     ),
                 ],
+                state=ToeLinesState(
+                    modified_by="test2@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -221,6 +230,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 sorts_risk_level_date=datetime.fromisoformat(
                     "2021-04-10T05:00:00+00:00"
+                ),
+                state=ToeLinesState(
+                    modified_by="test3@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
                 ),
             ),
         ),

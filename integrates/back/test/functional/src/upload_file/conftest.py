@@ -56,6 +56,7 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+    ToeLinesState,
 )
 from db_model.toe_ports.types import (
     ToePort,
@@ -560,6 +561,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                state=ToeLinesState(
+                    modified_by="test@test.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -585,6 +590,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="test2@test.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
         ),
         "toe_ports": (

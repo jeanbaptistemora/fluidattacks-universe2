@@ -42,6 +42,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+    ToeLinesState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -837,6 +838,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2022-09-05T00:45:11+00:00",
+                ),
             ),
         ),
     }

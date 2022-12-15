@@ -17,8 +17,8 @@ class SortsSuggestion(NamedTuple):
 
 
 class ToeLinesState(NamedTuple):
-    modified_by: Optional[str] = None
-    modified_date: Optional[str] = None
+    modified_by: Optional[str]
+    modified_date: Optional[str]
 
 
 class ToeLines(NamedTuple):
@@ -39,7 +39,7 @@ class ToeLines(NamedTuple):
     root_id: str
     seen_at: datetime
     sorts_risk_level: int
-    state: ToeLinesState = ToeLinesState()
+    state: ToeLinesState
     sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
     sorts_suggestions: Optional[list[SortsSuggestion]] = None

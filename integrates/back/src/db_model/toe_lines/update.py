@@ -72,8 +72,6 @@ async def update_metadata(
         condition_expression &= Attr("state.modified_date").eq(
             current_value.state.modified_date
         )
-    print(current_value)
-    print(metadata_item)
 
     if "be_present" in metadata_item:
         gsi_2_key = keys.build_key(

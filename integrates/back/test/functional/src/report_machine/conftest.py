@@ -47,6 +47,7 @@ from db_model.roots.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
+    ToeLinesState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -585,6 +586,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -610,6 +615,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -635,6 +644,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -660,6 +673,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
                 sorts_risk_level=80,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-16T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -685,6 +702,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -710,6 +731,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -735,6 +760,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -760,6 +789,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date="2020-11-15T15:41:04+00:00",
+                ),
             ),
         ),
     }
