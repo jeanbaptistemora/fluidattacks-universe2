@@ -116,3 +116,15 @@ resource "helm_release" "autoscaler" {
     value = "15m"
   }
 }
+
+
+resource "helm_release" "keda_autoscaler" {
+  chart      = "kedacore/keda"
+  name       = "keda-autoscaler"
+  namespace  = "kube-system"
+  repository = "https://kedacore.github.io/charts"
+  version    = "2.8"
+
+  atomic      = true
+  description = "Kubernetes Event Driven Autoscaler"
+}
