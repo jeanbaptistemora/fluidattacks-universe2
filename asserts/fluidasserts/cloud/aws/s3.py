@@ -43,53 +43,6 @@ from typing import (
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def bucket_has_authenticated_access(
-    key_id: str,
-    secret: str,
-    bucket_name: str,
-    session_token: str = None,
-    retry: bool = True,
-) -> tuple:
-    """
-    Check if S3 buckets read access for any authenticated AWS user.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    msg_open: str = "There are public buckets"
-    msg_closed: str = "There are not public buckets"
-
-    vulns, safes = [], []
-
-    bucket_grants = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="s3",
-        func="get_bucket_acl",
-        Bucket=bucket_name,
-        param="Grants",
-        retry=retry,
-    )
-
-    result = aws.get_bucket_authenticated_grants(bucket_name, bucket_grants)
-
-    (vulns if result else safes).append(
-        (bucket_name, "Must not be accessible to any authenticated user")
-    )
-
-    return _get_result_as_tuple(
-        service="S3",
-        objects="buckets",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def bucket_objects_can_be_listed(bucket_names: List[str]):
     """
     Check if a S3 bucket objects can be listed by everyone.
