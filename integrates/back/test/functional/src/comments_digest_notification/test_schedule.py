@@ -7,7 +7,7 @@ from pytest_mock import (
     MockerFixture,
 )
 from schedulers import (
-    comments_digest_notification,
+    consulting_digest_notification,
 )
 from unittest import (
     mock,
@@ -21,12 +21,14 @@ async def test_comments_digest_notification(
     *, populate: bool, mocker: MockerFixture
 ) -> None:
     assert populate
-    mail_spy = mocker.spy(comments_digest_notification, "mail_comments_digest")
+    mail_spy = mocker.spy(
+        consulting_digest_notification, "mail_comments_digest"
+    )
     comments_digest_spy = mocker.spy(
-        comments_digest_notification, "digest_comments"
+        consulting_digest_notification, "digest_comments"
     )
 
-    await comments_digest_notification.main()
+    await consulting_digest_notification.main()
 
     assert comments_digest_spy.call_count == 3
     assert mail_spy.call_count == 1

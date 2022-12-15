@@ -26,7 +26,7 @@ import pytest
 from pytz import (
     UTC,
 )
-from schedulers.comments_digest_notification import (
+from schedulers.consulting_digest_notification import (
     _get_days_since_comment,
     CommentsDataType,
     digest_comments,
