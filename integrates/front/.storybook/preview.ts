@@ -1,8 +1,8 @@
 import "tachyons";
-import "styles/global.css";
 import "utils/translations/translate";
 import { Parameters } from "@storybook/api";
 import { DocsPage } from "./DocsPage";
+import "./decorators";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

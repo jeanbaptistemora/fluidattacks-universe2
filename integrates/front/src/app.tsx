@@ -8,6 +8,8 @@ import { render } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { GlobalStyle } from "./styles";
+
 import { ToastBox } from "components/Alert";
 import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
@@ -55,11 +57,17 @@ const App: React.FC = (): JSX.Element => {
   const { width } = useWindowSize();
   const minimumWidthAllowed = 768;
   if (width < minimumWidthAllowed) {
-    return <Announce message={t("app.minimumWidth")} />;
+    return (
+      <React.Fragment>
+        <GlobalStyle />
+        <Announce message={t("app.minimumWidth")} />
+      </React.Fragment>
+    );
   }
 
   return (
     <React.StrictMode>
+      <GlobalStyle />
       <MatomoProvider value={matomoInstance}>
         <BugsnagErrorBoundary>
           <BrowserRouter basename={"/"}>

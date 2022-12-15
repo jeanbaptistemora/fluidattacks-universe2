@@ -3,10 +3,12 @@ import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
+import { GlobalStyle } from "styles";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 
 const App: React.FC = (): JSX.Element => (
   <React.StrictMode>
+    <GlobalStyle />
     <BrowserRouter basename={"/graphics-for-group"}>
       <secureStoreContext.Provider value={secureStore}>
         <Switch>
