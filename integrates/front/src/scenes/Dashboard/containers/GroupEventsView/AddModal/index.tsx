@@ -1,6 +1,7 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
+import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import type { Moment } from "moment";
@@ -40,6 +41,7 @@ import {
   composeValidators,
   dateTimeBeforeToday,
   isValidAmountOfFiles,
+  isValidEvidenceName,
   isValidFileSize,
   maxLength,
   required,
@@ -71,11 +73,13 @@ interface IFormValues {
 
 interface IAddModalProps {
   groupName: string;
+  organizationName: string;
   onClose: () => void;
   onSubmit: (values: IFormValues) => Promise<void>;
 }
 
 const AddModal: React.FC<IAddModalProps> = ({
+  organizationName,
   groupName,
   onClose,
   onSubmit,
@@ -138,6 +142,11 @@ const AddModal: React.FC<IAddModalProps> = ({
         then: string().notRequired(),
       }),
   });
+
+  const validEvidenceName: FieldValidator = isValidEvidenceName(
+    organizationName,
+    groupName
+  );
 
   return (
     <Modal onClose={onClose} open={true} title={t("group.events.new")}>
@@ -279,6 +288,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                       name={"images"}
                       validate={composeValidators([
                         validEvidenceImage,
+                        validEvidenceName,
                         maxAmountOfFiles,
                         maxFileSize,
                       ])}
@@ -299,6 +309,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                       name={"files"}
                       validate={composeValidators([
                         validEventFile,
+                        validEvidenceName,
                         maxFileSize,
                       ])}
                     />

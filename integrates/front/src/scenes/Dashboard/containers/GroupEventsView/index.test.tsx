@@ -114,6 +114,7 @@ describe("eventsView", (): void => {
       ).toBeInTheDocument();
       expect(screen.getByRole("cell", { name: "Solved" })).toBeInTheDocument();
     });
+    jest.clearAllMocks();
   });
 
   it("should render new event modal", async (): Promise<void> => {
@@ -178,18 +179,32 @@ describe("eventsView", (): void => {
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("files")).toHaveLength(1);
     expect(screen.getAllByTestId("images")).toHaveLength(1);
+
+    jest.clearAllMocks();
   });
 
   it("should render add event", async (): Promise<void> => {
     expect.hasAssertions();
 
     const images = [
-      new File(["hello"], "hello.png", { type: "image/png" }),
-      new File(["there"], "there.png", { type: "image/png" }),
+      new File(
+        ["okada-unittesting-0192837465"],
+        "okada-unittesting-0192837465.png",
+        { type: "image/png" }
+      ),
+      new File(
+        ["okada-unittesting-5647382910"],
+        "okada-unittesting-0192837465.png",
+        { type: "image/png" }
+      ),
     ];
-    const file = new File(["file-evidence"], "evidence.txt", {
-      type: "text/plain",
-    });
+    const file = new File(
+      ["okada-unittesting-56789abcde"],
+      "okada-unittesting-56789abcde.txt",
+      {
+        type: "text/plain",
+      }
+    );
 
     const mockedQueries: readonly MockedResponse[] = [
       {
@@ -211,6 +226,31 @@ describe("eventsView", (): void => {
                   eventType: "AUTHORIZATION_SPECIAL_ATTACK",
                   groupName: "unittesting",
                   id: "463457733",
+                  root: {
+                    __typename: "GitRoot",
+                    branch: "master",
+                    cloningStatus: {
+                      __typename: "GitRootCloningStatus",
+                      message: "root created",
+                      status: "UNKNOWN",
+                    },
+                    credentials: {
+                      __typename: "Credentials",
+                      id: "",
+                      name: "",
+                      type: "",
+                    },
+                    environment: "production",
+                    environmentUrls: [],
+                    gitEnvironmentUrls: [],
+                    gitignore: ["bower_components/*", "node_modules/*"],
+                    id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                    includesHealthCheck: true,
+                    nickname: "universe",
+                    state: "ACTIVE",
+                    url: "https://gitlab.com/fluidattacks/universe",
+                    useVpn: false,
+                  },
                 },
               ],
               name: "unittesting",
@@ -288,7 +328,7 @@ describe("eventsView", (): void => {
       { action: "api_mutations_add_event_mutate" },
     ]);
     render(
-      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
+      <MemoryRouter initialEntries={["orgs/okada/groups/unittesting/events"]}>
         <MockedProvider
           addTypename={false}
           mocks={[...mockedQueries, ...mockedMutations]}
@@ -296,7 +336,7 @@ describe("eventsView", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={GroupEventsView}
-              path={"/groups/:groupName/events"}
+              path={"orgs/:organizationName/groups/:groupName/events"}
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -309,6 +349,8 @@ describe("eventsView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("group.events.new")).toBeInTheDocument();
     });
+
+    expect(screen.getByRole("button", { name: /confirm/iu })).toBeDisabled();
 
     await userEvent.type(
       screen.getByRole("textbox", { name: "rootNickname" }),
@@ -326,6 +368,11 @@ describe("eventsView", (): void => {
     );
     await userEvent.upload(screen.getByTestId("images"), images);
     await userEvent.upload(screen.getByTestId("files"), file);
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", { name: /confirm/iu })
+      ).not.toBeDisabled();
+    });
     await userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
 
     await waitFor((): void => {
@@ -334,6 +381,7 @@ describe("eventsView", (): void => {
         "group.events.titleSuccess"
       );
     });
+    jest.clearAllMocks();
   });
 
   it("should request verification", async (): Promise<void> => {
@@ -451,5 +499,6 @@ describe("eventsView", (): void => {
         "groupAlerts.updatedTitle"
       );
     });
+    jest.clearAllMocks();
   });
 });

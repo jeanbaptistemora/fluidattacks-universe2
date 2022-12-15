@@ -77,7 +77,8 @@ import { translate } from "utils/translations/translate";
 
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
-  const { groupName } = useParams<{ groupName: string }>();
+  const { groupName, organizationName } =
+    useParams<{ groupName: string; organizationName: string }>();
 
   const { url } = useRouteMatch();
   const { t } = useTranslation();
@@ -477,6 +478,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           groupName={groupName}
           onClose={closeAddModal}
           onSubmit={handleSubmit}
+          organizationName={organizationName}
         />
       ) : undefined}
       {isUpdateAffectedModalOpen ? (

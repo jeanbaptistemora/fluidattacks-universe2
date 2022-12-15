@@ -27,6 +27,9 @@ const handleCreationError: (creationError: ApolloError) => void = (
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
+      case "Exception - Invalid File Name: Format organizationName-groupName-10 alphanumeric chars.extension":
+        msgError(translate.t("group.events.form.wrongImageName"));
+        break;
       case "Exception - Unsanitized input found":
         msgError(translate.t("validations.unsanitizedInputFound"));
         break;
