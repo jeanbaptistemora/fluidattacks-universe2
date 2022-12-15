@@ -23,6 +23,34 @@ from typing import (
 
 
 @dataclass(frozen=True)
+class _ArmToken:
+    token: str
+
+
+@dataclass(frozen=True)
+class _Private:
+    pass
+
+
+@dataclass(frozen=True)
+class ArmToken:
+    _inner: _ArmToken
+
+    @staticmethod
+    def new(token: str) -> ArmToken:
+        return ArmToken(_ArmToken(token))
+
+    def get(
+        self, key: _Private  # pylint: disable=unused-argument # NOSONAR
+    ) -> str:
+        # key is to disable that token can be getted anywhere
+        return self._inner.token
+
+    def __repr__(self) -> str:
+        return "[masked]"
+
+
+@dataclass(frozen=True)
 class _ArmClient:
     client: GraphQlAsmClient
 
@@ -32,8 +60,12 @@ class ArmClient:
     _inner: _ArmClient
 
     @staticmethod
-    def new(token: str) -> Cmd[ArmClient]:
-        return GraphQlAsmClient.new(token).map(_ArmClient).map(ArmClient)
+    def new(token: ArmToken) -> Cmd[ArmClient]:
+        return (
+            GraphQlAsmClient.new(token.get(_Private()))
+            .map(_ArmClient)
+            .map(ArmClient)
+        )
 
     def get_ignored_paths(self, group: str) -> Cmd[FrozenSet[IgnoredPath]]:
         return _ignored_paths.get_ignored_paths(self._inner.client, group)

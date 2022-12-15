@@ -1,6 +1,10 @@
 from code_etl import (
     _utils,
 )
+from code_etl.arm import (
+    ArmClient,
+    ArmToken,
+)
 from code_etl.client import (
     Client,
 )
@@ -69,12 +73,14 @@ class NonexistentPath(Exception):
 
 
 def upload_or_register(
-    client: Client, extractor: Extractor, repo: Repo
+    client: Client, arm_client: ArmClient, extractor: Extractor, repo: Repo
 ) -> Cmd[None]:
     LOG.debug("upload_or_register")
     LOG.debug(extractor.extract_repo())
     _register = actions.register(client, extractor.extract_repo())
-    _upload = actions.upload_stamps(client, extractor.extract_new_data(repo))
+    _upload = actions.upload_filtered_stamps(
+        client, arm_client, extractor.extract_new_data(repo)
+    )
     return _register.bind(lambda _: _upload)
 
 
@@ -88,6 +94,7 @@ def _try_repo(raw: str) -> ResultE[Repo]:
 
 def upload(
     client: Client,
+    arm_client: ArmClient,
     namespace: str,
     repo_path: Path,
     mailmap: Maybe[Mailmap],
@@ -103,37 +110,38 @@ def upload(
     )
     return repo.map(
         lambda r: info
-        + extractor.bind(lambda ext: upload_or_register(client, ext, r))
+        + extractor.bind(
+            lambda ext: upload_or_register(client, arm_client, ext, r)
+        )
     ).value_or(report)
 
 
 def _upload_repos(
     connection: DbConnection,
+    token: ArmToken,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    LOG.info("Uploading repos data")
+    info = Cmd.from_cmd(lambda: LOG.info("Uploading repos data"))
 
     def _new_client(path: Path) -> Cmd[Client]:
         return new_client(connection, LOG.getChild(str(path))).map(Client.new)
 
-    def _pair(path: Path) -> Cmd[Tuple[Client, Path]]:
-        return _new_client(path).map(lambda c: (c, path))
-
-    cmds = (
-        from_flist(repo_paths)
-        .map(_pair)
-        .map(
-            lambda a: a.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
+    cmds = from_flist(repo_paths).map(
+        lambda p: _new_client(p).bind(
+            lambda c: ArmClient.new(token).bind(
+                lambda ac: upload(c, ac, namespace, p, mailmap)
+            )
         )
     )
-    return _utils.cmds_in_threads(cmds.to_list())
+    return info + _utils.cmds_in_threads(cmds.to_list())
 
 
 def upload_repos(
     db_id: DatabaseId,
     creds: Credentials,
+    token: ArmToken,
     namespace: str,
     repo_paths: FrozenList[Path],
     mailmap: Maybe[Mailmap],
@@ -146,5 +154,6 @@ def upload_repos(
         IsolationLvl.AUTOCOMMIT,
     )
     return _utils.wrap_connection(
-        connection, lambda c: _upload_repos(c, namespace, repo_paths, mailmap)
+        connection,
+        lambda c: _upload_repos(c, token, namespace, repo_paths, mailmap),
     )

@@ -39,6 +39,7 @@ function job_code_upload {
               --db-id "${db}" \
               --creds "${creds}" \
               upload-code \
+              --arm-token "${INTEGRATES_API_TOKEN}" \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
               "groups/${group}/fusion/"* \

@@ -5,6 +5,9 @@ from code_etl import (
 from code_etl.amend.actions import (
     start as start_amend,
 )
+from code_etl.arm import (
+    ArmToken,
+)
 from code_etl.client import (
     Tables,
 )
@@ -154,19 +157,22 @@ def compute_bills(
 
 @click.command()  # type: ignore[misc]
 @click.option("--namespace", type=str, required=True)  # type: ignore[misc]
+@click.option("--arm-token", type=str, required=True)  # type: ignore[misc]
 @click.option("--mailmap", type=mailmap_file)  # type: ignore[misc]
 @click.argument("repositories", type=str, nargs=-1)  # type: ignore[misc]
 @pass_ctx  # type: ignore[misc]
 def upload_code(
     ctx: CmdContext,
     namespace: str,
+    arm_token: str,
     repositories: Tuple[str, ...],
     mailmap: Optional[str],
 ) -> NoReturn:
     # pylint: disable=too-many-arguments
     repos = tuple(Path(abspath(r)) for r in repositories)
+    token = ArmToken.new(arm_token)
     upload_repo.upload_repos(
-        ctx.db_id, ctx.creds, namespace, repos, _get_mailmap(mailmap)
+        ctx.db_id, ctx.creds, token, namespace, repos, _get_mailmap(mailmap)
     ).compute()
 
 
