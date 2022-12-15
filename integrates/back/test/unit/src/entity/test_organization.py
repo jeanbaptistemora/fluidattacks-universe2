@@ -44,42 +44,6 @@ async def _get_result_async(
     return result
 
 
-@pytest.mark.changes_db
-async def test_update_organization_policies() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    org_name = "hajime"
-    query = f"""
-        mutation {{
-            updateOrganizationPolicies(
-                maxAcceptanceDays: 5,
-                maxAcceptanceSeverity: 8.5,
-                maxNumberAcceptances: 3,
-                minAcceptanceSeverity: 1.5,
-                organizationId: "{org_id}",
-                organizationName: "{org_name}"
-            ) {{
-                success
-            }}
-        }}
-    """
-
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["updateOrganizationPolicies"]["success"]
-
-    result = await _get_result_async(
-        data, stakeholder="org_testuser5@gmail.com"
-    )
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-    result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
-    exe = StakeholderNotInOrganization()
-    assert "errors" in result
-    assert result["errors"][0]["message"] == exe.args[0]
-
-
 async def test_get_organization_id() -> None:
     org_name = "okada"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"

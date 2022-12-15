@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    StakeholderNotInOrganization,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -84,5 +87,7 @@ async def test_update_organization_policies_fail(
         min_breaking_severity=5.7,
         vulnerability_grace_period=1000,
     )
+    execution = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+    assert result["errors"][0]["message"] == execution.args[0]
