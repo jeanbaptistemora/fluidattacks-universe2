@@ -83,6 +83,8 @@ describe("eventEvidenceView", (): void => {
     });
 
     expect(screen.queryByText("group.events.evidence.edit")).not.toBeDisabled();
+
+    jest.clearAllMocks();
   });
 
   it("should render empty UI", async (): Promise<void> => {
@@ -130,6 +132,8 @@ describe("eventEvidenceView", (): void => {
     });
 
     expect(screen.queryByText("File")).not.toBeInTheDocument();
+
+    jest.clearAllMocks();
   });
 
   it("should render image and file", async (): Promise<void> => {
@@ -180,6 +184,7 @@ describe("eventEvidenceView", (): void => {
       expect(screen.queryByRole("img")).toBeInTheDocument();
       expect(container.querySelectorAll(".fa-file")).toHaveLength(1);
     });
+    jest.clearAllMocks();
   });
 
   it("should render image viewer", async (): Promise<void> => {
@@ -293,6 +298,7 @@ describe("eventEvidenceView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("group.events.evidence.edit")).toBeDisabled();
     });
+    jest.clearAllMocks();
   });
 
   it("should open file link", async (): Promise<void> => {
@@ -380,10 +386,18 @@ describe("eventEvidenceView", (): void => {
   it("should edit evidences", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const image1 = new File(["image1"], "image1.png", { type: "image/png" });
-    const file = new File(["file-evidence"], "evidence.txt", {
-      type: "text/plain",
-    });
+    const image1 = new File(
+      ["okada-test-0123456789.png"],
+      "okada-test-0123456789.png",
+      { type: "image/png" }
+    );
+    const file = new File(
+      ["okada-test-0987654321.txt"],
+      "okada-test-0987654321.txt",
+      {
+        type: "text/plain",
+      }
+    );
 
     const mockedQueries: readonly MockedResponse[] = [
       {
@@ -451,7 +465,9 @@ describe("eventEvidenceView", (): void => {
       { action: "api_mutations_update_event_evidence_mutate" },
     ]);
     render(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
+      <MemoryRouter
+        initialEntries={["orgs/okada/groups/test/events/413372600/evidence"]}
+      >
         <MockedProvider
           addTypename={false}
           mocks={[...mockedQueries, ...mockedMutations]}
@@ -459,7 +475,9 @@ describe("eventEvidenceView", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={EventEvidenceView}
-              path={"/:groupName/events/:eventId/evidence"}
+              path={
+                "orgs/:organizationName/groups/:groupName/events/:eventId/evidence"
+              }
             />
           </authzPermissionsContext.Provider>
         </MockedProvider>
@@ -471,8 +489,22 @@ describe("eventEvidenceView", (): void => {
       ).not.toBeDisabled();
     });
     await userEvent.click(screen.getByText("group.events.evidence.edit"));
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", {
+          name: /searchfindings\.tabevidence\.update/iu,
+        })
+      ).toBeDisabled();
+    });
     await userEvent.upload(screen.getByTestId("image1.file"), image1);
     await userEvent.upload(screen.getByTestId("file1.file"), file);
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", {
+          name: /searchfindings\.tabevidence\.update/iu,
+        })
+      ).not.toBeDisabled();
+    });
     await userEvent.click(
       screen.getByRole("button", {
         name: /searchfindings\.tabevidence\.update/iu,
@@ -485,5 +517,6 @@ describe("eventEvidenceView", (): void => {
         "groupAlerts.updatedTitle"
       );
     });
+    jest.clearAllMocks();
   });
 });

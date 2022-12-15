@@ -26,6 +26,9 @@ const handleUpdateEvidenceError = (updateError: ApolloError): void => {
       case "Exception - Unsanitized input found":
         msgError(translate.t("validations.unsanitizedInputFound"));
         break;
+      case "Exception - Invalid File Name: Format organizationName-groupName-10 alphanumeric chars.extension":
+        msgError(translate.t("group.events.form.wrongImageName"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(

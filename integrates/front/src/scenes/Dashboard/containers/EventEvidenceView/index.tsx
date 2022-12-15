@@ -41,13 +41,18 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import {
   composeValidators,
+  isValidEvidenceName,
   isValidFileSize,
   validEventFile,
   validEvidenceImage,
 } from "utils/validations";
 
 const EventEvidenceView: React.FC = (): JSX.Element => {
-  const { eventId } = useParams<{ eventId: string }>();
+  const { eventId, groupName, organizationName } = useParams<{
+    eventId: string;
+    groupName: string;
+    organizationName: string;
+  }>();
   const { t } = useTranslation();
 
   // State management
@@ -194,6 +199,10 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
+  const validEvidenceName: FieldValidator = isValidEvidenceName(
+    organizationName,
+    groupName
+  );
 
   return (
     <React.StrictMode>
@@ -289,6 +298,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       validate={composeValidators([
                         validEvidenceImage,
                         maxFileSize,
+                        validEvidenceName,
                       ])}
                     />
                   );
