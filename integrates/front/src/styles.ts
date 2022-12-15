@@ -177,6 +177,60 @@ const GlobalStyle = createGlobalStyle`
     background-color: #3faf3f;
     border-color: #3faf3f;
   }
+
+  .red-checkbox {
+    background-color: #d9534f;
+    border-color: #d9534f;
+  }
+
+  .red-checkbox:hover {
+    background-color: #c9302c;
+    border-color: #c9302c;
+  }
+
+  .grid {
+    display: grid;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  }
+
+  .noresize {
+    resize: none;
+  }
+
+  .orgred {
+    color: #ff3435;
+  }
+
+  .ph1-5 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .svg-box20 svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .switch-mh {
+    min-height: calc(1.5em + 0.75rem + 2px);
+  }
+
+  .w-fit-content {
+    width: fit-content;
+  }
+
+  .ws-pre-wrap {
+    white-space: pre-wrap;
+  }
+
+  @media (min-width: 768px) {
+    .w-45-ns {
+      width: 45%;
+    }
+  }
 `;
 
 export { GlobalStyle };
