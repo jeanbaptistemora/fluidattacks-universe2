@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 15, 2022, 02:49 PM",
+    "DateLastModified": "Dec 15, 2022, 05:00 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -22187,9 +22187,6 @@
                   "modified_date": {
                     "S": "2020-12-19T13:44:37+00:00"
                   },
-                  "port": {
-                    "S": "8080"
-                  },
                   "status": {
                     "S": "INACTIVE"
                   }
@@ -22231,9 +22228,6 @@
                   },
                   "modified_date": {
                     "S": "2020-11-19T13:44:37+00:00"
-                  },
-                  "port": {
-                    "S": "8080"
                   },
                   "status": {
                     "S": "ACTIVE"
