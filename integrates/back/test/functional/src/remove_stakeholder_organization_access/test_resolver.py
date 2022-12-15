@@ -3,6 +3,9 @@ from . import (
     get_result,
     put_access_token,
 )
+from custom_exceptions import (
+    StakeholderNotInOrganization,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -117,5 +120,7 @@ async def test_remove_stakeholder_organization_access_fail(
     result: dict[str, Any] = await get_result(
         user=email, org=org_id, stakeholder=email
     )
+    execution = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+    assert result["errors"][0]["message"] == execution.args[0]

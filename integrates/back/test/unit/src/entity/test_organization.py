@@ -11,7 +11,6 @@ from back.test.unit.src.utils import (
 from custom_exceptions import (
     InvalidOrganization,
     OrganizationNotFound,
-    StakeholderNotFound,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
@@ -81,96 +80,6 @@ async def test_add_organization() -> None:
     data = {"query": mutation_tpl.substitute(name=name)}
     exe = InvalidOrganization("Invalid name")
     result = await _get_result_async(data, stakeholder)
-    assert "errors" in result
-    assert result["errors"][0]["message"] == exe.args[0]
-
-
-@pytest.mark.changes_db
-async def test_update_organization_stakeholder() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    stakeholder = "org_testgroupmanager1@gmail.com"
-    query = Template(
-        """
-        mutation {
-            updateOrganizationStakeholder(
-                organizationId: "$org_id"
-                role: $role
-                userEmail: "$email"
-            ) {
-                success
-                modifiedStakeholder {
-                    email
-                }
-            }
-        }
-    """
-    )
-
-    data = {
-        "query": query.substitute(
-            org_id=org_id, role="USER", email=stakeholder
-        )
-    }
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["updateOrganizationStakeholder"]["success"]
-    assert (
-        result["data"]["updateOrganizationStakeholder"]["modifiedStakeholder"][
-            "email"
-        ]
-        == stakeholder
-    )
-
-    data = {
-        "query": query.substitute(
-            org_id=org_id, role="USER_MANAGER", email=stakeholder
-        )
-    }
-    result = await _get_result_async(data, stakeholder=stakeholder)
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-    data = {
-        "query": query.substitute(
-            org_id=org_id, role="USER_MANAGER", email="madeupuser@gmail.com"
-        )
-    }
-    result = await _get_result_async(data)
-    exe = StakeholderNotFound()
-    assert "errors" in result
-    assert result["errors"][0]["message"] == exe.args[0]
-
-
-@pytest.mark.changes_db
-async def test_remove_stakeholder_organization_access() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    stakeholder = "org_testuser4@gmail.com"
-    query = Template(
-        f"""
-        mutation {{
-            removeStakeholderOrganizationAccess(
-                organizationId: "{org_id}",
-                userEmail: "$email"
-            ) {{
-                success
-            }}
-        }}
-    """
-    )
-
-    data = {"query": query.substitute(email=stakeholder)}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["removeStakeholderOrganizationAccess"]["success"]
-
-    data = {"query": query.substitute(email="org_testuser2@gmail.com")}
-    result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-    data = {"query": query.substitute(email="madeupuser@gmail.com")}
-    result = await _get_result_async(data)
-    exe = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 
