@@ -9,6 +9,7 @@ from contextlib import (
 )
 from custom_exceptions import (
     IndicatorAlreadyUpdated,
+    VulnNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -53,8 +54,13 @@ from events import (
 from findings import (
     domain as findings_domain,
 )
+import logging
+import logging.config
 from roots import (
     domain as roots_domain,
+)
+from settings import (
+    LOGGING,
 )
 from typing import (
     Any,
@@ -77,6 +83,10 @@ from vulnerabilities.types import (
     Treatments,
     Verifications,
 )
+
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
 
 
 @retry_on_exceptions(
@@ -373,9 +383,16 @@ async def update_vulnerability_unreliable_indicators(
     vulnerability_id: str,
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
+    try:
+        vulnerability: Vulnerability = await loaders.vulnerability.load(
+            vulnerability_id
+        )
+    except VulnNotFound as exc:
+        LOGGER.exception(
+            exc, extra=dict(extra=dict(vulnerability_id=vulnerability_id))
+        )
+        return
+
     indicators: dict[EntityAttr, Any] = {}
 
     if EntityAttr.closing_date in attrs_to_update:

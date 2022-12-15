@@ -109,7 +109,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
-    print(await _get_vulns(loaders, finding_id, "group1"))
     assert await _get_vulns(loaders, finding_id, "group1") == [
         {
             "commit_hash": "111111111111111111111111111111111111111f",

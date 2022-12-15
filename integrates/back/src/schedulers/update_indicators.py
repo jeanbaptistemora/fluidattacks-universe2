@@ -11,6 +11,9 @@ from calendar import (
 from collections import (
     OrderedDict,
 )
+from custom_exceptions import (
+    GroupNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -1173,7 +1176,7 @@ async def update_group_indicators(group: Group, progress: float) -> None:
             "Group indicators processed",
             extra={"group_name": group.name, "progress": round(progress, 2)},
         )
-    except (ClientError, TypeError, UnavailabilityError) as ex:
+    except (ClientError, GroupNotFound, TypeError, UnavailabilityError) as ex:
         msg = "Error: An error ocurred updating indicators in the database"
         error(msg, extra={"group_name": group.name, "ex": ex})
 
