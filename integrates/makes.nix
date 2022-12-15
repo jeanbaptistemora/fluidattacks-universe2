@@ -5,7 +5,6 @@
     ./infra/makes.nix
     ./pipeline/makes.nix
     ./jobs/makes.nix
-    ./storage/infra/makes.nix
     ./streams/makes.nix
   ];
   secretsForAwsFromGitlab = {
