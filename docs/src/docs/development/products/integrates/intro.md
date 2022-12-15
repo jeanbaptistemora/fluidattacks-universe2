@@ -148,7 +148,7 @@ Run each of the following commands in different terminals:
 universe $ m . /integrates/back
 universe $ m . /integrates/db
 universe $ m . /integrates/front
-universe $ m . /integrates/storage
+universe $ m . /integrates/storage/dev
 ```
 
 This will launch a replica of

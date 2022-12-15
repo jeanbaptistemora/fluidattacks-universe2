@@ -85,11 +85,6 @@ We do not use [Terraform][terraform] in:
    Pending to implement.
 1. [Google Workspace](https://workspace.google.com/):
    Pending to implement.
-1. [Local AWS S3](/development/stack/aws/s3):
-   We use [MinIO](https://min.io/)
-   as it is not possible to locally deploy s3 buckets using
-   [Terraform][terraform].
-   This implementation is written as code.
 
 ## Guidelines
 
