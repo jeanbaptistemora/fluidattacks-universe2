@@ -16,14 +16,9 @@ from custom_exceptions import (
 )
 from dataloaders import (
     apply_context_attrs,
-    Dataloaders,
-    get_new_context,
 )
 from decimal import (
     Decimal,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 import pytest
 from string import (
@@ -142,64 +137,6 @@ async def test_update_organization_stakeholder() -> None:
     }
     result = await _get_result_async(data)
     exe = StakeholderNotFound()
-    assert "errors" in result
-    assert result["errors"][0]["message"] == exe.args[0]
-
-
-@pytest.mark.changes_db
-async def test_grant_stakeholder_organization_access() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    stakeholder = "org_testuser6@gmail.com"
-    query = Template(
-        """
-        mutation {
-            grantStakeholderOrganizationAccess(
-                organizationId: "$org_id"
-                role: $role
-                userEmail: "$email"
-            ) {
-                success
-                grantedStakeholder {
-                    email
-                }
-            }
-        }
-    """
-    )
-
-    data = {
-        "query": query.substitute(
-            email=stakeholder, org_id=org_id, role="USER"
-        )
-    }
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["grantStakeholderOrganizationAccess"]["success"]
-    assert (
-        result["data"]["grantStakeholderOrganizationAccess"][
-            "grantedStakeholder"
-        ]["email"]
-        == stakeholder
-    )
-    loaders: Dataloaders = get_new_context()
-    assert await orgs_domain.has_access(loaders, org_id, stakeholder)
-
-    data = {
-        "query": query.substitute(
-            email="madeupuser@gmail.com", org_id=org_id, role="USER"
-        )
-    }
-    result = await _get_result_async(data, stakeholder=stakeholder)
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-    data = {
-        "query": query.substitute(
-            email="madeupuser@gmail.com", org_id=org_id, role="USER"
-        )
-    }
-    result = await _get_result_async(data, "madeupuser@gmail.com")
-    exe = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 

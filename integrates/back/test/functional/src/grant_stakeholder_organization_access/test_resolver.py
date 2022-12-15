@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    StakeholderNotInOrganization,
+)
 import pytest
 from typing import (
     Any,
@@ -63,5 +66,7 @@ async def test_grant_stakeholder_organization_access_fail(
         role=stakeholder_role,
         email=stakeholder_email,
     )
+    execution = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+    assert result["errors"][0]["message"] == execution.args[0]
