@@ -10,6 +10,7 @@ from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
     InvalidCommentParent,
+    InvalidFileName,
     InvalidFileSize,
     InvalidFileType,
     UnsanitizedInputFound,
@@ -307,6 +308,28 @@ async def test_validate_evidence_invalid_file_size() -> None:
             "test-big-image.jpg", test_file, "image/jpg"
         )
         with pytest.raises(InvalidFileSize):
+            await events_domain.validate_evidence(
+                group_name=group.name.lower(),
+                organization_name=organization.name.lower(),
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )
+
+
+async def test_validate_evidence_invalid_name() -> None:
+    evidence_type = EventEvidenceId.FILE_1
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group.load("unittesting")
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "okada-unittesting-records.csv", test_file, "text/csv"
+        )
+        with pytest.raises(InvalidFileName):
             await events_domain.validate_evidence(
                 group_name=group.name.lower(),
                 organization_name=organization.name.lower(),
