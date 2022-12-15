@@ -1367,7 +1367,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_retrieve_todo_reattacks",
             "api_resolvers_finding_hacker_resolve",
             "can_assign_vulnerabilities_to_fluidattacks_staff",
-            "api_mutations_update_toe_lines_sorts_mutate",
         },
         tags={
             *USER_LEVEL_ROLES["hacker"]["tags"],

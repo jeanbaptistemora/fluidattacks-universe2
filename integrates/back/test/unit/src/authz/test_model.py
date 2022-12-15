@@ -208,7 +208,6 @@ def test_model_integrity_roles(
                         "front_can_retrieve_todo_reattacks",
                         "api_mutations_verify_stakeholder_mutate",
                         "can_assign_vulnerabilities_to_fluidattacks_staff",
-                        "api_mutations_update_toe_lines_sorts_mutate",
                     },
                     "tags": {"drills"},
                 },
