@@ -21,6 +21,7 @@ import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queri
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
 import { TabContent } from "styles/styledComponents";
+import { Have } from "utils/authz/Have";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -83,9 +84,11 @@ const EventContent: React.FC = (): JSX.Element => {
                 </Tab>
               </li>
               <li>
-                <Tab id={"commentsTab"} link={`${url}/comments`}>
-                  {t("group.tabs.comments.text")}
-                </Tab>
+                <Have I={"has_squad"}>
+                  <Tab id={"commentsTab"} link={`${url}/comments`}>
+                    {t("group.tabs.comments.text")}
+                  </Tab>
+                </Have>
               </li>
             </Tabs>
             <TabContent>

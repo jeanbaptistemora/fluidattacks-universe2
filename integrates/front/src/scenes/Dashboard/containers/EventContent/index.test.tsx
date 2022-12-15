@@ -111,15 +111,15 @@ describe("EventContent", (): void => {
     });
   });
 
-  it("should display consulting in tab", async (): Promise<void> => {
+  it("should not display consulting in tab", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/comments"]}>
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventContent}
-            path={"/:groupName/events/:eventId/comments"}
+            path={"/:groupName/events/:eventId/description"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -128,7 +128,7 @@ describe("EventContent", (): void => {
     await waitFor((): void => {
       expect(
         screen.queryByText("group.tabs.comments.text")
-      ).toBeInTheDocument();
+      ).not.toBeInTheDocument();
     });
   });
 });
