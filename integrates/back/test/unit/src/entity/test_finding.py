@@ -8,19 +8,10 @@ from ariadne import (
 from back.test.unit.src.utils import (
     create_dummy_session,
 )
-from custom_exceptions import (
-    FindingNotFound,
-)
 from dataloaders import (
     apply_context_attrs,
     Dataloaders,
     get_new_context,
-)
-from db_model.findings.enums import (
-    FindingStateStatus,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from freezegun import (
     freeze_time,
@@ -543,35 +534,6 @@ async def test_update_description() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["updateDescription"]
     assert result["data"]["updateDescription"]["success"]
-
-
-@pytest.mark.changes_db
-async def test_remove_finding() -> None:
-    """Check for removeFinding mutation."""
-    finding_id = "563827909"
-    loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.state.status == FindingStateStatus.CREATED
-
-    query = f"""
-      mutation {{
-        removeFinding(
-          findingId: "{finding_id}"
-          justification: NOT_REQUIRED
-        ) {{
-          success
-        }}
-      }}
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeFinding"]
-    assert result["data"]["removeFinding"]["success"]
-
-    loaders.finding.clear(finding_id)
-    with pytest.raises(FindingNotFound):
-        assert await loaders.finding.load(finding_id)
 
 
 @pytest.mark.changes_db
