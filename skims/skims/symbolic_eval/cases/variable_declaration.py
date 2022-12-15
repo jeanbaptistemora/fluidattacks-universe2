@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f297.variable_declaration import (
+    evaluate as evaluate_variable_declaration_f297,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -10,7 +13,9 @@ from typing import (
     Dict,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+    FindingEnum.F297: evaluate_variable_declaration_f297,
+}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
