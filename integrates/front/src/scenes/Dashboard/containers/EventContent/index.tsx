@@ -84,7 +84,7 @@ const EventContent: React.FC = (): JSX.Element => {
               </li>
               <li>
                 <Tab id={"commentsTab"} link={`${url}/comments`}>
-                  {t("searchFindings.tabEvents.comments")}
+                  {t("group.tabs.comments.text")}
                 </Tab>
               </li>
             </Tabs>

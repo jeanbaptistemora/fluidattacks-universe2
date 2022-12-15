@@ -110,4 +110,25 @@ describe("EventContent", (): void => {
       ).toBeInTheDocument();
     });
   });
+
+  it("should display consulting in tab", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/comments"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route
+            component={EventContent}
+            path={"/:groupName/events/:eventId/comments"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.tabs.comments.text")
+      ).toBeInTheDocument();
+    });
+  });
 });
