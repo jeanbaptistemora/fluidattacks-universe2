@@ -109,6 +109,74 @@ const GlobalStyle = createGlobalStyle`
       margin-top: 20px;
     }
   }
+
+  .noResize {
+    resize: none;
+    min-height: 100px !important;
+  }
+
+  .no-data {
+    color: lightgray;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .b--sb,
+  .b--sb:active,
+  .b--sb:focus,
+  .b--sb:hover {
+    border: none !important;
+  }
+
+  .b--switch {
+    border-color: #d9534f;
+  }
+
+  .b--switch:hover {
+    border-color: #ac2925;
+  }
+
+  .bg-lbl-green {
+    background-color: #c2ffd4;
+    color: #009245;
+  }
+
+  .bg-lbl-yellow {
+    background-color: #ffbf00;
+  }
+
+  .bg-sb,
+  .bg-sb:active,
+  .bg-sb:focus,
+  .bg-sb:hover {
+    background: transparent !important;
+  }
+
+  .bg-switch {
+    background-color: #d9534f;
+  }
+
+  .bg-switch:hover {
+    background-color: #c9302c;
+  }
+
+  .checkbox-mh {
+    min-height: calc(1.5em + 0.75rem + 2px);
+  }
+
+  .fs-checkbox {
+    font-size: 12px;
+  }
+
+  .green-checkbox {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+  }
+
+  .green-checkbox:hover {
+    background-color: #3faf3f;
+    border-color: #3faf3f;
+  }
 `;
 
 export { GlobalStyle };

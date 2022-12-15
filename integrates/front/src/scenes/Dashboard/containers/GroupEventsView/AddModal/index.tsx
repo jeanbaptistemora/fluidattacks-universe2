@@ -18,7 +18,6 @@ import type {
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
 import { Modal, ModalConfirm } from "components/Modal";
-import globalStyle from "styles/global.css";
 import {
   Col100,
   Col50,
@@ -262,7 +261,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     </ControlLabel>
                     <Field
                       // eslint-disable-next-line react/forbid-component-props
-                      className={globalStyle.noResize}
+                      className={"noResize"}
                       component={FormikTextArea}
                       name={"detail"}
                       validate={composeValidators([

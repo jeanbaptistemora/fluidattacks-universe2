@@ -28,6 +28,7 @@ import { featurePreviewContext } from "utils/featurePreview";
 import { useStoredState, useWindowSize } from "utils/hooks";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
+import "styles/global.css";
 import "tachyons/css/tachyons.min.css";
 import "tachyons-word-break/css/tachyons-word-break.min.css";
 

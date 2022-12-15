@@ -37,7 +37,6 @@ import {
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import type { IGetFindingEvidences } from "scenes/Dashboard/containers/EvidenceView/types";
-import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -211,7 +210,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       </ButtonToolbarRow>
       <br />
       {_.isEmpty(evidenceList) ? (
-        <div className={globalStyle["no-data"]}>
+        <div className={"no-data"}>
           <FontAwesomeIcon icon={faImage} size={"3x"} />
           <p>{t("group.findings.evidence.noData")}</p>
         </div>

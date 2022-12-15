@@ -27,7 +27,6 @@ import {
 } from "scenes/Dashboard/containers/EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
 import type { IGetFindingRecords } from "scenes/Dashboard/containers/RecordsView/types";
-import globalStyle from "styles/global.css";
 import {
   ButtonToolbarRow,
   Col100,
@@ -229,7 +228,7 @@ const RecordsView: React.FC = (): JSX.Element => {
         ) : undefined}
         <RowCenter>
           {_.isEmpty(JSON.parse(data.finding.records)) ? (
-            <div className={globalStyle["no-data"]}>
+            <div className={"no-data"}>
               <FontAwesomeIcon icon={faList} size={"3x"} />
               <p>{t("group.findings.records.noData")}</p>
             </div>

@@ -32,7 +32,6 @@ import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import globalStyle from "styles/global.css";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { getErrors } from "utils/helpers";
@@ -226,7 +225,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         </ButtonToolbarRow>
         <br />
         {_.isEmpty(imageList) && _.isEmpty(fileList) && !isEditing ? (
-          <div className={globalStyle["no-data"]}>
+          <div className={"no-data"}>
             <FontAwesomeIcon icon={faImage} size={"3x"} />
             <p>{t("group.events.evidence.noData")}</p>
           </div>
