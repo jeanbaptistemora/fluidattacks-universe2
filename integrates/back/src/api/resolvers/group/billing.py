@@ -17,7 +17,6 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
-    require_service_white,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -29,7 +28,6 @@ from newutils import (
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_service_white,
     require_login,
 )
 async def resolve(

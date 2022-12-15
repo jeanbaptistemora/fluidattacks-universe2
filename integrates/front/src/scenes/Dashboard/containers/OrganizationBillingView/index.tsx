@@ -34,6 +34,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     {
       context: { skipGlobalErrorHandler: true },
       errorPolicy: "ignore",
+      fetchPolicy: "network-only",
       onCompleted: (paramData: IGetOrganizationBilling): void => {
         if (_.isEmpty(paramData.organization.groups)) {
           Logger.warning("Empty groups", document.location.pathname);
