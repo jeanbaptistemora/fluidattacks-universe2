@@ -1657,6 +1657,14 @@ export const enTranslations: ResourceKey = {
     google: "Continue with Google",
     microsoft: "Continue with Microsoft",
     newuser: "If you are a new user, click below to sign up.",
+    noEnrolledUser: {
+      button: "Start free trial",
+      subtitle1: "There is no ARM account for ",
+      subtitle2: ". We recommend you start our free trial and ",
+      subtitle3: "enjoy all Machine Plan benefits for 21 days.",
+      title:
+        "Looks like you're new to our Attack Resistance Management Platform.",
+    },
     privacyLinkText: "Privacy Policy",
     termsOfUseLinkText: "Terms of Use",
   },
@@ -3837,9 +3845,7 @@ export const enTranslations: ResourceKey = {
   signup: {
     enrolledUser: {
       button: "Go to the ARM dashboard",
-      subtitle1:
-        "There is already an account and active user with this email (",
-      subtitle2: ") in the ARM.",
+      subtitle: " is already registered in the ARM platform.",
       title: "Oops! You're not eligible for the free trial.",
     },
     subtitle:

@@ -10,6 +10,8 @@ import type { IGetStakeholderEnrollmentResult } from "./types";
 
 import { Autoenrollment } from "scenes/Autoenrollment";
 import { Dashboard } from "scenes/Dashboard";
+import { NoEnrolledUser } from "scenes/Login/NoEnrolledUser";
+import { EnrolledUser } from "scenes/SignUp/Components/EnrolledUser";
 import { Logger } from "utils/logger";
 import { initializeZendesk } from "utils/widgets";
 
@@ -49,13 +51,16 @@ const Welcome: React.FC = (): JSX.Element => {
 
   if (isEnrolled) {
     if (sessionStorage.getItem("trial") === "true") {
-      return <Dashboard />;
+      return <EnrolledUser />;
     }
 
     return <Dashboard />;
   }
+  if (sessionStorage.getItem("trial") === "true") {
+    return <Autoenrollment />;
+  }
 
-  return <Autoenrollment />;
+  return <NoEnrolledUser />;
 };
 
 export { Welcome };

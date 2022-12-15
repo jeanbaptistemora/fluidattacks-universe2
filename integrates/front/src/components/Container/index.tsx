@@ -140,7 +140,7 @@ width: ${width};
    width: ${width};
     }
 
-@media screen and (max-width: 64em) {
+@media screen and (max-width: 64em), (max-height: 40em) {
   box-sizing: ${boxSizing};
    width: ${widthMd === "auto" ? width : widthMd};
    padding-bottom: ${pbMd === "0" ? pb : pbMd};

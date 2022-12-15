@@ -59,7 +59,6 @@ export const EnrolledUser: React.FC = (): JSX.Element => {
           </Container>
           <Container pt={"24px"}>
             <Text bright={7} fontSize={"20px"} tone={"dark"}>
-              {t("signup.enrolledUser.subtitle1")}
               <Text
                 bright={7}
                 disp={"inline"}
@@ -69,7 +68,7 @@ export const EnrolledUser: React.FC = (): JSX.Element => {
               >
                 {dataStakeholder}
               </Text>
-              {t("signup.enrolledUser.subtitle2")}
+              {t("signup.enrolledUser.subtitle")}
             </Text>
           </Container>
           <Container pt={"32px"}>

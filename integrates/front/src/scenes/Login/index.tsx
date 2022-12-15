@@ -265,7 +265,7 @@ export const Login: React.FC = (): JSX.Element => {
         >
           <Container
             display={"flex"}
-            heightMd={"900px"}
+            heightMd={"90%"}
             maxHeight={"740px"}
             maxWidth={"696px"}
             widthMd={"90%"}

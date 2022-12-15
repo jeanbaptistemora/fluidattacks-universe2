@@ -20,7 +20,7 @@ describe("Welcome", (): void => {
     expect(typeof Welcome).toBe("function");
   });
 
-  it("should render autoenrollment", async (): Promise<void> => {
+  it("should render NoEnrolledUser component", async (): Promise<void> => {
     expect.hasAssertions();
 
     const enrollmentMock: MockedResponse<IGetStakeholderEnrollmentResult> = {
@@ -65,7 +65,7 @@ describe("Welcome", (): void => {
     );
 
     await expect(
-      screen.findByText("autoenrollment.step1")
+      screen.findByText("login.noEnrolledUser.title")
     ).resolves.toBeInTheDocument();
   });
 
