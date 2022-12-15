@@ -102,7 +102,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
 
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, {
-    onCompleted: refetch,
+    onCompleted: async (): Promise<void> => {
+      await refetch({ findingId });
+    },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(t("groupAlerts.errorTextsad"));
