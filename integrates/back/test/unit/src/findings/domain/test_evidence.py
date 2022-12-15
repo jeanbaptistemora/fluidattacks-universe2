@@ -1,3 +1,8 @@
+# pylint: disable=import-error
+from back.test.unit.src.utils import (
+    get_mock_response,
+    get_mocked_path,
+)
 from collections import (
     OrderedDict,
 )
@@ -19,6 +24,7 @@ from findings.domain import (
     get_records_from_file,
     validate_evidence,
 )
+import json
 from mypy_boto3_s3 import (
     S3Client,
 )
@@ -79,29 +85,41 @@ async def test_upload_test_file(
     assert bool(s3_mock.get_object(Bucket=BUCKET_NAME, Key=file_name))
 
 
-@pytest.mark.skip(reason="Test failing when using cloud s3")
 @mock.patch(
-    "s3.operations.get_s3_resource",
+    get_mocked_path("findings_storage.search_evidence"),
     new_callable=mock.AsyncMock,
 )
+@mock.patch(
+    get_mocked_path("findings_storage.download_evidence"),
+    new_callable=mock.AsyncMock,
+)
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "finding_id",
+        "file_name",
+    ],
+    [
+        [
+            "unittesting",
+            "422286126",
+            "unittesting-422286126-evidence_route_1.png",
+        ],
+    ],
+)
 async def test_download_evidence_file(
-    mock_s3_resource: mock.AsyncMock, s3_mock: S3Client
+    mock_download_evidence: mock.AsyncMock,
+    mock_search_evidence: mock.AsyncMock,
+    group_name: str,
+    finding_id: str,
+    file_name: str,
 ) -> None:
-    def mock_download_file(*args: Any) -> Any:
-        return s3_mock.download_file(*args)
-
-    def mock_list_objects_v2(**kwargs: Any) -> Any:
-        return s3_mock.list_objects_v2(**kwargs)
-
-    group_name = "unittesting"
-    finding_id = "422286126"
-    file_name = "unittesting-422286126-evidence_route_1.png"
-
-    mock_s3_resource.return_value.download_file.side_effect = (
-        mock_download_file
+    mock_parameters = json.dumps([group_name, finding_id, file_name])
+    mock_search_evidence.return_value = get_mock_response(
+        get_mocked_path("findings_storage.search_evidence"), mock_parameters
     )
-    mock_s3_resource.return_value.list_objects_v2.side_effect = (
-        mock_list_objects_v2
+    mock_download_evidence.return_value = get_mock_response(
+        get_mocked_path("findings_storage.download_evidence"), mock_parameters
     )
     test_data = await download_evidence_file(group_name, finding_id, file_name)
 

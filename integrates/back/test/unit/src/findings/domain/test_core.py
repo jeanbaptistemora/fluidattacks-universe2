@@ -95,11 +95,11 @@ async def test_get_last_closed_vulnerability(
     findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
 
-    findings_to_get = json.dumps(findings)
-    findings_loader = findings_data[findings_to_get]
+    findings_as_keys = json.dumps(findings)
+    findings_loader = findings_data[findings_as_keys]
     mock_load_many_chained.return_value = get_mock_response(
         get_mocked_path("finding_vulns_loader.load_many_chained"),
-        findings_to_get,
+        findings_as_keys,
     )
     loaders: Dataloaders = get_new_context()
     (
@@ -118,17 +118,24 @@ async def test_get_last_closed_vulnerability(
 @mock.patch(
     get_mocked_path("get_open_vulnerabilities"), new_callable=mock.AsyncMock
 )
+@pytest.mark.parametrize(
+    ["findings"],
+    [
+        [["463558592", "422286126"]],
+    ],
+)
 async def test_get_max_open_severity(
     mock_get_open_vulnerabilities: mock.AsyncMock,
+    findings: List,
     findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
-    findings_to_get = '["463558592", "422286126"]'
-    findings: Tuple[Finding, ...] = findings_data[findings_to_get]
+    findings_as_keys = json.dumps(findings)
+    findings_loader = findings_data[findings_as_keys]
     loaders = get_new_context()
     mock_get_open_vulnerabilities.return_value = get_mock_response(
-        get_mocked_path("get_open_vulnerabilities"), findings_to_get
+        get_mocked_path("get_open_vulnerabilities"), findings_as_keys
     )
-    test_data = await get_max_open_severity(loaders, findings)
+    test_data = await get_max_open_severity(loaders, findings_loader)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1].id == "463558592"  # type: ignore
 

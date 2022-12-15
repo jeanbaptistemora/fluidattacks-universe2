@@ -54,6 +54,8 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
+    "findings_storage.download_evidence": "findings.storage.download_evidence",
+    "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
 }
@@ -223,6 +225,45 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
             )
         )
+    },
+    "findings.storage.search_evidence": {
+        '["unittesting", "422286126",'
+        ' "unittesting-422286126-evidence_route_1.png"]': [
+            {
+                "ResponseMetadata": {
+                    "HTTPStatusCode": 200,
+                    "HTTPHeaders": {},
+                    "RetryAttempts": 0,
+                },
+                "IsTruncated": False,
+                "Contents": [
+                    {
+                        "Key": "evidences/unittesting/422286126/"
+                        "unittesting-422286126-evidence_file.csv",
+                        "LastModified": "2019-01-15T15:43:39+00:00",
+                        "ETag": '"a008e27edeaaf560cc01ef094edbbd65"',
+                        "Size": 132,
+                        "StorageClass": "STANDARD",
+                    },
+                    {
+                        "Key": "evidences/unittesting/422286126/"
+                        "unittesting-422286126-evidence_route_1.png",
+                        "LastModified": "2020-01-03T17:46:10+00:00",
+                        "ETag": '"98a8fa986a52960e0ae1e990afd06510"',
+                        "Size": 16629,
+                        "StorageClass": "STANDARD",
+                    },
+                ],
+                "Name": "integrates.somedeveloperatfluid",
+                "Prefix": "",
+                "MaxKeys": 1000,
+                "KeyCount": 2,
+            }
+        ]
+    },
+    "findings.storage.download_evidence": {
+        '["unittesting", "422286126",'
+        ' "unittesting-422286126-evidence_route_1.png"]': None,
     },
     "findings.domain.core.get_open_vulnerabilities": {
         '["463558592", "422286126"]': 1
