@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 15, 2022, 05:00 PM",
+    "DateLastModified": "Dec 15, 2022, 06:29 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -24687,7 +24687,329 @@
             "PartitionKeyAlias": "GROUP#group_name",
             "SortKeyAlias": "PORTS#ROOT#root_id#ADDRESS#address#PORT#port"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "port": {
+                "S": "110"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#110"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "attacked_at": {
+                    "S": "2022-12-15T23:26:15.366560+00:00"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "first_attack_at": {
+                    "S": "2022-12-15T23:26:15.366560+00:00"
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:26:15.366618+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test2@test.com"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#true#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#110"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:51.060916+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "port": {
+                "S": "21"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#21"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "attacked_at": {
+                    "S": "2022-12-15T23:26:15.371462+00:00"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "first_attack_at": {
+                    "S": "2022-12-15T23:26:15.371462+00:00"
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:26:15.371483+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test2@test.com"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#true#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#21"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:34.129679+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "22"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#22"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:17:46.186185+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#true#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#22"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:46.186174+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "port": {
+                "S": "443"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#443"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "attacked_at": {
+                    "S": "2022-12-15T23:26:15.369616+00:00"
+                  },
+                  "be_present": {
+                    "BOOL": false
+                  },
+                  "first_attack_at": {
+                    "S": "2022-12-15T23:26:15.369616+00:00"
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:26:22.269823+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present_until": {
+                    "S": "2022-12-15T23:26:22.269810+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#false#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#443"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:28.940909+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "8080"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#8080"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:17:05.638952+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#true#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#8080"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:05.638936+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "port": {
+                "S": "995"
+              },
+              "sk": {
+                "S": "PORTS#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#995"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "root_id": {
+                "S": "d312f0b9-da49-4d2b-a881-bed438875e99"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2022-12-15T23:26:23.286765+00:00"
+                  },
+                  "be_present_until": {
+                    "S": "2022-12-15T23:26:23.286754+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "PORTS#PRESENT#false#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#995"
+              },
+              "seen_at": {
+                "S": "2022-12-15T23:17:55.869123+00:00"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "address",
             "port",
@@ -24715,7 +25037,270 @@
             "PartitionKeyAlias": "PORTS#GROUP#group_name#ROOT#root_id#ADDRESS#address#PORT#port",
             "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:05.638952+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#8080"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:05.638952+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:28.940918+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#443"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:28.940918+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:34.129688+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#21"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:34.129688+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:46.186185+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#22"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:46.186185+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:51.060925+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#110"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:51.060925+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2022-12-15T23:17:55.869143+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#995"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:17:55.869143+00:00"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              }
+            },
+            {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "sk": {
+                "S": "STATE#2022-12-15T23:26:15.366618+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#110"
+              },
+              "first_attack_at": {
+                "S": "2022-12-15T23:26:15.366560+00:00"
+              },
+              "attacked_at": {
+                "S": "2022-12-15T23:26:15.366560+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:26:15.366618+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              }
+            },
+            {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "sk": {
+                "S": "STATE#2022-12-15T23:26:15.369655+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#443"
+              },
+              "first_attack_at": {
+                "S": "2022-12-15T23:26:15.369616+00:00"
+              },
+              "attacked_at": {
+                "S": "2022-12-15T23:26:15.369616+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:26:15.369655+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              }
+            },
+            {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "sk": {
+                "S": "STATE#2022-12-15T23:26:15.371483+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#21"
+              },
+              "first_attack_at": {
+                "S": "2022-12-15T23:26:15.371462+00:00"
+              },
+              "attacked_at": {
+                "S": "2022-12-15T23:26:15.371462+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:26:15.371483+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              }
+            },
+            {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "sk": {
+                "S": "STATE#2022-12-15T23:26:22.269823+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#443"
+              },
+              "first_attack_at": {
+                "S": "2022-12-15T23:26:15.369616+00:00"
+              },
+              "attacked_at": {
+                "S": "2022-12-15T23:26:15.369616+00:00"
+              },
+              "be_present": {
+                "BOOL": false
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:26:22.269823+00:00"
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "be_present_until": {
+                "S": "2022-12-15T23:26:22.269810+00:00"
+              }
+            },
+            {
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "sk": {
+                "S": "STATE#2022-12-15T23:26:23.286765+00:00"
+              },
+              "modified_by": {
+                "S": "test2@test.com"
+              },
+              "pk": {
+                "S": "PORTS#GROUP#oneshottest#ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#ADDRESS#127.0.0.1#PORT#995"
+              },
+              "be_present": {
+                "BOOL": false
+              },
+              "modified_date": {
+                "S": "2022-12-15T23:26:23.286765+00:00"
+              },
+              "be_present_until": {
+                "S": "2022-12-15T23:26:23.286754+00:00"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "modified_date",
             "modified_by",
