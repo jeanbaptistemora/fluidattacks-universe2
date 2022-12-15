@@ -3,10 +3,10 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { BlogsList } from "../components/BlogsList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { BlogsPage } from "../scenes/BlogsPage";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject } from "../utils/utilities";
@@ -40,7 +40,7 @@ const BlogIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle bgColor={"#dddde3"}>
-            <BlogsList />
+            <BlogsPage />
           </PageArticle>
         </div>
       </Layout>
