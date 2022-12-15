@@ -29,12 +29,15 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     GroupFile,
 )
+import functools
 import itertools
 from newutils import (
     utils,
 )
 import re
 from typing import (
+    Any,
+    Callable,
     Iterable,
     List,
     Optional,
@@ -134,6 +137,25 @@ def validate_field_length(
     if field is None or ((len(field) > limit) != is_greater_than_limit):
         raise InvalidFieldLength()
     return True
+
+
+def validate_field_length_deco(
+    field: str, limit: int, is_greater_than_limit: bool = False
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = kwargs.get(field)
+            if field_content is None or (
+                (len(field_content) > limit) != is_greater_than_limit
+            ):
+                raise InvalidFieldLength()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def validate_finding_id(finding_id: str) -> None:

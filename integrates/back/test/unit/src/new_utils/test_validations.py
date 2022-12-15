@@ -15,6 +15,7 @@ from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
+    validate_field_length_deco,
     validate_fields,
     validate_file_exists,
     validate_file_name,
@@ -53,6 +54,27 @@ def test_validate_field_length() -> None:
         validate_field_length(
             "testlength", limit=11, is_greater_than_limit=True
         )
+
+
+def test_validate_field_length_deco() -> None:
+    @validate_field_length_deco(
+        "test_string", limit=2, is_greater_than_limit=True
+    )
+    @validate_field_length_deco("test_string", limit=12)
+    def decorated_func(test_string: str) -> str:
+        return test_string
+
+    assert decorated_func(test_string="testlength")
+    with pytest.raises(InvalidFieldLength):
+
+        @validate_field_length_deco(
+            "test_string", limit=11, is_greater_than_limit=True
+        )
+        @validate_field_length_deco("test_string", limit=9)
+        def decorated_func_failed(test_string: str) -> str:
+            return test_string
+
+        decorated_func_failed(test_string="testLength")
 
 
 @pytest.mark.parametrize(
