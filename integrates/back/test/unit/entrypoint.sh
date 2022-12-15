@@ -25,8 +25,8 @@ function main {
   source __argIntegratesBackEnv__/template dev \
     && if [ "$test_group" = "not_changes_db" ]; then
       DAEMON=true integrates-db \
-        && export AWS_S3_PATH_PREFIX="test-unit-${test_group}/" \
-        && populate_storage "/test-unit-${test_group}" \
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-test-unit-${test_group}/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-test-unit-${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \
@@ -35,8 +35,8 @@ function main {
         || return 1
     elif [ "$test_group" = "changes_db" ]; then
       DAEMON=true integrates-db \
-        && export AWS_S3_PATH_PREFIX="test-unit-${test_group}/" \
-        && populate_storage "/test-unit-${test_group}" \
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-test-unit-${test_group}/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-test-unit-${test_group}" \
         && pushd integrates \
         && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
         && BATCH_BIN="$(command -v integrates-batch)" \

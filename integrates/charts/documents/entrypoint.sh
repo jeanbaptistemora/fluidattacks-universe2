@@ -23,8 +23,8 @@ function main {
     && if test "${env}" = "dev"; then
       : \
         && DAEMON=true integrates-db \
-        && export AWS_S3_PATH_PREFIX="charts-documents/" \
-        && populate_storage "/charts-documents"
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-charts-documents/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-charts-documents"
     elif test "${env}" = "prod"; then
       :
     else

@@ -2,13 +2,13 @@
 
 function main {
   local args=(
-    "" # No path prefix
-    "--exclude" "batch/*"
-    "--exclude" "charts-documents/*"
-    "--exclude" "charts-snapshots/*"
-    "--exclude" "subscriptions-analytics/*"
-    "--exclude" "test-functional-*/*"
-    "--exclude" "test-unit-*/*"
+    "/${CI_COMMIT_REF_NAME}"
+    "--exclude" "${CI_COMMIT_REF_NAME}-batch/*"
+    "--exclude" "${CI_COMMIT_REF_NAME}-charts-documents/*"
+    "--exclude" "${CI_COMMIT_REF_NAME}-charts-snapshots/*"
+    "--exclude" "${CI_COMMIT_REF_NAME}-subscriptions-analytics/*"
+    "--exclude" "${CI_COMMIT_REF_NAME}-test-functional-*/*"
+    "--exclude" "${CI_COMMIT_REF_NAME}-test-unit-*/*"
   )
 
   populate_storage "${args[@]}"

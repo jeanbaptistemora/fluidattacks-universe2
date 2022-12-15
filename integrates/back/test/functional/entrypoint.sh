@@ -43,8 +43,8 @@ function main {
       TEST_SSH_KEY \
     && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then
       : \
-        && export AWS_S3_PATH_PREFIX="test-functional-${resolver_test_group}/" \
-        && populate_storage "/test-functional-${resolver_test_group}"
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-test-functional-${resolver_test_group}/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-test-functional-${resolver_test_group}"
     fi \
     && DAEMON=true POPULATE="${populate_db}" integrates-db \
     && BATCH_BIN="$(command -v integrates-batch)" \

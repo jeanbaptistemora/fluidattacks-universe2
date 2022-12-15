@@ -12,8 +12,14 @@ function main {
       *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in
-      dev) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      eph) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
+      dev)
+        sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" \
+          && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}/"
+        ;;
+      eph)
+        sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" \
+          && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}/"
+        ;;
       prod) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod-local) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
         && export DEBUG=True ;;

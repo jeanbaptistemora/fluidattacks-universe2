@@ -17,8 +17,8 @@ function main {
         UNIVERSE_API_TOKEN
     elif test "${env}" == 'dev'; then
       DAEMON=true integrates-db \
-        && export AWS_S3_PATH_PREFIX="batch/" \
-        && populate_storage "/batch"
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-batch/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-batch"
     fi \
     && pushd integrates \
     && python3 -m back.src.batch_dispatch.dispatch "${@:2}" \

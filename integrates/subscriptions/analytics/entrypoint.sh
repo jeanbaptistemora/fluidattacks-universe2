@@ -7,8 +7,8 @@ function main {
   source __argIntegratesBackEnv__/template "${env}" \
     && if test "${env}" = 'dev'; then
       DAEMON=true integrates-db \
-        && export AWS_S3_PATH_PREFIX="subscriptions-analytics/" \
-        && populate_storage "/subscriptions-analytics"
+        && export AWS_S3_PATH_PREFIX="${CI_COMMIT_REF_NAME}-subscriptions-analytics/" \
+        && populate_storage "/${CI_COMMIT_REF_NAME}-subscriptions-analytics"
     fi \
     && pushd integrates \
     && python3 \
