@@ -343,14 +343,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2018-04-08T00:45:13+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:13+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                         assigned=generic_data["global_vars"][
                             "vulnerability_manager_email"
@@ -376,14 +380,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.ASM,
                         specific="2320",
                         status=VulnerabilityStateStatus.CLOSED,
                         where="192.168.1.1",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
@@ -410,14 +418,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6b",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.ASM,
                         specific="2321",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.2",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
@@ -444,14 +456,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2018-04-08T00:45:16+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:16+00:00"
+                        ),
                         source=Source.ASM,
                         specific="2322",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.3",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",
@@ -480,14 +496,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="48780201-b087-43c5-9882-a5c65dec6efb",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.CLOSED,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,

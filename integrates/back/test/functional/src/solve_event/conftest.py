@@ -460,14 +460,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
-                        modified_date="2022-09-01T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
                         source=Source.MACHINE,
                         specific="5",
                         status=VulnerabilityStateStatus.OPEN,
                         where="README.md",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2022-09-01T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,
@@ -477,7 +481,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_last_reattack_requester="test2@gmail.com",
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2022-09-01T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.ON_HOLD,
                         event_id="418900975",
                     ),

@@ -27,7 +27,6 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
-    timezone,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus,
@@ -386,10 +385,7 @@ class ITReport:
             vulnerabilities_filtered = tuple(
                 vulnerability
                 for vulnerability in vulnerabilities_filtered
-                if datetime.fromisoformat(
-                    vulnerability.state.modified_date
-                ).astimezone(tz=timezone.utc)
-                <= self.closing_date
+                if vulnerability.state.modified_date <= self.closing_date
             )
 
         if self.location:
@@ -597,7 +593,7 @@ class ITReport:
                 )
             if reattack_requested and vuln_verification.modified_date:
                 reattack_date = datetime_utils.as_zone(
-                    datetime.fromisoformat(vuln_verification.modified_date)
+                    vuln_verification.modified_date
                 )
                 reattack_requester = self._get_reattack_requester(
                     vuln, finding_verification
@@ -666,9 +662,7 @@ class ITReport:
             current_treatment_data = {
                 "Current Treatment": format_treatment(vuln.treatment.status),
                 "Current Treatment Moment": (
-                    datetime_utils.convert_from_iso_str(
-                        vuln.treatment.modified_date
-                    )
+                    datetime_utils.get_as_str(vuln.treatment.modified_date)
                 ),
                 "Current Treatment Justification": (
                     vuln.treatment.justification or EMPTY
@@ -696,7 +690,7 @@ class ITReport:
                 )
             first_treatment_data = {
                 "First Treatment": format_treatment(first_treatment.status),
-                "First Treatment Moment": datetime_utils.convert_from_iso_str(
+                "First Treatment Moment": datetime_utils.get_as_str(
                     first_treatment.modified_date
                 ),
                 "First Treatment Justification": first_treatment.justification
@@ -853,11 +847,10 @@ class ITReport:
 
     def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
         vuln_date = datetime.fromisoformat(vuln.created_date)
-        limit_date = datetime_utils.get_now()
+        limit_date = datetime_utils.get_utc_now()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln.state.status == VulnerabilityStateStatus.CLOSED:
-            limit_date = datetime.fromisoformat(vuln.state.modified_date)
-            vuln_close_date = datetime.fromisoformat(vuln.state.modified_date)
+            limit_date = vuln_close_date = vuln.state.modified_date
         vuln_age_days = int((limit_date - vuln_date).days)
         external_bts = vuln.bug_tracking_system_url or EMPTY
 

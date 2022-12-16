@@ -101,7 +101,7 @@ async def _process_vulnerability(
         facet=TABLE.facets["vulnerability_historic_treatment"],
         values={
             "id": vuln.id,
-            "iso8601utc": vuln.treatment.modified_date,
+            "iso8601utc": vuln.treatment.modified_date,  # type: ignore
         },
     )
     await operations.update_item(

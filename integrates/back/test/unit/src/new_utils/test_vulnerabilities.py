@@ -87,7 +87,7 @@ async def test_get_vuln_closing_date() -> None:
         id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
         state=VulnerabilityState(
             modified_by="test@test.com",
-            modified_date="2019-01-08T21:01:26+00:00",
+            modified_date=datetime.fromisoformat("2019-01-08T21:01:26+00:00"),
             source=Source.ASM,
             specific="phone",
             status=VulnerabilityStateStatus.CLOSED,
@@ -121,7 +121,7 @@ async def test_get_vuln_opening_date() -> None:
         type=VulnerabilityType.LINES,
         state=VulnerabilityState(
             modified_by="",
-            modified_date="2019-01-08T21:01:26+00:00",
+            modified_date=datetime.fromisoformat("2019-01-08T21:01:26+00:00"),
             source=Source.ASM,
             specific="",
             status=VulnerabilityStateStatus.OPEN,
@@ -199,7 +199,9 @@ def test_sort_vulnerabilities() -> None:
             id="",
             state=VulnerabilityState(
                 modified_by="",
-                modified_date="",
+                modified_date=datetime.fromisoformat(
+                    "2019-01-08T21:01:26+00:00"
+                ),
                 source=Source.ASM,
                 specific="",
                 status=VulnerabilityStateStatus.OPEN,
@@ -222,7 +224,9 @@ def test_sort_vulnerabilities() -> None:
             id="",
             state=VulnerabilityState(
                 modified_by="",
-                modified_date="",
+                modified_date=datetime.fromisoformat(
+                    "2019-01-08T21:01:26+00:00"
+                ),
                 source=Source.ASM,
                 specific="",
                 status=VulnerabilityStateStatus.OPEN,

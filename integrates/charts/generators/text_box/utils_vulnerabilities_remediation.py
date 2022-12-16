@@ -58,9 +58,6 @@ from findings.domain.core import (
 from more_itertools import (
     chunked,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from newutils.validations import (
     validate_sanitized_csv_input,
 )
@@ -126,12 +123,7 @@ def get_current_sprint_state(
     state: VulnerabilityState,
     sprint_start_date: datetime,
 ) -> Optional[VulnerabilityState]:
-    if (
-        datetime_utils.get_datetime_from_iso_str(
-            state.modified_date
-        ).timestamp()
-        >= sprint_start_date.timestamp()
-    ):
+    if state.modified_date.timestamp() >= sprint_start_date.timestamp():
         return state
 
     return None
@@ -141,12 +133,7 @@ def get_last_state(
     state: VulnerabilityState,
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
-    if (
-        datetime_utils.get_datetime_from_iso_str(
-            state.modified_date
-        ).timestamp()
-        <= last_day.timestamp()
-    ):
+    if state.modified_date.timestamp() <= last_day.timestamp():
         return state
 
     return None

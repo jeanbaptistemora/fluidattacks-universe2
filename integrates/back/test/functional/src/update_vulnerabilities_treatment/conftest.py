@@ -199,7 +199,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -211,17 +213,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
                 "historic_treatment": [
                     VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-21T00:45:11+00:00",
                         justification="justification",
@@ -242,7 +250,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -254,17 +264,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
                 "historic_treatment": [
                     VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=(
                             VulnerabilityAcceptanceStatus.SUBMITTED
@@ -284,7 +300,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdc10",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -296,17 +314,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
                 "historic_treatment": [
                     VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=(
                             VulnerabilityAcceptanceStatus.SUBMITTED
@@ -326,7 +350,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdc11",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -338,17 +364,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
                 "historic_treatment": [
                     VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                         acceptance_status=(
                             VulnerabilityAcceptanceStatus.SUBMITTED
@@ -368,7 +400,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="b7ae9350-a94e-40a9-a35f-a3dcee93c959",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="999",
                         status=VulnerabilityStateStatus.CLOSED,
@@ -380,13 +414,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=1,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
                 "historic_treatment": [
                     VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                 ],

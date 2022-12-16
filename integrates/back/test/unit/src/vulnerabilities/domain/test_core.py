@@ -2,6 +2,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -83,7 +86,9 @@ pytestmark = [
                         state=VulnerabilityState(
                             commit=None,
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2019-04-08T00:45:15+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T00:45:15+00:00"
+                            ),
                             source=Source.ASM,
                             specific="8888",
                             status=VulnerabilityStateStatus.OPEN,
@@ -102,7 +107,9 @@ pytestmark = [
                         stream=None,
                         tags=None,
                         treatment=VulnerabilityTreatment(
-                            modified_date="2020-10-08T00:59:06+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-10-08T00:59:06+00:00"
+                            ),
                             status=(
                                 VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
                             ),
@@ -150,7 +157,9 @@ pytestmark = [
                         state=VulnerabilityState(
                             commit="ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
                             modified_by="unittest@fluidattacks.com",
-                            modified_date="2020-01-03T17:46:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-01-03T17:46:10+00:00"
+                            ),
                             source=Source.ASM,
                             specific="12",
                             status=VulnerabilityStateStatus.OPEN,
@@ -168,7 +177,9 @@ pytestmark = [
                         stream=None,
                         tags=None,
                         treatment=VulnerabilityTreatment(
-                            modified_date="2020-01-03T17:46:10+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2020-01-03T17:46:10+00:00"
+                            ),
                             status=VulnerabilityTreatmentStatus.IN_PROGRESS,
                             acceptance_status=None,
                             accepted_until=None,
@@ -273,7 +284,9 @@ async def test_group_vulnerabilities() -> None:
             id="0a848781-b6a4-422e-95fa-692151e6a98z",
             state=VulnerabilityState(
                 modified_by="unittest@fluidattacks.com",
-                modified_date="2020-01-03T17:46:10+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2020-01-03T17:46:10+00:00"
+                ),
                 source=Source.ASM,
                 specific="12",
                 status=VulnerabilityStateStatus.OPEN,
@@ -318,7 +331,9 @@ async def test_group_vulnerabilities() -> None:
             id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
             state=VulnerabilityState(
                 modified_by="test@unittesting.com",
-                modified_date="2020-09-09T21:01:26+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2020-09-09T21:01:26+00:00"
+                ),
                 source=Source.ASM,
                 specific="phone",
                 status=VulnerabilityStateStatus.OPEN,
@@ -369,7 +384,7 @@ async def test_mask_vulnerability() -> None:
         justification="This is a treatment justification",
         assigned="integratesuser@gmail.com",
         modified_by="integratesuser2@gmail.com",
-        modified_date="2020-11-23T17:46:10+00:00",
+        modified_date=datetime.fromisoformat("2020-11-23T17:46:10+00:00"),
         status=VulnerabilityTreatmentStatus.IN_PROGRESS,
     )
     await mask_vulnerability(

@@ -1036,7 +1036,7 @@ async def get_oldest_no_treatment(
     if not no_treatment_vulns:
         return None
     treatment_dates: list[datetime] = [
-        datetime.fromisoformat(vuln.treatment.modified_date)
+        vuln.treatment.modified_date
         for vuln in no_treatment_vulns
         if vuln.treatment
     ]

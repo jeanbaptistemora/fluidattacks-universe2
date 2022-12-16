@@ -15,6 +15,7 @@ from db_model import (
     TABLE,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from db_model.vulnerabilities.constants import (
@@ -105,7 +106,9 @@ async def add(  # pylint: disable=too-many-locals
         facet=TABLE.facets["vulnerability_historic_state"],
         values={
             "id": vulnerability.id,
-            "iso8601utc": vulnerability.state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(
+                vulnerability.state.modified_date
+            ),
         },
     )
     historic_state_item = {
@@ -120,7 +123,9 @@ async def add(  # pylint: disable=too-many-locals
             facet=TABLE.facets["vulnerability_historic_treatment"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.treatment.modified_date,
+                "iso8601utc": get_as_utc_iso_format(
+                    vulnerability.treatment.modified_date
+                ),
             },
         )
         historic_treatment_item = {
@@ -137,7 +142,9 @@ async def add(  # pylint: disable=too-many-locals
             facet=TABLE.facets["vulnerability_historic_verification"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.verification.modified_date,
+                "iso8601utc": get_as_utc_iso_format(
+                    vulnerability.verification.modified_date
+                ),
             },
         )
         historic_verification_item = {
@@ -154,7 +161,9 @@ async def add(  # pylint: disable=too-many-locals
             facet=TABLE.facets["vulnerability_historic_zero_risk"],
             values={
                 "id": vulnerability.id,
-                "iso8601utc": vulnerability.zero_risk.modified_date,
+                "iso8601utc": get_as_utc_iso_format(
+                    vulnerability.zero_risk.modified_date
+                ),
             },
         )
         historic_zero_risk_item = {

@@ -55,7 +55,9 @@ def _filter_vulns_by_datetime_str(
     return tuple(
         vuln
         for vuln in vulns
-        if not vuln.state.modified_date.endswith(ISO8601_TZ_SUFFIX)
+        if not vuln.state.modified_date.endswith(  # type: ignore
+            ISO8601_TZ_SUFFIX,
+        )
     )
 
 
@@ -73,9 +75,12 @@ async def _process_vuln(
     ] = await loaders.vulnerability_historic_state.load(vuln.id)
     fixed_historic_state = tuple(
         entry
-        if entry.modified_date.endswith(ISO8601_TZ_SUFFIX)
+        if entry.modified_date.endswith(  # type: ignore
+            ISO8601_TZ_SUFFIX,
+        )
         else entry._replace(
-            modified_date=f"{entry.modified_date}{ISO8601_TZ_SUFFIX}"
+            modified_date=f"{entry.modified_date}"  # type: ignore
+            f"{ISO8601_TZ_SUFFIX}",
         )
         for entry in historic_state
     )

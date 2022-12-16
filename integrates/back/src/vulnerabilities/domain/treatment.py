@@ -223,7 +223,7 @@ async def add_vulnerability_treatment(
         justification=updated_values.get("justification"),
         assigned=updated_values.get("assigned") or user_email,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         status=new_status,
     )
     await vulns_model.update_treatment(
@@ -238,9 +238,7 @@ def get_treatment_change(
     vulnerability: Vulnerability, min_date: datetime
 ) -> Optional[tuple[str, Vulnerability]]:
     if vulnerability.treatment is not None:
-        last_treatment_date = datetime.fromisoformat(
-            vulnerability.treatment.modified_date
-        )
+        last_treatment_date = vulnerability.treatment.modified_date
         if last_treatment_date > min_date:
             treatment = str(vulnerability.treatment.status.value)
             status = (
@@ -314,7 +312,7 @@ async def _handle_vulnerability_acceptance(
     if treatments_to_add:
         current_value = vulnerability
         # Use for-await as update order is relevant for typed vuln
-        for treatment in db_model_utils.adjust_historic_dates(
+        for treatment in db_model_utils.adjust_historic_dates_datetime(
             treatments_to_add
         ):
             if isinstance(treatment, VulnerabilityTreatment):
@@ -352,7 +350,7 @@ async def handle_vulnerabilities_acceptance(
 ) -> None:
     validations.validate_field_length(justification, 10000)
     validations.validate_fields([justification])
-    today = datetime_utils.get_iso_date()
+    today = datetime_utils.get_utc_now()
 
     all_vulns: tuple[
         Vulnerability, ...
@@ -607,8 +605,7 @@ async def validate_and_send_notification_request(
         if vuln.treatment:
             if not (
                 timedelta(minutes=10)
-                > datetime_utils.get_now()
-                - datetime.fromisoformat(vuln.treatment.modified_date)
+                > datetime_utils.get_utc_now() - vuln.treatment.modified_date
                 and vuln.treatment.assigned == assigned
             ):
                 raise InvalidNotificationRequest(

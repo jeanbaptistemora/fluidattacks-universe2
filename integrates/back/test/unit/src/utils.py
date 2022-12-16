@@ -73,7 +73,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     id="0a848781-b6a4-422e-95fa-692151e6a98e",
                     state=VulnerabilityState(
                         modified_by="unittest@fluidattacks.com",
-                        modified_date="2019-01-15T15:43:39+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-15T15:43:39+00:00"
+                        ),
                         source=Source.ASM,
                         specific="12",
                         status=VulnerabilityStateStatus.OPEN,
@@ -95,7 +97,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     stream=None,
                     tags=None,
                     treatment=VulnerabilityTreatment(
-                        modified_date="2019-01-15T15:43:39+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-15T15:43:39+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         acceptance_status=None,
                         accepted_until="2021-01-16T17:46:10+00:00",
@@ -125,7 +129,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     id="242f848c-148a-4028-8e36-c7d995502590",
                     state=VulnerabilityState(
                         modified_by="unittest@fluidattacks.com",
-                        modified_date="2019-01-15T20:59:16+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-15T20:59:16+00:00"
+                        ),
                         source=Source.ASM,
                         specific="123456",
                         status=VulnerabilityStateStatus.CLOSED,
@@ -147,7 +153,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     stream=None,
                     tags=None,
                     treatment=VulnerabilityTreatment(
-                        modified_date="2019-01-15T15:43:39+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-15T15:43:39+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                         acceptance_status=None,
                         accepted_until=None,
@@ -177,7 +185,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     id="0a848781-b6a4-422e-95fa-692151e6a98z",
                     state=VulnerabilityState(
                         modified_by="unittest@fluidattacks.com",
-                        modified_date="2020-01-03T17:46:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-03T17:46:10+00:00"
+                        ),
                         source=Source.ASM,
                         specific="12",
                         status=VulnerabilityStateStatus.OPEN,
@@ -202,7 +212,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     stream=None,
                     tags=None,
                     treatment=VulnerabilityTreatment(
-                        modified_date="2020-01-03T17:46:10+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-03T17:46:10+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.IN_PROGRESS,
                         acceptance_status=None,
                         accepted_until=None,

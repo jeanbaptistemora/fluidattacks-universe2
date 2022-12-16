@@ -418,14 +418,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.MACHINE,
                         specific="52",
                         status=VulnerabilityStateStatus.OPEN,
                         where="back/src/model/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,
@@ -434,7 +438,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
@@ -450,14 +456,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     id="4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.MACHINE,
                         specific="12",
                         status=VulnerabilityStateStatus.OPEN,
                         where="back/src/controller/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,
@@ -466,7 +476,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
@@ -482,14 +494,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     id="5dbc02e0-4cfc-4b33-9b70-bb7566c230cv",
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.MACHINE,
                         specific="64",
                         status=VulnerabilityStateStatus.OPEN,
                         where="front/index.html",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,
@@ -498,7 +514,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
@@ -514,14 +532,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     id="6dbc13e1-5cfc-3b44-9b70-bb7566c641sz",
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:15+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:15+00:00"
+                        ),
                         source=Source.MACHINE,
                         specific="35",
                         status=VulnerabilityStateStatus.OPEN,
                         where="back/src/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,
@@ -530,7 +552,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
@@ -546,14 +570,18 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     id="dadb5c43-90ab-47ea-a80f-db89a940cd54",
                     state=VulnerabilityState(
                         modified_by="hacker@fluidattacks.com",
-                        modified_date="2022-10-19T05:00:20+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-19T05:00:20+00:00"
+                        ),
                         source=Source.ASM,
                         specific="0",
                         status=VulnerabilityStateStatus.OPEN,
                         where=".project",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2022-10-19T05:00:20+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-19T05:00:20+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.LINES,

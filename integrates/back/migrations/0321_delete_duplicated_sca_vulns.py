@@ -33,7 +33,6 @@ from db_model.vulnerabilities.types import (
     VulnerabilityState,
 )
 from newutils.datetime import (
-    get_as_utc_iso_format,
     get_datetime_from_iso_str,
     get_utc_now,
 )
@@ -127,7 +126,7 @@ def process_duplicates(
                         and x.treatment.acceptance_status is not None
                     ),
                     get_datetime_from_iso_str(
-                        x.treatment.modified_date
+                        x.treatment.modified_date  # type:ignore
                         if x.treatment is not None
                         else "2000-01-01T00:00:00+00:00"
                     ),
@@ -207,7 +206,7 @@ async def main() -> None:
                         new_metadata=VulnerabilityMetadataToUpdate(),
                         new_state=VulnerabilityState(
                             modified_by="acuberos@fluidattacks.com",
-                            modified_date=get_as_utc_iso_format(get_utc_now()),
+                            modified_date=get_utc_now(),
                             source=Source.MACHINE,
                             specific=vuln.state.specific,
                             status=VulnerabilityStateStatus.OPEN,

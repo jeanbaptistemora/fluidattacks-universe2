@@ -83,7 +83,7 @@ async def reset_group_expired_accepted_findings(
             and vuln.treatment.acceptance_status
             == VulnerabilityAcceptanceStatus.SUBMITTED
             and datetime_utils.get_plus_delta(
-                datetime.fromisoformat(vuln.treatment.modified_date),
+                vuln.treatment.modified_date,
                 days=5,
             )
             <= today

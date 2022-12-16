@@ -390,14 +390,18 @@ async def populate() -> bool:
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="2321",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.1",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-09T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-09T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         accepted_until="2018-04-09T00:45:11+00:00",
                         justification="justification",

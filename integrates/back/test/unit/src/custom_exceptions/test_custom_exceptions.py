@@ -300,7 +300,7 @@ async def test_validate_past_acceptance_days(
     mock_table_resource.return_value.query.side_effect = mock_query
     historic_treatment = (
         VulnerabilityTreatment(
-            modified_date="2020-02-01T17:00:00+00:00",
+            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.NEW,
         ),
     )
@@ -336,7 +336,7 @@ async def test_validate_acceptance_severity(
     mock_table_resource.return_value.query.side_effect = mock_query
     historic_treatment = (
         VulnerabilityTreatment(
-            modified_date="2020-02-01T17:00:00+00:00",
+            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.NEW,
         ),
     )
@@ -382,14 +382,14 @@ async def test_validate_number_acceptances(
     mock_table_resource.return_value.query.side_effect = mock_query
     historic_treatment = (
         VulnerabilityTreatment(
-            modified_date="2020-01-01T17:00:00+00:00",
+            modified_date=datetime.fromisoformat("2020-01-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.ACCEPTED,
             accepted_until="2020-02-01T17:00:00+00:00",
             justification="Justification to accept the finding",
             modified_by="unittest@fluidattacks.com",
         ),
         VulnerabilityTreatment(
-            modified_date="2020-02-01T17:00:00+00:00",
+            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.NEW,
         ),
     )

@@ -195,7 +195,9 @@ async def populate() -> bool:
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     state=VulnerabilityState(
                         modified_by="test@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -218,7 +220,9 @@ async def populate() -> bool:
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     state=VulnerabilityState(
                         modified_by="test@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
@@ -240,7 +244,9 @@ async def populate() -> bool:
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     state=VulnerabilityState(
                         modified_by="test@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,

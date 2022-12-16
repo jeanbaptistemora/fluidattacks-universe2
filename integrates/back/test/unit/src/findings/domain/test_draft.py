@@ -20,9 +20,6 @@ from findings.domain import (
 from freezegun import (
     freeze_time,
 )
-from newutils.datetime import (
-    get_as_utc_iso_format,
-)
 import pytest
 from starlette.responses import (
     Response,
@@ -68,11 +65,9 @@ async def test_approve_draft() -> None:  # pylint: disable=too-many-locals
         historic_state_loader.clear(vuln_id)
         historic_state = await historic_state_loader.load(vuln_id)
         for state in historic_state:
-            assert state.modified_date == get_as_utc_iso_format(expected_date)
+            assert state.modified_date == expected_date
 
         historic_treatment_loader.clear(vuln_id)
         historic_treatment = await historic_treatment_loader.load(vuln_id)
         for treatment in historic_treatment:
-            assert treatment.modified_date == get_as_utc_iso_format(
-                expected_date
-            )
+            assert treatment.modified_date == expected_date

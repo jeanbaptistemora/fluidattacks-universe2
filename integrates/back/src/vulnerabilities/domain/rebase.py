@@ -143,7 +143,7 @@ async def rebase(
         commit=vulnerability_commit,
         specific=vulnerability_specific,
         where=vulnerability_where,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         modified_by="rebase@fluidattacks.com",
         source=Source.ASM,
     )

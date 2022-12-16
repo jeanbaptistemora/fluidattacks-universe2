@@ -36,6 +36,7 @@ from db_model import (
     utils as db_model_utils,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from decimal import (
@@ -251,7 +252,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
             condition_expression=(
                 base_condition
                 & Attr(f"{entry_type}.modified_date").eq(
-                    current_entry.modified_date
+                    get_as_utc_iso_format(current_entry.modified_date)
                 )
                 if current_entry
                 else base_condition & Attr(entry_type).not_exists()
@@ -277,7 +278,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
         facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
         values={
             "id": vulnerability_id,
-            "iso8601utc": entry.modified_date,
+            "iso8601utc": get_as_utc_iso_format(entry.modified_date),
         },
     )
     historic_item = {
@@ -301,7 +302,7 @@ async def update_historic(  # pylint: disable=too-many-locals
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
-    historic = db_model_utils.adjust_historic_dates(historic)
+    historic = db_model_utils.adjust_historic_dates_datetime(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)
@@ -328,7 +329,7 @@ async def update_historic(  # pylint: disable=too-many-locals
             condition_expression=(
                 base_condition
                 & Attr(f"{entry_type}.modified_date").eq(
-                    current_entry.modified_date
+                    get_as_utc_iso_format(current_entry.modified_date)
                 )
                 if current_entry
                 else base_condition & Attr(entry_type).not_exists()
@@ -369,7 +370,7 @@ async def update_historic(  # pylint: disable=too-many-locals
             facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
             values={
                 "id": current_value.id,
-                "iso8601utc": entry.modified_date,
+                "iso8601utc": get_as_utc_iso_format(entry.modified_date),
             },
         )
         for entry in historic

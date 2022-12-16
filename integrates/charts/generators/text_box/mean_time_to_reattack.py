@@ -61,7 +61,7 @@ def _get_next_open(
 ) -> Optional[datetime]:
     for state in historic_state:
         if state.status == VulnerabilityStateStatus.OPEN:
-            return get_datetime_from_iso_str(state.modified_date)
+            return state.modified_date
     return None
 
 
@@ -74,9 +74,7 @@ def _get_in_between_state(
     for index, state in enumerate(reverse_historic_state):
         if (
             state.status == VulnerabilityStateStatus.CLOSED
-            and before_limit
-            <= get_datetime_from_iso_str(state.modified_date)
-            <= after_limit
+            and before_limit <= state.modified_date <= after_limit
         ):
             return _get_next_open(
                 reverse_historic_state[len(historic_state) - index :]
@@ -149,7 +147,7 @@ async def _get_mean_time_to_reattack(
                 number_of_reattacks += 1
                 number_of_days += get_diff(
                     start=start,
-                    end=get_datetime_from_iso_str(verification.modified_date),
+                    end=verification.modified_date,
                 )
                 start = None
             if is_on_hold(verification, start):
@@ -158,7 +156,7 @@ async def _get_mean_time_to_reattack(
             if is_verifying(verification, start):
                 start = _get_in_between_state(
                     historic_state,
-                    get_datetime_from_iso_str(verification.modified_date),
+                    verification.modified_date,
                 )
 
         if start is not None:
@@ -224,9 +222,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                         start=get_datetime_from_iso_str(
                             vulnerability.created_date
                         ),
-                        end=get_datetime_from_iso_str(
-                            vulnerability.state.modified_date
-                        ),
+                        end=vulnerability.state.modified_date,
                     )
                     for vulnerability in filtered_non_reattack_vulnerabilities
                 ]

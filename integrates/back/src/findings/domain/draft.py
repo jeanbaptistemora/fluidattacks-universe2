@@ -30,7 +30,6 @@ from db_model.findings.types import (
     FindingState,
 )
 from db_model.utils import (
-    get_as_utc_iso_format,
     get_datetime_with_offset,
 )
 from db_model.vulnerabilities.types import (
@@ -114,7 +113,7 @@ async def approve_draft(
             loaders=loaders,
             finding_id=finding_id,
             vulnerability_id=vuln.id,
-            modified_date=get_as_utc_iso_format(new_state.modified_date),
+            modified_date=new_state.modified_date,
         )
         for vuln in finding_vulnerabilities
     )

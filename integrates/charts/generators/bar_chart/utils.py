@@ -46,7 +46,6 @@ from findings.domain.core import (
     get_finding_open_age,
 )
 from newutils.datetime import (
-    get_date_from_iso_str,
     get_now_minus_delta,
 )
 from newutils.validations import (
@@ -131,7 +130,7 @@ def get_vulnerability_reattacks_date(
         1
         for verification in historic_verification
         if verification.status == VulnerabilityVerificationStatus.REQUESTED
-        and get_date_from_iso_str(verification.modified_date) > min_date
+        and verification.modified_date.date() > min_date
     )
 
 

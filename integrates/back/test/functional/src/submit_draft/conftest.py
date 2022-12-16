@@ -157,14 +157,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_by=generic_data["global_vars"][
                             "hacker_email"
                         ],
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.CLOSED,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:14+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,

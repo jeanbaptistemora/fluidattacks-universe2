@@ -245,9 +245,7 @@ async def _draft_content(
                 _draft_created_content(
                     content=content,
                     cvss=cvss,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        vuln.state.modified_date
-                    ),
+                    date_report=vuln.state.modified_date,
                     date_submission=draft.submission.modified_date
                     if draft.submission
                     else None,
@@ -265,9 +263,7 @@ async def _draft_content(
                 _common_generate_count_report(
                     content=content,
                     date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        vuln.state.modified_date
-                    ),
+                    date_report=vuln.state.modified_date,
                     field="draft_rejected",
                     group=group,
                     user_email=vuln.hacker_email,
@@ -393,9 +389,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
                 _common_generate_count_report(
                     content=content,
                     date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        state.modified_date
-                    ),
+                    date_report=state.modified_date,
                     field="released",
                     group=group,
                     user_email=state.modified_by,
@@ -412,9 +406,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
                 _common_generate_count_report(
                     content=content,
                     date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        state.modified_date
-                    ),
+                    date_report=state.modified_date,
                     field="evidences",
                     group=group,
                     user_email=state.modified_by,

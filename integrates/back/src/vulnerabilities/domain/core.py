@@ -1,5 +1,4 @@
 # pylint:disable=too-many-lines
-
 from aioextensions import (
     collect,
     schedule,
@@ -14,6 +13,9 @@ from custom_exceptions import (
 )
 from dataloaders import (
     Dataloaders,
+)
+from datetime import (
+    datetime,
 )
 from db_model import (
     utils as db_model_utils,
@@ -164,7 +166,7 @@ async def confirm_vulnerabilities_zero_risk(
             entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityZeroRiskStatus.CONFIRMED,
             ),
         )
@@ -255,7 +257,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     deletion_state = VulnerabilityState(
         commit=vulnerability.state.commit,
         modified_by=email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         source=vulnerability.state.source,
         specific=vulnerability.state.specific,
         status=VulnerabilityStateStatus.DELETED,
@@ -277,7 +279,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         await vulns_model.update_historic_entry(
             current_value=vulnerability._replace(state=deletion_state),
             entry=deletion_state._replace(
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityStateStatus.MASKED,
             ),
             finding_id=finding_id,
@@ -313,7 +315,9 @@ async def get_closing_date(
         return current_closing_date
 
     if vulnerability.state.status is VulnerabilityStateStatus.CLOSED:
-        return vulnerability.state.modified_date
+        return datetime_utils.get_as_utc_iso_format(
+            vulnerability.state.modified_date
+        )
 
     return None
 
@@ -517,7 +521,7 @@ async def mask_vulnerability(
             current_value=vulnerability,
             entry=vulnerability.state._replace(
                 modified_by=email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityStateStatus.MASKED,
             ),
             finding_id=finding_id,
@@ -566,7 +570,7 @@ async def reject_vulnerabilities_zero_risk(
             entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=user_email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityZeroRiskStatus.REJECTED,
             ),
         )
@@ -580,7 +584,7 @@ async def request_verification(vulnerability: Vulnerability) -> None:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         entry=VulnerabilityVerification(
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=VulnerabilityVerificationStatus.REQUESTED,
         ),
     )
@@ -589,7 +593,7 @@ async def request_verification(vulnerability: Vulnerability) -> None:
 async def request_hold(event_id: str, vulnerability: Vulnerability) -> None:
     verification = VulnerabilityVerification(
         event_id=event_id,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=datetime_utils.get_utc_now(),
         status=VulnerabilityVerificationStatus.ON_HOLD,
     )
     await vulns_model.update_historic_entry(
@@ -645,7 +649,7 @@ async def request_vulnerabilities_zero_risk(
             entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
                 modified_by=str(user_email),
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityZeroRiskStatus.REQUESTED,
             ),
         )
@@ -719,7 +723,7 @@ async def update_historics_dates(
     loaders: Any,
     finding_id: str,
     vulnerability_id: str,
-    modified_date: str,
+    modified_date: datetime,
 ) -> None:
     """Set all state and treatment dates to finding's approval date."""
     loaders.vulnerability_historic_state.clear(vulnerability_id)
@@ -728,7 +732,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
     historic_state = cast(
         tuple[VulnerabilityState, VulnerabilityState],
-        db_model_utils.adjust_historic_dates(
+        db_model_utils.adjust_historic_dates_datetime(
             tuple(
                 state._replace(modified_date=modified_date)
                 for state in historic_state
@@ -744,7 +748,9 @@ async def update_historics_dates(
     await vulns_model.update_metadata(
         finding_id=finding_id,
         metadata=VulnerabilityMetadataToUpdate(
-            created_date=historic_state[0].modified_date
+            created_date=datetime_utils.get_as_utc_iso_format(
+                historic_state[0].modified_date
+            )
         ),
         vulnerability_id=vulnerability_id,
     )
@@ -755,7 +761,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
     historic_treatment = cast(
         tuple[VulnerabilityTreatment, VulnerabilityTreatment],
-        db_model_utils.adjust_historic_dates(
+        db_model_utils.adjust_historic_dates_datetime(
             tuple(
                 treatment._replace(modified_date=modified_date)
                 for treatment in historic_treatment
@@ -854,7 +860,9 @@ async def update_metadata_and_state(
     ):
         treatment_to_update = (
             vulns_utils.get_treatment_from_org_finding_policy(
-                modified_date=new_state.modified_date,
+                modified_date=datetime_utils.get_as_utc_iso_format(
+                    new_state.modified_date
+                ),
                 user_email=finding_policy.state.modified_by,
             )
         )
@@ -918,7 +926,7 @@ async def verify(
                 if close_item and close_item.type != VulnerabilityType.LINES
                 else vuln_to_close.state.commit,
                 modified_by=modified_by,
-                modified_date=modified_date,
+                modified_date=datetime.fromisoformat(modified_date),
                 source=vuln_to_close.state.source,
                 specific=vuln_to_close.state.specific,
                 status=VulnerabilityStateStatus.CLOSED,
@@ -941,7 +949,7 @@ async def verify_vulnerability(vulnerability: Vulnerability) -> None:
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         entry=VulnerabilityVerification(
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             status=VulnerabilityVerificationStatus.VERIFIED,
         ),
     )
@@ -963,7 +971,7 @@ async def close_by_exclusion(
             entry=VulnerabilityState(
                 commit=vulnerability.state.commit,
                 modified_by=modified_by,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 source=vulnerability.state.source,
                 specific=vulnerability.state.specific,
                 status=VulnerabilityStateStatus.CLOSED,
@@ -981,7 +989,7 @@ async def close_by_exclusion(
                 await update_event_index(
                     finding_id=vulnerability.finding_id,
                     entry=VulnerabilityVerification(
-                        modified_date=datetime_utils.get_iso_date(),
+                        modified_date=datetime_utils.get_utc_now(),
                         status=VulnerabilityVerificationStatus.VERIFIED,
                         event_id=None,
                     ),
@@ -1016,13 +1024,15 @@ async def get_last_requested_reattack_date(
     if not vuln.verification:
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
-        return vuln.verification.modified_date
+        return datetime_utils.get_as_utc_iso_format(
+            vuln.verification.modified_date
+        )
     historic: tuple[
         VulnerabilityVerification, ...
     ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return next(
         (
-            verification.modified_date
+            datetime_utils.get_as_utc_iso_format(verification.modified_date)
             for verification in reversed(historic)
             if verification.status == VulnerabilityVerificationStatus.REQUESTED
         ),
@@ -1038,13 +1048,15 @@ async def get_last_reattack_date(
     if not vuln.verification:
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
-        return vuln.verification.modified_date
+        return datetime_utils.get_as_utc_iso_format(
+            vuln.verification.modified_date
+        )
     historic: tuple[
         VulnerabilityVerification, ...
     ] = await loaders.vulnerability_historic_verification.load(vuln.id)
     return next(
         (
-            verification.modified_date
+            datetime_utils.get_as_utc_iso_format(verification.modified_date)
             for verification in reversed(historic)
             if verification.status == VulnerabilityVerificationStatus.VERIFIED
         ),
@@ -1152,7 +1164,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
             entry=vulnerability.state._replace(
                 commit=updated_commit,
                 modified_by=stakeholder_email,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
                 source=updated_source,
                 specific=updated_specific,
                 where=updated_where,

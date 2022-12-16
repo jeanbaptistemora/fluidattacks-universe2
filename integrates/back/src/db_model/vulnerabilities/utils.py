@@ -21,6 +21,9 @@ from .types import (
 from custom_exceptions import (
     VulnerabilityEntryNotFound,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -47,13 +50,12 @@ from serializers import (
 from typing import (
     Any,
     Optional,
-    Tuple,
 )
 
 
 def filter_non_deleted(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -66,8 +68,8 @@ def filter_non_deleted(
 
 
 def filter_non_zero_risk(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -81,8 +83,8 @@ def filter_non_zero_risk(
 
 
 def filter_non_zero_risk_confirmed(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -92,8 +94,8 @@ def filter_non_zero_risk_confirmed(
 
 
 def filter_zero_risk(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -193,7 +195,7 @@ def format_state(item: Item) -> VulnerabilityState:
         if item.get("justification", None)
         else None,
         modified_by=item["modified_by"],
-        modified_date=item["modified_date"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
         source=Source[item["source"]],
         specific=item["specific"],
         status=VulnerabilityStateStatus[item["status"]],
@@ -220,7 +222,7 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         justification=item.get("justification", None),
         assigned=item.get("assigned", None),
         modified_by=item.get("modified_by", None),
-        modified_date=item["modified_date"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
         status=VulnerabilityTreatmentStatus[item["status"]],
     )
 
@@ -253,7 +255,7 @@ def format_unreliable_indicators(
 def format_verification(item: Item) -> VulnerabilityVerification:
     return VulnerabilityVerification(
         event_id=item.get("event_id", None),
-        modified_date=item["modified_date"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
         status=VulnerabilityVerificationStatus[item["status"]],
     )
 
@@ -262,7 +264,7 @@ def format_zero_risk(item: Item) -> VulnerabilityZeroRisk:
     return VulnerabilityZeroRisk(
         comment_id=item["comment_id"],
         modified_by=item["modified_by"],
-        modified_date=item["modified_date"],
+        modified_date=datetime.fromisoformat(item["modified_date"]),
         status=VulnerabilityZeroRiskStatus[item["status"]],
     )
 

@@ -9,6 +9,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     organization_finding_policies as polices_model,
     vulnerabilities as vulns_model,
@@ -352,7 +355,7 @@ async def _add_new_treatment(
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=VulnerabilityTreatment(
-                    modified_date=current_day,
+                    modified_date=datetime.fromisoformat(current_day),
                     status=VulnerabilityTreatmentStatus.NEW,
                     modified_by=email,
                 ),

@@ -187,14 +187,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
@@ -203,7 +207,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-08T01:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
@@ -219,14 +225,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
@@ -235,7 +245,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-08T01:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),
@@ -251,14 +263,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         source=Source.ASM,
                         specific="9999",
                         status=VulnerabilityStateStatus.OPEN,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
-                        modified_date="2018-04-08T00:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
                     type=VulnerabilityType.PORTS,
@@ -267,7 +283,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         unreliable_treatment_changes=0,
                     ),
                     verification=VulnerabilityVerification(
-                        modified_date="2018-04-08T01:45:11+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         status=VulnerabilityVerificationStatus.REQUESTED,
                     ),
                 ),

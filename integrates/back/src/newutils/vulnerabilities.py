@@ -45,7 +45,7 @@ from db_model.toe_ports.types import (
     ToePortRequest,
 )
 from db_model.utils import (
-    adjust_historic_dates,
+    adjust_historic_dates_datetime,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -73,9 +73,6 @@ from dynamodb.types import (
 )
 import html
 import itertools
-from newutils.datetime import (
-    convert_from_iso_str,
-)
 import re
 from typing import (
     Any,
@@ -319,11 +316,10 @@ def get_closing_date(
 ) -> Optional[datetype]:
     closing_date: Optional[datetype] = None
     if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
-        closing_date = datetime_utils.get_date_from_iso_str(
-            vulnerability.state.modified_date
-        )
+        closing_date = vulnerability.state.modified_date.date()
         if min_date and min_date > closing_date:
             return None
+
     return closing_date
 
 
@@ -513,7 +509,8 @@ def adjust_historic_treatment_dates(
     historic: Tuple[VulnerabilityTreatment, ...],
 ) -> Tuple[VulnerabilityTreatment, ...]:
     return cast(
-        Tuple[VulnerabilityTreatment, ...], adjust_historic_dates(historic)
+        Tuple[VulnerabilityTreatment, ...],
+        adjust_historic_dates_datetime(historic),
     )
 
 
@@ -529,7 +526,7 @@ def get_treatment_from_org_finding_policy(
                 justification="From organization findings policy",
                 assigned=user_email,
                 modified_by=user_email,
-                modified_date=modified_date,
+                modified_date=datetime.fromisoformat(modified_date),
                 status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             ),
             VulnerabilityTreatment(
@@ -537,7 +534,7 @@ def get_treatment_from_org_finding_policy(
                 justification="From organization findings policy",
                 assigned=user_email,
                 modified_by=user_email,
-                modified_date=modified_date,
+                modified_date=datetime.fromisoformat(modified_date),
                 status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             ),
         )
@@ -551,9 +548,7 @@ def _get_vuln_state_action(
     actions: List[Action] = [
         Action(
             action=state.status.value,
-            date=str(
-                datetime_utils.get_date_from_iso_str(state.modified_date)
-            ),
+            date=str(state.modified_date.date()),
             justification="",
             assigned="",
             times=1,
@@ -585,9 +580,7 @@ def _get_vuln_treatment_actions(
     actions: List[Action] = [
         Action(
             action=treatment.status.value,
-            date=str(
-                datetime_utils.get_date_from_iso_str(treatment.modified_date)
-            ),
+            date=str(treatment.modified_date.date()),
             justification=treatment.justification,
             assigned=treatment.assigned,
             times=1,
@@ -764,7 +757,7 @@ def format_vulnerability_state_item(
     else:
         formatted_status = str(state.status.value).lower()
     item = {
-        "date": convert_from_iso_str(state.modified_date),
+        "date": datetime_utils.get_as_str(state.modified_date),
         "hacker": state.modified_by,
         "source": str(state.source.value).lower(),
         "state": formatted_status,
@@ -778,11 +771,11 @@ def format_vulnerability_treatment_item(
     treatment: VulnerabilityTreatment,
 ) -> Item:
     item = {
-        "date": convert_from_iso_str(treatment.modified_date),
+        "date": datetime_utils.get_as_str(treatment.modified_date),
         "treatment": treatment.status.value,
     }
     if treatment.accepted_until:
-        item["acceptance_date"] = convert_from_iso_str(
+        item["acceptance_date"] = datetime_utils.convert_from_iso_str(
             treatment.accepted_until
         )
     if treatment.justification:
@@ -800,7 +793,7 @@ def format_vulnerability_verification_item(
     verification: VulnerabilityVerification,
 ) -> Item:
     item = {
-        "date": convert_from_iso_str(verification.modified_date),
+        "date": datetime_utils.get_as_str(verification.modified_date),
         "status": verification.status.value,
     }
     return item
@@ -812,7 +805,7 @@ def format_vulnerability_zero_risk_item(
     item = {
         "comment_id": zero_risk.comment_id,
         "email": zero_risk.modified_by,
-        "date": convert_from_iso_str(zero_risk.modified_date),
+        "date": datetime_utils.get_as_str(zero_risk.modified_date),
         "status": zero_risk.status.value,
     }
     return item

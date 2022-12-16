@@ -32,7 +32,7 @@ def adjust_historic_dates(
     return tuple(new_historic)
 
 
-def adjust_finding_historic_dates(
+def adjust_historic_dates_datetime(
     historic: tuple[Any, ...],
 ) -> tuple[Any, ...]:
     """
