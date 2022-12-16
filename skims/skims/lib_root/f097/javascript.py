@@ -12,11 +12,13 @@ from model.graph_model import (
     GraphShardNode,
     NId,
 )
+import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from typing import (
     Iterable,
+    Iterator,
 )
 from utils import (
     graph as g,
@@ -34,18 +36,37 @@ def get_suspicious_nodes(graph: Graph) -> Iterable[NId]:
         yield n_id
 
 
-def node_is_vulnerable(params: Iterable[NId]) -> bool:
-    # PlaceHolder. This function will be in charge of evaluate each parameter.
-    if params:
+def param_is_safe(graph: Graph, p_id: NId, expression: str) -> bool:
+    matcher = re.compile(expression)
+    return bool(matcher.match(graph.nodes[p_id].get("value")))
+
+
+def node_is_vulnerable(graph: Graph, params: Iterator[NId]) -> bool:
+    url: NId = next(params)
+    if param_is_safe(graph, url, r"(?!^\"https?://)"):
+        return False
+    try:
+        name: NId = next(params)
+        if param_is_safe(graph, name, r"(?!^\"_blank\"$)"):
+            return False
+    except StopIteration:
         return True
-    return False
+    try:
+        window_features: NId = next(params)
+        if param_is_safe(
+            graph, window_features, r"(?=.*noopener)(?=.*noreferrer)"
+        ):
+            return False
+    except StopIteration:
+        return True
+    return True
 
 
 def get_vulns_n_ids(graph: Graph) -> Iterable[NId]:
     for n_id in get_suspicious_nodes(graph):
         if (n_attrs := g.match_ast_d(graph, n_id, "ArgumentList")) and (
             (parameters := g.adj_ast(graph, n_attrs))
-            and node_is_vulnerable(iter(parameters))
+            and node_is_vulnerable(graph, iter(parameters))
         ):
             yield n_id
 
