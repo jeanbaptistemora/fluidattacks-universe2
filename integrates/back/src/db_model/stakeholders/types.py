@@ -64,7 +64,7 @@ class Stakeholder(NamedTuple):
     first_name: Optional[str] = None
     is_concurrent_session: bool = False
     is_registered: bool = False
-    last_login_date: Optional[str] = None
+    last_login_date: Optional[datetime] = None
     last_name: Optional[str] = None
     legal_remember: bool = False
     phone: Optional[StakeholderPhone] = None
@@ -85,7 +85,7 @@ class StakeholderMetadataToUpdate(NamedTuple):
     first_name: Optional[str] = None
     is_concurrent_session: Optional[bool] = None
     is_registered: Optional[bool] = None
-    last_login_date: Optional[str] = None
+    last_login_date: Optional[datetime] = None
     last_name: Optional[str] = None
     legal_remember: Optional[bool] = None
     phone: Optional[StakeholderPhone] = None

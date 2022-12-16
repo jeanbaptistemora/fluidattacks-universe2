@@ -382,12 +382,8 @@ async def test_create_user() -> None:
     email: str = "integratesuser2@fluidattacks.com"
     user_info: Stakeholder = await loaders.stakeholder.load(email)
     assert user_info.is_registered
-    assert (
-        datetime_utils.get_datetime_from_iso_str(
-            user_info.last_login_date  # type: ignore
-        )
-        < now
-    )
+    assert user_info.last_login_date
+    assert user_info.last_login_date < now
 
     time.sleep(1)
     await log_stakeholder_in(
@@ -398,10 +394,8 @@ async def test_create_user() -> None:
     )
     new_loader: Dataloaders = get_new_context()
     new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
-    user_last_login_date = datetime_utils.get_datetime_from_iso_str(
-        new_user_info.last_login_date  # type: ignore
-    )
-    assert user_last_login_date > now
+    assert new_user_info.last_login_date
+    assert new_user_info.last_login_date > now
 
 
 def test_format_credential_key() -> None:

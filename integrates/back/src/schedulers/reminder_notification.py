@@ -54,10 +54,7 @@ async def send_reminder_notification() -> None:
         if (
             stakeholder.last_login_date
             and (
-                datetime_utils.get_now()
-                - datetime_utils.get_datetime_from_iso_str(
-                    stakeholder.last_login_date
-                )
+                datetime_utils.get_utc_now() - stakeholder.last_login_date
             ).days
             == INACTIVE_DAYS
             and await orgs_domain.get_stakeholder_role(

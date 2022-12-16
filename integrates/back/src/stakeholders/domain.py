@@ -202,7 +202,7 @@ async def update_legal_remember(email: str, remember: bool) -> None:
 async def update_last_login(email: str) -> None:
     return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
-            last_login_date=datetime_utils.get_iso_date(),
+            last_login_date=datetime_utils.get_utc_now(),
         ),
         email=email,
     )

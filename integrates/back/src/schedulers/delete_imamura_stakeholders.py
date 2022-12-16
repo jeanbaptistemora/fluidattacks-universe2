@@ -38,12 +38,10 @@ async def remove_imamura_stakeholders() -> None:
             stakeholder.last_login_date
             and (
                 datetime_utils.get_plus_delta(
-                    datetime_utils.get_datetime_from_iso_str(
-                        stakeholder.last_login_date
-                    ),
+                    stakeholder.last_login_date,
                     days=60,
                 )
-                < datetime_utils.get_now()
+                < datetime_utils.get_utc_now()
             )
         )
     ]
