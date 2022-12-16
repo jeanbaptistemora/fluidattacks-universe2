@@ -105,10 +105,24 @@ resource "helm_release" "autoscaler" {
 resource "helm_release" "keda_autoscaler" {
   chart      = "keda"
   name       = "keda-autoscaler"
-  namespace  = "kube-system"
+  namespace  = kubernetes_namespace.main["prod_integrates"].metadata[0].name
   repository = "https://kedacore.github.io/charts"
   version    = "2.8"
 
   atomic      = true
   description = "Kubernetes Event Driven Autoscaler"
+  set {
+    name  = "podIdentity.aws.irsa.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "serviceAccount.create"
+    value = "false"
+  }
+
+  set {
+    name  = "serviceAccount.name"
+    value = kubernetes_service_account.main["prod_integrates"].metadata[0].name
+  }
 }
