@@ -4,9 +4,10 @@ import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
 import { Button } from "components/Button";
+import { Checkbox } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikCheckbox, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 
 interface IAddCreditCardModalProps {
   onClose: () => void;
@@ -106,13 +107,11 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
               <Field component={FormikText} name={"cardNumber"} type={"text"} />
             </div>
             <div>
-              <Field
-                component={FormikCheckbox}
+              <Checkbox
                 label={t(
                   "organization.tabs.billing.paymentMethods.add.creditCard.default"
                 )}
                 name={"makeDefault"}
-                type={"checkbox"}
               />
             </div>
             <ModalConfirm

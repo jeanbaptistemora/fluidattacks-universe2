@@ -32,7 +32,7 @@ import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { Input, Label, Select, TextArea } from "components/Input";
+import { Checkbox, Input, Label, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -42,7 +42,6 @@ import { QuestionButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import {
   FormikArrayField,
-  FormikCheckbox,
   FormikDropdown,
   FormikText,
 } from "utils/forms/fields";
@@ -347,14 +346,10 @@ const Repository: FC<IRepositoryProps> = ({
                     />
                   </Col>
                   <Col id={"git-root-add-use-vpn"}>
-                    <Field
-                      component={FormikCheckbox}
-                      label={""}
+                    <Checkbox
+                      label={t("group.scope.git.repo.useVpn")}
                       name={"useVpn"}
-                      type={"checkbox"}
-                    >
-                      {t("group.scope.git.repo.useVpn")}
-                    </Field>
+                    />
                   </Col>
                   {isEditing && values.branch !== initialValues.branch ? (
                     <Alert>{t("group.scope.common.changeWarning")}</Alert>

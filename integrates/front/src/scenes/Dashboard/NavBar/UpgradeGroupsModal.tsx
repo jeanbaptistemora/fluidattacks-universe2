@@ -121,7 +121,7 @@ const UpgradeGroupsModal: FC<IUpgradeGroupsModalProps> = ({
             )}
           </div>
           <ModalConfirm
-            disabled={canUpgrade}
+            disabled={!canUpgrade}
             onCancel={onClose}
             txtConfirm={t("upgrade.upgrade")}
           />

@@ -1,11 +1,11 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
 
 import type { IQueue } from "./types";
 
+import { Checkbox } from "components/Input";
 import { ModalConfirm } from "components/Modal";
 import { FormGroup } from "styles/styledComponents";
-import { FormikCheckbox } from "utils/forms/fields";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 
@@ -85,15 +85,7 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
             <FormGroup>
               <ul className={style.suggestionList}>
                 {rootNicknames.map((root): JSX.Element => {
-                  return (
-                    <Field
-                      component={FormikCheckbox}
-                      key={root}
-                      label={root}
-                      name={root}
-                      type={"checkbox"}
-                    />
-                  );
+                  return <Checkbox key={root} label={root} name={root} />;
                 })}
               </ul>
               <ModalConfirm disabled={isJobSubmitted} onCancel={handleClose} />

@@ -15,7 +15,7 @@ type TCheckboxProps = ICheckboxProps & TFieldProps;
 
 const CheckboxBox = styled.span.attrs({
   className: "",
-})<Pick<ICheckboxProps, "disabled">>`
+})<Pick<ICheckboxProps, "disabled"> & { name: string }>`
   background-color: #e9e9ed;
   border: 1px solid #c7c7d1;
   border-radius: 4px;
@@ -93,10 +93,14 @@ const FormikCheckbox: FC<TCheckboxProps> = ({
       id={id}
       label={
         <Fragment>
-          <CheckboxBox disabled={disabled}>
+          <CheckboxBox
+            aria-checked={checked}
+            aria-label={name}
+            disabled={disabled}
+            name={name}
+            role={"checkbox"}
+          >
             <CheckboxInput
-              aria-checked={checked}
-              aria-label={name}
               checked={checked}
               disabled={disabled}
               id={id}

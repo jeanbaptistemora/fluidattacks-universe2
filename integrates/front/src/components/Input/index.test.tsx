@@ -66,7 +66,7 @@ describe("Input", (): void => {
 
     ["checkbox", "input", "date", "number", "select", "textArea"].forEach(
       (label: string): void => {
-        expect(screen.queryByLabelText(label)).toBeInTheDocument();
+        expect(screen.getAllByLabelText(label)[0]).toBeInTheDocument();
       }
     );
   });

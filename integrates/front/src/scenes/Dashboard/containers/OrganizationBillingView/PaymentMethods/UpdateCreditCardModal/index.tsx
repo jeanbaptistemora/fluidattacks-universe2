@@ -3,9 +3,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
+import { Checkbox } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikCheckbox, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 
 interface IUpdateCreditCardModalProps {
   onClose: () => void;
@@ -92,13 +93,11 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
               />
             </div>
             <div>
-              <Field
-                component={FormikCheckbox}
+              <Checkbox
                 label={t(
                   "organization.tabs.billing.paymentMethods.update.modal.default"
                 )}
                 name={"makeDefault"}
-                type={"checkbox"}
               />
             </div>
             <ModalConfirm

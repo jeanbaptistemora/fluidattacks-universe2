@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 
 import type { IFormValues } from "../../types";
 import { Alert } from "components/Alert";
-import { Label } from "components/Input";
+import { Checkbox, Label } from "components/Input";
 import { Hr, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { Have } from "utils/authz/Have";
-import { FormikCheckbox, FormikRadioGroup } from "utils/forms/fields";
+import { FormikRadioGroup } from "utils/forms/fields";
 
 interface IHealthCheckProps {
   initValues: IFormValues;
@@ -23,7 +23,6 @@ interface IHealthCheckProps {
 const HealthCheck: FC<IHealthCheckProps> = ({
   initValues,
   isEditing,
-  isHealthChecked,
   setHasSquad,
   setIsHealthChecked,
   values,
@@ -59,11 +58,7 @@ const HealthCheck: FC<IHealthCheckProps> = ({
         {t("group.scope.git.healthCheck.title")}
       </Text>
       <fieldset className={"bn"}>
-        <Row
-          id={"git-root-add-health-check"}
-          onMouseMove={setSquad}
-          role={"none"}
-        >
+        <Row id={"git-root-add-health-check"} onMouseMove={setSquad}>
           <div>
             <Label>{t("group.scope.git.healthCheck.confirm")}</Label>
             <Field
@@ -80,59 +75,35 @@ const HealthCheck: FC<IHealthCheckProps> = ({
           </div>
           {values.includesHealthCheck ?? false ? (
             <Alert>
-              <Field
-                component={FormikCheckbox}
-                isChecked={isHealthChecked}
-                label={""}
+              <Checkbox
+                label={t("group.scope.git.healthCheck.accept")}
                 name={"healthCheckConfirm"}
-                type={"checkbox"}
+                required={true}
                 value={"includeA"}
-              >
-                <Label required={true}>
-                  {t("group.scope.git.healthCheck.accept")}
-                </Label>
-              </Field>
+              />
             </Alert>
           ) : undefined}
           {values.includesHealthCheck ?? true ? undefined : (
             <Alert>
               <div>
-                <Field
-                  component={FormikCheckbox}
-                  isChecked={isHealthChecked}
-                  label={""}
+                <Checkbox
+                  label={t("group.scope.git.healthCheck.rejectA")}
                   name={"healthCheckConfirm"}
-                  type={"checkbox"}
+                  required={true}
                   value={"rejectA"}
-                >
-                  <Label required={true}>
-                    {t("group.scope.git.healthCheck.rejectA")}
-                  </Label>
-                </Field>
-                <Field
-                  component={FormikCheckbox}
-                  isChecked={isHealthChecked}
-                  label={""}
+                />
+                <Checkbox
+                  label={t("group.scope.git.healthCheck.rejectB")}
                   name={"healthCheckConfirm"}
-                  type={"checkbox"}
+                  required={true}
                   value={"rejectB"}
-                >
-                  <Label required={true}>
-                    {t("group.scope.git.healthCheck.rejectB")}
-                  </Label>
-                </Field>
-                <Field
-                  component={FormikCheckbox}
-                  isChecked={isHealthChecked}
-                  label={""}
+                />
+                <Checkbox
+                  label={t("group.scope.git.healthCheck.rejectC")}
                   name={"healthCheckConfirm"}
-                  type={"checkbox"}
+                  required={true}
                   value={"rejectC"}
-                >
-                  <Label required={true}>
-                    {t("group.scope.git.healthCheck.rejectC")}
-                  </Label>
-                </Field>
+                />
               </div>
             </Alert>
           )}
