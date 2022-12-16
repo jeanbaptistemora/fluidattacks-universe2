@@ -1,4 +1,12 @@
 import ast
+import boto3
+import botocore
+from botocore import (
+    UNSIGNED,
+)
+from botocore.client import (
+    Config,
+)
 from contextlib import (
     suppress,
 )
@@ -24,6 +32,9 @@ from typing import (
     Dict,
     List,
     Tuple,
+)
+from utils.logs import (
+    log_exception_blocking,
 )
 from zone import (
     t,
@@ -78,6 +89,47 @@ async def admin_policy_attached(
                 ),
             )
 
+    return vulns
+
+
+async def bucket_objects_can_be_listed(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="s3", function="list_buckets"
+    )
+    buckets = response.get("Buckets", []) if response else []
+    s3_client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+    vulns: core_model.Vulnerabilities = ()
+    for bucket in buckets:
+        try:
+            nice = s3_client.list_objects_v2(Bucket=bucket["Name"], MaxKeys=10)
+            if nice:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=("/Name",),
+                            arn=(f"arn:aws:s3:::{bucket['Name']}"),
+                            values=(bucket["Name"],),
+                            description=t(
+                                "src.lib_path.f031."
+                                "iam_group_missing_role_based_security"
+                            ),
+                        )
+                    ],
+                ]
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(core_model.MethodsEnum.AWS_PUBLIC_BUCKETS),
+                        aws_response=bucket,
+                    ),
+                )
+        except botocore.exceptions.ClientError:
+            log_exception_blocking(
+                "exception", botocore.exceptions.ClientError
+            )
     return vulns
 
 
