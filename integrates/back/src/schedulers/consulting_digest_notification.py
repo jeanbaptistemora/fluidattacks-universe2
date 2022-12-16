@@ -368,7 +368,7 @@ async def send_comment_digest() -> None:
                 email_cc=[],
             )
             LOGGER.info(
-                "Comments email sent",
+                "Consulting email sent",
                 extra={"extra": {"email": email}},
             )
         except KeyError:
@@ -377,7 +377,7 @@ async def send_comment_digest() -> None:
                 extra={"extra": {"email": email}},
             )
             continue
-    LOGGER.info("Comments report execution finished.")
+    LOGGER.info("Consulting report execution finished.")
 
 
 async def main() -> None:

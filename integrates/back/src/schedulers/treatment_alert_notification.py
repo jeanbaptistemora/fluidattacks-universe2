@@ -73,7 +73,7 @@ mail_treatment_alert = retry_on_exceptions(
 class ExpiringDataType(TypedDict):
     org_name: str
     email_to: Tuple[str, ...]
-    group_expiring_findings: Dict[str, Dict[str, int]]
+    group_expiring_findings: Dict[str, Dict[str, Dict[str, int]]]
 
 
 def days_to_end(date: str) -> int:
@@ -86,27 +86,29 @@ def days_to_end(date: str) -> int:
 
 async def expiring_vulnerabilities(
     loaders: Dataloaders, finding_id: str
-) -> Dict[str, int]:
+) -> Dict[str, Dict[str, int]]:
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     return {
-        f"{vulnerability.state.where}"
-        + f" ({vulnerability.state.specific})": days_to_end(
-            vulnerability.treatment.accepted_until
-        )
-        for vulnerability in vulnerabilities
-        if vulnerability.treatment
-        and vulnerability.treatment.status
-        == VulnerabilityTreatmentStatus.ACCEPTED
-        and (end_date := vulnerability.treatment.accepted_until)
-        and days_to_end(end_date) in range(7)
+        finding_id: {
+            f"{vulnerability.state.where}"
+            + f" ({vulnerability.state.specific})": days_to_end(
+                vulnerability.treatment.accepted_until
+            )
+            for vulnerability in vulnerabilities
+            if vulnerability.treatment
+            and vulnerability.treatment.status
+            == VulnerabilityTreatmentStatus.ACCEPTED
+            and (end_date := vulnerability.treatment.accepted_until)
+            and days_to_end(end_date) in range(7)
+        }
     }
 
 
 async def findings_close_to_expiring(
     loaders: Dataloaders, group_name: str
-) -> Dict[str, Dict[str, int]]:
+) -> Dict[str, Dict[str, Dict[str, int]]]:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
@@ -121,7 +123,7 @@ async def findings_close_to_expiring(
     return {
         finding_type: data
         for (finding_type, data) in findings_to_expiring.items()
-        if data
+        if list(data.values())[0]
     }
 
 
@@ -201,20 +203,29 @@ async def send_temporal_treatment_report() -> None:
     groups_data = {
         group_name: data
         for (group_name, data) in groups_data.items()
-        if data["email_to"] and data["group_expiring_findings"]
+        if data["email_to"] and data["group_expiring_findings"].values()
     }
+
+    print(f"groups_data:{groups_data}")
 
     for email in unique_emails(dict(groups_data), ()):
         user_content: Dict[str, Any] = {
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],
-                    "group_expiring_findings": data["group_expiring_findings"],
+                    "finding_title": list(
+                        data["group_expiring_findings"].keys()
+                    )[0],
+                    "group_expiring_findings": list(
+                        data["group_expiring_findings"].values()
+                    )[0],
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
             }
         }
+
+        print(f"userContent:{user_content}")
 
         try:
             await mail_treatment_alert(
