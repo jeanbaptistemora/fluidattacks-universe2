@@ -5,11 +5,11 @@
       {% include 'layouts/components/dark_logo_header.html' %}
 
       {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Comments Report') }}
+      {{ banner_group('Consulting Report') }}
       <div class="main-content">
         <p>Hi {{ name }},</p>
-        <p>Below is a brief report of the latest comments in your subscribed
-           groups:
+        <p>Below is a brief report of the latest consulting comments in your
+          subscribed groups:
         </p>
         {% for group_name, group_data in groups_data.items() %}
         <br />
@@ -27,7 +27,7 @@
         <br />
         <p>
           {%- if group_data["group_comments"] -%}
-          <strong>Group Comments:</strong>
+          <strong>Group Consulting:</strong>
           <ul>
             {% for group_comment in group_data["group_comments"] %}
             <li>
@@ -41,7 +41,7 @@
           </ul>
           {% endif %}
           {%- if group_data["event_comments"].keys() %}
-          <strong>Event Comments:</strong>
+          <strong>Event Consulting:</strong>
           <ul>
             {% for event_id, event_data in group_data["event_comments"].items() %}
             <li>
@@ -70,7 +70,7 @@
           </ul>
           {% endif %}
           {%- if group_data["finding_comments"].keys() %}
-          <strong>Finding Comments:</strong>
+          <strong>Finding Consulting:</strong>
           <ul>
             {% for finding_type, finding_data in group_data["finding_comments"].items() %}
             <li>

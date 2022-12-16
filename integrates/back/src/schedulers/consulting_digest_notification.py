@@ -52,7 +52,7 @@ from mailchimp_transactional.api_client import (
     ApiClientError,
 )
 from mailer.groups import (
-    send_mail_comments_digest,
+    send_mail_consulting_digest,
 )
 from mailer.utils import (
     get_organization_name,
@@ -81,11 +81,11 @@ LOGGER = logging.getLogger(__name__)
 MAX_COMMENT_LENGTH = 500
 
 
-mail_comments_digest = retry_on_exceptions(
+mail_consulting_digest = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
     max_attempts=3,
     sleep_seconds=2,
-)(send_mail_comments_digest)
+)(send_mail_consulting_digest)
 
 
 class CommentsDataType(TypedDict):
@@ -361,7 +361,7 @@ async def send_comment_digest() -> None:
         }
 
         try:
-            await mail_comments_digest(
+            await mail_consulting_digest(
                 loaders=loaders,
                 context=user_content,
                 email_to=email,

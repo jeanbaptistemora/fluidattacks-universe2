@@ -996,7 +996,7 @@ async def send_mail_numerator_report(
     )
 
 
-async def send_mail_comments_digest(
+async def send_mail_consulting_digest(
     *,
     loaders: Any,
     context: Dict[str, Any],
@@ -1009,9 +1009,9 @@ async def send_mail_comments_digest(
         email_to=[email_to],
         email_cc=email_cc,
         tags=GENERAL_TAG,
-        subject=f"[ARM] Comments Report [{user_login}]",
+        subject=f"[ARM] Consulting Report [{user_login}]",
         context=context,
-        template_name="comments_digest",
+        template_name="consulting_digest",
     )
 
 

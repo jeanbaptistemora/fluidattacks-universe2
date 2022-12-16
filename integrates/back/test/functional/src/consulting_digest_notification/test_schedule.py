@@ -15,14 +15,14 @@ from unittest import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("comments_digest_notification")
+@pytest.mark.resolver_test_group("consulting_digest_notification")
 @freeze_time("2022-11-25T05:00:00.00")
-async def test_comments_digest_notification(
+async def test_consulting_digest_notification(
     *, populate: bool, mocker: MockerFixture
 ) -> None:
     assert populate
     mail_spy = mocker.spy(
-        consulting_digest_notification, "mail_comments_digest"
+        consulting_digest_notification, "mail_consulting_digest"
     )
     comments_digest_spy = mocker.spy(
         consulting_digest_notification, "digest_comments"
