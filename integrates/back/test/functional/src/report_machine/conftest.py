@@ -588,7 +588,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=0,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-16T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -617,7 +619,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -646,7 +650,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -675,7 +681,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=80,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-16T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -704,7 +712,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -733,7 +743,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -762,7 +774,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -791,7 +805,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 sorts_risk_level=-1,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2020-11-15T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                 ),
             ),
         ),

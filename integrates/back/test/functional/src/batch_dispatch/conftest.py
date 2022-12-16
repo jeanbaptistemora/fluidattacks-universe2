@@ -839,7 +839,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=0,
                 state=ToeLinesState(
                     modified_by="machine@fluidattacks.com",
-                    modified_date="2022-09-05T00:45:11+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-09-05T00:45:11+00:00"
+                    ),
                 ),
             ),
         ),

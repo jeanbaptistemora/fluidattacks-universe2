@@ -18,7 +18,7 @@ class SortsSuggestion(NamedTuple):
 
 class ToeLinesState(NamedTuple):
     modified_by: Optional[str]
-    modified_date: Optional[str]
+    modified_date: Optional[datetime]
 
 
 class ToeLines(NamedTuple):

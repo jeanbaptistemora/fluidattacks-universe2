@@ -70,7 +70,7 @@ async def process_group_lines(
         metadata = ToeLinesMetadataToUpdate(
             state=ToeLinesState(
                 modified_by="machine@fluidattacks.com",
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
             ),
             attacked_lines=new_attacked_lines,
         )

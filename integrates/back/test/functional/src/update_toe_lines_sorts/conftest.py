@@ -148,7 +148,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=0,
                 state=ToeLinesState(
                     modified_by="test@test.com",
-                    modified_date="2020-11-16T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -177,7 +179,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=0,
                 state=ToeLinesState(
                     modified_by="test2@test.com",
-                    modified_date="2020-11-16T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                 ),
             ),
             ToeLines(
@@ -206,7 +210,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 sorts_risk_level=0,
                 state=ToeLinesState(
                     modified_by="test3@test.com",
-                    modified_date="2020-11-16T15:41:04+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                 ),
             ),
         ),

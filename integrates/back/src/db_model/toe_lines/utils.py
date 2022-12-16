@@ -37,6 +37,7 @@ def format_toe_lines_sorts_suggestions(
 
 
 def format_toe_lines(item: Item) -> ToeLines:
+    state_modified_date = item.get("state", {}).get("modified_date")
     return ToeLines(
         attacked_at=datetime.fromisoformat(item["attacked_at"])
         if item["attacked_at"]
@@ -74,7 +75,9 @@ def format_toe_lines(item: Item) -> ToeLines:
         else None,
         state=ToeLinesState(
             modified_by=item.get("state", {}).get("modified_by"),
-            modified_date=item.get("state", {}).get("modified_date"),
+            modified_date=datetime.fromisoformat(state_modified_date)
+            if state_modified_date
+            else None,
         ),
     )
 
@@ -151,6 +154,10 @@ def format_toe_lines_item(
         else None,
         "state": {
             "modified_by": toe_lines.state.modified_by,
-            "modified_date": toe_lines.state.modified_date,
+            "modified_date": db_model_utils.get_as_utc_iso_format(
+                toe_lines.state.modified_date
+            )
+            if toe_lines.state.modified_date
+            else "",
         },
     }

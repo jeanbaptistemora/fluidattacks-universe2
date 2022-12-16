@@ -75,7 +75,7 @@ async def test_add() -> None:
         sorts_risk_level=100,
         state=ToeLinesState(
             modified_by="machine@fluidattacks.com",
-            modified_date="2017-08-01T05:00:00+00:00",
+            modified_date=datetime.fromisoformat("2017-08-01T05:00:00+00:00"),
         ),
     )
 
@@ -132,6 +132,6 @@ async def test_update() -> None:
         sorts_risk_level=50,
         state=ToeLinesState(
             modified_by="hacker2@test.com",
-            modified_date="2020-08-01T05:00:00+00:00",
+            modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         ),
     )

@@ -67,7 +67,7 @@ async def test_get() -> None:
         ],
         state=ToeLinesState(
             modified_by="test2@test.com",
-            modified_date="2020-11-15T15:41:04+00:00",
+            modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         ),
     )
     group_name = "unittesting"
@@ -106,7 +106,7 @@ async def test_get() -> None:
         ],
         state=ToeLinesState(
             modified_by="test2@test.com",
-            modified_date="2020-11-16T15:41:04+00:00",
+            modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
         ),
     )
 
@@ -164,7 +164,9 @@ async def test_get_by_group() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-15T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor=(
@@ -216,7 +218,9 @@ async def test_get_by_group() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-15T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -263,7 +267,9 @@ async def test_get_by_group() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-16T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-16T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -329,7 +335,9 @@ async def test_get_by_root() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-15T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor=(
@@ -381,7 +389,9 @@ async def test_get_by_root() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-15T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -438,7 +448,9 @@ async def test_get_by_root() -> None:
                     ],
                     state=ToeLinesState(
                         modified_by="test2@test.com",
-                        modified_date="2020-11-16T15:41:04+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-16T15:41:04+00:00"
+                        ),
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
