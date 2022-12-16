@@ -38825,7 +38825,7 @@
           "name": "example document",
           "int": 123,
           "notation": -123.123e-2,
-          "unicode": "\u2665",
+          "unicode": "\\u2665",
           "character": "0",
         },
       ]
@@ -38839,7 +38839,7 @@
           "name": "example document",
           "int": 123,
           "notation": -123.123e-2,
-          "unicode": "\u2665",
+          "unicode": "\\u2665",
           "character": "0",
         },
       ]
