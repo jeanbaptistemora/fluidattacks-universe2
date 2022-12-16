@@ -365,45 +365,6 @@ async def test_add_finding_consult_parent_non_zero() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_description() -> None:
-    """Check for updateDescription mutation."""
-    query = """
-        mutation UpdateFindingDescription(
-            $attackVectorDescription: String!,
-            $description: String!,
-            $findingId: String!,
-            $recommendation: String!,
-            $threat: String!,
-            $title: String!,
-        ){
-            updateDescription(
-            attackVectorDescription: $attackVectorDescription,
-            description: $description,
-            findingId: $findingId,
-            recommendation: $recommendation,
-            threat: $threat,
-            title: $title,
-            ) {
-            success
-            }
-        }
-    """
-    variables = {
-        "attackVectorDescription": "This is an updated attack vector",
-        "description": "I just have updated the description",
-        "findingId": "422286126",
-        "recommendation": "Updated recommendation",
-        "threat": "Updated threat",
-        "title": "060. Insecure service configuration - Host verification",
-    }
-    data = {"query": query, "variables": variables}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["updateDescription"]
-    assert result["data"]["updateDescription"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_create_draft() -> None:
     """Check for addDraft mutation."""
     query = """
@@ -443,25 +404,6 @@ async def test_create_draft() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["addDraft"]
     assert result["data"]["addDraft"]["success"]
-
-
-@pytest.mark.changes_db
-async def test_submit_draft() -> None:
-    """Check for submitDraft mutation."""
-    query = """
-      mutation {
-        submitDraft(findingId: "475041535") {
-          success
-        }
-      }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" in result
-    expected_error = (
-        "Exception - This draft has missing fields: vulnerabilities"
-    )
-    assert result["errors"][0]["message"] == expected_error
 
 
 @pytest.mark.changes_db
