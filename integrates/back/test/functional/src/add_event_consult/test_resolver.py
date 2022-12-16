@@ -33,4 +33,5 @@ async def test_add_event_consult(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert "success" in result["data"]["addEventConsult"]
+    assert "commentId" in result["data"]["addEventConsult"]
     assert result["data"]["addEventConsult"]

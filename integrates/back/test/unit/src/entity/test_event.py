@@ -13,12 +13,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.vulnerabilities.enums import (
-    VulnerabilityVerificationStatus,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -30,9 +24,7 @@ from starlette.datastructures import (
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
-    Tuple,
 )
 
 pytestmark = pytest.mark.asyncio
@@ -65,53 +57,6 @@ async def test_events() -> None:
     assert "events" in result["data"]
     assert result["data"]["events"][0]["groupName"] == "unittesting"
     assert len(result["data"]["events"][0]["detail"]) >= 1
-
-
-@pytest.mark.changes_db
-async def test_solve_event() -> None:
-    """Check for solveEvent mutation."""
-    loaders: Dataloaders = get_new_context()
-    # The event with this ID starts with a couple of reattacks on hold
-    reattacks_on_hold: Tuple[
-        Vulnerability, ...
-    ] = await loaders.event_vulnerabilities_loader.load("418900971")
-    for reattack in reattacks_on_hold:
-        assert (
-            reattack.verification.status  # type: ignore
-            == VulnerabilityVerificationStatus.ON_HOLD
-        )
-
-    query = """
-        mutation {
-            solveEvent(
-                eventId: "418900971"
-                reason: OTHER
-                other: "Test"
-            ) {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    if "errors" not in result:
-        assert "errors" not in result
-        assert "success" in result["data"]["solveEvent"]
-        # Solving an Event puts any reattack on hold back to requested
-        reattacks_requested: List[Vulnerability] = [
-            await loaders.vulnerability.load(reattack.id)
-            for reattack in reattacks_on_hold
-        ]
-        for reattack in reattacks_requested:
-            assert (
-                reattack.verification.status  # type: ignore
-                == VulnerabilityVerificationStatus.REQUESTED
-            )
-    else:
-        assert (
-            "The event has already been closed"
-            in result["errors"][0]["message"]
-        )
 
 
 @pytest.mark.changes_db
