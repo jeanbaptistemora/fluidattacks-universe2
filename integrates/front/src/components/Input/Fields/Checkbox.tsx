@@ -6,7 +6,6 @@ import type { ICheckboxProps } from "../Formik/FormikCheckbox";
 import { FormikCheckbox } from "../Formik/FormikCheckbox";
 
 const Checkbox: FC<ICheckboxProps> = ({
-  checked,
   disabled,
   id,
   label,
@@ -20,7 +19,6 @@ const Checkbox: FC<ICheckboxProps> = ({
   value,
 }: Readonly<ICheckboxProps>): JSX.Element => (
   <Field
-    checked={checked}
     component={FormikCheckbox}
     disabled={disabled}
     id={id}

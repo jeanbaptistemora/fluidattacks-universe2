@@ -1,17 +1,16 @@
-import { Collapse } from "antd";
 import { ErrorMessage } from "formik";
 import React from "react";
 
 import type { IAffectedAccordionProps, IFinding } from "./types";
 import { VulnerabilitiesToReattackTable } from "./VulnerabilitiesToReattackTable";
 
+import { Accordion } from "components/Accordion";
 import { ValidationError } from "utils/forms/fields/styles";
 
 export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
   props: IAffectedAccordionProps
 ): JSX.Element => {
   const { findings } = props;
-  const { Panel } = Collapse;
 
   const panelOptions = findings.map((finding: IFinding): JSX.Element => {
     if (finding.verified) {
@@ -19,18 +18,18 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
     }
 
     return (
-      <Panel header={finding.title} key={finding.id}>
+      <Accordion header={finding.title} initCollapsed={true} key={finding.id}>
         <VulnerabilitiesToReattackTable finding={finding} />
         <ValidationError>
           <ErrorMessage name={"affectedReattacks"} />
         </ValidationError>
-      </Panel>
+      </Accordion>
     );
   });
 
   return (
     <React.StrictMode>
-      <Collapse ghost={true}>{panelOptions}</Collapse>
+      <div>{panelOptions}</div>
     </React.StrictMode>
   );
 };

@@ -17,18 +17,14 @@ import type { TestContext } from "yup";
 import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
+import { Checkbox } from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import {
-  FormikCheckbox,
-  FormikDate,
-  FormikDropdown,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikDate, FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -582,8 +578,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 "NEW",
                               ].map(
                                 (treatment): JSX.Element => (
-                                  <Field
-                                    component={FormikCheckbox}
+                                  <Checkbox
                                     disabled={!_.isEmpty(values.closingDate)}
                                     key={treatment}
                                     label={t(
@@ -592,7 +587,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                       )}`
                                     )}
                                     name={"treatments"}
-                                    type={"checkbox"}
                                     value={treatment}
                                   />
                                 )
@@ -609,14 +603,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               <React.Fragment>
                                 {["REQUESTED", "ON_HOLD", "VERIFIED"].map(
                                   (verification): JSX.Element => (
-                                    <Field
-                                      component={FormikCheckbox}
+                                    <Checkbox
                                       key={verification}
                                       label={t(
                                         `group.findings.report.reattack.${verification.toLowerCase()}`
                                       )}
                                       name={"verifications"}
-                                      type={"checkbox"}
                                       value={verification}
                                     />
                                   )
@@ -626,14 +618,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               <React.Fragment>
                                 {["VERIFIED"].map(
                                   (verification): JSX.Element => (
-                                    <Field
-                                      component={FormikCheckbox}
+                                    <Checkbox
                                       key={verification}
                                       label={t(
                                         `group.findings.report.reattack.${verification.toLowerCase()}`
                                       )}
                                       name={"verifications"}
-                                      type={"checkbox"}
                                       value={verification}
                                     />
                                   )
@@ -651,14 +641,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               <React.Fragment>
                                 {["CLOSED", "OPEN"].map(
                                   (state): JSX.Element => (
-                                    <Field
-                                      component={FormikCheckbox}
+                                    <Checkbox
                                       key={state}
                                       label={t(
                                         `searchFindings.tabVuln.${state.toLowerCase()}`
                                       )}
                                       name={"states"}
-                                      type={"checkbox"}
                                       value={state}
                                     />
                                   )
@@ -668,14 +656,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               <React.Fragment>
                                 {["CLOSED"].map(
                                   (state): JSX.Element => (
-                                    <Field
-                                      component={FormikCheckbox}
+                                    <Checkbox
                                       key={state}
                                       label={t(
                                         `searchFindings.tabVuln.${state.toLowerCase()}`
                                       )}
                                       name={"states"}
-                                      type={"checkbox"}
                                       value={state}
                                     />
                                   )

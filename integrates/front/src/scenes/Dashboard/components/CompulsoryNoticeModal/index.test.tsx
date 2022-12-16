@@ -23,7 +23,7 @@ describe("Compulsory notice modal", (): void => {
 
     render(<CompulsoryNotice onAccept={jest.fn()} open={true} />);
 
-    expect(screen.getAllByRole("checkbox")).toHaveLength(1);
+    expect(screen.getAllByRole("checkbox", { hidden: true })).toHaveLength(1);
   });
 
   it("should submit", async (): Promise<void> => {

@@ -65,7 +65,7 @@ const Accordion: React.FC<IAccordionProps> = ({
         scroll={scroll}
         width={width}
       >
-        {children}
+        {collapsed ? undefined : children}
       </Container>
     </AccordionContainer>
   );

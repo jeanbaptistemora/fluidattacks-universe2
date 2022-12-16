@@ -160,7 +160,6 @@ Default.args = {
 
 const Checkbox = StoryCheckbox.bind({});
 Checkbox.args = {
-  checked: true,
   label: "Example label",
   required: true,
   tooltip: "Example tooltip",

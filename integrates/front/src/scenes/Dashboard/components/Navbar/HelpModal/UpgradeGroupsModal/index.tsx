@@ -1,6 +1,6 @@
 import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
@@ -10,6 +10,7 @@ import { array, object } from "yup";
 import { REQUEST_GROUPS_UPGRADE_MUTATION } from "./queries";
 
 import { ExternalLink } from "components/ExternalLink";
+import { Checkbox } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import type {
@@ -17,7 +18,6 @@ import type {
   IOrganizationGroups,
 } from "scenes/Dashboard/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikCheckbox } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
 
@@ -107,12 +107,10 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
                 <br />
                 {upgradableGroups.map(
                   (groupName): JSX.Element => (
-                    <Field
-                      component={FormikCheckbox}
+                    <Checkbox
                       key={groupName}
                       label={_.capitalize(groupName)}
                       name={"groupNames"}
-                      type={"checkbox"}
                       value={groupName}
                     />
                   )

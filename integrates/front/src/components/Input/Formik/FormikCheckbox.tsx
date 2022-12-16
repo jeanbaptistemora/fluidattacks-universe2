@@ -8,8 +8,7 @@ import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase, useHandlers } from "../InputBase";
 
 interface ICheckboxProps extends IInputBase<HTMLInputElement> {
-  checked?: boolean;
-  value: string;
+  value?: string;
 }
 
 type TCheckboxProps = ICheckboxProps & TFieldProps;
@@ -61,11 +60,20 @@ const CheckboxInput = styled.input.attrs({
   }
 `;
 
+// Id must be unique for checkbox groups to work properly
+const getDefaultId = (name: string, value: unknown): string => {
+  if (typeof value === "boolean") {
+    return name;
+  }
+
+  return [name, value].join("-");
+};
+
 const FormikCheckbox: FC<TCheckboxProps> = ({
   disabled,
   field: { checked, name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
-  id = name,
+  id = getDefaultId(name, value),
   label,
   onBlur,
   onChange,
@@ -87,6 +95,7 @@ const FormikCheckbox: FC<TCheckboxProps> = ({
         <Fragment>
           <CheckboxBox disabled={disabled}>
             <CheckboxInput
+              aria-checked={checked}
               aria-label={name}
               checked={checked}
               disabled={disabled}
