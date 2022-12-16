@@ -51,6 +51,7 @@ async def test_add_event(
         group=group_name,
     )
     assert "errors" not in result
+    assert "success" in result["data"]["addEvent"]
     assert result["data"]["addEvent"]
 
     loaders = get_new_context()

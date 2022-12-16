@@ -52,35 +52,6 @@ async def _get_result(
     return result
 
 
-async def test_event() -> None:
-    """Check for event."""
-    query = """{
-        event(identifier: "418900971"){
-            client
-            evidence
-            groupName
-            eventType
-            detail
-            eventDate
-            eventStatus
-            historicState
-            subscription
-            evidenceFile
-            closingDate
-            consulting {
-                content
-            }
-            __typename
-        }
-    }"""
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "event" in result["data"]
-    assert result["data"]["event"]["groupName"] == "unittesting"
-    assert result["data"]["event"]["detail"] == "Integrates unit test"
-
-
 async def test_events() -> None:
     """Check for events."""
     query = """{
@@ -94,27 +65,6 @@ async def test_events() -> None:
     assert "events" in result["data"]
     assert result["data"]["events"][0]["groupName"] == "unittesting"
     assert len(result["data"]["events"][0]["detail"]) >= 1
-
-
-@pytest.mark.changes_db
-async def test_create_event() -> None:
-    """Check for addEvent mutation."""
-    query = """
-        mutation {
-            addEvent(groupName: "unittesting",
-                        detail: "Test",
-                        eventDate: "2020-02-01T00:00:00Z",
-                        eventType: MISSING_SUPPLIES
-                        rootId: "4039d098-ffc5-4984-8ed3-eb17bca98e19"
-            ) {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addEvent"]
 
 
 @pytest.mark.changes_db
