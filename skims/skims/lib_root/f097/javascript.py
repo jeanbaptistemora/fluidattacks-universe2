@@ -17,15 +17,13 @@ from sast.query import (
 )
 from typing import (
     Iterable,
-    Set,
 )
 from utils import (
     graph as g,
 )
 
 
-def get_dangerous_nodes(graph: Graph) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+def get_suspicious_nodes(graph: Graph) -> Iterable[NId]:
     for n_id in g.filter_nodes(
         graph,
         graph.nodes,
@@ -33,8 +31,23 @@ def get_dangerous_nodes(graph: Graph) -> Set[NId]:
             label_type="MethodInvocation", expression="window.open"
         ),
     ):
-        vuln_nodes.add(n_id)
-    return vuln_nodes
+        yield n_id
+
+
+def node_is_vulnerable(params: Iterable[NId]) -> bool:
+    # PlaceHolder. This function will be in charge of evaluate each parameter.
+    if params:
+        return True
+    return False
+
+
+def get_vulns_n_ids(graph: Graph) -> Iterable[NId]:
+    for n_id in get_suspicious_nodes(graph):
+        if (n_attrs := g.match_ast_d(graph, n_id, "ArgumentList")) and (
+            (parameters := g.adj_ast(graph, n_attrs))
+            and node_is_vulnerable(iter(parameters))
+        ):
+            yield n_id
 
 
 def has_reverse_tabnabbing(
@@ -50,7 +63,7 @@ def has_reverse_tabnabbing(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in get_dangerous_nodes(graph):
+            for n_id in get_vulns_n_ids(graph):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
