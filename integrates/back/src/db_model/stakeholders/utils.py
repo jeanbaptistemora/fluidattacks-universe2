@@ -144,7 +144,9 @@ def format_stakeholder(item: Item) -> Stakeholder:
         legal_remember=item.get("legal_remember", False),
         phone=format_phone(item["phone"]) if item.get("phone") else None,
         state=format_state(item.get("state")),
-        registration_date=item.get("registration_date"),
+        registration_date=datetime.fromisoformat(item["registration_date"])
+        if item.get("registration_date")
+        else None,
         role=item.get("role"),
         session_key=item.get("session_key"),
         session_token=format_session_token(item["session_token"])

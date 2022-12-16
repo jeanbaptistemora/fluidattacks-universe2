@@ -187,9 +187,7 @@ async def complete_register(
                     first_name=first_name,
                     last_login_date=today,
                     last_name=last_name,
-                    registration_date=datetime_utils.get_as_utc_iso_format(
-                        today
-                    ),
+                    registration_date=today,
                 ),
             ),
             stakeholders_model.update_state(

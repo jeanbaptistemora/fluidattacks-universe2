@@ -54,10 +54,8 @@ async def send_abandoned_trial_notification() -> None:
             and stakeholder.registration_date
             and (
                 delta_hours := (
-                    datetime_utils.get_now()
-                    - datetime_utils.get_datetime_from_iso_str(
-                        stakeholder.registration_date
-                    )
+                    datetime_utils.get_utc_now()
+                    - stakeholder.registration_date
                 ).total_seconds()
                 // 3600
             )

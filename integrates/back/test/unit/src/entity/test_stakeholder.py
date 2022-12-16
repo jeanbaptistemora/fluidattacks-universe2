@@ -19,7 +19,7 @@ async def test_get_stakeholder() -> None:
         "email": "continuoushacking@gmail.com",
         "role": "user_manager",
         "responsibility": "Test",
-        "first_login": "2018-02-28 11:54:12",
+        "first_login": "2018-02-28T16:54:12+00:00",
         "last_login": "[186, 33677]",
         "groups": [
             {"name": "asgard"},

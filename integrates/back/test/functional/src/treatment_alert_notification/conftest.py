@@ -142,7 +142,9 @@ async def populate() -> bool:
                 first_name="John",
                 is_registered=True,
                 last_name="Doe",
-                registration_date="2022-10-21T15:50:31.280182",
+                registration_date=datetime.fromisoformat(
+                    "2022-10-21T15:50:31.280182"
+                ),
                 state=StakeholderState(
                     modified_by="unknown",
                     modified_date=datetime.fromisoformat(

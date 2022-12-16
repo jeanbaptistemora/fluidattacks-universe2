@@ -4,8 +4,8 @@ from db_model.stakeholders.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.datetime import (
-    convert_from_iso_str,
+from newutils import (
+    datetime as datetime_utils,
 )
 from typing import (
     Optional,
@@ -18,7 +18,7 @@ async def resolve(
     **_kwargs: None,
 ) -> Optional[str]:
     return (
-        convert_from_iso_str(parent.registration_date)
+        datetime_utils.get_as_utc_iso_format(parent.registration_date)
         if parent.registration_date
         else None
     )
