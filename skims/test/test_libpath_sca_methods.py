@@ -247,16 +247,18 @@ def test_maven_pom_xml() -> None:
         file_contents, path
     )
     assertion: bool = True
-    pkg_ver = (
-        "junit.version",
-        "spring.version",
-        "mockito.version",
-        "slf4j.version",
-        "apache.camel.version",
-    )
+    pkg_versions = {
+        "junit.version": "4.12",
+        "spring.version": "4.2.2.RELEASE",
+        "mockito.version": "2.0.31-beta",
+        "slf4j.version": "1.7.12",
+        "apache.camel.version": "2.6.0",
+    }
     for line_num, line in enumerate(file_contents.splitlines(), 1):
         if matched := re.search(pom_xml_ver, line):
-            version: str = matched.group("version")
+            version: str = pkg_versions.get(
+                matched.group("version"), matched.group("version")
+            )
 
             try:
                 next_dep = next(generator_dep)
@@ -264,9 +266,7 @@ def test_maven_pom_xml() -> None:
             except StopIteration:
                 assertion = not assertion
                 break
-            equal_props: bool = (
-                version == item or version in pkg_ver
-            ) and line_num == line_d
+            equal_props: bool = version == item and line_num == line_d
             if not equal_props:
                 assertion = not assertion
                 break
