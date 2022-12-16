@@ -252,7 +252,7 @@ export const SignUp: React.FC = (): JSX.Element => {
             display={"flex"}
             justify={"center"}
             pt={"100px"}
-            ptMd={"32px"}
+            ptMd={"10px"}
             width={"403px"}
             wrap={"wrap"}
           >
@@ -373,7 +373,9 @@ export const SignUp: React.FC = (): JSX.Element => {
             align={"center"}
             display={"flex"}
             pb={"63px"}
+            pbMd={"15px"}
             pt={"32px"}
+            ptMd={"10px"}
             wrap={"wrap"}
           >
             <Container width={"190px"}>
