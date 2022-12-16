@@ -270,6 +270,7 @@ def _analyze_one_path(  # noqa: MC0001
     unique_nv_paths: Set[str],
     unique_paths_count: int,
 ) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
+    wait_until_memory_usage(90)
     content = get_file_content_block(path)
     return analyze_one_path(
         index=index,
@@ -286,7 +287,13 @@ def _handle_result(
     result: Tuple[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     stores[result[0]].store(result[1])
-    wait_until_memory_usage(90)
+
+
+def _handle_exception(
+    exception: Exception, _observable: reactivex.Observable
+) -> reactivex.Observable:
+    log_blocking("exception", exception)  # type: ignore
+    return reactivex.of(None)
 
 
 def analyze(
@@ -313,13 +320,15 @@ def analyze(
                         unique_nv_paths=set(paths.nv_paths),
                         unique_paths_count=unique_paths_count,
                     )
-                )
+                ).pipe(ops.catch(_handle_exception))
             ),
             ops.flat_map(
                 lambda res: reactivex.of(  # type: ignore
                     *[
                         (finding, vuln)
-                        for finding, vulns_list in res.items()  # type: ignore
+                        for finding, vulns_list in (
+                            res.items() if res else []  # type: ignore
+                        )
                         for vulns in vulns_list
                         for vuln in vulns
                     ]

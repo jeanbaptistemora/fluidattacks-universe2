@@ -23,6 +23,8 @@ SOLVERS: Dict[str, Solver] = {
 
 
 def generic(args: SolverArgs) -> Optional[NId]:
+    if args.n_id not in args.graph.nodes:
+        return None
     node_type = args.graph.nodes[args.n_id]["label_type"]
     if solver := SOLVERS.get(node_type):
         return solver(args)

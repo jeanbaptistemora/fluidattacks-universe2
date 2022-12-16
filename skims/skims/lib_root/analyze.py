@@ -92,6 +92,7 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
+    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -164,7 +165,21 @@ def _handle_result(
     result: Vulnerability,
 ) -> None:
     stores[result.finding].store(result)
+
+
+def _handle_exception(
+    exception: Exception, _observable: reactivex.Observable
+) -> reactivex.Observable:
+    log_blocking("exception", exception)  # type: ignore
+    return reactivex.of(None)
+
+
+def _get_graph_db(
+    paths: Tuple[str, ...], total_files: int, index: int
+) -> graph_model.GraphDB:
     wait_until_memory_usage(90)
+    log_blocking("info", "Processing shard %s/%s", index, total_files)
+    return get_graph_db(paths)
 
 
 def analyze(
@@ -177,6 +192,7 @@ def analyze(
         for finding, query in QUERIES
         if finding in CTX.config.checks
     )
+    total_paths = len(paths.ok_paths)
     context_stack = ExitStack()
     context_stack_1 = ExitStack()
     executor = context_stack.enter_context(
@@ -187,26 +203,40 @@ def analyze(
     )
     reactivex.from_iterable(paths.ok_paths).pipe(
         ops.map(lambda path: (path,)),  # type: ignore
-        ops.flat_map(
-            lambda paths: reactivex.from_future(  # type: ignore
-                executor.submit(get_graph_db, paths)  # type: ignore
+        ops.flat_map_indexed(
+            lambda paths, index: reactivex.from_future(  # type: ignore
+                executor.submit(  # type: ignore
+                    _get_graph_db,
+                    paths,
+                    total_paths,
+                    index,
+                )
+            ).pipe(
+                ops.catch(_handle_exception),  # type: ignore
             )
         ),
         ops.flat_map(
             lambda graph: reactivex.from_iterable(  # type: ignore
-                (query, graph) for _, query in queries
+                (
+                    (query, graph)
+                    for _, query in (queries if graph else [])  # type: ignore
+                )
             )
         ),
         ops.flat_map(
             lambda item: reactivex.from_future(  # type: ignore
                 executor_1.submit(item[0], None, item[1])  # type: ignore
+            ).pipe(
+                ops.timeout(60),
+                ops.catch(_handle_exception),  # type: ignore
             )
         ),
         ops.flat_map(
             lambda results: reactivex.from_iterable(  # type: ignore
-                result for result in results  # type: ignore
+                result for result in results or []  # type: ignore
             )
         ),
+        ops.catch(_handle_exception),
     ).subscribe(
         on_next=partial(_handle_result, stores),
         on_error=lambda e: log_blocking("exception", e),

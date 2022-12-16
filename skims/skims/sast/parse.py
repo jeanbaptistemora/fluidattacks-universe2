@@ -434,7 +434,6 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
         if language != GraphShardMetadataLanguage.NOT_SUPPORTED
     ]
 
-    log_blocking("info", "Total shards: %s", len(paths_and_languages))
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         files_content = dict(
             executor.map(_get_content, [x[0] for x in paths_and_languages])
