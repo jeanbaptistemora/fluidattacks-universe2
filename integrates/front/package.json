@@ -28,7 +28,6 @@
     "@types/react-loading-overlay": "1.0.1",
     "@uiw/react-md-editor": "3.11.3",
     "announcekit-react": "3.1.1",
-    "antd": "4.19.5",
     "apollo-upload-client": "16.0.0",
     "buffer": "6.0.3",
     "crypto-browserify": "3.12.0",
