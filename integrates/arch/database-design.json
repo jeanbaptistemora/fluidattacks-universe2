@@ -24227,11 +24227,38 @@
               },
               "state": {
                 "M": {
+                  "attacked_at": {
+                    "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "be_present_until": {
+                    "S": ""
+                  },
+                  "first_attack_at": {
+                    "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
                   "modified_by": {
                     "S": "test2@test.com"
                   },
                   "modified_date": {
                     "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "seen_at": {
+                    "S": "2020-01-11T05:00:00+00:00"
+                  },
+                  "seen_first_time_by": {
+                    "S": "test2@test.com"
+                  },
+                  "unreliable_root_id": {
+                    "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
                   }
                 }
               }
@@ -24287,11 +24314,38 @@
               },
               "state": {
                 "M": {
+                  "attacked_at": {
+                    "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test2@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "be_present_until": {
+                    "S": ""
+                  },
+                  "first_attack_at": {
+                    "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
                   "modified_by": {
                     "S": "test2@test.com"
                   },
                   "modified_date": {
                     "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "seen_at": {
+                    "S": "2020-01-11T05:00:00+00:00"
+                  },
+                  "seen_first_time_by": {
+                    "S": "test2@test.com"
+                  },
+                  "unreliable_root_id": {
+                    "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
                   }
                 }
               }
@@ -24347,11 +24401,38 @@
               },
               "state": {
                 "M": {
+                  "attacked_at": {
+                    "S": "2020-01-02T05:00:00+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": true
+                  },
+                  "be_present_until": {
+                    "S": ""
+                  },
+                  "first_attack_at": {
+                    "S": "2020-01-02T05:00:00+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
                   "modified_by": {
                     "S": "test2@test.com"
                   },
                   "modified_date": {
                     "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "seen_at": {
+                    "S": "2000-01-01T05:00:00+00:00"
+                  },
+                  "seen_first_time_by": {
+                    "S": ""
+                  },
+                  "unreliable_root_id": {
+                    "S": ""
                   }
                 }
               }
@@ -24407,11 +24488,38 @@
               },
               "state": {
                 "M": {
+                  "attacked_at": {
+                    "S": "2021-02-02T05:00:00+00:00"
+                  },
+                  "attacked_by": {
+                    "S": "test@test.com"
+                  },
+                  "be_present": {
+                    "BOOL": false
+                  },
+                  "be_present_until": {
+                    "S": "2021-03-20T15:41:04+00:00"
+                  },
+                  "first_attack_at": {
+                    "S": "2021-01-02T05:00:00+00:00"
+                  },
+                  "has_vulnerabilities": {
+                    "BOOL": false
+                  },
                   "modified_by": {
                     "S": "test2@test.com"
                   },
                   "modified_date": {
                     "S": "2021-02-11T05:00:00+00:00"
+                  },
+                  "seen_at": {
+                    "S": "2020-03-14T05:00:00+00:00"
+                  },
+                  "seen_first_time_by": {
+                    "S": "test@test.com"
+                  },
+                  "unreliable_root_id": {
+                    "S": ""
                   }
                 }
               }
