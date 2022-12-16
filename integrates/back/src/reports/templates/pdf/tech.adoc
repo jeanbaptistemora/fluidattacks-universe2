@@ -58,12 +58,11 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 |===
 
 ==== {{root_ip_title}}
-[cols="42%,13%,33%,12%"]
+[cols="40%,40%,20%"]
 |===
-|{{root_address}} |{{port}} |{{root_nickname}} |{{root_state}}
+|{{root_address}} |{{root_nickname}} |{{root_state}}
 {% for root in ip_root %}
     {{"| "+root.address|string}}
-    {{"| "+root.port|string}}
     {{"| "+root.nickname|string}}
     {{"| "+(root.status|string).capitalize()}}
 {%- endfor %}
