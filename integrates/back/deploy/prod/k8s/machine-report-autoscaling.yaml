@@ -16,6 +16,6 @@ spec:
       metadata:
         awsRegion: us-east-1
         identityOwner: operator
-        queueLength: "50"
+        queueLength: "20"
         queueURL: https://sqs.us-east-1.amazonaws.com/205810638802/celery
         scaleOnInFlight: "false"
