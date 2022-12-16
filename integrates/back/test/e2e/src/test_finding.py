@@ -2,6 +2,7 @@
 from model import (
     Credentials,
 )
+import pytest
 from selenium.webdriver.common.by import (
     By,
 )
@@ -88,6 +89,7 @@ def test_finding_description(
     )
 
 
+@pytest.mark.skip(reason="flaky")
 def test_finding_comments(
     driver: WebDriver,
     credentials: Credentials,

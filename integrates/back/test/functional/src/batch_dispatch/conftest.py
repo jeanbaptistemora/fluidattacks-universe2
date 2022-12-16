@@ -787,6 +787,19 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                 ),
+                "historic_state": [
+                    VulnerabilityState(
+                        commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
+                        modified_by="machine@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
+                        source=Source.MACHINE,
+                        specific="5",
+                        status=VulnerabilityStateStatus.OPEN,
+                        where="README.md",
+                    )
+                ],
             },
             {
                 "vulnerability": Vulnerability(
@@ -826,6 +839,19 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                 ),
+                "historic_state": [
+                    VulnerabilityState(
+                        commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
+                        modified_by="machine@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
+                        source=Source.MACHINE,
+                        specific="3",
+                        status=VulnerabilityStateStatus.OPEN,
+                        where="README.md",
+                    )
+                ],
             },
         ],
         "toe_lines": (

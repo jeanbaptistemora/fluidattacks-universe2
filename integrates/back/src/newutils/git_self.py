@@ -456,6 +456,10 @@ def rebase(
         path,
     )
     revs: list[str] = [rev_a] + revs_str.splitlines()
+    if len(revs) < 2:
+        return None
+
+    revs = [revs[0], revs[-1]]
 
     # Let's rebase one commit at a time,
     # this way we reduce the probability of conflicts

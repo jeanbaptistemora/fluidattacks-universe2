@@ -41,6 +41,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from git.cmd import (
     Git,
@@ -56,6 +57,9 @@ import logging
 import logging.config
 from newutils import (
     git_self as git_utils,
+)
+from newutils.vulnerabilities import (
+    ignore_advisories,
 )
 import os
 from roots import (
@@ -110,19 +114,20 @@ async def _get_vulnerabilities_to_rebase(
 
 
 def _rebase_vulnerability(
-    repo: Repo, vulnerability: Vulnerability
+    repo: Repo,
+    vulnerability: Vulnerability,
+    states: Tuple[VulnerabilityState, ...],
 ) -> Optional[git_utils.RebaseResult]:
     try:
         if (
-            vulnerability.state.commit
-            and vulnerability.state.commit
-            != "0000000000000000000000000000000000000000"
+            states[0].commit
+            and states[0].commit != "0000000000000000000000000000000000000000"
             and (
                 result := git_utils.rebase(
                     repo,
-                    path=vulnerability.state.where,
-                    line=int(vulnerability.state.specific),
-                    rev_a=vulnerability.state.commit,
+                    path=ignore_advisories(states[0].where),
+                    line=int(states[0].specific),
+                    rev_a=states[0].commit,
                     rev_b="HEAD",
                 )
             )
@@ -181,13 +186,21 @@ async def rebase_root(
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
+    vulns_states: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
             tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
         ] = tuple(
             executor.map(
-                lambda vuln: (_rebase_vulnerability(repo, vuln), vuln),
-                vulnerabilities,
+                lambda vuln: (
+                    _rebase_vulnerability(repo, vuln[0], vuln[1]),
+                    vuln[0],
+                ),
+                zip(vulnerabilities, vulns_states),
             )
         )
     await collect(
