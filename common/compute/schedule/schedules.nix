@@ -1595,8 +1595,8 @@
     size = "sorts_nano";
     awsRole = "prod_sorts";
     attempts = 3;
-    timeout = 86400;
-    parallel = 15;
+    timeout = 129600;
+    parallel = 20;
 
     environment = [
       "CACHIX_AUTH_TOKEN"
