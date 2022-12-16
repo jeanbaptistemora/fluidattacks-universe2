@@ -1,5 +1,4 @@
 export { FormikArrayField } from "utils/forms/fields/ArrayField/FormikArrayField";
-export { FormikCheckbox } from "utils/forms/fields/Checkbox";
 export { EditableField } from "utils/forms/fields/EditableField";
 export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { FormikDateTime } from "utils/forms/fields/DateTime/FormikDateTime";
