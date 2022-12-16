@@ -27,6 +27,8 @@ async def test_admin(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
     result: dict[str, Any] = await get_result(user=email, event=event_id)
+    assert "errors" not in result
+    assert "success" in result["data"]["updateEventEvidence"]
     assert result["data"]["updateEventEvidence"]["success"]
 
     loaders: Dataloaders = get_new_context()
@@ -45,7 +47,7 @@ async def test_admin(populate: bool, email: str) -> None:
     [
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
-        ["vulnerability_manager@gmail.com"],
+        ["vulnerability_manager@fluidattacks.com"],
     ],
 )
 async def test_access_denied(populate: bool, email: str) -> None:

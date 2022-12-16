@@ -28,6 +28,8 @@ async def test_remove_event_evidence(
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(user=email, event=event_id)
+    assert "errors" not in result
+    assert "success" in result["data"]["removeEventEvidence"]
     assert result["data"]["removeEventEvidence"]["success"]
 
     loaders: Dataloaders = get_new_context()
