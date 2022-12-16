@@ -48,8 +48,8 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   );
 };
 
-const gitModalSchema = (
-  // NOSONAR
+// eslint-disable-next-line
+const gitModalSchema = ( // NOSONAR
   isEditing: boolean,
   credExists: boolean,
   hasSquad: boolean,

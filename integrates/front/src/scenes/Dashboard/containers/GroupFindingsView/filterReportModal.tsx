@@ -100,6 +100,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     },
   });
 
+  // eslint-disable-next-line
   const handleRequestGroupReport = useCallback(
     // NOSONAR
     (
