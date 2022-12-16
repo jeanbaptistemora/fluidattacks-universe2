@@ -12,8 +12,14 @@ from db_model.enums import (
     Source,
 )
 from db_model.stakeholders.types import (
+    NotificationsParameters,
+    NotificationsPreferences,
+    Stakeholder,
     StakeholderMetadataToUpdate,
+    StakeholderPhone,
     StakeholderSessionToken,
+    StakeholderState,
+    StakeholderTours,
     StateSessionType,
 )
 from db_model.vulnerabilities.enums import (
@@ -58,6 +64,7 @@ mocked_paths: Dict[str, str] = {
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
+    "loaders.stakeholder.load": "db_model.stakeholders.get",
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -237,6 +244,85 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
             )
         )
+    },
+    "db_model.stakeholders.get": {
+        '["continuoushacking@gmail.com", "hacker"]': Stakeholder(
+            email="continuoushacking@gmail.com",
+            access_token=None,
+            first_name="Jhon",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Hackeroy",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3004005006",
+            ),
+            role="hacker",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="continuoushacking@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ],
+                    sms=[],
+                    parameters=NotificationsParameters(
+                        min_severity=Decimal("7.0")
+                    ),
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["integrateshacker@fluidattacks.com", "hacker"]': Stakeholder(
+            email="integrateshacker@fluidattacks.com",
+            access_token=None,
+            first_name="Ismael",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Rivera",
+            legal_remember=False,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3004005006",
+            ),
+            role="hacker",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="integrateshacker@fluidattacks.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[],
+                    sms=[],
+                    parameters=NotificationsParameters(
+                        min_severity=Decimal("7.0")
+                    ),
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
