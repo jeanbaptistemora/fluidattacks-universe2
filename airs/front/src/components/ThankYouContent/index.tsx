@@ -10,7 +10,7 @@ import {
   TitleDiv,
 } from "./styledComponents";
 
-import { CardButton } from "../BlogsList/StyledComponents";
+import { Button } from "../Button";
 
 const ThankYouContent: React.FC<{ content: string; title: string }> = ({
   content,
@@ -32,7 +32,7 @@ const ThankYouContent: React.FC<{ content: string; title: string }> = ({
 
           <ButtonDiv>
             <Link to={"/blog/"}>
-              <CardButton>{"Visit our Blog!"}</CardButton>
+              <Button variant={"primary"}>{"Visit our Blog!"}</Button>
             </Link>
           </ButtonDiv>
         </ContentMainDiv>
