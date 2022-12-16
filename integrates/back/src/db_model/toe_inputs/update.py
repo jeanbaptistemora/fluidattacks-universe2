@@ -17,8 +17,8 @@ from custom_exceptions import (
 from datetime import (
     datetime,
 )
-from db_model import (
-    utils as db_model_utils,
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from dynamodb import (
     keys,
@@ -30,10 +30,8 @@ from dynamodb.exceptions import (
 from dynamodb.model import (
     TABLE,
 )
-from typing import (
-    Dict,
-    Optional,
-    Union,
+from dynamodb.types import (
+    Item,
 )
 
 
@@ -69,10 +67,8 @@ async def update_metadata(
         gsi_2_index,
         current_value,
     )
-    metadata_item: Dict[
-        str, Union[str, datetime, Dict[str, Optional[str]]]
-    ] = {
-        key: db_model_utils.get_as_utc_iso_format(value)
+    metadata_item: Item = {
+        key: get_as_utc_iso_format(value)
         if isinstance(value, datetime)
         else value
         for key, value in metadata._asdict().items()
@@ -88,7 +84,9 @@ async def update_metadata(
     }
     metadata_item["state"] = {
         "modified_by": metadata.state.modified_by,
-        "modified_date": metadata.state.modified_date,
+        "modified_date": get_as_utc_iso_format(metadata.state.modified_date)
+        if metadata.state.modified_date
+        else "",
     }
     if metadata.clean_attacked_at:
         metadata_item["attacked_at"] = ""
@@ -117,7 +115,7 @@ async def update_metadata(
         condition_expression &= Attr("state.modified_date").not_exists()
     else:
         condition_expression &= Attr("state.modified_date").eq(
-            current_value.state.modified_date
+            get_as_utc_iso_format(current_value.state.modified_date)
         )
     try:
         if metadata_item:
@@ -138,7 +136,7 @@ async def update_metadata(
             "group_name": current_value.group_name,
             "root_id": current_value.unreliable_root_id,
             # The modified date will always exist here
-            "iso8601utc": metadata.state.modified_date
+            "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date)
             if metadata.state.modified_date
             else "",
         },

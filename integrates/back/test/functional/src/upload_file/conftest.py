@@ -513,7 +513,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 state=ToeInputState(
                     modified_by="hacker@fluidattacks.com",
-                    modified_date="2022-02-02T06:00:00+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-02T06:00:00+00:00"
+                    ),
                 ),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
@@ -535,7 +537,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 state=ToeInputState(
                     modified_by="hacker@fluidattacks.com",
-                    modified_date="2022-02-02T06:00:00+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-02T06:00:00+00:00"
+                    ),
                 ),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),

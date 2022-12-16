@@ -52,7 +52,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test2@test.com",
                     state=ToeInputState(
                         modified_by="test2@test.com",
-                        modified_date="2021-02-11T05:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2021-02-11T05:00:00+00:00"
+                        ),
                     ),
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
@@ -82,7 +84,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test2@test.com",
                     state=ToeInputState(
                         modified_by="test2@test.com",
-                        modified_date="2021-02-11T05:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2021-02-11T05:00:00+00:00"
+                        ),
                     ),
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
@@ -112,7 +116,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="",
                     state=ToeInputState(
                         modified_by="test2@test.com",
-                        modified_date="2021-02-11T05:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2021-02-11T05:00:00+00:00"
+                        ),
                     ),
                     unreliable_root_id="",
                 ),
@@ -143,7 +149,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test@test.com",
                     state=ToeInputState(
                         modified_by="test2@test.com",
-                        modified_date="2021-02-11T05:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2021-02-11T05:00:00+00:00"
+                        ),
                     ),
                     unreliable_root_id="",
                 ),
@@ -181,7 +189,9 @@ async def test_get_by_group() -> None:
             seen_first_time_by="test2@test.com",
             state=ToeInputState(
                 modified_by="test2@test.com",
-                modified_date="2021-02-11T05:00:00+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2021-02-11T05:00:00+00:00"
+                ),
             ),
         ),
     )

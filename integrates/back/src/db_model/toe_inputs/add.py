@@ -13,6 +13,9 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     RepeatedToeInput,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb import (
     keys,
     operations,
@@ -70,7 +73,7 @@ async def add(*, toe_input: ToeInput) -> None:
             "group_name": toe_input.group_name,
             "root_id": toe_input.unreliable_root_id,
             # The modified date will always exist here
-            "iso8601utc": toe_input.state.modified_date
+            "iso8601utc": get_as_utc_iso_format(toe_input.state.modified_date)
             if toe_input.state.modified_date
             else "",
         },

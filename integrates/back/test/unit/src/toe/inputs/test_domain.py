@@ -50,7 +50,7 @@ async def test_add() -> None:
         seen_first_time_by="new@test.com",
         state=ToeInputState(
             modified_by="new@test.com",
-            modified_date="2022-11-11T05:00:00+00:00",
+            modified_date=datetime.fromisoformat("2022-11-11T05:00:00+00:00"),
         ),
         unreliable_root_id="",
     )
@@ -121,7 +121,9 @@ async def test_delete() -> None:
             unreliable_root_id="",
             state=ToeInputState(
                 modified_by="new@test.com",
-                modified_date="2022-11-11T05:00:00+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2022-11-11T05:00:00+00:00"
+                ),
             ),
         ),
     )
@@ -196,7 +198,7 @@ async def test_update() -> None:
         seen_first_time_by="edited@test.com",
         state=ToeInputState(
             modified_by="edited@test.com",
-            modified_date="2022-11-11T15:00:00+00:00",
+            modified_date=datetime.fromisoformat("2022-11-11T15:00:00+00:00"),
         ),
         unreliable_root_id="",
     )

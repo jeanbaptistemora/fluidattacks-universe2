@@ -87,7 +87,7 @@ async def add(  # pylint: disable=too-many-arguments
         has_vulnerabilities=has_vulnerabilities,
         state=ToeInputState(
             modified_by=attributes.seen_first_time_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
         ),
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
@@ -228,7 +228,7 @@ async def update(
     metadata = ToeInputMetadataToUpdate(
         state=ToeInputState(
             modified_by=modified_by,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
         ),
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,

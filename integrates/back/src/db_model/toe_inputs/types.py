@@ -7,13 +7,12 @@ from dynamodb.types import (
 from typing import (
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
 class ToeInputState(NamedTuple):
     modified_by: Optional[str]
-    modified_date: Optional[str]
+    modified_date: Optional[datetime]
 
 
 class ToeInput(NamedTuple):
@@ -41,7 +40,7 @@ class ToeInputEdge(NamedTuple):
 
 
 class ToeInputsConnection(NamedTuple):
-    edges: Tuple[ToeInputEdge, ...]
+    edges: tuple[ToeInputEdge, ...]
     page_info: PageInfo
 
 

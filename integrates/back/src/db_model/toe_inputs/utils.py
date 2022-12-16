@@ -9,6 +9,9 @@ from datetime import (
 from db_model import (
     utils as db_model_utils,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb.types import (
     Index,
     Item,
@@ -27,10 +30,13 @@ def format_toe_input(
     group_name: str,
     item: Item,
 ) -> ToeInput:
+    state_modified_date = item.get("state", {}).get("modified_date")
     return ToeInput(
         state=ToeInputState(
             modified_by=item.get("state", {}).get("modified_by"),
-            modified_date=item.get("state", {}).get("modified_date"),
+            modified_date=datetime.fromisoformat(state_modified_date)
+            if state_modified_date
+            else None,
         ),
         attacked_at=datetime.fromisoformat(item["attacked_at"])
         if item.get("attacked_at")
@@ -101,6 +107,10 @@ def format_toe_input_item(
         "unreliable_root_id": toe_input.unreliable_root_id,
         "state": {
             "modified_by": toe_input.state.modified_by,
-            "modified_date": toe_input.state.modified_date,
+            "modified_date": get_as_utc_iso_format(
+                toe_input.state.modified_date
+            )
+            if toe_input.state.modified_date
+            else "",
         },
     }
