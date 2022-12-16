@@ -1,10 +1,7 @@
 from aioextensions import (
-    collect,
     schedule,
 )
 from custom_exceptions import (
-    EnrollmentNotFound,
-    EnrollmentUserExists,
     InvalidParameter,
     UnableToSendMail,
 )
@@ -67,17 +64,6 @@ mail_free_trial_start = retry_on_exceptions(
 )(send_mail_free_trial_start)
 
 
-async def exists(
-    loaders: Dataloaders,
-    user_email: str,
-) -> bool:
-    try:
-        enrollment: Enrollment = await loaders.enrollment.load(user_email)
-        return enrollment.enrolled
-    except EnrollmentNotFound:
-        return False
-
-
 async def add_enrollment(
     *,
     loaders: Dataloaders,
@@ -89,29 +75,22 @@ async def add_enrollment(
     if not user_email:
         raise InvalidParameter()
 
-    if await exists(loaders, user_email):
-        raise EnrollmentUserExists.new()
-
-    await collect(
-        [
-            companies_model.add(
-                company=Company(
-                    domain=user_email.split("@")[1],
-                    trial=Trial(
-                        completed=False,
-                        extension_date=None,
-                        extension_days=0,
-                        start_date=datetime_utils.get_utc_now(),
-                    ),
-                )
+    await companies_model.add(
+        company=Company(
+            domain=user_email.split("@")[1],
+            trial=Trial(
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime_utils.get_utc_now(),
             ),
-            enrollment_model.add(
-                enrollment=Enrollment(
-                    email=user_email,
-                    enrolled=True,
-                )
-            ),
-        ]
+        )
+    )
+    await enrollment_model.add(
+        enrollment=Enrollment(
+            email=user_email,
+            enrolled=True,
+        )
     )
 
     group_names = await group_access_domain.get_stakeholder_groups_names(
@@ -129,15 +108,13 @@ async def add_enrollment(
 
 
 async def update_metadata(
-    loaders: Dataloaders,
     email: str,
     metadata: EnrollmentMetadataToUpdate,
 ) -> None:
-    if await exists(loaders, email):
-        await enrollment_model.update_metadata(
-            email=email,
-            metadata=metadata,
-        )
+    await enrollment_model.update_metadata(
+        email=email,
+        metadata=metadata,
+    )
 
 
 def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:

@@ -4,8 +4,8 @@ from .types import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-from contextlib import (
-    suppress,
+from custom_exceptions import (
+    TrialRestriction,
 )
 from db_model import (
     TABLE,
@@ -35,7 +35,7 @@ async def add(*, company: Company) -> None:
         **simplejson.loads(simplejson.dumps(company, default=serialize)),
     }
 
-    with suppress(ConditionalCheckFailedException):
+    try:
         await operations.put_item(
             condition_expression=(
                 Attr(key_structure.partition_key).not_exists()
@@ -44,3 +44,5 @@ async def add(*, company: Company) -> None:
             item=item,
             table=TABLE,
         )
+    except ConditionalCheckFailedException as ex:
+        raise TrialRestriction() from ex

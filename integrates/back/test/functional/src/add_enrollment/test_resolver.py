@@ -82,7 +82,7 @@ async def test_should_validate_uniqueness(populate: bool) -> None:
             }
         }
     """
-    email = "janedoe@janedoe.com"
+    email = "janedoe@johndoe.com"
     loaders = get_new_context()
     result = await get_graphql_result(
         data={"query": query},
@@ -91,4 +91,7 @@ async def test_should_validate_uniqueness(populate: bool) -> None:
     )
 
     assert "errors" in result
-    assert result["errors"][0]["message"] == "Enrollment user already exists"
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - The action is not allowed during the free trial"
+    )
