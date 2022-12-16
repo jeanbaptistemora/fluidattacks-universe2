@@ -38,25 +38,21 @@ const OrganizationTabs: FC = (): JSX.Element => {
     ? DataOrgs.organizationId.groups
     : [];
 
+  const groupTip = `${t("organization.tabs.groups.text")} (${
+    dataGroups.length
+  })`;
+
   return (
     <Fragment>
       <SideBarSubTabs>
-        <SideBarTab icon={faFolder} to={`/orgs/${org}/groups`}>
-          {`Groups (${dataGroups.length})`}
-        </SideBarTab>
+        <SideBarTab icon={faFolder} tip={groupTip} to={`/orgs/${org}/groups`} />
         <Route path={"/orgs/:org/groups/:group/"}>
           <GroupTabs />
         </Route>
       </SideBarSubTabs>
-      <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`}>
-        {"Analytics"}
-      </SideBarTab>
-      <SideBarTab icon={faShield} to={`/orgs/${org}/policies`}>
-        {"Policies"}
-      </SideBarTab>
-      <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`}>
-        {"Compliance"}
-      </SideBarTab>
+      <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`} />
+      <SideBarTab icon={faShield} to={`/orgs/${org}/policies`} />
+      <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`} />
     </Fragment>
   );
 };

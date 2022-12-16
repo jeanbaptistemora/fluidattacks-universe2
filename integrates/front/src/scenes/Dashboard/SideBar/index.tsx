@@ -14,9 +14,7 @@ const DashboardSideBar: FC = (): JSX.Element => {
 
   return featurePreview ? (
     <SideBar>
-      <SideBarTab icon={faHome} to={"/home"}>
-        {"Home"}
-      </SideBarTab>
+      <SideBarTab icon={faHome} to={"/home"} />
       <Route path={"/orgs/:org/"}>
         <OrganizationTabs />
       </Route>

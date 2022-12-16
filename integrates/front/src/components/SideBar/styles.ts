@@ -6,7 +6,6 @@ const SideBarBox = styled.div.attrs({
   background-color: #2e2e38;
   color: #c7c7d1;
   display: inline-block;
-  min-width: 150px;
   padding: 12px 0;
 `;
 

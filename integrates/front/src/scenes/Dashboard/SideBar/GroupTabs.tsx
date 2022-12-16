@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { FC } from "react";
@@ -33,11 +34,16 @@ const GroupTabs: FC = (): JSX.Element => {
       (node.node.zeroRisk === "Rejected" || _.isEmpty(node.node.zeroRisk)) &&
       node.node.currentState === "open"
   );
+  const tip = `${t("organization.tabs.groups.vulnerabilities.header")} (${
+    filteredData.length
+  })`;
 
   return (
-    <SideBarTab to={`/orgs/${org}/groups/${group}/vulns`}>
-      {`Vulnerabilities (${filteredData.length})`}
-    </SideBarTab>
+    <SideBarTab
+      icon={faMagnifyingGlass}
+      tip={tip}
+      to={`/orgs/${org}/groups/${group}/vulns`}
+    />
   );
 };
 

@@ -8,9 +8,12 @@ import type { NavLinkProps } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+import { Tooltip } from "components/Tooltip";
+
 interface ISideBarTabProps extends Pick<NavLinkProps, "children" | "to"> {
   disabled?: boolean;
   icon?: IconProp;
+  tip?: string;
 }
 
 const SideBarLink = styled(NavLink).attrs({
@@ -52,17 +55,20 @@ const SideBarTab: FC<ISideBarTabProps> = ({
   children,
   disabled,
   icon,
+  tip,
   to,
 }: Readonly<ISideBarTabProps>): JSX.Element => (
-  <SideBarLink aria-disabled={disabled} to={to}>
-    {icon === undefined ? undefined : (
-      <FontAwesomeIcon
-        className={children === undefined ? undefined : "mr2"}
-        icon={icon}
-      />
-    )}
-    {children}
-  </SideBarLink>
+  <Tooltip id={`tabTooltip`} place={"right"} tip={tip}>
+    <SideBarLink aria-disabled={disabled} to={to}>
+      {icon === undefined ? undefined : (
+        <FontAwesomeIcon
+          className={children === undefined ? undefined : "mr2"}
+          icon={icon}
+        />
+      )}
+      {children}
+    </SideBarLink>
+  </Tooltip>
 );
 
 export type { ISideBarTabProps };
