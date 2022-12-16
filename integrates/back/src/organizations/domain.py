@@ -50,6 +50,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthGitlabSecret,
     SshSecret,
 )
 from db_model.enrollment.types import (
@@ -746,7 +747,7 @@ async def update_credentials(
         )
 
     force_update_owner = False
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
+    secret: Union[HttpsSecret, HttpsPatSecret, OauthGitlabSecret, SshSecret]
     if (
         credentials_type is CredentialType.HTTPS
         and attributes.token is not None

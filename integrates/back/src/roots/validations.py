@@ -17,6 +17,7 @@ from db_model.credentials.types import (
     CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
+    OauthGitlabSecret,
     SshSecret,
 )
 from db_model.roots.enums import (
@@ -68,7 +69,7 @@ from urllib.parse import (
 async def validate_git_access(
     url: str,
     branch: str,
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret],
+    secret: Union[HttpsSecret, HttpsPatSecret, OauthGitlabSecret, SshSecret],
 ) -> None:
     try:
         url = roots_utils.format_git_repo_url(url)
@@ -381,7 +382,7 @@ async def _validate_git_credentials_https(
 async def validate_git_credentials(
     repo_url: str,
     branch: str,
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret],
+    secret: Union[HttpsSecret, HttpsPatSecret, OauthGitlabSecret, SshSecret],
 ) -> None:
     if isinstance(secret, SshSecret):
         await _validate_git_credentials_ssh(repo_url, branch, secret.key)
