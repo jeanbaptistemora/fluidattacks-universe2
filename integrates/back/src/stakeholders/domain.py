@@ -215,7 +215,7 @@ async def update_notification_preferences(
         user_email=email,
         state=StakeholderState(
             notifications_preferences=preferences,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
             modified_by=email.lower().strip(),
         ),
     )

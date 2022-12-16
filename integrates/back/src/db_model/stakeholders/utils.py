@@ -13,6 +13,9 @@ from .types import (
     StakeholderTours,
     StateSessionType,
 )
+from datetime import (
+    datetime,
+)
 from db_model.utils import (
     serialize,
 )
@@ -96,15 +99,15 @@ def format_state(item: Optional[Item]) -> StakeholderState:
     if item:
         return StakeholderState(
             modified_by=item["modified_by"],
-            modified_date=item["modified_date"],
+            modified_date=datetime.fromisoformat(item["modified_date"]),
             notifications_preferences=format_notifications_preferences(
                 item.get("notifications_preferences")
             ),
         )
 
     return StakeholderState(
-        modified_by="",
-        modified_date="",
+        modified_by=None,
+        modified_date=None,
         notifications_preferences=format_notifications_preferences(item),
     )
 

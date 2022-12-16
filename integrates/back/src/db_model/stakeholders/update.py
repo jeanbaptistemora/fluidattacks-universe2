@@ -15,6 +15,7 @@ from db_model import (
     TABLE,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from decimal import (
@@ -23,6 +24,9 @@ from decimal import (
 from dynamodb import (
     keys,
     operations,
+)
+from dynamodb.types import (
+    Item,
 )
 import simplejson as json
 
@@ -51,10 +55,7 @@ async def update_metadata(
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         "email": email,
-        **json.loads(
-            json.dumps(format_metadata_item(metadata), default=serialize),
-            parse_float=Decimal,
-        ),
+        **format_metadata_item(metadata),
     }
     await operations.update_item(
         item=item,
@@ -70,7 +71,7 @@ async def update_state(
 ) -> None:
     email = user_email.lower().strip()
     key_structure = TABLE.primary_key
-    state_item = json.loads(
+    state_item: Item = json.loads(
         json.dumps(state, default=serialize), parse_float=Decimal
     )
     state_item = {
@@ -98,7 +99,9 @@ async def update_state(
         facet=TABLE.facets["stakeholder_historic_state"],
         values={
             "email": email,
-            "iso8601utc": state.modified_date,
+            "iso8601utc": get_as_utc_iso_format(state.modified_date)
+            if state.modified_date
+            else "",
         },
     )
     historic_item = {

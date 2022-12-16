@@ -167,7 +167,9 @@ async def populate() -> bool:
                 registration_date="2022-10-21T15:50:31.280182",
                 state=StakeholderState(
                     modified_by="unknown",
-                    modified_date="2022-10-24T00:00:00+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2022-10-24T00:00:00+00:00"
+                    ),
                     notifications_preferences=NotificationsPreferences(
                         email=["NEW_COMMENT"],
                     ),

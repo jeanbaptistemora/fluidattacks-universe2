@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from decimal import (
     Decimal,
 )
@@ -48,8 +51,8 @@ class StakeholderTours(NamedTuple):
 
 
 class StakeholderState(NamedTuple):
-    modified_by: str
-    modified_date: str
+    modified_by: Optional[str]
+    modified_date: Optional[datetime]
     notifications_preferences: NotificationsPreferences = (
         NotificationsPreferences()
     )
@@ -71,8 +74,8 @@ class Stakeholder(NamedTuple):
     session_token: Optional[StakeholderSessionToken] = None
     state: StakeholderState = StakeholderState(
         notifications_preferences=NotificationsPreferences(),
-        modified_by="",
-        modified_date="",
+        modified_by=None,
+        modified_date=None,
     )
     tours: StakeholderTours = StakeholderTours()
 

@@ -10,6 +10,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     companies as companies_model,
     compliance as compliance_model,
@@ -132,7 +135,9 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
             user_email=item.email,
             state=StakeholderState(
                 modified_by=item.email,
-                modified_date="2022-10-21T15:58:31.280182+00:00",
+                modified_date=datetime.fromisoformat(
+                    "2022-10-21T15:58:31.280182+00:00"
+                ),
                 notifications_preferences=NotificationsPreferences(
                     email=[
                         "ACCESS_GRANTED",

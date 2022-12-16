@@ -178,16 +178,20 @@ async def do_google_login(request: Request) -> Response:
 async def complete_register(
     *, email: str, first_name: str, last_name: str
 ) -> None:
-    today = datetime_utils.get_iso_date()
+    today = datetime_utils.get_utc_now()
     await collect(
         (
             stakeholders_model.update_metadata(
                 email=email,
                 metadata=StakeholderMetadataToUpdate(
                     first_name=first_name,
-                    last_login_date=today,
+                    last_login_date=datetime_utils.get_as_utc_iso_format(
+                        today
+                    ),
                     last_name=last_name,
-                    registration_date=today,
+                    registration_date=datetime_utils.get_as_utc_iso_format(
+                        today
+                    ),
                 ),
             ),
             stakeholders_model.update_state(
