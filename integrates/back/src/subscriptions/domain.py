@@ -219,7 +219,7 @@ async def subscribe(
             frequency=frequency,
             subject=subject,
             state=SubscriptionState(
-                modified_date=datetime_utils.get_iso_date()
+                modified_date=datetime_utils.get_utc_now()
             ),
         )
     )

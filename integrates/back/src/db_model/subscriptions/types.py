@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
     SubscriptionFrequency,
@@ -9,7 +12,7 @@ from typing import (
 
 
 class SubscriptionState(NamedTuple):
-    modified_date: Optional[str]
+    modified_date: Optional[datetime]
 
 
 class Subscription(NamedTuple):

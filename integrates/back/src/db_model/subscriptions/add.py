@@ -10,6 +10,9 @@ from .utils import (
 from db_model import (
     TABLE,
 )
+from db_model.utils import (
+    get_as_utc_iso_format,
+)
 from dynamodb import (
     keys,
     operations,
@@ -49,7 +52,9 @@ async def add(*, subscription: Subscription) -> None:
             "entity": subscription.entity.lower(),
             "subject": subscription.subject,
             # The modified date will always exist here
-            "iso8601utc": subscription.state.modified_date
+            "iso8601utc": get_as_utc_iso_format(
+                subscription.state.modified_date
+            )
             if subscription.state.modified_date
             else "",
         },
