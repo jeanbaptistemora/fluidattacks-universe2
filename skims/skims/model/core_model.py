@@ -1502,6 +1502,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_ZIP_SLIP = MethodInfo(
+        file_name="typescript",
+        name="ts_zip_slip",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_ZIP_SLIP = MethodInfo(
+        file_name="javascript",
+        name="js_zip_slip",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
         file_name="java",
         name="csrf_protections_disabled",
