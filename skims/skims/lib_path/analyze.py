@@ -115,6 +115,7 @@ from utils.fs import (
 )
 from utils.logs import (
     log_blocking,
+    log_exception_blocking,
 )
 from utils.system import (
     wait_until_memory_usage,
@@ -292,7 +293,7 @@ def _handle_result(
 def _handle_exception(
     exception: Exception, _observable: reactivex.Observable
 ) -> reactivex.Observable:
-    log_blocking("exception", exception)  # type: ignore
+    log_exception_blocking("error", exception)
     return reactivex.of(None)
 
 
@@ -322,13 +323,12 @@ def analyze(
                     )
                 ).pipe(ops.catch(_handle_exception))
             ),
+            ops.filter(lambda x: x is not None),  # type: ignore
             ops.flat_map(
                 lambda res: reactivex.of(  # type: ignore
                     *[
                         (finding, vuln)
-                        for finding, vulns_list in (
-                            res.items() if res else []  # type: ignore
-                        )
+                        for finding, vulns_list in res.items()  # type: ignore
                         for vulns in vulns_list
                         for vuln in vulns
                     ]

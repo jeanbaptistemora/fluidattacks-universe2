@@ -96,6 +96,7 @@ from typing import (
 )
 from utils.logs import (
     log_blocking,
+    log_exception_blocking,
 )
 from utils.system import (
     wait_until_memory_usage,
@@ -170,7 +171,7 @@ def _handle_result(
 def _handle_exception(
     exception: Exception, _observable: reactivex.Observable
 ) -> reactivex.Observable:
-    log_blocking("exception", exception)  # type: ignore
+    log_exception_blocking("error", exception)
     return reactivex.of(None)
 
 
@@ -215,28 +216,25 @@ def analyze(
                 ops.catch(_handle_exception),  # type: ignore
             )
         ),
+        ops.filter(lambda x: x is not None),  # type: ignore
         ops.flat_map(
             lambda graph: reactivex.from_iterable(  # type: ignore
-                (
-                    (query, graph)
-                    for _, query in (queries if graph else [])  # type: ignore
-                )
+                ((query, graph) for _, query in queries)
             )
         ),
         ops.flat_map(
             lambda item: reactivex.from_future(  # type: ignore
                 executor_1.submit(item[0], None, item[1])  # type: ignore
             ).pipe(
-                ops.timeout(60),
                 ops.catch(_handle_exception),  # type: ignore
             )
         ),
+        ops.filter(lambda x: x is not None),  # type: ignore
         ops.flat_map(
             lambda results: reactivex.from_iterable(  # type: ignore
-                result for result in results or []  # type: ignore
-            )
+                result for result in results  # type: ignore
+            ).pipe(ops.catch(_handle_exception))
         ),
-        ops.catch(_handle_exception),
     ).subscribe(
         on_next=partial(_handle_result, stores),
         on_error=lambda e: log_blocking("exception", e),
