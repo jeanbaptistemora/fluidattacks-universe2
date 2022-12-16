@@ -34,7 +34,7 @@ def is_insec_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
         if (
             evaluation
             and evaluation.danger
-            and evaluation.triggers == {"httpres"}
+            and evaluation.triggers == {"userresponse"}
         ):
             return True
     return False

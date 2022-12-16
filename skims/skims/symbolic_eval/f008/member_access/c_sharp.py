@@ -12,6 +12,7 @@ HTTP_INPUTS: Set[str] = {
     "Form",
     "Cookies",
     "ServerVariables",
+    "ReadLine",
 }
 
 
@@ -23,7 +24,7 @@ def cs_insec_addheader_write(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         expr_eval = args.generic(
             args.fork(n_id=expr_nid, evaluation={}, triggers=set())
         )
-        if expr_eval and expr_eval.triggers == {"httpreq"}:
+        if expr_eval and expr_eval.triggers == {"userconnection"}:
             args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
