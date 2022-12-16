@@ -2,5 +2,5 @@
 
 echo "Executing test phase" \
   && pytest --version \
-  && pytest . \
+  && pytest ./tests \
   && echo "Finished test phase"
