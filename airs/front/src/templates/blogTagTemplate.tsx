@@ -3,15 +3,11 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { BlogSeo } from "../components/BlogSeo";
-import { BlogTagList } from "../components/BlogTagList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { Paragraph, Title } from "../components/Texts";
-import {
-  BlogPageArticle,
-  CenteredMaxWidthContainer,
-} from "../styles/styledComponents";
+import { BlogsToFilterPage } from "../scenes/BlogsToFilterPage";
+import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
 
@@ -208,23 +204,17 @@ const blogTagTemplate: React.FC<IQueryData> = ({
           <NavbarComponent />
 
           <Breadcrumb
-            crumbLabel={tagName}
+            crumbLabel={capitalizeDashedString(tagName)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <BlogPageArticle>
-            <CenteredMaxWidthContainer className={"tc"}>
-              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {tagName === "hevd" ? "HEVD" : capitalizeDashedString(tagName)}
-              </Title>
-              {tagDescription === undefined ? undefined : (
-                <Paragraph fColor={"#2e2e38"} fSize={"24"}>
-                  {tagDescription}
-                </Paragraph>
-              )}
-            </CenteredMaxWidthContainer>
-            <BlogTagList tagName={tagName} />
-          </BlogPageArticle>
+          <PageArticle bgColor={"transparent"}>
+            <BlogsToFilterPage
+              description={tagDescription}
+              filterBy={"tag"}
+              value={tagName}
+            />
+          </PageArticle>
         </div>
       </Layout>
     </React.Fragment>

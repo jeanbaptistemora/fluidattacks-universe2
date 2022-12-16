@@ -2,16 +2,12 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { BlogAuthorList } from "../components/BlogAuthorList";
 import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { Paragraph, Title } from "../components/Texts";
-import {
-  BlogPageArticle,
-  CenteredMaxWidthContainer,
-} from "../styles/styledComponents";
+import { BlogsToFilterPage } from "../scenes/BlogsToFilterPage";
+import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import {
   capitalizeDashedString,
@@ -264,21 +260,18 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <BlogPageArticle>
-            <CenteredMaxWidthContainer className={"tc"}>
-              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {authorTitle === undefined
-                  ? capitalizeDashedString(authorName)
-                  : `Posts by ${authorTitle}`}
-              </Title>
-              {authorDescription === undefined ? undefined : (
-                <Paragraph fColor={"#2e2e38"} fSize={"24"}>
-                  {authorDescription}
-                </Paragraph>
-              )}
-            </CenteredMaxWidthContainer>
-            <BlogAuthorList authorName={authorName} />
-          </BlogPageArticle>
+          <PageArticle bgColor={"transparent"}>
+            <BlogsToFilterPage
+              description={authorDescription}
+              filterBy={"author"}
+              title={
+                authorTitle === undefined
+                  ? undefined
+                  : `Posts by ${authorTitle}`
+              }
+              value={authorName}
+            />
+          </PageArticle>
         </div>
       </Layout>
     </React.Fragment>

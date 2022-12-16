@@ -2,16 +2,12 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { BlogCategoryList } from "../components/BlogCategoryList";
 import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { Paragraph, Title } from "../components/Texts";
-import {
-  BlogPageArticle,
-  CenteredMaxWidthContainer,
-} from "../styles/styledComponents";
+import { BlogsToFilterPage } from "../scenes/BlogsToFilterPage";
+import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
@@ -110,25 +106,17 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
           <NavbarComponent />
 
           <Breadcrumb
-            crumbLabel={`${categoryName.charAt(0).toUpperCase()}${categoryName
-              .slice(1)
-              .replace("-", " ")}`}
+            crumbLabel={capitalizePlainString(categoryName)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <BlogPageArticle>
-            <CenteredMaxWidthContainer className={"tc"}>
-              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
-              </Title>
-              {categoryDescription === undefined ? undefined : (
-                <Paragraph fColor={"#2e2e38"} fSize={"24"}>
-                  {categoryDescription}
-                </Paragraph>
-              )}
-            </CenteredMaxWidthContainer>
-            <BlogCategoryList categoryName={categoryName} />
-          </BlogPageArticle>
+          <PageArticle bgColor={"transparent"}>
+            <BlogsToFilterPage
+              description={categoryDescription}
+              filterBy={"category"}
+              value={categoryName}
+            />
+          </PageArticle>
         </div>
       </Layout>
     </React.Fragment>
