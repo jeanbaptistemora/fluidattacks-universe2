@@ -76,7 +76,7 @@ async def mutate(
             payment_methods,
         )
     )[0]
-    if (
+    if not payment_method.last_four_digits and (
         payment_method.business_name.lower()
         != str(group.business_name).lower()
     ):
