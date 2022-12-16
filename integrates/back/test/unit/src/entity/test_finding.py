@@ -262,39 +262,6 @@ async def test_finding() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_evidence() -> None:
-    """Check for updateEvidence mutation."""
-    query = """
-      mutation UpdateEvidenceMutation(
-        $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
-      ) {
-        updateEvidence(
-          evidenceId: $evidenceId, file: $file, findingId: $findingId
-        ) {
-          success
-        }
-      }
-    """
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "./mock/evidences/test-anim.gif")
-    with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(
-            "okada-unittesting-0192837465.gif", test_file, "image/gif"
-        )
-        variables = {
-            "evidenceId": "ANIMATION",
-            "findingId": "422286126",
-            "file": uploaded_file,
-        }
-        data = {"query": query, "variables": variables}
-        result = await _get_result(data)
-
-    assert "errors" not in result
-    assert "success" in result["data"]["updateEvidence"]
-    assert result["data"]["updateEvidence"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_update_evidence_records_append() -> None:
     number_of_records = 4
     query = """
@@ -349,26 +316,6 @@ async def test_update_evidence_records_append() -> None:
         len(json.loads(result["data"]["finding"]["records"]))
         > number_of_records
     )
-
-
-@pytest.mark.changes_db
-async def test_update_evidence_description() -> None:
-    """Check for updateEvidenceDescription mutation."""
-    query = """
-        mutation {
-            updateEvidenceDescription(
-            description: "this is a test description",
-            findingId: "422286126",
-            evidenceId: EVIDENCE2) {
-            success
-            }
-        }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["updateEvidenceDescription"]
-    assert result["data"]["updateEvidenceDescription"]
 
 
 @pytest.mark.changes_db
