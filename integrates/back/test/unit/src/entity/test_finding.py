@@ -262,26 +262,6 @@ async def test_finding() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_evidence() -> None:
-    """Check for removeEvidence mutation."""
-    query = """
-      mutation RemoveEvidenceMutation(
-        $evidenceId: EvidenceType!,
-        $findingId: String!
-      ) {
-        removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
-        success
-        }
-      }
-    """
-    variables = {"evidenceId": "EVIDENCE2", "findingId": "457497316"}
-    data = {"query": query, "variables": variables}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeEvidence"]
-
-
-@pytest.mark.changes_db
 async def test_update_evidence() -> None:
     """Check for updateEvidence mutation."""
     query = """

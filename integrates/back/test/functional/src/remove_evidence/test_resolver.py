@@ -24,6 +24,7 @@ async def test_remove_evidence(populate: bool, email: str) -> None:
         evidence="EVIDENCE1",
     )
     assert "errors" not in result
+    assert "success" in result["data"]["removeEvidence"]
     assert result["data"]["removeEvidence"]["success"]
 
 
