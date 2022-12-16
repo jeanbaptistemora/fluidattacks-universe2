@@ -110,6 +110,8 @@ CHECKED_FILES = {
     "m4a",
     "m4v",
     "mar",
+    "markdown",
+    "md",
     "mdi",
     "mht",
     "mid",
