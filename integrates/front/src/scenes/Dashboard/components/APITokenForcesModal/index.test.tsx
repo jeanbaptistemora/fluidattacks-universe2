@@ -34,7 +34,7 @@ describe("Update access token modal", (): void => {
     expect(typeof APITokenForcesModal).toBe("function");
   });
 
-  it("should render an token modal with token and reset", async (): Promise<void> => {
+  it("should render a token modal with token and reset", async (): Promise<void> => {
     expect.hasAssertions();
 
     const beforeValue: string = "before value";
@@ -126,9 +126,10 @@ describe("Update access token modal", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should render an token modal with token", async (): Promise<void> => {
+  it("should render a token modal with token and copy it", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const user = userEvent.setup();
     const tokenValue: string = "some value";
     const mockQueryFull: MockedResponse[] = [
       {
@@ -172,10 +173,17 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(resetButtonText)).not.toBeDisabled();
     expect(screen.getByText(tokenValue)).toBeInTheDocument();
 
+    await user.click(screen.getByText(copyButtonText));
+
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "updateForcesToken.copy.successfully",
+      "updateForcesToken.copy.success"
+    );
+
     jest.clearAllMocks();
   });
 
-  it("should render an token modal without token", async (): Promise<void> => {
+  it("should render a token modal without token", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockQueryNull: MockedResponse[] = [
