@@ -23,11 +23,13 @@ def client() -> Iterator[GraphQLClient]:
     if hasattr(CTX, "api_token") and CTX.api_token:
         transport: Transport = RequestsHTTPTransport(
             headers={"Authorization": f"Bearer {CTX.api_token}"},
-            timeout=10,
+            timeout=20,
             url="https://app.fluidattacks.com/api",
-            retries=3,
         )
-        yield GraphQLClient(transport=transport)
+        yield GraphQLClient(
+            transport=transport,
+            fetch_schema_from_transport=True,
+        )
     else:
         raise RuntimeError("create_session() must be called first")
 

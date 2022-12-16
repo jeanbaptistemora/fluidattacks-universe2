@@ -119,7 +119,7 @@ def update_integrates_toes(
         toes_to_update, skipped_toes = get_toes_to_update(
             group_toe_lines, reader
         )
-        with ThreadPoolExecutor(max_workers=8) as executor:
+        with ThreadPoolExecutor() as executor:
             for skipped_toe in skipped_toes:
                 executor.submit(
                     update_toe_lines_sorts,
@@ -128,7 +128,7 @@ def update_integrates_toes(
                     skipped_toe.filename,
                     "1970-01-01",
                 )
-        with ThreadPoolExecutor(max_workers=8) as executor:
+        with ThreadPoolExecutor() as executor:
             for toe_lines in toes_to_update:
                 executor.submit(
                     update_toe_lines_sorts,

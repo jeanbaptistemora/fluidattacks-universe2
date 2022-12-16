@@ -1,8 +1,13 @@
+import functools
 from gql import (
     gql,
 )
 from gql.transport.exceptions import (
     TransportQueryError,
+    TransportServerError,
+)
+from requests.exceptions import (
+    ReadTimeout,
 )
 from sorts.integrates.graphql import (
     client as graphql_client,
@@ -16,14 +21,39 @@ from sorts.utils.logs import (
     log,
     log_exception,
 )
+import time
 from typing import (
     Any,
+    Callable,
     Dict,
     List,
     Optional,
 )
 
 
+def retry_on_errors(func: Callable) -> Callable:
+    """Decorator to retry the function if an exception is raised."""
+
+    @functools.wraps(func)
+    def decorated(*args: Any, **kwargs: Any) -> Any:
+        for _ in range(10):
+            try:
+                return func(*args, **kwargs)
+            except (
+                ConnectionError,
+                ReadTimeout,
+                TransportQueryError,
+                TransportServerError,
+            ) as exc:
+                if "429" in exc.args:
+                    time.sleep(60)
+                time.sleep(3)
+        return func(*args, **kwargs)
+
+    return decorated
+
+
+@retry_on_errors
 def _execute(
     *,
     query: str,
@@ -39,10 +69,16 @@ def _execute(
                 variable_values=variables,
                 operation_name=operation,
             )
-        except TransportQueryError as exc:
+        except (
+            ConnectionError,
+            ReadTimeout,
+            TransportQueryError,
+            TransportServerError,
+        ) as exc:
             log_exception("error", exc)
             log("debug", "query %s: %s", operation, query)
             log("debug", "variables: %s", variables)
+            raise exc
     return response
 
 
@@ -259,6 +295,9 @@ def update_toe_lines_sorts(
             risk_level_date=risk_level_date,
         ),
     )
+
+    if not result:
+        return False
 
     return result["updateToeLinesSorts"]["success"]
 

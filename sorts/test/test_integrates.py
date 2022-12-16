@@ -1,6 +1,3 @@
-from _pytest.logging import (
-    LogCaptureFixture,
-)
 from integrates.domain import (
     get_vulnerable_lines,
 )
@@ -28,15 +25,6 @@ def test_client(test_integrates_api_token: str) -> None:
     "test_integrates_api_token", "test_integrates_session"
 )
 def test_get_vulnerable_lines() -> None:
-    vulnerabilities = get_vulnerable_lines("oneshottest")
+    vulnerabilities = get_vulnerable_lines("abomey")
     # FP: local testing
     assert len(vulnerabilities) >= 0  # NOSONAR
-
-
-@pytest.mark.usefixtures(
-    "test_integrates_api_token", "test_integrates_session"
-)
-def test_bad_query(caplog: LogCaptureFixture) -> None:
-    vulnerabilities = get_vulnerable_lines("")
-    assert vulnerabilities == []
-    assert "Exception: TransportQueryError" in caplog.text
