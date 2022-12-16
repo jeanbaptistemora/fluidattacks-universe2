@@ -15,6 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["hacker@gmail.com"],
+        ["hacker@fluidattacks.com"],
     ],
 )
 async def test_update_severity(populate: bool, email: str) -> None:

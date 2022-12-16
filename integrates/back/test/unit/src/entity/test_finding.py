@@ -392,66 +392,6 @@ async def test_update_evidence_description() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_severity() -> None:
-    """Check for updateSeverity mutation."""
-    query = """
-            mutation {
-              updateSeverity (
-                findingId: "422286126",
-                attackComplexity: "0.77", attackVector: "0.62",
-                availabilityImpact: "0", availabilityRequirement: "1",
-                confidentialityImpact: "0", confidentialityRequirement: "1",
-                cvssVersion: "3.1", exploitability: "0.91",
-                integrityImpact: "0.22", integrityRequirement: "1",
-                modifiedAttackComplexity: "0.77", modifiedAttackVector: "0.62",
-                modifiedAvailabilityImpact: "0",
-                modifiedConfidentialityImpact: "0",
-                modifiedIntegrityImpact: "0.22",
-                modifiedPrivilegesRequired: "0.62",
-                modifiedSeverityScope: "0", modifiedUserInteraction: "0.85",
-                privilegesRequired: "0.62", remediationLevel: "0.97",
-                reportConfidence: "0.92",
-                severity: "2.9", severityScope: "0", userInteraction: "0.85"
-              ) {
-                success
-                finding {
-                  cvssVersion
-                  severity {
-                    attackComplexity
-                    attackVector
-                    availabilityImpact
-                    availabilityRequirement
-                    confidentialityImpact
-                    confidentialityRequirement
-                    exploitability
-                    integrityImpact
-                    integrityRequirement
-                    modifiedAttackComplexity
-                    modifiedAttackVector
-                    modifiedAvailabilityImpact
-                    modifiedConfidentialityImpact
-                    modifiedIntegrityImpact
-                    modifiedPrivilegesRequired
-                    modifiedSeverityScope
-                    modifiedUserInteraction
-                    privilegesRequired
-                    remediationLevel
-                    reportConfidence
-                    severityScope
-                    userInteraction
-                  }
-                }
-              }
-            }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["updateSeverity"]
-    assert result["data"]["updateSeverity"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_add_finding_consult_parent_zero() -> None:
     """Check for addFindingConsult mutation."""
     query = """
