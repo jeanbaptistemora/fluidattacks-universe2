@@ -413,7 +413,6 @@ async def upload_cloned_repo_to_s3_tar(
 ) -> bool:
     success: bool = False
     _, zip_output_path = tempfile.mkstemp()
-
     if not create_git_root_tar_file(nickname, repo_path, zip_output_path):
         logging.error(
             "Failed to compress root %s",
@@ -513,6 +512,12 @@ async def update_root_mirror(
             async with clone_root(
                 group_name=group_name, root=root, api_token=api_token
             ) as folder_to_clone_root:
+                _repo = Repo(folder_to_clone_root)
+                # remove not required branches
+                for branch in _repo.branches:  # type: ignore
+                    if branch.name != root["branch"]:
+                        branch.delete(_repo, branch.name, force=True)
+
                 success_upload = await upload_cloned_repo_to_s3_tar(
                     repo_path=folder_to_clone_root,
                     nickname=root["nickname"],
