@@ -59,6 +59,7 @@ from newutils import (
     git_self as git_utils,
 )
 from newutils.vulnerabilities import (
+    get_advisories,
     ignore_advisories,
 )
 import os
@@ -215,7 +216,9 @@ async def rebase_root(
                 ),
                 vulnerability_commit=rebase_result.rev,
                 vulnerability_id=vuln.id,
-                vulnerability_where=rebase_result.path,
+                vulnerability_where=vuln.state.where
+                if get_advisories(vuln.state.where)
+                else rebase_result.path,
                 vulnerability_specific=str(rebase_result.line),
                 vulnerability_type=vuln.type,
             )
