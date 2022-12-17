@@ -23,9 +23,6 @@ from git.repo import (
     Repo,
 )
 import logging
-from more_itertools import (
-    pairwise,
-)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -40,8 +37,6 @@ from typing import (
     Tuple,
 )
 from unidiff import (
-    Hunk,
-    PatchedFile,
     PatchSet,
 )
 from urllib.parse import (
@@ -392,53 +387,6 @@ def get_diff(
     return None
 
 
-def _rebase_one_commit_at_a_time(
-    repo: Repo,
-    *,
-    path: str,
-    line: int,
-    rev_a: str,
-    rev_b: str,
-) -> Optional[RebaseResult]:
-    hunk: Hunk
-    patch: PatchedFile
-
-    diff = get_diff(repo, rev_a=rev_a, rev_b=rev_b, path=path)
-    if diff is None:
-        return None
-
-    rebased_line = line
-    for patch in diff:
-        if patch.source_file == f"a/{path}":
-            if patch.is_removed_file:
-                # We cannot rebase something that was deleted
-                return None
-            # The original file matches the path to rebase
-            # If the file was moved or something, this updates the path
-            path = patch.target_file[2:]
-
-            # Let's process the hunks to see what should be done with
-            # the line numbers
-            for hunk in patch:
-                hunk_source_end = hunk.source_start + hunk.source_length - 1
-
-                if line < hunk.source_start:
-                    # The line exists before the hunk and therefore
-                    # we do not need to modify the line
-                    pass
-                elif line > hunk_source_end:
-                    # The line exists after this hunk and therefore
-                    # we should increase/decrease the line number
-                    rebased_line += hunk.added - hunk.removed
-                elif hunk.source_start <= line <= hunk_source_end:
-                    # We cannot rebase because the line was modified
-                    # by this hunk
-                    # We cannot guess the next position of the line
-                    # deterministically
-                    return None
-    return RebaseResult(path=path, line=rebased_line, rev=rev_b)
-
-
 def rebase(
     repo: Repo,
     *,
@@ -447,39 +395,33 @@ def rebase(
     rev_a: str,
     rev_b: str,
 ) -> Optional[RebaseResult]:
-    rev: str = rev_a
-    revs_str: str = repo.git.log(
-        "--format=%H",
-        "--reverse",
-        f"{rev_a}...{rev_b}",
-        "--",
-        path,
-    )
-    revs: list[str] = [rev_a] + revs_str.splitlines()
-    if len(revs) < 2:
+    try:
+        result: list[str] = repo.git.blame(
+            f"{rev_a}..{rev_b}",
+            "--",
+            path,
+            L=f"{line},+1",
+            l=True,
+            p=True,
+            show_number=True,
+            reverse=True,
+            show_name=True,
+        ).splitlines()
+    except GitCommandError:
         return None
 
-    revs = [revs[0], revs[-1]]
+    new_rev = result[0].split(" ")[0]
+    new_line = int(result[0].split(" ")[1])
+    new_path = next(
+        (row.split(" ")[1] for row in result if row.startswith("filename ")),
+        path,
+    )
 
-    # Let's rebase one commit at a time,
-    # this way we reduce the probability of conflicts
-    # and ensure line numbers are updated up to the latest possible commit
-    for rev_1, rev_2 in pairwise(revs):
-        if rebase_result := _rebase_one_commit_at_a_time(
-            repo, path=path, line=line, rev_a=rev_1, rev_b=rev_2
-        ):
-            path = rebase_result.path
-            line = rebase_result.line
-            rev = rebase_result.rev
-        else:
-            # We cannot continue rebasing
-            break
-
-    if rev == rev_a:
+    if new_rev == rev_a:
         # We did not rebase anything
         return None
 
-    return RebaseResult(path=path, line=line, rev=rev)
+    return RebaseResult(path=new_path, line=new_line, rev=new_rev)
 
 
 def make_group_dir(tmpdir: str, group_name: str) -> None:

@@ -45,20 +45,7 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert result["data"]["event"]["eventType"] == "OTHER"
     assert result["data"]["event"]["groupName"] == "group1"
     assert result["data"]["event"]["hacker"] == "unittest@fluidattacks.com"
-    assert result["data"]["event"]["historicState"] == [
-        {
-            "analyst": "unittest@fluidattacks.com",
-            "date": "2018-06-27 07:00:00",
-            "state": "OPEN",
-        },
-        {
-            "analyst": "unittest@fluidattacks.com",
-            "date": "2018-06-27 14:40:05",
-            "state": "CREATED",
-        },
-    ]
     assert result["data"]["event"]["id"] == event_id
-    assert result["data"]["event"]["subscription"] == "CONTINUOUS"
     assert result["data"]["event"]["evidences"] == {
         "file1": {
             "date": "2019-03-11 15:57:45+00:00",

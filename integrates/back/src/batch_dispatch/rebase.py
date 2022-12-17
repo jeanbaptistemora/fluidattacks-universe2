@@ -41,7 +41,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from git.cmd import (
     Git,
@@ -117,18 +116,18 @@ async def _get_vulnerabilities_to_rebase(
 def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
-    states: Tuple[VulnerabilityState, ...],
 ) -> Optional[git_utils.RebaseResult]:
     try:
         if (
-            states[0].commit
-            and states[0].commit != "0000000000000000000000000000000000000000"
+            vulnerability.state.commit
+            and vulnerability.state.commit
+            != "0000000000000000000000000000000000000000"
             and (
                 result := git_utils.rebase(
                     repo,
-                    path=ignore_advisories(states[0].where),
-                    line=int(states[0].specific),
-                    rev_a=states[0].commit,
+                    path=ignore_advisories(vulnerability.state.where),
+                    line=int(vulnerability.state.specific),
+                    rev_a=vulnerability.state.commit,
                     rev_b="HEAD",
                 )
             )
@@ -187,21 +186,16 @@ async def rebase_root(
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
-    vulns_states: Tuple[
-        Tuple[VulnerabilityState, ...], ...
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulnerabilities]
-    )
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
             tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
         ] = tuple(
             executor.map(
                 lambda vuln: (
-                    _rebase_vulnerability(repo, vuln[0], vuln[1]),
-                    vuln[0],
+                    _rebase_vulnerability(repo, vuln),
+                    vuln,
                 ),
-                zip(vulnerabilities, vulns_states),
+                vulnerabilities,
             )
         )
     await collect(

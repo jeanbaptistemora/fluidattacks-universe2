@@ -16,11 +16,9 @@ from api.resolvers.event import (
     evidence_file_date,
     group_name,
     hacker,
-    historic_state,
     other_solving_reason,
     root,
     solving_reason,
-    suscription,
 )
 from ariadne import (
     ObjectType,
@@ -41,11 +39,9 @@ EVENT.set_field("evidenceFile", evidence_file.resolve)
 EVENT.set_field("evidenceFileDate", evidence_file_date.resolve)
 EVENT.set_field("groupName", group_name.resolve)
 EVENT.set_field("hacker", hacker.resolve)
-EVENT.set_field("historicState", historic_state.resolve)
 EVENT.set_field("id", event_id.resolve)
 EVENT.set_field("affectedReattacks", affected_reattacks.resolve)
 EVENT.set_field("consulting", consulting.resolve)
 EVENT.set_field("otherSolvingReason", other_solving_reason.resolve)
 EVENT.set_field("root", root.resolve)
 EVENT.set_field("solvingReason", solving_reason.resolve)
-EVENT.set_field("subscription", suscription.resolve)

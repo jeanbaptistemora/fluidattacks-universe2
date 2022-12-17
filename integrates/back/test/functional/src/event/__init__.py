@@ -64,9 +64,7 @@ async def get_result(
             }}
             groupName
             hacker
-            historicState
             id
-            subscription
             __typename
         }}
     }}"""
