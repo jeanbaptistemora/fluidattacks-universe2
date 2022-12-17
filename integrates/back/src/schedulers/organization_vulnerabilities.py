@@ -285,7 +285,7 @@ async def main() -> None:
                 f"{FI_AWS_S3_PATH_PREFIX}analytics/{filename}",
             )
             signed_url: str = await sign_url(
-                f"{FI_AWS_S3_PATH_PREFIX}analytics/{filename}",
+                f"analytics/{filename}",
                 TTL,
             )
             await update_url(

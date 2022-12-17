@@ -109,6 +109,10 @@ TYPE_TRANSLATION: dict[VulnerabilityType, str] = {
     VulnerabilityType.LINES: "code",
     VulnerabilityType.PORTS: "infra",
 }
+STATE_TRANSLATION: dict[VulnerabilityStateStatus, str] = {
+    VulnerabilityStateStatus.CLOSED: "SAFE",
+    VulnerabilityStateStatus.OPEN: "VULNERABLE",
+}
 
 
 # pylint: disable=too-many-instance-attributes
@@ -546,7 +550,7 @@ class ITReport:
         severity = float(findings_domain.get_severity_score(finding.severity))
         finding_data = {
             "Description": finding.description,
-            "Status": vuln.state.status.value,
+            "Status": STATE_TRANSLATION[vuln.state.status],
             "Severity": severity or EMPTY,
             "Requirements": finding.requirements,
             "Impact": finding.attack_vector_description,
