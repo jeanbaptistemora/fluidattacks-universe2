@@ -32,7 +32,7 @@ from selenium.webdriver.firefox.options import (
 from selenium.webdriver.support import (
     expected_conditions as ec,
 )
-from selenium.webdriver.support.ui import (
+from selenium.webdriver.support.wait import (
     WebDriverWait,
 )
 import socket
@@ -63,7 +63,7 @@ async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
     def create() -> webdriver.Firefox:
         options = Options()
         options.add_argument(f"--width={WIDTH}")
-        options.add_argument("--height=400")
+        options.add_argument("--height=800")
         options.headless = True
 
         driver: webdriver.Firefox = webdriver.Firefox(
@@ -122,7 +122,8 @@ async def take_snapshot(  # pylint: disable=too-many-arguments
     await asyncio.sleep(1)
 
     with contextlib.suppress(NoSuchElementException):
-        if driver.find_element_by_xpath(
+        if driver.find_element(
+            By.XPATH,
             f"//*[text()[contains(., '{COOKIE_MESSAGE}')]]",
         ):
             allow_cookies = WebDriverWait(driver, 20).until(
@@ -153,7 +154,8 @@ async def take_snapshot(  # pylint: disable=too-many-arguments
         raise TimeoutException()
 
     with contextlib.suppress(NoSuchElementException):
-        if driver.find_element_by_xpath(
+        if driver.find_element(
+            By.XPATH,
             "//*[text()[contains(., 'Error code')]]",
         ):
             raise TimeoutException()
@@ -161,9 +163,15 @@ async def take_snapshot(  # pylint: disable=too-many-arguments
     if WebDriverWait(driver, 10).until(
         ec.presence_of_element_located((By.CLASS_NAME, "report-title-pad"))
     ):
-        element = driver.find_element_by_tag_name("body")
         with open(save_as, "wb") as file:
-            file.write(element.screenshot_as_png)
+            scroll_width = driver.execute_script(
+                "return document.body.parentNode.scrollWidth"
+            )
+            scroll_height = driver.execute_script(
+                "return document.body.parentNode.scrollHeight"
+            )
+            driver.set_window_size(scroll_width, scroll_height)
+            file.write(driver.get_full_page_screenshot_as_png())
 
 
 @retry_on_exceptions(

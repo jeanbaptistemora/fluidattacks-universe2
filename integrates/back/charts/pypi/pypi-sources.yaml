@@ -1,30 +1,116 @@
----
 closure:
-  numpy: 1.23.1
+  async-generator: "1.10"
+  attrs: 22.1.0
+  certifi: 2022.12.7
+  cffi: 1.15.1
+  exceptiongroup: 1.0.4
+  h11: 0.14.0
+  idna: "3.4"
+  numpy: 1.23.5
+  outcome: 1.2.0
   pandas: 1.3.4
+  pycparser: "2.21"
+  pysocks: 1.7.1
   python-dateutil: 2.8.2
-  pytz: '2022.1'
+  pytz: "2022.6"
   ruamel.yaml: 0.17.21
-  ruamel.yaml.clib: 0.2.6
-  selenium: 3.141.0
+  ruamel.yaml.clib: 0.2.7
+  selenium: 4.7.2
   six: 1.16.0
-  urllib3: 1.26.11
+  sniffio: 1.3.0
+  sortedcontainers: 2.4.0
+  trio: 0.22.0
+  trio-websocket: 0.9.2
+  urllib3: 1.26.13
+  wsproto: 1.2.0
 links:
-  - name: numpy-1.23.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 0yz7864ywqm2gclkam5dwilha2pj6j58khznmnpl3lqm3f92hgqp
-    url: https://files.pythonhosted.org/packages/e5/43/b1b80cbcea9f2d0e6adadd27a8da2c71b751d5670a846b444087fab408a1/numpy-1.23.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: numpy-1.23.1-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 08kb4dw3dbgh3dgsrc962ggq84mmhsick5vswasbqkvk17g60vw7
-    url: https://files.pythonhosted.org/packages/52/7c/716ab0f3b92b44a3e55d2e51cf66a8a8d403548d2ca82961129fa2c775fe/numpy-1.23.1-cp39-cp39-macosx_11_0_arm64.whl
-  - name: numpy-1.23.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1zfkgsp8cmk11balf31rf9wggr6if9mbnc9j5drwkwf06ff0nn9m
-    url: https://files.pythonhosted.org/packages/93/76/9e53d1e5b94e67df8fc86554cac49fd9ead0bf163383776c153c34670a19/numpy-1.23.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.23.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1fwnavw7bwd7wpcp7ys6ik5d33jvy301yhpis3j9yrfavxj4wp53
-    url: https://files.pythonhosted.org/packages/8d/d6/cc2330e512936a904a4db1629b71d697fb309115f6d2ede94d183cdfe185/numpy-1.23.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: numpy-1.23.1.tar.gz
-    sha256: 095nv17vm8hvj8cj0d76syl9xh99bbnkgnjr9ccy3wpykcsfyj6p
-    url: https://files.pythonhosted.org/packages/13/b1/0c22aa7ca1deda4915cdec9562f839546bb252eecf6ad596eaec0592bd35/numpy-1.23.1.tar.gz
+  - name: async_generator-1.10-py3-none-any.whl
+    sha256: 0nsqss59xyvjhk5zzjwqw056mwaa5v60006s5iyrdd2rcdkbziq1
+    url: https://files.pythonhosted.org/packages/71/52/39d20e03abd0ac9159c162ec24b93fbcaa111e8400308f2465432495ca2b/async_generator-1.10-py3-none-any.whl
+  - name: async_generator-1.10.tar.gz
+    sha256: 0i11f6z6lix8ixi3vsk6s76zvvpmgrw6zjrcwjm0m4hjdh83vfvf
+    url: https://files.pythonhosted.org/packages/ce/b6/6fa6b3b598a03cba5e80f829e0dadbb49d7645f523d209b2fb7ea0bbb02a/async_generator-1.10.tar.gz
+  - name: attrs-22.1.0-py2.py3-none-any.whl
+    sha256: 072mv8qgvas8sagx7f021l9yrca6ry3m8cqsylsdzwkvyq1a9vw6
+    url: https://files.pythonhosted.org/packages/f2/bc/d817287d1aa01878af07c19505fafd1165cd6a119e9d0821ca1d1c20312d/attrs-22.1.0-py2.py3-none-any.whl
+  - name: attrs-22.1.0.tar.gz
+    sha256: 1di2kd18bc0sdq61sa24sdr9c7xjg3g8ymkw1qfikra7aikc5b99
+    url: https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz
+  - name: certifi-2022.12.7-py3-none-any.whl
+    sha256: 065wqxligjai8la891i71s921q7xmpyc3krixhc6fvcjbqpj7lsa
+    url: https://files.pythonhosted.org/packages/71/4c/3db2b8021bd6f2f0ceb0e088d6b2d49147671f25832fb17970e9b583d742/certifi-2022.12.7-py3-none-any.whl
+  - name: certifi-2022.12.7.tar.gz
+    sha256: 1qx9a09rssb1fa6jwmpn332irnqlm9j4v108nij5j4cp7964p0im
+    url: https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz
+  - name: cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 11gmbafr477z9yi4wnhssjq0yl22qkvgkxvy1rwdv3ikg1xxp8jl
+    url: https://files.pythonhosted.org/packages/18/8f/5ff70c7458d61fa8a9752e5ee9c9984c601b0060aae0c619316a1e1f1ee5/cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 1c1xnyjfpxj24z3x1jn56krs8niw059mnvwfnfyva228jkfk3lgw
+    url: https://files.pythonhosted.org/packages/3a/75/a162315adeaf47e94a3b7f886a8e31d77b9e525a387eef2d6f0efc96a7c8/cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
+  - name: cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 05a4lrdsljvfkwx5a13p39ka2yllhjwsry4v5x2p57hw21hyhwvl
+    url: https://files.pythonhosted.org/packages/85/1f/a3c533f8d377da5ca7edb4f580cc3edc1edbebc45fac8bb3ae60f1176629/cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 17dyjs9k7ki1wp2g0a71j2pfny2wwgm98yi09lm9412rk2g7k6kc
+    url: https://files.pythonhosted.org/packages/77/b7/d3618d612be01e184033eab90006f8ca5b5edafd17bf247439ea4e167d8a/cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 1139rcr86ndz4yb698gk1mvs1xvwxa1qb3y88ldzk1p575qf1k9v
+    url: https://files.pythonhosted.org/packages/a9/ba/e082df21ebaa9cb29f2c4e1d7e49a29b90fcd667d43632c6674a16d65382/cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 0ddy82522hhcmk797a2xzgrb7wjqdv5aaza2qa1cxaj665h7kark
+    url: https://files.pythonhosted.org/packages/af/cb/53b7bba75a18372d57113ba934b27d0734206c283c1dfcc172347fbd9f76/cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 09rby40y4f63b0836nqs7ff3ccfl15gd9kbpfg3g7svqhs9qnnax
+    url: https://files.pythonhosted.org/packages/2d/86/3ca57cddfa0419f6a95d1c8478f8f622ba597e3581fd501bbb915b20eb75/cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 0xkgjw4zdra6fiznkmh3hig7xrzv99gyp1znkydfag3lcafbn3yv
+    url: https://files.pythonhosted.org/packages/ad/26/7b3a73ab7d82a64664c7c4ea470e4ec4a3c73bb4f02575c543a41e272de5/cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
+  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 1wvvd6falwz712pcj5sakxipzx57p0ny3p97ja6mi0gg5dm5rn4q
+    url: https://files.pythonhosted.org/packages/da/ff/ab939e2c7b3f40d851c0f7192c876f1910f3442080c9c846532993ec3cef/cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: cffi-1.15.1.tar.gz
+    sha256: 1y9lr651svbzf1m03s4lqbnbv2byx8f6f0ml7hjm24vvlfwvy06l
+    url: https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz
+  - name: exceptiongroup-1.0.4-py3-none-any.whl
+    sha256: 0a58qigw7bjfcyw519jz76rdl4fbllpn0y8jdq6m6ma0xafxyajl
+    url: https://files.pythonhosted.org/packages/ce/2e/9a327cc0d2d674ee2d570ee30119755af772094edba86d721dda94404d1a/exceptiongroup-1.0.4-py3-none-any.whl
+  - name: exceptiongroup-1.0.4.tar.gz
+    sha256: 1v750rp7v7h8j0maldzrilkkwlyzixpj28vkv5adp6ydg5xrc55x
+    url: https://files.pythonhosted.org/packages/fa/e1/4f89a2608978a78876a76e69e82fa1fc5ce3fb346297eed2a51dd3df2dcf/exceptiongroup-1.0.4.tar.gz
+  - name: h11-0.14.0-py3-none-any.whl
+    sha256: 0qd7z9p38dwx215048q708vd1sn2abdh1mb3hg66ii2ip324mzp3
+    url: https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl
+  - name: h11-0.14.0.tar.gz
+    sha256: 17b97c56y31hi0n0x0cb5a87x4xr9jijf2y06pzj0977k6zgn6cg
+    url: https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz
+  - name: idna-3.4-py3-none-any.whl
+    sha256: 1hn54ps4kgv2fmyvfaks38sgrvjc1cn4834sh7gadsx3x9wpxdwh
+    url: https://files.pythonhosted.org/packages/fc/34/3030de6f1370931b9dbb4dad48f6ab1015ab1d32447850b9fc94e60097be/idna-3.4-py3-none-any.whl
+  - name: idna-3.4.tar.gz
+    sha256: 1d1cs1in0lmm61sjmlach9qvyq3xm3xcb49vhclx7mzain754kw1
+    url: https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz
+  - name: numpy-1.23.5-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 13z3n7b59z5z6jpj1hzg31fdrnzi5jy6cjpbjhzizj45iv9bysc9
+    url: https://files.pythonhosted.org/packages/8c/7a/171d3b4a54de835c8f95181dd2885607c0e04adca55ef99d9de559b4c9ba/numpy-1.23.5-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: numpy-1.23.5-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 1pknw65zr948njmnqyzwgjlp8xd541x3ifwvhi9ghdxv10d27b57
+    url: https://files.pythonhosted.org/packages/9e/9d/ff17c357f7144301da85f8c03d56593cfd2904e9ce89f86c8eefaa96d2d5/numpy-1.23.5-cp39-cp39-macosx_11_0_arm64.whl
+  - name: numpy-1.23.5-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 0ggym9k39fija9xiyyp2xk3nd913waqqsfbwg746vh557g37v0xz
+    url: https://files.pythonhosted.org/packages/5d/a1/cdac656aed8bc04dc86296490f8dbef68474c3294cc31af30f2bd0ec06de/numpy-1.23.5-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.23.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 06f72knq83rg9y7yc5qkhcfppv15k23kxcr5623jb416s89ic5ik
+    url: https://files.pythonhosted.org/packages/4c/b9/038abd6fbd67b05b03cb1af590cfc02b7f1e5a37af7ac6a868f5093c29f5/numpy-1.23.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.23.5.tar.gz
+    sha256: 06pd9nyairfl539d416wpb51bdyxg7yds580si9q3hcpygb6c5qv
+    url: https://files.pythonhosted.org/packages/42/38/775b43da55fa7473015eddc9a819571517d9a271a9f8134f68fb9be2f212/numpy-1.23.5.tar.gz
+  - name: outcome-1.2.0-py2.py3-none-any.whl
+    sha256: 1xgpw2svc65b064vlyhnjqgrq41klgmdl5ma0n5d7mkmcnjqkay4
+    url: https://files.pythonhosted.org/packages/e9/4f/2f2d3f65d851852712b4de3fd0cfdcec9c5e9a9c347430e004ba770ef4db/outcome-1.2.0-py2.py3-none-any.whl
+  - name: outcome-1.2.0.tar.gz
+    sha256: 0wi6bmsfn73aw1hbpa1nhhshlx9k2vxcl7kp3z7h78sxwhyvv0kg
+    url: https://files.pythonhosted.org/packages/dd/91/741e1626e89fdc3664169e16300c59eefa4b23540cc6d6c70450f885098f/outcome-1.2.0.tar.gz
   - name: pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 1yddvd92vw412gfjxzvng4ki8wv21pkinir3hifvbrny0z7m0xyl
     url: https://files.pythonhosted.org/packages/3b/52/d5475578dc252c13e0823b9a715c2e17002dcdaee9defba0d2b2659112df/pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
@@ -40,46 +126,97 @@ links:
   - name: pandas-1.3.4.tar.gz
     sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
     url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
+  - name: pycparser-2.21-py2.py3-none-any.whl
+    sha256: 1agwca0hgbpwmr9snhxafqjhfd52mq083rw5n7vf25amallm9r4f
+    url: https://files.pythonhosted.org/packages/62/d5/5f610ebe421e85889f2e55e33b7f9a6795bd982198517d912eb1c76e1a53/pycparser-2.21-py2.py3-none-any.whl
+  - name: pycparser-2.21.tar.gz
+    sha256: 01kjlyn5w2nn2saj8w1rhq7v26328pd91xwgqn32z1zp2bngsi76
+    url: https://files.pythonhosted.org/packages/5e/0b/95d387f5f4433cb0f53ff7ad859bd2c6051051cebbb564f139a999ab46de/pycparser-2.21.tar.gz
+  - name: PySocks-1.7.1-py3-none-any.whl
+    sha256: 1ray8fjf7ciqsfd8l4486bl93bibkrgym7kka6drp495k45bs997
+    url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
+  - name: PySocks-1.7.1.tar.gz
+    sha256: 184sg65mbmih6ljblfsxcmq5js5l7dj3gpn618w9q5dy3rbh921z
+    url: https://files.pythonhosted.org/packages/bd/11/293dd436aea955d45fc4e8a35b6ae7270f5b8e00b53cf6c024c83b657a11/PySocks-1.7.1.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: pytz-2022.1-py2.py3-none-any.whl
-    sha256: 0p3amik3hqpyi9y1x22a552n490614xikcqyi1madncnaac8b2g6
-    url: https://files.pythonhosted.org/packages/60/2e/dec1cc18c51b8df33c7c4d0a321b084cf38e1733b98f9d15018880fb4970/pytz-2022.1-py2.py3-none-any.whl
-  - name: pytz-2022.1.tar.gz
-    sha256: 19ya5sh7if819flgmszz585glailhi7rr8frng03n5m8wqphwxhy
-    url: https://files.pythonhosted.org/packages/2f/5f/a0f653311adff905bbcaa6d3dfaf97edcf4d26138393c6ccd37a484851fb/pytz-2022.1.tar.gz
+  - name: pytz-2022.6-py2.py3-none-any.whl
+    sha256: 09ql55j0107qp4zgz567g66vz73ckvc0j5wzapnzr64w9r3kj912
+    url: https://files.pythonhosted.org/packages/85/ac/92f998fc52a70afd7f6b788142632afb27cd60c8c782d1452b7466603332/pytz-2022.6-py2.py3-none-any.whl
+  - name: pytz-2022.6.tar.gz
+    sha256: 1qlm0138nmplpr0pkhji1rf15kiqqnf9kg3ib6gs6g3rdd0155g8
+    url: https://files.pythonhosted.org/packages/76/63/1be349ff0a44e4795d9712cc0b2d806f5e063d4d34631b71b832fac715a8/pytz-2022.6.tar.gz
   - name: ruamel.yaml-0.17.21-py3-none-any.whl
     sha256: 19qwnvwc219sx4j2jknvbzvmvkj88b9b65kdpn0kj0k5sv9kaavl
     url: https://files.pythonhosted.org/packages/9e/cb/938214ac358fbef7058343b3765c79a1b7ed0c366f7f992ce7ff38335652/ruamel.yaml-0.17.21-py3-none-any.whl
   - name: ruamel.yaml-0.17.21.tar.gz
     sha256: 1bxp4dfkzzsndf9f8fspr4jc85nwf5243b616lm7a4pjlabycz4b
     url: https://files.pythonhosted.org/packages/46/a9/6ed24832095b692a8cecc323230ce2ec3480015fbfa4b79941bd41b23a3c/ruamel.yaml-0.17.21.tar.gz
-  - name: ruamel.yaml.clib-0.2.6-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1v9bhjqjjrg1ymjbkhriaha2c5990qyl6k919ahzbvkldhyn2snw
-    url: https://files.pythonhosted.org/packages/ba/2c/076d00f31f9476ccad3a6a5446ee30c5f0921012d714c76f3111e29b06ab/ruamel.yaml.clib-0.2.6-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: ruamel.yaml.clib-0.2.6-cp39-cp39-manylinux1_x86_64.whl
-    sha256: 1w2n11r4q3q2a9mcikg3biy0b03dlnn0vh2w999bj0sa50ncyrhq
-    url: https://files.pythonhosted.org/packages/3e/36/f1e3b5a0507662a66f156518457ffaf530c818f204467a5c532fc44056f9/ruamel.yaml.clib-0.2.6-cp39-cp39-manylinux1_x86_64.whl
-  - name: ruamel.yaml.clib-0.2.6.tar.gz
-    sha256: 1gdchmdngbni9mv6f62xb7ii1kjr8wvkqq859xwj1fws8g709xjg
-    url: https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz
-  - name: selenium-3.141.0.tar.gz
-    sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
-    url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
+  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1n8kl63521i9kgfj4w75i82wgxsylm5rq6xpa8vkmy5q3ry6dh2v
+    url: https://files.pythonhosted.org/packages/f5/ac/dda2d23d652bc2f6db886496ad632957af82e33d22c1088cc0ac87c496b5/ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_12_0_arm64.whl
+    sha256: 1l9m7ick2ywwf2kblnkqc2hfqxn671mbxabnj2bqpmk8g10qskaa
+    url: https://files.pythonhosted.org/packages/d2/3e/179eeeabcbbfe173ecd2bb3f958e22011c0a2c18f75674a75f62928f55eb/ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_12_0_arm64.whl
+  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 0h1nrlih1gk4swf4xx2kd0s04g69ljydfgnylyqkh592l326p6mz
+    url: https://files.pythonhosted.org/packages/ff/66/4c05485243e24c6db5d7305063304c410b5539577becc89e4539d2897e41/ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux2014_aarch64.whl
+  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+    sha256: 0sqs41wls30fw2apqmr19pq1g2b3amnc9daq60i76p8513zh3cx7
+    url: https://files.pythonhosted.org/packages/35/bc/a1f58a339ffe891d92492f47b1dfa90b0957ccf8ad11f35f653a1a6b8c4e/ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
+  - name: ruamel.yaml.clib-0.2.7.tar.gz
+    sha256: 15wlbw7wys3nana0xgip8mgjlpcr1f2qwrvivf04377a5ddgs20z
+    url: https://files.pythonhosted.org/packages/d5/31/a3e6411947eb7a4f1c669f887e9e47d61a68f9d117f10c3c620296694a0b/ruamel.yaml.clib-0.2.7.tar.gz
+  - name: selenium-4.7.2-py3-none-any.whl
+    sha256: 1km5amjmgkb0c7wk3pdg35s0w387aa4dv391qchhn4qkygcwg886
+    url: https://files.pythonhosted.org/packages/00/7b/d511219e116fd4d18b0dd6e32fb5ec7a0a169165f8132111a7422d5952f5/selenium-4.7.2-py3-none-any.whl
+  - name: selenium-4.7.2.tar.gz
+    sha256: 0kc9nmjv47z0lflkm9kf30l66mhxrwlhzkf1a02m4bm4515a3vrs
+    url: https://files.pythonhosted.org/packages/3e/3f/69a34f8a83c77bba0ea13323c665ee27bf1b357a049c06c7c611dad10f75/selenium-4.7.2.tar.gz
   - name: six-1.16.0-py2.py3-none-any.whl
     sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
     url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
   - name: six-1.16.0.tar.gz
     sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
     url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
-  - name: urllib3-1.26.11-py2.py3-none-any.whl
-    sha256: 1g694a3s6wyqfzmys3ds6f2b4cjzsabkmhk48w99d5c17jiwng63
-    url: https://files.pythonhosted.org/packages/d1/cb/4783c8f1a90f89e260dbf72ebbcf25931f3a28f8f80e2e90f8a589941b19/urllib3-1.26.11-py2.py3-none-any.whl
-  - name: urllib3-1.26.11.tar.gz
-    sha256: 02mchdcf40akw2387g08i2i66v121680rdlkmc7rb7di22r8yvpa
-    url: https://files.pythonhosted.org/packages/6d/d5/e8258b334c9eb8eb78e31be92ea0d5da83ddd9385dc967dd92737604d239/urllib3-1.26.11.tar.gz
-python: '3.9'
+  - name: sniffio-1.3.0-py3-none-any.whl
+    sha256: 112k8azxisfcwpvx36rpgisxf15lxv0zgaza5snvggsv3v7gvkpf
+    url: https://files.pythonhosted.org/packages/c3/a0/5dba8ed157b0136607c7f2151db695885606968d1fae123dc3391e0cfdbf/sniffio-1.3.0-py3-none-any.whl
+  - name: sniffio-1.3.0.tar.gz
+    sha256: 00cibg2madxg6j912qwpwkgggn1km8mg5dsrj8wga56kwp2ha0z6
+    url: https://files.pythonhosted.org/packages/cd/50/d49c388cae4ec10e8109b1b833fd265511840706808576df3ada99ecb0ac/sniffio-1.3.0.tar.gz
+  - name: sortedcontainers-2.4.0-py2.py3-none-any.whl
+    sha256: 1q3y4gdrb1d3595sxqlpk0j783hr8n9a6mz9hla0470gvspdqqx1
+    url: https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl
+  - name: sortedcontainers-2.4.0.tar.gz
+    sha256: 126vpywl7aly6zir033a9indgyficlzl68qls61nn2y3djhabji5
+    url: https://files.pythonhosted.org/packages/e8/c4/ba2f8066cceb6f23394729afe52f3bf7adec04bf9ed2c820b39e19299111/sortedcontainers-2.4.0.tar.gz
+  - name: trio-0.22.0-py3-none-any.whl
+    sha256: 1w6d47bjn1f005q4izr55k5slqiznnf5353rgh68iz4vm200gpgi
+    url: https://files.pythonhosted.org/packages/f1/ed/3623a910f9bb7a31b067d6baef476ed6e294e92a245f94ab992988e4a666/trio-0.22.0-py3-none-any.whl
+  - name: trio-0.22.0.tar.gz
+    sha256: 1kxa9v0cds0xnklvzppv4ix4xg81r73p5pm4qlvv2iqa832z2s6f
+    url: https://files.pythonhosted.org/packages/0b/b8/1b81d2149c3e2c25900d40b8e6c8d3ca502a3cc844b90c962b0854aaf3f3/trio-0.22.0.tar.gz
+  - name: trio_websocket-0.9.2-py3-none-any.whl
+    sha256: 1g6jgvikf0sf6r1mbmkvypfilp99qmv288317dya686chdp8ymav
+    url: https://files.pythonhosted.org/packages/db/c5/b5e8bc1f40568a354f2a9cc296b8892605a9d2f22e725290fc33836dd2a3/trio_websocket-0.9.2-py3-none-any.whl
+  - name: trio-websocket-0.9.2.tar.gz
+    sha256: 1znq1ybn8fz5r5796qhsnqk876nsyixixv81wzp26q62zbl4vlx3
+    url: https://files.pythonhosted.org/packages/75/91/44a0a016025794ba9fef530a6fbe59987153e2cbea7e11fe2f3d8c618740/trio-websocket-0.9.2.tar.gz
+  - name: urllib3-1.26.13-py2.py3-none-any.whl
+    sha256: 1z21pgc451h1qcx1g74wnmj4wddswxh9p06m5vkwj2dakbchbk27
+    url: https://files.pythonhosted.org/packages/65/0c/cc6644eaa594585e5875f46f3c83ee8762b647b51fc5b0fb253a242df2dc/urllib3-1.26.13-py2.py3-none-any.whl
+  - name: urllib3-1.26.13.tar.gz
+    sha256: 1a6y3m90q4i605p7q2ajgpm7si7rj35p2llx2bhzpnv8rq6xv0y0
+    url: https://files.pythonhosted.org/packages/c2/51/32da03cf19d17d46cce5c731967bf58de9bd71db3a379932f53b094deda4/urllib3-1.26.13.tar.gz
+  - name: wsproto-1.2.0-py3-none-any.whl
+    sha256: 0dnpgl1jqkaalad5glyzigiavza2cv2qhy2741dxg1dmabbdvb5r
+    url: https://files.pythonhosted.org/packages/78/58/e860788190eba3bcce367f74d29c4675466ce8dddfba85f7827588416f01/wsproto-1.2.0-py3-none-any.whl
+  - name: wsproto-1.2.0.tar.gz
+    sha256: 0rahm1j9danv1l6i6as80acwv16ycihxkhrvwjiqh9drxhk5ymmd
+    url: https://files.pythonhosted.org/packages/c9/4a/44d3c295350d776427904d73c189e10aeae66d7f555bb2feee16d1e4ba5a/wsproto-1.2.0.tar.gz
+python: "3.9"
