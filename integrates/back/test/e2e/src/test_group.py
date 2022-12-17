@@ -2,6 +2,7 @@
 from model import (
     Credentials,
 )
+import pytest
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
@@ -228,6 +229,7 @@ def test_group_stakeholder(
     assert "Registration status" in driver.page_source
 
 
+@pytest.mark.skip(reason="flaky")
 def test_group_scope_repositories(  # pylint: disable=too-many-locals
     driver: WebDriver,
     credentials: Credentials,

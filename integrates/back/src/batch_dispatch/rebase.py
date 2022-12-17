@@ -41,6 +41,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from git.cmd import (
     Git,
@@ -58,7 +59,6 @@ from newutils import (
     git_self as git_utils,
 )
 from newutils.vulnerabilities import (
-    get_advisories,
     ignore_advisories,
 )
 import os
@@ -108,7 +108,11 @@ async def _get_vulnerabilities_to_rebase(
         if vuln.root_id == git_root.id
         and vuln.state.commit is not None
         and vuln.type == VulnerabilityType.LINES
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status
+        in (
+            VulnerabilityStateStatus.OPEN,
+            VulnerabilityStateStatus.CLOSED,
+        )
     )
     return vulnerabilities
 
@@ -116,22 +120,33 @@ async def _get_vulnerabilities_to_rebase(
 def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
+    states: Tuple[VulnerabilityState, ...],
 ) -> Optional[git_utils.RebaseResult]:
     try:
         if (
-            vulnerability.state.commit
-            and vulnerability.state.commit
-            != "0000000000000000000000000000000000000000"
+            states[0].commit
+            and states[0].commit != "0000000000000000000000000000000000000000"
             and (
                 result := git_utils.rebase(
                     repo,
-                    path=ignore_advisories(vulnerability.state.where),
-                    line=int(vulnerability.state.specific),
-                    rev_a=vulnerability.state.commit,
+                    path=ignore_advisories(states[0].where),
+                    line=int(states[0].specific),
+                    rev_a=states[0].commit,
                     rev_b="HEAD",
                 )
             )
         ):
+            if (
+                ignore_advisories(
+                    vulnerability.state.where,
+                )
+                != vulnerability.state.where
+            ):
+                advisories = vulnerability.state.where.replace(
+                    ignore_advisories(vulnerability.state.where),
+                    "",
+                )
+                result = result._replace(path=f"{result.path}{advisories}")
             return result
     except GitError as exc:
         LOGGER.error(
@@ -186,16 +201,21 @@ async def rebase_root(
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
+    vulns_states: Tuple[
+        Tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        [vuln.id for vuln in vulnerabilities]
+    )
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
             tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
         ] = tuple(
             executor.map(
                 lambda vuln: (
-                    _rebase_vulnerability(repo, vuln),
-                    vuln,
+                    _rebase_vulnerability(repo, vuln[0], vuln[1]),
+                    vuln[0],
                 ),
-                vulnerabilities,
+                zip(vulnerabilities, vulns_states),
             )
         )
     await collect(
@@ -210,9 +230,7 @@ async def rebase_root(
                 ),
                 vulnerability_commit=rebase_result.rev,
                 vulnerability_id=vuln.id,
-                vulnerability_where=vuln.state.where
-                if get_advisories(vuln.state.where)
-                else rebase_result.path,
+                vulnerability_where=rebase_result.path,
                 vulnerability_specific=str(rebase_result.line),
                 vulnerability_type=vuln.type,
             )
