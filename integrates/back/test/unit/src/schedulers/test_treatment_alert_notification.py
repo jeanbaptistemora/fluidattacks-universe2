@@ -1,9 +1,13 @@
+from dataloaders import (
+    get_new_context,
+)
 from freezegun import (
     freeze_time,
 )
 import pytest
 from schedulers.treatment_alert_notification import (
     days_to_end,
+    expiring_vulnerabilities,
     ExpiringDataType,
     unique_emails,
 )
@@ -16,6 +20,25 @@ pytestmark = [
 @freeze_time("2022-12-07T00:00:00.0")
 def test_days_to_end() -> None:
     assert days_to_end("2022-12-12") == 5
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    [
+        "finding_id",
+    ],
+    [
+        [
+            "463558592",
+        ],
+    ],
+)
+@freeze_time("2021-01-14T06:00:00.0")
+async def test_expiring_vulnerabilities(
+    finding_id: str,
+) -> None:
+    vulns = await expiring_vulnerabilities(get_new_context(), finding_id)
+    assert list(list(vulns.values())[0].values())[0] == 2
 
 
 @pytest.mark.parametrize(
