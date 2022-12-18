@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -73,7 +76,7 @@ def test_create_data_format_chart() -> None:
 
 
 def test_create_weekly_date() -> None:
-    first_date = "2019-09-19 13:23:32"
+    first_date = datetime.fromisoformat("2019-09-19T13:23:32-05:00")
     test_data = create_weekly_date(first_date)
     expected_output = "Sep 16 - 22, 2019"
     assert test_data == expected_output
@@ -106,7 +109,7 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         return dynamo_resource.Table(table_name).query(**kwargs)
 
     loaders = get_new_context()
-    last_day = "2019-06-30 23:59:59"
+    last_day = datetime.fromisoformat("2019-06-30T23:59:59-05:00")
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
@@ -157,7 +160,7 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
         return dynamo_resource.Table(table_name).query(**kwargs)
 
     loaders = get_new_context()
-    last_day = "2020-09-09 23:59:59"
+    last_day = datetime.fromisoformat("2020-09-09T23:59:59-05:00")
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
@@ -195,7 +198,7 @@ async def test_get_date_last_vulns(dynamo_resource: ServiceResource) -> None:
         mock_table_resource.return_value.query.side_effect = mock_query
         vulns = await loaders.finding_vulnerabilities.load(finding_id)
     test_data = get_date_last_vulns(vulns)
-    expected_output = "2019-12-30 12:46:10"
+    expected_output = datetime.fromisoformat("2019-12-30T17:46:10+00:00")
     assert mock_table_resource.called is True
     assert test_data == expected_output
 
@@ -213,7 +216,10 @@ async def test_get_first_week_dates(dynamo_resource: ServiceResource) -> None:
         mock_table_resource.return_value.query.side_effect = mock_query
         vulns = await loaders.finding_vulnerabilities.load(finding_id)
     test_data = get_first_week_dates(vulns)
-    expected_output = ("2019-12-30 00:00:00", "2020-01-05 23:59:59")
+    expected_output = (
+        datetime.fromisoformat("2019-12-30T00:00:00+00:00"),
+        datetime.fromisoformat("2020-01-05T23:59:59+00:00"),
+    )
     assert mock_table_resource.called is True
     assert test_data == expected_output
 
@@ -226,8 +232,8 @@ async def test_get_status_vulns_by_time_range(
         table_name = "integrates_vms"
         return dynamo_resource.Table(table_name).query(**kwargs)
 
-    first_day = "2019-06-01 12:00:00"
-    last_day = "2020-02-28 23:59:59"
+    first_day = datetime.fromisoformat("2019-06-01T12:00:00+00:00")
+    last_day = datetime.fromisoformat("2020-02-28T23:59:59+00:00")
     loaders = get_new_context()
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock

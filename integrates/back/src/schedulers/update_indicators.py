@@ -141,6 +141,7 @@ def create_data_format_chart(
             value.append({"x": week, "y": dict_status[key]})
     for _, value in plot_points.items():
         result_data.append(value)
+
     return result_data
 
 
@@ -159,6 +160,7 @@ def format_exposed_chart(
             value.append({"x": week, "y": dict_status[key]})
     for key, value in plot_points.items():
         result_data.append(value)
+
     return result_data
 
 
@@ -210,6 +212,7 @@ def format_data_chart_yearly(
             value.append({"x": get_yearly(week), "y": dict_status[key]})
     for _, value in plot_points.items():
         result_data.append(list({data["x"]: data for data in value}.values()))
+
     return result_data
 
 
@@ -228,6 +231,7 @@ def format_exposed_chart_yearly(
             value.append({"x": get_yearly(week), "y": dict_status[key]})
     for key, value in plot_points.items():
         result_data.append(list({data["x"]: data for data in value}.values()))
+
     return result_data
 
 
@@ -238,7 +242,6 @@ async def update_vulnerabilities_indicators(
     vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in findings]
     )
-
     await update_vulnerabilities_unreliable_indicators(
         [vulnerability.id for vulnerability in vulnerabilities],
         set(cast(dict, ENTITIES[Entity.vulnerability]["attrs"]).keys()),
@@ -286,7 +289,7 @@ async def _get_vulnerability_data(
 async def create_register_by_week(  # pylint: disable=too-many-locals
     loaders: Dataloaders, group: str, min_date: Optional[datetime] = None
 ) -> RegisterByTime:
-    """Create weekly vulnerabilities registry by group"""
+    """Create weekly vulnerabilities registry by group."""
     found: int = 0
     accepted: int = 0
     closed: int = 0
@@ -340,9 +343,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     vulnerabilities_historic_treatments=historic_treatments,
                     first_day=first_day,
                     last_day=last_day,
-                    min_date=datetime_utils.get_as_str(min_date)
-                    if min_date
-                    else None,
+                    min_date=min_date,
                 )
             )
             result_cvssf_by_week: CvssfExposureByTimeRange = (
@@ -419,16 +420,8 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
             )
             accepted = result_vulns_by_week.accepted_vulnerabilities
             closed = result_vulns_by_week.closed_vulnerabilities
-            first_day = datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(
-                    datetime_utils.get_from_str(first_day), days=7
-                )
-            )
-            last_day = datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(
-                    datetime_utils.get_from_str(last_day), days=7
-                )
-            )
+            first_day = datetime_utils.get_plus_delta(first_day, days=7)
+            last_day = datetime_utils.get_plus_delta(last_day, days=7)
 
     return RegisterByTime(
         vulnerabilities=create_data_format_chart(all_registers),
@@ -582,26 +575,20 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
 
             accepted = result_vulns_by_month.accepted_vulnerabilities
             closed = result_vulns_by_month.closed_vulnerabilities
-            first_day_ = datetime_utils.get_from_str(first_day)
-            first_day = datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(
-                    first_day_,
-                    days=monthrange(
-                        int(first_day_.strftime("%Y")),
-                        int(first_day_.strftime("%m")),
-                    )[1],
-                )
+            first_day = datetime_utils.get_plus_delta(
+                first_day,
+                days=monthrange(
+                    int(first_day.strftime("%Y")),
+                    int(first_day.strftime("%m")),
+                )[1],
             )
-            last_day_ = datetime_utils.get_from_str(last_day)
-            last_day_one = datetime_utils.get_plus_delta(last_day_, days=1)
-            last_day = datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(
-                    last_day_,
-                    days=monthrange(
-                        int(last_day_one.strftime("%Y")),
-                        int(last_day_one.strftime("%m")),
-                    )[1],
-                )
+            last_day_one = datetime_utils.get_plus_delta(last_day, days=1)
+            last_day = datetime_utils.get_plus_delta(
+                last_day,
+                days=monthrange(
+                    int(last_day_one.strftime("%Y")),
+                    int(last_day_one.strftime("%m")),
+                )[1],
             )
 
     return RegisterByTime(
@@ -618,11 +605,10 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     )
 
 
-def create_weekly_date(first_date: str) -> str:
-    """Create format weekly date"""
-    first_date_ = datetime_utils.get_from_str(first_date)
+def create_weekly_date(first_date: datetime) -> str:
+    """Create format weekly date."""
     begin = datetime_utils.get_minus_delta(
-        first_date_, days=(first_date_.isoweekday() - 1) % 7
+        first_date, days=(first_date.isoweekday() - 1) % 7
     )
     end = datetime_utils.get_plus_delta(begin, days=6)
     if begin.year != end.year:
@@ -631,16 +617,16 @@ def create_weekly_date(first_date: str) -> str:
         date = "{0:%b} {0.day} - {1:%b} {1.day}, {1.year}"
     else:
         date = "{0:%b} {0.day} - {1.day}, {1.year}"
+
     return date.format(begin, end)
 
 
-def create_date(first_date: str) -> str:
-    first_date_ = datetime_utils.get_from_str(first_date)
+def create_date(first_date: datetime) -> str:
     month_days: int = monthrange(
-        int(first_date_.strftime("%Y")), int(first_date_.strftime("%m"))
+        int(first_date.strftime("%Y")), int(first_date.strftime("%m"))
     )[1]
     begin = datetime_utils.get_minus_delta(
-        first_date_, days=(int(first_date_.strftime("%d")) - 1) % month_days
+        first_date, days=(int(first_date.strftime("%d")) - 1) % month_days
     )
     end = datetime_utils.get_plus_delta(begin, days=month_days - 1)
     if begin.year != end.year:
@@ -649,6 +635,7 @@ def create_date(first_date: str) -> str:
         date = "{0:%b} {0.day} - {1:%b} {1.day}, {1.year}"
     else:
         date = "{0:%b} {0.day} - {1.day}, {1.year}"
+
     return date.format(begin, end)
 
 
@@ -656,8 +643,8 @@ def get_accepted_vulns(
     historic_state: tuple[VulnerabilityState, ...],
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
-    last_day: str,
-    min_date: Optional[str] = None,
+    last_day: datetime,
+    min_date: Optional[datetime] = None,
 ) -> VulnerabilityStatusByTimeRange:
     accepted_treatments = {
         VulnerabilityTreatmentStatus.ACCEPTED,
@@ -666,7 +653,7 @@ def get_accepted_vulns(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if treatment.modified_date <= datetime_utils.get_from_str(last_day)
+        if treatment.modified_date <= last_day
     )
     if treatments and treatments[-1].status in accepted_treatments:
         return get_by_time_range(
@@ -676,6 +663,7 @@ def get_accepted_vulns(
             last_day,
             min_date,
         )
+
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
@@ -686,8 +674,8 @@ def get_open_vulnerabilities(
     historic_state: tuple[VulnerabilityState, ...],
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
-    last_day: str,
-    min_date: Optional[str] = None,
+    last_day: datetime,
+    min_date: Optional[datetime] = None,
 ) -> VulnerabilityStatusByTimeRange:
     accepted_treatments = {
         VulnerabilityTreatmentStatus.ACCEPTED,
@@ -696,22 +684,16 @@ def get_open_vulnerabilities(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if treatment.modified_date <= datetime_utils.get_from_str(last_day)
+        if treatment.modified_date <= last_day
     )
     states = tuple(
-        state
-        for state in historic_state
-        if state.modified_date <= datetime_utils.get_from_str(last_day)
+        state for state in historic_state if state.modified_date <= last_day
     )
     if (
         states
-        and states[-1].modified_date <= datetime_utils.get_from_str(last_day)
+        and states[-1].modified_date <= last_day
         and states[-1].status == VulnerabilityStateStatus.OPEN
-        and not (
-            min_date
-            and historic_state[0].modified_date
-            < datetime_utils.get_from_str(min_date)
-        )
+        and not (min_date and historic_state[0].modified_date < min_date)
     ):
         if treatments and treatments[-1].status in accepted_treatments:
             return VulnerabilityStatusByTimeRange(
@@ -721,6 +703,7 @@ def get_open_vulnerabilities(
         return VulnerabilityStatusByTimeRange(
             vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
+
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
@@ -730,88 +713,80 @@ def get_by_time_range(
     historic_state: tuple[VulnerabilityState, ...],
     status: VulnerabilityStateStatus,
     severity: Decimal,
-    last_day: str,
-    min_date: Optional[str] = None,
+    last_day: datetime,
+    min_date: Optional[datetime] = None,
 ) -> VulnerabilityStatusByTimeRange:
     states = tuple(
-        state
-        for state in historic_state
-        if state.modified_date <= datetime_utils.get_from_str(last_day)
+        state for state in historic_state if state.modified_date <= last_day
     )
     if (
         states
-        and states[-1].modified_date <= datetime_utils.get_from_str(last_day)
+        and states[-1].modified_date <= last_day
         and states[-1].status == status
-        and not (
-            min_date
-            and historic_state[0].modified_date
-            < datetime_utils.get_from_str(min_date)
-        )
+        and not (min_date and historic_state[0].modified_date < min_date)
     ):
         return VulnerabilityStatusByTimeRange(
             vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
+
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
 
 
-def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> str:
-    """Get date of the last vulnerabilities"""
+def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> datetime:
+    """Get date of the last vulnerabilities."""
     last_date = max([vuln.state.modified_date for vuln in vulns])
     day_week = last_date.weekday()
-    first_day = datetime_utils.get_as_str(
-        datetime_utils.get_minus_delta(last_date, days=day_week)
-    )
+    first_day = datetime_utils.get_minus_delta(last_date, days=day_week)
+
     return first_day
 
 
 def get_last_vulnerabilities_date(
     vulns: tuple[Vulnerability, ...],
-) -> str:
+) -> datetime:
     last_date = max([vuln.state.modified_date for vuln in vulns])
     day_month: int = int(last_date.strftime("%d"))
     first_day_delta = datetime_utils.get_minus_delta(
         last_date, days=day_month - 1
     )
     first_day = datetime.combine(
-        first_day_delta, datetime.min.time(), tzinfo=datetime_utils.TZ
-    )
+        first_day_delta, datetime.min.time()
+    ).astimezone(tz=timezone.utc)
 
-    return datetime_utils.get_as_str(first_day)
+    return first_day
 
 
 def get_first_week_dates(
     vulns: tuple[Vulnerability, ...],
     min_date: Optional[datetime] = None,
-) -> tuple[str, str]:
+) -> tuple[datetime, datetime]:
     """Get first week vulnerabilities."""
-    first_date = min(
-        datetime_utils.get_datetime_from_iso_str(vuln.created_date)
-        for vuln in vulns
-    )
     if min_date:
         first_date = min_date
+    else:
+        first_date = min(
+            datetime_utils.get_datetime_from_iso_str(vuln.created_date)
+            for vuln in vulns
+        )
     day_week = first_date.weekday()
     first_day_delta = datetime_utils.get_minus_delta(first_date, days=day_week)
     first_day = datetime.combine(
-        first_day_delta, datetime.min.time(), tzinfo=datetime_utils.TZ
-    )
+        first_day_delta, datetime.min.time()
+    ).astimezone(tz=timezone.utc)
     last_day_delta = datetime_utils.get_plus_delta(first_day, days=6)
     last_day = datetime.combine(
         last_day_delta,
         datetime.max.time().replace(microsecond=0),
-        tzinfo=datetime_utils.TZ,
-    )
-    return (
-        datetime_utils.get_as_str(first_day),
-        datetime_utils.get_as_str(last_day),
-    )
+    ).astimezone(tz=timezone.utc)
+
+    return (first_day, last_day)
 
 
 def get_first_dates(
     historic_states: tuple[tuple[VulnerabilityState, ...], ...]
-) -> tuple[str, str]:
+) -> tuple[datetime, datetime]:
     first_date = min(
         [historic[0].modified_date for historic in historic_states]
     )
@@ -820,8 +795,8 @@ def get_first_dates(
         first_date, days=day_month - 1
     )
     first_day = datetime.combine(
-        first_day_delta, datetime.min.time(), tzinfo=datetime_utils.TZ
-    )
+        first_day_delta, datetime.min.time()
+    ).astimezone(tz=timezone.utc)
     last_day_delta = datetime_utils.get_plus_delta(
         first_day,
         days=monthrange(
@@ -832,13 +807,9 @@ def get_first_dates(
     last_day = datetime.combine(
         last_day_delta,
         datetime.max.time().replace(microsecond=0),
-        tzinfo=datetime_utils.TZ,
-    )
+    ).astimezone(tz=timezone.utc)
 
-    return (
-        datetime_utils.get_as_str(first_day),
-        datetime_utils.get_as_str(last_day),
-    )
+    return (first_day, last_day)
 
 
 def get_status_vulns_by_time_range(
@@ -851,9 +822,9 @@ def get_status_vulns_by_time_range(
     vulnerabilities_historic_treatments: tuple[
         tuple[VulnerabilityTreatment, ...], ...
     ],
-    first_day: str,
-    last_day: str,
-    min_date: Optional[str] = None,
+    first_day: datetime,
+    last_day: datetime,
+    min_date: Optional[datetime] = None,
 ) -> VulnerabilitiesStatusByTimeRange:
     """Get total closed and found vulnerabilities by time range."""
     vulnerabilities_found = [
@@ -938,7 +909,7 @@ def get_exposed_cvssf_by_time_range(
     vulnerabilities_historic_states: tuple[
         tuple[VulnerabilityState, ...], ...
     ],
-    last_day: str,
+    last_day: datetime,
 ) -> CvssfExposureByTimeRange:
     exposed_cvssf: list[CvssfExposureByTimeRange] = [
         get_exposed_cvssf(historic_state, severity, last_day)
@@ -958,28 +929,26 @@ def get_exposed_cvssf_by_time_range(
 def get_found_vulnerabilities(
     vulnerability: Vulnerability,
     severity: Decimal,
-    first_day: str,
-    last_day: str,
+    first_day: datetime,
+    last_day: datetime,
 ) -> VulnerabilityStatusByTimeRange:
     found = VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
-    if datetime.fromisoformat(first_day).astimezone(
-        tz=timezone.utc
-    ) <= vulnerability.state.modified_date <= datetime.fromisoformat(
-        last_day
-    ).astimezone(
-        tz=timezone.utc
-    ) and vulnerability.state.status in {
-        VulnerabilityStateStatus.DELETED,
-        VulnerabilityStateStatus.MASKED,
-    }:
+    if (
+        first_day <= vulnerability.state.modified_date <= last_day
+        and vulnerability.state.status
+        in {
+            VulnerabilityStateStatus.DELETED,
+            VulnerabilityStateStatus.MASKED,
+        }
+    ):
         found = VulnerabilityStatusByTimeRange(
             vulnerabilities=found.vulnerabilities - 1,
             cvssf=found.cvssf
             + (vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
-    report_date = vulnerability.created_date
+    report_date = datetime.fromisoformat(vulnerability.created_date)
     if first_day <= report_date <= last_day:
         found = VulnerabilityStatusByTimeRange(
             vulnerabilities=found.vulnerabilities + 1,
@@ -1003,19 +972,17 @@ def get_severity_level(severity: Decimal) -> str:
 def get_exposed_cvssf(
     historic_state: tuple[VulnerabilityState, ...],
     severity: Decimal,
-    last_day: str,
+    last_day: datetime,
 ) -> CvssfExposureByTimeRange:
     states = tuple(
-        state
-        for state in historic_state
-        if state.modified_date <= datetime_utils.get_from_str(last_day)
+        state for state in historic_state if state.modified_date <= last_day
     )
     cvssf: Decimal = Decimal("0.0")
     severity_level = get_severity_level(severity)
 
     if (
         states
-        and states[-1].modified_date <= datetime_utils.get_from_str(last_day)
+        and states[-1].modified_date <= last_day
         and states[-1].status == VulnerabilityStateStatus.OPEN
     ):
         cvssf = vulns_utils.get_cvssf(severity)
@@ -1078,7 +1045,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
         datetime.combine(
             datetime_utils.get_now_minus_delta(days=30),
             datetime.min.time(),
-        ),
+        ).astimezone(tz=timezone.utc),
     )
     remediated_over_ninety_days = await create_register_by_week(
         loaders,
@@ -1086,7 +1053,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
         datetime.combine(
             datetime_utils.get_now_minus_delta(days=90),
             datetime.min.time(),
-        ),
+        ).astimezone(tz=timezone.utc),
     )
     over_time_month: RegisterByTime = await create_register_by_month(
         loaders=loaders, group=group.name
