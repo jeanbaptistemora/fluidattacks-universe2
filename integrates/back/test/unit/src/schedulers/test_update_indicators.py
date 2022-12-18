@@ -76,7 +76,7 @@ def test_create_data_format_chart() -> None:
 
 
 def test_create_weekly_date() -> None:
-    first_date = datetime.fromisoformat("2019-09-19T13:23:32-05:00")
+    first_date = datetime.fromisoformat("2019-09-19T13:23:32+00:00")
     test_data = create_weekly_date(first_date)
     expected_output = "Sep 16 - 22, 2019"
     assert test_data == expected_output
@@ -109,7 +109,7 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         return dynamo_resource.Table(table_name).query(**kwargs)
 
     loaders = get_new_context()
-    last_day = datetime.fromisoformat("2019-06-30T23:59:59-05:00")
+    last_day = datetime.fromisoformat("2019-06-30T23:59:59+00:00")
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
@@ -160,7 +160,7 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
         return dynamo_resource.Table(table_name).query(**kwargs)
 
     loaders = get_new_context()
-    last_day = datetime.fromisoformat("2020-09-09T23:59:59-05:00")
+    last_day = datetime.fromisoformat("2020-09-09T23:59:59+00:00")
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
