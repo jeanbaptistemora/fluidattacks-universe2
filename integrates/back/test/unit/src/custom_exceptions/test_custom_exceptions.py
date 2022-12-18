@@ -384,7 +384,7 @@ async def test_validate_number_acceptances(
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-01-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.ACCEPTED,
-            accepted_until="2020-02-01T17:00:00+00:00",
+            accepted_until=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             justification="Justification to accept the finding",
             modified_by="unittest@fluidattacks.com",
         ),

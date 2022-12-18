@@ -12,6 +12,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Notification,
 )
@@ -76,12 +79,8 @@ class ExpiringDataType(TypedDict):
     group_expiring_findings: Dict[str, Dict[str, Dict[str, int]]]
 
 
-def days_to_end(date: str) -> int:
-    days = (
-        datetime_utils.get_datetime_from_iso_str(date)
-        - datetime_utils.get_now()
-    ).days
-    return days
+def days_to_end(date: datetime) -> int:
+    return (date - datetime_utils.get_utc_now()).days
 
 
 async def expiring_vulnerabilities(

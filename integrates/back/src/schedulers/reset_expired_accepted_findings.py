@@ -72,7 +72,7 @@ async def reset_group_expired_accepted_findings(
     for vuln in vulns:
         finding_id = vuln.finding_id
         is_accepted_expired = (
-            datetime.fromisoformat(vuln.treatment.accepted_until) < today
+            vuln.treatment.accepted_until < today
             if vuln.treatment and vuln.treatment.accepted_until
             else False
         )

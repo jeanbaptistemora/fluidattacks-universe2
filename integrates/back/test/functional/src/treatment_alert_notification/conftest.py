@@ -298,7 +298,9 @@ async def populate() -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
-                        accepted_until="2022-11-30T00:45:11+00:00",
+                        accepted_until=datetime.fromisoformat(
+                            "2022-11-30T00:45:11+00:00"
+                        ),
                         justification="justification",
                         assigned="anything@gmail.com",
                         modified_by="anything@gmail.com",

@@ -658,10 +658,8 @@ class ITReport:
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         if vuln.treatment:
             if vuln.treatment.accepted_until:
-                current_treatment_exp_date = (
-                    datetime_utils.convert_from_iso_str(
-                        vuln.treatment.accepted_until
-                    )
+                current_treatment_exp_date = datetime_utils.get_as_str(
+                    vuln.treatment.accepted_until
                 )
             current_treatment_data = {
                 "Current Treatment": format_treatment(vuln.treatment.status),
@@ -689,7 +687,7 @@ class ITReport:
                 first_treatment.status == VulnerabilityTreatmentStatus.ACCEPTED
                 and first_treatment.accepted_until
             ):
-                first_expiration = datetime_utils.convert_from_iso_str(
+                first_expiration = datetime_utils.get_as_str(
                     first_treatment.accepted_until
                 )
             first_treatment_data = {

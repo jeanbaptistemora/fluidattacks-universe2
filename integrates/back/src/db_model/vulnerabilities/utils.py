@@ -213,7 +213,9 @@ def format_tool(item: Item) -> VulnerabilityTool:
 
 def format_treatment(item: Item) -> VulnerabilityTreatment:
     return VulnerabilityTreatment(
-        accepted_until=item.get("accepted_until", None),
+        accepted_until=datetime.fromisoformat(item["accepted_until"])
+        if item.get("accepted_until")
+        else None,
         acceptance_status=VulnerabilityAcceptanceStatus[
             item["acceptance_status"]
         ]

@@ -109,7 +109,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
                         acceptance_status=None,
-                        accepted_until="2021-01-16T17:46:10+00:00",
+                        accepted_until=datetime.fromisoformat(
+                            "2021-01-16T17:46:10+00:00"
+                        ),
                         justification="This is a treatment justification test",
                         assigned="integratesuser@gmail.comm",
                         modified_by="integratesuser@gmail.com",

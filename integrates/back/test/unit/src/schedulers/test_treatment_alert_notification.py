@@ -1,6 +1,9 @@
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from freezegun import (
     freeze_time,
 )
@@ -19,7 +22,9 @@ pytestmark = [
 
 @freeze_time("2022-12-07T00:00:00.0")
 def test_days_to_end() -> None:
-    assert days_to_end("2022-12-12") == 5
+    assert (
+        days_to_end(datetime.fromisoformat("2022-12-12T00:00:00+00:00")) == 5
+    )
 
 
 @pytest.mark.asyncio

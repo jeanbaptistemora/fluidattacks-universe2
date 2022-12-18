@@ -52,7 +52,7 @@ class VulnerabilityTreatment(NamedTuple):
     modified_date: datetime
     status: VulnerabilityTreatmentStatus
     acceptance_status: Optional[VulnerabilityAcceptanceStatus] = None
-    accepted_until: Optional[str] = None
+    accepted_until: Optional[datetime] = None
     justification: Optional[str] = None
     assigned: Optional[str] = None
     modified_by: Optional[str] = None

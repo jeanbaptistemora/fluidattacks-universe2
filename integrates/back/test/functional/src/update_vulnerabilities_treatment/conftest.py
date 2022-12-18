@@ -231,7 +231,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED,
-                        accepted_until="2018-04-21T00:45:11+00:00",
+                        accepted_until=datetime.fromisoformat(
+                            "2018-04-21T00:45:11+00:00"
+                        ),
                         justification="justification",
                         assigned=generic_data["global_vars"]["user_email"],
                         modified_by=generic_data["global_vars"][

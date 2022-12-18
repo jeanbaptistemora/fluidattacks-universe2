@@ -15,6 +15,7 @@ from custom_exceptions import (
 from datetime import (
     datetime,
     timedelta,
+    timezone,
 )
 from db_model import (
     utils as db_model_utils,
@@ -215,9 +216,9 @@ async def add_vulnerability_treatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         else None,
-        accepted_until=datetime_utils.convert_to_iso_str(
+        accepted_until=datetime.fromisoformat(
             updated_values["acceptance_date"]
-        )
+        ).astimezone(tz=timezone.utc)
         if new_status == VulnerabilityTreatmentStatus.ACCEPTED
         else None,
         justification=updated_values.get("justification"),

@@ -8,6 +8,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -26,9 +27,6 @@ from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
 )
 import html
-from newutils import (
-    datetime as datetime_utils,
-)
 from newutils.vulnerabilities import (
     ignore_advisories,
 )
@@ -127,8 +125,10 @@ def compare_historic_treatments(
         "acceptance_date" in new_state
         and bool(new_state.get("acceptance_date"))
         and last_state.accepted_until
-        and datetime.fromisoformat(last_state.accepted_until)
-        != datetime_utils.get_from_str(new_state["acceptance_date"])
+        and last_state.accepted_until
+        != datetime.fromisoformat(new_state["acceptance_date"]).astimezone(
+            tz=timezone.utc
+        )
     )
     return treatment_changed or bool(date_changed)
 

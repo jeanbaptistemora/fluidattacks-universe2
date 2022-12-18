@@ -775,7 +775,7 @@ def format_vulnerability_treatment_item(
         "treatment": treatment.status.value,
     }
     if treatment.accepted_until:
-        item["acceptance_date"] = datetime_utils.convert_from_iso_str(
+        item["acceptance_date"] = datetime_utils.get_as_str(
             treatment.accepted_until
         )
     if treatment.justification:

@@ -6,6 +6,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -30,7 +33,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -39,12 +41,8 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def days_to_end(date: str) -> int:
-    days = (
-        datetime_utils.get_datetime_from_iso_str(date)
-        - datetime_utils.get_now()
-    ).days
-    return days
+def _days_to_end(date: datetime) -> int:
+    return (date - datetime_utils.get_utc_now()).days
 
 
 async def send_temporal_treatment_report() -> None:
@@ -58,15 +56,15 @@ async def send_temporal_treatment_report() -> None:
             if group not in FI_TEST_PROJECTS.split(",")
         )
 
-    group_findings: Tuple[
-        Tuple[Finding, ...], ...
+    group_findings: tuple[
+        tuple[Finding, ...], ...
     ] = await loaders.group_findings.load_many(groups_names)
 
     if group_findings:
         for findings in group_findings:
             for finding in findings:
                 locations: dict[str, Any] = {}
-                vulns: Tuple[
+                vulns: tuple[
                     Vulnerability, ...
                 ] = await loaders.finding_vulnerabilities_nzr.load(finding.id)
                 for vuln in vulns:
@@ -75,7 +73,7 @@ async def send_temporal_treatment_report() -> None:
                         and vuln.treatment.status
                         == VulnerabilityTreatmentStatus.ACCEPTED
                         and (end_date := vuln.treatment.accepted_until)
-                        and days_to_end(end_date) in [7, 1]
+                        and _days_to_end(end_date) in [7, 1]
                     ):
                         where: str = (vuln.state.where).split("/")[0]
                         locations[where] = {
