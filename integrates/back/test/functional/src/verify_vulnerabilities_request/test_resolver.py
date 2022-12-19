@@ -68,6 +68,7 @@ async def test_request_vulnerabilities_verification(
         status_after_verification=new_status,
     )
     assert "errors" not in result
+    assert "success" in result["data"]["verifyVulnerabilitiesRequest"]
     assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
     finding: Finding = await loaders.finding.load(finding_id)

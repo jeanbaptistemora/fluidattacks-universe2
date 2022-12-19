@@ -55,6 +55,7 @@ async def test_request_verification_vuln(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
+    assert "success" in result["data"]["requestVulnerabilitiesVerification"]
     assert result["data"]["requestVulnerabilitiesVerification"]["success"]
 
     loaders: Dataloaders = get_new_context()
