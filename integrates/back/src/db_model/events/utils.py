@@ -5,6 +5,7 @@ from .types import (
     EventMetadataToUpdate,
     EventState,
     EventUnreliableIndicators,
+    EventUnreliableIndicatorsToUpdate,
 )
 from datetime import (
     datetime,
@@ -196,3 +197,19 @@ def format_unreliable_indicators(
         if item.get("unreliable_solving_date")
         else None,
     )
+
+
+def format_unreliable_indicators_to_update_item(
+    indicators: EventUnreliableIndicatorsToUpdate,
+) -> Item:
+    item = {
+        "unreliable_solving_date": (
+            get_as_utc_iso_format(indicators.unreliable_solving_date)
+            if indicators.unreliable_solving_date
+            else None
+        ),
+    }
+    if indicators.clean_unreliable_solving_date:
+        item["unreliable_solving_date"] = ""
+
+    return {key: value for key, value in item.items() if value is not None}

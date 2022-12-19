@@ -116,6 +116,10 @@ async def update_event_unreliable_indicators(
         current_value=event,
         indicators=EventUnreliableIndicatorsToUpdate(
             unreliable_solving_date=result.get(EntityAttr.solving_date),
+            clean_unreliable_solving_date=(
+                EntityAttr.solving_date in result
+                and result[EntityAttr.solving_date] is None
+            ),
         ),
     )
 

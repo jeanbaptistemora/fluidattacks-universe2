@@ -24,6 +24,7 @@ from db_model.events.enums import (
 )
 from db_model.events.utils import (
     format_metadata_item,
+    format_unreliable_indicators_to_update_item,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -175,38 +176,34 @@ async def update_unreliable_indicators(
             "name": current_value.group_name,
         },
     )
-    unreliable_indicators = {
-        f"unreliable_indicators.{key}": Decimal(str(value))
-        if isinstance(value, float)
-        else value
+    unreliable_indicators_item = {
+        f"unreliable_indicators.{key}": value
+        for key, value in format_unreliable_indicators_to_update_item(
+            indicators
+        ).items()
+    }
+    current_indicators_item = {
+        f"unreliable_indicators.{key}": value
         for key, value in json.loads(
-            json.dumps(indicators, default=serialize)
+            json.dumps(current_value.unreliable_indicators, default=serialize),
+            parse_float=Decimal,
         ).items()
         if value is not None
     }
-    current_value_item = {
-        f"unreliable_indicators.{key}": Decimal(str(value))
-        if isinstance(value, float)
-        else value
-        for key, value in json.loads(
-            json.dumps(current_value.unreliable_indicators, default=serialize)
-        ).items()
-    }
+
     conditions = (
-        (
-            Attr(indicator_name).not_exists()
-            | Attr(indicator_name).eq(current_value_item[indicator_name])
-        )
-        for indicator_name in unreliable_indicators
+        Attr(indicator_name).eq(current_indicators_item[indicator_name])
+        for indicator_name in unreliable_indicators_item
+        if indicator_name in current_indicators_item
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
         condition_expression &= condition
     try:
-        if unreliable_indicators:
+        if unreliable_indicators_item:
             await operations.update_item(
                 condition_expression=condition_expression,
-                item=unreliable_indicators,
+                item=unreliable_indicators_item,
                 key=primary_key,
                 table=TABLE,
             )

@@ -67,6 +67,7 @@ class EventMetadataToUpdate(NamedTuple):
 
 class EventUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_solving_date: Optional[datetime] = None
+    clean_unreliable_solving_date: bool = False
 
 
 class GroupEventsRequest(NamedTuple):
