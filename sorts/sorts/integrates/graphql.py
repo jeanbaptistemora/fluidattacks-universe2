@@ -28,7 +28,6 @@ def client() -> Iterator[GraphQLClient]:
         )
         yield GraphQLClient(
             transport=transport,
-            fetch_schema_from_transport=True,
         )
     else:
         raise RuntimeError("create_session() must be called first")

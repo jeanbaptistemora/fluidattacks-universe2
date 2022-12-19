@@ -18,6 +18,7 @@ from sorts.features.file import (
 )
 from sorts.integrates.dal import (
     get_toe_lines_sorts,
+    RateLimitedWorker,
     update_toe_lines_sorts,
 )
 from sorts.utils.logs import (
@@ -119,7 +120,8 @@ def update_integrates_toes(
         toes_to_update, skipped_toes = get_toes_to_update(
             group_toe_lines, reader
         )
-        with ThreadPoolExecutor() as executor:
+        skipped_toes_worker = RateLimitedWorker()
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for skipped_toe in skipped_toes:
                 executor.submit(
                     update_toe_lines_sorts,
@@ -127,8 +129,10 @@ def update_integrates_toes(
                     skipped_toe.root_nickname,
                     skipped_toe.filename,
                     "1970-01-01",
+                    skipped_toes_worker,
                 )
-        with ThreadPoolExecutor() as executor:
+        toes_to_update_worker = RateLimitedWorker()
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for toe_lines in toes_to_update:
                 executor.submit(
                     update_toe_lines_sorts,
@@ -136,6 +140,7 @@ def update_integrates_toes(
                     toe_lines.root_nickname,
                     toe_lines.filename,
                     current_date,
+                    toes_to_update_worker,
                     toe_lines.sorts_risk_level,  # type: ignore
                 )
         log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
