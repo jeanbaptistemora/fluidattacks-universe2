@@ -4,7 +4,7 @@ from model.core_model import (
 from symbolic_eval.f063.member_access.c_sharp import (
     cs_open_redirect,
 )
-from symbolic_eval.f063.member_access.javascript import (
+from symbolic_eval.f063.member_access.common import (
     insecure_path_traversal,
 )
 from symbolic_eval.types import (
