@@ -117,9 +117,6 @@ from utils.logs import (
     log_blocking,
     log_exception_blocking,
 )
-from utils.system import (
-    wait_until_memory_usage,
-)
 
 # Constants
 MEBIBYTE: int = 1048576
@@ -271,7 +268,6 @@ def _analyze_one_path(  # noqa: MC0001
     unique_nv_paths: Set[str],
     unique_paths_count: int,
 ) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
-    wait_until_memory_usage(90)
     content = get_file_content_block(path)
     return analyze_one_path(
         index=index,

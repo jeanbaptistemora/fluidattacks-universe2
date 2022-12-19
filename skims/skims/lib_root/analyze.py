@@ -98,9 +98,6 @@ from utils.logs import (
     log_blocking,
     log_exception_blocking,
 )
-from utils.system import (
-    wait_until_memory_usage,
-)
 
 QUERIES: graph_model.Queries = (
     *f001.QUERIES,
@@ -178,7 +175,6 @@ def _handle_exception(
 def _get_graph_db(
     paths: Tuple[str, ...], total_files: int, index: int
 ) -> graph_model.GraphDB:
-    wait_until_memory_usage(90)
     log_blocking("info", "Processing shard %s/%s", index, total_files)
     return get_graph_db(paths)
 

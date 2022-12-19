@@ -1549,6 +1549,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_UNSAFE_XSS_CONTENT = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_unsafe_xss_content",
+        module="lib_root",
+        finding=FindingEnum.F008,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     AWS_CREDENTIALS = MethodInfo(
         file_name="aws",
         name="aws_credentials",
