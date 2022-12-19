@@ -15,6 +15,7 @@ from db_model.stakeholders.types import (
     NotificationsParameters,
     NotificationsPreferences,
     Stakeholder,
+    StakeholderAccessToken,
     StakeholderMetadataToUpdate,
     StakeholderPhone,
     StakeholderSessionToken,
@@ -62,9 +63,14 @@ import uuid
 mocked_paths: Dict[str, str] = {
     "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
-    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
-    "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
-    "loaders.stakeholder.load": "db_model.stakeholders.get",
+    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get."
+    "FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",
+    "get_open_vulnerabilities": "findings.domain.core."
+    "get_open_vulnerabilities",
+    "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader."
+    "load",
+    "stakeholders_model.update_metadata": "db_model.stakeholders."
+    "update_metadata",
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -253,7 +259,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         )
     },
-    "db_model.stakeholders.get": {
+    "db_model.stakeholders.get.StakeholderLoader.load": {
         '["continuoushacking@gmail.com", "hacker"]': Stakeholder(
             email="continuoushacking@gmail.com",
             access_token=None,
@@ -331,6 +337,87 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
+        '["integratesuser@gmail.com", "user"]': Stakeholder(
+            email="integratesuser@gmail.com",
+            access_token=None,
+            first_name="Jane",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Doe",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="30044445556",
+            ),
+            role="user",
+            session_key=None,
+            session_token=StakeholderSessionToken(
+                jti="0f98c8d494be2c9eddd973e4a861483988a1d90bb26"
+                "8be48dfc442d0b4cada72",
+                state=StateSessionType.IS_VALID,
+            ),
+            state=StakeholderState(
+                modified_by="integratesuser@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ],
+                    sms=[],
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["unittest@fluidattacks.com", "admin"]': Stakeholder(
+            email="unittest@fluidattacks.com",
+            access_token=StakeholderAccessToken(
+                iat=1634677195,
+                jti="c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd0"
+                "70808418d640e77d",
+                salt="27c7f388ccdd7cc432871c84b63e78cd716739c40055253c"
+                "e7ad1666a8532db6",
+            ),
+            first_name="Miguel",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="de Orellana",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3006007008",
+            ),
+            role="admin",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="integratesuser@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[],
+                    sms=[],
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
@@ -373,6 +460,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     },
     "findings.domain.core.get_open_vulnerabilities": {
         '["463558592", "422286126"]': 1
+    },
+    "db_model.stakeholders.update_metadata": {
+        '["test_email@test.com", "user"]': None,
+        '["test_email@test.com", "admin"]': None,
     },
 }
 
