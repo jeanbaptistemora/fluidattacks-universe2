@@ -15,6 +15,7 @@ from .types import (
     VulnerabilityTool,
     VulnerabilityTreatment,
     VulnerabilityUnreliableIndicators,
+    VulnerabilityUnreliableIndicatorsToUpdate,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
@@ -27,6 +28,9 @@ from datetime import (
 from db_model.enums import (
     Source,
     StateRemovalJustification,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from db_model.vulnerabilities.constants import (
     ZR_FILTER_STATUSES,
@@ -128,7 +132,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
     )
 
     return Vulnerability(
-        bug_tracking_system_url=item.get("bug_tracking_system_url", None),
+        bug_tracking_system_url=item.get("bug_tracking_system_url"),
         created_by=item["created_by"],
         created_date=datetime.fromisoformat(item["created_date"]),
         custom_severity=(
@@ -138,19 +142,19 @@ def format_vulnerability(item: Item) -> Vulnerability:
             and item["custom_severity"]
             else None
         ),
-        developer=item.get("developer", None),
-        event_id=item.get("pk_4", None),
+        developer=item.get("developer"),
+        event_id=item.get("pk_4"),
         finding_id=item["sk"].split("#")[1],
         group_name=item["group_name"],
         hacker_email=item["hacker_email"],
-        hash=item.get("hash", None),
+        hash=item.get("hash"),
         id=item["pk"].split("#")[1],
-        root_id=item.get("root_id", None),
-        skims_method=item.get("skims_method", None),
-        skims_technique=item.get("skims_technique", None),
+        root_id=item.get("root_id"),
+        skims_method=item.get("skims_method"),
+        skims_technique=item.get("skims_technique"),
         state=state,
-        stream=item.get("stream", None),
-        tags=item.get("tags", None),
+        stream=item.get("stream"),
+        tags=item.get("tags"),
         treatment=treatment,
         type=VulnerabilityType[item["type"]],
         unreliable_indicators=unreliable_indicators,
@@ -192,7 +196,7 @@ def format_state(item: Item) -> VulnerabilityState:
     return VulnerabilityState(
         commit=item.get("commit"),
         justification=StateRemovalJustification[item["justification"]]
-        if item.get("justification", None)
+        if item.get("justification")
         else None,
         modified_by=item["modified_by"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
@@ -219,11 +223,11 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         acceptance_status=VulnerabilityAcceptanceStatus[
             item["acceptance_status"]
         ]
-        if item.get("acceptance_status", None)
+        if item.get("acceptance_status")
         else None,
-        justification=item.get("justification", None),
-        assigned=item.get("assigned", None),
-        modified_by=item.get("modified_by", None),
+        justification=item.get("justification"),
+        assigned=item.get("assigned"),
+        modified_by=item.get("modified_by"),
         modified_date=datetime.fromisoformat(item["modified_date"]),
         status=VulnerabilityTreatmentStatus[item["status"]],
     )
@@ -233,30 +237,96 @@ def format_unreliable_indicators(
     item: Item,
 ) -> VulnerabilityUnreliableIndicators:
     return VulnerabilityUnreliableIndicators(
-        unreliable_closing_date=item.get("unreliable_closing_date", None),
-        unreliable_efficacy=item.get("unreliable_efficacy", None),
+        unreliable_closing_date=datetime.fromisoformat(
+            item["unreliable_closing_date"]
+        )
+        if item.get("unreliable_closing_date")
+        else None,
+        unreliable_efficacy=item.get("unreliable_efficacy"),
         unreliable_last_reattack_date=item.get(
-            "unreliable_last_reattack_date", None
+            "unreliable_last_reattack_date"
         ),
         unreliable_last_reattack_requester=item.get(
-            "unreliable_last_reattack_requester", None
+            "unreliable_last_reattack_requester"
         ),
         unreliable_last_requested_reattack_date=item.get(
-            "unreliable_last_requested_reattack_date", None
+            "unreliable_last_requested_reattack_date"
         ),
         unreliable_reattack_cycles=None
-        if item.get("unreliable_reattack_cycles", None) is None
+        if item.get("unreliable_reattack_cycles") is None
         else int(item["unreliable_reattack_cycles"]),
-        unreliable_source=Source[item["unreliable_source"]],
+        unreliable_source=Source[item["unreliable_source"]]
+        if item.get("unreliable_source")
+        else Source.ASM,
         unreliable_treatment_changes=None
-        if item.get("unreliable_treatment_changes", None) is None
+        if item.get("unreliable_treatment_changes") is None
         else int(item["unreliable_treatment_changes"]),
     )
 
 
+def format_unreliable_indicators_item(
+    indicators: VulnerabilityUnreliableIndicators,
+) -> Item:
+    item = {
+        "unreliable_closing_date": (
+            get_as_utc_iso_format(indicators.unreliable_closing_date)
+            if indicators.unreliable_closing_date
+            else None
+        ),
+        "unreliable_efficacy": indicators.unreliable_efficacy,
+        "unreliable_last_reattack_date": (
+            indicators.unreliable_last_reattack_date
+        ),
+        "unreliable_last_reattack_requester": (
+            indicators.unreliable_last_reattack_requester
+        ),
+        "unreliable_last_requested_reattack_date": (
+            indicators.unreliable_last_requested_reattack_date
+        ),
+        "unreliable_reattack_cycles": indicators.unreliable_reattack_cycles,
+        "unreliable_source": indicators.unreliable_source,
+        "unreliable_treatment_changes": (
+            indicators.unreliable_treatment_changes
+        ),
+    }
+
+    return {key: value for key, value in item.items() if value is not None}
+
+
+def format_unreliable_indicators_to_update_item(
+    indicators: VulnerabilityUnreliableIndicatorsToUpdate,
+) -> Item:
+    item = {
+        "unreliable_closing_date": (
+            get_as_utc_iso_format(indicators.unreliable_closing_date)
+            if indicators.unreliable_closing_date
+            else None
+        ),
+        "unreliable_efficacy": indicators.unreliable_efficacy,
+        "unreliable_last_reattack_date": (
+            indicators.unreliable_last_reattack_date
+        ),
+        "unreliable_last_reattack_requester": (
+            indicators.unreliable_last_reattack_requester
+        ),
+        "unreliable_last_requested_reattack_date": (
+            indicators.unreliable_last_requested_reattack_date
+        ),
+        "unreliable_reattack_cycles": indicators.unreliable_reattack_cycles,
+        "unreliable_source": indicators.unreliable_source,
+        "unreliable_treatment_changes": (
+            indicators.unreliable_treatment_changes
+        ),
+    }
+    if indicators.clean_unreliable_closing_date:
+        item["unreliable_closing_date"] = ""
+
+    return {key: value for key, value in item.items() if value is not None}
+
+
 def format_verification(item: Item) -> VulnerabilityVerification:
     return VulnerabilityVerification(
-        event_id=item.get("event_id", None),
+        event_id=item.get("event_id"),
         modified_date=datetime.fromisoformat(item["modified_date"]),
         status=VulnerabilityVerificationStatus[item["status"]],
     )

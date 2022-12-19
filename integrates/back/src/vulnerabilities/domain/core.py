@@ -306,7 +306,7 @@ async def get_by_finding_and_vuln_ids(
 
 async def get_closing_date(
     vulnerability: Vulnerability,
-) -> Optional[str]:
+) -> Optional[datetime]:
     """Get the closing date in ISO8601 UTC format."""
     current_closing_date = (
         vulnerability.unreliable_indicators.unreliable_closing_date
@@ -315,9 +315,7 @@ async def get_closing_date(
         return current_closing_date
 
     if vulnerability.state.status is VulnerabilityStateStatus.CLOSED:
-        return datetime_utils.get_as_utc_iso_format(
-            vulnerability.state.modified_date
-        )
+        return vulnerability.state.modified_date
 
     return None
 

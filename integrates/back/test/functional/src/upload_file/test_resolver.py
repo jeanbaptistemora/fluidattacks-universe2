@@ -236,7 +236,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert (
         vuln_closed_verified.unreliable_indicators
         == VulnerabilityUnreliableIndicators(
-            unreliable_closing_date="2022-02-09T00:00:00+00:00",
+            unreliable_closing_date=datetime.fromisoformat(
+                "2022-02-09T00:00:00+00:00"
+            ),
             unreliable_efficacy=Decimal("100"),
             unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
             unreliable_last_reattack_requester="requester@gmail.com",

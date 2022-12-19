@@ -16,6 +16,8 @@ from .types import (
     VulnerabilityVerification,
 )
 from .utils import (
+    format_unreliable_indicators_item,
+    format_unreliable_indicators_to_update_item,
     get_assigned,
     get_current_entry,
     get_new_zr_index_key,
@@ -33,14 +35,11 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
-    utils as db_model_utils,
 )
 from db_model.utils import (
+    adjust_historic_dates_datetime,
     get_as_utc_iso_format,
     serialize,
-)
-from decimal import (
-    Decimal,
 )
 from dynamodb import (
     keys,
@@ -302,7 +301,7 @@ async def update_historic(  # pylint: disable=too-many-locals
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
-    historic = db_model_utils.adjust_historic_dates_datetime(historic)
+    historic = adjust_historic_dates_datetime(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)
@@ -403,29 +402,24 @@ async def update_unreliable_indicators(
             "id": current_value.id,
         },
     )
-    unreliable_indicators = {
-        f"unreliable_indicators.{key}": Decimal(str(value))
-        if isinstance(value, float)
-        else value
-        for key, value in json.loads(
-            json.dumps(indicators, default=serialize)
-        ).items()
-        if value is not None
-    }
-    current_value_item = {
-        f"unreliable_indicators.{key}": Decimal(str(value))
-        if isinstance(value, float)
-        else value
-        for key, value in json.loads(
-            json.dumps(current_value.unreliable_indicators, default=serialize)
+
+    unreliable_indicators_item = {
+        f"unreliable_indicators.{key}": value
+        for key, value in format_unreliable_indicators_to_update_item(
+            indicators
         ).items()
     }
+    current_indicators_item = {
+        f"unreliable_indicators.{key}": value
+        for key, value in format_unreliable_indicators_item(
+            current_value.unreliable_indicators
+        ).items()
+    }
+
     conditions = (
-        (
-            Attr(indicator_name).not_exists()
-            | Attr(indicator_name).eq(current_value_item[indicator_name])
-        )
-        for indicator_name in unreliable_indicators
+        Attr(indicator_name).eq(current_indicators_item[indicator_name])
+        for indicator_name in unreliable_indicators_item
+        if indicator_name in current_indicators_item
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
@@ -433,7 +427,7 @@ async def update_unreliable_indicators(
     try:
         await operations.update_item(
             condition_expression=condition_expression,
-            item=unreliable_indicators,
+            item=unreliable_indicators_item,
             key=vulnerability_key,
             table=TABLE,
         )
@@ -449,7 +443,7 @@ async def update_unreliable_indicators(
         try:
             await operations.update_item(
                 condition_expression=condition_expression,
-                item=unreliable_indicators,
+                item=unreliable_indicators_item,
                 key=vulnerability_key,
                 table=TABLE,
             )

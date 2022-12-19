@@ -59,7 +59,7 @@ class VulnerabilityTreatment(NamedTuple):
 
 
 class VulnerabilityUnreliableIndicators(NamedTuple):
-    unreliable_closing_date: Optional[str] = None
+    unreliable_closing_date: Optional[datetime] = None
     unreliable_source: Source = Source.ASM
     unreliable_efficacy: Optional[Decimal] = None
     unreliable_last_reattack_date: Optional[str] = None
@@ -152,7 +152,7 @@ VulnerabilityHistoricEntry = Union[
 
 
 class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_closing_date: Optional[str] = None
+    unreliable_closing_date: Optional[datetime] = None
     unreliable_efficacy: Optional[Decimal] = None
     unreliable_last_reattack_date: Optional[str] = None
     unreliable_last_reattack_requester: Optional[str] = None
@@ -160,6 +160,7 @@ class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_reattack_cycles: Optional[int] = None
     unreliable_source: Optional[Source] = None
     unreliable_treatment_changes: Optional[int] = None
+    clean_unreliable_closing_date: bool = False
 
 
 class VulnerabilityFilters(NamedTuple):
