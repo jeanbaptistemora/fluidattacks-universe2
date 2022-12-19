@@ -199,8 +199,7 @@ async def test_update() -> None:
         modified_by="edited@test.com",
         is_moving_toe_input=True,
     )
-    loaders = get_new_context()
-    toe_input = await loaders.toe_input.load(
+    toe_input = await loaders.toe_input.clear_all().load(
         ToeInputRequest(
             component=component,
             entry_point=entry_point,

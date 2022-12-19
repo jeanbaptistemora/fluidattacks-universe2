@@ -216,10 +216,10 @@ async def update(
         state=ToeInputState(
             attacked_at=attributes.attacked_at,
             attacked_by=attributes.attacked_by
-            if attributes.attacked_by
+            if attributes.attacked_by is not None
             else current_value.state.attacked_by,
             be_present=attributes.be_present
-            if attributes.be_present
+            if attributes.be_present is not None
             else current_value.state.be_present,
             be_present_until=be_present_until,
             first_attack_at=first_attack_at,
@@ -228,10 +228,10 @@ async def update(
             modified_date=datetime_utils.get_utc_now(),
             seen_at=attributes.seen_at,
             seen_first_time_by=attributes.seen_first_time_by
-            if attributes.seen_first_time_by
+            if attributes.seen_first_time_by is not None
             else current_value.state.seen_first_time_by,
             unreliable_root_id=attributes.unreliable_root_id
-            if attributes.unreliable_root_id
+            if attributes.unreliable_root_id is not None
             else current_value.state.unreliable_root_id,
         ),
         unreliable_root_id=attributes.unreliable_root_id,

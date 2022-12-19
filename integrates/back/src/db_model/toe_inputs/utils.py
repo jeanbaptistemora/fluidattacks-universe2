@@ -137,11 +137,32 @@ def format_toe_input_item(
         "seen_first_time_by": toe_input.seen_first_time_by,
         "unreliable_root_id": toe_input.unreliable_root_id,
         "state": {
+            "attacked_at": ""
+            if toe_input.attacked_at is None
+            else db_model_utils.get_as_utc_iso_format(toe_input.attacked_at),
+            "attacked_by": toe_input.attacked_by,
+            "be_present": toe_input.be_present,
+            "be_present_until": ""
+            if toe_input.be_present_until is None
+            else db_model_utils.get_as_utc_iso_format(
+                toe_input.be_present_until
+            ),
+            "first_attack_at": ""
+            if toe_input.first_attack_at is None
+            else db_model_utils.get_as_utc_iso_format(
+                toe_input.first_attack_at
+            ),
+            "has_vulnerabilities": toe_input.has_vulnerabilities,
             "modified_by": toe_input.state.modified_by,
             "modified_date": get_as_utc_iso_format(
                 toe_input.state.modified_date
             )
             if toe_input.state.modified_date
             else "",
+            "seen_at": ""
+            if toe_input.seen_at is None
+            else db_model_utils.get_as_utc_iso_format(toe_input.seen_at),
+            "seen_first_time_by": toe_input.seen_first_time_by,
+            "unreliable_root_id": toe_input.unreliable_root_id,
         },
     }

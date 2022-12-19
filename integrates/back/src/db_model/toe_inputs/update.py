@@ -19,6 +19,7 @@ from datetime import (
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb import (
     keys,
@@ -33,6 +34,7 @@ from dynamodb.model import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json
 
 
 async def update_metadata(
@@ -82,12 +84,9 @@ async def update_metadata(
             "state",
         }
     }
-    metadata_item["state"] = {
-        "modified_by": metadata.state.modified_by,
-        "modified_date": get_as_utc_iso_format(metadata.state.modified_date)
-        if metadata.state.modified_date
-        else "",
-    }
+    metadata_item["state"] = json.loads(
+        json.dumps(metadata.state, default=serialize)
+    )
     if metadata.clean_attacked_at:
         metadata_item["attacked_at"] = ""
     if metadata.clean_be_present_until:
