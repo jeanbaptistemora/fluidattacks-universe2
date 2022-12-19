@@ -23,7 +23,16 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     render(
-      <Formik initialValues={{}} onSubmit={jest.fn()}>
+      <Formik
+        initialValues={{
+          evidence1: {
+            date: "",
+            description: "",
+            url: "",
+          },
+        }}
+        onSubmit={jest.fn()}
+      >
         <Form>
           <EvidenceImage
             content={"https://fluidattacks.com/test.png"}
@@ -47,7 +56,16 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     render(
-      <Formik initialValues={{}} onSubmit={jest.fn()}>
+      <Formik
+        initialValues={{
+          evidence1: {
+            date: "",
+            description: "",
+            url: "",
+          },
+        }}
+        onSubmit={jest.fn()}
+      >
         <Form>
           <EvidenceImage
             content={"https://fluidattacks.com/test.png"}
@@ -72,7 +90,16 @@ describe("Evidence image", (): void => {
     expect.hasAssertions();
 
     render(
-      <Formik initialValues={{}} onSubmit={jest.fn()}>
+      <Formik
+        initialValues={{
+          evidence1: {
+            date: "",
+            description: "",
+            url: "",
+          },
+        }}
+        onSubmit={jest.fn()}
+      >
         <Form>
           <EvidenceImage
             content={"https://fluidattacks.com/test.png"}
@@ -106,7 +133,9 @@ describe("Evidence image", (): void => {
     });
     render(
       <Formik
-        initialValues={{ evidence1: { file } }}
+        initialValues={{
+          evidence1: { date: "", description: "", file, url: "" },
+        }}
         name={"editEvidences"}
         onSubmit={handleUpdate}
       >
@@ -188,7 +217,17 @@ describe("Evidence image", (): void => {
     );
 
     render(
-      <Formik initialValues={{}} name={"editEvidences"} onSubmit={handleUpdate}>
+      <Formik
+        initialValues={{
+          evidence1: {
+            date: "",
+            description: "",
+            url: "",
+          },
+        }}
+        name={"editEvidences"}
+        onSubmit={handleUpdate}
+      >
         <Form>
           <EvidenceImage
             content={"https://fluidattacks.com/test.png"}

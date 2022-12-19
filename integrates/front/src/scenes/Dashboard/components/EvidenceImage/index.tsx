@@ -2,7 +2,7 @@
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
-import { Field } from "formik";
+import { Field, useField, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,12 +11,13 @@ import type { ConfigurableValidator } from "revalidate";
 import { Button } from "components/Button/index";
 import { Tooltip } from "components/Tooltip";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
+import type { IEvidenceItem } from "scenes/Dashboard/containers/EvidenceView/types";
 import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
+  isValidEvidenceDescription,
   maxLength,
-  validEvidenceDescription,
   validTextField,
 } from "utils/validations";
 
@@ -62,6 +63,12 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
   const getFieldName = (fieldName: string): string => {
     return name ? `${name}.${fieldName}` : fieldName;
   };
+  const { initialValues } = useFormikContext<Record<string, IEvidenceItem>>();
+  const [fileValue, ,] = useField(getFieldName("file"));
+  const validEvidenceDescription: FieldValidator = isValidEvidenceDescription(
+    initialValues[name].url,
+    fileValue.value
+  );
 
   return (
     <div>

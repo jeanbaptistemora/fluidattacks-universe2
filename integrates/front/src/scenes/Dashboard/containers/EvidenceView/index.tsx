@@ -36,7 +36,10 @@ import {
   UPDATE_DESCRIPTION_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/EvidenceView/queries";
-import type { IGetFindingEvidences } from "scenes/Dashboard/containers/EvidenceView/types";
+import type {
+  IEvidenceItem,
+  IGetFindingEvidences,
+} from "scenes/Dashboard/containers/EvidenceView/types";
 import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -47,12 +50,6 @@ import {
   isValidFileSize,
   validEvidenceImage,
 } from "utils/validations";
-
-interface IEvidenceItem {
-  date?: string;
-  description: string;
-  url: string;
-}
 
 const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId, groupName, organizationName } = useParams<{

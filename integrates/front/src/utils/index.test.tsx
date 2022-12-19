@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import type { FieldValidator } from "formik";
 import type { ConfigurableValidator } from "revalidate";
 
 import { calcPrivilegesRequired } from "utils/cvss";
@@ -22,6 +23,7 @@ import {
   isLowerDate,
   isPositive,
   isValidEnvironmentUrl,
+  isValidEvidenceDescription,
   isValidFileName,
   isValidFileSize,
   isValidVulnSeverity,
@@ -36,7 +38,6 @@ import {
   validCsvInput,
   validDraftTitle,
   validEmail,
-  validEvidenceDescription,
   validEvidenceImage,
   validExploitFile,
   validFindingTypology,
@@ -771,25 +772,11 @@ describe("Validations", (): void => {
   it("Should check the evidence", (): void => {
     expect.hasAssertions();
 
-    const helperList: Record<string, unknown> = {
-      description: 1,
-      file: 2,
-      grouptest: 3,
-      url: 4,
-    };
-    const values: Record<string, Record<string, unknown>> = {
-      description: helperList,
-      file: helperList,
-      grouptest1: helperList,
-      url: helperList,
-    };
-    const name: string = "description.file.grouptest1.url";
-    const evidenceDescription = validEvidenceDescription(
-      true,
-      values,
-      helperList,
-      name
+    const validEvidenceDescription: FieldValidator = isValidEvidenceDescription(
+      "test.png",
+      undefined
     );
+    const evidenceDescription = validEvidenceDescription("");
 
     expect(evidenceDescription).toBeUndefined();
   });
@@ -797,23 +784,13 @@ describe("Validations", (): void => {
   it("Should check the evidence description", (): void => {
     expect.hasAssertions();
 
-    const helperList: Record<string, unknown> = {
-      description: 1,
-      file: 2,
-      grouptest: 3,
-    };
-    const values: Record<string, Record<string, unknown>> = {
-      description: helperList,
-      file: helperList,
-      grouptest1: helperList,
-    };
-    const name: string = "description.file.grouptest1";
-    const evidenceDescription = validEvidenceDescription(
-      true,
-      values,
-      helperList,
-      name
+    const file: File = new File([""], "image.png", { type: "image/png" });
+
+    const validEvidenceDescription: FieldValidator = isValidEvidenceDescription(
+      "",
+      file
     );
+    const evidenceDescription = validEvidenceDescription("test description");
 
     expect(evidenceDescription).toBeUndefined();
   });

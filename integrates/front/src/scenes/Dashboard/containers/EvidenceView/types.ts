@@ -1,4 +1,4 @@
-export interface IGetFindingEvidences {
+interface IGetFindingEvidences {
   finding: {
     evidence: {
       animation: {
@@ -40,3 +40,11 @@ export interface IGetFindingEvidences {
     id: string;
   };
 }
+
+interface IEvidenceItem {
+  date?: string;
+  description: string;
+  url: string;
+}
+
+export type { IGetFindingEvidences, IEvidenceItem };

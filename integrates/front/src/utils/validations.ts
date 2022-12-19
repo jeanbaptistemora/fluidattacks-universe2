@@ -111,21 +111,18 @@ function checkIfValid(
   return hasFileSelected ? translate.t("validations.required") : undefined;
 }
 
-const validEvidenceDescription: Validator = (
-  _0: boolean,
-  allValues: Record<string, Record<string, unknown>>,
-  _1: Record<string, unknown>,
-  name: string
-): string | undefined => {
-  const groupValues: Record<string, unknown> | undefined = _.isEmpty(allValues)
-    ? {}
-    : getGroupValues(allValues, name);
-  const hasDescription: boolean = _.has(groupValues, "description");
-  const hasFileSelected: boolean = _.has(groupValues, "file");
-  const hasUrl: boolean = _.has(groupValues, "url");
+const isValidEvidenceDescription: (
+  url: string | undefined,
+  file: object | undefined
+) => Validator =
+  (url: string | undefined, file: object | undefined): Validator =>
+  (value: string | undefined): string | undefined => {
+    const hasUrl: boolean = url !== "";
+    const hasDescription: boolean = value !== "";
+    const hasFileSelected: boolean = file !== undefined;
 
-  return checkIfValid(hasDescription, hasUrl, hasFileSelected);
-};
+    return checkIfValid(hasDescription, hasUrl, hasFileSelected);
+  };
 
 const validTextField: Validator = (value: string): string | undefined => {
   if (!_.isNil(value)) {
@@ -642,7 +639,7 @@ export {
   composeValidators,
   required,
   someRequired,
-  validEvidenceDescription,
+  isValidEvidenceDescription,
   validTextField,
   validCsvInput,
   validUrlField,
