@@ -54,7 +54,7 @@ resource "checkly_check" "integrates_api" {
       source     = "TEXT_BODY"
       property   = "(.*)"
       comparison = "CONTAINS"
-      target     = "abuja"
+      target     = "narrabri"
     }
     assertion {
       source     = "TEXT_BODY"
@@ -80,7 +80,7 @@ resource "checkly_check" "integrates_api" {
             name
           }
         }
-        group(groupName: "abuja") {
+        group(groupName: "narrabri") {
           permissions
           findings {
             vulnerabilitiesConnection(
