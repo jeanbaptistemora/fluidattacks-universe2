@@ -6,6 +6,7 @@ from symbolic_eval.f063.member_access.c_sharp import (
 )
 from symbolic_eval.f063.member_access.common import (
     insecure_path_traversal,
+    zip_slip,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -19,7 +20,9 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_OPEN_REDIRECT: cs_open_redirect,
     MethodsEnum.JS_PATH_TRAVERSAL: insecure_path_traversal,
+    MethodsEnum.JS_ZIP_SLIP: zip_slip,
     MethodsEnum.TS_PATH_TRAVERSAL: insecure_path_traversal,
+    MethodsEnum.TS_ZIP_SLIP: zip_slip,
 }
 
 
