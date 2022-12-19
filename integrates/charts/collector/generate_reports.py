@@ -164,13 +164,6 @@ async def take_snapshot(  # pylint: disable=too-many-arguments
         ec.presence_of_element_located((By.CLASS_NAME, "report-title-pad"))
     ):
         with open(save_as, "wb") as file:
-            scroll_width = driver.execute_script(
-                "return document.body.parentNode.scrollWidth"
-            )
-            scroll_height = driver.execute_script(
-                "return document.body.parentNode.scrollHeight"
-            )
-            driver.set_window_size(scroll_width, scroll_height)
             file.write(driver.get_full_page_screenshot_as_png())
 
 
