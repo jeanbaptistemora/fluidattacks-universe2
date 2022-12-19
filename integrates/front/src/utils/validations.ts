@@ -21,7 +21,7 @@ const regExps = {
   alphabetic: /^[a-zA-Z]+$/u,
   alphanumeric: /^[a-zA-Z0-9]+$/u,
   commitHash: /^[A-Fa-f0-9]{40}$|^[A-Fa-f0-9]{64}$/u,
-  numeric: /^[0-9]+$/u,
+  numeric: /^\d+$/u,
   text: /^[\w\-\s,;.¿?¡!]+$/u,
   vulnerabilityWhere: /^[^=/]+.+$/u,
 };
@@ -274,7 +274,7 @@ const validCommitHash: Validator = matchesPattern(
 const validDraftTitle: (title: string) => string | undefined = (
   title: string
 ): string | undefined => {
-  if (/^[0-9]{3}\. .+/gu.test(title)) {
+  if (/^\d{3}\. .+/gu.test(title)) {
     return undefined;
   }
 
@@ -334,7 +334,7 @@ const isValidPhoneNumber: Validator = (
 ): string | undefined => {
   if (
     !_.isUndefined(value) &&
-    /^(?:[0-9] ?){6,11}[0-9]$/u.test(value.nationalNumber)
+    /^(?:\d ?){6,11}\d$/u.test(value.nationalNumber)
   ) {
     return undefined;
   }
