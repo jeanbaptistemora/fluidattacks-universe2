@@ -7,10 +7,12 @@ from aioextensions import (
 )
 from azure.devops.client import (
     AzureDevOpsAuthenticationError,
-    AzureDevOpsServiceError,
 )
 from azure.devops.connection import (
     Connection,
+)
+from azure.devops.exceptions import (
+    AzureDevOpsServiceError,
 )
 from azure.devops.v6_0.git.git_client import (
     GitClient,
