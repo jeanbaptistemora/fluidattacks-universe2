@@ -51,10 +51,6 @@ observes_large:
   cpu: 8
   memory: 15200
   queue: observes_large
-observes_large_no_spot:
-  cpu: 8
-  memory: 15200
-  queue: observes_large_no_spot
 skims_nano:
   cpu: 1
   memory: 1900

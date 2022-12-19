@@ -110,11 +110,6 @@ locals {
       local.machine_sizes.large,
       local.config.observes,
     )
-    observes_large_no_spot = merge(
-      local.machine_sizes.large,
-      local.config.observes,
-      { type = "EC2" }
-    )
     skims_small = merge(
       local.machine_sizes.small,
       local.config.skims
