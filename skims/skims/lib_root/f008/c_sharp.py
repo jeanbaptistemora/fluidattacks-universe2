@@ -31,11 +31,10 @@ from typing import (
 def is_insec_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == {"userresponse"}
-        ):
+        if evaluation and evaluation.triggers == {
+            "userconnection",
+            "userresponse",
+        }:
             return True
     return False
 
