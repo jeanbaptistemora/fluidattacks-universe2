@@ -22,6 +22,8 @@ async def test_admin(populate: bool) -> None:
     role = "USER"
     result: Dict[str, Any] = await get_result(email=email, role=role)
     assert "errors" not in result
+    assert "addStakeholder" in result["data"]
+    assert "success" in result["data"]["addStakeholder"]
     assert result["data"]["addStakeholder"]["success"]
     loaders = get_new_context()
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)

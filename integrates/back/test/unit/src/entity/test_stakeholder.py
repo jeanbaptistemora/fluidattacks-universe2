@@ -85,29 +85,6 @@ async def test_user_list_groups() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_stakeholder() -> None:
-    """Check for addStakeholder mutation."""
-    query = """
-        mutation {
-            addStakeholder(
-                email: "test@test.com",
-                role: USER
-            ) {
-                success
-                email
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session("integratesmanager@gmail.com")
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert "addStakeholder" in result["data"]
-    assert "success" in result["data"]["addStakeholder"]
-    assert "email" in result["data"]["addStakeholder"]
-
-
-@pytest.mark.changes_db
 async def test_grant_stakeholder_access_1() -> None:
     """Check for grantStakeholderAccess mutation."""
     query = """
@@ -233,29 +210,6 @@ async def test_grant_stakeholder_access_4() -> None:
         "email"
         in result["data"]["grantStakeholderAccess"]["grantedStakeholder"]
     )
-
-
-@pytest.mark.changes_db
-async def test_remove_stakeholder_access() -> None:
-    """Check for removeStakeholderAccess mutation."""
-    query = """
-        mutation {
-            removeStakeholderAccess (
-            groupName: "unittesting"
-            userEmail: "test@test.test"
-            )
-            {
-                removedEmail
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert "success" in result["data"]["removeStakeholderAccess"]
-    assert "removedEmail" in result["data"]["removeStakeholderAccess"]
 
 
 @pytest.mark.changes_db

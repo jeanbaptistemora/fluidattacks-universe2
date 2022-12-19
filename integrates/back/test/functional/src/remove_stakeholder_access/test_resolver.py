@@ -34,6 +34,7 @@ async def test_remove_stakeholder_access(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert "success" in result["data"]["removeStakeholderAccess"]
+    assert "removedEmail" in result["data"]["removeStakeholderAccess"]
 
 
 @pytest.mark.asyncio
