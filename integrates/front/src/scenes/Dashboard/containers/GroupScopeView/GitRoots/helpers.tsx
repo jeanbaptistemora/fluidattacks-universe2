@@ -48,8 +48,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   );
 };
 
-// eslint-disable-next-line
-const gitModalSchema = ( // NOSONAR
+const gitModalSchema = (
   isEditing: boolean,
   credExists: boolean,
   hasSquad: boolean,
@@ -58,7 +57,9 @@ const gitModalSchema = ( // NOSONAR
   isDuplicated: (field: string) => boolean,
   isGitAccessible: boolean,
   nicknames: string[]
-): InferType<TypedSchema> =>
+  // Exception: FP(parameters are necessary)
+  // eslint-disable-next-line
+): InferType<TypedSchema> => // NOSONAR
   lazy(
     (values: IFormValues): BaseSchema =>
       object().shape({

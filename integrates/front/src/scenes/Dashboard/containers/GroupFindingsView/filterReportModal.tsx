@@ -100,9 +100,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     },
   });
 
-  // eslint-disable-next-line
   const handleRequestGroupReport = useCallback(
-    // NOSONAR
     (
       age: number | undefined,
       closingDate: string | undefined,
@@ -117,7 +115,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       treatments: string[] | undefined,
       verifications: string[],
       verificationCode: string
-    ): void => {
+      // Exception: FP(parameters are necessary)
+      // eslint-disable-next-line
+    ): void => { // NOSONAR
       const reportType = "XLS";
       mixpanel.track("GroupReportRequest", { reportType });
 
