@@ -417,7 +417,7 @@ def rebase(
         path,
     )
 
-    if new_rev == rev_a:
+    if new_rev == rev_a or (new_line == line and new_path == path):
         # We did not rebase anything
         return None
 
