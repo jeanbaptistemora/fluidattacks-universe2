@@ -42,9 +42,13 @@ def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 def is_insecure_encrypt(
     graph: Graph, al_id: NId, algo: str, method: MethodsEnum
 ) -> bool:
-    if algo in {"des", "rc4", "rsa"}:
+    if algo in {"des", "rc4"}:
         return True
-    if algo in {"aes"} and (args := g.adj_ast(graph, al_id)) and len(args) > 2:
+    if (
+        algo in {"aes", "rsa"}
+        and (args := g.adj_ast(graph, al_id))
+        and len(args) > 2
+    ):
         return get_eval_danger(graph, args[2], method)
     return False
 
