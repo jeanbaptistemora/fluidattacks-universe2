@@ -2021,6 +2021,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_XPATH_INJECTION_EVALUATE = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_xpath_injection",
+        module="lib_root",
+        finding=FindingEnum.F021,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
         file_name="java",
         name="java_properties_unencrypted_transport",

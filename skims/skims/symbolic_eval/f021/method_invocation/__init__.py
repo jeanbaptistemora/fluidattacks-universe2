@@ -1,9 +1,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f021.member_access.c_sharp import (
-    cs_insec_addheader_write,
-    cs_xpath_injection,
+from symbolic_eval.f021.method_invocation.c_sharp import (
+    cs_xpath_injection_evaluate,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -15,8 +14,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_XPATH_INJECTION: cs_xpath_injection,
-    MethodsEnum.CS_XPATH_INJECTION_EVALUATE: cs_insec_addheader_write,
+    MethodsEnum.CS_XPATH_INJECTION_EVALUATE: cs_xpath_injection_evaluate,
 }
 
 
