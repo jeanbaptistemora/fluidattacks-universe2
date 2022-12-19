@@ -292,8 +292,23 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="",
                 unreliable_root_id="",
                 state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="",
+                    be_present=True,
+                    be_present_until=None,
+                    has_vulnerabilities=True,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_utc_now(),
+                    seen_at=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="",
+                    unreliable_root_id="",
                 ),
             ),
             ToeInput(
@@ -314,8 +329,23 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="test@test.com",
                 unreliable_root_id="",
                 state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-02T05:00:00+00:00"
+                    ),
+                    attacked_by="",
+                    be_present=True,
+                    be_present_until=None,
+                    has_vulnerabilities=False,
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-02-02T05:00:00+00:00"
+                    ),
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_utc_now(),
+                    seen_at=datetime.fromisoformat(
+                        "2020-03-14T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test@test.com",
+                    unreliable_root_id="",
                 ),
             ),
             ToeInput(
@@ -338,8 +368,25 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 seen_first_time_by="test2@test.com",
                 unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    attacked_by="",
+                    be_present=True,
+                    be_present_until=datetime.fromisoformat(
+                        "2021-03-11T05:00:00+00:00"
+                    ),
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_utc_now(),
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-11T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test2@test.com",
+                    unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 ),
             ),
         ),

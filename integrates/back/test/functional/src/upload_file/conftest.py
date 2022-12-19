@@ -512,10 +512,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 seen_at=None,
                 seen_first_time_by="",
                 state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=False,
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2022-02-02T06:00:00+00:00"
                     ),
+                    seen_at=None,
+                    seen_first_time_by="",
+                    unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
@@ -536,10 +549,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 seen_at=None,
                 seen_first_time_by="",
                 state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="",
+                    be_present=True,
+                    be_present_until=None,
+                    has_vulnerabilities=False,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2022-02-02T06:00:00+00:00"
                     ),
+                    seen_at=None,
+                    seen_first_time_by="",
+                    unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
                 unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),

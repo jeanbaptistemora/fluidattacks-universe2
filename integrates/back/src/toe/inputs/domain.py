@@ -86,8 +86,17 @@ async def add(  # pylint: disable=too-many-arguments
         group_name=group_name,
         has_vulnerabilities=has_vulnerabilities,
         state=ToeInputState(
+            attacked_at=attributes.attacked_at,
+            attacked_by=attributes.attacked_by,
+            be_present=attributes.be_present,
+            be_present_until=be_present_until,
+            first_attack_at=first_attack_at,
+            has_vulnerabilities=has_vulnerabilities,
             modified_by=attributes.seen_first_time_by,
             modified_date=datetime_utils.get_utc_now(),
+            seen_at=seen_at,
+            seen_first_time_by=attributes.seen_first_time_by,
+            unreliable_root_id=attributes.unreliable_root_id,
         ),
         seen_at=seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
@@ -226,10 +235,6 @@ async def update(
     )
 
     metadata = ToeInputMetadataToUpdate(
-        state=ToeInputState(
-            modified_by=modified_by,
-            modified_date=datetime_utils.get_utc_now(),
-        ),
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         be_present=attributes.be_present,
@@ -238,6 +243,27 @@ async def update(
         has_vulnerabilities=has_vulnerabilities,
         seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
+        state=ToeInputState(
+            attacked_at=attributes.attacked_at,
+            attacked_by=attributes.attacked_by
+            if attributes.attacked_by
+            else current_value.state.attacked_by,
+            be_present=attributes.be_present
+            if attributes.be_present
+            else current_value.state.be_present,
+            be_present_until=be_present_until,
+            first_attack_at=first_attack_at,
+            has_vulnerabilities=has_vulnerabilities,
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_utc_now(),
+            seen_at=attributes.seen_at,
+            seen_first_time_by=attributes.seen_first_time_by
+            if attributes.seen_first_time_by
+            else current_value.state.seen_first_time_by,
+            unreliable_root_id=attributes.unreliable_root_id
+            if attributes.unreliable_root_id
+            else current_value.state.unreliable_root_id,
+        ),
         unreliable_root_id=attributes.unreliable_root_id,
         clean_attacked_at=attributes.clean_attacked_at,
         clean_be_present_until=attributes.be_present is not None

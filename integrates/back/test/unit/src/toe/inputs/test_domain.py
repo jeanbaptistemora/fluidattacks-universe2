@@ -49,8 +49,19 @@ async def test_add() -> None:
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="new@test.com",
         state=ToeInputState(
+            attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+            attacked_by="test@test.com",
+            be_present=True,
+            be_present_until=None,
+            first_attack_at=datetime.fromisoformat(
+                "2021-02-12T05:00:00+00:00"
+            ),
+            has_vulnerabilities=False,
             modified_by="new@test.com",
             modified_date=datetime.fromisoformat("2022-11-11T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+            seen_first_time_by="new@test.com",
+            unreliable_root_id="",
         ),
         unreliable_root_id="",
     )
@@ -120,10 +131,23 @@ async def test_delete() -> None:
             seen_first_time_by="new@test.com",
             unreliable_root_id="",
             state=ToeInputState(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                attacked_by="test@test.com",
+                be_present=True,
+                be_present_until=None,
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                has_vulnerabilities=False,
                 modified_by="new@test.com",
                 modified_date=datetime.fromisoformat(
                     "2022-11-11T05:00:00+00:00"
                 ),
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="new@test.com",
+                unreliable_root_id="",
             ),
         ),
     )
@@ -197,8 +221,19 @@ async def test_update() -> None:
         seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
         seen_first_time_by="edited@test.com",
         state=ToeInputState(
+            attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
+            attacked_by="",
+            be_present=True,
+            be_present_until=None,
+            first_attack_at=datetime.fromisoformat(
+                "2021-02-12T05:00:00+00:00"
+            ),
+            has_vulnerabilities=False,
             modified_by="edited@test.com",
             modified_date=datetime.fromisoformat("2022-11-11T15:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+            seen_first_time_by="edited@test.com",
+            unreliable_root_id="",
         ),
         unreliable_root_id="",
     )

@@ -11,8 +11,17 @@ from typing import (
 
 
 class ToeInputState(NamedTuple):
+    attacked_at: Optional[datetime]
+    attacked_by: str
+    be_present: bool
+    be_present_until: Optional[datetime]
+    first_attack_at: Optional[datetime]
+    has_vulnerabilities: Optional[bool]
     modified_by: Optional[str]
     modified_date: Optional[datetime]
+    seen_at: Optional[datetime]
+    seen_first_time_by: str
+    unreliable_root_id: str
 
 
 class ToeInput(NamedTuple):

@@ -90,8 +90,17 @@ async def add_input(
         seen_at=current_toe_input.seen_at,
         seen_first_time_by=current_toe_input.seen_first_time_by,
         state=ToeInputState(
+            attacked_at=current_toe_input.state.attacked_at,
+            attacked_by=current_toe_input.state.attacked_by,
+            be_present=current_toe_input.state.be_present,
+            be_present_until=current_toe_input.state.be_present_until,
+            first_attack_at=current_toe_input.state.first_attack_at,
+            has_vulnerabilities=current_toe_input.state.has_vulnerabilities,
             modified_by="machine@fluidattacks.com",
             modified_date=get_iso_date(),
+            seen_at=current_toe_input.state.seen_at,
+            seen_first_time_by=current_toe_input.state.seen_first_time_by,
+            unreliable_root_id=new_root_id,
         ),
         unreliable_root_id=new_root_id,
     )

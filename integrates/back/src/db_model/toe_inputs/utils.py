@@ -30,13 +30,44 @@ def format_toe_input(
     group_name: str,
     item: Item,
 ) -> ToeInput:
-    state_modified_date = item.get("state", {}).get("modified_date")
+    state = item.get("state", {})
     return ToeInput(
         state=ToeInputState(
-            modified_by=item.get("state", {}).get("modified_by"),
-            modified_date=datetime.fromisoformat(state_modified_date)
-            if state_modified_date
+            attacked_at=datetime.fromisoformat(
+                state.get("attacked_at", item.get("attacked_at"))
+            )
+            if state.get("attacked_at") or item.get("attacked_at")
             else None,
+            attacked_by=state.get("attacked_by", item.get("attacked_by", "")),
+            be_present=state.get("be_present", item.get("be_present", True)),
+            be_present_until=datetime.fromisoformat(
+                state.get("be_present_until", item.get("be_present_until"))
+            )
+            if state.get("be_present_until") or item.get("be_present_until")
+            else None,
+            first_attack_at=datetime.fromisoformat(
+                state.get("first_attack_at", item.get("first_attack_at"))
+            )
+            if state.get("first_attack_at") or item.get("first_attack_at")
+            else None,
+            has_vulnerabilities=state.get(
+                "has_vulnerabilities", item.get("has_vulnerabilities")
+            ),
+            modified_by=state.get("modified_by"),
+            modified_date=datetime.fromisoformat(state["modified_date"])
+            if state.get("modified_date")
+            else None,
+            seen_at=datetime.fromisoformat(
+                state.get("seen_at", item.get("seen_at"))
+            )
+            if state.get("seen_at") or item.get("seen_at")
+            else None,
+            seen_first_time_by=state["seen_first_time_by"]
+            if state.get("seen_first_time_by")
+            else item["seen_first_time_by"],
+            unreliable_root_id=state.get(
+                "unreliable_root_id", item.get("unreliable_root_id", "")
+            ),
         ),
         attacked_at=datetime.fromisoformat(item["attacked_at"])
         if item.get("attacked_at")
