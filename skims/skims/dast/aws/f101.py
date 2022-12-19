@@ -32,7 +32,7 @@ async def bucket_has_object_lock_disabled(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
-
+    method = core_model.MethodsEnum.AWS_S3_BUCKETS_HAS_OBJECT_LOCK_DISABLED
     vulns: core_model.Vulnerabilities = ()
     if buckets:
         for bucket in buckets:
@@ -65,7 +65,7 @@ async def bucket_has_object_lock_disabled(
                     *vulns,
                     *build_vulnerabilities(
                         locations=locations,
-                        method=(core_model.MethodsEnum.AWS_PUBLIC_BUCKETS),
+                        method=method,
                         aws_response=bucket_grants,
                     ),
                 )
@@ -87,7 +87,7 @@ async def bucket_has_object_lock_disabled(
                     *vulns,
                     *build_vulnerabilities(
                         locations=locations,
-                        method=(core_model.MethodsEnum.AWS_PUBLIC_BUCKETS),
+                        method=method,
                         aws_response=bucket,
                     ),
                 )
