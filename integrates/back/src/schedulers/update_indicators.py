@@ -653,7 +653,7 @@ def get_accepted_vulns(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if treatment.modified_date <= last_day
+        if treatment.modified_date.timestamp() <= last_day.timestamp()
     )
     if treatments and treatments[-1].status in accepted_treatments:
         return get_by_time_range(
@@ -684,7 +684,7 @@ def get_open_vulnerabilities(
     treatments = tuple(
         treatment
         for treatment in historic_treatment
-        if treatment.modified_date <= last_day
+        if treatment.modified_date.timestamp() <= last_day.timestamp()
     )
     states = tuple(
         state
@@ -693,9 +693,13 @@ def get_open_vulnerabilities(
     )
     if (
         states
-        and states[-1].modified_date <= last_day
+        and states[-1].modified_date.timestamp() <= last_day.timestamp()
         and states[-1].status == VulnerabilityStateStatus.OPEN
-        and not (min_date and historic_state[0].modified_date < min_date)
+        and not (
+            min_date
+            and historic_state[0].modified_date.timestamp()
+            < min_date.timestamp()
+        )
     ):
         if treatments and treatments[-1].status in accepted_treatments:
             return VulnerabilityStatusByTimeRange(
@@ -725,9 +729,13 @@ def get_by_time_range(
     )
     if (
         states
-        and states[-1].modified_date <= last_day
+        and states[-1].modified_date.timestamp() <= last_day.timestamp()
         and states[-1].status == status
-        and not (min_date and historic_state[0].modified_date < min_date)
+        and not (
+            min_date
+            and historic_state[0].modified_date.timestamp()
+            < min_date.timestamp()
+        )
     ):
         return VulnerabilityStatusByTimeRange(
             vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
@@ -986,7 +994,7 @@ def get_exposed_cvssf(
 
     if (
         states
-        and states[-1].modified_date <= last_day
+        and states[-1].modified_date.timestamp() <= last_day.timestamp()
         and states[-1].status == VulnerabilityStateStatus.OPEN
     ):
         cvssf = vulns_utils.get_cvssf(severity)

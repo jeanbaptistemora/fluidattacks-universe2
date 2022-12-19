@@ -106,7 +106,7 @@ async def http_session() -> AsyncIterator[aiohttp.ClientSession]:
         TimeoutException,
         WebDriverException,
     ),
-    max_attempts=5,
+    max_attempts=10,
     sleep_seconds=float("1.0"),
 )
 async def take_snapshot(  # pylint: disable=too-many-arguments
@@ -160,7 +160,7 @@ async def take_snapshot(  # pylint: disable=too-many-arguments
         ):
             raise TimeoutException()
 
-    if WebDriverWait(driver, 10).until(
+    if WebDriverWait(driver, 20).until(
         ec.presence_of_element_located((By.CLASS_NAME, "report-title-pad"))
     ):
         with open(save_as, "wb") as file:
