@@ -1436,6 +1436,27 @@ F063,lines,namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js
   20 | }
      ^ Col 0
 ",javascript.js_insecure_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/js_zip_slip.js,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/js_zip_slip.js","
+   1 | const AdmZip = require('adm-zip');
+   2 | const fs = require('fs');
+   3 |
+   4 | const zip = new AdmZip(""zip-slip.zip"");
+   5 | const zipEntries = zip.getEntries();
+   6 | zipEntries.forEach(function (zipEntry) {
+>  7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
+   8 | });
+   9 |
+  10 | const pathmodule = require('path');
+  11 | zipEntries.forEach(function (zipEntry) {
+  12 |   let resolvedPath = pathmodule.join(__dirname + '/archive_tmp', zipEntry.entryName); // join will resolve ""../""
+  13 |
+  14 |   if (resolvedPath.startsWith(__dirname + '/archive_tmp')) {
+  15 |     // the file cannot be extracted outside of the ""archive_tmp"" folder
+  16 |     fs.createWriteStream(resolvedPath); // Compliant
+  17 |   }
+  18 | });
+     ^ Col 0
+",javascript.js_zip_slip
 F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts","
    1 | import fs from ""fs"";
    2 | import pathmodule from ""path"";
@@ -1458,15 +1479,25 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts
      ^ Col 0
 ",typescript.ts_insecure_path_traversal
 F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts","
-  1 | const AdmZip = require('adm-zip');
-  2 | const fs = require('fs');
-  3 |
-  4 | const zip = new AdmZip(""zip-slip.zip"");
-  5 | const zipEntries = zip.getEntries();
-  6 | zipEntries.forEach(function (zipEntry) {
-> 7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
-  8 | });
-    ^ Col 0
+   1 | const AdmZip = require('adm-zip');
+   2 | const fs = require('fs');
+   3 |
+   4 | const zip = new AdmZip(""zip-slip.zip"");
+   5 | const zipEntries = zip.getEntries();
+   6 | zipEntries.forEach(function (zipEntry) {
+>  7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
+   8 | });
+   9 |
+  10 | const pathmodule = require('path');
+  11 | zipEntries.forEach(function (zipEntry) {
+  12 |   let resolvedPath = pathmodule.join(__dirname + '/archive_tmp', zipEntry.entryName); // join will resolve ""../""
+  13 |
+  14 |   if (resolvedPath.startsWith(__dirname + '/archive_tmp')) {
+  15 |     // the file cannot be extracted outside of the ""archive_tmp"" folder
+  16 |     fs.createWriteStream(resolvedPath); // Compliant
+  17 |   }
+  18 | });
+     ^ Col 0
 ",typescript.ts_zip_slip
 F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,9,287,skims,015. Insecure authentication method - Basic,The server uses Basic authentication over an insecure channel. in namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,"
    1 | import AnyOtherClass;
