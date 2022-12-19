@@ -450,6 +450,21 @@ registered in a group.
 
 ![Missing Environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173395/docs/web/notifications/missing_reg_environmt.png)
 
+### Consulting digest notification
+
+The **consulting digest** will notify
+you in a daily email with a report of
+the comments detected in
+**consulting** section according to the
+groups you are part of in the ARM platform.
+Please note that this notification is only
+activated for users with the Squad plan,
+and you activate it by clicking on the
+**consulting toggle** button in the
+notification matrix.
+
+![General consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671456665/docs/web/notifications/consulting_notification.png)
+
 ## Exclusive Free Trial notifications
 
 ### Free trial start
