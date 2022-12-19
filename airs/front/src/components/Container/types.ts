@@ -10,15 +10,15 @@ type TScroll = "none" | "x" | "xy" | "y";
 interface IContainerProps {
   align?: TAlign;
   bgColor?: string;
-  borderBottom?: string;
+  borderBottomColor?: string;
   borderColor?: string;
-  borderTop?: string;
   br?: Nums0To4;
   center?: boolean;
   children: React.ReactNode;
   direction?: TDirection;
   display?: TDisplay;
   height?: string;
+  hoverShadow?: boolean;
   justify?: TJustify;
   justifyMd?: TJustify;
   justifySm?: TJustify;

@@ -57,6 +57,19 @@ const getJustify = (defaultJustify: TJustify, justify?: TJustify): string =>
     ? `justify-content: ${justifies[defaultJustify]};`
     : `justify-content: ${justifies[justify]};`;
 
+const getBorder = (
+  borderColor?: string,
+  borderBottomColor?: string
+): string => {
+  if (borderColor !== undefined) {
+    return `border: 1px solid ${borderColor};`;
+  } else if (borderBottomColor !== undefined) {
+    return `border-bottom: 1px solid ${borderBottomColor};`;
+  }
+
+  return "";
+};
+
 const getHorizontalMargin = (
   center: boolean,
   mh: number,
@@ -125,12 +138,12 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
   ${({
     align = "unset",
     bgColor = "transparent",
-    borderBottom = "0px",
-    borderColor = "unset",
-    borderTop = "0px",
+    borderBottomColor,
+    borderColor,
     direction = "unset",
     display = "block",
     height = "auto",
+    hoverShadow = false,
     justify = "unset",
     justifyMd,
     justifySm,
@@ -148,9 +161,6 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
   }): string => `
     align-items: ${aligns[align]};
     background-color: ${bgColor};
-    border: 1px solid ${borderColor};
-    border-bottom: ${borderBottom} solid #dddde3;
-    border-top: ${borderTop} solid #dddde3;
     display: ${displays[display]};
     flex-direction: ${directions[direction]};
     flex-wrap: ${wraps[wrap]};
@@ -161,6 +171,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
     transition: all 0.3s ease;
     box-shadow: ${shadow ? "0 10px 20px 0 rgba(0, 0, 0, 0.16)" : "unset"};
+    ${getBorder(borderColor, borderBottomColor)}
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}
@@ -181,6 +192,12 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
         minWidthMd === undefined ? minWidth : minWidthMd,
         minWidthSm
       )}
+    }
+
+    :hover {
+      box-shadow: ${
+        hoverShadow ? "0 10px 20px 0 rgba(0, 0, 0, 0.16)" : "unset"
+      };
     }
   `}
 `;

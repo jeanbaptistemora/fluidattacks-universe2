@@ -25,7 +25,7 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
   }
 
   return (
-    <Container borderBottom={"1px"} onClick={showDescription}>
+    <Container borderBottomColor={"#dddde3"} onClick={showDescription}>
       <Container
         align={"center"}
         display={"flex"}

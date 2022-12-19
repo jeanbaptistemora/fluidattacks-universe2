@@ -6,15 +6,15 @@ import type { IContainerProps } from "./types";
 const Container: React.FC<IContainerProps> = ({
   align,
   bgColor,
-  borderBottom,
+  borderBottomColor,
   borderColor,
-  borderTop,
   br,
   center,
   children,
   direction,
   display,
   height,
+  hoverShadow,
   justify,
   justifyMd,
   justifySm,
@@ -48,14 +48,14 @@ const Container: React.FC<IContainerProps> = ({
     <StyledContainer
       align={align}
       bgColor={bgColor}
-      borderBottom={borderBottom}
+      borderBottomColor={borderBottomColor}
       borderColor={borderColor}
-      borderTop={borderTop}
       br={br}
       center={center}
       direction={direction}
       display={display}
       height={height}
+      hoverShadow={hoverShadow}
       justify={justify}
       justifyMd={justifyMd}
       justifySm={justifySm}
