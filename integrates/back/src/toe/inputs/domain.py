@@ -109,27 +109,8 @@ def _get_host(url: str) -> str:
     return url.split("/")[0].split(":")[0]
 
 
-def _get_port(url: str) -> Optional[str]:
-    return (
-        url.split("/")[0].split(":")[1] if ":" in url.split("/")[0] else None
-    )
-
-
 def _get_path(url: str) -> str:
     return url.split("/", maxsplit=1)[1] if "/" in url else ""
-
-
-def _get_protocol(url: str) -> str:
-    if (index := url.find("://")) != -1:
-        return url[:index].lower()
-    return "unknown"
-
-
-def _get_www(url: str) -> str:
-    pattern = "www."
-    if pattern in url:
-        return pattern
-    return ""
 
 
 def _format_component(component: str) -> str:
@@ -141,14 +122,6 @@ def _format_component(component: str) -> str:
         .replace("unknown//", "")
         .replace("www.", "")
     )
-
-
-def _format_unreliable_component(
-    root: Optional[Root], component: str
-) -> tuple[Optional[Root], str]:
-    if component.endswith("/"):
-        return root, component[:-1]
-    return root, component
 
 
 def get_reduced_component(component: str, entry_point: str) -> str:
