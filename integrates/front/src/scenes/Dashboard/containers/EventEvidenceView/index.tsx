@@ -292,8 +292,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       // eslint-disable-next-line react/jsx-no-bind
                       onClick={openImage}
                       onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
-                      shouldPreview={false}
-                      shouldPreviewValidation={[]}
+                      shouldPreview={true}
+                      shouldPreviewValidation={[
+                        validEvidenceImage,
+                        maxFileSize,
+                        validEvidenceName,
+                      ]}
                       validate={composeValidators([
                         validEvidenceImage,
                         maxFileSize,
@@ -350,6 +354,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       validate={composeValidators([
                         validEventFile,
                         maxFileSize,
+                        validEvidenceName,
                       ])}
                     />
                   );
