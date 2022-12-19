@@ -66,20 +66,3 @@ async def test_me() -> None:
         "domain": "gmail.com",
         "trial": {"completed": True},
     }
-
-
-@pytest.mark.changes_db
-async def test_accept_legal() -> None:
-    """Check acceptLegal query"""
-    query = """
-        mutation {
-            acceptLegal(remember: true) {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "acceptLegal" in result["data"]
-    assert "success" in result["data"]["acceptLegal"]

@@ -47,4 +47,6 @@ async def test_accept_legal(
     assert new_stakeholder.legal_remember is False
 
     assert "errors" not in result
+    assert "acceptLegal" in result["data"]
+    assert "success" in result["data"]["acceptLegal"]
     assert result["data"]["acceptLegal"]["success"]
