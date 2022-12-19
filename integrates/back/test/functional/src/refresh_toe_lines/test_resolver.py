@@ -82,7 +82,7 @@ async def test_refresh_toe_lines(
                 "node": {
                     "attackedAt": None,
                     "attackedBy": "",
-                    "attackedLines": 0,
+                    "attackedLines": 1,
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "",

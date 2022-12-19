@@ -34,6 +34,12 @@ from roots.validations import (
     validate_git_root,
 )
 import simplejson as json
+from toe.lines.constants import (
+    CHECKED_FILES,
+)
+from toe.lines.utils import (
+    get_filename_extension,
+)
 from toe.lines.validations import (
     validate_loc,
     validate_modified_date,
@@ -73,13 +79,18 @@ async def add(  # pylint: disable=too-many-arguments
         root: Root = await loaders.root.load((group_name, root_id))
         validate_git_root(root)
         validate_active_root(root)
-    attacked_lines = (
-        attributes.attacked_lines
-        if attributes.attacked_at
+
+    if get_filename_extension(filename) in CHECKED_FILES:
+        attacked_lines = attributes.loc
+    elif (
+        attributes.attacked_at
         and attributes.modified_date
         and attributes.attacked_at <= attributes.modified_date
-        else 0
-    )
+    ):
+        attacked_lines = attributes.attacked_lines
+    else:
+        attacked_lines = 0
+
     be_present_until = (
         attributes.be_present_until
         or _get_optional_be_present_until(attributes.be_present)
