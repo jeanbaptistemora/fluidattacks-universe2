@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     boolean_literal as c_sharp_boolean_literal,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
     break_statement as c_sharp_break_statement,
+    cast_expression as c_sharp_cast_expression,
     catch_clause as c_sharp_catch_clause,
     catch_declaration as c_sharp_catch_declaration,
     class_declaration as c_sharp_class_declaration,
@@ -169,6 +170,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "block",
         },
         syntax_reader=c_sharp_execution_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "cast_expression",
+        },
+        syntax_reader=c_sharp_cast_expression.reader,
     ),
     Dispatcher(
         applicable_types={
