@@ -111,9 +111,6 @@ def json_dump(
     for result_path in map(
         get_result_path,
         [
-            # Backwards compatibility
-            f"{entity}-{subject}",
-            # New format
             f"{entity}:{safe_encode(subject.lower())}",
         ],
     ):
