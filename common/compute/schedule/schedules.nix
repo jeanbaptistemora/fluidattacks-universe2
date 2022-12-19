@@ -116,7 +116,7 @@
       "/integrates/back/destroy/eph"
     ];
 
-    schedule_expression = "cron(0 9 * * ? *)";
+    schedule_expression = "cron(0 1 * * ? *)";
     size = "integrates_nano";
     awsRole = "prod_integrates";
     attempts = 3;
@@ -262,7 +262,7 @@
       "schedulers.organization_vulnerabilities.main"
     ];
 
-    schedule_expression = "cron(30 1,5,9,13,17,21 * * ? *)";
+    schedule_expression = "cron(30 1,5,9,13,17,21 ? * 2-6 *)";
     size = "integrates_medium";
     awsRole = "prod_integrates";
     attempts = 3;
@@ -436,7 +436,7 @@
       "schedulers.expire_free_trial.main"
     ];
 
-    schedule_expression = "cron(0 * * * ? *)";
+    schedule_expression = "cron(0 0 * * ? *)";
     size = "integrates_nano";
     awsRole = "prod_integrates";
     attempts = 1;
@@ -465,7 +465,7 @@
       "schedulers.missing_environment_alert.main"
     ];
 
-    schedule_expression = "cron(0 11 ? * * *)";
+    schedule_expression = "cron(0 11 ? * 2-6 *)";
     size = "integrates_nano";
     awsRole = "prod_integrates";
     attempts = 3;
@@ -523,7 +523,7 @@
       "schedulers.machine_queue_all.main"
     ];
 
-    schedule_expression = "cron(0 13 ? * 5 *)";
+    schedule_expression = "cron(0 13 ? * 7 *)";
     size = "integrates_small";
     awsRole = "prod_integrates";
     attempts = 3;
@@ -757,7 +757,7 @@
       "batch"
     ];
 
-    schedule_expression = "cron(5 4,8,14,18,21 ? * 2-6 *)";
+    schedule_expression = "cron(0 11,17,23 ? * 2-6 *)";
     size = "integrates_medium";
     awsRole = "prod_integrates";
     attempts = 1;
