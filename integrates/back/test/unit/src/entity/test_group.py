@@ -59,28 +59,6 @@ async def test_add_group() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_group_consult_parent_zero() -> None:
-    """Check for addGroupConsult mutation."""
-    query = """
-      mutation {
-        addGroupConsult(
-          content: "Test comment",
-          parentComment: "0",
-          groupName: "unittesting",
-        ) {
-          success
-          commentId
-        }
-      }
-      """
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addGroupConsult"]
-    assert result["data"]["addGroupConsult"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_add_group_consult_parent_non_zero() -> None:
     """Check for addGroupConsult mutation."""
     query = """
@@ -100,54 +78,6 @@ async def test_add_group_consult_parent_non_zero() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["addGroupConsult"]
     assert result["data"]["addGroupConsult"]["success"]
-
-
-@pytest.mark.changes_db
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "subscription",
-        "has_squad",
-        "has_arm",
-        "has_machine",
-        "expected",
-        "tier",
-    ],
-    [
-        ["UNITTESTING", "CONTINUOUS", "true", "true", "true", True, "MACHINE"],
-        ["ONESHOTTEST", "ONESHOT", "false", "true", "false", True, "ONESHOT"],
-    ],
-)
-async def test_update_group_good(  # type: ignore
-    group_name,
-    subscription,
-    has_squad,
-    has_arm,
-    has_machine,
-    expected,
-    tier,
-) -> None:
-    query = f"""
-        mutation {{
-            updateGroup(
-                comments: "",
-                groupName: "{group_name}",
-                subscription: {subscription},
-                hasSquad: {has_squad},
-                hasAsm: {has_arm},
-                hasMachine: {has_machine},
-                reason: NONE,
-                tier: {tier},
-            ) {{
-                success
-            }}
-        }}
-      """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert "success" in result["data"]["updateGroup"]
-    assert result["data"]["updateGroup"]["success"] == expected
 
 
 @pytest.mark.changes_db
