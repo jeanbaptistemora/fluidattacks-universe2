@@ -251,9 +251,11 @@ def format_unreliable_indicators(
         unreliable_last_reattack_requester=item.get(
             "unreliable_last_reattack_requester"
         ),
-        unreliable_last_requested_reattack_date=item.get(
-            "unreliable_last_requested_reattack_date"
-        ),
+        unreliable_last_requested_reattack_date=datetime.fromisoformat(
+            item["unreliable_last_requested_reattack_date"]
+        )
+        if item.get("unreliable_last_requested_reattack_date")
+        else None,
         unreliable_reattack_cycles=None
         if item.get("unreliable_reattack_cycles") is None
         else int(item["unreliable_reattack_cycles"]),
@@ -285,7 +287,11 @@ def format_unreliable_indicators_item(
             indicators.unreliable_last_reattack_requester
         ),
         "unreliable_last_requested_reattack_date": (
-            indicators.unreliable_last_requested_reattack_date
+            get_as_utc_iso_format(
+                indicators.unreliable_last_requested_reattack_date
+            )
+            if indicators.unreliable_last_requested_reattack_date
+            else None
         ),
         "unreliable_reattack_cycles": indicators.unreliable_reattack_cycles,
         "unreliable_source": indicators.unreliable_source,
@@ -316,7 +322,11 @@ def format_unreliable_indicators_to_update_item(
             indicators.unreliable_last_reattack_requester
         ),
         "unreliable_last_requested_reattack_date": (
-            indicators.unreliable_last_requested_reattack_date
+            get_as_utc_iso_format(
+                indicators.unreliable_last_requested_reattack_date
+            )
+            if indicators.unreliable_last_requested_reattack_date
+            else None
         ),
         "unreliable_reattack_cycles": indicators.unreliable_reattack_cycles,
         "unreliable_source": indicators.unreliable_source,
@@ -328,6 +338,8 @@ def format_unreliable_indicators_to_update_item(
         item["unreliable_closing_date"] = ""
     if indicators.clean_unreliable_last_reattack_date:
         item["unreliable_last_reattack_date"] = ""
+    if indicators.clean_unreliable_last_requested_reattack_date:
+        item["unreliable_last_requested_reattack_date"] = ""
 
     return {key: value for key, value in item.items() if value is not None}
 

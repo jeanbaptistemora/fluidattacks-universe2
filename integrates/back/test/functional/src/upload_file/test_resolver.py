@@ -224,7 +224,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             ),
             unreliable_last_reattack_requester="requester@gmail.com",
             unreliable_last_requested_reattack_date=(
-                "2018-04-08T01:45:11+00:00"
+                datetime.fromisoformat("2018-04-08T01:45:11+00:00")
             ),
             unreliable_reattack_cycles=None,
             unreliable_source=Source.ASM,
@@ -247,7 +247,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             ),
             unreliable_last_reattack_requester="requester@gmail.com",
             unreliable_last_requested_reattack_date=(
-                "2018-04-08T01:45:11+00:00"
+                datetime.fromisoformat("2018-04-08T01:45:11+00:00")
             ),
             unreliable_reattack_cycles=None,
             unreliable_source=Source.ASM,

@@ -1015,20 +1015,19 @@ async def get_reattack_requester(
 async def get_last_requested_reattack_date(
     loaders: Any,
     vuln: Vulnerability,
-) -> Optional[str]:
-    """Get last requested reattack date in ISO8601 UTC format."""
+) -> Optional[datetime]:
     if not vuln.verification:
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
-        return datetime_utils.get_as_utc_iso_format(
-            vuln.verification.modified_date
-        )
+        return vuln.verification.modified_date
+
     historic: tuple[
         VulnerabilityVerification, ...
     ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+
     return next(
         (
-            datetime_utils.get_as_utc_iso_format(verification.modified_date)
+            verification.modified_date
             for verification in reversed(historic)
             if verification.status == VulnerabilityVerificationStatus.REQUESTED
         ),

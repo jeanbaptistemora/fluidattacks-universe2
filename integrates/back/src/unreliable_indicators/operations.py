@@ -455,6 +455,10 @@ async def update_vulnerability_unreliable_indicators(
             EntityAttr.last_reattack_date in result
             and result[EntityAttr.last_reattack_date] is None
         ),
+        clean_unreliable_last_requested_reattack_date=(
+            EntityAttr.last_requested_reattack_date in result
+            and result[EntityAttr.last_requested_reattack_date] is None
+        ),
     )
 
     await vulns_model.update_unreliable_indicators(

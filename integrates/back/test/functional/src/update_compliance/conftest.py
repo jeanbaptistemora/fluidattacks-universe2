@@ -271,7 +271,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "requester@gmail.com"
                         ),
                         unreliable_last_requested_reattack_date=(
-                            "2018-04-08T01:45:11+00:00"
+                            datetime.fromisoformat("2018-04-08T01:45:11+00:00")
                         ),
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -317,7 +317,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "requester@gmail.com"
                         ),
                         unreliable_last_requested_reattack_date=(
-                            "2018-04-08T01:45:11+00:00"
+                            datetime.fromisoformat("2018-04-08T01:45:11+00:00")
                         ),
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -367,7 +367,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "requester@gmail.com"
                         ),
                         unreliable_last_requested_reattack_date=(
-                            "2018-04-08T01:45:11+00:00"
+                            datetime.fromisoformat("2018-04-08T01:45:11+00:00")
                         ),
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
