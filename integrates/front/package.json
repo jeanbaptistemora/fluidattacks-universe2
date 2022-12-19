@@ -39,7 +39,6 @@
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "mixpanel-browser": "2.45.0",
-    "moment": "2.29.4",
     "prismjs": "1.29.0",
     "react": "17.0.2",
     "react-ansi": "3.0.2",
