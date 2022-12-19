@@ -704,10 +704,10 @@ async def vulns_properties(
         vuln_dict = vulns_props.get(repo, {})
         if is_closed:
             exposure: Decimal = 4 ** (get_severity_score(finding.severity) - 4)
-            report_date = datetime_utils.get_date_from_iso_str(
-                vuln.created_date
-            )
-            days_open = (datetime_utils.get_now().date() - report_date).days
+            report_date = vuln.created_date.date()
+            days_open = (
+                datetime_utils.get_utc_now().date() - report_date
+            ).days
             reattack_requester = (
                 vuln.unreliable_indicators.unreliable_last_reattack_requester
             )

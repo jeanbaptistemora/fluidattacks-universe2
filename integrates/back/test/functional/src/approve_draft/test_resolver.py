@@ -59,7 +59,7 @@ async def test_approve_draft(
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert finding.approval
     approval_date: datetime = finding.approval.modified_date
-    assert datetime.fromisoformat(vuln.created_date) == approval_date
+    assert vuln.created_date == approval_date
     finding_indicators: FindingUnreliableIndicators = (
         finding.unreliable_indicators
     )

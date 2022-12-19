@@ -227,7 +227,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by=generic_data["global_vars"]["hacker_email"],
-                    created_date="2018-04-08T00:45:14+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:14+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["hacker_email"],
@@ -260,7 +262,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by=generic_data["global_vars"]["hacker_email"],
-                    created_date="2018-04-08T00:45:14+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:14+00:00"
+                    ),
                     finding_id="475041520",
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["hacker_email"],

@@ -770,10 +770,7 @@ def get_first_week_dates(
     if min_date:
         first_date = min_date
     else:
-        first_date = min(
-            datetime_utils.get_datetime_from_iso_str(vuln.created_date)
-            for vuln in vulns
-        )
+        first_date = min(vuln.created_date for vuln in vulns)
     day_week = first_date.weekday()
     first_day_delta = datetime_utils.get_minus_delta(first_date, days=day_week)
     first_day = datetime.combine(
@@ -954,8 +951,7 @@ def get_found_vulnerabilities(
             cvssf=found.cvssf
             + (vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
-    report_date = datetime.fromisoformat(vulnerability.created_date)
-    if first_day <= report_date <= last_day:
+    if first_day <= vulnerability.created_date <= last_day:
         found = VulnerabilityStatusByTimeRange(
             vulnerabilities=found.vulnerabilities + 1,
             cvssf=found.cvssf + vulns_utils.get_cvssf(severity),

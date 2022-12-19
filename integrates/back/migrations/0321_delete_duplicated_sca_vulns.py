@@ -176,7 +176,7 @@ async def main() -> None:
                 if vuln.state.source == Source.MACHINE
                 or vuln.hacker_email == "machine@fluidattacks.com"
             ],
-            key=lambda x: get_datetime_from_iso_str(x.created_date),
+            key=lambda x: x.created_date,
         )
         duplicate_vulns = get_duplicate_vulns(machine_vulns)
 

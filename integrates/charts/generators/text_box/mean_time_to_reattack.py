@@ -42,7 +42,6 @@ from decimal import (
     ROUND_CEILING,
 )
 from newutils.datetime import (
-    get_datetime_from_iso_str,
     get_minus_delta,
     get_now,
     get_plus_delta,
@@ -139,9 +138,7 @@ async def _get_mean_time_to_reattack(
     for vulnerability, historic_verification, historic_state in zip(
         filtered_vulnerabilities, historic_verifications, historic_states
     ):
-        start: Optional[datetime] = get_datetime_from_iso_str(
-            vulnerability.created_date
-        )
+        start: Optional[datetime] = vulnerability.created_date
         for verification in historic_verification:
             if is_requested(verification, start):
                 number_of_reattacks += 1
@@ -211,17 +208,13 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
             sum(
                 [
                     get_diff(
-                        start=get_datetime_from_iso_str(
-                            vulnerability.created_date
-                        ),
+                        start=vulnerability.created_date,
                         end=current_date,
                     )
                     if vulnerability.state.status
                     == VulnerabilityStateStatus.OPEN
                     else get_diff(
-                        start=get_datetime_from_iso_str(
-                            vulnerability.created_date
-                        ),
+                        start=vulnerability.created_date,
                         end=vulnerability.state.modified_date,
                     )
                     for vulnerability in filtered_non_reattack_vulnerabilities

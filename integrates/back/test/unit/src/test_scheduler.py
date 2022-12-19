@@ -73,11 +73,11 @@ async def test_update_group_indicators() -> None:
     assert test_data.closed_vulnerabilities == 7
     assert test_data.open_vulnerabilities == 29
     assert test_data.open_findings == 5
-    assert test_data.mean_remediate == Decimal("790")
+    assert test_data.mean_remediate == Decimal("791")
     assert test_data.mean_remediate_critical_severity == Decimal("0")
     assert test_data.mean_remediate_high_severity == Decimal("0")
-    assert test_data.mean_remediate_low_severity == Decimal("800")
-    assert test_data.mean_remediate_medium_severity == Decimal("748")
+    assert test_data.mean_remediate_low_severity == Decimal("801")
+    assert test_data.mean_remediate_medium_severity == Decimal("749")
     assert test_data.treatment_summary == GroupTreatmentSummary(
         accepted=2, accepted_undefined=1, in_progress=1, new=25
     )
@@ -170,7 +170,7 @@ async def test_update_portfolios_indicators() -> None:
         "6.3"
     )
     assert tag_test_groups.unreliable_indicators.mean_remediate == Decimal(
-        "687.0"
+        "688.0"
     )
     assert (
         tag_test_groups.unreliable_indicators.mean_remediate_critical_severity
@@ -182,11 +182,11 @@ async def test_update_portfolios_indicators() -> None:
     )
     assert (
         tag_test_groups.unreliable_indicators.mean_remediate_low_severity
-        == Decimal("692.0")
+        == Decimal("693.0")
     )
     assert (
         tag_test_groups.unreliable_indicators.mean_remediate_medium_severity
-        == Decimal("374.0")
+        == Decimal("374.5")
     )
 
 

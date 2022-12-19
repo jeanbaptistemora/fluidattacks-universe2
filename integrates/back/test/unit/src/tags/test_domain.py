@@ -43,7 +43,7 @@ async def test_update() -> None:
         ),
     )
     assert original.unreliable_indicators.max_severity == Decimal("6.3")
-    assert original.unreliable_indicators.mean_remediate == Decimal("687")
+    assert original.unreliable_indicators.mean_remediate == Decimal("688")
     assert original.unreliable_indicators.mean_remediate_critical_severity == (
         Decimal("0")
     )

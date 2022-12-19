@@ -84,7 +84,7 @@ class VulnerabilityZeroRisk(NamedTuple):
 
 class Vulnerability(NamedTuple):
     created_by: str
-    created_date: str
+    created_date: datetime
     finding_id: str
     group_name: str
     hacker_email: str
@@ -123,7 +123,7 @@ class VulnerabilitiesConnection(NamedTuple):
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     created_by: Optional[str] = None
-    created_date: Optional[str] = None
+    created_date: Optional[datetime] = None
     custom_severity: Optional[str] = None
     hacker_email: Optional[str] = None
     hash: Optional[int] = None

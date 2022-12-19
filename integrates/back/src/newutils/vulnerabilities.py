@@ -302,9 +302,7 @@ def get_opening_date(
     vuln: Vulnerability,
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
-    opening_date: datetype = datetime_utils.get_date_from_iso_str(
-        vuln.created_date
-    )
+    opening_date: datetype = vuln.created_date.date()
     if min_date and min_date > opening_date:
         return None
     return opening_date
@@ -346,7 +344,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
                 * closed_vuln_date[1]
             )
         else:
-            current_day = datetime_utils.get_now().date()
+            current_day = datetime_utils.get_utc_now().date()
             total_days += Decimal(
                 (current_day - filtered_open_vuln_dates[index]).days
                 * closed_vuln_date[1]
@@ -390,7 +388,7 @@ def get_mean_remediate_vulnerabilities(
                 (closed_vuln_date - filtered_open_vuln_dates[index]).days
             )
         else:
-            current_day = datetime_utils.get_now().date()
+            current_day = datetime_utils.get_utc_now().date()
             total_days += int(
                 (current_day - filtered_open_vuln_dates[index]).days
             )
@@ -424,10 +422,10 @@ def get_ranges(numberlist: List[int]) -> str:
 
 
 def get_report_dates(
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[datetime, ...]:
+    vulns: tuple[Vulnerability, ...],
+) -> tuple[datetime, ...]:
     """Get report dates for vulnerabilities."""
-    return tuple(datetime.fromisoformat(vuln.created_date) for vuln in vulns)
+    return tuple(vuln.created_date for vuln in vulns)
 
 
 def group_specific(

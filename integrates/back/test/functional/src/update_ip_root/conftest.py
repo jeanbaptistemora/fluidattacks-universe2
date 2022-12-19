@@ -187,7 +187,9 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="test@fluidattacks.com",
-                    created_date="2018-04-08T00:45:11+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
                     group_name="group123",
                     hacker_email="test@fluidattacks.com",
@@ -212,7 +214,9 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="test@fluidattacks.com",
-                    created_date="2018-04-08T00:45:11+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
                     group_name="group123",
                     hacker_email="test@fluidattacks.com",
@@ -237,7 +241,9 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="test@fluidattacks.com",
-                    created_date="2018-04-08T00:45:14+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:14+00:00"
+                    ),
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
                     group_name="group123",
                     hacker_email="test@fluidattacks.com",

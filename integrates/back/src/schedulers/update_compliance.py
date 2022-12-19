@@ -234,10 +234,7 @@ async def get_organization_compliance_weekly_trend(
         if [
             vulnerability
             for vulnerability in open_vulnerabilities
-            if datetime_utils.get_datetime_from_iso_str(
-                vulnerability.created_date
-            )
-            < a_week_ago
+            if vulnerability.created_date < a_week_ago
         ]:
             last_week_open_findings[finding.id] = finding
 

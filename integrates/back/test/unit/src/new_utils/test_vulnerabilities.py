@@ -80,7 +80,7 @@ async def test_format_vulnerabilities() -> None:
 async def test_get_vuln_closing_date() -> None:
     closed_vulnerability = Vulnerability(
         created_by="test@test.com",
-        created_date="2019-01-08T21:01:26+00:00",
+        created_date=datetime.fromisoformat("2019-01-08T21:01:26+00:00"),
         finding_id="422286126",
         group_name="unittesting",
         hacker_email="test@test.com",
@@ -113,7 +113,7 @@ async def test_get_vuln_closing_date() -> None:
 async def test_get_vuln_opening_date() -> None:
     test_vuln = Vulnerability(
         created_by="test@test.com",
-        created_date="2019-01-08T21:01:26+00:00",
+        created_date=datetime.fromisoformat("2019-01-08T21:01:26+00:00"),
         finding_id="",
         group_name="",
         hacker_email="",
@@ -192,7 +192,7 @@ def test_sort_vulnerabilities() -> None:
     vulns = tuple(
         Vulnerability(
             created_by="test@test.com",
-            created_date="2018-04-08T00:45:11+00:00",
+            created_date=datetime.fromisoformat("2018-04-08T00:45:11+00:00"),
             finding_id="",
             group_name="",
             hacker_email="",
@@ -217,7 +217,7 @@ def test_sort_vulnerabilities() -> None:
     expected_output = tuple(
         Vulnerability(
             created_by="test@test.com",
-            created_date="2018-04-08T00:45:11+00:00",
+            created_date=datetime.fromisoformat("2018-04-08T00:45:11+00:00"),
             finding_id="",
             group_name="",
             hacker_email="",

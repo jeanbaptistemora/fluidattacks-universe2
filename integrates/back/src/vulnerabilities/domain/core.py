@@ -748,9 +748,7 @@ async def update_historics_dates(
     await vulns_model.update_metadata(
         finding_id=finding_id,
         metadata=VulnerabilityMetadataToUpdate(
-            created_date=datetime_utils.get_as_utc_iso_format(
-                historic_state[0].modified_date
-            )
+            created_date=historic_state[0].modified_date
         ),
         vulnerability_id=vulnerability_id,
     )

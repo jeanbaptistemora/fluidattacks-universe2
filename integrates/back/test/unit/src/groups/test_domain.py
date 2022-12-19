@@ -3,7 +3,6 @@ from dataloaders import (
     get_new_context,
 )
 from datetime import (
-    datetime,
     timedelta,
 )
 from db_model.groups.enums import (
@@ -144,7 +143,7 @@ async def test_get_mean_remediate_non_treated_severity() -> None:
     max_severity: Decimal = Decimal("10.0")
     assert await get_mean_remediate_non_treated_severity(
         context, group_name, min_severity, max_severity
-    ) == Decimal("386.0")
+    ) == Decimal("387.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
     assert await get_mean_remediate_non_treated_severity(
@@ -161,7 +160,7 @@ async def test_get_mean_remediate_non_treated_severity() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("182")),
+        (None, Decimal("183")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -178,7 +177,7 @@ async def test_get_mean_remediate_non_treated_severity_medium(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
@@ -189,7 +188,7 @@ async def test_get_mean_remediate_non_treated_severity_medium(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("239.007")),
+        (0, Decimal("238.671")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -205,7 +204,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
             group_name,
             Decimal("0.0"),
             Decimal("10.0"),
-            (datetime.now() - timedelta(days=min_days)).date()
+            (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
             if min_days
             else None,
         )
@@ -217,9 +216,9 @@ async def test_get_mean_remediate_non_treated_cvssf(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("49.797")),
-        (30, Decimal("10.658")),
-        (90, Decimal("11.269")),
+        (None, Decimal("50.557")),
+        (30, Decimal("11.534")),
+        (90, Decimal("12.149")),
     ),
 )
 async def test_get_mean_remediate_severity_low(
@@ -234,7 +233,7 @@ async def test_get_mean_remediate_severity_low(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
@@ -249,7 +248,7 @@ async def test_get_mean_remediate_severity() -> None:
     max_severity: Decimal = Decimal("10.0")
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity
-    ) == Decimal("384.0")
+    ) == Decimal("385.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
     assert await get_mean_remediate_severity(
@@ -259,7 +258,7 @@ async def test_get_mean_remediate_severity() -> None:
     min_date = datetime_utils.get_now_minus_delta(days=90).date()
     assert await get_mean_remediate_severity(
         context, group_name, min_severity, max_severity, min_date
-    ) == Decimal("82.0")
+    ) == Decimal("83.0")
 
 
 async def test_get_open_findings() -> None:
@@ -374,9 +373,9 @@ async def test_validate_tags() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("10")),
-        (30, Decimal("0")),
-        (90, Decimal("1")),
+        (None, Decimal("11")),
+        (30, Decimal("1")),
+        (90, Decimal("2")),
     ),
 )
 async def test_get_mean_remediate_severity_low_min_days(
@@ -391,7 +390,7 @@ async def test_get_mean_remediate_severity_low_min_days(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
@@ -402,7 +401,7 @@ async def test_get_mean_remediate_severity_low_min_days(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("185")),
+        (None, Decimal("186")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -419,7 +418,7 @@ async def test_get_mean_remediate_severity_medium(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )

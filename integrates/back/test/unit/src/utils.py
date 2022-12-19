@@ -73,7 +73,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             (
                 Vulnerability(
                     created_by="unittest@fluidattacks.com",
-                    created_date="2019-01-15T15:43:39+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2019-01-15T15:43:39+00:00"
+                    ),
                     finding_id="463558592",
                     group_name="unittesting",
                     hacker_email="unittest@fluidattacks.com",
@@ -131,7 +133,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
                 Vulnerability(
                     created_by="unittest@fluidattacks.com",
-                    created_date="2019-01-15T16:04:14+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2019-01-15T16:04:14+00:00"
+                    ),
                     finding_id="463558592",
                     group_name="unittesting",
                     hacker_email="unittest@fluidattacks.com",
@@ -187,7 +191,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
                 Vulnerability(
                     created_by="unittest@fluidattacks.com",
-                    created_date="2020-01-03T17:46:10+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2020-01-03T17:46:10+00:00"
+                    ),
                     finding_id="422286126",
                     group_name="unittesting",
                     hacker_email="unittest@fluidattacks.com",

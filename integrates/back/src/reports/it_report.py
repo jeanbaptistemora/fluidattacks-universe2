@@ -353,7 +353,7 @@ class ITReport:
             findings_vulnerabilities,
             findings_verifications,
         ) = await collect(  # type: ignore
-            (  # type: ignore
+            (
                 self._get_findings_vulnerabilities(findings_ids),
                 self._get_findings_historics_verifications(findings_ids),
             )
@@ -848,7 +848,7 @@ class ITReport:
         self.set_row_height()
 
     def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
-        vuln_date = datetime.fromisoformat(vuln.created_date)
+        vuln_date = vuln.created_date
         limit_date = datetime_utils.get_utc_now()
         vuln_close_date: Union[str, datetime] = EMPTY
         if vuln.state.status == VulnerabilityStateStatus.CLOSED:

@@ -130,7 +130,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
     return Vulnerability(
         bug_tracking_system_url=item.get("bug_tracking_system_url", None),
         created_by=item["created_by"],
-        created_date=item["created_date"],
+        created_date=datetime.fromisoformat(item["created_date"]),
         custom_severity=(
             int(item["custom_severity"])
             if "custom_severity" in item

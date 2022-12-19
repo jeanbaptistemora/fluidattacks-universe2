@@ -177,7 +177,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="hacker@gmail.com",
-                    created_date="2018-04-08T00:45:15+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:15+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
@@ -208,7 +210,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="hacker@gmail.com",
-                    created_date="2018-04-08T00:45:15+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:15+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
@@ -239,7 +243,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="hacker@gmail.com",
-                    created_date="2018-04-08T00:45:15+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:15+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
@@ -270,7 +276,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="hacker@gmail.com",
-                    created_date="2018-04-08T00:45:15+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:15+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="hacker@gmail.com",
@@ -301,7 +309,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     created_by="hacker@gmail.com",
-                    created_date="2018-04-08T00:45:15+00:00",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:15+00:00"
+                    ),
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="hacker@gmail.com",

@@ -58,9 +58,9 @@ pytestmark = [
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("376.001")),
+        (0, Decimal("375.797")),
         (30, Decimal("0")),
-        (90, Decimal("82.000")),
+        (90, Decimal("83.000")),
     ),
 )
 async def test_get_mean_remediate_cvssf(
@@ -73,7 +73,7 @@ async def test_get_mean_remediate_cvssf(
         group_name,
         Decimal("0.0"),
         Decimal("10.0"),
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
@@ -159,7 +159,7 @@ async def test_list_events() -> None:
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("152.580")),
+        (0, Decimal("152.264")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
@@ -176,7 +176,7 @@ async def test_get_mean_remediate_severity_medium_cvssf(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
@@ -187,9 +187,9 @@ async def test_get_mean_remediate_severity_medium_cvssf(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("364.485")),
+        (0, Decimal("365.252")),
         (30, Decimal("0.0")),
-        (90, Decimal("82.0")),
+        (90, Decimal("83.0")),
     ),
 )
 async def test_get_mean_remediate_severity_low_cvssf(
@@ -204,7 +204,7 @@ async def test_get_mean_remediate_severity_low_cvssf(
         group_name,
         min_severity,
         max_severity,
-        (datetime.now() - timedelta(days=min_days)).date()
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
         if min_days
         else None,
     )
