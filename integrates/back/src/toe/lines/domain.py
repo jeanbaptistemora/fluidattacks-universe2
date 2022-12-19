@@ -178,15 +178,20 @@ async def update(
         first_attack_at = attributes.first_attack_at
     elif not current_value.first_attack_at and attributes.attacked_at:
         first_attack_at = attributes.attacked_at
-    attacked_lines = (
-        attributes.attacked_lines or current_value.attacked_lines
-        if attributes.attacked_lines != 0
+
+    if get_filename_extension(current_value.filename) in CHECKED_FILES:
+        attacked_lines = loc
+    elif (
+        attributes.attacked_lines != 0
         and last_attacked_at
         and last_modified_date <= last_attacked_at
-        else 0
-    )
-    # Cover the case when loc changes but last_modified_date keeps the value
-    attacked_lines = min(attacked_lines, loc)
+    ):
+        attacked_lines = min(
+            attributes.attacked_lines or current_value.attacked_lines, loc
+        )
+    else:
+        attacked_lines = 0
+
     be_present_until = (
         None
         if attributes.be_present is None
