@@ -1,4 +1,5 @@
-import { utc } from "moment";
+import dayjs, { extend } from "dayjs";
+import utc from "dayjs/plugin/utc";
 import type React from "react";
 import { createContext } from "react";
 
@@ -27,12 +28,14 @@ const authContext: React.Context<IAuthContext> = createContext<IAuthContext>({
   userName: "",
 });
 
+extend(utc);
+
 const setupSessionCheck: (expDate: string) => void = (expDate): void => {
   setTimeout((): void => {
     location.replace("/logout");
     // eslint-disable-next-line no-alert -- Deliberate usage
     alert(translate.t("validations.validSessionDate"));
-  }, utc(expDate).diff(utc()));
+  }, dayjs.utc(expDate).diff(dayjs.utc()));
 };
 
 export type { IAuthContext };

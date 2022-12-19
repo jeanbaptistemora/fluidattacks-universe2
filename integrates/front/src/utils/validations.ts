@@ -1,6 +1,8 @@
+import type { Dayjs } from "dayjs";
+import dayjs, { extend, isDayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import _ from "lodash";
-import type { Moment } from "moment";
-import moment, { isMoment } from "moment";
 import {
   hasLengthGreaterThan,
   hasLengthLessThan,
@@ -306,15 +308,13 @@ const isValidVulnSeverity: Validator = (value: string): string | undefined => {
   return translate.t("validations.between", { max, min });
 };
 
-const validDatetime: Validator = (
-  value?: Moment | string
-): string | undefined =>
-  isMoment(value) ? undefined : translate.t("validations.datetime");
+const validDatetime: Validator = (value?: Dayjs | string): string | undefined =>
+  isDayjs(value) ? undefined : translate.t("validations.datetime");
 
 const validOptionalDatetime: Validator = (
-  value?: Moment | string | undefined
+  value?: Dayjs | string | undefined
 ): string | undefined =>
-  _.isUndefined(value) || _.isEmpty(value) || isMoment(value)
+  _.isUndefined(value) || _.isEmpty(value) || isDayjs(value)
     ? undefined
     : translate.t("validations.datetime");
 
@@ -411,24 +411,28 @@ const validRecordsFile: Validator = (value: FileList): string | undefined =>
     ? undefined
     : translate.t("groupAlerts.fileTypeCsv");
 
-const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
-  const today: Moment = moment();
+const dateTimeBeforeToday: Validator = (date: Dayjs): string | undefined => {
+  const today: Dayjs = dayjs();
 
   // Formik validation needs this seemingly unnecessary undefined check
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!(date instanceof moment)) {
+  if (!(date instanceof dayjs)) {
     return undefined;
   }
+
+  extend(isSameOrBefore);
 
   return date.isSameOrBefore(today)
     ? undefined
     : translate.t("validations.greaterDate");
 };
 
-const dateTimeBetween: (from: Moment, to: Moment) => Validator =
-  (from: Moment, to: Moment): Validator =>
-  (value?: Moment | string): string | undefined => {
-    return isMoment(value) && value.isBetween(from, to)
+const dateTimeBetween: (from: Dayjs, to: Dayjs) => Validator =
+  (from: Dayjs, to: Dayjs): Validator =>
+  (value?: Dayjs | string): string | undefined => {
+    extend(isBetween);
+
+    return isDayjs(value) && value.isBetween(from, to)
       ? undefined
       : translate.t("validations.datetimeBetween", {
           from: from.format("MM/DD/YYYY h:mm A"),
@@ -436,10 +440,12 @@ const dateTimeBetween: (from: Moment, to: Moment) => Validator =
         });
   };
 
-const optionalDateTimeBetween: (from: Moment, to: Moment) => Validator =
-  (from: Moment, to: Moment): Validator =>
-  (value?: Moment | string | undefined): string | undefined => {
-    return (isMoment(value) && value.isBetween(from, to)) ||
+const optionalDateTimeBetween: (from: Dayjs, to: Dayjs) => Validator =
+  (from: Dayjs, to: Dayjs): Validator =>
+  (value?: Dayjs | string | undefined): string | undefined => {
+    extend(isBetween);
+
+    return (isDayjs(value) && value.isBetween(from, to)) ||
       _.isUndefined(value) ||
       _.isEmpty(value)
       ? undefined

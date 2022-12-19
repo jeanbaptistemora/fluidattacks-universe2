@@ -1,10 +1,10 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
+import type { Dayjs } from "dayjs";
 import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import type { Moment } from "moment";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
@@ -59,7 +59,7 @@ const MAX_AMOUNT_OF_FILES = 6;
 const maxAmountOfFiles = isValidAmountOfFiles(MAX_AMOUNT_OF_FILES);
 
 interface IFormValues {
-  eventDate: Moment | string;
+  eventDate: Dayjs | string;
   affectsReattacks: boolean;
   affectedReattacks: string[];
   eventType: string;

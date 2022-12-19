@@ -1,7 +1,7 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
@@ -86,8 +86,16 @@ describe("handle toe lines addition modal", (): void => {
 
     await screen.findByText("group.toe.lines.addModal.title");
 
-    screen.getByRole("textbox", { name: "" }).focus();
-    await userEvent.paste("2022-05-23T07:18:00.000Z");
+    fireEvent.change(screen.getByPlaceholderText("mm/dd/yyyy hh:mm (a|p)m"), {
+      target: { value: "" },
+    });
+
+    // 05/23/2022 07:18 AM
+    await userEvent.type(
+      screen.getByPlaceholderText("mm/dd/yyyy hh:mm (a|p)m"),
+      "052320220718A"
+    );
+
     await userEvent.type(
       screen.getByRole("textbox", { name: "filename" }),
       "test/filename.py"

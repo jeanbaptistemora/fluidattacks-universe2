@@ -360,8 +360,13 @@ describe("eventsView", (): void => {
       screen.getByRole("textbox", { name: "detail" }),
       "detail test"
     );
-    screen.getByTestId("event-date-time").focus();
-    await userEvent.paste("09/07/2021 12:00 AM");
+
+    // 09/07/2021 12:00 AM
+    await userEvent.type(
+      screen.getByPlaceholderText("mm/dd/yyyy hh:mm (a|p)m"),
+      "090720211200A"
+    );
+
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "eventType" }),
       ["group.events.type.cloningIssues"]

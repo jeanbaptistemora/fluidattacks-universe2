@@ -75,8 +75,9 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
   function handleSubmit(values: IFormValues): void {
     void handleAddToeLines({
       variables: {
-        groupName,
         ...values,
+        groupName,
+        modifiedDate: values.modifiedDate?.toISOString(),
       },
     });
   }

@@ -10,6 +10,8 @@ import type {
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
+import { extend } from "dayjs";
+import utc from "dayjs/plugin/utc";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -317,6 +319,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         files,
         rootId,
       } = values;
+      extend(utc);
       const selectedEventReattacks = formatReattacks(affectedReattacks);
       const result = await addEvent({
         variables: {

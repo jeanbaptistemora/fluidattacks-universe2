@@ -1,12 +1,15 @@
+import type { TextFieldProps } from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import type { Dayjs } from "dayjs";
 import type { FieldProps } from "formik";
 import { ErrorMessage } from "formik";
-import type { Moment } from "moment";
-import React from "react";
-import Datetime from "react-datetime";
+import React, { useCallback } from "react";
 
 import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
-import "react-datetime/css/react-datetime.css";
 
 interface IDateTimeProps extends FieldProps {
   disabled?: boolean;
@@ -19,7 +22,7 @@ export const FormikDateTime: React.FC<IDateTimeProps> = (
   const { dataTestId, field, form, disabled = false } = props;
   const { name } = field;
 
-  function handleChange(value: Moment | string): void {
+  function handleChange(value: Dayjs | null): void {
     form.setFieldValue(name, value);
   }
 
@@ -27,23 +30,33 @@ export const FormikDateTime: React.FC<IDateTimeProps> = (
     form.setFieldTouched(name, true);
   }
 
+  const textField = useCallback(
+    (componentProps: TextFieldProps): JSX.Element => (
+      <TextField
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...componentProps}
+        // eslint-disable-next-line react/forbid-component-props
+        className={style["form-control"]}
+        data-testid={dataTestId}
+        name={name}
+        onBlur={handleBlur}
+      />
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [name]
+  );
+
   return (
     <React.Fragment>
-      <Datetime
-        inputProps={{
-          className: style["form-control"],
-          // @ts-expect-error It is a valid prop
-          "data-testid": dataTestId,
-          disabled,
-          name,
-        }}
-        utc={false}
-        // Best way to pass down props.
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...field}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...field}
+          disabled={disabled}
+          onChange={handleChange}
+          renderInput={textField}
+        />
+      </LocalizationProvider>
       <ValidationError>
         <ErrorMessage name={name} />
       </ValidationError>
