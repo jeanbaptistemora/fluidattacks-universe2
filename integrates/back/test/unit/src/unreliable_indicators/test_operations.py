@@ -77,7 +77,9 @@ async def test_update_unreliable_indicators_by_deps() -> None:
     )
     expected_vulnerability_output = VulnerabilityUnreliableIndicators(
         unreliable_efficacy=Decimal("0"),
-        unreliable_last_reattack_date="2020-02-19T15:41:04+00:00",
+        unreliable_last_reattack_date=datetime.fromisoformat(
+            "2020-02-19T15:41:04+00:00"
+        ),
         unreliable_last_reattack_requester="integratesuser@gmail.com",
         unreliable_last_requested_reattack_date="2020-02-18T15:41:04+00:00",
         unreliable_reattack_cycles=1,

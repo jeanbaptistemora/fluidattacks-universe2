@@ -243,9 +243,11 @@ def format_unreliable_indicators(
         if item.get("unreliable_closing_date")
         else None,
         unreliable_efficacy=item.get("unreliable_efficacy"),
-        unreliable_last_reattack_date=item.get(
-            "unreliable_last_reattack_date"
-        ),
+        unreliable_last_reattack_date=datetime.fromisoformat(
+            item["unreliable_last_reattack_date"]
+        )
+        if item.get("unreliable_last_reattack_date")
+        else None,
         unreliable_last_reattack_requester=item.get(
             "unreliable_last_reattack_requester"
         ),
@@ -275,7 +277,9 @@ def format_unreliable_indicators_item(
         ),
         "unreliable_efficacy": indicators.unreliable_efficacy,
         "unreliable_last_reattack_date": (
-            indicators.unreliable_last_reattack_date
+            get_as_utc_iso_format(indicators.unreliable_last_reattack_date)
+            if indicators.unreliable_last_reattack_date
+            else None
         ),
         "unreliable_last_reattack_requester": (
             indicators.unreliable_last_reattack_requester
@@ -304,7 +308,9 @@ def format_unreliable_indicators_to_update_item(
         ),
         "unreliable_efficacy": indicators.unreliable_efficacy,
         "unreliable_last_reattack_date": (
-            indicators.unreliable_last_reattack_date
+            get_as_utc_iso_format(indicators.unreliable_last_reattack_date)
+            if indicators.unreliable_last_reattack_date
+            else None
         ),
         "unreliable_last_reattack_requester": (
             indicators.unreliable_last_reattack_requester
@@ -320,6 +326,8 @@ def format_unreliable_indicators_to_update_item(
     }
     if indicators.clean_unreliable_closing_date:
         item["unreliable_closing_date"] = ""
+    if indicators.clean_unreliable_last_reattack_date:
+        item["unreliable_last_reattack_date"] = ""
 
     return {key: value for key, value in item.items() if value is not None}
 

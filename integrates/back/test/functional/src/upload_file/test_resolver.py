@@ -219,7 +219,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
         vuln_open_verified.unreliable_indicators
         == VulnerabilityUnreliableIndicators(
             unreliable_efficacy=Decimal("0"),
-            unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+            unreliable_last_reattack_date=datetime.fromisoformat(
+                "2022-02-09T00:00:00+00:00"
+            ),
             unreliable_last_reattack_requester="requester@gmail.com",
             unreliable_last_requested_reattack_date=(
                 "2018-04-08T01:45:11+00:00"
@@ -240,7 +242,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
                 "2022-02-09T00:00:00+00:00"
             ),
             unreliable_efficacy=Decimal("100"),
-            unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+            unreliable_last_reattack_date=datetime.fromisoformat(
+                "2022-02-09T00:00:00+00:00"
+            ),
             unreliable_last_reattack_requester="requester@gmail.com",
             unreliable_last_requested_reattack_date=(
                 "2018-04-08T01:45:11+00:00"

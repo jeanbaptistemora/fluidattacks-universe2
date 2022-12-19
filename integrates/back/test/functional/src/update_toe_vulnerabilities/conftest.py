@@ -838,7 +838,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_efficacy=Decimal("0"),
                         unreliable_last_reattack_date=(
-                            "2018-04-08T01:45:12+00:00"
+                            datetime.fromisoformat("2018-04-08T01:45:12+00:00")
                         ),
                         unreliable_last_reattack_requester=(
                             "requester@gmail.com"
