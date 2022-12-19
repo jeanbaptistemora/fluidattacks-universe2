@@ -188,6 +188,8 @@ type Group {
     minSeverity: String
     "Max severity value for vulnerability"
     maxSeverity: String
+    "Vulnerability root"
+    root: String
     "Vulnerability status"
     stateStatus: String
     "Treatment status for vulnerability"

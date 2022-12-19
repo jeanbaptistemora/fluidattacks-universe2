@@ -45,6 +45,7 @@ async def resolve(
         index="vulnerabilities",
         limit=kwargs.get("first", 10),
         query=kwargs.get("search"),
+        should_filters=vulnerabilities_filters["should_filters"],
     )
 
     loaders: Dataloaders = info.context.loaders
@@ -72,6 +73,7 @@ async def resolve(
 def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
     vulns_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
     vulns_must_not_filters: List[Dict[str, Any]] = must_not_filter()
+    vulns_should_filters: List[Dict[str, Any]] = should_filter()
 
     if zero_risk := kwargs.get("zeroRisk"):
         vulns_must_filters.append({"zero_risk.status": zero_risk})
@@ -83,6 +85,7 @@ def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
     filters: Dict[str, Any] = {
         "must_filters": vulns_must_filters,
         "must_not_filters": vulns_must_not_filters,
+        "should_filters": vulns_should_filters,
     }
 
     return filters
@@ -112,3 +115,12 @@ def must_not_filter() -> List[Dict[str, Any]]:
     ]
 
     return must_not_filters
+
+
+def should_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+    should_filters = []
+
+    if root := kwargs.get("root"):
+        should_filters.append({"state.where": str(root).upper()})
+
+    return should_filters
