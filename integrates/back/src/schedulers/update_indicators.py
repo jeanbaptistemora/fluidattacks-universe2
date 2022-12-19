@@ -687,7 +687,9 @@ def get_open_vulnerabilities(
         if treatment.modified_date <= last_day
     )
     states = tuple(
-        state for state in historic_state if state.modified_date <= last_day
+        state
+        for state in historic_state
+        if state.modified_date.timestamp() <= last_day.timestamp()
     )
     if (
         states
@@ -717,7 +719,9 @@ def get_by_time_range(
     min_date: Optional[datetime] = None,
 ) -> VulnerabilityStatusByTimeRange:
     states = tuple(
-        state for state in historic_state if state.modified_date <= last_day
+        state
+        for state in historic_state
+        if state.modified_date.timestamp() <= last_day.timestamp()
     )
     if (
         states
@@ -936,7 +940,9 @@ def get_found_vulnerabilities(
         vulnerabilities=0, cvssf=Decimal("0.0")
     )
     if (
-        first_day <= vulnerability.state.modified_date <= last_day
+        first_day.timestamp()
+        <= vulnerability.state.modified_date.timestamp()
+        <= last_day.timestamp()
         and vulnerability.state.status
         in {
             VulnerabilityStateStatus.DELETED,
@@ -975,7 +981,9 @@ def get_exposed_cvssf(
     last_day: datetime,
 ) -> CvssfExposureByTimeRange:
     states = tuple(
-        state for state in historic_state if state.modified_date <= last_day
+        state
+        for state in historic_state
+        if state.modified_date.timestamp() <= last_day.timestamp()
     )
     cvssf: Decimal = Decimal("0.0")
     severity_level = get_severity_level(severity)
