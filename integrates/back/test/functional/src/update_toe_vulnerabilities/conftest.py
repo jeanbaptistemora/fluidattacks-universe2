@@ -24,6 +24,8 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+    IPRoot,
+    IPRootState,
     RootEnvironmentUrl,
     URLRoot,
     URLRootState,
@@ -35,6 +37,10 @@ from db_model.toe_inputs.types import (
 from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesState,
+)
+from db_model.toe_ports.types import (
+    ToePort,
+    ToePortState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -272,6 +278,54 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 "historic_state": [],
             },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.1",
+                        modified_by="admin@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
+                        nickname="test_nickname_5",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
+            {
+                "root": IPRoot(
+                    created_by="admin@gmail.com",
+                    created_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
+                    group_name="group1",
+                    id="2a6aa308-8f83-4b11-a712-b4c981fd04ac",
+                    organization_name="orgtest",
+                    state=IPRootState(
+                        address="192.168.1.1",
+                        modified_by="admin@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-19T13:37:10+00:00"
+                        ),
+                        nickname="test_nickname_6",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.IP,
+                ),
+                "historic_state": [],
+            },
         ],
         "toe_inputs": (
             ToeInput(
@@ -281,8 +335,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 attacked_by="",
                 be_present=True,
                 be_present_until=None,
-                component="192.168.1.20",
-                entry_point="9999",
+                component="https://app.fluidattacks.com/",
+                entry_point="button",
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-02T05:00:00+00:00"
                 ),
@@ -313,80 +367,39 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
             ToeInput(
                 attacked_at=datetime.fromisoformat(
-                    "2021-02-02T05:00:00+00:00"
+                    "2020-01-02T05:00:00+00:00"
                 ),
                 attacked_by="",
                 be_present=True,
                 be_present_until=None,
-                component="192.168.1.1",
-                entry_point="2321",
+                component="https://app.test.com/",
+                entry_point="button-test",
                 first_attack_at=datetime.fromisoformat(
-                    "2021-02-02T05:00:00+00:00"
+                    "2020-01-02T05:00:00+00:00"
                 ),
-                group_name="group1",
                 has_vulnerabilities=False,
-                seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
-                seen_first_time_by="test@test.com",
+                group_name="group1",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="",
                 unreliable_root_id="",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
-                        "2021-02-02T05:00:00+00:00"
+                        "2020-01-02T05:00:00+00:00"
                     ),
                     attacked_by="",
                     be_present=True,
                     be_present_until=None,
-                    has_vulnerabilities=False,
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-02-02T05:00:00+00:00"
-                    ),
-                    modified_by="hacker@fluidattacks.com",
-                    modified_date=datetime_utils.get_utc_now(),
-                    seen_at=datetime.fromisoformat(
-                        "2020-03-14T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="test@test.com",
-                    unreliable_root_id="",
-                ),
-            ),
-            ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=True,
-                be_present_until=datetime.fromisoformat(
-                    "2021-03-11T05:00:00+00:00"
-                ),
-                component="192.168.1.7",
-                entry_point="77777",
-                first_attack_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
-                group_name="group1",
-                has_vulnerabilities=True,
-                seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
-                seen_first_time_by="test2@test.com",
-                unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                state=ToeInputState(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
-                    attacked_by="",
-                    be_present=True,
-                    be_present_until=datetime.fromisoformat(
-                        "2021-03-11T05:00:00+00:00"
-                    ),
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
                     has_vulnerabilities=True,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
                     modified_by="hacker@fluidattacks.com",
                     modified_date=datetime_utils.get_utc_now(),
                     seen_at=datetime.fromisoformat(
-                        "2020-01-11T05:00:00+00:00"
+                        "2000-01-01T05:00:00+00:00"
                     ),
-                    seen_first_time_by="test2@test.com",
-                    unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                    seen_first_time_by="",
+                    unreliable_root_id="",
                 ),
             ),
         ),
@@ -487,6 +500,56 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
         ),
+        "toe_ports": (
+            ToePort(
+                address="192.168.1.1",
+                port="2321",
+                group_name="group1",
+                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                ),
+            ),
+            ToePort(
+                address="192.168.1.7",
+                port="77777",
+                group_name="group1",
+                root_id="2a6aa308-8f83-4b11-a712-b4c981fd04ac",
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="test1@test.com",
+                state=ToePortState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    attacked_by="admin@gmail.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=True,
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2000-01-01T05:00:00+00:00"
+                    ),
+                ),
+            ),
+        ),
         "vulnerabilities": [
             {
                 "vulnerability": Vulnerability(
@@ -504,9 +567,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             "2018-04-08T00:45:11+00:00"
                         ),
                         source=Source.ASM,
-                        specific="9999",
+                        specific="button",
                         status=VulnerabilityStateStatus.CLOSED,
-                        where="192.168.1.20",
+                        where="https://app.fluidattacks.com/",
                     ),
                     treatment=VulnerabilityTreatment(
                         modified_date=datetime.fromisoformat(
@@ -514,7 +577,40 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         status=VulnerabilityTreatmentStatus.NEW,
                     ),
-                    type=VulnerabilityType.PORTS,
+                    type=VulnerabilityType.INPUTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                ),
+            },
+            {
+                "vulnerability": Vulnerability(
+                    created_by="test1@gmail.com",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
+                    hacker_email="test1@gmail.com",
+                    id="f6731a15-d70d-4f8d-8d5b-819195e0e3f5",
+                    state=VulnerabilityState(
+                        modified_by="test1@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        specific="button-test",
+                        status=VulnerabilityStateStatus.OPEN,
+                        where="https://app.test.com/",
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.INPUTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -531,6 +627,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="1a45b977-3f77-4bbe-8d3d-d43d6afd1383",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
                         modified_date=datetime.fromisoformat(
@@ -570,6 +667,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="d582d9fe-fa5d-4d5a-ab07-9372f51b1d9b",
+                    root_id="2a6aa308-8f83-4b11-a712-b4c981fd04ac",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
                         modified_date=datetime.fromisoformat(
@@ -577,7 +675,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="77777",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.CLOSED,
                         where="192.168.1.7",
                     ),
                     treatment=VulnerabilityTreatment(

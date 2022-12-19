@@ -55,9 +55,6 @@ async def add(  # pylint: disable=too-many-arguments
     is_moving_toe_input: bool = False,
 ) -> None:
     formatted_component = component.strip()
-    while formatted_component.endswith("/"):
-        formatted_component = formatted_component[:-1].strip()
-
     if is_moving_toe_input is False:
         root: Root = await loaders.root.load(
             (group_name, attributes.unreliable_root_id)

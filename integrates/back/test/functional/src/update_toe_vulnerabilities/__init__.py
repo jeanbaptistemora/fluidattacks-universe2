@@ -35,6 +35,15 @@ async def get_result(
                     }}
                 }}
             }}
+            toePorts {{
+                edges {{
+                    node {{
+                        address
+                        hasVulnerabilities
+                        port
+                    }}
+                }}
+            }}
         }}
       }}
     """

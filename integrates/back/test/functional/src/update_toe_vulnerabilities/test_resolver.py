@@ -25,23 +25,16 @@ async def test_update_toe_vulnerabilities(populate: bool, email: str) -> None:
         "edges": [
             {
                 "node": {
-                    "component": "192.168.1.7",
-                    "entryPoint": "77777",
-                    "hasVulnerabilities": True,
-                }
-            },
-            {
-                "node": {
-                    "component": "192.168.1.1",
-                    "entryPoint": "2321",
-                    "hasVulnerabilities": True,
-                }
-            },
-            {
-                "node": {
-                    "component": "192.168.1.20",
-                    "entryPoint": "9999",
+                    "component": "https://app.fluidattacks.com/",
+                    "entryPoint": "button",
                     "hasVulnerabilities": False,
+                }
+            },
+            {
+                "node": {
+                    "component": "https://app.test.com/",
+                    "entryPoint": "button-test",
+                    "hasVulnerabilities": True,
                 }
             },
         ]
@@ -65,6 +58,25 @@ async def test_update_toe_vulnerabilities(populate: bool, email: str) -> None:
                 "node": {
                     "filename": "test3/test.sh",
                     "hasVulnerabilities": False,
+                }
+            },
+        ]
+    }
+
+    assert result["data"]["group"]["toePorts"] == {
+        "edges": [
+            {
+                "node": {
+                    "address": "192.168.1.7",
+                    "hasVulnerabilities": False,
+                    "port": 77777,
+                }
+            },
+            {
+                "node": {
+                    "address": "192.168.1.1",
+                    "hasVulnerabilities": True,
+                    "port": 2321,
                 }
             },
         ]

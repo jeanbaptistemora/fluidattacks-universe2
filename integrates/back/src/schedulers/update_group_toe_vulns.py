@@ -88,10 +88,6 @@ def _log(msg: str, **extra: Any) -> None:
     LOGGER.info(msg, extra={"extra": extra})
 
 
-def _strip_first_dir(where: str) -> tuple[str, str]:
-    return (where[0 : where.find("/")], where[where.find("/") + 1 :])
-
-
 @retry_on_exceptions(
     exceptions=(UnavailabilityError,),
 )
@@ -117,7 +113,6 @@ async def process_toe_inputs(
         GroupToeInputsRequest(group_name=group_name)
     )
     updates = []
-    inputs_types = {VulnerabilityType.INPUTS, VulnerabilityType.PORTS}
 
     for toe_input in group_toe_inputs:
         has_vulnerabilities: bool = (
@@ -131,7 +126,7 @@ async def process_toe_inputs(
                     toe_input.entry_point
                 )
                 for vulnerability in open_vulnerabilities
-                if vulnerability.type in inputs_types
+                if vulnerability.type == VulnerabilityType.INPUTS
             )
             if toe_input.be_present
             else False
