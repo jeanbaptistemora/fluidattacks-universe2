@@ -1457,6 +1457,17 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts
   18 | }
      ^ Col 0
 ",typescript.ts_insecure_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts","
+  1 | const AdmZip = require('adm-zip');
+  2 | const fs = require('fs');
+  3 |
+  4 | const zip = new AdmZip(""zip-slip.zip"");
+  5 | const zipEntries = zip.getEntries();
+  6 | zipEntries.forEach(function (zipEntry) {
+> 7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
+  8 | });
+    ^ Col 0
+",typescript.ts_zip_slip
 F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,9,287,skims,015. Insecure authentication method - Basic,The server uses Basic authentication over an insecure channel. in namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,"
    1 | import AnyOtherClass;
    2 |

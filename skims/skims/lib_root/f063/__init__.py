@@ -9,6 +9,7 @@ from lib_root.f063.javascript import (
 )
 from lib_root.f063.typescript import (
     typescript_insecure_path_traversal,
+    zip_slip_injection as ts_zip_slip_injection,
 )
 from model import (
     core_model,
@@ -20,5 +21,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_open_redirect),
     (FINDING, java_zip_slip_injection),
     (FINDING, js_insecure_path_traversal),
+    (FINDING, ts_zip_slip_injection),
     (FINDING, typescript_insecure_path_traversal),
 )
