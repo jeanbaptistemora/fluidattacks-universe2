@@ -60,26 +60,6 @@ async def test_events() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_event_consult() -> None:
-    """Check for addEventConsult mutation."""
-    query = """
-        mutation {
-            addEventConsult(eventId: "538745942",
-                            parentComment: "0",
-                            content: "Test comment") {
-                success
-                commentId
-            }
-        }
-    """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addEventConsult"]
-    assert "commentId" in result["data"]["addEventConsult"]
-
-
-@pytest.mark.changes_db
 async def test_update_event_evidence() -> None:
     """Check for updateEventEvidence mutation."""
     query = """
