@@ -101,6 +101,9 @@ const getHorizontalPadding = (
   return `ph${ph}`;
 };
 
+const getShadow = (shadow: boolean): string =>
+  shadow ? "box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);" : "";
+
 const StyledContainer = styled.div.attrs<IContainerProps>(
   ({
     br = 0,
@@ -170,7 +173,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
     overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
     transition: all 0.3s ease;
-    box-shadow: ${shadow ? "0 10px 20px 0 rgba(0, 0, 0, 0.16)" : "unset"};
+    ${getShadow(shadow)}
     ${getBorder(borderColor, borderBottomColor)}
 
     @media screen and (min-width: 60em) {
@@ -195,9 +198,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     }
 
     :hover {
-      box-shadow: ${
-        hoverShadow ? "0 10px 20px 0 rgba(0, 0, 0, 0.16)" : "unset"
-      };
+      ${getShadow(hoverShadow)}
     }
   `}
 `;

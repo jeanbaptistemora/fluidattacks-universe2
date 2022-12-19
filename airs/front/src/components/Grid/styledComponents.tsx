@@ -9,7 +9,13 @@ const getColumns = (defaultColumns: Nums1To4, columns?: Nums1To4): string =>
     ? `grid-template-columns: ${column.repeat(defaultColumns)};`
     : `grid-template-columns: ${column.repeat(columns)};`;
 
-const StyledGrid = styled.div<IGridProps>`
+const StyledGrid = styled.div.attrs<IGridProps>(
+  (): {
+    className: string;
+  } => ({
+    className: `pv3 ph3`,
+  })
+)<IGridProps>`
   ${({ columns, columnsMd, columnsSm, gap }): string => `
       display: grid;
       gap: ${gap};
