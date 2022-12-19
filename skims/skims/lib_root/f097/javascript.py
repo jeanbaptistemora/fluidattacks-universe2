@@ -16,6 +16,12 @@ import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
 from typing import (
     Iterable,
     Iterator,
@@ -37,17 +43,27 @@ def get_suspicious_nodes(graph: Graph) -> Iterable[NId]:
 
 
 def param_is_safe(graph: Graph, p_id: NId, expression: str) -> bool:
+    method = MethodsEnum.JS_HAS_REVERSE_TABNABBING
     matcher = re.compile(expression)
-    return bool(matcher.match(graph.nodes[p_id].get("value")))
+
+    for path in get_backward_paths(graph, p_id):
+        evaluation = evaluate(method, graph, path, p_id)
+        return bool(
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers
+            and matcher.match(next(iter(evaluation.triggers)))
+        )
+    return True
 
 
 def node_is_vulnerable(graph: Graph, params: Iterator[NId]) -> bool:
     url: NId = next(params)
-    if param_is_safe(graph, url, r"(?!^\"https?://)"):
+    if param_is_safe(graph, url, r"(?!^https?://)"):
         return False
     try:
         name: NId = next(params)
-        if param_is_safe(graph, name, r"(?!^\"_blank\"$)"):
+        if param_is_safe(graph, name, r"(?!^_blank$)"):
             return False
     except StopIteration:
         return True
