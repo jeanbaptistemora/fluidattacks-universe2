@@ -319,29 +319,6 @@ async def test_update_evidence_records_append() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_finding_consult_parent_zero() -> None:
-    """Check for addFindingConsult mutation."""
-    query = """
-      mutation {
-        addFindingConsult(
-          content: "This is a comenting test",
-          findingId: "422286126",
-          type: CONSULT,
-          parentComment: "0"
-        ) {
-          success
-          commentId
-        }
-      }
-      """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addFindingConsult"]
-    assert result["data"]["addFindingConsult"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_add_finding_consult_parent_non_zero() -> None:
     """Check for addFindingConsult mutation."""
     query = """
@@ -362,48 +339,6 @@ async def test_add_finding_consult_parent_non_zero() -> None:
     assert "errors" not in result
     assert "success" in result["data"]["addFindingConsult"]
     assert result["data"]["addFindingConsult"]["success"]
-
-
-@pytest.mark.changes_db
-async def test_create_draft() -> None:
-    """Check for addDraft mutation."""
-    query = """
-        mutation AddDraftMutation(
-            $description: String,
-            $groupName: String!,
-            $recommendation: String,
-            $requirements: String,
-            $threat: String,
-            $title: String!,
-            $minTimeToRemediate: String!,
-            ) {
-            addDraft(
-            description: $description,
-            groupName: $groupName,
-            recommendation: $recommendation,
-            requirements: $requirements,
-            threat: $threat,
-            title: $title,
-            minTimeToRemediate: $minTimeToRemediate,
-            ) {
-            success
-            }
-        }
-    """
-    variables = {
-        "description": "This is pytest created draft",
-        "groupName": "UNITTESTING",
-        "recommendation": "Solve this finding",
-        "requirements": "REQ.0001. Apply filters",
-        "threat": "Attacker",
-        "title": "001. SQL injection - C Sharp SQL API",
-        "minTimeToRemediate": "60",
-    }
-    data = {"query": query, "variables": variables}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addDraft"]
-    assert result["data"]["addDraft"]["success"]
 
 
 @pytest.mark.changes_db
