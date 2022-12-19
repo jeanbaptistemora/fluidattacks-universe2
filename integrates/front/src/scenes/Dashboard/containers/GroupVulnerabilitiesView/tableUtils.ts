@@ -76,6 +76,12 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
 
 const tableFilters: IFilter<IVulnRowAttr>[] = [
   {
+    id: "root",
+    key: "where",
+    label: "Root",
+    type: "text",
+  },
+  {
     id: "currentState",
     key: "currentState",
     label: "Status",

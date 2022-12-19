@@ -35,6 +35,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
     $after: String
     $first: Int
     $groupName: String!
+    $root: String
     $search: String
     $treatment: String
     $type: String
@@ -47,6 +48,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
       vulnerabilities(
         after: $after
         first: $first
+        root: $root
         search: $search
         treatment: $treatment
         type: $type

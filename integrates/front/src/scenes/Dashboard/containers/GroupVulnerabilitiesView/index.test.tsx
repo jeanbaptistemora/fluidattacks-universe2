@@ -379,6 +379,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     );
     await userEvent.click(screen.getByText("Filter"));
 
+    expect(screen.getByText("Root")).toBeInTheDocument();
     expect(screen.getByText("Source")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Treatment")).toBeInTheDocument();
@@ -416,6 +417,8 @@ describe("GroupVulnerabilitiesView", (): void => {
     expect(screen.getByText("app")).toBeInTheDocument();
     expect(screen.getByText("infra")).toBeInTheDocument();
     expect(screen.getByText("code")).toBeInTheDocument();
+
+    expect(screen.getByRole("textbox", { name: "root" })).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
