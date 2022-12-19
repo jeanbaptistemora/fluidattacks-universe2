@@ -9,7 +9,6 @@ from back.test.unit.src.utils import (
     create_dummy_session,
 )
 from custom_exceptions import (
-    OrganizationNotFound,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
@@ -19,9 +18,6 @@ from decimal import (
     Decimal,
 )
 import pytest
-from string import (
-    Template,
-)
 from typing import (
     Any,
     Dict,
@@ -42,35 +38,6 @@ async def _get_result_async(
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
-
-
-async def test_get_organization_id() -> None:
-    org_name = "okada"
-    expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    query = Template(
-        """
-        query {
-            organizationId(organizationName: "$name") {
-                id
-            }
-        }
-    """
-    )
-
-    data = {"query": query.substitute(name=org_name)}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["organizationId"]["id"] == expected_org_id
-
-    result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-    data = {"query": query.substitute(name="madeup-name")}
-    result = await _get_result_async(data)
-    exe = OrganizationNotFound()
-    assert "errors" in result
-    assert result["errors"][0]["message"] == exe.args[0]
 
 
 async def test_organization() -> None:
