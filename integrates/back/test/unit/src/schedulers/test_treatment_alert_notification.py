@@ -12,6 +12,7 @@ from schedulers.treatment_alert_notification import (
     days_to_end,
     expiring_vulnerabilities,
     ExpiringDataType,
+    findings_close_to_expiring,
     unique_emails,
 )
 
@@ -44,6 +45,25 @@ async def test_expiring_vulnerabilities(
 ) -> None:
     vulns = await expiring_vulnerabilities(get_new_context(), finding_id)
     assert list(list(vulns.values())[0].values())[0] == 2
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    [
+        "group_name",
+    ],
+    [
+        [
+            "unittesting",
+        ],
+    ],
+)
+@freeze_time("2021-01-14T06:00:00.0")
+async def test_findings_close_to_expiring(
+    group_name: str,
+) -> None:
+    findings = await findings_close_to_expiring(get_new_context(), group_name)
+    assert len(findings) == 2
 
 
 @pytest.mark.parametrize(
