@@ -39,4 +39,6 @@ async def test_update_access_token(populate: bool, email: str) -> None:
         expiration_time=ts_expiration_time,
     )
     assert "errors" not in result
+    assert "updateAccessToken" in result["data"]
+    assert "success" in result["data"]["updateAccessToken"]
     assert result["data"]["updateAccessToken"]["success"]

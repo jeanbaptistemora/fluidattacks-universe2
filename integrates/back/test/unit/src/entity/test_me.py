@@ -11,10 +11,6 @@ from back.test.unit.src.utils import (
 from dataloaders import (
     apply_context_attrs,
 )
-from datetime import (
-    datetime,
-    timedelta,
-)
 import pytest
 
 pytestmark = pytest.mark.asyncio
@@ -70,48 +66,6 @@ async def test_me() -> None:
         "domain": "gmail.com",
         "trial": {"completed": True},
     }
-
-
-@pytest.mark.changes_db
-async def test_update_access_token() -> None:
-    """Check for updateAccessToken mutation."""
-    query = """
-        mutation updateAccessToken ($expirationTime: Int!) {
-            updateAccessToken(expirationTime: $expirationTime) {
-                sessionJwt
-                success
-            }
-        }
-    """
-    expiration_time = datetime.utcnow() + timedelta(weeks=8)
-    int_expiration_time = int(expiration_time.timestamp())
-
-    data = {
-        "query": query,
-        "variables": {"expirationTime": int_expiration_time},
-    }
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert "updateAccessToken" in result["data"]
-    assert "success" in result["data"]["updateAccessToken"]
-
-
-@pytest.mark.changes_db
-async def test_invalidate_access_token() -> None:
-    """Check invalidateAccessToken query"""
-    query = """
-        mutation {
-            invalidateAccessToken {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "invalidateAccessToken" in result["data"]
-    assert "success" in result["data"]["invalidateAccessToken"]
 
 
 @pytest.mark.changes_db

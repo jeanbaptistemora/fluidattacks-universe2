@@ -44,6 +44,8 @@ async def test_invalidate_access_token(
         user=email,
     )
     assert "errors" not in result
+    assert "invalidateAccessToken" in result["data"]
+    assert "success" in result["data"]["invalidateAccessToken"]
     assert result["data"]["invalidateAccessToken"]["success"]
     new_loader = get_new_context()
     new_stakeholder: Stakeholder = await new_loader.stakeholder.load(email)
