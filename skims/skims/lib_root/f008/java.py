@@ -25,18 +25,15 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Set,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_argument_vuln(
-    graph: Graph,
-    n_id: NId,
-) -> bool:
+def is_node_vuln(graph: Graph, n_id: NId, danger_set: Set[str]) -> bool:
     method = MethodsEnum.JAVA_UNSAFE_XSS_CONTENT
-    danger_set = {"userconnection", "userresponse"}
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and evaluation.triggers == danger_set:
@@ -44,7 +41,28 @@ def is_argument_vuln(
     return False
 
 
-def remote_command_execution(
+def is_xss_content_creation(
+    graph: Graph,
+    method_id: NId,
+    obj_id: NId,
+) -> bool:
+    danger_connection = {"userconnection", "userparameters"}
+    danger_response = {"userresponse"}
+    al_id = graph.nodes[method_id].get("arguments_id")
+    response_id = graph.nodes[obj_id].get("object_id")
+
+    if not (al_id and response_id):
+        return False
+
+    if is_node_vuln(graph, al_id, danger_connection) and is_node_vuln(
+        graph, response_id, danger_response
+    ):
+        return True
+
+    return False
+
+
+def unsafe_xss_content(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -63,13 +81,11 @@ def remote_command_execution(
                 predicate=g.pred_has_labels(label_type="MethodInvocation"),
             ):
                 n_attrs = graph.nodes[n_id]
-                m_name = n_attrs["expression"]
-                obj_id = n_attrs.get("object_id")
                 if (
-                    m_name in danger_methods
-                    and obj_id
+                    n_attrs["expression"] in danger_methods
+                    and (obj_id := n_attrs.get("object_id"))
                     and graph.nodes[obj_id].get("expression") == "getWriter"
-                    and is_argument_vuln(graph, n_id)
+                    and is_xss_content_creation(graph, n_id, obj_id)
                 ):
                     yield shard, n_id
 
