@@ -209,6 +209,7 @@ resource "aws_launch_template" "main" {
 
   user_data               = filebase64("${path.module}/aws_batch_user_data")
   disable_api_termination = true
+  vpc_security_group_ids  = [aws_security_group.main.id]
 }
 
 resource "aws_batch_compute_environment" "main" {
