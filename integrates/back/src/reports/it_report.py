@@ -1,7 +1,3 @@
-from .typing import (
-    GroupVulnsReportHeader,
-    OrgVulnsReportHeader,
-)
 from aioextensions import (
     collect,
 )
@@ -85,6 +81,10 @@ from pyexcelerate import (
     Workbook,
     Worksheet as WorksheetType,
 )
+from reports.typing import (
+    GroupVulnsReportHeader,
+    OrgVulnsReportHeader,
+)
 from settings.logger import (
     LOGGING,
 )
@@ -95,6 +95,7 @@ from typing import (
     Optional,
     Union,
 )
+import uuid
 
 logging.config.dictConfig(LOGGING)
 
@@ -510,12 +511,8 @@ class ITReport:
         self.row += 1
 
     def save(self) -> None:
-        today_date = datetime_utils.get_as_str(
-            datetime_utils.get_now(), date_format="%Y-%m-%dT%H-%M-%S"
-        )
-        self.result_filename = (
-            f"{self.group_name}-vulnerabilities-{today_date}.xlsx"
-        )
+        name = str(uuid.uuid4())
+        self.result_filename = f"{name[:6]}.xlsx"
         self.workbook.save(self.result_filename)
 
     def set_cvss_metrics_cell(self, row: Finding) -> None:

@@ -1,8 +1,3 @@
-from .typing import (
-    PdfFindingInfo,
-    PDFWordlistEn,
-    PDFWordlistEs,
-)
 from PyPDF4 import (
     PdfFileReader,
 )
@@ -59,6 +54,11 @@ from pylab import (  # noqa
 )
 from reports.secure_pdf import (
     SecurePDF,
+)
+from reports.typing import (
+    PdfFindingInfo,
+    PDFWordlistEn,
+    PDFWordlistEs,
 )
 from settings import (
     LOGGING,
@@ -776,7 +776,7 @@ class CreatorPdf:
             self.user_email,
             loaders,
         )
-        self.out_name = f"{str(uuid.uuid4())}.pdf"
+        self.out_name = f"{str(uuid.uuid4())[:6]}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env: jinja2.Environment = jinja2.Environment(
