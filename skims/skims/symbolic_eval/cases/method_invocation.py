@@ -29,6 +29,9 @@ from symbolic_eval.f034.method_invocation import (
 from symbolic_eval.f059.method_invocation import (
     evaluate as evaluate_method_f059,
 )
+from symbolic_eval.f063.method_invocation import (
+    evaluate as evaluate_method_f063,
+)
 from symbolic_eval.f091.method_invocation import (
     evaluate as evaluate_method_f091,
 )
@@ -74,6 +77,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F034: evaluate_method_f034,
     FindingEnum.F021: evaluate_method_f021,
     FindingEnum.F059: evaluate_method_f059,
+    FindingEnum.F063: evaluate_method_f063,
     FindingEnum.F091: evaluate_method_f091,
     FindingEnum.F107: evaluate_method_f107,
     FindingEnum.F192: evaluate_method_f192,

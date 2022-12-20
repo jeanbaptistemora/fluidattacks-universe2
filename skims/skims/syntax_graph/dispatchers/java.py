@@ -49,6 +49,7 @@ from syntax_graph.syntax_readers.java import (
     parenthesized_expression as java_parenthesized_expression,
     program as java_program,
     resource as java_resource,
+    resource_specification as java_resource_specification,
     return_statement as java_return_statement,
     string_literal as java_string_literal,
     switch_body as java_switch_body,
@@ -370,9 +371,14 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
-            "resource_specification",
         },
         syntax_reader=java_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "resource_specification",
+        },
+        syntax_reader=java_resource_specification.reader,
     ),
     Dispatcher(
         applicable_types={

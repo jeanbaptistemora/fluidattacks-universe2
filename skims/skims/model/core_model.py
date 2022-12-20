@@ -3445,6 +3445,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_UNSAFE_PATH_TRAVERSAL = MethodInfo(
+        file_name="java",
+        name="java_unsafe_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_PATH_TRAVERSAL = MethodInfo(
         file_name="javascript",
         name="js_insecure_path_traversal",
