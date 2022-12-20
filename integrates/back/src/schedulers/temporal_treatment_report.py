@@ -93,7 +93,7 @@ async def send_temporal_treatment_report() -> None:
                     )
 
     else:
-        LOGGER.info("- temporal treatment report NOT sent")
+        LOGGER.info("- temporary treatment report NOT sent")
 
 
 async def main() -> None:

@@ -205,8 +205,6 @@ async def send_temporal_treatment_report() -> None:
         if data["email_to"] and data["group_expiring_findings"].values()
     }
 
-    print(f"groups_data:{groups_data}")
-
     for email in unique_emails(dict(groups_data), ()):
         user_content: Dict[str, Any] = {
             "groups_data": {
@@ -224,8 +222,6 @@ async def send_temporal_treatment_report() -> None:
             }
         }
 
-        print(f"userContent:{user_content}")
-
         try:
             await mail_treatment_alert(
                 loaders=loaders,
@@ -234,16 +230,16 @@ async def send_temporal_treatment_report() -> None:
                 email_cc=[],
             )
             LOGGER.info(
-                "Temporal treatment alert email sent",
+                "Temporary treatment alert email sent",
                 extra={"extra": {"email": email}},
             )
         except KeyError:
             LOGGER.info(
-                "Key error, Temporal treatment alert email not sent",
+                "Key error, Temporary treatment alert email not sent",
                 extra={"extra": {"email": email}},
             )
             continue
-    LOGGER.info("Temporal treatment alert execution finished.")
+    LOGGER.info("Temporary treatment alert execution finished.")
 
 
 async def main() -> None:

@@ -168,8 +168,8 @@ async def send_mail_temporal_treatment_report(
         users_email,
         email_context,
         GENERAL_TAG,
-        f"[ARM] Temporal treatments are close to end in [{group_name}]",
-        "temporal_treatment_report",
+        f"[ARM] Temporary treatments are close to end in [{group_name}]",
+        "temporary_treatment_report",
     )
 
 
