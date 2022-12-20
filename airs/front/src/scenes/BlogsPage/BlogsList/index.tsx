@@ -1,3 +1,4 @@
+/* eslint fp/no-mutating-methods:0 */
 import dayjs from "dayjs";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useCallback, useState } from "react";
@@ -46,6 +47,15 @@ export const BlogsList: React.FC = (): JSX.Element => {
     }
   `);
 
+  const categoriesOrder = [
+    "interview",
+    "politics",
+    "development",
+    "opinions",
+    "philosophy",
+    "attacks",
+  ];
+
   const authorsListRaw = data.allMarkdownRemark.edges.map(
     (edge): string => edge.node.frontmatter.author
   );
@@ -68,6 +78,11 @@ export const BlogsList: React.FC = (): JSX.Element => {
 
   const categoriesList = categoriesListRaw.filter(
     (category, index): boolean => categoriesListRaw.indexOf(category) === index
+  );
+
+  const sortedCategories = [...categoriesList].sort(
+    (first, second): number =>
+      categoriesOrder.indexOf(second) - categoriesOrder.indexOf(first)
   );
 
   const datesList = ["Last month", "Last 6 months", "Last year"];
@@ -261,7 +276,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
               {"View all"}
             </Button>
           </Container>
-          {categoriesList.map((category: string): JSX.Element => {
+          {sortedCategories.map((category: string): JSX.Element => {
             return (
               <Container key={category} mh={2} mt={2} width={"auto"}>
                 <Button
