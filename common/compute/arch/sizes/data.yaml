@@ -15,6 +15,10 @@ large:
   cpu: 8
   memory: 15200
   queue: large
+common_nano:
+  cpu: 1
+  memory: 1900
+  queue: common_small
 forces_nano:
   cpu: 1
   memory: 1900

@@ -85,6 +85,10 @@ locals {
         ]
       }
     )
+    common_small = merge(
+      local.machine_sizes.small,
+      local.config.common
+    )
     forces_small = merge(
       local.machine_sizes.small,
       local.config.forces

@@ -10,7 +10,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
-    size = "nano";
+    size = "common_nano";
     awsRole = "prod_common";
     attempts = 1;
     timeout = 86400;
@@ -34,7 +34,7 @@
     ];
 
     schedule_expression = "cron(0 9 */2 * ? *)";
-    size = "nano";
+    size = "forces_nano";
     awsRole = "prod_forces";
     attempts = 3;
     timeout = 86400;
@@ -61,7 +61,7 @@
     ];
 
     schedule_expression = "cron(0 12 * * ? *)";
-    size = "nano";
+    size = "forces_nano";
     awsRole = "prod_forces";
     attempts = 3;
     timeout = 86400;
