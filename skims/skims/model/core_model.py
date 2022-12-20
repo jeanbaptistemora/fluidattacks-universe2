@@ -1550,8 +1550,16 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     JAVA_UNSAFE_XSS_CONTENT = MethodInfo(
-        file_name="c_sharp",
-        name="c_sharp_unsafe_xss_content",
+        file_name="java",
+        name="java_unsafe_xss_content",
+        module="lib_root",
+        finding=FindingEnum.F008,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_UNSAFE_XSS_CONTENT = MethodInfo(
+        file_name="javascript",
+        name="javascript_unsafe_xss_content",
         module="lib_root",
         finding=FindingEnum.F008,
         developer=DeveloperEnum.FABIO_LAGOS,
