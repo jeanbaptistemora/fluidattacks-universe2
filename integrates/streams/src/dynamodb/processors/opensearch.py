@@ -73,3 +73,7 @@ def process_executions(records: tuple[Record, ...]) -> None:
 
 def process_events(records: tuple[Record, ...]) -> None:
     _process(records, "events")
+
+
+def process_lines(records: tuple[Record, ...]) -> None:
+    _process(records, "toe_lines")
