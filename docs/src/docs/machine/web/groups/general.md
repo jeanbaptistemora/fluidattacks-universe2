@@ -33,7 +33,7 @@ ascending or descending) if
 you click on the arrows next
 to each title.
 
-![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1669031539/docs/web/groups/general/group_table.png)
+![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555319/docs/web/groups/general/groups_table.png)
 
 You find the following information:
 
@@ -94,7 +94,7 @@ you need to click on the
 **New group** button in the
 main screen of your organization.
 
-![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1669032244/docs/web/groups/general/create_group.png)
+![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555420/docs/web/groups/general/create_new_group.png)
 
 A pop-up window will appear
 to set up the characteristics
@@ -175,7 +175,7 @@ you can discover how many
 unsolved events need your
 attention in each of your groups.
 
-![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669035042/docs/web/groups/general/open_unsolverd.png)
+![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555625/docs/web/groups/general/report_event.png)
 
 When you enter one of the
 groups with at least one
