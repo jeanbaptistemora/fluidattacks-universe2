@@ -14,6 +14,7 @@ const PresentationCard: React.FC<IPresentationCardProps> = ({
     <Container
       align={"center"}
       borderColor={"#dddde3"}
+      br={3}
       display={"flex"}
       height={"100px"}
       hoverShadow={true}
@@ -21,10 +22,15 @@ const PresentationCard: React.FC<IPresentationCardProps> = ({
       ph={3}
       pv={3}
     >
-      <Container height={"100%"} mr={3} width={"25%"}>
-        <CloudImage alt={image} src={image} styles={"w-100 h-100 br-100"} />
+      <Container mr={3} width={"40%"}>
+        <CloudImage
+          alt={image}
+          isProfile={true}
+          src={image}
+          styles={"w-100 h-100"}
+        />
       </Container>
-      <Container width={"75%"}>
+      <Container>
         <Text color={"#2e2e38"}>{text}</Text>
       </Container>
     </Container>

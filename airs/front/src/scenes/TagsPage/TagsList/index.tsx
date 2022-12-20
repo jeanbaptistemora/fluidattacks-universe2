@@ -41,7 +41,7 @@ const TagsList: React.FC = (): JSX.Element => {
 
   return (
     <Container ph={4} pv={5}>
-      <Container center={true} maxWidth={"1000px"} pt={5}>
+      <Container center={true} maxWidth={"1000px"}>
         <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
           {tagsList.map((tag): JSX.Element => {
             return (

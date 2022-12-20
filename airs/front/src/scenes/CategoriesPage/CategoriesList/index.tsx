@@ -5,7 +5,6 @@ import { AirsLink } from "../../../components/AirsLink";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
 import { PresentationCard } from "../../../components/PresentationCard";
-import { Title } from "../../../components/Typography";
 import { capitalizePlainString } from "../../../utils/utilities";
 
 const CategoriesList: React.FC = (): JSX.Element => {
@@ -42,10 +41,7 @@ const CategoriesList: React.FC = (): JSX.Element => {
 
   return (
     <Container ph={4} pv={5}>
-      <Title color={"#2e2e38"} level={1} size={"big"} textAlign={"center"}>
-        {"Authors:"}
-      </Title>
-      <Container center={true} maxWidth={"1000px"} pt={5}>
+      <Container center={true} maxWidth={"1000px"}>
         <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
           {categoriesList.map((category): JSX.Element => {
             return (
