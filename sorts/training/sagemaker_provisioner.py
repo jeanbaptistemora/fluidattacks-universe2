@@ -30,6 +30,7 @@ JOB_CREATION_DELAY_MULTIPLIER: int = 30
 
 ON_DEMAND_NEEDED: List[str] = [
     "gradientboostingclassifier",
+    "histgradientboostingclassifier",
     "kneighborsclassifier",
     "logisticregression",
     "mlpclassifier",
