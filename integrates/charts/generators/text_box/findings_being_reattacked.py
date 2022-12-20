@@ -12,26 +12,25 @@ from charts.generators.text_box.utils import (
     format_csv_data,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from groups.domain import (
     get_vulnerabilities_with_pending_attacks,
 )
-from typing import (
-    Any,
-    Tuple,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
-async def generate_one(group: str, loaders: Any) -> int:
+async def generate_one(group: str, loaders: Dataloaders) -> int:
 
     return await get_vulnerabilities_with_pending_attacks(
         loaders=loaders, group_name=group
     )
 
 
-async def get_many_groups(groups: Tuple[str, ...], loaders: Any) -> int:
+async def get_many_groups(
+    groups: tuple[str, ...], loaders: Dataloaders
+) -> int:
     groups_data = await collect(
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
