@@ -22,6 +22,14 @@ locals {
       ]
       type = "SPOT"
     }
+    forces = {
+      product = "forces"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+      type = "SPOT"
+    }
     integrates = {
       product = "integrates"
       subnets = [
@@ -76,6 +84,10 @@ locals {
           data.aws_subnet.batch_clone.id,
         ]
       }
+    )
+    forces_small = merge(
+      local.machine_sizes.small,
+      local.config.forces
     )
     integrates_small = merge(
       local.machine_sizes.small,

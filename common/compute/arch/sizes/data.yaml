@@ -15,6 +15,10 @@ large:
   cpu: 8
   memory: 15200
   queue: large
+forces_nano:
+  cpu: 1
+  memory: 1900
+  queue: forces_small
 integrates_nano:
   cpu: 1
   memory: 1900
