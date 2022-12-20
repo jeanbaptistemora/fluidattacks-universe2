@@ -67,7 +67,7 @@ def unsafe_xss_content(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     java = GraphLanguage.JAVA
-    danger_methods = {"format", "write", "println", "printf"}
+    danger_methods = {"format", "write", "println", "printf", "print"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):

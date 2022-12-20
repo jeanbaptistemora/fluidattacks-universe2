@@ -36,6 +36,7 @@ def is_node_vuln(
 
 def unsafe_xss_content_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
+    danger_set = {"userconnection"}
 
     for n_id in g.filter_nodes(
         graph,
@@ -55,9 +56,7 @@ def unsafe_xss_content_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
                 al_id
                 and (args_ids := g.adj_ast(graph, al_id))
                 and len(args_ids) == 1
-                and is_node_vuln(
-                    graph, args_ids[0], {"danger_html", "danger_input"}, method
-                )
+                and is_node_vuln(graph, args_ids[0], danger_set, method)
             ):
                 vuln_nodes.append(n_id)
 
