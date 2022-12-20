@@ -810,9 +810,9 @@ def format_vulnerability_zero_risk_item(
 
 
 def get_advisories(where: str) -> Optional[str]:
-    result = re.search(r"(\s+\(.*\))?(\s+\[.*\])?", where)
+    result = re.search(r"(?P<name>(\(.*\))?(\s+\[.*\]))", where)
     if result:
-        return result[0]
+        return result.group("name")
     return None
 
 

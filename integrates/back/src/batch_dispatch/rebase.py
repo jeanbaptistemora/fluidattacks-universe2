@@ -59,6 +59,7 @@ from newutils import (
     git_self as git_utils,
 )
 from newutils.vulnerabilities import (
+    get_advisories,
     ignore_advisories,
 )
 import os
@@ -140,11 +141,11 @@ def _rebase_vulnerability(
                 )
                 != vulnerability.state.where
             ):
-                advisories = vulnerability.state.where.replace(
-                    ignore_advisories(vulnerability.state.where),
-                    "",
-                )
-                result = result._replace(path=f"{result.path}{advisories}")
+                advisories = get_advisories(vulnerability.state.where)
+                if advisories and advisories not in result.path:
+                    result = result._replace(
+                        path=f"{result.path} {advisories}"
+                    )
             return result
     except GitError as exc:
         LOGGER.error(
