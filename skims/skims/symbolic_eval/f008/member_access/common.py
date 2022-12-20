@@ -1,17 +1,14 @@
+from symbolic_eval.common import (
+    check_js_ts_http_inputs,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
 
-DANGER_METHODS = {
-    "req.params",
-    "req.query",
-}
-
 
 def unsafe_xss_content(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    n_attrs = args.graph.nodes[args.n_id]
-    if f"{n_attrs['member']}.{n_attrs['expression']}" in DANGER_METHODS:
+    if check_js_ts_http_inputs(args):
         args.triggers.add("userconnection")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
