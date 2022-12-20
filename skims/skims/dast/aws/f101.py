@@ -55,8 +55,8 @@ async def bucket_has_object_lock_disabled(
                             arn=(f"arn:aws:s3:::{bucket_name}"),
                             values=(conf.get("ObjectLockEnabled"),),
                             description=t(
-                                "src.lib_path.f031."
-                                "bucket_policy_allows_public_access"
+                                "src.lib_path.f101."
+                                "bucket_has_object_lock_disabled"
                             ),
                         )
                     ],
@@ -77,8 +77,8 @@ async def bucket_has_object_lock_disabled(
                             arn=(f"arn:aws:s3:::{bucket_name}"),
                             values=(),
                             description=t(
-                                "src.lib_path.f031."
-                                "bucket_policy_allows_public_access"
+                                "src.lib_path.f101."
+                                "bucket_has_object_lock_disabled"
                             ),
                         )
                     ],

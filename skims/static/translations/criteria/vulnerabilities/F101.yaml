@@ -1,0 +1,6 @@
+---
+src.lib_path.f101.bucket_has_object_lock_disabled:
+  en: >
+    S3 buckets can be deleted or overwritten accidentally
+  es: >-
+    Buckets de S3 pueden se borrados o sobreescritos accidentalmente
