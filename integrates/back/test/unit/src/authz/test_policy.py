@@ -48,11 +48,9 @@ import pytest
 from typing import (
     Any,
 )
-from unittest import (
-    mock,
-)
 from unittest.mock import (
     AsyncMock,
+    patch,
 )
 
 # Constants
@@ -66,7 +64,7 @@ TABLE_NAME = "integrates_vms"
 @pytest.mark.parametrize(
     ["table", "length"],
     [
-        ["integrates_vms", 22],
+        ["integrates_vms", 20],
     ],
 )
 def test_create_tables(
@@ -86,11 +84,9 @@ def test_create_tables(
         ["asdfasdfasdfasdf@gmail.com", ""],
     ],
 )
-@mock.patch(
-    get_mocked_path("loaders.stakeholder.load"), new_callable=mock.AsyncMock
-)
+@patch(get_mocked_path("loaders.stakeholder.load"), new_callable=AsyncMock)
 async def test_get_user_level_role(
-    mock_stakeholder_loader: mock.AsyncMock,
+    mock_stakeholder_loader: AsyncMock,
     email: str,
     result: str,
 ) -> None:
@@ -220,41 +216,37 @@ async def test_get_group_service_policies(
     assert sorted(group_policies) == result
 
 
-@mock.patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
 @pytest.mark.parametrize(
     ["email", "group", "result"],
     [
         ["integrateshacker@fluidattacks.com", "unittesting", "hacker"],
         ["integratesuser@gmail.com", "unittesting", "user_manager"],
         ["unittest@fluidattacks.com", "unittesting", "admin"],
+        ["test_admin@gmail.com", "unittesting", "admin"],
         ["test_email@gmail.com", "unittesting", ""],
     ],
 )
+@patch(get_mocked_path("loaders.group_access.load"), new_callable=AsyncMock)
+@patch(get_mocked_path("get_user_level_role"), new_callable=AsyncMock)
 async def test_get_group_level_role(
-    mock_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
+    mock_get_user_level_role: AsyncMock,
+    mock_group_access_loader: AsyncMock,
     email: str,
     group: str,
     result: str,
 ) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
 
     loaders: Dataloaders = get_new_context()
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    mock_group_access_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.group_access.load"),
+        json.dumps([email, group, result]),
+    )
+    mock_get_user_level_role.return_value = get_mock_response(
+        get_mocked_path("get_user_level_role"),
+        json.dumps([email]),
+    )
     test_role = await get_group_level_role(loaders, email, group)
     assert test_role == result
-    test_role_other_group = await get_group_level_role(
-        loaders, email, "other-group"
-    )
-    if await get_user_level_role(loaders, email) == "admin":
-        assert test_role_other_group == result
-    else:
-        assert not test_role_other_group
-    assert mock_resource.called is True
 
 
 @pytest.mark.parametrize(
@@ -264,9 +256,9 @@ async def test_get_group_level_role(
         ["test_email@test.com", "admin"],
     ],
 )
-@mock.patch(
+@patch(
     get_mocked_path("stakeholders_model.update_metadata"),
-    new_callable=mock.AsyncMock,
+    new_callable=AsyncMock,
 )
 async def test_grant_user_level_role(
     mock_stakeholder_update_metadata: AsyncMock,
@@ -286,11 +278,11 @@ async def test_grant_user_level_role(
     assert mock_stakeholder_update_metadata.called is True
 
 
-@mock.patch(
+@patch(
     "dynamodb.operations.get_table_resource",
     new_callable=AsyncMock,
 )
-@mock.patch(
+@patch(
     "dynamodb.operations.get_resource",
     new_callable=AsyncMock,
 )
@@ -342,11 +334,11 @@ async def test_grant_group_level_role(  # pylint: disable=too-many-arguments
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
-@mock.patch(
+@patch(
     "dynamodb.operations.get_table_resource",
     new_callable=AsyncMock,
 )
-@mock.patch(
+@patch(
     "dynamodb.operations.get_resource",
     new_callable=AsyncMock,
 )
@@ -384,11 +376,11 @@ async def test_revoke_group_level_role(  # pylint: disable=too-many-arguments
     assert mock_resource.called is True
 
 
-@mock.patch(
+@patch(
     "dynamodb.operations.get_table_resource",
     new_callable=AsyncMock,
 )
-@mock.patch(
+@patch(
     "dynamodb.operations.get_resource",
     new_callable=AsyncMock,
 )

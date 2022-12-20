@@ -11,6 +11,10 @@ from db_model import (
 from db_model.enums import (
     Source,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+    GroupAccessState,
+)
 from db_model.stakeholders.types import (
     NotificationsParameters,
     NotificationsPreferences,
@@ -67,6 +71,9 @@ mocked_paths: Dict[str, str] = {
     "FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",
     "get_open_vulnerabilities": "findings.domain.core."
     "get_open_vulnerabilities",
+    "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader."
+    "load",
+    "get_user_level_role": "authz.policy.get_user_level_role",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader."
     "load",
     "stakeholders_model.update_metadata": "db_model.stakeholders."
@@ -74,6 +81,72 @@ mocked_paths: Dict[str, str] = {
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
+    "authz.policy.get_user_level_role": {
+        '["integrateshacker@fluidattacks.com"]': "hacker",
+        '["integratesuser@gmail.com"]': "user_manager",
+        '["test_admin@gmail.com"]': "admin",
+        '["test_email@gmail.com"]': "",
+        '["unittest@fluidattacks.com"]': "admin",
+    },
+    "db_model.group_access.get.GroupAccessLoader.load": {
+        '["integrateshacker@fluidattacks.com", "unittesting",'
+        ' "hacker"]': GroupAccess(
+            email="integrateshacker@fluidattacks.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility=None,
+            role="hacker",
+        ),
+        '["integratesuser@gmail.com", "unittesting",'
+        ' "user_manager"]': GroupAccess(
+            email="integratesuser@gmail.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility=None,
+            role="user_manager",
+        ),
+        '["test_admin@gmail.com", "unittesting", "admin"]': GroupAccess(
+            email="test_admin@gmail.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=None,
+            invitation=None,
+            responsibility=None,
+            role=None,
+        ),
+        '["test_email@gmail.com", "unittesting", ""]': GroupAccess(
+            email="test_email@gmail.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=None,
+            invitation=None,
+            responsibility=None,
+            role=None,
+        ),
+        '["unittest@fluidattacks.com", "unittesting", "admin"]': GroupAccess(
+            email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility=None,
+            role="admin",
+        ),
+    },
     "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained": {  # noqa: E501
         '["463558592", "422286126"]': tuple(
             (
