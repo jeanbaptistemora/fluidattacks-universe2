@@ -1561,6 +1561,7 @@ export const enTranslations: ResourceKey = {
     invalidAssigned: "Please select a valid assigned user",
     invalidCannotModifyNicknameWhenClosing:
       "Invalid, you cannot change the nickname while closing",
+    invalidCommitHash: "Invalid commit hash",
     invalidDate:
       "The date must be minor than six month and greater than current date",
     invalidNOfVulns: "You can upload a maximum of 100 vulnerabilities per file",

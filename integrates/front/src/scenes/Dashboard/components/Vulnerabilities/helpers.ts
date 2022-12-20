@@ -26,13 +26,7 @@ function formatError(errorName: string, errorValue: string): string {
 }
 
 const errorMessageHelper = (message: string): void => {
-  if (message === "Exception - Invalid characters") {
-    msgError(translate.t("validations.invalidChar"));
-  } else if (message === "Exception - Invalid File Size") {
-    msgError(translate.t("validations.fileSize", { count: 1 }));
-  } else if (message === "Exception - Invalid File Type") {
-    msgError(translate.t("groupAlerts.fileTypeYaml"));
-  } else if (message.includes("Exception - Error in path value")) {
+  if (message.includes("Exception - Error in path value")) {
     const errorObject: IErrorInfoAttr = JSON.parse(message);
     msgErrorStick(`${translate.t("groupAlerts.pathValue")}
     ${formatError("groupAlerts.value", errorObject.values)}`);
@@ -40,27 +34,6 @@ const errorMessageHelper = (message: string): void => {
     const errorObject: IErrorInfoAttr = JSON.parse(message);
     msgErrorStick(`${translate.t("groupAlerts.portValue")}
     ${formatError("groupAlerts.value", errorObject.values)}`);
-  } else if (message === "Exception - Error in specific value") {
-    msgError(translate.t("groupAlerts.invalidSpecific"));
-  } else if (message === "Expected path to start with the repo nickname") {
-    msgError(translate.t("groupAlerts.expectedPathToStartWithRepo"));
-  } else if (message === "Expected vulnerability to have repo_nickname") {
-    msgError(translate.t("groupAlerts.expectedVulnToHaveNickname"));
-  } else if (
-    message === "Invalid, only New vulnerabilities with Open state are allowed"
-  ) {
-    msgError(translate.t("groupAlerts.onlyNewVulnerabilitiesOpenState"));
-  } else if (
-    message === "Invalid, you cannot change the nickname while closing"
-  ) {
-    msgError(translate.t("groupAlerts.invalidCannotModifyNicknameWhenClosing"));
-  } else if (
-    message ===
-    "Exception - You can upload a maximum of 100 vulnerabilities per file"
-  ) {
-    msgError(translate.t("groupAlerts.invalidNOfVulns"));
-  } else if (message === "Exception - Error Uploading File to S3") {
-    msgError(translate.t("groupAlerts.errorTextsad"));
   } else if (
     message.includes(
       "Exception - Invalid stream should start 'home' or 'query'"
@@ -72,13 +45,56 @@ const errorMessageHelper = (message: string): void => {
         path: destructMsg.path,
       })
     );
-  } else if (message === "Exception - Access denied or root not found") {
-    msgError(
-      translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidRoot")
-    );
   } else {
-    msgError(translate.t("groupAlerts.invalidSpecific"));
-    Logger.error("An error occurred uploading vulnerabilities file", message);
+    switch (message) {
+      case "Exception - Access denied or root not found":
+        msgError(
+          translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidRoot")
+        );
+        break;
+      case "Exception - Error in specific value":
+        msgError(translate.t("groupAlerts.invalidSpecific"));
+        break;
+      case "Exception - Error Uploading File to S3":
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalidChar"));
+        break;
+      case "Exception - Invalid File Size":
+        msgError(translate.t("validations.fileSize", { count: 1 }));
+        break;
+      case "Exception - Invalid File Type":
+        msgError(translate.t("groupAlerts.fileTypeYaml"));
+        break;
+      case "Exception - The commit hash is invalid":
+        msgError(translate.t("groupAlerts.invalidCommitHash"));
+        break;
+      case "Exception - You can upload a maximum of 100 vulnerabilities per file":
+        msgError(translate.t("groupAlerts.invalidNOfVulns"));
+        break;
+      case "Expected path to start with the repo nickname":
+        msgError(translate.t("groupAlerts.expectedPathToStartWithRepo"));
+        break;
+      case "Expected vulnerability to have repo_nickname":
+        msgError(translate.t("groupAlerts.expectedVulnToHaveNickname"));
+        break;
+      case "Invalid, only New vulnerabilities with Open state are allowed":
+        msgError(translate.t("groupAlerts.onlyNewVulnerabilitiesOpenState"));
+        break;
+      case "Invalid, you cannot change the nickname while closing":
+        msgError(
+          translate.t("groupAlerts.invalidCannotModifyNicknameWhenClosing")
+        );
+        break;
+      default:
+        msgError(translate.t("groupAlerts.invalidSpecific"));
+        Logger.error(
+          "An error occurred uploading vulnerabilities file",
+          message
+        );
+        break;
+    }
   }
 };
 
