@@ -534,8 +534,22 @@ enum VulnerabilitySource {
 enum VulnerabilityState {
   "Closed"
   CLOSED
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/20. Use `SAFE` instead.
+      """
+    )
   "Open"
   OPEN
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/20. Use `VULNERABLE` instead.
+      """
+    )
+  "Safe"
+  SAFE
+  "Vulnerable"
+  VULNERABLE
 }
 
 "Vulnerability verification"

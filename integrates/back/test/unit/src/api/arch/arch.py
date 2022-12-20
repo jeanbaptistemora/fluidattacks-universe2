@@ -81,6 +81,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "treatment_changes",
         "stream",
         "last_requested_reattack_date",
+        "state",
     ),
     "api.resolvers.organization_compliance": (
         "standards",

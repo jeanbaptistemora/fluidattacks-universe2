@@ -218,10 +218,18 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["vulnerabilitiesConnection"] == {
         "edges": [
             {
-                "node": {"id": "be09edb7-cd5c-47ed-bee4-97c645acdce8"},
+                "node": {
+                    "currentState": "closed",
+                    "id": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    "state": "SAFE",
+                },
             },
             {
-                "node": {"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"},
+                "node": {
+                    "currentState": "open",
+                    "id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
+                    "state": "VULNERABLE",
+                },
             },
         ],
         "pageInfo": {
@@ -244,7 +252,11 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["zeroRiskConnection"] == {
         "edges": [
             {
-                "node": {"id": "7771bc87-8633-4a4a-8d8e-7dae0ca57e7a"},
+                "node": {
+                    "currentState": "open",
+                    "id": "7771bc87-8633-4a4a-8d8e-7dae0ca57e7a",
+                    "state": "VULNERABLE",
+                },
             }
         ],
         "pageInfo": {

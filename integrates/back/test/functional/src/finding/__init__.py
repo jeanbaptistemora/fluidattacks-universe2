@@ -140,7 +140,9 @@ async def get_result(
                 vulnerabilitiesConnection {{
                     edges {{
                         node {{
+                            currentState
                             id
+                            state
                         }}
                     }}
                     pageInfo {{
@@ -159,10 +161,12 @@ async def get_result(
                         hasNextPage
                     }}
                 }}
-                zeroRiskConnection {{
+                zeroRiskConnection(state: VULNERABLE) {{
                     edges {{
                         node {{
+                            currentState
                             id
+                            state
                         }}
                     }}
                     pageInfo {{

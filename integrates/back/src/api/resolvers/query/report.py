@@ -58,6 +58,9 @@ from newutils.validations import (
     validate_field_length,
     validate_fields,
 )
+from newutils.vulnerabilities import (
+    get_current_state_converted,
+)
 from organizations.domain import (
     validate_max_acceptance_severity,
     validate_min_acceptance_severity,
@@ -306,7 +309,10 @@ async def resolve(  # pylint: disable=too-many-locals
                 expr="Only user managers can request certificates"
             )
     states: set[VulnerabilityStateStatus] = (
-        {VulnerabilityStateStatus[state] for state in kwargs["states"]}
+        {
+            VulnerabilityStateStatus[get_current_state_converted(state)]
+            for state in kwargs["states"]
+        }
         if kwargs.get("states")
         else set(
             [
