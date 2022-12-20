@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
-import { TagsList } from "../../components/TagsList";
-import { InternalContainer, PageArticle } from "../../styles/styledComponents";
+import { TagsPage } from "../../scenes/TagsPage";
+import { PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const TagsIndex: React.FC<IQueryData> = ({
@@ -38,9 +38,7 @@ const TagsIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f9f9f9"}>
-            <InternalContainer>
-              <TagsList />
-            </InternalContainer>
+            <TagsPage />
           </PageArticle>
         </div>
       </Layout>

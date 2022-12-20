@@ -3,11 +3,11 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { AuthorsList } from "../../components/AuthorsList";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
-import { InternalContainer, PageArticle } from "../../styles/styledComponents";
+import { AuthorsPage } from "../../scenes/AuthorsPage";
+import { PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const AuthorsIndex: React.FC<IQueryData> = ({
@@ -38,9 +38,7 @@ const AuthorsIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f9f9f9"}>
-            <InternalContainer>
-              <AuthorsList />
-            </InternalContainer>
+            <AuthorsPage />
           </PageArticle>
         </div>
       </Layout>

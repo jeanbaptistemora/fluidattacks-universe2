@@ -3,11 +3,11 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { CategoriesList } from "../../components/CategoriesList";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
-import { InternalContainer, PageArticle } from "../../styles/styledComponents";
+import { CategoriesPage } from "../../scenes/CategoriesPage";
+import { PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const CategoriesIndex: React.FC<IQueryData> = ({
@@ -38,9 +38,7 @@ const CategoriesIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f9f9f9"}>
-            <InternalContainer>
-              <CategoriesList />
-            </InternalContainer>
+            <CategoriesPage />
           </PageArticle>
         </div>
       </Layout>

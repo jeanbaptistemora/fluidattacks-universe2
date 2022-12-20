@@ -14,7 +14,7 @@ const PresentationCard: React.FC<IPresentationCardProps> = ({
     <Container
       align={"center"}
       borderColor={"#dddde3"}
-      br={3}
+      br={2}
       display={"flex"}
       height={"100px"}
       hoverShadow={true}
