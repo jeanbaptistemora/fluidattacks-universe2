@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f021.parameter.c_sharp import (
     cs_xpath_injection,
+    cs_xpath_injection_evaluate,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -15,6 +16,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_XPATH_INJECTION: cs_xpath_injection,
+    MethodsEnum.CS_XPATH_INJECTION_EVALUATE: cs_xpath_injection_evaluate,
 }
 
 
