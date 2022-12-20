@@ -171,66 +171,6 @@ def has_unused_seggroups(
     )
 
 
-@api(risk=LOW, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def vpcs_without_flowlog(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if VPCs have flow logs.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    virtual_clouds = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="ec2",
-        func="describe_vpcs",
-        param="Vpcs",
-        Filters=[{"Name": "state", "Values": ["available"]}],
-        retry=retry,
-    )
-
-    msg_open: str = "No Flow Logs found for VPC"
-    msg_closed: str = "Flow Logs found for VPC"
-
-    vulns, safes = [], []
-
-    if virtual_clouds:
-        for cloud in virtual_clouds:
-            cloud_id = cloud["VpcId"]
-            net_interfaces = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="ec2",
-                func="describe_flow_logs",
-                param="FlowLogs",
-                Filters=[
-                    {
-                        "Name": "resource-id",
-                        "Values": [cloud_id],
-                    }
-                ],
-                retry=retry,
-            )
-
-            (vulns if not net_interfaces else safes).append(
-                (cloud_id, "Must be used or deleted")
-            )
-
-    return _get_result_as_tuple(
-        service="EC2",
-        objects="virtual private clouds",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_instances_using_unapproved_amis(
