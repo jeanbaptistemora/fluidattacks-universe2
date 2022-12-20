@@ -1,7 +1,3 @@
-from concurrent.futures import (
-    ProcessPoolExecutor,
-    ThreadPoolExecutor,
-)
 from ctx import (
     CTX,
     TREE_SITTER_PARSERS,
@@ -434,20 +430,15 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
         if language != GraphShardMetadataLanguage.NOT_SUPPORTED
     ]
 
-    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
-        files_content = dict(
-            executor.map(_get_content, [x[0] for x in paths_and_languages])
-        )
+    files_content = dict([_get_content(x[0]) for x in paths_and_languages])
 
-    with ProcessPoolExecutor(max_workers=os.cpu_count()) as worker:
-        for parsed in worker.map(
-            parse_one,
-            [x[0] for x in paths_and_languages],
-            [x[1] for x in paths_and_languages],
-            [files_content[x[0]] for x in paths_and_languages],
-        ):
-            if parsed:
-                yield parsed
+    for path, language, content in zip(
+        [x[0] for x in paths_and_languages],
+        [x[1] for x in paths_and_languages],
+        [files_content[x[0]] for x in paths_and_languages],
+    ):
+        if parsed := parse_one(path, language, content):
+            yield parsed
 
 
 def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
