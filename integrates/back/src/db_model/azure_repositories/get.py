@@ -75,7 +75,7 @@ def _get_repositories(
     try:
         git_client: GitClient = connection.clients.get_git_client()
         repositories: list[GitRepository] = git_client.get_repositories()
-    except AzureDevOpsAuthenticationError as exc:
+    except (AzureDevOpsAuthenticationError, AzureDevOpsServiceError) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
         return tuple()
     else:
