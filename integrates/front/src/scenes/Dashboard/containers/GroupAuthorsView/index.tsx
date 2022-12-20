@@ -379,8 +379,8 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
               (date: Date, index: number): JSX.Element => (
                 <option
                   // Dates have no unique components unfortunately
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index.toString()}
+                  // eslint-disable-next-line
+                  key={index.toString()} // NOSONAR
                   selected={date.toISOString() === billingDate}
                   value={date.toISOString()}
                 >

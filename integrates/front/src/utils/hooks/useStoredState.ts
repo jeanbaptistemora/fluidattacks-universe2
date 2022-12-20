@@ -55,11 +55,13 @@ const useStoredState = <T>(
   const loadInitialState = (): T => {
     const storedState = storageProvider.getItem(key);
 
-    return _.isNull(storedState)
-      ? defaultValue
-      : encrypted
-      ? parseDecrypt(storedState)
-      : (JSON.parse(storedState) as T);
+    if (_.isNull(storedState)) {
+      return defaultValue;
+    } else if (encrypted) {
+      return parseDecrypt(storedState);
+    }
+
+    return JSON.parse(storedState) as T;
   };
 
   const [state, setState] = useState<T>(loadInitialState);
