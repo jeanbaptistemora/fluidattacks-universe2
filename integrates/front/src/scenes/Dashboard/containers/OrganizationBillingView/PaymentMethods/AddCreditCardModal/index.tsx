@@ -23,20 +23,20 @@ interface IAddCreditCardModalProps {
   >;
 }
 
-const validations = object().shape({
-  cardCvc: string().required(),
-  cardExpirationMonth: string().required(),
-  cardExpirationYear: string().required(),
-  cardNumber: string().required(),
-  makeDefault: boolean(),
-});
-
 export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
   onClose,
   onSubmit,
   onChangeMethod,
 }: IAddCreditCardModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const validations = object().shape({
+    cardCvc: string().required(t("validations.required")),
+    cardExpirationMonth: string().required(t("validations.required")),
+    cardExpirationYear: string().required(t("validations.required")),
+    cardNumber: string().required(t("validations.required")),
+    makeDefault: boolean(),
+  });
 
   function goToOtherMethods(): void {
     onChangeMethod("OTHER_METHOD");
