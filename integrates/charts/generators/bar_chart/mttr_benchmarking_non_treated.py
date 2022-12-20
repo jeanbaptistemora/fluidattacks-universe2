@@ -66,10 +66,10 @@ async def get_data_one_group(
     )
 
     historics_verification: tuple[
-        VulnerabilityVerification, ...
+        tuple[VulnerabilityVerification, ...], ...
     ] = await collect(
         tuple(
-            get_historic_verification(loaders, vulnerability)  # type: ignore
+            get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities_excluding_permanently_accepted
         ),
         workers=32,

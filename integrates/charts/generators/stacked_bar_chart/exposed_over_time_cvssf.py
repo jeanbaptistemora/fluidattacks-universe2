@@ -46,12 +46,8 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    Any,
     Callable,
-    Dict,
-    List,
     NamedTuple,
-    Tuple,
 )
 
 
@@ -65,9 +61,9 @@ class GroupDocumentCvssfData(NamedTuple):
 
 def get_rangetime(
     *,
-    group_data: Dict[str, Dict[datetime, Decimal]],
+    group_data: dict[str, dict[datetime, Decimal]],
     get_time: Callable[[datetime], datetime],
-) -> Dict[str, Dict[datetime, Decimal]]:
+) -> dict[str, dict[datetime, Decimal]]:
 
     return {
         "date": {
@@ -87,9 +83,9 @@ async def get_group_document(  # pylint: disable=too-many-locals
     group_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group)
     )
-    data: List[GroupDocumentCvssfData] = []
-    data_monthly: List[GroupDocumentCvssfData] = []
-    data_yearly: List[GroupDocumentCvssfData] = []
+    data: list[GroupDocumentCvssfData] = []
+    data_monthly: list[GroupDocumentCvssfData] = []
+    data_yearly: list[GroupDocumentCvssfData] = []
 
     group_over_time = [
         elements[-12:]
@@ -220,10 +216,10 @@ async def get_group_document(  # pylint: disable=too-many-locals
 
 
 async def get_many_groups_document(
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
 ) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
-    group_documents: Tuple[RiskOverTime, ...] = await collect(
+    group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
     )
@@ -238,7 +234,7 @@ def format_document(
     data_document: tuple[
         tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
     ],
-) -> dict[str, Any]:
+) -> dict:
     all_documents, time_range = data_document
     document = all_documents[0]
 

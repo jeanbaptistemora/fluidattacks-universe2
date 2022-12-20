@@ -25,9 +25,6 @@ from decimal import (
     Decimal,
     ROUND_CEILING,
 )
-from typing import (
-    Any,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -68,7 +65,7 @@ async def get_data_many_groups(
     return Decimal(sum(group for group in groups_data))
 
 
-def format_data(days: Decimal) -> dict[str, Any]:
+def format_data(days: Decimal) -> dict:
 
     return {
         "fontSizeRatio": 0.5,
