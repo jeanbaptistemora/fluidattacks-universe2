@@ -1,0 +1,4 @@
+---
+src.lib_path.f200.vpcs_without_flowlog:
+  en: VPC Flow logs not enabled
+  es: VPC Flow logs no habilitados
