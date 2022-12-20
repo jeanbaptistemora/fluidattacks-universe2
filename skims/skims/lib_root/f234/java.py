@@ -26,11 +26,7 @@ from utils import (
 
 def get_vuln_nodes(graph: Graph) -> Set[NId]:
     vuln_nodes: Set[NId] = set()
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="CatchClause"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="CatchClause"):
         childs = g.match_ast(graph, n_id, "CatchParameter", "ExecutionBlock")
         param = childs.get("CatchParameter")
         block = childs.get("ExecutionBlock")

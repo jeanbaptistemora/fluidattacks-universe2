@@ -66,11 +66,7 @@ def java_vuln_regular_expression(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
                 if graph.nodes[nid].get(
                     "expression"
                 ) in regex_methods and analyze_method_vuln(graph, nid):

@@ -16,11 +16,7 @@ from utils import (
 def yield_syntax_graph_member_access(
     graph: Graph, members: Set[str]
 ) -> Iterator[NId]:
-    for nid in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MemberAccess"),
-    ):
+    for nid in g.matching_nodes(graph, label_type="MemberAccess"):
         if graph.nodes[nid].get("expression") in members:
             yield nid
 
@@ -28,11 +24,7 @@ def yield_syntax_graph_member_access(
 def yield_syntax_graph_object_creation(
     graph: Graph, members: Set[str]
 ) -> Iterator[NId]:
-    for nid in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="ObjectCreation"),
-    ):
+    for nid in g.matching_nodes(graph, label_type="ObjectCreation"):
         if graph.nodes[nid].get("name") in members:
             yield nid
 

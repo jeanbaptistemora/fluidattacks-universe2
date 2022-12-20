@@ -50,20 +50,12 @@ def get_action_filter(
 
 def get_vuln_nodes(graph: Graph) -> Set[NId]:
     vuln_nodes: Set[NId] = set()
-    for c_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        g.pred_has_labels(label_type="Class"),
-    ):
+    for c_id in g.matching_nodes(graph, label_type="Class"):
 
         if not get_action_filter(graph, c_id, "SecurityCritical"):
             continue
 
-        for m_id in g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type="MethodDeclaration"),
-        ):
+        for m_id in g.matching_nodes(graph, label_type="MethodDeclaration"):
 
             if (
                 filter_node := get_action_filter(

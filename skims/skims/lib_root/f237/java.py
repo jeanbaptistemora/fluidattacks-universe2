@@ -31,11 +31,7 @@ def has_print_statements(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
 
                 n_expr = graph.nodes[n_id].get("expression")
 

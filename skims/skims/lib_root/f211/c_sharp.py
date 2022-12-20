@@ -35,11 +35,7 @@ from utils import (
 
 def get_regex_node(graph: Graph, expr: str) -> Optional[NId]:
     if regex_name := expr.split(".")[0]:
-        for vid in g.filter_nodes(
-            graph,
-            nodes=graph.nodes,
-            predicate=g.pred_has_labels(label_type="VariableDeclaration"),
-        ):
+        for vid in g.matching_nodes(graph, label_type="VariableDeclaration"):
             if graph.nodes[vid].get("variable") == regex_name:
                 return vid
     return None
@@ -128,11 +124,7 @@ def vuln_regular_expression(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 method_id = g.pred_ast(graph, nid)[0]
                 if graph.nodes[nid].get(
                     "member"

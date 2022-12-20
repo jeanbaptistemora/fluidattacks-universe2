@@ -59,11 +59,7 @@ def no_size_limit(graph: Graph, parent: str, var_name: str) -> bool:
 def get_vuln_nodes(graph: Graph) -> List[str]:
     danger_objs = {"CommonsMultipartResolver", "MultipartConfigFactory"}
     vuln_nodes: List[str] = []
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="ObjectCreation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
         n_name = graph.nodes[n_id].get("name")
 
         if n_name in danger_objs:

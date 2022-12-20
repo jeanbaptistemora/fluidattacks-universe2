@@ -25,11 +25,7 @@ from utils.string import (
 
 def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> List[str]:
     vuln_nodes: List[str] = []
-    for nid in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name: Tuple[str, str] = split_on_last_dot(
             graph.nodes[nid]["expression"]
         )

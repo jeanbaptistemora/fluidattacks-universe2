@@ -11,9 +11,8 @@ from typing import (
     Set,
 )
 from utils.graph import (
-    filter_nodes,
     match_ast,
-    pred_has_labels,
+    matching_nodes,
 )
 
 
@@ -30,10 +29,8 @@ def yield_object_creation(
 def yield_shard_object_creation(
     shard: GraphShard, members: Set[str]
 ) -> Iterator[NId]:
-    for member in filter_nodes(
-        shard.graph,
-        nodes=shard.graph.nodes,
-        predicate=pred_has_labels(label_type="selector_expression"),
+    for member in matching_nodes(
+        shard.graph, label_type="selector_expression"
     ):
         match = match_ast(shard.graph, member, "identifier")
         if (identifier := match["identifier"]) and shard.graph.nodes[
@@ -55,10 +52,8 @@ def yield_member_access(
 def yield_shard_member_access(
     shard: GraphShard, members: Set[str]
 ) -> Iterator[NId]:
-    for member in filter_nodes(
-        shard.graph,
-        nodes=shard.graph.nodes,
-        predicate=pred_has_labels(label_type="selector_expression"),
+    for member in matching_nodes(
+        shard.graph, label_type="selector_expression"
     ):
         match = match_ast(shard.graph, member, "field_identifier")
         if (identifier := match["field_identifier"]) and shard.graph.nodes[

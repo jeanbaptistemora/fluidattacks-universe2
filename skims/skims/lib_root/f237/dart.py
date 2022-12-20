@@ -52,11 +52,7 @@ def has_print_statements(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="SymbolLookup"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="SymbolLookup"):
                 n_expr = graph.nodes[n_id].get("symbol")
                 if n_expr in print_methods and prints_danger_values(
                     graph, n_id

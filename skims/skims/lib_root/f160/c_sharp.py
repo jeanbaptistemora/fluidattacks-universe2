@@ -38,11 +38,7 @@ def c_sharp_file_create_temp_file(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
                 method_name = graph.nodes[nid].get("expression")
                 if method_name in danger_methods:
                     yield shard, nid

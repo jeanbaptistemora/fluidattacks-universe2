@@ -39,9 +39,7 @@ from utils.string import (
 
 
 def validate_import(graph: Graph, check: str) -> Iterator[str]:
-    for node in g.filter_nodes(
-        graph, graph.nodes, predicate=g.pred_has_labels(label_type="Import")
-    ):
+    for node in g.matching_nodes(graph, label_type="Import"):
         form, _ = split_last(graph.nodes[node].get("expression"))
         yield form + "." + check
 
