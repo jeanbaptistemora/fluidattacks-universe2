@@ -351,13 +351,20 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     (item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
       const link: string = pathData.slice(0, index + 1).join("/");
-      const breadcrumbItem: string = findingAlias.includes(
-        pathBreadcrumbItems[index - 1]
-      )
-        ? _.isUndefined(findingData)
-          ? "-"
-          : findingData.finding.title
-        : item;
+
+      function getBreadcrumItem(): string {
+        if (findingAlias.includes(pathBreadcrumbItems[index - 1])) {
+          if (_.isUndefined(findingData)) {
+            return "-";
+          }
+
+          return findingData.finding.title;
+        }
+
+        return item;
+      }
+
+      const breadcrumbItem: string = getBreadcrumItem();
 
       if (breadcrumbItem === lastOrganization.name && index === 0) {
         return orgDropdown;

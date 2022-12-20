@@ -103,12 +103,18 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     groupData.map((group: IGroupData): IGroupData => {
       const description: string = _.capitalize(group.description);
       const subscription: string = _.capitalize(group.subscription);
-      const plan =
-        subscription === "Oneshot"
-          ? subscription
-          : group.hasSquad
-          ? "Squad"
-          : "Machine";
+
+      function getPlan(): string {
+        if (subscription === "Oneshot") {
+          return subscription;
+        } else if (group.hasSquad) {
+          return "Squad";
+        }
+
+        return "Machine";
+      }
+
+      const plan = getPlan();
       const vulnerabilities: string = group.openFindings
         ? t("organization.tabs.groups.vulnerabilities.open", {
             openFindings: group.openFindings,

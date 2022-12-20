@@ -15,12 +15,18 @@ export const linkFormatter = (
   }
 
   const valueDefined: boolean | string = value ?? "";
-  const formatedValueDefined: string =
-    typeof valueDefined === "string"
-      ? valueDefined.replace("_", " ")
-      : valueDefined
-      ? translate.t("organization.tabs.billing.groups.managed.yes")
-      : translate.t("organization.tabs.billing.groups.managed.no");
+
+  function getformatedValue(): string {
+    if (typeof valueDefined === "string") {
+      return valueDefined.replace("_", " ");
+    } else if (valueDefined) {
+      return translate.t("organization.tabs.billing.groups.managed.yes");
+    }
+
+    return translate.t("organization.tabs.billing.groups.managed.no");
+  }
+
+  const formatedValueDefined: string = getformatedValue();
 
   return (
     <LinkRow

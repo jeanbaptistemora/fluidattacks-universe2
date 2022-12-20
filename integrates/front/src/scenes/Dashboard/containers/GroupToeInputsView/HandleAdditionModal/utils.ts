@@ -15,11 +15,15 @@ const getUrlRootHost = (root: IURLRootAttr): string => {
     ? `${root.protocol.toLowerCase()}://${root.host}:${root.port}${root.path}`
     : `${root.protocol.toLowerCase()}://${root.host}${root.path}`;
 
-  return _.isNull(root.query)
-    ? urlRootWithPort.endsWith("/")
-      ? urlRootWithPort
-      : `${urlRootWithPort}/`
-    : `${urlRootWithPort}?${root.query}`;
+  if (_.isNull(root.query)) {
+    if (urlRootWithPort.endsWith("/")) {
+      return urlRootWithPort;
+    }
+
+    return `${urlRootWithPort}/`;
+  }
+
+  return `${urlRootWithPort}?${root.query}`;
 };
 
 const isGitRoot = (root: Root): root is IGitRootAttr =>
