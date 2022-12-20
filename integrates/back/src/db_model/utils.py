@@ -14,27 +14,7 @@ from typing import (
 )
 
 
-def adjust_historic_dates(
-    historic: tuple[Any, ...],
-) -> tuple[Any, ...]:
-    """
-    Ensure dates are not the same and in ascending order.
-    Also add a minimum 1 second offset among them.
-    """
-    if not historic:
-        return tuple()
-    new_historic = [historic[0]]
-    base_date = historic[0].modified_date
-    for entry in historic[1:]:
-        base_date = get_date_with_offset(base_date, entry.modified_date)
-        new_historic.append(entry._replace(modified_date=base_date))
-
-    return tuple(new_historic)
-
-
-def adjust_historic_dates_datetime(
-    historic: tuple[Any, ...],
-) -> tuple[Any, ...]:
+def adjust_historic_dates(historic: tuple[Any, ...]) -> tuple[Any, ...]:
     """
     Ensure dates are not the same and in ascending order.
     Also add a minimum 1 second offset among them.
@@ -65,17 +45,6 @@ def get_first_day_iso_date() -> datetime:
     now = get_min_iso_date(datetime.now(tz=timezone.utc))
 
     return now - timedelta(days=(now.isoweekday() - 1) % 7)
-
-
-def get_date_with_offset(
-    base_iso8601: str, target_iso8601: str, offset: int = 1
-) -> str:
-    """Guarantee at least n seconds separation between dates."""
-    max_date = max(
-        datetime.fromisoformat(base_iso8601) + timedelta(seconds=offset),
-        datetime.fromisoformat(target_iso8601),
-    )
-    return max_date.astimezone(tz=timezone.utc).isoformat()
 
 
 def get_datetime_with_offset(

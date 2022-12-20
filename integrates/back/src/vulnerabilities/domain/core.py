@@ -730,7 +730,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
     historic_state = cast(
         tuple[VulnerabilityState, VulnerabilityState],
-        db_model_utils.adjust_historic_dates_datetime(
+        db_model_utils.adjust_historic_dates(
             tuple(
                 state._replace(modified_date=modified_date)
                 for state in historic_state
@@ -757,7 +757,7 @@ async def update_historics_dates(
     ] = await loaders.vulnerability_historic_treatment.load(vulnerability_id)
     historic_treatment = cast(
         tuple[VulnerabilityTreatment, VulnerabilityTreatment],
-        db_model_utils.adjust_historic_dates_datetime(
+        db_model_utils.adjust_historic_dates(
             tuple(
                 treatment._replace(modified_date=modified_date)
                 for treatment in historic_treatment

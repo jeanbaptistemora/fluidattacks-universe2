@@ -228,9 +228,7 @@ async def update_historic_state(
     if not historic_state:
         raise EmptyHistoric()
 
-    historic_state = db_model_utils.adjust_historic_dates_datetime(
-        historic_state
-    )
+    historic_state = db_model_utils.adjust_historic_dates(historic_state)
     item = {"state": format_state_item(historic_state[-1])}
     creation = next(
         state

@@ -318,7 +318,7 @@ async def _handle_vulnerability_acceptance(
     if treatments_to_add:
         current_value = vulnerability
         # Use for-await as update order is relevant for typed vuln
-        for treatment in db_model_utils.adjust_historic_dates_datetime(
+        for treatment in db_model_utils.adjust_historic_dates(
             treatments_to_add
         ):
             if isinstance(treatment, VulnerabilityTreatment):

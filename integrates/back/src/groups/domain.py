@@ -1412,7 +1412,7 @@ async def send_mail_unsubscribed(
     email: str,
     group_name: str,
 ) -> None:
-    report_date: str = datetime_utils.get_iso_date()
+    report_date = datetime_utils.get_utc_now()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
@@ -1428,7 +1428,7 @@ async def send_mail_unsubscribed(
         email=email,
         email_to=stakeholders_email,
         group_name=group_name,
-        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
+        report_date=report_date.date(),
     )
 
 
@@ -1513,7 +1513,7 @@ async def send_mail_devsecops_agent(
     responsible: str,
     had_token: bool,
 ) -> None:
-    report_date: str = datetime_utils.get_iso_date()
+    report_date = datetime_utils.get_utc_now()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     stakeholders_email = (
         await group_access_domain.get_stakeholders_email_by_preferences(
@@ -1530,7 +1530,7 @@ async def send_mail_devsecops_agent(
         email_to=stakeholders_email,
         group_name=group_name,
         had_token=had_token,
-        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
+        report_date=report_date.date(),
     )
 
 

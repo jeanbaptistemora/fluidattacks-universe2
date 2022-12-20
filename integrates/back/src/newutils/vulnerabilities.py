@@ -45,7 +45,7 @@ from db_model.toe_ports.types import (
     ToePortRequest,
 )
 from db_model.utils import (
-    adjust_historic_dates_datetime,
+    adjust_historic_dates,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -508,7 +508,7 @@ def adjust_historic_treatment_dates(
 ) -> Tuple[VulnerabilityTreatment, ...]:
     return cast(
         Tuple[VulnerabilityTreatment, ...],
-        adjust_historic_dates_datetime(historic),
+        adjust_historic_dates(historic),
     )
 
 

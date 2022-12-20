@@ -1,6 +1,5 @@
 # pylint: disable=too-many-arguments
 from datetime import (
-    date as datetype,
     datetime,
     timedelta,
     timezone,
@@ -192,27 +191,6 @@ def is_valid_format(
         return True
     except ValueError:
         return False
-
-
-def get_date_from_iso_str(iso8601utc_str: str) -> datetype:
-    iso8601utc = datetime.fromisoformat(iso8601utc_str)
-    return get_from_str(get_as_str(iso8601utc)).date()
-
-
-def get_datetime_from_iso_str(iso8601utc_str: str) -> datetime:
-    iso8601utc = datetime.fromisoformat(iso8601utc_str)
-    return get_from_str(get_as_str(iso8601utc))
-
-
-def convert_to_iso_str(date_str: str) -> str:
-    """From "%Y-%m-%d %H:%M:%S" to "YYYY-MM-DDTHH:MM:SS+HH:MM"."""
-    return get_as_utc_iso_format(get_from_str(date_str))
-
-
-def convert_from_iso_str(iso8601utc_str: str) -> str:
-    """From "YYYY-MM-DDTHH:MM:SS+HH:MM" to "%Y-%m-%d %H:%M:%S"."""
-    iso8601utc = datetime.fromisoformat(iso8601utc_str)
-    return get_as_str(iso8601utc)
 
 
 def get_first_day_next_month(date: datetime) -> datetime:

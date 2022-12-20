@@ -3,7 +3,7 @@ from datetime import (
     timedelta,
 )
 from db_model.utils import (
-    get_date_with_offset,
+    get_datetime_with_offset,
 )
 from freezegun import (
     freeze_time,
@@ -120,24 +120,19 @@ def test_get_from_epoch() -> None:
 
 
 def test_get_date_with_offset() -> None:
-    base_iso8601: str = "2022-10-03T20:07:02.868165+00:00"
-    assert (
-        get_date_with_offset(base_iso8601, "2022-10-03T20:07:02.868188+00:00")
-        == "2022-10-03T20:07:03.868165+00:00"
-    )
-    assert (
-        get_date_with_offset(base_iso8601, "2022-10-03T20:07:01+00:00")
-        == "2022-10-03T20:07:03.868165+00:00"
-    )
-    assert (
-        get_date_with_offset(base_iso8601, "2022-10-03T20:07:59+00:00")
-        == "2022-10-03T20:07:59+00:00"
-    )
-    assert (
-        get_date_with_offset(
-            base_iso8601,
-            "2022-10-03T20:07:02.868165+00:00",
-            offset=10,
-        )
-        == "2022-10-03T20:07:12.868165+00:00"
-    )
+    base_iso8601 = datetime.fromisoformat("2022-10-03T20:07:02.868165+00:00")
+    assert get_datetime_with_offset(
+        base_iso8601,
+        datetime.fromisoformat("2022-10-03T20:07:02.868188+00:00"),
+    ) == datetime.fromisoformat("2022-10-03T20:07:03.868165+00:00")
+    assert get_datetime_with_offset(
+        base_iso8601, datetime.fromisoformat("2022-10-03T20:07:01+00:00")
+    ) == datetime.fromisoformat("2022-10-03T20:07:03.868165+00:00")
+    assert get_datetime_with_offset(
+        base_iso8601, datetime.fromisoformat("2022-10-03T20:07:59+00:00")
+    ) == datetime.fromisoformat("2022-10-03T20:07:59+00:00")
+    assert get_datetime_with_offset(
+        base_iso8601,
+        datetime.fromisoformat("2022-10-03T20:07:02.868165+00:00"),
+        offset=10,
+    ) == datetime.fromisoformat("2022-10-03T20:07:12.868165+00:00")

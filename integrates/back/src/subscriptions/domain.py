@@ -186,7 +186,7 @@ async def _send_mail_analytics(
     await analytics_mail.send_mail_analytics(
         loaders,
         email,
-        date=datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d"),
+        date=str(datetime_utils.get_now().date()),
         frequency_title=frequency.title(),
         frequency_lower=frequency.lower(),
         image_src=image_url,

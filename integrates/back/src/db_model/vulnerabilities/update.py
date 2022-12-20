@@ -37,7 +37,7 @@ from db_model import (
     TABLE,
 )
 from db_model.utils import (
-    adjust_historic_dates_datetime,
+    adjust_historic_dates,
     get_as_utc_iso_format,
     serialize,
 )
@@ -301,7 +301,7 @@ async def update_historic(  # pylint: disable=too-many-locals
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
-    historic = adjust_historic_dates_datetime(historic)
+    historic = adjust_historic_dates(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)

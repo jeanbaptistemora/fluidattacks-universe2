@@ -284,11 +284,9 @@ async def send_trial_ending_notification(
     fname = await get_recipient_first_name(loaders, info.email_to)
     org_name = await get_organization_name(loaders, info.group_name)
     context = {
-        "expires_date": datetime_utils.get_date_from_iso_str(
-            datetime_utils.get_as_str(
-                datetime_utils.get_plus_delta(info.start_date, days=21)
-            )
-        ),
+        "expires_date": datetime_utils.get_plus_delta(
+            info.start_date, days=21
+        ).date(),
         "vulnerabilities_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{info.group_name}/vulns"
         ),

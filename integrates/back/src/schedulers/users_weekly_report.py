@@ -6,6 +6,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -48,10 +51,8 @@ def get_inactive_users(
         if (
             stakeholder["last_login"]
             and (
-                datetime_utils.get_now()
-                - datetime_utils.get_datetime_from_iso_str(
-                    stakeholder["last_login"]
-                )
+                datetime_utils.get_utc_now()
+                - datetime.fromisoformat(stakeholder["last_login"])
             ).days
             >= INACTIVE_DAYS
         )

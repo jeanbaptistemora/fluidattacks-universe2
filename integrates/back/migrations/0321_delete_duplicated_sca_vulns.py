@@ -32,7 +32,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
 )
-from newutils.datetime import (
+from newutils.datetime import (  # type:ignore
     get_datetime_from_iso_str,
     get_utc_now,
 )
@@ -126,7 +126,7 @@ def process_duplicates(
                         and x.treatment.acceptance_status is not None
                     ),
                     get_datetime_from_iso_str(
-                        x.treatment.modified_date  # type:ignore
+                        x.treatment.modified_date
                         if x.treatment is not None
                         else "2000-01-01T00:00:00+00:00"
                     ),

@@ -29,6 +29,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     credentials as credentials_model,
     enrollment as enrollment_model,
@@ -899,7 +902,7 @@ async def update_policies(
                 organization_id=organization_id,
                 organization_name=organization_name,
                 responsible=user_email,
-                date=datetime_utils.get_as_utc_iso_format(today),
+                modified_date=today,
             )
         )
 
@@ -911,7 +914,7 @@ async def send_mail_policies(
     organization_id: str,
     organization_name: str,
     responsible: str,
-    date: str,
+    modified_date: datetime,
 ) -> None:
     organization_data: Organization = await loaders.organization.load(
         organization_id
@@ -931,7 +934,7 @@ async def send_mail_policies(
         "policies_link": f"{BASE_URL}/orgs/{organization_name}/policies",
         "policies_content": policies_content,
         "responsible": responsible,
-        "date": datetime_utils.get_datetime_from_iso_str(date),
+        "date": modified_date,
     }
 
     org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
