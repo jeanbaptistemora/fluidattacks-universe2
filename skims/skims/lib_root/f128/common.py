@@ -11,11 +11,7 @@ from utils import (
 
 
 def import_cookie_service(graph: Graph) -> bool:
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="Import"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="Import"):
         expression = graph.nodes[n_id].get("expression")
         if expression == "'ngx-cookie-service'":
             return True
@@ -39,11 +35,7 @@ def insecure_cookies(graph: Graph) -> List[str]:
         "CookieService.set",
     }
     if import_cookie_service(graph=graph):
-        for n_id in g.filter_nodes(
-            graph,
-            nodes=graph.nodes,
-            predicate=g.pred_has_labels(label_type="MethodInvocation"),
-        ):
+        for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
             expression = graph.nodes[n_id].get("expression")
             if any(exp in expression for exp in danger_methods) and has_args(
                 graph, n_id

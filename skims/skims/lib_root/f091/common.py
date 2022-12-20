@@ -50,11 +50,7 @@ def insecure_logging(graph: Graph, method: MethodsEnum) -> List[NId]:
         "debug",
     }
 
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         obj, funct = split_function_name(f_name)
         if (

@@ -39,11 +39,7 @@ from utils import (
 def get_insecure_vars(graph: Graph) -> List[str]:
     object_names = {"CorsPolicyBuilder"}
     insecure_vars = []
-    for nid in g.filter_nodes(
-        graph,
-        graph.nodes,
-        g.pred_has_labels(label_type="ObjectCreation"),
-    ):
+    for nid in g.matching_nodes(graph, label_type="ObjectCreation"):
         if (
             graph.nodes[nid].get("label_type") == "ObjectCreation"
             and graph.nodes[nid].get("name") in object_names
@@ -166,11 +162,7 @@ def insecure_cors(
 
             insecure_vars = get_insecure_vars(graph)
 
-            for nid in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 if (
                     graph.nodes[nid].get("member") == "AllowAnyOrigin"
                     and graph.nodes[nid].get("expression").split(".")[0]
@@ -204,16 +196,8 @@ def insecure_cors_origin(
             graph = shard.syntax_graph
 
             for nid in chain(
-                g.filter_nodes(
-                    graph,
-                    graph.nodes,
-                    g.pred_has_labels(label_type="MethodInvocation"),
-                ),
-                g.filter_nodes(
-                    graph,
-                    graph.nodes,
-                    g.pred_has_labels(label_type="Attribute"),
-                ),
+                g.matching_nodes(graph, label_type="MethodInvocation"),
+                g.matching_nodes(graph, label_type="Attribute"),
             ):
                 expr = graph.nodes[nid].get("expression")
                 name = graph.nodes[nid].get("name")

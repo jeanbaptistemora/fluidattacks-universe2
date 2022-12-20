@@ -41,16 +41,8 @@ def has_eval(graph: Graph) -> List[NId]:
     sensitive_methods = {"eval", "Function"}
 
     for member in chain(
-        g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type="MethodInvocation"),
-        ),
-        g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type="ObjectCreation"),
-        ),
+        g.matching_nodes(graph, label_type="MethodInvocation"),
+        g.matching_nodes(graph, label_type="ObjectCreation"),
     ):
         if (
             (

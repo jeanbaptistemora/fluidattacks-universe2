@@ -27,11 +27,7 @@ def has_dangerous_param(graph: Graph) -> List[NId]:
     vuln_nodes: List[NId] = []
     sensitive_methods = {"contentWindow.postMessage"}
 
-    for member in g.filter_nodes(
-        graph,
-        graph.nodes,
-        g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for member in g.matching_nodes(graph, label_type="MethodInvocation"):
         if (
             graph.nodes[member].get("expression")[-25:] in sensitive_methods
             and (args_id := graph.nodes[member].get("arguments_id"))

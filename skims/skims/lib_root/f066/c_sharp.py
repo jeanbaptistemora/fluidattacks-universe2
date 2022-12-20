@@ -35,11 +35,7 @@ def has_console_functions(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 pred_nid = g.pred_ast(graph, nid)[0]
                 expr = graph.nodes[pred_nid].get("expression")
                 if expr == "Console.WriteLine":

@@ -88,11 +88,7 @@ def client_storage(graph: Graph, method: MethodsEnum) -> List[NId]:
         "sessionStorage.getItem",
         "sessionStorage.setItem",
     }
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         if f_name in danger_names and is_insecure_storage(graph, n_id, method):
             vuln_nodes.append(n_id)

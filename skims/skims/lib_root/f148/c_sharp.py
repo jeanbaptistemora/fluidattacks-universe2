@@ -35,10 +35,8 @@ def cs_insecure_channel(
             if shard.syntax_graph is None:
                 continue
 
-            for obj_nid in g.filter_nodes(
-                shard.syntax_graph,
-                nodes=shard.syntax_graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+            for obj_nid in g.matching_nodes(
+                shard.syntax_graph, label_type="ObjectCreation"
             ):
                 if (
                     obj_type := shard.syntax_graph.nodes[obj_nid].get("name")

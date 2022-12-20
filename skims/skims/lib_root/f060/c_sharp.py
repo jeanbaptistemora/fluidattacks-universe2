@@ -77,11 +77,7 @@ def insecure_certificate_validation(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 if graph.nodes[nid].get(
                     "member"
                 ) == danger_m and is_validation_dangerous(graph, nid, method):

@@ -33,10 +33,8 @@ def check_default_usehsts(
             if shard.syntax_graph is None:
                 continue
             syntax_graph = shard.syntax_graph
-            for nid in g.filter_nodes(
-                syntax_graph,
-                nodes=syntax_graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+            for nid in g.matching_nodes(
+                syntax_graph, label_type="MethodInvocation"
             ):
                 node_member = syntax_graph.nodes[nid]
                 expr_id = syntax_graph.nodes[node_member["expression_id"]]

@@ -45,16 +45,8 @@ def get_insecure_vars(graph: Graph) -> List[str]:
     }
     insecure_vars = []
     for nid in chain(
-        g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type="MethodInvocation"),
-        ),
-        g.filter_nodes(
-            graph,
-            graph.nodes,
-            g.pred_has_labels(label_type="ObjectCreation"),
-        ),
+        g.matching_nodes(graph, label_type="MethodInvocation"),
+        g.matching_nodes(graph, label_type="ObjectCreation"),
     ):
         if (
             graph.nodes[nid].get("label_type") == "MethodInvocation"
@@ -111,11 +103,7 @@ def insecure_logging(
             graph = shard.syntax_graph
             insecure_vars = get_insecure_vars(graph)
 
-            for nid in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 if (
                     graph.nodes[nid].get("member") in logging_methods
                     and graph.nodes[nid].get("expression") in insecure_vars

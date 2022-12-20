@@ -77,11 +77,7 @@ def insecure_cors_origin(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MethodInvocation"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
                 expr = graph.nodes[nid].get("expression")
                 if (
                     expr

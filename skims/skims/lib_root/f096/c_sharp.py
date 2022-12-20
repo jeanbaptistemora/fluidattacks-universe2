@@ -174,11 +174,7 @@ def type_name_handling(
             graph = shard.syntax_graph
             serial_objs = get_object_identifiers(graph, serializer)
 
-            for m_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for m_id in g.matching_nodes(graph, label_type="MemberAccess"):
                 if is_type_handle_dangerous(graph, m_id, serial_objs):
                     yield shard, m_id
 
