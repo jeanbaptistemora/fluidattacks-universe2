@@ -6612,7 +6612,7 @@ F371,lines,namespace/skims/test/data/lib_root/f371/js_unsafe_set_innerhtml.jsx,1
   15 | export default App;
      ^ Col 0
 ",typescript.ts_uses_dangerously_set_html
-F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,11,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,11,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
  in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
    1 | namespace Controllers
    2 | {
@@ -6629,8 +6629,8 @@ F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,11,7
   13 |     }
   14 | }
      ^ Col 0
-",query.query_f008
-F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+",c_sharp.c_sharp_insec_addheader_write
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
  in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
    1 | namespace Controllers
    2 | {
@@ -6647,7 +6647,7 @@ F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79
   13 |     }
   14 | }
      ^ Col 0
-",query.query_f008
+",c_sharp.c_sharp_insec_addheader_write
 F371,lines,namespace/skims/test/data/lib_root/f066/js_console_log_close.js,23,79,skims,371. DOM-Based cross-site scripting (XSS),"Use of innerHTML method, which its known as insecure. in namespace/skims/test/data/lib_root/f066/js_console_log_close.js","
    13 |     //console.log()
    14 |     //localStorage.setItem(""key"")
