@@ -1,9 +1,6 @@
 from dataclasses import (
     dataclass,
 )
-from typing import (
-    Dict,
-)
 
 
 @dataclass(frozen=True)
@@ -15,7 +12,7 @@ class RepoId:
 @dataclass(frozen=True)
 class Query:
     query_info: str
-    values: Dict[str, str]
+    values: dict[str, str]
 
 
 def insert(repo: RepoId) -> Query:

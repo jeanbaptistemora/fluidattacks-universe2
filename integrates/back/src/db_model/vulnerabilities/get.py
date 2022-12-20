@@ -53,10 +53,6 @@ from dynamodb import (
 from itertools import (
     chain,
 )
-from typing import (
-    List,
-    Tuple,
-)
 
 
 async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
@@ -85,7 +81,7 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
 async def _get_historic_state(
     *,
     vulnerability_id: str,
-) -> Tuple[VulnerabilityState, ...]:
+) -> tuple[VulnerabilityState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_state"],
         values={"id": vulnerability_id},
@@ -105,7 +101,7 @@ async def _get_historic_state(
 async def _get_historic_treatment(
     *,
     vulnerability_id: str,
-) -> Tuple[VulnerabilityTreatment, ...]:
+) -> tuple[VulnerabilityTreatment, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_treatment"],
         values={"id": vulnerability_id},
@@ -125,7 +121,7 @@ async def _get_historic_treatment(
 async def _get_historic_verification(
     *,
     vulnerability_id: str,
-) -> Tuple[VulnerabilityVerification, ...]:
+) -> tuple[VulnerabilityVerification, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_verification"],
         values={"id": vulnerability_id},
@@ -145,7 +141,7 @@ async def _get_historic_verification(
 async def _get_historic_zero_risk(
     *,
     vulnerability_id: str,
-) -> Tuple[VulnerabilityZeroRisk, ...]:
+) -> tuple[VulnerabilityZeroRisk, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_zero_risk"],
         values={"id": vulnerability_id},
@@ -164,7 +160,7 @@ async def _get_historic_zero_risk(
 
 async def _get_finding_vulnerabilities(
     *, finding_id: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding_id},
@@ -247,7 +243,7 @@ async def _get_finding_vulnerabilities_zr(
 
 async def _get_root_vulnerabilities(
     *, root_id: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     primary_key = keys.build_key(
         facet=ROOT_INDEX_METADATA,
         values={"root_id": root_id},
@@ -270,7 +266,7 @@ async def _get_root_vulnerabilities(
 
 async def _get_assigned_vulnerabilities(
     *, user_email: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     primary_key = keys.build_key(
         facet=ASSIGNED_INDEX_METADATA,
         values={"email": user_email},
@@ -293,7 +289,7 @@ async def _get_assigned_vulnerabilities(
 
 async def _get_affected_reattacks(
     *, event_id: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     primary_key = keys.build_key(
         facet=EVENT_INDEX_METADATA,
         values={"event_id": event_id},
@@ -317,8 +313,8 @@ async def _get_affected_reattacks(
 class AssignedVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, emails: Tuple[str, ...]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, emails: tuple[str, ...]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         return await collect(
             tuple(
                 _get_assigned_vulnerabilities(user_email=user_email)
@@ -334,8 +330,8 @@ class FindingVulnerabilitiesLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, finding_ids: tuple[str, ...]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         vulns = await collect(
             tuple(
                 _get_finding_vulnerabilities(finding_id=finding_id)
@@ -358,15 +354,15 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
         return super().clear(key)
 
     async def load_many_chained(
-        self, finding_ids: List[str]
-    ) -> Tuple[Vulnerability, ...]:
+        self, finding_ids: list[str]
+    ) -> tuple[Vulnerability, ...]:
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, finding_ids: list[str]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
             filter_non_deleted(finding_vulns)
@@ -380,15 +376,15 @@ class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
         self.dataloader = dataloader
 
     async def load_many_chained(
-        self, finding_ids: List[str]
-    ) -> Tuple[Vulnerability, ...]:
+        self, finding_ids: list[str]
+    ) -> tuple[Vulnerability, ...]:
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, finding_ids: list[str]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
             filter_non_zero_risk(finding_vulns)
@@ -399,8 +395,8 @@ class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
 class FindingVulnerabilitiesNonZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: Tuple[FindingVulnerabilitiesZrRequest, ...]
-    ) -> Tuple[VulnerabilitiesConnection, ...]:
+        self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
+    ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
                 _get_finding_vulnerabilities_zr(False, request)
@@ -416,8 +412,8 @@ class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, finding_ids: list[str]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
             filter_zero_risk(finding_vulns) for finding_vulns in findings_vulns
@@ -427,8 +423,8 @@ class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
 class FindingVulnerabilitiesOnlyZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: Tuple[FindingVulnerabilitiesZrRequest, ...]
-    ) -> Tuple[VulnerabilitiesConnection, ...]:
+        self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
+    ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
                 _get_finding_vulnerabilities_zr(True, request)
@@ -440,8 +436,8 @@ class FindingVulnerabilitiesOnlyZeroRiskConnectionLoader(DataLoader):
 class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: Tuple[FindingVulnerabilitiesToReattackRequest, ...]
-    ) -> Tuple[VulnerabilitiesConnection, ...]:
+        self, requests: tuple[FindingVulnerabilitiesToReattackRequest, ...]
+    ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
                 _get_finding_vulnerabilities_zr(
@@ -465,8 +461,8 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
 class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         return await collect(
             _get_root_vulnerabilities(root_id=id) for id in ids
         )
@@ -475,8 +471,8 @@ class RootVulnerabilitiesLoader(DataLoader):
 class EventVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
         return await collect(
             _get_affected_reattacks(event_id=id) for id in ids
         )
@@ -485,8 +481,8 @@ class EventVulnerabilitiesLoader(DataLoader):
 class VulnerabilityLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[Vulnerability, ...]:
         return await collect(
             tuple(_get_vulnerability(vulnerability_id=id) for id in ids)
         )
@@ -494,15 +490,15 @@ class VulnerabilityLoader(DataLoader):
 
 class VulnerabilityHistoricStateLoader(DataLoader):
     async def load_many_chained(
-        self, ids: List[str]
-    ) -> Tuple[VulnerabilityState, ...]:
+        self, ids: list[str]
+    ) -> tuple[VulnerabilityState, ...]:
         unchained_data = await self.load_many(ids)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[VulnerabilityState, ...], ...]:
         return await collect(
             tuple(_get_historic_state(vulnerability_id=id) for id in ids)
         )
@@ -511,8 +507,8 @@ class VulnerabilityHistoricStateLoader(DataLoader):
 class VulnerabilityHistoricTreatmentLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
         return await collect(
             tuple(_get_historic_treatment(vulnerability_id=id) for id in ids),
             workers=32,
@@ -522,8 +518,8 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
 class VulnerabilityHistoricVerificationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[VulnerabilityVerification, ...], ...]:
         return await collect(
             tuple(
                 _get_historic_verification(vulnerability_id=id) for id in ids
@@ -535,8 +531,8 @@ class VulnerabilityHistoricVerificationLoader(DataLoader):
 class VulnerabilityHistoricZeroRiskLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
+        self, ids: tuple[str, ...]
+    ) -> tuple[tuple[VulnerabilityZeroRisk, ...], ...]:
         return await collect(
             tuple(_get_historic_zero_risk(vulnerability_id=id) for id in ids)
         )

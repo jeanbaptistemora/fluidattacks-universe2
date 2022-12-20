@@ -2,12 +2,10 @@ from arch_lint.dag import (
     DagMap,
 )
 from typing import (
-    Dict,
-    Tuple,
     Union,
 )
 
-_dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
+_dag: dict[str, tuple[Union[tuple[str, ...], str], ...]] = {
     "db_model": (
         "companies",
         "compliance",

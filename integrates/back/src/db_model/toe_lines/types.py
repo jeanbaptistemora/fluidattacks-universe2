@@ -7,7 +7,6 @@ from dynamodb.types import (
 from typing import (
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
@@ -54,7 +53,7 @@ class ToeLinesEdge(NamedTuple):
 
 
 class ToeLinesConnection(NamedTuple):
-    edges: Tuple[ToeLinesEdge, ...]
+    edges: tuple[ToeLinesEdge, ...]
     page_info: PageInfo
 
 

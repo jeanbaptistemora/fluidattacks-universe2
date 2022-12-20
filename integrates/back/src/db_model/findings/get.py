@@ -39,7 +39,6 @@ from itertools import (
 )
 from typing import (
     Iterable,
-    Tuple,
 )
 
 
@@ -228,7 +227,7 @@ async def _get_historic_verification(
 class FindingHistoricVerificationLoader(DataLoader):
     async def load_many_chained(
         self, finding_ids: Iterable[str]
-    ) -> Tuple[FindingVerification, ...]:
+    ) -> tuple[FindingVerification, ...]:
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
@@ -264,7 +263,7 @@ async def _get_historic_state(finding_id: str) -> tuple[FindingState, ...]:
 class FindingHistoricStateLoader(DataLoader):
     async def load_many_chained(
         self, finding_ids: Iterable[str]
-    ) -> Tuple[FindingState, ...]:
+    ) -> tuple[FindingState, ...]:
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
