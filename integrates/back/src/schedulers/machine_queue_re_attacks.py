@@ -54,7 +54,7 @@ async def main() -> None:
                 findings_to_reattack.add(finding.title)
                 roots_to_reattack.update(
                     await get_root_nicknames_for_skims(
-                        dataloaders=loaders,
+                        loaders=loaders,
                         group=group_name,
                         vulnerabilities=vulns_to_reattack,
                     )

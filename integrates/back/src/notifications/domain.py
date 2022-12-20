@@ -1,12 +1,12 @@
-from aiodataloader import (
-    DataLoader,
-)
 from aioextensions import (
     in_thread,
 )
 from context import (
     BASE_URL,
     FI_MAIL_PRODUCTION,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.enums import (
     Notification,
@@ -56,7 +56,9 @@ from typing import (
 )
 
 
-async def _get_recipient_first_name_async(loaders: Any, email: str) -> str:
+async def _get_recipient_first_name_async(
+    loaders: Dataloaders, email: str
+) -> str:
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     first_name = stakeholder.first_name
     if not first_name:
@@ -105,7 +107,7 @@ def translate_group_reason(reason: str) -> str:
 
 async def delete_group(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     deletion_date: str,
     group_name: str,
     requester_email: str,
@@ -142,7 +144,7 @@ async def delete_group(
 
 async def update_group(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comments: str,
     group_name: str,
     group_state: GroupState,
@@ -226,7 +228,7 @@ async def update_group(  # pylint: disable=too-many-locals
 
 async def send_mail_services(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     group_changes: dict[str, Any],
     requester_email: str,
@@ -335,7 +337,7 @@ async def request_managed(
 
 
 async def new_password_protected_report(
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     group_name: str,
     file_type: str,
@@ -382,15 +384,14 @@ async def request_health_check(
     )
 
 
-async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
-    loaders: Any,
+async def request_vulnerability_zero_risk(
+    loaders: Dataloaders,
     finding_id: str,
     justification: str,
     requester_email: str,
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> bool:
-    finding_loader: DataLoader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     finding_title = finding.title
     group_name = finding.group_name
 
@@ -440,7 +441,7 @@ async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
 
 
 async def request_groups_upgrade(
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     groups: tuple[Group, ...],
 ) -> None:

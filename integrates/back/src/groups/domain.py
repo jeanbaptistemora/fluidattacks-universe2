@@ -1,8 +1,4 @@
 # pylint:disable=too-many-lines
-
-from aiodataloader import (
-    DataLoader,
-)
 from aioextensions import (
     collect,
     schedule,
@@ -406,8 +402,7 @@ async def deactivate_all_roots(
     other: str = "",
     reason: str = "",
 ) -> None:
-    group_roots_loader: DataLoader = loaders.group_roots
-    all_group_roots = await group_roots_loader.load(group_name)
+    all_group_roots = await loaders.group_roots.load(group_name)
     await collect(
         [
             roots_domain.deactivate_root(

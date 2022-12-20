@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from aioextensions import (
     collect,
 )
@@ -263,8 +260,8 @@ async def mutate(
         info.context
     )
     email: str = user_info["user_email"]
-    root_loader: DataLoader = info.context.loaders.root
-    root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
+    loaders: Dataloaders = info.context.loaders
+    root = await loaders.root.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRoot):
         await require_service_white(deactivate_root)(

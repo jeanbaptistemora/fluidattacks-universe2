@@ -1,8 +1,5 @@
-# None
-
-
-from aiodataloader import (
-    DataLoader,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.events.types import (
     Event,
@@ -30,7 +27,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Event:
     event_id: str = kwargs["identifier"]
-    event_loader: DataLoader = info.context.loaders.event
-    event: Event = await event_loader.load(event_id)
+    loaders: Dataloaders = info.context.loaders
+    event: Event = await loaders.event.load(event_id)
 
     return event

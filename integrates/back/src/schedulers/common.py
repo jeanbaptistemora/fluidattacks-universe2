@@ -1,6 +1,9 @@
 from aioextensions import (
     schedule,
 )
+from dataloaders import (
+    Dataloaders,
+)
 import logging
 import logging.config
 from settings import (
@@ -25,7 +28,7 @@ def error(*args: Any, extra: Any = None) -> None:
 
 
 def scheduler_send_mail(
-    loaders: Any,
+    loaders: Dataloaders,
     send_mail_function: Callable,
     mail_to: list[str],
     mail_context: dict[str, Any],

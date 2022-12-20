@@ -16,6 +16,9 @@ from custom_exceptions import (
     OnlyCorporateEmails,
     StakeholderNotInOrganization,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.types import (
     Event,
 )
@@ -759,7 +762,7 @@ def validate_connection(func: TVar) -> TVar:
 
 
 async def verify_jti(
-    loaders: Any, email: str, context: Dict[str, str], jti: str
+    loaders: Dataloaders, email: str, context: Dict[str, str], jti: str
 ) -> None:
     if not await stakeholders_domain.has_valid_access_token(
         loaders, email, context, jti

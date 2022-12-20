@@ -2,17 +2,17 @@ from .common import (
     GENERAL_TAG,
     send_mails_async,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from newutils.datetime import (
     get_now_plus_delta,
-)
-from typing import (
-    Any,
 )
 
 
 async def send_mail_deprecation_notice(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     mail_deprecations: dict[str, str],
     email_to: set[str],
 ) -> None:

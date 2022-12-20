@@ -114,7 +114,7 @@ async def update_information(
 
 
 async def has_valid_access_token(
-    loaders: Any, email: str, context: dict[str, str], jti: str
+    loaders: Dataloaders, email: str, context: dict[str, str], jti: str
 ) -> bool:
     """Verify if has active access token and match."""
     if not await exists(loaders, email):
@@ -303,7 +303,7 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
 
 
 async def verify(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     new_phone: Optional[StakeholderPhone],
     verification_code: Optional[str],
@@ -348,7 +348,7 @@ async def verify(
     )
 
 
-async def exists(loaders: Any, email: str) -> bool:
+async def exists(loaders: Dataloaders, email: str) -> bool:
     try:
         await loaders.stakeholder.load(email)
         return True

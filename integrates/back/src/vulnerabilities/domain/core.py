@@ -128,7 +128,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def confirm_vulnerabilities_zero_risk(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     vuln_ids: set[str],
     finding_id: str,
     user_info: dict[str, Any],
@@ -221,7 +221,7 @@ async def _remove_tag(
 
 async def remove_vulnerability_tags(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     vuln_ids: set[str],
     finding_id: str,
     tag_to_remove: str,
@@ -289,7 +289,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
 
 
 async def get_by_finding_and_vuln_ids(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     vuln_ids: set[str],
 ) -> tuple[Vulnerability, ...]:
@@ -321,7 +321,7 @@ async def get_closing_date(
 
 
 async def get_grouped_vulnerabilities_info(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
 ) -> FindingGroupedVulnerabilitiesInfo:
     vulnerabilities_by_type = await get_open_vulnerabilities_specific_by_type(
@@ -401,7 +401,7 @@ async def get_grouped_vulnerabilities_info(
 
 
 async def get_open_vulnerabilities_specific_by_type(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
 ) -> dict[str, tuple[Vulnerability, ...]]:
     vulns: tuple[
@@ -502,7 +502,7 @@ def group_vulnerabilities(
 
 async def mask_vulnerability(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     finding_id: str,
     vulnerability: Vulnerability,
@@ -530,7 +530,7 @@ async def mask_vulnerability(
 
 async def reject_vulnerabilities_zero_risk(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     vuln_ids: set[str],
     finding_id: str,
     user_info: dict[str, Any],
@@ -609,7 +609,7 @@ async def request_hold(event_id: str, vulnerability: Vulnerability) -> None:
 
 async def request_vulnerabilities_zero_risk(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     vuln_ids: set[str],
     finding_id: str,
     user_info: dict[str, Any],
@@ -681,7 +681,7 @@ def get_updated_manager_mail_content(
 
 async def should_send_update_treatment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     assigned: str,
     finding_id: str,
     finding_title: str,
@@ -718,7 +718,7 @@ async def should_send_update_treatment(
 
 async def update_historics_dates(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     vulnerability_id: str,
     modified_date: datetime,
@@ -774,7 +774,7 @@ async def update_historics_dates(
 
 async def update_metadata(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     vulnerability_id: str,
     finding_id: str,
     bug_tracking_system_url: Optional[str],
@@ -887,7 +887,7 @@ async def update_metadata_and_state(
 
 async def verify(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     modified_date: str,
     closed_vulns_ids: list[str],
     vulns_to_close_from_file: list[Vulnerability],
@@ -995,7 +995,7 @@ async def close_by_exclusion(
 
 
 async def get_reattack_requester(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> Optional[str]:
     historic_verification: tuple[
@@ -1013,7 +1013,7 @@ async def get_reattack_requester(
 
 
 async def get_last_requested_reattack_date(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> Optional[datetime]:
     if not vuln.verification:
@@ -1036,7 +1036,7 @@ async def get_last_requested_reattack_date(
 
 
 async def get_last_reattack_date(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> Optional[datetime]:
     if not vuln.verification:

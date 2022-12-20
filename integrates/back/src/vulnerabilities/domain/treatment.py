@@ -12,6 +12,9 @@ from custom_exceptions import (
     SameValues,
     VulnNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -67,7 +70,6 @@ from newutils.vulnerabilities import (
     validate_closed,
 )
 from typing import (
-    Any,
     Optional,
 )
 from vulnerabilities.domain.core import (
@@ -96,7 +98,7 @@ def _validate_acceptance_date(values: dict[str, str]) -> None:
 
 
 async def _validate_acceptance_days(
-    loaders: Any, values: dict[str, str], group_name: str
+    loaders: Dataloaders, values: dict[str, str], group_name: str
 ) -> None:
     """
     Check that the date during which the finding will be temporarily accepted
@@ -124,7 +126,10 @@ async def _validate_acceptance_days(
 
 
 async def _validate_acceptance_severity(
-    loaders: Any, values: dict[str, str], severity: float, group_name: str
+    loaders: Dataloaders,
+    values: dict[str, str],
+    severity: float,
+    group_name: str,
 ) -> None:
     """
     Check that the severity of the finding to temporaryly accept is inside
@@ -149,7 +154,7 @@ async def _validate_acceptance_severity(
 
 
 async def _validate_number_acceptances(
-    loaders: Any,
+    loaders: Dataloaders,
     values: dict[str, str],
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     group_name: str,
@@ -183,7 +188,7 @@ async def validate_treatment_change(
     finding_severity: float,
     group_name: str,
     historic_treatment: tuple[VulnerabilityTreatment, ...],
-    loaders: Any,
+    loaders: Dataloaders,
     values: dict[str, str],
 ) -> None:
     await collect(
@@ -253,7 +258,7 @@ def get_treatment_change(
 
 
 async def get_treatment_changes(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> int:
     historic: tuple[
@@ -271,7 +276,7 @@ async def get_treatment_changes(
 
 async def _handle_vulnerability_acceptance(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     new_treatment: VulnerabilityTreatment,
     vulnerability: Vulnerability,
@@ -342,7 +347,7 @@ async def _handle_vulnerability_acceptance(
 
 async def handle_vulnerabilities_acceptance(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     accepted_vulns: list[str],
     finding_id: str,
     justification: str,
@@ -412,7 +417,7 @@ async def handle_vulnerabilities_acceptance(
 
 async def send_treatment_change_mail(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     assigned: str,
     finding_id: str,
     finding_title: str,
@@ -448,7 +453,7 @@ async def send_treatment_change_mail(
 
 async def send_treatment_report_mail(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     modified_by: Optional[str],
     justification: Optional[str],
     vulnerability_id: str,
@@ -489,7 +494,7 @@ async def send_treatment_report_mail(
 
 
 async def get_managers_by_size(
-    loaders: Any, group_name: str, list_size: int
+    loaders: Dataloaders, group_name: str, list_size: int
 ) -> list[str]:
     """Returns a list of managers with an specific length for the array"""
     managers = list(
@@ -503,7 +508,7 @@ async def get_managers_by_size(
 
 async def update_vulnerabilities_treatment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     updated_values: dict[str, str],
     finding_severity: float,
@@ -575,7 +580,7 @@ async def update_vulnerabilities_treatment(
 
 
 async def validate_and_send_notification_request(
-    loaders: Any,
+    loaders: Dataloaders,
     finding: Finding,
     responsible: str,
     vulnerabilities: list[str],

@@ -59,7 +59,7 @@ from typing import (
 
 
 async def send_mail_free_trial_start(
-    loaders: Any, email_to: str, full_name: str, group_name: str
+    loaders: Dataloaders, email_to: str, full_name: str, group_name: str
 ) -> None:
     first_name = full_name.split(" ")[0]
     org_name = await get_organization_name(loaders, group_name)
@@ -105,7 +105,7 @@ async def send_mail_free_trial_start(
 
 
 async def send_mail_free_trial_over(
-    loaders: Any, email_to: List[str], group_name: str
+    loaders: Dataloaders, email_to: List[str], group_name: str
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     context = {
@@ -124,7 +124,7 @@ async def send_mail_free_trial_over(
 
 
 async def send_abandoned_trial_notification(
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: str,
     first_time: bool,
 ) -> None:
@@ -344,7 +344,7 @@ async def send_trial_ended_notification(
 
 
 async def send_mail_access_granted(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Dataloaders, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders,
@@ -361,7 +361,7 @@ async def send_mail_access_granted(
 
 
 async def send_mail_group_alert(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Dataloaders, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders,
@@ -375,7 +375,7 @@ async def send_mail_group_alert(
 
 
 async def send_mail_group_report(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Dataloaders, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders,
@@ -389,7 +389,7 @@ async def send_mail_group_report(
 
 async def send_mail_comment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comment_data: GroupComment,
     user_mail: str,
     recipients: List[str],
@@ -435,7 +435,7 @@ async def send_mail_comment(
 
 async def send_mail_added_root(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     branch: str,
     environment: str,
     group_name: str,
@@ -488,7 +488,7 @@ async def send_mail_added_root(
 
 async def send_mail_updated_root(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: List[str],
     group_name: str,
     responsible: str,
@@ -528,7 +528,7 @@ async def send_mail_updated_root(
 
 async def send_mail_updated_root_credential(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: List[str],
     group_name: str,
     responsible: str,
@@ -558,7 +558,7 @@ async def send_mail_updated_root_credential(
 
 async def send_mail_deactivated_root(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     activated_by: str,
     email_to: List[str],
     group_name: str,
@@ -606,7 +606,7 @@ async def send_mail_deactivated_root(
 
 async def send_mail_file_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     is_added: bool,
@@ -647,7 +647,7 @@ async def send_mail_file_report(
 
 async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: List[str],
     group_name: str,
     last_successful_clone: Optional[GitRootCloning],
@@ -699,7 +699,7 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
 
 async def send_mail_portfolio_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     is_added: bool,
@@ -729,7 +729,7 @@ async def send_mail_portfolio_report(
 
 async def send_mail_updated_services(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     group_changes: dict[str, Any],
@@ -759,7 +759,7 @@ async def send_mail_updated_services(
 
 async def send_mail_devsecops_agent_token(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     email_to: List[str],
     group_name: str,
@@ -790,7 +790,7 @@ async def send_mail_devsecops_agent_token(
 
 async def send_mail_stakeholder_unsubscribed(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     email_to: List[str],
     group_name: str,
@@ -813,7 +813,7 @@ async def send_mail_stakeholder_unsubscribed(
 
 async def send_mail_environment_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: List[str],
     group_name: str,
     responsible: str,
@@ -860,7 +860,7 @@ def weeks_format(val: Optional[int]) -> str:
 
 async def send_mail_updated_group_information(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     responsible: str,
     group: Group,
@@ -931,7 +931,7 @@ async def send_mail_updated_group_information(
 
 
 async def send_mail_updated_policies(
-    *, loaders: Any, email_to: List[str], context: Dict[str, Any]
+    *, loaders: Dataloaders, email_to: List[str], context: Dict[str, Any]
 ) -> None:
     user_role = await authz.get_user_level_role(
         loaders, context["responsible"]
@@ -948,7 +948,7 @@ async def send_mail_updated_policies(
 
 
 async def send_mail_users_weekly_report(
-    *, loaders: Any, email_to: List[str], context: Dict[str, Any]
+    *, loaders: Dataloaders, email_to: List[str], context: Dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders=loaders,
@@ -962,7 +962,7 @@ async def send_mail_users_weekly_report(
 
 async def send_mail_reminder(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     context: dict[str, Any],
     email_to: List[str],
 ) -> None:
@@ -978,7 +978,7 @@ async def send_mail_reminder(
 
 async def send_mail_numerator_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     context: dict[str, Any],
     email_to: List[str],
     email_cc: List[str],
@@ -998,7 +998,7 @@ async def send_mail_numerator_report(
 
 async def send_mail_consulting_digest(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     context: Dict[str, Any],
     email_to: str,
     email_cc: List[str],
@@ -1017,7 +1017,7 @@ async def send_mail_consulting_digest(
 
 async def send_mail_missing_environment_alert(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     context: Dict[str, Any],
     email_to: List[str],
 ) -> None:
@@ -1036,7 +1036,7 @@ async def send_mail_missing_environment_alert(
 
 async def send_mail_treatment_alert(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     context: Dict[str, Any],
     email_to: str,
     email_cc: List[str],

@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from aioextensions import (
     collect,
 )
@@ -132,7 +129,6 @@ async def delete_obsolete_groups() -> None:
     Remove groups without users, findings nor Fluid Attacks services enabled.
     """
     loaders: Dataloaders = get_new_context()
-    group_findings_loader: DataLoader = loaders.group_findings
     user_email = "integrates@fluidattacks.com"
     async for _, org_name, org_groups_names in (
         orgs_domain.iterate_organizations_and_groups(loaders)
@@ -149,7 +145,7 @@ async def delete_obsolete_groups() -> None:
             group for group in active_groups if not group.state.has_squad
         )
         no_squad_groups_names = tuple(group.name for group in no_squad_groups)
-        no_squad_groups_findings = await group_findings_loader.load_many(
+        no_squad_groups_findings = await loaders.group_findings.load_many(
             no_squad_groups_names
         )
         no_squad_groups_stakeholders = [

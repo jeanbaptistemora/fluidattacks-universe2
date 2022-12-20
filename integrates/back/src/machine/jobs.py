@@ -201,7 +201,7 @@ async def list_(
 
 async def _queue_sync_git_roots(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     group_name: str,
     roots: Optional[Tuple[GitRoot, ...]] = None,

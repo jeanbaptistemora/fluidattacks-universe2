@@ -10,6 +10,9 @@ from context import (
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Notification,
     Source,
@@ -56,7 +59,7 @@ from typing import (
 
 async def send_mail_comment(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comment_data: FindingComment,
     user_mail: str,
     finding_id: str,
@@ -119,7 +122,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
 
 
 async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     finding_name: str,
     group_name: str,
@@ -159,7 +162,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_new_draft(
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     finding_title: str,
     group_name: str,
@@ -193,7 +196,7 @@ async def send_mail_new_draft(
 
 
 async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     draft_id: str,
     draft_title: str,
     group_name: str,
@@ -256,7 +259,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     user_email: str,
     finding_id: str,
     finding_name: str,
@@ -316,7 +319,7 @@ def should_send_vulnerability_mail(
 
 async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str = "",
     finding_title: str,
     finding_id: str,

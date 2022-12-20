@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from api.mutations import (
     SimplePayload,
 )
@@ -13,6 +10,9 @@ from batch import (
 from batch.enums import (
     Action,
     Product,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -109,8 +109,8 @@ async def mutate(
         info.context
     )
     user_email: str = user_info["user_email"]
-    root_loader: DataLoader = info.context.loaders.root
-    root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
+    loaders: Dataloaders = info.context.loaders
+    root = await loaders.root.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRoot):
         await activate_git_root(info, root, user_email, **kwargs)

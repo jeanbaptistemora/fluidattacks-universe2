@@ -1,8 +1,8 @@
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
@@ -34,8 +34,8 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
     finding_id: str = kwargs["finding_id"]
-    finding_loader: DataLoader = info.context.loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    loaders: Dataloaders = info.context.loaders
+    finding: Finding = await loaders.finding.load(finding_id)
     if finding.approval is None:
         return await _get_draft(finding, info)
 

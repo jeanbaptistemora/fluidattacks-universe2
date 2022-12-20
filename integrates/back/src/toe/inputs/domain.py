@@ -4,6 +4,9 @@ from custom_exceptions import (
     InvalidToeInputAttackedBy,
     ToeInputNotPresent,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -35,7 +38,6 @@ from toe.utils import (
     get_has_vulnerabilities,
 )
 from typing import (
-    Any,
     Optional,
 )
 
@@ -47,7 +49,7 @@ def _get_optional_be_present_until(
 
 
 async def add(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str,
     component: str,
     entry_point: str,

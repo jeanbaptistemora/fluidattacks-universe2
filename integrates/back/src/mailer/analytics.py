@@ -15,13 +15,10 @@ from mailer.types import (
 from mailer.utils import (
     get_organization_name,
 )
-from typing import (
-    Any,
-)
 
 
 async def send_mail_analytics(
-    loaders: Any, *email_to: str, **context: str
+    loaders: Dataloaders, *email_to: str, **context: str
 ) -> None:
     mail_content = context
     mail_content["live_report_url"] = (

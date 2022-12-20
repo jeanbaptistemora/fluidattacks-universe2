@@ -1,5 +1,5 @@
-from aiodataloader import (
-    DataLoader,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.events.types import (
     Event,
@@ -18,11 +18,7 @@ async def resolve(
     **_kwargs: None,
 ) -> list[Vulnerability]:
     event_id = parent.id
-    event_vulns_loader: DataLoader = (
-        info.context.loaders.event_vulnerabilities_loader
-    )
-    vulns = await event_vulns_loader.load((event_id))
+    loaders: Dataloaders = info.context.loaders
+    vulns = await loaders.event_vulnerabilities_loader.load((event_id))
 
-    if vulns is None:
-        return []
-    return vulns
+    return list(vulns) if vulns else []

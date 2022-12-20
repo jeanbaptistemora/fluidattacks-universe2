@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityVerificationStatus,
@@ -10,13 +13,12 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    Any,
     Tuple,
 )
 
 
 async def get_efficacy(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> Decimal:
     if (
@@ -41,7 +43,7 @@ async def get_efficacy(
 
 
 async def get_reattack_cycles(
-    loaders: Any,
+    loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> int:
     historic: Tuple[

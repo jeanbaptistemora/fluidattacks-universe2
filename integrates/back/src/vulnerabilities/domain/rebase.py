@@ -2,6 +2,9 @@ from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
     InvalidVulnerabilityAlreadyExists,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     vulnerabilities as vulns_model,
 )
@@ -26,7 +29,6 @@ from settings.logger import (
     LOGGING,
 )
 from typing import (
-    Any,
     Tuple,
 )
 from vulnerabilities.domain.utils import (
@@ -48,7 +50,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def rebase(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     finding_vulns_data: Tuple[Vulnerability, ...],
     vulnerability_commit: str,

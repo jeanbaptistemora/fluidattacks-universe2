@@ -18,6 +18,9 @@ from context import (
 from custom_exceptions import (
     UnableToSendMail,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -75,7 +78,7 @@ def get_content(template_name: str, context: dict[str, Any]) -> str:
 
 
 async def get_recipient_first_name(
-    loaders: Any,
+    loaders: Dataloaders,
     email: str,
     is_access_granted: bool = False,
 ) -> Optional[str]:
@@ -110,7 +113,7 @@ async def get_recipient_first_name(
 
 async def get_recipients(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: str,
     email_cc: Optional[list[str]],
     first_name: str,
@@ -132,7 +135,7 @@ async def log(msg: str, **kwargs: Any) -> None:
 
 async def send_mail_async(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: str,
     email_cc: Optional[list[str]] = None,
     context: dict[str, Any],
@@ -197,7 +200,7 @@ async def send_mail_async(  # pylint: disable=too-many-locals
 
 
 async def send_mails_async(  # pylint: disable=too-many-arguments
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: list[str],
     context: dict[str, Any],
     tags: list[str],
@@ -226,7 +229,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_confirm_deletion(
-    loaders: Any, email_to: list[str], context: dict[str, Any]
+    loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders=loaders,

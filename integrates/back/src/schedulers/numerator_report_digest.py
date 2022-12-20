@@ -606,7 +606,7 @@ def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
 
 
 async def _send_mail_report(
-    loaders: Any,
+    loaders: Dataloaders,
     content: Dict[str, Any],
     report_date: date,
     responsible: str,
@@ -634,7 +634,7 @@ async def _send_mail_report(
 
 
 async def send_numerator_report() -> None:
-    loaders: Any = get_new_context()
+    loaders: Dataloaders = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
     test_group_names = tuple(FI_TEST_PROJECTS.split(","))
 

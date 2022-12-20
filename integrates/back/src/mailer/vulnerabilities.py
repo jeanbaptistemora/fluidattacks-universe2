@@ -6,6 +6,9 @@ import authz
 from context import (
     BASE_URL,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Notification,
 )
@@ -32,7 +35,7 @@ from typing import (
 
 async def send_mail_updated_treatment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     assigned: str,
     finding_id: str,
     finding_title: str,
@@ -85,7 +88,7 @@ async def send_mail_updated_treatment(
 
 async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     finding_title: str,
     group_name: str,
@@ -133,7 +136,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
 
 async def send_mail_temporal_treatment_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
     finding_title: str,
     group_name: str,
@@ -175,7 +178,7 @@ async def send_mail_temporal_treatment_report(
 
 async def send_mail_assigned_vulnerability(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     email_to: List[str],
     is_finding_released: bool,
     group_name: str = "",

@@ -8,6 +8,9 @@ from context import (
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     date,
 )
@@ -45,7 +48,7 @@ from typing import (
 
 async def send_mail_comment(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     comment_data: EventComment,
     event_id: str,
     recipients: List[str],
@@ -95,7 +98,7 @@ async def send_mail_comment(
 
 async def send_mail_event_report(  # pylint: disable=too-many-locals
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     group_name: str = "",
     event_id: str,
     event_type: str,

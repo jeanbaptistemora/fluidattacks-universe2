@@ -70,9 +70,7 @@ from settings import (
 )
 import tempfile
 from typing import (
-    Any,
     Optional,
-    Tuple,
 )
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
@@ -120,7 +118,7 @@ async def _get_vulnerabilities_to_rebase(
 def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
-    states: Tuple[VulnerabilityState, ...],
+    states: tuple[VulnerabilityState, ...],
 ) -> Optional[git_utils.RebaseResult]:
     try:
         if (
@@ -158,9 +156,9 @@ def _rebase_vulnerability(
 
 async def _rebase_vulnerability_integrates(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     finding_id: str,
-    finding_vulns_data: Tuple[Vulnerability, ...],
+    finding_vulns_data: tuple[Vulnerability, ...],
     vulnerability_commit: str,
     vulnerability_id: str,
     vulnerability_where: str,
@@ -198,11 +196,11 @@ async def _rebase_vulnerability_integrates(
 async def rebase_root(
     loaders: Dataloaders, group_name: str, repo: Repo, git_root: GitRoot
 ) -> None:
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
-    vulns_states: Tuple[
-        Tuple[VulnerabilityState, ...], ...
+    vulns_states: tuple[
+        tuple[VulnerabilityState, ...], ...
     ] = await loaders.vulnerability_historic_state.load_many(
         [vuln.id for vuln in vulnerabilities]
     )
@@ -264,7 +262,7 @@ async def rebase(*, item: BatchProcessing) -> None:
 
     dataloaders: Dataloaders = get_new_context()
     group_roots_loader = dataloaders.group_roots
-    group_roots: Tuple[GitRoot, ...] = tuple(
+    group_roots: tuple[GitRoot, ...] = tuple(
         root
         for root in await group_roots_loader.load(group_name)
         if root.state.status == RootStatus.ACTIVE
@@ -282,7 +280,7 @@ async def rebase(*, item: BatchProcessing) -> None:
             for nickname in root_nicknames
         )
 
-    roots: Tuple[GitRoot, ...] = tuple(
+    roots: tuple[GitRoot, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )
 

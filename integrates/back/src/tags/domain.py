@@ -8,6 +8,9 @@ from contextlib import (
 from custom_exceptions import (
     PortfolioNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     portfolios as portfolios_model,
 )
@@ -24,9 +27,6 @@ from db_model.portfolios.types import (
 from organizations import (
     domain as orgs_domain,
 )
-from typing import (
-    Any,
-)
 
 
 async def remove(organization_name: str, portfolio_id: str) -> None:
@@ -36,7 +36,7 @@ async def remove(organization_name: str, portfolio_id: str) -> None:
 
 
 async def filter_allowed_tags(
-    loaders: Any,
+    loaders: Dataloaders,
     organization_name: str,
     user_group_names: list[str],
 ) -> list[str]:
@@ -59,7 +59,7 @@ async def filter_allowed_tags(
     return tags
 
 
-async def has_access(loaders: Any, email: str, subject: str) -> bool:
+async def has_access(loaders: Dataloaders, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
         organization: Organization = await loaders.organization.load(org_id)
@@ -87,7 +87,7 @@ async def has_access(loaders: Any, email: str, subject: str) -> bool:
 
 
 async def is_tag_allowed(
-    loaders: Any,
+    loaders: Dataloaders,
     user_groups: tuple[Group, ...],
     organization_name: str,
     tag: str,
