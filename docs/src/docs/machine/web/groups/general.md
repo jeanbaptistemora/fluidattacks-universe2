@@ -19,6 +19,40 @@ the ethical hackers at
 assessing it in search
 for vulnerabilities.
 
+## Scope overview
+
+In the Groups view,
+you will find **Scope Overview**,
+which will give you global and visible
+information on the total of repositories
+and authors you have in the ARM.
+You will find the following fields:
+
+![scope overview box](https://res.cloudinary.com/fluid-attacks/image/upload/v1671556478/docs/web/groups/general/scope_overview.png)
+
+- **Covered autors:**
+  Total number of authors who
+  have made commits to the repositories..
+- **Covered repositories:**
+  Total number of repositories at
+  the organization level that are
+  added for the source code analysis.
+- **Missed autors:**
+  Total number of authors who have
+  made commits on the missed repositories
+  (repositories Out of Scope).
+- **Missed repositories:**
+  How many repositories are not
+  included in the source code analysis.
+  (You can find these repositories in
+  the Out of the Scope section).
+
+Clicking on any of these four boxes
+will redirect you to the
+Out of the Scope section.
+If you want to know more about this section,
+click here.
+
 ## Group table
 
 In the group table,
