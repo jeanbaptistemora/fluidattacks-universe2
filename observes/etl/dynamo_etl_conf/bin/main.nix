@@ -10,6 +10,7 @@
   env = pkg.outputs.packages."${system}".env.bin;
   onAws = outputs."/computeOnAwsBatch/observesDynamoV2Etl";
   onAwsBig = outputs."/computeOnAwsBatch/observesDynamoV2EtlBig";
+  dynamoSchema = outputs."/computeOnAwsBatch/observesDynamoSchema";
   parallelOnAws = outputs."/computeOnAwsBatch/observesDynamoParallel";
   prepareOnAws = outputs."/computeOnAwsBatch/observesDynamoPrepare";
 in
@@ -27,6 +28,7 @@ in
       __argSendBigTableETL__ = "${onAwsBig}/bin/${onAwsBig.name}";
       __argSendParallelTableETL__ = "${parallelOnAws}/bin/${parallelOnAws.name}";
       __argSendPrepare__ = "${prepareOnAws}/bin/${prepareOnAws.name}";
+      __argDynamoSchema__ = "${dynamoSchema}/bin/${dynamoSchema.name}";
     };
     name = "observes-etl-dynamo-conf";
     entrypoint = ./entrypoint.sh;

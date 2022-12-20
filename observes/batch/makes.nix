@@ -171,6 +171,14 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
     };
 
+    observesDynamoSchema = scheduled_job {
+      name = "dynamo_etl_determine_schema";
+      size = "observes_medium";
+      attempts = 3;
+      timeout = 48 * 3600;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo_etl_conf/jobs/determine-schema"];
+    };
+
     observesDynamoV2Etl = scheduled_job {
       name = "dynamo_etl_v2";
       size = "observes_nano";
