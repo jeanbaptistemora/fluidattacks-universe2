@@ -1345,26 +1345,31 @@ async def remove_stakeholder(
     group_name: str,
     modified_by: str,
 ) -> None:
-    """Remove stakeholder access to group."""
+    """Revoke stakeholder access to group.
+    If the stakeholder has no access to other active groups in the
+    organization, revoke access to organization.
+    If no active groups are left for the stakeholder at this point, remove
+    the stakeholder completely.
+    """
     await group_access_domain.remove_access(
         loaders, email_to_revoke, group_name
     )
 
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    has_org_access, stakeholder_groups_names = await collect(
-        (
-            orgs_domain.has_access(loaders, organization_id, email_to_revoke),
-            get_groups_by_stakeholder(loaders, email_to_revoke),
-        )
+    has_org_access = await orgs_domain.has_access(
+        loaders, organization_id, email_to_revoke
+    )
+    stakeholder_groups_names = await get_groups_by_stakeholder(
+        loaders, email_to_revoke
     )
     org_groups_names = set(
         group.name
         for group in await loaders.organization_groups.load(organization_id)
     )
-    stakeholder_org_groups_names = set(
-        stakeholder_groups_names  # type: ignore
-    ).intersection(org_groups_names)
+    stakeholder_org_groups_names = set(stakeholder_groups_names).intersection(
+        org_groups_names
+    )
     stakeholder_org_groups: tuple[Group, ...] = await loaders.group.load_many(
         stakeholder_org_groups_names
     )
