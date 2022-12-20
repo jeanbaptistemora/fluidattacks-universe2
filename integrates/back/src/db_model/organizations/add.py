@@ -70,7 +70,9 @@ async def add(*, organization: Organization) -> None:
         facet=TABLE.facets["organization_historic_policies"],
         values={
             "id": organization.id,
-            "iso8601utc": organization.policies.modified_date,
+            "iso8601utc": get_as_utc_iso_format(
+                organization.policies.modified_date
+            ),
         },
     )
     historic_policies_item = {

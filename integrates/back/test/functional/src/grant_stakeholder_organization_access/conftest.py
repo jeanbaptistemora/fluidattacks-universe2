@@ -38,7 +38,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="orgtest2",
                     policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by=generic_data["global_vars"]["user_email"],

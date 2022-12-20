@@ -14,6 +14,9 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     GroupNotFound,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     TABLE,
 )
@@ -164,7 +167,7 @@ async def update_policies(
     *,
     group_name: str,
     modified_by: str,
-    modified_date: str,
+    modified_date: datetime,
     organization_id: str,
     policies: PoliciesToUpdate,
 ) -> None:
@@ -196,7 +199,7 @@ async def update_policies(
         facet=TABLE.facets["group_historic_policies"],
         values={
             "name": group_name,
-            "iso8601utc": modified_date,
+            "iso8601utc": get_as_utc_iso_format(modified_date),
         },
     )
     historic_item = {

@@ -120,7 +120,9 @@ async def test_get_user_level_role(
                     modified_by="integratesmanager@gmail.com",
                     min_breaking_severity=Decimal("3.9"),
                     max_acceptance_days=90,
-                    modified_date="2021-11-22T20:07:57+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2021-11-22T20:07:57+00:00"
+                    ),
                     max_acceptance_severity=Decimal("3.9"),
                 ),
                 context="Group context test",
@@ -169,7 +171,9 @@ async def test_get_user_level_role(
                     modified_by="integratesmanager@gmail.com",
                     min_breaking_severity=Decimal("3.9"),
                     max_acceptance_days=90,
-                    modified_date="2021-11-22T20:07:57+00:00",
+                    modified_date=datetime.fromisoformat(
+                        "2021-11-22T20:07:57+00:00"
+                    ),
                     max_acceptance_severity=Decimal("3.9"),
                 ),
                 context="Group context test",

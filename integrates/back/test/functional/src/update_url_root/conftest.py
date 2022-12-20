@@ -86,7 +86,9 @@ async def populate() -> bool:
                     policies=Policies(
                         modified_by="test@fluidattacks.com",
                         max_acceptance_days=7,
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="test@fluidattacks.com",

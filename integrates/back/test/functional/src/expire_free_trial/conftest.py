@@ -204,7 +204,9 @@ async def populate() -> bool:
                     name="testorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
@@ -226,7 +228,9 @@ async def populate() -> bool:
                     name="testorg2",
                     policies=Policies(
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@janedoe.com",
@@ -248,7 +252,9 @@ async def populate() -> bool:
                     name="testorg3",
                     policies=Policies(
                         modified_by="uiguaran@uiguaran.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="uiguaran@uiguaran.com",
@@ -270,7 +276,9 @@ async def populate() -> bool:
                     name="testorg4",
                     policies=Policies(
                         modified_by="abuendia@abuendia.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="abuendia@abuendia.com",

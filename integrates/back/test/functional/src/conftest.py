@@ -348,7 +348,9 @@ def generic_data(  # pylint: disable=too-many-locals
                         policies=Policies(
                             modified_by=admin_email,
                             max_acceptance_days=7,
-                            modified_date="2019-11-22T20:07:57+00:00",
+                            modified_date=datetime.fromisoformat(
+                                "2019-11-22T20:07:57+00:00"
+                            ),
                             vulnerability_grace_period=5,
                         ),
                         state=OrganizationState(

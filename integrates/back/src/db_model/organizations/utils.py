@@ -23,6 +23,7 @@ from db_model.types import (
     PoliciesToUpdate,
 )
 from db_model.utils import (
+    get_as_utc_iso_format,
     serialize,
 )
 from dynamodb.types import (
@@ -105,7 +106,7 @@ def format_policies(policies: Item) -> Policies:
         else None,
         min_acceptance_severity=policies.get("min_acceptance_severity"),
         min_breaking_severity=policies.get("min_breaking_severity"),
-        modified_date=policies["modified_date"],
+        modified_date=datetime.fromisoformat(policies["modified_date"]),
         modified_by=policies["modified_by"],
         vulnerability_grace_period=int(policies["vulnerability_grace_period"])
         if "vulnerability_grace_period" in policies
@@ -115,12 +116,12 @@ def format_policies(policies: Item) -> Policies:
 
 def format_policies_item(
     modified_by: str,
-    modified_date: str,
+    modified_date: datetime,
     policies: PoliciesToUpdate,
 ) -> Item:
     item = {
         "modified_by": modified_by,
-        "modified_date": modified_date,
+        "modified_date": get_as_utc_iso_format(modified_date),
         "max_acceptance_days": policies.max_acceptance_days,
         "max_acceptance_severity": policies.max_acceptance_severity,
         "min_acceptance_severity": policies.min_acceptance_severity,

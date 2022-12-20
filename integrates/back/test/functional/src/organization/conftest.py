@@ -136,7 +136,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="orgtest",
                     policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                         max_acceptance_days=90,
                         max_number_acceptances=4,
                         max_acceptance_severity=Decimal("7.0"),
@@ -164,7 +166,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="acme",
                     policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by=generic_data["global_vars"]["user_email"],

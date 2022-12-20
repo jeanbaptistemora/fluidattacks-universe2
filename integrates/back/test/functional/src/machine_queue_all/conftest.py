@@ -137,7 +137,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="testorganization",
                     policies=Policies(
                         modified_by="customeradmin@gmail.com",
-                        modified_date="2022-10-31T21:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-31T21:00:00+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="customeradmin@gmail.com",

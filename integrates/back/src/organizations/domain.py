@@ -432,7 +432,7 @@ async def add_organization(
         name=organization_name.lower().strip(),
         policies=Policies(
             modified_by=email,
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
         ),
         state=OrganizationState(
             modified_by=email,
@@ -884,7 +884,7 @@ async def update_policies(
     )
 
     if validated_policies:
-        today = datetime_utils.get_iso_date()
+        today = datetime_utils.get_utc_now()
         await orgs_model.update_policies(
             modified_by=user_email,
             modified_date=today,
@@ -899,7 +899,7 @@ async def update_policies(
                 organization_id=organization_id,
                 organization_name=organization_name,
                 responsible=user_email,
-                date=today,
+                date=datetime_utils.get_as_utc_iso_format(today),
             )
         )
 

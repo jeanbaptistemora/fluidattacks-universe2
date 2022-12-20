@@ -156,7 +156,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         min_acceptance_severity=Decimal("1.1"),
                         min_breaking_severity=Decimal("4.5"),
                         modified_by=generic_data["global_vars"]["admin_email"],
-                        modified_date="2020-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2020-11-22T20:07:57+00:00"
+                        ),
                         vulnerability_grace_period=11,
                     ),
                     state=GroupState(

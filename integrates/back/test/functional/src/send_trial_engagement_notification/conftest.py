@@ -454,7 +454,9 @@ async def populate() -> bool:
                     name="testorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
@@ -476,7 +478,9 @@ async def populate() -> bool:
                     name="testorg2",
                     policies=Policies(
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@janedoe.com",
@@ -498,7 +502,9 @@ async def populate() -> bool:
                     name="testorg3",
                     policies=Policies(
                         modified_by="uiguaran@uiguaran.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="uiguaran@uiguaran.com",
@@ -520,7 +526,9 @@ async def populate() -> bool:
                     name="testorg4",
                     policies=Policies(
                         modified_by="abuendia@abuendia.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="abuendia@abuendia.com",
@@ -542,7 +550,9 @@ async def populate() -> bool:
                     name="testorg5",
                     policies=Policies(
                         modified_by="avicario@avicario.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="avicario@avicario.com",
@@ -564,7 +574,9 @@ async def populate() -> bool:
                     name="testorg6",
                     policies=Policies(
                         modified_by="fariza@fariza.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="fariza@fariza.com",
@@ -586,7 +598,9 @@ async def populate() -> bool:
                     name="testorg7",
                     policies=Policies(
                         modified_by="snassar@snassar.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="snassar@snassar.com",
@@ -608,7 +622,9 @@ async def populate() -> bool:
                     name="testorg8",
                     policies=Policies(
                         modified_by="jbuendia@jbuendia.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="jbuendia@jbuendia.com",
@@ -630,7 +646,9 @@ async def populate() -> bool:
                     name="testorg9",
                     policies=Policies(
                         modified_by="rremedios@rremedios.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="rremedios@rremedios.com",
@@ -652,7 +670,9 @@ async def populate() -> bool:
                     name="testorg10",
                     policies=Policies(
                         modified_by="rmontiel@rmontiel.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="rmontiel@rmontiel.com",
@@ -674,7 +694,9 @@ async def populate() -> bool:
                     name="testorg11",
                     policies=Policies(
                         modified_by="rmoscote@rmoscote.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="rmoscote@rmoscote.com",

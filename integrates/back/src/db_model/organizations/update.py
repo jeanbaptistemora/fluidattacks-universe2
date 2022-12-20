@@ -16,6 +16,9 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     OrganizationNotFound,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     TABLE,
 )
@@ -74,7 +77,7 @@ async def update_metadata(
 async def update_policies(
     *,
     modified_by: str,
-    modified_date: str,
+    modified_date: datetime,
     organization_id: str,
     organization_name: str,
     policies: PoliciesToUpdate,
@@ -110,7 +113,7 @@ async def update_policies(
         facet=TABLE.facets["organization_historic_policies"],
         values={
             "id": organization_id,
-            "iso8601utc": modified_date,
+            "iso8601utc": get_as_utc_iso_format(modified_date),
         },
     )
     historic_item = {

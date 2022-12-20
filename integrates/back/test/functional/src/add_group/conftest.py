@@ -81,7 +81,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="orgtest",
                     policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
-                        modified_date="2019-11-22T20:07:57+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2019-11-22T20:07:57+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by=generic_data["global_vars"]["user_email"],
@@ -103,7 +105,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="trialorg",
                     policies=Policies(
                         modified_by="johndoe@johndoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="johndoe@johndoe.com",
@@ -125,7 +129,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     name="trialorg2",
                     policies=Policies(
                         modified_by="janedoe@janedoe.com",
-                        modified_date="2022-10-21T15:58:31.280182+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         modified_by="janedoe@janedoe.com",

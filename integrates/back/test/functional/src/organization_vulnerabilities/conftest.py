@@ -84,7 +84,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     policies=Policies(
                         max_acceptance_days=15,
                         modified_by="user_manager@domain.com",
-                        modified_date="2022-09-12T23:00:00+00:00",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-12T23:00:00+00:00"
+                        ),
                     ),
                     state=OrganizationState(
                         status=OrganizationStateStatus.ACTIVE,

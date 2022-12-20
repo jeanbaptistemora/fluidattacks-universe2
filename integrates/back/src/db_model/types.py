@@ -2,6 +2,9 @@ from .constants import (
     DEFAULT_MAX_SEVERITY,
     DEFAULT_MIN_SEVERITY,
 )
+from datetime import (
+    datetime,
+)
 from decimal import (
     Decimal,
 )
@@ -17,7 +20,7 @@ class CodeLanguage(NamedTuple):
 
 
 class Policies(NamedTuple):
-    modified_date: str
+    modified_date: datetime
     modified_by: str
     max_acceptance_days: Optional[int] = None
     max_acceptance_severity: Optional[Decimal] = DEFAULT_MAX_SEVERITY

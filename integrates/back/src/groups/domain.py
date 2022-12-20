@@ -1837,7 +1837,7 @@ async def update_policies(
     )
 
     if validated_policies:
-        today = datetime_utils.get_iso_date()
+        today = datetime_utils.get_utc_now()
         await groups_model.update_policies(
             group_name=group_name,
             modified_by=email,
@@ -1849,7 +1849,7 @@ async def update_policies(
             send_mail_policies(
                 group_name=group_name,
                 loaders=loaders,
-                modified_date=today,
+                modified_date=datetime_utils.get_as_utc_iso_format(today),
                 new_policies=policies_to_update._asdict(),
                 responsible=email,
             )
