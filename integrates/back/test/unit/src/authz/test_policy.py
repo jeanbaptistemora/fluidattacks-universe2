@@ -247,6 +247,9 @@ async def test_get_group_level_role(
     )
     test_role = await get_group_level_role(loaders, email, group)
     assert test_role == result
+    assert mock_group_access_loader.called is True
+    if result == "":
+        assert mock_get_user_level_role.called is True
 
 
 @pytest.mark.parametrize(
@@ -334,77 +337,74 @@ async def test_grant_group_level_role(  # pylint: disable=too-many-arguments
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
-@patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
 @pytest.mark.parametrize(
-    ["email", "group", "group_role", "expected_group_role"],
     [
-        ["revoke_group_level_role@gmail.com", "group", "user", "user"],
+        "email",
+        "group",
+        "group_role",
+    ],
+    [
+        ["integrateshacker@fluidattacks.com", "unittesting", "hacker"],
+        ["integratesuser@gmail.com", "unittesting", "user_manager"],
     ],
 )
-async def test_revoke_group_level_role(  # pylint: disable=too-many-arguments
-    mock_resource: AsyncMock,
-    mock_table_resource: AsyncMock,
+@patch(get_mocked_path("loaders.group_access.load"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("group_access_model.update_metadata"),
+    new_callable=AsyncMock,
+)
+async def test_revoke_group_level_role(
+    mock_group_access_update_metadata: AsyncMock,
+    mock_group_access_loader: AsyncMock,
     email: str,
     group: str,
     group_role: str,
-    expected_group_role: str,
-    dynamo_resource: ServiceResource,
 ) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
-
-    def mock_update_item(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).update_item(**kwargs)
-
-    mock_table_resource.return_value.update_item.side_effect = mock_update_item
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
-    await grant_group_level_role(get_new_context(), email, group, group_role)
-    group_level_role = await get_group_level_role(
-        get_new_context(), email, group
+    mock_group_access_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.group_access.load"),
+        json.dumps([email, group, group_role]),
     )
-    assert group_level_role == expected_group_role
+    mock_group_access_update_metadata.return_value = get_mock_response(
+        get_mocked_path("group_access_model.update_metadata"),
+        json.dumps([email, group]),
+    )
+
     await revoke_group_level_role(get_new_context(), email, group)
-    assert not await get_group_level_role(get_new_context(), email, group)
-    assert mock_table_resource.called is True
-    assert mock_resource.called is True
+    assert mock_group_access_loader.called is True
+    assert mock_group_access_update_metadata.called is True
 
 
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["integrateshacker@fluidattacks.com"],
+        ["integratesuser@gmail.com"],
+    ],
+)
 @patch(
-    "dynamodb.operations.get_table_resource",
+    get_mocked_path("loaders.stakeholder_with_fallback.load"),
     new_callable=AsyncMock,
 )
 @patch(
-    "dynamodb.operations.get_resource",
+    get_mocked_path("stakeholders_model.update_metadata"),
     new_callable=AsyncMock,
 )
 async def test_revoke_user_level_role(
-    mock_resource: AsyncMock,
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
+    mock_stakeholder_update_metadata: AsyncMock,
+    mock_stakeholder_with_fallback: AsyncMock,
+    email: str,
 ) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
 
-    def mock_update_item(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).update_item(**kwargs)
-
-    email = "revoke_user_level_role@gmail.com"
-    role = "user"
-    mock_table_resource.return_value.update_item.side_effect = mock_update_item
-    await grant_user_level_role(email, role)
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
     loaders: Dataloaders = get_new_context()
-    user_level_role = await get_user_level_role(loaders, email)
-    assert user_level_role == role
+    mock_stakeholder_update_metadata.return_value = get_mock_response(
+        get_mocked_path("stakeholders_model.update_metadata"),
+        json.dumps([email]),
+    )
+    mock_stakeholder_with_fallback.return_value = get_mock_response(
+        get_mocked_path("loaders.stakeholder_with_fallback.load"),
+        json.dumps([email]),
+    )
     await revoke_user_level_role(loaders, email)
 
-    assert not await get_user_level_role(get_new_context(), email)
-    assert mock_table_resource.called is True
-    assert mock_resource.called is True
+    assert mock_stakeholder_update_metadata.called is True
+    assert mock_stakeholder_with_fallback.called is True

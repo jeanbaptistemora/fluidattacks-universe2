@@ -65,19 +65,16 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
-    "findings_storage.download_evidence": "findings.storage.download_evidence",
+    "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
-    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get."
-    "FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",
-    "get_open_vulnerabilities": "findings.domain.core."
-    "get_open_vulnerabilities",
-    "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader."
-    "load",
+    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
+    "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
+    "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
+    "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501
     "get_user_level_role": "authz.policy.get_user_level_role",
-    "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader."
-    "load",
-    "stakeholders_model.update_metadata": "db_model.stakeholders."
-    "update_metadata",
+    "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
+    "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501
+    "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -145,6 +142,90 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             invitation=None,
             responsibility=None,
             role="admin",
+        ),
+    },
+    "db_model.group_access.update_metadata": {
+        '["integrateshacker@fluidattacks.com", "unittesting"]': None,
+        '["integratesuser@gmail.com", "unittesting"]': None,
+    },
+    "db_model.stakeholders.get.StakeholderWithFallbackLoader.load": {
+        '["integrateshacker@fluidattacks.com"]': Stakeholder(
+            email="integrateshacker@fluidattacks.com",
+            access_token=None,
+            first_name="Ismael",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Rivera",
+            legal_remember=False,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3004005006",
+            ),
+            role="hacker",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="integrateshacker@fluidattacks.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[],
+                    sms=[],
+                    parameters=NotificationsParameters(
+                        min_severity=Decimal("7.0")
+                    ),
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["integratesuser@gmail.com"]': Stakeholder(
+            email="integratesuser@gmail.com",
+            access_token=None,
+            first_name="Jane",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Doe",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="30044445556",
+            ),
+            role="user",
+            session_key=None,
+            session_token=StakeholderSessionToken(
+                jti="0f98c8d494be2c9eddd973e4a861483988a1d90bb26"
+                "8be48dfc442d0b4cada72",
+                state=StateSessionType.IS_VALID,
+            ),
+            state=StakeholderState(
+                modified_by="integratesuser@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ],
+                    sms=[],
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
         ),
     },
     "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained": {  # noqa: E501
@@ -535,6 +616,8 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["463558592", "422286126"]': 1
     },
     "db_model.stakeholders.update_metadata": {
+        '["integrateshacker@fluidattacks.com"]': None,
+        '["integratesuser@gmail.com"]': None,
         '["test_email@test.com", "user"]': None,
         '["test_email@test.com", "admin"]': None,
     },
