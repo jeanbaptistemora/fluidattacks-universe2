@@ -5,16 +5,12 @@ import { AirsLink } from "../../../components/AirsLink";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
 import { PresentationCard } from "../../../components/PresentationCard";
-import { stringToUri } from "../../../utils/utilities";
+import { Title } from "../../../components/Typography";
+import { capitalizePlainString } from "../../../utils/utilities";
 
-interface IAuthor {
-  name: string;
-  nickName: string;
-}
-
-const AuthorsList: React.FC = (): JSX.Element => {
+const CategoriesList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
-    query NewAuthorsList {
+    query NewCategoriesList {
       allMarkdownRemark(
         filter: {
           fields: { slug: { regex: "/blog/" } }
@@ -28,8 +24,7 @@ const AuthorsList: React.FC = (): JSX.Element => {
               slug
             }
             frontmatter {
-              author
-              writer
+              category
             }
           }
         }
@@ -37,38 +32,31 @@ const AuthorsList: React.FC = (): JSX.Element => {
     }
   `);
 
-  const authorsListRaw = data.allMarkdownRemark.edges.map((edge): IAuthor => {
-    return {
-      name: edge.node.frontmatter.author,
-      nickName: edge.node.frontmatter.writer,
-    };
-  });
+  const categoriesListRaw = data.allMarkdownRemark.edges.map(
+    (edge): string => edge.node.frontmatter.category
+  );
 
-  const authorsData = authorsListRaw.filter(
-    (authorData, index): boolean =>
-      authorsListRaw.findIndex(
-        (author): boolean =>
-          author.name === authorData.name &&
-          author.nickName === authorData.nickName
-      ) === index
+  const categoriesList = categoriesListRaw.filter(
+    (category, index): boolean => categoriesListRaw.indexOf(category) === index
   );
 
   return (
     <Container ph={4} pv={5}>
+      <Title color={"#2e2e38"} level={1} size={"big"} textAlign={"center"}>
+        {"Authors:"}
+      </Title>
       <Container center={true} maxWidth={"1000px"} pt={5}>
         <Grid columns={3} columnsMd={2} columnsSm={1} gap={"1rem"}>
-          {authorsData.map((authorData): JSX.Element => {
-            const { name, nickName } = authorData;
-
+          {categoriesList.map((category): JSX.Element => {
             return (
               <AirsLink
                 decoration={"none"}
-                href={`${stringToUri(name)}/`}
-                key={name}
+                href={`${category}/`}
+                key={category}
               >
                 <PresentationCard
-                  image={`airs/blogs/authors/${nickName}`}
-                  text={name}
+                  image={`blogs/categories/${category}`}
+                  text={capitalizePlainString(category)}
                 />
               </AirsLink>
             );
@@ -79,4 +67,4 @@ const AuthorsList: React.FC = (): JSX.Element => {
   );
 };
 
-export { AuthorsList };
+export { CategoriesList };

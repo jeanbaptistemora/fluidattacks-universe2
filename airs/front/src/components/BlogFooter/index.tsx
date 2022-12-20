@@ -35,7 +35,7 @@ const BlogFooter: React.FC<IProps> = ({
       <BlogFooterColsBody>
         <CloudImage
           alt={"Author picture"}
-          src={`authors/${writer}`}
+          src={`airs/authors/${writer}`}
           styles={"w3 h3 br-100"}
         />
         <Link
