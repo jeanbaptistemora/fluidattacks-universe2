@@ -21,10 +21,9 @@ tzn = pytz.timezone(TIME_ZONE)
 
 @freeze_time("2019-12-01")
 def test_default_date() -> None:
-    default_date = datetime_utils.get_from_str(datetime_utils.DEFAULT_STR)
-    assert datetime_utils.DEFAULT_STR == datetime_utils.get_as_str(
-        default_date
-    )
+    default_str: str = "2000-01-01 00:00:00"
+    default_date = datetime_utils.get_from_str(default_str)
+    assert default_str == datetime_utils.get_as_str(default_date)
     delta = timedelta(days=1, minutes=1, seconds=1, microseconds=1)
     assert (
         datetime_utils.get_plus_delta(

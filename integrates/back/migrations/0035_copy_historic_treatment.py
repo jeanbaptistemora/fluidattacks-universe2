@@ -33,9 +33,9 @@ from more_itertools import (
     chunked,
 )
 from newutils.datetime import (
-    DEFAULT_STR,
     get_from_str,
 )
+from newutils.datetime import DEFAULT_STR  # type; ignore
 import os
 from typing import (
     Dict,
