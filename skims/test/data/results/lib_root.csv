@@ -588,40 +588,6 @@ F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,25,16
   34 | }
      ^ Col 0
 ",java.java_insecure_cors_origin
-F192,lines,namespace/skims/test/data/lib_root/f192/js_reflected_xss.js,6,20,skims,192. Lack of data validation - Reflected Parameters,"Included in the server error responses is unvalidated user input containing special characters, which can lead to vulnerabilities such as XSS.
- in namespace/skims/test/data/lib_root/f192/js_reflected_xss.js","
-   1 | import sanitizeHtml from ""sanitize-html"";
-   2 |
-   3 | function vuln(req, res) {
-   4 |   const tainted = req.query.name;
-   5 |
->  6 |   res.send(tainted); // Noncompliant
-   7 | };
-   8 |
-   9 | function safe(req, res) {
-  10 |   const tainted = req.query.name;
-  11 |
-  12 |   res.send(sanitizeHtml(tainted)); // compliant
-  13 | };
-     ^ Col 0
-",javascript.js_reflected_xss
-F192,lines,namespace/skims/test/data/lib_root/f192/ts_reflected_xss.ts,6,20,skims,192. Lack of data validation - Reflected Parameters,"Included in the server error responses is unvalidated user input containing special characters, which can lead to vulnerabilities such as XSS.
- in namespace/skims/test/data/lib_root/f192/ts_reflected_xss.ts","
-   1 | import sanitizeHtml from ""sanitize-html"";
-   2 |
-   3 | function vuln(req, res) {
-   4 |   const tainted = req.query.name;
-   5 |
->  6 |   res.send(tainted); // Noncompliant
-   7 | };
-   8 |
-   9 | function safe(req, res) {
-  10 |   const tainted = req.query.name;
-  11 |
-  12 |   res.send(sanitizeHtml(tainted)); // compliant
-  13 | };
-     ^ Col 0
-",typescript.ts_reflected_xss
 F066,lines,namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
  in namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs","
    1 | using System;
