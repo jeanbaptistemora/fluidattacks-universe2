@@ -66,6 +66,9 @@ from symbolic_eval.types import (
 from typing import (
     Dict,
 )
+from utils import (
+    graph as g,
+)
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F012: evaluate_literal_f012,
@@ -92,6 +95,12 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
+
+    s_ids = g.match_ast_group_d(args.graph, args.n_id, "SymbolLookup")
+    if len(s_ids) > 0:
+        danger = [args.generic(args.fork_n_id(_id)).danger for _id in s_ids]
+        args.evaluation[args.n_id] = any(danger)
+
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
 
