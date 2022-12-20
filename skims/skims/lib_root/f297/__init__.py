@@ -9,7 +9,7 @@ from model import (
     graph_model,
 )
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F192
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F297
 QUERIES: graph_model.Queries = (
     (FINDING, js_sql_injection),
     (FINDING, ts_sql_injection),
