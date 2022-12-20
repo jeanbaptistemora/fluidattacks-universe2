@@ -5303,3 +5303,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_HAS_REVERSE_TABNABBING = MethodInfo(
+        file_name="typescript",
+        name="typescript_has_reverse_tabnabbing",
+        module="lib_root",
+        finding=FindingEnum.F097,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
