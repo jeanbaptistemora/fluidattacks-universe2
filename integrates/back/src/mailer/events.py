@@ -40,9 +40,7 @@ from newutils import (
 )
 from typing import (
     Any,
-    List,
     Optional,
-    Tuple,
 )
 
 
@@ -51,7 +49,7 @@ async def send_mail_comment(
     loaders: Dataloaders,
     comment_data: EventComment,
     event_id: str,
-    recipients: List[str],
+    recipients: list[str],
     group_name: str,
     user_mail: str,
 ) -> None:
@@ -75,7 +73,7 @@ async def send_mail_comment(
         "has_squad": has_squad,
         "user_email": user_mail,
     }
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
@@ -124,7 +122,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     recipients: list[str] = await get_group_stakeholders_emails(
         loaders, group_name
     )
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [

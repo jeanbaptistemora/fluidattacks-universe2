@@ -886,7 +886,7 @@ async def update_metadata_and_state(
 async def verify(
     *,
     loaders: Dataloaders,
-    modified_date: str,
+    modified_date: datetime,
     closed_vulns_ids: list[str],
     vulns_to_close_from_file: list[Vulnerability],
     context: Optional[Any] = None,
@@ -920,7 +920,7 @@ async def verify(
                 if close_item and close_item.type != VulnerabilityType.LINES
                 else vuln_to_close.state.commit,
                 modified_by=modified_by,
-                modified_date=datetime.fromisoformat(modified_date),
+                modified_date=modified_date,
                 source=vuln_to_close.state.source,
                 specific=vuln_to_close.state.specific,
                 status=VulnerabilityStateStatus.CLOSED,

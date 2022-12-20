@@ -1006,10 +1006,10 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         )
 
     if validate_error_message(message):
-        send_mail_root_cloning_failed(  # type: ignore
+        await send_mail_root_cloning_failed(
             loaders=loaders,
             group_name=group_name,
-            modified_date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             root=root,
             status=status,
         )
@@ -1036,7 +1036,7 @@ async def send_mail_root_cloning_failed(
     *,
     loaders: Dataloaders,
     group_name: str,
-    modified_date: str,
+    modified_date: datetime,
     root: Root,
     status: GitCloningStatus,
 ) -> None:
@@ -1076,7 +1076,7 @@ async def send_mail_root_cloning_status(
     root_nickname: str,
     root_id: str,
     modified_by: str,
-    modified_date: str,
+    modified_date: datetime,
     is_failed: bool,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
@@ -1098,10 +1098,10 @@ async def send_mail_root_cloning_status(
         email_to=users_email,
         group_name=group_name,
         last_successful_clone=last_cloning_successful,
-        root_creation_date=datetime_utils.get_as_utc_iso_format(creation_date),
+        root_creation_date=creation_date,
         root_nickname=root_nickname,
         root_id=root_id,
-        report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
+        report_date=modified_date,
         modified_by=modified_by,
         is_failed=is_failed,
     )

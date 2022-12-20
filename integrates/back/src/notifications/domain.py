@@ -8,6 +8,9 @@ from context import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Notification,
 )
@@ -50,7 +53,6 @@ from starlette.datastructures import (
 from typing import (
     Any,
     cast,
-    Dict,
     Optional,
     Union,
 )
@@ -108,7 +110,7 @@ def translate_group_reason(reason: str) -> str:
 async def delete_group(
     *,
     loaders: Dataloaders,
-    deletion_date: str,
+    deletion_date: datetime,
     group_name: str,
     requester_email: str,
     reason: str,
@@ -131,7 +133,7 @@ async def delete_group(
         loaders,
         users_email,
         {
-            "date": deletion_date,
+            "date": deletion_date.date(),
             "group": group_name,
             "organization": org_name,
             "reason": translate_group_reason(reason),
@@ -248,7 +250,7 @@ async def send_mail_services(
         group_name=group_name,
         responsible=requester_email,
         group_changes=group_changes,
-        report_date=datetime_utils.get_iso_date(),
+        report_date=datetime_utils.get_utc_now(),
         email_to=users_email,
     )
 
@@ -264,7 +266,7 @@ async def new_group(
     service: str,
     subscription: str,
 ) -> bool:
-    translations: Dict[Union[str, bool], str] = {
+    translations: dict[Union[str, bool], str] = {
         "continuous": "Continuous Hacking",
         "oneshot": "One-Shot Hacking",
         True: "Active",
@@ -304,7 +306,7 @@ async def request_managed(
     organization_name: str,
     requester_email: str,
 ) -> bool:
-    translations: Dict[str, str] = {
+    translations: dict[str, str] = {
         "MANAGED": "Managed",
         "NOT_MANAGED": "Not Managed",
         "UNDER_REVIEW": "Under Review",

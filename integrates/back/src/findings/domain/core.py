@@ -1016,7 +1016,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     await vulns_domain.verify(
         context=context,
         loaders=loaders,
-        modified_date=datetime_utils.get_as_utc_iso_format(today),
+        modified_date=today,
         closed_vulns_ids=closed_vulns_ids,
         vulns_to_close_from_file=vulns_to_close_from_file,
     )

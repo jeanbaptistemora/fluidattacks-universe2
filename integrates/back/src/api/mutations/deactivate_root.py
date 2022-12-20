@@ -100,7 +100,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root.id,
     )
     historic_state_date = last_status_update.modified_date
-    last_clone_date: str = "Never cloned"
+    last_clone_date_msg: str = "Never cloned"
     last_root_state: str = "Unknow"
     activated_by = last_status_update.modified_by
 
@@ -108,7 +108,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         isinstance(root, GitRoot)
         and root.cloning.status != GitCloningStatus.UNKNOWN
     ):
-        last_clone_date = str(root.cloning.modified_date.date())
+        last_clone_date_msg = str(root.cloning.modified_date.date())
         last_root_state = root.cloning.status.value
 
     root_vulnerabilities: Tuple[
@@ -234,7 +234,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         activated_by=activated_by,
         email_to=emails,
         group_name=group_name,
-        last_clone_date=last_clone_date,
+        last_clone_date_msg=last_clone_date_msg,
         last_root_state=last_root_state,
         other=other,
         reason=reason,

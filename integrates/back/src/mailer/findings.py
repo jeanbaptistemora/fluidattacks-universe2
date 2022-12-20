@@ -52,7 +52,6 @@ from stakeholders.domain import (
 )
 from typing import (
     Any,
-    List,
     Optional,
 )
 
@@ -64,7 +63,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     user_mail: str,
     finding_id: str,
     finding_title: str,
-    recipients: List[str],
+    recipients: list[str],
     group_name: str,
     is_finding_released: bool,
 ) -> None:

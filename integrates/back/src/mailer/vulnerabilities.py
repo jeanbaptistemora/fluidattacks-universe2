@@ -26,10 +26,7 @@ from mailer.utils import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 
 
@@ -47,7 +44,7 @@ async def send_mail_updated_treatment(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     managers = await group_access_domain.get_managers(loaders, group_name)
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(managers)
     stakeholders_email = [
@@ -93,11 +90,11 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     finding_title: str,
     group_name: str,
     justification: Optional[str],
-    managers_email: List[str],
+    managers_email: list[str],
     modified_by: Optional[str],
     modified_date: datetime,
     location: str,
-    email_to: List[str],
+    email_to: list[str],
     is_approved: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
@@ -140,7 +137,7 @@ async def send_mail_temporal_treatment_report(
     finding_id: str,
     finding_title: str,
     group_name: str,
-    locations: Dict[str, Any],
+    locations: dict[str, Any],
 ) -> None:
     roles: set[str] = {
         "resourcer",
@@ -179,7 +176,7 @@ async def send_mail_temporal_treatment_report(
 async def send_mail_assigned_vulnerability(
     *,
     loaders: Dataloaders,
-    email_to: List[str],
+    email_to: list[str],
     is_finding_released: bool,
     group_name: str = "",
     finding_title: str,

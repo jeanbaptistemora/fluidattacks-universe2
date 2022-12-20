@@ -686,7 +686,7 @@ async def update_group(
     )
     await notifications_domain.delete_group(
         loaders=loaders,
-        deletion_date=datetime_utils.get_now_as_str(),
+        deletion_date=datetime_utils.get_utc_now(),
         group_name=group_name,
         requester_email=email,
         reason=justification.value,
@@ -1477,7 +1477,7 @@ async def update_group_info(
             responsible=email,
             group=group,
             metadata=metadata,
-            report_date=datetime_utils.get_iso_date(),
+            report_date=datetime_utils.get_utc_now(),
             email_to=stakeholders_email,
         )
 
