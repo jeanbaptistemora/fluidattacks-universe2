@@ -5,6 +5,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -109,9 +110,12 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     return must_filters
 
 
-def must_not_filter() -> List[Dict[str, Any]]:
-    must_not_filters = [
-        {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED}
+def must_not_filter() -> list[dict[str, Any]]:
+    must_not_filters: list[dict[str, Any]] = [
+        {"state.status": VulnerabilityStateStatus.CREATED},
+        {"state.status": VulnerabilityStateStatus.REJECTED},
+        {"state.status": VulnerabilityStateStatus.SUBMITTED},
+        {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED},
     ]
 
     return must_not_filters
