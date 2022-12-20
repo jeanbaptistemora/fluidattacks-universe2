@@ -96,7 +96,11 @@ async def merge_roots(
     )
     await collect(
         add_toe_input(
-            toe_input=toe_input._replace(unreliable_root_id=root_to_keep.id)
+            toe_input=toe_input._replace(
+                state=toe_input.state._replace(
+                    unreliable_root_id=root_to_keep.id
+                )
+            )
         )
         for toe_input in toe_inputs
     )
@@ -105,7 +109,7 @@ async def merge_roots(
             entry_point=toe_input.entry_point,
             component=toe_input.component,
             group_name=toe_input.group_name,
-            root_id=toe_input.unreliable_root_id,
+            root_id=toe_input.state.unreliable_root_id,
         )
         for toe_input in toe_inputs
     )

@@ -469,20 +469,20 @@ async def _toe_input_content(
         _common_generate_count_report(
             content=content,
             date_range=date_range,
-            date_report=toe_inputs.node.seen_at,
+            date_report=toe_inputs.node.state.seen_at,
             field="enumerated",
             group=group,
-            user_email=toe_inputs.node.seen_first_time_by,
+            user_email=toe_inputs.node.state.seen_first_time_by,
             allowed_users=users_email,
         )
 
         _common_generate_count_report(
             content=content,
             date_range=date_range,
-            date_report=toe_inputs.node.attacked_at,
+            date_report=toe_inputs.node.state.attacked_at,
             field="verified",
             group=group,
-            user_email=toe_inputs.node.attacked_by,
+            user_email=toe_inputs.node.state.attacked_by,
             allowed_users=users_email,
         )
 

@@ -49,17 +49,17 @@ async def update_metadata(
             "component": current_value.component,
             "entry_point": current_value.entry_point,
             "group_name": current_value.group_name,
-            "root_id": current_value.unreliable_root_id,
+            "root_id": current_value.state.unreliable_root_id,
         },
     )
     current_gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "be_present": str(current_value.be_present).lower(),
+            "be_present": str(current_value.state.be_present).lower(),
             "component": current_value.component,
             "entry_point": current_value.entry_point,
             "group_name": current_value.group_name,
-            "root_id": current_value.unreliable_root_id,
+            "root_id": current_value.state.unreliable_root_id,
         },
     )
     current_value_item = format_toe_input_item(
@@ -104,7 +104,7 @@ async def update_metadata(
                 "component": current_value.component,
                 "entry_point": current_value.entry_point,
                 "group_name": current_value.group_name,
-                "root_id": current_value.unreliable_root_id,
+                "root_id": current_value.state.unreliable_root_id,
             },
         )
         gsi_2_index = TABLE.indexes["gsi_2"]
@@ -133,7 +133,7 @@ async def update_metadata(
             "component": current_value.component,
             "entry_point": current_value.entry_point,
             "group_name": current_value.group_name,
-            "root_id": current_value.unreliable_root_id,
+            "root_id": current_value.state.unreliable_root_id,
             # The modified date will always exist here
             "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date)
             if metadata.state.modified_date

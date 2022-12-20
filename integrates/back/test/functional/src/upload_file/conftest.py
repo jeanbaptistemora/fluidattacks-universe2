@@ -496,21 +496,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         ],
         "toe_inputs": (
             ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=True,
-                be_present_until=None,
                 component="https://example.com",
                 entry_point="phone",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                seen_at=None,
-                seen_first_time_by="",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
                         "2020-01-02T05:00:00+00:00"
@@ -530,24 +518,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     seen_first_time_by="",
                     unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
-                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=True,
-                be_present_until=None,
                 component="https://test_new_closed.com",
                 entry_point="phone",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                seen_at=None,
-                seen_first_time_by="",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
                         "2020-01-02T05:00:00+00:00"
@@ -567,7 +542,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     seen_first_time_by="",
                     unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
-                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
         ),
         "toe_lines": (

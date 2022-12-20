@@ -69,17 +69,9 @@ async def add_input(
     current_toe_input: ToeInput,
 ) -> None:
     new_toe_input = ToeInput(
-        attacked_at=current_toe_input.attacked_at,
-        attacked_by=current_toe_input.attacked_by,
-        be_present=current_toe_input.be_present,
-        be_present_until=current_toe_input.be_present_until,
         component=current_toe_input.component,
         entry_point=current_toe_input.entry_point,
-        first_attack_at=current_toe_input.first_attack_at,
         group_name=current_toe_input.group_name,
-        has_vulnerabilities=current_toe_input.has_vulnerabilities,
-        seen_at=current_toe_input.seen_at,
-        seen_first_time_by=current_toe_input.seen_first_time_by,
         state=ToeInputState(
             attacked_at=current_toe_input.state.attacked_at,
             attacked_by=current_toe_input.state.attacked_by,
@@ -93,7 +85,6 @@ async def add_input(
             seen_first_time_by=current_toe_input.state.seen_first_time_by,
             unreliable_root_id=current_toe_input.state.unreliable_root_id,
         ),
-        unreliable_root_id=current_toe_input.unreliable_root_id,
     )
     await toe_inputs_model.add(toe_input=new_toe_input)
 

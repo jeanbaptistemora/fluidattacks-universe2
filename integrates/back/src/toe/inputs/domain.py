@@ -75,15 +75,9 @@ async def add(  # pylint: disable=too-many-arguments
         attributes.seen_at or first_attack_at or datetime_utils.get_utc_now()
     )
     toe_input = ToeInput(
-        attacked_at=attributes.attacked_at,
-        attacked_by=attributes.attacked_by,
-        be_present=attributes.be_present,
-        be_present_until=be_present_until,
         component=formatted_component,
         entry_point=entry_point,
-        first_attack_at=first_attack_at,
         group_name=group_name,
-        has_vulnerabilities=has_vulnerabilities,
         state=ToeInputState(
             attacked_at=attributes.attacked_at,
             attacked_by=attributes.attacked_by,
@@ -97,9 +91,6 @@ async def add(  # pylint: disable=too-many-arguments
             seen_first_time_by=attributes.seen_first_time_by,
             unreliable_root_id=attributes.unreliable_root_id,
         ),
-        seen_at=seen_at,
-        seen_first_time_by=attributes.seen_first_time_by,
-        unreliable_root_id=attributes.unreliable_root_id,
     )
     await toe_inputs_model.add(toe_input=toe_input)
 
@@ -137,7 +128,7 @@ async def remove(
         entry_point=current_value.entry_point,
         component=current_value.component,
         group_name=current_value.group_name,
-        root_id=current_value.unreliable_root_id,
+        root_id=current_value.state.unreliable_root_id,
     )
 
 
@@ -150,7 +141,7 @@ async def update(
     if is_moving_toe_input is False:
         if (
             attributes.be_present is None
-            and current_value.be_present is False
+            and current_value.state.be_present is False
             and attributes.attacked_at is not None
         ):
             raise ToeInputNotPresent()
@@ -161,8 +152,8 @@ async def update(
             raise ToeInputNotPresent()
         if (
             attributes.attacked_at is not None
-            and current_value.attacked_at is not None
-            and attributes.attacked_at <= current_value.attacked_at
+            and current_value.state.attacked_at is not None
+            and attributes.attacked_at <= current_value.state.attacked_at
         ):
             raise InvalidToeInputAttackedAt()
         if (
@@ -172,8 +163,8 @@ async def update(
             raise InvalidToeInputAttackedAt()
         if (
             attributes.attacked_at is not None
-            and current_value.seen_at is not None
-            and attributes.attacked_at < current_value.seen_at
+            and current_value.state.seen_at is not None
+            and attributes.attacked_at < current_value.state.seen_at
         ):
             raise InvalidToeInputAttackedAt()
         if (
@@ -188,14 +179,14 @@ async def update(
         else _get_optional_be_present_until(attributes.be_present)
     )
     current_be_present = (
-        current_value.be_present
+        current_value.state.be_present
         if attributes.be_present is None
         else attributes.be_present
     )
     first_attack_at = None
     if attributes.first_attack_at is not None:
         first_attack_at = attributes.first_attack_at
-    elif not current_value.first_attack_at and attributes.attacked_at:
+    elif not current_value.state.first_attack_at and attributes.attacked_at:
         first_attack_at = attributes.attacked_at
     has_vulnerabilities = (
         get_has_vulnerabilities(
@@ -216,19 +207,29 @@ async def update(
         seen_at=attributes.seen_at,
         seen_first_time_by=attributes.seen_first_time_by,
         state=ToeInputState(
-            attacked_at=attributes.attacked_at,
+            attacked_at=attributes.attacked_at
+            if attributes.attacked_at is not None
+            else current_value.state.attacked_at,
             attacked_by=attributes.attacked_by
             if attributes.attacked_by is not None
             else current_value.state.attacked_by,
             be_present=attributes.be_present
             if attributes.be_present is not None
             else current_value.state.be_present,
-            be_present_until=be_present_until,
-            first_attack_at=first_attack_at,
-            has_vulnerabilities=has_vulnerabilities,
+            be_present_until=be_present_until
+            if be_present_until is not None
+            else current_value.state.be_present_until,
+            first_attack_at=first_attack_at
+            if first_attack_at is not None
+            else current_value.state.first_attack_at,
+            has_vulnerabilities=has_vulnerabilities
+            if has_vulnerabilities is not None
+            else current_value.state.has_vulnerabilities,
             modified_by=modified_by,
             modified_date=datetime_utils.get_utc_now(),
-            seen_at=attributes.seen_at,
+            seen_at=attributes.seen_at
+            if attributes.seen_at is not None
+            else current_value.state.seen_at,
             seen_first_time_by=attributes.seen_first_time_by
             if attributes.seen_first_time_by is not None
             else current_value.state.seen_first_time_by,

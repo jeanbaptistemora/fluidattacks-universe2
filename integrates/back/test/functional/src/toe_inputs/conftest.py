@@ -122,21 +122,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "toe_inputs": (
             ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=True,
-                be_present_until=None,
                 component="test.com/api/Test",
                 entry_point="idTest",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-02T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-                seen_first_time_by="",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
                         "2020-01-02T05:00:00+00:00"
@@ -158,24 +146,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     seen_first_time_by="",
                     unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 ),
-                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
             ),
             ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-02T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=True,
-                be_present_until=None,
                 component="test.com/test/test.aspx",
                 entry_point="btnTest",
-                first_attack_at=datetime.fromisoformat(
-                    "2021-02-02T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                seen_at=datetime.fromisoformat("2020-03-14T05:00:00+00:00"),
-                seen_first_time_by="test@test.com",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
                         "2021-02-02T05:00:00+00:00"
@@ -197,26 +172,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     seen_first_time_by="test@test.com",
                     unreliable_root_id="",
                 ),
-                unreliable_root_id="",
             ),
             ToeInput(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
-                attacked_by="",
-                be_present=False,
-                be_present_until=datetime.fromisoformat(
-                    "2021-03-11T05:00:00+00:00"
-                ),
                 component="test.com/test2/test.aspx",
                 entry_point="-",
-                first_attack_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
-                seen_first_time_by="test2@test.com",
                 state=ToeInputState(
                     attacked_at=datetime.fromisoformat(
                         "2021-02-11T05:00:00+00:00"
@@ -240,7 +200,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     seen_first_time_by="test2@test.com",
                     unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 ),
-                unreliable_root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             ),
         ),
     }

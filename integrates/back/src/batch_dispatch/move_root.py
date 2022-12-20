@@ -402,17 +402,17 @@ async def _process_toe_input(
     target_root_id: str,
     toe_input: ToeInput,
 ) -> None:
-    if toe_input.seen_at is None:
+    if toe_input.state.seen_at is None:
         return
     attributes_to_add = ToeInputAttributesToAdd(
-        attacked_at=toe_input.attacked_at,
-        attacked_by=toe_input.attacked_by,
+        attacked_at=toe_input.state.attacked_at,
+        attacked_by=toe_input.state.attacked_by,
         be_present=False,
-        first_attack_at=toe_input.first_attack_at,
-        has_vulnerabilities=toe_input.has_vulnerabilities,
-        seen_first_time_by=toe_input.seen_first_time_by,
+        first_attack_at=toe_input.state.first_attack_at,
+        has_vulnerabilities=toe_input.state.has_vulnerabilities,
+        seen_first_time_by=toe_input.state.seen_first_time_by,
         unreliable_root_id=target_root_id,
-        seen_at=toe_input.seen_at,
+        seen_at=toe_input.state.seen_at,
     )
     try:
         await toe_inputs_add(
@@ -433,12 +433,12 @@ async def _process_toe_input(
             )
         )
         attributes_to_update = ToeInputAttributesToUpdate(
-            attacked_at=toe_input.attacked_at,
-            attacked_by=toe_input.attacked_by,
-            first_attack_at=toe_input.first_attack_at,
-            has_vulnerabilities=toe_input.has_vulnerabilities,
-            seen_at=toe_input.seen_at,
-            seen_first_time_by=toe_input.seen_first_time_by,
+            attacked_at=toe_input.state.attacked_at,
+            attacked_by=toe_input.state.attacked_by,
+            first_attack_at=toe_input.state.first_attack_at,
+            has_vulnerabilities=toe_input.state.has_vulnerabilities,
+            seen_at=toe_input.state.seen_at,
+            seen_first_time_by=toe_input.state.seen_first_time_by,
             unreliable_root_id=target_root_id,
         )
         await toe_inputs_update(
@@ -634,7 +634,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         root_toe_inputs = tuple(
             toe_input
             for toe_input in group_toe_inputs
-            if toe_input.unreliable_root_id == source_root_id
+            if toe_input.state.unreliable_root_id == source_root_id
         )
         await collect(
             tuple(

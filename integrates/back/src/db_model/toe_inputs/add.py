@@ -38,17 +38,17 @@ async def add(*, toe_input: ToeInput) -> None:
             "component": toe_input.component,
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
-            "root_id": toe_input.unreliable_root_id,
+            "root_id": toe_input.state.unreliable_root_id,
         },
     )
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "be_present": str(toe_input.be_present).lower(),
+            "be_present": str(toe_input.state.be_present).lower(),
             "component": toe_input.component,
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
-            "root_id": toe_input.unreliable_root_id,
+            "root_id": toe_input.state.unreliable_root_id,
         },
     )
     toe_input_item = format_toe_input_item(
@@ -71,7 +71,7 @@ async def add(*, toe_input: ToeInput) -> None:
             "component": toe_input.component,
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
-            "root_id": toe_input.unreliable_root_id,
+            "root_id": toe_input.state.unreliable_root_id,
             # The modified date will always exist here
             "iso8601utc": get_as_utc_iso_format(toe_input.state.modified_date)
             if toe_input.state.modified_date

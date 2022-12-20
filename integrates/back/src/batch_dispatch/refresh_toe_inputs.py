@@ -83,8 +83,8 @@ def get_non_present_toe_inputs_to_update(
         )
         for toe_input in root_toe_inputs
         if root.state.status == RootStatus.INACTIVE
-        and toe_input.be_present
-        and toe_input.seen_at is not None
+        and toe_input.state.be_present
+        and toe_input.state.seen_at is not None
     )
 
 
@@ -104,7 +104,7 @@ def get_toe_inputs_to_remove(
         toe_input
         for toe_input in root_toe_inputs
         if root.state.status == RootStatus.INACTIVE
-        and toe_input.seen_at is None
+        and toe_input.state.seen_at is None
     )
 
 
@@ -126,7 +126,8 @@ def get_present_toe_inputs_to_update(
             ToeInputAttributesToUpdate(be_present=True),
         )
         for toe_input in root_toe_inputs
-        if root.state.status == RootStatus.ACTIVE and not toe_input.be_present
+        if root.state.status == RootStatus.ACTIVE
+        and not toe_input.state.be_present
     )
 
 
@@ -149,7 +150,7 @@ async def refresh_active_root_toe_inputs(
     root_toe_inputs = tuple(
         toe_input
         for toe_input in group_toe_inputs
-        if toe_input.unreliable_root_id == root.id
+        if toe_input.state.unreliable_root_id == root.id
     )
     present_toe_inputs_to_update = get_present_toe_inputs_to_update(
         root, root_toe_inputs
@@ -196,7 +197,7 @@ async def refresh_inactive_root_toe_inputs(
     root_toe_inputs = tuple(
         toe_input
         for toe_input in group_toe_inputs
-        if toe_input.unreliable_root_id == root.id
+        if toe_input.state.unreliable_root_id == root.id
     )
     non_present_toe_inputs_to_update = get_non_present_toe_inputs_to_update(
         root, root_toe_inputs

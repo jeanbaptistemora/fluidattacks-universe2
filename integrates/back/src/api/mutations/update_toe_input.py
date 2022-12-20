@@ -70,7 +70,9 @@ async def mutate(  # pylint: disable=too-many-arguments
             )
         )
         be_present_to_update = (
-            None if be_present is current_value.be_present else be_present
+            None
+            if be_present is current_value.state.be_present
+            else be_present
         )
         attacked_at_to_update = (
             datetime_utils.get_utc_now()

@@ -66,7 +66,7 @@ async def _get_toe_inputs(
             component=toe_input.component,
             entry_point=toe_input.entry_point,
             group_name=toe_input.group_name,
-            root_id=toe_input.unreliable_root_id,
+            root_id=toe_input.state.unreliable_root_id,
         ): toe_input
         for toe_input in tuple(
             format_toe_input(

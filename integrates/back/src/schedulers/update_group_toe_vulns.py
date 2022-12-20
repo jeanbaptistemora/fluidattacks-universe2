@@ -128,11 +128,11 @@ async def process_toe_inputs(
                 for vulnerability in open_vulnerabilities
                 if vulnerability.type == VulnerabilityType.INPUTS
             )
-            if toe_input.be_present
+            if toe_input.state.be_present
             else False
         )
 
-        if toe_input.has_vulnerabilities != has_vulnerabilities:
+        if toe_input.state.has_vulnerabilities != has_vulnerabilities:
             updates.append(
                 update_toe_input(
                     toe_input,

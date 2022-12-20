@@ -33,23 +33,9 @@ async def test_get_by_group() -> None:
         edges=(
             ToeInputEdge(
                 node=ToeInput(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    be_present=True,
-                    be_present_until=None,
                     component="https://test.com/test2/test.aspx",
                     entry_point="",
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    seen_at=datetime.fromisoformat(
-                        "2020-01-11T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="test2@test.com",
                     state=ToeInputState(
                         attacked_at=datetime.fromisoformat(
                             "2021-02-11T05:00:00+00:00"
@@ -73,7 +59,6 @@ async def test_get_by_group() -> None:
                             "4039d098-ffc5-4984-8ed3-eb17bca98e19"
                         ),
                     ),
-                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
                 "MjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThlMTkjQ09"
@@ -82,23 +67,9 @@ async def test_get_by_group() -> None:
             ),
             ToeInputEdge(
                 node=ToeInput(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    be_present=True,
-                    be_present_until=None,
                     component="https://test.com/test2/test.aspx",
                     entry_point="-",
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-02-11T05:00:00+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    seen_at=datetime.fromisoformat(
-                        "2020-01-11T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="test2@test.com",
                     state=ToeInputState(
                         attacked_at=datetime.fromisoformat(
                             "2021-02-11T05:00:00+00:00"
@@ -122,7 +93,6 @@ async def test_get_by_group() -> None:
                             "4039d098-ffc5-4984-8ed3-eb17bca98e19"
                         ),
                     ),
-                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
                 "MjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThl"
@@ -131,23 +101,9 @@ async def test_get_by_group() -> None:
             ),
             ToeInputEdge(
                 node=ToeInput(
-                    attacked_at=datetime.fromisoformat(
-                        "2020-01-02T05:00:00+00:00"
-                    ),
-                    attacked_by="test@test.com",
-                    be_present=True,
-                    be_present_until=None,
                     component="https://test.com/api/Test",
                     entry_point="idTest",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-01-02T05:00:00+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    seen_at=datetime.fromisoformat(
-                        "2000-01-01T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="",
                     state=ToeInputState(
                         attacked_at=datetime.fromisoformat(
                             "2020-01-02T05:00:00+00:00"
@@ -169,7 +125,6 @@ async def test_get_by_group() -> None:
                         seen_first_time_by="",
                         unreliable_root_id="",
                     ),
-                    unreliable_root_id="",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
                 "MjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS9hcGkvVGVz"
@@ -177,25 +132,9 @@ async def test_get_by_group() -> None:
             ),
             ToeInputEdge(
                 node=ToeInput(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-02T05:00:00+00:00"
-                    ),
-                    attacked_by="test@test.com",
-                    be_present=False,
-                    be_present_until=datetime.fromisoformat(
-                        "2021-03-20T15:41:04+00:00"
-                    ),
                     component="https://test.com/test/test.aspx",
                     entry_point="btnTest",
-                    first_attack_at=datetime.fromisoformat(
-                        "2021-01-02T05:00:00+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    seen_at=datetime.fromisoformat(
-                        "2020-03-14T05:00:00+00:00"
-                    ),
-                    seen_first_time_by="test@test.com",
                     state=ToeInputState(
                         attacked_at=datetime.fromisoformat(
                             "2021-02-02T05:00:00+00:00"
@@ -219,7 +158,6 @@ async def test_get_by_group() -> None:
                         seen_first_time_by="test@test.com",
                         unreliable_root_id="",
                     ),
-                    unreliable_root_id="",
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
                 "MjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS90ZXN0L3Rl"
@@ -239,20 +177,9 @@ async def test_get_by_group() -> None:
     )
     assert historic_toe_inputs == (
         ToeInput(
-            attacked_at=datetime.fromisoformat("2021-02-11T05:00:00+00:00"),
-            attacked_by="test2@test.com",
-            be_present=True,
-            be_present_until=None,
             component="https://test.com/test2/test.aspx",
             entry_point="-",
-            first_attack_at=datetime.fromisoformat(
-                "2021-02-11T05:00:00+00:00"
-            ),
-            unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             group_name=group_name,
-            has_vulnerabilities=False,
-            seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
-            seen_first_time_by="test2@test.com",
             state=ToeInputState(
                 attacked_at=datetime.fromisoformat(
                     "2021-02-11T05:00:00+00:00"

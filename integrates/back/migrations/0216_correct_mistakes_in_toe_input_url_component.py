@@ -59,17 +59,9 @@ LOGGER_CONSOLE = logging.getLogger("console")
 )
 async def add_input(current_toe_input: ToeInput, new_component: str) -> None:
     new_toe_input = ToeInput(
-        attacked_at=current_toe_input.attacked_at,
-        attacked_by=current_toe_input.attacked_by,
-        be_present=current_toe_input.be_present,
-        be_present_until=current_toe_input.be_present_until,
         component=new_component,
         entry_point=current_toe_input.entry_point,
-        first_attack_at=current_toe_input.first_attack_at,
         group_name=current_toe_input.group_name,
-        has_vulnerabilities=current_toe_input.has_vulnerabilities,
-        seen_at=current_toe_input.seen_at,
-        seen_first_time_by=current_toe_input.seen_first_time_by,
         state=ToeInputState(
             attacked_at=current_toe_input.state.attacked_at,
             attacked_by=current_toe_input.state.attacked_by,
@@ -83,7 +75,6 @@ async def add_input(current_toe_input: ToeInput, new_component: str) -> None:
             seen_first_time_by=current_toe_input.state.seen_first_time_by,
             unreliable_root_id=current_toe_input.state.unreliable_root_id,
         ),
-        unreliable_root_id=current_toe_input.unreliable_root_id,
     )
     await toe_inputs_model.add(toe_input=new_toe_input)
 
@@ -98,14 +89,14 @@ async def remove_input(
         entry_point=current_toe_input.entry_point,
         component=current_toe_input.component,
         group_name=current_toe_input.group_name,
-        root_id=current_toe_input.unreliable_root_id,
+        root_id=current_toe_input.state.unreliable_root_id,
     )
 
 
 async def process_input(
     current_toe_input: ToeInput, roots: tuple[Root, ...]
 ) -> None:
-    root_id = current_toe_input.unreliable_root_id
+    root_id = current_toe_input.state.unreliable_root_id
     root = next(
         (root for root in roots if root.id == root_id),
         None,

@@ -25,18 +25,9 @@ class ToeInputState(NamedTuple):
 
 
 class ToeInput(NamedTuple):
-    attacked_at: Optional[datetime]
-    attacked_by: str
-    be_present: bool
-    be_present_until: Optional[datetime]
     component: str
     entry_point: str
-    first_attack_at: Optional[datetime]
-    has_vulnerabilities: Optional[bool]
     group_name: str
-    seen_at: Optional[datetime]
-    seen_first_time_by: str
-    unreliable_root_id: str
     state: ToeInputState
 
     def get_hash(self) -> int:

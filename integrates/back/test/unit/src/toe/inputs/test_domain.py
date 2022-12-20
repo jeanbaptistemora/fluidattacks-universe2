@@ -37,17 +37,9 @@ async def test_add() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     toe_input = ToeInput(
-        attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-        attacked_by="test@test.com",
-        be_present=True,
-        be_present_until=None,
         component="https://test.com/test/new.aspx",
-        first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         entry_point="btnTest",
         group_name=group_name,
-        has_vulnerabilities=False,
-        seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-        seen_first_time_by="new@test.com",
         state=ToeInputState(
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="test@test.com",
@@ -63,7 +55,6 @@ async def test_add() -> None:
             seen_first_time_by="new@test.com",
             unreliable_root_id="",
         ),
-        unreliable_root_id="",
     )
     await toe_inputs_domain.add(
         loaders=loaders,
@@ -116,20 +107,9 @@ async def test_delete() -> None:
     )
     assert historic_value == (
         ToeInput(
-            attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-            attacked_by="test@test.com",
-            be_present=True,
-            be_present_until=None,
             component="https://test.com/test/new.aspx",
             entry_point="btnTest",
-            first_attack_at=datetime.fromisoformat(
-                "2021-02-12T05:00:00+00:00"
-            ),
-            has_vulnerabilities=False,
             group_name="unittesting",
-            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-            seen_first_time_by="new@test.com",
-            unreliable_root_id="",
             state=ToeInputState(
                 attacked_at=datetime.fromisoformat(
                     "2021-02-12T05:00:00+00:00"
@@ -208,22 +188,16 @@ async def test_update() -> None:
         )
     )
     assert toe_input == ToeInput(
-        attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-        attacked_by="",
-        be_present=True,
-        be_present_until=None,
         component="https://test.com/test/test.aspx",
         entry_point="btnTest",
-        first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-        has_vulnerabilities=False,
         group_name=group_name,
-        seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-        seen_first_time_by="edited@test.com",
         state=ToeInputState(
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="",
             be_present=True,
-            be_present_until=None,
+            be_present_until=datetime.fromisoformat(
+                "2021-03-20T15:41:04+00:00"
+            ),
             first_attack_at=datetime.fromisoformat(
                 "2021-02-12T05:00:00+00:00"
             ),
@@ -234,5 +208,4 @@ async def test_update() -> None:
             seen_first_time_by="edited@test.com",
             unreliable_root_id="",
         ),
-        unreliable_root_id="",
     )

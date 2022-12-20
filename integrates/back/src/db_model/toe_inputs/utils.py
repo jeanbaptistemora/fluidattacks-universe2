@@ -62,33 +62,16 @@ def format_toe_input(
             )
             if state.get("seen_at") or item.get("seen_at")
             else None,
-            seen_first_time_by=state["seen_first_time_by"]
-            if state.get("seen_first_time_by")
-            else item["seen_first_time_by"],
+            seen_first_time_by=state.get(
+                "seen_first_time_by", item.get("seen_first_time_by")
+            ),
             unreliable_root_id=state.get(
                 "unreliable_root_id", item.get("unreliable_root_id", "")
             ),
         ),
-        attacked_at=datetime.fromisoformat(item["attacked_at"])
-        if item.get("attacked_at")
-        else None,
-        attacked_by=item.get("attacked_by", ""),
-        be_present=item.get("be_present", True),
-        be_present_until=datetime.fromisoformat(item["be_present_until"])
-        if item.get("be_present_until")
-        else None,
         component=item["component"],
         entry_point=item["entry_point"],
-        first_attack_at=datetime.fromisoformat(item["first_attack_at"])
-        if item.get("first_attack_at")
-        else None,
         group_name=group_name,
-        has_vulnerabilities=item.get("has_vulnerabilities"),
-        seen_at=datetime.fromisoformat(item["seen_at"])
-        if item.get("seen_at")
-        else None,
-        seen_first_time_by=item["seen_first_time_by"],
-        unreliable_root_id=item.get("unreliable_root_id", ""),
     )
 
 
@@ -116,43 +99,28 @@ def format_toe_input_item(
         key_structure.sort_key: primary_key.sort_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
-        "attacked_at": ""
-        if toe_input.attacked_at is None
-        else db_model_utils.get_as_utc_iso_format(toe_input.attacked_at),
-        "attacked_by": toe_input.attacked_by,
-        "be_present": toe_input.be_present,
-        "be_present_until": ""
-        if toe_input.be_present_until is None
-        else db_model_utils.get_as_utc_iso_format(toe_input.be_present_until),
         "component": toe_input.component,
         "entry_point": toe_input.entry_point,
-        "first_attack_at": ""
-        if toe_input.first_attack_at is None
-        else db_model_utils.get_as_utc_iso_format(toe_input.first_attack_at),
-        "has_vulnerabilities": toe_input.has_vulnerabilities,
         "group_name": toe_input.group_name,
-        "seen_at": ""
-        if toe_input.seen_at is None
-        else db_model_utils.get_as_utc_iso_format(toe_input.seen_at),
-        "seen_first_time_by": toe_input.seen_first_time_by,
-        "unreliable_root_id": toe_input.unreliable_root_id,
         "state": {
             "attacked_at": ""
-            if toe_input.attacked_at is None
-            else db_model_utils.get_as_utc_iso_format(toe_input.attacked_at),
-            "attacked_by": toe_input.attacked_by,
-            "be_present": toe_input.be_present,
-            "be_present_until": ""
-            if toe_input.be_present_until is None
+            if toe_input.state.attacked_at is None
             else db_model_utils.get_as_utc_iso_format(
-                toe_input.be_present_until
+                toe_input.state.attacked_at
+            ),
+            "attacked_by": toe_input.state.attacked_by,
+            "be_present": toe_input.state.be_present,
+            "be_present_until": ""
+            if toe_input.state.be_present_until is None
+            else db_model_utils.get_as_utc_iso_format(
+                toe_input.state.be_present_until
             ),
             "first_attack_at": ""
-            if toe_input.first_attack_at is None
+            if toe_input.state.first_attack_at is None
             else db_model_utils.get_as_utc_iso_format(
-                toe_input.first_attack_at
+                toe_input.state.first_attack_at
             ),
-            "has_vulnerabilities": toe_input.has_vulnerabilities,
+            "has_vulnerabilities": toe_input.state.has_vulnerabilities,
             "modified_by": toe_input.state.modified_by,
             "modified_date": get_as_utc_iso_format(
                 toe_input.state.modified_date
@@ -160,9 +128,9 @@ def format_toe_input_item(
             if toe_input.state.modified_date
             else "",
             "seen_at": ""
-            if toe_input.seen_at is None
-            else db_model_utils.get_as_utc_iso_format(toe_input.seen_at),
-            "seen_first_time_by": toe_input.seen_first_time_by,
-            "unreliable_root_id": toe_input.unreliable_root_id,
+            if toe_input.state.seen_at is None
+            else db_model_utils.get_as_utc_iso_format(toe_input.state.seen_at),
+            "seen_first_time_by": toe_input.state.seen_first_time_by,
+            "unreliable_root_id": toe_input.state.unreliable_root_id,
         },
     }
