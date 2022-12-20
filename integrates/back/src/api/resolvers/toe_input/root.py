@@ -19,9 +19,9 @@ async def resolve(
     parent: ToeInput, info: GraphQLResolveInfo
 ) -> Optional[Root]:
     loaders: Dataloaders = info.context.loaders
-    if parent.unreliable_root_id:
+    if parent.state.unreliable_root_id:
         root: Root = await loaders.root.load(
-            (parent.group_name, parent.unreliable_root_id)
+            (parent.group_name, parent.state.unreliable_root_id)
         )
         return root
     return None

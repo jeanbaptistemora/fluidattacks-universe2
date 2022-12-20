@@ -178,11 +178,14 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     ),
     "api.resolvers.toe_input": (
         "attacked_at",
-        "seen_first_time_by",
         "attacked_by",
+        "be_present",
         "be_present_until",
+        "has_vulnerabilities",
         "root",
         "first_attack_at",
+        "seen_at",
+        "seen_first_time_by",
     ),
     "api.resolvers.url_root": ("protocol", "query", "path", "port", "host"),
     "api.resolvers.credentials": (

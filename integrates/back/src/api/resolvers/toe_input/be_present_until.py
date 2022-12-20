@@ -19,4 +19,4 @@ from typing import (
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[datetime]:
-    return parent.be_present_until
+    return parent.state.be_present_until

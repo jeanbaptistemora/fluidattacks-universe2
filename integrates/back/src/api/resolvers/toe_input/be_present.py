@@ -12,5 +12,5 @@ from graphql.type.definition import (
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
-    return parent.state.attacked_by
+) -> bool:
+    return parent.state.be_present

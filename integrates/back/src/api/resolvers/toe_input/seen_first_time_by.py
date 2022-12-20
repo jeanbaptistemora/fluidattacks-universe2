@@ -13,4 +13,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    return parent.seen_first_time_by
+    return parent.state.seen_first_time_by
