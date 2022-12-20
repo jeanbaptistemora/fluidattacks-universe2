@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.me import (
     notifications_parameters,
 )

@@ -249,14 +249,14 @@ async def _apply_finding_policy(
     email: str,
     tags: set[str],
 ) -> None:
-    current_day: str = datetime_utils.get_iso_date()
+    modified_date = datetime_utils.get_utc_now()
     if status not in {PolicyStateStatus.APPROVED, PolicyStateStatus.INACTIVE}:
         return
     if status == PolicyStateStatus.APPROVED:
         await collect(
             (
                 _add_accepted_treatment(
-                    current_day=current_day,
+                    modified_date=modified_date,
                     vulns=vulns,
                     email=email,
                 ),
@@ -268,7 +268,7 @@ async def _apply_finding_policy(
         )
     elif status == PolicyStateStatus.INACTIVE:
         await _add_new_treatment(
-            current_day=current_day,
+            modified_date=modified_date,
             vulns=vulns,
             email=email,
         )
@@ -276,7 +276,7 @@ async def _apply_finding_policy(
 
 async def _add_accepted_treatment(
     *,
-    current_day: str,
+    modified_date: datetime,
     vulns: tuple[Vulnerability, ...],
     email: str,
 ) -> None:
@@ -292,7 +292,7 @@ async def _add_accepted_treatment(
         acceptance_submitted,
         acceptance_approved,
     ) = vulns_utils.get_treatment_from_org_finding_policy(
-        modified_date=current_day, user_email=email
+        modified_date=modified_date, user_email=email
     )
     await collect(
         [
@@ -338,7 +338,7 @@ async def _add_tags_to_vulnerabilities(
 
 async def _add_new_treatment(
     *,
-    current_day: str,
+    modified_date: datetime,
     vulns: tuple[Vulnerability, ...],
     email: str,
 ) -> None:
@@ -355,7 +355,7 @@ async def _add_new_treatment(
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=VulnerabilityTreatment(
-                    modified_date=datetime.fromisoformat(current_day),
+                    modified_date=modified_date,
                     status=VulnerabilityTreatmentStatus.NEW,
                     modified_by=email,
                 ),

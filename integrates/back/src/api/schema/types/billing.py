@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.billing import (
     prices,
 )

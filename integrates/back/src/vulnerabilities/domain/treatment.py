@@ -486,7 +486,7 @@ async def send_treatment_report_mail(
         justification=justification,
         managers_email=managers_email,
         modified_by=modified_by,
-        modified_date=str(datetime_utils.get_iso_date()),
+        modified_date=datetime_utils.get_utc_now(),
         location=old_vuln_values.state.where,
         email_to=users_email,
         is_approved=is_approved,

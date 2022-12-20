@@ -9,6 +9,9 @@ from context import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Notification,
 )
@@ -20,9 +23,6 @@ from group_access import (
 )
 from mailer.utils import (
     get_organization_name,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 from typing import (
     Any,
@@ -95,7 +95,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     justification: Optional[str],
     managers_email: List[str],
     modified_by: Optional[str],
-    modified_date: str,
+    modified_date: datetime,
     location: str,
     email_to: List[str],
     is_approved: bool,
@@ -109,7 +109,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         loaders, user_email, group_name
     )
     email_context: dict[str, Any] = {
-        "date": datetime_utils.get_date_from_iso_str(modified_date),
+        "date": str(modified_date.date()),
         "group": group_name,
         "responsible": modified_by,
         "justification": justification,

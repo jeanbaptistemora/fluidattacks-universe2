@@ -57,7 +57,6 @@ from mailer import (
     groups as groups_mail,
 )
 from newutils import (
-    datetime as datetime_utils,
     logs as logs_utils,
 )
 from roots import (
@@ -186,9 +185,7 @@ async def mutate(
             root_nickname=root.state.nickname,
             root_url=root.state.url,
             responsible=user_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(
-                root.state.modified_date
-            ),
+            modified_date=root.state.modified_date,
             vpn_required=root.state.use_vpn,
         )
     )

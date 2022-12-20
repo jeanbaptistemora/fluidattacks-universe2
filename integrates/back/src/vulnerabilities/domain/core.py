@@ -856,9 +856,7 @@ async def update_metadata_and_state(
     ):
         treatment_to_update = (
             vulns_utils.get_treatment_from_org_finding_policy(
-                modified_date=datetime_utils.get_as_utc_iso_format(
-                    new_state.modified_date
-                ),
+                modified_date=new_state.modified_date,
                 user_email=finding_policy.state.modified_by,
             )
         )

@@ -513,7 +513,7 @@ def adjust_historic_treatment_dates(
 
 
 def get_treatment_from_org_finding_policy(
-    *, modified_date: str, user_email: str
+    *, modified_date: datetime, user_email: str
 ) -> Tuple[VulnerabilityTreatment, ...]:
     treatments: Tuple[
         VulnerabilityTreatment, ...
@@ -524,7 +524,7 @@ def get_treatment_from_org_finding_policy(
                 justification="From organization findings policy",
                 assigned=user_email,
                 modified_by=user_email,
-                modified_date=datetime.fromisoformat(modified_date),
+                modified_date=modified_date,
                 status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             ),
             VulnerabilityTreatment(
@@ -532,7 +532,7 @@ def get_treatment_from_org_finding_policy(
                 justification="From organization findings policy",
                 assigned=user_email,
                 modified_by=user_email,
-                modified_date=datetime.fromisoformat(modified_date),
+                modified_date=modified_date,
                 status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             ),
         )

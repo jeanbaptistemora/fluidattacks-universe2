@@ -443,7 +443,7 @@ async def send_mail_added_root(
     root_nickname: str,
     root_url: str,
     responsible: str,
-    modified_date: str,
+    modified_date: datetime,
     vpn_required: bool,
 ) -> None:
     bool_translations: dict[bool, str] = {
@@ -478,7 +478,7 @@ async def send_mail_added_root(
             "user_role": user_role.replace("_", " "),
             "sla": sla_translation[health_check],
             "vpn_required": bool_translations[vpn_required],
-            "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
+            "date": str(modified_date.date()),
         },
         tags=GENERAL_TAG,
         subject=f"[ARM] Root added in [{group_name}]",
@@ -495,7 +495,7 @@ async def send_mail_updated_root(
     root_nickname: str,
     new_root_content: Dict[str, Any],
     old_state: Dict[str, Any],
-    modified_date: str,
+    modified_date: datetime,
 ) -> None:
     key_format: Dict[str, str] = {
         "branch": "Long term branch",
@@ -517,7 +517,7 @@ async def send_mail_updated_root(
             "new_root_content": new_root_content,
             "old_state": old_state,
             "root_nickname": root_nickname,
-            "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
+            "date": str(modified_date.date()),
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
@@ -821,7 +821,7 @@ async def send_mail_environment_report(
     git_root_url: str,
     urls_added: List[str],
     urls_deleted: List[str],
-    modified_date: str,
+    modified_date: datetime,
     other: Optional[str],
     reason: Optional[str],
 ) -> None:
@@ -839,9 +839,7 @@ async def send_mail_environment_report(
             "urls_added": urls_added,
             "urls_deleted": urls_deleted,
             "user_role": user_role.replace("_", " "),
-            "report_date": str(
-                datetime_utils.get_date_from_iso_str(modified_date)
-            ),
+            "report_date": str(modified_date.date()),
             "reason": other
             if other
             else reason.replace("_", " ").capitalize()

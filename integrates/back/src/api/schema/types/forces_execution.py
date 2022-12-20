@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.forces_execution import (
     grace_period,
     log,

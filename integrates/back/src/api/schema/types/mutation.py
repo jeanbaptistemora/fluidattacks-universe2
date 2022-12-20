@@ -1,6 +1,3 @@
-# None
-
-
 from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,

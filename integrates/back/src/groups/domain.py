@@ -1644,7 +1644,7 @@ async def add_tags(
             responsible=email,
             portfolio=", ".join(tags_to_add),
             is_added=True,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=datetime_utils.get_utc_now(),
         )
     )
 
@@ -1672,7 +1672,7 @@ async def remove_tag(
                 group_name=group.name,
                 responsible=email,
                 portfolio=tag_to_remove,
-                modified_date=datetime_utils.get_iso_date(),
+                modified_date=datetime_utils.get_utc_now(),
             )
         )
 
@@ -1684,7 +1684,7 @@ async def send_mail_portfolio_report(
     responsible: str,
     portfolio: str,
     is_added: bool = False,
-    modified_date: str,
+    modified_date: datetime,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     stakeholders_email = (
@@ -1702,7 +1702,7 @@ async def send_mail_portfolio_report(
         responsible=responsible,
         is_added=is_added,
         portfolio=portfolio,
-        report_date=datetime_utils.get_date_from_iso_str(modified_date),
+        report_date=modified_date.date(),
         email_to=stakeholders_email,
     )
 
@@ -1844,7 +1844,7 @@ async def update_policies(
             send_mail_policies(
                 group_name=group_name,
                 loaders=loaders,
-                modified_date=datetime_utils.get_as_utc_iso_format(today),
+                modified_date=today,
                 new_policies=policies_to_update._asdict(),
                 responsible=email,
             )
@@ -1891,7 +1891,7 @@ async def send_mail_policies(
     *,
     group_name: str,
     loaders: Dataloaders,
-    modified_date: str,
+    modified_date: datetime,
     new_policies: dict[str, Any],
     responsible: str,
 ) -> None:
@@ -1921,7 +1921,7 @@ async def send_mail_policies(
         ),
         "policies_content": policies_content,
         "responsible": responsible,
-        "date": datetime_utils.get_datetime_from_iso_str(modified_date),
+        "date": modified_date,
     }
     group_stakeholders: tuple[
         Stakeholder, ...

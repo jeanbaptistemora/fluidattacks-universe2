@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.finding import (
     age,
     closed_vulnerabilities,

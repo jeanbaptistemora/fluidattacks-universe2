@@ -611,7 +611,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     if urls_added or urls_deleted:
         await send_mail_environment(
             loaders=loaders,
-            date=datetime_utils.get_as_utc_iso_format(modified_date),
+            modified_date=modified_date,
             group_name=group_name,
             git_root=root.state.nickname,
             git_root_url=root.state.url,
@@ -950,9 +950,7 @@ async def send_mail_updated_root(
             root_nickname=new_state.nickname,
             new_root_content=new_root_content,
             old_state=old_state,
-            modified_date=datetime_utils.get_as_utc_iso_format(
-                new_state.modified_date
-            ),
+            modified_date=new_state.modified_date,
         )
 
 
@@ -1689,7 +1687,7 @@ async def remove_environment_url(root_id: str, url: str) -> None:
 
 async def send_mail_environment(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
-    date: str,
+    modified_date: datetime,
     group_name: str,
     git_root: str,
     git_root_url: str,
@@ -1718,7 +1716,7 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         git_root_url=git_root_url,
         urls_added=urls_added,
         urls_deleted=urls_deleted,
-        modified_date=date,
+        modified_date=modified_date,
         other=other,
         reason=reason,
     )
