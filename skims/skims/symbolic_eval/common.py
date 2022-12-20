@@ -13,6 +13,14 @@ HTTP_INPUTS: Set[str] = {
     "Request.ServerVariables",
 }
 
+
+JS_TS_HTTP_INPUTS: Set[str] = {
+    "req.body",
+    "req.params",
+    "req.query",
+}
+
+
 INSECURE_ALGOS = {
     "none",
     "blowfish",
@@ -33,3 +41,9 @@ def check_http_inputs(args: SymbolicEvalArgs) -> bool:
     ma_attr = args.graph.nodes[args.n_id]
     member_access = f'{ma_attr["expression"]}.{ma_attr["member"]}'
     return member_access in HTTP_INPUTS
+
+
+def check_js_ts_http_inputs(args: SymbolicEvalArgs) -> bool:
+    n_attrs = args.graph.nodes[args.n_id]
+    member_access = f'{n_attrs["member"]}.{n_attrs["expression"]}'
+    return member_access in JS_TS_HTTP_INPUTS
