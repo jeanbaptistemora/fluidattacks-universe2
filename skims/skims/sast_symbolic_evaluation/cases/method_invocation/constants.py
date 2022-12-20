@@ -369,14 +369,6 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    FindingEnum.F021.name: complete_attrs_on_dict(
-        {
-            "System.Xml.XPath.XPathNavigator": {
-                "Evaluate",
-                "Select",
-            },
-        }
-    ),
     FindingEnum.F034.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {
