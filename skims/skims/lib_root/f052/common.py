@@ -71,11 +71,7 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
         "createdecipheriv",
         "createcipheriv",
     }
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         _, crypt = split_function_name(f_name)
         if (
@@ -94,11 +90,7 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     danger_methods = complete_attrs_on_set({"crypto.createHash"})
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         if (
             graph.nodes[n_id]["expression"] in danger_methods
             and (al_id := graph.nodes[n_id].get("arguments_id"))
@@ -113,11 +105,7 @@ def insecure_encrypt(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     crypto_methods = {"encrypt", "decrypt"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         algo, crypt = split_function_name(f_name)
         if (
@@ -133,11 +121,7 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     danger_f = {"createecdh"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         _, key = split_function_name(f_name)
         if (
@@ -156,11 +140,7 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     danger_f = {"generatekeypair"}
     rules = {"rsa", "unsafemodulus"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         _, key = split_function_name(f_name)
         if (
@@ -179,11 +159,7 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     danger_f = {"generatekeypair"}
     rules = {"ec", "unsafecurve"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         f_name = graph.nodes[n_id]["expression"]
         _, key = split_function_name(f_name)
         if (

@@ -51,11 +51,7 @@ def is_insec_header(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def search_member_accessed(graph: Graph, members: Set[str]) -> Iterator[NId]:
-    for nid in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MemberAccess"),
-    ):
+    for nid in g.matching_nodes(graph, label_type="MemberAccess"):
         if (
             graph.nodes[nid].get("member") in members
             and (parent := g.pred_ast(graph, nid)[0])

@@ -30,10 +30,9 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 def weak_random(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
-    for n_id in g.filter_nodes(
+    for n_id in g.matching_nodes(
         graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+        label_type="MethodInvocation",
     ):
         if (
             "cookie" in graph.nodes[n_id]["expression"]

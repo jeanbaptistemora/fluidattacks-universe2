@@ -53,11 +53,7 @@ def insecure_authentication(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MethodInvocation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 expr = graph.nodes[n_id].get("expression")
                 if expr in insecure_methods and get_eval_danger(graph, n_id):
                     yield shard, n_id

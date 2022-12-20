@@ -118,10 +118,9 @@ def jpa_like(
                 continue
             graph = shard.syntax_graph
 
-            for annotation_id in g.filter_nodes(
+            for annotation_id in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="Annotation"),
+                label_type="Annotation",
             ):
                 identifier_text = graph.nodes[annotation_id]["name"]
                 if identifier_text in danger_decorators and analyze_jpa_node(

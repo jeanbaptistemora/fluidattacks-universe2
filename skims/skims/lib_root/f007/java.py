@@ -34,10 +34,9 @@ def csrf_protections_disabled(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
+            for n_id in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+                label_type="MethodInvocation",
             ):
                 expr_id = graph.nodes[n_id]["expression_id"]
                 if (

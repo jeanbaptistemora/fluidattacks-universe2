@@ -65,10 +65,9 @@ def xsl_transform_object(
                 continue
             graph = shard.syntax_graph
 
-            for obj_nid in g.filter_nodes(
+            for obj_nid in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+                label_type="ObjectCreation",
             ):
                 if (
                     obj_type := graph.nodes[obj_nid].get("name")
@@ -99,10 +98,9 @@ def schema_by_url(
                 graph, {"XmlSchemaCollection"}
             )
 
-            for m_id in g.filter_nodes(
+            for m_id in g.matching_nodes(
                 graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MethodInvocation"),
+                label_type="MethodInvocation",
             ):
                 if args := is_insec_squema(graph, m_id, obj_identifiers):
                     yield shard, args

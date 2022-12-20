@@ -89,10 +89,9 @@ def get_weak_policies_ids(graph: Graph, n_id: NId) -> Set[NId]:
 def get_vuln_nodes(graph: Graph) -> Set[NId]:
     config_options = "Configure<IdentityOptions>"
     vuln_nodes: Set[NId] = set()
-    for nid in g.filter_nodes(
+    for nid in g.matching_nodes(
         graph,
-        graph.nodes,
-        g.pred_has_labels(label_type="MemberAccess"),
+        label_type="MemberAccess",
     ):
         if graph.nodes[nid].get("member") != config_options:
             continue
@@ -150,11 +149,7 @@ def no_password(
 
             flagged_vars = get_object_identifiers(graph, bad_types)
 
-            for n_id in g.filter_nodes(
-                graph,
-                graph.nodes,
-                g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MemberAccess"):
                 expr = graph.nodes[n_id].get("expression")
                 member = graph.nodes[n_id].get("member")
                 parent_id = g.pred(graph, n_id)[0]

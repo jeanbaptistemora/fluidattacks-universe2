@@ -83,11 +83,7 @@ def verify_decoder(
 
             obj_jwt = get_object_identifiers(graph, {"JwtDecoder"})
 
-            for member in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for member in g.matching_nodes(graph, label_type="MemberAccess"):
                 if is_insecure_decoder(graph, member, obj_jwt):
                     yield shard, member
 

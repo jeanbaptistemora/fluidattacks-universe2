@@ -21,17 +21,6 @@ from utils import (
 )
 
 
-def get_suspicious_nodes(graph: Graph) -> Iterable[NId]:
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        g.pred_has_labels(
-            label_type="MethodInvocation", expression="window.open"
-        ),
-    ):
-        yield n_id
-
-
 def param_is_safe(graph: Graph, p_id: NId, expression: str) -> bool:
     method = MethodsEnum.JS_HAS_REVERSE_TABNABBING
     matcher = re.compile(expression)
@@ -69,7 +58,9 @@ def node_is_vulnerable(graph: Graph, params: Iterator[NId]) -> bool:
 
 
 def get_vulns_n_ids(graph: Graph) -> Iterable[NId]:
-    for n_id in get_suspicious_nodes(graph):
+    for n_id in g.matching_nodes(
+        graph, label_type="MethodInvocation", expression="window.open"
+    ):
         if (n_attrs := g.match_ast_d(graph, n_id, "ArgumentList")) and (
             (parameters := g.adj_ast(graph, n_attrs))
             and node_is_vulnerable(graph, iter(parameters))

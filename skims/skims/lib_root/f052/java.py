@@ -70,11 +70,7 @@ def java_insecure_pass(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
                 if graph.nodes[n_id]["name"] in insecure_instances:
                     yield shard, n_id
 
@@ -103,11 +99,7 @@ def java_insecure_key_rsa(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
                 n_attrs = graph.nodes[n_id]
                 if (
                     n_attrs["name"] in insecure_rsa_spec
@@ -142,11 +134,7 @@ def java_insecure_key_ec(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
                 n_attrs = graph.nodes[n_id]
                 if (
                     n_attrs["name"] in insecure_ec_spec
@@ -181,11 +169,7 @@ def java_insecure_key_secret(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
                 n_attrs = graph.nodes[n_id]
                 if (
                     n_attrs["name"] in insecure_secret_spec

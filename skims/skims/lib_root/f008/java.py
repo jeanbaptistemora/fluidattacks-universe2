@@ -75,10 +75,9 @@ def unsafe_xss_content(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
+            for n_id in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+                label_type="MethodInvocation",
             ):
                 n_attrs = graph.nodes[n_id]
                 if (

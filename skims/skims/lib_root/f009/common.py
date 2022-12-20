@@ -27,10 +27,9 @@ def crypto_credentials(graph: Graph) -> List[NId]:
         "enc.utf8.parse",
     }
 
-    for n_id in g.filter_nodes(
+    for n_id in g.matching_nodes(
         graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
+        label_type="MethodInvocation",
     ):
         n_attrs = graph.nodes[n_id]
         m_name = n_attrs.get("expression")

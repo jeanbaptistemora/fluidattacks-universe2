@@ -38,11 +38,7 @@ def unsafe_xss_content_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     danger_set = {"userconnection"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         n_attrs = graph.nodes[n_id]
         m_name = n_attrs["expression"].split(".")[-1]
         expr_id = n_attrs["expression_id"]

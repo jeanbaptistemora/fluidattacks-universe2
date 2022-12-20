@@ -94,10 +94,9 @@ def weak_protocol(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for nid in g.filter_nodes(
+            for nid in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
+                label_type="MemberAccess",
             ):
 
                 protocol = graph.nodes[nid].get("member")
@@ -166,10 +165,9 @@ def insecure_shared_access_protocol(
 
             obj_identifiers = get_object_identifiers(graph, {"CloudFile"})
 
-            for nid in g.filter_nodes(
+            for nid in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MethodInvocation"),
+                label_type="MethodInvocation",
             ):
                 if is_insecure_protocol(graph, nid, obj_identifiers):
                     yield shard, nid
@@ -196,10 +194,9 @@ def httpclient_no_revocation_list(
 
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
+            for nid in g.matching_nodes(
                 graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+                label_type="ObjectCreation",
             ):
                 if graph.nodes[nid].get(
                     "name"

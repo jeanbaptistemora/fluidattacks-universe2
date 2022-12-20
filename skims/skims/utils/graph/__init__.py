@@ -85,6 +85,10 @@ def filter_nodes(
     return result
 
 
+def matching_nodes(graph: Graph, **expected_attrs: str) -> Tuple[str, ...]:
+    return filter_nodes(graph, graph.nodes, pred_has_labels(**expected_attrs))
+
+
 def adj_lazy(
     graph: Graph,
     n_id: str,

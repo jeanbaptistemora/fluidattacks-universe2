@@ -86,11 +86,7 @@ def get_crypto_var_names(
     graph: Graph,
 ) -> List[NId]:
     name_vars = []
-    for var_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="VariableDeclaration"),
-    ):
+    for var_id in g.matching_nodes(graph, label_type="VariableDeclaration"):
         node_var = graph.nodes[var_id]
         if node_var.get("variable_type") == "RSACryptoServiceProvider":
             name_vars.append(graph.nodes[var_id].get("variable"))
@@ -155,11 +151,7 @@ def c_sharp_insecure_keys(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
                 if is_insecure_keys(graph, n_id):
                     yield shard, n_id
 
@@ -187,11 +179,7 @@ def c_sharp_rsa_secure_mode(
 
             name_vars = get_crypto_var_names(graph)
 
-            for member in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="MemberAccess"),
-            ):
+            for member in g.matching_nodes(graph, label_type="MemberAccess"):
                 n_attrs = graph.nodes[member]
                 parent_nid = g.pred(graph, member)[0]
 
@@ -226,11 +214,7 @@ def c_sharp_managed_secure_mode(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="ObjectCreation"),
-            ):
+            for nid in g.matching_nodes(graph, label_type="ObjectCreation"):
                 if graph.nodes[nid].get("name") in insecure_objects and (
                     mode_nid := is_managed_mode_insecure(graph, nid)
                 ):
@@ -379,16 +363,8 @@ def c_sharp_obsolete_key_derivation(
             graph = shard.syntax_graph
 
             for nid in chain(
-                g.filter_nodes(
-                    graph,
-                    graph.nodes,
-                    g.pred_has_labels(label_type="MethodInvocation"),
-                ),
-                g.filter_nodes(
-                    graph,
-                    graph.nodes,
-                    g.pred_has_labels(label_type="ObjectCreation"),
-                ),
+                g.matching_nodes(graph, label_type="MethodInvocation"),
+                g.matching_nodes(graph, label_type="ObjectCreation"),
             ):
                 n_attrs = graph.nodes[nid]
                 if (

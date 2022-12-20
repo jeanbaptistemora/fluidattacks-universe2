@@ -23,11 +23,7 @@ def remote_command_exec_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     danger_methods = {"execSync", "exec"}
 
-    for n_id in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         m_expr = graph.nodes[n_id]["expression"]
         m_name = m_expr.split(".")[-1]
 
