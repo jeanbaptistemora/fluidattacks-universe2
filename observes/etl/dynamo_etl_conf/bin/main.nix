@@ -1,4 +1,5 @@
 {
+  outputs,
   inputs,
   makeScript,
   projectPath,
@@ -7,11 +8,26 @@
   system = "x86_64-linux";
   pkg = (inputs.flakeAdapter {src = projectPath inputs.observesIndex.etl.dynamo.root;}).defaultNix;
   env = pkg.outputs.packages."${system}".env.bin;
+  onAws = outputs."/computeOnAwsBatch/observesDynamoV2Etl";
+  onAwsBig = outputs."/computeOnAwsBatch/observesDynamoV2EtlBig";
+  parallelOnAws = outputs."/computeOnAwsBatch/observesDynamoParallel";
+  prepareOnAws = outputs."/computeOnAwsBatch/observesDynamoPrepare";
 in
   makeScript {
-    entrypoint = "dynamo-etl \"\${@}\"";
     searchPaths = {
-      bin = [env];
+      bin = [
+        env
+      ];
+      source = [
+        outputs."/observes/common/db-creds"
+      ];
     };
-    name = "dynamo-etl";
+    replace = {
+      __argSendTableETL__ = "${onAws}/bin/${onAws.name}";
+      __argSendBigTableETL__ = "${onAwsBig}/bin/${onAwsBig.name}";
+      __argSendParallelTableETL__ = "${parallelOnAws}/bin/${parallelOnAws.name}";
+      __argSendPrepare__ = "${prepareOnAws}/bin/${prepareOnAws.name}";
+    };
+    name = "observes-etl-dynamo-conf";
+    entrypoint = ./entrypoint.sh;
   }
