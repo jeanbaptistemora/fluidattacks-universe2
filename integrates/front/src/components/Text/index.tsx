@@ -42,7 +42,7 @@ const colors: Record<TColor, string[]> = {
   light: [
     "f4f4f6",
     "e9e9ed",
-    "ddde3",
+    "dddde3",
     "d2d2da",
     "c7c7d1",
     "bcbcc8",

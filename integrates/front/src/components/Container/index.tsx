@@ -15,6 +15,7 @@ interface IContainerProps {
   borderTR?: string;
   borderBL?: string;
   borderBR?: string;
+  border?: string;
   boxShadow?: string;
   boxSizing?: string;
   display?: TDisplay;
@@ -47,6 +48,7 @@ interface IContainerProps {
   width?: string;
   widthMd?: string;
   wrap?: TWrap;
+  zIndex?: string;
 }
 
 const Container = styled.div.attrs({
@@ -63,6 +65,7 @@ const Container = styled.div.attrs({
     borderTR = "0px 0px",
     borderBL = "0px 0px",
     borderBR = "0px 0px",
+    border = "",
     boxShadow = "",
     boxSizing = "",
     display = "block",
@@ -95,12 +98,14 @@ const Container = styled.div.attrs({
     width = "auto",
     widthMd = "auto",
     wrap = "unset",
+    zIndex = "auto",
   }): string => `
 align-items: ${align};
 background-color: ${bgColor};
 background-image: ${bgImage};
 background-size: ${bgImagePos};
 background-repeat: no-repeat;
+border: ${border};
 border-bottom: ${borderBottom};
 border-top: ${borderTop};
 border-top-left-radius: ${borderTl};
@@ -135,6 +140,7 @@ right: ${positionRight};
 text-align: ${textAlign};
 transition: all 0.3s ease;
 width: ${width};
+z-index: ${zIndex};
 
 @media screen and (min-width: 64em) {
    width: ${width};

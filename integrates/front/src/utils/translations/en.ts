@@ -337,6 +337,29 @@ export const enTranslations: ResourceKey = {
       placeholder: "My group name",
       tooltip: "Name that will be assigned to your new group",
     },
+    languages: {
+      checkLanguages: "Please check the supported languages for ",
+      machineLanguages: {
+        button: "Continue free trial registration",
+        buttonSquadLanguages: "Don't see the language you're looking for? ",
+        checkSquadLanguages: "Check Squad plan",
+        description:
+          "Discover deterministic vulnerabilities quickly through automated tools.",
+        machinePlan: "Machine Plan",
+        tag: "Free Trial",
+        title: "Supported languages",
+      },
+      sidepanelButton: "Machine Plan",
+      squadLanguages: {
+        button: "Contact sales for Squad Plan",
+        description:
+          "Squad Plan expands the benefits of the Machine plan " +
+          "and adds the skills of our expert talent (Manual Pentesting). " +
+          "Contact our sales team if you need discover more complex and severe vulnerabilities.",
+        description2: "All machine plan supported languages and :",
+        squadPlan: "Squad Plan",
+      },
+    },
     messages: {
       error: {
         enrollment: "Invalid enrollment data or user already exists",

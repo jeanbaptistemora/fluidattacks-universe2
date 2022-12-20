@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
-type TSize = "lg" | "md" | "sm" | "xl" | "xs" | "xxs";
+type TSize = "lg" | "md" | "sm" | "text" | "xl" | "xs" | "xxs";
 type TVariant =
   | "carousel"
   | "ghost"
@@ -10,7 +10,8 @@ type TVariant =
   | "secondary"
   | "selected-input"
   | "selected"
-  | "tertiary";
+  | "tertiary"
+  | "text";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disp?: "block" | "inline-block" | "inline";
@@ -51,6 +52,11 @@ const sizes: Record<TSize, ISize> = {
     ph: 12,
     pv: 8,
   },
+  text: {
+    fontSize: 9,
+    ph: 0,
+    pv: 0,
+  },
   xl: {
     fontSize: 4,
     ph: 21,
@@ -76,7 +82,7 @@ const variants: Record<TVariant, IVariant> = {
     borderRadius: 5,
     borderSize: 1,
     color: "#121216",
-    colorHover: "#fff",
+    colorHover: "inherit",
   },
   ghost: {
     bgColor: "#80808000",
@@ -140,6 +146,15 @@ const variants: Record<TVariant, IVariant> = {
     borderSize: 2,
     color: "#bf0b1a",
     colorHover: "#fff",
+  },
+  text: {
+    bgColor: "#80808000",
+    bgColorHover: "#80808000",
+    borderColor: "#80808000",
+    borderRadius: 0,
+    borderSize: 0,
+    color: "#dddde3",
+    colorHover: "#ffffff",
   },
 };
 
