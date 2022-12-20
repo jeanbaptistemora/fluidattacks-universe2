@@ -243,10 +243,10 @@ class PDFWordlistEn(Wordlist):
     EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidences")
     EXECUTIVE: WordlistItem = WordlistItem("executive", "Executive Report")
     FIELD: WordlistItem = WordlistItem("field", "Field")
-    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
-        "fin_status_closed", "Closed"
+    FIN_STATUS_CLOSED: WordlistItem = WordlistItem("fin_status_closed", "Safe")
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem(
+        "fin_status_open", "Vulnerable"
     )
-    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Open")
     FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
         "finding_number_title", "Number of Findings"
     )
