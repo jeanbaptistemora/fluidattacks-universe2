@@ -6,11 +6,31 @@ from authz.model import (
     get_organization_level_roles_model,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
+)
+from datetime import (
+    datetime,
 )
 from db_model import (
     stakeholders as stakeholders_model,
+)
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupManaged,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+)
+from db_model.types import (
+    Policies,
+)
+from decimal import (
+    Decimal,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -206,60 +226,169 @@ async def test_user_level_enforcer() -> None:
                     ), f"{role} should not be able to do {action}"
 
 
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
+@pytest.mark.parametrize(
+    ["group", "attributes", "results"],
+    [
+        [
+            Group(
+                business_name="Testing Company and Sons",
+                policies=Policies(
+                    max_number_acceptances=3,
+                    min_acceptance_severity=Decimal("0"),
+                    vulnerability_grace_period=10,
+                    modified_by="integratesmanager@gmail.com",
+                    min_breaking_severity=Decimal("3.9"),
+                    max_acceptance_days=90,
+                    modified_date=datetime.fromisoformat(
+                        "2021-11-22T20:07:57+00:00"
+                    ),
+                    max_acceptance_severity=Decimal("3.9"),
+                ),
+                context="Group context test",
+                disambiguation="Disambiguation test",
+                description="Integrates unit test group",
+                language=GroupLanguage.EN,
+                created_by="integratesmanager@gmail.com",
+                organization_id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                name="unittesting",
+                created_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                state=GroupState(
+                    has_machine=True,
+                    has_squad=True,
+                    managed=GroupManaged.NOT_MANAGED,
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-03-08T00:43:18+00:00"
+                    ),
+                    status=GroupStateStatus.ACTIVE,
+                    tier=GroupTier.MACHINE,
+                    type=GroupSubscriptionType.CONTINUOUS,
+                    tags=set(("test-groups", "test-updates", "test-tag")),
+                    service=GroupService.WHITE,
+                ),
+                business_id="14441323",
+                sprint_duration=2,
+            ),
+            [
+                "can_report_vulnerabilities",
+                "has_asm",
+                "has_forces",
+                "has_service_black",
+                "has_service_white",
+                "has_squad",
+                "is_continuous",
+                "is_fluidattacks_customer",
+                "must_only_have_fluidattacks_hackers",
+                "non_existing_attribute",
+            ],
+            [
+                True,
+                True,
+                True,
+                False,
+                True,
+                True,
+                True,
+                True,
+                True,
+                False,
+            ],
+        ],
+        [
+            Group(
+                business_name="Testing Company and Sons",
+                policies=Policies(
+                    max_number_acceptances=3,
+                    min_acceptance_severity=Decimal("0"),
+                    vulnerability_grace_period=10,
+                    modified_by="integratesmanager@gmail.com",
+                    min_breaking_severity=Decimal("3.9"),
+                    max_acceptance_days=90,
+                    modified_date=datetime.fromisoformat(
+                        "2021-11-22T20:07:57+00:00"
+                    ),
+                    max_acceptance_severity=Decimal("3.9"),
+                ),
+                context="Group context test",
+                disambiguation="Disambiguation test",
+                description="Oneshottest test group",
+                language=GroupLanguage.EN,
+                created_by="integratesmanager@gmail.com",
+                organization_id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                name="oneshottest",
+                created_date=datetime.fromisoformat(
+                    "2019-01-20T22:00:00+00:00"
+                ),
+                state=GroupState(
+                    has_machine=True,
+                    has_squad=False,
+                    managed=GroupManaged.NOT_MANAGED,
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-01-20T22:00:00+00:00"
+                    ),
+                    status=GroupStateStatus.ACTIVE,
+                    tier=GroupTier.ONESHOT,
+                    type=GroupSubscriptionType.ONESHOT,
+                    tags=set(("test-tag")),
+                    service=GroupService.BLACK,
+                ),
+                business_id="14441323",
+                sprint_duration=2,
+            ),
+            [
+                "can_report_vulnerabilities",
+                "has_asm",
+                "has_forces",
+                "has_service_black",
+                "has_service_white",
+                "has_squad",
+                "is_continuous",
+                "is_fluidattacks_customer",
+                "must_only_have_fluidattacks_hackers",
+                "non_existing_attribute",
+            ],
+            [
+                True,
+                True,
+                False,
+                True,
+                False,
+                False,
+                False,
+                True,
+                True,
+                False,
+            ],
+        ],
+    ],
 )
 async def test_group_service_attributes_enforcer(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
+    group: Group,
+    attributes: list,
+    results: list,
 ) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
-    loaders: Dataloaders = get_new_context()
     # All attributes must be tested for this test to succeed
     # This prevents someone to add a new attribute without testing it
 
-    attributes_remaining_to_test: set[tuple[str, Any]] = {
-        (group_name, attr)
-        for group_name in ("unittesting", "oneshottest")
+    attributes_remaining_to_test: set[str] = {
+        (attr)
         for attrs in authz.SERVICE_ATTRIBUTES.values()
         for attr in set(attrs).union({"non_existing_attribute"})
     }
-    for group_name, attribute, result in [
-        ("unittesting", "can_report_vulnerabilities", True),
-        ("unittesting", "has_service_black", False),
-        ("unittesting", "has_service_white", True),
-        ("unittesting", "has_forces", True),
-        ("unittesting", "has_asm", True),
-        ("unittesting", "has_squad", True),
-        ("unittesting", "is_continuous", True),
-        ("unittesting", "is_fluidattacks_customer", True),
-        ("unittesting", "must_only_have_fluidattacks_hackers", True),
-        ("unittesting", "non_existing_attribute", False),
-        ("oneshottest", "can_report_vulnerabilities", True),
-        ("oneshottest", "has_asm", True),
-        ("oneshottest", "has_service_black", True),
-        ("oneshottest", "has_service_white", False),
-        ("oneshottest", "has_forces", False),
-        ("oneshottest", "has_squad", False),
-        ("oneshottest", "is_continuous", False),
-        ("oneshottest", "is_fluidattacks_customer", True),
-        ("oneshottest", "must_only_have_fluidattacks_hackers", True),
-        ("oneshottest", "non_existing_attribute", False),
-    ]:
-        mock_table_resource.return_value.query.side_effect = mock_query
-        enforcer = authz.get_group_service_attributes_enforcer(
-            await loaders.group.load(group_name)
-        )
+
+    enforcer = authz.get_group_service_attributes_enforcer(group)
+
+    for attribute, result in zip(attributes, results):
 
         assert (
             enforcer(attribute) == result
-        ), f"{group_name} attribute: {attribute}, should have value {result}"
+        ), f"{group.name} attribute: {attribute}, should have value {result}"
 
-        assert mock_table_resource.called is True
-        attributes_remaining_to_test.remove((group_name, attribute))
+        attributes_remaining_to_test.remove(attribute)
 
     assert not attributes_remaining_to_test, (
         f"Please add tests for the following pairs of (group, attribute)"
