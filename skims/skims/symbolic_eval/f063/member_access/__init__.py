@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f063.member_access.c_sharp import (
     cs_open_redirect,
+    cs_unsafe_path_traversal,
 )
 from symbolic_eval.f063.member_access.common import (
     insecure_path_traversal,
@@ -19,6 +20,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_OPEN_REDIRECT: cs_open_redirect,
+    MethodsEnum.CS_UNSAFE_PATH_TRAVERSAL: cs_unsafe_path_traversal,
     MethodsEnum.JS_PATH_TRAVERSAL: insecure_path_traversal,
     MethodsEnum.JS_ZIP_SLIP: zip_slip,
     MethodsEnum.TS_PATH_TRAVERSAL: insecure_path_traversal,

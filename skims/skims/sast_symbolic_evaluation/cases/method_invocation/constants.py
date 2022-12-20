@@ -39,13 +39,6 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Float.toString",
         "Integer.toString",
         "Long.toString",
-        "System.IO.File.Copy",
-        "System.IO.File.Create",
-        "System.IO.File.Delete",
-        "System.IO.File.Exists",
-        "System.IO.File.Move",
-        "System.IO.File.Open",
-        "System.IO.File.Replace",
         "System.IO.Path.Combine",
         "System.Xml.XPath.XPathExpression.Compile",
         "Encoding.UTF8.GetBytes",
@@ -311,16 +304,6 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
     }
 )
 BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
-    FindingEnum.F008.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "setHeader": {
-                    "X-XSS-Protection",
-                    "0",
-                },
-            },
-        }
-    ),
     FindingEnum.F042.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.Cookie": {
@@ -342,33 +325,6 @@ BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = complete_attrs_on_dict(
     }
 )
 BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
-    FindingEnum.F004.name: complete_attrs_on_dict(
-        {
-            "ProcessBuilder": {
-                "command",
-            },
-            "Runtime": {
-                "exec",
-            },
-        }
-    ),
-    FindingEnum.F008.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "getWriter.format",
-                "getWriter.print",
-                "getWriter.printf",
-                "getWriter.println",
-                "getWriter.write",
-            },
-            "System.Web.HttpResponse": {
-                "Write",
-            },
-            "Response": {
-                "send",
-            },
-        }
-    ),
     FindingEnum.F034.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {

@@ -3429,6 +3429,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_UNSAFE_PATH_TRAVERSAL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_unsafe_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_ZIP_SLIP_PATH_INJECTION = MethodInfo(
         file_name="java",
         name="java_zip_slip_injection",

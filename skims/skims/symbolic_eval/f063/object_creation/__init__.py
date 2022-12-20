@@ -1,12 +1,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f063.parameter.c_sharp import (
-    cs_open_redirect,
+from symbolic_eval.f063.object_creation.c_sharp import (
     cs_unsafe_path_traversal,
-)
-from symbolic_eval.f063.parameter.java import (
-    java_zip_slip_injection,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,9 +14,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_OPEN_REDIRECT: cs_open_redirect,
     MethodsEnum.CS_UNSAFE_PATH_TRAVERSAL: cs_unsafe_path_traversal,
-    MethodsEnum.JAVA_ZIP_SLIP_PATH_INJECTION: java_zip_slip_injection,
 }
 
 
