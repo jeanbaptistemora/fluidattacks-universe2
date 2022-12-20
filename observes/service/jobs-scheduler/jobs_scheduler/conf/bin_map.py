@@ -19,7 +19,7 @@ def job_to_bin_cmd(job: Job) -> str | NoReturn:
     if job is Job.DYNAMO_INTEGRATES_MAIN:
         return f'{os.environ["dynamoDbEtls"]} CORE'
     if job is Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE:
-        return f'{os.environ["dynamoDbEtls"]} CORE_NO_CACHE'
+        return f'{os.environ["dynamoDbEtls"]} DETERMINE_SCHEMA'
     if job is Job.FORMSTACK:
         return os.environ["formstackEtl"]
     if job is Job.GITLAB_PRODUCT:

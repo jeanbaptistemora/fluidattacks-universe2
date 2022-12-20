@@ -15,7 +15,7 @@ from typing import (
 )
 
 
-def determine_schemas(
+def determine_schema(
     tables: FrozenSet[str], segments: int, cache_bucket: str
 ) -> Cmd[None]:
     args = (
