@@ -87,13 +87,7 @@ def get_lookup_path(graph: Graph, path: Path, symbol_id: NId) -> Path:
 
 def get_object_identifiers(graph: Graph, obj_names: Set[str]) -> List[str]:
     identifiers = []
-    for nid in g.filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=g.pred_has_labels(
-            label_type="ObjectCreation",
-        ),
-    ):
+    for nid in g.matching_nodes(graph, label_type="ObjectCreation"):
         if (
             graph.nodes[nid].get("name") in obj_names
             and (pred := g.pred_ast(graph, nid)[0])

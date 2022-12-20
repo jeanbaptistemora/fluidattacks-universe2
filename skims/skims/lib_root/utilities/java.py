@@ -12,10 +12,9 @@ from typing import (
 )
 from utils.graph import (
     concatenate_label_text,
-    filter_nodes,
     match_ast,
     match_ast_group,
-    pred_has_labels,
+    matching_nodes,
 )
 
 
@@ -25,10 +24,8 @@ def yield_object_creation(
     for shard in graph_db.shards_by_language(
         GraphShardMetadataLanguage.JAVA,
     ):
-        for object_id in filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=pred_has_labels(label_type="object_creation_expression"),
+        for object_id in matching_nodes(
+            shard.graph, label_type="object_creation_expression"
         ):
             match = match_ast(
                 shard.graph,
@@ -52,10 +49,8 @@ def yield_method_invocation(
     for shard in graph_db.shards_by_language(
         GraphShardMetadataLanguage.JAVA,
     ):
-        for method_id in filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=pred_has_labels(label_type="method_invocation"),
+        for method_id in matching_nodes(
+            shard.graph, label_type="method_invocation"
         ):
             match = match_ast_group(
                 shard.graph,
@@ -102,10 +97,6 @@ def concatenate_name(
 def yield_method_invocation_syntax_graph(
     graph: Graph,
 ) -> Iterable[Tuple[str, str]]:
-    for n_id in filter_nodes(
-        graph,
-        nodes=graph.nodes,
-        predicate=pred_has_labels(label_type="MethodInvocation"),
-    ):
+    for n_id in matching_nodes(graph, label_type="MethodInvocation"):
         method_name = concatenate_name(graph, n_id)
         yield n_id, method_name
