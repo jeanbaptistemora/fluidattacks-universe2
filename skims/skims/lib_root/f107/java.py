@@ -1,11 +1,9 @@
-from lib_root.utilities.common import (
-    search_method_invocation_naive,
-)
 from lib_sast.types import (
     ShardDb,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    MethodsEnum,
+    Vulnerabilities,
 )
 from model.graph_model import (
     Graph,
@@ -25,18 +23,23 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Set,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_filter_insecure(graph: Graph, nid: NId) -> bool:
-    method = core_model.MethodsEnum.JAVA_LDAP_INJECTION
-    rules = {"UserParams", "HttpServletRequest"}
+def is_ldap_injection(
+    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
+) -> bool:
     for path in get_backward_paths(graph, nid):
         evaluation = evaluate(method, graph, path, nid)
-        if evaluation and evaluation.triggers == rules:
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers == danger_set
+        ):
             return True
     return False
 
@@ -44,29 +47,33 @@ def is_filter_insecure(graph: Graph, nid: NId) -> bool:
 def ldap_injection(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
-) -> core_model.Vulnerabilities:
+) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_LDAP_INJECTION
     java = GraphShardMetadataLanguage.JAVA
-    ldap_var = "NamingEnumeration"
+    danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterable[GraphShardNode]:
-
         for shard in graph_db.shards_by_language(java):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
 
-            for nid in search_method_invocation_naive(graph, {"search"}):
-                pred = g.pred(graph, nid)[0]
-                if ldap_var in graph.nodes[pred].get("variable_type") and (
-                    (args_id := graph.nodes[nid].get("arguments_id"))
-                    and (test_nid := g.match_ast(graph, args_id).get("__1__"))
-                    and is_filter_insecure(graph, test_nid)
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+                expr = graph.nodes[n_id]["expression"].split(".")
+                pred = g.pred(graph, n_id)[0]
+                var_type = graph.nodes[pred].get("variable_type")
+                if (
+                    expr[-1] == "search"
+                    and "NamingEnumeration" in var_type
+                    and (al_id := graph.nodes[n_id].get("arguments_id"))
+                    and (arg_id := g.match_ast(graph, al_id).get("__1__"))
+                    and is_ldap_injection(graph, arg_id, danger_set, method)
                 ):
-                    yield shard, nid
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f107.ldap_injection",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.JAVA_LDAP_INJECTION,
+        method=method,
     )

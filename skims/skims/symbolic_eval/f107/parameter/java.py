@@ -13,6 +13,6 @@ def java_ldap_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     )
 
     if args.graph.nodes[args.n_id]["variable_type"] in lib:
-        args.triggers.add("HttpServletRequest")
+        args.triggers.add("userconnection")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

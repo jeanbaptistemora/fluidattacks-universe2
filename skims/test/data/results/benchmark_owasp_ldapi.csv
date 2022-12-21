@@ -1,6 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java","
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,69,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,"
    59 |   String base = ""ou=users,ou=system"";
    60 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    61 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -23,9 +22,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.j
    78 |      ""LDAP query results:<br>""
    79 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,60,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,"
   50 |
   51 | );
   52 | rContext();
@@ -48,9 +46,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.j
   69 |
   70 | r>""
      ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,63,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,63,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,"
   53 |
   54 | );
   55 | rContext();
@@ -73,9 +70,56 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.j
   72 |
   73 | r>""
      ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00138.java,74,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00138.java,"
+   64 |   String base = ""ou=users,ou=system"";
+   65 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   66 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   67 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   68 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   69 |
+   70 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   71 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   72 |   boolean found = false;
+   73 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  74 |     idc.search(base, filter,filters, sc);
+   75 |   while (results.hasMore()) {
+   76 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   77 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   78 |
+   79 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   80 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   81 |    if (attr != null){
+   82 |     response.getWriter().println(
+   83 |      ""LDAP query results:<br>""
+   84 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00530.java,96,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00530.java,"
+   86 |   String base = ""ou=users,ou=system"";
+   87 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   88 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   89 |   String filter = ""(&(objectclass=person)(uid="" + bar
+   90 |     + ""))"";
+   91 |
+   92 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   93 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   94 |   boolean found = false;
+   95 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  96 |     idc.search(base, filter, sc);
+   97 |
+   98 |   while (results.hasMore()) {
+   99 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+  100 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+  101 |
+  102 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+  103 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+  104 |    if (attr != null){
+  105 |     response.getWriter().println(
+  106 |      ""LDAP query results:<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,"
   54 |
   55 | );
   56 | rContext();
@@ -98,9 +142,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.j
   73 |
   74 | r>""
      ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,69,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,"
    59 |
    60 | );
    61 | rContext();
@@ -123,9 +166,56 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.j
    78 |
    79 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,78,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,76,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,"
+   66 |
+   67 | );
+   68 | rContext();
+   69 |
+   70 | vax.naming.directory.SearchControls();
+   71 | ntrols.SUBTREE_SCOPE);
+   72 | bar+"")(street={0}))"";
+   73 |  bar""};
+   74 |
+   75 |
+>  76 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   77 |
+   78 | naming.directory.SearchResult) results.next();
+   79 | Attributes();
+   80 |
+   81 | t(""uid"");
+   82 | et(""street"");
+   83 |
+   84 |
+   85 |
+   86 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00948.java,76,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00948.java,"
+   66 |
+   67 | );
+   68 | rContext();
+   69 |
+   70 | vax.naming.directory.SearchControls();
+   71 | ntrols.SUBTREE_SCOPE);
+   72 | ar
+   73 |
+   74 |
+   75 |
+>  76 | tory.SearchResult> results = ctx.search(base, filter, sc);
+   77 |
+   78 | naming.directory.SearchResult) results.next();
+   79 | Attributes();
+   80 |
+   81 | t(""uid"");
+   82 | et(""street"");
+   83 |
+   84 |
+   85 |
+   86 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,78,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,"
    68 |   String base = ""ou=users,ou=system"";
    69 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    70 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -148,9 +238,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.j
    87 |      ""LDAP query results:<br>""
    88 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,"
    54 |
    55 | );
    56 | rContext();
@@ -173,9 +262,56 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.j
    73 |
    74 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01024.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01024.java,"
+   54 |
+   55 | );
+   56 | rContext();
+   57 |
+   58 | vax.naming.directory.SearchControls();
+   59 | ntrols.SUBTREE_SCOPE);
+   60 | bar+"")(street={0}))"";
+   61 |  bar""};
+   62 |
+   63 |
+>  64 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   65 |
+   66 | naming.directory.SearchResult) results.next();
+   67 | Attributes();
+   68 |
+   69 | t(""uid"");
+   70 | et(""street"");
+   71 |
+   72 |
+   73 |
+   74 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01154.java,66,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01154.java,"
+   56 |
+   57 | );
+   58 | rContext();
+   59 |
+   60 | vax.naming.directory.SearchControls();
+   61 | ntrols.SUBTREE_SCOPE);
+   62 | bar+"")(street={0}))"";
+   63 |  bar""};
+   64 |
+   65 |
+>  66 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   67 |
+   68 | naming.directory.SearchResult) results.next();
+   69 | Attributes();
+   70 |
+   71 | t(""uid"");
+   72 | et(""street"");
+   73 |
+   74 |
+   75 |
+   76 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,"
    51 |   String base = ""ou=users,ou=system"";
    52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -198,9 +334,32 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.j
    70 |      ""LDAP query results:<br>""
    71 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,"
+   51 |   String base = ""ou=users,ou=system"";
+   52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   55 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   56 |
+   57 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   59 |   boolean found = false;
+   60 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |     idc.search(base, filter,filters, sc);
+   62 |   while (results.hasMore()) {
+   63 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   64 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   65 |
+   66 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   67 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   68 |    if (attr != null){
+   69 |     response.getWriter().println(
+   70 |      ""LDAP query results:<br>""
+   71 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,"
    51 |   String base = ""ou=users,ou=system"";
    52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -223,9 +382,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.j
    70 |     response.getWriter().println(
    71 |      ""LDAP query results:<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,"
    54 |
    55 | );
    56 | rContext();
@@ -248,9 +406,56 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.j
    73 |
    74 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01327.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01327.java,"
+   54 |
+   55 | );
+   56 | rContext();
+   57 |
+   58 | vax.naming.directory.SearchControls();
+   59 | ntrols.SUBTREE_SCOPE);
+   60 | bar+"")(street={0}))"";
+   61 |  bar""};
+   62 |
+   63 |
+>  64 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   65 |
+   66 | naming.directory.SearchResult) results.next();
+   67 | Attributes();
+   68 |
+   69 | t(""uid"");
+   70 | et(""street"");
+   71 |
+   72 |
+   73 |
+   74 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01402.java,73,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01402.java,"
+   63 |
+   64 | );
+   65 | rContext();
+   66 |
+   67 | vax.naming.directory.SearchControls();
+   68 | ntrols.SUBTREE_SCOPE);
+   69 | bar+"")(street={0}))"";
+   70 |  bar""};
+   71 |
+   72 |
+>  73 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   74 |
+   75 | naming.directory.SearchResult) results.next();
+   76 | Attributes();
+   77 |
+   78 | t(""uid"");
+   79 | et(""street"");
+   80 |
+   81 |
+   82 |
+   83 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,62,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,"
    52 |
    53 | );
    54 | rContext();
@@ -273,9 +478,32 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.j
    71 |
    72 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01569.java,62,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01569.java,"
+   52 |
+   53 | );
+   54 | rContext();
+   55 |
+   56 | vax.naming.directory.SearchControls();
+   57 | ntrols.SUBTREE_SCOPE);
+   58 | ar
+   59 |
+   60 |
+   61 |
+>  62 | tory.SearchResult> results = ctx.search(base, filter, sc);
+   63 |
+   64 | naming.directory.SearchResult) results.next();
+   65 | Attributes();
+   66 |
+   67 | t(""uid"");
+   68 | et(""street"");
+   69 |
+   70 |
+   71 |
+   72 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,76,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,"
    66 |
    67 | );
    68 | rContext();
@@ -298,9 +526,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.j
    85 |
    86 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,76,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,"
    66 |
    67 | );
    68 | rContext();
@@ -323,9 +550,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.j
    85 |
    86 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,"
    54 |
    55 | );
    56 | rContext();
@@ -348,59 +574,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.j
    73 |
    74 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java","
-   58 |   String base = ""ou=users,ou=system"";
-   59 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
-   60 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
-   61 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
-   62 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
-   63 |
-   64 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
-   65 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
-   66 |   boolean found = false;
-   67 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
->  68 |     idc.search(base, filter,filters, sc);
-   69 |   while (results.hasMore()) {
-   70 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
-   71 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
-   72 |
-   73 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
-   74 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
-   75 |    if (attr != null){
-   76 |     response.getWriter().println(
-   77 |      ""LDAP query results:<br>""
-   78 |      + ""Record found with name "" + attr.get() + ""<br>""
-      ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java","
-   58 |   String base = ""ou=users,ou=system"";
-   59 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
-   60 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
-   61 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
-   62 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
-   63 |
-   64 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
-   65 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
-   66 |   boolean found = false;
-   67 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
->  68 |     idc.search(base, filter,filters, sc);
-   69 |   while (results.hasMore()) {
-   70 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
-   71 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
-   72 |
-   73 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
-   74 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
-   75 |    if (attr != null){
-   76 |     response.getWriter().println(
-   77 |      ""LDAP query results:<br>""
-   78 |      + ""Record found with name "" + attr.get() + ""<br>""
-      ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01903.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01903.java,"
    54 |
    55 | );
    56 | rContext();
@@ -423,9 +598,224 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.j
    73 |
    74 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01909.java,66,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01909.java,"
+   56 |   String base = ""ou=users,ou=system"";
+   57 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   58 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   59 |   String filter = ""(&(objectclass=person)(uid="" + bar
+   60 |     + ""))"";
+   61 |
+   62 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   63 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   64 |   boolean found = false;
+   65 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  66 |     idc.search(base, filter, sc);
+   67 |
+   68 |   while (results.hasMore()) {
+   69 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   70 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   71 |
+   72 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   73 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   74 |    if (attr != null){
+   75 |     response.getWriter().println(
+   76 |      ""LDAP query results:<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02025.java,66,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02025.java,"
+   56 |
+   57 | );
+   58 | rContext();
+   59 |
+   60 | vax.naming.directory.SearchControls();
+   61 | ntrols.SUBTREE_SCOPE);
+   62 | ar
+   63 |
+   64 |
+   65 |
+>  66 | tory.SearchResult> results = ctx.search(base, filter, sc);
+   67 |
+   68 | naming.directory.SearchResult) results.next();
+   69 | Attributes();
+   70 |
+   71 | t(""uid"");
+   72 | et(""street"");
+   73 |
+   74 |
+   75 |
+   76 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,68,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,"
+   58 |   String base = ""ou=users,ou=system"";
+   59 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   60 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   61 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   62 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   63 |
+   64 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   65 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   66 |   boolean found = false;
+   67 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  68 |     idc.search(base, filter,filters, sc);
+   69 |   while (results.hasMore()) {
+   70 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   71 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   72 |
+   73 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   74 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   75 |    if (attr != null){
+   76 |     response.getWriter().println(
+   77 |      ""LDAP query results:<br>""
+   78 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,68,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,"
+   58 |   String base = ""ou=users,ou=system"";
+   59 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   60 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   61 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   62 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   63 |
+   64 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   65 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   66 |   boolean found = false;
+   67 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  68 |     idc.search(base, filter,filters, sc);
+   69 |   while (results.hasMore()) {
+   70 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   71 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   72 |
+   73 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   74 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   75 |    if (attr != null){
+   76 |     response.getWriter().println(
+   77 |      ""LDAP query results:<br>""
+   78 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02104.java,59,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02104.java,"
+   49 |
+   50 | );
+   51 | rContext();
+   52 |
+   53 | vax.naming.directory.SearchControls();
+   54 | ntrols.SUBTREE_SCOPE);
+   55 | bar+"")(street={0}))"";
+   56 |  bar""};
+   57 |
+   58 |
+>  59 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   60 |
+   61 | naming.directory.SearchResult) results.next();
+   62 | Attributes();
+   63 |
+   64 | t(""uid"");
+   65 | et(""street"");
+   66 |
+   67 |
+   68 |
+   69 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02114.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02114.java,"
+   51 |   String base = ""ou=users,ou=system"";
+   52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   55 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   56 |
+   57 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   59 |   boolean found = false;
+   60 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |     idc.search(base, filter,filters, sc);
+   62 |   while (results.hasMore()) {
+   63 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   64 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   65 |
+   66 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   67 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   68 |    if (attr != null){
+   69 |     response.getWriter().println(
+   70 |      ""LDAP query results:<br>""
+   71 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02115.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02115.java,"
+   51 |   String base = ""ou=users,ou=system"";
+   52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   55 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   56 |
+   57 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   59 |   boolean found = false;
+   60 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |     idc.search(base, filter,filters, sc);
+   62 |   while (results.hasMore()) {
+   63 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   64 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   65 |
+   66 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   67 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   68 |    if (attr != null){
+   69 |     response.getWriter().println(
+   70 |      ""LDAP query results:<br>""
+   71 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02116.java,61,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02116.java,"
+   51 |   String base = ""ou=users,ou=system"";
+   52 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |   String filter = ""(&(objectclass=person)(uid="" + bar
+   55 |     + ""))"";
+   56 |
+   57 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   59 |   boolean found = false;
+   60 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |     idc.search(base, filter, sc);
+   62 |
+   63 |   while (results.hasMore()) {
+   64 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   65 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   66 |
+   67 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   68 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   69 |    if (attr != null){
+   70 |     response.getWriter().println(
+   71 |      ""LDAP query results:<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,"
+   54 |
+   55 | );
+   56 | rContext();
+   57 |
+   58 | vax.naming.directory.SearchControls();
+   59 | ntrols.SUBTREE_SCOPE);
+   60 | ar
+   61 |
+   62 |
+   63 |
+>  64 | tory.SearchResult> results = ctx.search(base, filter, sc);
+   65 |
+   66 | naming.directory.SearchResult) results.next();
+   67 | Attributes();
+   68 |
+   69 | t(""uid"");
+   70 | et(""street"");
+   71 |
+   72 |
+   73 |
+   74 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,"
    56 |   String base = ""ou=users,ou=system"";
    57 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    58 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -448,9 +838,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.j
    75 |      ""LDAP query results:<br>""
    76 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,"
    63 |
    64 | );
    65 | rContext();
@@ -473,9 +862,8 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.j
    82 |
    83 | r>""
       ^ Col 51
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,75,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,"
    65 |   String base = ""ou=users,ou=system"";
    66 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    67 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -498,9 +886,32 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.j
    84 |      ""LDAP query results:<br>""
    85 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
- in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java","
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,"
+   65 |   String base = ""ou=users,ou=system"";
+   66 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   67 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   68 |   String filter = ""(&(objectclass=person)(uid="" + bar
+   69 |     + ""))"";
+   70 |
+   71 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   72 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   73 |   boolean found = false;
+   74 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  75 |     idc.search(base, filter, sc);
+   76 |
+   77 |   while (results.hasMore()) {
+   78 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   79 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   80 |
+   81 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   82 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   83 |    if (attr != null){
+   84 |     response.getWriter().println(
+   85 |      ""LDAP query results:<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,"
    54 |   String base = ""ou=users,ou=system"";
    55 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    56 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -523,4 +934,76 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.j
    73 |      ""LDAP query results:<br>""
    74 |      + ""Record found with name "" + attr.get() + ""<br>""
       ^ Col 0
-",query.query_f107
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02553.java,73,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02553.java,"
+   63 |
+   64 | );
+   65 | rContext();
+   66 |
+   67 | vax.naming.directory.SearchControls();
+   68 | ntrols.SUBTREE_SCOPE);
+   69 | bar+"")(street={0}))"";
+   70 |  bar""};
+   71 |
+   72 |
+>  73 | tory.SearchResult> results = ctx.search(base, filter,filters, sc);
+   74 |
+   75 | naming.directory.SearchResult) results.next();
+   76 | Attributes();
+   77 |
+   78 | t(""uid"");
+   79 | et(""street"");
+   80 |
+   81 |
+   82 |
+   83 | r>""
+      ^ Col 51
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02571.java,75,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02571.java,"
+   65 |   String base = ""ou=users,ou=system"";
+   66 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   67 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   68 |   String filter = ""(&(objectclass=person))(|(uid=""+bar+"")(street={0}))"";
+   69 |   Object[] filters = new Object[]{""The streetz 4 Ms bar""};
+   70 |
+   71 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   72 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   73 |   boolean found = false;
+   74 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  75 |     idc.search(base, filter,filters, sc);
+   76 |   while (results.hasMore()) {
+   77 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   78 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   79 |
+   80 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   81 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   82 |    if (attr != null){
+   83 |     response.getWriter().println(
+   84 |      ""LDAP query results:<br>""
+   85 |      + ""Record found with name "" + attr.get() + ""<br>""
+      ^ Col 0
+",java.java_ldap_injection
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02572.java,75,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02572.java,"
+   65 |   String base = ""ou=users,ou=system"";
+   66 |   javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   67 |   sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   68 |   String filter = ""(&(objectclass=person)(uid="" + bar
+   69 |     + ""))"";
+   70 |
+   71 |   javax.naming.directory.DirContext ctx = ads.getDirContext();
+   72 |   javax.naming.directory.InitialDirContext idc = (javax.naming.directory.InitialDirContext) ctx;
+   73 |   boolean found = false;
+   74 |   javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  75 |     idc.search(base, filter, sc);
+   76 |
+   77 |   while (results.hasMore()) {
+   78 |    javax.naming.directory.SearchResult sr = (javax.naming.directory.SearchResult) results.next();
+   79 |    javax.naming.directory.Attributes attrs = sr.getAttributes();
+   80 |
+   81 |    javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   82 |    javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   83 |    if (attr != null){
+   84 |     response.getWriter().println(
+   85 |      ""LDAP query results:<br>""
+      ^ Col 0
+",java.java_ldap_injection
