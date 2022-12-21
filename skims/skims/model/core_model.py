@@ -2405,6 +2405,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EC2_HAS_UNUSED_KEY_PAIRS = MethodInfo(
+        file_name="aws",
+        name="has_unused_ec2_key_pairs",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_S3_BUCKET_VERSIONING_DISABLED = MethodInfo(
         file_name="aws",
         name="s3_bucket_versioning_disabled",
