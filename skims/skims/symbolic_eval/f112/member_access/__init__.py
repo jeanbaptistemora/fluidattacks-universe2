@@ -1,11 +1,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f112.method_invocation.common import (
+from symbolic_eval.f112.member_access.common import (
     unsafe_sql_injection,
-)
-from symbolic_eval.f112.method_invocation.java import (
-    java_sql_injection,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -17,7 +14,6 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JAVA_SQL_INJECTION: java_sql_injection,
     MethodsEnum.JS_SQL_API_INJECTION: unsafe_sql_injection,
 }
 

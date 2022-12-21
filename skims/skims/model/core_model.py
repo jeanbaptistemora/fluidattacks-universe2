@@ -3885,6 +3885,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_SQL_API_INJECTION = MethodInfo(
+        file_name="javascript",
+        name="javascript_sql_api_injection",
+        module="lib_root",
+        finding=FindingEnum.F112,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     UNVERIFIABLE_FILES = MethodInfo(
         file_name="generic",
         name="unverifiable_files",
