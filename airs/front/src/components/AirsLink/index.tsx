@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InternalLink } from "./styledComponents";
+import { ExternalLink, InternalLink } from "./styledComponents";
 import type { ILinkProps } from "./types";
 
 interface IAirsLinkProps extends ILinkProps {
@@ -27,15 +27,25 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
 
   if (allowLinks.some((link): boolean => href.startsWith(link))) {
     return (
-      <a href={href} rel={"noopener noreferrer"} target={"_blank"}>
+      <ExternalLink
+        decoration={decoration}
+        href={href}
+        rel={"noopener noreferrer"}
+        target={"_blank"}
+      >
         {children}
-      </a>
+      </ExternalLink>
     );
   } else if (href.startsWith("https://") || href.startsWith("http://")) {
     return (
-      <a href={href} rel={"nofollow noopener noreferrer"} target={"_blank"}>
+      <ExternalLink
+        decoration={decoration}
+        href={href}
+        rel={"nofollow noopener noreferrer"}
+        target={"_blank"}
+      >
         {children}
-      </a>
+      </ExternalLink>
     );
   }
 

@@ -1,4 +1,3 @@
-/* eslint react/jsx-no-bind:0 */
 import React from "react";
 
 import type { IHeaderProps } from "./types";
@@ -33,7 +32,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
           </Text>
         ) : undefined}
       </Container>
-      <Container center={true} pt={5} width={"1200px"} widthSm={"100%"}>
+      <Container center={true} pt={5} width={"1440px"} widthSm={"100%"}>
         <img alt={`solution ${title}`} className={"w-100 h-100"} src={image} />
       </Container>
     </Container>
