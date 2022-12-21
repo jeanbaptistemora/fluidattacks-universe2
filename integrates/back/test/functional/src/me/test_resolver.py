@@ -373,7 +373,7 @@ async def test_get_me_has_drafts_rejected(populate: bool, email: str) -> None:
     assert rejected_2["data"]["me"]["hasDraftsRejected"]
 
     unsubscribe: dict[str, Any] = await unsubscribe_from_group(
-        user=email, group="group1"
+        email=email, group_name="group1"
     )
     assert "errors" not in unsubscribe
     assert unsubscribe["data"]["unsubscribeFromGroup"]["success"]

@@ -1384,6 +1384,9 @@ async def remove_stakeholder(
         )
 
     loaders = get_new_context()
+    stakeholder_groups_names = await get_groups_by_stakeholder(
+        loaders, email_to_revoke
+    )
     all_groups_by_stakeholder = await loaders.group.load_many(
         stakeholder_groups_names
     )

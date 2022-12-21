@@ -7,27 +7,51 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
-async def get_result(
+async def get_stakeholder_organizations(
     *,
-    user: str,
-    group: str,
-) -> Dict[str, Any]:
-    query: str = f"""
-        mutation {{
-            unsubscribeFromGroup(groupName: "{group}"){{
-                success
-            }}
-        }}
-    """
-    data: Dict[str, str] = {
+    email: str,
+) -> dict[str, Any]:
+    query: str = """{
+        me(callerOrigin: "API") {
+            organizations {
+                id
+                groups {
+                    name
+                }
+            }
+            __typename
+        }
+    }"""
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(
         data,
-        stakeholder=user,
+        stakeholder=email,
+        context=get_new_context(),
+    )
+
+
+async def get_result(
+    *,
+    email: str,
+    group_name: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        mutation {{
+            unsubscribeFromGroup(groupName: "{group_name}"){{
+                success
+            }}
+        }}
+    """
+    data: dict[str, str] = {
+        "query": query,
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=email,
         context=get_new_context(),
     )
