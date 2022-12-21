@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test019.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test019.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -20,8 +20,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. 
   18 |
   19 | export default router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test020.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test020.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -42,8 +42,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test021.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test021.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -64,8 +64,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test022.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test022.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -86,8 +86,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test023.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test023.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -108,8 +108,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. 
   18 |
   19 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test024.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test024.js","
    4 |
    5 | router.get(""/test024/"", function (req, res) {
    6 |   var user = req.query[""user""];
@@ -132,8 +132,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063.
   23 |
   24 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test025.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test025.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -155,8 +155,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063.
   19 |
   20 | export default router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test026.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test026.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -178,8 +178,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063.
   19 |
   20 | module.exports = router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test027.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test027.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
    3 | import { readFile } from ""fs"";
@@ -201,8 +201,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063.
   19 |
   20 | export default router;
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test029.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test029.js","
    5 |
    6 | router.delete(""/test029/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -225,8 +225,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test029.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test030.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test030.js","
    5 |
    6 | router.delete(""/test030/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -249,8 +249,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test030.js,15,22,skims,063.
   24 |   }
   25 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test031.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test031.js","
    5 |
    6 | router.delete(""/test031/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -273,8 +273,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test031.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test032.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test032.js","
    6 | router.delete(""/test032/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
    8 |   var fileName = req.params[""fileName""];
@@ -297,8 +297,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test032.js,16,22,skims,063.
   25 |     ];
   26 |   }
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test033.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test033.js","
    5 |
    6 | router.delete(""/test033/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -321,8 +321,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test033.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test034.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test034.js","
    5 |
    6 | router.delete(""/test034/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -345,8 +345,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test034.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test035.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test035.js","
    5 |
    6 | router.delete(""/test035/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -369,8 +369,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test035.js,15,22,skims,063.
   24 |   }
   25 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test036.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test036.js","
    5 |
    6 | router.delete(""/test036/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -393,8 +393,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test036.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test037.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test037.js","
    6 | router.delete(""/test037/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
    8 |   var fileName = req.params[""fileName""];
@@ -417,8 +417,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test037.js,16,22,skims,063.
   25 |     ];
   26 |   }
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test038.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test038.js","
    6 | router.get(""/test038"", function (req, res) {
    7 |   let body = req.body;
    8 |   var user = body[""user""];
@@ -441,8 +441,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test038.js,16,22,skims,063.
   25 |   }
   26 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test039.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test039.js","
    4 |
    5 | router.delete(""/test039/:user/:fileName"", function (req, res) {
    6 |   var user = req.params[""user""];
@@ -465,8 +465,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test039.js,14,22,skims,063.
   23 |   }
   24 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test040.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test040.js","
    3 | const fs = require(""fs"");
    4 |
    5 | router.delete(""/test040/:user/:fileName"", function (req, res) {
@@ -489,8 +489,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test040.js,13,22,skims,063.
   22 |   }
   23 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test041.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test041.js","
    5 |
    6 | router.delete(""/test041/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -513,8 +513,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test041.js,15,22,skims,063.
   24 |   }
   25 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test042.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test042.js","
    4 |
    5 | router.delete(""/test042/:user/:fileName"", function (req, res) {
    6 |   var user = req.params[""user""];
@@ -537,8 +537,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test042.js,14,22,skims,063.
   23 |     ];
   24 |   }
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test043.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test043.js","
    4 | const path = require(""path"");
    5 |
    6 | router.delete(""/test043/:user/:fileName"", function (req, res) {
@@ -561,8 +561,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,14,22,skims,063.
   23 |   }
   24 |   res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test044.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test044.js","
    5 |
    6 | router.delete(""/test044/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -585,8 +585,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063.
   24 |       }
   25 |       res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test045.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test045.js","
    4 | const path = require(""path"");
    5 |
    6 | router.delete(""/test045/:user/:fileName"", function (req, res) {
@@ -609,8 +609,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test046.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test046.js","
    4 | var router = Router();
    5 |
    6 | router.delete(""/test046/:user/:fileName"", function (req, res) {
@@ -633,8 +633,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test047.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test047.js","
    4 | var router = Router();
    5 |
    6 | router.delete(""/test047/:user/:fileName"", function (req, res) {
@@ -657,8 +657,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063.
   23 |     }
   24 |     res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test048.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test048.js","
    4 | var router = Router();
    5 |
    6 | router.delete(""/test048/:user/:fileName"", function (req, res) {
@@ -681,8 +681,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063.
   23 |     }
   24 |     res.send(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test049.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test049.js","
    5 |
    6 | router.delete(""/test049/:user/:fileName"", function (req, res) {
    7 |   var user = req.params[""user""];
@@ -705,8 +705,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063.
   24 |       }
   25 |       res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test050.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test050.js","
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -729,8 +729,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063.
   27 |   }
   28 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test051.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test051.js","
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -753,8 +753,32 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063.
   26 |       {
   27 |         message: error,
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test053.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test052.js,21,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test052.js","
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let data = {
+  17 |     write: false,
+  18 |   };
+  19 |   if (data.write) {
+  20 |     try {
+> 21 |       fileSystem.writeFileSync(
+  22 |         `target/user_files/${user}/${file}`,
+  23 |         payload,
+  24 |         ""utf8""
+  25 |       );
+  26 |       result.ok = true;
+  27 |     } catch (error) {
+  28 |       result.ok = false;
+  29 |       result[""errors""] = [
+  30 |         {
+  31 |           message: error,
+     ^ Col 0
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test053.js","
    9 |   let user = body.user;
   10 |   let file = body.fileName;
   11 |   let payload = body.payload;
@@ -777,8 +801,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063.
   28 |     }
   29 |   }
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test054.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test054.js","
    9 |   let user = body.user;
   10 |   let file = body.fileName;
   11 |   let payload = body.payload;
@@ -801,8 +825,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063.
   28 |   }
   29 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test055.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test055.js","
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -825,8 +849,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063.
   27 |   }
   28 |   res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test056.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test056.js","
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -849,8 +873,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test057.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test057.js","
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -873,8 +897,32 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063.
   26 |           {
   27 |             message: error,
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test059.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test058.js,20,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test058.js","
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let data = {
+  17 |     write: false,
+  18 |   };
+  19 |   if (data.write) {
+> 20 |     fileSystem.writeFile(
+  21 |       `target/user_files/${user}/${file}`,
+  22 |       payload,
+  23 |       ""utf8"",
+  24 |       function (error) {
+  25 |         result.ok = true;
+  26 |         if (errors) {
+  27 |           result.ok = false;
+  28 |           result[""errors""] = [
+  29 |             {
+  30 |               message: error,
+     ^ Col 0
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test059.js","
    8 |
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -897,8 +945,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063.
   27 |       }
   28 |       res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test060.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test060.js","
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -921,8 +969,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test061.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test061.js","
    7 |   let body = req.body;
    8 |
    9 |   let user = body.user;
@@ -945,8 +993,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063.
   26 |     }
   27 |     res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test062.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test062.js","
   11 |
   12 |   let userFiles = ""./target/user_files/"";
   13 |   const testFolder = ""./target/user_files/"";
@@ -969,8 +1017,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063.
   30 |       }
   31 |       res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test063.js","
   10 |   let payload = body.payload;
   11 |
   12 |   let usersFiles = ""./target/user_files"";
@@ -993,8 +1041,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063.
   29 |             {
   30 |               message: error,
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test063.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test063.js","
   14 |   let result = {
   15 |     ok: false,
   16 |   };
@@ -1017,8 +1065,32 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063.
   33 |         } else {
   34 |           res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test070.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test069.js,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test069.js","
+   7 |   var bar = ""alsosafe"";
+   8 |   var valuesList = [];
+   9 |   valuesList.push(""safe"");
+  10 |   valuesList.push(user);
+  11 |   valuesList.push(""moresafe"");
+  12 |   valuesList.shift();
+  13 |   bar = valuesList[1];
+  14 |
+  15 |   let userFiles = ""./target/user_files/"";
+  16 |   var filePath = userFiles + bar;
+> 17 |   fs.readdir(filePath, (error, files) => {
+  18 |     if (error) {
+  19 |       res.status(""404"").json({
+  20 |         error: `the file ${filePath} does no exist`,
+  21 |       });
+  22 |     } else {
+  23 |       res.json({ user_files: files });
+  24 |     }
+  25 |   });
+  26 | });
+  27 |
+     ^ Col 0
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test070.js","
    1 | var express = require(""express"");
    2 | var router = express.Router();
    3 | const fs = require(""fs"");
@@ -1041,8 +1113,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063.
   20 |       error: ""file does not exists "",
   21 |     });
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test072.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test072.js","
   10 |   let payload = body.payload;
   11 |
   12 |   let usersFiles = ""./target/user_files"";
@@ -1065,8 +1137,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063.
   29 |       } else {
   30 |         res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test073.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test073.js","
    6 |   var user = req.params[""user""];
    7 |   var bar = ""alsosafe"";
    8 |   var valuesList = [];
@@ -1089,8 +1161,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063.
   25 | });
   26 |
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test075.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test075.js","
   10 |   let list75 = [""safe"", ""safe"", _user, _fileName];
   11 |   list75.shift();
   12 |   list75.push(""safe"");
@@ -1113,8 +1185,8 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063.
   29 |     }
   30 |     res.json(result);
      ^ Col 0
-",query.query_f063
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,Path traversal in VULNERABLE_JS_APP/server/routes/testcases/test076.js,"
+",javascript.js_insecure_path_traversal
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in VULNERABLE_JS_APP/server/routes/testcases/test076.js","
   13 |   list76A.push(""safe"");
   14 |   list76B.pop();
   15 |   let list76C = list76A.concat(list76B);
@@ -1137,7 +1209,7 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063.
   32 |     }
   33 |     res.json(result);
      ^ Col 0
-",query.query_f063
+",javascript.js_insecure_path_traversal
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test104.js,"
    1 | import { Router } from ""express"";
    2 | import * as crypto from ""crypto"";

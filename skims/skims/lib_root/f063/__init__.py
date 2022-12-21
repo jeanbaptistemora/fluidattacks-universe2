@@ -3,6 +3,7 @@ from lib_root.f063.c_sharp import (
     unsafe_path_traversal as c_sharp_unsafe_path_traversal,
 )
 from lib_root.f063.java import (
+    unsafe_path_traversal as java_unsafe_path_traversal,
     zip_slip_injection as java_zip_slip_injection,
 )
 from lib_root.f063.javascript import (
@@ -23,6 +24,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_open_redirect),
     (FINDING, c_sharp_unsafe_path_traversal),
     (FINDING, java_zip_slip_injection),
+    (FINDING, java_unsafe_path_traversal),
     (FINDING, js_insecure_path_traversal),
     (FINDING, js_zip_slip_injection),
     (FINDING, ts_zip_slip_injection),

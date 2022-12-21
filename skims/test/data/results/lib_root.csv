@@ -1289,7 +1289,8 @@ F234,lines,namespace/skims/test/data/lib_root/f237/java_print_stacktrace.java,7,
   10 | }
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
+ in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
    1 | t java.io.File;
    2 |
    3 | c class Test {
@@ -1306,8 +1307,9 @@ F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,2
   14 |
   15 |
      ^ Col 5
-",query.query_f063
-F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
+",java.java_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
+ in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
    1 |
    2 |
    3 |
@@ -1324,7 +1326,7 @@ F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,2
   14 |
   15 |
      ^ Col 33
-",query.query_f063
+",java.java_unsafe_path_traversal
 F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,"
    1 | using System;
    2 |
