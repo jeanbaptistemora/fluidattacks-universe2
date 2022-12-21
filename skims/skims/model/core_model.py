@@ -3693,6 +3693,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_TRUST_BOUNDARY_VIOLATION = MethodInfo(
+        file_name="java",
+        name="java_trust_boundary_violation",
+        module="lib_root",
+        finding=FindingEnum.F089,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CS_INSECURE_LOGGING = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_logging",

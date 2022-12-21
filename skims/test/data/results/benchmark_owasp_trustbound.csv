@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.java,67,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.java,67,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.java","
   55 |   String param = ""noCookieValueSupplied"";
   56 |   if (theCookies != null) {
@@ -23,8 +23,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00004.j
   74 |
   75 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.java","
   43 |
   44 |
@@ -48,8 +48,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00031.j
   62 |
   63 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00097.java,74,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00097.java","
+  62 |
+  63 |
+  64 |   String bar;
+  65 |
+  66 |   // Simple ? condition that assigns constant to bar on true condition
+  67 |   int num = 106;
+  68 |
+  69 |   bar = (7*18) + num > 200 ? ""This_should_always_happen"" : param;
+  70 |
+  71 |
+  72 |
+  73 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 74 |   request.getSession().putValue( bar, ""10340"");
+  75 |
+  76 |   response.getWriter().println(
+  77 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  78 |    + ""' with value: 10340 saved in session.""
+  79 | );
+  80 |  }
+  81 |
+  82 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00098"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -73,8 +98,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00098.j
   75 |
   76 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00250.java,84,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00250.java","
+  72 |           break;
+  73 |     case 'C':
+  74 |     case 'D':
+  75 |           bar = param;
+  76 |           break;
+  77 |     default:
+  78 |           bar = ""bob's your uncle"";
+  79 |           break;
+  80 |   }
+  81 |
+  82 |
+  83 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 84 |   request.getSession().putValue( bar, ""10340"");
+  85 |
+  86 |   response.getWriter().println(
+  87 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  88 |    + ""' with value: 10340 saved in session.""
+  89 | );
+  90 |  }
+  91 |
+  92 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.java","
   54 |     param = name;
   55 |     break;
@@ -98,8 +148,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00251.j
   73 |
   74 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00253.java,84,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00253.java","
+  72 |           break;
+  73 |     case 'C':
+  74 |     case 'D':
+  75 |           bar = param;
+  76 |           break;
+  77 |     default:
+  78 |           bar = ""bob's your uncle"";
+  79 |           break;
+  80 |   }
+  81 |
+  82 |
+  83 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 84 |   request.getSession().setAttribute( ""userid"", bar);
+  85 |
+  86 |   response.getWriter().println(
+  87 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  88 |    + ""' saved in session.""
+  89 | );
+  90 |  }
+  91 |
+  92 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
   47 |    param = headers.nextElement(); // just grab first element
@@ -123,8 +198,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00321.j
   65 |
   66 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00323.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00323.java","
+  52 |
+  53 |
+  54 |   String bar;
+  55 |
+  56 |   // Simple if statement that assigns constant to bar on true condition
+  57 |   int num = 86;
+  58 |   if ( (7*42) - num > 200 )
+  59 |      bar = ""This_should_always_happen"";
+  60 |   else bar = param;
+  61 |
+  62 |
+  63 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 64 |   request.getSession().putValue( ""userid"", bar);
+  65 |
+  66 |   response.getWriter().println(
+  67 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  68 |    + ""' saved in session.""
+  69 | );
+  70 |  }
+  71 |
+  72 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
   47 |    param = headers.nextElement(); // just grab first element
@@ -148,8 +248,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00324.j
   65 |
   66 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.java,58,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
   47 |    param = headers.nextElement(); // just grab first element
@@ -173,8 +273,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00325.j
   65 |
   66 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.java","
   52 |
   53 |
@@ -198,8 +298,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00326.j
   71 |
   72 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00327.java,59,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00327.java","
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |
+  54 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
+  55 |   String bar = thing.doSomething(param);
+  56 |
+  57 |
+  58 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 59 |   request.getSession().setAttribute( ""userid"", bar);
+  60 |
+  61 |   response.getWriter().println(
+  62 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  63 |    + ""' saved in session.""
+  64 | );
+  65 |  }
+  66 |
+  67 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.java,55,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.java","
   43 |   String param = request.getParameter(""BenchmarkTest00424"");
   44 |   if (param == null) param = """";
@@ -223,8 +348,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00424.j
   62 |
   63 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.java","
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   41 |   response.setContentType(""text/html;charset=UTF-8"");
@@ -248,8 +373,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00425.j
   59 |
   60 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.java","
   45 |
   46 |
@@ -273,8 +398,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00426.j
   64 |
   65 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00427.java,64,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00427.java","
+  52 |   java.util.HashMap<String,Object> map70670 = new java.util.HashMap<String,Object>();
+  53 |   map70670.put(""key70670"", b70670.toString()); // put in a collection
+  54 |   String c70670 = (String)map70670.get(""key70670""); // get it back out
+  55 |   String d70670 = c70670.substring(0,c70670.length()-1); // extract most of it
+  56 |   String e70670 = new String( org.apache.commons.codec.binary.Base64.decodeBase64(
+  57 |       org.apache.commons.codec.binary.Base64.encodeBase64( d70670.getBytes() ) )); // B64 encode and decode it
+  58 |   String f70670 = e70670.split("" "")[0]; // split it on a space
+  59 |   org.owasp.benchmark.helpers.ThingInterface thing = org.owasp.benchmark.helpers.ThingFactory.createThing();
+  60 |   String bar = thing.doSomething(f70670); // reflection
+  61 |
+  62 |
+  63 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 64 |   request.getSession().setAttribute( ""userid"", bar);
+  65 |
+  66 |   response.getWriter().println(
+  67 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  68 |    + ""' saved in session.""
+  69 | );
+  70 |  }
+  71 |
+  72 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.java","
   45 |   if (!map.isEmpty()) {
   46 |    String[] values = map.get(""BenchmarkTest00508"");
@@ -298,8 +448,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00508.j
   64 |
   65 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.java,70,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.java,70,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.java","
   58 |   }
   59 |
@@ -323,8 +473,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00587.j
   77 |
   78 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.java,68,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.java","
   56 |     }
   57 |    }
@@ -348,8 +498,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00588.j
   75 |
   76 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.java,59,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.java,59,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.java","
   47 |   else param = """";
   48 |
@@ -373,8 +523,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00754.j
   66 |
   67 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00755.java,60,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00755.java","
+  48 |
+  49 |
+  50 |   String bar;
+  51 |
+  52 |   // Simple if statement that assigns constant to bar on true condition
+  53 |   int num = 86;
+  54 |   if ( (7*42) - num > 200 )
+  55 |      bar = ""This_should_always_happen"";
+  56 |   else bar = param;
+  57 |
+  58 |
+  59 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 60 |   request.getSession().putValue( ""userid"", bar);
+  61 |
+  62 |   response.getWriter().println(
+  63 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  64 |    + ""' saved in session.""
+  65 | );
+  66 |  }
+  67 |
+  68 | }
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest00756"");
@@ -398,8 +573,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00756.j
   61 |
   62 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.java,73,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.java,73,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.java","
   61 |           break;
   62 |     case 'C':
@@ -423,8 +598,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00757.j
   80 |
   81 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.java,57,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.java","
   45 |   if (values != null && values.length > 0)
   46 |     param = values[0];
@@ -448,8 +623,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00759.j
   64 |
   65 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.java,71,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.java,71,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.java","
   59 |
   60 |
@@ -473,8 +648,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00833.j
   78 |
   79 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.java,69,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.java,69,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.java","
   57 |   }
   58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -498,8 +673,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00834.j
   76 |
   77 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.java","
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
   55 |   if (ampersandLoc != -1) {
@@ -523,8 +698,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00836.j
   73 |
   74 | }
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00991"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -548,8 +723,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00991.j
   75 |     private class Test {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00992.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00992.java","
+   56 |     if (theCookie.getName().equals(""BenchmarkTest00992"")) {
+   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+   58 |      break;
+   59 |     }
+   60 |    }
+   61 |   }
+   62 |
+   63 |   String bar = new Test().doSomething(request, param);
+   64 |
+   65 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+>  66 |   request.getSession().putValue( bar, ""10340"");
+   67 |
+   68 |   response.getWriter().println(
+   69 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+   70 |    + ""' with value: 10340 saved in session.""
+   71 | );
+   72 |  }  // end doPost
+   73 |
+   74 |
+   75 |     private class Test {
+   76 |
+      ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00993.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00993.java","
+  56 |     if (theCookie.getName().equals(""BenchmarkTest00993"")) {
+  57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+  58 |      break;
+  59 |     }
+  60 |    }
+  61 |   }
+  62 |
+  63 |   String bar = new Test().doSomething(request, param);
+  64 |
+  65 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 66 |   request.getSession().putValue( ""userid"", bar);
+  67 |
+  68 |   response.getWriter().println(
+  69 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  70 |    + ""' saved in session.""
+  71 | );
+  72 |  }  // end doPost
+  73 |
+  74 |
+  75 |     private class Test {
+  76 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00994"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -573,8 +798,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00994.j
   75 |     private class Test {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest00995"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -598,8 +823,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00995.j
   75 |     private class Test {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01080.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01080.java","
+  44 |   if (request.getHeader(""BenchmarkTest01080"") != null) {
+  45 |    param = request.getHeader(""BenchmarkTest01080"");
+  46 |   }
+  47 |
+  48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |   String bar = new Test().doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 54 |   request.getSession().putValue( bar, ""10340"");
+  55 |
+  56 |   response.getWriter().println(
+  57 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' with value: 10340 saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |     private class Test {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.java","
   44 |   if (request.getHeader(""BenchmarkTest01081"") != null) {
   45 |    param = request.getHeader(""BenchmarkTest01081"");
@@ -623,8 +873,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01081.j
   63 |     private class Test {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.java","
   44 |   if (request.getHeader(""BenchmarkTest01082"") != null) {
   45 |    param = request.getHeader(""BenchmarkTest01082"");
@@ -648,8 +898,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01082.j
   63 |     private class Test {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01142.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01142.java","
+  53 |    if (values != null && values.hasMoreElements()) {
+  54 |     param = name;
+  55 |     break;
+  56 |    }
+  57 |   }
+  58 |   // Note: We don't URL decode header names because people don't normally do that
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().putValue( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.java","
   53 |    if (values != null && values.hasMoreElements()) {
   54 |     param = name;
@@ -673,8 +948,83 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01143.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01144.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01144.java","
+  53 |    if (values != null && values.hasMoreElements()) {
+  54 |     param = name;
+  55 |     break;
+  56 |    }
+  57 |   }
+  58 |   // Note: We don't URL decode header names because people don't normally do that
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().setAttribute( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01145.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01145.java","
+  53 |    if (values != null && values.hasMoreElements()) {
+  54 |     param = name;
+  55 |     break;
+  56 |    }
+  57 |   }
+  58 |   // Note: We don't URL decode header names because people don't normally do that
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().setAttribute( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01146.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01146.java","
+   53 |    if (values != null && values.hasMoreElements()) {
+   54 |     param = name;
+   55 |     break;
+   56 |    }
+   57 |   }
+   58 |   // Note: We don't URL decode header names because people don't normally do that
+   59 |
+   60 |   String bar = new Test().doSomething(request, param);
+   61 |
+   62 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+>  63 |   request.getSession().setAttribute( ""userid"", bar);
+   64 |
+   65 |   response.getWriter().println(
+   66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+   67 |    + ""' saved in session.""
+   68 | );
+   69 |  }  // end doPost
+   70 |
+   71 |
+   72 |     private class Test {
+   73 |
+      ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
   47 |    param = headers.nextElement(); // just grab first element
@@ -698,8 +1048,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01203.j
   65 |     private class Test {
   66 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01204.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01204.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = new Test().doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 56 |   request.getSession().putValue( ""userid"", bar);
+  57 |
+  58 |   response.getWriter().println(
+  59 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |     private class Test {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01205.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01205.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = new Test().doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 56 |   request.getSession().putValue( ""userid"", bar);
+  57 |
+  58 |   response.getWriter().println(
+  59 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |     private class Test {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.java","
   46 |   if (headers != null && headers.hasMoreElements()) {
   47 |    param = headers.nextElement(); // just grab first element
@@ -723,8 +1123,83 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01206.j
   65 |     private class Test {
   66 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01207.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01207.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = new Test().doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String^,java.lang.Object)
+> 56 |   request.getSession().setAttribute( bar, ""10340"");
+  57 |
+  58 |   response.getWriter().println(
+  59 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' with value: '10340' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |     private class Test {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01299.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01299.java","
+  39 |  @Override
+  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  41 |   response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |   String param = request.getParameter(""BenchmarkTest01299"");
+  44 |   if (param == null) param = """";
+  45 |
+  46 |   String bar = new Test().doSomething(request, param);
+  47 |
+  48 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 49 |   request.getSession().putValue( ""userid"", bar);
+  50 |
+  51 |   response.getWriter().println(
+  52 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  53 |    + ""' saved in session.""
+  54 | );
+  55 |  }  // end doPost
+  56 |
+  57 |
+  58 |     private class Test {
+  59 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01300.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01300.java","
+  39 |  @Override
+  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  41 |   response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |   String param = request.getParameter(""BenchmarkTest01300"");
+  44 |   if (param == null) param = """";
+  45 |
+  46 |   String bar = new Test().doSomething(request, param);
+  47 |
+  48 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 49 |   request.getSession().putValue( ""userid"", bar);
+  50 |
+  51 |   response.getWriter().println(
+  52 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  53 |    + ""' saved in session.""
+  54 | );
+  55 |  }  // end doPost
+  56 |
+  57 |
+  58 |     private class Test {
+  59 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.java","
   44 |   String param = """";
   45 |   if (!map.isEmpty()) {
@@ -748,8 +1223,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01374.j
   63 |     private class Test {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01375.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01375.java","
+  44 |   String param = """";
+  45 |   if (!map.isEmpty()) {
+  46 |    String[] values = map.get(""BenchmarkTest01375"");
+  47 |    if (values != null) param = values[0];
+  48 |   }
+  49 |
+  50 |
+  51 |   String bar = new Test().doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 54 |   request.getSession().putValue( ""userid"", bar);
+  55 |
+  56 |   response.getWriter().println(
+  57 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |     private class Test {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.java","
   44 |   String param = """";
   45 |   if (!map.isEmpty()) {
@@ -773,8 +1273,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01376.j
   63 |     private class Test {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01377.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01377.java","
+  44 |   String param = """";
+  45 |   if (!map.isEmpty()) {
+  46 |    String[] values = map.get(""BenchmarkTest01377"");
+  47 |    if (values != null) param = values[0];
+  48 |   }
+  49 |
+  50 |
+  51 |   String bar = new Test().doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 54 |   request.getSession().setAttribute( ""userid"", bar);
+  55 |
+  56 |   response.getWriter().println(
+  57 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |     private class Test {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01454.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01454.java","
+  53 |       param = name;
+  54 |          flag = false;
+  55 |      }
+  56 |     }
+  57 |    }
+  58 |   }
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().putValue( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.java","
   53 |       param = name;
   54 |          flag = false;
@@ -798,8 +1348,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01455.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.java","
   53 |       param = name;
   54 |          flag = false;
@@ -823,8 +1373,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01456.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.java","
    53 |       param = name;
    54 |          flag = false;
@@ -848,8 +1398,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01457.j
    72 |     private class Test {
    73 |
       ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01458.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01458.java","
+  53 |       param = name;
+  54 |          flag = false;
+  55 |      }
+  56 |     }
+  57 |    }
+  58 |   }
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String^,java.lang.Object)
+> 63 |   request.getSession().setAttribute( bar, ""10340"");
+  64 |
+  65 |   response.getWriter().println(
+  66 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' with value: '10340' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01615"");
@@ -873,8 +1448,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01615.j
   61 |     private class Test {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01616.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01616.java","
+  42 |
+  43 |   String[] values = request.getParameterValues(""BenchmarkTest01616"");
+  44 |   String param;
+  45 |   if (values != null && values.length > 0)
+  46 |     param = values[0];
+  47 |   else param = """";
+  48 |
+  49 |   String bar = new Test().doSomething(request, param);
+  50 |
+  51 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 52 |   request.getSession().putValue( ""userid"", bar);
+  53 |
+  54 |   response.getWriter().println(
+  55 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  56 |    + ""' saved in session.""
+  57 | );
+  58 |  }  // end doPost
+  59 |
+  60 |
+  61 |     private class Test {
+  62 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01617"");
@@ -898,8 +1498,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01617.j
   61 |     private class Test {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01618.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01618.java","
+  42 |
+  43 |   String[] values = request.getParameterValues(""BenchmarkTest01618"");
+  44 |   String param;
+  45 |   if (values != null && values.length > 0)
+  46 |     param = values[0];
+  47 |   else param = """";
+  48 |
+  49 |   String bar = new Test().doSomething(request, param);
+  50 |
+  51 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 52 |   request.getSession().setAttribute( ""userid"", bar);
+  53 |
+  54 |   response.getWriter().println(
+  55 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  56 |    + ""' saved in session.""
+  57 | );
+  58 |  }  // end doPost
+  59 |
+  60 |
+  61 |     private class Test {
+  62 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest01619"");
@@ -923,8 +1548,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01619.j
   61 |     private class Test {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -948,8 +1573,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01708.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01709.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01709.java","
+  53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
+  54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  55 |   if (ampersandLoc != -1) {
+  56 |    param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  57 |   }
+  58 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  59 |
+  60 |   String bar = new Test().doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().putValue( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |     private class Test {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -973,8 +1623,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01710.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -998,8 +1648,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01711.j
   72 |     private class Test {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01872.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01872.java","
+  56 |     if (theCookie.getName().equals(""BenchmarkTest01872"")) {
+  57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+  58 |      break;
+  59 |     }
+  60 |    }
+  61 |   }
+  62 |
+  63 |   String bar = doSomething(request, param);
+  64 |
+  65 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 66 |   request.getSession().putValue( bar, ""10340"");
+  67 |
+  68 |   response.getWriter().println(
+  69 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  70 |    + ""' with value: 10340 saved in session.""
+  71 | );
+  72 |  }  // end doPost
+  73 |
+  74 |
+  75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  76 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01873.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01873.java","
+  56 |     if (theCookie.getName().equals(""BenchmarkTest01873"")) {
+  57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+  58 |      break;
+  59 |     }
+  60 |    }
+  61 |   }
+  62 |
+  63 |   String bar = doSomething(request, param);
+  64 |
+  65 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 66 |   request.getSession().putValue( ""userid"", bar);
+  67 |
+  68 |   response.getWriter().println(
+  69 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  70 |    + ""' saved in session.""
+  71 | );
+  72 |  }  // end doPost
+  73 |
+  74 |
+  75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  76 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01874"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -1023,8 +1723,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01874.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01875"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -1048,8 +1748,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01875.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.java,66,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.java","
   56 |     if (theCookie.getName().equals(""BenchmarkTest01876"")) {
   57 |      param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
@@ -1073,8 +1773,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01876.j
   75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   76 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.java","
   44 |   if (request.getHeader(""BenchmarkTest01955"") != null) {
   45 |    param = request.getHeader(""BenchmarkTest01955"");
@@ -1098,8 +1798,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01955.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01956.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01956.java","
+  44 |   if (request.getHeader(""BenchmarkTest01956"") != null) {
+  45 |    param = request.getHeader(""BenchmarkTest01956"");
+  46 |   }
+  47 |
+  48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |   String bar = doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 54 |   request.getSession().putValue( bar, ""10340"");
+  55 |
+  56 |   response.getWriter().println(
+  57 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' with value: 10340 saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01957.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01957.java","
+  44 |   if (request.getHeader(""BenchmarkTest01957"") != null) {
+  45 |    param = request.getHeader(""BenchmarkTest01957"");
+  46 |   }
+  47 |
+  48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |   String bar = doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 54 |   request.getSession().putValue( bar, ""10340"");
+  55 |
+  56 |   response.getWriter().println(
+  57 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' with value: 10340 saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.java","
   44 |   if (request.getHeader(""BenchmarkTest01958"") != null) {
   45 |    param = request.getHeader(""BenchmarkTest01958"");
@@ -1123,8 +1873,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01958.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01959.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01959.java","
+  44 |   if (request.getHeader(""BenchmarkTest01959"") != null) {
+  45 |    param = request.getHeader(""BenchmarkTest01959"");
+  46 |   }
+  47 |
+  48 |   // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |   String bar = doSomething(request, param);
+  52 |
+  53 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 54 |   request.getSession().setAttribute( ""userid"", bar);
+  55 |
+  56 |   response.getWriter().println(
+  57 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  58 |    + ""' saved in session.""
+  59 | );
+  60 |  }  // end doPost
+  61 |
+  62 |
+  63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  64 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.java","
   44 |   if (request.getHeader(""BenchmarkTest01960"") != null) {
   45 |    param = request.getHeader(""BenchmarkTest01960"");
@@ -1148,8 +1923,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01960.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.java","
   53 |    if (values != null && values.hasMoreElements()) {
   54 |     param = name;
@@ -1173,8 +1948,108 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02015.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02016.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02016.java","
+  53 |    if (values != null && values.hasMoreElements()) {
+  54 |     param = name;
+  55 |     break;
+  56 |    }
+  57 |   }
+  58 |   // Note: We don't URL decode header names because people don't normally do that
+  59 |
+  60 |   String bar = doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 63 |   request.getSession().putValue( ""userid"", bar);
+  64 |
+  65 |   response.getWriter().println(
+  66 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02084.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02084.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 56 |   request.getSession().setAttribute( ""userid"", bar);
+  57 |
+  58 |   response.getWriter().println(
+  59 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02085.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02085.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 56 |   request.getSession().setAttribute( ""userid"", bar);
+  57 |
+  58 |   response.getWriter().println(
+  59 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02086.java,56,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02086.java","
+  46 |   if (headers != null && headers.hasMoreElements()) {
+  47 |    param = headers.nextElement(); // just grab first element
+  48 |   }
+  49 |
+  50 |   // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |   param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |   String bar = doSomething(request, param);
+  54 |
+  55 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 56 |   request.getSession().setAttribute( ""userid"", bar);
+  57 |
+  58 |   response.getWriter().println(
+  59 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  60 |    + ""' saved in session.""
+  61 | );
+  62 |  }  // end doPost
+  63 |
+  64 |
+  65 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  66 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.java","
   39 |  @Override
   40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1198,8 +2073,83 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02165.j
   58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   59 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02166.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02166.java","
+  39 |  @Override
+  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  41 |   response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |   String param = request.getParameter(""BenchmarkTest02166"");
+  44 |   if (param == null) param = """";
+  45 |
+  46 |   String bar = doSomething(request, param);
+  47 |
+  48 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 49 |   request.getSession().putValue( ""userid"", bar);
+  50 |
+  51 |   response.getWriter().println(
+  52 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  53 |    + ""' saved in session.""
+  54 | );
+  55 |  }  // end doPost
+  56 |
+  57 |
+  58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  59 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02167.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02167.java","
+  39 |  @Override
+  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  41 |   response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |   String param = request.getParameter(""BenchmarkTest02167"");
+  44 |   if (param == null) param = """";
+  45 |
+  46 |   String bar = doSomething(request, param);
+  47 |
+  48 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 49 |   request.getSession().setAttribute( ""userid"", bar);
+  50 |
+  51 |   response.getWriter().println(
+  52 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  53 |    + ""' saved in session.""
+  54 | );
+  55 |  }  // end doPost
+  56 |
+  57 |
+  58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  59 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02168.java,49,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02168.java","
+  39 |  @Override
+  40 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  41 |   response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |   String param = request.getParameter(""BenchmarkTest02168"");
+  44 |   if (param == null) param = """";
+  45 |
+  46 |   String bar = doSomething(request, param);
+  47 |
+  48 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
+> 49 |   request.getSession().setAttribute( ""userid"", bar);
+  50 |
+  51 |   response.getWriter().println(
+  52 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  53 |    + ""' saved in session.""
+  54 | );
+  55 |  }  // end doPost
+  56 |
+  57 |
+  58 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  59 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.java","
   44 |   String param = """";
   45 |   if (!map.isEmpty()) {
@@ -1223,8 +2173,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02261.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.java","
   44 |   String param = """";
   45 |   if (!map.isEmpty()) {
@@ -1248,8 +2198,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02262.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.java,54,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.java","
   44 |   String param = """";
   45 |   if (!map.isEmpty()) {
@@ -1273,8 +2223,58 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02263.j
   63 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   64 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02352.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02352.java","
+  53 |       param = name;
+  54 |          flag = false;
+  55 |      }
+  56 |     }
+  57 |    }
+  58 |   }
+  59 |
+  60 |   String bar = doSomething(request, param);
+  61 |
+  62 |   // javax.servlet.http.HttpSession.setAttribute(java.lang.String^,java.lang.Object)
+> 63 |   request.getSession().setAttribute( bar, ""10340"");
+  64 |
+  65 |   response.getWriter().println(
+  66 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  67 |    + ""' with value: '10340' saved in session.""
+  68 | );
+  69 |  }  // end doPost
+  70 |
+  71 |
+  72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  73 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02523.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02523.java","
+  42 |
+  43 |   String[] values = request.getParameterValues(""BenchmarkTest02523"");
+  44 |   String param;
+  45 |   if (values != null && values.length > 0)
+  46 |     param = values[0];
+  47 |   else param = """";
+  48 |
+  49 |   String bar = doSomething(request, param);
+  50 |
+  51 |   // javax.servlet.http.HttpSession.putValue(java.lang.String^,java.lang.Object)
+> 52 |   request.getSession().putValue( bar, ""10340"");
+  53 |
+  54 |   response.getWriter().println(
+  55 | ""Item: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  56 |    + ""' with value: 10340 saved in session.""
+  57 | );
+  58 |  }  // end doPost
+  59 |
+  60 |
+  61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  62 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02524"");
@@ -1298,8 +2298,33 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02524.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02525.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02525.java","
+  42 |
+  43 |   String[] values = request.getParameterValues(""BenchmarkTest02525"");
+  44 |   String param;
+  45 |   if (values != null && values.length > 0)
+  46 |     param = values[0];
+  47 |   else param = """";
+  48 |
+  49 |   String bar = doSomething(request, param);
+  50 |
+  51 |   // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
+> 52 |   request.getSession().putValue( ""userid"", bar);
+  53 |
+  54 |   response.getWriter().println(
+  55 |   ""Item: 'userid' with value: '"" + org.owasp.benchmark.helpers.Utils.encodeForHTML(bar)
+  56 |    + ""' saved in session.""
+  57 | );
+  58 |  }  // end doPost
+  59 |
+  60 |
+  61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  62 |
+     ^ Col 0
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02526"");
@@ -1323,8 +2348,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02526.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.java,52,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.java","
   42 |
   43 |   String[] values = request.getParameterValues(""BenchmarkTest02527"");
@@ -1348,8 +2373,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02527.j
   61 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   62 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -1373,8 +2398,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02622.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -1398,8 +2423,8 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02623.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-",query.query_f089
-F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The system mixes trusted and untrusted data in the same data structure or structured message.
+",java.java_trust_boundary_violation
+F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.java,63,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.java","
   53 |   // And then check to see if its in the middle of the query string and if so, trim off what comes after.
   54 |   int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -1423,4 +2448,4 @@ F089,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02624.j
   72 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   73 |
      ^ Col 0
-",query.query_f089
+",java.java_trust_boundary_violation

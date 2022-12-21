@@ -1,0 +1,8 @@
+---
+lib_root.f089.trust_boundary_violation:
+  en: >
+    The application introduces untrusted data into session attributes,
+    which could lead to injection attacks.
+  es: >-
+    La aplicación introduce datos no sanitizados en los atributos de sesión,
+    lo cual podría llevar a ataques por inyección.
