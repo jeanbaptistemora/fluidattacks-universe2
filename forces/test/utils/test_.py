@@ -33,9 +33,9 @@ def test_check_policy_compliance() -> None:
         specific="port 21",
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
-        report_date=(datetime.utcnow() - timedelta(hours=5)).isoformat(
-            sep=" ", timespec="seconds"
-        ),
+        report_date=(
+            datetime.utcnow().replace(tzinfo=None) - timedelta(hours=5)
+        ).isoformat(sep=" ", timespec="seconds"),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -46,9 +46,9 @@ def test_check_policy_compliance() -> None:
         specific="port 21",
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
-        report_date=(datetime.utcnow() - timedelta(days=10)).isoformat(
-            sep=" ", timespec="seconds"
-        ),
+        report_date=(
+            datetime.utcnow().replace(tzinfo=None) - timedelta(days=10)
+        ).isoformat(sep=" ", timespec="seconds"),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -71,9 +71,9 @@ async def test_set_exit_code() -> None:
                 specific="port 21",
                 state=VulnerabilityState.OPEN,
                 severity=Decimal("5.1"),
-                report_date=(datetime.utcnow() - timedelta(hours=5)).isoformat(
-                    sep=" ", timespec="seconds"
-                ),
+                report_date=(
+                    datetime.utcnow().replace(tzinfo=None) - timedelta(hours=5)
+                ).isoformat(sep=" ", timespec="seconds"),
                 exploitability=5.0,
                 root_nickname=None,
             )
