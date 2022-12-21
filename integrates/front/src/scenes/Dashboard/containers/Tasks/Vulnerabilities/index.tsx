@@ -429,12 +429,13 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     (index: number): void => {
       setIscurrentOpen((current: boolean[]): boolean[] => {
         const newCurrent = current.map(
-          (isCurrentOpen: boolean, currentIndex: number): boolean =>
-            currentIndex === index
-              ? !isCurrentOpen
-              : currentIndex === index + 1
-              ? !isCurrentOpen
-              : isCurrentOpen
+          (isCurrentOpen: boolean, currentIndex: number): boolean => {
+            if (currentIndex === index || currentIndex === index + 1) {
+              return !isCurrentOpen;
+            }
+
+            return isCurrentOpen;
+          }
         );
         if (
           newCurrent.every((isCurrentOpen: boolean): boolean => !isCurrentOpen)

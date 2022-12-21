@@ -124,31 +124,36 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   );
 
   const formatSecrets = useCallback(
-    (values: IFormValues): ISecretsCredentials =>
-      values.type === "HTTPS"
-        ? values.auth === "USER"
-          ? {
-              password: values.password,
-              type: "HTTPS",
-              user: values.user,
-            }
-          : {
-              azureOrganization:
-                _.isUndefined(values.azureOrganization) ||
-                _.isUndefined(values.isPat) ||
-                !values.isPat
-                  ? undefined
-                  : values.azureOrganization,
-              isPat: _.isUndefined(values.isPat) ? false : values.isPat,
-              token: values.token,
-              type: "HTTPS",
-            }
-        : {
-            key: Buffer.from(
-              _.isUndefined(values.key) ? "" : values.key
-            ).toString("base64"),
-            type: "SSH",
-          },
+    (values: IFormValues): ISecretsCredentials => {
+      if (values.type === "HTTPS") {
+        if (values.auth === "USER") {
+          return {
+            password: values.password,
+            type: "HTTPS",
+            user: values.user,
+          };
+        }
+
+        return {
+          azureOrganization:
+            _.isUndefined(values.azureOrganization) ||
+            _.isUndefined(values.isPat) ||
+            !values.isPat
+              ? undefined
+              : values.azureOrganization,
+          isPat: _.isUndefined(values.isPat) ? false : values.isPat,
+          token: values.token,
+          type: "HTTPS",
+        };
+      }
+
+      return {
+        key: Buffer.from(_.isUndefined(values.key) ? "" : values.key).toString(
+          "base64"
+        ),
+        type: "SSH",
+      };
+    },
     []
   );
 
