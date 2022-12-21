@@ -18,7 +18,7 @@ async def resolve(
 ) -> Optional[str]:
 
     return (
-        datetime_utils.get_as_utc_iso_format(parent.last_commit_date)
+        datetime_utils.get_as_str(parent.last_commit_date)
         if parent.last_commit_date
         else None
     )

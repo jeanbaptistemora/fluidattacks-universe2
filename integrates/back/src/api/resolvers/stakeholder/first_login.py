@@ -18,7 +18,7 @@ async def resolve(
     **_kwargs: None,
 ) -> Optional[str]:
     return (
-        datetime_utils.get_as_utc_iso_format(parent.registration_date)
+        datetime_utils.get_as_str(parent.registration_date)
         if parent.registration_date
         else None
     )

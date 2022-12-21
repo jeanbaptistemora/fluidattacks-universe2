@@ -10,4 +10,4 @@ from newutils import (
 
 
 def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> str:
-    return datetime_utils.get_as_utc_iso_format(parent.cloning.modified_date)
+    return datetime_utils.get_as_str(parent.cloning.modified_date)

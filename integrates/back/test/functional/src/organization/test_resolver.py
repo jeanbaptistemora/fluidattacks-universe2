@@ -226,7 +226,7 @@ async def test_get_organization_ver_1(
         result["data"]["organization"]["integrationRepositoriesConnection"][
             "edges"
         ][0]["node"]["lastCommitDate"]
-        == "2022-11-02T09:37:57+00:00"
+        == "2022-11-02 04:37:57"
     )
     assert (
         result["data"]["organization"]["integrationRepositoriesConnection"][

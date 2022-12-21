@@ -18,7 +18,7 @@ async def resolve(
     **_kwargs: None,
 ) -> Optional[str]:
     return (
-        datetime_utils.get_as_utc_iso_format(parent.last_login_date)
+        datetime_utils.get_as_str(parent.last_login_date)
         if parent.last_login_date
         else None
     )

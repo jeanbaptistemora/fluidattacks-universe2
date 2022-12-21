@@ -14,4 +14,4 @@ def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> str:
     if not update_date:
         return ""
 
-    return datetime_utils.get_as_utc_iso_format(update_date)
+    return datetime_utils.get_as_str(update_date)
