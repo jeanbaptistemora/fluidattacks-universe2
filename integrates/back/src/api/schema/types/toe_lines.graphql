@@ -55,6 +55,8 @@ type ToeLinesConnection {
   edges: [ToeLinesEdge]
   "Information to aid in pagination"
   pageInfo: PageInfo!
+  "Total lines found"
+  total: Int
 }
 
 "Sorts suggestion for vulnerabilities in the file, given as a probability"

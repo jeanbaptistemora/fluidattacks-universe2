@@ -55,6 +55,7 @@ class ToeLinesEdge(NamedTuple):
 class ToeLinesConnection(NamedTuple):
     edges: tuple[ToeLinesEdge, ...]
     page_info: PageInfo
+    total: Optional[int] = None
 
 
 class ToeLinesMetadataToUpdate(NamedTuple):
