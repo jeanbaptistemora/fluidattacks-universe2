@@ -20,7 +20,7 @@ tell **Where** in the
 is the vulnerability along with
 a more specific location.
 
-![Vulnerability Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1668771723/docs/web/vulnerabilities/management/locations_vieew.png)
+![Vulnerability Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1671654501/docs/web/vulnerabilities/management/locations.png)
 
 In this section,
 you will find the following subsections:

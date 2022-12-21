@@ -64,7 +64,7 @@ those scores: **low** from 0.1 to
 To the right of the severity,
 you find the **status** of that
 type of vulnerability.
-It can simply be **open** or **closed**.
+It can simply be **Safe** or **Vulnerable**.
 Open means that at least one of
 the locations where we reported
 that type of vulnerability has it
@@ -73,7 +73,7 @@ On the other hand, closed means
 that you remediated that security
 issue in all those locations.
 
-![Vulnerability Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1668776670/docs/web/vulnerabilities/management/status.png)
+![Vulnerability Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1671655380/docs/web/vulnerabilities/management/statuses.png)
 
 Then, continuing from left
 to right, you discover the number
@@ -123,7 +123,7 @@ the vulnerability,
 giving us a total of 9 columns;
 these are described below:
 
-![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1668782028/docs/web/vulnerabilities/management/location_table.png)
+![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1671655220/docs/web/vulnerabilities/management/locations_tables.png)
 
 - **Location:**
   The files where
@@ -143,8 +143,8 @@ these are described below:
 - **Status:**
   Whether each
   vulnerability has been
-  closed (remediated) or
-  remains open.
+  Safe (remediated) or
+  remains Vulnerable.
 - **Report date:**
   The dates when
   vulnerabilities were reported.
