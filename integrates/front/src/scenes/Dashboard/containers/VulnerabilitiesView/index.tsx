@@ -23,6 +23,7 @@ import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabiliti
 import {
   filterOutVulnerabilities,
   filterZeroRisk,
+  formatVulnerabilities,
   formatVulnerabilitiesTreatment,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
@@ -250,27 +251,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     {
       id: "treatment",
-      key: "treatment",
+      key: (vuln, value): boolean => {
+        if (_.isEmpty(value)) return true;
+        const formattedvuln = formatVulnerabilities([vuln]);
+
+        return formattedvuln[0].treatment === value;
+      },
       label: t("searchFindings.tabVuln.vulnTable.treatment"),
       selectOptions: [
-        {
-          header: t("searchFindings.tabDescription.treatment.new"),
-          value: "NEW",
-        },
-        {
-          header: t("searchFindings.tabDescription.treatment.inProgress"),
-          value: "IN_PROGRESS",
-        },
-        {
-          header: t("searchFindings.tabDescription.treatment.accepted"),
-          value: "ACCEPTED",
-        },
-        {
-          header: t(
-            "searchFindings.tabDescription.treatment.acceptedUndefined"
-          ),
-          value: "ACCEPTED_UNDEFINED",
-        },
+        "-",
+        String(t("searchFindings.tabDescription.treatment.new")),
+        String(t("searchFindings.tabDescription.treatment.inProgress")),
+        String(t("searchFindings.tabDescription.treatment.accepted")),
+        String(t("searchFindings.tabDescription.treatment.acceptedUndefined")),
       ],
       type: "select",
     },
