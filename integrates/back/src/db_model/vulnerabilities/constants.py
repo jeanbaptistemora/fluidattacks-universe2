@@ -2,6 +2,7 @@ from db_model import (
     TABLE,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityZeroRiskStatus,
 )
 from dynamodb.types import (
@@ -11,6 +12,10 @@ from dynamodb.types import (
 ZR_FILTER_STATUSES = {
     VulnerabilityZeroRiskStatus.CONFIRMED,
     VulnerabilityZeroRiskStatus.REQUESTED,
+}
+RELEASED_FILTER_STATUSES = {
+    VulnerabilityStateStatus.CLOSED,
+    VulnerabilityStateStatus.OPEN,
 }
 
 ZR_INDEX_METADATA = Facet(
@@ -26,7 +31,7 @@ NEW_ZR_INDEX_METADATA = Facet(
     attrs=TABLE.facets["vulnerability_metadata"].attrs,
     pk_alias="FIN#finding_id",
     sk_alias=(
-        "VULN#DELETED#is_deleted#APPROVED#is_approved#ZR#is_zero_risk"
+        "VULN#DELETED#is_deleted#RELEASED#is_released#ZR#is_zero_risk"
         "#STATE#state_status#VERIF#verification_status"
     ),
 )
