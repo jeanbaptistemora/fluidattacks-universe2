@@ -419,15 +419,11 @@ const FindingContent: React.FC = (): JSX.Element => {
                     exact={true}
                     path={`${path}/evidence`}
                   />
-                  {headerData.finding.hacker === "machine@fluidattacks.com" ? (
-                    <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
-                      <Route
-                        component={MachineView}
-                        exact={true}
-                        path={`${path}/machine`}
-                      />
-                    </Can>
-                  ) : undefined}
+                  <Route
+                    component={MachineView}
+                    exact={true}
+                    path={`${path}/machine`}
+                  />
                   <Route
                     component={TrackingView}
                     exact={true}
