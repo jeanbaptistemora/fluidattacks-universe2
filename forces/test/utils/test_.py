@@ -1,6 +1,7 @@
 from datetime import (
     datetime,
     timedelta,
+    timezone,
 )
 from decimal import (
     Decimal,
@@ -34,8 +35,8 @@ def test_check_policy_compliance() -> None:
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
         report_date=(
-            datetime.utcnow().replace(tzinfo=None) - timedelta(hours=5)
-        ).isoformat(sep=" ", timespec="seconds"),
+            datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(hours=5)
+        ).isoformat(),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -47,8 +48,8 @@ def test_check_policy_compliance() -> None:
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
         report_date=(
-            datetime.utcnow().replace(tzinfo=None) - timedelta(days=10)
-        ).isoformat(sep=" ", timespec="seconds"),
+            datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(days=10)
+        ).isoformat(),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -72,8 +73,9 @@ async def test_set_exit_code() -> None:
                 state=VulnerabilityState.OPEN,
                 severity=Decimal("5.1"),
                 report_date=(
-                    datetime.utcnow().replace(tzinfo=None) - timedelta(hours=5)
-                ).isoformat(sep=" ", timespec="seconds"),
+                    datetime.utcnow().replace(tzinfo=timezone.utc)
+                    - timedelta(hours=5)
+                ).isoformat(),
                 exploitability=5.0,
                 root_nickname=None,
             )

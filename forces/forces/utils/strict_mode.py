@@ -1,6 +1,7 @@
 from datetime import (
     datetime,
     timedelta,
+    timezone,
 )
 from decimal import (
     Decimal,
@@ -36,12 +37,8 @@ def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
     Returns `False` if the vulnerability does not comply with the Agent strict
     mode org policies (severity threshold and the grace period)
     """
-    current_date: datetime = datetime.utcnow().replace(
-        tzinfo=None
-    ) - timedelta(hours=5)
-    report_date: datetime = datetime.fromisoformat(vuln.report_date).replace(
-        tzinfo=None
-    )
+    current_date: datetime = datetime.utcnow().replace(tzinfo=timezone.utc)
+    report_date: datetime = datetime.fromisoformat(vuln.report_date)
     time_diff: timedelta = current_date - report_date
     return not (
         vuln.state == VulnerabilityState.OPEN
@@ -72,11 +69,11 @@ async def set_forces_exit_code(
         for finding in findings:
             for vuln in finding.vulnerabilities:
                 current_date: datetime = datetime.utcnow().replace(
-                    tzinfo=None
-                ) - timedelta(hours=5)
+                    tzinfo=timezone.utc
+                )
                 report_date: datetime = datetime.fromisoformat(
                     vuln.report_date
-                ).replace(tzinfo=None)
+                )
                 time_diff: timedelta = current_date - report_date
                 if not check_policy_compliance(config, vuln):
                     await log(
