@@ -1,7 +1,4 @@
 # pylint: disable=import-error
-from aniso8601 import (
-    parse_datetime,
-)
 from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
@@ -18,6 +15,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from datetime import (
+    datetime,
 )
 from db_model.event_comments.types import (
     EventComment,
@@ -51,6 +51,9 @@ from starlette.datastructures import (
 from time import (
     time,
 )
+from typing import (
+    Any,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -59,10 +62,10 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_add_event() -> None:
-    attrs = {
+    attrs: Any = {
         "context": "OTHER",
         "detail": "Something happened.",
-        "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
+        "event_date": datetime.fromisoformat("2019-12-09T05:00:00+00:00"),
         "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
@@ -83,7 +86,7 @@ async def test_add_event() -> None:
 async def test_add_event_file_image() -> None:
     attrs = {
         "detail": "Something happened.",
-        "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
+        "event_date": datetime.fromisoformat("2019-12-09T05:00:00+00:00"),
         "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
