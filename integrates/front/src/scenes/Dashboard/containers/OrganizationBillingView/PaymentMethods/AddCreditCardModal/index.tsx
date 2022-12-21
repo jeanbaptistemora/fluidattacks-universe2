@@ -15,7 +15,7 @@ import {
   validTextField,
 } from "utils/validations";
 
-const MAX_CREDITCARD_NUMBER_LENGTH = 16;
+const MAX_CREDITCARD_NUMBER_LENGTH = 17;
 const maxCreditNumberLength: ConfigurableValidator = maxLength(
   MAX_CREDITCARD_NUMBER_LENGTH
 );

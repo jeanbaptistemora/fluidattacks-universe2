@@ -1,12 +1,12 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
-import { Checkbox } from "components/Input";
+import { Checkbox, Input } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { composeValidators, required, validTextField } from "utils/validations";
 
 interface IUpdateCreditCardModalProps {
   onClose: () => void;
@@ -24,22 +24,22 @@ interface IUpdateCreditCardModalProps {
   }) => Promise<void>;
 }
 
-const validations = object().shape({
-  businessName: string(),
-  cardExpirationMonth: string().required(),
-  cardExpirationYear: string().required(),
-  city: string(),
-  country: string(),
-  email: string(),
-  makeDefault: boolean().required(),
-  state: string(),
-});
-
 export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
   onClose,
   onSubmit,
 }: IUpdateCreditCardModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const validations = object().shape({
+    businessName: string(),
+    cardExpirationMonth: string().required(t("validations.required")),
+    cardExpirationYear: string().required(t("validations.required")),
+    city: string(),
+    country: string(),
+    email: string(),
+    makeDefault: boolean().required(),
+    state: string(),
+  });
 
   return (
     <Modal
@@ -66,40 +66,44 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.update.modal.expirationMonth"
-                )}
-              </ControlLabel>
-              <Field
-                component={FormikText}
-                name={"cardExpirationMonth"}
-                type={"text"}
-              />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.update.modal.expirationYear"
-                )}
-              </ControlLabel>
-              <Field
-                component={FormikText}
-                name={"cardExpirationYear"}
-                type={"text"}
-              />
-            </div>
-            <div>
+            <Row>
+              <Col lg={50}>
+                <Input
+                  id={"add-card-expiration-month"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.label"
+                  )}
+                  name={"cardExpirationMonth"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.placeholder"
+                  )}
+                  type={"text"}
+                  validate={composeValidators([required, validTextField])}
+                />
+              </Col>
+              <Col lg={50}>
+                <Input
+                  id={"add-card-expiration-year"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.label"
+                  )}
+                  name={"cardExpirationYear"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.placeholder"
+                  )}
+                  type={"text"}
+                  validate={composeValidators([required, validTextField])}
+                />
+              </Col>
+            </Row>
+            <Row>
               <Checkbox
                 label={t(
                   "organization.tabs.billing.paymentMethods.update.modal.default"
                 )}
                 name={"makeDefault"}
               />
-            </div>
+            </Row>
             <ModalConfirm
               disabled={!dirty || isSubmitting}
               onCancel={onClose}
