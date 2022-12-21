@@ -46,6 +46,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
         group=group_name,
     )
     assert "errors" not in result
+    assert "success" in result["data"]["removeFiles"]
     assert result["data"]["removeFiles"]["success"]
 
     loaders.group.clear(group_name)
