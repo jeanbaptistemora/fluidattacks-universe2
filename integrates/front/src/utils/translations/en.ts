@@ -1833,10 +1833,19 @@ export const enTranslations: ResourceKey = {
             button: "Add",
             creditCard: {
               add: "Add credit card",
-              cvc: "Card CVC",
+              cvc: {
+                label: "Card CVC",
+                placeholder: "123",
+              },
               default: "Make card default payment method",
-              expirationMonth: "Card expiration month",
-              expirationYear: "Card expiration year",
+              expirationMonth: {
+                label: "Expiry month",
+                placeholder: "MM",
+              },
+              expirationYear: {
+                label: "Expiry year",
+                placeholder: "YY",
+              },
               label: "Credit card",
               number: {
                 label: "Card number",

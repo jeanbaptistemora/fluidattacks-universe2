@@ -14,6 +14,7 @@ import { Text } from "components/Text";
 interface IModalProps {
   children: React.ReactNode;
   id?: string;
+  maxWidth?: string;
   minWidth?: number;
   onClose?: () => void;
   open: boolean;
@@ -23,6 +24,7 @@ interface IModalProps {
 const Modal: FC<IModalProps> = ({
   children,
   id,
+  maxWidth = "none",
   minWidth = 300,
   title,
   onClose,
@@ -56,6 +58,7 @@ const Modal: FC<IModalProps> = ({
               ) : undefined}
             </Header>
             <Container
+              maxWidth={maxWidth}
               minWidth={`${minWidth}px`}
               pb={"10px"}
               pl={"10px"}

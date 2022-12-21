@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
@@ -8,8 +8,6 @@ import { Button } from "components/Button";
 import { Checkbox, Input } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -57,6 +55,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
 
   return (
     <Modal
+      maxWidth={"420px"}
       onClose={onClose}
       open={true}
       title={t("organization.tabs.billing.paymentMethods.add.creditCard.add")}
@@ -95,56 +94,78 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                 />
               </Col>
             </Row>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth"
-                )}
-              </ControlLabel>
-              <Field
-                component={FormikText}
-                name={"cardExpirationMonth"}
-                type={"text"}
-              />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear"
-                )}
-              </ControlLabel>
-              <Field
-                component={FormikText}
-                name={"cardExpirationYear"}
-                type={"text"}
-              />
-            </div>
-            <div>
+            <Row>
+              <Col lg={33}>
+                <Input
+                  id={"add-card-expiration-month"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.label"
+                  )}
+                  name={"cardExpirationMonth"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.placeholder"
+                  )}
+                  type={"text"}
+                  validate={required}
+                />
+              </Col>
+              <Col lg={33}>
+                <Input
+                  id={"add-card-expiration-year"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.label"
+                  )}
+                  name={"cardExpirationYear"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.placeholder"
+                  )}
+                  type={"text"}
+                  validate={required}
+                />
+              </Col>
+              <Col lg={33}>
+                <Input
+                  id={"add-credit-card-cvc"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.cvc.label"
+                  )}
+                  name={"cardCvc"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.cvc.placeholder"
+                  )}
+                  type={"text"}
+                  validate={required}
+                />
+              </Col>
+            </Row>
+            <Row>
               <Checkbox
                 label={t(
                   "organization.tabs.billing.paymentMethods.add.creditCard.default"
                 )}
                 name={"makeDefault"}
               />
-            </div>
-            <ModalConfirm
-              disabled={!dirty || isSubmitting}
-              onCancel={onClose}
-            />
-            <hr />
-            <div>
-              <Button
-                id={"other-payment-methods"}
-                onClick={goToOtherMethods}
-                type={"button"}
-              >
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.otherPaymentMethod"
-                )}
-              </Button>
-            </div>
+            </Row>
+            <Row align={"end"} justify={"end"}>
+              <Col>
+                <ModalConfirm
+                  disabled={!dirty || isSubmitting}
+                  onCancel={onClose}
+                />
+              </Col>
+              <Col>
+                <Button
+                  id={"other-payment-methods"}
+                  onClick={goToOtherMethods}
+                  type={"button"}
+                  variant={"tertiary"}
+                >
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.otherPaymentMethod"
+                  )}
+                </Button>
+              </Col>
+            </Row>
           </Form>
         )}
       </Formik>
