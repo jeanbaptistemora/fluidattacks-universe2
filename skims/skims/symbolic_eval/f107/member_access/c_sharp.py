@@ -1,14 +1,28 @@
-from symbolic_eval.common import (
-    HTTP_INPUTS,
-)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
+from typing import (
+    Set,
+)
+
+USER_INPUTS: Set[str] = {
+    "Cookies",
+    "FileName",
+    "Form",
+    "GetString",
+    "Params",
+    "QueryString",
+    "ReadLine",
+    "ServerVariables",
+}
 
 
 def cs_ldap_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     ma_attr = args.graph.nodes[args.n_id]
-    member_access = f'{ma_attr["expression"]}.{ma_attr["member"]}'
-    args.evaluation[args.n_id] = member_access in HTTP_INPUTS
+    if ma_attr["member"] in USER_INPUTS:
+        args.triggers.add("userparameters")
+    elif ma_attr["member"] == "GetEnvironmentVariable":
+        args.triggers.update({"userparameters", "userconnection"})
+
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

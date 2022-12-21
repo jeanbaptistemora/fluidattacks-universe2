@@ -193,9 +193,6 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "MySql.Data.MySqlClient.MySqlDataReader": {
             "ToString",
         },
-        "System.DirectoryServices.DirectorySearcher": {
-            "FindOne",
-        },
         "System.IO.StreamReader": {
             "ReadLine",
             "ReadToEnd",

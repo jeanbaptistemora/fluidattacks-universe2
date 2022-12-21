@@ -1,6 +1,3 @@
-from lib_root.utilities.c_sharp import (
-    yield_syntax_graph_object_creation,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -26,14 +23,23 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+    Set,
+)
+from utils import (
+    graph as g,
 )
 
 
-def is_object_danger(graph: Graph, nid: NId) -> bool:
-    method = MethodsEnum.CS_LDAP_INJECTION
+def is_ldap_injection(
+    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
+) -> bool:
     for path in get_backward_paths(graph, nid):
         evaluation = evaluate(method, graph, path, nid)
-        if evaluation and evaluation.danger:
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers == danger_set
+        ):
             return True
     return False
 
@@ -44,7 +50,8 @@ def ldap_injection(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_LDAP_INJECTION
     csharp = GraphShardMetadataLanguage.CSHARP
-    ldap_obj = {"DirectorySearcher"}
+    danger_methods = {"FindOne", "FindAll"}
+    danger_params = {"directorysearcher", "userparameters", "userconnection"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(csharp):
@@ -52,9 +59,12 @@ def ldap_injection(
                 continue
             graph = shard.syntax_graph
 
-            for obj_id in yield_syntax_graph_object_creation(graph, ldap_obj):
-                if is_object_danger(graph, obj_id):
-                    yield shard, obj_id
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+                expr = graph.nodes[n_id]["expression"].split(".")
+                if expr[-1] in danger_methods and is_ldap_injection(
+                    graph, n_id, danger_params, method
+                ):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f107.ldap_injection",

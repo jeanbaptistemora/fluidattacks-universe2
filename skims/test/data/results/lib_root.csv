@@ -7148,21 +7148,20 @@ F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,9,90
      ^ Col 8
 ",c_sharp.csharp_ldap_connections_authenticated
 F107,lines,namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,11,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,"
-   1 | stem;
-   2 | stem.DirectoryServices;
+   1 | ;
+   2 | .DirectoryServices;
    3 |
-   4 | artial class WebForm : System.Web.UI.Page
+   4 | al class WebForm : System.Web.UI.Page
    5 |
-   6 | ected void Page_Load(object sender, EventArgs e)
+   6 | d void Page_Load(HttpRequest Request)
    7 |
-   8 | string userName = Request.Params[""user""];
-   9 | string filter = ""(uid="" + userName + "")"";
-  10 |
-> 11 | DirectorySearcher searcher = new DirectorySearcher(filter);
-  12 | SearchResultCollection results = searcher.FindAll();
+   8 | ng userName = Request.Params[""user""];
+   9 | ng filter = ""(uid="" + userName + "")"";
+  10 | ctorySearcher searcher = new DirectorySearcher(filter);
+> 11 | chResultCollection results = searcher.FindAll();
+  12 |
   13 |
-  14 |
-     ^ Col 8
+     ^ Col 12
 ",c_sharp.c_sharp_ldap_injection
 F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
  in namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs","
