@@ -10,13 +10,19 @@
     inherit fetchNixpkgs projectPath;
     observesIndex = inputs.observesIndex;
   };
-  env = pkg.env.runtime;
+  env = pkg.env.dev;
 in
   makeTemplate {
-    name = "observes-etl-code-env-runtime";
+    name = "observes-etl-code-env-dev";
     searchPaths = {
       bin = [
         env
       ];
     };
+    replace = {
+      __argPython__ = inputs.nixpkgs.python310;
+      __argPythonEnv__ = env;
+      __argPythonEntry__ = ./vs_settings.py;
+    };
+    template = ./template.sh;
   }

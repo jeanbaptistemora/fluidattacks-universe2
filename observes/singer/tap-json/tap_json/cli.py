@@ -5,20 +5,20 @@ from typing import (
 )
 
 
-@click.command(help="Deduce singer schemas from singer records or raw JSON")
-@click.option(
+@click.command(help="Deduce singer schemas from singer records or raw JSON")  # type: ignore[misc]
+@click.option(  # type: ignore[misc]
     "--date-formats",
     type=str,
     required=False,
     default="",
     help="A string of formats separated by comma, extends RFC3339",
 )
-@click.option(
+@click.option(  # type: ignore[misc]
     "--schema-cache",
     is_flag=True,
     help="Use custom schema folder as cache, do not auto determine it",
 )
-@click.option(
+@click.option(  # type: ignore[misc]
     "--schema-folder",
     default=None,
     help="Path to directory for input/output of the schemas",

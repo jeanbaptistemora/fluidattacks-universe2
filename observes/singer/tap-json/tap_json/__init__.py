@@ -1,9 +1,13 @@
+from ._logger import (
+    set_logger,
+)
 import contextlib
 from dateutil.parser import (
     parse as date_parser,
-)
-from dateutil.parser._parser import (
     ParserError,
+)
+from fa_purity.cmd import (
+    unsafe_unwrap,
 )
 import hashlib
 import io
@@ -15,6 +19,7 @@ from json import (
 from json.decoder import (
     JSONDecodeError,
 )
+import logging
 import os
 from pathlib import (
     Path,
@@ -39,14 +44,12 @@ from typing import (
 from typing_extensions import (
     TypeGuard,
 )
-import utils_logger
 
-utils_logger.configure(
-    app_type="tap",
-    asynchronous=False,
-)
-LOG = utils_logger.main_log(__name__)
+__version__ = "1.0.0"
 
+unsafe_unwrap(set_logger(__name__, __version__))
+
+LOG = logging.getLogger(__name__)
 # type aliases that improve clarity
 JSON = Any
 STRU = Any
@@ -202,7 +205,7 @@ def linearize(table_name: str, structura: STRU) -> None:
     )
 
 
-def linearize__simplify(stru: STRU) -> STRU:
+def linearize__simplify(stru: STRU) -> STRU:  # NOSONAR
     """Simplify a Structura.
 
     Apply clean_str to every key in the structura.
@@ -251,7 +254,9 @@ def nested_id(items: List[Any]) -> str:
     return struct_hash(items)
 
 
-def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
+def linearize__deconstruct(  # NOSONAR
+    table: str, stru: STRU, ids: Any
+) -> STRU:
     """Break a Structura into records of a relational data-structure."""
     if is_base(stru):
         ids = [] if ids is None else ids

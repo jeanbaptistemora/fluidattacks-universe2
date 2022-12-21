@@ -61,6 +61,7 @@
     tap.checkly
     tap.dynamo
     tap.gitlab
+    tap.json
     tap.mandrill
     target.s3
     target.redshift_2
@@ -128,10 +129,6 @@ in {
           }
           {
             output = "/lintPython/imports/observesTapFormstack";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/imports/observesTapJson";
             gitlabExtra = gitlabLint;
           }
           {
@@ -204,10 +201,6 @@ in {
           }
           {
             output = "/lintPython/module/observesTapFormstack";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesTapJson";
             gitlabExtra = gitlabLint;
           }
           {

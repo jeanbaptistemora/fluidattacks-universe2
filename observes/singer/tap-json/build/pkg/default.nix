@@ -9,6 +9,7 @@
     dateutils
     fa-purity
     pathos
+    types-python-dateutil
     utils-logger
   ];
   build_deps = with python_pkgs; [flit-core];

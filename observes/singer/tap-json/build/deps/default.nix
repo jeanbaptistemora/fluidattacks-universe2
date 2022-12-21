@@ -13,6 +13,8 @@
     // {
       arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
+      types-python-dateutil = import ./types-python-dateutil.nix {inherit lib;};
+      utils-logger = nixpkgs.utils-logger."${python_version}".pkg;
     };
 
   compose = functions: val: builtins.foldl' (x: f: f x) val functions;

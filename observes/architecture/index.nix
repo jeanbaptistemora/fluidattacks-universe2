@@ -87,7 +87,7 @@ in {
     formstack = standard_1 "${singerPath}/tap-formstack";
     git = standard_1 "${singerPath}/tap-git";
     gitlab = standard_2 "${singerPath}/tap-gitlab";
-    json = standard_1 "${singerPath}/tap-json";
+    json = standard_3 "${singerPath}/tap-json";
     mailchimp = standard_1 "${singerPath}/tap-mailchimp";
     mandrill = standard_3 "${singerPath}/tap-mandrill";
     matomo = standard_1 "${singerPath}/tap-matomo";

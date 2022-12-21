@@ -12,7 +12,6 @@
   arch-lint = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
-      rev = "";
       ref = "refs/tags/v2.2.0";
     };
   in

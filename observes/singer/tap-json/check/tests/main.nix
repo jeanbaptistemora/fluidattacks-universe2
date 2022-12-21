@@ -7,19 +7,15 @@
 }: let
   root = projectPath inputs.observesIndex.tap.json.root;
   pkg = import "${root}/entrypoint.nix" {
-    inherit fetchNixpkgs projectPath;
+    inherit projectPath fetchNixpkgs;
     observesIndex = inputs.observesIndex;
   };
-  env = pkg.env.bin;
+  check = pkg.check.tests;
 in
   makeScript {
-    name = "tap-json";
     searchPaths = {
-      bin = [
-        env
-      ];
+      bin = [check];
     };
-    entrypoint = ''
-      tap-json "$@"
-    '';
+    name = "observes-tap-json-check-tests";
+    entrypoint = "";
   }
