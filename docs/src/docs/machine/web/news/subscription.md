@@ -17,17 +17,17 @@ The first way is through our URL.
 - First, you need to our URL
   [https://news.atfluid.com/](https://news.atfluid.com/)
 
-![Subscription Final Product](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_final-product.png)
+![Subscription Final Product](https://res.cloudinary.com/fluid-attacks/image/upload/v1671631843/docs/web/news/subscription/main_page.png)
 
 - Second, in the sidebar located on
   your left, you will see a section
   called “Subscribe to Updates”.
   Press click on there.
 
-![Subscription Sidebar](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_sidebar.png)
+![Subscription Sidebar](https://res.cloudinary.com/fluid-attacks/image/upload/v1671631983/docs/web/news/subscription/subscribe.png)
 
 - Third, you have two ways to subscribe:
-  Email or RSS.
+  **Email** or **RSS**.
   Pick which way is better for you and
   click on the subscribe button.
 
@@ -40,7 +40,7 @@ The first way is through our URL.
   Click on the “Click here to verify” to
   verify your subscription.
 
-![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_verify-note.png)
+![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1671632258/docs/web/news/subscription/verification.png)
 
 ### Through ARM
 
@@ -59,9 +59,11 @@ The second way to subscribe is through are ARM.
   Subscribe to Updates.
   You need to click on the “envelope icon”.
 
+![Subscription button](https://res.cloudinary.com/fluid-attacks/image/upload/v1671632525/docs/web/news/subscription/subcribe_by_arm.png)
+
 - Subscribe either through “Email or RSS”.
 
-![Subscription Ways](https://res.cloudinary.com/fluid-attacks/image/upload/v1655391894/docs/web/news/subscription/subscription_through_asm.png)
+![Subscription Ways](https://res.cloudinary.com/fluid-attacks/image/upload/v1671632625/docs/web/news/subscription/subscribe_button.png)
 
 - Based on the email you subscribed
   to you will be getting an email from
@@ -70,7 +72,7 @@ The second way to subscribe is through are ARM.
   Click on the “Click here to verify”
   to verify your subscription.
 
-![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_verify-note.png)
+![Verify Note](https://res.cloudinary.com/fluid-attacks/image/upload/v1671632258/docs/web/news/subscription/verification.png)
 
 After following these steps you will
 be subscribed to our channel.
