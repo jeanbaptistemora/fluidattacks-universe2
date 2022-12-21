@@ -83,6 +83,9 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 import itertools
 import json
 import logging
@@ -120,6 +123,9 @@ from toe.ports import (
 from toe.ports.types import (
     ToePortAttributesToAdd,
     ToePortAttributesToUpdate,
+)
+from typing import (
+    List,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -582,6 +588,38 @@ async def _process_toe_port(
         )
 
 
+async def get_recipients(
+    loaders: Dataloaders,
+    email_to: List[str],
+    source_group_name: str,
+    target_group_name: str,
+) -> List[str]:
+    roles: set[str] = {
+        "customer_manager",
+        "user_manager",
+    }
+    source_group_emails = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=source_group_name,
+            notification=Notification.UPDATED_TREATMENT,
+            roles=roles,
+        )
+    )
+    email_to.extend(source_group_emails)
+    target_group_emails = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=target_group_name,
+            notification=Notification.UPDATED_TREATMENT,
+            roles=roles,
+        )
+    )
+    email_to.extend(target_group_emails)
+
+    return email_to
+
+
 async def move_root(*, item: BatchProcessing) -> None:
     info = json.loads(item.additional_info)
     target_group_name = info["target_group_name"]
@@ -722,7 +760,9 @@ async def move_root(*, item: BatchProcessing) -> None:
         )
         await send_mails_async(
             get_new_context(),
-            email_to=[item.subject],
+            email_to=await get_recipients(
+                loaders, [item.subject], source_group_name, target_group_name
+            ),
             context={
                 "group": source_group_name,
                 "nickname": root.state.nickname,
