@@ -21,6 +21,7 @@ from .utils import (
     get_assigned,
     get_current_entry,
     get_new_zr_index_key,
+    get_new_zr_index_key_gsi_6,
     get_zr_index_key,
     historic_entry_type_to_str,
 )
@@ -227,11 +228,13 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
 ) -> None:
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
+    gsi_6 = TABLE.indexes["gsi_6"]
     entry_type = historic_entry_type_to_str(entry)
     entry_item = json.loads(json.dumps(entry, default=serialize))
     current_entry = get_current_entry(entry, current_value)
     current_zr_index_key = get_zr_index_key(current_value)
     new_zr_index_key = get_new_zr_index_key(current_value, entry)
+    new_zr_index_key_gsi_6 = get_new_zr_index_key_gsi_6(current_value, entry)
 
     try:
         vulnerability_key = keys.build_key(
@@ -243,6 +246,10 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
             vulnerability_item[
                 zr_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
+        if new_zr_index_key_gsi_6:
+            vulnerability_item[
+                gsi_6.primary_key.sort_key
+            ] = new_zr_index_key_gsi_6.sort_key
 
         base_condition = Attr(key_structure.partition_key).exists() & Attr(
             zr_index.primary_key.sort_key
@@ -301,11 +308,15 @@ async def update_historic(  # pylint: disable=too-many-locals
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
     zr_index = TABLE.indexes["gsi_5"]
+    gsi_6 = TABLE.indexes["gsi_6"]
     historic = adjust_historic_dates(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)
     new_zr_index_key = get_new_zr_index_key(current_value, latest_entry)
+    new_zr_index_key_gsi_6 = get_new_zr_index_key_gsi_6(
+        current_value, latest_entry
+    )
 
     try:
         vulnerability_key = keys.build_key(
@@ -322,6 +333,10 @@ async def update_historic(  # pylint: disable=too-many-locals
             vulnerability_item[
                 zr_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
+        if new_zr_index_key_gsi_6:
+            vulnerability_item[
+                gsi_6.primary_key.sort_key
+            ] = new_zr_index_key_gsi_6.sort_key
 
         base_condition = Attr(key_structure.partition_key).exists()
         await operations.update_item(

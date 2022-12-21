@@ -4,6 +4,7 @@ from .types import (
 from .utils import (
     get_assigned,
     get_zr_index_key,
+    get_zr_index_key_gsi_6,
 )
 from boto3.dynamodb.conditions import (
     Key,
@@ -39,6 +40,7 @@ async def add(  # pylint: disable=too-many-locals
     gsi_3_index = TABLE.indexes["gsi_3"]
     gsi_4_index = TABLE.indexes["gsi_4"]
     gsi_5_index = TABLE.indexes["gsi_5"]
+    gsi_6_index = TABLE.indexes["gsi_6"]
     vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={
@@ -87,6 +89,7 @@ async def add(  # pylint: disable=too-many-locals
         },
     )
     gsi_5_key = get_zr_index_key(vulnerability)
+    gsi_6_key = get_zr_index_key_gsi_6(vulnerability)
     vulnerability_item = {
         key_structure.partition_key: vulnerability_key.partition_key,
         key_structure.sort_key: vulnerability_key.sort_key,
@@ -98,6 +101,8 @@ async def add(  # pylint: disable=too-many-locals
         gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
         gsi_5_index.primary_key.partition_key: gsi_5_key.partition_key,
         gsi_5_index.primary_key.sort_key: gsi_5_key.sort_key,
+        gsi_6_index.primary_key.partition_key: gsi_6_key.partition_key,
+        gsi_6_index.primary_key.sort_key: gsi_6_key.sort_key,
         **json.loads(json.dumps(vulnerability, default=serialize)),
     }
     items.append(vulnerability_item)
