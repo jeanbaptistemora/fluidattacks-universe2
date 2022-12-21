@@ -2861,6 +2861,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_WEAK_RANDOM_COOKIE = MethodInfo(
+        file_name="java",
+        name="java_weak_random",
+        module="lib_root",
+        finding=FindingEnum.F034,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_WEAK_RANDOM = MethodInfo(
         file_name="javascript",
         name="javascript_weak_random",
