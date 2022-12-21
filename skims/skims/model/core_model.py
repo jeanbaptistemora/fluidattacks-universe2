@@ -2037,6 +2037,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_XPATH_INJECTION_EVALUATE = MethodInfo(
+        file_name="java",
+        name="java_xpath_injection",
+        module="lib_root",
+        finding=FindingEnum.F021,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
         file_name="java",
         name="java_properties_unencrypted_transport",
