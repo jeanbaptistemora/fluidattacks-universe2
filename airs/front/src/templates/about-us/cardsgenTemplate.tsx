@@ -48,12 +48,17 @@ const CardsgenIndex: React.FC<IQueryData> = ({
     title,
   } = data.markdownRemark.frontmatter;
 
-  const metaImage: string =
-    partnersindex === "yes"
-      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png"
-      : clientsindex === "yes"
-      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
-      : "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png";
+  function getMetaImage(): string {
+    if (partnersindex === "yes") {
+      return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png";
+    } else if (clientsindex === "yes") {
+      return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png";
+    }
+
+    return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png";
+  }
+
+  const metaImage: string = getMetaImage();
 
   return (
     <React.Fragment>
