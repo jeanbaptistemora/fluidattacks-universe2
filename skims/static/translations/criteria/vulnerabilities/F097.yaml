@@ -1,11 +1,11 @@
 ---
 lib_path.f097.has_reverse_tabnabbing:
   en: >
-    The system allows the introduction of a link
-    to an external site controlled by a malicious actor.
+    External links with target="_blank" must have rel="noopener noreferrer"
+    set in order to avoid reverse tabnabbing.
   es: >-
-    El sistema permite la introducción de un enlace
-    a un sitio externo controlado por un actor malicioso.
+    Los links externos con target="_blank" deben tener configurado
+    rel="noopener noreferrer" para prevenir ataques de tabnabbing inverso.
 
 lib_root.f097.has_reverse_tabnabbing:
   en: >
