@@ -460,17 +460,6 @@ in {
               };
           }
           {
-            output = "/integrates/web/testrigor";
-            gitlabExtra =
-              gitlabPostDeployDev
-              // {
-                needs = [
-                  "/integrates/back/deploy/dev"
-                  "/integrates/front/deploy/dev"
-                ];
-              };
-          }
-          {
             output = "/integrates/web/forces";
             gitlabExtra =
               gitlabPostDeployDev
@@ -530,10 +519,6 @@ in {
           }
           {
             output = "/lintPython/module/integratesBackTestE2e";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/integratesTestrigorE2e";
             gitlabExtra = gitlabLint;
           }
           {
