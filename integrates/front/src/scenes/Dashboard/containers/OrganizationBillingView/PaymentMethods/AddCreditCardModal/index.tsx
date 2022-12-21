@@ -1,13 +1,26 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import type { ConfigurableValidator } from "revalidate";
 import { boolean, object, string } from "yup";
 
 import { Button } from "components/Button";
-import { Checkbox } from "components/Input";
+import { Checkbox, Input } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
+
+const MAX_CREDITCARD_NUMBER_LENGTH = 16;
+const maxCreditNumberLength: ConfigurableValidator = maxLength(
+  MAX_CREDITCARD_NUMBER_LENGTH
+);
 
 interface IAddCreditCardModalProps {
   onClose: () => void;
@@ -62,15 +75,26 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.cvc"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"cardCvc"} type={"text"} />
-            </div>
+            <Row>
+              <Col>
+                <Input
+                  id={"add-credit-number"}
+                  label={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.number.label"
+                  )}
+                  name={"cardNumber"}
+                  placeholder={t(
+                    "organization.tabs.billing.paymentMethods.add.creditCard.number.placeholder"
+                  )}
+                  type={"text"}
+                  validate={composeValidators([
+                    maxCreditNumberLength,
+                    required,
+                    validTextField,
+                  ])}
+                />
+              </Col>
+            </Row>
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -96,15 +120,6 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                 name={"cardExpirationYear"}
                 type={"text"}
               />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.number"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"cardNumber"} type={"text"} />
             </div>
             <div>
               <Checkbox

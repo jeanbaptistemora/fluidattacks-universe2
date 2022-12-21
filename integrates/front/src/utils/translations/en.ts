@@ -1838,7 +1838,10 @@ export const enTranslations: ResourceKey = {
               expirationMonth: "Card expiration month",
               expirationYear: "Card expiration year",
               label: "Credit card",
-              number: "Card number",
+              number: {
+                label: "Card number",
+                placeholder: "1234 1234 1234 1234",
+              },
               otherPaymentMethod: "Other payment methods",
             },
             errors: {
