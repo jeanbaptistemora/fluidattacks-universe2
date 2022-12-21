@@ -233,26 +233,35 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
-  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
-    _.isNull(toeLinesAttr.attackedAt) ||
-    _.isEmpty(toeLinesAttr.attackedAt) ||
-    new Date(toeLinesAttr.modifiedDate) > new Date(toeLinesAttr.attackedAt)
-      ? toeLinesAttr.bePresent
-        ? Math.floor(
-            (new Date().getTime() -
-              new Date(toeLinesAttr.modifiedDate).getTime()) /
-              (1000 * 3600 * 24)
-          )
-        : Math.floor(
-            (new Date(toeLinesAttr.bePresentUntil ?? "").getTime() -
-              new Date(toeLinesAttr.modifiedDate).getTime()) /
-              (1000 * 3600 * 24)
-          )
-      : Math.floor(
-          (new Date(toeLinesAttr.attackedAt).getTime() -
+
+  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number => {
+    if (
+      _.isNull(toeLinesAttr.attackedAt) ||
+      _.isEmpty(toeLinesAttr.attackedAt) ||
+      new Date(toeLinesAttr.modifiedDate) > new Date(toeLinesAttr.attackedAt)
+    ) {
+      if (toeLinesAttr.bePresent) {
+        return Math.floor(
+          (new Date().getTime() -
             new Date(toeLinesAttr.modifiedDate).getTime()) /
             (1000 * 3600 * 24)
         );
+      }
+
+      return Math.floor(
+        (new Date(toeLinesAttr.bePresentUntil ?? "").getTime() -
+          new Date(toeLinesAttr.modifiedDate).getTime()) /
+          (1000 * 3600 * 24)
+      );
+    }
+
+    return Math.floor(
+      (new Date(toeLinesAttr.attackedAt).getTime() -
+        new Date(toeLinesAttr.modifiedDate).getTime()) /
+        (1000 * 3600 * 24)
+    );
+  };
+
   const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
     const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
     const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
