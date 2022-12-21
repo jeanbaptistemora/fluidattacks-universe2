@@ -21,7 +21,7 @@ according to the information you want
 to see using the [columns filter](/machine/web/groups/vulnerabilities/#filtering-your-vulnerabilities-table)
 button.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1667322248/docs/web/groups/vulnerabilities/vulnerability_view.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1671650975/docs/web/groups/vulnerabilities/vulnerabilities.png)
 
 In total,
 we have thirteen columns which are
@@ -46,11 +46,11 @@ described below:
   or closed status.
 - **Status:** The condition of
   the type of vulnerability,
-  which is Open if at least
+  which is Vulnerable if at least
   one vulnerability has not
   yet been remediated;
   otherwise,
-  it is Closed.
+  it is Safe.
 - **Severity:** The CVSS
   (Common Vulnerability Scoring
   System) base score given to

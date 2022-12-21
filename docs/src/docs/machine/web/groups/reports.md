@@ -15,7 +15,7 @@ appears at the top left,
 as you can see in the
 following screenshot:
 
-![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1667342270/docs/web/groups/reports/reports_view.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1671651481/docs/web/groups/reports/reports.png)
 
 The available report options
 have either summarized and
