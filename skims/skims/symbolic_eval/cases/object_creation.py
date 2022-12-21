@@ -31,6 +31,9 @@ from symbolic_eval.f107.object_creation import (
 from symbolic_eval.f134.object_creation import (
     evaluate as evaluate_parameter_f134,
 )
+from symbolic_eval.f320.object_creation import (
+    evaluate as evaluate_parameter_f320,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -51,12 +54,12 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F096: evaluate_parameter_f096,
     FindingEnum.F107: evaluate_parameter_f107,
     FindingEnum.F134: evaluate_parameter_f134,
+    FindingEnum.F320: evaluate_parameter_f320,
 }
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
-
     if al_id := args.graph.nodes[args.n_id].get("arguments_id"):
         args.evaluation[args.n_id] = args.generic(args.fork_n_id(al_id)).danger
 

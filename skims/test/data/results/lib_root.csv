@@ -7113,39 +7113,39 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,45,89
    55 |
       ^ Col 0
 ",java.java_jpa_like
-F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,7,90,skims,320. Insecure service configuration - LDAP,"Internal service information should not be stored in the source code, especially AD configurations, as it is obtained from the admon-chanel configuration file.
+F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,7,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
  in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
-   1 | using System;
-   2 | class cipher{
+   1 | m;
+   2 | r{
    3 |
-   4 |    public void Encrypt()
-   5 |  {
-   6 |      DirectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
->  7 |   myDirectoryEntry.AuthenticationType = AuthenticationTypes.None;
-   8 |
-   9 |   DirectoryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
-  10 |       DirectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
-  11 |  }
-  12 |
-  13 | }
-     ^ Col 0
-",query.query_f320
-F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
- in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
-   1 | stem;
-   2 | pher{
-   3 |
-   4 | c void Encrypt()
+   4 | oid Encrypt()
    5 |
-   6 | ectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
-   7 | ctoryEntry.AuthenticationType = AuthenticationTypes.None;
+   6 | oryEntry myDirectoryEntry = new DirectoryEntry(adPath);
+>  7 | ryEntry.AuthenticationType = AuthenticationTypes.None;
    8 |
->  9 | oryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
-  10 | rectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
+   9 | Entry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
+  10 | toryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
   11 |
   12 |
   13 |
-     ^ Col 8
+     ^ Col 11
+",c_sharp.csharp_ldap_connections_authenticated
+F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
+   1 |
+   2 |
+   3 |
+   4 |
+   5 |
+   6 | rectoryEntry(adPath);
+   7 | nticationTypes.None;
+   8 |
+>  9 | ctoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
+  10 |  DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
+  11 |
+  12 |
+  13 |
+     ^ Col 45
 ",c_sharp.csharp_ldap_connections_authenticated
 F107,lines,namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,11,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,"
    1 | ;

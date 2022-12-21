@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
-    yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -28,24 +27,14 @@ from symbolic_eval.utils import (
 from typing import (
     Iterable,
 )
-from utils import (
-    graph as g,
-)
 
 
 def is_node_danger(graph: Graph, nid: NId) -> bool:
     method = MethodsEnum.CS_LDAP_CONN_AUTH
-    var = {graph.nodes[g.pred(graph, nid)[0]].get("variable")}
-
-    if set(yield_syntax_graph_member_access(graph, var)):
-        return False
-
-    args_nid = graph.nodes[nid].get("arguments_id")
-    test_nid = g.adj_ast(graph, args_nid)[3]
-
-    for path in get_backward_paths(graph, test_nid):
-        evaluation = evaluate(method, graph, path, test_nid)
-        if evaluation and evaluation.danger:
+    danger = {"VulnAssignement", "VulnObject"}
+    for path in get_backward_paths(graph, nid):
+        evaluation = evaluate(method, graph, path, path[0])
+        if evaluation and evaluation.triggers == danger:
             return True
     return False
 
@@ -64,8 +53,8 @@ def ldap_connections_authenticated(
                 continue
             graph = shard.syntax_graph
 
-            for nid in yield_syntax_graph_object_creation(
-                graph, {"DirectoryEntry"}
+            for nid in yield_syntax_graph_member_access(
+                graph, {"AuthenticationTypes"}
             ):
                 if is_node_danger(graph, nid):
                     yield shard, nid
