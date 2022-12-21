@@ -465,6 +465,20 @@ notification matrix.
 
 ![General consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671456665/docs/web/notifications/consulting_notification.png)
 
+### Temporary treatment alert notification
+
+This notification will be sent daily
+to the users with vulnerabilities
+assigned under the
+[Temporarily Accepted](/machine/web/vulnerabilities/management/treatments)
+treatment,
+having just seven or fewer days until
+the end of this treatment.
+This notification will report all
+vulnerabilities classified according to the group.
+
+![Temporary alert report](https://res.cloudinary.com/fluid-attacks/image/upload/v1671629874/docs/web/notifications/temporary_treatment.png)
+
 ## Exclusive Free Trial notifications
 
 ### Free trial start
