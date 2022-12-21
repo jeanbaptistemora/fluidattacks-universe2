@@ -21607,30 +21607,6 @@ F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,641,287,
    651 |                 <stringProp name=""RegexExtractor.default"">NP_AppID</stringProp>
        ^ Col 0
 ",conf_files.jmx_header_basic
-F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,672,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
-   662 |                 <stringProp name=""Assertion.custom_message""></stringProp>
-   663 |               </ResponseAssertion>
-   664 |               <hashTree/>
-   665 |             </hashTree>
-   666 |             <HTTPSamplerProxy guiclass=""HttpTestSampleGui"" testclass=""HTTPSamplerProxy"" testname=""Update SP"" enabled=""tru
-   667 |               <boolProp name=""HTTPSampler.postBodyRaw"">true</boolProp>
-   668 |               <elementProp name=""HTTPsampler.Arguments"" elementType=""Arguments"">
-   669 |                 <collectionProp name=""Arguments.arguments"">
-   670 |                   <elementProp name="""" elementType=""HTTPArgument"">
-   671 |                     <boolProp name=""HTTPArgument.always_encode"">false</boolProp>
->  672 |                     <stringProp name=""Argument.value"">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org
-   673 |    &lt;soapenv:Header/&gt;&#xd;
-   674 |    &lt;soapenv:Body&gt;&#xd;
-   675 |       &lt;xsd:updateApplication&gt;&#xd;
-   676 |          &lt;!--Optional:--&gt;&#xd;
-   677 |          &lt;xsd:serviceProvider&gt;&#xd;
-   678 |             &lt;!--Optional:--&gt;&#xd;
-   679 |             &lt;xsd1:applicationID&gt;${appIDPlaygrnd}&lt;/xsd1:applicationID&gt;&#xd;
-   680 |             &lt;xsd1:applicationName&gt;${spName2}&lt;/xsd1:applicationName&gt; &#xd;
-   681 |             &lt;xsd1:claimConfig&gt; &#xd;
-   682 |                &lt;xsd1:alwaysSendMappedLocalSubjectId&gt;true&lt;/xsd1:alwaysSendMappedLocalSubjectId&gt; &#xd;
-       ^ Col 0
-",conf_files.jmx_header_basic
 F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,787,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
    777 |                   <elementProp name="""" elementType=""Header"">
    778 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>

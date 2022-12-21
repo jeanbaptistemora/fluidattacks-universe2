@@ -25,9 +25,13 @@ def jmx_header_basic(content: str, path: str) -> Vulnerabilities:
         for tag in soup.find_all("stringprop"):
             if isinstance(tag, Tag):
                 tag_name = tag.name
-                tag_content = str(tag.string).lower()
-                if tag_name == "stringprop" and re.search(
-                    r"\bbasic(\b[^-])", tag_content
+                tag_attrs = tag.attrs
+                tag_content = str(tag).lower()
+                if (
+                    (name_attr := tag_attrs.get("name"))
+                    and name_attr.lower() == "header.value"
+                    and tag_name == "stringprop"
+                    and re.search(r">basic\b", tag_content)
                 ):
                     line_no: int = tag.sourceline
                     col_no: int = tag.sourcepos
