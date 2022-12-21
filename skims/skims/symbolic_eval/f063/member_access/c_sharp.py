@@ -31,8 +31,5 @@ def cs_unsafe_path_traversal(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if ma_attr["member"] in HTTP_INPUTS:
         args.triggers.add("userparameters")
         args.evaluation[args.n_id] = True
-    elif ma_attr["member"] == "GetEnvironmentVariable":
-        args.triggers.update({"userparameters", "userconnection"})
-        args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

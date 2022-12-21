@@ -19,9 +19,6 @@ HTTP_INPUTS: Set[str] = {
     "GetString",
     "cookieSources",
 }
-ENVIROMENTS: Set[str] = {
-    "GetEnvironmentVariable",
-}
 
 
 def is_select_single_node(args: SymbolicEvalArgs) -> bool:
@@ -48,6 +45,4 @@ def cs_insec_addheader_write(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         expr_eval = args.generic(args.fork(n_id=expr_nid, triggers=set()))
         if expr_eval and expr_eval.danger:
             args.triggers.add("userconnection")
-    if ma_attr["member"] in ENVIROMENTS:
-        args.triggers.add("userconnection")
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

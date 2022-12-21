@@ -20,7 +20,5 @@ def cs_remote_command_execution(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         "params.get" in f'{ma_attr["expression"]}.{ma_attr["member"]}'.lower()
     ):
         args.triggers.add("UserParams")
-    elif ma_attr["member"] == "GetEnvironmentVariable":
-        args.triggers.update({"UserParams", "UserConnection"})
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

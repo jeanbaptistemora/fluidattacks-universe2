@@ -22,7 +22,5 @@ def cs_ldap_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     ma_attr = args.graph.nodes[args.n_id]
     if ma_attr["member"] in USER_INPUTS:
         args.triggers.add("userparameters")
-    elif ma_attr["member"] == "GetEnvironmentVariable":
-        args.triggers.update({"userparameters", "userconnection"})
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
