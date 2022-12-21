@@ -113,6 +113,8 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
 def must_not_filter() -> list[dict[str, Any]]:
     must_not_filters: list[dict[str, Any]] = [
         {"state.status": VulnerabilityStateStatus.CREATED},
+        {"state.status": VulnerabilityStateStatus.DELETED},
+        {"state.status": VulnerabilityStateStatus.MASKED},
         {"state.status": VulnerabilityStateStatus.REJECTED},
         {"state.status": VulnerabilityStateStatus.SUBMITTED},
         {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED},
