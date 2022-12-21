@@ -365,25 +365,3 @@ async def test_filter_deleted_findings() -> None:
     assert result["data"]["removeFinding"]["success"]
     loaders = get_new_context()
     assert await get_open_vulnerabilities(loaders, group_name) < open_vulns
-
-
-async def test_non_existing_finding() -> None:
-    query = """
-      query GetFindingHeader($findingId: String!) {
-        finding(identifier: $findingId) {
-          closedVulns: closedVulnerabilities
-          id
-          openVulns: openVulnerabilities
-          releaseDate
-          minTimeToRemediate
-        }
-      }
-    """
-    variables = {
-        "findingId": "777493279",
-    }
-    data = {"query": query, "variables": variables}
-    result = await _get_result(data)
-    assert "errors" in result
-    expected_error = "Access denied"
-    assert result["errors"][0]["message"] == expected_error
