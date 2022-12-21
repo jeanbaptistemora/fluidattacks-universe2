@@ -13,5 +13,8 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    annotation_ids = match_ast_group_d(args.ast_graph, args.n_id, "annotation")
+    graph = args.ast_graph
+    annotation_ids = match_ast_group_d(
+        graph, args.n_id, "annotation"
+    ) + match_ast_group_d(graph, args.n_id, "marker_annotation")
     return build_modifiers_node(args, annotation_ids)

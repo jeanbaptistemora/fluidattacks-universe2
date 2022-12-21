@@ -74,6 +74,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "annotation",
+            "marker_annotation",
         },
         syntax_reader=java_annotation.reader,
     ),

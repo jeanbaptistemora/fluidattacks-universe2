@@ -3268,7 +3268,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test156.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test157.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test157.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3292,7 +3292,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test157.js,23,89,skims,112.
   32 |         res.status(500).json({ error: error });
   33 |       }
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test158.js,29,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test158.js,"
   18 |   let userData = req.body;
   19 |
@@ -3316,7 +3316,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test158.js,29,89,skims,112.
   37 |
   38 | export default router;
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test159.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test159.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3340,7 +3340,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test159.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test160.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test160.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3364,7 +3364,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test160.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test161.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test161.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3388,7 +3388,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test161.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test162.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test162.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3412,7 +3412,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test162.js,23,89,skims,112.
   32 |   );
   33 | });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test163.js,21,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test163.js,"
   11 |
   12 | router.get(""/test163/"", function (req, res) {
@@ -3436,7 +3436,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test163.js,21,89,skims,112.
   30 |     );
   31 |   });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test164.js,25,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test164.js,"
   15 |
   16 | router.get(""/test164/"", function (req, res) {
@@ -3460,7 +3460,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test164.js,25,89,skims,112.
   34 |     );
   35 |   });
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test165.js,24,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test165.js,"
   14 | cluster.add(pool_config);
   15 |
@@ -3484,7 +3484,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test165.js,24,89,skims,112.
   33 |
   34 | export default router;
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test166.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test166.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3508,7 +3508,7 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test166.js,23,89,skims,112.
   32 |       res.json({ ok: results.length > 0 });
   33 |     }
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
 F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test167.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test167.js,"
   13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
   14 |     connection.connect();
@@ -3532,4 +3532,28 @@ F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test167.js,23,89,skims,112.
   32 |       res.json({ ok: results.length > 0 });
   33 |     }
      ^ Col 0
-",query.query_f112
+",javascript.javascript_sql_api_injection
+F112,lines,VULNERABLE_JS_APP/server/routes/testcases/test168.js,23,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in VULNERABLE_JS_APP/server/routes/testcases/test168.js,"
+  13 |   if (connection.state != ""connected"" && connection.state != ""authenticated"") {
+  14 |     connection.connect();
+  15 |   }
+  16 |   connection.resume();
+  17 |
+  18 |   let userData = req.body;
+  19 |
+  20 |   let userName = userData.username;
+  21 |   let password = userData.password;
+  22 |   let statement = `SELECT * FROM users WHERE user_name=? AND password=?`;
+> 23 |   connection.query(
+  24 |     {
+  25 |       sql: statement,
+  26 |       values: [userName, password],
+  27 |     },
+  28 |     function (error, results, fields) {
+  29 |       connection.pause();
+  30 |       if (error) {
+  31 |         res.status(500).json({ error: error });
+  32 |       }
+  33 |       res.json({ ok: results.length > 0 });
+     ^ Col 0
+",javascript.javascript_sql_api_injection

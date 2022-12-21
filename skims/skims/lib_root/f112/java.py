@@ -50,7 +50,7 @@ def sql_injection(
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_SQL_INJECTION
     java = GraphShardMetadataLanguage.JAVA
-    danger_methods = {"addBatch", "executeQuery", "executeUpdate", "execute"}
+    danger_methods = {"addBatch", "execute", "executeQuery", "executeUpdate"}
     danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterable[GraphShardNode]:
@@ -62,9 +62,15 @@ def sql_injection(
             for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 n_attrs = graph.nodes[n_id]
                 expr = n_attrs["expression"].split(".")
-                if expr[-1] in danger_methods and is_sql_injection(
-                    graph, n_id, danger_set, method
-                ):
+                if (
+                    expr[-1] in danger_methods
+                    or (
+                        n_attrs["expression"] == "query"
+                        and (obj_id := n_attrs.get("object_id"))
+                        and graph.nodes[obj_id].get("symbol")
+                        == "applicationJdbcTemplate"
+                    )
+                ) and is_sql_injection(graph, n_id, danger_set, method):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

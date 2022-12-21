@@ -29,4 +29,13 @@ def java_sql_injection(
     elif ma_attr["expression"] in SQL_CONNECTIONS:
         args.evaluation[args.n_id] = True
 
+    if ma_attr["expression"] == "get" and (obj_id := ma_attr.get("object_id")):
+        expr_eval = args.generic(args.fork(n_id=obj_id))
+        if expr_eval and expr_eval.danger:
+            args.evaluation[args.n_id] = True
+            args.triggers.add("userparameters")
+
+    if ma_attr["expression"] == "replaceAll":
+        args.triggers.add("sanitize")
+
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
