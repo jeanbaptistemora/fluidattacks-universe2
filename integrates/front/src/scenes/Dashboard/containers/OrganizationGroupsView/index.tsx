@@ -120,18 +120,26 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
             openFindings: group.openFindings,
           })
         : t("organization.tabs.groups.vulnerabilities.inProcess");
-      const eventFormat: string =
-        _.isUndefined(group.events) || _.isEmpty(group.events)
-          ? "None"
-          : group.events.filter((event): boolean =>
+
+      function getEventFormat(): string {
+        if (_.isUndefined(group.events) || _.isEmpty(group.events)) {
+          return "None";
+        } else if (
+          group.events.filter((event): boolean =>
+            event.eventStatus.includes("CREATED")
+          ).length > 0
+        ) {
+          return `${
+            group.events.filter((event): boolean =>
               event.eventStatus.includes("CREATED")
-            ).length > 0
-          ? `${
-              group.events.filter((event): boolean =>
-                event.eventStatus.includes("CREATED")
-              ).length
-            } need(s) attention`
-          : "None";
+            ).length
+          } need(s) attention`;
+        }
+
+        return "None";
+      }
+
+      const eventFormat: string = getEventFormat();
       const status: string = t(
         `organization.tabs.groups.status.${_.camelCase(group.managed)}`
       );

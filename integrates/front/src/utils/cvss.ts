@@ -73,14 +73,20 @@ const calcCVSSv3: (data: ISeverityAttr["finding"]["severity"]) => number = (
   const exploitability: number =
     EXPLOITABILITY_FACTOR_1 * attVec * attCom * privReq * usrInt;
 
-  const basescore: number =
-    impact <= 0
-      ? 0
-      : sevScope === 1
-      ? Math.ceil(
+  function getBasescore(): number {
+    if (impact <= 0) {
+      return 0;
+    } else if (sevScope === 1) {
+      return (
+        Math.ceil(
           Math.min(BASESCORE_FACTOR * (impact + exploitability), 10) * 10
         ) / 10
-      : Math.ceil(Math.min(impact + exploitability, 10) * 10) / 10;
+      );
+    }
+
+    return Math.ceil(Math.min(impact + exploitability, 10) * 10) / 10;
+  }
+  const basescore: number = getBasescore();
 
   const temporal: number =
     Math.ceil(basescore * explo * remLev * repConf * 10) / 10;
