@@ -1,6 +1,9 @@
 from contextlib import (
     suppress,
 )
+from datetime import (
+    timezone,
+)
 from forces.apis.integrates.api import (
     get_git_remotes,
 )
@@ -20,7 +23,6 @@ from git.repo import (
     Repo,
 )
 import os
-import pytz
 import re
 
 # Contants
@@ -91,7 +93,7 @@ def get_repository_metadata(repo_path: str = ".") -> dict[str, str]:
             f"{head_commit.author.name} <{head_commit.author.email}>"
         )
         git_commit_authored_date = head_commit.authored_datetime.astimezone(
-            pytz.UTC
+            timezone.utc
         ).isoformat()
 
         origins = list(repo.remote().urls)
