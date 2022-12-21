@@ -27,7 +27,7 @@ def jmx_header_basic(content: str, path: str) -> Vulnerabilities:
                 tag_name = tag.name
                 tag_content = str(tag.string).lower()
                 if tag_name == "stringprop" and re.search(
-                    r"\bbasic\b", tag_content
+                    r"\bbasic(\b[^-])", tag_content
                 ):
                     line_no: int = tag.sourceline
                     col_no: int = tag.sourcepos
