@@ -913,24 +913,22 @@ async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
 
 
 def get_current_state_converted(state: str) -> str:
-    if state in {"CLOSED", "OPEN"}:
-        return state
+    if state in {"SAFE", "VULNERABLE"}:
+        translation: dict[str, str] = {
+            "SAFE": "CLOSED",
+            "VULNERABLE": "OPEN",
+        }
 
-    translation: dict[str, str] = {
-        "SAFE": "CLOSED",
-        "VULNERABLE": "OPEN",
-    }
-
-    return translation[state]
+        return translation[state]
+    return state
 
 
 def get_inverted_state_converted(state: str) -> str:
-    if state in {"SAFE", "VULNERABLE"}:
-        return state
+    if state in {"CLOSED", "OPEN"}:
+        translation: dict[str, str] = {
+            "CLOSED": "SAFE",
+            "OPEN": "VULNERABLE",
+        }
 
-    translation: dict[str, str] = {
-        "CLOSED": "SAFE",
-        "OPEN": "VULNERABLE",
-    }
-
-    return translation[state]
+        return translation[state]
+    return state
