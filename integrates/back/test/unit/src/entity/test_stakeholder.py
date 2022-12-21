@@ -210,24 +210,3 @@ async def test_grant_stakeholder_access_4() -> None:
         "email"
         in result["data"]["grantStakeholderAccess"]["grantedStakeholder"]
     )
-
-
-@pytest.mark.changes_db
-async def test_edit_stakeholder() -> None:
-    """Check for updateGroupStakeholder mutation."""
-    query = """
-        mutation {
-            updateGroupStakeholder (
-            email: "integratesuser2@gmail.com"
-            groupName: "unittesting"
-            responsibility: "edited"
-            role: USER) {
-                success
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert "success" in result["data"]["updateGroupStakeholder"]

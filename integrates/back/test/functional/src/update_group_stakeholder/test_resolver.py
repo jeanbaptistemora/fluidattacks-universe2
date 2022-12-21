@@ -35,6 +35,7 @@ async def test_update_group_stakeholder(
     )
     assert "errors" not in result
     assert "success" in result["data"]["updateGroupStakeholder"]
+    assert result["data"]["updateGroupStakeholder"]["success"]
 
 
 @pytest.mark.asyncio
