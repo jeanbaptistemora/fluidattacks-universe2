@@ -1,7 +1,6 @@
 from datetime import (
     datetime,
     timedelta,
-    timezone,
 )
 from decimal import (
     Decimal,
@@ -19,6 +18,11 @@ from forces.utils.strict_mode import (
     set_forces_exit_code,
 )
 import pytest
+from zoneinfo import (
+    ZoneInfo,
+)
+
+TIMEZONE: ZoneInfo = ZoneInfo("America/Bogota")
 
 
 def test_check_policy_compliance() -> None:
@@ -34,9 +38,7 @@ def test_check_policy_compliance() -> None:
         specific="port 21",
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
-        report_date=(
-            datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(hours=5)
-        ).isoformat(),
+        report_date=(datetime.now(tz=TIMEZONE) - timedelta(hours=5)),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -47,9 +49,7 @@ def test_check_policy_compliance() -> None:
         specific="port 21",
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
-        report_date=(
-            datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(days=10)
-        ).isoformat(),
+        report_date=(datetime.now(tz=TIMEZONE) - timedelta(days=10)),
         exploitability=4.5,
         root_nickname=None,
     )
@@ -72,10 +72,7 @@ async def test_set_exit_code() -> None:
                 specific="port 21",
                 state=VulnerabilityState.OPEN,
                 severity=Decimal("5.1"),
-                report_date=(
-                    datetime.utcnow().replace(tzinfo=timezone.utc)
-                    - timedelta(hours=5)
-                ).isoformat(),
+                report_date=(datetime.now(tz=TIMEZONE) - timedelta(hours=5)),
                 exploitability=5.0,
                 root_nickname=None,
             )

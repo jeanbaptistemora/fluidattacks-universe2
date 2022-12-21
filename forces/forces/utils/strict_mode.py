@@ -37,11 +37,8 @@ def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
     Returns `False` if the vulnerability does not comply with the Agent strict
     mode org policies (severity threshold and the grace period)
     """
-    current_date: datetime = datetime.utcnow().replace(tzinfo=timezone.utc)
-    report_date: datetime = datetime.fromisoformat(vuln.report_date).replace(
-        tzinfo=timezone.utc
-    )
-    time_diff: timedelta = current_date - report_date
+    current_date: datetime = datetime.now(tz=timezone.utc)
+    time_diff: timedelta = current_date - vuln.report_date
     return not (
         vuln.state == VulnerabilityState.OPEN
         and vuln.severity >= config.breaking_severity
@@ -70,13 +67,8 @@ async def set_forces_exit_code(
         )
         for finding in findings:
             for vuln in finding.vulnerabilities:
-                current_date: datetime = datetime.utcnow().replace(
-                    tzinfo=timezone.utc
-                )
-                report_date: datetime = datetime.fromisoformat(
-                    vuln.report_date
-                ).replace(tzinfo=timezone.utc)
-                time_diff: timedelta = current_date - report_date
+                current_date: datetime = datetime.now(tz=timezone.utc)
+                time_diff: timedelta = current_date - vuln.report_date
                 if not check_policy_compliance(config, vuln):
                     await log(
                         "warning",

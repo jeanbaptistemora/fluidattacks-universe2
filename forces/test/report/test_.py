@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from decimal import (
     Decimal,
 )
@@ -23,6 +26,9 @@ from forces.report.styles import (
     style_summary,
 )
 import pytest
+from zoneinfo import (
+    ZoneInfo,
+)
 
 
 @pytest.mark.asyncio
@@ -92,7 +98,7 @@ def test_filter_repo() -> None:
         specific="port 21",
         state=VulnerabilityState.OPEN,
         severity=Decimal("6.0"),
-        report_date="",
+        report_date=datetime.now(tz=ZoneInfo("America/Bogota")),
         exploitability=4.5,
         root_nickname=None,
     )

@@ -3,6 +3,9 @@
 from collections import (
     Counter,
 )
+from datetime import (
+    datetime,
+)
 from decimal import (
     Decimal,
 )
@@ -50,6 +53,9 @@ from timeit import (
 )
 from typing import (
     Any,
+)
+from zoneinfo import (
+    ZoneInfo,
 )
 
 
@@ -250,7 +256,9 @@ async def generate_raw_report(
             severity=Decimal(str(vuln["severity"]))
             if vuln["severity"] is not None
             else findings_dict[find_id].severity,
-            report_date=str(vuln["reportDate"]),
+            report_date=datetime.fromisoformat(
+                str(vuln["reportDate"])
+            ).replace(tzinfo=ZoneInfo("America/Bogota")),
             exploitability=findings_dict[find_id].exploitability,
             root_nickname=str(vuln["rootNickname"])
             if vuln.get("rootNickName")

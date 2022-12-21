@@ -54,7 +54,6 @@
       forces = {
         searchPaths.source = [
           outputs."/forces/config/runtime"
-          outputs."/forces/config/typing-stubs"
         ];
         python = "3.10";
         src = "/forces/forces";
@@ -63,7 +62,6 @@
         searchPaths.source = [
           outputs."/forces/config/development"
           outputs."/forces/config/runtime"
-          outputs."/forces/config/typing-stubs"
         ];
         python = "3.10";
         src = "/forces/test";
