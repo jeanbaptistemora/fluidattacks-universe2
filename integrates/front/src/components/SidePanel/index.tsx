@@ -11,16 +11,18 @@ interface ISidePanelProps {
   children: JSX.Element;
   open: boolean;
   onClose?: () => void;
+  width?: string;
 }
 
 const SidePanel = ({
   children,
   open,
   onClose,
+  width = "350px",
 }: Readonly<ISidePanelProps>): JSX.Element | null => {
   return open
     ? createPortal(
-        <Container>
+        <Container width={width}>
           {onClose ? (
             <div className={"tr"}>
               <Button onClick={onClose} size={"sm"}>
