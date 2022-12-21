@@ -43,6 +43,7 @@ from custom_exceptions import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from datetime import (
     date,
@@ -678,18 +679,18 @@ async def update_group(
         )
         return
 
-    await remove_group(
-        loaders=loaders,
-        group_name=group_name,
-        justification=justification,
-        email=email,
-    )
     await notifications_domain.delete_group(
         loaders=loaders,
         deletion_date=datetime_utils.get_utc_now(),
         group_name=group_name,
         requester_email=email,
         reason=justification.value,
+    )
+    await remove_group(
+        loaders=loaders,
+        group_name=group_name,
+        justification=justification,
+        email=email,
     )
 
 
@@ -1355,6 +1356,7 @@ async def remove_stakeholder(
         loaders, email_to_revoke, group_name
     )
 
+    loaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
     has_org_access = await orgs_domain.has_access(
@@ -1381,6 +1383,7 @@ async def remove_stakeholder(
             loaders, organization_id, email_to_revoke, modified_by
         )
 
+    loaders = get_new_context()
     all_groups_by_stakeholder = await loaders.group.load_many(
         stakeholder_groups_names
     )
