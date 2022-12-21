@@ -339,6 +339,16 @@ const isValidPhoneNumber: Validator = (
   return translate.t("validations.invalidPhoneNumber");
 };
 
+const getFileNameExtension: (filename: string) => string = (
+  filename: string
+): string => {
+  const splittedName: string[] = filename.split(".");
+  const extension: string =
+    splittedName.length > 1 ? (_.last(splittedName) as string) : "";
+
+  return extension.toLowerCase();
+};
+
 const getFileExtension: (file: File) => string = (file: File): string => {
   const splittedName: string[] = file.name.split(".");
   const extension: string =
@@ -673,6 +683,7 @@ export {
   validOptionalDatetime,
   dateTimeBeforeToday,
   dateTimeBetween,
+  getFileNameExtension,
   isValidVulnsFile,
   isValidEvidenceName,
   validTag,

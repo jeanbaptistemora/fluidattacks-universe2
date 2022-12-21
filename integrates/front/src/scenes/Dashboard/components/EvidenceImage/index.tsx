@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button/index";
+import { ExternalLink } from "components/ExternalLink";
 import { Tooltip } from "components/Tooltip";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
 import type { IEvidenceItem } from "scenes/Dashboard/containers/EvidenceView/types";
@@ -16,6 +17,7 @@ import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
+  getFileNameExtension,
   isValidEvidenceDescription,
   maxLength,
   validTextField,
@@ -124,6 +126,40 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
   const handleClick = useCallback((): void => {
     onClick();
   }, [onClick]);
+  const DisplayImage = useCallback((): JSX.Element => {
+    if (typeof content === "string") {
+      if (getFileNameExtension(content) === "webm") {
+        return (
+          <video className={style.img} controls={true} muted={true}>
+            <source src={content} type={"video/webm"} />
+            <p>
+              {t("searchFindings.tabEvidence.altVideo.first")}&nbsp;
+              <ExternalLink href={content}>
+                {t("searchFindings.tabEvidence.altVideo.second")}
+              </ExternalLink>
+              &nbsp;{t("searchFindings.tabEvidence.altVideo.third")}
+            </p>
+          </video>
+        );
+      }
+
+      return (
+        <React.Fragment>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+          <img
+            alt={""}
+            className={style.img}
+            key={`${name}.img.key`}
+            onClick={handleClick}
+            src={content}
+          />
+        </React.Fragment>
+      );
+    }
+
+    return <div />;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   return (
     <React.StrictMode>
@@ -131,14 +167,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
         <div>
           <div className={style.imgContainer}>
             {typeof content === "string" ? (
-              /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
-              <img
-                alt={""}
-                className={style.img}
-                key={`${name}.img.key`}
-                onClick={handleClick}
-                src={content}
-              />
+              <DisplayImage />
             ) : (
               cloneElement(content, {
                 className: style.img,
