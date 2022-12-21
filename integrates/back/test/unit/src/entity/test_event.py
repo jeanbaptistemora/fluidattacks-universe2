@@ -44,21 +44,6 @@ async def _get_result(
     return result
 
 
-async def test_events() -> None:
-    """Check for events."""
-    query = """{
-        events(groupName: "unittesting"){
-            groupName
-            detail
-        }
-    }"""
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "events" in result["data"]
-    assert result["data"]["events"][0]["groupName"] == "unittesting"
-    assert len(result["data"]["events"][0]["detail"]) >= 1
-
-
 @pytest.mark.changes_db
 async def test_update_event_evidence() -> None:
     """Check for updateEventEvidence mutation."""

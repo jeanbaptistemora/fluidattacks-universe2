@@ -44,4 +44,5 @@ async def test_get_events(populate: bool, email: str) -> None:
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" not in result
+    assert "events" in result["data"]
     assert result["data"]["events"] == expected
