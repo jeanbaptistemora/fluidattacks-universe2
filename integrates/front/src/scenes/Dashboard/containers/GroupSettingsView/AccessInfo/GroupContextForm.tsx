@@ -104,7 +104,13 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
             }}
           </Field>
         ) : dataset.groupContext ? (
-          <MDEditor.Markdown prefixCls={""} source={dataset.groupContext} />
+          <div data-color-mode={"light"}>
+            <MDEditor.Markdown
+              source={dataset.groupContext}
+              // eslint-disable-next-line react/forbid-component-props
+              style={{ backgroundColor: "inherit" }}
+            />
+          </div>
         ) : (
           <Text mb={2}>
             {t("searchFindings.groupAccessInfoSection.noGroupContext")}
