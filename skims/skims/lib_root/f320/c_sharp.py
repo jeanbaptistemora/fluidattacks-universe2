@@ -31,10 +31,13 @@ from typing import (
 
 def is_node_danger(graph: Graph, nid: NId) -> bool:
     method = MethodsEnum.CS_LDAP_CONN_AUTH
-    danger = {"VulnAssignement", "VulnObject"}
+    insecure_types = {"None", "Anonymous"}
+
+    if graph.nodes[nid].get("member") not in insecure_types:
+        return False
     for path in get_backward_paths(graph, nid):
         evaluation = evaluate(method, graph, path, path[0])
-        if evaluation and evaluation.triggers == danger:
+        if evaluation and evaluation.danger:
             return True
     return False
 
