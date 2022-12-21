@@ -58,5 +58,6 @@ async def test_resources(populate: bool, email: str) -> None:
         group="group1",
     )
     assert "errors" not in result
+    assert "resources" in result["data"]
     assert result["data"]["resources"]["groupName"] == "group1"
     assert result["data"]["resources"]["files"] == files

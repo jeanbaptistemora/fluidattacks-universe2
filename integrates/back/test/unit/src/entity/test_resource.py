@@ -19,7 +19,6 @@ import pytest
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
 )
 
@@ -38,57 +37,6 @@ async def _get_result(
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
-
-
-async def test_get_resources() -> None:
-    """Check for group resources."""
-    query = """{
-      resources(groupName: "unittesting"){
-        groupName
-        files {
-            description
-            fileName
-            uploadDate
-            uploader
-        }
-        __typename
-      }
-    }"""
-    data = {"query": query}
-    request = await create_dummy_session("integratesmanager@gmail.com")
-    request = apply_context_attrs(request)  # type: ignore
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert "resources" in result["data"]
-    assert result["data"]["resources"]["groupName"] == "unittesting"
-
-    expected_output: List[Dict[str, str]] = [
-        {
-            "description": "Test",
-            "fileName": "test.zip",
-            "uploadDate": "2019-03-01 15:21:00",
-            "uploader": "unittest@fluidattacks.com",
-        },
-        {
-            "description": "shell",
-            "fileName": "shell.exe",
-            "uploadDate": "2019-04-24 14:56:00",
-            "uploader": "unittest@fluidattacks.com",
-        },
-        {
-            "description": "shell2",
-            "fileName": "shell2.exe",
-            "uploadDate": "2019-04-24 14:59:00",
-            "uploader": "unittest@fluidattacks.com",
-        },
-        {
-            "description": "eerweterterter",
-            "fileName": "asdasd.py",
-            "uploadDate": "2019-08-06 14:28:00",
-            "uploader": "unittest@fluidattacks.com",
-        },
-    ]
-    assert result["data"]["resources"]["files"] == expected_output
 
 
 @pytest.mark.changes_db
