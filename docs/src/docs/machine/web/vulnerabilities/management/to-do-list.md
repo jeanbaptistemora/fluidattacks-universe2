@@ -106,9 +106,12 @@ click [here](/machine/web/groups/roles/)
 
 ### Reattack
 
-You can perform the Reattack
-action in the locations view
-and in the ToDoList.
+You can perform the
+[Reattack](/squad/reattacks)
+action in the
+[locations](/machine/web/vulnerabilities/management/locations)
+view and in the
+[To-Do List](/machine/web/vulnerabilities/management/to-do-list).
 Remember that a reattack is
 when you have already applied
 a solution for an existing
@@ -116,7 +119,7 @@ vulnerability and you want
 to validate its effectiveness.
 
 To perform a reattack
-from the ToDoList view,
+from the To-Do List view,
 you have to select which
 vulnerability you want
 to validate by clicking
@@ -169,7 +172,7 @@ any of these.
 ### Table refresh
 
 If you need to refresh the
-ToDoList table view,
+To-Do List table view,
 you can do so with the button
 on the left next to the
 reattack button.
@@ -180,3 +183,15 @@ reattack button.
 
 The search bar filters the information
 contained in the columns of the table.
+
+:::tip
+Remember that in the table of
+this section you have links that
+redirect you to the
+[vulnerability](/machine/web/groups/vulnerabilities)
+view,
+[locations](/machine/web/vulnerabilities/management),
+[evidence](/machine/web/vulnerabilities/evidence)
+and [details](/machine/web/vulnerabilities/management/details)
+of the vulnerability.
+:::
