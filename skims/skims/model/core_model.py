@@ -3869,6 +3869,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_SQL_INJECTION = MethodInfo(
+        file_name="java",
+        name="java_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F112,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     UNVERIFIABLE_FILES = MethodInfo(
         file_name="generic",
         name="unverifiable_files",
