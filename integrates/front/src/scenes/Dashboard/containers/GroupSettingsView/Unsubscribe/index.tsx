@@ -12,7 +12,10 @@ import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 
 import { Button } from "components/Button";
 import { Text } from "components/Text";
-import { GET_ORGANIZATION_GROUP_NAMES } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
+import {
+  GET_ORGANIZATION_GROUP_NAMES,
+  GET_USER_ORGANIZATIONS,
+} from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -45,6 +48,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
       refetchQueries: [
         GET_ORGANIZATION_GROUP_NAMES,
         GET_USER_ORGANIZATIONS_GROUPS,
+        GET_USER_ORGANIZATIONS,
       ],
       variables: {
         groupName,
