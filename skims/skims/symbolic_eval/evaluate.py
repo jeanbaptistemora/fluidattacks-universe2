@@ -145,5 +145,5 @@ def evaluate(
             )
         )
     except MissingSymbolicEval as error:
-        logs.log_blocking("warning", cast(str, error))
+        logs.log_blocking("debug", cast(str, error))
         return None

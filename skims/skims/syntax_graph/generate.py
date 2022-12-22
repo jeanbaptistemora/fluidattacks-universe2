@@ -31,7 +31,7 @@ def generic(args: SyntaxGraphArgs) -> str:
                 return dispatcher.syntax_reader(args)
 
     log_blocking(
-        "warning",
+        "debug",
         f"Missing syntax reader for {node_type} in {args.language.name}",
     )
 
