@@ -1,7 +1,0 @@
-Group name,Open Exposure
-014. Insecure functionality,25
-038. Business information leak,4.0
-007. Cross-site request forgery,1.5
-037. Technical information leak,0.9
-083. XML injection (XXE),0.7
-060. Insecure service configuration,0.2
