@@ -62,13 +62,6 @@
         python = "3.9";
         src = "/integrates/back/test/e2e/src";
       };
-      integratesTestrigorE2e = {
-        searchPaths.source = [
-          outputs."/integrates/web/testrigor/runtime"
-        ];
-        python = "3.9";
-        src = "/integrates/web/testrigor/src";
-      };
       integratesBackChartsCollector = {
         searchPaths.source = [
           outputs."/integrates/back/env/pypi/runtime"

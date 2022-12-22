@@ -1,5 +1,0 @@
----
-cryptography: 38.0.3
-jwcrypto: 1.4.2
-requests: 2.28.1
-types-requests: 2.28.11.5

@@ -1,4 +1,0 @@
-open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/analytics"
-check that page contains "Exposure over time" and "Sprint exposure increment" and "Sprint exposure decrement"
-check that page contains "Sprint exposure change overall" and "Remediation rate" and "Open vulnerabilities"
-check that page contains "Vulnerabilities with no treatment" and "Pending exposure by group" and "Tags by groups"
