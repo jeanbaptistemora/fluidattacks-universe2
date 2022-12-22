@@ -170,7 +170,7 @@ and its current status.
 
 You can see three tabs
 under the header: Description,
-Evidence and Comments.
+Evidence and Consulting.
 In **Description**,
 you find why the event
 was reported by one of
@@ -180,16 +180,16 @@ the site where it is
 present and the number
 of components affected.
 
-![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998603/docs/web/groups/events/description.png)
+![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1671735482/docs/web/groups/events/description_tab.png)
 
 In **Evidence**,
 you find images,
 videos or GIFs justifying
 the reported event.
 
-![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998697/docs/web/groups/events/evidence.png)
+![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1671735595/docs/web/groups/events/evidence_view.png)
 
-In **Comments**,
+In **Consulting**,
 you find the discussion
 established between your
 company's staff and
@@ -197,7 +197,7 @@ company's staff and
 project managers about the event.
 You can leave your comments there.
 
-![Event Details Comments](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998785/docs/web/groups/events/comments.png)
+![Event Details Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671736248/docs/web/groups/events/consulting_view.png)
 
 ## Types of events
 
