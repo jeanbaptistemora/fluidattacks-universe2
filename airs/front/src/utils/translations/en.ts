@@ -797,20 +797,23 @@ const pageTexts: ResourceKey = {
           "understands and supports their clients.”",
         person: "CISO/COO",
       },
-      subtitle: "Many organizations use our Continuous Hacking solution",
+      subtitle:
+        "Many organizations deploy secure technology several times " +
+        "daily using our Continuous Hacking solution",
       title: "Don't just take our word for it",
     },
     comparative: {
       tableDescription1:
-        "* Data from a 3-year experiment run by Fluid Attacks " +
-        "on 6 commercial tools and 6 open source tools.",
-      tableDescription2: "* Reversing: if the source code is not provided",
-      title: "Compare us with the competition",
+        "* Data from a three-year experiment run by Fluid Attacks " +
+        "on six commercial tools and six open-source tools.",
+      tableDescription2:
+        "* Reversing is conducted if the source code is not provided.",
+      title: "Compare us with the competition's offering",
     },
     plansSection: {
       description:
         "Fluid Attacks' plans offer flexibility " +
-        "for your vulnerability management program",
+        "for securing your deployments continuously",
       plansCards: {
         item1: "Control of the whole remediation process",
         item10: "Possibility to talk to an expert via ARM",
@@ -831,7 +834,7 @@ const pageTexts: ResourceKey = {
           "severe vulnerabilities through ethical hacking.",
         squadTitle: "Squad",
       },
-      title: "Explore our Plans",
+      title: "Explore a detailed overview of our plans' features",
     },
     portrait: {
       paragraph:
