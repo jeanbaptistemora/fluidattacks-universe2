@@ -263,10 +263,6 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "path": {
             "join",
         },
-        "xpath": {
-            "select",
-            "parse",
-        },
     }
 )
 BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(

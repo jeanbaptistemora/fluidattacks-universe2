@@ -5,6 +5,9 @@ from symbolic_eval.f021.member_access.c_sharp import (
     cs_insec_addheader_write,
     cs_xpath_injection,
 )
+from symbolic_eval.f021.member_access.common import (
+    dynamic_xpath,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -17,6 +20,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_XPATH_INJECTION: cs_xpath_injection,
     MethodsEnum.CS_XPATH_INJECTION_EVALUATE: cs_insec_addheader_write,
+    MethodsEnum.JS_DYNAMIC_X_PATH: dynamic_xpath,
 }
 
 

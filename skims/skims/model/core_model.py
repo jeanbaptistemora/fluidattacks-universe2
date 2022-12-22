@@ -2045,6 +2045,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_DYNAMIC_X_PATH = MethodInfo(
+        file_name="javascript",
+        name="javascript_dynamic_xpath",
+        module="lib_root",
+        finding=FindingEnum.F021,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_PROP_UNENCRYPTED_TRANSPORT = MethodInfo(
         file_name="java",
         name="java_properties_unencrypted_transport",
