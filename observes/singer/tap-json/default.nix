@@ -12,6 +12,7 @@
     _metadata // {inherit version;};
   deps = import ./build/deps {
     inherit nixpkgs python_version;
+    no_test = false;
   };
   self_pkgs = import ./build/pkg {
     inherit src metadata;

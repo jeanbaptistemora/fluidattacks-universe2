@@ -30,6 +30,6 @@ in
       __argSendPrepare__ = "${prepareOnAws}/bin/${prepareOnAws.name}";
       __argDynamoSchema__ = "${dynamoSchema}/bin/${dynamoSchema.name}";
     };
-    name = "observes-etl-dynamo-conf";
+    name = "dynamo-etl";
     entrypoint = ./entrypoint.sh;
   }
