@@ -49,9 +49,9 @@ You will find the following fields:
 
 Clicking on any of these four boxes
 will redirect you to the
-Out of the Scope section.
+**Out of the Scope** section.
 If you want to know more about this section,
-click here.
+click [here](/machine/web/azure-credentials).
 
 ## Group table
 
