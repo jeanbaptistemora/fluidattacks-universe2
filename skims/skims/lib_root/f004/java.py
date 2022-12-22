@@ -1,6 +1,3 @@
-from lib_root.utilities.common import (
-    search_method_invocation_naive,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -28,6 +25,9 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
+)
+from utils import (
+    graph as g,
 )
 
 
@@ -57,8 +57,12 @@ def remote_command_execution(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in search_method_invocation_naive(graph, danger_methods):
-                if is_argument_vuln(graph, n_id):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+                n_attrs = graph.nodes[n_id]
+                expr = n_attrs["expression"].split(".")
+                if expr[-1] in danger_methods and is_argument_vuln(
+                    graph, n_id
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

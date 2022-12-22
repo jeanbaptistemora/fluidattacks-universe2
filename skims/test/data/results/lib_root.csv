@@ -5906,6 +5906,30 @@ F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,2
   35 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
+F021,lines,namespace/skims/test/data/lib_root/f021/js_dynamic_xpath.js,15,643,skims,021. XPath injection,Dynamic XPath statements are generated without the required data validation. in namespace/skims/test/data/lib_root/f021/js_dynamic_xpath.js,"
+   2 | var xpath = require(""xpath"");
+   3 | let fs = require(""fs"");
+   4 | var router = Router();
+   5 |
+   6 | router.get(""/test142/"", function (req, res) {
+   7 |
+   8 |   let userData = req.body;
+   9 |   let userName = userData.username;
+  10 |   let password = userData.password;
+  11 |
+  12 |   fs.readFinding(""test"", (error, data) => {
+  13 |
+  14 |     var findUserXPath = `//Employee[UserName/text()='${userName}' and Password/text()='${password}']`;
+> 15 |     let result = xpath.select(findUserXPath, doc);
+  16 |     return result;
+  17 |
+  18 |   });
+  19 |
+  20 | });
+  21 |
+  22 | export default router;
+     ^ Col 0
+",javascript.javascript_dynamic_xpath
 F021,lines,namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,12,643,skims,021. XPath injection,Potentially untrusted HTTP request input reaches an XPath query in namespace/skims/test/data/lib_root/f021/c_sharp_xpath_injection.cs,"
    1 | sing System;
    2 | sing System.Xml.XPath;
@@ -7284,6 +7308,47 @@ F001,lines,namespace/skims/test/data/lib_root/f001/c_sharp_unsafe_sql.cs,18,89,s
   21 |
      ^ Col 2
 ",c_sharp.c_sharp_sql_user_params
+F112,lines,namespace/skims/test/data/lib_root/f112/java_sql_injection.java,11,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f112/java_sql_injection.java,"
+   1 | import java.util.Random;
+   2 |
+   3 | public class test112 extends HttpServlet {
+   4 |
+   5 |  public void doPost(HttpServletRequest request, HttpServletResponse response) {
+   6 |
+   7 |   param = request.getHeader(""search"");
+   8 |   String sql = ""{call "" + param + ""}"";
+   9 |   java.sql.Connection connection = org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection();
+  10 |   java.sql.CallableStatement statement = connection.prepareCall( sql );
+> 11 |   java.sql.ResultSet rs = statement.executeQuery();
+  12 |
+  13 |  }
+  14 |
+  15 | }
+     ^ Col 0
+",java.java_sql_injection
+F112,lines,namespace/skims/test/data/lib_root/f112/js_sql_injection.js,14,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f112/js_sql_injection.js,"
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | var mysql = require(""mysql"");
+   4 | var connection = mysql.createConnection();
+   5 |
+   6 | router.get(""test112"", function (req, res) {
+   7 |
+   8 |   connection.connect();
+   9 |   connection.resume();
+  10 |   let userData = req.body;
+  11 |   let userName = userData.username;
+  12 |   let password = userData.password;
+  13 |
+> 14 |   connection.query(
+  15 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  16 |     function (error, results, fields) {res.json({ ok: results.length > 0 });}
+  17 |   );
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+",javascript.javascript_sql_api_injection
 F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,7,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
  in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
    1 | m;
@@ -7334,6 +7399,27 @@ F107,lines,namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,11,
   13 |
      ^ Col 12
 ",c_sharp.c_sharp_ldap_injection
+F107,lines,namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,14,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,"
+   1 | il.Random;
+   2 |
+   3 | est107 extends HttpServlet {
+   4 |
+   5 | oPost(HttpServletRequest request, HttpServletResponse response) {
+   6 |
+   7 | umeration<String> headers = request.getHeaders(""BenchmarkTest00012"");
+   8 |
+   9 | != null && headers.hasMoreElements()) {
+  10 | ders.nextElement();
+  11 |
+  12 |
+  13 | r = ""(&(objectclass=person))(|(uid=""+param+"")(street={0}))"";
+> 14 | .NamingEnumeration results = idc.search(base, filter);
+  15 |
+  16 |
+  17 |
+  18 |
+     ^ Col 14
+",java.java_ldap_injection
 F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
  in namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs","
    1 | using System.Net;
