@@ -11,6 +11,7 @@ from .types import (
 from .utils import (
     filter_non_deleted,
     filter_non_zero_risk,
+    filter_released,
     filter_zero_risk,
     format_state,
     format_treatment,
@@ -392,6 +393,27 @@ class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
         return tuple(
             filter_non_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
+        )
+
+
+class FindingVulnerabilitiesNonZeroRiskReleasedLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    async def load_many_chained(
+        self, finding_ids: list[str]
+    ) -> tuple[Vulnerability, ...]:
+        unchained_data = await self.load_many(finding_ids)
+        return tuple(chain.from_iterable(unchained_data))
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding_ids: list[str]
+    ) -> tuple[tuple[Vulnerability, ...], ...]:
+        findings_vulns = await self.dataloader.load_many(finding_ids)
+        return tuple(
+            filter_released(finding_vulns) for finding_vulns in findings_vulns
         )
 
 
