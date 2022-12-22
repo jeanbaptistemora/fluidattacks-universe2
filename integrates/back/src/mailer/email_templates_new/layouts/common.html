@@ -1,6 +1,11 @@
-<!doctype html>
-<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
-  xmlns:o="urn:schemas-microsoft-com:office:office">
+<!DOCTYPE html>
+<html
+  lang="en"
+  xml:lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+>
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,7 +14,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       integrity="sha384-Cr5RPHxcHREJ6WiTIhm5VCkJJ54ufz4UVsVOXvazwLKSMiTQ/47Zn/LqT7EiWinZ"
-      crossorigin="anonymous">
+      crossorigin="anonymous"
+    />
     <style type="text/css">
       * {
         box-sizing: border-box;
@@ -18,7 +24,7 @@
       body {
         background-color: #dddde3;
         color: #2e2e38 !important;
-        font-family: 'Roboto', Arial, sans-serif;
+        font-family: "Roboto", Arial, sans-serif;
         font-size: 18px;
         margin: 0;
         padding: 0;
@@ -32,7 +38,7 @@
       }
 
       .info-footer {
-        margin: 36px 36px 36px;
+        margin: 10px 36px 10px 36px;
         font-size: 12px;
         line-height: 1.5;
         text-align: center;
@@ -84,6 +90,22 @@
         color: #fff;
       }
 
+      .footer-content {
+        margin: 32.5px 36px 0 36px;
+        font-size: 12px;
+        line-height: 1.5;
+        padding-bottom: 46.3px;
+        text-align: left;
+        color: #8f8fa3;
+      }
+
+      .footer-div {
+        width: 536px;
+        height: 1px;
+        margin: 28.5px 31.5px 45.5px 32.5px;
+        background-color: #bfbfcb;
+      }
+
       html,
       h3,
       h4,
@@ -97,7 +119,7 @@
       h3 {
         font-size: 24px;
         font-weight: 400;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
       }
 
       p {
@@ -127,10 +149,7 @@
         text-align: center;
       }
 
-      .main-content, .footer-content {
-        padding: 2rem 1rem;
-      }
-
+      .main-content,
       .w-70 {
         width: 70%;
       }
@@ -180,23 +199,23 @@
         transition: opacity 0.15s ease-out;
       }
 
-      .column{
+      .column {
         flex-direction: column;
         float: left;
         padding: 1rem;
       }
 
-      .left{
+      .left {
         width: 75px;
       }
 
-      .right{
+      .right {
         background-color: #dddde3;
         border-radius: 5px;
-        width:80%;
+        width: 80%;
       }
 
-      .row{
+      .row {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -251,7 +270,7 @@
         background-color: #bf0b1a;
         color: #fff;
         padding: 16px;
-        text-align:center;
+        text-align: center;
       }
 
       .big-list-icon {
@@ -265,12 +284,9 @@
         font-size: 24px;
       }
 
-
-
-
-        .dark-header > * {
-          color: #f4f4f6 !important;
-        }
+      .dark-header > * {
+        color: #f4f4f6 !important;
+      }
 
       .title-icon {
         width: 24px;
@@ -316,18 +332,13 @@
       .secondary-button:hover {
         background-color: #49495a !important;
       }
-
-      @media only screen and (min-width: 599px) {
-        .main-content, .footer-content {
-          padding: 2rem 2rem !important;
-        }
-      }
     </style>
   </head>
   <body>
     {% block layout %}{% endblock %}
     <div class="info-footer">
-      © 2022 Fluid Attacks · 95 3rd St, 2nd Floor - San Francisco, CA 94103 · USA
+      © 2022 Fluid Attacks · 95 3rd St, 2nd Floor - San Francisco, CA 94103 ·
+      USA
     </div>
   </body>
 </html>
