@@ -23,34 +23,44 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
-    Set,
 )
 from utils import (
     graph as g,
 )
 
 
-def get_eval_results(
-    graph: Graph, n_id: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
+def get_eval_results(graph: Graph, n_id: NId, danger_trigger: str) -> bool:
+    method = MethodsEnum.JAVA_WEAK_RANDOM_COOKIE
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.triggers == danger_set:
+        if evaluation and danger_trigger in evaluation.triggers:
             return True
     return False
 
 
-def is_weak_random(
-    graph: Graph, obj_id: NId, al_id: NId, method: MethodsEnum
-) -> bool:
+def is_attribute_weak(graph: Graph, obj_id: NId, al_id: NId) -> bool:
     args_ids = g.adj_ast(graph, al_id)
     if (
         len(args_ids) >= 2
         and graph.nodes[args_ids[0]].get("symbol") == "cookieName"
-        and get_eval_results(graph, obj_id, {"userresponse"}, method)
-        and get_eval_results(graph, args_ids[1], {"weakrandom"}, method)
+        and get_eval_results(graph, obj_id, "userrequest")
+        and get_eval_results(graph, args_ids[1], "weakrandom")
     ):
         return True
+
+    return False
+
+
+def is_weak_random(graph: Graph, obj_id: NId, al_id: NId) -> bool:
+    if graph.nodes[obj_id].get("expression") == "getSession":
+        return is_attribute_weak(graph, obj_id, al_id)
+
+    if (
+        (args_ids := g.adj_ast(graph, al_id))
+        and len(args_ids) == 1
+        and get_eval_results(graph, obj_id, "userresponse")
+    ):
+        return get_eval_results(graph, args_ids[0], "weakrandom")
 
     return False
 
@@ -61,7 +71,7 @@ def java_weak_random(
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_WEAK_RANDOM_COOKIE
     java = GraphShardMetadataLanguage.JAVA
-    danger_methods = {"setAttribute"}
+    danger_methods = {"setAttribute", "addCookie"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):
@@ -75,14 +85,13 @@ def java_weak_random(
                 if (
                     expr[-1] in danger_methods
                     and (obj_id := n_attrs.get("object_id"))
-                    and graph.nodes[obj_id].get("expression") == "getSession"
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and is_weak_random(graph, obj_id, al_id, method)
+                    and is_weak_random(graph, obj_id, al_id)
                 ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f034.javascript_insecure_randoms.description",
+        desc_key="src.lib_root.f034.java_use_insecure_randms.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

@@ -8,6 +8,7 @@ def java_weak_random(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id]["variable_type"] == "HttpServletRequest":
+        args.triggers.add("userrequest")
+    if args.graph.nodes[args.n_id]["variable_type"] == "HttpServletResponse":
         args.triggers.add("userresponse")
-
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

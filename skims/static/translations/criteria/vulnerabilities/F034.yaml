@@ -11,3 +11,10 @@ src.lib_path.f034.java_use_of_util_random.description:
 src.lib_path.f034.javascript_insecure_randoms.description:
   en: Use of Javascript Math.random
   es: Uso de Javascript Math.random
+src.lib_root.f034.java_use_insecure_randms.description:
+  en: >
+    The application uses insecure methods to generate random numbers and
+    assigns them to sensitive parameters
+  es: >
+    La aplicación utiliza metodos inseguros para generar numeros aleatorios
+    y los asigna a parametros sensibles
