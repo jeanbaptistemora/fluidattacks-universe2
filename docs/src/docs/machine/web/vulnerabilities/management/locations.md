@@ -31,7 +31,7 @@ can access [a vast list](/criteria/vulnerabilities/)
 that we are constantly updating on our
 [Documentation](https://docs.fluidattacks.com/).
 
-![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778565/docs/web/vulnerabilities/management/header.png)
+![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1671719877/docs/web/vulnerabilities/management/header_locations.png)
 
 The first thing you see below
 the title, on the far left, is
@@ -199,7 +199,7 @@ roles.
 To receive this email,
 Click on the **Notify button**.
 
-![Notify button](https://res.cloudinary.com/fluid-attacks/image/upload/v1666212867/docs/web/vulnerabilities/management/notify_button.png)
+![Notify button](https://res.cloudinary.com/fluid-attacks/image/upload/v1671720194/docs/web/vulnerabilities/management/notification_action.png)
 
 You will get a confirmation
 pop-up window if you want
@@ -237,7 +237,7 @@ you must select which vulnerability
 you want to edit,
 followed by clicking on the edit button.
 
-![Edit action](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045341/docs/web/vulnerabilities/management/edit_button.png)
+![Edit action](https://res.cloudinary.com/fluid-attacks/image/upload/v1671720438/docs/web/vulnerabilities/management/edit_action.png)
 
 You will get a popup window where
 you can edit the vulnerability.
