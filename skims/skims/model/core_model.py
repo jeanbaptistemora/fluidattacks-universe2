@@ -5415,3 +5415,19 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_INSECURE_HASH_LIBRARY = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_hash_library",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_INSECURE_HASH_LIBRARY = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_hash_library",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
