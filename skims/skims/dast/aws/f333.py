@@ -189,6 +189,50 @@ async def ec2_iam_instances_without_profile(
     return vulns
 
 
+async def has_unused_ec2_key_pairs(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_key_pairs"
+    )
+    key_pairs = response.get("KeyPairs", []) if response else []
+
+    vulns: core_model.Vulnerabilities = ()
+
+    for key in key_pairs:
+        locations: List[Location] = []
+        filters = [
+            {"Name": "instance-state-name", "Values": ["running"]},
+            {"Name": "key-name", "Values": [key["KeyName"]]},
+        ]
+        instances: Dict[str, Any] = await run_boto3_fun(
+            credentials,
+            service="ec2",
+            function="describe_instances",
+            parameters={"Filters": filters},
+        )
+        reservations = instances["Reservations"]
+        if not reservations:
+            locations = [
+                *locations,
+                Location(
+                    arn=(f"arn:aws:ec2::keyPairIs:{key['KeyPairId']}"),
+                    description=t("lib_path.f333.has_unused_ec2_key_pairs"),
+                    values=(),
+                    access_patterns=(),
+                ),
+            ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_EC2_HAS_UNUSED_KEY_PAIRS),
+                aws_response=instances,
+            ),
+        )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -196,4 +240,5 @@ CHECKS: Tuple[
     ec2_has_terminate_shutdown_behavior,
     ec2_has_associate_public_ip_address,
     ec2_iam_instances_without_profile,
+    has_unused_ec2_key_pairs,
 )
