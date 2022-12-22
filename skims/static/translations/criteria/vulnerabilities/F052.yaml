@@ -4,7 +4,7 @@ src.lib_path.f052.java_properties_missing_ssl:
   es: Ausencia de SSL
 src.lib_path.f052.java_properties_weak_cipher_suite:
   en: Use of insecure cipher suite
-  es: Use de suite de cifrado insegura
+  es: Uso de suite de cifrado insegura
 src.lib_path.f052.insecure_cipher.description:
   en: Use of insecure encryption algorithm
   es: Uso de algoritmo de cifrado inseguro
@@ -27,7 +27,7 @@ lib_root.f052.c_sharp_disabled_strong_crypto:
     en verdadero
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: >
-    server accepts connections with weak cipher method {insecure_cipher}, included
+    server accepts connections import sha1 from "js-sha1"; with weak cipher method {insecure_cipher}, included
     in: {v_name}
   es: >
     el servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher},
