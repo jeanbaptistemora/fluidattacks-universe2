@@ -5,6 +5,9 @@ from symbolic_eval.f021.parameter.c_sharp import (
     cs_xpath_injection,
     cs_xpath_injection_evaluate,
 )
+from symbolic_eval.f021.parameter.java import (
+    java_xpath_injection_evaluate,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -17,6 +20,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_XPATH_INJECTION: cs_xpath_injection,
     MethodsEnum.CS_XPATH_INJECTION_EVALUATE: cs_xpath_injection_evaluate,
+    MethodsEnum.JAVA_XPATH_INJECTION_EVALUATE: java_xpath_injection_evaluate,
 }
 
 
