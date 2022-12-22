@@ -109,13 +109,14 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     report_date: date,
 ) -> None:
     state: str = "solved" if is_closed else "reported"
-    reason_format = (
-        other
-        if other
-        else str(reason).replace("_", " ").capitalize()
-        if reason
-        else ""
-    )
+    if other:
+        reason_format = other
+    else:
+        if reason:
+            reason_format = str(reason).replace("_", " ").capitalize()
+        else:
+            reason_format = ""
+
     event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
 
