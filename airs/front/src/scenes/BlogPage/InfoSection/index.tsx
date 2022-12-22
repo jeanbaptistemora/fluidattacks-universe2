@@ -2,9 +2,11 @@ import React from "react";
 
 import type { IInfoProps } from "./types";
 
+import { AirsLink } from "../../../components/AirsLink";
 import { CloudImage } from "../../../components/CloudImage";
 import { Container } from "../../../components/Container";
 import { Text } from "../../../components/Typography";
+import { stringToUri } from "../../../utils/utilities";
 
 const InfoSection: React.FC<IInfoProps> = ({
   author,
@@ -29,9 +31,15 @@ const InfoSection: React.FC<IInfoProps> = ({
               styles={"w-100 h-100"}
             />
           </Container>
-          <Text color={"#2e2e38"} sizeSm={"xs"}>
-            {author}
-          </Text>
+          <AirsLink
+            decoration={"underline"}
+            hoverColor={"#bf0b1a"}
+            href={`/blog/authors/${stringToUri(author)}`}
+          >
+            <Text color={"#2e2e38"} sizeSm={"xs"}>
+              {author}
+            </Text>
+          </AirsLink>
         </Container>
         <Container>
           <Text color={"#2e2e38"} sizeSm={"xs"} textAlign={"end"}>
