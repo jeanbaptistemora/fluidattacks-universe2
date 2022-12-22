@@ -14,6 +14,7 @@ from newutils.validations import (
     has_sequence,
     validate_alphanumeric_field,
     validate_email_address,
+    validate_email_address_deco,
     validate_field_length,
     validate_field_length_deco,
     validate_fields,
@@ -42,6 +43,22 @@ def test_validate_email_address() -> None:
     with pytest.raises(InvalidField):
         assert validate_email_address("testunittesting.com")
         assert validate_email_address("test+1@unittesting.com")
+
+
+def test_validate_email_address_deco() -> None:
+    @validate_email_address_deco("email")
+    def decorated_func(email: str) -> str:
+        return email
+
+    assert decorated_func(email="test@unittesting.com")
+    with pytest.raises(InvalidField):
+
+        @validate_email_address_deco("email")
+        def decorated_func_fail(email: str) -> str:
+            return email
+
+        decorated_func_fail(email="testunittesting.com")
+        decorated_func_fail(email="test+1@unittesting.com")
 
 
 def test_validate_field_length() -> None:

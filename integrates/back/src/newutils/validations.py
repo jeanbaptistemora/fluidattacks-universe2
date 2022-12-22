@@ -59,6 +59,29 @@ def validate_email_address(email: str) -> bool:
         raise InvalidField("email address") from ex
 
 
+def validate_email_address_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if "+" in field_content:
+                raise InvalidField("email address")
+            try:
+                check_field(
+                    field_content,
+                    r"^([a-zA-Z0-9_\-\.]+)@"
+                    r"([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
+                )
+                res = func(*args, **kwargs)
+                return res
+            except InvalidChar as ex:
+                raise InvalidField("email address") from ex
+
+        return decorated
+
+    return wrapper
+
+
 def validate_fields(fields: Iterable[str]) -> None:
     allowed_chars = (
         r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@&_$#=!"
