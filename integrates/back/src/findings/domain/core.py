@@ -211,7 +211,8 @@ async def remove_finding(
         not email.endswith(authz.FLUID_IDENTIFIER)
         and finding.state.status == FindingStateStatus.APPROVED
     ):
-        # Findings in the MASKED state will be archived
+        # Findings in the MASKED state will be archived by Streams
+        # for analytics purposes
         await findings_model.update_state(
             current_value=deletion_state,
             finding_id=finding.id,

@@ -276,6 +276,8 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         not email.endswith(authz.FLUID_IDENTIFIER)
         and finding.state.status == FindingStateStatus.APPROVED
     ):
+        # Vulnerabilities in the MASKED state will be archived by Streams
+        # for analytics purposes
         await vulns_model.update_historic_entry(
             current_value=vulnerability._replace(state=deletion_state),
             entry=deletion_state._replace(

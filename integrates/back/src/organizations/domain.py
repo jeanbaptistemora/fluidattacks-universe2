@@ -680,6 +680,8 @@ async def remove_organization(
         remove_access(loaders, organization_id, email, modified_by)
         for email in await get_stakeholders_emails(loaders, organization_id)
     )
+    # The state is updated to DELETED, prior to removal from db, as Streams
+    # will archived this data for analytics purposes
     await orgs_model.update_state(
         organization_id=organization_id,
         organization_name=organization_name,
