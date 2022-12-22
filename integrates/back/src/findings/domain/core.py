@@ -457,6 +457,8 @@ def get_tracking_vulnerabilities(
             ),
             assigned=action.assigned,
             justification=action.justification,
+            safe=action.times if action.action == "CLOSED" else 0,
+            vulnerable=action.times if action.action == "OPEN" else 0,
         )
         for index, action in enumerate(tracking_actions)
     ]

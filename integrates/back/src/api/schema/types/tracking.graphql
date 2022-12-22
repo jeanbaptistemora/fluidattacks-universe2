@@ -8,6 +8,11 @@ type Tracking {
   assigned: String
   "Number of closed vulnerabilities in this cycle"
   closed: Int
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/22. Use `safe` instead.
+      """
+    )
   "Cycle number"
   cycle: Int
   "Date of the cycle"
@@ -16,4 +21,13 @@ type Tracking {
   justification: String
   "Number of open vulnerabilities in this cycle"
   open: Int
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/06/22. Use `vulnerable` instead.
+      """
+    )
+  "Number of safe locations in this cycle"
+  safe: Int
+  "Number of vulnerable locations in this cycle"
+  vulnerable: Int
 }

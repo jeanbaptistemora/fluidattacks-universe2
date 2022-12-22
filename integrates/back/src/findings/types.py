@@ -40,6 +40,8 @@ class Tracking(NamedTuple):
     accepted_undefined: int
     assigned: str
     justification: str
+    safe: int
+    vulnerable: int
     effectiveness: Optional[int] = None
     new: Optional[int] = None
     in_progress: Optional[int] = None

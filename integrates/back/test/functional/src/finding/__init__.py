@@ -124,6 +124,8 @@ async def get_result(
                     justification
                     assigned
                     open
+                    safe
+                    vulnerable
                 }}
                 treatmentSummary {{
                     accepted

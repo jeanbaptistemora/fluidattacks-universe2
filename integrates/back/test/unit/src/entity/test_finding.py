@@ -109,6 +109,8 @@ async def test_finding() -> None:
             "accepted": 0,
             "acceptedUndefined": 0,
             "assigned": "",
+            "vulnerable": 1,
+            "safe": 0,
         }
     ]
     query = """{
@@ -127,6 +129,8 @@ async def test_finding() -> None:
             date
             justification
             open
+            safe
+            vulnerable
           }
           records
           severity {

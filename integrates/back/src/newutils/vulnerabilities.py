@@ -763,6 +763,7 @@ def format_vulnerability_state_item(
         "hacker": state.modified_by,
         "source": str(state.source.value).lower(),
         "state": formatted_status,
+        "status": str(state.status.value),
     }
     if state.justification:
         item["justification"] = state.justification.value

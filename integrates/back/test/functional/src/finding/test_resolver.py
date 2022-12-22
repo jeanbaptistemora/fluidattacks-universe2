@@ -5,11 +5,6 @@ from freezegun import (
     freeze_time,
 )
 import pytest
-from typing import (
-    Any,
-    Dict,
-    List,
-)
 
 
 @pytest.mark.asyncio
@@ -58,7 +53,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         },
     ]
     release_date: str = "2018-04-07 19:45:15"
-    severity: Dict[str, float] = {
+    severity: dict[str, float] = {
         "attackComplexity": 0.44,
         "attackVector": 0.2,
         "availabilityImpact": 0.22,
@@ -104,7 +99,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     min_time_to_remediate: int = 4
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
-    tracking: List[Dict[str, Any]] = [
+    tracking: list[dict] = [
         {
             "cycle": 0,
             "open": 1,
@@ -114,6 +109,8 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "acceptedUndefined": 0,
             "assigned": "",
             "justification": "",
+            "safe": 0,
+            "vulnerable": 1,
         },
         {
             "cycle": 1,
@@ -124,6 +121,8 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "acceptedUndefined": 0,
             "assigned": "",
             "justification": "",
+            "safe": 1,
+            "vulnerable": 0,
         },
         {
             "cycle": 2,
@@ -134,22 +133,22 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "acceptedUndefined": 0,
             "assigned": "anything@gmail.com",
             "justification": "justification",
+            "safe": 0,
+            "vulnerable": 0,
         },
     ]
-    treatment_summary: Dict[str, int] = {
+    treatment_summary: dict[str, int] = {
         "accepted": 1,
         "acceptedUndefined": 2,
         "inProgress": 3,
         "new": 4,
     }
-    verification_summary: Dict[str, int] = {
+    verification_summary: dict[str, int] = {
         "requested": 1,
         "onHold": 2,
         "verified": 3,
     }
-    result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id
-    )
+    result: dict = await get_result(user=email, finding_id=finding_id)
     where: str = "192.168.1.2"
     assert "errors" not in result
     assert result["data"]["finding"]["age"] == age
@@ -289,8 +288,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
 async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id
-    )
+    result: dict = await get_result(user=email, finding_id=finding_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

@@ -181,6 +181,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=1,
         ),
         Tracking(
             cycle=1,
@@ -191,6 +193,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=15,
         ),
         Tracking(
             cycle=2,
@@ -201,6 +205,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=6,
         ),
         Tracking(
             cycle=3,
@@ -211,6 +217,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=4,
+            vulnerable=0,
         ),
         Tracking(
             cycle=4,
@@ -221,6 +229,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=2,
         ),
     ]
     assert test_data == expected_output
@@ -247,6 +257,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=1,
         ),
         Tracking(
             cycle=1,
@@ -257,6 +269,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=1,
         ),
         Tracking(
             cycle=2,
@@ -267,6 +281,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="integratesuser@gmail.com",
             justification="accepted justification",
+            safe=0,
+            vulnerable=0,
         ),
     ]
     assert test_data == expected_output
@@ -293,6 +309,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=1,
         ),
     ]
     assert test_data == expected_output
@@ -319,6 +337,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=0,
+            vulnerable=1,
             effectiveness=None,
             new=None,
             in_progress=None,
@@ -332,6 +352,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             accepted_undefined=0,
             assigned="",
             justification="",
+            safe=1,
+            vulnerable=0,
             effectiveness=None,
             new=None,
             in_progress=None,
@@ -343,6 +365,8 @@ async def test_get_tracking_vulnerabilities() -> None:
             date="2019-01-15",
             accepted=1,
             accepted_undefined=0,
+            safe=0,
+            vulnerable=0,
             assigned="integratesuser@gmail.com",
             justification="This is a treatment justification test",
         ),
