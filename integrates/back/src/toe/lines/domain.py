@@ -239,9 +239,7 @@ async def update(
             modified_by=attributes.attacked_by
             if attributes.attacked_by
             else "machine@fluidattacks.com",
-            modified_date=last_modified_date
-            if attributes.modified_date
-            else datetime_utils.get_utc_now(),
+            modified_date=datetime_utils.get_utc_now(),
         ),
     )
     await toe_lines_model.update_metadata(
