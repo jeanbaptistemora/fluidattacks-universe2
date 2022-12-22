@@ -1445,7 +1445,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    QUERY_F001 = MethodInfo(
+    CS_UNSAFE_SQL_STATEMENT = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_sql_user_params",
         module="lib_root",

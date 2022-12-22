@@ -104,7 +104,7 @@ def sql_user_params(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.QUERY_F001
+    method = MethodsEnum.CS_UNSAFE_SQL_STATEMENT
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(

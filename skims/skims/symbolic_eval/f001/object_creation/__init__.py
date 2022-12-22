@@ -14,7 +14,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.QUERY_F001: cs_sql_user_params,
+    MethodsEnum.CS_UNSAFE_SQL_STATEMENT: cs_sql_user_params,
 }
 
 

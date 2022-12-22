@@ -6254,6 +6254,39 @@ F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs,1
   26 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/java_remote_command.java,10,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/java_remote_command.java","
+   1 | import java.io.IOException;
+   2 | import javax.servlet.http.HttpServletRequest;
+   3 |
+   4 | public class test extends HttpServlet {
+   5 |
+   6 |   public void runUnsafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   7 |
+   8 |     param = request.getHeader(""someheader"");
+   9 |     ProcessBuilder pb = new ProcessBuilder();
+> 10 |     pb.command(param);
+  11 |
+  12 |   }
+  13 |
+  14 | }
+     ^ Col 0
+",java.java_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/js_remote_command.js,6,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/js_remote_command.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""test"", function (req, res) {
+   5 |   var user = req.params[""user""];
+>  6 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+   7 |     res.json(data);
+   8 |   });
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+",javascript.javascript_remote_command_execution
 F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,8,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
    1 | iant
@@ -7113,6 +7146,30 @@ F012,lines,namespace/skims/test/data/lib_root/f012/java_sql_injection.java,45,89
    55 |
       ^ Col 0
 ",java.java_jpa_like
+F001,lines,namespace/skims/test/data/lib_root/f001/c_sharp_unsafe_sql.cs,18,89,skims,001. SQL injection - C Sharp SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f001/c_sharp_unsafe_sql.cs,"
+   1 | ing TestCaseSupport;
+   2 | ing System;
+   3 | ing System.Data.SqlClient;
+   4 | ing System.Data;
+   5 | ing System.Web;
+   6 |
+   7 |
+   8 | mespace testcase
+   9 |
+  10 |   class testcasef001
+  11 |   {
+  12 |       public override void Bad(HttpRequest req, HttpResponse resp)
+  13 |       {
+  14 |           SqlDataReader dr = command.ExecuteReader();
+  15 |           string data = dr.GetString(1);
+  16 |           string[] names = data.Split('-');
+  17 |           badSqlCommand.CommandText += ""update users set hitcount=hitcount+1 where name='"" + names[i] + ""';"";
+> 18 |           var affectedRows = badSqlCommand.ExecuteNonQuery();
+  19 |       }
+  20 |   }
+  21 |
+     ^ Col 2
+",c_sharp.c_sharp_sql_user_params
 F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,7,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
  in namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs","
    1 | m;

@@ -1,9 +1,14 @@
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
-public void runUnsafe(HttpServletRequest request) throws IOException {
-  String cmd = request.getParameter("command");
-  String arg = request.getParameter("arg");
+public class test extends HttpServlet {
 
-  Runtime.getRuntime().exec(cmd+" "+arg); // Insecure method invocation
+  public void runUnsafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    param = request.getHeader("someheader");
+    ProcessBuilder pb = new ProcessBuilder();
+    pb.command(param);
+
+  }
+
 }
