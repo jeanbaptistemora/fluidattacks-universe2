@@ -11,7 +11,7 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -227,8 +227,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       first: 150,
     },
   });
-  const pageInfo =
-    data === undefined ? undefined : data.group.toeLines.pageInfo;
   const toeLinesEdges: IToeLinesEdge[] =
     data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
@@ -674,19 +672,16 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const filteredToeLines = useFilters(toeLines, filters);
 
-  useEffect((): void => {
-    if (!_.isUndefined(pageInfo)) {
-      if (pageInfo.hasNextPage) {
-        void fetchMore({
-          variables: { after: pageInfo.endCursor, first: 1200 },
-        });
-      }
+  const handleNextPage = useCallback(async (): Promise<void> => {
+    const pageInfo =
+      data === undefined
+        ? { endCursor: "", hasNextPage: false }
+        : data.group.toeLines.pageInfo;
+
+    if (pageInfo.hasNextPage) {
+      await fetchMore({ variables: { after: pageInfo.endCursor } });
     }
-  }, [pageInfo, fetchMore]);
-  useEffect((): void => {
-    setSelectedToeLinesDatas([]);
-    void refetch();
-  }, [refetch]);
+  }, [data, fetchMore]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -772,6 +767,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
           />
         }
         id={"tblToeLines"}
+        onNextPage={handleNextPage}
         rowSelectionSetter={
           isInternal && canUpdateAttackedLines
             ? setSelectedToeLinesDatas
