@@ -18,6 +18,7 @@ import styleImage from "scenes/Dashboard/components/EvidenceImage/index.css";
 import { ControlLabel, FormGroup, InputGroup } from "styles/styledComponents";
 import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
+import { getFileNameExtension } from "utils/validations";
 
 interface IFileInputProps extends FieldProps {
   accept?: string;
@@ -40,6 +41,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
   const [alert, setAlert] = useState<string>("");
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [imgUrl, setImgUrl] = useState<string>("#");
+  const [imgName, setImgName] = useState<string>("");
   const {
     accept,
     className,
@@ -71,6 +73,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
           setIsAlertOpen(false);
           const url: string = URL.createObjectURL(files[0]);
           setImgUrl(url);
+          setImgName(files[0].name);
         }
       } else {
         setAlert(
@@ -88,6 +91,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
         );
         setIsAlertOpen(true);
         setImgUrl("#");
+        setImgName("");
       }
     }
   }
@@ -100,12 +104,18 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
         <React.Fragment>
           <Label>{t("searchFindings.tabEvidence.fields.modal.message")}</Label>
           <div className={styleImage.imgContainer}>
-            <img
-              alt={""}
-              className={styleImage.img}
-              key={`${name}.img.key`}
-              src={imgUrl}
-            />
+            {getFileNameExtension(imgName) === "webm" ? (
+              <video className={styleImage.img} controls={true} muted={true}>
+                <source src={imgUrl} type={"video/webm"} />
+              </video>
+            ) : (
+              <img
+                alt={""}
+                className={styleImage.img}
+                key={`${name}.img.key`}
+                src={imgUrl}
+              />
+            )}
           </div>
           <div style={{ width: "650px" }}>
             <Alert show={isAlertOpen}>

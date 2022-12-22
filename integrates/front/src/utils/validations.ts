@@ -379,7 +379,7 @@ const validEvidenceImage: Validator = (
   _.isUndefined(value) ||
   (!_.isUndefined(value) &&
     [...Array(value.length).keys()].every((index: number): boolean =>
-      hasExtension(["gif", "png"], value[index])
+      hasExtension(["gif", "png", "webm"], value[index])
     ))
     ? undefined
     : translate.t("group.events.form.wrongImageType");

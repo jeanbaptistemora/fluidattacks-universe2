@@ -279,7 +279,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
                   return (
                     <EvidenceImage
-                      acceptedMimes={"image/gif,image/png"}
+                      acceptedMimes={"image/gif,image/png,video/webm"}
                       content={showContent(showEmpty, evidence)}
                       date={evidence.date}
                       description={""}

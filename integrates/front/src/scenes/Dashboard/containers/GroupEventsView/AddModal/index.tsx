@@ -280,7 +280,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                       {t("group.events.form.evidence")}
                     </ControlLabel>
                     <Field
-                      accept={"image/gif,image/png"}
+                      accept={"image/gif,image/png,video/webm"}
                       component={FormikFileInput}
                       id={"images"}
                       multiple={true}
