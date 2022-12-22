@@ -65,6 +65,7 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
+    "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
@@ -572,6 +573,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
+    },
+    "dynamodb.operations_legacy.delete_item": {
+        '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
+        '52110"]': True,
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'

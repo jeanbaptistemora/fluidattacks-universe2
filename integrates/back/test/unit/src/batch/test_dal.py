@@ -1,5 +1,10 @@
+# pylint: disable=import-error
 from aioextensions import (
     collect,
+)
+from back.test.unit.src.utils import (
+    get_mock_response,
+    get_mocked_path,
 )
 from batch.dal import (
     delete_action,
@@ -33,8 +38,9 @@ from typing import (
     List,
     Optional,
 )
-from unittest import (
-    mock,
+from unittest.mock import (
+    AsyncMock,
+    patch,
 )
 
 pytestmark = [
@@ -50,15 +56,22 @@ def test_create_table(dynamodb: ServiceResource, populate_db: bool) -> None:
     assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
 
 
-async def test_delete_action(dynamodb: ServiceResource) -> None:
-    key = "44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f652110"
-    with mock.patch("batch.dal.dynamodb_ops.delete_item") as mock_delete_item:
-        mock_delete_item.return_value = dynamodb.Table(TABLE_NAME).delete_item(
-            Key={"pk": key}
-        )
-        assert await delete_action(dynamodb_pk=key)
-    assert mock_delete_item.called is True
-    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 4
+@pytest.mark.parametrize(
+    ["key"],
+    [
+        ["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f652110"],
+    ],
+)
+@patch(get_mocked_path("dynamodb_ops.delete_item"), new_callable=AsyncMock)
+async def test_delete_action(
+    mock_dynamodb_ops_delete_item: AsyncMock, key: str
+) -> None:
+    mock_dynamodb_ops_delete_item.return_value = get_mock_response(
+        get_mocked_path("dynamodb_ops.delete_item"),
+        json.dumps([key]),
+    )
+    assert await delete_action(dynamodb_pk=key)
+    assert mock_dynamodb_ops_delete_item.called is True
     with pytest.raises(Exception) as delete_exception:
         await delete_action()
     assert "you must supply the dynamodb pk" in str(delete_exception.value)
@@ -111,7 +124,7 @@ async def test_get_action(
         ]
     )
 
-    with mock.patch("batch.dal.dynamodb_ops.query") as mock_query:
+    with patch("batch.dal.dynamodb_ops.query") as mock_query:
         try:
             mock_query.return_value = [
                 dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
@@ -124,12 +137,12 @@ async def test_get_action(
 
 
 async def test_get_actions(dynamodb: ServiceResource) -> None:
-    with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
+    with patch("batch.dal.dynamodb_ops.scan") as mock_scan:
         mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
         all_actions = await get_actions()
     assert mock_scan.called is True
     assert isinstance(all_actions, list)
-    assert len(all_actions) == 4
+    assert len(all_actions) == 5
 
 
 def test_mapping_to_key(dynamodb: ServiceResource) -> None:
@@ -164,7 +177,7 @@ def test_mapping_to_key(dynamodb: ServiceResource) -> None:
 
 
 async def test_put_action_to_batch(dynamodb: ServiceResource) -> None:
-    with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
+    with patch("batch.dal.dynamodb_ops.scan") as mock_scan:
         mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
         pending_actions: List[BatchProcessing] = await get_actions()
     assert mock_scan.called is True
@@ -233,8 +246,8 @@ async def test_put_action_to_dynamodb(dynamodb: ServiceResource) -> None:
             item["additional_info"],
         ]
     )
-    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 4
-    with mock.patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
+    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
+    with patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
         mock_put_item.side_effect = side_effect
         await put_action_to_dynamodb(queue=IntegratesBatchQueue.SMALL, **item)
     assert mock_put_item.called is True
