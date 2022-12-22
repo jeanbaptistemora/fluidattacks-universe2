@@ -82,3 +82,75 @@ async def test_request_vulnerabilities_verification(
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == new_status
     assert vuln.verification.status == VVerifStatus.VERIFIED  # type: ignore
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request")
+@pytest.mark.parametrize(
+    ("email", "vuln_id", "new_status"),
+    (
+        (
+            "admin@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdce9",
+            VulnerabilityStateStatus.VULNERABLE,
+        ),
+    ),
+)
+async def test_request_vulnerabilities_verification_fail_1(
+    populate: bool,
+    email: str,
+    vuln_id: str,
+    new_status: VulnerabilityStateStatus,
+) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        vulnerability_id=vuln_id,
+        status_after_verification=new_status,
+    )
+
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Error verification not requested"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request")
+@pytest.mark.parametrize(
+    ("email", "vuln_id", "new_status"),
+    (
+        (
+            "user@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+            VulnerabilityStateStatus.VULNERABLE,
+        ),
+        (
+            "vulnerability_manager@fluidattacks.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdce9",
+            VulnerabilityStateStatus.SAFE,
+        ),
+    ),
+)
+async def test_request_vulnerabilities_verification_fail_2(
+    populate: bool,
+    email: str,
+    vuln_id: str,
+    new_status: VulnerabilityStateStatus,
+) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        vulnerability_id=vuln_id,
+        status_after_verification=new_status,
+    )
+
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
