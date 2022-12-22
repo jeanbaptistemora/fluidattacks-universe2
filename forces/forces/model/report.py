@@ -16,8 +16,8 @@ class SummaryItem(NamedTuple):
 
 
 class ReportSummary(NamedTuple):
-    open: SummaryItem
-    closed: SummaryItem
+    vulnerable: SummaryItem
+    safe: SummaryItem
     accepted: SummaryItem
     elapsed_time: str
     total: int

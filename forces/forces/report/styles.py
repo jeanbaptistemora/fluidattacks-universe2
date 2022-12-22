@@ -12,8 +12,8 @@ def style_report(key: str, value: str) -> str:
         "state": {
             FindingState.OPEN: "[red]",
             FindingState.CLOSED: "[green]",
-            VulnerabilityState.OPEN: "[red]",
-            VulnerabilityState.CLOSED: "[green]",
+            VulnerabilityState.VULNERABLE: "[red]",
+            VulnerabilityState.SAFE: "[green]",
         },
         "exploit": {
             "Unproven": "[green]",
@@ -41,7 +41,7 @@ def style_summary(key: VulnerabilityState, value: int) -> str:
     markup: str = ""
     if key == VulnerabilityState.ACCEPTED:
         return str(value)
-    if key == VulnerabilityState.OPEN:
+    if key == VulnerabilityState.VULNERABLE:
         if value == 0:
             markup = "[green]"
         elif value < 10:
@@ -50,6 +50,6 @@ def style_summary(key: VulnerabilityState, value: int) -> str:
             markup = "[orange3]"
         else:
             markup = "[red]"
-    elif key == VulnerabilityState.CLOSED:
+    elif key == VulnerabilityState.SAFE:
         markup = "[green]"
     return f"{markup}{str(value)}[/]"

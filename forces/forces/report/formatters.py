@@ -44,10 +44,13 @@ async def create_findings_dict(
 
 
 def get_exploitability_measure(score: float) -> str:
-    data = {
+    return {
         "0.91": "Unproven",
         "0.94": "Proof of concept",
         "0.97": "Functional",
         "1.0": "High",
-    }
-    return data.get(str(score), "-")
+    }.get(str(score), "-")
+
+
+def translate_vuln_state(state: str) -> str:
+    return {"open": "vulnerable", "closed": "safe"}.get(state, state)

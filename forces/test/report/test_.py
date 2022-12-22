@@ -65,8 +65,8 @@ async def test_generate_report(
     identifiers: set[str] = {find.identifier for find in report.findings}
     assert len(identifiers) == len(report.findings)
 
-    assert report.summary.open.total == 7
-    assert report.summary.closed.total == 2
+    assert report.summary.vulnerable.total == 7
+    assert report.summary.safe.total == 2
     assert report.summary.accepted.total == 0
     assert (
         report.summary.total
@@ -77,11 +77,11 @@ async def test_generate_report(
 
 def test_style_summary() -> None:
     assert style_summary(VulnerabilityState.ACCEPTED, 1) == "1"
-    assert style_summary(VulnerabilityState.OPEN, 0) == "[green]0[/]"
-    assert style_summary(VulnerabilityState.OPEN, 9) == "[yellow3]9[/]"
-    assert style_summary(VulnerabilityState.OPEN, 17) == "[orange3]17[/]"
-    assert style_summary(VulnerabilityState.OPEN, 25) == "[red]25[/]"
-    assert style_summary(VulnerabilityState.CLOSED, 15) == "[green]15[/]"
+    assert style_summary(VulnerabilityState.VULNERABLE, 0) == "[green]0[/]"
+    assert style_summary(VulnerabilityState.VULNERABLE, 9) == "[yellow3]9[/]"
+    assert style_summary(VulnerabilityState.VULNERABLE, 17) == "[orange3]17[/]"
+    assert style_summary(VulnerabilityState.VULNERABLE, 25) == "[red]25[/]"
+    assert style_summary(VulnerabilityState.SAFE, 15) == "[green]15[/]"
 
 
 def test_style_report() -> None:
@@ -96,7 +96,7 @@ def test_filter_repo() -> None:
         type=VulnerabilityType.DAST,
         where="somewhere",
         specific="port 21",
-        state=VulnerabilityState.OPEN,
+        state=VulnerabilityState.VULNERABLE,
         severity=Decimal("6.0"),
         report_date=datetime.now(tz=ZoneInfo("America/Bogota")),
         exploitability=4.5,

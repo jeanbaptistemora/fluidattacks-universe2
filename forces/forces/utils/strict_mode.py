@@ -40,7 +40,7 @@ def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
     current_date: datetime = datetime.now(tz=timezone.utc)
     time_diff: timedelta = current_date - vuln.report_date
     return not (
-        vuln.state == VulnerabilityState.OPEN
+        vuln.state == VulnerabilityState.VULNERABLE
         and vuln.severity >= config.breaking_severity
         and abs(time_diff.days) >= config.grace_period
     )

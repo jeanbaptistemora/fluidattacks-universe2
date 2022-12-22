@@ -292,12 +292,14 @@ async def upload_report(  # pylint: disable=too-many-arguments
             "kind": str(vuln.type.value),
             "who": vuln.specific,
             "where": vuln.where,
-            "state": str(vuln.state.value).upper(),
+            "state": {"safe": "closed", "vulnerable": "open"}
+            .get(str(vuln.state.value), str(vuln.state.value))
+            .upper(),
             "exploitability": vuln.exploitability,
         }
-        if vuln.state == VulnerabilityState.OPEN:
+        if vuln.state == VulnerabilityState.VULNERABLE:
             open_vulns.append(vuln_state)
-        elif vuln.state == VulnerabilityState.CLOSED:
+        elif vuln.state == VulnerabilityState.SAFE:
             closed_vulns.append(vuln_state)
         elif vuln.state == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)

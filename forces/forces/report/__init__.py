@@ -31,6 +31,7 @@ from forces.report.filters import (
 from forces.report.formatters import (
     create_findings_dict,
     get_exploitability_measure,
+    translate_vuln_state,
 )
 from forces.report.styles import (
     style_report,
@@ -232,8 +233,8 @@ async def generate_raw_report(
     _start_time: float = timer()
 
     _summary_dict: dict[VulnerabilityState, dict[str, int]] = {
-        VulnerabilityState.OPEN: {"DAST": 0, "SAST": 0, "total": 0},
-        VulnerabilityState.CLOSED: {"DAST": 0, "SAST": 0, "total": 0},
+        VulnerabilityState.VULNERABLE: {"DAST": 0, "SAST": 0, "total": 0},
+        VulnerabilityState.SAFE: {"DAST": 0, "SAST": 0, "total": 0},
         VulnerabilityState.ACCEPTED: {"DAST": 0, "SAST": 0, "total": 0},
     }
     findings_dict = await create_findings_dict(
@@ -243,6 +244,7 @@ async def generate_raw_report(
 
     async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = str(vuln["findingId"])
+        state = translate_vuln_state(str(vuln["currentState"]).lower())
 
         vulnerability: Vulnerability = Vulnerability(
             type=(
@@ -252,7 +254,7 @@ async def generate_raw_report(
             ),
             where=str(vuln["where"]),
             specific=str(vuln["specific"]),
-            state=VulnerabilityState[str(vuln["currentState"]).upper()],
+            state=VulnerabilityState[state.upper()],
             severity=Decimal(str(vuln["severity"]))
             if vuln["severity"] is not None
             else findings_dict[find_id].severity,
@@ -283,23 +285,23 @@ async def generate_raw_report(
         findings_dict[find_id].vulnerabilities.append(vulnerability)
 
     summary = ReportSummary(
-        open=SummaryItem(
-            dast=_summary_dict[VulnerabilityState.OPEN]["DAST"],
-            sast=_summary_dict[VulnerabilityState.OPEN]["SAST"],
-            total=_summary_dict[VulnerabilityState.OPEN]["total"],
+        vulnerable=SummaryItem(
+            dast=_summary_dict[VulnerabilityState.VULNERABLE]["DAST"],
+            sast=_summary_dict[VulnerabilityState.VULNERABLE]["SAST"],
+            total=_summary_dict[VulnerabilityState.VULNERABLE]["total"],
         ),
-        closed=SummaryItem(
-            dast=_summary_dict[VulnerabilityState.CLOSED]["DAST"],
-            sast=_summary_dict[VulnerabilityState.CLOSED]["SAST"],
-            total=_summary_dict[VulnerabilityState.CLOSED]["total"],
+        safe=SummaryItem(
+            dast=_summary_dict[VulnerabilityState.SAFE]["DAST"],
+            sast=_summary_dict[VulnerabilityState.SAFE]["SAST"],
+            total=_summary_dict[VulnerabilityState.SAFE]["total"],
         ),
         accepted=SummaryItem(
             dast=_summary_dict[VulnerabilityState.ACCEPTED]["DAST"],
             sast=_summary_dict[VulnerabilityState.ACCEPTED]["SAST"],
             total=_summary_dict[VulnerabilityState.ACCEPTED]["total"],
         ),
-        total=_summary_dict[VulnerabilityState.OPEN]["total"]
-        + _summary_dict[VulnerabilityState.CLOSED]["total"]
+        total=_summary_dict[VulnerabilityState.VULNERABLE]["total"]
+        + _summary_dict[VulnerabilityState.SAFE]["total"]
         + _summary_dict[VulnerabilityState.ACCEPTED]["total"],
         elapsed_time=f"{(timer() - _start_time):.4f} seconds",
     )

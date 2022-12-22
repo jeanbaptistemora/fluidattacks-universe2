@@ -45,8 +45,8 @@ def filter_vulnerabilities(
     states set by the verbosity level of the report"""
     verbosity: dict[int, set[VulnerabilityState]] = {
         1: set(),
-        2: {VulnerabilityState.OPEN},
-        3: {VulnerabilityState.OPEN, VulnerabilityState.CLOSED},
+        2: {VulnerabilityState.VULNERABLE},
+        3: {VulnerabilityState.VULNERABLE, VulnerabilityState.SAFE},
         4: set(VulnerabilityState),
     }
     return (
