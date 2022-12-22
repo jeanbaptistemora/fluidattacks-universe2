@@ -20,11 +20,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     node_types = {
         "call_expression",
+        "false",
         "identifier",
         "number",
         "object",
         "string",
         "template_string",
+        "true",
     }
 
     valid_childs = [
