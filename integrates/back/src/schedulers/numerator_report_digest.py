@@ -385,7 +385,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
             VulnerabilityState, ...
         ] = await historic_state_loader.load(vuln.id)
         for state in historic_state:
-            if state.status == VulnerabilityStateStatus.OPEN:
+            if state.status == VulnerabilityStateStatus.VULNERABLE:
                 _common_generate_count_report(
                     content=content,
                     date_range=date_range,

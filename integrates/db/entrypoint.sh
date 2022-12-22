@@ -2,8 +2,8 @@
 
 function main {
   : \
-    && { DAEMON=true dynamodb & } \
     && { DAEMON=true opensearch & } \
+    && { DAEMON=true dynamodb & } \
     && wait \
     && if [ "${DAEMON:-}" = "true" ]; then
       { integrates-streams dev & }

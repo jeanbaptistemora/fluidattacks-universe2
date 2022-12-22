@@ -15,11 +15,11 @@ class VulnerabilityType(str, Enum):
 
 
 class VulnerabilityStateStatus(str, Enum):
-    CLOSED: str = "CLOSED"
+    SAFE: str = "SAFE"
     CREATED: str = "CREATED"
     DELETED: str = "DELETED"
     MASKED: str = "MASKED"
-    OPEN: str = "OPEN"
+    VULNERABLE: str = "VULNERABLE"
     REJECTED: str = "REJECTED"
     SUBMITTED: str = "SUBMITTED"
 

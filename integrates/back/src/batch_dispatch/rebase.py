@@ -109,8 +109,8 @@ async def _get_vulnerabilities_to_rebase(
         and vuln.type == VulnerabilityType.LINES
         and vuln.state.status
         in (
-            VulnerabilityStateStatus.OPEN,
-            VulnerabilityStateStatus.CLOSED,
+            VulnerabilityStateStatus.VULNERABLE,
+            VulnerabilityStateStatus.SAFE,
         )
     )
     return vulnerabilities

@@ -108,7 +108,7 @@ def process_duplicates(
             ).append(vuln)
             if (
                 not has_open_vulns
-                and vuln.state.status == VulnerabilityStateStatus.OPEN
+                and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             ):
                 has_open_vulns = True
 
@@ -137,7 +137,7 @@ def process_duplicates(
                 vulns_to_delete.extend(treatment_sorted_vulns[1:])
 
         if (
-            original_vuln.state.status == VulnerabilityStateStatus.CLOSED
+            original_vuln.state.status == VulnerabilityStateStatus.SAFE
             and has_open_vulns
         ):
             vulns_to_open.append(original_vuln)
@@ -209,7 +209,7 @@ async def main() -> None:
                             modified_date=get_utc_now(),
                             source=Source.MACHINE,
                             specific=vuln.state.specific,
-                            status=VulnerabilityStateStatus.OPEN,
+                            status=VulnerabilityStateStatus.VULNERABLE,
                             where=vuln.state.where,
                             commit=vuln.state.commit,
                             justification=vuln.state.justification,

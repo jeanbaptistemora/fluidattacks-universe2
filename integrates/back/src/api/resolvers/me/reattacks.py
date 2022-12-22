@@ -30,6 +30,7 @@ async def resolve(
     results = await search(
         must_filters=[
             {"state.status": "OPEN"},
+            {"state.status": "VULNERABLE"},
             {"verification.status": "REQUESTED"},
         ],
         index="vulnerabilities",

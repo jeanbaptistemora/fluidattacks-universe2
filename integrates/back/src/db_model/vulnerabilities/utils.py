@@ -59,6 +59,30 @@ from typing import (
 )
 
 
+def get_current_state_converted(state: str) -> str:
+    if state in {"SAFE", "VULNERABLE"}:
+        translation: dict[str, str] = {
+            "SAFE": "CLOSED",
+            "VULNERABLE": "OPEN",
+        }
+
+        return translation[state]
+
+    return state
+
+
+def get_inverted_state_converted(state: str) -> str:
+    if state in {"CLOSED", "OPEN"}:
+        translation: dict[str, str] = {
+            "CLOSED": "SAFE",
+            "OPEN": "VULNERABLE",
+        }
+
+        return translation[state]
+
+    return state
+
+
 def filter_non_deleted(
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> tuple[Vulnerability, ...]:
@@ -204,7 +228,9 @@ def format_state(item: Item) -> VulnerabilityState:
         modified_date=datetime.fromisoformat(item["modified_date"]),
         source=Source[item["source"]],
         specific=item["specific"],
-        status=VulnerabilityStateStatus[item["status"]],
+        status=VulnerabilityStateStatus[
+            get_inverted_state_converted(item["status"])
+        ],
         tool=tool,
         where=item["where"],
         snippet=_format_snippet(item.get("snippet")),
@@ -412,7 +438,9 @@ def get_zr_index_key(current_value: Vulnerability) -> PrimaryKey:
                     and current_value.zero_risk.status in ZR_FILTER_STATUSES
                 )
             ).lower(),
-            "state_status": str(current_value.state.status.value).lower(),
+            "state_status": get_current_state_converted(
+                current_value.state.status.value
+            ).lower(),
             "verification_status": str(
                 current_value.verification
                 and current_value.verification.status.value
@@ -441,7 +469,9 @@ def get_new_zr_index_key(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": str(entry.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    entry.status.value
+                ).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -461,7 +491,9 @@ def get_new_zr_index_key(
                 "is_zero_risk": str(
                     entry.status in ZR_FILTER_STATUSES
                 ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    current_value.state.status.value
+                ).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -485,7 +517,9 @@ def get_new_zr_index_key(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    current_value.state.status.value
+                ).lower(),
                 "verification_status": str(entry.status.value).lower(),
             },
         )
@@ -511,7 +545,9 @@ def get_zr_index_key_gsi_6(current_value: Vulnerability) -> PrimaryKey:
                     and current_value.zero_risk.status in ZR_FILTER_STATUSES
                 )
             ).lower(),
-            "state_status": str(current_value.state.status.value).lower(),
+            "state_status": get_current_state_converted(
+                current_value.state.status.value
+            ).lower(),
             "verification_status": str(
                 current_value.verification
                 and current_value.verification.status.value
@@ -543,7 +579,9 @@ def get_new_zr_index_key_gsi_6(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": str(entry.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    entry.status.value
+                ).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -566,7 +604,9 @@ def get_new_zr_index_key_gsi_6(
                 "is_zero_risk": str(
                     entry.status in ZR_FILTER_STATUSES
                 ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    current_value.state.status.value
+                ).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -593,7 +633,9 @@ def get_new_zr_index_key_gsi_6(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
+                "state_status": get_current_state_converted(
+                    current_value.state.status.value
+                ).lower(),
                 "verification_status": str(entry.status.value).lower(),
             },
         )

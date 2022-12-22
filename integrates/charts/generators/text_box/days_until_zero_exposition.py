@@ -42,7 +42,10 @@ async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
     counter: Decimal = Decimal("0.0")
     for finding, vulnerabilities in zip(group_findings, finding_vulns):
         for vulnerability in vulnerabilities:
-            if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+            if (
+                vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
+            ):
                 if finding.min_time_to_remediate:
                     counter += Decimal(finding.min_time_to_remediate)
                 else:

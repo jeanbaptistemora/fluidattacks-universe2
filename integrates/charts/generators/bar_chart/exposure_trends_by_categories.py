@@ -145,14 +145,14 @@ async def get_data_one_group(
         {
             f"{data.categories[finding.id]}/open": had_state_by_then(
                 last_day=last_day,
-                state=VulnerabilityStateStatus.OPEN,
+                state=VulnerabilityStateStatus.VULNERABLE,
                 vulnerabilities=vulnerabilities,
                 findings_cvssf=data.cvssf,
                 sprint=True,
             ).quantize(Decimal("0.001")),
             f"{data.categories[finding.id]}/closed": had_state_by_then(
                 last_day=last_day,
-                state=VulnerabilityStateStatus.CLOSED,
+                state=VulnerabilityStateStatus.SAFE,
                 vulnerabilities=vulnerabilities,
                 findings_cvssf=data.cvssf,
                 sprint=True,

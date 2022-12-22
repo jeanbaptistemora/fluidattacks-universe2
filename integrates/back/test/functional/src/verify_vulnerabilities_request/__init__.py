@@ -23,12 +23,12 @@ async def get_result(
 ) -> Dict[str, Any]:
     open_vuln_ids = (
         f'["{vulnerability_id}"]'
-        if status_after_verification == VulnerabilityStateStatus.OPEN
+        if status_after_verification == VulnerabilityStateStatus.VULNERABLE
         else "[]"
     )
     closed_vuln_ids = (
         f'["{vulnerability_id}"]'
-        if status_after_verification == VulnerabilityStateStatus.CLOSED
+        if status_after_verification == VulnerabilityStateStatus.SAFE
         else "[]"
     )
     query: str = f"""

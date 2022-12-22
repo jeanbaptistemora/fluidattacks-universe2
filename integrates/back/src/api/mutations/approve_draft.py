@@ -111,7 +111,7 @@ async def mutate(
 
         vulns_props: dict[str, dict[str, dict[str, str]]] = {}
         for vuln in vulnerabilities:
-            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE:
                 repo = await findings_domain.repo_subtitle(
                     loaders, vuln, group_name
                 )

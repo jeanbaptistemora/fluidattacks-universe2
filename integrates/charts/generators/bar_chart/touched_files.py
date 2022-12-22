@@ -78,7 +78,8 @@ async def get_data_one_group(
             for vulnerability in vulnerabilities
             if vulnerability.created_date > date_minus_delta
             and vulnerability.type == VulnerabilityType.LINES
-            and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            and vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
         )
     )
 

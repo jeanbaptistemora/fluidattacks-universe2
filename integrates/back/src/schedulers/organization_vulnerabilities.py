@@ -136,8 +136,8 @@ async def _get_group_data(
         treatments=set(VulnerabilityTreatmentStatus),
         states=set(
             [
-                VulnerabilityStateStatus["CLOSED"],
-                VulnerabilityStateStatus["OPEN"],
+                VulnerabilityStateStatus["SAFE"],
+                VulnerabilityStateStatus["VULNERABLE"],
             ]
         ),
         verifications=set(),
@@ -190,8 +190,8 @@ async def get_data(
         treatments=set(VulnerabilityTreatmentStatus),
         states=set(
             [
-                VulnerabilityStateStatus["CLOSED"],
-                VulnerabilityStateStatus["OPEN"],
+                VulnerabilityStateStatus["SAFE"],
+                VulnerabilityStateStatus["VULNERABLE"],
             ]
         ),
         verifications=set(),

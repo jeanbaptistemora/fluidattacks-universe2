@@ -425,7 +425,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="52",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="back/src/model/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -465,7 +465,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="12",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="back/src/controller/user/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -505,7 +505,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="64",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="front/index.html",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -545,7 +545,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="35",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="back/src/index.js",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -585,7 +585,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="0",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where=".project",
                     ),
                     treatment=VulnerabilityTreatment(

@@ -34,6 +34,9 @@ from newutils.reports import (
     sign_url,
     upload_report,
 )
+from newutils.vulnerabilities import (
+    get_inverted_state_converted,
+)
 from notifications import (
     domain as notifications_domain,
 )
@@ -202,7 +205,7 @@ def get_filter_message(  # noqa: MC0001
     if closing_date:
         states = set(
             [
-                VulnerabilityStateStatus["CLOSED"],
+                VulnerabilityStateStatus["SAFE"],
             ]
         )
         treatments = set(VulnerabilityTreatmentStatus)
@@ -218,8 +221,8 @@ def get_filter_message(  # noqa: MC0001
         sorted(
             set(
                 [
-                    VulnerabilityStateStatus["CLOSED"],
-                    VulnerabilityStateStatus["OPEN"],
+                    VulnerabilityStateStatus["SAFE"],
+                    VulnerabilityStateStatus["VULNERABLE"],
                 ]
             )
         )
@@ -267,7 +270,8 @@ async def report(  # pylint: disable=too-many-locals
         for treatment in additional_info["treatments"]
     }
     states = {
-        VulnerabilityStateStatus[state] for state in additional_info["states"]
+        VulnerabilityStateStatus[get_inverted_state_converted(state)]
+        for state in additional_info["states"]
     }
     verifications = {
         VulnerabilityVerificationStatus[verification]

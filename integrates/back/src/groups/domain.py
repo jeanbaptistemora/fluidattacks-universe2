@@ -754,7 +754,7 @@ async def get_closed_vulnerabilities(
     )
 
     last_approved_status = [vuln.state.status for vuln in findings_vulns]
-    return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
+    return last_approved_status.count(VulnerabilityStateStatus.SAFE)
 
 
 async def get_groups_by_stakeholder(
@@ -1013,7 +1013,7 @@ async def get_open_vulnerabilities(
     )
 
     last_approved_status = [vuln.state.status for vuln in findings_vulns]
-    return last_approved_status.count(VulnerabilityStateStatus.OPEN)
+    return last_approved_status.count(VulnerabilityStateStatus.VULNERABLE)
 
 
 async def invite_to_group(
@@ -1789,7 +1789,7 @@ async def get_treatment_summary(
         vuln.treatment.status
         for vuln in vulns
         if vuln.treatment
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     return GroupTreatmentSummary(
         accepted=treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],

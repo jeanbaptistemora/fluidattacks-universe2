@@ -52,7 +52,8 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
             [
                 1
                 for vulnerability in vulnerabilities
-                if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+                if vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
                 and vulnerability.treatment
                 and vulnerability.treatment.assigned
             ]
@@ -61,7 +62,8 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
             [
                 1
                 for vulnerability in vulnerabilities
-                if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+                if vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
                 and (
                     (
                         vulnerability.treatment

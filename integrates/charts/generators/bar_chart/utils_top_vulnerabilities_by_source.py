@@ -73,7 +73,7 @@ async def get_data_one_group(
             findings, findings_vulns, findings_cvssf
         )
         for vulnerability in vulnerabilities
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
         and vulnerability.type == source
     ]
 

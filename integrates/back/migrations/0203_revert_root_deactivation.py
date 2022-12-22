@@ -95,7 +95,7 @@ async def process_root(loaders: Dataloaders, root_id: str) -> None:
         tuple(
             process_vuln(loaders, vuln)
             for vuln in vulns
-            if vuln.state.status == VulnerabilityStateStatus.CLOSED
+            if vuln.state.status == VulnerabilityStateStatus.SAFE
             and vuln.state.justification == StateRemovalJustification.EXCLUSION
         ),
         workers=100,

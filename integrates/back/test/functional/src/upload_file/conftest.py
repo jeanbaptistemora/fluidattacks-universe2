@@ -745,7 +745,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="4444",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.44",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -791,7 +791,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="4545",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.45",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -837,7 +837,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="4646",
-                        status=VulnerabilityStateStatus.CLOSED,
+                        status=VulnerabilityStateStatus.SAFE,
                         where="192.168.1.46",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -876,7 +876,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="4646",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.46",
                     ),
                     VulnerabilityState(
@@ -886,7 +886,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         specific="4646",
                         source=Source.ASM,
-                        status=VulnerabilityStateStatus.CLOSED,
+                        status=VulnerabilityStateStatus.SAFE,
                         where="192.168.1.46",
                     ),
                 ],
@@ -923,7 +923,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="4747",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.47",
                     ),
                     treatment=VulnerabilityTreatment(

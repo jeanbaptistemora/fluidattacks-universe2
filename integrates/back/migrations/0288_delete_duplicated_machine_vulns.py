@@ -77,7 +77,7 @@ def get_closed_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
     closed_vulns_by_idx: Dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
-        if vuln.state.status == VulnerabilityStateStatus.CLOSED
+        if vuln.state.status == VulnerabilityStateStatus.SAFE
     }
     duplicates = get_duplicates(closed_vulns_by_idx)
 
@@ -89,7 +89,7 @@ def get_new_open_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
         idx: vuln
         for idx, vuln in enumerate(vulns)
         if (
-            vuln.state.status == VulnerabilityStateStatus.OPEN
+            vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             and vuln.treatment
             and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
             and (
@@ -110,7 +110,7 @@ def get_open_with_treatment_duplicates(
     open_vulns_by_idx: Dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
-        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     }
     open_duplicates = get_duplicates(open_vulns_by_idx)
     open_with_treatment_duplicates: Dict[int, List[Vulnerability]] = {}
@@ -192,7 +192,7 @@ def get_open_with_zr_duplicates(
     open_vulns_by_idx: Dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
-        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     }
     open_duplicates = get_duplicates(open_vulns_by_idx)
     open_with_zr_duplicates: Dict[int, List[Vulnerability]] = {}

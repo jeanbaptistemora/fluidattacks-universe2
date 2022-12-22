@@ -294,7 +294,7 @@ async def populate() -> bool:
                         ),
                         source=Source.ANALYST,
                         specific="2322",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.1",
                     ),
                     treatment=VulnerabilityTreatment(

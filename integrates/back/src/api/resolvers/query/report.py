@@ -59,7 +59,7 @@ from newutils.validations import (
     validate_fields,
 )
 from newutils.vulnerabilities import (
-    get_current_state_converted,
+    get_inverted_state_converted,
 )
 from organizations.domain import (
     validate_max_acceptance_severity,
@@ -310,14 +310,14 @@ async def resolve(  # pylint: disable=too-many-locals
             )
     states: set[VulnerabilityStateStatus] = (
         {
-            VulnerabilityStateStatus[get_current_state_converted(state)]
+            VulnerabilityStateStatus[get_inverted_state_converted(state)]
             for state in kwargs["states"]
         }
         if kwargs.get("states")
         else set(
             [
-                VulnerabilityStateStatus["CLOSED"],
-                VulnerabilityStateStatus["OPEN"],
+                VulnerabilityStateStatus["SAFE"],
+                VulnerabilityStateStatus["VULNERABLE"],
             ]
         )
     )
@@ -343,7 +343,7 @@ async def resolve(  # pylint: disable=too-many-locals
         _validate_closing_date(closing_date=closing_date)
         states = set(
             [
-                VulnerabilityStateStatus["CLOSED"],
+                VulnerabilityStateStatus["SAFE"],
             ]
         )
         treatments = set(VulnerabilityTreatmentStatus)

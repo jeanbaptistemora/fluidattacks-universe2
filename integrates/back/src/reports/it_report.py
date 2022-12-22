@@ -111,8 +111,8 @@ TYPE_TRANSLATION: dict[VulnerabilityType, str] = {
     VulnerabilityType.PORTS: "infra",
 }
 STATE_TRANSLATION: dict[VulnerabilityStateStatus, str] = {
-    VulnerabilityStateStatus.CLOSED: "SAFE",
-    VulnerabilityStateStatus.OPEN: "VULNERABLE",
+    VulnerabilityStateStatus.SAFE: "SAFE",
+    VulnerabilityStateStatus.VULNERABLE: "VULNERABLE",
 }
 
 
@@ -194,7 +194,7 @@ class ITReport:
         if self.closing_date:
             self.states = set(
                 [
-                    VulnerabilityStateStatus["CLOSED"],
+                    VulnerabilityStateStatus["SAFE"],
                 ]
             )
             self.treatments = set(VulnerabilityTreatmentStatus)
@@ -585,7 +585,7 @@ class ITReport:
                 ]
             )
             if (
-                vuln.state.status == VulnerabilityStateStatus.CLOSED
+                vuln.state.status == VulnerabilityStateStatus.SAFE
                 and n_requested_reattacks
             ):
                 effectiveness: float = 100 / n_requested_reattacks
@@ -701,7 +701,7 @@ class ITReport:
         for key, value in current_treatment_data.items():
             self.row_values[self.vulnerability[key]] = (
                 value
-                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
                 else EMPTY
             )
             first_treatment_key = key.replace("Current", "First")
@@ -848,7 +848,7 @@ class ITReport:
         vuln_date = vuln.created_date
         limit_date = datetime_utils.get_utc_now()
         vuln_close_date: Union[str, datetime] = EMPTY
-        if vuln.state.status == VulnerabilityStateStatus.CLOSED:
+        if vuln.state.status == VulnerabilityStateStatus.SAFE:
             limit_date = vuln_close_date = vuln.state.modified_date
         vuln_age_days = int((limit_date - vuln_date).days)
         external_bts = vuln.bug_tracking_system_url or EMPTY

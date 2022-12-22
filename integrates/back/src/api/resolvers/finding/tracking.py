@@ -8,6 +8,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.types import (
+    VulnerabilityState,
     VulnerabilityTreatment,
 )
 from findings import (
@@ -31,7 +32,7 @@ async def _get_treatments(
 
 async def _get_states(
     *, loaders: Dataloaders, vulnerabilities_id: tuple[str, ...]
-) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
+) -> tuple[tuple[VulnerabilityState, ...], ...]:
     return await loaders.vulnerability_historic_state.load_many(
         vulnerabilities_id
     )
@@ -62,5 +63,5 @@ async def resolve(
 
     return findings_domain.get_tracking_vulnerabilities(
         vulns_state=vulns_state,  # type: ignore
-        vulns_treatment=vulns_treatment,
+        vulns_treatment=vulns_treatment,  # type: ignore
     )

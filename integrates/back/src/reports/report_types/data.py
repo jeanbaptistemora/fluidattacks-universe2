@@ -110,8 +110,8 @@ async def _append_xls_report(
         treatments=set(VulnerabilityTreatmentStatus),
         states=set(
             [
-                VulnerabilityStateStatus["CLOSED"],
-                VulnerabilityStateStatus["OPEN"],
+                VulnerabilityStateStatus["SAFE"],
+                VulnerabilityStateStatus["VULNERABLE"],
             ]
         ),
         verifications=set(),

@@ -1,7 +1,9 @@
 from . import (
+    get_group_vulnerabilities,
     get_result,
     update_services,
 )
+import asyncio
 from custom_exceptions import (
     InvalidCannotModifyNicknameWhenClosing,
     InvalidNewVulnState,
@@ -51,6 +53,10 @@ from typing import (
 )
 
 
+def _get_key(item: dict) -> str:
+    return item["node"]["where"]
+
+
 async def _get_vulns(
     loaders: Dataloaders,
     finding_id: str,
@@ -95,10 +101,11 @@ async def _get_vulns(
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
     ],
-)
+)  # pylint: disable=too-many-locals
 @freeze_time("2022-02-09")
 async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
+    await asyncio.sleep(10)
     loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"
@@ -114,7 +121,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": "111111111111111111111111111111111111111f",
             "repo_nickname": "universe",
             "specific": "1",
-            "state_status": "OPEN",
+            "state_status": "VULNERABLE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "LINES",
@@ -125,7 +132,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": "5b5c92105b5c92105b5c92105b5c92105b5c9210",
             "repo_nickname": "universe",
             "specific": "123",
-            "state_status": "OPEN",
+            "state_status": "VULNERABLE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "LINES",
@@ -136,7 +143,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe",
             "specific": "phone",
-            "state_status": "OPEN",
+            "state_status": "VULNERABLE",
             "stream": ["home", "blog", "articulo"],
             "treatment_status": "NEW",
             "type": "INPUTS",
@@ -147,7 +154,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe44",
             "specific": "4444",
-            "state_status": "OPEN",
+            "state_status": "VULNERABLE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",
@@ -158,7 +165,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe45",
             "specific": "4545",
-            "state_status": "CLOSED",
+            "state_status": "SAFE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",
@@ -169,7 +176,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe46",
             "specific": "4646",
-            "state_status": "CLOSED",
+            "state_status": "SAFE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",
@@ -180,7 +187,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe46",
             "specific": "4646",
-            "state_status": "OPEN",
+            "state_status": "VULNERABLE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",
@@ -191,7 +198,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": None,
             "repo_nickname": "universe47",
             "specific": "4747",
-            "state_status": "CLOSED",
+            "state_status": "SAFE",
             "stream": None,
             "treatment_status": "NEW",
             "type": "PORTS",
@@ -199,6 +206,58 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "where": "192.168.1.47",
         },
     ]
+    expected_group_vulns = sorted(
+        [
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "universe/path/to/file1.ext",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "universe/test/1",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "192.168.1.44",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "https://example.com",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "192.168.1.46",
+                }
+            },
+        ],
+        key=_get_key,
+    )
+    group_vulns = await get_group_vulnerabilities(
+        user=email,
+        group_name="group1",
+    )
+    assert "errors" not in group_vulns
+    assert (
+        sorted(
+            group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+            key=_get_key,
+        )
+        == expected_group_vulns
+    )
 
     escaper_vuln: Vulnerability = next(
         vuln
@@ -206,7 +265,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         if vuln.state.specific == "4646"
         and vuln.state.where == "192.168.1.46"
         and vuln.type == VulnerabilityType.PORTS
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     assert escaper_vuln.state.source == Source.ESCAPE
 

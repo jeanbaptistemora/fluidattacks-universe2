@@ -73,7 +73,8 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
             f"{finding.id}/{finding.title}"
             for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
-            if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            if vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
         ]
     )
     counter_tuple = counter.most_common()

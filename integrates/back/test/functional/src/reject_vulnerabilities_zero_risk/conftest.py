@@ -193,7 +193,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="9999",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -234,7 +234,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="9999",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -275,7 +275,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="9999",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -316,7 +316,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="9999",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -357,7 +357,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.ASM,
                         specific="14",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
                     treatment=VulnerabilityTreatment(

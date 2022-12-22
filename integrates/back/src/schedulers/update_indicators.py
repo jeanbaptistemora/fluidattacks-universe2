@@ -658,7 +658,7 @@ def get_accepted_vulns(
     if treatments and treatments[-1].status in accepted_treatments:
         return get_by_time_range(
             historic_state,
-            VulnerabilityStateStatus.OPEN,
+            VulnerabilityStateStatus.VULNERABLE,
             severity,
             last_day,
             min_date,
@@ -694,7 +694,7 @@ def get_open_vulnerabilities(
     if (
         states
         and states[-1].modified_date.timestamp() <= last_day.timestamp()
-        and states[-1].status == VulnerabilityStateStatus.OPEN
+        and states[-1].status == VulnerabilityStateStatus.VULNERABLE
         and not (
             min_date
             and historic_state[0].modified_date.timestamp()
@@ -846,7 +846,7 @@ def get_status_vulns_by_time_range(
     vulnerabilities_closed = [
         get_by_time_range(
             historic_state,
-            VulnerabilityStateStatus.CLOSED,
+            VulnerabilityStateStatus.SAFE,
             severity,
             last_day,
             min_date,
@@ -995,7 +995,7 @@ def get_exposed_cvssf(
     if (
         states
         and states[-1].modified_date.timestamp() <= last_day.timestamp()
-        and states[-1].status == VulnerabilityStateStatus.OPEN
+        and states[-1].status == VulnerabilityStateStatus.VULNERABLE
     ):
         cvssf = vulns_utils.get_cvssf(severity)
 

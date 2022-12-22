@@ -91,7 +91,7 @@ async def get_open_vulnerabilities(
             FindingVulnerabilitiesZrRequest(
                 finding_id=finding.id,
                 paginate=False,
-                state_status=VulnerabilityStateStatus.OPEN,
+                state_status=VulnerabilityStateStatus.VULNERABLE,
             )
         )
     )
@@ -105,7 +105,11 @@ async def get_closed_old_vulnerabilities_last_week(
     last week and were closed the last week"""
     results = await search(
         after=None,
-        must_filters=[{"sk": f"FIN#{finding.id}"}, {"state.status": "CLOSED"}],
+        must_filters=[
+            {"sk": f"FIN#{finding.id}"},
+            {"state.status": "CLOSED"},
+            {"state.status": "SAFE"},
+        ],
         range_filters=[
             {"state.modified_date": {"gte": "now-1w"}},
             {"created_date": {"lt": "now-1w"}},
@@ -126,7 +130,7 @@ async def get_closed_vulnerabilities(
             FindingVulnerabilitiesZrRequest(
                 finding_id=finding.id,
                 paginate=False,
-                state_status=VulnerabilityStateStatus.CLOSED,
+                state_status=VulnerabilityStateStatus.SAFE,
             )
         )
     )

@@ -403,9 +403,9 @@ async def solve_event(  # pylint: disable=too-many-locals
         # For closed vulns on hold (yes, that can happen)
         verifications_dict: dict[str, list[str]] = {}
         for vuln in affected_reattacks:
-            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE:
                 reattacks_dict.setdefault(vuln.finding_id, set()).add(vuln.id)
-            elif vuln.state.status == VulnerabilityStateStatus.CLOSED:
+            elif vuln.state.status == VulnerabilityStateStatus.SAFE:
                 verifications_dict.setdefault(vuln.finding_id, []).append(
                     vuln.id
                 )

@@ -99,6 +99,30 @@ async def test_get_group(populate: bool, email: str) -> None:
             ],
         }
     ]
+    vulnerabilities_edges = result["data"]["group"]["vulnerabilities"]["edges"]
+    assert vulnerabilities_edges == [
+        {
+            "node": {
+                "currentState": "open",
+                "id": "c188fac2-99b9-483d-8af3-76efbf7715dd",
+                "state": "VULNERABLE",
+            },
+        },
+        {
+            "node": {
+                "currentState": "open",
+                "id": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                "state": "VULNERABLE",
+            },
+        },
+        {
+            "node": {
+                "currentState": "open",
+                "id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b",
+                "state": "VULNERABLE",
+            },
+        },
+    ]
     assert result["data"]["group"]["language"] == "EN"
     assert result["data"]["group"]["groupContext"] == "This is a dummy context"
     assert result["data"]["group"]["service"] == "WHITE"

@@ -114,7 +114,7 @@ def is_accepted_undefined_vulnerability(
         vulnerability.treatment
         and vulnerability.treatment.status
         == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        and vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
     )
 
 
@@ -175,7 +175,7 @@ def filter_open_vulns(
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
 
 
@@ -185,7 +185,7 @@ def filter_closed_vulns(
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.state.status == VulnerabilityStateStatus.CLOSED
+        if vuln.state.status == VulnerabilityStateStatus.SAFE
     )
 
 
@@ -265,7 +265,9 @@ async def format_vulnerabilities(
                 vuln_values[vuln_type]["specific"]: (
                     html.unescape(vuln.state.specific)
                 ),
-                "state": str(vuln.state.status.value).lower(),
+                "state": get_current_state_converted(
+                    vuln.state.status.value
+                ).lower(),
                 "source": format_source,
                 "tool": _format_tool_item(vuln.state.tool)
                 if vuln.state.tool
@@ -313,7 +315,7 @@ def get_closing_date(
     min_date: Optional[datetype] = None,
 ) -> Optional[datetype]:
     closing_date: Optional[datetype] = None
-    if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
+    if vulnerability.state.status == VulnerabilityStateStatus.SAFE:
         closing_date = vulnerability.state.modified_date.date()
         if min_date and min_date > closing_date:
             return None
@@ -545,7 +547,7 @@ def _get_vuln_state_action(
 ) -> List[Action]:
     actions: List[Action] = [
         Action(
-            action=state.status.value,
+            action=get_current_state_converted(state.status.value),
             date=str(state.modified_date.date()),
             justification="",
             assigned="",
@@ -633,7 +635,7 @@ def get_treatment_changes(
 
 def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
     """Validate if the vulnerability is closed."""
-    if vulnerability.state.status == VulnerabilityStateStatus.CLOSED:
+    if vulnerability.state.status == VulnerabilityStateStatus.SAFE:
         raise VulnAlreadyClosed()
     return vulnerability
 
@@ -753,7 +755,9 @@ def format_vulnerability_state_item(
     }:
         formatted_status = state.status.value
     else:
-        formatted_status = str(state.status.value).lower()
+        formatted_status = get_current_state_converted(
+            state.status.value
+        ).lower()
     item = {
         "date": datetime_utils.get_as_str(state.modified_date),
         "hacker": state.modified_by,

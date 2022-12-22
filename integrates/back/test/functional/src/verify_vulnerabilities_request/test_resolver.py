@@ -33,17 +33,17 @@ from typing import (
         (
             "admin@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-            VulnerabilityStateStatus.OPEN,
+            VulnerabilityStateStatus.VULNERABLE,
         ),
         (
             "hacker@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-            VulnerabilityStateStatus.OPEN,
+            VulnerabilityStateStatus.VULNERABLE,
         ),
         (
             "reattacker@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdcea",
-            VulnerabilityStateStatus.CLOSED,
+            VulnerabilityStateStatus.SAFE,
         ),
     ),
 )
@@ -58,7 +58,7 @@ async def test_request_vulnerabilities_verification(
 
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     assert vuln.verification.status == VVerifStatus.REQUESTED  # type: ignore
 
     result: Dict[str, Any] = await get_result(

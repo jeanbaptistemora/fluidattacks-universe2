@@ -86,7 +86,7 @@ async def mutate(
                 vuln.verification
                 and vuln.verification.status
                 == VulnerabilityVerificationStatus.REQUESTED
-                and vuln.state.status != VulnerabilityStateStatus.CLOSED
+                and vuln.state.status != VulnerabilityStateStatus.SAFE
             )
         ]
         treatment_changed_vulns = [

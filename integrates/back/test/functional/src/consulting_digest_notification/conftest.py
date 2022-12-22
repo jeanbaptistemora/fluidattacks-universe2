@@ -399,7 +399,7 @@ async def populate() -> bool:
                         ),
                         source=Source.ASM,
                         specific="2321",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.1",
                     ),
                     treatment=VulnerabilityTreatment(

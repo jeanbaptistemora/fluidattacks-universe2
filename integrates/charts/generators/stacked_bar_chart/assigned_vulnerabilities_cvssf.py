@@ -108,7 +108,7 @@ def format_assigned(
     for vulnerability, cvssf in vulnerabilities:
         status.update({vulnerability.state.status: cvssf})
         if (
-            vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
             and vulnerability.treatment.status  # type: ignore
             in {
                 VulnerabilityTreatmentStatus.ACCEPTED,
@@ -120,7 +120,7 @@ def format_assigned(
             )
 
     remaining_open: Decimal = Decimal(
-        status[VulnerabilityStateStatus.OPEN]
+        status[VulnerabilityStateStatus.VULNERABLE]
         - treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
         - treatment[VulnerabilityTreatmentStatus.ACCEPTED]
     )
@@ -130,8 +130,8 @@ def format_assigned(
         accepted_undefined=treatment[
             VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ],
-        closed_vulnerabilities=status[VulnerabilityStateStatus.CLOSED],
-        open_vulnerabilities=status[VulnerabilityStateStatus.OPEN],
+        closed_vulnerabilities=status[VulnerabilityStateStatus.SAFE],
+        open_vulnerabilities=status[VulnerabilityStateStatus.VULNERABLE],
         remaining_open_vulnerabilities=remaining_open
         if remaining_open > Decimal("0.0")
         else Decimal("0.0"),

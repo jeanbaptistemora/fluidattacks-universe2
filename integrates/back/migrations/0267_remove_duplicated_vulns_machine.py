@@ -77,7 +77,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
             for vuln in (
                 await loaders.finding_vulnerabilities.load(finding.id)
             )
-            if vuln.state.status == VulnerabilityStateStatus.OPEN
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             and vuln.state.source == Source.MACHINE
         )
         vulns = tuple(

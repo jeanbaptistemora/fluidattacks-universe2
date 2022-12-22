@@ -65,7 +65,7 @@ async def main() -> None:
                 vuln.state.status.value,
             )
             for vuln in drafts_vulns
-            if vuln.state.status == VulnerabilityStateStatus.CLOSED
+            if vuln.state.status == VulnerabilityStateStatus.SAFE
         ]
         if vulns_to_delete:
             print("\t" + f"Deleting {len(vulns_to_delete)} vulnerabilities...")

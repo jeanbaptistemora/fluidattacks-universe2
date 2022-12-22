@@ -61,7 +61,7 @@ async def main() -> None:
             open_vulns = [
                 vuln
                 for vuln in vulns
-                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             ]
             if len(open_vulns) == 0:
                 drafts_to_delete.append((draft.id, draft.title))

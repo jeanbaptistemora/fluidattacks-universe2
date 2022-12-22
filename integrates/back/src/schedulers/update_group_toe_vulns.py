@@ -257,7 +257,7 @@ async def get_open_vulnerabilities(
             FindingVulnerabilitiesZrRequest(
                 finding_id=finding.id,
                 paginate=False,
-                state_status=VulnerabilityStateStatus.OPEN,
+                state_status=VulnerabilityStateStatus.VULNERABLE,
             )
         )
     )

@@ -767,7 +767,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="5",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -798,7 +798,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="5",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     )
                 ],
@@ -821,7 +821,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="3",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     ),
                     treatment=VulnerabilityTreatment(
@@ -852,7 +852,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="3",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     )
                 ],

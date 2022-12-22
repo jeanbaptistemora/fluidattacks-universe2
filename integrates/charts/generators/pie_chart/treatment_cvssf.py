@@ -79,7 +79,7 @@ async def get_data_one_group(group: str) -> Treatment:
         )
         for vulnerability in vulnerabilities
         if vulnerability.treatment
-        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        and vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     treatment: Counter[VulnerabilityTreatmentStatus] = sum(
         treatments, Counter()

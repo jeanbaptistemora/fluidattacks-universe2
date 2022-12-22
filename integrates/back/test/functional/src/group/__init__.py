@@ -91,6 +91,15 @@ async def get_result(
                 sprintDuration
                 sprintStartDate
                 vulnerabilityGracePeriod
+                vulnerabilities(stateStatus: "open") {{
+                    edges {{
+                        node {{
+                            currentState
+                            id
+                            state
+                        }}
+                    }}
+                }}
                 __typename
             }}
         }}

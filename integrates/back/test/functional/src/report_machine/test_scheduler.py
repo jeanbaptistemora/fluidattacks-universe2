@@ -81,7 +81,7 @@ async def test_persist_result(populate: bool) -> None:
                 for vuln in await loaders.finding_vulnerabilities.load(
                     finding_001.id
                 )
-                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
                 and vuln.state.source == Source.MACHINE
                 and vuln.root_id == "88637616-41d4-4242-854a-db8ff7fe1ab6"
             )
@@ -95,7 +95,7 @@ async def test_persist_result(populate: bool) -> None:
                 )
             )
             assert len(integrates_vulnerabilities) == 3
-            assert closed_vuln.state.status == VulnerabilityStateStatus.CLOSED
+            assert closed_vuln.state.status == VulnerabilityStateStatus.SAFE
             assert (
                 closed_vuln_historic[-1].commit
                 == "7fd232de194916018c4ba68f5cb6dc595e99df7e"
@@ -199,7 +199,7 @@ async def test_report_f079(populate: bool) -> None:
                 for vuln in await loaders.finding_vulnerabilities.load(
                     finding_f079.id
                 )
-                if vuln.state.status == VulnerabilityStateStatus.OPEN
+                if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
                 and vuln.state.source == Source.MACHINE
             )
 
@@ -263,7 +263,7 @@ async def test_duplicated_reports(populate: bool) -> None:
             for vuln in await loaders.finding_vulnerabilities.load(
                 finding_011.id
             )
-            if vuln.state.status == VulnerabilityStateStatus.OPEN
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             and vuln.state.source == Source.MACHINE
         )
         assert len(integrates_vulnerabilities) == 1

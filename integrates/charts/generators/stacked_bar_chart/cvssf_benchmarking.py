@@ -132,7 +132,7 @@ async def get_group_data(
             finding_severity[str(vulnerability.finding_id)]
         )
         counter.update({"total": severity})
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE:
             if vulnerability.treatment and vulnerability.treatment.status in {
                 VulnerabilityTreatmentStatus.ACCEPTED,
                 VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,

@@ -467,7 +467,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         ),
                         source=Source.MACHINE,
                         specific="5",
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     ),
                     treatment=VulnerabilityTreatment(

@@ -16,7 +16,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.vulnerabilities import (
-    get_current_state_converted,
+    get_inverted_state_converted,
 )
 from typing import (
     Any,
@@ -46,7 +46,7 @@ async def resolve(
             first=first,
             paginate=True,
             state_status=VulnerabilityStateStatus[
-                get_current_state_converted(state)
+                get_inverted_state_converted(state)
             ]
             if state
             else None,

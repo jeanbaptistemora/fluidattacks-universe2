@@ -82,7 +82,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     severity_counter: Counter = Counter()
     for severity, vulns in zip(finding_severity_levels, finding_vulns):
         for vuln in vulns:
-            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE:
                 severity_counter.update([f"{severity}_open"])
                 if vuln.treatment and vuln.treatment.status in {
                     VulnerabilityTreatmentStatus.ACCEPTED,

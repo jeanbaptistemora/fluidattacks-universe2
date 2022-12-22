@@ -65,7 +65,7 @@ async def process_vuln(
     item: Item,
 ) -> None:
     state = format_state(item["state"])
-    if state.status != VulnerabilityStateStatus.OPEN:
+    if state.status != VulnerabilityStateStatus.VULNERABLE:
         return
 
     treatment = (

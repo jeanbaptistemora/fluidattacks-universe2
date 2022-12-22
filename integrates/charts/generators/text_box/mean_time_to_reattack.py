@@ -59,7 +59,7 @@ def _get_next_open(
     historic_state: tuple[VulnerabilityState, ...]
 ) -> Optional[datetime]:
     for state in historic_state:
-        if state.status == VulnerabilityStateStatus.OPEN:
+        if state.status == VulnerabilityStateStatus.VULNERABLE:
             return state.modified_date
     return None
 
@@ -72,7 +72,7 @@ def _get_in_between_state(
     after_limit = get_plus_delta(verification, minutes=30)
     for index, state in enumerate(reverse_historic_state):
         if (
-            state.status == VulnerabilityStateStatus.CLOSED
+            state.status == VulnerabilityStateStatus.SAFE
             and before_limit <= state.modified_date <= after_limit
         ):
             return _get_next_open(
@@ -212,7 +212,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                         end=current_date,
                     )
                     if vulnerability.state.status
-                    == VulnerabilityStateStatus.OPEN
+                    == VulnerabilityStateStatus.VULNERABLE
                     else get_diff(
                         start=vulnerability.created_date,
                         end=vulnerability.state.modified_date,

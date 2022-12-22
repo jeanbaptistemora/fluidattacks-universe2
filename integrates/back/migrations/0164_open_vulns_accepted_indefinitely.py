@@ -116,7 +116,7 @@ async def main() -> None:
                         modified_by="acuberos@fluidattacks.com",
                         modified_date=datetime_utils.get_iso_date(),
                         source=Source.ASM,
-                        status=VulnerabilityStateStatus.OPEN,
+                        status=VulnerabilityStateStatus.VULNERABLE,
                         justification=(
                             StateRemovalJustification.NO_JUSTIFICATION
                         ),

@@ -191,7 +191,7 @@ async def process_group(group: str, fusion_path: str) -> None:
         for vuln in vulns
         if vuln.type == VulnerabilityType.LINES
         and vuln.root_id
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
 
     roots_dict: dict[str, GitRoot] = {
@@ -238,7 +238,7 @@ async def process_group(group: str, fusion_path: str) -> None:
             continue
 
         rev_b = "HEAD"
-        if vuln.state.status == VulnerabilityStateStatus.CLOSED:
+        if vuln.state.status == VulnerabilityStateStatus.SAFE:
             try:
                 rev_b = repo.git.log(
                     "--pretty=format:%H",

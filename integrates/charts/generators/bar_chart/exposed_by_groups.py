@@ -66,7 +66,7 @@ async def get_data_one_group(
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE:
             counter.update(
                 {
                     "open": Decimal(

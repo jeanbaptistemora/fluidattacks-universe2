@@ -286,7 +286,7 @@ async def _add_accepted_treatment(
         if vuln.treatment is not None
         if vuln.treatment.status
         != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     ]
     (  # pylint: disable=unbalanced-tuple-unpacking
         acceptance_submitted,

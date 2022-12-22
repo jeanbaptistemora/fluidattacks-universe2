@@ -19,6 +19,9 @@ from graphql import (
     GraphQLResolveInfo,
 )
 import logging
+from newutils.vulnerabilities import (
+    get_inverted_state_converted,
+)
 from search.operations import (
     search,
 )
@@ -73,8 +76,8 @@ async def resolve(
 
 def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
     vulns_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
-    vulns_must_not_filters: List[Dict[str, Any]] = must_not_filter()
-    vulns_should_filters: List[Dict[str, Any]] = should_filter()
+    vulns_must_not_filters: List[Dict[str, Any]] = must_not_filter(**kwargs)
+    vulns_should_filters: List[Dict[str, Any]] = should_filter(**kwargs)
 
     if zero_risk := kwargs.get("zeroRisk"):
         vulns_must_filters.append({"zero_risk.status": zero_risk})
@@ -101,16 +104,13 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     if vulnerability_type := kwargs.get("type"):
         must_filters.append({"type": str(vulnerability_type).upper()})
 
-    if state := kwargs.get("stateStatus"):
-        must_filters.append({"state.status": str(state).upper()})
-
     if verification := kwargs.get("verificationStatus"):
         must_filters.append({"verification.status": str(verification).upper()})
 
     return must_filters
 
 
-def must_not_filter() -> list[dict[str, Any]]:
+def must_not_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_not_filters: list[dict[str, Any]] = [
         {"state.status": VulnerabilityStateStatus.CREATED},
         {"state.status": VulnerabilityStateStatus.DELETED},
@@ -119,6 +119,13 @@ def must_not_filter() -> list[dict[str, Any]]:
         {"state.status": VulnerabilityStateStatus.SUBMITTED},
         {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED},
     ]
+    if state := kwargs.get("stateStatus"):
+        if str(state).upper() in {"OPEN", "VULNERABLE"}:
+            must_not_filters.append({"state.status": "CLOSED"})
+            must_not_filters.append({"state.status": "SAFE"})
+        else:
+            must_not_filters.append({"state.status": "OPEN"})
+            must_not_filters.append({"state.status": "VULNERABLE"})
 
     return must_not_filters
 
@@ -128,5 +135,11 @@ def should_filter(**kwargs: Any) -> List[Dict[str, Any]]:
 
     if root := kwargs.get("root"):
         should_filters.append({"state.where": str(root).upper()})
+
+    if state := kwargs.get("stateStatus"):
+        should_filters.append({"state.status": str(state).upper()})
+        should_filters.append(
+            {"state.status": get_inverted_state_converted(str(state).upper())}
+        )
 
     return should_filters

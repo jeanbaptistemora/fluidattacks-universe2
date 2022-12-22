@@ -73,14 +73,14 @@ async def process_group(group: str) -> None:
         str(get_hash_from_typed(vuln)): vuln
         for vuln in vulns
         if vuln.state.source == Source.MACHINE
-        and vuln.state.status == VulnerabilityStateStatus.CLOSED
+        and vuln.state.status == VulnerabilityStateStatus.SAFE
         and vuln.state.modified_by == "machine@fluidattacks.com"
     }
     open_hash = {
         str(get_hash_from_typed(vuln)): vuln
         for vuln in vulns
         if vuln.state.source == Source.MACHINE
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
         and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
         and vuln.treatment.modified_by in ("machine@fluidattacks.com", None)
     }

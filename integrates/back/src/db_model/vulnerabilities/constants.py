@@ -14,8 +14,8 @@ ZR_FILTER_STATUSES = {
     VulnerabilityZeroRiskStatus.REQUESTED,
 }
 RELEASED_FILTER_STATUSES = {
-    VulnerabilityStateStatus.CLOSED,
-    VulnerabilityStateStatus.OPEN,
+    VulnerabilityStateStatus.SAFE,
+    VulnerabilityStateStatus.VULNERABLE,
 }
 
 ZR_INDEX_METADATA = Facet(

@@ -177,7 +177,7 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
     vulnerability_severity = get_severity_score(finding.severity)
     test_data = get_by_time_range(
         historic_state,
-        VulnerabilityStateStatus.OPEN,
+        VulnerabilityStateStatus.VULNERABLE,
         vulnerability_severity,
         last_day,
     )

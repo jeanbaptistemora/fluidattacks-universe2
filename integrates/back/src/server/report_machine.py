@@ -905,7 +905,7 @@ async def upload_snippet(
     sarif_vulns: list[Any],
 ) -> None:
     current_vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    if current_vuln.state.status != VulnerabilityStateStatus.OPEN:
+    if current_vuln.state.status != VulnerabilityStateStatus.VULNERABLE:
         return
 
     current_hash = get_hash_from_typed(current_vuln)
@@ -976,7 +976,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     existing_open_machine_vulns: Tuple[Vulnerability, ...] = tuple(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
-        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
         and is_machine_vuln(vuln)
         and vuln.root_id == git_root.id
     )

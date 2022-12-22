@@ -181,7 +181,7 @@ async def get_totals_by_week(
     open_vulnerabilities = sum(
         had_state_by_then(
             last_day=last_day,
-            state=VulnerabilityStateStatus.OPEN,
+            state=VulnerabilityStateStatus.VULNERABLE,
             vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,
@@ -192,7 +192,7 @@ async def get_totals_by_week(
     closed_vulnerabilities = sum(
         had_state_by_then(
             last_day=last_day,
-            state=VulnerabilityStateStatus.CLOSED,
+            state=VulnerabilityStateStatus.SAFE,
             vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,

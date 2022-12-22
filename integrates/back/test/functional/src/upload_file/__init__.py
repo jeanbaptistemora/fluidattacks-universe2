@@ -82,3 +82,49 @@ async def update_services(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_group_vulnerabilities(
+    *,
+    user: str,
+    group_name: str,
+) -> dict:
+    query: str = """
+        query GetGroupVulnerabilities(
+            $after: String
+            $first: Int
+            $groupName: String!
+        ) {
+            group(groupName: $groupName) {
+                name
+                vulnerabilities(
+                    stateStatus: "open",
+                    after: $after,
+                    first: $first
+                ) {
+                    edges {
+                        node {
+                            currentState
+                            state
+                            where
+                        }
+                    }
+                    pageInfo {
+                        endCursor
+                        hasNextPage
+                    }
+                }
+            }
+        }
+    """
+
+    data: dict = {
+        "query": query,
+        "variables": {"first": 100, "groupName": group_name},
+    }
+
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )

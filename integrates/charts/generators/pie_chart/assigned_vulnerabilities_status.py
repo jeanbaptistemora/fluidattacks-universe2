@@ -76,8 +76,8 @@ def format_data(*, data: Counter[VulnerabilityStateStatus]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open", data[VulnerabilityStateStatus.OPEN]],
-                ["Closed", data[VulnerabilityStateStatus.CLOSED]],
+                ["Open", data[VulnerabilityStateStatus.VULNERABLE]],
+                ["Closed", data[VulnerabilityStateStatus.SAFE]],
             ],
             type="pie",
             colors=dict(

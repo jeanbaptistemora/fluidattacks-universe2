@@ -42,7 +42,7 @@ async def test_confirm_vulnerabilities_zero_risk(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     requested = VulnerabilityZeroRiskStatus.REQUESTED
     assert vuln.zero_risk.status == requested  # type: ignore
 
@@ -54,7 +54,7 @@ async def test_confirm_vulnerabilities_zero_risk(
 
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     confirmed = VulnerabilityZeroRiskStatus.CONFIRMED
     assert vuln.zero_risk.status == confirmed  # type: ignore
     zero_risk_comments: tuple[

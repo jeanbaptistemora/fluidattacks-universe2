@@ -249,7 +249,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         vulnerability_id
     )
     if (
-        vulnerability.state.status != VulnerabilityStateStatus.OPEN
+        vulnerability.state.status != VulnerabilityStateStatus.VULNERABLE
         and not include_closed_vuln
     ):
         raise InvalidRemovalVulnState.new()
@@ -314,7 +314,7 @@ async def get_closing_date(
     if current_closing_date:
         return current_closing_date
 
-    if vulnerability.state.status is VulnerabilityStateStatus.CLOSED:
+    if vulnerability.state.status is VulnerabilityStateStatus.SAFE:
         return vulnerability.state.modified_date
 
     return None
@@ -437,7 +437,7 @@ def get_treatments_count(
         vuln.treatment.status
         for vuln in vulnerabilities
         if vuln.treatment
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     return Treatments(
         accepted=treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],
@@ -458,7 +458,7 @@ def get_verifications_count(
         vuln.verification.status
         for vuln in vulnerabilities
         if vuln.verification
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     return Verifications(
         requested=treatment_counter[VulnerabilityVerificationStatus.REQUESTED],
@@ -477,8 +477,8 @@ def group_vulnerabilities(
         VulnerabilityType.INPUTS,
     )
     vuln_states = (
-        VulnerabilityStateStatus.OPEN,
-        VulnerabilityStateStatus.CLOSED,
+        VulnerabilityStateStatus.VULNERABLE,
+        VulnerabilityStateStatus.SAFE,
     )
     total_vulnerabilities: dict[str, dict[str, list[Vulnerability]]] = {}
     result_vulns: list[Vulnerability] = []
@@ -812,7 +812,7 @@ async def update_metadata_and_state(
     """Update vulnerability metadata and historics."""
     if (
         vulnerability.state.source != new_state.source
-        and vulnerability.state.status == VulnerabilityStateStatus.CLOSED
+        and vulnerability.state.status == VulnerabilityStateStatus.SAFE
     ):
         await vulns_model.update_historic_entry(
             current_value=vulnerability,
@@ -834,7 +834,8 @@ async def update_metadata_and_state(
         vulnerability.state.status != new_state.status
         or (
             vulnerability.state.tool != new_state.tool
-            and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            and vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
         )
         or vulnerability.state.source != new_state.source
     ):
@@ -848,7 +849,7 @@ async def update_metadata_and_state(
     if (  # pylint: disable=too-many-boolean-expressions
         vulnerability.state.status != new_state.status
         and finding_policy
-        and new_state.status == VulnerabilityStateStatus.OPEN
+        and new_state.status == VulnerabilityStateStatus.VULNERABLE
         and finding_policy.state.status == PolicyStateStatus.APPROVED
         and vulnerability.treatment
         and vulnerability.treatment.status
@@ -923,7 +924,7 @@ async def verify(
                 modified_date=modified_date,
                 source=vuln_to_close.state.source,
                 specific=vuln_to_close.state.specific,
-                status=VulnerabilityStateStatus.CLOSED,
+                status=VulnerabilityStateStatus.SAFE,
                 tool=close_item.state.tool
                 if close_item
                 else vuln_to_close.state.tool,
@@ -954,7 +955,7 @@ async def close_by_exclusion(
     modified_by: str,
 ) -> None:
     if vulnerability.state.status not in {
-        VulnerabilityStateStatus.CLOSED,
+        VulnerabilityStateStatus.SAFE,
         VulnerabilityStateStatus.DELETED,
         VulnerabilityStateStatus.MASKED,
     }:
@@ -968,7 +969,7 @@ async def close_by_exclusion(
                 modified_date=datetime_utils.get_utc_now(),
                 source=vulnerability.state.source,
                 specific=vulnerability.state.specific,
-                status=VulnerabilityStateStatus.CLOSED,
+                status=VulnerabilityStateStatus.SAFE,
                 justification=StateRemovalJustification.EXCLUSION,
                 where=vulnerability.state.where,
             ),
@@ -1106,7 +1107,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
                 FindingVulnerabilitiesZrRequest(
                     finding_id=vulnerability.finding_id,
                     paginate=False,
-                    state_status=VulnerabilityStateStatus.OPEN,
+                    state_status=VulnerabilityStateStatus.VULNERABLE,
                 )
             )
         )
@@ -1115,7 +1116,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
                 FindingVulnerabilitiesZrRequest(
                     finding_id=vulnerability.finding_id,
                     paginate=False,
-                    state_status=VulnerabilityStateStatus.OPEN,
+                    state_status=VulnerabilityStateStatus.VULNERABLE,
                 )
             )
         )

@@ -18,6 +18,7 @@ from .utils import (
     format_vulnerability,
     format_vulnerability_edge,
     format_zero_risk,
+    get_current_state_converted,
 )
 from aiodataloader import (
     DataLoader,
@@ -194,7 +195,9 @@ async def _get_finding_vulnerabilities_zr(
         "is_zero_risk": str(is_zero_risk).lower(),
     }
     if isinstance(request.state_status, VulnerabilityStateStatus):
-        key_values["state_status"] = request.state_status.value.lower()
+        key_values["state_status"] = get_current_state_converted(
+            request.state_status.value
+        ).lower()
     if isinstance(
         request.verification_status, VulnerabilityVerificationStatus
     ):
@@ -447,7 +450,7 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
                         after=request.after,
                         first=request.first,
                         paginate=request.paginate,
-                        state_status=VulnerabilityStateStatus.OPEN,
+                        state_status=VulnerabilityStateStatus.VULNERABLE,
                         verification_status=(
                             VulnerabilityVerificationStatus.REQUESTED
                         ),

@@ -111,7 +111,8 @@ async def test_update_group_indicators() -> None:
                     VulnerabilityTreatmentStatus.ACCEPTED,
                     VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
                 }
-                and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+                and vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
             )
         ]
     )
@@ -119,7 +120,7 @@ async def test_update_group_indicators() -> None:
         [
             vulnerability
             for vulnerability in vulnerabilities
-            if vulnerability.state.status == VulnerabilityStateStatus.CLOSED
+            if vulnerability.state.status == VulnerabilityStateStatus.SAFE
         ]
     )
 

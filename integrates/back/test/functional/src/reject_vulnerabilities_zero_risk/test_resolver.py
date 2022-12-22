@@ -42,7 +42,7 @@ async def test_reject_vulnerabilities_zero_risk(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED  # type: ignore
 
     result: Dict[str, Any] = await get_result(
@@ -53,7 +53,7 @@ async def test_reject_vulnerabilities_zero_risk(
 
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.OPEN
+    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED  # type: ignore
     zero_risk_comments: tuple[
         FindingComment, ...

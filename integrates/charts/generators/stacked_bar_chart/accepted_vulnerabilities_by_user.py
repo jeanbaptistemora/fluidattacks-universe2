@@ -68,7 +68,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
             for vuln in vulnerabilities
             if vuln.treatment
             and vuln.treatment.status == TreatmentStatus.ACCEPTED
-            and vuln.state.status == StateStatus.OPEN
+            and vuln.state.status == StateStatus.VULNERABLE
         ]
     )
     permanently = Counter(
@@ -82,7 +82,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
             if vuln.treatment
             and vuln.treatment.status == TreatmentStatus.ACCEPTED_UNDEFINED
             and vuln.treatment.acceptance_status == AcceptanceStatus.APPROVED
-            and vuln.state.status == StateStatus.OPEN
+            and vuln.state.status == StateStatus.VULNERABLE
         ]
     )
 
