@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { ColumnDef, Row, SortingState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -111,48 +111,51 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       )
       .join(" ");
 
-  const headersExecutionTable: ColumnDef<IExecution>[] = [
-    {
-      accessorKey: "date",
-      filterFn: filterDate,
-      header: t("group.forces.date"),
-    },
-    {
-      accessorKey: "status",
-      cell: (cell: ICellHelper<IExecution>): JSX.Element =>
-        statusFormatter(cell.getValue()),
-      header: t("group.forces.status.title"),
-    },
-    {
-      accessorFn: (row: IExecution): number => {
-        return row.foundVulnerabilities.total;
+  const headersExecutionTable: ColumnDef<IExecution>[] = useMemo(
+    (): ColumnDef<IExecution>[] => [
+      {
+        accessorKey: "date",
+        filterFn: filterDate,
+        header: t("group.forces.date"),
       },
-      header: String(t("group.forces.status.vulnerabilities")),
-    },
-    {
-      accessorKey: "strictness",
-      header: t("group.forces.strictness.title"),
-    },
-    {
-      accessorKey: "kind",
-      header: t("group.forces.kind.title"),
-    },
-    {
-      accessorFn: (row: IExecution): string => {
-        if (row.gitRepo === "unable to retrieve") {
-          return "all roots";
-        }
+      {
+        accessorKey: "status",
+        cell: (cell: ICellHelper<IExecution>): JSX.Element =>
+          statusFormatter(cell.getValue()),
+        header: t("group.forces.status.title"),
+      },
+      {
+        accessorFn: (row: IExecution): number => {
+          return row.foundVulnerabilities.total;
+        },
+        header: String(t("group.forces.status.vulnerabilities")),
+      },
+      {
+        accessorKey: "strictness",
+        header: t("group.forces.strictness.title"),
+      },
+      {
+        accessorKey: "kind",
+        header: t("group.forces.kind.title"),
+      },
+      {
+        accessorFn: (row: IExecution): string => {
+          if (row.gitRepo === "unable to retrieve") {
+            return "all roots";
+          }
 
-        return row.gitRepo;
+          return row.gitRepo;
+        },
+        header: t("group.forces.gitRepo"),
+        id: "gitRepo",
       },
-      header: t("group.forces.gitRepo"),
-      id: "gitRepo",
-    },
-    {
-      accessorKey: "executionId",
-      header: t("group.forces.identifier"),
-    },
-  ];
+      {
+        accessorKey: "executionId",
+        header: t("group.forces.identifier"),
+      },
+    ],
+    [t]
+  );
 
   function openSeeExecutionDetailsModal(
     rowInfo: Row<IExecution>
@@ -182,7 +185,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       fetchPolicy: "cache-first",
       onError: handleQryErrors,
-      variables: { first: 1000, groupName, search: "" },
+      variables: { first: 100, groupName, search: "" },
     }
   );
 
