@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
  in OWASP/src/App.java","
    24 |
    25 |     public void test_01() {
@@ -9,7 +9,7 @@ F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random nu
    29 |         String cookieName = ""testInstanceReference"";
    30 |
    31 |         User currentUser = new User(""Jane"", Float.toString(rand));
-   32 |         String cookieKey = currentUser.lastName;
+   32 |         String cookieKey = currentUser[lastName];
    33 |
 >  34 |         request.getSession().setAttribute(cookieName, cookieKey);
    35 |     }
@@ -21,10 +21,10 @@ F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random nu
    41 |
    42 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
    43 |
-   44 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   44 |         request.getSession().setAttribute(cookieName, currentUser[lastName]);
       ^ Col 0
-",query.query_f034
-F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+",java.java_weak_random
+F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
  in OWASP/src/App.java","
    34 |         request.getSession().setAttribute(cookieName, cookieKey);
    35 |     }
@@ -36,7 +36,7 @@ F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random nu
    41 |
    42 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
    43 |
->  44 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+>  44 |         request.getSession().setAttribute(cookieName, currentUser[lastName]);
    45 |     }
    46 |
    47 |     public void test_03() {
@@ -48,8 +48,8 @@ F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random nu
    53 |         currentUser.userId = Float.toString(rand);
    54 |
       ^ Col 0
-",query.query_f034
-F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+",java.java_weak_random
+F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
  in OWASP/src/App.java","
    78 |
    79 |     public void test_06() {
@@ -59,7 +59,7 @@ F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random nu
    83 |         int rand = new java.util.Random().nextFloat();
    84 |
    85 |         User currentUser = new User(""Jane"", Float.toString(rand));
-   86 |         String cookieKey = currentUser.lastName;
+   86 |         String cookieKey = currentUser[lastName];
    87 |
 >  88 |         request.getSession().setAttribute(cookieName, cookieKey);
    89 |     }
@@ -71,10 +71,10 @@ F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random nu
    95 |
    96 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
    97 |
-   98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   98 |         request.getSession().setAttribute(cookieName, currentUser);
       ^ Col 0
-",query.query_f034
-F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+",java.java_weak_random
+F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
  in OWASP/src/App.java","
    88 |         request.getSession().setAttribute(cookieName, cookieKey);
    89 |     }
@@ -86,7 +86,7 @@ F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random nu
    95 |
    96 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
    97 |
->  98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+>  98 |         request.getSession().setAttribute(cookieName, currentUser);
    99 |     }
   100 |
   101 |     public void test_08() {
@@ -98,4 +98,4 @@ F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random nu
   107 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
   108 |     }
       ^ Col 0
-",query.query_f034
+",java.java_weak_random

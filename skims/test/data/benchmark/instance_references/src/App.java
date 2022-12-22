@@ -29,7 +29,7 @@ public class App {
         String cookieName = "testInstanceReference";
 
         User currentUser = new User("Jane", Float.toString(rand));
-        String cookieKey = currentUser.lastName;
+        String cookieKey = currentUser[lastName];
 
         request.getSession().setAttribute(cookieName, cookieKey);
     }
@@ -41,7 +41,7 @@ public class App {
 
         User currentUser = new User("Jane", "Doe", Integer.toString(rand));
 
-        request.getSession().setAttribute("testInstanceReference", currentUser.lastName);
+        request.getSession().setAttribute(cookieName, currentUser[lastName]);
     }
 
     public void test_03() {
@@ -83,7 +83,7 @@ public class App {
         int rand = new java.util.Random().nextFloat();
 
         User currentUser = new User("Jane", Float.toString(rand));
-        String cookieKey = currentUser.lastName;
+        String cookieKey = currentUser[lastName];
 
         request.getSession().setAttribute(cookieName, cookieKey);
     }
@@ -95,7 +95,7 @@ public class App {
 
         User currentUser = new User("Jane", "Doe", Integer.toString(rand));
 
-        request.getSession().setAttribute("testInstanceReference", currentUser.lastName);
+        request.getSession().setAttribute(cookieName, currentUser);
     }
 
     public void test_08() {

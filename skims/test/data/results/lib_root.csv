@@ -4337,7 +4337,7 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_acces
   13 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_shared_access_protocol
-F034,lines,namespace/skims/test/data/lib_root/f034/java_weak_random.java,9,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
+F034,lines,namespace/skims/test/data/lib_root/f034/java_weak_random.java,9,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
  in namespace/skims/test/data/lib_root/f034/java_weak_random.java","
    1 | import java.util.Random;
    2 |
@@ -4351,7 +4351,7 @@ F034,lines,namespace/skims/test/data/lib_root/f034/java_weak_random.java,9,330,s
   10 |  }
   11 | }
      ^ Col 0
-",query.query_f034
+",java.java_weak_random
 F034,lines,namespace/skims/test/data/lib_root/f034/js_weak_random.js,7,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/js_weak_random.js,"
    1 | import { Router } from ""express"";
    2 |

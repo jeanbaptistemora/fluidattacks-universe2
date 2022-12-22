@@ -1,3 +1,6 @@
+from lib_root.f034.java import (
+    java_weak_random,
+)
 from lib_root.f034.javascript import (
     js_weak_random as javascript_weak_random,
 )
@@ -13,6 +16,7 @@ from model.graph_model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F034
 QUERIES: Queries = (
+    (FINDING, java_weak_random),
     (FINDING, javascript_weak_random),
     (FINDING, typescript_weak_random),
 )

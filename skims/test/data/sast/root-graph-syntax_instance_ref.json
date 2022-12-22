@@ -6,15 +6,15 @@
   "F004": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -25,15 +25,15 @@
   "F008": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -72,15 +72,15 @@
   "F021": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -103,7 +103,7 @@
   "F034": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "205": {
-        "199-217-224-246-253-254": [
+        "199-217-224-246-257-258": [
           {
             "meta": {
               "danger": true,
@@ -277,7 +277,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "251",
+              "n_id": "252",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -306,8 +306,27 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "254",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "251",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "is_destructuring": false,
@@ -315,33 +334,7 @@
               "danger": true,
               "dependencies": -1,
               "n_id": "246",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "value": null
             },
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
@@ -352,7 +345,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "253",
+              "n_id": "257",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -364,7 +357,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "255",
+              "n_id": "259",
               "value": null
             },
             "method": "request.getSession",
@@ -375,7 +368,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "266",
+              "n_id": "270",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -385,34 +378,8 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "268",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "272",
+              "value": null
             },
             "symbol": "cookieKey",
             "type": "SyntaxStepSymbolLookup"
@@ -423,7 +390,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "254",
+              "n_id": "258",
               "value": null
             },
             "method": ".setAttribute",
@@ -432,13 +399,13 @@
         ]
       },
       "29": {},
-      "300": {
-        "294-312-336-337": [
+      "304": {
+        "298-316-340-341": [
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "300",
+              "n_id": "304",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -450,7 +417,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "299",
+              "n_id": "303",
               "value": null
             },
             "method": ".nextInt",
@@ -461,7 +428,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "294",
+              "n_id": "298",
               "value": null
             },
             "modifiers": null,
@@ -473,7 +440,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "322",
+              "n_id": "326",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -484,7 +451,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "324",
+              "n_id": "328",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -495,7 +462,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "332",
+              "n_id": "336",
               "value": null
             },
             "symbol": "rand",
@@ -508,7 +475,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "326",
+              "n_id": "330",
               "value": null
             },
             "method": "Integer.toString",
@@ -519,7 +486,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "317",
+              "n_id": "321",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -567,7 +534,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "312",
+              "n_id": "316",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -616,7 +583,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "336",
+              "n_id": "340",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -628,7 +595,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "338",
+              "n_id": "342",
               "value": null
             },
             "method": "request.getSession",
@@ -639,18 +606,17 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "349",
-              "value": "testInstanceReference"
+              "n_id": "353",
+              "value": null
             },
-            "type": "SyntaxStepLiteral",
-            "value": "testInstanceReference",
-            "value_type": "string"
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "351",
+              "n_id": "356",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -690,8 +656,27 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "358",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "355",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "current_instance": null,
@@ -699,7 +684,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "337",
+              "n_id": "341",
               "value": null
             },
             "method": ".setAttribute",
@@ -707,13 +692,13 @@
           }
         ]
       },
-      "383": {
-        "377-395-412-413-425-426": [
+      "391": {
+        "385-403-420-421-433-434": [
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "383",
+              "n_id": "391",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -725,7 +710,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "382",
+              "n_id": "390",
               "value": null
             },
             "method": ".nextFloat",
@@ -736,7 +721,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "377",
+              "n_id": "385",
               "value": null
             },
             "modifiers": null,
@@ -748,7 +733,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "405",
+              "n_id": "413",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -759,7 +744,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "407",
+              "n_id": "415",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -770,7 +755,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "409",
+              "n_id": "417",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -781,7 +766,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "400",
+              "n_id": "408",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -812,7 +797,7 @@
                     "meta": {
                       "danger": true,
                       "dependencies": -1,
-                      "n_id": "413",
+                      "n_id": "421",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -829,7 +814,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "395",
+              "n_id": "403",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -860,7 +845,7 @@
                     "meta": {
                       "danger": true,
                       "dependencies": -1,
-                      "n_id": "413",
+                      "n_id": "421",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -878,7 +863,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "412",
+              "n_id": "420",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -887,7 +872,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "422",
+              "n_id": "430",
               "value": null
             },
             "symbol": "rand",
@@ -900,7 +885,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "416",
+              "n_id": "424",
               "value": null
             },
             "method": "Float.toString",
@@ -912,7 +897,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "413",
+              "n_id": "421",
               "value": null
             },
             "type": "SyntaxStepAssignment",
@@ -922,7 +907,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "425",
+              "n_id": "433",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -934,7 +919,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "427",
+              "n_id": "435",
               "value": null
             },
             "method": "request.getSession",
@@ -945,7 +930,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "438",
+              "n_id": "446",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -959,7 +944,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "440",
+              "n_id": "448",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -972,7 +957,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "426",
+              "n_id": "434",
               "value": null
             },
             "method": ".setAttribute",
@@ -980,13 +965,13 @@
           }
         ]
       },
-      "640": {
-        "634-652-674-681-682": [
+      "648": {
+        "642-660-682-693-694": [
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "640",
+              "n_id": "648",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -998,7 +983,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "639",
+              "n_id": "647",
               "value": null
             },
             "method": ".nextFloat",
@@ -1009,7 +994,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "634",
+              "n_id": "642",
               "value": null
             },
             "modifiers": null,
@@ -1021,7 +1006,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "662",
+              "n_id": "670",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -1032,7 +1017,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "670",
+              "n_id": "678",
               "value": null
             },
             "symbol": "rand",
@@ -1045,7 +1030,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "664",
+              "n_id": "672",
               "value": null
             },
             "method": "Float.toString",
@@ -1056,7 +1041,7 @@
             "meta": {
               "danger": true,
               "dependencies": -2,
-              "n_id": "657",
+              "n_id": "665",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1093,7 +1078,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "652",
+              "n_id": "660",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1131,7 +1116,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "679",
+              "n_id": "688",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1160,42 +1145,35 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "690",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "687",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "674",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "682",
+              "value": null
             },
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
@@ -1206,7 +1184,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "681",
+              "n_id": "693",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1218,7 +1196,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "683",
+              "n_id": "695",
               "value": null
             },
             "method": "request.getSession",
@@ -1229,7 +1207,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "694",
+              "n_id": "706",
               "value": null
             },
             "symbol": "cookieName",
@@ -1239,34 +1217,8 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "696",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "708",
+              "value": null
             },
             "symbol": "cookieKey",
             "type": "SyntaxStepSymbolLookup"
@@ -1277,7 +1229,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "682",
+              "n_id": "694",
               "value": null
             },
             "method": ".setAttribute",
@@ -1285,13 +1237,13 @@
           }
         ]
       },
-      "728": {
-        "722-740-764-765": [
+      "740": {
+        "734-752-776-777": [
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "728",
+              "n_id": "740",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -1303,7 +1255,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "727",
+              "n_id": "739",
               "value": null
             },
             "method": ".nextInt",
@@ -1314,7 +1266,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "722",
+              "n_id": "734",
               "value": null
             },
             "modifiers": null,
@@ -1326,7 +1278,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "750",
+              "n_id": "762",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -1337,7 +1289,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "752",
+              "n_id": "764",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -1348,7 +1300,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "760",
+              "n_id": "772",
               "value": null
             },
             "symbol": "rand",
@@ -1361,7 +1313,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "754",
+              "n_id": "766",
               "value": null
             },
             "method": "Integer.toString",
@@ -1372,7 +1324,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "745",
+              "n_id": "757",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1420,7 +1372,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "740",
+              "n_id": "752",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1469,7 +1421,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "764",
+              "n_id": "776",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -1481,7 +1433,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "766",
+              "n_id": "778",
               "value": null
             },
             "method": "request.getSession",
@@ -1492,18 +1444,17 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "777",
-              "value": "testInstanceReference"
+              "n_id": "789",
+              "value": null
             },
-            "type": "SyntaxStepLiteral",
-            "value": "testInstanceReference",
-            "value_type": "string"
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "779",
+              "n_id": "791",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -1543,7 +1494,7 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -1552,7 +1503,7 @@
             "meta": {
               "danger": true,
               "dependencies": -3,
-              "n_id": "765",
+              "n_id": "777",
               "value": null
             },
             "method": ".setAttribute",
@@ -1834,15 +1785,15 @@
   "F042": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -1893,15 +1844,15 @@
   "F063": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -1960,7 +1911,7 @@
   "F089": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {
-        "187-199-217-224-246-253-254": [
+        "187-199-217-224-246-257-258": [
           {
             "meta": {
               "danger": false,
@@ -2157,7 +2108,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "251",
+              "n_id": "252",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2186,8 +2137,27 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "254",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "251",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "is_destructuring": false,
@@ -2195,33 +2165,7 @@
               "danger": false,
               "dependencies": -1,
               "n_id": "246",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "value": null
             },
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
@@ -2232,7 +2176,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "253",
+              "n_id": "257",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2244,7 +2188,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "255",
+              "n_id": "259",
               "value": null
             },
             "method": "request.getSession",
@@ -2255,7 +2199,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "266",
+              "n_id": "270",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -2265,34 +2209,8 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "268",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "272",
+              "value": null
             },
             "symbol": "cookieKey",
             "type": "SyntaxStepSymbolLookup"
@@ -2303,7 +2221,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "254",
+              "n_id": "258",
               "value": null
             },
             "method": ".setAttribute",
@@ -2311,13 +2229,13 @@
           }
         ]
       },
-      "282": {
-        "282-294-312-336-337": [
+      "286": {
+        "286-298-316-340-341": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "287",
+              "n_id": "291",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -2328,7 +2246,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "282",
+              "n_id": "286",
               "value": null
             },
             "modifiers": null,
@@ -2340,7 +2258,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "300",
+              "n_id": "304",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -2352,7 +2270,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "299",
+              "n_id": "303",
               "value": null
             },
             "method": ".nextInt",
@@ -2363,7 +2281,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "294",
+              "n_id": "298",
               "value": null
             },
             "modifiers": null,
@@ -2375,7 +2293,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "322",
+              "n_id": "326",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -2386,7 +2304,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "324",
+              "n_id": "328",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -2397,7 +2315,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "332",
+              "n_id": "336",
               "value": null
             },
             "symbol": "rand",
@@ -2410,7 +2328,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "326",
+              "n_id": "330",
               "value": null
             },
             "method": "Integer.toString",
@@ -2421,7 +2339,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "317",
+              "n_id": "321",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2469,7 +2387,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "312",
+              "n_id": "316",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2518,7 +2436,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "336",
+              "n_id": "340",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2530,7 +2448,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "338",
+              "n_id": "342",
               "value": null
             },
             "method": "request.getSession",
@@ -2541,18 +2459,17 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "349",
-              "value": "testInstanceReference"
+              "n_id": "353",
+              "value": null
             },
-            "type": "SyntaxStepLiteral",
-            "value": "testInstanceReference",
-            "value_type": "string"
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "351",
+              "n_id": "356",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2592,8 +2509,27 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "358",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "355",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "current_instance": null,
@@ -2601,7 +2537,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "337",
+              "n_id": "341",
               "value": null
             },
             "method": ".setAttribute",
@@ -2609,13 +2545,13 @@
           }
         ]
       },
-      "365": {
-        "365-377-395-412-413-425-426": [
+      "373": {
+        "373-385-403-420-421-433-434": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "370",
+              "n_id": "378",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -2626,7 +2562,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "365",
+              "n_id": "373",
               "value": null
             },
             "modifiers": null,
@@ -2638,7 +2574,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "383",
+              "n_id": "391",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -2650,7 +2586,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "382",
+              "n_id": "390",
               "value": null
             },
             "method": ".nextFloat",
@@ -2661,7 +2597,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "377",
+              "n_id": "385",
               "value": null
             },
             "modifiers": null,
@@ -2673,7 +2609,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "405",
+              "n_id": "413",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -2684,7 +2620,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "407",
+              "n_id": "415",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -2695,7 +2631,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "409",
+              "n_id": "417",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -2706,7 +2642,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "400",
+              "n_id": "408",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2737,7 +2673,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "413",
+                      "n_id": "421",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -2754,7 +2690,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "395",
+              "n_id": "403",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -2785,7 +2721,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "413",
+                      "n_id": "421",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -2803,7 +2739,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "412",
+              "n_id": "420",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2812,7 +2748,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "422",
+              "n_id": "430",
               "value": null
             },
             "symbol": "rand",
@@ -2825,7 +2761,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "416",
+              "n_id": "424",
               "value": null
             },
             "method": "Float.toString",
@@ -2837,7 +2773,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "413",
+              "n_id": "421",
               "value": null
             },
             "type": "SyntaxStepAssignment",
@@ -2847,7 +2783,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "425",
+              "n_id": "433",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -2859,7 +2795,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "427",
+              "n_id": "435",
               "value": null
             },
             "method": "request.getSession",
@@ -2870,7 +2806,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "438",
+              "n_id": "446",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -2884,7 +2820,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "440",
+              "n_id": "448",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -2897,7 +2833,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "426",
+              "n_id": "434",
               "value": null
             },
             "method": ".setAttribute",
@@ -2905,13 +2841,13 @@
           }
         ]
       },
-      "460": {
-        "460-472-495-496": [
+      "468": {
+        "468-480-503-504": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "465",
+              "n_id": "473",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -2922,7 +2858,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "460",
+              "n_id": "468",
               "value": null
             },
             "modifiers": null,
@@ -2934,7 +2870,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "482",
+              "n_id": "490",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -2945,7 +2881,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "484",
+              "n_id": "492",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -2959,7 +2895,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "486",
+              "n_id": "494",
               "value": null
             },
             "method": "Generate.createSecureRandom",
@@ -2970,7 +2906,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "477",
+              "n_id": "485",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3018,7 +2954,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "472",
+              "n_id": "480",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3067,7 +3003,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "495",
+              "n_id": "503",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -3079,7 +3015,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "497",
+              "n_id": "505",
               "value": null
             },
             "method": "request.getSession",
@@ -3090,7 +3026,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "508",
+              "n_id": "516",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -3101,7 +3037,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "510",
+              "n_id": "518",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3150,7 +3086,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "496",
+              "n_id": "504",
               "value": null
             },
             "method": ".setAttribute",
@@ -3158,13 +3094,13 @@
           }
         ]
       },
-      "524": {
-        "524-536-544-557-558-573-586-587": [
+      "532": {
+        "532-544-552-565-566-581-594-595": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "529",
+              "n_id": "537",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -3175,7 +3111,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "524",
+              "n_id": "532",
               "value": null
             },
             "modifiers": null,
@@ -3187,7 +3123,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "541",
+              "n_id": "549",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -3199,7 +3135,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "536",
+              "n_id": "544",
               "value": "testInstanceReference"
             },
             "modifiers": null,
@@ -3211,7 +3147,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "554",
+              "n_id": "562",
               "value": "Jane Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -3222,7 +3158,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "549",
+              "n_id": "557",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3248,7 +3184,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "544",
+              "n_id": "552",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3275,7 +3211,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "557",
+              "n_id": "565",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -3287,7 +3223,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "564",
+              "n_id": "572",
               "value": null
             },
             "method": "Generate.createRandom",
@@ -3301,7 +3237,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "558",
+              "n_id": "566",
               "value": null
             },
             "method": "currentUser.setUserId",
@@ -3315,7 +3251,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "578",
+              "n_id": "586",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -3327,7 +3263,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "573",
+              "n_id": "581",
               "value": null
             },
             "modifiers": null,
@@ -3339,7 +3275,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "586",
+              "n_id": "594",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -3351,7 +3287,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "588",
+              "n_id": "596",
               "value": null
             },
             "method": "request.getSession",
@@ -3362,7 +3298,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "599",
+              "n_id": "607",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -3372,7 +3308,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "601",
+              "n_id": "609",
               "value": null
             },
             "symbol": "cookieKey",
@@ -3384,7 +3320,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "587",
+              "n_id": "595",
               "value": null
             },
             "method": ".setAttribute",
@@ -3392,13 +3328,13 @@
           }
         ]
       },
-      "615": {
-        "615-627-634-652-674-681-682": [
+      "623": {
+        "623-635-642-660-682-693-694": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "620",
+              "n_id": "628",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -3409,7 +3345,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "615",
+              "n_id": "623",
               "value": null
             },
             "modifiers": null,
@@ -3421,7 +3357,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "632",
+              "n_id": "640",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -3433,7 +3369,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "627",
+              "n_id": "635",
               "value": "testInstanceReference"
             },
             "modifiers": null,
@@ -3445,7 +3381,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "640",
+              "n_id": "648",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -3457,7 +3393,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "639",
+              "n_id": "647",
               "value": null
             },
             "method": ".nextFloat",
@@ -3468,7 +3404,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "634",
+              "n_id": "642",
               "value": null
             },
             "modifiers": null,
@@ -3480,7 +3416,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "662",
+              "n_id": "670",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -3491,7 +3427,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "670",
+              "n_id": "678",
               "value": null
             },
             "symbol": "rand",
@@ -3504,7 +3440,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "664",
+              "n_id": "672",
               "value": null
             },
             "method": "Float.toString",
@@ -3515,7 +3451,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "657",
+              "n_id": "665",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3552,7 +3488,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "652",
+              "n_id": "660",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3590,7 +3526,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "679",
+              "n_id": "688",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3619,42 +3555,35 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "690",
+              "value": null
+            },
+            "symbol": "lastName",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "687",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
           },
           {
             "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "674",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "682",
+              "value": null
             },
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
@@ -3665,7 +3594,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "681",
+              "n_id": "693",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -3677,7 +3606,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "683",
+              "n_id": "695",
               "value": null
             },
             "method": "request.getSession",
@@ -3688,7 +3617,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "694",
+              "n_id": "706",
               "value": "testInstanceReference"
             },
             "symbol": "cookieName",
@@ -3698,34 +3627,8 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "696",
-              "value": {
-                "class_name": "User",
-                "fields": {
-                  "lastName": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "80",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  }
-                }
-              }
+              "n_id": "708",
+              "value": null
             },
             "symbol": "cookieKey",
             "type": "SyntaxStepSymbolLookup"
@@ -3736,7 +3639,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "682",
+              "n_id": "694",
               "value": null
             },
             "method": ".setAttribute",
@@ -3744,13 +3647,13 @@
           }
         ]
       },
-      "710": {
-        "710-722-740-764-765": [
+      "722": {
+        "722-734-752-776-777": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "715",
+              "n_id": "727",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -3761,7 +3664,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "710",
+              "n_id": "722",
               "value": null
             },
             "modifiers": null,
@@ -3773,7 +3676,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "728",
+              "n_id": "740",
               "value": null
             },
             "object_type": "java.util.Random",
@@ -3785,7 +3688,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "727",
+              "n_id": "739",
               "value": null
             },
             "method": ".nextInt",
@@ -3796,7 +3699,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "722",
+              "n_id": "734",
               "value": null
             },
             "modifiers": null,
@@ -3808,7 +3711,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "750",
+              "n_id": "762",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -3819,7 +3722,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "752",
+              "n_id": "764",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -3830,7 +3733,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "760",
+              "n_id": "772",
               "value": null
             },
             "symbol": "rand",
@@ -3843,7 +3746,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "754",
+              "n_id": "766",
               "value": null
             },
             "method": "Integer.toString",
@@ -3854,7 +3757,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "745",
+              "n_id": "757",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3902,7 +3805,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "740",
+              "n_id": "752",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -3951,7 +3854,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "764",
+              "n_id": "776",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -3963,7 +3866,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "766",
+              "n_id": "778",
               "value": null
             },
             "method": "request.getSession",
@@ -3974,18 +3877,17 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "777",
-              "value": "testInstanceReference"
+              "n_id": "789",
+              "value": null
             },
-            "type": "SyntaxStepLiteral",
-            "value": "testInstanceReference",
-            "value_type": "string"
+            "symbol": "cookieName",
+            "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "779",
+              "n_id": "791",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4025,7 +3927,7 @@
                 }
               }
             },
-            "symbol": "currentUser.lastName",
+            "symbol": "currentUser",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -4034,7 +3936,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "765",
+              "n_id": "777",
               "value": null
             },
             "method": ".setAttribute",
@@ -4321,13 +4223,13 @@
           }
         ]
       },
-      "793": {
-        "793-805-822-823-834-835": [
+      "805": {
+        "805-817-834-835-846-847": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "798",
+              "n_id": "810",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -4338,7 +4240,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "793",
+              "n_id": "805",
               "value": null
             },
             "modifiers": null,
@@ -4350,7 +4252,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "815",
+              "n_id": "827",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -4361,7 +4263,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "817",
+              "n_id": "829",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -4372,7 +4274,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "819",
+              "n_id": "831",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -4383,7 +4285,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "810",
+              "n_id": "822",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4414,7 +4316,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "823",
+                      "n_id": "835",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -4431,7 +4333,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "805",
+              "n_id": "817",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4462,7 +4364,7 @@
                     "meta": {
                       "danger": false,
                       "dependencies": -1,
-                      "n_id": "823",
+                      "n_id": "835",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
@@ -4480,7 +4382,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "822",
+              "n_id": "834",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -4489,7 +4391,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "827",
+              "n_id": "839",
               "value": null
             },
             "type": "SyntaxStepThis"
@@ -4500,7 +4402,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "826",
+              "n_id": "838",
               "value": null
             },
             "method": ".createRandom",
@@ -4511,7 +4413,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "823",
+              "n_id": "835",
               "value": null
             },
             "type": "SyntaxStepAssignment",
@@ -4521,7 +4423,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "834",
+              "n_id": "846",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -4533,7 +4435,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "836",
+              "n_id": "848",
               "value": null
             },
             "method": "request.getSession",
@@ -4544,7 +4446,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "847",
+              "n_id": "859",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -4558,7 +4460,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "849",
+              "n_id": "861",
               "value": null
             },
             "method": "currentUser.getUserId",
@@ -4571,7 +4473,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "835",
+              "n_id": "847",
               "value": null
             },
             "method": ".setAttribute",
@@ -4579,13 +4481,13 @@
           }
         ]
       },
-      "869": {
-        "869-881-895-896-905-922-923": [
+      "881": {
+        "881-893-907-908-917-934-935": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "874",
+              "n_id": "886",
               "value": null
             },
             "object_type": "HttpServletRequest",
@@ -4596,7 +4498,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "869",
+              "n_id": "881",
               "value": null
             },
             "modifiers": null,
@@ -4608,7 +4510,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "892",
+              "n_id": "904",
               "value": "xxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -4622,7 +4524,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "886",
+              "n_id": "898",
               "value": null
             },
             "method": "request.getParamert",
@@ -4634,7 +4536,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "881",
+              "n_id": "893",
               "value": null
             },
             "modifiers": null,
@@ -4646,7 +4548,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "895",
+              "n_id": "907",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -4655,7 +4557,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "902",
+              "n_id": "914",
               "value": null
             },
             "symbol": "file",
@@ -4668,7 +4570,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "896",
+              "n_id": "908",
               "value": null
             },
             "method": "Generate.readFile",
@@ -4679,7 +4581,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "915",
+              "n_id": "927",
               "value": "Jane"
             },
             "type": "SyntaxStepLiteral",
@@ -4690,7 +4592,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "917",
+              "n_id": "929",
               "value": "Doe"
             },
             "type": "SyntaxStepLiteral",
@@ -4701,7 +4603,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "919",
+              "n_id": "931",
               "value": "xxxxxxxxxxxxx"
             },
             "type": "SyntaxStepLiteral",
@@ -4712,7 +4614,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "910",
+              "n_id": "922",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4760,7 +4662,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "905",
+              "n_id": "917",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4809,7 +4711,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "922",
+              "n_id": "934",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -4821,7 +4723,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "924",
+              "n_id": "936",
               "value": null
             },
             "method": "request.getSession",
@@ -4832,7 +4734,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "935",
+              "n_id": "947",
               "value": "testInstanceReference"
             },
             "type": "SyntaxStepLiteral",
@@ -4843,7 +4745,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "937",
+              "n_id": "949",
               "value": {
                 "class_name": "User",
                 "fields": {
@@ -4892,7 +4794,7 @@
             "meta": {
               "danger": false,
               "dependencies": -3,
-              "n_id": "923",
+              "n_id": "935",
               "value": null
             },
             "method": ".setAttribute",
@@ -4946,15 +4848,15 @@
   "F107": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -4965,15 +4867,15 @@
   "F112": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
+      "286": {},
+      "373": {},
+      "468": {},
+      "532": {},
+      "623": {},
+      "722": {},
       "77": {},
-      "793": {},
-      "869": {}
+      "805": {},
+      "881": {}
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
