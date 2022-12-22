@@ -32,7 +32,7 @@ const Comparative: React.FC = (): JSX.Element => {
               </HeadCol>
               <HeadCol>
                 <Title fColor={"#f4f4f6"} fSize={"20"}>
-                  {"Competitors"}
+                  {"Competition"}
                 </Title>
               </HeadCol>
             </TableRow>

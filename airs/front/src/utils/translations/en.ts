@@ -799,7 +799,7 @@ const pageTexts: ResourceKey = {
       },
       subtitle:
         "Many organizations deploy secure technology several times " +
-        "daily using our Continuous Hacking solution",
+        "daily using our Continuous Hacking solution.",
       title: "Don't just take our word for it",
     },
     comparative: {
@@ -808,12 +808,12 @@ const pageTexts: ResourceKey = {
         "on six commercial tools and six open-source tools.",
       tableDescription2:
         "* Reversing is conducted if the source code is not provided.",
-      title: "Compare us with the competition's offering",
+      title: "Compare us with our competition's offering",
     },
     plansSection: {
       description:
         "Fluid Attacks' plans offer flexibility " +
-        "for securing your deployments continuously",
+        "for securing your deployments continuously.",
       plansCards: {
         item1: "Control of the whole remediation process",
         item10: "Possibility to talk to an expert via ARM",
@@ -823,7 +823,7 @@ const pageTexts: ResourceKey = {
         item5: "CI/CD DevSecOps",
         item6: "Low rates of false positives and false negatives",
         item7: "Higher severity and more types of vulnerabilities",
-        item8: "Manual SAST, DAST and SCA (Pentesting)",
+        item8: "Manual SAST and DAST (penetration testing) and RE",
         item9: "Optimization of vulnerability search with AI",
         machineDescription:
           "For teams that want to discover deterministic " +
