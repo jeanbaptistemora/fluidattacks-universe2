@@ -4,6 +4,9 @@ lib_path.f333.tfm_ec2_allows_shutdown_command:
     misconfigured
   es: Falta la propiedad instance_initiated_shutdown_behavior.terminate o está mal
     configurada
+lib_path.f333.has_unused_ec2_key_pairs:
+  en: Unused Amazon EC2 key pairs
+  es: Amazon Key pair no usada
 lib_path.f333.cfn_ec2_allows_shutdown_command:
   en: Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing
     or misconfigured
