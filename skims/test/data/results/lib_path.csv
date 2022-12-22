@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,0,1006,skims,428. Inappropriate coding practices - invalid file,File cannot be verified because its content contains comments that make it incompatible with the parser of its extension. in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
+F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,0,1006,skims,428. Inappropriate coding practices - invalid file,The file cannot be verified because there are elements in its content that do not comply with json standards. in namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,"
    1 | [
    2 | //This is a comment to be adjusted in production.
    3 |
@@ -13,7 +13,7 @@ F428,lines,namespace/skims/test/data/lib_path/f428/inapropiated_commetns.json,0,
   11 |   }
   12 | ]
      ^ Col 0
-",json_files.json_inappropriate_use_of_comments
+",json_files.json_inappropriate_elements
 F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
  in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml","
    1 | ---

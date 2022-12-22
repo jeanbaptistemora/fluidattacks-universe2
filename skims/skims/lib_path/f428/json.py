@@ -31,10 +31,10 @@ def json_unapropiated_comment(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f428.json_unapropiated_comment",
+        description_key="lib_path.f428.json_unapropiated_elements",
         iterator=_json_line_comments(
             template=template,
         ),
         path=path,
-        method=MethodsEnum.JSON_INAPPROPRIATE_USE_OF_COMMENTS,
+        method=MethodsEnum.JSON_INAPPROPRIATE_ELEMENTS,
     )
