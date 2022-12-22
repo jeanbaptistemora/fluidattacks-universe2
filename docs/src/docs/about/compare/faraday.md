@@ -5,9 +5,13 @@ sidebar_label: Faraday
 slug: /about/compare/faraday
 ---
 
-Here is a feature comparison
-between Fluid Attacks' Squad Plan and
-Faraday's offering.
+One of the most common questions about
+Fluid Attacks’ Continuous Hacking is
+how it compares to Faraday.
+The following comparison table allows
+you to understand how both providers perform
+on different attributes that may be essential
+to meet your company’s cybersecurity needs.
 
 |                    **Topic**                    |                                                                                                                  **Fluid Attacks**                                                                                                                  |                                                                                 **Faraday**                                                                                 | **Advantage** |
 |:-----------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|

@@ -5,8 +5,13 @@ sidebar_label: Data Theorem
 slug: /about/compare/data-theorem
 ---
 
-Here is a feature comparison
-between Fluid Attacks' Squad Plan and Data Theorem's offering.
+One of the most common questions about
+Fluid Attacks’ Continuous Hacking is
+how it compares to Data Theorem.
+The following comparison table allows
+you to understand how both providers perform
+on different attributes that may be essential
+to meet your company’s cybersecurity needs.
 
 |                    **Topic**                    |                                                                                                                  **Fluid Attacks**                                                                                                                  |                                                                                                     **Data Theorem**                                                                                                    | **Advantage** |
 |:-----------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
