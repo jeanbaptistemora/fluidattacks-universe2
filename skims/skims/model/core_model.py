@@ -2549,6 +2549,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_HAS_PUBLICY_SHARED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_publicly_shared_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_S3_BUCKETS_HAS_OBJECT_LOCK_DISABLED = MethodInfo(
         file_name="aws",
         name="bucket_has_object_lock_disabled",
