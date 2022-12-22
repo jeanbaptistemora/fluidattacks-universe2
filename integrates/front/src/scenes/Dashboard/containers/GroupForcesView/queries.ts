@@ -32,6 +32,7 @@ const GET_FORCES_EXECUTIONS: DocumentNode = gql`
           endCursor
           hasNextPage
         }
+        total
       }
       name
     }

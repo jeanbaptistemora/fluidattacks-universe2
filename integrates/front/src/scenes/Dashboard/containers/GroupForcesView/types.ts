@@ -46,6 +46,7 @@ interface IGroupExecutions {
         endCursor: string;
         hasNextPage: boolean;
       };
+      total: number | undefined;
     };
     name: string;
   };

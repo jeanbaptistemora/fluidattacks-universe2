@@ -188,6 +188,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       variables: { first: 100, groupName, search: "" },
     }
   );
+  const size = data?.group.executionsConnections.total;
 
   const executions: IExecution[] =
     data === undefined
@@ -268,6 +269,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         onNextPage={handleNextPage}
         onRowClick={openSeeExecutionDetailsModal}
         onSearch={handleSearch}
+        size={size}
         sortingSetter={setSorting}
         sortingState={sorting}
       />

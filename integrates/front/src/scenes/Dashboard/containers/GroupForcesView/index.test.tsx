@@ -62,6 +62,7 @@ describe("ForcesView", (): void => {
                   "FGluY2x1ZGVfY29udGV4dF91dWlkDnF1ZXJ5VGhlbkZldGNoBRZldlhLRHZEYlRaQ19FOHlmYkVFTFdBAAAAAAAAQh8WUXd1UGFJRC1TQUNDUmJ4ZEtSUUhHZxZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT6wWdkFtLU4yakhTM0NsdUxEeS1PcGNYQRZGejhKY0RlSVFNU3lzMWVUZjBKdUxRAAAAAAAAS0AWWVJ5d3pzUU5Ta2lxTHdIYkxnbG4zZxZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT60WdkFtLU4yakhTM0NsdUxEeS1PcGNYQRZWVnZvdU1qS1R5R0lqbXVteS1Zemd3AAAAAAAAT64WdkFtLU4yakhTM0NsdUxEeS1PcGNYQQ==",
                 hasNextPage: true,
               },
+              total: 1,
             },
             name: "unittesting",
           },
