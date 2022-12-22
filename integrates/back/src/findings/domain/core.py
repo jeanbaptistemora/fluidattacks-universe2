@@ -171,6 +171,21 @@ async def add_comment(
     await comments_domain.add(loaders, comment_data, notify=True)
 
 
+async def remove_all_evidences(finding_id: str, group_name: str) -> None:
+    file_names = await findings_storage.search_evidence(
+        f"{group_name}/{finding_id}"
+    )
+    await collect(
+        findings_storage.remove_evidence(file_name) for file_name in file_names
+    )
+    metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
+    await findings_model.update_metadata(
+        group_name=group_name,
+        finding_id=finding_id,
+        metadata=metadata,
+    )
+
+
 async def remove_finding(
     loaders: Dataloaders,
     email: str,
@@ -192,18 +207,7 @@ async def remove_finding(
         group_name=finding.group_name,
         state=deletion_state,
     )
-    file_names = await findings_storage.search_evidence(
-        f"{finding.group_name}/{finding.id}"
-    )
-    await collect(
-        findings_storage.remove_evidence(file_name) for file_name in file_names
-    )
-    metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
-    await findings_model.update_metadata(
-        group_name=finding.group_name,
-        finding_id=finding.id,
-        metadata=metadata,
-    )
+    await remove_all_evidences(finding.id, finding.group_name)
     await comments_domain.remove_comments(finding_id=finding_id)
     await remove_vulnerabilities(loaders, finding_id, justification, email)
 
@@ -511,13 +515,7 @@ async def mask_finding(
     loaders: Dataloaders, finding: Finding, email: str
 ) -> None:
     await comments_domain.remove_comments(finding_id=finding.id)
-    list_evidences_files = await findings_storage.search_evidence(
-        f"{finding.group_name}/{finding.id}"
-    )
-    await collect(
-        findings_storage.remove_evidence(file_name)
-        for file_name in list_evidences_files
-    )
+    await remove_all_evidences(finding.id, finding.group_name)
 
     finding_all_vulns_loader = loaders.finding_vulnerabilities_all
     vulns: tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
