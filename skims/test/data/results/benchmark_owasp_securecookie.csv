@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,92,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,92,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java","
    80 | );
    81 |     return;
@@ -23,8 +23,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.j
    99 |
   100 | }
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java,86,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java,86,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java","
   74 | );
   75 |     return;
@@ -48,8 +48,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.j
   93 |
   94 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,90,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,90,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java","
   78 | );
   79 |     return;
@@ -73,8 +73,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.j
   97 |
   98 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java,91,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java,91,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java","
   79 | );
   80 |     return;
@@ -98,8 +98,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.j
   98 |
   99 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java,82,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java,82,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java","
   70 | );
   71 |     return;
@@ -123,8 +123,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.j
   89 |
   90 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java,70,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java,70,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java","
   58 | );
   59 |     return;
@@ -148,8 +148,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.j
   77 |
   78 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java,77,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java,77,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java","
   65 | );
   66 |     return;
@@ -173,8 +173,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.j
   84 |
   85 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,80,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,80,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java","
   68 | );
   69 |     return;
@@ -198,8 +198,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.j
   87 |
   88 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java,85,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java,85,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java","
   73 | );
   74 |     return;
@@ -223,8 +223,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.j
   92 |
   93 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java,86,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java,86,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java","
   74 | );
   75 |     return;
@@ -248,8 +248,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.j
   93 |
   94 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,80,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,80,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java","
   68 | );
   69 |     return;
@@ -273,8 +273,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.j
   87 |
   88 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,85,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,85,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java","
   73 | );
   74 |     return;
@@ -298,8 +298,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.j
   92 |
   93 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,86,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,86,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java","
   74 | );
   75 |     return;
@@ -323,8 +323,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.j
   93 |
   94 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java,90,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java,90,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java","
   78 | );
   79 |     return;
@@ -348,8 +348,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.j
   97 |
   98 | }
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.java,86,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.java,86,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.java","
    76 |    }
    77 |    str = new String(input, 0, i);
@@ -373,8 +373,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.j
    95 |     private class Test {
    96 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.java,74,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.java,74,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.java","
   64 |    }
   65 |    str = new String(input, 0, i);
@@ -398,8 +398,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.j
   83 |     private class Test {
   84 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.java,83,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.java,83,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.java","
    73 |    }
    74 |    str = new String(input, 0, i);
@@ -423,8 +423,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.j
    92 |     private class Test {
    93 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.java,76,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.java,76,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.java","
    66 |    }
    67 |    str = new String(input, 0, i);
@@ -448,8 +448,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.j
    85 |     private class Test {
    86 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java,76,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java,76,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java","
   66 |    }
   67 |    str = new String(input, 0, i);
@@ -473,8 +473,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.j
   85 |     private class Test {
   86 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.java,76,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.java,76,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.java","
   66 |    }
   67 |    str = new String(input, 0, i);
@@ -498,8 +498,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.j
   85 |     private class Test {
   86 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -523,8 +523,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.j
   78 |     private class Test {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -548,8 +548,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.j
   78 |     private class Test {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -573,8 +573,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.j
   78 |     private class Test {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -598,8 +598,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.j
   78 |     private class Test {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.java,70,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.java,70,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.java","
   60 |    }
   61 |    str = new String(input, 0, i);
@@ -623,8 +623,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.j
   79 |     private class Test {
   80 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java,83,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java,83,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java","
    73 |    }
    74 |    str = new String(input, 0, i);
@@ -648,8 +648,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.j
    92 |     private class Test {
    93 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.java,83,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.java,83,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.java","
    73 |    }
    74 |    str = new String(input, 0, i);
@@ -673,8 +673,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.j
    92 |     private class Test {
    93 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -698,8 +698,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.j
   78 |     private class Test {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.java,86,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.java,86,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.java","
    76 |    }
    77 |    str = new String(input, 0, i);
@@ -723,8 +723,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.j
    95 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
    96 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.java,83,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.java,83,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.java","
    73 |    }
    74 |    str = new String(input, 0, i);
@@ -748,8 +748,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.j
    92 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
    93 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -773,8 +773,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.j
   78 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.java,83,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.java,83,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.java","
    73 |    }
    74 |    str = new String(input, 0, i);
@@ -798,8 +798,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.j
    92 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
    93 |
       ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.java,70,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.java,70,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.java","
   60 |    }
   61 |    str = new String(input, 0, i);
@@ -823,8 +823,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.j
   79 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   80 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.java,72,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.java,72,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.java","
   62 |    }
   63 |    str = new String(input, 0, i);
@@ -848,8 +848,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.j
   81 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   82 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -873,8 +873,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.j
   78 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   79 |
      ^ Col 0
-",query.query_f042
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java,69,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",java.java_insecure_cookie
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java,69,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java","
   59 |    }
   60 |    str = new String(input, 0, i);
@@ -898,4 +898,4 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.j
   78 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
   79 |
      ^ Col 0
-",query.query_f042
+",java.java_insecure_cookie

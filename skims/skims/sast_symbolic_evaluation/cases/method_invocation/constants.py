@@ -9,7 +9,6 @@ from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
 )
 from typing import (
-    Any,
     Dict,
     Set,
 )
@@ -300,17 +299,6 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
     }
 )
-BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
-    FindingEnum.F042.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.Cookie": {
-                "setSecure": {
-                    False,
-                },
-            },
-        }
-    ),
-}
 BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "java.io.PrintWriter": {
@@ -332,13 +320,6 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "Response": {
                 "cookie",
-            },
-        }
-    ),
-    FindingEnum.F042.name: complete_attrs_on_dict(
-        {
-            "javax.servlet.http.HttpServletResponse": {
-                "addCookie",
             },
         }
     ),

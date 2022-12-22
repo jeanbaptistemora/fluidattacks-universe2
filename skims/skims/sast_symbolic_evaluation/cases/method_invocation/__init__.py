@@ -11,7 +11,6 @@ from sast_symbolic_evaluation.cases.method_invocation.constants import (
     BY_OBJ_ARGS,
     BY_OBJ_NO_TYPE_ARGS_PROPAG,
     BY_TYPE,
-    BY_TYPE_AND_VALUE_FINDING,
     BY_TYPE_ARGS_PROPAG_FINDING,
     BY_TYPE_ARGS_PROPAGATION,
     BY_TYPE_HANDLER,
@@ -241,39 +240,6 @@ def attempt_by_type_args_propagation(
     return False
 
 
-def attempt_by_type_and_value_finding(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    # function calls with parameters that make the object vulnerable
-    _, method_path = split_on_first_dot(method)
-
-    if (
-        method_var_decl
-        and isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type_base
-        and (
-            methods := (
-                BY_TYPE_AND_VALUE_FINDING.get(args.finding.name, {}).get(
-                    method_var_decl.var_type_base
-                )
-            )
-        )
-    ):
-        parameters = {param.meta.value for param in args.dependencies}
-        if parameters.issubset(methods.get(method_path, set())):
-            method_var_decl.meta.danger = True
-            return True
-
-    return False
-
-
 def attempt_static(args: EvaluatorArgs, method: str) -> bool:
     if method in STATIC_FINDING.get(args.finding.name, {}):
         args.syntax_step.meta.danger = True
@@ -372,7 +338,6 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         or attempt_by_type_args_propagation(args, method, method_var_decl)
         or attempt_by_obj(args, method, method_var_decl)
         or attempt_by_obj_args(args, method, method_var_decl)
-        or attempt_by_type_and_value_finding(args, method, method_var_decl)
         or attempt_by_args_propagation(args, method)
         or attempt_by_type(args, method, method_var_decl)
         or analyze_method_invocation_local(args, method)
