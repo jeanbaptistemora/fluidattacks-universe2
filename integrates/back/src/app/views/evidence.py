@@ -145,7 +145,7 @@ async def list_s3_evidences(prefix: str) -> List[str]:
 
 def retrieve_image(img_file: str) -> Response:
     if files_utils.assert_file_mime(
-        img_file, ["image/png", "image/jpeg", "image/gif"]
+        img_file, ["image/png", "image/jpeg", "image/gif", "video/webm"]
     ):
         with open(img_file, "rb") as file_obj:
             mime = Magic(mime=True)

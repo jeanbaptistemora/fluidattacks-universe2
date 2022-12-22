@@ -3,7 +3,6 @@ from . import (
     get_result,
     update_services,
 )
-import asyncio
 from custom_exceptions import (
     InvalidCannotModifyNicknameWhenClosing,
     InvalidNewVulnState,
@@ -105,7 +104,6 @@ async def _get_vulns(
 @freeze_time("2022-02-09")
 async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
-    await asyncio.sleep(10)
     loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"

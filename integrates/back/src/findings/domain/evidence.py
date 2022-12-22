@@ -180,6 +180,7 @@ async def update_evidence(  # pylint: disable = too-many-arguments
             "application/csv": ".csv",
             "text/csv": ".csv",
             "text/plain": ".txt",
+            "video/webm": ".webm",
         }[mime_type]
     except KeyError:
         extension = ""
@@ -268,7 +269,7 @@ async def validate_evidence(
     validations_utils.validate_file_name(file.filename)
 
     if evidence_id in ["animation", "exploitation"]:
-        allowed_mimes = ["image/gif", "image/png"]
+        allowed_mimes = ["image/gif", "image/png", "video/webm"]
     elif evidence_id.startswith("evidence"):
         allowed_mimes = ["image/png"]
     elif evidence_id == "fileRecords":

@@ -638,6 +638,7 @@ async def update_evidence(
         "application/zip": ".zip",
         "text/csv": ".csv",
         "text/plain": ".txt",
+        "video/webm": ".webm",
     }.get(file.content_type, "")
     group_name = event.group_name
     file_name = (
@@ -707,7 +708,7 @@ async def validate_evidence(
     validations.validate_fields([file.content_type])
 
     if evidence_id in IMAGE_EVIDENCE_IDS:
-        allowed_mimes = ["image/gif", "image/jpeg", "image/png"]
+        allowed_mimes = ["image/gif", "image/jpeg", "image/png", "video/webm"]
         if not await files_utils.assert_uploaded_file_mime(
             file, allowed_mimes
         ):
