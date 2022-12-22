@@ -10,9 +10,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    ExecutionNotFound,
-)
 from db_model import (
     TABLE,
 )
@@ -30,6 +27,7 @@ from dynamodb import (
 )
 from typing import (
     Iterable,
+    Union,
 )
 
 
@@ -76,7 +74,7 @@ async def _get_group_executions(
 
 async def _get_executions(
     *, requests: Iterable[ForcesExecutionRequest]
-) -> tuple[ForcesExecution, ...]:
+) -> Union[tuple[ForcesExecution, ...], None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["forces_execution"],
@@ -97,14 +95,14 @@ async def _get_executions(
         }
         return tuple(response[request] for request in requests)
 
-    raise ExecutionNotFound()
+    return None
 
 
 class ForcesExecutionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ForcesExecutionRequest]
-    ) -> tuple[ForcesExecution, ...]:
+    ) -> Union[tuple[ForcesExecution, ...], None]:
         return await _get_executions(requests=requests)
 
 

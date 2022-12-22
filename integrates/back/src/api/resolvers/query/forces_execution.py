@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ExecutionNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -43,4 +46,7 @@ async def resolve(
         )
     )
 
-    return format_forces_to_resolve(execution=execution)
+    if execution:
+        return format_forces_to_resolve(execution=execution)
+
+    raise ExecutionNotFound()
