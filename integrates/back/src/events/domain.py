@@ -618,6 +618,21 @@ async def update_event(
         )
 
 
+async def replace_different_format(
+    *, event: Event, evidence_id: EventEvidenceId, extension: str
+) -> None:
+    evidence: Optional[EventEvidence] = getattr(
+        event.evidences, str(evidence_id.value).lower()
+    )
+    if evidence:
+        old_full_name = (
+            f"evidences/{event.group_name}/{event.id}/{evidence.file_name}"
+        )
+        ends: str = old_full_name.rsplit(".", 1)[-1]
+        if ends != old_full_name and f".{ends}" != extension:
+            await remove_file_evidence(old_full_name)
+
+
 async def update_evidence(
     loaders: Dataloaders,
     event_id: str,
@@ -650,15 +665,23 @@ async def update_evidence(
         file.filename, file.content_type, full_name
     )
 
-    await save_evidence(file, full_name)
-    await events_model.update_evidence(
-        event_id=event_id,
-        group_name=group_name,
-        evidence_info=EventEvidence(
-            file_name=file_name,
-            modified_date=update_date,
-        ),
-        evidence_id=evidence_id,
+    await collect(
+        (
+            save_evidence(file, full_name),
+            events_model.update_evidence(
+                event_id=event_id,
+                group_name=group_name,
+                evidence_info=EventEvidence(
+                    file_name=file_name,
+                    modified_date=update_date,
+                ),
+                evidence_id=evidence_id,
+            ),
+        )
+    )
+
+    await replace_different_format(
+        event=event, evidence_id=evidence_id, extension=extension
     )
 
 

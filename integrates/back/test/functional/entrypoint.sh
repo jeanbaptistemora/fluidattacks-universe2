@@ -36,7 +36,6 @@ function main {
     update_evidence
     update_git_root
     update_group
-    upload_file
   )
 
   source __argIntegratesBackEnv__/template dev \
