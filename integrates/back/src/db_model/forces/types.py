@@ -61,6 +61,7 @@ class ExecutionEdge(NamedTuple):
 class ExecutionsConnection(NamedTuple):
     edges: tuple[ExecutionEdge, ...]
     page_info: PageInfo
+    total: Optional[int] = None
 
 
 class ForcesExecutionRequest(NamedTuple):

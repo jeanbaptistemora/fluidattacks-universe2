@@ -71,4 +71,5 @@ async def resolve(
             for execution in executions_formatted
         ),
         page_info=results.page_info,
+        total=results.total,
     )
