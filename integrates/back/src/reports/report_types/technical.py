@@ -32,6 +32,9 @@ import magic
 from newutils.findings import (
     get_formatted_evidence,
 )
+from newutils.reports import (
+    get_extension,
+)
 from reports.it_report import (
     ITReport,
 )
@@ -55,23 +58,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-
-
-def _get_extension(mime_type: str) -> str:
-    try:
-        return {
-            "image/gif": ".gif",
-            "image/jpeg": ".jpg",
-            "image/png": ".png",
-            "application/x-empty": ".exp",
-            "text/x-python": ".exp",
-            "application/csv": ".csv",
-            "text/csv": ".csv",
-            "text/plain": ".txt",
-            "video/webm": ".webm",
-        }[mime_type]
-    except KeyError:
-        return ""
 
 
 def convert_webm_to_png(webm_path: str, img_path: str) -> None:
@@ -111,7 +97,7 @@ def convert_evidences_to_png(
                 old_img_path = f"{tempdir}/{img_id}"
                 new_img_path = f"{tempdir}/{new_name}"
                 mime_type = magic.from_file(old_img_path, mime=True)
-                if _get_extension(mime_type) == ".webm":
+                if get_extension(mime_type) == ".webm":
                     convert_webm_to_png(old_img_path, new_img_path)
                 else:
                     img = Image.open(old_img_path)

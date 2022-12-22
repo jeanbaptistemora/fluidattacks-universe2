@@ -72,3 +72,20 @@ def get_ordinal_ending(number: int) -> str:
     if 11 <= (number % 100) <= 13:
         return "th"
     return ["th", "st", "nd", "rd", "th"][min(number % 10, 4)]
+
+
+def get_extension(mime_type: str) -> str:
+    try:
+        return {
+            "image/gif": ".gif",
+            "image/jpeg": ".jpg",
+            "image/png": ".png",
+            "application/x-empty": ".exp",
+            "text/x-python": ".exp",
+            "application/csv": ".csv",
+            "text/csv": ".csv",
+            "text/plain": ".txt",
+            "video/webm": ".webm",
+        }[mime_type]
+    except KeyError:
+        return ""

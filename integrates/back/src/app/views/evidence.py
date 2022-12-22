@@ -117,7 +117,8 @@ async def get_evidence(  # pylint: disable=too-many-locals
                 start = evidence.find(finding_id) + len(finding_id)
                 localfile = f"/tmp{evidence[start:]}"  # nosec
                 localtmp = utils.replace_all(
-                    localfile, {".png": ".tmp", ".gif": ".tmp"}
+                    localfile,
+                    {".png": ".tmp", ".gif": ".tmp", ".webm": ".tmp"},
                 )
                 await download_evidence_file(evidence, localtmp)
                 return retrieve_image(localtmp)

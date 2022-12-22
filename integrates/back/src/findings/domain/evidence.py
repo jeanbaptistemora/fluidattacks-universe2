@@ -44,6 +44,9 @@ from newutils import (
     utils,
     validations as validations_utils,
 )
+from newutils.reports import (
+    get_extension,
+)
 from settings import (
     LOGGING,
 )
@@ -157,6 +160,23 @@ def validate_evidencename(
         raise InvalidFileName(detail)
 
 
+async def replace_different_format(
+    *,
+    finding: Finding,
+    evidence: FindingEvidence,
+    extension: str,
+    evidence_id: str,
+) -> None:
+    old_full_name = f"{finding.group_name}/{finding.id}/{evidence.url}"
+    ends: str = old_full_name.rsplit(".", 1)[-1]
+    if (
+        evidence_id != "fileRecords"
+        and ends != old_full_name
+        and f".{ends}" != extension
+    ):
+        await findings_storage.remove_evidence(old_full_name)
+
+
 async def update_evidence(  # pylint: disable = too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
@@ -170,23 +190,8 @@ async def update_evidence(  # pylint: disable = too-many-arguments
         evidence_id, file_object, loaders, finding, validate_name
     )
     mime_type = await files_utils.get_uploaded_file_mime(file_object)
-    try:
-        extension = {
-            "image/gif": ".gif",
-            "image/jpeg": ".jpg",
-            "image/png": ".png",
-            "application/x-empty": ".exp",
-            "text/x-python": ".exp",
-            "application/csv": ".csv",
-            "text/csv": ".csv",
-            "text/plain": ".txt",
-            "video/webm": ".webm",
-        }[mime_type]
-    except KeyError:
-        extension = ""
-
+    extension = get_extension(mime_type)
     filename = f"{finding.group_name}-{finding.id}-{evidence_id}{extension}"
-    full_name = f"{finding.group_name}/{finding.id}/{filename}"
     if evidence_id == "fileRecords":
         old_filename = (
             finding.evidences.records.url if finding.evidences.records else ""
@@ -200,11 +205,19 @@ async def update_evidence(  # pylint: disable = too-many-arguments
                     cast(list[dict[str, str]], old_records), file_object
                 )
 
-    await findings_storage.save_evidence(file_object, full_name)
+    await findings_storage.save_evidence(
+        file_object, f"{finding.group_name}/{finding.id}/{filename}"
+    )
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
     if evidence:
+        await replace_different_format(
+            finding=finding,
+            evidence=evidence,
+            extension=extension,
+            evidence_id=evidence_id,
+        )
         evidence_to_update = FindingEvidenceToUpdate(
             url=filename,
             modified_date=datetime_utils.get_utc_now(),
