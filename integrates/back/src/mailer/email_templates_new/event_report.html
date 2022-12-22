@@ -1,0 +1,45 @@
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+
+      {{ banner_bell('Event Alert') }}
+      <div class="main-content">
+        <p>Hi {{ name }},</p>
+        <p>
+          {% if reminder_notification %}
+          Remember you have events
+          {% else %}
+          An event has been
+          {% endif %}
+          <strong>{{ state }}</strong> in the group <strong>{{ group }}</strong>:
+        </p>
+        <p>
+          <strong>Date:</strong> {{ report_date }}<br/>
+          <strong>Type of event:</strong> {{ event_type }}<br/>
+          <strong>Description:</strong> {{ description }}<br/>
+          {% if reason %}<strong>Reason:</strong> {{ reason }}<br/>{% endif %}
+          {% if root_url %}
+          <strong>Root URL:</strong>
+          <a
+            href="{{ root_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #ff3435;"
+          >
+            {{ root_url }}
+          </a><br/>
+          {% endif %}
+          <strong>Age:</strong> {{ event_age }} days.
+          (best average solving 4.2 days)<br/>
+        </p>
+        <p></p>
+        <p>Regards,<br/>Fluid Attacks Team</p>
+        {{ go_to_button('Go to event', event_url, 'primary-button') }}
+        <br />
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
+    </div>
+  {% endblock %}

@@ -1,0 +1,32 @@
+{# Generic Go to button: rounded and centered #}
+{% macro go_to_button(text, url, type) -%}
+
+        <div class="flex justify-center">
+          <a class="main-button justify-center {{ type }}" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+            {{ text }}
+          </a>
+        </div>
+{% endmacro %}
+
+{# Generic banner #}
+{% macro banner(icon_url) %}
+      <div class="body-title">
+        <img
+          alt="Banner custom icon"
+          class="title-icon"
+          src="{{ icon_url }}"
+        >
+        <span class="title-text">
+          {{ caller() }}
+        </span>
+      </div>
+{% endmacro %}
+
+{# Custom banner with group icon #}
+{% macro banner_bell(text) %}
+  {% call banner(
+    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/6f396e32-7fae-cbcd-a2df-63a259e30618.png',
+    ) %}
+    {{- text -}}
+  {% endcall %}
+{% endmacro %}
