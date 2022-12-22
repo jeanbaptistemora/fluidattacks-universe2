@@ -2973,6 +2973,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_INSEC_COOKIES = MethodInfo(
+        file_name="javascript",
+        name="js_insecurely_generated_cookies",
+        module="lib_root",
+        finding=FindingEnum.F042,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     QUERY_F042 = MethodInfo(
         file_name="query",
         name="query_f042",
