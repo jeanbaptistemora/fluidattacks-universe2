@@ -50,28 +50,36 @@ async def _append_evidences(
     # Walk everything under the S3 evidences bucket and save relevant info
     for key in await list_files(f"evidences/{group}"):
         _, extension = os.path.splitext(key)
+        if extension not in target_folders:
+            continue
 
-        if extension in target_folders:
-            # Determine the folder name in which to save the evidence
-            finding_folder = ""
-            for finding in findings_ord:
-                if finding.id in key:
-                    finding_folder = finding.title
-            target_name = os.path.join(
-                directory, target_folders[extension], finding_folder
-            )
-            os.makedirs(target_name, exist_ok=True)
-            target_name = os.path.join(target_name, os.path.basename(key))
-            if not os.path.isdir(target_name):
-                await download_file(key, target_name)
-                # Append extension in case it doesn't have one
-                if extension == "":
-                    mime = Magic(mime=True)
-                    mime_type = mime.from_file(target_name)
-                    os.rename(
-                        target_name,
-                        target_name + f".{mime_type.split('/')[1]}",
-                    )
+        # Determine the folder name in which to save the evidence
+        finding_folder = next(
+            (
+                finding.title
+                for finding in findings_ord
+                if f"{finding.id}/" in key
+            ),
+            None,
+        )
+        if not finding_folder:
+            continue
+
+        target_name = os.path.join(
+            directory, target_folders[extension], finding_folder
+        )
+        os.makedirs(target_name, exist_ok=True)
+        target_name = os.path.join(target_name, os.path.basename(key))
+        if not os.path.isdir(target_name):
+            await download_file(key, target_name)
+            # Append extension in case it doesn't have one
+            if extension == "":
+                mime = Magic(mime=True)
+                mime_type = mime.from_file(target_name)
+                os.rename(
+                    target_name,
+                    target_name + f".{mime_type.split('/')[1]}",
+                )
 
 
 async def _append_pdf_report(
