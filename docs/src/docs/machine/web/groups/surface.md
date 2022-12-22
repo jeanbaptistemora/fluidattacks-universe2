@@ -6,21 +6,25 @@ slug: /machine/web/groups/surface
 ---
 
 The surface tab gives more information
-about the Target of Evaluation (ToE).
+about the
+[Target of Evaluation (ToE)](/about/glossary/#toe).
 This ToE is the result of repositories,
-environments and languages specified
-in the scope roots section.
+environments, ports and languages specified
+in the
+[scope roots](/machine/web/groups/scope)
+section.
 
-There are three sections in Surface:
+There are four sections in Surface:
 **Lines** referring to the Git Roots
 repositories,
 **Inputs** representing
 the environments to test,
-such as URLs/IPs and
-**Languages** identify the different
+such as URLs/IPs,
+**Ports** mean the ports of your IP address
+and **Languages** identify the different
 languages used in your code.
 
-![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022585/docs/web/groups/surface/surface_section.png)
+![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671705522/docs/web/groups/surface/surface_view.png)
 
 ## Lines
 
@@ -32,7 +36,7 @@ filenames that compose them,
 being the ToE that the
 Hackers will validate.
 
-![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022667/docs/web/groups/surface/lines_table.png)
+![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1671705822/docs/web/groups/surface/surface_lines.png)
 
 This section shows a table providing
 the following information:
@@ -129,12 +133,50 @@ your interest.
 
 ![Inputs Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1668023023/docs/web/groups/surface/inputs_filters.png)
 
+## Ports
+
+You can find Ports in the third tab
+in the Surface section.
+There you see the ports of your IP address,
+so this section will have content if
+your group's service is
+[black](/about/glossary/#black-box).
+
+![Ports view](https://res.cloudinary.com/fluid-attacks/image/upload/v1671706201/docs/web/groups/surface/ports.png)
+
+This section shows these items,
+providing the following information:
+
+- **Root:**
+  The nickname of the IP root.
+- **Address:**
+  The IP address.
+- **Port:**
+  The number of port that was validated.
+- **Status:**
+  The status of the port can be safe or vulnerable.
+- **Seen at:**
+  The date the port was added.
+- **Be present:**
+  If the IP address is present.
+
+### Filters in Ports section
+
+You have six filters in the ports section,
+which help you search for information
+quickly and safely.
+You can access these by clicking on the
+filter icon at the top right next to
+the search bar.
+
+![ports filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1671707216/docs/web/groups/surface/ports_filters.png)
+
 ## Languages
 
 Here you can see the
 languages used in your repositories.
 
-![Surface Languages](https://res.cloudinary.com/fluid-attacks/image/upload/v1663758054/docs/web/groups/surface/surface_languages.png)
+![Surface Languages](https://res.cloudinary.com/fluid-attacks/image/upload/v1671707420/docs/web/groups/surface/code_languajes.png)
 
 This section shows a table
 providing the following information:
