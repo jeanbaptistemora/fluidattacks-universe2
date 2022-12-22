@@ -156,9 +156,7 @@ def _get_missing_dependency(what: str) -> Optional[Dict[str, Any]]:
 
 
 def _format_what(what: str) -> str:
-    if match := re.match(r"(?P<what>.*)(\s\(.*\)(\s\[.*\])?)?$", what):
-        what = match.groupdict()["what"]
-    return what
+    return re.sub(r"\s(\(.*?\))((\s)(\[.*?\]))?", "", what)  # NOSONAR
 
 
 def _format_were(were: str) -> Union[int, str]:
