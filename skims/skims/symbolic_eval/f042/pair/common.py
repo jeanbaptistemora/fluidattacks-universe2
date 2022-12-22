@@ -7,7 +7,6 @@ from symbolic_eval.types import (
 def js_insecure_cookie(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
-    args.evaluation[args.n_id] = False
     n_attrs = args.graph.nodes[args.n_id]
     key = n_attrs["key_id"]
     value = n_attrs["value_id"]

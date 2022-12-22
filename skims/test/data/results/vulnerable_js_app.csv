@@ -2073,7 +2073,7 @@ F034,lines,VULNERABLE_JS_APP/server/routes/testcases/test155.js,7,330,skims,034.
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_weak_random
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test097.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -2096,8 +2096,8 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042.
   19 |
   20 | export default router;
      ^ Col 0
-",query.query_f042
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",javascript.js_insecurely_generated_cookies
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test098.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -2121,32 +2121,8 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042
   20 |         <h1>Hello Jane Doe</h1>
   21 |       </body>
      ^ Col 0
-",query.query_f042
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
- in VULNERABLE_JS_APP/server/routes/testcases/test099.js","
-   1 | import { Router } from ""express"";
-   2 | var router = Router();
-   3 |
-   4 | router.get(""/test099/"", function (req, res) {
-   5 |   var _secure = 1 != 1;
->  6 |   res.cookie(""SomeCookie"", ""Some Value"", { secure: _secure, httpOnly: true });
-   7 |   res.setHeader(""Content-Type"", ""text/html"");
-   8 |   res.send(
-   9 |     `
-  10 |     <!DOCTYPE html>
-  11 |     <html>
-  12 |       <body>
-  13 |         <h1>Hello Jane Doe</h1>
-  14 |       </body>
-  15 |     </html>
-  16 | `
-  17 |   );
-  18 | });
-  19 |
-  20 | export default router;
-     ^ Col 0
-",query.query_f042
-F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"The system does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+",javascript.js_insecurely_generated_cookies
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
  in VULNERABLE_JS_APP/server/routes/testcases/test100.js","
    1 | import { Router } from ""express"";
    2 | var router = Router();
@@ -2170,7 +2146,32 @@ F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042.
   20 |   );
   21 | });
      ^ Col 0
-",query.query_f042
+",javascript.js_insecurely_generated_cookies
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test102.js,10,614,skims,042. Insecurely generated cookies,"The application does not set security attributes for sensitive cookies, which could cause them to be sent in plain text or disclosed by unauthorized users on the client side.
+ in VULNERABLE_JS_APP/server/routes/testcases/test102.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test102/"", function (req, res) {
+   5 |   var _secure = false;
+   6 |
+   7 |   if (32 > 44) {
+   8 |     _secure = true;
+   9 |   }
+> 10 |   res.cookie(""SomeCookie"", ""Some Value"", { secure: _secure, httpOnly: true });
+  11 |   res.setHeader(""Content-Type"", ""text/html"");
+  12 |   res.send(
+  13 |     `
+  14 |     <!DOCTYPE html>
+  15 |     <html>
+  16 |       <body>
+  17 |         <h1>Hello Jane Doe</h1>
+  18 |       </body>
+  19 |     </html>
+  20 | `
+  21 |   );
+     ^ Col 0
+",javascript.js_insecurely_generated_cookies
 F021,lines,VULNERABLE_JS_APP/server/routes/testcases/test142.js,20,643,skims,021. XPath injection,Dynamic XPath statements are generated without the required data validation. in VULNERABLE_JS_APP/server/routes/testcases/test142.js,"
    8 |   let userData = req.body;
    9 |
