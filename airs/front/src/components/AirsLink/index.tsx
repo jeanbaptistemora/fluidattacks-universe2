@@ -11,6 +11,7 @@ interface IAirsLinkProps extends ILinkProps {
 const AirsLink: React.FC<IAirsLinkProps> = ({
   children,
   decoration,
+  hoverColor,
   href,
 }): JSX.Element => {
   const allowLinks = [
@@ -29,6 +30,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
     return (
       <ExternalLink
         decoration={decoration}
+        hoverColor={hoverColor}
         href={href}
         rel={"noopener noreferrer"}
         target={"_blank"}
@@ -40,6 +42,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
     return (
       <ExternalLink
         decoration={decoration}
+        hoverColor={hoverColor}
         href={href}
         rel={"nofollow noopener noreferrer"}
         target={"_blank"}
@@ -50,7 +53,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
   }
 
   return (
-    <InternalLink decoration={decoration} to={href}>
+    <InternalLink decoration={decoration} hoverColor={hoverColor} to={href}>
       {children}
     </InternalLink>
   );
