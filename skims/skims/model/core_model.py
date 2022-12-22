@@ -2981,6 +2981,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_INSECURE_COOKIE = MethodInfo(
+        file_name="java",
+        name="java_insecure_cookie",
+        module="lib_root",
+        finding=FindingEnum.F042,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CONTENT_SECURITY_POLICY = MethodInfo(
         file_name="analyze_headers",
         name="content_security_policy",

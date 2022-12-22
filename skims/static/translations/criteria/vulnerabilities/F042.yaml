@@ -1,0 +1,9 @@
+---
+src.lib_root.f042.java_insecure_set_cookies.description:
+  en: >
+    The application does not set security attributes for sensitive cookies,
+    which could cause them to be sent in plain text or disclosed by
+    unauthorized users on the client side.
+  es: >
+    La aplicación no configura atributos de seguridad para cookies sensibles,
+    lo cual podría ocasionar que estas sean enviadas en texto plano.
