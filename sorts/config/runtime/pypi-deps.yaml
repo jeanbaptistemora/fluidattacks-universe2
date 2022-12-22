@@ -1,5 +1,5 @@
 ---
-boto3: 1.16.29
+boto3: 1.26.34
 bugsnag: 3.9.0
 category-encoders: 2.2.2
 click: 7.1.2
@@ -10,6 +10,7 @@ joblib: 0.16.0
 lightgbm: 3.2.1
 mixpanel: 4.5.0
 more-itertools: 8.5.0
+multiprocess: 0.70.12
 mypy-extensions: 0.4.3
 numpy: 1.20.3
 pandas: 1.1.2
@@ -19,7 +20,7 @@ psycopg2: 2.8.4
 PyDriller: 1.15.2
 pytz: "2020.1"
 requests: 2.24.0
-sagemaker: 2.18.0
+sagemaker: 2.125.0
 scikit-learn: 0.23.2
 tqdm: 4.50.2
 xgboost: 1.6.2

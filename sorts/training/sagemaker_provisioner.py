@@ -73,7 +73,7 @@ def get_estimator(
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
         dependencies=["sorts", "training", "training/requirements.txt"],
-        framework_version="0.23-1",
+        framework_version="1.0-1",
         instance_count=1,
         role="arn:aws:iam::205810638802:role/prod_sorts",
         output_path="s3://sorts/training-output",
