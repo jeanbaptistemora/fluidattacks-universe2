@@ -821,24 +821,29 @@ async def send_mail_environment_report(
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
     )
+
+    context = {
+        "group_name": group_name,
+        "responsible": responsible,
+        "git_root": git_root,
+        "git_root_url": git_root_url,
+        "urls_added": urls_added,
+        "urls_deleted": urls_deleted,
+        "user_role": user_role.replace("_", " "),
+        "report_date": str(modified_date.date()),
+        "reason": other,
+    }
+
+    if not other:
+        if reason:
+            context.update({"reason": reason.replace("_", " ").capitalize()})
+        else:
+            context.update({"reason": ""})
+
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
-        context={
-            "group_name": group_name,
-            "responsible": responsible,
-            "git_root": git_root,
-            "git_root_url": git_root_url,
-            "urls_added": urls_added,
-            "urls_deleted": urls_deleted,
-            "user_role": user_role.replace("_", " "),
-            "report_date": str(modified_date.date()),
-            "reason": other
-            if other
-            else reason.replace("_", " ").capitalize()
-            if reason
-            else "",
-        },
+        context=context,
         tags=GENERAL_TAG,
         subject=f"[ARM] Environment has been modified in [{group_name}]",
         template_name="environment_report",
