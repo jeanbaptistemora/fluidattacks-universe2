@@ -176,7 +176,10 @@ async def remove_all_evidences(finding_id: str, group_name: str) -> None:
         f"{group_name}/{finding_id}"
     )
     await collect(
-        findings_storage.remove_evidence(file_name) for file_name in file_names
+        findings_storage.remove_evidence(
+            f'{group_name}/{finding_id}/{file_name.split("/")[-1]}'
+        )
+        for file_name in file_names
     )
     metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
     await findings_model.update_metadata(
