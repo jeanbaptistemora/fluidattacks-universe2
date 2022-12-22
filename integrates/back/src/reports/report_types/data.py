@@ -44,6 +44,7 @@ async def _append_evidences(
         ".jpg": "evidences",
         ".png": "evidences",
         ".txt": "compromised-records",
+        ".webm": "evidences",
     }
 
     # Walk everything under the S3 evidences bucket and save relevant info

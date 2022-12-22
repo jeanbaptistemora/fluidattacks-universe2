@@ -82,6 +82,7 @@ closure:
   numpy: 1.21.2
   oauth2client: 4.1.3
   oauthlib: 3.2.2
+  opencv-python-headless: 4.6.0.66
   opensearch-py: 2.0.0
   opentelemetry-api: 1.12.0
   opentelemetry-distro: 0.33b0
@@ -892,6 +893,21 @@ links:
   - name: oauthlib-3.2.2.tar.gz
     sha256: 066r7mimlpb5q1fr2f1z59l4jc89kv4h2kgkcifyqav6544w8ncq
     url: https://files.pythonhosted.org/packages/6d/fa/fbf4001037904031639e6bfbfc02badfc7e12f137a8afa254df6c4c8a670/oauthlib-3.2.2.tar.gz
+  - name: opencv_python_headless-4.6.0.66-cp36-abi3-macosx_10_15_x86_64.whl
+    sha256: 12aqr5crj2cmvd42b8j4z6p0m0n3wr7ih9vd8vgqq2841j5hzrr1
+    url: https://files.pythonhosted.org/packages/21/4f/23cee417897d9114d17a32cf3ec5e78132da90d25e4ae3bb4dcf2aff6cd3/opencv_python_headless-4.6.0.66-cp36-abi3-macosx_10_15_x86_64.whl
+  - name: opencv_python_headless-4.6.0.66-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1pwka3l6dp1xm82dqfixcsrbw1m2qsvp7wckmzb06q9lah82iipf
+    url: https://files.pythonhosted.org/packages/23/1f/8065928a1be8f47ca2f941bfbc35df0a294a721ed3613b51c78bf7b0867c/opencv_python_headless-4.6.0.66-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: opencv_python_headless-4.6.0.66-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0clcqy13zz950kv4v1bjdrd2188q547a5g3hlv13yz247qvjq0rc
+    url: https://files.pythonhosted.org/packages/b8/c7/01e2d24aa3f4d4947147388278eed43c5a63ebc2f9b772f494eddf6b1ad7/opencv_python_headless-4.6.0.66-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: opencv_python_headless-4.6.0.66-cp37-abi3-macosx_11_0_arm64.whl
+    sha256: 15yljnmbxpsn86c1yxs5d2ihb764d6y962j411j9kbwpsvy2dgzz
+    url: https://files.pythonhosted.org/packages/24/27/106163c448b442ebfdf7fb76199f4bcf79d4f92a4ded727d06913882ce9c/opencv_python_headless-4.6.0.66-cp37-abi3-macosx_11_0_arm64.whl
+  - name: opencv-python-headless-4.6.0.66.tar.gz
+    sha256: 1iacs1l6hi0y0p5zzmyjxj874qgq3bbg11pxnv51jb5a21z1safm
+    url: https://files.pythonhosted.org/packages/fe/5d/f99eb2182c6f7bf9647babe6f86f5e397f6be07a2035bbdf272e7cb16cd4/opencv-python-headless-4.6.0.66.tar.gz
   - name: opensearch_py-2.0.0-py2.py3-none-any.whl
     sha256: 16hrnpk998wkcssl93lfsjypdxy3p8lzyaybz806qa6sbrap3rd3
     url: https://files.pythonhosted.org/packages/13/97/128668e1e4456c2f1c2f65930f2336146f9145bbe00ee3f0fe8c63437259/opensearch_py-2.0.0-py2.py3-none-any.whl

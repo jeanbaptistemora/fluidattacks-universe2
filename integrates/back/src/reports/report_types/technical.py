@@ -5,6 +5,7 @@ from PIL import (
 from botocore.exceptions import (
     ClientError,
 )
+import cv2
 from dataloaders import (
     Dataloaders,
 )
@@ -27,6 +28,7 @@ from findings import (
 )
 import logging
 import logging.config
+import magic
 from newutils.findings import (
     get_formatted_evidence,
 )
@@ -55,6 +57,40 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def _get_extension(mime_type: str) -> str:
+    try:
+        return {
+            "image/gif": ".gif",
+            "image/jpeg": ".jpg",
+            "image/png": ".png",
+            "application/x-empty": ".exp",
+            "text/x-python": ".exp",
+            "application/csv": ".csv",
+            "text/csv": ".csv",
+            "text/plain": ".txt",
+            "video/webm": ".webm",
+        }[mime_type]
+    except KeyError:
+        return ""
+
+
+def convert_webm_to_png(webm_path: str, img_path: str) -> None:
+    cam = cv2.VideoCapture(webm_path)
+    current_frame = 0
+    while current_frame < 1:
+        ret, frame = cam.read()
+        if ret:
+            cv2.imwrite(f"{img_path}-temp.png", frame)
+            img = Image.open(f"{img_path}-temp.png")
+            img.save(img_path, "png", optimize=True)
+            img.close()
+            current_frame += 30
+            cam.set(1, current_frame)
+        else:
+            break
+    cam.release()
+
+
 def convert_evidences_to_png(
     findings: tuple[Finding, ...],
     finding_evidences_set: dict[str, list[dict[str, str]]],
@@ -72,9 +108,15 @@ def convert_evidences_to_png(
                 new_name = img_id.split(".")[0]
                 evidence["id"] = new_name
                 evidence["name"] = f"image::{tempdir}/{new_name}[align=center]"
-                img = Image.open(f"{tempdir}/{img_id}")
-                img.save(f"{tempdir}/{new_name}", "png", optimize=True)
-                img.close()
+                old_img_path = f"{tempdir}/{img_id}"
+                new_img_path = f"{tempdir}/{new_name}"
+                mime_type = magic.from_file(old_img_path, mime=True)
+                if _get_extension(mime_type) == ".webm":
+                    convert_webm_to_png(old_img_path, new_img_path)
+                else:
+                    img = Image.open(old_img_path)
+                    img.save(new_img_path, "png", optimize=True)
+                    img.close()
             except OSError as exc:
                 LOGGER.exception(
                     exc,
