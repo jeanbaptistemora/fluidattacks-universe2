@@ -13,6 +13,7 @@ from db_model.groups.types import (
 from newutils.validations import (
     has_sequence,
     validate_alphanumeric_field,
+    validate_alphanumeric_field_deco,
     validate_email_address,
     validate_email_address_deco,
     validate_field_length,
@@ -20,6 +21,7 @@ from newutils.validations import (
     validate_fields,
     validate_fields_deco,
     validate_file_exists,
+    validate_file_exists_deco,
     validate_file_name,
     validate_group_name,
     validate_int_range,
@@ -27,6 +29,10 @@ from newutils.validations import (
     validate_symbols,
 )
 import pytest
+from typing import (
+    Optional,
+    Tuple,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -37,6 +43,16 @@ def test_validate_alphanumeric_field() -> None:
     assert validate_alphanumeric_field("one test")
     with pytest.raises(InvalidField):
         assert validate_alphanumeric_field("=test2@")
+
+
+def test_validate_alphanumeric_field_deco() -> None:
+    @validate_alphanumeric_field_deco("field")
+    def decorated_func(field: str) -> str:
+        return field
+
+    assert decorated_func(field="one test")
+    with pytest.raises(InvalidField):
+        decorated_func(field="=test2@")
 
 
 def test_validate_email_address() -> None:
@@ -148,6 +164,44 @@ def test_validate_file_exists() -> None:
     with pytest.raises(ErrorFileNameAlreadyExists):
         assert validate_file_exists("test2.txt", group_files)  # type: ignore
         assert validate_file_exists("test3.txt", group_files)  # type: ignore
+
+
+def test_validate_file_exists_deco() -> None:
+    file_name = "test1.txt"
+
+    @validate_file_exists_deco("file_name", None)
+    def decorated_func(file_name: str) -> str:
+        return file_name
+
+    assert decorated_func(file_name=file_name)
+
+    group_files = [
+        GroupFile(
+            description="abc",
+            file_name="test2.txt",
+            modified_by="user@gmail.com",
+        ),
+        GroupFile(
+            description="xyz",
+            file_name="test3.txt",
+            modified_by="user@gmail.com",
+        ),
+    ]
+
+    @validate_file_exists_deco("file_name", "group_files")
+    def decorated_func_group(
+        file_name: str, group_files: Optional[list[GroupFile]]
+    ) -> Tuple:
+        return (file_name, group_files)
+
+    assert decorated_func_group(
+        file_name=file_name,
+        group_files=group_files,
+    )
+    with pytest.raises(ErrorFileNameAlreadyExists):
+
+        decorated_func_group(file_name="test2.txt", group_files=group_files)
+        decorated_func_group(file_name="test3.txt", group_files=group_files)
 
 
 def test_validate_file_name() -> None:

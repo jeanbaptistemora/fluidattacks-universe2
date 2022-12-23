@@ -38,6 +38,7 @@ import re
 from typing import (
     Any,
     Callable,
+    cast,
     Iterable,
     List,
     Optional,
@@ -165,6 +166,35 @@ def validate_file_exists(
         )
         if file_to_check is not None:
             raise ErrorFileNameAlreadyExists.new()
+
+
+def validate_file_exists_deco(
+    field_name: str, field_group_files: Optional[str]
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            file_name = kwargs.get(field_name)
+            if field_group_files:
+                group_files = cast(
+                    list[GroupFile], kwargs.get(field_group_files)
+                )
+                file_to_check = next(
+                    (
+                        group_file
+                        for group_file in group_files
+                        if group_file.file_name == file_name
+                    ),
+                    None,
+                )
+                if file_to_check is not None:
+                    raise ErrorFileNameAlreadyExists.new()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def check_field(field: str, regexp: str) -> None:
@@ -328,6 +358,22 @@ def validate_alphanumeric_field(field: str) -> bool:
     if is_alnum or field == "-" or not field:
         return True
     raise InvalidField()
+
+
+def validate_alphanumeric_field_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            is_alnum = all(word.isalnum() for word in field_content.split())
+            if is_alnum or field_content == "-" or not field_content:
+                res = func(*args, **kwargs)
+                return res
+            raise InvalidField()
+
+        return decorated
+
+    return wrapper
 
 
 def validate_finding_title_change_policy(
