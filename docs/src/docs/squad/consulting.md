@@ -40,7 +40,7 @@ When you click on a type of vulnerability,
 you can find the tab
 on the right-hand side of your screen.
 
-![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1668013028/docs/squad/consulting/consulting_vuln.png)
+![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671795322/docs/squad/consulting/consulting_location.png)
 
 This section should be used to communicate with us
 when there are any issues concerning any of the vulnerabilities
@@ -54,13 +54,13 @@ and the results of those reattacks.
 ## Concerning events
 
 Finally,
-you can find a **Comments** tab
+you can find a **Consulting** tab
 after clicking on any event listed in the **Events** tab of each group.
 When you click on the former,
 a text field will be available
 where you can add your comments.
 
-![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1668013077/docs/squad/consulting/comments.png)
+![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671795391/docs/squad/consulting/consulting_view.png)
 
 This tab is useful
 for when you want to ask us
