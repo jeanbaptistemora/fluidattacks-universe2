@@ -48,7 +48,6 @@ import logging
 import logging.config
 from newutils import (
     bugsnag as bugsnag_utils,
-    datetime as datetime_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -189,7 +188,6 @@ async def process_toe_lines(
                     toe_line,
                     ToeLinesAttributesToUpdate(
                         has_vulnerabilities=has_vulnerabilities,
-                        modified_date=datetime_utils.get_utc_now(),
                     ),
                 )
             )
