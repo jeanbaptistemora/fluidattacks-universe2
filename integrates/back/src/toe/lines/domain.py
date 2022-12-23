@@ -124,7 +124,7 @@ async def add(  # pylint: disable=too-many-arguments
             modified_by=attributes.seen_first_time_by
             if attributes.seen_first_time_by
             else "machine@fluidattacks.com",
-            modified_date=attributes.modified_date,
+            modified_date=datetime_utils.get_utc_now(),
         ),
     )
     await toe_lines_model.add(toe_lines=toe_lines)
