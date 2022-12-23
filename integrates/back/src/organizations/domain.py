@@ -344,6 +344,16 @@ async def get_access_by_url_token(
     )
 
 
+async def get_all_groups(
+    loaders: Dataloaders,
+) -> tuple[Group, ...]:
+    groups = []
+    async for organization in iterate_organizations():
+        org_groups = await loaders.organization_groups.load(organization.id)
+        groups.extend(org_groups)
+    return tuple(groups)
+
+
 async def get_all_active_groups(
     loaders: Dataloaders,
 ) -> tuple[Group, ...]:
