@@ -149,6 +149,10 @@ in {
               };
           }
           {
+            output = "/deployContainerImage/forcesDev";
+            gitlabExtra = gitlabDeployAppDevInterested;
+          }
+          {
             output = "/integrates/back/deploy/dev";
             gitlabExtra =
               gitlabDeployAppDevInterested
