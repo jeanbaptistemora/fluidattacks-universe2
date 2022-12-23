@@ -1,3 +1,9 @@
+from concurrent.futures.process import (
+    ProcessPoolExecutor,
+)
+from contextlib import (
+    ExitStack,
+)
 from ctx import (
     CTX,
 )
@@ -73,6 +79,7 @@ from model import (
 from model.core_model import (
     Vulnerability,
 )
+import os
 import reactivex
 from reactivex import (
     operators as ops,
@@ -87,8 +94,8 @@ from state.ephemeral import (
     EphemeralStore,
 )
 from typing import (
-    Any,
     Dict,
+    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -171,9 +178,11 @@ def _handle_exception(
     return reactivex.of(None)
 
 
-def _add(message: str, value: Any) -> Any:
-    print(message)
-    return value
+def _get_graph_db(
+    paths: Tuple[str, ...], total_files: int, index: int
+) -> graph_model.GraphDB:
+    log_blocking("info", "Processing shard %s/%s", index, total_files)
+    return get_graph_db(paths)
 
 
 def analyze(
@@ -187,46 +196,38 @@ def analyze(
         if finding in CTX.config.checks
     )
     total_paths = len(paths.ok_paths)
+    context_stack = ExitStack()
+    context_stack_1 = ExitStack()
+    executor = context_stack.enter_context(
+        ProcessPoolExecutor(max_workers=os.cpu_count())
+    )
+    executor_1 = context_stack_1.enter_context(
+        ProcessPoolExecutor(max_workers=os.cpu_count())
+    )
     reactivex.from_iterable(paths.ok_paths).pipe(
         ops.map(lambda path: (path,)),  # type: ignore
         ops.flat_map_indexed(
-            lambda paths, index: reactivex.of(  # type: ignore
-                (paths, index)
+            lambda paths, index: reactivex.from_future(  # type: ignore
+                executor.submit(  # type: ignore
+                    _get_graph_db,
+                    paths,
+                    total_paths,
+                    index,
+                )
             ).pipe(
-                ops.map(  # type: ignore
-                    lambda item: (
-                        get_graph_db(
-                            item[0],  # type: ignore
-                        ),
-                        item[1],  # type: ignore
-                    )
-                ),
                 ops.catch(_handle_exception),  # type: ignore
             )
         ),
-        ops.filter(lambda x: x[0] is not None),  # type: ignore
+        ops.filter(lambda x: x is not None),  # type: ignore
         ops.flat_map(
             lambda graph: reactivex.from_iterable(  # type: ignore
-                ((query, *graph) for _, query in queries)
+                ((query, graph) for _, query in queries)
             )
         ),
         ops.flat_map(
-            lambda item: reactivex.of(item).pipe(  # type: ignore
-                ops.map(  # type: ignore
-                    lambda item: (
-                        item[0](None, item[1]),  # type: ignore
-                        item[2],  # type: ignore
-                    )
-                ),
-                ops.map(  # type: ignore
-                    lambda item: _add(
-                        (
-                            f"Path {item[1]}"  # type: ignore
-                            f"/{total_paths} processed"
-                        ),
-                        item[0],  # type: ignore
-                    )
-                ),
+            lambda item: reactivex.from_future(  # type: ignore
+                executor_1.submit(item[0], None, item[1])  # type: ignore
+            ).pipe(
                 ops.catch(_handle_exception),  # type: ignore
             )
         ),
@@ -240,3 +241,5 @@ def analyze(
         on_next=partial(_handle_result, stores),
         on_error=lambda e: log_blocking("exception", e),
     )
+    context_stack.close()
+    context_stack_1.close()
