@@ -627,7 +627,7 @@ of key and value.
 Additionally,
 you can include a short description.
 
-![Add Secrets](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801757/docs/web/groups/scope/compose_secret.png)
+![Add Secrets](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801635/docs/web/groups/scope/add_secret.png)
 
 When you click Confirm,
 the secret is made accessible
