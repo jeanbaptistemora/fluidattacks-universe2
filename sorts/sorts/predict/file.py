@@ -18,7 +18,6 @@ from sorts.features.file import (
 )
 from sorts.integrates.dal import (
     get_toe_lines_sorts,
-    RateLimitedWorker,
     update_toe_lines_sorts,
 )
 from sorts.utils.logs import (
@@ -65,6 +64,23 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
     return files_df
 
 
+def remove_toe_lines(
+    toe_lines: ToeLines, toe_lines_list: List[ToeLines]
+) -> None:
+    try:
+        toe_lines_list.remove(toe_lines)
+    except ValueError as exc:
+        log_exception(
+            "warning",
+            exc,
+            message=(
+                "Couldn't remove file "
+                f"{toe_lines.root_nickname}/{toe_lines.filename} "
+                "from skipped ToEs"
+            ),
+        )
+
+
 def get_toes_to_update(
     group_toe_lines: List[ToeLines], predicted_files: csv.DictReader
 ) -> Tuple[List[ToeLines], List[ToeLines]]:
@@ -90,21 +106,14 @@ def get_toes_to_update(
                         loc=toe_lines.loc,
                         root_nickname=predicted_nickname,
                         sorts_risk_level=predicted_file_prob,  # type: ignore
+                        sorts_risk_level_date=toe_lines.sorts_risk_level_date,
                     )
                 )
-                try:
-                    skipped_toes.remove(toe_lines)
-                except ValueError as exc:
-                    log_exception(
-                        "warning",
-                        exc,
-                        message=(
-                            "Couldn't remove file "
-                            f"{toe_lines.root_nickname}/{toe_lines.filename} "
-                            "from skipped ToEs"
-                        ),
-                    )
+                remove_toe_lines(toe_lines, skipped_toes)
                 break
+    for toe_lines in skipped_toes:
+        if toe_lines.sorts_risk_level_date == "1970-01-01T00:00:00+00:00":
+            remove_toe_lines(toe_lines, skipped_toes)
 
     return toes_to_update, skipped_toes
 
@@ -120,7 +129,6 @@ def update_integrates_toes(
         toes_to_update, skipped_toes = get_toes_to_update(
             group_toe_lines, reader
         )
-        skipped_toes_worker = RateLimitedWorker()
         with ThreadPoolExecutor(max_workers=8) as executor:
             for skipped_toe in skipped_toes:
                 executor.submit(
@@ -129,9 +137,7 @@ def update_integrates_toes(
                     skipped_toe.root_nickname,
                     skipped_toe.filename,
                     "1970-01-01",
-                    skipped_toes_worker,
                 )
-        toes_to_update_worker = RateLimitedWorker()
         with ThreadPoolExecutor(max_workers=8) as executor:
             for toe_lines in toes_to_update:
                 executor.submit(
@@ -140,7 +146,6 @@ def update_integrates_toes(
                     toe_lines.root_nickname,
                     toe_lines.filename,
                     current_date,
-                    toes_to_update_worker,
                     toe_lines.sorts_risk_level,  # type: ignore
                 )
         log("info", f"ToeLines's sortsFileRisk for {group_name} updated")

@@ -38,6 +38,9 @@ def retry_on_errors(func: Callable) -> Callable:
     def decorated(*args: Any, **kwargs: Any) -> Any:
         for _ in range(10):
             try:
+                # 8 workers with a sleep time of 2.7 secs as a good balance
+                # of speed and avoiding exceeding the API rate limit
+                time.sleep(2.7)
                 return func(*args, **kwargs)
             except (
                 ConnectionError,
@@ -53,58 +56,6 @@ def retry_on_errors(func: Callable) -> Callable:
         return func(*args, **kwargs)
 
     return decorated
-
-
-class RateLimitedWorker:  # pylint: disable=too-few-public-methods
-    """
-    Class to execute requests without exceeding rate limit.
-    """
-
-    def __init__(self) -> None:
-        self.last_request_time = time.time()
-        self.num_requests = 0
-
-    @retry_on_errors
-    def execute(
-        self,
-        query: str,
-        operation: str,
-        variables: Dict[str, Any],
-    ) -> Dict[str, Any]:
-        """Sends query to the backend"""
-
-        def wait(wait_time: float) -> None:
-            time.sleep(wait_time + 5)
-
-        current_request_time = time.time()
-
-        if (current_request_time - self.last_request_time) >= 65:
-            self.last_request_time = current_request_time
-            self.num_requests = 0
-
-        self.num_requests += 1
-        if self.num_requests > 150:
-            wait(60 - (current_request_time - self.last_request_time))
-
-        response: Dict[str, Any] = {}
-        with graphql_client() as client:
-            try:
-                response = client.execute(
-                    document=gql(query),
-                    variable_values=variables,
-                    operation_name=operation,
-                )
-            except (
-                ConnectionError,
-                ReadTimeout,
-                TransportQueryError,
-                TransportServerError,
-            ) as exc:
-                log_exception("error", exc)
-                log("debug", "query %s: %s", operation, query)
-                log("debug", "variables: %s", variables)
-                raise exc
-        return response
 
 
 @retry_on_errors
@@ -245,6 +196,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                                     nickname
                                 }
                                 sortsRiskLevel
+                                sortsRiskLevelDate
                             }
                         }
                         pageInfo {
@@ -276,6 +228,9 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                         sorts_risk_level=edge["node"].get(
                             "sortsRiskLevel", ""
                         ),
+                        sorts_risk_level_date=edge["node"].get(
+                            "sortsRiskLevelDate", ""
+                        ),
                     )
                     for edge in toe_lines_edges
                 ]
@@ -295,6 +250,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                                         nickname
                                     }
                                     sortsRiskLevel
+                                    sortsRiskLevelDate
                                 }
                             }
                             pageInfo {
@@ -313,15 +269,14 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
     return group_toe_lines
 
 
-def update_toe_lines_sorts(  # pylint: disable=too-many-arguments
+def update_toe_lines_sorts(
     group_name: str,
     root_nickname: str,
     filename: str,
     risk_level_date: str,
-    rate_limited_worker: RateLimitedWorker,
     risk_level: Optional[int] = None,
 ) -> bool:
-    result = rate_limited_worker.execute(
+    result = _execute(
         query="""
             mutation SortsUpdateToeLinesSorts(
                 $group_name: String!,

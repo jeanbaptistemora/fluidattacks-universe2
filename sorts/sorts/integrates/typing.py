@@ -25,3 +25,4 @@ class ToeLines(NamedTuple):  # pylint: disable=too-few-public-methods
     loc: int
     root_nickname: str
     sorts_risk_level: str
+    sorts_risk_level_date: str
