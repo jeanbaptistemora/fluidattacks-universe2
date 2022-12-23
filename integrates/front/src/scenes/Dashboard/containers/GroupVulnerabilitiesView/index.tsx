@@ -94,7 +94,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     GET_GROUP_VULNERABILITIES,
     {
       fetchPolicy: "cache-first",
-      variables: { first: 100, groupName, search: "" },
+      variables: { first: 150, groupName, search: "" },
     }
   );
 

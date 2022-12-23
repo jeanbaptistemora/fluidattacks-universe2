@@ -264,7 +264,7 @@ describe("GroupVulnerabilitiesView", (): void => {
       request: {
         query: GET_GROUP_VULNERABILITIES,
         variables: {
-          first: 100,
+          first: 150,
           groupName: "unittesting",
           search: "",
         },

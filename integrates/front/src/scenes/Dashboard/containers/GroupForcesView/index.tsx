@@ -185,7 +185,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       fetchPolicy: "cache-first",
       onError: handleQryErrors,
-      variables: { first: 100, groupName, search: "" },
+      variables: { first: 150, groupName, search: "" },
     }
   );
   const size = data?.group.executionsConnections.total;

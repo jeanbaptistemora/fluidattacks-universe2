@@ -27,7 +27,7 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
-          first: 100,
+          first: 150,
           groupName: "unittesting",
           search: "",
         },
@@ -125,7 +125,7 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
-          first: 100,
+          first: 150,
           groupName: "unittesting",
           search: "",
         },
