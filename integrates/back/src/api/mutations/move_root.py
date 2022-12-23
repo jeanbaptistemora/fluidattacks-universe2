@@ -89,6 +89,7 @@ async def mutate(
     if isinstance(root, GitRoot):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,
+            attempt_duration_seconds=7200,
             entity=group_name,
             subject=email,
             additional_info=root.state.nickname,

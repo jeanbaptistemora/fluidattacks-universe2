@@ -149,6 +149,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         if isinstance(root, GitRoot):
             refresh_toe = await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,
+                attempt_duration_seconds=7200,
                 entity=group_name,
                 subject=email,
                 additional_info=root.state.nickname,

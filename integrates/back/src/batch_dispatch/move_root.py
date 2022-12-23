@@ -709,6 +709,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         )
         await put_action(
             action=Action.REFRESH_TOE_LINES,
+            attempt_duration_seconds=7200,
             entity=target_group_name,
             subject=item.subject,
             additional_info=target_root.state.nickname,

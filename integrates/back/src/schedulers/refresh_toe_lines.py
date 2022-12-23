@@ -28,6 +28,7 @@ async def main() -> None:
         put_action(
             action=Action.REFRESH_TOE_LINES,
             additional_info="*",
+            attempt_duration_seconds=7200,
             entity=group_name,
             product_name=Product.INTEGRATES,
             subject="integrates@fluidattacks.com",

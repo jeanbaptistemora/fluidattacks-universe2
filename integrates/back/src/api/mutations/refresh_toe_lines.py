@@ -69,6 +69,7 @@ async def mutate(
         if current_job_payload is None:
             await batch_dal.put_action(
                 action=action,
+                attempt_duration_seconds=7200,
                 entity=group_name,
                 subject=user_info["user_email"],
                 additional_info="*",

@@ -471,6 +471,7 @@ async def queue_sync_git_roots(
             result_refresh = await put_action(
                 action=Action.REFRESH_TOE_LINES,
                 additional_info="*",
+                attempt_duration_seconds=7200,
                 entity=group_name,
                 product_name=Product.INTEGRATES,
                 subject="integrates@fluidattacks.com",
