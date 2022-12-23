@@ -28,4 +28,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     value_id = adj_ast(args.ast_graph, args.n_id)[-1]
 
+    if args.ast_graph.nodes[value_id]["label_type"] == "variable_declaration":
+        value_id = None
+
     return build_variable_declaration_node(args, var_name, var_type, value_id)
