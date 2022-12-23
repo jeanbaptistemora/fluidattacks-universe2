@@ -337,7 +337,4 @@ def query_f320(
     return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F320)
 
 
-QUERIES: graph_model.Queries = (
-    (core_model.FindingEnum.F021, query_f021),
-    (core_model.FindingEnum.F127, query_f127),
-)
+QUERIES: graph_model.Queries = ((core_model.FindingEnum.F127, query_f127),)

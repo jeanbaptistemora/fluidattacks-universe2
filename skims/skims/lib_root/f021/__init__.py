@@ -2,6 +2,9 @@ from lib_root.f021.c_sharp import (
     xpath_injection as c_sharp_path_injection,
     xpath_injection_evaluate,
 )
+from lib_root.f021.java import (
+    unsafe_xpath_injeciton,
+)
 from lib_root.f021.javascript import (
     javascript_dynamic_xpath,
 )
@@ -19,4 +22,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, xpath_injection_evaluate),
     (FINDING, javascript_dynamic_xpath),
     (FINDING, ts_dynamic_xpath),
+    (FINDING, unsafe_xpath_injeciton),
 )

@@ -64,7 +64,7 @@ def unsafe_xpath_injeciton(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f008.insec_addheader_write.description",
+        desc_key="src.lib_path.f021.xpath_injection_evaluate",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.JAVA_XPATH_INJECTION_EVALUATE,
