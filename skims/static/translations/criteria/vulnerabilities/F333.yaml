@@ -7,6 +7,9 @@ lib_path.f333.tfm_ec2_allows_shutdown_command:
 lib_path.f333.has_unused_ec2_key_pairs:
   en: Unused Amazon EC2 key pairs
   es: Amazon Key pair no usada
+lib_path.f333.has_publicly_shared_amis:
+  en: EC2 has publicly shared amis
+  es: EC2 tiene amis publicamentente compartidas
 lib_path.f333.cfn_ec2_allows_shutdown_command:
   en: Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing
     or misconfigured
