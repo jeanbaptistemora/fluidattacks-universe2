@@ -21,7 +21,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         ("client", "arm"),
         ("factories", "mailmap"),
         "objs",
-        ("_logger", "_patch", "_utils", "str_utils", "time_utils"),
+        ("_logger", "_patch", "_utils", "str_utils", "time_utils", "parallel"),
     ),
     "code_etl.compute_bills": (
         "_keeper",
