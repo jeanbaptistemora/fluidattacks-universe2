@@ -64,18 +64,6 @@ locals {
 
   }
   environments = {
-    small = merge(
-      local.machine_sizes.small,
-      local.config.common
-    )
-    medium = merge(
-      local.machine_sizes.medium,
-      local.config.common
-    )
-    large = merge(
-      local.machine_sizes.large,
-      local.config.common
-    )
     clone = merge(
       local.machine_sizes.small,
       local.config.common,

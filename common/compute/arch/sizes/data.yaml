@@ -1,20 +1,8 @@
 ---
-nano:
-  cpu: 1
-  memory: 1900
-  queue: small
-small:
+clone:
   cpu: 2
   memory: 3800
-  queue: small
-medium:
-  cpu: 4
-  memory: 7600
-  queue: medium
-large:
-  cpu: 8
-  memory: 15200
-  queue: large
+  queue: clone
 common_nano:
   cpu: 1
   memory: 1900
