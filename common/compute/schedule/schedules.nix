@@ -949,35 +949,6 @@
       "management:type" = "product";
     };
   };
-  integrates_temporal_treatment_report = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/utils/scheduler"
-      "prod"
-      "schedulers.temporal_treatment_report.main"
-    ];
-
-    schedule_expression = "cron(0 15 ? * * *)";
-    size = "integrates_nano";
-    awsRole = "prod_integrates";
-    attempts = 3;
-    timeout = 86400;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "integrates_temporal_treatment_report";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_update_compliance = {
     enabled = true;
     command = [
