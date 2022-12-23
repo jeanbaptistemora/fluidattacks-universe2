@@ -1,3 +1,6 @@
+from lib_root.utilities.javascript import (
+    file_imports_module,
+)
 from model.core_model import (
     MethodsEnum,
 )
@@ -42,34 +45,11 @@ def has_create_pool(graph: Graph) -> bool:
     return False
 
 
-def require_sql_library(graph: Graph) -> bool:
-    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
-        m_name = graph.nodes[n_id]["expression"]
-        if (
-            m_name == "require"
-            and (al_id := graph.nodes[n_id].get("arguments_id"))
-            and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-            and (import_module := graph.nodes[arg_id].get("value"))
-            and import_module[1:-1] == "mysql"
-        ):
-            return True
-    return False
-
-
-def import_sql_library(graph: Graph) -> bool:
-    for n_id in g.matching_nodes(graph, label_type="Import"):
-        if (
-            import_module := graph.nodes[n_id].get("expression")
-        ) and import_module[1:-1] == "mysql":
-            return True
-    return False
-
-
 def sql_injection(graph: Graph, method: MethodsEnum) -> List[NId]:
     vuln_nodes: List[NId] = []
     danger_set = {"userconnection"}
 
-    if not (import_sql_library(graph) or require_sql_library(graph)):
+    if not file_imports_module(graph, "mysql"):
         return vuln_nodes
 
     if has_create_pool(graph):
