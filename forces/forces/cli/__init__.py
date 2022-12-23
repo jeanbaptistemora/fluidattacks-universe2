@@ -111,9 +111,9 @@ def show_banner() -> None:
     "--breaking",
     required=False,
     default=None,
-    help="""Minimum CVSS score of an open vulnerability to return an error in
-    strict mode. This overrides the global minimum breaking severity set in
-    ASM""",
+    help="""Minimum CVSS score of a still vulnerable area to break the
+    build in strict mode. This setting overrides the global minimum breaking
+    severity set by your organization in ARM""",
     type=click.FloatRange(min=0.0, max=10.0),
 )  # pylint: disable=too-many-arguments
 def main(

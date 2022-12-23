@@ -227,17 +227,12 @@ async def upload_report(  # pylint: disable=too-many-arguments
     """
     Upload report execution to Integrates.
 
-    :param group: Subscription name.
-    :param execution_id: ID of forces execution.
-    :param exit_code: Exit code.
-    :param report: Forces execution report.
-    :param log: Forces execution log.
-    :param strictness: Strictness execution.
-    :param severity_threshold: CVSS score threshold for failure in strict mode
-    :param grace_period: Period in days where new open vulns are given a free
-    pass in strict mode
-    :param git_metadata: Repository metadata.
-    :param date: Forces execution date.
+    :param `config`: Current Forces config
+    :param `execution_id`: ID of forces execution.
+    :param `git_metadata`: Repository metadata.
+    :param `log`: Forces execution log.
+    :param `report`: Forces execution report.
+    :param `exit_code`: Exit code.
     """
     query = """
         mutation ForcesDoUploadReport(
@@ -282,8 +277,8 @@ async def upload_report(  # pylint: disable=too-many-arguments
             }
         }
     """
-    open_vulns: list[dict[str, float | str]] = []
-    closed_vulns: list[dict[str, float | str]] = []
+    vulnerable_vulns: list[dict[str, float | str]] = []
+    safe_vulns: list[dict[str, float | str]] = []
     accepted_vulns: list[dict[str, float | str]] = []
     for vuln in [
         vuln for find in report.findings for vuln in find.vulnerabilities
@@ -298,9 +293,9 @@ async def upload_report(  # pylint: disable=too-many-arguments
             "exploitability": vuln.exploitability,
         }
         if vuln.state == VulnerabilityState.VULNERABLE:
-            open_vulns.append(vuln_state)
+            vulnerable_vulns.append(vuln_state)
         elif vuln.state == VulnerabilityState.SAFE:
-            closed_vulns.append(vuln_state)
+            safe_vulns.append(vuln_state)
         elif vuln.state == VulnerabilityState.ACCEPTED:
             accepted_vulns.append(vuln_state)
 
@@ -314,9 +309,9 @@ async def upload_report(  # pylint: disable=too-many-arguments
             "git_commit": git_metadata["git_commit"],
             "git_origin": git_metadata["git_origin"],
             "git_repo": git_metadata["git_repo"],
-            "open": open_vulns,
+            "open": vulnerable_vulns,
             "accepted": accepted_vulns,
-            "closed": closed_vulns,
+            "closed": safe_vulns,
             "log": forces_log,
             "strictness": "strict" if config.strict else "lax",
             "grace_period": config.grace_period,

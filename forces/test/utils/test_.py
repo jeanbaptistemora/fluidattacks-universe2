@@ -61,7 +61,7 @@ async def test_set_exit_code() -> None:
     test_finding = Finding(
         identifier="dummy identifier",
         title="dummy title",
-        state=FindingState.OPEN,
+        state=FindingState.VULNERABLE,
         exploitability=5.0,
         severity=Decimal("5.1"),
         url="https://dummy-url.com",

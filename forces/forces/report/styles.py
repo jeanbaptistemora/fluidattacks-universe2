@@ -10,8 +10,8 @@ def style_report(key: str, value: str) -> str:
     style_data = {
         "title": "[yellow]",
         "state": {
-            FindingState.OPEN: "[red]",
-            FindingState.CLOSED: "[green]",
+            FindingState.VULNERABLE: "[red]",
+            FindingState.SAFE: "[green]",
             VulnerabilityState.VULNERABLE: "[red]",
             VulnerabilityState.SAFE: "[green]",
         },

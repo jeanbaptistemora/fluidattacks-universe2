@@ -87,8 +87,8 @@ def test_style_summary() -> None:
 def test_style_report() -> None:
     assert style_report("tittle", "some_value") == "some_value"
     assert style_report("title", "some_value") == "[yellow]some_value[/]"
-    assert style_report("state", "open") == "[red]open[/]"
-    assert style_report("state", "openn") == "openn"
+    assert style_report("state", "vulnerable") == "[red]vulnerable[/]"
+    assert style_report("state", "vulnerablee") == "vulnerablee"
 
 
 def test_filter_repo() -> None:

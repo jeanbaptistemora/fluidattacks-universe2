@@ -53,7 +53,7 @@ async def set_forces_exit_code(
         await log(
             "info",
             (
-                "Checking for [red]open[/] vulnerabilities with a "
+                "Checking for [red]vulnerable[/] areas with a "
                 "[bright_yellow]severity[/] score over "
                 f"{config.breaking_severity}"
             ),
@@ -73,9 +73,10 @@ async def set_forces_exit_code(
                     await log(
                         "warning",
                         (
-                            f"In finding {finding.title}: Found an open "
-                            f"vulnerability with a severity of {vuln.severity}"
-                            f" reported {abs(time_diff.days)} day(s) ago"
+                            f"In finding {finding.title}: Found a "
+                            "vulnerability with a severity of "
+                            f"{vuln.severity} reported {abs(time_diff.days)} "
+                            "day(s) ago"
                         ),
                     )
                     return 1
@@ -84,7 +85,7 @@ async def set_forces_exit_code(
         await log(
             "info",
             (
-                "[green]No open vulnerabilities with a severity above this"
+                "[green]No vulnerable areas with a severity above this"
                 " threshold and outside the set grace period were found[/]"
             ),
         )

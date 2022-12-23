@@ -78,7 +78,7 @@ def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
             f"Elapsed time: {summary.elapsed_time}"
         ),
     )
-    # open, closed and/or accepted
+    # vulnerable, safe and accepted
     summary_table.add_column("Vuln state", style="cyan")
     if kind == KindEnum.ALL:
         # DAST, SAST and total vulns

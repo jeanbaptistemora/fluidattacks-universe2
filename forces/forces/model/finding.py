@@ -13,8 +13,8 @@ from typing import (
 
 
 class FindingState(str, Enum):
-    OPEN: str = "open"
-    CLOSED: str = "closed"
+    VULNERABLE: str = "vulnerable"
+    SAFE: str = "safe"
 
 
 class Finding(NamedTuple):

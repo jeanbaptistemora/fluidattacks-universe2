@@ -28,10 +28,13 @@ async def create_findings_dict(
         find: dict[str, Any] = await _find
         severity: dict[str, Any] = find.pop("severity", {})
         find["exploitability"] = severity.get("exploitability", 0)
+
         findings_dict[find["id"]] = Finding(
             identifier=str(find["id"]),
             title=str(find["title"]),
-            state=FindingState[str(find["state"]).upper()],
+            state=FindingState[
+                translate_vuln_state(str(find["state"])).upper()
+            ],
             exploitability=float(find["exploitability"]),
             severity=Decimal(str(find["severityScore"])),
             url=(
