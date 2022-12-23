@@ -93,6 +93,28 @@ def validate_fields(fields: Iterable[str]) -> None:
             check_field(field, regex)
 
 
+def validate_fields_deco(fields: Iterable[str]) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            allowed_chars = (
+                r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@&_$#=!"
+                r"\,\.\*\-\?\"\[\]\|\(\)\/\{\}\>\+"
+            )
+            regex = rf'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
+
+            for key, value in kwargs.items():
+                if key in fields:
+                    check_field(str(value), regex)
+
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_url(url: Optional[str]) -> None:
     clean_url: str = url if url is not None else ""
     encoded_chars_whitelist: List[str] = ["%20"]

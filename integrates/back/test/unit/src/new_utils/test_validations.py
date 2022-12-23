@@ -18,6 +18,7 @@ from newutils.validations import (
     validate_field_length,
     validate_field_length_deco,
     validate_fields,
+    validate_fields_deco,
     validate_file_exists,
     validate_file_name,
     validate_group_name,
@@ -53,12 +54,8 @@ def test_validate_email_address_deco() -> None:
     assert decorated_func(email="test@unittesting.com")
     with pytest.raises(InvalidField):
 
-        @validate_email_address_deco("email")
-        def decorated_func_fail(email: str) -> str:
-            return email
-
-        decorated_func_fail(email="testunittesting.com")
-        decorated_func_fail(email="test+1@unittesting.com")
+        decorated_func(email="testunittesting.com")
+        decorated_func(email="test+1@unittesting.com")
 
 
 def test_validate_field_length() -> None:
@@ -110,6 +107,20 @@ def test_validate_fields(fields: list) -> None:
     )
     with pytest.raises(InvalidChar):
         assert validate_fields(fields)  # type: ignore
+
+
+def test_validate_fields_deco() -> None:
+    @validate_fields_deco(["field1", "field2"])
+    def decorated_func(field1: str, field2: str) -> str:
+        return field1 + field2
+
+    assert decorated_func(field1="valid%", field2=" valid=")
+    assert decorated_func(field1="testfield", field2="testfield2")
+    with pytest.raises(InvalidChar):
+        decorated_func(field1="valid", field2=" =invalid")
+        decorated_func(field1="=testfield", field2="testfield2")
+        decorated_func(field1="testfield", field2="testfiel`d")
+        decorated_func(field1="testfield", field2="<testfield2")
 
 
 def test_validate_file_exists() -> None:
