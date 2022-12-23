@@ -339,6 +339,11 @@ export const enTranslations: ResourceKey = {
     },
     languages: {
       checkLanguages: "Please check the supported languages for ",
+      contactSales: {
+        description:
+          "We'd love to chat with you. Please complete the following fields:",
+        title: "Contact sales to get\nSquad Plan",
+      },
       machineLanguages: {
         button: "Continue free trial registration",
         buttonSquadLanguages: "Don't see the language you're looking for? ",

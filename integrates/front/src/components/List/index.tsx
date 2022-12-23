@@ -5,14 +5,12 @@ import type { IListBoxProps, IListItemProps } from "./styles";
 import { ListBox, ListItem } from "./styles";
 
 interface IListProps<T = any> extends IListBoxProps, IListItemProps {
-  getKey: (el: T) => React.Key;
   items: T[];
   render: (el: T) => JSX.Element;
 }
 
 const List: React.FC<IListProps> = ({
   columns = 1,
-  getKey,
   items,
   justify = "center",
   render,
@@ -20,7 +18,7 @@ const List: React.FC<IListProps> = ({
   <ListBox columns={Math.max(columns, 1)}>
     {items.map(
       (el: any): JSX.Element => (
-        <ListItem justify={justify} key={getKey(el)}>
+        <ListItem justify={justify} key={el}>
           {render(el)}
         </ListItem>
       )
