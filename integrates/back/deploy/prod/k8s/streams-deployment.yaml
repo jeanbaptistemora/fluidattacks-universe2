@@ -25,7 +25,7 @@ spec:
         worker_group: prod_integrates
       containers:
         - name: streams
-          image: ghcr.io/fluidattacks/makes:22.11
+          image: ghcr.io/fluidattacks/makes:22.11@sha256:07e6dac6271fb1ec5854f9c8b6dea48c3e7739f09c077618deeaf65691fa08f2
           imagePullPolicy: Always
           command: [sh]
           args:
