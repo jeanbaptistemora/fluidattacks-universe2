@@ -125,8 +125,10 @@ The information you have to fill in is as follows:
   To have access to the repository,
   we have to have access to
   the credentials,
-  which are two types:
-  HTTPS and SSH.
+  which are three types:
+  HTTPS,
+  Azure DevOps PTA and
+  SSH.
   Here,
   you select which type of
   credential you want to add.
