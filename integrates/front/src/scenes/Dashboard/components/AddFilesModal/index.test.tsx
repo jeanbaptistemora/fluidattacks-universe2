@@ -112,8 +112,9 @@ describe("Add Files modal", (): void => {
     expect.hasAssertions();
 
     const handleSubmit: jest.Mock = jest.fn();
-    const file = new File(["okada-test.txt"], "okada-test.txt", {
-      type: "text/plain",
+
+    const file = new File(["okada-test.zip"], "okada-test.zip", {
+      type: "application/zip",
     });
 
     render(
@@ -135,6 +136,6 @@ describe("Add Files modal", (): void => {
     });
 
     expect(screen.getByText("test description")).toBeInTheDocument();
-    expect(screen.getByText("okada-test.txt")).toBeInTheDocument();
+    expect(screen.getByText("okada-test.zip")).toBeInTheDocument();
   });
 });

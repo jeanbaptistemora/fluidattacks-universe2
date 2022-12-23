@@ -76,7 +76,7 @@ describe("numberInput", (): void => {
     expect.hasAssertions();
 
     const onEnterCallback: jest.Mock = jest.fn();
-    render(
+    const { container } = render(
       <NumberInput
         autoUpdate={true}
         decimalPlaces={1}
@@ -87,25 +87,17 @@ describe("numberInput", (): void => {
       />
     );
 
-    await userEvent.click(
-      screen.getByText((_, element): boolean => {
-        return (
-          element?.tagName.toLowerCase() === "svg" &&
-          element.getAttribute("data-icon") === "minus"
-        );
-      })
-    );
+    const minusEl = container.querySelector(
+      "[data-icon='minus']"
+    ) as HTMLImageElement;
+    await userEvent.click(minusEl);
 
     expect(onEnterCallback).toHaveBeenCalledWith(1.9);
 
-    await userEvent.click(
-      screen.getByText((_, element): boolean => {
-        return (
-          element?.tagName.toLowerCase() === "svg" &&
-          element.getAttribute("data-icon") === "plus"
-        );
-      })
-    );
+    const plusEl = container.querySelector(
+      "[data-icon='plus']"
+    ) as HTMLImageElement;
+    await userEvent.click(plusEl);
 
     expect(onEnterCallback).toHaveBeenCalledWith(2.0);
   });
