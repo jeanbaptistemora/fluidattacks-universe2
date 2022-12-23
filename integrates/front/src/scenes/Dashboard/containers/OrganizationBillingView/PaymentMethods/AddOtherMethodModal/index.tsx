@@ -12,6 +12,7 @@ import { Text } from "components/Text";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
 import { FormikFileInput } from "utils/forms/fields";
+import { validEmail } from "utils/validations";
 
 interface IAddOtherMethodModalProps {
   onClose: () => void;
@@ -224,6 +225,7 @@ export const AddOtherMethodModal = ({
                       name={"email"}
                       required={true}
                       type={"email"}
+                      validate={validEmail}
                     />
                     <div>
                       <Text mb={1}>

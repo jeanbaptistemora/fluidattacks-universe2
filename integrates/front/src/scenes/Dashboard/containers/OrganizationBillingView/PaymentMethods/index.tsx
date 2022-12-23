@@ -273,21 +273,24 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         },
       }
     );
-    const handleRemovePaymentMethod: () => void = useCallback((): void => {
+    const handleRemoveCreditCardPaymentMethod: () => void =
+      useCallback((): void => {
+        void removePaymentMethod({
+          variables: {
+            organizationId,
+            paymentMethodId: currentCreditCardRow[0]?.id,
+          },
+        });
+      }, [organizationId, currentCreditCardRow, removePaymentMethod]);
+
+    const handleRemoveOtherPaymentMethod: () => void = useCallback((): void => {
       void removePaymentMethod({
         variables: {
           organizationId,
-          paymentMethodId: currentCreditCardRow[0].id
-            ? currentCreditCardRow[0].id
-            : currentOtherMethodRow[0].id,
+          paymentMethodId: currentOtherMethodRow[0]?.id,
         },
       });
-    }, [
-      organizationId,
-      currentCreditCardRow,
-      currentOtherMethodRow,
-      removePaymentMethod,
-    ]);
+    }, [organizationId, currentOtherMethodRow, removePaymentMethod]);
 
     // Update payment method
     const canUpdate: boolean = permissions.can(
@@ -517,7 +520,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     _.isEmpty(currentCreditCardRow) || removing || updating
                   }
                   id={"removeCreditCard"}
-                  onClick={handleRemovePaymentMethod}
+                  onClick={handleRemoveCreditCardPaymentMethod}
                   variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
@@ -573,7 +576,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     _.isEmpty(currentOtherMethodRow) || removing || updating
                   }
                   id={"removeOtherMethod"}
-                  onClick={handleRemovePaymentMethod}
+                  onClick={handleRemoveOtherPaymentMethod}
                   variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
