@@ -23,7 +23,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group1",
                 "key": "75d0d7e2f4d87093f1084535790ef9d4923e474cd2f431cda3f6b4"
                 "c34e385a10",
-                "queue": "small",
+                "queue": "skims_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646769443",
             },
@@ -35,7 +35,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group2",
                 "key": "636f2162bd48342422e681f29305bbaecb38dd486803fbb1571124"
                 "e34d145b3e",
-                "queue": "small",
+                "queue": "skims_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646769443",
             },
@@ -47,7 +47,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group3",
                 "key": "e5141ac7e052edf0080bc7e0b6032591e79ef2628928d5fb9435bc"
                 "76e648e8a7",
-                "queue": "small",
+                "queue": "skims_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646773865",
             },
@@ -58,7 +58,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group4",
                 "key": "5836c88c53849c19f01868e4c42f491444a14f019362ab9093714d"
                 "942e115bc9",
-                "queue": "small",
+                "queue": "integrates_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646773865",
             },
@@ -69,7 +69,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group5",
                 "key": "d594e2851fe5d537742959291fbff448758dfab9b8bee35047f000"
                 "c6e1fc0402",
-                "queue": "small",
+                "queue": "integrates_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646773865",
             },
@@ -80,7 +80,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "entity": "group6",
                 "key": "0d9c88b99f14107958d5a4e68af1c8bf8c30222ad639c0187ff734"
                 "383bd22641",
-                "queue": "small",
+                "queue": "integrates_small",
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646773865",
             },

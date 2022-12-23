@@ -90,9 +90,6 @@ class SkimsBatchQueue(Enum):
     SMALL: str = "skims_small"
     MEDIUM: str = "skims_medium"
     LARGE: str = "skims_large"
-    LEGACY_SMALL: str = "small"
-    LEGACY_MEDIUM: str = "medium"
-    LEGACY_LARGE: str = "large"
     CLONE: str = "clone"
 
 
@@ -100,9 +97,6 @@ class IntegratesBatchQueue(Enum):
     SMALL = "integrates_small"
     MEDIUM = "integrates_medium"
     LARGE = "integrates_large"
-    LEGACY_SMALL = "small"
-    LEGACY_MEDIUM = "medium"
-    LEGACY_LARGE = "large"
     CLONE = "clone"
 
 
