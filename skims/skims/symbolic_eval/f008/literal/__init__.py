@@ -15,6 +15,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_UNSAFE_XSS_CONTENT: unsafe_xss_content,
+    MethodsEnum.TS_UNSAFE_XSS_CONTENT: unsafe_xss_content,
 }
 
 

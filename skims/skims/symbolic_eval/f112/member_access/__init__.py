@@ -15,6 +15,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_SQL_API_INJECTION: unsafe_sql_injection,
+    MethodsEnum.TS_SQL_API_INJECTION: unsafe_sql_injection,
 }
 
 

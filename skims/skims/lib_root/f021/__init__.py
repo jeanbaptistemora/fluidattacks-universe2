@@ -5,6 +5,9 @@ from lib_root.f021.c_sharp import (
 from lib_root.f021.javascript import (
     javascript_dynamic_xpath,
 )
+from lib_root.f021.typescript import (
+    ts_dynamic_xpath,
+)
 from model import (
     core_model,
     graph_model,
@@ -15,4 +18,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_path_injection),
     (FINDING, xpath_injection_evaluate),
     (FINDING, javascript_dynamic_xpath),
+    (FINDING, ts_dynamic_xpath),
 )

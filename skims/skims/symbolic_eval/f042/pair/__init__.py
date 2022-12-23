@@ -15,6 +15,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSEC_COOKIES: js_insecure_cookie,
+    MethodsEnum.TS_INSEC_COOKIES: js_insecure_cookie,
 }
 
 

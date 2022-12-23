@@ -21,7 +21,7 @@ from typing import (
 )
 
 
-def javascript_dynamic_xpath(
+def ts_dynamic_xpath(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:

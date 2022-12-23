@@ -7,6 +7,9 @@ from lib_root.f008.java import (
 from lib_root.f008.javascript import (
     unsafe_xss_content as js_unsafe_xss_content,
 )
+from lib_root.f008.typescript import (
+    unsafe_xss_content as ts_unsafe_xss_content,
+)
 from model import (
     core_model,
     graph_model,
@@ -17,4 +20,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_insec_addheader_write),
     (FINDING, java_unsafe_xss_content),
     (FINDING, js_unsafe_xss_content),
+    (FINDING, ts_unsafe_xss_content),
 )
