@@ -2,6 +2,9 @@
 """
 Remove evidences in S3 that belong to deleted groups, not currently
 present in db.
+
+Execution Time:    2022-12-23 at 17:06:18 UTC
+Finalization Time: 2022-12-23 at 17:10:57 UTC
 """
 from aioextensions import (
     collect,
@@ -113,7 +116,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(s3_group_names_to_clean)
         ),
-        workers=4,
+        workers=1,
     )
 
 
