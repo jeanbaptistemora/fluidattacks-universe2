@@ -5922,6 +5922,28 @@ F042,lines,namespace/skims/test/data/lib_root/f042/c_sharp_insecure_cookies.cs,2
   35 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
+F021,lines,namespace/skims/test/data/lib_root/f021/java_xpath_injection.java,15,643,skims,021. XPath injection,Dynamic XPath statements are generated without the required data validation. in namespace/skims/test/data/lib_root/f021/java_xpath_injection.java,"
+   1 | import java.io.IOException;
+   2 | import javax.servlet.http.HttpServletRequest;
+   3 |
+   4 | public class test21 extends HttpServlet {
+   5 |
+   6 |   public void runUnsafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   7 |
+   8 |     String param = request.getHeader(""someheader"");
+   9 |     javax.xml.parsers.DocumentBuilder builder = builderFactory.newDocumentBuilder();
+  10 |     org.w3c.dom.Document xmlDocument = builder.parse(file);
+  11 |     javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
+  12 |     javax.xml.xpath.XPath xp = xpf.newXPath();
+  13 |
+  14 |     String expression = ""/Employees/Employee[@emplid='""+param+""']"";
+> 15 |     String result = xp.evaluate(expression, xmlDocument);
+  16 |
+  17 |   }
+  18 |
+  19 | }
+     ^ Col 0
+",java.java_xpath_injection
 F021,lines,namespace/skims/test/data/lib_root/f021/js_dynamic_xpath.js,15,643,skims,021. XPath injection,Dynamic XPath statements are generated without the required data validation. in namespace/skims/test/data/lib_root/f021/js_dynamic_xpath.js,"
    2 | var xpath = require(""xpath"");
    3 | let fs = require(""fs"");

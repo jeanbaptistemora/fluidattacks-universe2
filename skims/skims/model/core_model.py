@@ -1453,14 +1453,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    QUERY_F004 = MethodInfo(
-        file_name="query",
-        name="query_f004",
-        module="sast",
-        finding=FindingEnum.F004,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     CS_REMOTE_COMMAND_EXECUTION = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_remote_command_execution",
@@ -1532,14 +1524,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F007,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    QUERY_F008 = MethodInfo(
-        file_name="query",
-        name="query_f008",
-        module="sast",
-        finding=FindingEnum.F008,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_INSEC_ADDHEADER_WRITE = MethodInfo(
         file_name="c_sharp",
@@ -2020,14 +2004,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F017,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    QUERY_F021 = MethodInfo(
-        file_name="query",
-        name="query_f021",
-        module="sast",
-        finding=FindingEnum.F021,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_XPATH_INJECTION = MethodInfo(
         file_name="c_sharp",
@@ -2917,14 +2893,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    QUERY_F034 = MethodInfo(
-        file_name="query",
-        name="query_f034",
-        module="sast",
-        finding=FindingEnum.F034,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     CS_WEAK_CREDENTIAL = MethodInfo(
         file_name="c_sharp",
         name="csharp_weak_credential_policy",
@@ -3019,14 +2987,6 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F042,
         developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    QUERY_F042 = MethodInfo(
-        file_name="query",
-        name="query_f042",
-        module="sast",
-        finding=FindingEnum.F042,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     JAVA_INSECURE_COOKIE = MethodInfo(
@@ -3381,14 +3341,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    QUERY_F052 = MethodInfo(
-        file_name="query",
-        name="query_f052",
-        module="sast",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     WEAK_CIPHERS_ALLOWED = MethodInfo(
         file_name="analyze_protocol",
         name="weak_ciphers_allowed",
@@ -3492,14 +3444,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F060,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    QUERY_F063 = MethodInfo(
-        file_name="query",
-        name="query_f063",
-        module="sast",
-        finding=FindingEnum.F063,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_OPEN_REDIRECT = MethodInfo(
         file_name="c_sharp",
@@ -3765,14 +3709,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
-    QUERY_F089 = MethodInfo(
-        file_name="query",
-        name="query_f089",
-        module="sast",
-        finding=FindingEnum.F089,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     JAVA_TRUST_BOUNDARY_VIOLATION = MethodInfo(
         file_name="java",
         name="java_trust_boundary_violation",
@@ -3885,14 +3821,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.APK,
     )
-    QUERY_F107 = MethodInfo(
-        file_name="query",
-        name="query_f107",
-        module="sast",
-        finding=FindingEnum.F107,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     CS_LDAP_INJECTION = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_ldap_injection",
@@ -3940,14 +3868,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F109,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    QUERY_F112 = MethodInfo(
-        file_name="query",
-        name="query_f112",
-        module="sast",
-        finding=FindingEnum.F112,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JAVA_SQL_INJECTION = MethodInfo(
         file_name="java",
@@ -4717,14 +4637,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F320,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    QUERY_F320 = MethodInfo(
-        file_name="query",
-        name="query_f320",
-        module="sast",
-        finding=FindingEnum.F320,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CFN_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
         file_name="cloudformation",

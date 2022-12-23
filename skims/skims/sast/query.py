@@ -253,88 +253,11 @@ def query(
     return tuple(chain.from_iterable(query_lazy(shard_db, graph_db, method)))
 
 
-def query_f004(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F004)
-
-
-def query_f008(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F008)
-
-
-def query_f021(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F021)
-
-
-def query_f034(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F034)
-
-
-def query_f042(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F042)
-
-
-def query_f052(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F052)
-
-
-def query_f063(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F063)
-
-
-def query_f089(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F089)
-
-
-def query_f107(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F107)
-
-
-def query_f112(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F112)
-
-
 def query_f127(
     shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F127)
-
-
-def query_f320(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F320)
 
 
 QUERIES: graph_model.Queries = ((core_model.FindingEnum.F127, query_f127),)
