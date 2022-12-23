@@ -16,6 +16,9 @@ from syntax_graph.dispatchers.java import (
 from syntax_graph.dispatchers.javascript import (
     JAVASCRIPT_DISPATCHERS,
 )
+from syntax_graph.dispatchers.kotlin import (
+    KOTLIN_DISPATCHERS,
+)
 from syntax_graph.dispatchers.typescript import (
     TYPESCRIPT_DISPATCHERS,
 )
@@ -32,5 +35,6 @@ DISPATCHERS_BY_LANG: Dict[GraphLanguage, Dispatchers] = {
     GraphLanguage.GO: GO_DISPATCHERS,
     GraphLanguage.JAVA: JAVA_DISPATCHERS,
     GraphLanguage.JAVASCRIPT: JAVASCRIPT_DISPATCHERS,
+    GraphLanguage.KOTLIN: KOTLIN_DISPATCHERS,
     GraphLanguage.TYPESCRIPT: TYPESCRIPT_DISPATCHERS,
 }
