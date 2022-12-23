@@ -2,6 +2,9 @@
 """
 Remove evidences in S3 that belong to no current draft or finding,
 in active groups.
+
+Execution Time:    2022-12-23 at 00:28:33 UTC
+Finalization Time: 2022-12-23 at 00:33:47 UTC
 """
 from aioextensions import (
     collect,
@@ -26,6 +29,7 @@ import time
 async def process_group(
     loaders: Dataloaders,
     group_name: str,
+    progress: float,
 ) -> None:
     evidence_file_names = await s3_ops.list_files(f"evidences/{group_name}")
     if not evidence_file_names:
@@ -52,7 +56,10 @@ async def process_group(
         workers=4,
     )
 
-    print(f"Processed {group_name=}, {len(evidences_without_finding)=}")
+    print(
+        f"Processed {group_name=}, {len(evidences_without_finding)=}, "
+        f"progress: {round(progress, 2)}"
+    )
 
 
 async def main() -> None:
@@ -67,10 +74,11 @@ async def main() -> None:
             process_group(
                 loaders=loaders,
                 group_name=group_name,
+                progress=count / len(group_names),
             )
-            for group_name in group_names
+            for count, group_name in enumerate(group_names)
         ),
-        workers=1,
+        workers=4,
     )
 
 
