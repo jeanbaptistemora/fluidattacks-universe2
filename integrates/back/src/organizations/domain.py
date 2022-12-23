@@ -354,6 +354,14 @@ async def get_all_groups(
     return tuple(groups)
 
 
+async def get_all_group_names(
+    loaders: Dataloaders,
+) -> tuple[str, ...]:
+    groups = await get_all_groups(loaders)
+    group_names = tuple(group.name for group in groups)
+    return group_names
+
+
 async def get_all_active_groups(
     loaders: Dataloaders,
 ) -> tuple[Group, ...]:

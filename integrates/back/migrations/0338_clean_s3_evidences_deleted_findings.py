@@ -5,6 +5,9 @@ in active groups.
 
 Execution Time:    2022-12-23 at 00:28:33 UTC
 Finalization Time: 2022-12-23 at 00:33:47 UTC
+
+Execution Time:    2022-12-23 at 16:44:25 UTC
+Finalization Time: 2022-12-23 at 16:46:39 UTC
 """
 from aioextensions import (
     collect,
@@ -65,7 +68,7 @@ async def process_group(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     group_names = sorted(
-        await orgs_domain.get_all_active_group_names(loaders=loaders)
+        await orgs_domain.get_all_group_names(loaders=loaders)
     )
     print(f"{len(group_names)=}")
 
@@ -78,7 +81,7 @@ async def main() -> None:
             )
             for count, group_name in enumerate(group_names)
         ),
-        workers=4,
+        workers=1,
     )
 
 
