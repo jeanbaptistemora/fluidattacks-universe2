@@ -20,6 +20,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from db_model.findings.types import (
     Finding,
@@ -86,8 +87,10 @@ def get_diff(*, start: Optional[datetime], end: datetime) -> int:
     if start is None:
         return 0
 
-    diff = end - start
-    return diff.days if end > start else 0
+    end_utc = end.astimezone(tz=timezone.utc)
+    start_utc = start.astimezone(tz=timezone.utc)
+    diff = end_utc - start_utc
+    return diff.days if end_utc > start_utc else 0
 
 
 def is_requested(
