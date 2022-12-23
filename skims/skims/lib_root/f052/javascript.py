@@ -4,6 +4,7 @@ from lib_root.f052.common import (
     insecure_ecdh_key,
     insecure_encrypt,
     insecure_hash,
+    insecure_hash_library,
     insecure_rsa_keypair,
 )
 from lib_sast.types import (
@@ -165,6 +166,31 @@ def javascript_insecure_ec_keypair(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_key.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def javascript_insecure_hash_library(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JS_INSECURE_HASH_LIBRARY
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in insecure_hash_library(graph):
+                yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_hash.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

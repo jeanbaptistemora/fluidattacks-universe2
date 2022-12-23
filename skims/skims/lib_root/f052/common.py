@@ -171,3 +171,24 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
+
+
+def get_direct_imported_nodes(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    if not g.matching_nodes(
+        graph, label_type="Import", expression='"js-sha1"'
+    ):
+        return vuln_nodes
+
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+        method_expression = graph.nodes[n_id]["expression"]
+        if method_expression.split(".")[0] == "sha1":
+            vuln_nodes.append(n_id)
+    return vuln_nodes
+
+
+def insecure_hash_library(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
+    vuln_nodes.extend(get_direct_imported_nodes(graph))
+
+    return vuln_nodes
