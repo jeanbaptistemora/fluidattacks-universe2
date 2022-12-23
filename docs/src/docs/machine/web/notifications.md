@@ -114,24 +114,6 @@ will expire.
 
 ![Access Granted](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083296/docs/web/notifications/notif_access_granted.png)
 
-### Consulting
-
-If you enable these notifications,
-every time someone posts a
-comment concerning a group,
-a specific vulnerability
-or an event,
-you will get a **New Comment**
-email showing the comment,
-who made it and where.
-At the end of the message,
-you will be presented with
-a button that says **Go to comment**,
-which will lead you to the
-comment on the ARM upon clicking it.
-
-![Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083772/docs/web/notifications/consulting.png)
-
 ### Root updates (root added)
 
 This notification is generated
@@ -304,21 +286,6 @@ the policies’ name and
 new selected values.
 
 ![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1664796913/docs/web/notifications/policies_update.png)
-
-### Treatment expiration alert
-
-If you are a user manager,
-customer manager,
-vulnerability manager or
-resourcer and enable
-these notifications,
-you will receive an email or
-an SMS seven days and one day
-before the end of the time set
-for the temporary acceptance
-of a vulnerability.
-
-![Treatment Expiration Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174161/docs/web/notifications/treatmt_exp_alert.png)
 
 ### Treatment report
 
