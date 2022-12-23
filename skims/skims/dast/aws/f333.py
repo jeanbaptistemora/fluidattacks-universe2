@@ -233,6 +233,39 @@ async def has_unused_ec2_key_pairs(
     return vulns
 
 
+async def has_publicly_shared_amis(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_images",
+        parameters={"Owners": ["self"]},
+    )
+    images = response.get("Images", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    locations: List[Location] = []
+    for image in images:
+        if image.get("Public", False):
+            locations = [
+                Location(
+                    arn=(f"arn:aws:ec2::ImageId:{image['ImageId']}"),
+                    description=t("lib_path.f333.has_publicly_shared_amis"),
+                    values=(image.get("Public"),),
+                    access_patterns=("/Public",),
+                ),
+            ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_HAS_PUBLICY_SHARED_AMIS),
+                aws_response=image,
+            ),
+        )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -241,4 +274,5 @@ CHECKS: Tuple[
     ec2_has_associate_public_ip_address,
     ec2_iam_instances_without_profile,
     has_unused_ec2_key_pairs,
+    has_publicly_shared_amis,
 )
