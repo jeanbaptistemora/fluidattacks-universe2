@@ -107,4 +107,34 @@ describe("Add Files modal", (): void => {
 
     expect(screen.getByText("validations.required")).toBeInTheDocument();
   });
+
+  it("should submit a file", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleSubmit: jest.Mock = jest.fn();
+    const file = new File(["okada-test.txt"], "okada-test.txt", {
+      type: "text/plain",
+    });
+
+    render(
+      <AddFilesModal
+        isOpen={true}
+        isUploading={false}
+        onClose={jest.fn()}
+        onSubmit={handleSubmit}
+      />
+    );
+
+    await userEvent.type(screen.getByRole("textbox"), "test description");
+    await userEvent.upload(screen.getByTestId("file"), file);
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    await waitFor((): void => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+    });
+
+    expect(screen.getByText("test description")).toBeInTheDocument();
+    expect(screen.getByText("okada-test.txt")).toBeInTheDocument();
+  });
 });
