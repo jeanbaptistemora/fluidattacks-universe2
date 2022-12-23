@@ -659,7 +659,7 @@ Clicking on it will display a
 list of credentials previously
 used for other repositories.
 
-![Existing Credentials Field](https://res.cloudinary.com/fluid-attacks/image/upload/v1654800380/docs/web/groups/scope/roots_existcredentials_field.png)
+![Existing Credentials Field](https://res.cloudinary.com/fluid-attacks/image/upload/v1671803954/docs/web/groups/scope/existing_credentials.png)
 
 If any of the credentials in
 the list is useful for the root
@@ -669,4 +669,4 @@ and the **Credential type** and
 **Credential name** fields will
 be autofilled.
 
-![Credentials Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1654800380/docs/web/groups/scope/roots_existcredentials_field2.png)
+![Credentials Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1671804125/docs/web/groups/scope/activation.png)

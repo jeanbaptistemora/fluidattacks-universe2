@@ -96,7 +96,7 @@ section in Environment URLs/IP,
 giving us the entry points that
 the Hackers will validate.
 
-![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1668022927/docs/web/groups/surface/inputs_table.png)
+![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1671804633/docs/web/groups/surface/inputs_view.png)
 
 This section shows a table
 providing the following information:
