@@ -131,48 +131,6 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     )
 
 
-async def send_mail_temporal_treatment_report(
-    *,
-    loaders: Dataloaders,
-    finding_id: str,
-    finding_title: str,
-    group_name: str,
-    locations: dict[str, Any],
-) -> None:
-    roles: set[str] = {
-        "resourcer",
-        "customer_manager",
-        "user_manager",
-        "vulnerability_manager",
-    }
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.UPDATED_TREATMENT,
-            roles=roles,
-        )
-    )
-    org_name = await get_organization_name(loaders, group_name)
-    email_context: dict[str, Any] = {
-        "group": group_name,
-        "finding": finding_title,
-        "locations": locations,
-        "finding_link": (
-            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
-            f"/vulns/{finding_id}"
-        ),
-    }
-    await send_mails_async(
-        loaders,
-        users_email,
-        email_context,
-        GENERAL_TAG,
-        f"[ARM] Temporary treatments are close to end in [{group_name}]",
-        "temporary_treatment_report",
-    )
-
-
 async def send_mail_assigned_vulnerability(
     *,
     loaders: Dataloaders,

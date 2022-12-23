@@ -21,7 +21,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "delete_obsolete_orgs",
         "review_machine_executions",
         "abandoned_trial_notification",
-        "temporal_treatment_report",
         "users_weekly_report",
         "requeue_actions",
         "update_group_toe_vulns",
