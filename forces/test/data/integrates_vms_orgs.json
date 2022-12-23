@@ -3,45 +3,48 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "ORG#okada"
+          "id": {
+            "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "name": {
             "S": "okada"
           },
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "pk_2": {
+            "S": "ORG#all"
+          },
           "policies": {
             "M": {
+              "max_acceptance_days": {
+                "N": "60"
+              },
+              "max_acceptance_severity": {
+                "N": "10.0"
+              },
               "max_number_acceptances": {
                 "N": "2"
               },
               "min_acceptance_severity": {
                 "N": "0.0"
               },
-              "modified_by": {
-                "S": "drestrepo@fluidattacks.com"
-              },
               "min_breaking_severity": {
                 "N": "0.0"
               },
-              "max_acceptance_days": {
-                "N": "60"
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
               },
               "modified_date": {
                 "S": "2019-11-22T20:07:57+00:00"
-              },
-              "max_acceptance_severity": {
-                "N": "10.0"
               }
             }
           },
-          "pk_2": {
-            "S": "ORG#all"
+          "sk": {
+            "S": "ORG#okada"
           },
-          "pk": {
+          "sk_2": {
             "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-          },
-          "id": {
-            "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "state": {
             "M": {
@@ -51,16 +54,13 @@
               "modified_date": {
                 "S": "2019-11-20T20:07:57+00:00"
               },
-              "status": {
-                "S": "ACTIVE"
-              },
               "pending_deletion_date": {
                 "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
               }
             }
-          },
-          "sk_2": {
-            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           }
         }
       }
@@ -68,32 +68,32 @@
     {
       "PutRequest": {
         "Item": {
+          "max_acceptance_days": {
+            "N": "60"
+          },
+          "max_acceptance_severity": {
+            "N": "10"
+          },
           "max_number_acceptances": {
             "N": "2"
           },
           "min_acceptance_severity": {
             "N": "0"
           },
-          "sk": {
-            "S": "POLICIES#2019-11-22T20:07:57+00:00"
+          "min_breaking_severity": {
+            "N": "0"
           },
           "modified_by": {
             "S": "drestrepo@fluidattacks.com"
           },
-          "min_breaking_severity": {
-            "N": "0"
-          },
-          "max_acceptance_days": {
-            "N": "60"
+          "modified_date": {
+            "S": "2019-11-22T20:07:57+00:00"
           },
           "pk": {
             "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
-          "modified_date": {
-            "S": "2019-11-22T20:07:57+00:00"
-          },
-          "max_acceptance_severity": {
-            "N": "10"
+          "sk": {
+            "S": "POLICIES#2019-11-22T20:07:57+00:00"
           }
         }
       }
@@ -101,23 +101,23 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "STATE#2022-06-09T19:52:29+00:00"
-          },
           "modified_by": {
             "S": "unknown"
-          },
-          "pk": {
-            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "modified_date": {
             "S": "2019-11-20T20:07:57+00:00"
           },
-          "status": {
-            "S": "ACTIVE"
-          },
           "pending_deletion_date": {
             "S": "2019-11-22T20:07:57+00:00"
+          },
+          "pk": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "sk": {
+            "S": "STATE#2022-06-09T19:52:29+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
           }
         }
       }

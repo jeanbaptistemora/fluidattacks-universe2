@@ -3,14 +3,8 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "USER#forces.herrin@fluidattacks.com"
-          },
-          "sk": {
-            "S": "GROUP#herrin"
-          },
-          "responsibility": {
-            "S": "Forces service user"
+          "email": {
+            "S": "forces.herrin@fluidattacks.com"
           },
           "group_name": {
             "S": "herrin"
@@ -20,25 +14,31 @@
           },
           "invitation": {
             "M": {
-              "url_token": {
-                "S": "P8MPA7bnJG4-iACw10zsfYsyxIawbVEyrLkjyXy4b4IPmJli3hXL1p2i1Gwc5CmwmqnpNNkRYyerCDGY5V8xRA"
-              },
-              "role": {
-                "S": "service_forces"
+              "is_used": {
+                "BOOL": true
               },
               "responsibility": {
                 "S": "Forces service user"
               },
-              "is_used": {
-                "BOOL": true
+              "role": {
+                "S": "service_forces"
+              },
+              "url_token": {
+                "S": "P8MPA7bnJG4-iACw10zsfYsyxIawbVEyrLkjyXy4b4IPmJli3hXL1p2i1Gwc5CmwmqnpNNkRYyerCDGY5V8xRA"
               }
             }
           },
-          "email": {
-            "S": "forces.herrin@fluidattacks.com"
+          "pk": {
+            "S": "USER#forces.herrin@fluidattacks.com"
+          },
+          "responsibility": {
+            "S": "Forces service user"
           },
           "role": {
             "S": "service_forces"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
           }
         }
       }

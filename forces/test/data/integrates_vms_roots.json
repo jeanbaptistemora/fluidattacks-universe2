@@ -3,67 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "GROUP#herrin"
-          },
-          "pk_2": {
-            "S": "ORG#okada"
-          },
-          "created_date": {
-            "S": "2021-01-08T19:41:58+00:00"
-          },
-          "pk": {
-            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
-          },
-          "state": {
-            "M": {
-              "reason": {
-                "NULL": true
-              },
-              "other": {
-                "NULL": true
-              },
-              "gitignore": {
-                "L": []
-              },
-              "modified_date": {
-                "S": "2021-01-08T19:41:58+00:00"
-              },
-              "branch": {
-                "S": "trunk"
-              },
-              "url": {
-                "S": "ssh://git@gitlab.com:fluidattacks/universe"
-              },
-              "environment": {
-                "S": "production"
-              },
-              "git_environment_urls": {
-                "L": []
-              },
-              "includes_health_check": {
-                "BOOL": false
-              },
-              "modified_by": {
-                "S": "drestrepo@fluidattacks.com"
-              },
-              "nickname": {
-                "S": "universe"
-              },
-              "environment_urls": {
-                "L": []
-              },
-              "status": {
-                "S": "ACTIVE"
-              }
-            }
-          },
-          "type": {
-            "S": "Git"
-          },
-          "created_by": {
-            "S": "drestrepo@fluidattacks.com"
-          },
           "cloning": {
             "M": {
               "modified_date": {
@@ -77,8 +16,69 @@
               }
             }
           },
+          "created_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "created_date": {
+            "S": "2021-01-08T19:41:58+00:00"
+          },
+          "pk": {
+            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
+          },
+          "pk_2": {
+            "S": "ORG#okada"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
           "sk_2": {
             "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
+          },
+          "state": {
+            "M": {
+              "branch": {
+                "S": "trunk"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "gitignore": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2021-01-08T19:41:58+00:00"
+              },
+              "nickname": {
+                "S": "universe"
+              },
+              "other": {
+                "NULL": true
+              },
+              "reason": {
+                "NULL": true
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/universe"
+              }
+            }
+          },
+          "type": {
+            "S": "Git"
           }
         }
       }

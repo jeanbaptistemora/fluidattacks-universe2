@@ -3,18 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "is_registered": {
-            "BOOL": true
-          },
-          "sk": {
-            "S": "USER#forces.herrin@fluidattacks.com"
-          },
-          "pk": {
-            "S": "USER#forces.herrin@fluidattacks.com"
-          },
-          "email": {
-            "S": "forces.herrin@fluidattacks.com"
-          },
           "access_token": {
             "M": {
               "iat": {
@@ -28,8 +16,20 @@
               }
             }
           },
+          "email": {
+            "S": "forces.herrin@fluidattacks.com"
+          },
+          "is_registered": {
+            "BOOL": true
+          },
+          "pk": {
+            "S": "USER#forces.herrin@fluidattacks.com"
+          },
           "role": {
             "S": "user"
+          },
+          "sk": {
+            "S": "USER#forces.herrin@fluidattacks.com"
           }
         }
       }

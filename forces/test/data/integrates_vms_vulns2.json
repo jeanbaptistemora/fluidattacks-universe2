@@ -3,67 +3,20 @@
     {
       "PutRequest": {
         "Item": {
+          "created_by": {
+            "S": "drestrepo@fluidattacks.com"
+          },
+          "created_date": {
+            "S": "2020-07-22T21:19:24+00:00"
+          },
           "finding_id": {
             "S": "940350540"
-          },
-          "treatment": {
-            "M": {
-              "modified_date": {
-                "S": "2020-07-22T21:19:24+00:00"
-              },
-              "modified_by": {
-                "S": "drestrepo@fluidattacks.com"
-              },
-              "status": {
-                "S": "NEW"
-              }
-            }
-          },
-          "hacker_email": {
-            "S": "forces.fluidattacks.com"
           },
           "group_name": {
             "S": "herrin"
           },
-          "pk_5": {
-            "S": "FIN#940350540"
-          },
-          "repo": {
-            "S": "universe"
-          },
-          "unreliable_indicators": {
-            "M": {
-              "unreliable_reattack_cycles": {
-                "N": "0"
-              },
-              "unreliable_source": {
-                "S": "ASM"
-              },
-              "unreliable_efficacy": {
-                "N": "0"
-              },
-              "unreliable_treatment_changes": {
-                "N": "0"
-              }
-            }
-          },
-          "specific": {
-            "S": "1"
-          },
-          "type": {
-            "S": "LINES"
-          },
-          "created_by": {
-            "S": "drestrepo@fluidattacks.com"
-          },
-          "sk": {
-            "S": "FIN#940350540"
-          },
-          "where": {
-            "S": "universe/forces/test/data/user_controller.py"
-          },
-          "created_date": {
-            "S": "2020-07-22T21:19:24+00:00"
+          "hacker_email": {
+            "S": "forces.fluidattacks.com"
           },
           "id": {
             "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
@@ -71,30 +24,77 @@
           "pk": {
             "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
           },
+          "pk_5": {
+            "S": "FIN#940350540"
+          },
+          "repo": {
+            "S": "universe"
+          },
+          "sk": {
+            "S": "FIN#940350540"
+          },
           "sk_5": {
             "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+          },
+          "specific": {
+            "S": "1"
           },
           "state": {
             "M": {
               "modified_by": {
                 "S": "drestrepo@fluidattacks.com"
               },
-              "source": {
-                "S": "ASM"
-              },
               "modified_date": {
                 "S": "2020-07-22T21:19:25+00:00"
               },
-              "status": {
-                "S": "CLOSED"
+              "source": {
+                "S": "ASM"
               },
               "specific": {
                 "S": "1"
+              },
+              "status": {
+                "S": "CLOSED"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
               }
             }
+          },
+          "treatment": {
+            "M": {
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2020-07-22T21:19:24+00:00"
+              },
+              "status": {
+                "S": "NEW"
+              }
+            }
+          },
+          "type": {
+            "S": "LINES"
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_efficacy": {
+                "N": "0"
+              },
+              "unreliable_reattack_cycles": {
+                "N": "0"
+              },
+              "unreliable_source": {
+                "S": "ASM"
+              },
+              "unreliable_treatment_changes": {
+                "N": "0"
+              }
+            }
+          },
+          "where": {
+            "S": "universe/forces/test/data/user_controller.py"
           }
         }
       }
@@ -102,27 +102,27 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "STATE#2020-07-22T21:19:24+00:00"
-          },
           "modified_by": {
             "S": "drestrepo@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-07-22T21:19:24+00:00"
           },
           "pk": {
             "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
           },
+          "sk": {
+            "S": "STATE#2020-07-22T21:19:24+00:00"
+          },
           "source": {
             "S": "ASM"
           },
-          "modified_date": {
-            "S": "2020-07-22T21:19:24+00:00"
+          "specific": {
+            "S": "1"
           },
           "status": {
             "S": "OPEN"
           },
-          "specific": {
-            "S": "1"
-          },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
           }
@@ -132,26 +132,26 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "STATE#2020-07-22T21:19:25+00:00"
-          },
           "modified_by": {
             "S": "drestrepo@fluidattacks.com"
-          },
-          "pk": {
-            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
-          },
-          "source": {
-            "S": "ASM"
           },
           "modified_date": {
             "S": "2020-07-22T21:19:25+00:00"
           },
-          "status": {
-            "S": "CLOSED"
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "sk": {
+            "S": "STATE#2020-07-22T21:19:25+00:00"
+          },
+          "source": {
+            "S": "ASM"
           },
           "specific": {
             "S": "1"
+          },
+          "status": {
+            "S": "CLOSED"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -162,17 +162,17 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "TREATMENT#2020-07-22T21:19:24+00:00"
-          },
           "modified_by": {
             "S": "drestrepo@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-07-22T21:19:24+00:00"
           },
           "pk": {
             "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
           },
-          "modified_date": {
-            "S": "2020-07-22T21:19:24+00:00"
+          "sk": {
+            "S": "TREATMENT#2020-07-22T21:19:24+00:00"
           },
           "status": {
             "S": "NEW"
