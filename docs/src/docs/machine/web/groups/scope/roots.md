@@ -605,7 +605,7 @@ listed in the tables **Git Roots**
 or **Environment URLs** in the
 Scope section.
 
-![Go to Secrets Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_gitroots_table.png)
+![Go to Secrets Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801491/docs/web/groups/scope/ways_add_secrest.png)
 
 You can select a
 root from Git Roots.
@@ -613,7 +613,7 @@ You will immediately see a
 pop-up window with three tabs,
 the third one being **Secrets**.
 
-![Secrets Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_window.png)
+![Secrets Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801585/docs/web/groups/scope/secrets_tab.png)
 
 To add a new secret,
 you have to access the Secrets
@@ -627,9 +627,9 @@ of key and value.
 Additionally,
 you can include a short description.
 
-![Add Secrets](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_add_window.png)
+![Add Secrets](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801757/docs/web/groups/scope/compose_secret.png)
 
-When you click Proceed,
+When you click Confirm,
 the secret is made accessible
 to our hackers on the ARM.
 You can also delete or edit
@@ -637,7 +637,7 @@ all the secrets you add by
 clicking on the
 corresponding button.
 
-![Secret Details](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_accesible_editing.png)
+![Secret Details](https://res.cloudinary.com/fluid-attacks/image/upload/v1671802063/docs/web/groups/scope/edit_secret.png)
 
 From Environment URLs,
 you have to select the URL
