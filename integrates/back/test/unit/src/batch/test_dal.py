@@ -78,61 +78,27 @@ async def test_delete_action(
 
 
 @pytest.mark.parametrize(
-    ["item", "expected_bool"],
+    ["key", "expected_bool"],
     [
         [
-            dict(
-                action_name="report",
-                entity="unittesting",
-                subject="unittesting@fluidattacks.com",
-                additional_info=json.dumps(
-                    {
-                        "report_type": "XLS",
-                        "treatments": ["ACCEPTED", "NEW"],
-                        "states": ["OPEN"],
-                        "verifications": [],
-                        "closing_date": None,
-                        "finding_title": "038",
-                        "age": 1100,
-                        "min_severity": "2.4",
-                        "max_severity": "6.4",
-                    }
-                ),
-            ),
+            "ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",
             True,
         ],
         [
-            dict(
-                action_name="report",
-                entity="continuoustesting",
-                subject="integratesmanager@gmail.com",
-                additional_info="PDF",
-            ),
+            "049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828",
             False,
         ],
     ],
 )
+@patch(get_mocked_path("dynamodb_ops.query"), new_callable=AsyncMock)
 async def test_get_action(
-    dynamodb: ServiceResource, item: dict, expected_bool: bool
+    mock_dynamodb_ops_query: AsyncMock, key: str, expected_bool: bool
 ) -> None:
-    key = mapping_to_key(
-        [
-            item["action_name"],
-            item["entity"],
-            item["subject"],
-            item["additional_info"],
-        ]
+    mock_dynamodb_ops_query.return_value = get_mock_response(
+        get_mocked_path("dynamodb_ops.query"),
+        json.dumps([key]),
     )
-
-    with patch("batch.dal.dynamodb_ops.query") as mock_query:
-        try:
-            mock_query.return_value = [
-                dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
-            ]
-        except KeyError:
-            mock_query.return_value = []
-        action = await get_action(action_dynamo_pk=key)
-    assert mock_query.called is True
+    action = await get_action(action_dynamo_pk=key)
     assert bool(action) is expected_bool
 
 

@@ -46,6 +46,7 @@ from decimal import (
 from graphql import (
     GraphQLResolveInfo,
 )
+import json
 from requests import (
     Request,
 )
@@ -66,6 +67,7 @@ import uuid
 
 mocked_paths: Dict[str, str] = {
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
+    "dynamodb_ops.query": "dynamodb.operations_legacy.query",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
@@ -577,6 +579,32 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "dynamodb.operations_legacy.delete_item": {
         '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
         '52110"]': True,
+    },
+    "dynamodb.operations_legacy.query": {
+        '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501
+            dict(
+                additional_info=json.dumps(
+                    dict(
+                        report_type="XLS",
+                        treatments=["ACCEPTED", "NEW"],
+                        states=["OPEN"],
+                        verifications=["REQUESTED"],
+                        closing_date="null",
+                        finding_title="038",
+                        age=1100,
+                        min_severity="2.7",
+                        max_severity="null",
+                    )
+                ),
+                subject="unittesting@fluidattacks.com",
+                action_name="report",
+                pk="ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",  # noqa: E501
+                time="1616116348",
+                entity="unittesting",
+                queue="small",
+            )
+        ],
+        '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
