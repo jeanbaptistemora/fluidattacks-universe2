@@ -67,4 +67,44 @@ describe("Add Files modal", (): void => {
       expect(handleClose).toHaveBeenCalledTimes(1);
     });
   });
+
+  it("should require fields", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleClose: jest.Mock = jest.fn();
+    const file = new File(["okada-test.txt"], "okada-test.txt", {
+      type: "text/plain",
+    });
+
+    render(
+      <AddFilesModal
+        isOpen={true}
+        isUploading={false}
+        onClose={handleClose}
+        onSubmit={jest.fn()}
+      />
+    );
+
+    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+
+    await userEvent.type(screen.getByRole("textbox"), "test description");
+
+    expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    expect(screen.getByText("validations.required")).toBeInTheDocument();
+
+    await userEvent.clear(screen.getByRole("textbox"));
+
+    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+
+    await userEvent.upload(screen.getByTestId("file"), file);
+
+    expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    expect(screen.getByText("validations.required")).toBeInTheDocument();
+  });
 });
