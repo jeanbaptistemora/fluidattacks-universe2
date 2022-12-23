@@ -1,0 +1,41 @@
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_plane, go_to_button %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+
+      {{ banner_plane('Consulting') }}
+      <div class="main-content">
+        <h2>Hello, {{ name }}:</h2>
+        <p>
+          {% if comment_type == 'observation' %}
+          An observation
+          {% else %}
+          A comment
+          {% endif %}
+          {% if comment_type != 'group' %}
+          {% if comment_type == 'event' %}
+          in
+          {% else %}
+          on type of vulnerability
+          {% endif %}
+          <strong>{{ finding_name }}</strong>
+          {% endif %}
+          has been
+          {% if parent == '0' %} made {% else %} replied {% endif %}
+          in the group <strong>{{ group }}</strong>:
+        </p>
+        <div class="data-container">
+          <p>
+            <strong>Comment:</strong><br/>{{ (comment | join('<br />')) | safe }}
+          </p>
+        </div>
+        {% if not has_machine or has_squad %}
+        {{ go_to_button('Go to comment', comment_url, 'primary-button') }}
+        {% endif %}
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
+    </div>
+  {% endblock %}
