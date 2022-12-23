@@ -31,4 +31,4 @@ keys,
 access tokens),
 among others.
 
-![Records](https://res.cloudinary.com/fluid-attacks/image/upload/v1669117611/docs/web/vulnerabilities/management/records_tab.png)
+![Records](https://res.cloudinary.com/fluid-attacks/image/upload/v1671815303/docs/web/vulnerabilities/management/records_section.png)

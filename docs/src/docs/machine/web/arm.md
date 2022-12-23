@@ -323,7 +323,7 @@ the testing service:
 If you want to see more of this
 section of scope,
 you can enter it
-[here.](/machine/web/groups/scope)
+[here](/machine/web/groups/scope/roots)
 
 ### Portfolios
 
@@ -335,7 +335,7 @@ subsection
 (we employ the same charts and indicators).
 
 Please check the tags
-in [Scope](machine/web/groups/scope/portfolios)
+in [Scope](/machine/web/groups/scope/portfolios)
 for more information.
 
 ### Organization Stakeholders

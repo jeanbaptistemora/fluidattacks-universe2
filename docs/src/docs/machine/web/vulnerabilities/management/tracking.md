@@ -25,7 +25,7 @@ two different places.
 One is in each specific vulnerability type,
 where you can have a global overview.
 
-![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669114919/docs/web/vulnerabilities/management/tracking_view.png)
+![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671815199/docs/web/vulnerabilities/management/tracking_section.png)
 
 The second Tracking tab can be accessed
 by first clicking on the Locations tab
