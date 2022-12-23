@@ -1,15 +1,17 @@
-from lib_root.f042.common import (
-    is_insecure_cookie,
+from lib_root.f008.common import (
+    unsafe_xss_content_nodes,
 )
 from lib_sast.types import (
     ShardDb,
 )
+from model import (
+    core_model,
+    graph_model,
+)
 from model.core_model import (
     MethodsEnum,
-    Vulnerabilities,
 )
 from model.graph_model import (
-    GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
@@ -21,25 +23,23 @@ from typing import (
 )
 
 
-def insecurely_generated_cookies(
+def unsafe_xss_content(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-    method = MethodsEnum.JS_INSEC_COOKIES
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    typescript = GraphLanguage.TYPESCRIPT
+    method = MethodsEnum.TS_UNSAFE_XSS_CONTENT
 
     def n_ids() -> Iterable[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(typescript):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
-            for nid in is_insecure_cookie(graph, method):
-                yield shard, nid
+            for n_id in unsafe_xss_content_nodes(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_root.f042.java_insecure_set_cookies.description",
+        desc_key="src.lib_path.f008.insec_addheader_write.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

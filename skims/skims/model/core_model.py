@@ -1565,6 +1565,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_UNSAFE_XSS_CONTENT = MethodInfo(
+        file_name="typescript",
+        name="typescript_unsafe_xss_content",
+        module="lib_root",
+        finding=FindingEnum.F008,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     AWS_CREDENTIALS = MethodInfo(
         file_name="aws",
         name="aws_credentials",
@@ -2048,6 +2056,14 @@ class MethodsEnum(Enum):
     JS_DYNAMIC_X_PATH = MethodInfo(
         file_name="javascript",
         name="javascript_dynamic_xpath",
+        module="lib_root",
+        finding=FindingEnum.F021,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_DYNAMIC_X_PATH = MethodInfo(
+        file_name="typescript",
+        name="typescript_dynamic_xpath",
         module="lib_root",
         finding=FindingEnum.F021,
         developer=DeveloperEnum.FABIO_LAGOS,
@@ -2997,6 +3013,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    TS_INSEC_COOKIES = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecurely_generated_cookies",
+        module="lib_root",
+        finding=FindingEnum.F042,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     QUERY_F042 = MethodInfo(
         file_name="query",
         name="query_f042",
@@ -3936,6 +3960,14 @@ class MethodsEnum(Enum):
     JS_SQL_API_INJECTION = MethodInfo(
         file_name="javascript",
         name="javascript_sql_api_injection",
+        module="lib_root",
+        finding=FindingEnum.F112,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_SQL_API_INJECTION = MethodInfo(
+        file_name="typescript",
+        name="typescript_sql_api_injection",
         module="lib_root",
         finding=FindingEnum.F112,
         developer=DeveloperEnum.FABIO_LAGOS,

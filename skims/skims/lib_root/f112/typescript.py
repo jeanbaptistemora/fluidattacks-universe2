@@ -1,5 +1,5 @@
-from lib_root.f042.common import (
-    is_insecure_cookie,
+from lib_root.f112.common import (
+    sql_injection,
 )
 from lib_sast.types import (
     ShardDb,
@@ -21,25 +21,22 @@ from typing import (
 )
 
 
-def insecurely_generated_cookies(
+def unsafe_sql_injection(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_INSEC_COOKIES
+    method = MethodsEnum.TS_SQL_API_INJECTION
 
     def n_ids() -> Iterable[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.TYPESCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
-            for nid in is_insecure_cookie(graph, method):
-                yield shard, nid
+            for n_id in sql_injection(graph, method):
+                yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_root.f042.java_insecure_set_cookies.description",
+        desc_key="src.lib_path.F112.user_controled_param",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

@@ -25,11 +25,11 @@ def insecurely_generated_cookies(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JS_INSEC_COOKIES
+    method = MethodsEnum.TS_INSEC_COOKIES
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
+            GraphLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
