@@ -1,118 +1,146 @@
-resource "aws_iam_role" "grafana" {
-  name = "common-monitoring-grafana"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "grafana.amazonaws.com"
-        }
-      },
-    ]
-  })
+data "aws_iam_policy_document" "grafana_sts" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+
+    principals {
+      identifiers = ["grafana.amazonaws.com"]
+      type        = "Service"
+    }
+  }
 }
 
+data "aws_iam_policy_document" "grafana_athena_access" {
+  statement {
+    actions   = ["athena:ListDataCatalogs"]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "athena:StartQueryExecution"
+    ]
+    effect    = "Allow"
+    resources = [aws_athena_workgroup.monitoring.arn]
+  }
+
+  statement {
+    actions = [
+      "athena:ListDatabases",
+      "athena:ListTableMetadata"
+    ]
+    effect    = "Allow"
+    resources = ["arn:aws:athena:*:*:datacatalog/AwsDataCatalog"]
+  }
+
+  statement {
+    actions   = ["glue:GetDatabases"]
+    effect    = "Allow"
+    resources = ["arn:aws:glue:*:*:catalog"]
+  }
+
+  statement {
+    actions = [
+      "glue:GetPartition",
+      "glue:GetPartitions",
+      "glue:GetTable"
+    ]
+    effect = "Allow"
+    resources = [
+      "arn:aws:glue:*:*:catalog",
+      "arn:aws:glue:*:*:database/${aws_athena_database.monitoring.name}",
+      aws_glue_catalog_table.compute_jobs.arn
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads"
+    ]
+    effect = "Allow"
+    resources = [
+      aws_s3_bucket.monitoring.arn,
+      aws_s3_bucket.monitoring_athena_results.arn,
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListMultipartUploadParts"
+    ]
+    effect    = "Allow"
+    resources = ["${aws_s3_bucket.monitoring.arn}/*"]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObject"
+    ]
+    effect    = "Allow"
+    resources = ["${aws_s3_bucket.monitoring_athena_results.arn}/*"]
+  }
+}
+
+data "aws_iam_policy_document" "grafana_redshift_access" {
+  statement {
+    actions = [
+      "redshift:DescribeClusters",
+      "redshift-data:GetStatementResult",
+      "redshift-data:DescribeStatement"
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "redshift-data:DescribeTable",
+      "redshift-data:ExecuteStatement",
+      "redshift-data:ListTables",
+      "redshift-data:ListSchemas"
+    ]
+    effect    = "Allow"
+    resources = ["arn:aws:redshift:*:*:cluster:observes"]
+  }
+
+  statement {
+    actions = ["redshift:GetClusterCredentials"]
+    effect  = "Allow"
+    resources = [
+      "arn:aws:redshift:*:*:dbname:observes/observes",
+      "arn:aws:redshift:*:*:dbuser:observes/fluiduser"
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "grafana" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.grafana_athena_access.json,
+    data.aws_iam_policy_document.grafana_redshift_access.json
+  ]
+}
+
+resource "aws_iam_role" "grafana" {
+  name               = "common-monitoring-grafana"
+  assume_role_policy = data.aws_iam_policy_document.grafana_sts.json
+}
+
+resource "aws_iam_policy" "grafana" {
+  name   = "common-monitoring-grafana"
+  policy = data.aws_iam_policy_document.grafana.json
+}
 
 resource "aws_iam_role_policy_attachment" "grafana" {
   role       = aws_iam_role.grafana.name
   policy_arn = aws_iam_policy.grafana.arn
-}
-
-resource "aws_iam_policy" "grafana" {
-  name = "common-monitoring-grafana"
-
-  policy = jsonencode({
-    "Version" = "2012-10-17",
-    "Statement" = [
-      {
-        "Effect"   = "Allow",
-        "Action"   = "athena:ListDataCatalogs",
-        "Resource" = "*",
-      },
-      {
-        "Effect" = "Allow",
-        "Action" = [
-          "athena:GetQueryExecution",
-          "athena:GetQueryResults",
-          "athena:StartQueryExecution",
-        ],
-        "Resource" = aws_athena_workgroup.monitoring.arn,
-      },
-      {
-        "Effect" = "Allow",
-        "Action" = [
-          "athena:ListDatabases",
-          "athena:ListTableMetadata",
-        ],
-        "Resource" = [
-          "arn:aws:athena:*:*:datacatalog/AwsDataCatalog"
-        ],
-      },
-      {
-        "Effect"   = "Allow",
-        "Action"   = "glue:GetDatabases",
-        "Resource" = "arn:aws:glue:*:*:catalog",
-      },
-      {
-        "Effect" = "Allow",
-        "Action" = [
-          "glue:GetPartition",
-          "glue:GetPartitions",
-          "glue:GetTable",
-        ],
-        "Resource" = [
-          "arn:aws:glue:*:*:catalog",
-          "arn:aws:glue:*:*:database/${aws_athena_database.monitoring.name}",
-          aws_glue_catalog_table.compute_jobs.arn,
-        ],
-      },
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "s3:GetBucketLocation",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads"
-        ],
-        "Resource" : [
-          "${aws_s3_bucket.monitoring.arn}",
-          "${aws_s3_bucket.monitoring_athena_results.arn}",
-        ],
-      },
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "s3:GetObject",
-          "s3:ListMultipartUploadParts",
-        ],
-        "Resource" : [
-          "${aws_s3_bucket.monitoring.arn}/*",
-        ],
-      },
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "s3:GetObject",
-          "s3:ListMultipartUploadParts",
-          "s3:PutObject",
-        ],
-        "Resource" : [
-          "${aws_s3_bucket.monitoring_athena_results.arn}/*",
-        ],
-      },
-      # For Redshift data source:
-      # {
-      #   "Effect" ="Allow",
-      #   "Action" =[
-      #     "redshift:DescribeClusters",
-      #     "redshift:GetClusterCredentials",
-      #     "redshift-data:*",
-      #   ],
-      #   "Resource" =[<observes-cluster>]
-      # },
-    ]
-  })
 }
 
 resource "okta_app_saml" "grafana" {
