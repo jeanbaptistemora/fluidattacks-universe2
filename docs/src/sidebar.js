@@ -148,8 +148,8 @@ const About = [
       "about/compare/snyk",
       "about/compare/sonarqube",
       "about/compare/synopsys",
-      "about/compare/veracode",
       "about/compare/tenable",
+      "about/compare/veracode",
     ],
   },
 ];
