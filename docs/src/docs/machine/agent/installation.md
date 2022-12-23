@@ -48,29 +48,28 @@ in case you already generated one.
 ## Options
 
 - `--token`: Your DevSecOps agent token (required).
-- `--dynamic / --static`: Run only DAST / SAST vulnerabilities (optional).
+- `--dynamic / --static`: Check for only DAST / SAST vulnerabilities
+  respectively (optional).
 - `--verbose`: Declare the level of detail of the report (default `vvv`).
-  - `v`: Show only the number of open,
-    closed and accepted vulnerabilities.
-  - `vv`: Show only open vulnerabilities.
-  - `vvv`: Show open and closed vulnerabilities.
-  - `vvvv`: Show open, closed
-    and accepted vulnerabilities.
+  - `v`: Show only the number of vulnerable, safe and accepted finds.
+  - `vv`: Show only vulnerable finds.
+  - `vvv`: Show vulnerable and safe finds.
+  - `vvvv`: Show vulnerable, safe and accepted finds.
   - You can use `-v`, `-vv`, `-vvv`, `-vvvv`.
 - `--strict / --lax`: Run forces in strict mode (default `--lax`).
 - `--repo-name`: Git repository name (optional).
 - `--breaking`: Strict mode severity customization.
-  Open vulnerabilities
+  Vulnerable finds
   with a severity below this threshold
   will not break the pipeline.
   This option takes values
-  between 0.0 (recommended) all the way up to 10 (optional).
+  between 0.0 (recommended) all the way up to 10.0 (optional).
 
 Note: Strict mode customization like severity thresholds
 and grace periods for new vulnerabilities
 can also be set in the ARM organization's Policies tab.
 In the case of `--breaking`,
-the value passed to the CLI option takes
+the value passed to this CLI option takes
 precedence over the value set in ARM.
 
 ## Examples
@@ -91,7 +90,7 @@ Run the Docker image:
 
 1. Run the container image, for instance:
 
-   - To check `all` vulnerabilities including static and dynamic:
+   - To check `all` finds including static and dynamic:
 
      ```sh
      docker run --rm -ti fluidattacks/forces:new forces --token <your-token> -vvv
@@ -109,7 +108,7 @@ Run the Docker image:
      docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token>
      ```
 
-   - To break the pipeline only if open vulnerabilities
+   - To break the pipeline only if vulnerable finds
      with a severity above 4.5 are found:
 
      ```sh
