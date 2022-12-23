@@ -25,6 +25,7 @@ from newutils.forces import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -40,7 +41,7 @@ async def resolve(
     execution_id: str = kwargs["execution_id"]
     group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
-    execution: ForcesExecution = await loaders.forces_execution.load(
+    execution: Optional[ForcesExecution] = await loaders.forces_execution.load(
         ForcesExecutionRequest(
             group_name=group_name, execution_id=execution_id
         )

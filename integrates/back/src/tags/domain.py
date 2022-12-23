@@ -27,6 +27,9 @@ from db_model.portfolios.types import (
 from organizations import (
     domain as orgs_domain,
 )
+from typing import (
+    Optional,
+)
 
 
 async def remove(organization_name: str, portfolio_id: str) -> None:
@@ -64,26 +67,27 @@ async def has_access(loaders: Dataloaders, email: str, subject: str) -> bool:
         org_id, portfolio = subject.split("PORTFOLIO#")
         organization: Organization = await loaders.organization.load(org_id)
         organization_name = organization.name
-        portfolio_info: Portfolio = await loaders.portfolio.load(
+        portfolio_info: Optional[Portfolio] = await loaders.portfolio.load(
             PortfolioRequest(
                 organization_name=organization_name, portfolio_id=portfolio
             )
         )
-        portfolio_groups: list[str] = list(portfolio_info.groups)
-        org_access, group_access = await collect(
-            (
-                orgs_domain.has_access(
-                    loaders=loaders, email=email, organization_id=org_id
-                ),
-                authz.get_group_level_roles(
-                    loaders=loaders,
-                    email=email,
-                    groups=portfolio_groups,
-                ),
+        if portfolio_info:
+            portfolio_groups: list[str] = list(portfolio_info.groups)
+            org_access, group_access = await collect(
+                (
+                    orgs_domain.has_access(
+                        loaders=loaders, email=email, organization_id=org_id
+                    ),
+                    authz.get_group_level_roles(
+                        loaders=loaders,
+                        email=email,
+                        groups=portfolio_groups,
+                    ),
+                )
             )
-        )
-        return org_access and any(group_access.values())  # type: ignore
-    raise ValueError("Invalid subject")
+            return org_access and any(group_access.values())  # type: ignore
+    raise PortfolioNotFound()
 
 
 async def is_tag_allowed(
@@ -92,22 +96,19 @@ async def is_tag_allowed(
     organization_name: str,
     tag: str,
 ) -> bool:
-    try:
-        org_tag: Portfolio = await loaders.portfolio.load(
-            PortfolioRequest(
-                organization_name=organization_name, portfolio_id=tag
-            )
-        )
-    except PortfolioNotFound:
-        return False
-    all_groups_tag = org_tag.groups
-    user_groups_tag = [
-        group.name
-        for group in user_groups
-        if group.state.tags
-        and tag in [p_tag.lower() for p_tag in group.state.tags]
-    ]
-    return any(group in user_groups_tag for group in all_groups_tag)
+    org_tag: Optional[Portfolio] = await loaders.portfolio.load(
+        PortfolioRequest(organization_name=organization_name, portfolio_id=tag)
+    )
+    if org_tag:
+        all_groups_tag = org_tag.groups
+        user_groups_tag = [
+            group.name
+            for group in user_groups
+            if group.state.tags
+            and tag in [p_tag.lower() for p_tag in group.state.tags]
+        ]
+        return any(group in user_groups_tag for group in all_groups_tag)
+    return False
 
 
 async def update(

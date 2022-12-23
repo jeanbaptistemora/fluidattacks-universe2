@@ -17,6 +17,7 @@ from db_model.forces.types import (
 import pytest
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -40,7 +41,9 @@ async def test_add_forces_execution(populate: bool, email: str) -> None:
     group = "group1"
     execution: str = "18c1e735a73243f2ab1ee0757041f80e"
     loaders = get_new_context()
-    force_execution: ForcesExecution = await loaders.forces_execution.load(
+    force_execution: Optional[
+        ForcesExecution
+    ] = await loaders.forces_execution.load(
         ForcesExecutionRequest(group_name=group, execution_id=execution)
     )
     if force_execution:

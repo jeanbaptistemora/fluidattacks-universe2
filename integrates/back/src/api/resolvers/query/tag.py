@@ -2,6 +2,7 @@ from aioextensions import (
     collect,
 )
 from custom_exceptions import (
+    PortfolioNotFound,
     TagNotFound,
 )
 from dataloaders import (
@@ -90,13 +91,14 @@ async def resolve(
         if tag_name not in allowed_tags:
             raise TagNotFound()
 
-        portfolio = await loaders.portfolio.load(
+        if portfolio := await loaders.portfolio.load(
             PortfolioRequest(
                 organization_name=organization.name, portfolio_id=tag_name
             )
-        )
+        ):
+            return portfolio
 
-        return portfolio
+        raise PortfolioNotFound()
 
     organization = await loaders.organization.load(group.organization_id)
     org_group_names_filtered = [
@@ -113,9 +115,11 @@ async def resolve(
     if tag_name not in allowed_tags:
         raise TagNotFound()
 
-    portfolio = await loaders.portfolio.load(
+    if portfolio := await loaders.portfolio.load(
         PortfolioRequest(
             organization_name=organization.name, portfolio_id=tag_name
         )
-    )
-    return portfolio
+    ):
+        return portfolio
+
+    raise PortfolioNotFound()

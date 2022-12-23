@@ -14,9 +14,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    PortfolioNotFound,
-)
 from db_model import (
     TABLE,
 )
@@ -26,6 +23,7 @@ from dynamodb import (
 )
 from typing import (
     Iterable,
+    Union,
 )
 
 
@@ -71,7 +69,7 @@ async def _get_organization_portfolios(
 
 async def _get_portfolios(
     *, requests: tuple[PortfolioRequest, ...]
-) -> tuple[Portfolio, ...]:
+) -> Union[tuple[Portfolio, ...], None]:
     requests = tuple(
         request._replace(
             organization_name=request.organization_name.lower().strip()
@@ -100,7 +98,7 @@ async def _get_portfolios(
         }
         return tuple(response[request] for request in requests)
 
-    raise PortfolioNotFound()
+    return None
 
 
 class OrganizationPortfoliosLoader(DataLoader):
@@ -127,5 +125,5 @@ class PortfolioLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[PortfolioRequest]
-    ) -> tuple[Portfolio, ...]:
+    ) -> Union[tuple[Portfolio, ...], None]:
         return await _get_portfolios(requests=tuple(requests))
