@@ -24,6 +24,9 @@
           <strong>Date:</strong> {{ date }}<br>
           <strong>Type:</strong> {{ subscription.capitalize() }}<br>
           <strong>Reason:</strong> {{ reason }}<br>
+          {% if comments %}
+            <strong>Comment:</strong> {{ comments }}<br>
+          {% endif %}
         </p>
         <p>
           Regards,<br>
