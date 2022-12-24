@@ -61,10 +61,10 @@ async def test_update_event_evidence() -> None:
         }
     """
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "./mock/evidences/test-anim.gif")
+    filename = os.path.join(filename, "./mock/evidences/test-anim.webm")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
-            "okada-unittesting-zxcvbnm105.gif", test_file, "image/gif"
+            "okada-unittesting-zxcvbnm105.webm", test_file, "video/webm"
         )
         variables = {
             "eventId": "540462628",
@@ -92,7 +92,7 @@ async def test_update_event_evidence() -> None:
     assert "errors" not in result
     assert (
         result["data"]["event"]["evidence"]
-        == "unittesting_540462628_evidence_image_1.gif"
+        == "unittesting_540462628_evidence_image_1.webm"
     )
     assert result["data"]["event"]["evidenceDate"].split(" ")[0] == (
         today.split("T")[0]

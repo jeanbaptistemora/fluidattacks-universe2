@@ -93,14 +93,14 @@ async def test_add_event_file_image() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "./mock/test-file-records.csv")
     imagename = os.path.dirname(os.path.abspath(__file__))
-    imagename = os.path.join(imagename, "./mock/test-anim.gif")
+    imagename = os.path.join(imagename, "./mock/test-anim.webm")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "okada-unittesting-0123456789.csv", test_file, "text/csv"
         )
         with open(imagename, "rb") as image_test:
             uploaded_image = UploadFile(
-                "okada-unittesting-0987654321.gif", image_test, "image/gif"
+                "okada-unittesting-0987654321.webm", image_test, "video/webm"
             )
             test_data = await events_domain.add_event(
                 get_new_context(),

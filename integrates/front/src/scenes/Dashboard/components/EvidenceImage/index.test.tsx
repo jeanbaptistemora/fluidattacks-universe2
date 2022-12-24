@@ -277,7 +277,7 @@ describe("Evidence image", (): void => {
     ).toBeInTheDocument();
     expect(
       screen.queryByText(
-        "Evidence images must have .gif/.png/.webm extension for animation" +
+        "Evidence images must have .png/.webm extension for animation" +
           "/exploitation and .png for evidences." +
           " Evidence name must have the following format " +
           "organizationName-groupName-10 alphanumeric chars.extension."

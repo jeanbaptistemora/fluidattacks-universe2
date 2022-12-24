@@ -32,10 +32,10 @@ async def get_result(
         }
     """
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = f"{path}/test-anim.gif"
+    filename: str = f"{path}/test-anim.webm"
     with open(filename, "rb") as test_file:
         uploaded_file: UploadFile = UploadFile(
-            "orgtest-group1-0123456789.gif", test_file, "image/gif"
+            "orgtest-group1-0123456789.webm", test_file, "video/webm"
         )
         variables: Dict[str, Any] = {
             "evidenceId": "ANIMATION",

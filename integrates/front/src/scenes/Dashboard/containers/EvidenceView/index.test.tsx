@@ -27,7 +27,7 @@ describe("FindingEvidenceView", (): void => {
               animation: {
                 date: "",
                 description: "Test description",
-                url: "some_file.gif",
+                url: "some_file.png",
               },
               evidence1: { date: "", description: "", url: "" },
               evidence2: { date: "", description: "", url: "" },

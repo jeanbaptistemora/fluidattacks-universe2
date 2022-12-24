@@ -646,7 +646,6 @@ async def update_evidence(
         raise EventAlreadyClosed()
 
     extension = {
-        "image/gif": ".gif",
         "image/jpeg": ".jpg",
         "image/png": ".png",
         "application/pdf": ".pdf",
@@ -731,7 +730,7 @@ async def validate_evidence(
     validations.validate_fields([file.content_type])
 
     if evidence_id in IMAGE_EVIDENCE_IDS:
-        allowed_mimes = ["image/gif", "image/jpeg", "image/png", "video/webm"]
+        allowed_mimes = ["image/jpeg", "image/png", "video/webm"]
         if not await files_utils.assert_uploaded_file_mime(
             file, allowed_mimes
         ):

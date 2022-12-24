@@ -129,7 +129,7 @@ describe("Validations", (): void => {
     expect(alphaNumericFn("asdfsd34")).toBeUndefined();
   });
 
-  it("should be a valid size .gif file", (): void => {
+  it("should be a valid size .webm file", (): void => {
     expect.hasAssertions();
 
     const day: number = 8;
@@ -141,10 +141,10 @@ describe("Validations", (): void => {
     const file: File = {
       ...new File([], ""),
       lastModified: day - month - year,
-      name: ".gif",
+      name: ".webm",
       size: 20000,
       slice: jest.fn(),
-      type: ".gif",
+      type: ".webm",
     };
 
     const validFile: boolean = isValidFileSize(maxSize)([file]) === undefined;
@@ -152,7 +152,7 @@ describe("Validations", (): void => {
     expect(validFile).toBe(true);
   });
 
-  it("shouldn't be a valid size .gif file", (): void => {
+  it("shouldn't be a valid size .webm file", (): void => {
     expect.hasAssertions();
 
     const day: number = 8;
@@ -164,10 +164,10 @@ describe("Validations", (): void => {
     const file: File = {
       ...new File([], ""),
       lastModified: day - month - year,
-      name: ".gif",
+      name: ".webm",
       size: 20000000,
       slice: jest.fn(),
-      type: ".gif",
+      type: ".webm",
     };
     const validFile: boolean = isValidFileSize(maxSize)([file]) === undefined;
 
@@ -254,7 +254,7 @@ describe("Validations", (): void => {
     expect(validFile).toBe(false);
   });
 
-  it("should be a valid .gif evidence", (): void => {
+  it("should be a valid .webm evidence", (): void => {
     expect.hasAssertions();
 
     const day: number = 8;
@@ -264,17 +264,17 @@ describe("Validations", (): void => {
     const file: File = {
       ...new File([], ""),
       lastModified: day - month - year,
-      name: "foo.gif",
+      name: "foo.webm",
       size: 20000,
       slice: jest.fn(),
-      type: "image/gif",
+      type: "video/webm",
     };
     const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
 
     expect(evidenceValidType).toBe(true);
   });
 
-  it("shouldn't be a valid .gif evidence", (): void => {
+  it("shouldn't be a valid .webm evidence", (): void => {
     expect.hasAssertions();
 
     const day: number = 8;
@@ -366,10 +366,10 @@ describe("Validations", (): void => {
     const file: File = {
       ...new File([], ""),
       lastModified: day - month - year,
-      name: "foo.gif",
+      name: "foo.png",
       size: 20000,
       slice: jest.fn(),
-      type: "image/gif",
+      type: "image/png",
     };
     const evidenceValidType: boolean = validExploitFile([file]) === undefined;
 

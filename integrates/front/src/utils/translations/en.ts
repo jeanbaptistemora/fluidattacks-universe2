@@ -659,7 +659,7 @@ export const enTranslations: ResourceKey = {
           "Evidence name must have the following format " +
           "organizationName-groupName-10 alphanumeric chars.extension",
         wrongImageType:
-          "Evidence images must have .gif/.png/.webm extension for animation" +
+          "Evidence images must have .png/.webm extension for animation" +
           "/exploitation and .png for evidences",
       },
       new: "New Event",
@@ -1579,7 +1579,7 @@ export const enTranslations: ResourceKey = {
     expectedVulnToHaveNickname: "Expected vulnerability to have repo_nickname",
     expiredInvitation: "The stakeholder has an expired invitation",
     fileTypeCsv: "The file must have .csv extension",
-    fileTypeEvidence: "The image must be .png, .gif or .webm type",
+    fileTypeEvidence: "The image must be .png, .webm type",
     fileTypePy: "The file must have .py or .exp extension",
     fileTypeWrong: "The file has an unknown or non-allowed format",
     fileTypeYaml: "The file must be .yaml or .yml type",

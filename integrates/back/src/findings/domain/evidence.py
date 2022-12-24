@@ -282,7 +282,7 @@ async def validate_evidence(
     validations_utils.validate_file_name(file.filename)
 
     if evidence_id in ["animation", "exploitation"]:
-        allowed_mimes = ["image/gif", "image/png", "video/webm"]
+        allowed_mimes = ["image/png", "video/webm"]
     elif evidence_id.startswith("evidence"):
         allowed_mimes = ["image/png"]
     elif evidence_id == "fileRecords":
