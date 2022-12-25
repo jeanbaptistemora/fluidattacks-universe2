@@ -1,5 +1,7 @@
 from syntax_graph.syntax_readers.go import (
+    assignment_statement as go_assignment_statement,
     block as go_block,
+    expression_list as go_expression_list,
     function_declaration as go_function_declaration,
     identifier as go_identifier,
     import_declaration as go_import_declaration,
@@ -14,9 +16,22 @@ from syntax_graph.types import (
 GO_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
+            "assignment_statement",
+            "short_var_declaration",
+        },
+        syntax_reader=go_assignment_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "block",
         },
         syntax_reader=go_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "expression_list",
+        },
+        syntax_reader=go_expression_list.reader,
     ),
     Dispatcher(
         applicable_types={
