@@ -204,9 +204,9 @@ for each role.
 |Assign vulnerabilities |X   |X                  |X           |
 |Agent installation   |X   |X                    |X           |
 |Request verification events |X   |X             |X           |
-|Create portfolio     |    |                     |            |
-|Add secrets          |    |                     |            |
-|Unsubscribe groups   |    |                     |            |
+|Create portfolio     |X   |X                    |X           |
+|Add secrets          |    |                     |X           |
+|Unsubscribe groups   |X   |X                    |X           |
 |Generate API token   |X   |X                    |X           |
 
 ## Internal roles
