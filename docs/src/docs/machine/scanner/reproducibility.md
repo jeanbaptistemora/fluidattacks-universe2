@@ -27,11 +27,11 @@ we'll need to:
 
 1. Install the scanner
     as explained in the
-    [Fluid Attack's scanner installation guide](/machine/scanner/plans/foss#installing).
+    [Fluid Attacks' scanner installation guide](/machine/scanner/plans/foss#installing).
 
 1. Clone the **OWASP Benchmark 1.2**.
 
-    We are using a Fluid Attack's fork
+    We are using a Fluid Attacks' fork
     in order to add support
     for parsing the scanner results.
 

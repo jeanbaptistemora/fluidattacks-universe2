@@ -62,7 +62,7 @@ that can be found on each of the respective projects.
   that sorts the list of files in a git repository
   by the probability of it having vulnerabilities.
 
-- [Melts](/development/melts): CLI tool that allows Fluid Attack's security analysts
+- [Melts](/development/melts): CLI tool that allows Fluid Attacks' security analysts
   to clone customer git repositories
 
 - [Observes](/development/observes): Company-wide data analytics.

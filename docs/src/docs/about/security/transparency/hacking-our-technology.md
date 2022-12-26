@@ -52,7 +52,7 @@ based on the impact of the vulnerability.
    based on its [CVSS](https://www.first.org/cvss/) score.
 
 1. A confidential issue is created in
-   [Fluid Attack's bug tracker](https://gitlab.com/fluidattacks/universe/-/issues),
+   [Fluid Attacks' bug tracker](https://gitlab.com/fluidattacks/universe/-/issues),
    and prioritized according to its severity.
 
    If appropriate,

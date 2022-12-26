@@ -9,7 +9,7 @@ The VPN component of Common
 is responsible for establishing a Site-to-Site VPN Connection
 between our Network
 (see the [VPC component of Common](/development/common/vpc))
-and the Network of some of Fluid Attack's customers
+and the Network of some of Fluid Attacks' customers
 in order to be able to hack hosts
 (web apps, servers, infrastructure, etc)
 that is running inside of their Network,
