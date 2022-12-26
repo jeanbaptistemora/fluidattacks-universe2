@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.go import (
+    argument_list as go_argument_list,
     assignment_statement as go_assignment_statement,
     block as go_block,
     call_expression as go_call_expression,
@@ -9,6 +10,7 @@ from syntax_graph.syntax_readers.go import (
     package_clause as go_package_clause,
     selector_expression as go_selector_expression,
     source_file as go_source_file,
+    string_literal as go_string_literal,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -16,6 +18,12 @@ from syntax_graph.types import (
 )
 
 GO_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "argument_list",
+        },
+        syntax_reader=go_argument_list.reader,
+    ),
     Dispatcher(
         applicable_types={
             "assignment_statement",
@@ -79,5 +87,11 @@ GO_DISPATCHERS: Dispatchers = (
             "source_file",
         },
         syntax_reader=go_source_file.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "raw_string_literal",
+        },
+        syntax_reader=go_string_literal.reader,
     ),
 )

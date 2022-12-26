@@ -17,4 +17,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     expression_id = args.ast_graph.nodes[args.n_id]["label_field_field"]
     member = node_to_str(args.ast_graph, member_id)
     expression = node_to_str(args.ast_graph, expression_id)
-    return build_member_access_node(args, member, expression, expression_id)
+    return build_member_access_node(
+        args, member, expression, expression_id, member_id
+    )
