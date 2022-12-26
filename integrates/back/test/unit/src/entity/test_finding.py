@@ -323,29 +323,6 @@ async def test_update_evidence_records_append() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_finding_consult_parent_non_zero() -> None:
-    """Check for addFindingConsult mutation."""
-    query = """
-      mutation {
-        addFindingConsult(
-          content: "This is a comenting test",
-          findingId: "422286126",
-          type: CONSULT,
-          parentComment: "1566336916294"
-        ) {
-          success
-          commentId
-        }
-      }
-      """
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addFindingConsult"]
-    assert result["data"]["addFindingConsult"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_filter_deleted_findings() -> None:
     """Check if vulns of removed findings are filtered out"""
     finding_id = "988493279"
