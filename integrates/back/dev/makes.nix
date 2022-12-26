@@ -24,6 +24,7 @@
             "$PWD/integrates/back/src"
           ];
         })
+        outputs."/integrates/back/charts/pypi"
       ];
     };
   };
