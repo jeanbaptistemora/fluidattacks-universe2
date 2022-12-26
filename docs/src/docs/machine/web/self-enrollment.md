@@ -52,7 +52,16 @@ and only one user per organization
 is allowed to complete the free
 trial registration.
 
-![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/login_enrollment.png)
+![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1672068642/docs/web/enrollment/login_arm.png)
+
+As we said,
+only new users can create an
+account and log in.
+If so,
+you will be welcome and encouraged
+to start the free trial.
+
+![welcome log in](https://res.cloudinary.com/fluid-attacks/image/upload/v1672069211/docs/web/enrollment/welcome_page.png)
 
 Having logged in,
 you will see a window where
@@ -62,7 +71,7 @@ you want us to assess.
 Once you have filled out the fields,
 click on the Check access button.
 
-![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/enrollment_repo.png)
+![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1672069350/docs/web/enrollment/add_repo.png)
 
 If the details you
 provided are valid,
@@ -71,7 +80,7 @@ You will see a new window asking you to create your
 [organization](/machine/web/creating-organization)
 and [group](/machine/web/groups).
 
-![Create Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010105/docs/web/enrollment/enrollment_create.png)
+![Create Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1672069743/docs/web/enrollment/add_org_group.png)
 
 After providing the
 requested information,
@@ -91,24 +100,24 @@ notification via email,
 where we welcome you to
 the Machine Plan free trial.
 
-![Enrollment Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_notif_email.png)
+![Enrollment Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1672072885/docs/web/enrollment/welcome_mail.png)
 
 You can also access your
 organization and group on
 the ARM and start exploring
 the platform.
 
-![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_acess.png)
+![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1672073424/docs/web/enrollment/group.png)
 
 Once vulnerabilities
 start being detected,
 you will be receiving
 notifications in your email.
 
-![Vulnerabilities Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_vuln_notification.png)
+![Vulnerabilities Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1672073524/docs/web/enrollment/vulnerabilite_detecte.png)
 
 By clicking the
-**Manage vulnerabilities now** button,
+**Go to type of vulnerability** button,
 you will be directed to the
 [Vulnerabilities](/machine/web/groups/vulnerabilities)
 section of your group.
@@ -123,7 +132,7 @@ for more information about
 managing your vulnerabilities
 from the ARM.
 
-![Management](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_manage_vulns.png)
+![Management](https://res.cloudinary.com/fluid-attacks/image/upload/v1672074011/docs/web/enrollment/vulnerabilities_view.png)
 
 When your 21-day free trial
 is about to run out,
@@ -139,16 +148,14 @@ comprehensive and more accurate
 Squad Plan (automated and manual
 testing service).
 
-![End Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_21days.png)
+![End Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1672074379/docs/web/enrollment/next_setp.png)
 
-If you click on the link to
-start paying for Machine Plan,
-you will be taken to the ARM
-and see a window to enter
-your payment details.
-If the transaction is successful,
-you will be able to continue
-testing the security of your
-systems with our automated tools.
+If you found our services helpful
+and want to continue with our
+[Machine](/about/faq/machine)
+or try our
+[Squad](/about/faq) plan,
+you can click the talk to a
+sales representative button.
 
 ![Add Payment Method](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_payment_method.png)
