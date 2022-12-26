@@ -1,0 +1,22 @@
+---
+integrates/web/forces/container:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  stage: post-deploy
+  tags: [large]
+  image: fluidattacks/forces:${CI_COMMIT_REF_NAME}
+  variables:
+    API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api
+  script:
+    - forces --token "${TEST_FORCES_TOKEN}" --lax
+  needs:
+    - /deployContainerImage/forcesDev
+    - /integrates/back/deploy/dev

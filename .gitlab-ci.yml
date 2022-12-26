@@ -12,6 +12,7 @@ include:
 
   - local: docs/.gitlab-ci.yaml
   - local: forces/.gitlab-ci.yml
+  - local: integrates/.gitlab-ci.yml
 
 stages:
   - rotation
