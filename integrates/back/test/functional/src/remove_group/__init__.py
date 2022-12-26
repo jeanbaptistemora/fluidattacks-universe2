@@ -12,13 +12,15 @@ from typing import (
 
 async def get_result(
     *,
-    user: str,
+    comments: str,
+    email: str,
     group: str,
     reason: str,
 ) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             removeGroup(
+                comments: "{comments}",
                 groupName: "{group}"
                 reason: {reason}
             ) {{
@@ -29,7 +31,7 @@ async def get_result(
     data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
-        stakeholder=user,
+        stakeholder=email,
         context=get_new_context(),
     )
 

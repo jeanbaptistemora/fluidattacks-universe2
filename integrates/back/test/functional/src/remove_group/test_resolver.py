@@ -30,7 +30,8 @@ async def test_remove_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: dict[str, Any] = await get_result(
-        user=email,
+        comments="This is a dummy explanation for the removal.",
+        email=email,
         group=group_name,
         reason=GroupStateJustification.NO_SYSTEM,
     )
@@ -70,7 +71,8 @@ async def test_remove_group_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group2"
     result: dict[str, Any] = await get_result(
-        user=email,
+        comments="",
+        email=email,
         group=group_name,
         reason=GroupStateJustification.NO_SYSTEM,
     )
