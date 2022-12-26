@@ -11,6 +11,6 @@ from syntax_graph.types import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    block = graph.nodes[args.n_id]["label_field_block_statements"]
+    block = graph.nodes[args.n_id].get("label_field_block_statements")
     parameter = graph.nodes[args.n_id].get("label_field_identifier")
     return build_catch_clause_node(args, block, None, None, parameter)

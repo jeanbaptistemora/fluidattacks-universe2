@@ -11,22 +11,23 @@ from typing import (
 
 def build_catch_clause_node(
     args: SyntaxGraphArgs,
-    block_node: NId,
+    block_node: Optional[NId],
     catch_declaration_block: Optional[NId],
     catch_filter_clause_block: Optional[NId],
     parameters_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        block_id=block_node,
         label_type="CatchClause",
     )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(block_node)),
-        label_ast="AST",
-    )
+    if block_node:
+        args.syntax_graph.nodes[args.n_id]["block_id"] = block_node
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(block_node)),
+            label_ast="AST",
+        )
 
     if catch_declaration_block:
         args.syntax_graph.add_edge(

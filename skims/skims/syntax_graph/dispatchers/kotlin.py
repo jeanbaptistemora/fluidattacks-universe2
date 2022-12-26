@@ -5,6 +5,7 @@ from syntax_graph.syntax_readers.kotlin import (
     catch_clause as kotlin_catch_clause,
     class_body as kotlin_class_body,
     class_declaration as kotlin_class_declaration,
+    comment as kotlin_comment,
     companion_object as kotlin_companion_object,
     expression_statement as kotlin_expression_statement,
     finally_clause as kotlin_finally_clause,
@@ -80,6 +81,12 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "comment",
+        },
+        syntax_reader=kotlin_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "companion_object",
         },
         syntax_reader=kotlin_companion_object.reader,
@@ -112,6 +119,7 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
+            "postfix_expression",
             "simple_identifier",
             "type_identifier",
         },
@@ -190,6 +198,7 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "null_literal",
+            "super_expression",
             "this_expression",
         },
         syntax_reader=kotlin_reserved_word.reader,
