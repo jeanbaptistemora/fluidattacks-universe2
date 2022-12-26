@@ -19,6 +19,7 @@ from custom_exceptions import (
     ToeLinesNotFound,
     ToePortNotFound,
     VulnAlreadyClosed,
+    VulnerabilityHasNotBeenReleased,
     VulnerabilityPathDoesNotExistInToeLines,
     VulnerabilityPortFieldDoNotExistInToePorts,
     VulnerabilityUrlFieldDoNotExistInToeInputs,
@@ -46,6 +47,9 @@ from db_model.toe_ports.types import (
 )
 from db_model.utils import (
     adjust_historic_dates,
+)
+from db_model.vulnerabilities.constants import (
+    RELEASED_FILTER_STATUSES,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -722,7 +726,7 @@ def validate_justification_length(justification: str) -> None:
 
 def validate_non_zero_risk_requested(
     vulnerability: Vulnerability,
-) -> Vulnerability:
+) -> None:
     """Validate if zero risk vuln is not already resquested."""
     if (
         vulnerability.zero_risk
@@ -730,7 +734,14 @@ def validate_non_zero_risk_requested(
         == VulnerabilityZeroRiskStatus.REQUESTED
     ):
         raise AlreadyZeroRiskRequested()
-    return vulnerability
+
+
+def validate_released(
+    vulnerability: Vulnerability,
+) -> None:
+    """Validate if the vulnerability is in a released status."""
+    if vulnerability.state.status not in RELEASED_FILTER_STATUSES:
+        raise VulnerabilityHasNotBeenReleased()
 
 
 def validate_zero_risk_requested(

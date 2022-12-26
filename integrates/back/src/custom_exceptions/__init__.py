@@ -1775,3 +1775,9 @@ class GroupHasPendingActions(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The group has pending actions"
         super(GroupHasPendingActions, self).__init__(msg)
+
+
+class VulnerabilityHasNotBeenReleased(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The vulnerability has not been released"
+        super(VulnerabilityHasNotBeenReleased, self).__init__(msg)

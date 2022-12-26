@@ -621,10 +621,9 @@ async def request_vulnerabilities_zero_risk(
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
-    vulnerabilities = tuple(
+    for vuln in vulnerabilities:
         vulns_utils.validate_non_zero_risk_requested(vuln)
-        for vuln in vulnerabilities
-    )
+        vulns_utils.validate_released(vuln)
     if not vulnerabilities:
         raise VulnNotFound()
 
