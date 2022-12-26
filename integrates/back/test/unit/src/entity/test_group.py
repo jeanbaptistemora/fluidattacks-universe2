@@ -289,30 +289,6 @@ async def test_get_roots() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_url_root_uniqueness() -> None:
-    query = """
-      mutation {
-        addUrlRoot(
-          groupName: "oneshottest"
-          nickname: "test_url_1"
-          url: "https://unique.com/"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert result["data"]["addUrlRoot"]["success"]
-
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "already exists" in result["errors"][0]["message"]
-
-
-@pytest.mark.changes_db
 async def test_update_git_root() -> None:
     query = """
       mutation {

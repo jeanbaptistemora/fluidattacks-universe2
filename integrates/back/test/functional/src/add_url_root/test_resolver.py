@@ -61,6 +61,41 @@ async def test_add_url_root(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_url_root")
 @pytest.mark.parametrize(
+    ["email", "nickname", "query", "url"],
+    [
+        [
+            "admin@gmail.com",
+            "test-nickname-1",
+            "=test",
+            "https://test.com",
+        ],
+    ],
+)
+async def test_add_url_root_fail_1(
+    populate: bool,
+    email: str,
+    nickname: str,
+    query: str,
+    url: str,
+) -> None:
+    assert populate
+    group_name: str = "group2"
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        group=group_name,
+        nickname=nickname,
+        url=f"{url}?{query}",
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Active root with the same Nickname already exists"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_url_root")
+@pytest.mark.parametrize(
     ["email"],
     [
         ["hacker@gmail.com"],
