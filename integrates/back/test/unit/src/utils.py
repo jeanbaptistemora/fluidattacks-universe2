@@ -78,6 +78,9 @@ mocked_paths: Dict[str, str] = {
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501
+    "s3_ops.list_files": "s3.operations.list_files",
+    "s3_ops.remove_file": "s3.operations.remove_file",
+    "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -653,6 +656,18 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["integratesuser@gmail.com"]': None,
         '["test_email@test.com", "user"]': None,
         '["test_email@test.com", "admin"]': None,
+    },
+    "s3.operations.list_files": {
+        '["billing-test-file.png"]': ["billing-test-file.png"],
+        '["unittesting-test-file.csv"]': ["unittesting-test-file.csv"],
+    },
+    "s3.operations.remove_file": {
+        '["billing-test-file.png"]': None,
+        '["unittesting-test-file.csv"]': None,
+    },
+    "s3.operations.upload_memory_file": {
+        '["billing-test-file.png"]': None,
+        '["unittesting-test-file.csv"]': None,
     },
 }
 
