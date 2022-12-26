@@ -526,6 +526,14 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/forces";
+            gitlabExtra = gitlabLint;
+          }
+          {
+            output = "/lintPython/module/forcesTests";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintTerraform/integratesInfra";
             gitlabExtra = gitlabLint;
           }
