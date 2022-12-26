@@ -2133,6 +2133,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE = MethodInfo(
+        file_name="aws",
+        name="has_default_security_groups_in_use",
+        module="dast",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_DEFAULT_ALL_TRAFIC = MethodInfo(
         file_name="aws",
         name="default_seggroup_allows_all_traffic",
