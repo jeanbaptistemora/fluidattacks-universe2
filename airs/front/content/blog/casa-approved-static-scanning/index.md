@@ -8,7 +8,7 @@ tags: cybersecurity, security-testing, software, cloud, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1671827428/blog/casa-approved-static-scanning/cover_casa.webp
 alt: Photo by Kostiantyn Li on Unsplash
 description: Fluid Attacks' automated tool is recommended by the App Defense Alliance for static scanning under the Cloud Application Security Assessment (CASA) framework.
-keywords: Application Security, Security Testing, Cloud Application Security Assessment, Casa, Static Scanning, Skims, App Defense Alliance, Ethical Hacking, Pentesting
+keywords: Application Security, Security Testing, Cloud Application Security Assessment, Casa, Static Scanning, Machine, App Defense Alliance, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
 name: Jason Chavarría
@@ -20,8 +20,7 @@ The App Defense Alliance added Fluid Attacks' CLI application
 as an approved tool for application security testing (AST).
 The Alliance is a partnership between Google et al.
 formed to ensure that Android applications are secure for users.
-Our open-source offering,
-called [**Skims**](https://docs.fluidattacks.com/development/skims/#using-skims),
+Our [open-source offering](https://docs.fluidattacks.com/machine/scanner/plans/foss)
 is free to use for static scanning
 and has been officially accepted to validate tier 2 requirements
 of the Alliance's Cloud Application Security Assessment (CASA) framework.
@@ -109,22 +108,22 @@ to perform [static application security testing](../../categories/sast/)
 
 ## Our CLI app can be leveraged for vulnerability scanning
 
-Skims is our CLI application
+**Fluid Attacks' Machine** is our CLI application
 that [devs can configure](https://docs.fluidattacks.com/machine/scanner/plans/foss/)
 to run source code analysis
 and assess web applications and other attack surfaces.
 It performs vulnerability scanning
 and reports the names of identified vulnerabilities
-(according to [Fluid Attacks' own standardization](https://docs.fluidattacks.com/criteria/vulnerabilities/))
+(according to Fluid Attacks' own [standardized set](https://docs.fluidattacks.com/criteria/vulnerabilities/))
 along with their CWE IDs and location in your source code.
 To learn how to configure
-and use Skims as a vulnerability scanner,
+and use our CLI tool as a vulnerability scanner,
 follow [our guide](https://docs.fluidattacks.com/development/skims#using-skims).
 
 If a CASA Framework User requests you pass the tier 2 assurance level,
 be sure to follow the [process](https://appdefensealliance.dev/casa/tier-2/tier2-overview)
 described by the ADA.
-Use Skims to scan your application
+Use Machine to scan your application
 as the Alliance shows in [its website](https://appdefensealliance.dev/casa/tier-2/ast-guide/static-scan).
 
 You'll be requested to revalidate your application once every year.
@@ -142,7 +141,7 @@ We can help you with this.
 We offer [Continuous Hacking](../../services/continuous-hacking/),
 which involves performing AST throughout your software development lifecycle
 (SDLC).
-We configure Skims
+We configure Machine
 to detect your application's vulnerabilities with accuracy.
 You can see every finding and several details,
 including recommendations for fixing the security issues,
@@ -159,12 +158,13 @@ Among the benefits of Continuous Hacking are
 - enabling your [cloud DevSecOps](../why-is-cloud-devsecops-important/)
   implementation.
 
-You can choose between [two plans](../../plans/):
+You can choose between [two paid plans](../../plans/):
 Machine and Squad.
-Machine Plan offers continuous [SAST](../../categories/sast/),
+Machine Plan offers continuous
+[static application security testing](../../categories/sast/) (SAST),
 [dynamic application security testing](../../categories/dast/) (DAST)
 and [software composition analysis](../../categories/sca/) (SCA)
-with Skims only.
+with our tool only.
 Squad Plan adds AI prioritization
 and continuous [manual penetration testing](../../solutions/penetration-testing/).
 Our ethical hackers find the vulnerabilities
