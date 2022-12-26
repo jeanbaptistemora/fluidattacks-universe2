@@ -24,6 +24,10 @@ class OauthGitlabSecret(NamedTuple):
     refresh_token: str
 
 
+class OauthGithubSecret(NamedTuple):
+    access_token: str
+
+
 class SshSecret(NamedTuple):
     key: str
 
@@ -34,7 +38,13 @@ class CredentialsState(NamedTuple):
     name: str
     type: CredentialType
     is_pat: bool
-    secret: Union[HttpsSecret, HttpsPatSecret, OauthGitlabSecret, SshSecret]
+    secret: Union[
+        HttpsSecret,
+        HttpsPatSecret,
+        OauthGithubSecret,
+        OauthGitlabSecret,
+        SshSecret,
+    ]
     azure_organization: Optional[str] = None
 
 
