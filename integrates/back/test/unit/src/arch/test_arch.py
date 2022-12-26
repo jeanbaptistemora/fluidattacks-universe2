@@ -11,14 +11,12 @@ from arch_lint.graph import (
 from pathlib import (
     Path,
 )
-import pytest
 
 
 def test_dag_creation() -> None:
     project_dag()
 
 
-@pytest.mark.xfail
 def test_dag() -> None:
     graph = ImportGraph.from_modules(project_dag().all_modules, False)
     check_dag(project_dag(), graph)

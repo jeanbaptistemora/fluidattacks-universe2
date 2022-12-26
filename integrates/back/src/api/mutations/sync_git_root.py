@@ -4,9 +4,6 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch_dispatch import (
-    clone_roots,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -24,6 +21,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+)
+from roots import (
+    domain as roots_domain,
 )
 from sessions import (
     domain as sessions_domain,
@@ -50,7 +50,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
     root: GitRoot = await loaders.root.load((group_name, kwargs["root_id"]))
-    await clone_roots.queue_sync_git_roots(
+    await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         roots=(root,),
         user_email=user_email,

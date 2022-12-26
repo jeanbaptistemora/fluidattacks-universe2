@@ -17,9 +17,6 @@ from batch.enums import (
     Action,
     Product,
 )
-from batch_dispatch import (
-    clone_roots,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -95,7 +92,7 @@ async def mutate(
     if (
         kwargs.get("credentials")
         and (
-            result_queue_sync := await clone_roots.queue_sync_git_roots(
+            result_queue_sync := await roots_domain.queue_sync_git_roots(
                 loaders=loaders,
                 roots=(root,),
                 user_email=user_email,

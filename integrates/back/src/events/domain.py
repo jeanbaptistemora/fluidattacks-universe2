@@ -7,9 +7,6 @@ from aioextensions import (
     schedule,
 )
 import authz
-from collections import (
-    defaultdict,
-)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventHasNotBeenSolved,
@@ -132,7 +129,6 @@ from time import (
 )
 from typing import (
     Any,
-    DefaultDict,
     Optional,
     Union,
 )
@@ -815,21 +811,3 @@ async def request_vulnerabilities_hold(
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
     )
     await finding_comments_domain.add(loaders, comment_data)
-
-
-async def get_unsolved_events_by_root(
-    loaders: Dataloaders, group_name: str
-) -> dict[str, tuple[Event, ...]]:
-    unsolved_events_by_root: DefaultDict[
-        Optional[str], list[Event]
-    ] = defaultdict(list[Event])
-    unsolved_events: tuple[Event, ...] = await loaders.group_events.load(
-        GroupEventsRequest(group_name=group_name, is_solved=False)
-    )
-    for event in unsolved_events:
-        unsolved_events_by_root[event.root_id].append(event)
-    return {
-        root_id: tuple(events)
-        for root_id, events in unsolved_events_by_root.items()
-        if root_id
-    }

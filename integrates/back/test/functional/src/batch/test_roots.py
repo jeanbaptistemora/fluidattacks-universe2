@@ -8,9 +8,6 @@ from batch.enums import (
 from batch.types import (
     BatchProcessing,
 )
-from batch_dispatch import (
-    clone_roots,
-)
 from custom_exceptions import (
     CredentialNotFound,
     RootAlreadyCloning,
@@ -52,7 +49,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),  # type: ignore
@@ -75,7 +72,7 @@ async def test_queue_sync_git_roots_real_https_ok(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),  # type: ignore
@@ -107,7 +104,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),  # type: ignore
@@ -136,7 +133,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),  # type: ignore
@@ -151,7 +148,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "get_actions_by_name",
         return_value=(
             BatchProcessing(
@@ -175,7 +172,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     )
 
     with pytest.raises(RootAlreadyCloning):
-        await clone_roots.queue_sync_git_roots(
+        await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             roots=(root_1,),  # type: ignore
@@ -195,7 +192,7 @@ async def test_queue_sync_git_roots_no_creds(
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     with pytest.raises(CredentialNotFound):
-        await clone_roots.queue_sync_git_roots(
+        await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             roots=(root_1,),  # type: ignore
@@ -215,7 +212,7 @@ async def test_queue_sync_git_no_queue(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),
@@ -236,7 +233,7 @@ async def test_queue_sync_git_roots_cloning(
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "ssh_ls_remote",
         return_value="904d294729ad03fd2dadbb89b920389458e53a61c",
     )
@@ -245,7 +242,7 @@ async def test_queue_sync_git_roots_cloning(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
         roots=(root_1,),
@@ -265,7 +262,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     mocker: MockerFixture,
 ) -> None:
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "ssh_ls_remote",
         return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
     )
@@ -280,7 +277,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email="",
         roots=(root_1,),
@@ -300,7 +297,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     mocker: MockerFixture,
 ) -> None:
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "ssh_ls_remote",
         return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
     )
@@ -315,7 +312,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
 
-    result = await clone_roots.queue_sync_git_roots(
+    result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email="",
         roots=(root_1,),
@@ -340,7 +337,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
         return_value=False,
     )
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "get_actions_by_name",
         return_value=(
             BatchProcessing(
@@ -382,7 +379,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
     )
 
     with pytest.raises(RootAlreadyCloning):
-        await clone_roots.queue_sync_git_roots(
+        await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
@@ -506,7 +503,7 @@ async def test_queue_sync_git_roots(
         return_value=False,
     )
     mocker.patch.object(
-        clone_roots,
+        roots_domain,
         "get_actions_by_name",
         return_value=batch_items,
     )
@@ -523,7 +520,7 @@ async def test_queue_sync_git_roots(
     )
 
     try:
-        await clone_roots.queue_sync_git_roots(
+        await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",

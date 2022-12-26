@@ -9,14 +9,30 @@ from asyncio.tasks import (
     sleep,
 )
 import authz
+from batch.dal import (
+    get_actions_by_name,
+    IntegratesBatchQueue,
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
+from batch.types import (
+    PutActionResult,
+)
 from botocore.exceptions import (
     ClientError,
+)
+from collections import (
+    defaultdict,
 )
 from context import (
     FI_AWS_REGION_NAME,
     FI_ENVIRONMENT,
 )
 from custom_exceptions import (
+    CredentialNotFound,
     FileNotFound,
     HasVulns,
     InvalidField,
@@ -25,6 +41,7 @@ from custom_exceptions import (
     PermissionDenied,
     RepeatedRoot,
     RequiredCredentials,
+    RootAlreadyCloning,
     RootEnvironmentUrlNotFound,
     RootNotFound,
 )
@@ -42,11 +59,18 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsRequest,
     CredentialsState,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
 )
 from db_model.enums import (
     CredentialType,
     GitCloningStatus,
     Notification,
+)
+from db_model.events.types import (
+    Event,
+    GroupEventsRequest,
 )
 from db_model.groups.enums import (
     GroupStateStatus,
@@ -87,8 +111,10 @@ from group_access import (
 )
 import hashlib
 from itertools import (
+    chain,
     groupby,
 )
+import json
 import logging
 from mailer import (
     groups as groups_mail,
@@ -96,6 +122,10 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     validations as validation_utils,
+)
+import newutils.git_self
+from newutils.git_self import (
+    ssh_ls_remote,
 )
 from notifications import (
     domain as notifications_domain,
@@ -122,7 +152,10 @@ from settings.various import (
 )
 from typing import (
     Any,
+    DefaultDict,
+    Dict,
     Optional,
+    Tuple,
     Union,
 )
 from urllib3.exceptions import (
@@ -1828,3 +1861,320 @@ async def remove_root(
         email=email,
     )
     await roots_model.remove(root_id=root.id)
+
+
+async def get_unsolved_events_by_root(
+    loaders: Dataloaders, group_name: str
+) -> dict[str, tuple[Event, ...]]:
+    unsolved_events_by_root: DefaultDict[
+        Optional[str], list[Event]
+    ] = defaultdict(list[Event])
+    unsolved_events: tuple[Event, ...] = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group_name, is_solved=False)
+    )
+    for event in unsolved_events:
+        unsolved_events_by_root[event.root_id].append(event)
+    return {
+        root_id: tuple(events)
+        for root_id, events in unsolved_events_by_root.items()
+        if root_id
+    }
+
+
+async def _ls_remote_root(root: GitRoot, cred: Credentials) -> Optional[str]:
+    last_commit: Optional[str]
+
+    if root.state.use_vpn:
+        last_commit = None
+    elif isinstance(cred.state.secret, SshSecret):
+        last_commit = await ssh_ls_remote(
+            repo_url=root.state.url, credential_key=cred.state.secret.key
+        )
+    elif isinstance(cred.state.secret, HttpsSecret):
+        last_commit = await newutils.git_self.https_ls_remote(
+            repo_url=root.state.url,
+            user=cred.state.secret.user,
+            password=cred.state.secret.password,
+        )
+    elif isinstance(cred.state.secret, HttpsPatSecret):
+        last_commit = await newutils.git_self.https_ls_remote(
+            repo_url=root.state.url,
+            token=cred.state.secret.token,
+        )
+    else:
+        raise InvalidParameter()
+
+    return last_commit
+
+
+def _filter_active_roots_with_credentials(
+    roots: Tuple[GitRoot, ...], use_vpn: bool
+) -> Tuple[GitRoot, ...]:
+    valid_roots: Tuple[GitRoot, ...] = tuple(
+        root
+        for root in roots
+        if (
+            root.state.status == RootStatus.ACTIVE
+            and root.state.use_vpn == use_vpn
+        )
+    )
+    if any(root.state.credential_id is None for root in roots):
+        raise CredentialNotFound()
+
+    return valid_roots
+
+
+async def _filter_roots_unsolved_events(
+    roots: Tuple[GitRoot, ...], loaders: Dataloaders, group_name: str
+) -> Tuple[GitRoot, ...]:
+    unsolved_events_by_root: Dict[
+        str, Tuple[Event, ...]
+    ] = await get_unsolved_events_by_root(loaders, group_name)
+    roots_with_unsolved_events: Tuple[str, ...] = tuple(
+        root.id for root in roots if root.id in unsolved_events_by_root
+    )
+    await collect(
+        [
+            update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                status=GitCloningStatus.FAILED,
+                message="Git root has unsolved events",
+            )
+            for root_id in roots_with_unsolved_events
+        ]
+    )
+
+    return tuple(
+        root for root in roots if root.id not in roots_with_unsolved_events
+    )
+
+
+async def _filter_roots_already_in_queue(
+    roots: Tuple[GitRoot, ...], group_name: str
+) -> Tuple[GitRoot, ...]:
+    clone_queue = await get_actions_by_name("clone_roots", group_name)
+    root_nicknames_in_queue = set(
+        chain.from_iterable(
+            [clone_job.additional_info.split(",") for clone_job in clone_queue]
+        )
+    )
+    valid_roots: Tuple[GitRoot, ...] = tuple(
+        root
+        for root in roots
+        if root.state.nickname not in root_nicknames_in_queue
+    )
+    if not valid_roots:
+        raise RootAlreadyCloning()
+
+    return valid_roots
+
+
+async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
+    roots: Tuple[GitRoot, ...],
+    loaders: Dataloaders,
+    group_name: str,
+    organization_id: str,
+    force: bool,
+    queue_with_vpn: bool,
+) -> Tuple[GitRoot, ...]:
+    roots_credentials: Tuple[
+        Credentials, ...
+    ] = await loaders.credentials.load_many(
+        tuple(
+            CredentialsRequest(
+                id=root.state.credential_id,
+                organization_id=organization_id,
+            )
+            for root in roots
+            if root.state.credential_id is not None
+        )
+    )
+
+    last_root_commits_in_s3: Tuple[
+        Tuple[GitRoot, Optional[str], bool], ...
+    ] = tuple(
+        zip(
+            roots,
+            tuple(
+                await collect(
+                    _ls_remote_root(root, credential)
+                    for root, credential in zip(roots, roots_credentials)
+                )
+            ),
+            tuple(
+                await collect(
+                    is_in_s3(group_name, root.state.nickname) for root in roots
+                )
+            ),
+        )
+    )
+
+    roots_with_issues: Tuple[GitRoot, ...] = tuple(
+        root
+        for root, commit, _ in last_root_commits_in_s3
+        if commit is None and not root.state.use_vpn
+    )
+    await collect(
+        [
+            update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root.id,
+                status=GitCloningStatus.FAILED,
+                message="Credentials does not work",
+                commit=root.cloning.commit,
+            )
+            for root in roots_with_issues
+        ]
+    )
+
+    unchanged_roots: Tuple[GitRoot, ...] = tuple(
+        root
+        for root, commit, has_mirror_in_s3 in last_root_commits_in_s3
+        if (
+            commit is not None
+            and commit == root.cloning.commit
+            and has_mirror_in_s3
+            and force is False
+        )
+    )
+    await collect(
+        [
+            update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root.id,
+                status=root.cloning.status,
+                message=root.cloning.reason,
+                commit=root.cloning.commit,
+            )
+            for root in unchanged_roots
+        ]
+    )
+
+    valid_roots = tuple(
+        root
+        for root, commit, has_mirror_in_s3 in last_root_commits_in_s3
+        if (
+            commit is not None
+            and (
+                commit != root.cloning.commit
+                or not has_mirror_in_s3
+                or force is True
+            )
+        )
+        or (queue_with_vpn and root.state.use_vpn)
+    )
+
+    return valid_roots
+
+
+async def queue_sync_git_roots(
+    *,
+    loaders: Dataloaders,
+    user_email: str,
+    group_name: str,
+    roots: Optional[Tuple[GitRoot, ...]] = None,
+    check_existing_jobs: bool = True,
+    force: bool = False,
+    queue_with_vpn: bool = False,
+    from_scheduler: bool = False,
+) -> Optional[PutActionResult]:
+    group: Group = await loaders.group.load(group_name)
+    if roots is None:
+        roots = tuple(
+            root
+            for root in await loaders.group_roots.load(group_name)
+            if (
+                isinstance(root, GitRoot)
+                and root.state.credential_id is not None
+            )
+        )
+    valid_roots = _filter_active_roots_with_credentials(roots, queue_with_vpn)
+    if not group.state.has_squad and not force:
+        valid_roots = await _filter_roots_unsolved_events(
+            valid_roots, loaders, group_name
+        )
+
+    if check_existing_jobs:
+        valid_roots = await _filter_roots_already_in_queue(
+            valid_roots, group_name
+        )
+
+    valid_roots = await _filter_roots_working_creds(
+        valid_roots,
+        loaders,
+        group_name,
+        group.organization_id,
+        force,
+        queue_with_vpn,
+    )
+    if valid_roots:
+        additional_info = json.dumps(
+            {
+                "group_name": group_name,
+                "roots": list({root.state.nickname for root in valid_roots}),
+            }
+        )
+        result_clone = await put_action(
+            action=Action.CLONE_ROOTS,
+            attempt_duration_seconds=5400,
+            vcpus=1,
+            memory=1800,
+            entity=group_name,
+            subject=user_email,
+            additional_info=additional_info,
+            queue=IntegratesBatchQueue.CLONE,
+            product_name=Product.INTEGRATES,
+            dynamodb_pk=None,
+        )
+        if result_clone.batch_job_id:
+            result_refresh = await put_action(
+                action=Action.REFRESH_TOE_LINES,
+                additional_info="*",
+                attempt_duration_seconds=7200,
+                entity=group_name,
+                product_name=Product.INTEGRATES,
+                subject="integrates@fluidattacks.com",
+                queue=IntegratesBatchQueue.SMALL,
+                dependsOn=[
+                    {
+                        "jobId": result_clone.batch_job_id,
+                        "type": "SEQUENTIAL",
+                    },
+                ],
+            )
+            if result_refresh.batch_job_id:
+                await put_action(
+                    action=Action.REBASE,
+                    additional_info=additional_info,
+                    entity=group_name,
+                    product_name=Product.INTEGRATES,
+                    subject="integrates@fluidattacks.com",
+                    queue=IntegratesBatchQueue.SMALL,
+                    attempt_duration_seconds=14400,
+                    dependsOn=[
+                        {
+                            "jobId": result_refresh.batch_job_id,
+                            "type": "SEQUENTIAL",
+                        },
+                    ],
+                )
+        if not from_scheduler:
+            await collect(
+                tuple(
+                    update_root_cloning_status(
+                        loaders=loaders,
+                        group_name=group_name,
+                        root_id=root.id,
+                        status=GitCloningStatus.QUEUED,
+                        message="Cloning queued...",
+                    )
+                    for root in valid_roots
+                )
+            )
+
+        return result_clone
+    return None

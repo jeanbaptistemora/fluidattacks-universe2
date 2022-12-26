@@ -209,12 +209,13 @@ async def _queue_sync_git_roots(
     force: bool = False,
     queue_with_vpn: bool = False,
 ) -> Optional[PutActionResult]:
-    from batch_dispatch import (  # pylint: disable=import-outside-toplevel
-        clone_roots,
+
+    from roots import (  # pylint: disable=import-outside-toplevel
+        domain as roots_domain,
     )
 
     try:
-        return await clone_roots.queue_sync_git_roots(
+        return await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=user_email,
             group_name=group_name,

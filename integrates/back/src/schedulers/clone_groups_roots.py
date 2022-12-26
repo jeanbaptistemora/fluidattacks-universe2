@@ -1,6 +1,3 @@
-from batch_dispatch import (
-    clone_roots,
-)
 from custom_exceptions import (
     CredentialNotFound,
     InvalidParameter,
@@ -12,6 +9,9 @@ from dataloaders import (
 )
 from organizations import (
     domain as orgs_domain,
+)
+from roots import (
+    domain as roots_domain,
 )
 from typing import (
     List,
@@ -37,7 +37,7 @@ async def _queue_sync_git_roots(
     message: Optional[str] = None
     try:
         result = await (
-            clone_roots.queue_sync_git_roots(
+            roots_domain.queue_sync_git_roots(
                 loaders=loaders,
                 user_email=user_email,
                 group_name=group_name,
