@@ -334,7 +334,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         },
       }
     );
-    const handleUpdatePaymentMethodSubmit = useCallback(
+    const handleUpdateCreditCardPaymentMethodSubmit = useCallback(
       async ({
         cardExpirationMonth,
         cardExpirationYear,
@@ -370,21 +370,60 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             email,
             makeDefault,
             organizationId,
-            paymentMethodId: currentCreditCardRow[0].id
-              ? currentCreditCardRow[0].id
-              : currentOtherMethodRow[0].id,
+            paymentMethodId: currentCreditCardRow[0]?.id,
             rut,
             state,
             taxId,
           },
         });
       },
-      [
-        updatePaymentMethod,
-        organizationId,
-        currentCreditCardRow,
-        currentOtherMethodRow,
-      ]
+      [updatePaymentMethod, organizationId, currentCreditCardRow]
+    );
+
+    const handleUpdateOtherPaymentMethodSubmit = useCallback(
+      async ({
+        cardExpirationMonth,
+        cardExpirationYear,
+        makeDefault,
+        businessName,
+        city,
+        country,
+        email,
+        rutList,
+        state,
+        taxIdList,
+      }: {
+        cardExpirationMonth: string;
+        cardExpirationYear: string;
+        makeDefault: boolean;
+        businessName: string;
+        city: string;
+        country: string;
+        email: string;
+        rutList: FileList | undefined;
+        state: string;
+        taxIdList: FileList | undefined;
+      }): Promise<void> => {
+        const rut = handleFileListUpload(rutList);
+        const taxId = handleFileListUpload(taxIdList);
+        await updatePaymentMethod({
+          variables: {
+            businessName,
+            cardExpirationMonth,
+            cardExpirationYear,
+            city,
+            country,
+            email,
+            makeDefault,
+            organizationId,
+            paymentMethodId: currentOtherMethodRow[0]?.id,
+            rut,
+            state,
+            taxId,
+          },
+        });
+      },
+      [updatePaymentMethod, organizationId, currentOtherMethodRow]
     );
 
     // Download legal document file
@@ -610,7 +649,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         {isUpdatingCreditCard === false ? undefined : (
           <UpdateCreditCardModal
             onClose={closeUpdateCreditCardModal}
-            onSubmit={handleUpdatePaymentMethodSubmit}
+            onSubmit={handleUpdateCreditCardPaymentMethodSubmit}
           />
         )}
         {isUpdatingOhterMethod === false ? undefined : (
@@ -628,7 +667,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               taxIdList: undefined,
             }}
             onClose={closeUpdateOhterMethodModal}
-            onSubmit={handleUpdatePaymentMethodSubmit}
+            onSubmit={handleUpdateOtherPaymentMethodSubmit}
           />
         )}
       </div>

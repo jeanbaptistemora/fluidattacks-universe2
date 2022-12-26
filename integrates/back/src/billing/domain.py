@@ -502,7 +502,7 @@ async def update_documents(
     documents = OrganizationDocuments()
     org_name = org.name.lower()
     business_name = business_name.lower()
-    if org.payment_methods is not None:
+    if not card_expiration_month and org.payment_methods is not None:
         actual_payment_method = list(
             filter(
                 lambda method: method.id == payment_method_id,
@@ -778,6 +778,42 @@ async def update_payment_method(
     return result
 
 
+async def _set_default_payment(
+    payment_methods: list[PaymentMethod],
+    payment_method_id: str,
+    org: Organization,
+) -> bool:
+    # Set another payment method as default
+    # if current credit card default will be deleted
+    result: bool = True
+    default: PaymentMethod = [
+        payment_method
+        for payment_method in payment_methods
+        if payment_method.default
+    ][0]
+    credit_card_payment_methods = [
+        credit_card_payment
+        for credit_card_payment in payment_methods
+        if credit_card_payment.last_four_digits
+    ]
+    if (
+        len(credit_card_payment_methods) > 1
+        and payment_method_id == default.id
+    ):
+        non_defaults = [
+            payment_method
+            for payment_method in payment_methods
+            if not payment_method.default
+        ]
+
+        result = await dal.update_default_payment_method(
+            payment_method_id=non_defaults[0].id,
+            org_billing_customer=org.billing_customer,
+        )
+
+    return result
+
+
 async def remove_payment_method(
     *,
     org: Organization,
@@ -855,28 +891,13 @@ async def remove_payment_method(
     ):
         raise BillingCustomerHasActiveSubscription()
 
-    result: bool = True
-
-    # Set another payment method as default if current default will be deleted
-    default: PaymentMethod = [
-        payment_method
-        for payment_method in payment_methods
-        if payment_method.default
-    ][0]
-    if len(payment_methods) > 1 and payment_method_id == default.id:
-        non_defaults = [
-            payment_method
-            for payment_method in payment_methods
-            if not payment_method.default
-        ]
-        result = await dal.update_default_payment_method(
-            payment_method_id=non_defaults[0].id,
-            org_billing_customer=org.billing_customer,
-        )
-
-    result = result and await dal.remove_payment_method(
+    update_default_payment = await _set_default_payment(
+        payment_methods, payment_method_id, org
+    )
+    result = update_default_payment and await dal.remove_payment_method(
         payment_method_id=payment_method_id,
     )
+
     return result
 
 

@@ -381,7 +381,7 @@ async def update_payment_method(
 async def update_default_payment_method(
     *,
     payment_method_id: str,
-    org_billing_customer: str,
+    org_billing_customer: Optional[str],
 ) -> bool:
     """Make a payment method default for a customer"""
     data = stripe.Customer.modify(
