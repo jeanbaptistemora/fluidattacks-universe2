@@ -237,7 +237,7 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
         keywords={translate.t("blog.keywords")}
         title={`Blogs by ${capitalizeDashedString(
           authorName
-        )} | A Pentesting Company | Fluid Attacks`}
+        )} | Application security testing solutions | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/authors/${authorName}`}
       />
       <BlogSeo
@@ -247,7 +247,7 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
             : metaDescription
         }
         image={blogImage}
-        title={"Blog | A Pentesting Company | Fluid Attacks"}
+        title={"Blog | Application security testing solutions | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
 

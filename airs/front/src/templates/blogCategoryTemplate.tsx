@@ -87,7 +87,7 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
         keywords={translate.t("blog.keywords")}
         title={`Blogs about ${capitalizePlainString(
           categoryName
-        )} | A Pentesting Company | Fluid Attacks`}
+        )} | Application security testing solutions | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/categories/${categoryName}`}
       />
       <BlogSeo
@@ -97,7 +97,7 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
             : metaDescription
         }
         image={blogImage}
-        title={"Blog | A Pentesting Company | Fluid Attacks"}
+        title={"Blog | Application security testing solutions | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
 

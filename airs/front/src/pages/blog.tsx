@@ -27,7 +27,7 @@ const BlogIndex: React.FC<IQueryData> = ({
         description={translate.t("blog.description")}
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={"Blog | A Pentesting Company | Fluid Attacks"}
+        title={"Blog | Application security testing solutions | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
 

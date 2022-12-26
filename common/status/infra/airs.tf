@@ -21,7 +21,7 @@ resource "checkly_check" "airs" {
     await page.goto("https://fluidattacks.com/");
     const title = await page.title();
 
-    assert.equal(title, "A Pentesting Company | Fluid Attacks");
+    assert.equal(title, "Application security testing solutions | Fluid Attacks");
     await browser.close();
   EOF
 }

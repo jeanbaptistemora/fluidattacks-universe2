@@ -4,12 +4,13 @@ module.exports = {
   siteMetadata: {
     author: "Fluid Attacks",
     description:
-      'We\'re a pentesting and ethical hacking company that identifies and '
-      + 'reports all your applications and software vulnerabilities ASAP.',
+      'Our application security testing combines automation and penetration testing '
+      + 'to find all vulnerabilities so you can deploy secure software, achieve '
+      + 'DevSecOps and reduce cyber risks.',
     keywords:
       "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
     siteUrl: "https://fluidattacks.com", // No trailing slash allowed!
-    title: "A Pentesting Company | Fluid Attacks",
+    title: "Application security testing solutions | Fluid Attacks",
   },
   plugins: [
     "gatsby-plugin-sass",
