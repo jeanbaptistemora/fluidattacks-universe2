@@ -8,6 +8,8 @@ from syntax_graph.syntax_readers.go import (
     identifier as go_identifier,
     import_declaration as go_import_declaration,
     package_clause as go_package_clause,
+    parameter_declaration as go_parameter_declaration,
+    parameter_list as go_parameter_list,
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
@@ -75,6 +77,18 @@ GO_DISPATCHERS: Dispatchers = (
             "package_clause",
         },
         syntax_reader=go_package_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parameter_declaration",
+        },
+        syntax_reader=go_parameter_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parameter_list",
+        },
+        syntax_reader=go_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
