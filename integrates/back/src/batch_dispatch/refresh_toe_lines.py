@@ -64,15 +64,9 @@ import tempfile
 from toe.lines import (
     domain as toe_lines_domain,
 )
-from toe.lines.constants import (
-    CHECKED_FILES,
-)
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
-)
-from toe.lines.utils import (
-    get_filename_extension,
 )
 from typing import (
     Dict,
@@ -195,15 +189,6 @@ async def get_present_toe_lines_to_add(
     )
 
 
-def _get_attacked_lines(toe_lines: ToeLines, last_loc: int) -> int:
-    if get_filename_extension(toe_lines.filename) in CHECKED_FILES:
-        attacked_lines = last_loc
-    else:
-        attacked_lines = min(toe_lines.attacked_lines, last_loc)
-
-    return attacked_lines
-
-
 async def get_present_toe_lines_to_update(
     present_filenames: Set[str],
     repo: Repo,
@@ -241,9 +226,6 @@ async def get_present_toe_lines_to_update(
         (
             repo_toe_lines[filename],
             ToeLinesAttributesToUpdate(
-                attacked_lines=_get_attacked_lines(
-                    repo_toe_lines[filename], last_loc
-                ),
                 be_present=be_present,
                 last_author=last_commit_info.author,
                 loc=last_loc,
@@ -257,7 +239,6 @@ async def get_present_toe_lines_to_update(
             last_locs,
         )
         if (
-            _get_attacked_lines(repo_toe_lines[filename], last_loc),
             be_present,
             last_commit_info.author,
             last_loc,
@@ -265,7 +246,6 @@ async def get_present_toe_lines_to_update(
             last_commit_info.modified_date,
         )
         != (
-            repo_toe_lines[filename].attacked_lines,
             repo_toe_lines[filename].be_present,
             repo_toe_lines[filename].last_author,
             repo_toe_lines[filename].loc,
@@ -292,28 +272,12 @@ def get_non_present_toe_lines_to_update(
         (
             repo_toe_lines[db_filename],
             ToeLinesAttributesToUpdate(
-                attacked_lines=_get_attacked_lines(
-                    repo_toe_lines[db_filename],
-                    repo_toe_lines[db_filename].loc,
-                ),
                 be_present=False,
             ),
         )
         for db_filename in repo_toe_lines
         if db_filename not in present_filenames
-        and (
-            (
-                _get_attacked_lines(
-                    repo_toe_lines[db_filename],
-                    repo_toe_lines[db_filename].loc,
-                ),
-                False,
-            )
-            != (
-                repo_toe_lines[db_filename].attacked_lines,
-                repo_toe_lines[db_filename].be_present,
-            )
-        )
+        and repo_toe_lines[db_filename].be_present
     )
 
 
