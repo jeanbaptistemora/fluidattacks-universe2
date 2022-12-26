@@ -2,11 +2,12 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { ColumnDef, Row, SortingState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+
+import { formatExecutions } from "./utils";
 
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -19,10 +20,8 @@ import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
   IExecution,
-  IFoundVulnerabilities,
   IGroupExecutions,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
-import { formatDate } from "utils/formatHelpers";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -101,15 +100,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     "tblForcesExecutionsSorting",
     []
   );
-
-  const toTitleCase: (str: string) => string = (str: string): string =>
-    str
-      .split(" ")
-      .map(
-        (item: string): string =>
-          item[0].toUpperCase() + item.slice(1).toLowerCase()
-      )
-      .join(" ");
 
   const headersExecutionTable: ColumnDef<IExecution>[] = useMemo(
     (): ColumnDef<IExecution>[] => [
@@ -193,52 +183,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const executions: IExecution[] =
     data === undefined
       ? []
-      : data.group.executionsConnections.edges.map((execution): IExecution => {
-          const date: string = formatDate(execution.node.date);
-          const kind: string = t(
-            `group.forces.kind.${execution.node.kind.toLowerCase()}`
-          );
-          const strictness: string = toTitleCase(
-            t(
-              execution.node.strictness === "lax"
-                ? "group.forces.strictness.tolerant"
-                : "group.forces.strictness.strict"
-            )
-          );
-          const { vulnerabilities } = execution.node;
-          const foundVulnerabilities: IFoundVulnerabilities = _.isNull(
-            vulnerabilities
-          )
-            ? {
-                accepted: 0,
-                closed: 0,
-                open: 0,
-                total: 0,
-              }
-            : {
-                accepted: vulnerabilities.numOfAcceptedVulnerabilities,
-                closed: vulnerabilities.numOfClosedVulnerabilities,
-                open: vulnerabilities.numOfOpenVulnerabilities,
-                total:
-                  vulnerabilities.numOfAcceptedVulnerabilities +
-                  vulnerabilities.numOfOpenVulnerabilities +
-                  vulnerabilities.numOfClosedVulnerabilities,
-              };
-          const status: string = t(
-            foundVulnerabilities.open === 0
-              ? "group.forces.status.secure"
-              : "group.forces.status.vulnerable"
-          );
-
-          return {
-            ...execution.node,
-            date,
-            foundVulnerabilities,
-            kind,
-            status,
-            strictness,
-          };
-        });
+      : formatExecutions(data.group.executionsConnections.edges);
 
   const handleNextPage = useCallback(async (): Promise<void> => {
     const pageInfo =
