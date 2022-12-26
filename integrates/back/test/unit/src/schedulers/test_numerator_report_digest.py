@@ -75,13 +75,25 @@ def test_validate_date_fail() -> None:
         [
             {
                 "test@test.com": {
-                    "enumerated": {
+                    "enumerated_inputs": {
                         "count": {
                             "past_day": 0,
                             "today": 0,
                         }
                     },
-                    "verified": {
+                    "enumerated_ports": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
+                    "verified_inputs": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
+                    "verified_ports": {
                         "count": {
                             "past_day": 0,
                             "today": 0,
@@ -127,8 +139,10 @@ def test_validate_date_fail() -> None:
                     "oldest_draft": 0,
                     "groups": {
                         "unittesting": {
-                            "verified": 0,
-                            "enumerated": 0,
+                            "verified_inputs": 0,
+                            "verified_ports": 0,
+                            "enumerated_inputs": 0,
+                            "enumerated_ports": 0,
                             "loc": 0,
                             "reattacked": 0,
                             "released": 0,
@@ -137,8 +151,10 @@ def test_validate_date_fail() -> None:
                             "draft_rejected": 0,
                         },
                         "test_group": {
-                            "verified": 0,
-                            "enumerated": 0,
+                            "verified_inputs": 0,
+                            "verified_ports": 0,
+                            "enumerated_inputs": 0,
+                            "enumerated_ports": 0,
                             "loc": 0,
                             "reattacked": 0,
                             "released": 0,
@@ -161,14 +177,22 @@ def test_common_generate_count_report(
     date_days = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
     fields: List[str] = [
-        "verified",
-        "verified",
-        "verified",
-        "enumerated",
+        "verified_inputs",
+        "verified_inputs",
+        "verified_inputs",
+        "verified_ports",
+        "verified_ports",
+        "enumerated_inputs",
+        "enumerated_ports",
+        "enumerated_ports",
         "released",
         "evidences",
     ]
     groups: List[str] = [
+        "unittesting",
+        "unittesting",
+        "test_group",
+        "test_group",
         "unittesting",
         "unittesting",
         "test_group",
@@ -187,13 +211,24 @@ def test_common_generate_count_report(
             allowed_users=["test@test.com"],
         )
 
-    assert content[user_email]["verified"]["count"]["today"] == 3
-    assert content[user_email]["enumerated"]["count"]["today"] == 1
+    assert content[user_email]["verified_inputs"]["count"]["today"] == 3
+    assert content[user_email]["enumerated_inputs"]["count"]["today"] == 1
     assert content[user_email]["released"]["count"]["today"] == 1
     assert content[user_email]["evidences"]["count"]["today"] == 0
-    assert content[user_email]["groups"]["unittesting"]["enumerated"] == 1
-    assert content[user_email]["groups"]["unittesting"]["verified"] == 2
-    assert content[user_email]["groups"]["test_group"]["verified"] == 1
+    assert (
+        content[user_email]["groups"]["unittesting"]["enumerated_inputs"] == 1
+    )
+    assert (
+        content[user_email]["groups"]["unittesting"]["enumerated_ports"] == 1
+    )
+    assert content[user_email]["groups"]["unittesting"]["verified_inputs"] == 2
+    assert content[user_email]["groups"]["unittesting"]["verified_ports"] == 1
+    assert (
+        content[user_email]["groups"]["test_group"]["enumerated_inputs"] == 0
+    )
+    assert content[user_email]["groups"]["test_group"]["enumerated_ports"] == 1
+    assert content[user_email]["groups"]["test_group"]["verified_inputs"] == 1
+    assert content[user_email]["groups"]["test_group"]["verified_ports"] == 1
     assert content[user_email]["groups"]["test_group"]["released"] == 1
     assert content[user_email]["groups"]["test_group"]["evidences"] == 0
     past_days = 4 if datetime_utils.get_now().weekday() == 1 else date_days + 1
@@ -201,7 +236,7 @@ def test_common_generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),
-        field="verified",
+        field="verified_inputs",
         group="test_group",
         user_email=user_email,
         allowed_users=["test@test.com"],
@@ -210,12 +245,31 @@ def test_common_generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),
-        field="verified",
+        field="verified_inputs",
         group="test_group",
         user_email=user_email,
         allowed_users=["test@test.com"],
     )
-    assert content[user_email]["verified"]["count"]["past_day"] == 2
+    assert content[user_email]["verified_inputs"]["count"]["past_day"] == 2
+    _common_generate_count_report(
+        content=content,
+        date_range=date_days,
+        date_report=datetime_utils.get_now_minus_delta(days=past_days),
+        field="verified_ports",
+        group="test_group",
+        user_email=user_email,
+        allowed_users=["test@test.com"],
+    )
+    _common_generate_count_report(
+        content=content,
+        date_range=date_days,
+        date_report=datetime_utils.get_now_minus_delta(days=past_days),
+        field="verified_ports",
+        group="test_group",
+        user_email=user_email,
+        allowed_users=["test@test.com"],
+    )
+    assert content[user_email]["verified_ports"]["count"]["past_day"] == 2
 
 
 @pytest.mark.asyncio
@@ -226,13 +280,25 @@ def test_common_generate_count_report(
     [
         [
             {
-                "enumerated": {
+                "enumerated_inputs": {
                     "count": {
                         "past_day": 4,
                         "today": 10,
                     }
                 },
-                "verified": {
+                "verified_inputs": {
+                    "count": {
+                        "past_day": 3,
+                        "today": 5,
+                    }
+                },
+                "enumerated_ports": {
+                    "count": {
+                        "past_day": 4,
+                        "today": 10,
+                    }
+                },
+                "verified_ports": {
                     "count": {
                         "past_day": 3,
                         "today": 5,
@@ -278,13 +344,17 @@ def test_common_generate_count_report(
                 "oldest_draft": 0,
                 "groups": {
                     "unittesting": {
-                        "verified": 6,
-                        "enumerated": 3,
+                        "verified_inputs": 6,
+                        "verified_ports": 6,
+                        "enumerated_inputs": 3,
+                        "enumerated_ports": 3,
                         "loc": 0,
                     },
                     "test_group": {
-                        "verified": 4,
-                        "enumerated": 2,
+                        "verified_inputs": 4,
+                        "verified_ports": 4,
+                        "enumerated_inputs": 2,
+                        "enumerated_ports": 2,
                         "loc": 0,
                     },
                 },
