@@ -17,12 +17,6 @@ from lib_path.f011.maven import (
 from lib_path.f011.pip import (
     pip_requirements_txt,
 )
-from lib_path.f393.gem import (
-    gem_gemfile_dev,
-)
-from lib_path.f393.npm import (
-    npm_yarn_lock_dev,
-)
 from operator import (
     itemgetter,
 )
@@ -33,7 +27,6 @@ from typing import (
     Iterator,
     List,
     Pattern,
-    Tuple,
 )
 
 
@@ -101,46 +94,6 @@ def test_gem_gemfile_lock() -> None:
             if pkg_name != item or line_num + 1 != line:
                 assertion = not assertion
                 break
-
-    assert assertion
-
-
-@pytest.mark.skims_test_group("unittesting")
-def test_gem_gemfile_dev() -> None:
-    path: str = "skims/test/data/lib_path/f011/Gemfile"
-
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
-        gem_gemfile_unwrapped = gem_gemfile_dev.__wrapped__  # type: ignore
-
-    expected: Tuple[Tuple[str, str, int], ...] = (
-        ("minitest-bisect", "1.0.0", 118),
-        ("minitest-ci", "", 119),
-        ("minitest-retry", "", 120),
-        ("stackprof", "=1.4.2", 123),
-        ("debug", ">=1.1.0", 124),
-        ("benchmark-ips", "", 127),
-        ("devise", "=1.4.2", 132),
-        ("rubocop", "=1.35.1", 133),
-        ("pg", "^1.3", 143),
-        ("mysql2", "^0.5", 144),
-        ("pry", "=1.0.1", 145),
-    )
-    reports: Iterator[DependencyType] = gem_gemfile_unwrapped(
-        file_contents, path
-    )
-    assertion: bool = True
-    for num, report in enumerate(reports):
-        product = report[0].get("item")
-        line = report[0].get("line")
-        version = report[1].get("item")
-        if (product, version, line) != expected[num]:
-            assertion = not assertion
-            break
 
     assert assertion
 
@@ -270,32 +223,5 @@ def test_maven_pom_xml() -> None:
             if not equal_props:
                 assertion = not assertion
                 break
-
-    assert assertion
-
-
-@pytest.mark.skims_test_group("unittesting")
-def test_npm_yarn_lock_dev() -> None:
-    path = "skims/test/data/lib_path/f011/yarn.lock"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
-    generator_dep = npm_yarn_lock_dev.__wrapped__(  # type: ignore
-        file_contents, path
-    )
-    assertion: bool = True
-    pkg_info = ("xmldom", "0.4.0", 483)
-    try:
-        next_dep = next(generator_dep)
-        pkg_item = itemgetter("item")(next_dep[0])
-        line_dep, version = itemgetter("line", "item")(next_dep[1])
-    except StopIteration:
-        assertion = not assertion
-    equal_props: bool = pkg_info == (pkg_item, version, line_dep)
-    if not equal_props:
-        assertion = not assertion
 
     assert assertion

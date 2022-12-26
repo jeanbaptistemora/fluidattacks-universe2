@@ -4,11 +4,12 @@ from gemfileparser import (
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
-    pkg_deps_to_vulns,
+    translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
     MethodsEnum,
     Platform,
+    Vulnerabilities,
 )
 from parse_gemfile import (
     parse_line,
@@ -28,9 +29,7 @@ NOT_PROD_DEP: Pattern[str] = re.compile(
 NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
 
 
-# pylint: disable=unused-argument
-@pkg_deps_to_vulns(Platform.GEM, MethodsEnum.GEM_GEMFILE_DEV)
-def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
+def resolve_dependencies_gemfile_dev(content: str) -> Iterator[DependencyType]:
     line_group: bool = False
     end_line: str = ""
     for line_number, line in enumerate(content.splitlines(), 1):
@@ -56,3 +55,14 @@ def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
             line = line[3:]
             product, version = parse_line(line, gem_file=True)
             yield format_pkg_dep(product, version, line_number, line_number)
+
+
+def gem_gemfile_dev(content: str, path: str) -> Vulnerabilities:
+
+    return translate_dependencies_to_vulnerabilities(
+        content=content,
+        dependencies=resolve_dependencies_gemfile_dev(content),
+        path=path,
+        platform=Platform.GEM,
+        method=MethodsEnum.GEM_GEMFILE_DEV,
+    )
