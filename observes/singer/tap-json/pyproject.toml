@@ -6,7 +6,7 @@ authors = [
 requires-python = ">=3.10"
 dependencies = [
     "click >=8.0.1, <9.0.0",
-    "fa_purity >=1.26.0, <2.0.0",
+    "fa_purity >=1.27.0, <2.0.0",
     "dateutils >=0.6.12, <1.0.0",
     "pathos >=0.2.8, <0.3.0",
     "types-python-dateutil >=2.8.19.4, <3.0.0",

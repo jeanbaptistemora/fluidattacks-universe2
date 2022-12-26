@@ -22,7 +22,7 @@
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
-      ref = "refs/tags/v1.26.0";
+      ref = "refs/tags/v1.27.0";
     };
   in
     import src {
