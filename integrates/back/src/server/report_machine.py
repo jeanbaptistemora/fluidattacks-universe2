@@ -626,9 +626,7 @@ def _machine_vulns_to_close(
         # his result was not found by Skims
         if hash(
             (
-                get_path_from_integrates_vulnerability(
-                    vuln.state.where, vuln.type, False
-                )[1],
+                vuln.state.where,
                 vuln.state.specific,
             )
         )
@@ -638,7 +636,7 @@ def _machine_vulns_to_close(
             path_is_include(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln.state.where, vuln.type, False
+                        vuln.state.where, vuln.type, True
                     )[1]
                 ).split(" ", maxsplit=1)[0],
                 [
@@ -908,7 +906,7 @@ async def upload_snippet(
     if current_vuln.state.status != VulnerabilityStateStatus.VULNERABLE:
         return
 
-    current_hash = get_hash_from_typed(current_vuln)
+    current_hash = get_hash_from_typed(current_vuln, ignore_cve=True)
     for vuln in sarif_vulns:
         if vuln["properties"]["kind"] == "lines":
             _hash = get_hash(

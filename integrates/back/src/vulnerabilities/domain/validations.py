@@ -71,7 +71,7 @@ def validate_uniqueness(
         root_id=current_vuln.root_id,
     )
     for vuln in finding_vulns_data:
-        vuln_hash = get_hash_from_typed(vuln)
+        vuln_hash = get_hash_from_typed(vuln, ignore_cve=True)
         if vuln_hash == new_vuln_hash:
             raise InvalidVulnerabilityAlreadyExists.new()
 

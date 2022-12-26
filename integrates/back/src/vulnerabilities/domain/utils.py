@@ -84,7 +84,10 @@ def get_path_from_integrates_vulnerability(
 
 
 def get_hash_from_typed(
-    vuln: Vulnerability, from_yaml: bool = False, validate_root: bool = True
+    vuln: Vulnerability,
+    from_yaml: bool = False,
+    validate_root: bool = True,
+    ignore_cve: bool = False,
 ) -> int:
     specific = vuln.state.specific
     type_ = vuln.type.value
@@ -101,7 +104,8 @@ def get_hash_from_typed(
         # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
         where = html.escape(where, quote=False)
-    where = ignore_advisories(where)
+    if ignore_cve:
+        where = ignore_advisories(where)
     return get_hash(
         specific=specific,
         type_=type_,
