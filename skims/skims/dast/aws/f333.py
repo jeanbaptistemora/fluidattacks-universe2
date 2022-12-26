@@ -266,6 +266,50 @@ async def has_publicly_shared_amis(
     return vulns
 
 
+async def has_unencrypted_snapshots(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="sts",
+        function="get_caller_identity",
+    )
+
+    describe_snapshots: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_snapshots",
+        parameters={"OwnerIds": [response["Account"]]},
+    )
+    snapshots = describe_snapshots.get("Snapshots", [])
+    vulns: core_model.Vulnerabilities = ()
+    method = core_model.MethodsEnum.AWS_EC2_HAS_UNENCRYPTED_SNAPSHOTS
+    locations: List[Location] = []
+    if snapshots:
+        for snapshot in snapshots:
+            snapshot_id = snapshot["SnapshotId"]
+            if not snapshot["Encrypted"]:
+                locations = [
+                    Location(
+                        arn=(f"arn:aws:ec2::Snapshot:{snapshot_id}"),
+                        description=t(
+                            "lib_path.f333.has_publicly_shared_amis"
+                        ),
+                        values=(snapshot["Encrypted"],),
+                        access_patterns=("/Encrypted",),
+                    ),
+                ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=snapshot,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -275,4 +319,5 @@ CHECKS: Tuple[
     ec2_iam_instances_without_profile,
     has_unused_ec2_key_pairs,
     has_publicly_shared_amis,
+    has_unencrypted_snapshots,
 )
