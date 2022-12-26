@@ -685,6 +685,7 @@ async def update_group(
         group_name=group_name,
         requester_email=email,
         reason=justification.value,
+        comments=comments,
     )
     await remove_group(
         loaders=loaders,

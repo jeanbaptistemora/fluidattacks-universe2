@@ -681,6 +681,8 @@ type Mutation {
   removeGroup(
     "Name of the group to be deleted"
     groupName: String!
+    "Further explanation on why the group is being removed"
+    comments: String
     "Reason for the removal of the group"
     reason: RemoveGroupReason!
   ): SimplePayload!

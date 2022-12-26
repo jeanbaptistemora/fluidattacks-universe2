@@ -40,6 +40,9 @@ from newutils import (
 from sessions import (
     domain as sessions_domain,
 )
+from typing import (
+    Any,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -53,6 +56,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
     reason: str,
+    **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
@@ -69,7 +73,7 @@ async def mutate(
     try:
         await groups_domain.update_group(
             loaders=loaders,
-            comments="",
+            comments=kwargs.get("comments", ""),
             email=requester_email,
             group_name=group_name,
             justification=GroupStateRemovalJustification[reason.upper()],

@@ -114,6 +114,7 @@ async def delete_group(
     group_name: str,
     requester_email: str,
     reason: str,
+    comments: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
@@ -140,6 +141,7 @@ async def delete_group(
             "responsible": requester_email,
             "subscription": group.state.type.value,
             "state": "deleted",
+            "comments": html.escape(comments, quote=True),
         },
     )
 
