@@ -5,6 +5,7 @@ from syntax_graph.syntax_nodes.member_access import (
     build_member_access_node,
 )
 from syntax_graph.types import (
+    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
@@ -17,8 +18,14 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    member_id = graph.nodes[args.n_id]["label_field_navigation_suffix"]
-    expression_id = graph.nodes[args.n_id]["label_field_expression"]
+    n_attrs = graph.nodes[args.n_id]
+    member_id = n_attrs.get("label_field_navigation_suffix")
+    expression_id = n_attrs.get("label_field_expression")
+
+    if not (member_id and expression_id):
+        raise MissingCaseHandling(
+            f"Bad Navigation Expression handling in {args.n_id}"
+        )
 
     if graph.nodes[member_id]["label_type"] == "navigation_suffix" and (
         identifier_id := match_ast(graph, member_id).get("__1__")

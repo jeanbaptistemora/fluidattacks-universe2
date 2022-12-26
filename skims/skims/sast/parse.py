@@ -304,6 +304,7 @@ def _parse_one_cached(
         GraphShardMetadataLanguage.DART,
         GraphShardMetadataLanguage.JAVA,
         GraphShardMetadataLanguage.JAVASCRIPT,
+        GraphShardMetadataLanguage.KOTLIN,
         GraphShardMetadataLanguage.TYPESCRIPT,
     }
 

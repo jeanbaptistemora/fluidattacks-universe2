@@ -8,6 +8,7 @@ from syntax_graph.syntax_nodes.for_statement import (
     build_for_statement_node,
 )
 from syntax_graph.types import (
+    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
@@ -19,8 +20,11 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     n_attrs = graph.nodes[args.n_id]
-    body_id = n_attrs["label_field_control_structure_body"]
-    var_node = n_attrs["label_field_variable_declaration"]
+    body_id = n_attrs.get("label_field_control_structure_body")
+    var_node = n_attrs.get("label_field_variable_declaration")
+
+    if not (body_id and var_node):
+        raise MissingCaseHandling(f"Bad for statement handling in {args.n_id}")
     class_childs = list(adj_ast(graph, args.n_id))
     in_node = match_ast_d(graph, args.n_id, "in")
 
