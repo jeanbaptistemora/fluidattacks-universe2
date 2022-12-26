@@ -4,10 +4,10 @@ title: The World's Best Events for Hackers
 date: 2022-07-11
 subtitle: Top 10 offensive security international conferences
 category: opinions
-tags: cybersecurity, hacking, training, software, exploit
+tags: cybersecurity, hacking, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1657548989/blog/top-10-offensive-security-events/cover_conferences.webp
 alt: Photo by Alex Kotliarskyi on Unsplash
-description: Want to know which are the best conferences for hackers? We share our selection of the top 10 international events focusing on offensive security.
+description: Want to know which are the best conferences for hackers? We share our selection of the top 10 international hacking events focusing on offensive security.
 keywords: Offensive Security, Training, Advanced Exploitation Techniques, Reverse Engineering, Conference, Ranking, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -228,7 +228,7 @@ you can attend technical training sessions.
 Then,
 the OffensiveCon has a single track of talks for two full days.
 
-And that's our top 10.
+And that's our top 10 selection of hacking events.
 Of course,
 you can go to whichever conference best suits your skills and needs.
 We just hope that you find our selection useful\!
