@@ -1,10 +1,13 @@
 # pylint: disable=import-error
 from back.test.unit.src.utils import (
-    create_dummy_info,
-    create_dummy_session,
+    get_mock_response,
+    get_mocked_path,
 )
 from dataloaders import (
     get_new_context,
+)
+from datetime import (
+    datetime,
 )
 from db_model.group_comments.types import (
     GroupComment,
@@ -12,41 +15,64 @@ from db_model.group_comments.types import (
 from group_comments.domain import (
     add_comment,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
+import json
 import pytest
-import time
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
 ]
 
 
-@pytest.mark.changes_db
-async def test_add_comment() -> None:
-    group_name = "unittesting"
-    comment_id = int(round(time.time() * 1000))
-    request = await create_dummy_session("unittest@fluidattacks.com")
-    info = create_dummy_info(request)
-    comment_data = GroupComment(
-        id=str(comment_id),
-        content="Test comment",
-        creation_date=datetime_utils.get_utc_now(),
-        full_name="unittesting",
-        parent_id="0",
-        email="unittest@fluidattacks.com",
-        group_name=group_name,
-    )
-    await add_comment(
-        info.context.loaders,
-        group_name,
-        comment_data,
-    )
+@pytest.mark.parametrize(
+    ["group_name", "comment_data"],
+    [
+        [
+            "unittesting",
+            GroupComment(
+                id="1672083646257",
+                content="Test comment",
+                creation_date=datetime.fromisoformat(
+                    "2022-04-06T16:46:23+00:00"
+                ),
+                full_name="unittesting",
+                parent_id="0",
+                email="unittest@fluidattacks.com",
+                group_name="unittesting",
+            ),
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("authz.validate_handle_comment_scope"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("group_comments_model.add"), new_callable=AsyncMock)
+async def test_add_comment(
+    mock_group_comments_model_add: AsyncMock,
+    mock_authz_validate_handle_comment_scope: AsyncMock,
+    group_name: str,
+    comment_data: GroupComment,
+) -> None:
     loaders = get_new_context()
-    group_comments: list[GroupComment] = await loaders.group_comments.load(
-        group_name
+    mock_authz_validate_handle_comment_scope.return_value = get_mock_response(
+        get_mocked_path("authz.validate_handle_comment_scope"),
+        json.dumps(
+            [
+                comment_data.content,
+                comment_data.email,
+                group_name,
+                comment_data.parent_id,
+            ]
+        ),
     )
-    assert group_comments[-1].content == "Test comment"
-    assert group_comments[-1].id == comment_data.id
-    assert group_comments[-1].full_name == comment_data.full_name
+    mock_group_comments_model_add.return_value = get_mock_response(
+        get_mocked_path("group_comments_model.add"),
+        json.dumps([comment_data], default=str),
+    )
+    await add_comment(loaders, group_name, comment_data)
+    assert mock_authz_validate_handle_comment_scope.called is True
+    assert mock_group_comments_model_add.called is True

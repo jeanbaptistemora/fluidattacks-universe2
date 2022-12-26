@@ -66,6 +66,7 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
+    "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
@@ -73,6 +74,7 @@ mocked_paths: Dict[str, str] = {
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
+    "group_comments_model.add": "db_model.group_comments.add",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501
     "get_user_level_role": "authz.policy.get_user_level_role",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
@@ -90,6 +92,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["test_admin@gmail.com"]': "admin",
         '["test_email@gmail.com"]': "",
         '["unittest@fluidattacks.com"]': "admin",
+    },
+    "authz.validate_handle_comment_scope": {
+        '["Test comment", "unittest@fluidattacks.com",'
+        ' "unittesting", "0"]': None,
     },
     "db_model.group_access.get.GroupAccessLoader.load": {
         '["integrateshacker@fluidattacks.com", "unittesting",'
@@ -153,6 +159,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.group_access.update_metadata": {
         '["integrateshacker@fluidattacks.com", "unittesting"]': None,
         '["integratesuser@gmail.com", "unittesting"]': None,
+    },
+    "db_model.group_comments.add": {
+        '[["unittesting", "1672083646257", "0", "2022-04-06 16:46:23+00:00",'
+        ' "Test comment", "unittest@fluidattacks.com", "unittesting"]]': None,
     },
     "db_model.stakeholders.get.StakeholderWithFallbackLoader.load": {
         '["integrateshacker@fluidattacks.com"]': Stakeholder(

@@ -1,8 +1,3 @@
-# pylint: disable=import-error
-from back.test.unit.src.utils import (
-    create_dummy_info,
-    create_dummy_session,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -31,7 +26,6 @@ from freezegun import (
     freeze_time,
 )
 from group_comments.domain import (
-    add_comment,
     get_comments,
 )
 from groups.domain import (
@@ -47,7 +41,6 @@ from newutils.group_comments import (
     format_group_consulting_resolve,
 )
 import pytest
-import time
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -107,35 +100,6 @@ async def test_list_comments() -> None:
         format_group_consulting_resolve(test_data[0])
         == expected_output_to_resolve
     )
-
-
-@pytest.mark.changes_db
-async def test_add_comment() -> None:
-    group_name = "unittesting"
-    comment_id = int(round(time.time() * 1000))
-    request = await create_dummy_session("unittest@fluidattacks.com")
-    info = create_dummy_info(request)
-    comment_data = GroupComment(
-        id=str(comment_id),
-        content="Test comment",
-        creation_date=datetime_utils.get_utc_now(),
-        full_name="unittesting",
-        parent_id="0",
-        email="unittest@fluidattacks.com",
-        group_name=group_name,
-    )
-    await add_comment(
-        info.context.loaders,
-        group_name,
-        comment_data,
-    )
-    loaders = get_new_context()
-    group_comments: list[GroupComment] = await loaders.group_comments.load(
-        group_name
-    )
-    assert group_comments[-1].content == "Test comment"
-    assert group_comments[-1].id == comment_data.id
-    assert group_comments[-1].full_name == comment_data.full_name
 
 
 async def test_list_events() -> None:
