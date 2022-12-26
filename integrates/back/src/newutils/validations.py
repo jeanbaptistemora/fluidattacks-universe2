@@ -151,6 +151,33 @@ def validate_file_name(name: str) -> None:
         raise InvalidChar("filename")
 
 
+def validate_file_name_deco(field: str) -> Callable:
+    """Verify that filename has valid characters. Raises InvalidChar
+    otherwise."""
+
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = kwargs.get(field)
+            field_content = str(field_content)
+            name_len = len(field_content.split("."))
+            if name_len <= 2:
+                is_valid = bool(
+                    re.search(
+                        "^[A-Za-z0-9!_.*/'()&$@=;:+,? -]*$", str(field_content)
+                    )
+                )
+                if not is_valid:
+                    raise InvalidChar("filename")
+                res = func(*args, **kwargs)
+                return res
+            raise InvalidChar("filename")
+
+        return decorated
+
+    return wrapper
+
+
 def validate_file_exists(
     file_name: str, group_files: Optional[list[GroupFile]]
 ) -> None:
@@ -250,6 +277,21 @@ def validate_group_language(language: str) -> None:
 def validate_group_name(group_name: str) -> None:
     if not group_name.isalnum():
         raise InvalidField("group name")
+
+
+def validate_group_name_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not field_content.isalnum():
+                raise InvalidField("group name")
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def validate_markdown(text: str) -> str:

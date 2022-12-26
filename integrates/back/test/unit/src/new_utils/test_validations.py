@@ -23,7 +23,9 @@ from newutils.validations import (
     validate_file_exists,
     validate_file_exists_deco,
     validate_file_name,
+    validate_file_name_deco,
     validate_group_name,
+    validate_group_name_deco,
     validate_int_range,
     validate_sanitized_csv_input,
     validate_symbols,
@@ -211,10 +213,33 @@ def test_validate_file_name() -> None:
         assert validate_file_name("test=$invalidname!.py")  # type: ignore
 
 
+def test_validate_file_name_deco() -> None:
+    @validate_file_name_deco("file_name")
+    def decorated_func(file_name: str) -> str:
+        return file_name
+
+    assert decorated_func(file_name="test123.py")
+    with pytest.raises(InvalidChar):
+
+        decorated_func(file_name="test.test.py")
+        decorated_func(file_name="test=$invalidname!.py")
+
+
 def test_validate_group_name() -> None:
     assert not bool(validate_group_name("test"))  # type: ignore
     with pytest.raises(InvalidField):
         assert validate_group_name("=test2@")  # type: ignore
+
+
+def test_validate_group_name_deco() -> None:
+    @validate_group_name_deco("group")
+    def decorated_func(group: str) -> str:
+        return group
+
+    assert decorated_func(group="test")
+    with pytest.raises(InvalidField):
+
+        decorated_func(group="=test2@")
 
 
 @pytest.mark.parametrize(
