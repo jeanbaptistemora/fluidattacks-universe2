@@ -60,6 +60,23 @@ resource "cloudflare_record" "fluidsignal_main" {
   proxied = true
 }
 
+# Bucket to avoid domain takeover
+# https://community.cloudflare.com/t/cloudflare-s3-bucket-with-different-name-bucket-and-domain/193301
+resource "aws_s3_bucket" "fluidsignal_com" {
+  bucket = "fluidsignal.com"
+}
+resource "aws_s3_bucket_acl" "fluidsignal_com_acl" {
+  bucket = aws_s3_bucket.fluidsignal_com.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "fluidsignal_com_versioning" {
+  bucket = aws_s3_bucket.fluidsignal_com.id
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
 
 # MX Records
 

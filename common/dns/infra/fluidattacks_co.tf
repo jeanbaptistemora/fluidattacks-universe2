@@ -53,6 +53,23 @@ resource "cloudflare_record" "fluidattacks_co_main" {
   proxied = true
 }
 
+# Bucket to avoid domain takeover
+# https://community.cloudflare.com/t/cloudflare-s3-bucket-with-different-name-bucket-and-domain/193301
+resource "aws_s3_bucket" "fluidattacks_co" {
+  bucket = "fluidattacks.co"
+}
+resource "aws_s3_bucket_acl" "fluidattacks_co_acl" {
+  bucket = aws_s3_bucket.fluidattacks_co.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "fluidattacks_co_versioning" {
+  bucket = aws_s3_bucket.fluidattacks_co.id
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
 # MX Records
 
 resource "cloudflare_record" "fluidattacks_co_google_1" {

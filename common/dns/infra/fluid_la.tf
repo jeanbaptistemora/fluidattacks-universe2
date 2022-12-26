@@ -49,6 +49,23 @@ resource "cloudflare_record" "fluid_la_main" {
   proxied = true
 }
 
+# Bucket to avoid domain takeover
+# https://community.cloudflare.com/t/cloudflare-s3-bucket-with-different-name-bucket-and-domain/193301
+resource "aws_s3_bucket" "fluid_la" {
+  bucket = "fluid.la"
+}
+resource "aws_s3_bucket_acl" "fluid_la_acl" {
+  bucket = aws_s3_bucket.fluid_la.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "fluid_la_versioning" {
+  bucket = aws_s3_bucket.fluid_la.id
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
 # MX Records
 
 resource "cloudflare_record" "fluid_la_email_1" {
