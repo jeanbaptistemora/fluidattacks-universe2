@@ -17,7 +17,7 @@ once they are no longer present
 in the system.
 
 At all moments you can read awesome reports
-and analytics at Fluid Attack's App:
+and analytics at Fluid Attacks' App:
 
 - Description of the vulnerability
 
