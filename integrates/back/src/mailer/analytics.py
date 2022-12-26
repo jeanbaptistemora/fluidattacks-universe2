@@ -1,5 +1,4 @@
 from .common import (
-    GENERAL_TAG,
     get_recipient_first_name,
     send_mails_async,
 )
@@ -18,23 +17,12 @@ from mailer.utils import (
 
 
 async def send_mail_analytics(
-    loaders: Dataloaders, *email_to: str, **context: str
+    _loaders: Dataloaders, *_email_to: str, **context: str
 ) -> None:
-    mail_content = context
-    mail_content["live_report_url"] = (
-        f'{BASE_URL}/{mail_content["report_entity_percent"]}s/'
-        f'{mail_content["report_subject_percent"]}/analytics'
-    )
-    await send_mails_async(
-        loaders,
-        list(email_to),
-        mail_content,
-        GENERAL_TAG,
-        (
-            f'[ARM] Analytics for [{mail_content["report_subject_title"]}] '
-            f'({mail_content["frequency_title"]}: {mail_content["date"]})'
-        ),
-        "charts_report",
+    _mail_content = context
+    _mail_content["live_report_url"] = (
+        f'{BASE_URL}/{_mail_content["report_entity_percent"]}s/'
+        f'{_mail_content["report_subject_percent"]}/analytics'
     )
 
 
