@@ -54,7 +54,7 @@
                 "S": "1"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
@@ -121,7 +121,7 @@
             "S": "1"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -151,7 +151,7 @@
             "S": "1"
           },
           "status": {
-            "S": "CLOSED"
+            "S": "SAFE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"

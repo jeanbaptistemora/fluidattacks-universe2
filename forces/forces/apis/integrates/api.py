@@ -103,7 +103,7 @@ async def get_vulnerabilities(
                     edges {
                         node {
                             findingId
-                            currentState
+                            state
                             treatment
                             vulnerabilityType
                             where
@@ -158,12 +158,12 @@ async def get_vulnerabilities(
         treatment = vulnerabilities[index].get("treatment")
         zero_risk = vulnerabilities[index].get("zeroRisk")
         if treatment and "ACCEPTED" in treatment.upper():
-            vulnerabilities[index]["currentState"] = "accepted"
+            vulnerabilities[index]["state"] = "accepted"
         if zero_risk and zero_risk.upper() in {
             "REQUESTED",
             "CONFIRMED",
         }:
-            vulnerabilities[index]["currentState"] = "accepted"
+            vulnerabilities[index]["state"] = "accepted"
 
     return vulnerabilities
 

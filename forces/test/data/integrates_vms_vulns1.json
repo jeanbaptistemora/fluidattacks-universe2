@@ -54,7 +54,7 @@
                 "S": "2"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
@@ -121,7 +121,7 @@
             "S": "2"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -151,7 +151,7 @@
             "S": "2"
           },
           "status": {
-            "S": "CLOSED"
+            "S": "SAFE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -234,7 +234,7 @@
                 "S": "5"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
@@ -301,7 +301,7 @@
             "S": "5"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -387,7 +387,7 @@
                 "S": "71"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/owasp/BenchmarkTest00001.java"
@@ -451,7 +451,7 @@
             "S": "71"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/owasp/BenchmarkTest00001.java"
@@ -531,7 +531,7 @@
                 "S": "3"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
@@ -598,7 +598,7 @@
             "S": "3"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"
@@ -684,7 +684,7 @@
                 "S": "89"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/owasp/BenchmarkTest00001.java"
@@ -748,7 +748,7 @@
             "S": "89"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/owasp/BenchmarkTest00001.java"
@@ -831,7 +831,7 @@
                 "S": "78"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/owasp/BenchmarkTest00001.java"
@@ -895,7 +895,7 @@
             "S": "78"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/owasp/BenchmarkTest00001.java"
@@ -978,7 +978,7 @@
                 "S": "89"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/owasp/BenchmarkTest00001.java"
@@ -1042,7 +1042,7 @@
             "S": "89"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/owasp/BenchmarkTest00001.java"
@@ -1122,7 +1122,7 @@
                 "S": "4"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               },
               "where": {
                 "S": "universe/forces/test/data/user_controller.py"
@@ -1189,7 +1189,7 @@
             "S": "4"
           },
           "status": {
-            "S": "OPEN"
+            "S": "VULNERABLE"
           },
           "where": {
             "S": "universe/forces/test/data/user_controller.py"

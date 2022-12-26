@@ -31,7 +31,6 @@ from forces.report.filters import (
 from forces.report.formatters import (
     create_findings_dict,
     get_exploitability_measure,
-    translate_vuln_state,
 )
 from forces.report.styles import (
     style_report,
@@ -244,7 +243,7 @@ async def generate_raw_report(
 
     async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = str(vuln["findingId"])
-        state = translate_vuln_state(str(vuln["currentState"]).lower())
+        state = str(vuln["state"]).lower()
 
         vulnerability: Vulnerability = Vulnerability(
             type=(
