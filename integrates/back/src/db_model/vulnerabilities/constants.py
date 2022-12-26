@@ -31,7 +31,7 @@ NEW_ZR_INDEX_METADATA = Facet(
     attrs=TABLE.facets["vulnerability_metadata"].attrs,
     pk_alias="FIN#finding_id",
     sk_alias=(
-        "VULN#DELETED#is_deleted#ZR#is_zero_risk#RELEASED#is_released"
+        "VULN#DELETED#is_deleted#RELEASED#is_released#ZR#is_zero_risk"
         "#STATE#state_status#VERIF#verification_status"
     ),
 )
