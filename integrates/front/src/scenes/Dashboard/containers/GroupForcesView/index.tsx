@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { ColumnDef, Row, SortingState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,35 +32,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
 
-  // States
-  const defaultCurrentRow: IExecution = {
-    date: "",
-    executionId: "",
-    exitCode: "",
-    foundVulnerabilities: {
-      accepted: 0,
-      closed: 0,
-      open: 0,
-      total: 0,
-    },
-    gitRepo: "",
-    gracePeriod: 0,
-    kind: "",
-    log: "",
-    severityThreshold: 0,
-    status: "",
-    strictness: "",
-    vulnerabilities: {
-      accepted: [],
-      closed: [],
-      numOfAcceptedVulnerabilities: 0,
-      numOfClosedVulnerabilities: 0,
-      numOfOpenVulnerabilities: 0,
-      open: [],
-    },
-  };
-
-  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
+  const [currentRow, setCurrentRow] = useState<IExecution>();
   const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
   const [filters, setFilters] = useState<IFilter<IExecution>[]>([
@@ -223,21 +197,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         open={isExecutionDetailsModalOpen}
         title={t("group.forces.executionDetailsModal.title")}
       >
-        <Execution
-          date={currentRow.date}
-          executionId={currentRow.executionId}
-          exitCode={currentRow.exitCode}
-          foundVulnerabilities={currentRow.foundVulnerabilities}
-          gitRepo={currentRow.gitRepo}
-          gracePeriod={currentRow.gracePeriod}
-          groupName={currentRow.groupName}
-          kind={currentRow.kind}
-          log={currentRow.log}
-          severityThreshold={currentRow.severityThreshold}
-          status={currentRow.status}
-          strictness={currentRow.strictness}
-          vulnerabilities={currentRow.vulnerabilities}
-        />
+        {_.isNil(currentRow) ? undefined : <Execution {...currentRow} />}
       </Modal>
     </React.StrictMode>
   );
