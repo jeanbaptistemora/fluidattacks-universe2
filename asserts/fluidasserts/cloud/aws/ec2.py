@@ -58,58 +58,6 @@ def _flatten(elements, aux_list=None):
     return aux_list
 
 
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def has_unencrypted_snapshots(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if there are unencrypted snapshots.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    identity = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="sts",
-        func="get_caller_identity",
-        retry=retry,
-    )
-    snapshots = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="ec2",
-        func="describe_snapshots",
-        param="Snapshots",
-        OwnerIds=[identity["Account"]],
-        retry=retry,
-    )
-
-    msg_open: str = "Account have non-encrypted snapshots"
-    msg_closed: str = "All snapshots are encrypted"
-
-    vulns, safes = [], []
-
-    if snapshots:
-        for snapshot in snapshots:
-            snapshot_id = snapshot["SnapshotId"]
-            (vulns if not snapshot["Encrypted"] else safes).append(
-                (snapshot_id, "Must be encrypted")
-            )
-
-    return _get_result_as_tuple(
-        service="EC2",
-        objects="snapshots",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_unused_seggroups(
