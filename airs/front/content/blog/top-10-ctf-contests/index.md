@@ -1,14 +1,14 @@
 ---
 slug: top-10-ctf-contests/
-title: Thrilling Contests for Hackers
+title: Thrilling Hacking Contests
 date: 2022-09-12
-subtitle: Top 10 international capture the flag events
+subtitle: Top 10 international capture the flag competitions
 category: opinions
 tags: cybersecurity, hacking, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1663001724/blog/top-10-ctf-contests/cover_top_10_ctf_contests.webp
 alt: Photo by Andrew Neel on Unsplash
-description: Do you know what capture the flag is in the cybersecurity field? Are you aware of some of the most recent and prominent CTFs worldwide? Check out this post.
-keywords: Capture The Flag, CTF Contest, Reverse Engineering, Binary Exploitation, Cryptography, Jeopardy Style, Attack-Defense Style, Ethical Hacking, Pentesting
+description: Do you know what capture the flag is in the cybersecurity field? Are you aware of some of the most recent and prominent CTF competitions worldwide? Learn here.
+keywords: Capture The Flag, CTF Contest, Hacking Competitions, Reverse Engineering, Cryptography, Jeopardy Style, Attack-Defense Style, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz
@@ -20,7 +20,7 @@ As we said in [a previous blog post](../tribe-of-hackers-3/),
 "for those interested in gaining red team skills"
 without engaging in illegal activity,
 there are "competitions such as capture the flag (CTF)."
-This is perhaps the most common form of ethical hacking contest.
+This is perhaps the most common form of ethical hacking competition.
 And in this blog post,
 we'll share with you a list of 10 international CTFs
 that are popular and thrilling these days.
@@ -397,7 +397,7 @@ and undoubtedly work as an incentive
 to test skills and knowledge in ethical hacking
 and learn even more.
 Because of this and the fun they bring,
-these events become appealing not only for professionals
+these hacking competitions become appealing not only for professionals
 but also for beginners in the field
 and people who are looking for where to direct their future.
 As Raman et al. said a few years ago,
