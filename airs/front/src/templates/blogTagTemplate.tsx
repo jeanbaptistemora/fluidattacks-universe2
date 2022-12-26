@@ -183,7 +183,7 @@ const blogTagTemplate: React.FC<IQueryData> = ({
         }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${capitalizeDashedString(
+        title={`Blog posts about ${capitalizeDashedString(
           tagName
         )} | Application security testing solutions | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/tags/${tagName}`}

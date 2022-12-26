@@ -85,7 +85,7 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
         }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${capitalizePlainString(
+        title={`Blog posts about ${capitalizePlainString(
           categoryName
         )} | Application security testing solutions | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/categories/${categoryName}`}

@@ -235,7 +235,7 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
         }
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={`Blogs by ${capitalizeDashedString(
+        title={`Blog posts by ${capitalizeDashedString(
           authorName
         )} | Application security testing solutions | Fluid Attacks`}
         url={`https://fluidattacks.com/blog/authors/${authorName}`}
