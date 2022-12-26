@@ -1,9 +1,9 @@
-const anyName = require("js-sha1")
+const sha1 = require("js-sha1")
 
 // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
 
-anyName("");
-anyName.hex("");
-anyName.array("");
-anyName.digest("");
-anyName.arrayBuffer('');
+sha1("");
+sha1.hex("");
+sha1.array("");
+sha1.digest("");
+sha1.arrayBuffer('');
