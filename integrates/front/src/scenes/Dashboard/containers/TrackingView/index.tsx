@@ -17,11 +17,11 @@ interface ITracking {
   accepted: number;
   acceptedUndefined?: number;
   assigned?: string;
-  closed: number;
+  safe: number;
   cycle: number;
   date: string;
   justification?: string;
-  open: number;
+  vulnerable: number;
 }
 
 interface IGetFindingTrackingAttr {
@@ -75,17 +75,17 @@ const TrackingView: React.FC = (): JSX.Element => {
                     )}
                   </h3>
                   <p>
-                    {closing.open > 0 ? (
+                    {closing.vulnerable > 0 ? (
                       <span>
                         {t("searchFindings.tabTracking.vulnerabilitiesFound")}
-                        &nbsp;{closing.open}
+                        &nbsp;{closing.vulnerable}
                         <br />
                       </span>
                     ) : undefined}
-                    {closing.closed > 0 ? (
+                    {closing.safe > 0 ? (
                       <span>
                         {t("searchFindings.tabTracking.vulnerabilitiesClosed")}
-                        &nbsp;{closing.closed}
+                        &nbsp;{closing.safe}
                         <br />
                       </span>
                     ) : undefined}

@@ -8,11 +8,11 @@ export const GET_FINDING_TRACKING: DocumentNode = gql`
         accepted
         acceptedUndefined
         assigned
-        closed
+        safe
         cycle
         date
         justification
-        open
+        vulnerable
       }
       id
     }
