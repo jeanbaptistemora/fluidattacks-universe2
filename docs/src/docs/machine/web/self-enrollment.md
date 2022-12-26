@@ -38,7 +38,7 @@ this plan’s benefits.
 To proceed,
 click on Start your Machine Plan.
 
-![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1663010106/docs/web/enrollment/page_landing.png)
+![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1672081278/docs/web/enrollment/start_free_trail.png)
 
 You will be taken to the
 official website of our
@@ -157,5 +157,3 @@ or try our
 [Squad](/about/faq) plan,
 you can click the talk to a
 sales representative button.
-
-![Add Payment Method](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_payment_method.png)

@@ -201,10 +201,9 @@ for each role.
 |Add new group        |X   |X                    |X           |
 |Notify button        |    |                     |X           |
 |Consulting           |X   |X                    |X           |
-|Create organization  |    |                     |            |
-|assign vulnerabilities |    |                   |            |
-|Agent installation   |    |                     |            |
-|Request verification events |    |              |            |
+|Assign vulnerabilities |X   |X                  |X           |
+|Agent installation   |X   |X                    |X           |
+|Request verification events |X   |X             |X           |
 |Create portfolio     |    |                     |            |
 |Add secrets          |    |                     |            |
 |Unsubscribe groups   |    |                     |            |
