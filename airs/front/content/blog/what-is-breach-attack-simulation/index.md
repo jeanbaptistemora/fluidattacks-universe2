@@ -4,7 +4,7 @@ title: What's Breach & Attack Simulation?
 date: 2022-12-19
 subtitle: How BAS solutions work, their importance and benefits
 category: philosophy
-tags: cybersecurity, devsecops, security-testing, training, company
+tags: cybersecurity, security-testing, hacking, red-team, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1671457188/blog/what-is-breach-attack-simulation/cover_bas.webp
 alt: Photo by Jeff Lemond on Unsplash
 description: Learn about what breach and attack simulation is, how it works, why we need it for security testing and its benefits for defending against advanced threats.
