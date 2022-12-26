@@ -19,4 +19,9 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = match_ast_group_d(graph, args.n_id, "value_argument")
-    return build_argument_list_node(args, cast(Iterator[NId], c_ids))
+    arg_ids = []
+    for _id in c_ids:
+        val_id = graph.nodes[_id].get("label_field_expression")
+        if val_id:
+            arg_ids.append(val_id)
+    return build_argument_list_node(args, cast(Iterator[NId], arg_ids))

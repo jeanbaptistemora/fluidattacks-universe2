@@ -19,7 +19,7 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     var_name = "Unnamed"
-    var_type = "Local"
+    var_type = None
 
     var_dec = match_ast_d(graph, args.n_id, "variable_declaration")
     var_type_id = match_ast_d(graph, args.n_id, "modifiers")
