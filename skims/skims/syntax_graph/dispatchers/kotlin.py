@@ -1,9 +1,12 @@
 from syntax_graph.syntax_readers.kotlin import (
+    argument_list as kotlin_argument_list,
     assignment_expression as kotlin_assignment_expression,
+    boolean_literal as kotlin_boolean_literal,
     catch_clause as kotlin_catch_clause,
     class_body as kotlin_class_body,
     class_declaration as kotlin_class_declaration,
-    declaration_block as kotlin_declaration_block,
+    companion_object as kotlin_companion_object,
+    expression_statement as kotlin_expression_statement,
     finally_clause as kotlin_finally_clause,
     for_statement as kotlin_for_statement,
     identifier as kotlin_identifier,
@@ -14,10 +17,18 @@ from syntax_graph.syntax_readers.kotlin import (
     method_declaration as kotlin_method_declaration,
     method_invocation as kotlin_method_invocation,
     number_literal as kotlin_number_literal,
+    object as kotlin_object,
+    parameter as kotlin_parameter,
     parenthesized_expression as kotlin_parenthesized_expression,
     program as kotlin_program,
+    reserved_word as kotlin_reserved_word,
+    statement_block as kotlin_declaration_block,
+    statements as kotlin_statements,
+    string_literal as kotlin_string_literal,
     try_statement as kotlin_try_statement,
     variable_declaration as kotlin_variable_declaration,
+    when_entry as kotlin_when_entry,
+    when_expression as kotlin_when_expression,
     while_statement as kotlin_while_statement,
 )
 from syntax_graph.types import (
@@ -28,9 +39,26 @@ from syntax_graph.types import (
 KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
+            "value_arguments",
+        },
+        syntax_reader=kotlin_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "additive_expression",
             "assignment",
+            "check_expression",
+            "disjunction_expression",
+            "multiplicative_expression",
+            "range_expression",
         },
         syntax_reader=kotlin_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "boolean_literal",
+        },
+        syntax_reader=kotlin_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -41,7 +69,6 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "class_body",
-            "statements",
         },
         syntax_reader=kotlin_class_body.reader,
     ),
@@ -53,10 +80,22 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "companion_object",
+        },
+        syntax_reader=kotlin_companion_object.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "function_body",
             "control_structure_body",
         },
         syntax_reader=kotlin_declaration_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "directly_assignable_expression",
+        },
+        syntax_reader=kotlin_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -105,6 +144,7 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "anonymous_initializer",
             "constructor_declaration",
             "function_declaration",
         },
@@ -125,6 +165,19 @@ KOTLIN_DISPATCHERS: Dispatchers = (
         syntax_reader=kotlin_number_literal.reader,
     ),
     Dispatcher(
+        applicable_types={
+            "object_literal",
+        },
+        syntax_reader=kotlin_object.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parameter",
+            "value_argument",
+        },
+        syntax_reader=kotlin_parameter.reader,
+    ),
+    Dispatcher(
         applicable_types={"parenthesized_expression"},
         syntax_reader=kotlin_parenthesized_expression.reader,
     ),
@@ -133,6 +186,26 @@ KOTLIN_DISPATCHERS: Dispatchers = (
             "source_file",
         },
         syntax_reader=kotlin_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "null_literal",
+            "this_expression",
+        },
+        syntax_reader=kotlin_reserved_word.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "line_string_literal",
+            "multi_line_string_literal",
+        },
+        syntax_reader=kotlin_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "statements",
+        },
+        syntax_reader=kotlin_statements.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -145,6 +218,18 @@ KOTLIN_DISPATCHERS: Dispatchers = (
             "property_declaration",
         },
         syntax_reader=kotlin_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "when_entry",
+        },
+        syntax_reader=kotlin_when_entry.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "when_expression",
+        },
+        syntax_reader=kotlin_when_expression.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -8,6 +8,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    match_ast_d,
     match_ast_group_d,
 )
 from utils.graph.text_nodes import (
@@ -17,17 +18,16 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    n_attrs = graph.nodes[args.n_id]
+    name = "CompanionObject"
+    name_id = match_ast_d(graph, args.n_id, "type_identifier")
+    if name_id:
+        name = node_to_str(graph, name_id)
 
-    name_id = n_attrs.get("label_field_identifier")
-    name = node_to_str(graph, name_id) if name_id else "AnonymousMethod"
+    block_id = match_ast_d(graph, args.n_id, "class_body")
 
-    block_id = n_attrs.get("label_field_function_body") or n_attrs.get(
-        "label_field_block_statements"
-    )
-    parameters_list = match_ast_group_d(graph, args.n_id, "parameter")
+    modifiers = match_ast_group_d(graph, args.n_id, "modifiers")
     children_nid = {
-        "parameters_id": parameters_list,
+        "modifiers_id": modifiers,
     }
 
     return build_method_declaration_node(args, name, block_id, children_nid)

@@ -17,18 +17,22 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    var_dec = match_ast_d(args.ast_graph, args.n_id, "variable_declaration")
-    var_type_id = match_ast_d(args.ast_graph, args.n_id, "modifiers")
+    graph = args.ast_graph
+    var_dec = match_ast_d(graph, args.n_id, "variable_declaration")
+    var_type_id = match_ast_d(graph, args.n_id, "modifiers")
+
     if not (var_dec and var_type_id):
         var_name = "Unnamed"
         var_type = "local"
     else:
-        var_type = node_to_str(args.ast_graph, var_type_id)
-        var_name = node_to_str(args.ast_graph, var_dec)
+        var_type = node_to_str(graph, var_type_id)
+        var_name = node_to_str(graph, var_dec)
 
-    value_id = adj_ast(args.ast_graph, args.n_id)[-1]
-
-    if args.ast_graph.nodes[value_id]["label_type"] == "variable_declaration":
+    value_id = adj_ast(graph, args.n_id)[-1]
+    val_id_type = graph.nodes[value_id]["label_type"]
+    if val_id_type == "variable_declaration":
         value_id = None
+    elif val_id_type == "property_delegate":
+        value_id = match_ast_d(graph, value_id, "call_expression")
 
     return build_variable_declaration_node(args, var_name, var_type, value_id)

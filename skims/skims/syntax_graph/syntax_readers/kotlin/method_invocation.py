@@ -24,6 +24,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     suffix_id = match_ast_d(args.ast_graph, args.n_id, "call_suffix")
     args_id = None
     if suffix_id:
-        args_id = graph.nodes[suffix_id]["label_field_value_arguments"]
+        args_id = graph.nodes[suffix_id].get("label_field_value_arguments")
 
     return build_method_invocation_node(args, expr, expr_id, args_id, None)
