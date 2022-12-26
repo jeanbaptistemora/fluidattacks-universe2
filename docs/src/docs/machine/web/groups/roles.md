@@ -193,6 +193,22 @@ for each role.
 |Request reattack     |X   |X                    |X           |
 |View vulnerabilities |X   |X                    |X           |
 |ORG vulnerabilities download |    |             |X           |
+|support channels     |X   |X                    |X           |
+|Add Azure credentials|    |                     |X           |
+|Compliance Report    |X   |X                    |X           |
+|Add ORG credentials  |    |                     |X           |
+|ORG policies         |    |                     |X           |
+|Add new group        |X   |X                    |X           |
+|Notify button        |    |                     |X           |
+|Consulting           |X   |X                    |X           |
+|Create organization  |    |                     |            |
+|assign vulnerabilities |    |                   |            |
+|Agent installation   |    |                     |            |
+|Request verification events |    |              |            |
+|Create portfolio     |    |                     |            |
+|Add secrets          |    |                     |            |
+|Unsubscribe groups   |    |                     |            |
+|Generate API token   |X   |X                    |X           |
 
 ## Internal roles
 
