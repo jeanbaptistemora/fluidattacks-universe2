@@ -42,6 +42,10 @@ from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLinesConnection,
 )
+from db_model.toe_ports.types import (
+    GroupToePortsRequest,
+    ToePortsConnection,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -119,9 +123,11 @@ def _generate_count_fields() -> Dict[str, Any]:
 
 def _generate_fields() -> Dict[str, Any]:
     fields: Dict[str, Any] = {
-        "enumerated": _generate_count_fields(),
+        "enumerated_inputs": _generate_count_fields(),
+        "enumerated_ports": _generate_count_fields(),
         "evidences": _generate_count_fields(),
-        "verified": _generate_count_fields(),
+        "verified_inputs": _generate_count_fields(),
+        "verified_ports": _generate_count_fields(),
         "loc": _generate_count_fields(),
         "reattacked": _generate_count_fields(),
         "released": _generate_count_fields(),
@@ -136,8 +142,10 @@ def _generate_fields() -> Dict[str, Any]:
 
 def _generate_group_fields() -> Dict[str, Any]:
     fields: Dict[str, Any] = {
-        "verified": 0,
-        "enumerated": 0,
+        "verified_inputs": 0,
+        "verified_ports": 0,
+        "enumerated_inputs": 0,
+        "enumerated_ports": 0,
         "evidences": 0,
         "loc": 0,
         "reattacked": 0,
@@ -470,7 +478,7 @@ async def _toe_input_content(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.state.seen_at,
-            field="enumerated",
+            field="enumerated_inputs",
             group=group,
             user_email=toe_inputs.node.state.seen_first_time_by,
             allowed_users=users_email,
@@ -480,7 +488,7 @@ async def _toe_input_content(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.state.attacked_at,
-            field="verified",
+            field="verified_inputs",
             group=group,
             user_email=toe_inputs.node.state.attacked_by,
             allowed_users=users_email,
@@ -514,6 +522,42 @@ async def _toe_line_content(
     LOGGER.info("- toe lines report generated in group %s", group)
 
 
+async def _toe_port_content(
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
+) -> None:
+    group_toe_ports: ToePortsConnection = await loaders.group_toe_ports.load(
+        GroupToePortsRequest(group_name=group)
+    )
+    for toe_inputs in group_toe_ports.edges:
+        if toe_inputs.node.seen_first_time_by:
+            _common_generate_count_report(
+                content=content,
+                date_range=date_range,
+                date_report=toe_inputs.node.seen_at,
+                field="enumerated_ports",
+                group=group,
+                user_email=toe_inputs.node.seen_first_time_by,
+                allowed_users=users_email,
+            )
+
+        if toe_inputs.node.state.attacked_by:
+            _common_generate_count_report(
+                content=content,
+                date_range=date_range,
+                date_report=toe_inputs.node.state.attacked_at,
+                field="verified_ports",
+                group=group,
+                user_email=toe_inputs.node.state.attacked_by,
+                allowed_users=users_email,
+            )
+
+    LOGGER.info("- toe port report generated in group %s", group)
+
+
 async def _generate_numerator_report(
     loaders: Dataloaders, groups_names: Tuple[str, ...], date_range: int
 ) -> Dict[str, Any]:
@@ -540,6 +584,9 @@ async def _generate_numerator_report(
                     loaders, group, date_range, content, users_email
                 ),
                 _toe_line_content(
+                    loaders, group, date_range, content, users_email
+                ),
+                _toe_port_content(
                     loaders, group, date_range, content, users_email
                 ),
                 _finding_content(
@@ -579,19 +626,9 @@ def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
     count_and_variation: Dict[str, Any] = {
         key: {
             "count": (count := value["count"])["today"],
-            "variation": (
-                get_percent(
-                    (count["today"] + content["loc"]["count"]["today"])
-                    - (
-                        count["past_day"] + content["loc"]["count"]["past_day"]
-                    ),
-                    (count["past_day"] + content["loc"]["count"]["past_day"]),
-                )
-                if key in ["verified"]
-                else get_percent(
-                    count["today"] - count["past_day"],
-                    count["past_day"],
-                )
+            "variation": get_percent(
+                count["today"] - count["past_day"],
+                count["past_day"],
             ),
         }
         for key, value in content.items()

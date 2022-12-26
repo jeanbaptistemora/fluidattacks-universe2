@@ -13,25 +13,34 @@
           <strong>Hacking details:</strong><br />
           <ul>
             <li>
-              <strong>Enumerated:</strong> {{ count_var_report["enumerated"]["count"] }} inputs.
-              ({{ count_var_report["enumerated"]["variation"] }})<br />
+              <strong>Enumerated:</strong> {{ count_var_report["enumerated_inputs"]["count"] }} inputs
+              ({{ count_var_report["enumerated_inputs"]["variation"] }}),
+              {{ count_var_report["enumerated_ports"]["count"] }} ports
+              ({{ count_var_report["enumerated_ports"]["variation"] }}).
+              <br />
             </li>
             <li>
-              <strong>Verified:</strong> {{ count_var_report["verified"]["count"] }} inputs,
-              {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
-              ({{ count_var_report["verified"]["variation"] }})<br />
+              <strong>Verified:</strong> {{ count_var_report["verified_inputs"]["count"] }} inputs
+              ({{ count_var_report["verified_inputs"]["variation"] }}),
+              {{ count_var_report["verified_ports"]["count"] }} ports
+              ({{ count_var_report["verified_ports"]["variation"] }}),
+              {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines
+              ({{ count_var_report["loc"]["variation"] }}).
+              <br />
             </li>
             <li>
-              <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
-              ({{ count_var_report["reattacked"]["variation"] }})<br />
+              <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities
+              ({{ count_var_report["reattacked"]["variation"] }}).
+              <br />
             </li>
             <li>
-              <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
+              <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities
               (oldest: {{ oldest_draft["submit_age"] }}/{{ oldest_draft["age"] }} days,
-              max: {{ oldest_draft["max_cvss"] }} severity)<br />
+              max: {{ oldest_draft["max_cvss"] }} severity).
+              <br />
             </li>
             <li>
-              <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities.
+              <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities
               ({{ count_var_report["released"]["variation"] }},
               max: {{ max_cvss }} severity,
               {% if "evidences" in count_var_report.keys() and "released" in count_var_report.keys() %}
@@ -43,7 +52,7 @@
               {%- else %}
               0
               {%- endif -%}
-              % completeness)
+              % completeness).
             </li>
           </ul>
         </p>
@@ -55,8 +64,10 @@
             <li>
               <strong>{{ group }}:</strong>
               ({{ fields["subscription"] }})
-              {{ fields["enumerated"] }} inputs enumerated,
-              {{ fields["verified"] }} inputs verified,
+              {{ fields["enumerated_inputs"] }} inputs enumerated,
+              {{ fields["verified_inputs"] }} inputs verified,
+              {{ fields["enumerated_ports"] }} ports enumerated,
+              {{ fields["verified_ports"] }} ports verified,
               {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
               {{ fields["reattacked"] }} reattacked,
               {{ fields["draft_created"] }} drafts,
