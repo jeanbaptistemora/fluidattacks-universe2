@@ -288,69 +288,6 @@ async def test_get_roots() -> None:
     ]
 
 
-async def test_add_git_root_black() -> None:
-    query = """
-      mutation {
-        addGitRoot(
-          branch: "master"
-          environment: "Test"
-          gitignore: []
-          groupName: "oneshottest"
-          includesHealthCheck: false
-          url: "https://gitlab.com/fluidattacks/integrates"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"  # NOSONAR
-
-
-async def test_add_git_root_invalid_branch() -> None:
-    query = """
-      mutation {
-        addGitRoot(
-          branch: "( ͡° ͜ʖ ͡°)"
-          environment: "Test"
-          gitignore: []
-          groupName: "unittesting"
-          includesHealthCheck: false
-          url: "https://gitlab.com/fluidattacks/integrates"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "value is not valid" in result["errors"][0]["message"]  # NOSONAR
-
-
-async def test_add_git_root_invalid_url() -> None:
-    query = """
-      mutation {
-        addGitRoot(
-          branch: "master"
-          environment: "Test"
-          gitignore: []
-          groupName: "unittesting"
-          includesHealthCheck: false
-          url: "randomstring"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "value is not valid" in result["errors"][0]["message"]
-
-
 @pytest.mark.changes_db
 async def test_add_url_root_uniqueness() -> None:
     query = """
