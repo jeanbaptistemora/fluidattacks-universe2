@@ -15,7 +15,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.enums import (
-    GroupStateRemovalJustification,
+    GroupStateJustification,
     GroupStateStatus,
     GroupTier,
 )
@@ -76,7 +76,7 @@ async def mutate(
             comments=kwargs.get("comments", ""),
             email=requester_email,
             group_name=group_name,
-            justification=GroupStateRemovalJustification[reason.upper()],
+            justification=GroupStateJustification[reason.upper()],
             has_arm=False,
             has_machine=False,
             has_squad=False,

@@ -7,8 +7,7 @@ from datetime import (
 )
 from db_model.groups.enums import (
     GroupService,
-    GroupStateRemovalJustification,
-    GroupStateUpdationJustification,
+    GroupStateJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -83,7 +82,7 @@ async def test_create_group_not_user_admin() -> None:
     await remove_group(
         loaders=get_new_context(),
         group_name="newavailablename",
-        justification=GroupStateRemovalJustification.OTHER,
+        justification=GroupStateJustification.OTHER,
         email=email,
     )
     active_groups = await orgs_domain.get_all_active_group_names(
@@ -349,7 +348,7 @@ async def test_update_group(
         comments="",
         email="integratesmanager@fluidattacks.com",
         group_name=group_name,
-        justification=GroupStateUpdationJustification.NONE,
+        justification=GroupStateJustification.NONE,
         has_arm=has_arm,
         has_machine=has_machine,
         has_squad=has_squad,

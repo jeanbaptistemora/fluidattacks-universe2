@@ -2,9 +2,8 @@ from .enums import (
     GroupLanguage,
     GroupManaged,
     GroupService,
-    GroupStateRemovalJustification,
+    GroupStateJustification,
     GroupStateStatus,
-    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -13,7 +12,6 @@ from .types import (
     GroupFile,
     GroupMetadataToUpdate,
     GroupState,
-    GroupStatusJustification,
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
     UnfulfilledStandard,
@@ -301,7 +299,9 @@ def format_state(state: Item) -> GroupState:
         has_machine=state["has_machine"],
         has_squad=state["has_squad"],
         managed=format_state_managed(state["managed"]),
-        justification=format_state_justification(state.get("justification")),
+        justification=GroupStateJustification[state["justification"]]
+        if state.get("justification")
+        else None,
         modified_by=state["modified_by"],
         modified_date=datetime.fromisoformat(state["modified_date"]),
         payment_id=state["payment_id"] if state.get("payment_id") else None,
@@ -320,22 +320,6 @@ def format_state(state: Item) -> GroupState:
         else GroupTier.OTHER,
         type=GroupSubscriptionType[state["type"]],
     )
-
-
-def format_state_justification(
-    justification: Optional[str],
-) -> Optional[GroupStatusJustification]:
-    if not justification:
-        return None
-    try:
-        return GroupStateRemovalJustification[justification]
-    except KeyError:
-        pass
-    try:
-        return GroupStateUpdationJustification[justification]
-    except KeyError:
-        pass
-    return None
 
 
 def format_treatment_summary(

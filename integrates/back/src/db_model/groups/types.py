@@ -2,9 +2,8 @@ from .enums import (
     GroupLanguage,
     GroupManaged,
     GroupService,
-    GroupStateRemovalJustification,
+    GroupStateJustification,
     GroupStateStatus,
-    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -24,10 +23,6 @@ from typing import (
     Union,
 )
 
-GroupStatusJustification = Union[
-    GroupStateRemovalJustification,
-    GroupStateUpdationJustification,
-]
 RegisterByTime = list[list[dict[str, Union[str, Decimal]]]]
 
 
@@ -42,7 +37,7 @@ class GroupState(NamedTuple):
     type: GroupSubscriptionType
     tags: Optional[set[str]] = None
     comments: Optional[str] = None
-    justification: Optional[GroupStatusJustification] = None
+    justification: Optional[GroupStateJustification] = None
     payment_id: Optional[str] = None
     pending_deletion_date: Optional[datetime] = None
     service: Optional[GroupService] = None

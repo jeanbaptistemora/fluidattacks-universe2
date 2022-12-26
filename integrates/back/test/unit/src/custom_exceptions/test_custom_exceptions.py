@@ -32,7 +32,7 @@ from datetime import (
 )
 from db_model.groups.enums import (
     GroupService,
-    GroupStateUpdationJustification,
+    GroupStateJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -266,7 +266,7 @@ async def test_update_group_attrs_fail(
             comments="",
             email="test@test.test",
             group_name=group_name,
-            justification=GroupStateUpdationJustification.NONE,
+            justification=GroupStateJustification.NONE,
             has_arm=has_arm,
             has_machine=has_machine,
             has_squad=has_squad,

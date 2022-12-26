@@ -19,7 +19,7 @@ from db_model.findings.types import (
 )
 from db_model.groups.enums import (
     GroupManaged,
-    GroupStateRemovalJustification as GroupReason,
+    GroupStateJustification as GroupReason,
 )
 from db_model.groups.types import (
     Group,

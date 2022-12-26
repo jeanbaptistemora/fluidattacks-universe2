@@ -20,9 +20,13 @@ class GroupService(str, Enum):
     WHITE: str = "WHITE"
 
 
-class GroupStateRemovalJustification(str, Enum):
+class GroupStateJustification(str, Enum):
+    BUDGET: str = "BUDGET"
     DIFF_SECTST: str = "DIFF_SECTST"
+    GROUP_FINALIZATION: str = "GROUP_FINALIZATION"
+    GROUP_SUSPENSION: str = "GROUP_SUSPENSION"
     MIGRATION: str = "MIGRATION"
+    NONE: str = "NONE"
     NO_SECTST: str = "NO_SECTST"
     NO_SYSTEM: str = "NO_SYSTEM"
     OTHER: str = "OTHER"
@@ -32,14 +36,6 @@ class GroupStateRemovalJustification(str, Enum):
 class GroupStateStatus(str, Enum):
     ACTIVE: str = "ACTIVE"
     DELETED: str = "DELETED"
-
-
-class GroupStateUpdationJustification(str, Enum):
-    BUDGET: str = "BUDGET"
-    GROUP_FINALIZATION: str = "GROUP_FINALIZATION"
-    GROUP_SUSPENSION: str = "GROUP_SUSPENSION"
-    NONE: str = "NONE"
-    OTHER: str = "OTHER"
 
 
 class GroupSubscriptionType(str, Enum):

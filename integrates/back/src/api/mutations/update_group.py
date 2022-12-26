@@ -12,7 +12,7 @@ from dataloaders import (
 )
 from db_model.groups.enums import (
     GroupService,
-    GroupStateUpdationJustification,
+    GroupStateJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -80,7 +80,7 @@ async def mutate(
             comments=comments,
             email=email,
             group_name=group_name,
-            justification=GroupStateUpdationJustification[reason.upper()],
+            justification=GroupStateJustification[reason.upper()],
             has_arm=has_arm,
             has_machine=has_machine,
             has_squad=has_squad,

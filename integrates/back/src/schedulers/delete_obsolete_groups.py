@@ -6,7 +6,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.enums import (
-    GroupStateRemovalJustification,
+    GroupStateJustification,
 )
 from db_model.groups.types import (
     Group,
@@ -38,7 +38,7 @@ async def _remove_group(
         loaders=loaders,
         email=user_email,
         group_name=group_name,
-        justification=GroupStateRemovalJustification.OTHER,
+        justification=GroupStateJustification.OTHER,
         validate_pending_actions=False,
     )
 

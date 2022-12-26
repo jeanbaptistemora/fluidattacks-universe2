@@ -10,7 +10,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.groups.enums import (
-    GroupStateRemovalJustification,
+    GroupStateJustification,
 )
 import pytest
 from typing import (
@@ -32,7 +32,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
     result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
-        reason=GroupStateRemovalJustification.NO_SYSTEM.value,
+        reason=GroupStateJustification.NO_SYSTEM,
     )
     assert "errors" not in result
     assert result["data"]["removeGroup"]["success"]
@@ -72,7 +72,7 @@ async def test_remove_group_fail(populate: bool, email: str) -> None:
     result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
-        reason=GroupStateRemovalJustification.NO_SYSTEM.value,
+        reason=GroupStateJustification.NO_SYSTEM,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
