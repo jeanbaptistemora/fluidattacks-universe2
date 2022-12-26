@@ -339,8 +339,16 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
+    expect(
+      screen.getByText("group.toe.lines.actionButtons.verifyButton.text")
+    ).toBeDisabled();
+
     await userEvent.click(screen.getAllByRole("checkbox")[1]);
     await userEvent.click(screen.getAllByRole("checkbox")[2]);
+
+    expect(
+      screen.getByText("group.toe.lines.actionButtons.verifyButton.text")
+    ).not.toBeDisabled();
 
     await userEvent.click(
       screen.getByText("group.toe.lines.actionButtons.verifyButton.text")
