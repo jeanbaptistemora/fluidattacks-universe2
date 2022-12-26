@@ -9,17 +9,11 @@ import os
 from starlette.datastructures import (
     UploadFile,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 async def get_result(
-    *,
-    user: str,
-    draft: str,
-) -> Dict[str, Any]:
+    *, user: str, finding_id: str, should_use_invalid: bool = False
+) -> dict:
     query: str = """
         mutation UpdateEvidenceMutation(
             $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
@@ -31,21 +25,47 @@ async def get_result(
             }
         }
     """
+    filename: str
+    uploaded_file: UploadFile
+    variables: dict
+    data: dict
+    result: dict
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = f"{path}/test-anim.webm"
+    if should_use_invalid:
+        filename = f"{path}/test-anim.gif"
+        with open(filename, "rb") as test_file:
+            uploaded_file = UploadFile(
+                "orgtest-group1-0123456789.gif", test_file, "image/gif"
+            )
+            variables = {
+                "evidenceId": "ANIMATION",
+                "findingId": finding_id,
+                "file": uploaded_file,
+            }
+            data = {"query": query, "variables": variables}
+            result = await get_graphql_result(
+                data,
+                stakeholder=user,
+                context=get_new_context(),
+            )
+
+        return result
+
+    filename = f"{path}/test-anim.webm"
     with open(filename, "rb") as test_file:
-        uploaded_file: UploadFile = UploadFile(
+        uploaded_file = UploadFile(
             "orgtest-group1-0123456789.webm", test_file, "video/webm"
         )
-        variables: Dict[str, Any] = {
+        variables = {
             "evidenceId": "ANIMATION",
-            "findingId": draft,
+            "findingId": finding_id,
             "file": uploaded_file,
         }
-        data: Dict[str, Any] = {"query": query, "variables": variables}
-        result: Dict[str, Any] = await get_graphql_result(
+        data = {"query": query, "variables": variables}
+        result = await get_graphql_result(
             data,
             stakeholder=user,
             context=get_new_context(),
         )
+
     return result

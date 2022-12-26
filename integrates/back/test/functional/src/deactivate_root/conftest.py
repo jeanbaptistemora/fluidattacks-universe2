@@ -747,7 +747,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     finding_id="475041521",
                     group_name="group1",
                     hacker_email=generic_data["global_vars"]["admin_email"],
-                    id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
+                    id="baabb2c1-00bc-47ae-9d5f-c9c2e2e88e70",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date=datetime.fromisoformat(
