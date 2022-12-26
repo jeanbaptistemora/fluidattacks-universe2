@@ -8,6 +8,9 @@ Finalization Time: 2022-12-23 at 00:33:47 UTC
 
 Execution Time:    2022-12-23 at 16:44:25 UTC
 Finalization Time: 2022-12-23 at 16:46:39 UTC
+
+Execution Time:    2022-12-26 at 22:43:59 UTC
+Finalization Time: 2022-12-26 at 22:51:20 UTC
 """
 from aioextensions import (
     collect,
@@ -34,7 +37,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    evidence_file_names = await s3_ops.list_files(f"evidences/{group_name}")
+    evidence_file_names = await s3_ops.list_files(f"evidences/{group_name}/")
     if not evidence_file_names:
         return
 
