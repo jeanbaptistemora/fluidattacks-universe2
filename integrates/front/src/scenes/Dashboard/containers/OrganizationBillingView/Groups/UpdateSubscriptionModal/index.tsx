@@ -55,7 +55,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
         onSubmit={onSubmit}
         validationSchema={validations}
       >
-        {({ dirty, isSubmitting }): JSX.Element => (
+        {(): JSX.Element => (
           <Form>
             <div className={"flex flex-wrap w-100"}>
               <ControlLabel>
@@ -114,10 +114,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 )}
               </Field>
             </div>
-            <ModalConfirm
-              disabled={!dirty || isSubmitting}
-              onCancel={onClose}
-            />
+            <ModalConfirm disabled={true} onCancel={onClose} />
           </Form>
         )}
       </Formik>
