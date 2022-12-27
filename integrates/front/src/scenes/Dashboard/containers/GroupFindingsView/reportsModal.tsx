@@ -55,6 +55,10 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   const closeFilterReportsModal: () => void = useCallback((): void => {
     setIsFilterReportModalOpen(false);
   }, []);
+  const handleClose = useCallback((): void => {
+    closeFilterReportsModal();
+    onClose();
+  }, [onClose, closeFilterReportsModal]);
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
@@ -63,6 +67,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         t("groupAlerts.titleSuccess")
       );
       setIsVerifyDialogOpen(false);
+      closeFilterReportsModal();
       onClose();
     },
     onError: (errors: ApolloError): void => {
@@ -103,7 +108,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   return (
     <React.StrictMode>
       <Modal
-        onClose={onClose}
+        onClose={handleClose}
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
       >
