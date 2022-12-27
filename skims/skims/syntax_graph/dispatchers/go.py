@@ -3,14 +3,18 @@ from syntax_graph.syntax_readers.go import (
     assignment_statement as go_assignment_statement,
     block as go_block,
     call_expression as go_call_expression,
+    composite_literal as go_composite_literal,
     expression_list as go_expression_list,
     function_declaration as go_function_declaration,
     identifier as go_identifier,
     import_declaration as go_import_declaration,
+    int_literal as go_int_literal,
+    literal_value as go_literal_value,
     newline as go_newline,
     package_clause as go_package_clause,
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
+    qualified_type as go_qualified_type,
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
@@ -48,6 +52,12 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "composite_literal",
+        },
+        syntax_reader=go_composite_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "expression_list",
         },
         syntax_reader=go_expression_list.reader,
@@ -64,8 +74,15 @@ GO_DISPATCHERS: Dispatchers = (
             "identifier",
             "field_identifier",
             "package_identifier",
+            "type_identifier",
         },
         syntax_reader=go_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "literal_value",
+        },
+        syntax_reader=go_literal_value.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -78,6 +95,12 @@ GO_DISPATCHERS: Dispatchers = (
             "import_declaration",
         },
         syntax_reader=go_import_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "int_literal",
+        },
+        syntax_reader=go_int_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -99,6 +122,12 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "qualified_type",
+        },
+        syntax_reader=go_qualified_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "selector_expression",
         },
         syntax_reader=go_selector_expression.reader,
@@ -111,6 +140,7 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "interpreted_string_literal",
             "raw_string_literal",
         },
         syntax_reader=go_string_literal.reader,
