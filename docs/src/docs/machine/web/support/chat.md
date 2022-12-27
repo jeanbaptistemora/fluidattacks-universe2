@@ -63,4 +63,4 @@ Our Customer Support will reply
 to your message via email as
 soon as possible.
 
-![Instant Live Chat](https://res.cloudinary.com/fluid-attacks/image/upload/v1657123646/docs/web/support/instant_live_chat.png)
+![Instant Live Chat](https://res.cloudinary.com/fluid-attacks/image/upload/v1672165984/docs/web/support/leave_ms.png)

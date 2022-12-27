@@ -37,7 +37,7 @@ and can respond to you as quickly as possible.
   videoconference according to your
   convenience to meet your information needs.
 
-  ![Calendar Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691580/docs/squad/support/support_schedule_calendar.png)
+  ![Calendar Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1672166200/docs/squad/support/setup_time.png)
 
 1. After selecting the date and
   time, you need to enter some details
@@ -48,7 +48,7 @@ and can respond to you as quickly as possible.
   Then, you click on the blue
   **Schedule event** button.
 
-  ![Schedule Event](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691606/docs/squad/support/support_schedule_event.png)
+  ![Schedule Event](https://res.cloudinary.com/fluid-attacks/image/upload/v1672166519/docs/squad/support/details_before_the_meet.png)
 
 1. After that, you can see the
   pop-up window that gives you the
