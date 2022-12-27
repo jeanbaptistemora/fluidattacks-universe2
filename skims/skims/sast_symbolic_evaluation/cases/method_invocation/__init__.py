@@ -12,9 +12,6 @@ from sast_symbolic_evaluation.cases.method_invocation.go import (
     attempt_go_parse_float,
 )
 from sast_symbolic_evaluation.cases.method_invocation.java import (
-    attempt_java_looked_up_class,
-    attempt_java_security_msgdigest,
-    attempt_java_util_properties_methods,
     list_add as java_list_add,
     list_remove as java_list_remove,
 )
@@ -55,16 +52,6 @@ def evaluate(args: EvaluatorArgs) -> None:
 def evaluate_go(args: EvaluatorArgs) -> None:
     # pylint: disable=expression-not-assigned
     (attempt_go_parse_float(args) or attempt_the_old_way(args))
-
-
-def evaluate_many(args: EvaluatorArgs) -> None:
-    # pylint: disable=expression-not-assigned
-    (
-        attempt_java_util_properties_methods(args)
-        or attempt_java_security_msgdigest(args)
-        or attempt_the_old_way(args)
-        or attempt_java_looked_up_class(args)
-    )
 
 
 def attempt_by_args_propagation_no_type(

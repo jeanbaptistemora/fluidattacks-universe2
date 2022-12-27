@@ -1,42 +1,9 @@
 from model.graph_model import (
     SyntaxStep,
-    SyntaxStepDeclaration,
-    SyntaxStepMethodInvocation,
-)
-from sast_symbolic_evaluation.decorators import (
-    javascript_only,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
-from sast_symbolic_evaluation.utils_generic import (
-    lookup_var_dcl_by_name,
-)
-from utils.string import (
-    split_on_first_dot,
-)
-
-
-@javascript_only
-def process_declaration(args: EvaluatorArgs) -> None:
-    # javascript is a dynamic language the type of some
-    # declarations is known at runtime
-    step: SyntaxStepDeclaration = args.syntax_step
-    if len(args.dependencies) == 1:
-        (declaration,) = args.dependencies
-        if not isinstance(declaration, SyntaxStepMethodInvocation):
-            return
-        method_var, method_path = split_on_first_dot(declaration.method)
-
-        if declaration.return_type and args.syntax_step.is_destructuring:
-            args.syntax_step.var_type = f"{declaration.return_type}.{step.var}"
-        elif (
-            method_var
-            and not declaration.return_type
-            and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
-            and isinstance(method_var_decl, SyntaxStepDeclaration)
-        ):
-            step.var_type = f"{method_var_decl.var_type}.{method_path}"
 
 
 def list_remove(args: EvaluatorArgs, dcl: SyntaxStep) -> None:

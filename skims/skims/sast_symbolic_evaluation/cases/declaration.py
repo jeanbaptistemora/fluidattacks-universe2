@@ -2,12 +2,8 @@ from model import (
     core_model,
 )
 from model.graph_model import (
-    GraphShardMetadataLanguage,
     SyntaxStepDeclaration,
     SyntaxStepMethodInvocation,
-)
-from sast_symbolic_evaluation.cases.method_invocation.javascript import (
-    process_declaration as javascript_process_declaration,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -25,8 +21,6 @@ from utils.string import (
 
 
 def evaluate(args: EvaluatorArgs) -> None:
-    if args.shard.metadata.language == GraphShardMetadataLanguage.JAVASCRIPT:
-        javascript_process_declaration(args)
     _syntax_step_declaration_danger(args)
     _syntax_step_declaration_values(args)
 
