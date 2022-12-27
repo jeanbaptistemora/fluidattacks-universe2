@@ -53,20 +53,6 @@ const formatVulnerability: (data: IGroupVulnerabilities) => IVulnRowAttr[] = (
   return vulnerabilityFormat;
 };
 
-const unformatTreatment: (field: string) => string = (
-  field: string
-): string => {
-  const translationParameters: Record<string, string> = {
-    "In progress": "IN_PROGRESS",
-    New: "NEW",
-    "Permanently accepted": "ACCEPTED_UNDEFINED",
-    Rejected: "REJECTED",
-    "Temporarily accepted": "ACCEPTED",
-  };
-
-  return translationParameters[field.replace(" (Pending approval)", "")];
-};
-
 function isPendingToAcceptance(
   vulnerabilitiesZeroRisk: IVulnerabilitiesAttr[]
 ): boolean {
@@ -79,5 +65,4 @@ export {
   formatVulnAttribute,
   formatVulnerability,
   isPendingToAcceptance,
-  unformatTreatment,
 };

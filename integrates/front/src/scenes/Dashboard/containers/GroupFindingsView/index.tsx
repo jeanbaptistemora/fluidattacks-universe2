@@ -310,11 +310,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorFn: (row: IFindingAttr): string[] => {
         const treatment = row.treatmentSummary;
-        const treatmentNew = treatment.new > 0 ? "New" : "";
+        const treatmentNew = treatment.new > 0 ? "Untreated" : "";
         const treatmentAccUndef =
           treatment.acceptedUndefined > 0 ? "Permanently Accepted" : "";
         const treatmentInProgress =
-          treatment.inProgress > 0 ? "in Progress" : "";
+          treatment.inProgress > 0 ? "In Progress" : "";
         const treatmentAccepted =
           treatment.accepted > 0 ? "Temporarily Accepted" : "";
 
@@ -328,7 +328,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IFindingAttr>): string => {
         const treatment = cell.row.original.treatmentSummary;
 
-        return `New: ${treatment.new}, in Progress: ${treatment.inProgress},
+        return `Untreated: ${treatment.new}, In Progress: ${treatment.inProgress},
         Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
         ${treatment.acceptedUndefined}`;
       },

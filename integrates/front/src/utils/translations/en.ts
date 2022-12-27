@@ -2919,7 +2919,6 @@ export const enTranslations: ResourceKey = {
         },
       },
       inputs: "Inputs",
-      isNew: "New",
       line: "Line",
       linePlural: "Lines",
       markVerified: {
@@ -2928,7 +2927,6 @@ export const enTranslations: ResourceKey = {
           "Assess whether the vulnerability was fixed or not in the current cycle",
       },
       markVerifiedFinding: "Verify finding",
-      new: "New",
       notification: {
         emailNotificationError:
           "There was an error sending the email notification to the assigned",
@@ -3005,7 +3003,7 @@ export const enTranslations: ResourceKey = {
         confirmRejectZeroRisk: "Confirm/Reject zero risk",
         confirmZeroRisk: "Confirm zero risk",
         inProgress: "In progress",
-        new: "New",
+        new: "Untreated",
         pendingApproval: " (Pending approval)",
         rejectZeroRisk: "Reject zero risk",
         rejected: "Rejected",
@@ -3647,7 +3645,6 @@ export const enTranslations: ResourceKey = {
       found: "Found",
       inProgress: "In progress",
       justification: "Justification:",
-      new: "New",
       open: "Open",
       pending: "Pending",
       status: "Status",
@@ -3716,10 +3713,10 @@ export const enTranslations: ResourceKey = {
         acceptanceNotRequested: "Indefinite acceptance is not requested",
         acceptanceSuccess: "Indefinite acceptance has been handled",
         hasNewVulns:
-          "The treatment is set as new, please select a treatment for the vulnerability.",
+          "Untreated, please select a treatment for the vulnerability.",
         // eslint-disable-next-line camelcase -- It is required for react-i18next
         hasNewVulns_plural:
-          "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
+          "One or more vulnerabilities are set as untreated, please select a treatment for the vulnerabilities.",
         maximumNumberOfAcceptances:
           "Vulnerability has been accepted the maximum number of times allowed by the defined policy",
         tagReminder:

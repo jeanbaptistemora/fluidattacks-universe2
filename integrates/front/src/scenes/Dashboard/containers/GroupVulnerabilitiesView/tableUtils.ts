@@ -129,7 +129,7 @@ const tableFilters: IFilter<IVulnRowAttr>[] = [
     label: "Treatment",
     selectOptions: [
       { header: "In progress", value: "IN_PROGRESS" },
-      { header: "New", value: "NEW" },
+      { header: "Untreated", value: "NEW" },
       { header: "Temporarily accepted", value: "ACCEPTED" },
       { header: "Permanently accepted", value: "ACCEPTED_UNDEFINED" },
     ],

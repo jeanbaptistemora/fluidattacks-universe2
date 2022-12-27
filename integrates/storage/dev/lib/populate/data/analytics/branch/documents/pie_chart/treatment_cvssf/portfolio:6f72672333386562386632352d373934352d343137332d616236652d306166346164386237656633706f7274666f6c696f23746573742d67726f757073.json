@@ -14,7 +14,7 @@
         "0.218"
       ],
       [
-        "Not defined",
+        "Untreated",
         "5.161"
       ]
     ],
@@ -23,7 +23,7 @@
       "Permanently accepted": "#fdd25e",
       "Temporarily accepted": "#ffcc33",
       "In progress": "#f8903a",
-      "Not defined": "#f46201"
+      "Untreated": "#f46201"
     }
   },
   "legend": {

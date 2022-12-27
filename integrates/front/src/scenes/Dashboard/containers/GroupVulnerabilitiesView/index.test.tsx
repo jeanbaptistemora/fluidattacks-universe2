@@ -401,7 +401,7 @@ describe("GroupVulnerabilitiesView", (): void => {
     await userEvent.click(screen.getAllByText("Treatment")[1]);
 
     expect(screen.getAllByText("In progress")[1]).toBeInTheDocument();
-    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.getByText("Untreated")).toBeInTheDocument();
     expect(screen.getByText("Temporarily accepted")).toBeInTheDocument();
     expect(screen.getByText("Permanently accepted")).toBeInTheDocument();
 

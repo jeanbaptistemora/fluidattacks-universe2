@@ -461,6 +461,13 @@ describe("Formatter", (): void => {
         vulnerabilityType: "App",
         where: "testing4",
       },
+      {
+        currentState: "open",
+        specific: "here",
+        treatment: "Untreated",
+        vulnerabilityType: "App",
+        where: "testing5",
+      },
     ];
 
     render(
@@ -533,6 +540,13 @@ describe("Formatter", (): void => {
 
     expect(screen.getByText("Masked")).toBeInTheDocument();
     expect(screen.getByText("Masked")).toHaveStyle(
+      `background-color: ${variants.orange.bgColor};
+      border: 1px solid ${variants.orange.borderColor};
+      color: ${variants.orange.color};`
+    );
+
+    expect(screen.getByText("Untreated")).toBeInTheDocument();
+    expect(screen.getByText("Untreated")).toHaveStyle(
       `background-color: ${variants.orange.bgColor};
       border: 1px solid ${variants.orange.borderColor};
       color: ${variants.orange.color};`

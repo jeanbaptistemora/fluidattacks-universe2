@@ -29,6 +29,7 @@ const statusOrangeColor: string[] = [
   "Permanently accepted",
   "Requested",
   "Temporarily accepted",
+  "Untreated",
 ];
 const statusRedColor: string[] = [
   "Disabled",

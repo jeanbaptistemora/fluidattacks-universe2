@@ -115,7 +115,7 @@ def format_data(data: Treatment) -> dict:
         "acceptedUndefined": "Permanently accepted",
         "accepted": "Temporarily accepted",
         "inProgress": "In progress",
-        "undefined": "Not defined",
+        "undefined": "Untreated",
     }
 
     return {
@@ -129,7 +129,7 @@ def format_data(data: Treatment) -> dict:
                 "Permanently accepted": TREATMENT.more_passive,
                 "Temporarily accepted": TREATMENT.passive,
                 "In progress": TREATMENT.neutral,
-                "Not defined": TREATMENT.more_agressive,
+                "Untreated": TREATMENT.more_agressive,
             },
         },
         "legend": {
