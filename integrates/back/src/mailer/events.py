@@ -1,12 +1,9 @@
 from .common import (
-    COMMENTS_TAG,
     GENERAL_TAG,
     send_mails_async,
 )
 from context import (
     BASE_URL,
-    FI_MAIL_CUSTOMER_SUCCESS,
-    FI_MAIL_REVIEWERS,
 )
 from dataloaders import (
     Dataloaders,
@@ -16,12 +13,6 @@ from datetime import (
 )
 from db_model.enums import (
     Notification,
-)
-from db_model.event_comments.types import (
-    EventComment,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -42,56 +33,6 @@ from typing import (
     Any,
     Optional,
 )
-
-
-async def send_mail_comment(
-    *,
-    loaders: Dataloaders,
-    comment_data: EventComment,
-    event_id: str,
-    recipients: list[str],
-    group_name: str,
-    user_mail: str,
-) -> None:
-    org_name = await get_organization_name(loaders, group_name)
-    group: Group = await loaders.group.load(group_name)
-    has_machine: bool = group.state.has_machine
-    has_squad: bool = group.state.has_squad
-
-    email_context: dict[str, Any] = {
-        "comment": comment_data.content.splitlines(),
-        "comment_type": "event",
-        "comment_url": (
-            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
-            f"/events/{event_id}/comments"
-        ),
-        "finding_id": event_id,
-        "finding_name": f"Event #{event_id}",
-        "parent": comment_data.parent_id,
-        "group": group_name,
-        "has_machine": has_machine,
-        "has_squad": has_squad,
-        "user_email": user_mail,
-    }
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders
-        if Notification.NEW_COMMENT
-        in stakeholder.state.notifications_preferences.email
-    ]
-    reviewers = FI_MAIL_REVIEWERS.split(",")
-    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
-    await send_mails_async(
-        loaders,
-        [*stakeholders_email, *customer_success_recipients, *reviewers],
-        email_context,
-        COMMENTS_TAG,
-        f"[ARM] New comment in event #{event_id} for [{group_name}]",
-        "new_comment",
-    )
 
 
 async def send_mail_event_report(  # pylint: disable=too-many-locals

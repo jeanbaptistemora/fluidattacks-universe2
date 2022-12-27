@@ -180,7 +180,7 @@ async def add_comment(
         event_comments_ids = [comment.id for comment in event_comments]
         if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
-    await event_comments_domain.add(loaders, comment_data, group_name)
+    await event_comments_domain.add(comment_data)
 
 
 async def add_event(
