@@ -150,7 +150,7 @@ def format_rich_report(
     report: ForcesData,
 ) -> ForcesReport:
     """Outputs a rich-formatted table containing the reported data of findings
-    and associated vulns of an ASM group\n
+    and associated vulns of an ARM group\n
     @param `report`: A dict containing the list of findings and summary data of
     an ARM group\n
     @param `verbose_level`: An int from 1 to 4 of the desired verbosity level,

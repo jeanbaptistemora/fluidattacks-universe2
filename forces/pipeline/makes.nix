@@ -33,14 +33,6 @@
     stage = "lint-code";
     tags = ["small"];
   };
-  gitlabTest = {
-    rules = gitlabOnlyDev;
-    stage = "post-deploy";
-    tags = ["small"];
-    variables = {
-      API_ENDPOINT = "https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api";
-    };
-  };
 in {
   pipelines = {
     forces = {
@@ -53,14 +45,6 @@ in {
         {
           output = "/deployContainerImage/forcesProd";
           gitlabExtra = gitlabDeployApp;
-        }
-        {
-          output = "/forces/test";
-          gitlabExtra =
-            gitlabTest
-            // {
-              needs = ["/integrates/back/deploy/dev"];
-            };
         }
         {
           output = "/lintPython/module/forces";

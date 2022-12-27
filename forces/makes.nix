@@ -2,7 +2,6 @@
 {
   makeSearchPaths,
   outputs,
-  projectPath,
   ...
 }: {
   imports = [
@@ -82,16 +81,6 @@
     forcesProd = {
       vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
       manifest = "/forces/secrets-prod.yaml";
-    };
-  };
-  dynamoDb = {
-    forces = {
-      host = "0.0.0.0";
-      port = "8022";
-      infra = projectPath "/integrates/db/dynamodb/infra";
-      data = [
-        (projectPath "/forces/test/data")
-      ];
     };
   };
 }
