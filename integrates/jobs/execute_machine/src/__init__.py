@@ -490,33 +490,9 @@ def generate_config_files(
             checks=checks,
             language=language,
             working_dir=working_dir,
-            exclude=tuple(additional_paths),
             is_main=True,
             commit=commit,
-        ),
-        *(
-            generate_config(
-                group_name=group_name,
-                git_root=git_root,
-                checks=checks,
-                language=language,
-                working_dir=working_dir,
-                include=(path,),
-                commit=commit,
-                exclude=tuple(
-                    {
-                        (
-                            _path
-                            if not path.startswith(f"{_path}/")
-                            else f"{_path}/*"
-                        )
-                        for _path in additional_paths
-                        if _path != path
-                    }
-                ),
-            )
-            for path in additional_paths
-        ),
+        )
     ]
 
     return all_configs
