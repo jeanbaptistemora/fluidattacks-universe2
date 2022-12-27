@@ -1,6 +1,3 @@
-from contextlib import (
-    suppress,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -26,15 +23,8 @@ from symbolic_eval.utils import (
 )
 from typing import (
     Iterable,
-    Set,
-)
-from utils.crypto import (
-    insecure_elliptic_curve,
 )
 import utils.graph as g
-from utils.languages.java import (
-    is_cipher_vulnerable as kt_cipher_vulnerable,
-)
 from utils.string import (
     complete_attrs_on_set,
 )
@@ -48,15 +38,7 @@ def get_eval_result(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def is_insecure_rsa_spec(key_val: str) -> bool:
-    with suppress(TypeError):
-        key_length = int(key_val)
-        if key_length < 2048:
-            return True
-    return False
-
-
-def kotlin_insecure_hash_1(
+def kotlin_insecure_hash(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -108,7 +90,7 @@ def kotlin_insecure_hash_1(
     )
 
 
-def kotlin_insecure_hash_2(
+def kotlin_insecure_hash_instance(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -118,7 +100,6 @@ def kotlin_insecure_hash_2(
             "java.security.MessageDigest.getInstance",
         }
     )
-    danger_hashes = {"md2", "md4", "md5", "sha1", "sha-1"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
@@ -135,8 +116,7 @@ def kotlin_insecure_hash_2(
                     n_attrs["expression"] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and var_name[1:-1].lower() in danger_hashes
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 
@@ -148,7 +128,7 @@ def kotlin_insecure_hash_2(
     )
 
 
-def kotlin_insecure_cipher_1(
+def kotlin_insecure_cipher(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -175,8 +155,7 @@ def kotlin_insecure_cipher_1(
                     n_attrs["expression"] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and kt_cipher_vulnerable(var_name[1:-1])
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 
@@ -192,18 +171,10 @@ def kotlin_insecure_cipher_ssl(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.KT_INSECURE_CIPHER
+    method = MethodsEnum.KT_INSECURE_CIPHER_SSL
     danger_methods = complete_attrs_on_set(
         {"javax.net.ssl.SSLContext.getInstance"}
     )
-    ssl_ciphers_safe: Set[str] = {
-        "tls",
-        "tlsv1.2",
-        "tlsv1.3",
-        "dtls",
-        "dtlsv1.2",
-        "dtlsv1.3",
-    }
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
@@ -220,8 +191,7 @@ def kotlin_insecure_cipher_ssl(
                     n_attrs["expression"] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and var_name[1:-1] not in ssl_ciphers_safe
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 
@@ -237,15 +207,8 @@ def kotlin_insecure_cipher_http(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.KT_INSECURE_CIPHER
-    danger_methods = complete_attrs_on_set(
-        {"ConnectionSpec.Builder.tlsVersions"}
-    )
-    insecure_ciphers: Set[str] = {
-        "TlsVersion.SSL_3_0",
-        "TlsVersion.TLS_1_0",
-        "TlsVersion.TLS_1_1",
-    }
+    method = MethodsEnum.KT_INSECURE_CIPHER_HTTP
+    danger_methods = {"tlsVersions"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
@@ -257,13 +220,12 @@ def kotlin_insecure_cipher_http(
                 graph,
                 label_type="MethodInvocation",
             ):
-                n_attrs = graph.nodes[n_id]
+                m_names = graph.nodes[n_id]["expression"].split(".")
                 if (
-                    n_attrs["expression"] in danger_methods
+                    m_names[-1] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and var_name[1:-1] in insecure_ciphers
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 
@@ -299,8 +261,7 @@ def kotlin_insecure_key_rsa(
                     n_attrs["expression"] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and is_insecure_rsa_spec(var_name)
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 
@@ -316,7 +277,7 @@ def kotlin_insecure_key_ec(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.KT_INSECURE_KEY
+    method = MethodsEnum.KT_INSECURE_KEY_EC
     danger_methods = complete_attrs_on_set(
         {"security.spec.ECGenParameterSpec"}
     )
@@ -336,8 +297,7 @@ def kotlin_insecure_key_ec(
                     n_attrs["expression"] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__0__"))
-                    and (var_name := graph.nodes[arg_id].get("value"))
-                    and insecure_elliptic_curve(var_name[1:-1])
+                    and get_eval_result(graph, arg_id, method)
                 ):
                     yield shard, n_id
 

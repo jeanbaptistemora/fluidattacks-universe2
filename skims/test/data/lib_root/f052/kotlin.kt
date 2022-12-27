@@ -11,7 +11,8 @@ class test {
     fun main(args: Array<String>) {
         try {
             val c1 = Cipher.getInstance("AES")
-            val c2 = Cipher.getInstance("DES")
+            val cipher_ins = "DES"
+            val c2 = Cipher.getInstance(cipher_ins)
             val c3 = Cipher.getInstance("DESede")
             val c4 = Cipher.getInstance("RSA")
             val c5 = Cipher.getInstance("AES/CBC/PKCS5Padding")
@@ -31,7 +32,8 @@ class test {
             val c19 = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding")
 
             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-            val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+            val key = 2047
+            val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
             val k3 = ECGenParameterSpec("secp521r1")
             val k4 = ECGenParameterSpec("c2pnb208w1")
 

@@ -7,6 +7,9 @@ from symbolic_eval.f052.member_access.c_sharp import (
 from symbolic_eval.f052.member_access.common import (
     insecure_mode,
 )
+from symbolic_eval.f052.member_access.kotlin import (
+    kt_insecure_cipher_http,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -20,6 +23,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_MANAGED_SECURE_MODE: cs_managed_secure_mode,
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
     MethodsEnum.TS_INSECURE_ENCRYPT: insecure_mode,
+    MethodsEnum.KT_INSECURE_CIPHER_HTTP: kt_insecure_cipher_http,
 }
 
 

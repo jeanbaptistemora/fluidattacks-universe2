@@ -3349,6 +3349,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    KT_INSECURE_CIPHER_HTTP = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    KT_INSECURE_CIPHER_SSL = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     KT_INSECURE_HASH = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_hash",
@@ -3363,6 +3379,14 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    KT_INSECURE_KEY_EC = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_insecure_key",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     WEAK_CIPHERS_ALLOWED = MethodInfo(
