@@ -46,5 +46,19 @@ const JustText: Story = (): JSX.Element => (
   />
 );
 
-export { Default, JustText };
+const SimpleCta: Story = (): JSX.Element => (
+  <CtaBanner
+    button1Link={"/test/"}
+    button1Text={"Go to test"}
+    matomoAction={"Example"}
+    paragraph={
+      "This is a test paragraph that should show the behavior of the CTA"
+    }
+    size={"big"}
+    sizeSm={"medium"}
+    title={`This is a test title`}
+  />
+);
+
+export { Default, JustText, SimpleCta };
 export default config;
