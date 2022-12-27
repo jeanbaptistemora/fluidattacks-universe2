@@ -21,6 +21,8 @@ from syntax_graph.syntax_readers.go import (
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
+    type_declaration as go_type_declaration,
+    var_declaration as go_var_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -74,6 +76,7 @@ GO_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "function_declaration",
+            "method_declaration",
         },
         syntax_reader=go_function_declaration.reader,
     ),
@@ -165,5 +168,17 @@ GO_DISPATCHERS: Dispatchers = (
             "raw_string_literal",
         },
         syntax_reader=go_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_declaration",
+        },
+        syntax_reader=go_type_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "var_declaration",
+        },
+        syntax_reader=go_var_declaration.reader,
     ),
 )
