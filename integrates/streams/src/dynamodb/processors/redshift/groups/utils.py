@@ -67,6 +67,7 @@ def format_row_state(
 ) -> Item:
     return dict(
         id=group_name,
+        comments=state.get("comments"),
         has_machine=bool(state["has_machine"]),
         has_squad=bool(state["has_squad"]),
         justification=state.get("justification"),

@@ -70,6 +70,7 @@ def _initialize_state_table() -> None:
             """
             CREATE TABLE IF NOT EXISTS {table} (
                 id VARCHAR,
+                comments VARCHAR,
                 has_machine BOOLEAN,
                 has_squad BOOLEAN,
                 justification VARCHAR,

@@ -35,6 +35,7 @@ class MetadataTableRow:
 class StateTableRow:
     # pylint: disable=invalid-name,too-many-instance-attributes
     id: str
+    comments: Optional[str]
     has_machine: bool
     has_squad: bool
     justification: Optional[str]
