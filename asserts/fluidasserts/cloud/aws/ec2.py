@@ -58,67 +58,6 @@ def _flatten(elements, aux_list=None):
     return aux_list
 
 
-@api(risk=LOW, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def has_unused_seggroups(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if there are unused security groups.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    security_groups = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="ec2",
-        func="describe_security_groups",
-        param="SecurityGroups",
-        retry=retry,
-    )
-
-    msg_open: str = "Some security groups are not being used"
-    msg_closed: str = "All security groups are being used"
-
-    vulns, safes = [], []
-
-    if security_groups:
-        for group in security_groups:
-            group_id = group["GroupId"]
-            net_interfaces = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="ec2",
-                func=("describe_" "network_interfaces"),
-                param="NetworkInterfaces",
-                Filters=[
-                    {
-                        "Name": "group-id",
-                        "Values": [
-                            group["GroupId"],
-                        ],
-                    }
-                ],
-                retry=retry,
-            )
-
-            (vulns if not net_interfaces else safes).append(
-                (group_id, "Must be used or deleted")
-            )
-
-    return _get_result_as_tuple(
-        service="EC2",
-        objects="security groups",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_instances_using_unapproved_amis(
