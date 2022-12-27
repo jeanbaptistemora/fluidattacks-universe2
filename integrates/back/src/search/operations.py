@@ -59,7 +59,7 @@ async def search(  # pylint: disable=too-many-locals
 
     if should_filters:
         full_or_filters = [
-            {"match": {key: value}}
+            {"match_phrase_prefix": {key: value}}
             for attrs in should_filters
             for key, value in attrs.items()
         ]
@@ -89,6 +89,7 @@ async def search(  # pylint: disable=too-many-locals
                 "should": [
                     *full_or_filters,
                 ],
+                "minimum_should_match": 1 if full_or_filters else 0,
                 "must_not": [*full_must_not_filters],
             }
         },
