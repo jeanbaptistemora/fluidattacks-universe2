@@ -233,6 +233,66 @@ async def has_unused_ec2_key_pairs(
     return vulns
 
 
+async def has_unused_seggroups(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups = response.get("SecurityGroups", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+
+    if security_groups:
+        for group in security_groups:
+            locations: List[Location] = []
+            net_interfaces = await run_boto3_fun(
+                credentials,
+                service="ec2",
+                function="describe_network_interfaces",
+                parameters={
+                    "Filters": [
+                        {
+                            "Name": "group-id",
+                            "Values": [
+                                group["GroupId"],
+                            ],
+                        }
+                    ]
+                },
+            )
+            network_interfaces = (
+                net_interfaces.get("NetworkInterfaces", []) if response else []
+            )
+            if not network_interfaces:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=("/NetworkInterfaces",),
+                            arn=(
+                                f"arn:aws:ec2::{group['OwnerId']}:"
+                                f"security-group/{group['GroupId']}"
+                            ),
+                            values=(network_interfaces,),
+                            description=t(
+                                "lib_path.f333.has_unused_secgroups"
+                            ),
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_EC2_HAS_UNUSED_SEGGROUPS
+                    ),
+                    aws_response=net_interfaces,
+                ),
+            )
+    return vulns
+
+
 async def has_publicly_shared_amis(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -320,4 +380,5 @@ CHECKS: Tuple[
     has_unused_ec2_key_pairs,
     has_publicly_shared_amis,
     has_unencrypted_snapshots,
+    has_unused_seggroups,
 )
