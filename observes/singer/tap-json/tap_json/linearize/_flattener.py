@@ -1,4 +1,4 @@
-from ._non_nested import (
+from ._core import (
     JsonValueFlatDicts,
 )
 from fa_purity import (
@@ -42,7 +42,7 @@ def _merge_dicts(items: FrozenList[FrozenDict[_K, _V]]) -> FrozenDict[_K, _V]:
     return freeze(result)
 
 
-def _merge(
+def _extract_dict(
     key: str,
     value: JsonValue,
     transform: Callable[[JsonValue], JsonValueFlatDicts],
@@ -54,7 +54,7 @@ def _merge(
         ),
         lambda x: _merge_dicts(
             tuple(
-                _merge(k, v, transform)
+                _extract_dict(k, v, transform)
                 for k, v in _prefix_key(key + FIELD_SEP, x).items()
             )
         ),
@@ -69,7 +69,10 @@ def flatten_nested_dict(value: JsonValue) -> JsonValueFlatDicts:
         ),
         lambda x: JsonValueFlatDicts(
             _merge_dicts(
-                tuple(_merge(k, v, flatten_nested_dict) for k, v in x.items())
+                tuple(
+                    _extract_dict(k, v, flatten_nested_dict)
+                    for k, v in x.items()
+                )
             )
         ),
     )
@@ -79,5 +82,7 @@ def simplify_json(
     data: JsonObj,
 ) -> FrozenDict[CleanString, FrozenList[JsonValueFlatDicts] | Primitive]:
     return _merge_dicts(
-        tuple(_merge(k, v, flatten_nested_dict) for k, v in data.items())
+        tuple(
+            _extract_dict(k, v, flatten_nested_dict) for k, v in data.items()
+        )
     )

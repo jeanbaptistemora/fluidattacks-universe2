@@ -1,8 +1,8 @@
+from ._core import (
+    JsonValueFlatDicts,
+)
 from ._nested_id import (
     struct_hash,
-)
-from ._non_nested import (
-    JsonValueFlatDicts,
 )
 from dataclasses import (
     dataclass,

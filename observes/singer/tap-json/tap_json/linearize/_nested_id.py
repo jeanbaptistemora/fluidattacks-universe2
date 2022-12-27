@@ -1,4 +1,4 @@
-from ._non_nested import (
+from ._core import (
     JsonValueFlatDicts,
 )
 from fa_purity import (

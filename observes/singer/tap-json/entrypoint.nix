@@ -12,7 +12,7 @@
   arch-lint = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
-      ref = "refs/tags/v2.2.0";
+      ref = "refs/tags/v2.3.0";
     };
   in
     import src {
