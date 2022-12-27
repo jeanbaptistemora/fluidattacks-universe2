@@ -2589,6 +2589,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EC2_HAS_UNENCRYPTED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_unencrypted_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
