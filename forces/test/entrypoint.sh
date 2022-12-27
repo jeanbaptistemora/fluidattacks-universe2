@@ -23,7 +23,7 @@ function main {
           -n "dev" \
           --timeout="15m"
     fi \
-    && sops_export_vars __argSecretsFile__ "INTEGRATES_FORCES_API_TOKEN" \
+    && sops_export_vars __argSecretsFile__ "TEST_FORCES_TOKEN" \
     && pushd forces/ \
     && source __argForcesRuntime__/template \
     && pytest "${args_pytest[@]}" \

@@ -7,17 +7,17 @@ from typing import (
 
 @pytest.fixture(scope="session")
 def test_group() -> Iterator[str]:
-    yield "herrin"
+    yield "unittesting"
 
 
 @pytest.fixture(scope="session")
 def test_finding() -> Iterator[str]:
-    yield "940350540"
+    yield "436992569"
 
 
 @pytest.fixture(scope="session")
 def test_token() -> Iterator[str]:
-    yield os.environ["INTEGRATES_FORCES_API_TOKEN"]
+    yield os.environ["TEST_FORCES_TOKEN"]
 
 
 @pytest.fixture(scope="session")

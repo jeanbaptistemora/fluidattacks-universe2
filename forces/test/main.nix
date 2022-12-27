@@ -9,7 +9,7 @@ makeScript {
   name = "forces-test";
   replace = {
     __argForcesRuntime__ = outputs."/forces/config/runtime";
-    __argSecretsFile__ = projectPath "/forces/secrets-dev.yaml";
+    __argSecretsFile__ = projectPath "/integrates/secrets/development.yaml";
   };
   searchPaths = {
     source = [

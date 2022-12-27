@@ -60,18 +60,18 @@ async def test_generate_report(
     find: Finding = next(
         find for find in report.findings if find.identifier == test_finding
     )
-    assert len(find.vulnerabilities) == 5
+    assert len(find.vulnerabilities) == 28
 
     identifiers: set[str] = {find.identifier for find in report.findings}
     assert len(identifiers) == len(report.findings)
 
-    assert report.summary.vulnerable.total == 7
-    assert report.summary.safe.total == 2
-    assert report.summary.accepted.total == 0
+    assert report.summary.vulnerable.total == 26
+    assert report.summary.safe.total == 6
+    assert report.summary.accepted.total == 4
     assert (
         report.summary.total
         == sum([len(finding.vulnerabilities) for finding in report.findings])
-        == 9
+        == 36
     )
 
 

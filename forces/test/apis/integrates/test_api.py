@@ -30,9 +30,8 @@ async def test_get_finding(test_token: str, test_finding: str) -> None:
 @pytest.mark.asyncio
 async def test_get_vulnerabilities(test_token: str, test_finding: str) -> None:
     result = await get_vulnerabilities(test_finding, api_token=test_token)
-    assert len(result) == 5
-    for vuln in result:
-        assert "forces" in vuln["where"]
+    assert len(result) == 28
+    assert "192.168.100.109" in result[0]["where"]
 
 
 @pytest.mark.asyncio
@@ -55,4 +54,4 @@ async def test_vulns_generator(test_token: str, test_group: str) -> None:
             test_group, api_token=test_token
         )
     ]
-    assert len(vulns) == 9
+    assert len(vulns) == 36

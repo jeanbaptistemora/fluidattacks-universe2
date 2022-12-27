@@ -464,6 +464,16 @@ in {
               };
           }
           {
+            output = "/forces/test";
+            gitlabExtra =
+              gitlabPostDeployDev
+              // {
+                needs = [
+                  "/integrates/back/deploy/dev"
+                ];
+              };
+          }
+          {
             output = "/integrates/web/forces";
             gitlabExtra =
               gitlabPostDeployDev
