@@ -1,5 +1,3 @@
-# pylint: disable=too-many-lines
-
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
@@ -10,9 +8,7 @@ import authz
 from context import (
     BASE_URL,
     FI_MAIL_CUSTOMER_EXPERIENCE,
-    FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_PRODUCTION,
-    FI_MAIL_REVIEWERS,
 )
 from dataloaders import (
     Dataloaders,
@@ -24,18 +20,12 @@ from datetime import (
 from db_model.enums import (
     Notification,
 )
-from db_model.group_comments.types import (
-    GroupComment,
-)
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
 )
 from db_model.roots.types import (
     GitRootCloning,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
 )
 from group_access.domain import (
     get_stakeholders_email_by_preferences,
@@ -379,52 +369,6 @@ async def send_mail_group_report(
         GENERAL_TAG,
         f'[ARM] {context["filetype"]} report for [{context["groupname"]}]',
         "group_report",
-    )
-
-
-async def send_mail_comment(
-    *,
-    loaders: Dataloaders,
-    comment_data: GroupComment,
-    user_mail: str,
-    recipients: list[str],
-    group_name: str = "",
-) -> None:
-    org_name = await get_organization_name(loaders, group_name)
-    group: Group = await loaders.group.load(group_name)
-    has_machine: bool = group.state.has_machine
-    has_squad: bool = group.state.has_squad
-
-    email_context: dict[str, Any] = {
-        "comment": str(comment_data.content).splitlines(),
-        "comment_type": "group",
-        "comment_url": (
-            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/consulting"
-        ),
-        "parent": str(comment_data.parent_id),
-        "group": group_name,
-        "has_machine": has_machine,
-        "has_squad": has_squad,
-        "user_email": user_mail,
-    }
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders
-        if Notification.NEW_COMMENT
-        in stakeholder.state.notifications_preferences.email
-    ]
-    reviewers = FI_MAIL_REVIEWERS.split(",")
-    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
-    await send_mails_async(
-        loaders,
-        [*stakeholders_email, *customer_success_recipients, *reviewers],
-        email_context,
-        COMMENTS_TAG,
-        f"[ARM] New comment in [{group_name}]",
-        "new_comment",
     )
 
 

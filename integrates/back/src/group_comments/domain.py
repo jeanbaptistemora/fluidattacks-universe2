@@ -1,6 +1,3 @@
-from aioextensions import (
-    schedule,
-)
 import authz
 from custom_exceptions import (
     InvalidCommentParent,
@@ -14,37 +11,13 @@ from db_model import (
 from db_model.group_comments.types import (
     GroupComment,
 )
-from group_access.domain import (
-    get_stakeholders_subscribed_to_consult,
-)
-from mailer import (
-    groups as groups_mail,
-)
 from newutils.validations import (
     validate_field_length,
 )
 
 
-def _is_scope_comment(comment: GroupComment) -> bool:
+def is_scope_comment(comment: GroupComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
-
-
-async def send_group_consult_mail(
-    loaders: Dataloaders,
-    comment_data: GroupComment,
-    group_name: str,
-) -> None:
-    await groups_mail.send_mail_comment(
-        loaders=loaders,
-        comment_data=comment_data,
-        user_mail=comment_data.email,
-        recipients=await get_stakeholders_subscribed_to_consult(
-            loaders=loaders,
-            group_name=group_name,
-            comment_type="group",
-        ),
-        group_name=group_name,
-    )
 
 
 async def add_comment(
@@ -68,14 +41,6 @@ async def add_comment(
         if parent_comment not in group_comments:
             raise InvalidCommentParent()
     await group_comments_model.add(group_comment=comment_data)
-    if _is_scope_comment(comment_data):
-        schedule(
-            send_group_consult_mail(
-                loaders,
-                comment_data,
-                group_name,
-            )
-        )
 
 
 async def remove_comments(group_name: str) -> None:
@@ -93,4 +58,4 @@ async def get_comments(
     if enforcer(group_name, "handle_comment_scope"):
         return comments
 
-    return tuple(filter(_is_scope_comment, comments))
+    return tuple(filter(is_scope_comment, comments))
