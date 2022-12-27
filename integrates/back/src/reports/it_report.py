@@ -626,32 +626,37 @@ class ITReport:
             ),
         )
 
+    @staticmethod
+    def get_first_treatment(
+        treatments: tuple[VulnerabilityTreatment, ...]
+    ) -> Optional[VulnerabilityTreatment]:
+
+        return next(
+            (
+                treatment
+                for treatment in treatments
+                if treatment.status != VulnerabilityTreatmentStatus.NEW
+            ),
+            None,
+        )
+
+    @staticmethod
+    def format_treatment(treatment: VulnerabilityTreatmentStatus) -> str:
+        if treatment == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
+            return "Permanently accepted"
+        if treatment == VulnerabilityTreatmentStatus.ACCEPTED:
+            return "Temporarily accepted"
+        if treatment == VulnerabilityTreatmentStatus.NEW:
+            return "Untreated"
+        return treatment.value.capitalize().replace("_", " ")
+
     def set_treatment_data(
         self,
         vuln: Vulnerability,
         historic_treatment: tuple[VulnerabilityTreatment, ...],
     ) -> None:
-        def get_first_treatment(
-            treatments: tuple[VulnerabilityTreatment, ...]
-        ) -> Optional[VulnerabilityTreatment]:
 
-            return next(
-                (
-                    treatment
-                    for treatment in treatments
-                    if treatment.status != VulnerabilityTreatmentStatus.NEW
-                ),
-                None,
-            )
-
-        def format_treatment(treatment: VulnerabilityTreatmentStatus) -> str:
-            if treatment == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
-                return "Permanently accepted"
-            if treatment == VulnerabilityTreatmentStatus.ACCEPTED:
-                return "Temporarily accepted"
-            return treatment.value.capitalize().replace("_", " ")
-
-        first_treatment = get_first_treatment(historic_treatment)
+        first_treatment = self.get_first_treatment(historic_treatment)
         current_treatment_exp_date: Union[str, datetime] = EMPTY
         if vuln.treatment:
             if vuln.treatment.accepted_until:
@@ -659,7 +664,9 @@ class ITReport:
                     vuln.treatment.accepted_until
                 )
             current_treatment_data = {
-                "Current Treatment": format_treatment(vuln.treatment.status),
+                "Current Treatment": self.format_treatment(
+                    vuln.treatment.status
+                ),
                 "Current Treatment Moment": (
                     datetime_utils.get_as_str(vuln.treatment.modified_date)
                 ),
@@ -688,7 +695,9 @@ class ITReport:
                     first_treatment.accepted_until
                 )
             first_treatment_data = {
-                "First Treatment": format_treatment(first_treatment.status),
+                "First Treatment": self.format_treatment(
+                    first_treatment.status
+                ),
                 "First Treatment Moment": datetime_utils.get_as_str(
                     first_treatment.modified_date
                 ),

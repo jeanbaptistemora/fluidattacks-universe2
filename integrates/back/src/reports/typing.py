@@ -323,7 +323,9 @@ class PDFWordlistEn(Wordlist):
     TREAT_STATUS_REM: WordlistItem = WordlistItem(
         "treat_status_rem", "In Progress"
     )
-    TREAT_STATUS_WOR: WordlistItem = WordlistItem("treat_status_wor", "New")
+    TREAT_STATUS_WOR: WordlistItem = WordlistItem(
+        "treat_status_wor", "Untreated"
+    )
     TREATMENT_TITLE: WordlistItem = WordlistItem(
         "treatment_title", "Treatment"
     )
