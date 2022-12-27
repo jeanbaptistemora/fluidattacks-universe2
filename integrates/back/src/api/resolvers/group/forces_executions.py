@@ -25,6 +25,8 @@ from search.operations import (
 )
 from typing import (
     Any,
+    Dict,
+    List,
 )
 
 
@@ -39,6 +41,7 @@ async def resolve(
     **kwargs: Any,
 ) -> ExecutionsConnection:
     group_name: str = parent.name
+    executions_filters: Dict[str, Any] = executions_filter(**kwargs)
 
     after = kwargs.get("after")
     first = kwargs.get("first", 10)
@@ -48,6 +51,7 @@ async def resolve(
         after=after,
         limit=first,
         query=query,
+        must_filters=executions_filters["must_filters"],
         exact_filters={"group_name": group_name},
         index="forces_executions",
     )
@@ -69,3 +73,22 @@ async def resolve(
         page_info=results.page_info,
         total=results.total,
     )
+
+
+def executions_filter(**kwargs: Any) -> Dict[str, Any]:
+    exec_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
+
+    filters: Dict[str, Any] = {
+        "must_filters": exec_must_filters,
+    }
+
+    return filters
+
+
+def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+    must_filters = []
+
+    if execution_type := kwargs.get("type"):
+        must_filters.append({"kind": str(execution_type).upper()})
+
+    return must_filters

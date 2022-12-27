@@ -52,6 +52,8 @@ type Group {
     first: Int
     "Search query for execution attributes"
     search: String
+    "Type of execution"
+    type: String
 
   ):ExecutionsConnection!
   "Approved findings with discovered vulnerabilities"
