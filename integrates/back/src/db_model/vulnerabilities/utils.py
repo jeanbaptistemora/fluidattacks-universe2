@@ -97,17 +97,16 @@ def filter_non_deleted(
     )
 
 
-def filter_non_zero_risk(
+def filter_released_and_non_zero_risk(
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if not vuln.zero_risk
-        or vuln.zero_risk.status
-        not in (
-            VulnerabilityZeroRiskStatus.CONFIRMED,
-            VulnerabilityZeroRiskStatus.REQUESTED,
+        if vuln.state.status in RELEASED_FILTER_STATUSES
+        and (
+            not vuln.zero_risk
+            or vuln.zero_risk.status not in ZR_FILTER_STATUSES
         )
     )
 
@@ -123,18 +122,14 @@ def filter_released(
     )
 
 
-def filter_zero_risk(
+def filter_released_and_zero_risk(
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
-        if vuln.zero_risk
-        and vuln.zero_risk.status
-        in (
-            VulnerabilityZeroRiskStatus.CONFIRMED,
-            VulnerabilityZeroRiskStatus.REQUESTED,
-        )
+        if vuln.state.status in RELEASED_FILTER_STATUSES
+        and (vuln.zero_risk and vuln.zero_risk.status in ZR_FILTER_STATUSES)
     )
 
 

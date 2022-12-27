@@ -3,7 +3,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityEdge,
 )
 from db_model.vulnerabilities.utils import (
-    filter_non_zero_risk,
+    filter_released_and_non_zero_risk,
     format_vulnerability,
 )
 from decorators import (
@@ -37,7 +37,7 @@ async def resolve(
         limit=100,
     )
 
-    vulnerabilities = filter_non_zero_risk(
+    vulnerabilities = filter_released_and_non_zero_risk(
         tuple(format_vulnerability(result) for result in results.items)
     )
 

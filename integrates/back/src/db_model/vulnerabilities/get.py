@@ -10,9 +10,9 @@ from .types import (
 )
 from .utils import (
     filter_non_deleted,
-    filter_non_zero_risk,
     filter_released,
-    filter_zero_risk,
+    filter_released_and_non_zero_risk,
+    filter_released_and_zero_risk,
     format_state,
     format_treatment,
     format_verification,
@@ -391,7 +391,7 @@ class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
     ) -> tuple[tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            filter_non_zero_risk(finding_vulns)
+            filter_released_and_non_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
         )
 
@@ -441,7 +441,8 @@ class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
     ) -> tuple[tuple[Vulnerability, ...], ...]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return tuple(
-            filter_zero_risk(finding_vulns) for finding_vulns in findings_vulns
+            filter_released_and_zero_risk(finding_vulns)
+            for finding_vulns in findings_vulns
         )
 
 
