@@ -186,64 +186,6 @@ def has_instances_using_unapproved_amis(
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_default_security_groups_in_use(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if default security groups are in use.
-
-    :param key_id: AWS Key Id.
-    :param secret: AWS Key Secret.
-
-    :returns: - ``OPEN`` if there are default security groups in use.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-
-    :rtype: :class:`fluidasserts.Result`
-    """
-    msg_open: str = "Default security groups are in use."
-    msg_closed: str = "Default security groups are not in use."
-    vulns, safes = [], []
-
-    instances = map(
-        lambda x: x["Instances"],
-        aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            boto3_client_kwargs={"aws_session_token": session_token},
-            service="ec2",
-            func="describe_instances",
-            param="Reservations",
-            retry=retry,
-        ),
-    )
-
-    for instance in _flatten(list(instances)):
-        security_groups = map(
-            lambda x: x["GroupName"], instance["SecurityGroups"]
-        )
-        (vulns if "default" in security_groups else safes).append(
-            (
-                instance["InstanceId"],
-                (
-                    "This instance use a default security"
-                    " group, specify a custom security group."
-                ),
-            )
-        )
-
-    return _get_result_as_tuple(
-        service="EC2",
-        objects="Instances",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def has_unencrypted_amis(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
