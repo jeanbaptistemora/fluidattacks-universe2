@@ -2926,7 +2926,6 @@ export const enTranslations: ResourceKey = {
         tooltip:
           "Assess whether the vulnerability was fixed or not in the current cycle",
       },
-      markVerifiedFinding: "Verify finding",
       notification: {
         emailNotificationError:
           "There was an error sending the email notification to the assigned",
