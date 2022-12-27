@@ -21,8 +21,8 @@ lib_http.analyze_headers.content_security_policy.script-src.unsafeinline:
   en: script-src has unsafe-inline
   es: script-src contiene unsafe-inline
 lib_http.analyze_headers.content_security_policy.wild_uri:
-  en: Use of {uri} wildcard
-  es: Uso de comodín {uri}
+  en: Directive {directive} contains the unsafe wildcard {uri}
+  es: Directiva {directive} contiene el comodín inseguro {uri}
 lib_http.analyze_headers.upgrade_insecure_requests.missing:
   en: Could not found upgrade-insecure-requests header or CSP directive
   es: No se encontró la cabecera upgrade-insecure-requests ni la directiva CSP

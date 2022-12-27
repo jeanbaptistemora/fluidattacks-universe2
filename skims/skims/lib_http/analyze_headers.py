@@ -114,12 +114,16 @@ def _create_vulns(
 def _content_security_policy_wild_uri(
     locations: Locations,
     value: str,
+    directive: str = "default-src",
 ) -> None:
     for uri in ("data:", "http:", "https:", "://*"):
         if uri == value:
             locations.append(
                 desc="content_security_policy.wild_uri",
-                desc_kwargs=dict(uri=uri),
+                desc_kwargs={
+                    "directive": directive,
+                    "uri": uri,
+                },
             )
 
 
@@ -168,6 +172,11 @@ def _content_security_policy_script_src(
         directive in header.directives
         for directive in ["default-src", "script-src"]
     ):
+        directive = (
+            "default-src"
+            if "default-src" in header.directives
+            else "script-src"
+        )
         values = (
             header.directives.get("script-src", [])
             if "script-src" in header.directives
@@ -179,7 +188,7 @@ def _content_security_policy_script_src(
                     "content_security_policy.script-src.unsafeinline"
                 )
 
-            _content_security_policy_wild_uri(locations, value)
+            _content_security_policy_wild_uri(locations, value, directive)
 
             for arg in (
                 "*.amazonaws.com",
