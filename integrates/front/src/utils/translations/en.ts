@@ -3790,6 +3790,7 @@ export const enTranslations: ResourceKey = {
       onHold: "On Hold",
       open: "Vulnerable",
       requested: "Requested",
+      safe: "Safe",
       searchTag: "Search Tag",
       searchText: "Search Text",
       status: "Status",
@@ -3853,6 +3854,7 @@ export const enTranslations: ResourceKey = {
         },
         where: "Location",
       },
+      vulnerable: "Vulnerable",
     },
     usersTable: {
       firstlogin: "First login",

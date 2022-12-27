@@ -194,7 +194,7 @@ async def test_get_report_states(
         [
             "admin@gmail.com",
             [],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
             "007. Cross-site request forgery",
@@ -202,7 +202,7 @@ async def test_get_report_states(
         [
             "user_manager@gmail.com",
             [],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
             "007. Cross-site request forgery",
@@ -210,7 +210,7 @@ async def test_get_report_states(
         [
             "vulnerability_manager@gmail.com",
             [],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
             "007. Cross-site request forgery",
@@ -468,7 +468,7 @@ async def test_get_report_states_second_time_fail(
         [
             "admin@gmail.com",
             [],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
             True,
@@ -476,7 +476,7 @@ async def test_get_report_states_second_time_fail(
         [
             "admin@gmail.com",
             [],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
             "2021-06-01T05:00:00+00:00",
             False,
@@ -578,7 +578,7 @@ async def test_get_report_invalid_state(
         [
             "admin@gmail.com",
             ["ACCEPTED_UNDEFINED", "NEW"],
-            ["CLOSED"],
+            ["SAFE"],
             ["VERIFIED"],
         ],
     ],
@@ -668,7 +668,7 @@ async def test_get_report_invalid_severity(
         group_name=group,
         report_type="XLS",
         treatments=["IN_PROGRESS"],
-        states=["OPEN"],
+        states=["VULNERABLE"],
         verifications=["REQUESTED"],
         closing_date=None,
         finding_title="007. Cross-site request forgery",

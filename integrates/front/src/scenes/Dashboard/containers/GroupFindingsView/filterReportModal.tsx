@@ -640,7 +640,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             </p>
                             {_.isEmpty(values.closingDate) ? (
                               <React.Fragment>
-                                {["CLOSED", "OPEN"].map(
+                                {["SAFE", "VULNERABLE"].map(
                                   (state): JSX.Element => (
                                     <Checkbox
                                       key={state}
@@ -655,7 +655,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               </React.Fragment>
                             ) : (
                               <React.Fragment>
-                                {["CLOSED"].map(
+                                {["SAFE"].map(
                                   (state): JSX.Element => (
                                     <Checkbox
                                       key={state}
