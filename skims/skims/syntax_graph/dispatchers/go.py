@@ -1,12 +1,14 @@
 from syntax_graph.syntax_readers.go import (
     argument_list as go_argument_list,
     assignment_statement as go_assignment_statement,
+    binary_expression as go_binary_expression,
     block as go_block,
     call_expression as go_call_expression,
     composite_literal as go_composite_literal,
     expression_list as go_expression_list,
     function_declaration as go_function_declaration,
     identifier as go_identifier,
+    if_statement as go_if_statement,
     import_declaration as go_import_declaration,
     int_literal as go_int_literal,
     literal_value as go_literal_value,
@@ -15,6 +17,7 @@ from syntax_graph.syntax_readers.go import (
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
     qualified_type as go_qualified_type,
+    return_statement as go_return_statement,
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
@@ -43,6 +46,12 @@ GO_DISPATCHERS: Dispatchers = (
             "block",
         },
         syntax_reader=go_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "binary_expression",
+        },
+        syntax_reader=go_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -92,6 +101,12 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "if_statement",
+        },
+        syntax_reader=go_if_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "import_declaration",
         },
         syntax_reader=go_import_declaration.reader,
@@ -125,6 +140,12 @@ GO_DISPATCHERS: Dispatchers = (
             "qualified_type",
         },
         syntax_reader=go_qualified_type.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "return_statement",
+        },
+        syntax_reader=go_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
