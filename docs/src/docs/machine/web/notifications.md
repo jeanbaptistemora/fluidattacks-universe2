@@ -446,6 +446,15 @@ vulnerabilities classified according to the group.
 
 ![Temporary alert report](https://res.cloudinary.com/fluid-attacks/image/upload/v1671629874/docs/web/notifications/temporary_treatment.png)
 
+### Group Alert notification
+
+This notification is generated
+when a group is removed from
+the ARM Platform,
+notifying all users of that group.
+
+![Group alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1672136470/docs/web/notifications/group_alert.png)
+
 ## Exclusive Free Trial notifications
 
 ### Free trial start
