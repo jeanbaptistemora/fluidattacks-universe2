@@ -77,6 +77,16 @@ resource "aws_s3_bucket_versioning" "fluidsignal_com_versioning" {
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "fluidsignal_com" {
+  bucket = aws_s3_bucket.fluidsignal_com.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
 
 # MX Records
 

@@ -66,6 +66,17 @@ resource "aws_s3_bucket_versioning" "fluid_la_versioning" {
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "fluid_la" {
+  bucket = aws_s3_bucket.fluid_la.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+
 # MX Records
 
 resource "cloudflare_record" "fluid_la_email_1" {
