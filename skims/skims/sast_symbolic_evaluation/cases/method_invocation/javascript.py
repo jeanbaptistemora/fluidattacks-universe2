@@ -1,10 +1,7 @@
 from model.graph_model import (
     SyntaxStep,
     SyntaxStepDeclaration,
-    SyntaxStepLiteral,
     SyntaxStepMethodInvocation,
-    SyntaxStepObjectInstantiation,
-    SyntaxStepSymbolLookup,
 )
 from sast_symbolic_evaluation.decorators import (
     javascript_only,
@@ -13,33 +10,11 @@ from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
 from sast_symbolic_evaluation.utils_generic import (
-    complete_attrs_on_dict,
     lookup_var_dcl_by_name,
-)
-from typing import (
-    Dict,
-    Set,
-    Union,
 )
 from utils.string import (
     split_on_first_dot,
 )
-
-TYPES: Dict[str, Set[str]] = complete_attrs_on_dict(
-    {
-        "express.Router": {"get", "post", "put", "delete"},
-    }
-)
-
-
-def evaluate_required(args: EvaluatorArgs) -> None:
-    method: SyntaxStepMethodInvocation = args.syntax_step
-    if method.method != "require":
-        return
-
-    module: SyntaxStepLiteral = args.dependencies[0]
-    if isinstance(module, SyntaxStepLiteral):
-        method.return_type = str(module.value)
 
 
 @javascript_only
@@ -62,10 +37,6 @@ def process_declaration(args: EvaluatorArgs) -> None:
             and isinstance(method_var_decl, SyntaxStepDeclaration)
         ):
             step.var_type = f"{method_var_decl.var_type}.{method_path}"
-
-
-def process(args: EvaluatorArgs) -> None:
-    evaluate_required(args)
 
 
 def list_remove(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
@@ -110,30 +81,3 @@ def list_concat(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
     args.syntax_step.meta.danger = any(
         x.meta.danger for x in args.syntax_step.meta.value if x
     )
-
-
-@javascript_only
-def process_cookie(args: EvaluatorArgs) -> None:
-    for _arg in args.dependencies:
-        _arg_value = _arg.meta.value
-        if not isinstance(_arg_value, dict):
-            continue
-        if _secure := _arg_value.get("secure"):
-            args.syntax_step.meta.danger = _secure.meta.value is False
-
-
-def insecure_mysql_query(args: EvaluatorArgs) -> None:
-    arguments = args.dependencies
-    query: Union[
-        SyntaxStepObjectInstantiation,
-        SyntaxStepLiteral,
-        SyntaxStepSymbolLookup,
-    ] = arguments[-1]
-    if (
-        isinstance(query, SyntaxStepObjectInstantiation)
-        and query.meta.value
-        and (sql := query.meta.value.get("sql"))
-    ):
-        args.syntax_step.meta.danger = sql.meta.danger
-    else:
-        args.syntax_step.meta.danger = query.meta.danger

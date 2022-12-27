@@ -118,7 +118,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "204",
               "value": null
@@ -129,7 +129,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "199",
               "value": null
@@ -176,7 +176,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "242",
               "value": null
@@ -189,7 +189,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "236",
               "value": null
@@ -200,7 +200,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "229",
               "value": {
@@ -209,24 +209,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -237,7 +226,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "224",
               "value": {
@@ -246,24 +235,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -275,7 +253,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "252",
               "value": {
@@ -284,24 +262,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -321,7 +288,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "251",
               "value": null
@@ -331,7 +298,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "246",
               "value": null
@@ -376,7 +343,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "272",
               "value": null
@@ -388,7 +355,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "258",
               "value": null
@@ -415,7 +382,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "303",
               "value": null
@@ -426,7 +393,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "298",
               "value": null
@@ -460,7 +427,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "336",
               "value": null
@@ -473,7 +440,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "330",
               "value": null
@@ -484,7 +451,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "321",
               "value": {
@@ -501,21 +468,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -532,7 +488,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "316",
               "value": {
@@ -549,21 +505,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -614,7 +559,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "356",
               "value": {
@@ -631,21 +576,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -671,7 +605,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "355",
               "value": null
@@ -682,7 +616,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "341",
               "value": null
@@ -708,7 +642,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "390",
               "value": null
@@ -719,7 +653,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "385",
               "value": null
@@ -781,21 +715,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "421",
                       "value": null
@@ -829,21 +752,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "421",
                       "value": null
@@ -870,7 +782,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "430",
               "value": null
@@ -883,7 +795,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "424",
               "value": null
@@ -895,7 +807,7 @@
           {
             "attribute": "",
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "421",
               "value": null
@@ -942,7 +854,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "448",
               "value": null
@@ -955,7 +867,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "434",
               "value": null
@@ -981,7 +893,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "647",
               "value": null
@@ -992,7 +904,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "642",
               "value": null
@@ -1015,7 +927,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "678",
               "value": null
@@ -1028,7 +940,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "672",
               "value": null
@@ -1039,7 +951,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "665",
               "value": {
@@ -1048,24 +960,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -1076,7 +977,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "660",
               "value": {
@@ -1085,24 +986,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -1114,7 +1004,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "688",
               "value": {
@@ -1123,24 +1013,13 @@
                   "lastName": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "80",
                       "value": null
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -1160,7 +1039,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "687",
               "value": null
@@ -1170,7 +1049,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "682",
               "value": null
@@ -1215,7 +1094,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "708",
               "value": null
@@ -1227,7 +1106,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "694",
               "value": null
@@ -1253,7 +1132,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "739",
               "value": null
@@ -1264,7 +1143,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "734",
               "value": null
@@ -1298,7 +1177,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "772",
               "value": null
@@ -1311,7 +1190,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "766",
               "value": null
@@ -1322,7 +1201,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "757",
               "value": {
@@ -1339,21 +1218,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -1370,7 +1238,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "752",
               "value": {
@@ -1387,21 +1255,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -1452,7 +1309,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "791",
               "value": {
@@ -1469,21 +1326,10 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
-                      "danger": true,
+                      "danger": false,
                       "dependencies": -1,
                       "n_id": "121",
                       "value": null
@@ -1501,7 +1347,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "777",
               "value": null
@@ -1527,7 +1373,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "94",
               "value": null
@@ -1538,7 +1384,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "89",
               "value": null
@@ -1590,19 +1436,7 @@
               "n_id": "120",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "object_type": "User",
@@ -1616,19 +1450,7 @@
               "n_id": "115",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": true,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "modifiers": null,
@@ -1647,7 +1469,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "141",
               "value": null
@@ -1660,7 +1482,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "135",
               "value": null
@@ -1688,7 +1510,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "150",
               "value": null
@@ -1700,7 +1522,7 @@
           {
             "is_destructuring": false,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -1,
               "n_id": "145",
               "value": null
@@ -1745,7 +1567,7 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "173",
               "value": null
@@ -1757,7 +1579,7 @@
             "current_instance": null,
             "expression": null,
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -3,
               "n_id": "159",
               "value": null
@@ -2047,17 +1869,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -2084,17 +1895,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -2122,17 +1922,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -2354,17 +2143,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -2401,17 +2179,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -2483,17 +2250,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -2657,17 +2413,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -2704,17 +2449,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -2921,17 +2655,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -2968,17 +2691,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -3051,17 +2763,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -3161,19 +2862,7 @@
               "n_id": "557",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "object_type": "User",
@@ -3187,19 +2876,7 @@
               "n_id": "552",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "modifiers": null,
@@ -3465,17 +3142,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -3502,17 +3168,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -3540,17 +3195,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   }
                 }
               }
@@ -3772,17 +3416,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -3819,17 +3452,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -3901,17 +3523,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -4046,19 +3657,7 @@
               "n_id": "120",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "object_type": "User",
@@ -4072,19 +3671,7 @@
               "n_id": "115",
               "value": {
                 "class_name": "User",
-                "fields": {
-                  "userId": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "207",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.userId"
-                  }
-                }
+                "fields": {}
               }
             },
             "modifiers": null,
@@ -4300,17 +3887,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -4347,17 +3923,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -4629,17 +4194,6 @@
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
                   },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
-                  },
                   "userId": {
                     "attribute": "",
                     "meta": {
@@ -4676,17 +4230,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",
@@ -4759,17 +4302,6 @@
                     },
                     "type": "SyntaxStepAssignment",
                     "var": "this.lastName"
-                  },
-                  "name": {
-                    "attribute": "",
-                    "meta": {
-                      "danger": false,
-                      "dependencies": -1,
-                      "n_id": "158",
-                      "value": null
-                    },
-                    "type": "SyntaxStepAssignment",
-                    "var": "this.name"
                   },
                   "userId": {
                     "attribute": "",

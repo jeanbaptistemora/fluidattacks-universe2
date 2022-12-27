@@ -6,18 +6,7 @@ from model.graph_model import (
     SyntaxStepSymbolLookup,
 )
 from sast_symbolic_evaluation.cases.method_invocation.constants import (
-    BY_ARGS_PROPAGATION,
-    BY_OBJ,
-    BY_OBJ_ARGS,
     BY_OBJ_NO_TYPE_ARGS_PROPAG,
-    BY_TYPE,
-    BY_TYPE_ARGS_PROPAG_FINDING,
-    BY_TYPE_ARGS_PROPAGATION,
-    BY_TYPE_HANDLER,
-    BY_UNVALIDATED_ARGUMENTS,
-    RETURN_TYPES,
-    STATIC_FINDING,
-    STATIC_SIDE_EFFECTS,
 )
 from sast_symbolic_evaluation.cases.method_invocation.go import (
     attempt_go_parse_float,
@@ -35,11 +24,9 @@ from sast_symbolic_evaluation.cases.method_invocation.javascript import (
     list_pop as javascript_list_pop,
     list_push as javascript_list_push,
     list_shift as javascript_list_shift,
-    process as javascript_process,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
-    lookup_field,
     lookup_method,
 )
 from sast_symbolic_evaluation.types import (
@@ -47,7 +34,6 @@ from sast_symbolic_evaluation.types import (
     JavaClassInstance,
 )
 from sast_symbolic_evaluation.utils_generic import (
-    has_validations,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
@@ -57,50 +43,13 @@ from typing import (
 )
 from utils.string import (
     split_on_first_dot,
-    split_on_last_dot,
 )
-
-
-def _propagate_return_type(args: EvaluatorArgs) -> None:
-    method = args.syntax_step.method
-    method_var, method_path = split_on_first_dot(method)
-
-    if (
-        method_var
-        and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
-        and isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type
-    ):
-        base_type, _ = split_on_last_dot(method_var_decl.var_type)
-        # can be an imported function
-        if (
-            return_type := RETURN_TYPES.get(base_type, {}).get(
-                method_path or method_var
-            )
-        ) or (
-            return_type := RETURN_TYPES.get(method_var_decl.var_type, {}).get(
-                method_path or method_var
-            )
-        ):
-            args.syntax_step.return_type = return_type
 
 
 def evaluate(args: EvaluatorArgs) -> None:
     language = args.shard.metadata.language
-
-    if language == GraphShardMetadataLanguage.JAVASCRIPT:
-        _propagate_return_type(args)
-        javascript_process(args)
-
     if language == GraphShardMetadataLanguage.GO:
         evaluate_go(args)
-
-    if language in (
-        GraphShardMetadataLanguage.JAVA,
-        GraphShardMetadataLanguage.JAVASCRIPT,
-        GraphShardMetadataLanguage.CSHARP,
-    ):
-        evaluate_many(args)
 
 
 def evaluate_go(args: EvaluatorArgs) -> None:
@@ -123,206 +72,19 @@ def attempt_by_args_propagation_no_type(
     method: str,
 ) -> bool:
     _, method_path = split_on_first_dot(method)
-
     if method_path in BY_OBJ_NO_TYPE_ARGS_PROPAG.get(
         args.finding.name, {}
     ) and any(dep.meta.danger for dep in args.dependencies):
         args.syntax_step.meta.danger = True
         return True
-
-    return False
-
-
-def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
-    method_field, method_name = split_on_last_dot(args.syntax_step.method)
-    if field := lookup_field(args, method_field):
-        method = f"{field.metadata.var_type}.{method_name}"
-
-    if (method in BY_ARGS_PROPAGATION) and any(
-        dep.meta.danger for dep in args.dependencies
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-
-    return False
-
-
-def attempt_by_obj(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    method_var, method_path = split_on_first_dot(method)
-
-    if (
-        isinstance(method_var_decl, SyntaxStepDeclaration)
-        and (
-            method_var_decl.var_type_base
-            and method_path in BY_OBJ.get(method_var_decl.var_type_base, {})
-        )
-        and (method_var_state := lookup_var_state_by_name(args, method_var))
-        and (method_var_state.meta.danger)
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-
-    return False
-
-
-def attempt_by_obj_args(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    _, method_path = split_on_first_dot(method)
-
-    if (
-        isinstance(method_var_decl, SyntaxStepDeclaration)
-        and (
-            method_var_decl.var_type_base
-            and method_path
-            in BY_OBJ_ARGS.get(method_var_decl.var_type_base, {})
-        )
-        and any(dep.meta.danger for dep in args.dependencies)
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-
-    return False
-
-
-def attempt_by_type_args_propagation(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    # Functions that when called make the parent object vulnerable
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-
-    _, method_path = split_on_first_dot(method)
-
-    if (
-        args_danger
-        and method_var_decl
-        and isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type_base
-    ):
-        if method_path in (
-            BY_TYPE_ARGS_PROPAGATION.get(method_var_decl.var_type_base, {})
-        ):
-            args.syntax_step.meta.danger = True
-            method_var_decl.meta.danger = True
-            return True
-
-        if method_path in (
-            BY_TYPE_ARGS_PROPAG_FINDING.get(args.finding.name, {}).get(
-                method_var_decl.var_type_base, {}
-            )
-        ):
-            args.syntax_step.meta.danger = True
-            return True
-
-    return False
-
-
-def attempt_static(args: EvaluatorArgs, method: str) -> bool:
-    if method in STATIC_FINDING.get(args.finding.name, {}):
-        args.syntax_step.meta.danger = True
-        return True
-    return False
-
-
-def attempt_static_side_effects(args: EvaluatorArgs, method: str) -> bool:
-    if method in STATIC_SIDE_EFFECTS.get(args.finding.name, {}):
-        for dep in args.dependencies:
-            dep.meta.danger = True
-        return True
-    return False
-
-
-def attempt_by_type(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    method_var, method_path = split_on_first_dot(method)
-
-    if (
-        method_var_decl
-        and isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type_base
-        and (method_path in BY_TYPE.get(method_var_decl.var_type_base, {}))
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-
-    if (look_field := lookup_field(args, method_var)) and (
-        method_path in BY_TYPE.get(look_field.metadata.var_type, {})
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-
-    return False
-
-
-def attemp_by_type_handler(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    _, method_path = split_on_first_dot(method)
-
-    if (
-        method_var_decl
-        and isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type_base
-    ):
-        var_type = method_var_decl.var_type_base
-        if handlers := BY_TYPE_HANDLER.get(var_type, {}).get(method_path):
-            for handler in handlers:
-                handler(args)
-            return True
-        base_type, _function = split_on_last_dot(var_type)
-        if handlers := BY_TYPE_HANDLER.get(base_type, {}).get(_function):
-            for handler in handlers:
-                handler(args)
-            return True
-
     return False
 
 
 def attempt_the_old_way(args: EvaluatorArgs) -> bool:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
-
     analyze_method_invocation(args, method)
     analyze_method_invocation_values(args)
-
     return False
 
 
@@ -331,18 +93,9 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
     # pylint: disable=expression-not-assigned
     (
-        attempt_static(args, method)
-        or analyze_unvalidated_method(args, method, method_var_decl)
-        or attempt_static_side_effects(args, method)
-        or attempt_by_args_propagation_no_type(args, method)
-        or attempt_by_type_args_propagation(args, method, method_var_decl)
-        or attempt_by_obj(args, method, method_var_decl)
-        or attempt_by_obj_args(args, method, method_var_decl)
-        or attempt_by_args_propagation(args, method)
-        or attempt_by_type(args, method, method_var_decl)
+        attempt_by_args_propagation_no_type(args, method)
         or analyze_method_invocation_local(args, method)
         or analyze_method_invocation_external(args, method, method_var_decl)
-        or attemp_by_type_handler(args, method, method_var_decl)
     )
 
 
@@ -534,38 +287,3 @@ def analyze_method_invocation_values_list(
     }
     if method := methods.get(method_path):
         method(args, dcl)
-
-
-def analyze_unvalidated_method(
-    args: EvaluatorArgs,
-    method: str,
-    method_var_decl: Optional[
-        Union[
-            SyntaxStepDeclaration,
-            SyntaxStepSymbolLookup,
-        ]
-    ],
-) -> bool:
-    dangers_args = list(
-        dep.symbol
-        for dep in args.dependencies
-        if dep.meta.danger is True and isinstance(dep, SyntaxStepSymbolLookup)
-    )
-    _, method_path = split_on_first_dot(method)
-    if len(dangers_args) > 0 and (
-        isinstance(method_var_decl, SyntaxStepDeclaration)
-        and method_var_decl.var_type_base
-        and method_path
-        in (BY_UNVALIDATED_ARGUMENTS.get(method_var_decl.var_type_base, {}))
-        and not has_validations(
-            dangers_args,
-            args,
-            args.syntax_step.meta.n_id,
-            BY_UNVALIDATED_ARGUMENTS.get(
-                method_var_decl.var_type_base, {}
-            ).get(method_path),
-        )
-    ):
-        args.syntax_step.meta.danger = True
-        return True
-    return False
