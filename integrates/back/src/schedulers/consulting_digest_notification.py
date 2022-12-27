@@ -357,7 +357,10 @@ async def send_comment_digest() -> None:
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
-            }
+            },
+            "date": datetime_utils.get_as_str(
+                datetime_utils.get_now_minus_delta(), "%Y-%m-%d"
+            ),
         }
 
         try:

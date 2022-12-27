@@ -1,0 +1,110 @@
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_share %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts/components/dark_logo_header.html' %}
+
+      {{ banner_share('Consulting Report') }}
+      <div class="main-content">
+        <h2>Hello, {{ name }}:</h2>
+        <p>Below is a brief report of the latest consulting comments in your
+          subscribed groups {{ date }}:
+        </p>
+        {% for group_name, group_data in groups_data.items() %}
+        <br />
+        <h4>
+          <strong>
+            <a
+              href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/consulting"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+            {{ group_name.upper() }}
+            </a>
+          </strong>
+        </h4>
+        <br />
+        <p>
+          {%- if group_data["group_comments"] -%}
+          <strong>Group Consulting:</strong>
+          <ul>
+            {% for group_comment in group_data["group_comments"] %}
+            <li>
+              <strong>
+                {{ group_comment["date"] }} {{ group_comment["name"] -}}:
+              </strong>
+              <br />
+              <em>{{ group_comment["comment"] }}</em>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {%- if group_data["event_comments"].keys() %}
+          <strong>Event Consulting:</strong>
+          <ul>
+            {% for event_id, event_data in group_data["event_comments"].items() %}
+            <li>
+              <strong>
+                <a
+                  href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/events/{{- event_id -}}/comments"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                Event#{{ event_id -}}:
+                </a>
+              </strong>
+              <ul>
+              {% for event_comment in event_data %}
+                <li>
+                  <strong>
+                    {{ event_comment["date"] }} {{ event_comment["name"] -}}:
+                  </strong>
+                  <br />
+                  <em>{{ event_comment["comment"] }}</em>
+                </li>
+              {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {%- if group_data["finding_comments"].keys() %}
+          <strong>Finding Consulting:</strong>
+          <ul>
+            {% for finding_type, finding_data in group_data["finding_comments"].items() %}
+            <li>
+              <strong>
+                <a
+                  href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/vulns/{{- finding_data[0]['instance_id'] -}}/consulting"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {{ finding_type -}}:
+                </a>
+              </strong>
+              <ul>
+              {% for finding_comment in finding_data %}
+                <li>
+                  <strong>
+                    {{ finding_comment["date"] }} {{ finding_comment["name"] -}}:
+                  </strong>
+                  <br />
+                  <em>{{ finding_comment["comment"] }}</em>
+                </li>
+              {% endfor %}
+              </ul>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </p>
+        {% endfor %}
+        <p>
+          Regards,<br />
+          Fluid Attacks Team
+        </p>
+      </div>
+      {% include 'layouts/components/footer.html' %}
+
+    </div>
+  {% endblock %}
