@@ -4,6 +4,7 @@ import {
   faChartSimple,
   faFileLines,
   faFolder,
+  faMoneyBill,
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import type { GraphQLError } from "graphql";
@@ -53,6 +54,7 @@ const OrganizationTabs: FC = (): JSX.Element => {
       <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`} />
       <SideBarTab icon={faShield} to={`/orgs/${org}/policies`} />
       <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`} />
+      <SideBarTab icon={faMoneyBill} to={`/orgs/${org}/billing`} />
     </Fragment>
   );
 };

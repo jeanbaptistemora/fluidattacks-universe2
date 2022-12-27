@@ -2,7 +2,7 @@ import type { ApolloQueryResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faMoneyBill } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
@@ -297,7 +297,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           <Can do={"api_resolvers_organization_billing_resolve"}>
             <ExternalLink href={billingPortal}>
               <Button variant={"primary"}>
-                <FontAwesomeIcon icon={faMoneyBill} />
+                <FontAwesomeIcon icon={faFileInvoiceDollar} />
                 &nbsp;
                 {t("organization.tabs.billing.portal.title")}
               </Button>
