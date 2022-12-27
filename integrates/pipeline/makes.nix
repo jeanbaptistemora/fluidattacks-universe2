@@ -84,6 +84,11 @@
     stage = "deploy-app";
     tags = ["small"];
   };
+  gitlabDeployForcesProd = {
+    rules = gitlabOnlyProd;
+    stage = "deploy-app";
+    tags = ["small"];
+  };
   gitlabDeployInfra = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
@@ -151,6 +156,10 @@ in {
           {
             output = "/deployContainerImage/forcesDev";
             gitlabExtra = gitlabDeployAppDevInterested;
+          }
+          {
+            output = "/deployContainerImage/forcesProd";
+            gitlabExtra = gitlabDeployForcesProd;
           }
           {
             output = "/integrates/back/deploy/dev";
@@ -471,6 +480,9 @@ in {
                 needs = [
                   "/integrates/back/deploy/dev"
                 ];
+                variables = {
+                  API_ENDPOINT = "https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api";
+                };
               };
           }
           {

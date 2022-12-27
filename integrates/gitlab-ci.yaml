@@ -20,6 +20,26 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/deployContainerImage/forcesProd:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH != "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /deployContainerImage/forcesProd
+  stage: deploy-app
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/integratesInfra:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -62,6 +82,7 @@
   tags:
     - small
   variables:
+    API_ENDPOINT: https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/authz-matrix:
