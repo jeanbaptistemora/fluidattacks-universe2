@@ -7,6 +7,7 @@ from syntax_graph.syntax_readers.go import (
     function_declaration as go_function_declaration,
     identifier as go_identifier,
     import_declaration as go_import_declaration,
+    newline as go_newline,
     package_clause as go_package_clause,
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
@@ -65,6 +66,12 @@ GO_DISPATCHERS: Dispatchers = (
             "package_identifier",
         },
         syntax_reader=go_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "\n",
+        },
+        syntax_reader=go_newline.reader,
     ),
     Dispatcher(
         applicable_types={

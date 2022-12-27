@@ -94,6 +94,7 @@ DISPATCHERS: Dispatchers = (
             "MethodSignature",
             "MissingNode",
             "NewExpression",
+            "Newline",
             "Object",
             "ObjectCreation",
             "PostfixUnaryExpression",
