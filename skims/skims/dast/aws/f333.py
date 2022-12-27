@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from dast.aws.types import (
     Location,
 )
@@ -293,6 +296,59 @@ async def has_unused_seggroups(
     return vulns
 
 
+async def has_unencrypted_amis(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_images",
+        parameters={"Owners": ["self"]},
+    )
+    images = response.get("Images", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+
+    if images:
+        for image in images:
+            locations: List[Location] = []
+            for index, block in enumerate(image["BlockDeviceMappings"]):
+                with suppress(KeyError):
+                    if not block["Ebs"]["Encrypted"]:
+                        locations = [
+                            *locations,
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        (
+                                            f"/BlockDeviceMappings/"
+                                            f"{index}/Ebs/Encrypted"
+                                        ),
+                                    ),
+                                    arn=(
+                                        "arn:aws:ec2::ImageId:"
+                                        f"{image['ImageId']}"
+                                    ),
+                                    values=(block["Ebs"]["Encrypted"],),
+                                    description=t(
+                                        "lib_path.f333.has_unencrypted_amis"
+                                    ),
+                                )
+                            ],
+                        ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_EC2_HAS_UNENCRYPTED_AMIS
+                    ),
+                    aws_response=image,
+                ),
+            )
+    return vulns
+
+
 async def has_publicly_shared_amis(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -381,4 +437,5 @@ CHECKS: Tuple[
     has_publicly_shared_amis,
     has_unencrypted_snapshots,
     has_unused_seggroups,
+    has_unencrypted_amis,
 )
