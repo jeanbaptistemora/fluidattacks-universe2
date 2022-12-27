@@ -19,7 +19,7 @@ _T = TypeVar("_T")
 _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
     "tap_json": (
         "cli",
-        "linearize",
+        ("linearize", "auto_schema"),
         (
             "clean_str",
             "_logger",
