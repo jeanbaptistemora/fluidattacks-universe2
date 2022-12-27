@@ -2405,6 +2405,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EC2_HAS_UNUSED_SEGGROUPS = MethodInfo(
+        file_name="aws",
+        name="has_unused_seggroups",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_EC2_HAS_ASSOCIATE_PUBLIC_IP_ADDRESS = MethodInfo(
         file_name="aws",
         name="ec2_has_associate_public_ip_address",

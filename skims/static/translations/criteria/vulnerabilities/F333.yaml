@@ -10,6 +10,9 @@ lib_path.f333.has_unused_ec2_key_pairs:
 lib_path.f333.has_publicly_shared_amis:
   en: EC2 has publicly shared amis
   es: EC2 tiene amis publicamentente compartidas
+lib_path.f333.has_unused_secgroups:
+  en: EC2 has unused security groups
+  es: EC2 tiene security groups no utilizados
 lib_path.f333.has_unencrypted_snapshots:
   en: EC2 has publicly shared amis
   es: EC2 tiene amis publicamentente compartidas
