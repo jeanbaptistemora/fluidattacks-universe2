@@ -84,7 +84,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
             wrap={"wrap"}
           >
             <Container pv={1} width={"auto"} widthSm={"100%"}>
-              <AirsLink href={button1Link}>
+              <AirsLink decoration={"none"} href={button1Link}>
                 <Button
                   display={"block"}
                   onClick={matomoFreeTrialEvent}
@@ -95,7 +95,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
               </AirsLink>
             </Container>
             <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
-              <AirsLink href={button2Link}>
+              <AirsLink decoration={"none"} href={button2Link}>
                 <Button
                   display={"block"}
                   variant={variant === "light" ? "tertiary" : "darkTertiary"}
@@ -148,7 +148,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         </Text>
         <Container display={"flex"} justify={"center"} mt={3} wrap={"wrap"}>
           <Container pv={1} width={"auto"} widthSm={"100%"}>
-            <AirsLink href={button1Link}>
+            <AirsLink decoration={"none"} href={button1Link}>
               <Button
                 display={"block"}
                 onClick={matomoFreeTrialEvent}
@@ -159,7 +159,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
             </AirsLink>
           </Container>
           <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
-            <AirsLink href={button2Link}>
+            <AirsLink decoration={"none"} href={button2Link}>
               <Button display={"block"} variant={"tertiary"}>
                 {button2Text}
               </Button>
@@ -184,7 +184,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
       shadow={true}
       wrap={"wrap"}
     >
-      <Container width={"60%"} widthSm={"100%"}>
+      <Container width={"60%"} widthMd={"100%"}>
         <Title
           color={variants[variant].color}
           level={2}
@@ -203,10 +203,10 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         display={"flex"}
         justify={"center"}
         width={"40%"}
-        widthSm={"100%"}
+        widthMd={"100%"}
       >
         <Container pt={3} width={"auto"} widthSm={"100%"}>
-          <AirsLink href={button1Link}>
+          <AirsLink decoration={"none"} href={button1Link}>
             <Button
               display={"block"}
               onClick={matomoFreeTrialEvent}
