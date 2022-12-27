@@ -59,13 +59,18 @@ const DeleteGroup: React.FC = (): JSX.Element => {
   }
 
   const handleSubmit: (values: {
+    comments: string;
     confirmation: string;
     reason: string;
   }) => void = useCallback(
-    (values: { confirmation: string; reason: string }): void => {
-      const { reason } = values;
+    (values: {
+      comments: string;
+      confirmation: string;
+      reason: string;
+    }): void => {
+      const { comments, reason } = values;
       mixpanel.track("DeleteGroup");
-      void removeGroupMutation({ variables: { groupName, reason } });
+      void removeGroupMutation({ variables: { comments, groupName, reason } });
       setIsModalOpen(!isModalOpen);
     },
     [groupName, isModalOpen, removeGroupMutation]

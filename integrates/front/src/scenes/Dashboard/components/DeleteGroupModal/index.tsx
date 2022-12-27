@@ -6,15 +6,28 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
-import { required } from "utils/validations";
+import { Text } from "components/Text";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { FormikText, FormikTextArea } from "utils/forms/fields";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
+
+const MAX_LENGTH_VALIDATOR = 250;
+const maxLength250 = maxLength(MAX_LENGTH_VALIDATOR);
 
 interface IDeleteGroupModalProps {
   groupName: string;
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: { confirmation: string; reason: string }) => void;
+  onSubmit: (values: {
+    comments: string;
+    confirmation: string;
+    reason: string;
+  }) => void;
 }
 
 const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
@@ -47,6 +60,7 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
       >
         <Formik
           initialValues={{
+            comments: "",
             confirmation: "",
             reason: "NO_SYSTEM",
           }}
@@ -108,6 +122,20 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
                   {t("searchFindings.servicesTable.deleteGroup.reason.other")}
                 </option>
               </Select>
+              <FormGroup>
+                <Text mb={2}>
+                  {t("searchFindings.servicesTable.modal.observations")}
+                </Text>
+                <Field
+                  component={FormikTextArea}
+                  name={"comments"}
+                  placeholder={t(
+                    "searchFindings.servicesTable.modal.observationsPlaceholder"
+                  )}
+                  type={"text"}
+                  validate={composeValidators([validTextField, maxLength250])}
+                />
+              </FormGroup>
               <ModalConfirm
                 disabled={!dirty || !isValid}
                 onCancel={onClose}
