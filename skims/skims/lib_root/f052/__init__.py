@@ -33,9 +33,13 @@ from lib_root.f052.javascript import (
     javascript_insecure_rsa_keypair,
 )
 from lib_root.f052.kotlin import (
-    kotlin_insecure_cipher,
-    kotlin_insecure_hash,
-    kotlin_insecure_key,
+    kotlin_insecure_cipher_1,
+    kotlin_insecure_cipher_http,
+    kotlin_insecure_cipher_ssl,
+    kotlin_insecure_hash_1,
+    kotlin_insecure_hash_2,
+    kotlin_insecure_key_ec,
+    kotlin_insecure_key_rsa,
 )
 from lib_root.f052.typescript import (
     ts_insecure_create_cipher,
@@ -81,9 +85,13 @@ QUERIES: graph_model.Queries = (
     (FINDING, typescript_insecure_ec_keypair),
     (FINDING, javascript_insecure_rsa_keypair),
     (FINDING, typescript_insecure_rsa_keypair),
-    (FINDING, kotlin_insecure_cipher),
-    (FINDING, kotlin_insecure_hash),
-    (FINDING, kotlin_insecure_key),
+    (FINDING, kotlin_insecure_cipher_1),
+    (FINDING, kotlin_insecure_cipher_http),
+    (FINDING, kotlin_insecure_cipher_ssl),
+    (FINDING, kotlin_insecure_hash_1),
+    (FINDING, kotlin_insecure_hash_2),
+    (FINDING, kotlin_insecure_key_ec),
+    (FINDING, kotlin_insecure_key_rsa),
     (FINDING, ts_insecure_create_cipher),
     (FINDING, ts_insecure_hash),
     (FINDING, typescript_insecure_hash_library),
