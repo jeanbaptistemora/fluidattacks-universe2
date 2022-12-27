@@ -101,6 +101,22 @@ const getHorizontalPadding = (
   return `ph${ph}`;
 };
 
+const getVerticalPadding = (
+  pv: number,
+  pvMd?: number,
+  pvSm?: number
+): string => {
+  if (pvMd !== undefined && pvSm !== undefined) {
+    return `pv${pv}-l pv${pvMd}-m pv${pvSm}`;
+  } else if (pvMd !== undefined) {
+    return `pv${pv}-l pv${pvMd}`;
+  } else if (pvSm !== undefined) {
+    return `pv${pv}-ns pv${pvSm}`;
+  }
+
+  return `pv${pv}`;
+};
+
 const getShadow = (shadow: boolean): string =>
   shadow ? "box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);" : "";
 
@@ -123,16 +139,24 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     pr = 0,
     pt = 0,
     pv = 0,
+    pvMd,
+    pvSm,
   }): {
     className: string;
   } => ({
     className: `
-      br${br}
+      br${br === 100 ? "-100" : br}
       ${mv === 0 ? `mb${mb} mt${mt}` : `mv${mv}`}
       ${getHorizontalMargin(center, mh, mr, ml)}
-      ${pv === 0 ? `pb${pb} pt${pt}` : `pv${pv}`}
       ${
-        ph === 0 ? `pl${pl} pr${pr}` : `${getHorizontalPadding(ph, phMd, phSm)}`
+        pv === 0 && pvMd === undefined && pvSm === undefined
+          ? `pb${pb} pt${pt}`
+          : `${getVerticalPadding(pv, pvMd, pvSm)}`
+      }
+      ${
+        ph === 0 && phMd === undefined && phSm === undefined
+          ? `pl${pl} pr${pr}`
+          : `${getHorizontalPadding(ph, phMd, phSm)}`
       }
       ${onClick ? "pointer" : ""}
     `,
@@ -170,8 +194,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     height: ${height};
     max-width: ${maxWidth};
     min-height: ${minHeight};
-    overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
-    overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
+    overflow-x: ${scroll.includes("x") ? "auto" : "unset"};
+    overflow-y: ${scroll.includes("y") ? "auto" : "unset"};
     transition: all 0.3s ease;
     ${getShadow(shadow)}
     ${getBorder(borderColor, borderBottomColor)}

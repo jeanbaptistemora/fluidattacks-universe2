@@ -12,7 +12,7 @@ interface IContainerProps {
   bgColor?: string;
   borderBottomColor?: string;
   borderColor?: string;
-  br?: Nums0To4;
+  br?: Nums0To4 | 100;
   center?: boolean;
   children: React.ReactNode;
   direction?: TDirection;
@@ -27,6 +27,8 @@ interface IContainerProps {
   mh?: Nums0To7;
   pv?: Nums0To7;
   ph?: Nums0To7;
+  pvMd?: Nums0To7;
+  pvSm?: Nums0To7;
   phMd?: Nums0To7;
   phSm?: Nums0To7;
   mb?: Nums0To7;
