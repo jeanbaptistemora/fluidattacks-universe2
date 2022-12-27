@@ -105,19 +105,18 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
-    type_frt = "observation" if type_ == CommentType.OBSERVATION else "comment"
-    await send_mails_async(
-        loaders,
-        [*stakeholders_email, *customer_success_recipients, *reviewers],
-        email_context,
-        COMMENTS_TAG,
-        (
-            "[ARM] New "
-            f"{type_frt}"
-            f" in [{finding_title}] for [{group_name}]"
-        ),
-        "new_comment",
-    )
+    if type_ == CommentType.OBSERVATION:
+        await send_mails_async(
+            loaders,
+            [*stakeholders_email, *customer_success_recipients, *reviewers],
+            email_context,
+            COMMENTS_TAG,
+            (
+                "[ARM] New observation"
+                f" in [{finding_title}] for [{group_name}]"
+            ),
+            "new_comment",
+        )
 
 
 async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
