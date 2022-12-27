@@ -9,11 +9,44 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.enums import (
+    GitCloningStatus,
     Source,
 )
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessState,
+)
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupManaged,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupFile,
+    GroupState,
+)
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationDocuments,
+    OrganizationPaymentMethods,
+    OrganizationState,
+)
+from db_model.roots.enums import (
+    RootStatus,
+    RootType,
+)
+from db_model.roots.types import (
+    GitRoot,
+    GitRootCloning,
+    GitRootState,
+    RootUnreliableIndicators,
 )
 from db_model.stakeholders.types import (
     NotificationsParameters,
@@ -26,6 +59,9 @@ from db_model.stakeholders.types import (
     StakeholderState,
     StakeholderTours,
     StateSessionType,
+)
+from db_model.types import (
+    Policies,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -69,14 +105,19 @@ mocked_paths: Dict[str, str] = {
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
+    "events_model.add": "db_model.events.add",
+    "events_model.update_state": "db_model.events.update_state",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
+    "get_user_level_role": "authz.policy.get_user_level_role",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
     "group_comments_model.add": "db_model.group_comments.add",
+    "loaders.group.load": "db_model.groups.get.GroupLoader.load",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501
-    "get_user_level_role": "authz.policy.get_user_level_role",
+    "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501
+    "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501
@@ -96,6 +137,86 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "authz.validate_handle_comment_scope": {
         '["Test comment", "unittest@fluidattacks.com",'
         ' "unittesting", "0"]': None,
+    },
+    "db_model.events.add": {
+        '["unittesting", "unittesting@fluidattacks.com", '
+        '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
+    },
+    "db_model.events.update_state": {
+        '["unittesting", "unittesting@fluidattacks.com", '
+        '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
+    },
+    "db_model.groups.get.GroupLoader.load": {
+        '["unittesting"]': Group(
+            created_by="unknown",
+            created_date=datetime.fromisoformat("2018-03-08T00:43:18+00:00"),
+            description="Integrates unit test group",
+            language=GroupLanguage.EN,
+            name="unittesting",
+            organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            state=GroupState(
+                has_machine=True,
+                has_squad=True,
+                managed=GroupManaged.NOT_MANAGED,
+                modified_by="unknown",
+                modified_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                status=GroupStateStatus.ACTIVE,
+                tier=GroupTier.MACHINE,
+                type=GroupSubscriptionType.CONTINUOUS,
+                tags={"test-updates", "test-tag", "test-groups"},
+                comments=None,
+                justification=None,
+                payment_id=None,
+                pending_deletion_date=None,
+                service=GroupService.WHITE,
+            ),
+            agent_token=None,
+            business_id="14441323",
+            business_name="Testing Company and Sons",
+            context="Group context test",
+            disambiguation="Disambiguation test",
+            files=[
+                GroupFile(
+                    description="Test",
+                    file_name="test.zip",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-03-01T20:21:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="shell",
+                    file_name="shell.exe",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-24T19:56:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="shell2",
+                    file_name="shell2.exe",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-24T19:56:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="eerweterterter",
+                    file_name="asdasd.py",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-08-06T19:28:00+00:00"
+                    ),
+                ),
+            ],
+            policies=None,
+            sprint_duration=2,
+            sprint_start_date=datetime.fromisoformat(
+                "2022-08-06T19:28:00+00:00"
+            ),
+        )
     },
     "db_model.group_access.get.GroupAccessLoader.load": {
         '["integrateshacker@fluidattacks.com", "unittesting",'
@@ -163,6 +284,108 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.group_comments.add": {
         '[["unittesting", "1672083646257", "0", "2022-04-06 16:46:23+00:00",'
         ' "Test comment", "unittest@fluidattacks.com", "unittesting"]]': None,
+    },
+    "db_model.organizations.get.OrganizationLoader.load": {
+        '["unittesting"]': Organization(
+            created_by="unknown@unknown.com",
+            created_date=datetime.fromisoformat("2018-02-08T00:43:18+00:00"),
+            id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            name="okada",
+            policies=Policies(
+                modified_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+                modified_by="integratesmanager@gmail.com",
+                max_acceptance_days=60,
+                max_acceptance_severity=Decimal("10.0"),
+                max_number_acceptances=2,
+                min_acceptance_severity=Decimal("0.0"),
+                min_breaking_severity=Decimal("0"),
+                vulnerability_grace_period=0,
+            ),
+            state=OrganizationState(
+                status=OrganizationStateStatus.ACTIVE,
+                modified_by="unknown",
+                modified_date=datetime.fromisoformat(
+                    "2018-02-08T00:43:18+00:00"
+                ),
+                pending_deletion_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+            ),
+            country="Colombia",
+            payment_methods=[
+                OrganizationPaymentMethods(
+                    id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                    business_name="Fluid",
+                    email="test@fluidattacks.com",
+                    country="Colombia",
+                    state="Antioquia",
+                    city="Medellín",
+                    documents=OrganizationDocuments(rut=None, tax_id=None),
+                ),
+                OrganizationPaymentMethods(
+                    id="4722b0b7-cfeb-4898-8308-185dfc2523bc",
+                    business_name="Testing Company and Sons",
+                    email="test@fluidattacks.com",
+                    country="Colombia",
+                    state="Antioquia",
+                    city="Medellín",
+                    documents=OrganizationDocuments(rut=None, tax_id=None),
+                ),
+            ],
+            billing_customer=None,
+            vulnerabilities_url=None,
+        ),
+    },
+    "db_model.roots.get.RootLoader.load": {
+        '["unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19"]': GitRoot(
+            cloning=GitRootCloning(
+                modified_date=datetime.fromisoformat(
+                    "2020-11-19T13:45:55+00:00"
+                ),
+                reason="root OK",
+                status=GitCloningStatus.OK,
+                commit="5b5c92105b5c92105b5c92105b5c92105b5c9210",
+                commit_date=datetime.fromisoformat(
+                    "2022-02-15T18:45:06.493253+00:00"
+                ),
+            ),
+            created_by="jdoe@fluidattacks.com",
+            created_date=datetime.fromisoformat("2020-11-19T13:45:55+00:00"),
+            group_name="unittesting",
+            id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            organization_name="okada",
+            state=GitRootState(
+                branch="master",
+                environment="production",
+                includes_health_check=True,
+                modified_by="jdoe@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-19T13:45:55+00:00"
+                ),
+                nickname="universe",
+                status=RootStatus.ACTIVE,
+                url="https://gitlab.com/fluidattacks/universe",
+                credential_id=None,
+                environment_urls=[
+                    "https://app.fluidattacks.com",
+                    "https://test.com",
+                ],
+                git_environment_urls=[],
+                gitignore=["bower_components/*", "node_modules/*"],
+                other=None,
+                reason=None,
+                use_vpn=False,
+            ),
+            type=RootType.GIT,
+            unreliable_indicators=RootUnreliableIndicators(
+                unreliable_code_languages=[],
+                unreliable_last_status_update=datetime.fromisoformat(
+                    "2020-11-19T13:45:55+00:00"
+                ),
+            ),
+        ),
     },
     "db_model.stakeholders.get.StakeholderWithFallbackLoader.load": {
         '["integrateshacker@fluidattacks.com"]': Stakeholder(
