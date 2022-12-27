@@ -626,7 +626,9 @@ def _machine_vulns_to_close(
         # his result was not found by Skims
         if hash(
             (
-                vuln.state.where,
+                ignore_advisories(vuln.state.where)
+                if vuln.type == VulnerabilityType.INPUTS
+                else vuln.state.where,
                 vuln.state.specific,
             )
         )
