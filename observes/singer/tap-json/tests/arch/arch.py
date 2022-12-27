@@ -27,6 +27,10 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
             "utils",
         ),
     ),
+    "tap_json.auto_schema": (
+        "_schema",
+        "_types",
+    ),
     "tap_json.linearize": (
         ("_to_table", "_flattener"),
         "_nested_id",
