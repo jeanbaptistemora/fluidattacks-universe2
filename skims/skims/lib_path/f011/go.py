@@ -70,19 +70,19 @@ def resolve_go_deps(content: str) -> Iterator[DependencyType]:
     replace_list: List[Tuple[Match[str], int]] = []
     req_dict: Dict[str, DependencyType] = {}
     for line_number, line in enumerate(content.splitlines(), 1):
-        if matched := re.search(GO_REQ_MOD_DEP, line):
+        if matched := GO_REQ_MOD_DEP.search(line):
             add_require(matched, req_dict, line_number)
-        elif replace := re.search(GO_REP_DEP, line):
+        elif replace := GO_REP_DEP.search(line):
             replace_list.append((replace, line_number))
         elif not required:
             if directive := GO_DIRECTIVE.match(line):
                 required = directive.group("directive")
         elif required == "replace":
-            if replace := re.search(GO_REPLACE, line):
+            if replace := GO_REPLACE.search(line):
                 replace_list.append((replace, line_number))
                 continue
             required = ""
-        elif matched := re.search(GO_MOD_DEP, line):
+        elif matched := GO_MOD_DEP.search(line):
             add_require(matched, req_dict, line_number)
         else:
             required = ""
