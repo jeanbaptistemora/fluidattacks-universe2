@@ -540,9 +540,7 @@ def get_zr_index_key_gsi_6(current_value: Vulnerability) -> PrimaryKey:
                     and current_value.zero_risk.status in ZR_FILTER_STATUSES
                 )
             ).lower(),
-            "state_status": get_current_state_converted(
-                current_value.state.status.value
-            ).lower(),
+            "state_status": str(current_value.state.status.value).lower(),
             "verification_status": str(
                 current_value.verification
                 and current_value.verification.status.value
@@ -565,7 +563,7 @@ def get_new_zr_index_key_gsi_6(
                     entry.status is VulnerabilityStateStatus.DELETED
                 ).lower(),
                 "is_released": str(
-                    current_value.state.status in RELEASED_FILTER_STATUSES
+                    entry.status in RELEASED_FILTER_STATUSES
                 ).lower(),
                 "is_zero_risk": str(
                     bool(
@@ -574,9 +572,7 @@ def get_new_zr_index_key_gsi_6(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": get_current_state_converted(
-                    entry.status.value
-                ).lower(),
+                "state_status": str(entry.status.value).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -599,9 +595,7 @@ def get_new_zr_index_key_gsi_6(
                 "is_zero_risk": str(
                     entry.status in ZR_FILTER_STATUSES
                 ).lower(),
-                "state_status": get_current_state_converted(
-                    current_value.state.status.value
-                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
                 "verification_status": str(
                     current_value.verification
                     and current_value.verification.status.value
@@ -628,9 +622,7 @@ def get_new_zr_index_key_gsi_6(
                         in ZR_FILTER_STATUSES
                     )
                 ).lower(),
-                "state_status": get_current_state_converted(
-                    current_value.state.status.value
-                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
                 "verification_status": str(entry.status.value).lower(),
             },
         )
