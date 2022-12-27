@@ -19,7 +19,7 @@ from organizations import (
 )
 import pytest
 from schedulers import (
-    delete_imamura_stakeholders,
+    remove_inactive_stakeholders,
 )
 
 pytestmark = [
@@ -29,7 +29,7 @@ pytestmark = [
 
 @pytest.mark.changes_db
 @freeze_time("2021-01-01")
-async def test_remove_imamura_stakeholders() -> None:
+async def test_remove_inactive_stakeholders() -> None:
     org_name = "imamura"
     loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(org_name)
@@ -55,7 +55,7 @@ async def test_remove_imamura_stakeholders() -> None:
     noremove_stakeholder_exists = bool(noremove_stakeholder)
     assert noremove_stakeholder_exists
 
-    await delete_imamura_stakeholders.main()
+    await remove_inactive_stakeholders.main()
 
     loaders = get_new_context()
     org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)

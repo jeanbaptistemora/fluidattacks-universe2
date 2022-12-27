@@ -310,14 +310,14 @@
       "management:type" = "product";
     };
   };
-  integrates_delete_imamura_stakeholders = {
+  integrates_remove_inactive_stakeholders = {
     enabled = true;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
-      "schedulers.delete_imamura_stakeholders.main"
+      "schedulers.remove_inactive_stakeholders.main"
     ];
 
     schedule_expression = "cron(0 1 ? * * *)";
@@ -333,7 +333,7 @@
     ];
 
     tags = {
-      "Name" = "integrates_delete_imamura_stakeholders";
+      "Name" = "integrates_remove_inactive_stakeholders";
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";

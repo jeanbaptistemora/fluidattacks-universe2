@@ -28,6 +28,7 @@ from custom_exceptions import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from datetime import (
     datetime,
@@ -669,6 +670,7 @@ async def remove_access(
         )
     )
 
+    loaders = get_new_context()
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
     if not has_orgs:
         await stakeholders_domain.remove(email)
