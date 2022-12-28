@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 28, 2022, 11:40 AM",
+    "DateLastModified": "Dec 28, 2022, 01:36 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -31843,6 +31843,9 @@
               "pk_5": {
                 "S": "FIN#422286126"
               },
+              "pk_6": {
+                "S": "FIN#422286126"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -31873,6 +31876,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2020-01-03T17:46:10+00:00"
@@ -31954,6 +31960,9 @@
               "pk_5": {
                 "S": "FIN#422286126"
               },
+              "pk_6": {
+                "S": "FIN#422286126"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32000,6 +32009,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2020-09-09T21:01:26+00:00"
@@ -32069,6 +32081,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32108,6 +32123,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#verified"
               },
               "created_date": {
                 "S": "2019-09-13T13:17:41+00:00"
@@ -32187,6 +32205,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32217,6 +32238,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32289,6 +32313,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32325,6 +32352,9 @@
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#on_hold"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32410,6 +32440,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32443,6 +32476,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#on_hold"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32515,6 +32551,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32545,6 +32584,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32614,6 +32656,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32644,6 +32689,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32713,6 +32761,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32743,6 +32794,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -32812,6 +32866,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_last_reattack_requester": {
@@ -32848,6 +32905,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#requested"
               },
               "created_date": {
                 "S": "2019-09-13T22:00:56+00:00"
@@ -32917,6 +32977,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -32947,6 +33010,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -33006,6 +33072,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33036,6 +33105,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T20:37:59+00:00"
@@ -33095,6 +33167,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -33128,6 +33203,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T16:03:21+00:00"
@@ -33187,6 +33265,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33217,6 +33298,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33276,6 +33360,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33306,6 +33393,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T13:59:20+00:00"
@@ -33365,6 +33455,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -33398,6 +33491,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T15:00:03+00:00"
@@ -33457,6 +33553,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33487,6 +33586,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33546,6 +33648,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33576,6 +33681,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-16T21:01:24+00:00"
@@ -33635,6 +33743,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33665,6 +33776,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33724,6 +33838,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33754,6 +33871,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33813,6 +33933,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33843,6 +33966,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33902,6 +34028,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -33932,6 +34061,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -33991,6 +34123,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34021,6 +34156,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -34080,6 +34218,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -34113,6 +34254,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T15:53:05+00:00"
@@ -34172,6 +34316,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34202,6 +34349,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -34261,6 +34411,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34291,6 +34444,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -34350,6 +34506,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34380,6 +34539,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T20:19:17+00:00"
@@ -34439,6 +34601,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34469,6 +34634,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-08-30T14:30:13+00:00"
@@ -34528,6 +34696,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34558,6 +34729,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-16T20:02:17+00:00"
@@ -34617,6 +34791,9 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
+              "pk_6": {
+                "S": "FIN#436992569"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -34650,6 +34827,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T14:03:05+00:00"
@@ -34709,6 +34889,9 @@
               "pk_5": {
                 "S": "FIN#457497316"
               },
+              "pk_6": {
+                "S": "FIN#457497316"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -34742,6 +34925,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2018-11-27T19:54:08+00:00"
@@ -34801,6 +34987,9 @@
               "pk_5": {
                 "S": "FIN#457497318"
               },
+              "pk_6": {
+                "S": "FIN#457497318"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34831,6 +35020,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2020-09-12T13:45:48+00:00"
@@ -34890,6 +35082,9 @@
               "pk_5": {
                 "S": "FIN#463461507"
               },
+              "pk_6": {
+                "S": "FIN#463461507"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -34920,6 +35115,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -34991,6 +35189,9 @@
               "pk_5": {
                 "S": "FIN#463461507"
               },
+              "pk_6": {
+                "S": "FIN#463461507"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -35021,6 +35222,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -35092,6 +35296,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -35122,6 +35329,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-01-15T15:43:39+00:00"
@@ -35181,6 +35391,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -35214,6 +35427,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-01-15T16:04:14+00:00"
@@ -35273,6 +35489,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_last_reattack_requester": {
@@ -35328,6 +35547,9 @@
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#vulnerable#VERIF#requested"
               },
               "created_date": {
                 "S": "2019-01-16T13:47:07+00:00"
@@ -35409,6 +35631,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -35465,6 +35690,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-01-16T13:47:07+00:00"
@@ -35536,6 +35764,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -35588,6 +35819,9 @@
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-01-15T16:04:14+00:00"
@@ -35659,6 +35893,9 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
+              "pk_6": {
+                "S": "FIN#463558592"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_last_reattack_requester": {
@@ -35714,6 +35951,9 @@
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#vulnerable#VERIF#requested"
               },
               "created_date": {
                 "S": "2019-01-15T15:43:39+00:00"
@@ -35783,6 +36023,9 @@
               "pk_5": {
                 "S": "FIN#475041513"
               },
+              "pk_6": {
+                "S": "FIN#475041513"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -35829,6 +36072,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#true#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -35898,6 +36144,9 @@
               "pk_5": {
                 "S": "FIN#475041513"
               },
+              "pk_6": {
+                "S": "FIN#475041513"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -35931,6 +36180,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-04-12T13:45:48+00:00"
@@ -36000,6 +36252,9 @@
               "pk_5": {
                 "S": "FIN#475041513"
               },
+              "pk_6": {
+                "S": "FIN#475041513"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -36030,6 +36285,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-04-12T13:45:48+00:00"
@@ -36089,6 +36347,9 @@
               "pk_5": {
                 "S": "FIN#818828206"
               },
+              "pk_6": {
+                "S": "FIN#818828206"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -36128,6 +36389,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#verified"
               },
               "created_date": {
                 "S": "2019-12-12T13:45:48+00:00"
@@ -36209,6 +36473,9 @@
               "pk_5": {
                 "S": "FIN#988493279"
               },
+              "pk_6": {
+                "S": "FIN#988493279"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -36242,6 +36509,9 @@
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
               },
               "created_date": {
                 "S": "2019-04-08T00:45:15+00:00"
@@ -36323,6 +36593,9 @@
               "pk_5": {
                 "S": "FIN#988493279"
               },
+              "pk_6": {
+                "S": "FIN#988493279"
+              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_closing_date": {
@@ -36356,6 +36629,9 @@
               },
               "pk_2": {
                 "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-04-08T00:45:15+00:00"
