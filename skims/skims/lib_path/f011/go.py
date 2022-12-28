@@ -17,11 +17,9 @@ from typing import (
     Tuple,
 )
 
+GO_DIRECTIVE: Pattern[str] = re.compile(r"(?P<directive>require|replace) \(")
 GO_MOD_DEP: Pattern[str] = re.compile(
     r"^\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
-)
-GO_REQ_MOD_DEP: Pattern[str] = re.compile(
-    r"require\s(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
 GO_REPLACE: Pattern[str] = re.compile(
     r"^\s+(?P<old_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<old_ver>\S+))?\s=>"
@@ -31,7 +29,9 @@ GO_REP_DEP: Pattern[str] = re.compile(
     r"replace\s(?P<old_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<old_ver>\S+))?\s=>"
     r"\s(?P<new_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<new_ver>\S+))?$"
 )
-GO_DIRECTIVE: Pattern[str] = re.compile(r"(?P<directive>require|replace) \(")
+GO_REQ_MOD_DEP: Pattern[str] = re.compile(
+    r"require\s(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
+)
 GO_VERSION: Pattern[str] = re.compile(
     r"\ngo (?P<major>\d)\.(?P<minor>\d+)(\.\d+)?\n"
 )
@@ -66,7 +66,7 @@ def replace_req(
 
 
 def resolve_go_deps(content: str) -> Iterator[DependencyType]:
-    required: str = ""
+    go_req_directive: str = ""
     replace_list: List[Tuple[Match[str], int]] = []
     req_dict: Dict[str, DependencyType] = {}
     for line_number, line in enumerate(content.splitlines(), 1):
@@ -74,18 +74,18 @@ def resolve_go_deps(content: str) -> Iterator[DependencyType]:
             add_require(matched, req_dict, line_number)
         elif replace := GO_REP_DEP.search(line):
             replace_list.append((replace, line_number))
-        elif not required:
+        elif not go_req_directive:
             if directive := GO_DIRECTIVE.match(line):
-                required = directive.group("directive")
-        elif required == "replace":
+                go_req_directive = directive.group("directive")
+        elif go_req_directive == "replace":
             if replace := GO_REPLACE.search(line):
                 replace_list.append((replace, line_number))
                 continue
-            required = ""
+            go_req_directive = ""
         elif matched := GO_MOD_DEP.search(line):
             add_require(matched, req_dict, line_number)
         else:
-            required = ""
+            go_req_directive = ""
     return replace_req(req_dict, replace_list)
 
 
