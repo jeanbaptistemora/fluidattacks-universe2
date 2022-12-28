@@ -32,7 +32,7 @@ async def test_remove_obsolete_groups() -> None:
     all_active_groups_names = await orgs_domain.get_all_active_group_names(
         loaders
     )
-    assert len(all_active_groups_names) == 14
+    assert len(all_active_groups_names) == 13
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 in all_active_groups_names
 
@@ -42,7 +42,7 @@ async def test_remove_obsolete_groups() -> None:
     all_active_groups_names = await orgs_domain.get_all_active_group_names(
         loaders
     )
-    assert len(all_active_groups_names) == 13
+    assert len(all_active_groups_names) == 12
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names
 

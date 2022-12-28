@@ -62,7 +62,7 @@ async def test_create_group_not_user_admin() -> None:
     granted_role = "user_manager"
     loaders: Dataloaders = get_new_context()
     active_groups = await orgs_domain.get_all_active_group_names(loaders)
-    assert len(active_groups) == 14
+    assert len(active_groups) == 13
     await add_group(
         loaders=loaders,
         description="This is a new group",
@@ -78,7 +78,7 @@ async def test_create_group_not_user_admin() -> None:
     active_groups = await orgs_domain.get_all_active_group_names(
         loaders=get_new_context()
     )
-    assert len(active_groups) == 15
+    assert len(active_groups) == 14
     await remove_group(
         loaders=get_new_context(),
         group_name="newavailablename",
@@ -88,7 +88,7 @@ async def test_create_group_not_user_admin() -> None:
     active_groups = await orgs_domain.get_all_active_group_names(
         loaders=get_new_context()
     )
-    assert len(active_groups) == 14
+    assert len(active_groups) == 13
 
 
 async def test_get_closed_vulnerabilities() -> None:

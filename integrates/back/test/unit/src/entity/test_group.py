@@ -35,30 +35,6 @@ async def _get_result_async(
 
 
 @pytest.mark.changes_db
-async def test_add_group() -> None:
-    """Check for addGroup mutation."""
-    query = """
-    mutation {
-        addGroup(
-            organizationName: "okada",
-            description: "This is a new group from pytest",
-            groupName: "%(name)s",
-            subscription: CONTINUOUS,
-            hasMachine: true,
-            hasSquad: true,
-        ) {
-        success
-        }
-    }"""
-    query = query % {"name": "testgroup"}
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addGroup"]
-    assert result["data"]["addGroup"]["success"]
-
-
-@pytest.mark.changes_db
 async def test_add_group_consult_parent_non_zero() -> None:
     """Check for addGroupConsult mutation."""
     query = """
