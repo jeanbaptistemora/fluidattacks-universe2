@@ -1,6 +1,8 @@
 # pylint: disable=invalid-name
 """
 try to convert evidences in S3 from gif to webm
+First Execution Time:     2022-12-28 at 05:38:17 UTC
+First Finalization Time:  2022-12-28 at 07:56:51 UTC
 """
 from aioextensions import (
     collect,
@@ -91,7 +93,6 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
-DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 async def _update_event_evidence(
@@ -210,7 +211,7 @@ async def update_finding_evidence(
         "-b:v",
         "0",
         "-crf",
-        "10",
+        "15",
         os.path.join(os.getcwd(), new_file_path),
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -278,7 +279,7 @@ async def update_event_evidence(
         "-b:v",
         "0",
         "-crf",
-        "10",
+        "15",
         os.path.join(os.getcwd(), new_file_path),
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,

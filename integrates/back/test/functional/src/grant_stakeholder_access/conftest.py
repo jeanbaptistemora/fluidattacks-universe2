@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from collections import (
+    defaultdict,
+)
 from datetime import (
     datetime,
 )
@@ -59,4 +62,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
         ],
     }
-    return await db.populate({**generic_data["db_data"], **data})
+
+    merge_dict = defaultdict(list)
+    for dict_data in (generic_data["db_data"], data):
+        for key, value in dict_data.items():
+            if key == "groups":
+                merge_dict[key] = value
+            else:
+                merge_dict[key].extend(value)
+
+    return await db.populate(merge_dict)
