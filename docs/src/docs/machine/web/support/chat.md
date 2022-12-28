@@ -39,7 +39,7 @@ right corner of your screen,
 and you will be enabled to chat
 with our Customer Support team.
 
-![Chat Box](https://res.cloudinary.com/fluid-attacks/image/upload/v1657123646/docs/web/support/chat_box.png)
+![Chat Box](https://res.cloudinary.com/fluid-attacks/image/upload/v1672240150/docs/web/support/live_chat.png)
 
 You need to keep in mind
 that the **Instant Live Chat**
