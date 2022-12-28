@@ -10,7 +10,7 @@ import { UPDATE_TOE_LINES_ATTACKED_LINES } from "./queries";
 
 import { HandleEditionModal } from ".";
 import type { IToeLinesData } from "../types";
-import { msgSuccess } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
@@ -124,8 +124,29 @@ describe("handle toe lines edition modal", (): void => {
         request: {
           query: UPDATE_TOE_LINES_ATTACKED_LINES,
           variables: {
+            attackedLines: 6,
+            comments: "This is a test of error in updating toe lines",
+            filename: "test/test#.config",
+            groupName: "groupname",
+            rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - The attacked lines must be between 0 and the loc (lines of code)"
+            ),
+          ],
+        },
+      },
+    ];
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_TOE_LINES_ATTACKED_LINES,
+          variables: {
             attackedLines: 9,
-            comments: "This is a test of updating toe lines",
+            comments: "This is a second test of error in updating toe lines",
             filename: "test/test#.config",
             groupName: "groupname",
             rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -169,7 +190,7 @@ describe("handle toe lines edition modal", (): void => {
         sortsSuggestions: null,
       },
     ];
-    render(
+    const { rerender } = render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider
           addTypename={false}
@@ -189,11 +210,47 @@ describe("handle toe lines edition modal", (): void => {
     );
 
     await userEvent.clear(screen.getByRole("spinbutton"));
-    await userEvent.type(screen.getByRole("spinbutton"), "9");
+    await userEvent.type(screen.getByRole("spinbutton"), "6");
 
     await userEvent.type(
       screen.getByRole("textbox"),
       "This is a test of error in updating toe lines"
+    );
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        "group.toe.lines.editModal.alerts.invalidAttackedLines"
+      );
+    });
+
+    rerender(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedQueries, ...mockedQueries]}
+        >
+          <Route path={"/:groupName/surface/lines"}>
+            <HandleEditionModal
+              groupName={"groupname"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              selectedToeLinesDatas={mokedToeLines}
+              setSelectedToeLinesDatas={jest.fn()}
+            />
+          </Route>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await userEvent.clear(screen.getByRole("spinbutton"));
+    await userEvent.type(screen.getByRole("spinbutton"), "9");
+
+    await userEvent.clear(screen.getByRole("textbox"));
+    await userEvent.type(
+      screen.getByRole("textbox"),
+      "This is a second test of error in updating toe lines"
     );
 
     await userEvent.click(screen.getByText("components.modal.confirm"));
