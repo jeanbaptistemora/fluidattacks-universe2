@@ -8,12 +8,16 @@ from fa_purity import (
 from fa_purity.stream.factory import (
     unsafe_from_cmd,
 )
+from fa_purity.stream.transform import (
+    squash,
+)
 from io import (
     TextIOWrapper,
 )
 import logging
 import sys
 from typing import (
+    IO,
     Iterable,
     TextIO,
 )
@@ -42,5 +46,26 @@ def text_buffer(text: TextIO) -> Stream[str]:
     return unsafe_from_cmd(iterable)
 
 
-def stdin_buffer() -> Stream[str]:
-    return text_buffer(sys.stdin)
+def _emit(target: TextIO, line: str) -> Cmd[None]:
+    def _action() -> None:
+        target.write(line)
+
+    return Cmd.from_cmd(_action)
+
+
+def process_buffer(
+    input_io: TextIO, output_io: TextIO, bypass_input: bool
+) -> Stream[str]:
+    return (
+        text_buffer(input_io)
+        .map(
+            lambda i: _emit(output_io, i).map(lambda _: i)
+            if bypass_input
+            else Cmd.from_cmd(lambda: i)
+        )
+        .transform(lambda s: squash(s))
+    )
+
+
+def stdin_buffer(bypass_input: bool) -> Stream[str]:
+    return process_buffer(sys.stdin, sys.stdout, bypass_input)

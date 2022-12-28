@@ -30,8 +30,16 @@ from utils_logger_2 import (
     type=int,
     help="Max number of chars in a str field. Default -1 (no limit)",
 )
-def main(bucket: str, prefix: str, str_limit: int) -> NoReturn:
+@click.option(  # type: ignore[misc]
+    "--bypass-input",
+    is_flag=True,
+    type=bool,
+    help="std output stream = std input stream",
+)
+def main(
+    bucket: str, prefix: str, str_limit: int, bypass_input: bool
+) -> NoReturn:
     cmd: Cmd[None] = start_session() + loader.main(
-        bucket, prefix, stdin_buffer(), str_limit
+        bucket, prefix, stdin_buffer(bypass_input), str_limit
     )
     cmd.compute()
