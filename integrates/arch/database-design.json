@@ -31923,7 +31923,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32053,7 +32053,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32167,7 +32167,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32282,7 +32282,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32396,7 +32396,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32510,7 +32510,7 @@
                     "S": "6666"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32628,7 +32628,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32733,7 +32733,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32838,7 +32838,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -32939,7 +32939,7 @@
                     "S": "1111"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33044,7 +33044,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33139,7 +33139,7 @@
                     "S": "1111"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33237,7 +33237,7 @@
                     "S": "4444"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -33332,7 +33332,7 @@
                     "S": "4444"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33427,7 +33427,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33525,7 +33525,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -33620,7 +33620,7 @@
                     "S": "8888"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33715,7 +33715,7 @@
                     "S": "888"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33810,7 +33810,7 @@
                     "S": "6666"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -33905,7 +33905,7 @@
                     "S": "1111"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34000,7 +34000,7 @@
                     "S": "2222"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34095,7 +34095,7 @@
                     "S": "2222"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34190,7 +34190,7 @@
                     "S": "7777"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34288,7 +34288,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -34383,7 +34383,7 @@
                     "S": "5555"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34478,7 +34478,7 @@
                     "S": "3333"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34573,7 +34573,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34668,7 +34668,7 @@
                     "S": "asserts"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34763,7 +34763,7 @@
                     "S": "1111"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -34861,7 +34861,7 @@
                     "S": "333"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -34959,7 +34959,7 @@
                     "S": "userToken"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -35054,7 +35054,7 @@
                     "S": "6666"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35149,7 +35149,7 @@
                     "S": "3636"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35256,7 +35256,7 @@
                     "S": "7777"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35363,7 +35363,7 @@
                     "S": "12"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35461,7 +35461,7 @@
                     "S": "12456"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -35581,7 +35581,7 @@
                     "S": "345"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35724,7 +35724,7 @@
                     "S": "564"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -35853,7 +35853,7 @@
                     "S": "123345"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -35985,7 +35985,7 @@
                     "S": "123"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -36116,7 +36116,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -36224,7 +36224,7 @@
                     }
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -36319,7 +36319,7 @@
                     "S": "564"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -36423,7 +36423,7 @@
                     "S": "3333"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -36553,7 +36553,7 @@
                     }
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -36673,7 +36673,7 @@
                     }
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -36750,7 +36750,7 @@
                 "S": "userToken"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36776,7 +36776,7 @@
                 "S": "userToken"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -36802,7 +36802,7 @@
                 "S": "userToken"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36828,7 +36828,7 @@
                 "S": "12"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36854,7 +36854,7 @@
                 "S": "123"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36880,7 +36880,7 @@
                 "S": "12456"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36906,7 +36906,7 @@
                 "S": "123345"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -36932,7 +36932,7 @@
                 "S": "12456"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -36958,7 +36958,7 @@
                 "S": "123345"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -36984,7 +36984,7 @@
                 "S": "345"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37010,7 +37010,7 @@
                 "S": "564"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37046,7 +37046,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37082,7 +37082,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37118,7 +37118,7 @@
                 }
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -37144,7 +37144,7 @@
                 "S": "564"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37180,7 +37180,7 @@
                 }
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -37206,7 +37206,7 @@
                 "S": "asserts"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37242,7 +37242,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37278,7 +37278,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37304,7 +37304,7 @@
                 "S": "6666"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37340,7 +37340,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37376,7 +37376,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37412,7 +37412,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37438,7 +37438,7 @@
                 "S": "4444"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37464,7 +37464,7 @@
                 "S": "8888"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37490,7 +37490,7 @@
                 "S": "6666"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37516,7 +37516,7 @@
                 "S": "1111"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37542,7 +37542,7 @@
                 "S": "2222"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37568,7 +37568,7 @@
                 "S": "2222"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37594,7 +37594,7 @@
                 "S": "7777"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37620,7 +37620,7 @@
                 "S": "5555"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37646,7 +37646,7 @@
                 "S": "3333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37672,7 +37672,7 @@
                 "S": "7777"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37708,7 +37708,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37734,7 +37734,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37760,7 +37760,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37786,7 +37786,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -37812,7 +37812,7 @@
                 "S": "3636"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37848,7 +37848,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37884,7 +37884,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37910,7 +37910,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37936,7 +37936,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -37962,7 +37962,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -37988,7 +37988,7 @@
                 "S": "4444"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38014,7 +38014,7 @@
                 "S": "4444"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -38040,7 +38040,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -38066,7 +38066,7 @@
                 "S": "333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38092,7 +38092,7 @@
                 "S": "1111"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38128,7 +38128,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38154,7 +38154,7 @@
                 "S": "userToken"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -38180,7 +38180,7 @@
                 "S": "1111"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38206,7 +38206,7 @@
                 "S": "888"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38232,7 +38232,7 @@
                 "S": "3333"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38271,7 +38271,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38297,7 +38297,7 @@
                 "S": "3333"
               },
               "status": {
-                "S": "CLOSED"
+                "S": "SAFE"
               }
             },
             {
@@ -38333,7 +38333,7 @@
                 }
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             },
             {
@@ -38359,7 +38359,7 @@
                 "S": "6666"
               },
               "status": {
-                "S": "OPEN"
+                "S": "VULNERABLE"
               }
             }
           ],
