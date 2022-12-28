@@ -483,6 +483,7 @@ in {
                 variables = {
                   API_ENDPOINT = "https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api";
                 };
+                retry = 2;
               };
           }
           {
@@ -493,6 +494,7 @@ in {
                 needs = [
                   "/integrates/back/deploy/dev"
                 ];
+                retry = 2;
               };
           }
         ]

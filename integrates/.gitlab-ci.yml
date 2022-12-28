@@ -1,5 +1,10 @@
 ---
 integrates/web/forces/container:
+  image: fluidattacks/forces:${CI_COMMIT_REF_NAME}
+  needs:
+    - /deployContainerImage/forcesDev
+    - /integrates/back/deploy/dev
+  retry: 2
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
@@ -10,13 +15,10 @@ integrates/web/forces/container:
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  stage: post-deploy
-  tags: [large]
-  image: fluidattacks/forces:${CI_COMMIT_REF_NAME}
-  variables:
-    API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api
   script:
     - forces --token "${TEST_FORCES_TOKEN}" --lax
-  needs:
-    - /deployContainerImage/forcesDev
-    - /integrates/back/deploy/dev
+  stage: post-deploy
+  tags:
+    - large
+  variables:
+    API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api
