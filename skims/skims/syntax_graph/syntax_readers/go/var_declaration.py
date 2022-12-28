@@ -22,7 +22,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     var_name = node_to_str(args.ast_graph, var_id)
 
     type_id = args.ast_graph.nodes[declarator_id].get("label_field_type")
-    type_name = node_to_str(args.ast_graph, type_id)
+    type_name = None
+    if type_id:
+        type_name = node_to_str(args.ast_graph, type_id)
 
     value_id = args.ast_graph.nodes[declarator_id].get("label_field_value")
 
