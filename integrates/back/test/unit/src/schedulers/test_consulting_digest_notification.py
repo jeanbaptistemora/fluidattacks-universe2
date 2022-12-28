@@ -344,7 +344,7 @@ def test_format_comment(
                 [
                     {
                         "comment": "Testing comment",
-                        "date": "2022-12-13 12:34:35",
+                        "date": "2022-12-13 12:34",
                         "instance_id": None,
                         "name": "Testing User",
                     }
@@ -352,7 +352,7 @@ def test_format_comment(
                 [
                     {
                         "comment": "Testing comment",
-                        "date": "2022-12-13 12:35:24",
+                        "date": "2022-12-13 12:35",
                         "instance_id": None,
                         "name": "Testing User",
                     }
@@ -360,13 +360,13 @@ def test_format_comment(
                 [
                     {
                         "comment": "Testing comment",
-                        "date": "2022-12-13 12:34:15",
+                        "date": "2022-12-13 12:34",
                         "instance_id": "bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
                         "name": "Testing User",
                     },
                     {
                         "comment": "Testing reply",
-                        "date": "2022-12-13 12:34:23",
+                        "date": "2022-12-13 12:34",
                         "instance_id": "bcffefa2-91e4-48fc-ad7a-ea0840a3d47b",
                         "name": "Fluid Attacks",
                     },

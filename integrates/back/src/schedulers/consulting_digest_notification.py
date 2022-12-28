@@ -207,7 +207,9 @@ def digest_comments(
 ) -> list[dict[str, Optional[str]]]:
     return [
         {
-            "date": datetime_utils.get_as_str(comment.creation_date),
+            "date": datetime_utils.get_as_str(
+                comment.creation_date, "%Y-%m-%d %H:%M"
+            ),
             "name": "Fluid Attacks"
             if stakeholders_utils.is_fluid_staff(comment.email)
             else comment.full_name.rstrip()
