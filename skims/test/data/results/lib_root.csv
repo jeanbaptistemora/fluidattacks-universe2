@@ -6164,30 +6164,6 @@ F135,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,9,6
   16 | }
      ^ Col 0
 ",typescript.typescript_unsafe_http_xss_protection
-F131,lines,namespace/skims/test/data/lib_root/f131/c_sharp_check_default_usehsts.cs,21,644,skims,131. Insecure or unset HTTP headers - Strict Transport Security,"The server is missing the HTTP Strict-Transport-Security header. Simultaneously, the max-age value of it is very small in namespace/skims/test/data/lib_root/f131/c_sharp_check_default_usehsts.cs","
-   8 | namespace codetest
-   9 | {
-  10 |     public class Startup
-  11 |     {
-  12 |
-  13 |         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-  14 |         {
-  15 |             if (env.IsDevelopment())
-  16 |             {
-  17 |                 app.UseDeveloperExceptionPage();
-  18 |             }
-  19 |             else
-  20 |             {
-> 21 |                 app.UseHsts();
-  22 |             }
-  23 |
-  24 |             app.UseHttpsRedirection();
-  25 |             app.UseMvc();
-  26 |         }
-  27 |     }
-  28 | }
-     ^ Col 0
-",c_sharp.check_default_usehsts
 F414,lines,namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs,9,644,skims,414. Insecure service configuration - Header Checking,"property EnableHeaderChecking set in false disabled the encoding of the carriage return and newline characters, \r and \n, that are found in response headers.
  in namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs","
    1 |

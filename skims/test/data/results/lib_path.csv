@@ -36532,6 +36532,30 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (puma v=5.1.0) [CVE-
    37 |
       ^ Col 0
 ",gem.gem_gemfile
+F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (qs v6.5.3) [CVE-2022-24999],308,937,skims,011. Use of software with known vulnerabilities,Use of qs at version 6.5.3 with ['CVE-2022-24999'] in namespace/skims/test/data/lib_path/f011/yarn.lock,"
+  298 | punycode@^1.4.1:
+  299 |   version ""1.4.1""
+  300 |   resolved ""https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e""
+  301 |   integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
+  302 |
+  303 | punycode@^2.1.0, punycode@^2.1.1:
+  304 |   version ""2.1.1""
+  305 |   resolved ""https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec""
+  306 |   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+  307 |
+> 308 | qs@~6.5.2:
+  309 |   version ""6.5.3""
+  310 |   resolved ""https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad""
+  311 |   integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
+  312 |
+  313 | request@2.88.0:
+  314 |   version ""2.88.0""
+  315 |   resolved ""https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef""
+  316 |   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
+  317 |   dependencies:
+  318 |     aws-sign2 ""~0.7.0""
+      ^ Col 0
+",npm.npm_yarn_lock
 F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails v7.0.2.3) [CVE-2022-3704],167,937,skims,011. Use of software with known vulnerabilities,Use of rails at version 7.0.2.3 with ['CVE-2022-3704'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
   157 |     puma (5.4.0)
   158 |     racc (1.6.0)
