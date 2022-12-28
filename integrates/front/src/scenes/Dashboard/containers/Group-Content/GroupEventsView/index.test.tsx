@@ -176,6 +176,9 @@ describe("eventsView", (): void => {
     expect(screen.getAllByRole("combobox", { name: "eventType" })).toHaveLength(
       1
     );
+    expect(
+      screen.getAllByRole("textbox", { name: "rootNickname" })
+    ).toHaveLength(1);
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("files")).toHaveLength(1);
     expect(screen.getAllByTestId("images")).toHaveLength(1);

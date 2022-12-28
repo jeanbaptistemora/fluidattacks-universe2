@@ -36,7 +36,7 @@ describe("Organization policies view", (): void => {
 
   const orgPolicyFields: number = 8;
 
-  it("should return a  function", (): void => {
+  it("should return a function", (): void => {
     expect.hasAssertions();
 
     expect(typeof OrganizationPolicies).toBe("function");
