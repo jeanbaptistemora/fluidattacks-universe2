@@ -340,8 +340,12 @@ export const enTranslations: ResourceKey = {
     languages: {
       checkLanguages: "Please check the supported languages for ",
       contactSales: {
+        accept: "I accept the ",
+        and: "and",
         description:
           "We'd love to chat with you. Please complete the following fields:",
+        privacyPolicy: "Privacy policy",
+        termsOfUse: "Terms of use",
         title: "Contact sales to get\nSquad Plan",
       },
       machineLanguages: {
@@ -363,6 +367,8 @@ export const enTranslations: ResourceKey = {
           "Contact our sales team if you need discover more complex and severe vulnerabilities.",
         description2: "All machine plan supported languages and :",
         squadPlan: "Squad Plan",
+        squadSupportedCICD: "Supported CI/CDs",
+        squadSupportedInfra: "Infrastructure",
       },
     },
     messages: {
