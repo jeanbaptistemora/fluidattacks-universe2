@@ -18,6 +18,7 @@ import { GET_ORG_GROUPS } from "./queries";
 import type { IGetOrganizationGroups, IGroupData } from "./types";
 
 import { SideBarSubTabs, SideBarTab } from "components/SideBar";
+import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -54,7 +55,9 @@ const OrganizationTabs: FC = (): JSX.Element => {
       <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`} />
       <SideBarTab icon={faShield} to={`/orgs/${org}/policies`} />
       <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`} />
-      <SideBarTab icon={faMoneyBill} to={`/orgs/${org}/billing`} />
+      <Can do={"api_resolvers_organization_billing_resolve"}>
+        <SideBarTab icon={faMoneyBill} to={`/orgs/${org}/billing`} />
+      </Can>
     </Fragment>
   );
 };

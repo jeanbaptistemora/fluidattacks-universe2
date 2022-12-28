@@ -1179,8 +1179,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_credentials_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
+            "api_mutations_add_payment_method_mutate",
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
+            "api_mutations_download_billing_file_mutate",
             "api_mutations_handle_finding_policy_acceptance_mutate",
             "api_mutations_handle_finding_policy_acceptation_mutate",
             (
@@ -1198,6 +1200,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_organization_finding_policy_mutate",
             "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_policies_mutate",
+            "api_mutations_update_payment_method_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_billing_resolve",
             "api_resolvers_organization_stakeholders_resolve",
