@@ -110,11 +110,6 @@
     stage = "post-deploy";
     tags = ["small"];
   };
-  gitlabTestDev = {
-    rules = gitlabOnlyDev;
-    stage = "test-code";
-    tags = ["small"];
-  };
   gitlabTestDevAndProd = {
     rules = gitlabOnlyDevAndProd;
     stage = "test-code";
@@ -242,16 +237,6 @@ in {
                   ];
                   expire_in = "1 week";
                 };
-                variables = {
-                  MAKES_NON_ROOT = 1;
-                };
-              };
-          }
-          {
-            output = "/integrates/back/test/forces";
-            gitlabExtra =
-              gitlabTestDev
-              // {
                 variables = {
                   MAKES_NON_ROOT = 1;
                 };
