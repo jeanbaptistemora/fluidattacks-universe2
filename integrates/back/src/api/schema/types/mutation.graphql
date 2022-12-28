@@ -817,6 +817,16 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Helper mutation to send a mail to sales with an interested lead"
+  sendSalesMailToGetSquadPlan(
+    "Email of the interested in get the squad plan"
+    email: String!
+    "Name of the interested in get the squad plan"
+    name: String!
+    "Phone number of the interested in get squad plan"
+    phone: PhoneInput!
+  ): SimplePayload!
+
   "Helper mutation to send a manual vulnerability report notification"
   sendVulnerabilityNotification(
     "Identifier of the Finding where the vulnerabilities are"

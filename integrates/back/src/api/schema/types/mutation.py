@@ -68,6 +68,7 @@ from api.mutations import (
     request_vulnerabilities_verification,
     request_vulnerabilities_zero_risk,
     send_assigned_notification,
+    send_sales_mail_to_get_squad_plan,
     send_vulnerability_notification,
     sign_post_url,
     solve_event,
@@ -236,6 +237,10 @@ MUTATION.set_field(
 )
 MUTATION.set_field(
     "sendAssignedNotification", send_assigned_notification.mutate
+)
+MUTATION.set_field(
+    "sendSalesMailToGetSquadPlan",
+    send_sales_mail_to_get_squad_plan.mutate,
 )
 MUTATION.set_field(
     "sendVulnerabilityNotification", send_vulnerability_notification.mutate
