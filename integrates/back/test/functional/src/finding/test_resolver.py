@@ -233,11 +233,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ],
         "pageInfo": {
             "endCursor": (
-                "eyJwayI6ICJWVUxOIzY0MDFiYzg3LTg2MzMtNGE0YS04ZDhlLTdk"
-                "YWUwY2E1N2U2YSIsICJzayI6ICJGSU4jM2M0NzUzODQtODM0Yy00N2IwLWFjN"
-                "zEtYTQxYTAyMmU0MDFjIiwgInBrXzUiOiAiRklOIzNjNDc1Mzg0LTgzNGMtND"
-                "diMC1hYzcxLWE0MWEwMjJlNDAxYyIsICJza181IjogIlZVTE4jREVMRVRFRCN"
-                "mYWxzZSNaUiNmYWxzZSNTVEFURSNvcGVuI1ZFUklGI25vbmUifQ=="
+                "eyJwayI6ICJWVUxOIzY0MDFiYzg3LTg2MzMtNGE0YS04ZDhlLTdkYWUwY2E1"
+                "N2U2YSIsICJzayI6ICJGSU4jM2M0NzUzODQtODM0Yy00N2IwLWFjNzEtYTQx"
+                "YTAyMmU0MDFjIiwgInBrXzYiOiAiRklOIzNjNDc1Mzg0LTgzNGMtNDdiMC1"
+                "hYzcxLWE0MWEwMjJlNDAxYyIsICJza182IjogIlZVTE4jREVMRVRFRCNmYW"
+                "xzZSNSRUxFQVNFRCN0cnVlI1pSI2ZhbHNlI1NUQVRFI3Z1bG5lcmFibGUjVk"
+                "VSSUYjbm9uZSJ9"
             ),
             "hasNextPage": False,
         },
@@ -260,11 +261,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ],
         "pageInfo": {
             "endCursor": (
-                "eyJwayI6ICJWVUxOIzc3NzFiYzg3LTg2MzMtNGE0YS04ZDhlLTdk"
-                "YWUwY2E1N2U3YSIsICJzayI6ICJGSU4jM2M0NzUzODQtODM0Yy00N2IwLWFjN"
-                "zEtYTQxYTAyMmU0MDFjIiwgInBrXzUiOiAiRklOIzNjNDc1Mzg0LTgzNGMtND"
-                "diMC1hYzcxLWE0MWEwMjJlNDAxYyIsICJza181IjogIlZVTE4jREVMRVRFRCN"
-                "mYWxzZSNaUiN0cnVlI1NUQVRFI29wZW4jVkVSSUYjbm9uZSJ9"
+                "eyJwayI6ICJWVUxOIzc3NzFiYzg3LTg2MzMtNGE0YS04ZDhlLTdkYWUwY2"
+                "E1N2U3YSIsICJzayI6ICJGSU4jM2M0NzUzODQtODM0Yy00N2IwLWFjNzEtY"
+                "TQxYTAyMmU0MDFjIiwgInBrXzYiOiAiRklOIzNjNDc1Mzg0LTgzNGMtNDdi"
+                "MC1hYzcxLWE0MWEwMjJlNDAxYyIsICJza182IjogIlZVTE4jREVMRVRFRCN"
+                "mYWxzZSNSRUxFQVNFRCN0cnVlI1pSI3RydWUjU1RBVEUjdnVsbmVyYWJsZSN"
+                "WRVJJRiNub25lIn0="
             ),
             "hasNextPage": False,
         },

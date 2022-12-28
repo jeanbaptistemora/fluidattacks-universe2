@@ -18,7 +18,6 @@ from .utils import (
     format_vulnerability,
     format_vulnerability_edge,
     format_zero_risk,
-    get_current_state_converted,
 )
 from aiodataloader import (
     DataLoader,
@@ -39,8 +38,8 @@ from db_model import (
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
+    NEW_ZR_INDEX_METADATA,
     ROOT_INDEX_METADATA,
-    ZR_INDEX_METADATA,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -188,16 +187,15 @@ async def _get_finding_vulnerabilities_released_zr(
     is_zero_risk: bool,
     request: FindingVulnerabilitiesZrRequest,
 ) -> VulnerabilitiesConnection:
-    gsi_5_index = TABLE.indexes["gsi_5"]
+    gsi_6_index = TABLE.indexes["gsi_6"]
     key_values = {
         "finding_id": request.finding_id,
         "is_deleted": "false",
+        "is_released": "true",
         "is_zero_risk": str(is_zero_risk).lower(),
     }
     if isinstance(request.state_status, VulnerabilityStateStatus):
-        key_values["state_status"] = get_current_state_converted(
-            request.state_status.value
-        ).lower()
+        key_values["state_status"] = str(request.state_status.value).lower()
     if isinstance(
         request.verification_status, VulnerabilityVerificationStatus
     ):
@@ -207,11 +205,11 @@ async def _get_finding_vulnerabilities_released_zr(
             request.verification_status.value
         ).lower()
     primary_key = keys.build_key(
-        facet=ZR_INDEX_METADATA,
+        facet=NEW_ZR_INDEX_METADATA,
         values=key_values,
     )
 
-    key_structure = gsi_5_index.primary_key
+    key_structure = gsi_6_index.primary_key
     sort_key = (
         primary_key.sort_key
         if isinstance(
@@ -229,7 +227,7 @@ async def _get_finding_vulnerabilities_released_zr(
         filter_expression=conditions.get_filter_expression(
             request.filters._asdict()
         ),
-        index=gsi_5_index,
+        index=gsi_6_index,
         limit=request.first,
         paginate=request.paginate,
         table=TABLE,
@@ -237,7 +235,7 @@ async def _get_finding_vulnerabilities_released_zr(
 
     return VulnerabilitiesConnection(
         edges=tuple(
-            format_vulnerability_edge(gsi_5_index, item, TABLE)
+            format_vulnerability_edge(gsi_6_index, item, TABLE)
             for item in response.items
         ),
         page_info=response.page_info,
