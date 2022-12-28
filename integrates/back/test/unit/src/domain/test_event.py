@@ -16,9 +16,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.event_comments.types import (
     EventComment,
 )
@@ -26,7 +23,6 @@ from db_model.events.enums import (
     EventEvidenceId,
     EventSolutionReason,
     EventStateStatus,
-    EventType,
 )
 from db_model.events.types import (
     Event,
@@ -51,66 +47,10 @@ from starlette.datastructures import (
 from time import (
     time,
 )
-from typing import (
-    Any,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@pytest.mark.changes_db
-async def test_add_event() -> None:
-    attrs: Any = {
-        "context": "OTHER",
-        "detail": "Something happened.",
-        "event_date": datetime.fromisoformat("2019-12-09T05:00:00+00:00"),
-        "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
-        "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-    }
-    event_id = await events_domain.add_event(
-        get_new_context(),
-        hacker_email="unittesting@fluidattacks.com",
-        group_name="unittesting",
-        **attrs,
-    )
-    loaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
-    assert event.id == event_id
-    assert event.hacker == "unittesting@fluidattacks.com"
-    assert event.type == EventType.AUTHORIZATION_SPECIAL_ATTACK
-
-
-@pytest.mark.changes_db
-async def test_add_event_file_image() -> None:
-    attrs = {
-        "detail": "Something happened.",
-        "event_date": datetime.fromisoformat("2019-12-09T05:00:00+00:00"),
-        "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
-        "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
-    }
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "./mock/test-file-records.csv")
-    imagename = os.path.dirname(os.path.abspath(__file__))
-    imagename = os.path.join(imagename, "./mock/test-anim.webm")
-    with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(
-            "okada-unittesting-0123456789.csv", test_file, "text/csv"
-        )
-        with open(imagename, "rb") as image_test:
-            uploaded_image = UploadFile(
-                "okada-unittesting-0987654321.webm", image_test, "video/webm"
-            )
-            test_data = await events_domain.add_event(
-                get_new_context(),
-                hacker_email="unittesting@fluidattacks.com",
-                group_name="unittesting",
-                file=uploaded_file,
-                image=uploaded_image,
-                **attrs,
-            )
-    assert isinstance(test_data, str)
 
 
 @pytest.mark.changes_db

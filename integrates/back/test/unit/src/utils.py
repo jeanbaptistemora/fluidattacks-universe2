@@ -124,6 +124,8 @@ mocked_paths: Dict[str, str] = {
     "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
+    "update_evidence": "events.domain.update_evidence",
+    "validate_evidence": "events.domain.validate_evidence",
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -841,6 +843,14 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         ],
         '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501
+    },
+    "events.domain.update_evidence": {
+        '["test-anim.webm"]': None,
+        '["test-file-records.csv"]': None,
+    },
+    "events.domain.validate_evidence": {
+        '["unittesting", "test-anim.webm"]': None,
+        '["unittesting", "test-file-records.csv"]': None,
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
