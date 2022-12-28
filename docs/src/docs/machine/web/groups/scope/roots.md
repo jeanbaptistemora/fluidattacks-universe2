@@ -307,6 +307,33 @@ the root will be deactivated in the
 current group and created in
 the selected group.
 
+## VPN
+
+We know that for security reasons,
+you want to keep in your internal
+network your repositories,
+applications,
+or confidentiality issues that are
+handled in your company,
+where it is necessary to access these
+by connecting to the
+**VPN (Virtual Private Network).**
+
+When creating a Root in Scope,
+you can specify that to have
+access to the inputs you provide;
+you need to connect to the private
+network by clicking on the check
+box that says **Use VPN.**
+
+![VPN](https://res.cloudinary.com/fluid-attacks/image/upload/v1672265483/docs/web/groups/scope/vpn.png)
+
+Telling us this our engagement team
+start all the process to configure
+and establish a site to site VPN
+to access the internal network and
+cloning the repositories you offer us.
+
 ## Credential Type
 
 To clone a Git repository in
