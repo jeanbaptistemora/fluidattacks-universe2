@@ -7,10 +7,10 @@ import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupContent } from ".";
-import { GET_GROUP_DATA } from "../containers/GroupSettingsView/queries";
-import type { IGroupData } from "../containers/GroupSettingsView/Services/types";
-import type { IGetOrganizationId } from "../containers/OrganizationContent/types";
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import { GET_GROUP_DATA } from "../containers/Group-Content/GroupScopeView/GroupSettingsView/queries";
+import type { IGroupData } from "../containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
+import type { IGetOrganizationId } from "../containers/Organization-Content/OrganizationNav/types";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("groupContent", (): void => {

@@ -19,13 +19,13 @@ import {
   getLastTreatment,
   groupLastHistoricTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+} from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";

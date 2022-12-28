@@ -2,7 +2,7 @@ import React, { createElement } from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
+import { ChartsForOrganizationView } from "scenes/Dashboard/containers/Organization-Content/ChartsForOrganizationView";
 import { GlobalStyle } from "styles";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 

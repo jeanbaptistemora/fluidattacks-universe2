@@ -21,13 +21,13 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
-import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
+import { GroupRoute } from "scenes/Dashboard/containers/Group-Content/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
-import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
-import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
+import { OrganizationContent } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav";
+import { OrganizationRedirect } from "scenes/Dashboard/containers/Organization-Content/OrganizationRedirectView";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { TasksContent } from "scenes/Dashboard/containers/Tasks";
+import { TasksContent } from "scenes/Dashboard/containers/Tasks-Content";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,

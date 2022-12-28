@@ -4,7 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/queries";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 
 describe("TagContent", (): void => {

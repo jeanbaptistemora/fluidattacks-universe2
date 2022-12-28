@@ -27,8 +27,8 @@ import type {
 import { stylizeBreadcrumbItem } from "./utils";
 
 import { Button } from "components/Button";
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/queries";
+import type { IGetOrganizationId } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/types";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";

@@ -26,9 +26,9 @@ import {
   REQUEST_VULNERABILITIES_VERIFICATION,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
-import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/queries";
-import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
 
 interface IVulnData {
   currentState: string;

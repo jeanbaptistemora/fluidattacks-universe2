@@ -14,8 +14,8 @@ import {
 
 import { Tab, Tabs } from "components/Tabs";
 import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
-import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/queries";
+import type { IGetOrganizationId } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/types";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import { TabContent } from "styles/styledComponents";
 import { Logger } from "utils/logger";

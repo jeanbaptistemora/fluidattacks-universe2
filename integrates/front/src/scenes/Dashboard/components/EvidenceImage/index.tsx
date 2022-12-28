@@ -12,7 +12,7 @@ import { Button } from "components/Button/index";
 import { ExternalLink } from "components/ExternalLink";
 import { Tooltip } from "components/Tooltip";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
-import type { IEvidenceItem } from "scenes/Dashboard/containers/EvidenceView/types";
+import type { IEvidenceItem } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/types";
 import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {

@@ -6,7 +6,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import { TreatmentTracking } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index";
 import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { formatDropdownField } from "utils/formatHelpers";
 
 describe("TrackingTreatment", (): void => {

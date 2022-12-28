@@ -10,7 +10,7 @@ import { Col, Row } from "components/Layout";
 import { Timeline } from "components/Timeline";
 import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
 import type { IGetVulnTreatmentAttr } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/types";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { formatDropdownField } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";

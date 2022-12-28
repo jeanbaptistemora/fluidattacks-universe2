@@ -2,7 +2,7 @@ import React, { createElement } from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
+import { ChartsForGroupView } from "scenes/Dashboard/containers/Group-Content/ChartsForGroupView";
 import { GlobalStyle } from "styles";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 

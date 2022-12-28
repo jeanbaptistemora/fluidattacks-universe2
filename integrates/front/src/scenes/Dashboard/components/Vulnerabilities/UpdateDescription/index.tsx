@@ -16,7 +16,7 @@ import {
 
 import type { IUpdateVulnerabilityForm, IVulnDataTypeAttr } from "../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 
 export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
   changePermissions,

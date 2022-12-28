@@ -1,12 +1,12 @@
 import type { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import type { Dispatch, SetStateAction } from "react";
 
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import type {
   IRequirementData,
   IVulnData,
-} from "scenes/Dashboard/containers/GroupDraftsView/types";
-import type { IFinding } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/types";
+} from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/types";
+import type { IFinding } from "scenes/Dashboard/containers/Group-Content/GroupVulnerabilitiesView/types";
 
 interface IVulnRowAttr {
   currentState: "closed" | "open";

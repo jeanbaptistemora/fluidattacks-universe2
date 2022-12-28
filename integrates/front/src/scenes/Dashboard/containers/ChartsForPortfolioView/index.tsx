@@ -2,8 +2,8 @@ import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
+import { ChartsView } from "scenes/Dashboard/components/ChartsGenericView";
 import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
-import { ChartsView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = ({
   organizationId,

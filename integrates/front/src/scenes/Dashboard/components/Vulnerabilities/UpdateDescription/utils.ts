@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 
 const emptyTreatment: IHistoricTreatment = {
   acceptanceDate: "",

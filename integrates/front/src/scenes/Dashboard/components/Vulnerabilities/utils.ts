@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 import _ from "lodash";
 
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import { getRequirementsText } from "scenes/Dashboard/containers/DescriptionView/utils";
+import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
+import { getRequirementsText } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/utils";
 import type {
   IRequirementData,
   IVulnData,
-} from "scenes/Dashboard/containers/GroupDraftsView/types";
-import type { IReqFormat } from "scenes/Dashboard/containers/GroupVulnerabilitiesView/formatters/types";
+} from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/types";
+import type { IReqFormat } from "scenes/Dashboard/containers/Group-Content/GroupVulnerabilitiesView/formatters/types";
 import type { IGroups, IOrganizationGroups } from "scenes/Dashboard/types";
 import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
