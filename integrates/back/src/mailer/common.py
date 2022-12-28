@@ -12,6 +12,7 @@ from context import (
     FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS,
+    FI_MAIL_TELEMARKETING,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
@@ -102,6 +103,7 @@ async def get_recipient_first_name(
         *[fi_email.lower() for fi_email in FI_MAIL_PRODUCTION.split(",")],
         FI_MAIL_PROJECTS.lower(),
         *[fi_email.lower() for fi_email in FI_MAIL_REVIEWERS.split(",")],
+        FI_MAIL_TELEMARKETING.lower(),
     }
     is_registered = bool(stakeholder.is_registered) if stakeholder else False
     if is_constant or is_registered or is_access_granted:
