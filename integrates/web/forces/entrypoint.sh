@@ -8,19 +8,7 @@ function resolve_endpoint() {
   fi
 }
 
-function check_output() {
-  if ! grep -q "ERROR\|TypeError\|IndexError\|Traceback" "$1"; then
-    echo "[INFO] All clear!"
-    result_code=0
-  else
-    echo "[ERROR] Failed check"
-    grep -q "ERROR\|TypeError\|IndexError\|Traceback" "$1"
-    result_code=1
-  fi
-}
-
 function main {
-  local out="out"
   export BATCH_BIN
 
   : \
@@ -34,14 +22,11 @@ function main {
     fi \
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
-    && echo "[INFO] Running DevSecOps agent check..." \
-    && mkdir -p "${out}" \
     && resolve_endpoint \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax > "${out}/forces-output.log" || true \
-    && check_output "${out}/forces-output.log" \
-    && rm -rf "${out}" \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax \
-    && ! (($? | "${result_code}")) \
+    && echo "[INFO] Running DevSecOps agent lax check..." \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --repo-name universe --lax \
+    && echo "[INFO] Running DevSecOps agent strict check..." \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --breaking 10.0 --strict \
     || return 1
 }
 
