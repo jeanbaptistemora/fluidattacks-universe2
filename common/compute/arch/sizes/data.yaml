@@ -64,8 +64,8 @@ skims_large:
   memory: 15200
   queue: skims_large
 sorts_nano:
-  cpu: 1
-  memory: 1900
+  cpu: 2
+  memory: 4096
   queue: sorts_small
 sorts_large:
   cpu: 8
