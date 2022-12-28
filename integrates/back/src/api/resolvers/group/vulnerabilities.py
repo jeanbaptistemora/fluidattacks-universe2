@@ -45,6 +45,9 @@ async def resolve(
         after=kwargs.get("after"),
         exact_filters={"group_name": parent.name},
         must_filters=vulnerabilities_filters["must_filters"],
+        must_match_prefix_filters=vulnerabilities_filters[
+            "must_match_filters"
+        ],
         must_not_filters=vulnerabilities_filters["must_not_filters"],
         index="vulnerabilities",
         limit=kwargs.get("first", 10),
@@ -76,6 +79,9 @@ async def resolve(
 
 def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
     vulns_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
+    vulns_must_match_prefix_filters: List[
+        Dict[str, Any]
+    ] = must_match_prefix_filter(**kwargs)
     vulns_must_not_filters: List[Dict[str, Any]] = must_not_filter(**kwargs)
     vulns_should_filters: List[Dict[str, Any]] = should_filter(**kwargs)
 
@@ -88,6 +94,7 @@ def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
 
     filters: Dict[str, Any] = {
         "must_filters": vulns_must_filters,
+        "must_match_filters": vulns_must_match_prefix_filters,
         "must_not_filters": vulns_must_not_filters,
         "should_filters": vulns_should_filters,
     }
@@ -108,6 +115,15 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
         must_filters.append({"verification.status": str(verification).upper()})
 
     return must_filters
+
+
+def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+    must_match_filters = []
+
+    if root := kwargs.get("root"):
+        must_match_filters.append({"state.where": str(root).upper()})
+
+    return must_match_filters
 
 
 def must_not_filter(**kwargs: Any) -> list[dict[str, Any]]:
@@ -132,9 +148,6 @@ def must_not_filter(**kwargs: Any) -> list[dict[str, Any]]:
 
 def should_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     should_filters = []
-
-    if root := kwargs.get("root"):
-        should_filters.append({"state.where": str(root).upper()})
 
     if state := kwargs.get("stateStatus"):
         should_filters.append({"state.status": str(state).upper()})

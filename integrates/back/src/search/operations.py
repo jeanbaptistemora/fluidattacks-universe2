@@ -25,6 +25,7 @@ async def search(  # pylint: disable=too-many-locals
     query: Optional[str] = None,
     should_filters: Optional[list[dict[str, Any]]] = None,
     must_filters: Optional[list[dict[str, Any]]] = None,
+    must_match_prefix_filters: Optional[list[dict[str, Any]]] = None,
     range_filters: Optional[list[dict[str, Any]]] = None,
     must_not_filters: Optional[list[dict[str, Any]]] = None,
     sort_by: Optional[dict[str, Any]] = None,
@@ -38,6 +39,7 @@ async def search(  # pylint: disable=too-many-locals
     """
     client = await get_client()
     full_and_filters = []
+    full_match_prefix_filters = []
     full_must_not_filters = []
     full_or_filters = []
     query_range = []
@@ -59,13 +61,20 @@ async def search(  # pylint: disable=too-many-locals
 
     if should_filters:
         full_or_filters = [
-            {"match_phrase_prefix": {key: value}}
+            {"match": {key: value}}
             for attrs in should_filters
             for key, value in attrs.items()
         ]
 
     if range_filters:
         query_range = [{"range": range} for range in range_filters]
+
+    if must_match_prefix_filters:
+        full_match_prefix_filters = [
+            {"match_phrase_prefix": {key: value}}
+            for attrs in must_match_prefix_filters
+            for key, value in attrs.items()
+        ]
 
     full_text_queries = [{"multi_match": {"query": query}}] if query else []
     term_queries = (
@@ -85,6 +94,7 @@ async def search(  # pylint: disable=too-many-locals
                     *full_text_queries,
                     *query_range,
                     *term_queries,
+                    *full_match_prefix_filters,
                 ],
                 "should": [
                     *full_or_filters,
