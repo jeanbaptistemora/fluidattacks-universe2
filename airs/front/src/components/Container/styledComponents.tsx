@@ -59,12 +59,15 @@ const getJustify = (defaultJustify: TJustify, justify?: TJustify): string =>
 
 const getBorder = (
   borderColor?: string,
-  borderBottomColor?: string
+  borderBottomColor?: string,
+  borderTopColor?: string
 ): string => {
   if (borderColor !== undefined) {
     return `border: 1px solid ${borderColor};`;
   } else if (borderBottomColor !== undefined) {
     return `border-bottom: 1px solid ${borderBottomColor};`;
+  } else if (borderTopColor !== undefined) {
+    return `border-top: 1px solid ${borderTopColor};`;
   }
 
   return "";
@@ -167,6 +170,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     bgColor = "transparent",
     borderBottomColor,
     borderColor,
+    borderTopColor,
     direction = "unset",
     display = "block",
     height = "auto",
@@ -198,7 +202,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-y: ${scroll.includes("y") ? "auto" : "unset"};
     transition: all 0.3s ease;
     ${getShadow(shadow)}
-    ${getBorder(borderColor, borderBottomColor)}
+    ${getBorder(borderColor, borderBottomColor, borderTopColor)}
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}

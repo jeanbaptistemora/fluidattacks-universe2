@@ -7,6 +7,7 @@ const Container: React.FC<IContainerProps> = ({
   align,
   bgColor,
   borderBottomColor,
+  borderTopColor,
   borderColor,
   br,
   center,
@@ -52,6 +53,7 @@ const Container: React.FC<IContainerProps> = ({
       bgColor={bgColor}
       borderBottomColor={borderBottomColor}
       borderColor={borderColor}
+      borderTopColor={borderTopColor}
       br={br}
       center={center}
       direction={direction}

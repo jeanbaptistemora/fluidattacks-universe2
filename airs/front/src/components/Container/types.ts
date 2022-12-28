@@ -12,6 +12,7 @@ interface IContainerProps {
   bgColor?: string;
   borderBottomColor?: string;
   borderColor?: string;
+  borderTopColor?: string;
   br?: Nums0To4 | 100;
   center?: boolean;
   children: React.ReactNode;
