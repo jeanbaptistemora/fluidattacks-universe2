@@ -140,6 +140,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       containerDescription={description}
       containerTitle={title}
       data={sortedBlogs}
+      variant={"dark"}
     />
   );
 };

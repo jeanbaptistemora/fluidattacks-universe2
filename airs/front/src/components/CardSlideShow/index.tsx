@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import { SlideContainer } from "./styledComponents";
-import type { ICardSlideShowProps } from "./types";
+import type { ICardSlideShowProps, IVariant, TVariant } from "./types";
 
 import { Button } from "../Button";
 import { Container } from "../Container";
@@ -16,7 +16,23 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
   containerDescription,
   containerTitle,
   data,
+  variant = "light",
 }): JSX.Element => {
+  const variants: Record<TVariant, IVariant> = {
+    dark: {
+      bgColor: "#25252d",
+      button: "darkSecondary",
+      subtitleColor: "#b0b0bf",
+      titleColor: "#fff",
+    },
+    light: {
+      bgColor: "#dddde3",
+      button: "secondary",
+      subtitleColor: "#535365",
+      titleColor: "#25252d",
+    },
+  };
+
   const slideDiv = useRef<HTMLDivElement>(null);
   const cardDiv = useRef<HTMLDivElement>(null);
 
@@ -59,10 +75,10 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
   }, [currentWidth, maxScroll, scroll]);
 
   return (
-    <Container bgColor={"#25252d"} ph={4} pv={5}>
+    <Container bgColor={variants[variant].bgColor} ph={4} pv={5}>
       <Container center={true} mb={3} width={"1237px"}>
         <Title
-          color={"#fff"}
+          color={variants[variant].titleColor}
           level={2}
           mb={1}
           size={"medium"}
@@ -70,7 +86,11 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
         >
           {containerTitle}
         </Title>
-        <Text color={"#b0b0bf"} size={"big"} textAlign={"center"}>
+        <Text
+          color={variants[variant].subtitleColor}
+          size={"big"}
+          textAlign={"center"}
+        >
           {containerDescription}
         </Text>
       </Container>
@@ -105,7 +125,7 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
               icon={<IoIosArrowBack />}
               onClick={scrollLeft}
               size={"lg"}
-              variant={"darkSecondary"}
+              variant={variants[variant].button}
             />
           </Container>
           <Container width={"auto"}>
@@ -114,7 +134,7 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
               icon={<IoIosArrowForward />}
               onClick={scrollRight}
               size={"lg"}
-              variant={"darkSecondary"}
+              variant={variants[variant].button}
             />
           </Container>
         </Container>
