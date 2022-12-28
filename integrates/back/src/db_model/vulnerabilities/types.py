@@ -181,7 +181,7 @@ class FindingVulnerabilitiesZrRequest(NamedTuple):
     verification_status: Optional[VulnerabilityVerificationStatus] = None
 
 
-class FindingVulnerabilitiesToReattackRequest(NamedTuple):
+class FindingVulnerabilitiesRequest(NamedTuple):
     finding_id: str
     after: Optional[str] = None
     first: Optional[int] = None

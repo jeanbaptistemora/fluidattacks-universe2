@@ -118,6 +118,7 @@ from db_model.toe_ports.get import (
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
     EventVulnerabilitiesLoader,
+    FindingVulnerabilitiesDraftConnectionLoader,
     FindingVulnerabilitiesLoader,
     FindingVulnerabilitiesNonDeletedLoader,
     FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader,
@@ -157,6 +158,9 @@ class Dataloaders(NamedTuple):
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulnerabilities: FindingVulnerabilitiesNonDeletedLoader
     finding_vulnerabilities_all: FindingVulnerabilitiesLoader
+    finding_vulnerabilities_draft_c: (
+        FindingVulnerabilitiesDraftConnectionLoader
+    )
     finding_vulnerabilities_released_nzr: (
         FindingVulnerabilitiesReleasedNonZeroRiskLoader
     )
@@ -326,6 +330,9 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         finding=FindingLoader(),
         finding_vulnerabilities=finding_vulns_non_deleted_loader,
         finding_vulnerabilities_all=finding_vulnerabilities_loader,
+        finding_vulnerabilities_draft_c=(
+            FindingVulnerabilitiesDraftConnectionLoader()
+        ),
         finding_vulnerabilities_released_nzr=(
             finding_vulnerabilities_released_nzr_loader
         ),

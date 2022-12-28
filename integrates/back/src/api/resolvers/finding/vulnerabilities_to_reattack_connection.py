@@ -5,7 +5,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.types import (
-    FindingVulnerabilitiesToReattackRequest,
+    FindingVulnerabilitiesRequest,
     VulnerabilitiesConnection,
 )
 from graphql.type.definition import (
@@ -25,7 +25,7 @@ async def resolve(
 ) -> VulnerabilitiesConnection:
     loaders: Dataloaders = info.context.loaders
     return await loaders.finding_vulnerabilities_to_reattack_c.load(
-        FindingVulnerabilitiesToReattackRequest(
+        FindingVulnerabilitiesRequest(
             finding_id=parent.id,
             after=after,
             first=first,
