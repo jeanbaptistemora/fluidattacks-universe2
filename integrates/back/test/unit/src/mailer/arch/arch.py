@@ -11,6 +11,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "mailer": (
         "analytics",
         "findings",
+        "forms",
         "vulnerabilities",
         "groups",
         "types",
