@@ -19,9 +19,6 @@ from graphql import (
     GraphQLResolveInfo,
 )
 import logging
-from newutils.vulnerabilities import (
-    get_inverted_state_converted,
-)
 from search.operations import (
     search,
 )
@@ -150,9 +147,11 @@ def should_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     should_filters = []
 
     if state := kwargs.get("stateStatus"):
-        should_filters.append({"state.status": str(state).upper()})
-        should_filters.append(
-            {"state.status": get_inverted_state_converted(str(state).upper())}
-        )
+        if str(state).upper() in {"OPEN", "VULNERABLE"}:
+            should_filters.append({"state.status": "OPEN"})
+            should_filters.append({"state.status": "VULNERABLE"})
+        else:
+            should_filters.append({"state.status": "CLOSED"})
+            should_filters.append({"state.status": "SAFE"})
 
     return should_filters

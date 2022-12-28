@@ -34,9 +34,6 @@ from newutils.reports import (
     sign_url,
     upload_report,
 )
-from newutils.vulnerabilities import (
-    get_inverted_state_converted,
-)
 from notifications import (
     domain as notifications_domain,
 )
@@ -48,8 +45,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
 )
 
@@ -142,7 +137,7 @@ async def send_report(  # NOSONAR # pylint: disable=too-many-locals
     location: str,
 ) -> None:
     loaders = get_new_context()
-    translations: Dict[str, str] = {
+    translations: dict[str, str] = {
         "CERT": "Certificate",
         "DATA": "Group Data",
         "PDF": "Executive",
@@ -263,15 +258,14 @@ def get_filter_message(  # noqa: MC0001
 async def report(  # pylint: disable=too-many-locals
     *, item: BatchProcessing
 ) -> None:
-    additional_info: Dict[str, Any] = json.loads(item.additional_info)
+    additional_info: dict = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
     treatments = {
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]
     }
     states = {
-        VulnerabilityStateStatus[get_inverted_state_converted(state)]
-        for state in additional_info["states"]
+        VulnerabilityStateStatus[state] for state in additional_info["states"]
     }
     verifications = {
         VulnerabilityVerificationStatus[verification]

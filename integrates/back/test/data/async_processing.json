@@ -3,26 +3,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "a1079bc26d2828021f7cd8b9179634a6913517832da3ea4ed012b6d6fdb0d0c0"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100, \"min_severity\": \"2.7\", \"max_severity\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"VULNERABLE\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100, \"min_severity\": \"1.9\", \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "df55d0dd739320dbbd15171b709bfa618f3cdbdf90e943ba6598700d088f0da5"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1615834776"
+            "S": "1672248198"
           }
         }
       }
@@ -30,26 +30,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "d069c7e7ec55d0f0034d95232ba0de34bb3b3e6d8ef8e862c1614eac187a66a8"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T05:00:00+00:00\", \"finding_title\": \"\", \"age\": 1400, \"min_severity\": null, \"max_severity\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T00:00:00\", \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1656429212"
+            "S": "1672248409"
           }
         }
       }
@@ -57,26 +57,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "e754fcfac4342e65eb5074b51966da1e7dac565e6a39e2768f9539e56daf7c30"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "4ce70266f6f05a7723f2c95d3f50694c4cad1e8c645c80f89af590bede042128"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1616116348"
+            "S": "1672248640"
           }
         }
       }
@@ -84,26 +84,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "c050fa5809cfa2fe7b6896748e47249e36b4c853e8c376fc3402e4f547d9f96f"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "5f99db75a8d263c42a9b2c97b9cc66b9a5112c5aab54af6e59ee91c392ea6304"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1616116348"
+            "S": "1672248905"
           }
         }
       }
@@ -111,26 +111,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "04239bdf3fd6ae9e0441a5ca2b3a6f8ab895bbbc0bd4e2bdf9ddb569d3980c11"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "2df8f29fbe18efeeb309abb98d48c699d4462c3de6ec741c240b7997e6ef467c"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1615834776"
+            "S": "1672249565"
           }
         }
       }
@@ -138,26 +138,26 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": {
-            "S": "5e94cc6a86992afa652a748c0a684b49f89ba94db8102f9bace4222e4adaea05"
-          },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": 1300, \"min_severity\": \"2.9\", \"max_severity\": \"4.3\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": 1300, \"min_severity\": \"2.9\", \"max_severity\": \"4.3\", \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
           },
+          "pk": {
+            "S": "6d17b30e35b0826d0721bb1f23a52dd67365ca9d0bbf8b90572562a07ffeac0b"
+          },
           "queue": {
-            "S": "small"
+            "S": "integrates_medium"
           },
           "subject": {
             "S": "__adminEmail__"
           },
           "time": {
-            "S": "1615834776"
+            "S": "1672247364"
           }
         }
       }
