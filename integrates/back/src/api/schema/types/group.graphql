@@ -50,6 +50,8 @@ type Group {
     after: String
     "The maximum amount of executions to return"
     first: Int
+    "Root nickname"
+    gitRepo: String
     "Search query for execution attributes"
     search: String
     "Type of execution"

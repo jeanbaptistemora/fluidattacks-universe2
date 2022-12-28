@@ -52,6 +52,9 @@ async def resolve(
         limit=first,
         query=query,
         must_filters=executions_filters["must_filters"],
+        must_match_prefix_filters=executions_filters[
+            "must_match_prefix_filters"
+        ],
         exact_filters={"group_name": group_name},
         index="forces_executions",
     )
@@ -77,9 +80,13 @@ async def resolve(
 
 def executions_filter(**kwargs: Any) -> Dict[str, Any]:
     exec_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
+    exec_must_match_prefix_filters: List[
+        Dict[str, Any]
+    ] = must_match_prefix_filter(**kwargs)
 
     filters: Dict[str, Any] = {
         "must_filters": exec_must_filters,
+        "must_match_prefix_filters": exec_must_match_prefix_filters,
     }
 
     return filters
@@ -92,3 +99,12 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
         must_filters.append({"kind": str(execution_type).upper()})
 
     return must_filters
+
+
+def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+    must_match_filters = []
+
+    if repo := kwargs.get("gitRepo"):
+        must_match_filters.append({"repo": str(repo)})
+
+    return must_match_filters
