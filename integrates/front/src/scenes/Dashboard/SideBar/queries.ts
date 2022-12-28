@@ -15,10 +15,12 @@ const GET_ORG_GROUPS: DocumentNode = gql`
 const GET_GROUP_VULNS: DocumentNode = gql`
   query GetGroupVulns($group: String!) {
     group(groupName: $group) {
+      name
       vulnerabilities {
         edges {
           node {
             currentState
+            state
             zeroRisk
           }
         }

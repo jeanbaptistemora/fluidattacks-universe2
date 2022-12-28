@@ -4,7 +4,7 @@ interface IGroupData {
 
 interface INodeData {
   node: {
-    currentState: string;
+    state: string;
     zeroRisk: string;
   };
 }
@@ -17,6 +17,7 @@ interface IGetOrganizationGroups {
 
 interface IGroupTabVulns {
   group: {
+    name: string;
     vulnerabilities: {
       edges: INodeData[];
     };

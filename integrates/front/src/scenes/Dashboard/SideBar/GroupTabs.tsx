@@ -32,7 +32,7 @@ const GroupTabs: FC = (): JSX.Element => {
   const filteredData = dataset.filter(
     (node: INodeData): boolean =>
       (node.node.zeroRisk === "Rejected" || _.isEmpty(node.node.zeroRisk)) &&
-      node.node.currentState === "open"
+      node.node.state === "VULNERABLE"
   );
   const tip = `${t("organization.tabs.groups.vulnerabilities.header")} (${
     filteredData.length
