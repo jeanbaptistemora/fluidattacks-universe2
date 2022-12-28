@@ -58,7 +58,8 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   const handleClose = useCallback((): void => {
     closeFilterReportsModal();
     onClose();
-  }, [onClose, closeFilterReportsModal]);
+    setIsVerifyDialogOpen(false);
+  }, [onClose, closeFilterReportsModal, setIsVerifyDialogOpen]);
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {

@@ -70,9 +70,14 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   const formRef = useRef<FormikProps<IFormValues>>(null);
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
+  const handleClose = useCallback((): void => {
+    onClose();
+    setIsVerifyDialogOpen(false);
+  }, [onClose, setIsVerifyDialogOpen]);
+
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
-      onClose();
+      handleClose();
       closeReportsModal();
       setIsVerifyDialogOpen(false);
       msgSuccess(
@@ -223,7 +228,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     <React.StrictMode>
       <Modal
         minWidth={600}
-        onClose={onClose}
+        onClose={handleClose}
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
       >
