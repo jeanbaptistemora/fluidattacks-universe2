@@ -18,8 +18,10 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     n_attrs = graph.nodes[args.n_id]
-
-    name = node_to_str(graph, n_attrs["label_field_name"])
+    name = None
+    name_id = n_attrs.get("label_field_name")
+    if name_id:
+        name = node_to_str(graph, name_id)
 
     block_id = n_attrs.get("label_field_body")
 

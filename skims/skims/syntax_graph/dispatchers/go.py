@@ -4,6 +4,7 @@ from syntax_graph.syntax_readers.go import (
     binary_expression as go_binary_expression,
     block as go_block,
     call_expression as go_call_expression,
+    comment as go_comment,
     composite_literal as go_composite_literal,
     expression_list as go_expression_list,
     function_declaration as go_function_declaration,
@@ -12,6 +13,7 @@ from syntax_graph.syntax_readers.go import (
     import_declaration as go_import_declaration,
     int_literal as go_int_literal,
     literal_value as go_literal_value,
+    nil as go_nil,
     package_clause as go_package_clause,
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
@@ -21,6 +23,7 @@ from syntax_graph.syntax_readers.go import (
     source_file as go_source_file,
     string_literal as go_string_literal,
     type_declaration as go_type_declaration,
+    unary_expression as go_unary_expression,
     var_declaration as go_var_declaration,
 )
 from syntax_graph.types import (
@@ -62,6 +65,12 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "comment",
+        },
+        syntax_reader=go_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "composite_literal",
         },
         syntax_reader=go_composite_literal.reader,
@@ -74,6 +83,7 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "func_literal",
             "function_declaration",
             "method_declaration",
         },
@@ -112,6 +122,12 @@ GO_DISPATCHERS: Dispatchers = (
             "int_literal",
         },
         syntax_reader=go_int_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "nil",
+        },
+        syntax_reader=go_nil.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -167,6 +183,12 @@ GO_DISPATCHERS: Dispatchers = (
             "type_declaration",
         },
         syntax_reader=go_type_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "unary_expression",
+        },
+        syntax_reader=go_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
