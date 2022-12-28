@@ -111,17 +111,6 @@ def filter_released_and_non_zero_risk(
     )
 
 
-def filter_released(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
-        vuln
-        for vuln in vulnerabilities
-        if vuln.state.status
-        in {VulnerabilityStateStatus.SAFE, VulnerabilityStateStatus.VULNERABLE}
-    )
-
-
 def filter_released_and_zero_risk(
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> tuple[Vulnerability, ...]:

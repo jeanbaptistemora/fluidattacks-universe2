@@ -55,7 +55,7 @@ async def test_update_group_indicators() -> None:
         group_name
     )
     vulnerabilities = (
-        await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]
         )
     )

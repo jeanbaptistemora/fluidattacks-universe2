@@ -116,7 +116,7 @@ async def get_data_vulnerabilities(
 
     vulnerabilities: tuple[
         tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
         [finding.id for finding in findings]
     )
 

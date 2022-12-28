@@ -120,10 +120,10 @@ from db_model.vulnerabilities.get import (
     EventVulnerabilitiesLoader,
     FindingVulnerabilitiesLoader,
     FindingVulnerabilitiesNonDeletedLoader,
-    FindingVulnerabilitiesNonZeroRiskConnectionLoader,
-    FindingVulnerabilitiesNonZeroRiskLoader,
-    FindingVulnerabilitiesOnlyZeroRiskConnectionLoader,
-    FindingVulnerabilitiesOnlyZeroRiskLoader,
+    FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader,
+    FindingVulnerabilitiesReleasedNonZeroRiskLoader,
+    FindingVulnerabilitiesReleasedZeroRiskConnectionLoader,
+    FindingVulnerabilitiesReleasedZeroRiskLoader,
     FindingVulnerabilitiesToReattackConnectionLoader,
     RootVulnerabilitiesLoader,
     VulnerabilityHistoricStateLoader,
@@ -157,16 +157,20 @@ class Dataloaders(NamedTuple):
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulnerabilities: FindingVulnerabilitiesNonDeletedLoader
     finding_vulnerabilities_all: FindingVulnerabilitiesLoader
-    finding_vulnerabilities_nzr: FindingVulnerabilitiesNonZeroRiskLoader
-    finding_vulnerabilities_nzr_c: (
-        FindingVulnerabilitiesNonZeroRiskConnectionLoader
+    finding_vulnerabilities_released_nzr: (
+        FindingVulnerabilitiesReleasedNonZeroRiskLoader
+    )
+    finding_vulnerabilities_released_nzr_c: (
+        FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader
+    )
+    finding_vulnerabilities_released_zr: (
+        FindingVulnerabilitiesReleasedZeroRiskLoader
+    )
+    finding_vulnerabilities_released_zr_c: (
+        FindingVulnerabilitiesReleasedZeroRiskConnectionLoader
     )
     finding_vulnerabilities_to_reattack_c: (
         FindingVulnerabilitiesToReattackConnectionLoader
-    )
-    finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
-    finding_vulnerabilities_zr_c: (
-        FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
     forces_execution: ForcesExecutionLoader
     root_environment_urls: RootEnvironmentUrlsLoader
@@ -261,13 +265,13 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     finding_vulns_non_deleted_loader = FindingVulnerabilitiesNonDeletedLoader(
         finding_vulnerabilities_loader
     )
-    finding_vulnerabilities_nzr_loader = (
-        FindingVulnerabilitiesNonZeroRiskLoader(
+    finding_vulnerabilities_released_nzr_loader = (
+        FindingVulnerabilitiesReleasedNonZeroRiskLoader(
             finding_vulns_non_deleted_loader
         )
     )
-    finding_vulnerabilities_zr_loader = (
-        FindingVulnerabilitiesOnlyZeroRiskLoader(
+    finding_vulnerabilities_released_zr_loader = (
+        FindingVulnerabilitiesReleasedZeroRiskLoader(
             finding_vulns_non_deleted_loader
         )
     )
@@ -322,16 +326,20 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         finding=FindingLoader(),
         finding_vulnerabilities=finding_vulns_non_deleted_loader,
         finding_vulnerabilities_all=finding_vulnerabilities_loader,
-        finding_vulnerabilities_nzr=finding_vulnerabilities_nzr_loader,
-        finding_vulnerabilities_nzr_c=(
-            FindingVulnerabilitiesNonZeroRiskConnectionLoader()
+        finding_vulnerabilities_released_nzr=(
+            finding_vulnerabilities_released_nzr_loader
+        ),
+        finding_vulnerabilities_released_nzr_c=(
+            FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader()
+        ),
+        finding_vulnerabilities_released_zr=(
+            finding_vulnerabilities_released_zr_loader
+        ),
+        finding_vulnerabilities_released_zr_c=(
+            FindingVulnerabilitiesReleasedZeroRiskConnectionLoader()
         ),
         finding_vulnerabilities_to_reattack_c=(
             FindingVulnerabilitiesToReattackConnectionLoader()
-        ),
-        finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
-        finding_vulnerabilities_zr_c=(
-            FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         forces_execution=ForcesExecutionLoader(),
         root_environment_urls=RootEnvironmentUrlsLoader(),

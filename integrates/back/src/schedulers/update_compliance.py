@@ -87,7 +87,7 @@ async def get_open_vulnerabilities(
     finding: Finding,
 ) -> tuple[Vulnerability, ...]:
     connections: VulnerabilitiesConnection = (
-        await loaders.finding_vulnerabilities_nzr_c.load(
+        await loaders.finding_vulnerabilities_released_nzr_c.load(
             FindingVulnerabilitiesZrRequest(
                 finding_id=finding.id,
                 paginate=False,
@@ -126,7 +126,7 @@ async def get_closed_vulnerabilities(
     finding: Finding,
 ) -> tuple[Vulnerability, ...]:
     connections: VulnerabilitiesConnection = (
-        await loaders.finding_vulnerabilities_nzr_c.load(
+        await loaders.finding_vulnerabilities_released_nzr_c.load(
             FindingVulnerabilitiesZrRequest(
                 finding_id=finding.id,
                 paginate=False,

@@ -111,7 +111,7 @@ async def process_finding(
     ] = await loaders.finding_historic_state.load(finding.id)
 
     has_report_date_changed = False
-    vulns = await loaders.finding_vulnerabilities_nzr.load(finding.id)
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding.id)
     if vulns:
         vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
             vulns

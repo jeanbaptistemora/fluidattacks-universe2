@@ -109,7 +109,7 @@ mocked_paths: Dict[str, str] = {
     "events_model.update_state": "db_model.events.update_state",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
-    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained",  # noqa: E501
+    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
     "get_user_level_role": "authz.policy.get_user_level_role",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
@@ -467,7 +467,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
     },
-    "db_model.vulnerabilities.get.FindingVulnerabilitiesNonZeroRiskLoader.load_many_chained": {  # noqa: E501
+    "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained": {  # noqa: E501
         '["463558592", "422286126"]': tuple(
             (
                 Vulnerability(

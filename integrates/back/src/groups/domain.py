@@ -749,7 +749,7 @@ async def get_closed_vulnerabilities(
     )
     findings_vulns: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
@@ -796,7 +796,7 @@ async def get_vulnerabilities_with_pending_attacks(
     )
     vulnerabilities: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     return len(
@@ -1008,7 +1008,7 @@ async def get_open_vulnerabilities(
     )
     findings_vulns: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         [finding.id for finding in group_findings]
     )
 
@@ -1779,7 +1779,7 @@ async def get_treatment_summary(
         for finding in findings
         if not findings_domain.is_deleted(finding)
     )
-    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulns: tuple[
         Vulnerability, ...
     ] = await finding_vulns_loader.load_many_chained(

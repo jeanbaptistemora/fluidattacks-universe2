@@ -408,7 +408,7 @@ async def get_open_vulnerabilities_specific_by_type(
 ) -> dict[str, tuple[Vulnerability, ...]]:
     vulns: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
+    ] = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
     ports_vulns = tuple(
         vuln
@@ -1104,7 +1104,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
 
     if any([description.specific is not None, description.where is not None]):
         vulnerabilities_connection: VulnerabilitiesConnection = (
-            await loaders.finding_vulnerabilities_nzr_c.load(
+            await loaders.finding_vulnerabilities_released_nzr_c.load(
                 FindingVulnerabilitiesZrRequest(
                     finding_id=vulnerability.finding_id,
                     paginate=False,
@@ -1113,7 +1113,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
             )
         )
         zr_vulnerabilities_connection: VulnerabilitiesConnection = (
-            await loaders.finding_vulnerabilities_zr_c.load(
+            await loaders.finding_vulnerabilities_released_zr_c.load(
                 FindingVulnerabilitiesZrRequest(
                     finding_id=vulnerability.finding_id,
                     paginate=False,

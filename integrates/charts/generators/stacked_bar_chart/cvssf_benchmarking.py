@@ -94,14 +94,12 @@ async def get_group_data(
             for finding in group_findings
         }
     )
-
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         chain.from_iterable(
             await collect(
                 tuple(
-                    loaders.finding_vulnerabilities_nzr.load_many_chained(
-                        chuncked_findings
-                    )
+                    finding_vulns_loader.load_many_chained(chuncked_findings)
                     for chuncked_findings in chunked(
                         [finding.id for finding in group_findings], 8
                     )

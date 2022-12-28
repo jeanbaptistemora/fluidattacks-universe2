@@ -223,7 +223,7 @@ async def generate_one(
     }
     vulnerabilities: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
 

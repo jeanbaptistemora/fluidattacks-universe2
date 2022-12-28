@@ -59,7 +59,7 @@ async def get_data_one_group(
     }
 
     vulnerabilities = (
-        await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             finding_ids
         )
     )

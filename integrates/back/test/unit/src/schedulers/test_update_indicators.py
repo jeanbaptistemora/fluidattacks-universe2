@@ -117,10 +117,9 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         findings: tuple[Finding, ...] = await loaders.group_findings.load(
             "unittesting"
         )
-        vulnerabilities = (
-            await loaders.finding_vulnerabilities_nzr.load_many_chained(
-                [finding.id for finding in findings]
-            )
+        finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
+        vulnerabilities = await finding_vulns_loader.load_many_chained(
+            [finding.id for finding in findings]
         )
         findings_severity: dict[str, Decimal] = {
             finding.id: get_severity_score(finding.severity)
@@ -242,10 +241,9 @@ async def test_get_status_vulns_by_time_range(
         findings: tuple[Finding, ...] = await loaders.group_findings.load(
             "unittesting"
         )
-        vulnerabilities = (
-            await loaders.finding_vulnerabilities_nzr.load_many_chained(
-                [finding.id for finding in findings]
-            )
+        finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
+        vulnerabilities = await finding_vulns_loader.load_many_chained(
+            [finding.id for finding in findings]
         )
         findings_severity: dict[str, Decimal] = {
             finding.id: get_severity_score(finding.severity)

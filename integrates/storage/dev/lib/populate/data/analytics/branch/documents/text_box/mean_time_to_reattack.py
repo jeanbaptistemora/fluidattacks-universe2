@@ -182,7 +182,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
 
     all_vulnerabilities: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     vulnerabilities: tuple[Vulnerability, ...] = tuple(

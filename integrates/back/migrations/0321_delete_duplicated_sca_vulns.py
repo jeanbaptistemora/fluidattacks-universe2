@@ -160,7 +160,7 @@ async def main() -> None:
     ]
     sca_vulns: Tuple[
         Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
         [finding.id for finding in sca_findings]
     )
     num_findings: int = len(sca_findings)

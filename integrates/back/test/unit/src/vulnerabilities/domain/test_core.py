@@ -251,7 +251,7 @@ async def test_get_reattack_requester() -> None:
 )
 async def test_get_treatments(finding_id: str, expected: List[int]) -> None:
     context = get_new_context()
-    finding_vulns_loader = context.finding_vulnerabilities_nzr
+    finding_vulns_loader = context.finding_vulnerabilities_released_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     treatments = get_treatments_count(vulns)
     assert treatments.accepted == expected[0]

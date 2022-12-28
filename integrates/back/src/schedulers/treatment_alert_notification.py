@@ -88,7 +88,7 @@ async def expiring_vulnerabilities(
 ) -> Dict[str, Dict[str, int]]:
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
+    ] = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     return {
         finding_id: {
             f"{vulnerability.state.where}"

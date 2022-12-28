@@ -99,7 +99,7 @@ async def get_group_data(
         chain.from_iterable(
             await collect(
                 tuple(
-                    loaders.finding_vulnerabilities_nzr.load_many_chained(
+                    loaders.finding_vulnerabilities_released_nzr.load_many_chained(
                         chuncked_findings
                     )
                     for chuncked_findings in chunked(

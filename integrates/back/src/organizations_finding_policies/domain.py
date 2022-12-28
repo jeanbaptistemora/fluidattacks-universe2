@@ -230,7 +230,7 @@ async def update_finding_policy_in_groups(
         return [], []
     vulns: tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
         findings_ids
     )
 

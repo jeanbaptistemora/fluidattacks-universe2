@@ -49,7 +49,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     }
 
     vulnerabilities = (
-        await context.finding_vulnerabilities_nzr.load_many_chained(
+        await context.finding_vulnerabilities_released_nzr.load_many_chained(
             finding_ids
         )
     )

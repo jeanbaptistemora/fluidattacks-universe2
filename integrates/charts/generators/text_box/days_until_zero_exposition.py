@@ -37,7 +37,9 @@ async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
     )
     finding_vulns: tuple[
         tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many(findings_ids)
+    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
+        findings_ids
+    )
 
     counter: Decimal = Decimal("0.0")
     for finding, vulnerabilities in zip(group_findings, finding_vulns):

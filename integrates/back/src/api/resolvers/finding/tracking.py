@@ -45,7 +45,7 @@ async def resolve(
         return []
 
     loaders: Dataloaders = info.context.loaders
-    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulns = await finding_vulns_loader.load(parent.id)
     vulnerabilities_id = tuple(vuln.id for vuln in vulns)
     vulns_state, vulns_treatment = await collect(

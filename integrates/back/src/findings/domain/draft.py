@@ -78,7 +78,9 @@ async def approve_draft(
     if finding.state.status != FindingStateStatus.SUBMITTED:
         raise NotSubmitted()
 
-    nzr_vulns = await loaders.finding_vulnerabilities_nzr.load(finding_id)
+    nzr_vulns = await loaders.finding_vulnerabilities_released_nzr.load(
+        finding_id
+    )
     if not nzr_vulns:
         raise DraftWithoutVulns()
 
@@ -217,7 +219,7 @@ async def submit_draft(
     user_email: str,
     source: Source,
 ) -> None:
-    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
 

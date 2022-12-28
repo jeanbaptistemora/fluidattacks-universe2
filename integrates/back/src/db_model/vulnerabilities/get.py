@@ -10,7 +10,6 @@ from .types import (
 )
 from .utils import (
     filter_non_deleted,
-    filter_released,
     filter_released_and_non_zero_risk,
     filter_released_and_zero_risk,
     format_state,
@@ -185,7 +184,7 @@ async def _get_finding_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
-async def _get_finding_vulnerabilities_zr(
+async def _get_finding_vulnerabilities_released_zr(
     is_zero_risk: bool,
     request: FindingVulnerabilitiesZrRequest,
 ) -> VulnerabilitiesConnection:
@@ -374,7 +373,7 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
         )
 
 
-class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
+class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -396,41 +395,20 @@ class FindingVulnerabilitiesNonZeroRiskLoader(DataLoader):
         )
 
 
-class FindingVulnerabilitiesNonZeroRiskReleasedLoader(DataLoader):
-    def __init__(self, dataloader: DataLoader) -> None:
-        super().__init__()
-        self.dataloader = dataloader
-
-    async def load_many_chained(
-        self, finding_ids: list[str]
-    ) -> tuple[Vulnerability, ...]:
-        unchained_data = await self.load_many(finding_ids)
-        return tuple(chain.from_iterable(unchained_data))
-
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, finding_ids: list[str]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
-        findings_vulns = await self.dataloader.load_many(finding_ids)
-        return tuple(
-            filter_released(finding_vulns) for finding_vulns in findings_vulns
-        )
-
-
-class FindingVulnerabilitiesNonZeroRiskConnectionLoader(DataLoader):
+class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
-                _get_finding_vulnerabilities_zr(False, request)
+                _get_finding_vulnerabilities_released_zr(False, request)
                 for request in requests
             )
         )
 
 
-class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
+class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -446,14 +424,14 @@ class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
         )
 
 
-class FindingVulnerabilitiesOnlyZeroRiskConnectionLoader(DataLoader):
+class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
-                _get_finding_vulnerabilities_zr(True, request)
+                _get_finding_vulnerabilities_released_zr(True, request)
                 for request in requests
             )
         )
@@ -466,7 +444,7 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
     ) -> tuple[VulnerabilitiesConnection, ...]:
         return await collect(
             tuple(
-                _get_finding_vulnerabilities_zr(
+                _get_finding_vulnerabilities_released_zr(
                     False,
                     FindingVulnerabilitiesZrRequest(
                         finding_id=request.finding_id,

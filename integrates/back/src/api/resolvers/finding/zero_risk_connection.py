@@ -35,7 +35,7 @@ async def resolve(
     **_kwargs: None,
 ) -> VulnerabilitiesConnection:
     loaders: Dataloaders = info.context.loaders
-    return await loaders.finding_vulnerabilities_zr_c.load(
+    return await loaders.finding_vulnerabilities_released_zr_c.load(
         FindingVulnerabilitiesZrRequest(
             finding_id=parent.id,
             after=after,
