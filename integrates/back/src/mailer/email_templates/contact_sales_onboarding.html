@@ -1,0 +1,29 @@
+{% extends "layouts/common.html" %} {% block layout %}
+<div class="container">
+  {% include 'layouts/components/dark_logo_header.html' %} {% include
+  'layouts/components/arm_banner.html' %}
+
+  <div class="main-content">
+    <strong>
+      <p style="display: flex; align-items: center; justify-content: center">
+        Hi, you have a new lead from the 'contact sale' form of the free trial
+        onboarding.
+      </p>
+    </strong>
+    <p>
+      The following user is interested in learning more about all the benefits
+      of getting the Squad plan.
+    </p>
+    <br />
+
+    <ul>
+      <li><strong>Email:</strong> {{ lead_email }}</li>
+      <br />
+      <li><strong>Name:</strong> {{ lead_name }}</li>
+      <br />
+      <li><strong>Number:</strong> {{ national_number }}</li>
+    </ul>
+  </div>
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
