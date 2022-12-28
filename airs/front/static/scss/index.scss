@@ -373,6 +373,62 @@ body {
 
 // Custom elements
 
+.new-internal {
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #b0b0bf;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #5c5c70;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+  }
+
+  .imgblock img {
+    display: block;
+    margin: auto;
+  }
+
+  .imgblock .title p {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  code {
+    background-color: $lighter-gray;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px;
+  }
+
+  code.hljs {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 1rem;
+  }
+
+  li {
+    color: #535365;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  ::marker {
+    font-size: 1rem !important;
+  }
+}
+
 .bs-product-image { filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.1)); }
 
 .resource-home-card {
