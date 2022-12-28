@@ -25,17 +25,42 @@ locals {
           Resource = ["*"]
         },
         {
-          Sid    = "batchWrite"
+          Sid    = "batchTags"
+          Effect = "Allow"
+          Action = [
+            "batch:TagResource",
+            "batch:UntagResource",
+          ]
+          Resource = [
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
+          ]
+          "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "sorts" } }
+        },
+        {
+          Sid    = "batchCancel"
           Effect = "Allow"
           Action = [
             "batch:CancelJob",
-            "batch:SubmitJob",
             "batch:TerminateJob",
           ]
           Resource = [
-            "arn:aws:batch:${var.region}:${data.aws_caller_identity.main.account_id}:job-definition/*",
-            "arn:aws:batch:${var.region}:${data.aws_caller_identity.main.account_id}:job-queue/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
           ]
+          "Condition" : { "StringEquals" : { "aws:ResourceTag/management:product" : "sorts" } }
+        },
+        {
+          Sid    = "batchSubmit"
+          Effect = "Allow"
+          Action = [
+            "batch:SubmitJob",
+          ]
+          Resource = [
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
+          ]
+          "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "sorts" } }
         },
         {
           Sid    = "cloudwatchRead"
@@ -144,20 +169,6 @@ locals {
           Resource = [
             var.terraform_state_lock_arn,
           ]
-        },
-        {
-          Sid    = "batchTags"
-          Effect = "Allow"
-          Action = [
-            "batch:TagResource",
-            "batch:UntagResource",
-          ]
-          Resource = [
-            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
-            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
-            "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
-          ]
-          "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "sorts" } }
         },
       ]
     }
