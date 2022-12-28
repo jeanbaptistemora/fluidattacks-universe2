@@ -54,6 +54,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/tribe-of-hackers-2/",
       "/blog/what-is-red-team-in-cyber-security/",
       "/blog/red-team-exercise/",
+      "/blog/what-is-breach-attack-simulation/",
     ],
     devsecops: [
       "/blog/why-is-cloud-devsecops-important/",
@@ -101,10 +102,11 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/what-is-mast/",
       "/blog/what-is-ptaas/",
       "/blog/reverse-engineering/",
-      "/blog/differences-between-sast-sca-dast/",
       "/blog/stand-shoulders-giants/",
       "/blog/sca-scans/",
       "/blog/sastisfying-app-security/",
+      "/blog/casa-approved-static-scanning/",
+      "/blog/differences-between-sast-sca-dast/",
     ],
     vulnerabilityManagement: [
       "/blog/aws-devsecops-with-fluid-attacks/",
