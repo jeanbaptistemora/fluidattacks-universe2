@@ -24,6 +24,7 @@ function determine_schemas {
     | tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
       --schema-folder "${schemas}" \
+      --not-dump-records \
     && echo '[INFO] Saving schemas...' \
     && aws_s3_sync "${schemas}" "${cache_bucket}" \
     && echo '[INFO] Schemas saved!'

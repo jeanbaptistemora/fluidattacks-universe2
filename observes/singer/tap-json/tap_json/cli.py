@@ -23,13 +23,20 @@ from typing import (
     default=None,
     help="Path to directory for input/output of the schemas",
 )
+@click.option(  # type: ignore[misc]
+    "--not-dump-records",
+    is_flag=True,
+    help="Do not stream records",
+)
 def main(
     date_formats: Optional[str],
     schema_cache: bool,
     schema_folder: Optional[str],
+    not_dump_records: bool,
 ) -> None:
     tap_json.main(
         date_formats.split(",") if date_formats else [],
         schema_cache,
         schema_folder,
+        not not_dump_records,
     )

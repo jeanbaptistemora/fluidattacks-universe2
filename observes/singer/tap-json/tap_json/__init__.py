@@ -314,6 +314,7 @@ def choose_type(types: List[str]) -> str:
 
 
 def dump_schema(table: str, schemas_dir: str) -> None:
+    LOG.info("dumping schema: %s", table)
     pschema = json_from_file(f"{schemas_dir}/{table}")
     props = {}
     for key, fts in pschema.items():
@@ -349,6 +350,7 @@ def emit_record(
 
 
 def dump_records(table: str, schemas_dir: str) -> None:
+    LOG.info("dumping records: %s", table)
     pschema = json_from_file(f"{schemas_dir}/{table}")
     path = Path(RECORDS_DIR) / Path(table)
     if not path.exists():
@@ -376,8 +378,11 @@ def dump_records(table: str, schemas_dir: str) -> None:
     return None
 
 
-def main(
-    date_formats: List[str], use_cache: bool, schema_folder: Optional[str]
+def main(  # NOSONAR
+    date_formats: List[str],
+    use_cache: bool,
+    schema_folder: Optional[str],
+    stream_records: bool,
 ) -> None:
     """Usual entry point."""
 
@@ -390,6 +395,7 @@ def main(
     prepare_env()
 
     for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
+        LOG.info("Processing stream...")
         with contextlib.suppress(JSONDecodeError):
             stream_stru = loads(stream)
             _type = stream_stru.get("type")
@@ -403,7 +409,8 @@ def main(
     # Parse everything to singer
     for schema in os.listdir(_schemas_dir):
         dump_schema(schema, _schemas_dir)
-        dump_records(schema, _schemas_dir)
+        if stream_records:
+            dump_records(schema, _schemas_dir)
     if os.path.exists(f"{STATE_DIR}/states"):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
