@@ -115,6 +115,54 @@ Run the Docker image:
      docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token> --breaking 4.5
      ```
 
+## Examples in some CI\CD
+
+In `GitLab` add these lines to your `.gitlab-ci.yml`
+
+```yaml
+forces:
+  image:
+    name: fluidattacks/forces:new
+  script:
+    - forces --token <your-token> --strict --repo-name <repository name>
+```
+
+In `Azure DevOps` add these lines to you configuration file:
+
+```yaml
+jobs:
+  - forces:
+    container: fluidattacks/forces:new
+    options: --volume "$PWD:/src"
+    steps:
+    - bash: forces --token <your-token> --repo-name <repository name>
+```
+
+In `Jenkins`, the configuration file should look like this:
+
+```groovy
+pipeline {
+  agent {
+    label 'label'
+  }
+  environment {
+    TOKEN = "test"
+  }
+  stages {
+    stage('Forces') {
+      steps {
+        script {
+          sh """
+            docker pull fluidattacks/forces:new
+            docker run --volume "$PWD:/src" fluidattacks/forces:new forces --token ${TOKEN} --repo-name <repository name>
+          """
+        }
+      }
+    }
+  }
+}
+```
+
 ## Troubleshooting
 
 1. Please make sure that your Docker engine version is >= 20.10.10.
