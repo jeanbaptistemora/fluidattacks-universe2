@@ -200,7 +200,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
               <DashboardNavBar userRole={userRole} />
               <div className={"flex flex-auto flex-row"}>
                 <Switch>
-                  <DashboardSideBar />
+                  <authzPermissionsContext.Provider
+                    value={organizationLevelPermissions}
+                  >
+                    <DashboardSideBar />
+                  </authzPermissionsContext.Provider>
                 </Switch>
                 <DashboardContent id={"dashboard"}>
                   <Switch>
