@@ -49,6 +49,7 @@ in
         pythonRequirements
         outputs."/common/utils/safe-pickle"
         outputs."/common/utils/serializers"
+        outputs."/common/utils/git_self"
       ];
     };
   }

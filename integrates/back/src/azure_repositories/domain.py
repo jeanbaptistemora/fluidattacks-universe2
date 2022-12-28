@@ -61,6 +61,9 @@ from dynamodb.exceptions import (
 from git.cmd import (
     Git,
 )
+from git_self import (
+    pull_repositories,
+)
 import hashlib
 from itertools import (
     chain,
@@ -71,9 +74,6 @@ import logging.config
 from newutils.datetime import (
     DEFAULT_ISO_STR,
     get_now_minus_delta,
-)
-from newutils.git_self import (
-    pull_repositories,
 )
 from organizations.domain import (
     get_group_names,

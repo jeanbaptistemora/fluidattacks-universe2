@@ -1,20 +1,8 @@
-from aioextensions import (
-    in_thread,
-)
 import asyncio
 import base64
-from context import (
-    SERVICES_GITLAB_API_TOKEN,
-    SERVICES_GITLAB_API_USER,
-)
-from contextlib import (
-    suppress,
-)
-from custom_exceptions import (
-    InvalidParameter,
-)
 from datetime import (
     datetime,
+    timezone,
 )
 from git.exc import (
     GitCommandError,
@@ -23,21 +11,12 @@ from git.repo import (
     Repo,
 )
 import logging
-from newutils import (
-    datetime as datetime_utils,
-)
 import os
-from settings.logger import (
-    LOGGING,
-)
 import tempfile
 from typing import (
     NamedTuple,
     Optional,
     Tuple,
-)
-from unidiff import (
-    PatchSet,
 )
 from urllib.parse import (
     quote,
@@ -45,8 +24,6 @@ from urllib.parse import (
     urlparse,
 )
 import uuid
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -64,19 +41,20 @@ class RebaseResult(NamedTuple):
     rev: str
 
 
-def clone_services_repository(path: str) -> None:
-    """Clone the services repository into a local directory"""
-    repo_url = (
-        f"https://{SERVICES_GITLAB_API_USER}:{SERVICES_GITLAB_API_TOKEN}"
-        "@gitlab.com/fluidattacks/services.git"
-    )
-    Repo.clone_from(
-        repo_url,
-        path,
-        multi_options=[
-            "--depth=1",
-        ],
-    )
+class InvalidParameter(Exception):
+    """Exception to control empty required parameters"""
+
+    def __init__(self, field: str = "") -> None:
+        """Constructor"""
+        if field:
+            msg = f"Exception - Field {field} is invalid"
+        else:
+            msg = "Exception - Error value is not valid"
+        super().__init__(msg)
+
+
+def _get_as_utc_iso_format(date: datetime) -> str:
+    return date.astimezone(tz=timezone.utc).isoformat()
 
 
 async def disable_quotepath(git_path: str) -> None:
@@ -92,17 +70,14 @@ async def disable_quotepath(git_path: str) -> None:
 async def get_last_commit_author(repo: Repo, filename: str) -> str:
     """Get the last commiter's email of a file"""
     return str(
-        await in_thread(
-            repo.git.log, "--max-count", "1", "--format=%ce", "--", filename
-        )
+        repo.git.log("--max-count", "1", "--format=%ce", "--", filename)
     )
 
 
 async def get_last_commit_info(repo: Repo, filename: str) -> CommitInfo:
     """Get last hash of a file in the repo"""
     git_log = str(
-        await in_thread(
-            repo.git.log,
+        repo.git.log(
             "--max-count",
             "1",
             "--format=%H%n%ce%n%cI",
@@ -119,19 +94,14 @@ async def get_last_commit_info(repo: Repo, filename: str) -> CommitInfo:
 
 async def get_last_commit_hash(repo: Repo, filename: str) -> str:
     """Get last hash of a file in the repo"""
-    return str(
-        await in_thread(
-            repo.git.log, "--max-count", "1", "--format=%H", "--", filename
-        )
-    )
+    return str(repo.git.log("--max-count", "1", "--format=%H", "--", filename))
 
 
 async def get_last_modified_date(repo: Repo, filename: str) -> str:
     """Get last modified date of a file in the repo"""
-    return datetime_utils.get_as_utc_iso_format(
+    return _get_as_utc_iso_format(
         datetime.fromisoformat(
-            await in_thread(
-                repo.git.log,
+            repo.git.log(
                 "--max-count",
                 "1",
                 "--format=%cI",
@@ -362,29 +332,6 @@ async def https_clone(
     )
 
     return (None, stderr.decode("utf-8"))
-
-
-def get_diff(
-    repo: Repo,
-    *,
-    rev_a: str,
-    rev_b: str,
-    path: Optional[str] = None,
-) -> Optional[PatchSet]:
-    with suppress(GitCommandError):
-        return PatchSet(
-            repo.git.diff(
-                "--color=never",
-                "--minimal",
-                "--patch",
-                "--unified=0",
-                f"{rev_a}...{rev_b}",
-                "--",
-                *((path,) if path else tuple()),
-            ),
-        )
-
-    return None
 
 
 def rebase(

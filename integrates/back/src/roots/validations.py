@@ -37,10 +37,10 @@ from git.cmd import (
 from git.exc import (
     GitCommandError,
 )
+import git_self
 from ipaddress import (
     ip_address,
 )
-import newutils.git_self
 from organizations import (
     utils as orgs_utils,
 )
@@ -353,7 +353,7 @@ def validate_nickname(nickname: str) -> None:
 async def _validate_git_credentials_ssh(
     repo_url: str, branch: str, credential_key: str
 ) -> None:
-    last_commit = await newutils.git_self.ssh_ls_remote(
+    last_commit = await git_self.ssh_ls_remote(
         repo_url=repo_url,
         branch=branch,
         credential_key=credential_key,
@@ -372,7 +372,7 @@ async def _validate_git_credentials_https(
     password: Optional[str] = None,
     token: Optional[str] = None,
 ) -> None:
-    last_commit = await newutils.git_self.https_ls_remote(
+    last_commit = await git_self.https_ls_remote(
         branch=branch,
         repo_url=repo_url,
         password=password,

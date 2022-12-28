@@ -37,7 +37,7 @@ from db_model.vulnerabilities.types import (
 from git import (
     Repo,
 )
-from newutils.git_self import (
+from git_self import (
     RebaseResult,
 )
 from organizations import (

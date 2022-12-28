@@ -26,14 +26,14 @@ from db_model.roots.update import (
 from db_model.types import (
     CodeLanguage,
 )
+from git_self import (
+    pull_repositories,
+)
 from groups import (
     domain as groups_domain,
 )
 import json
 import logging
-from newutils.git_self import (
-    pull_repositories,
-)
 from organizations import (
     domain as orgs_domain,
 )

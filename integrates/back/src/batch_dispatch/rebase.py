@@ -52,12 +52,10 @@ from git.exc import (
 from git.repo.base import (
     Repo,
 )
+import git_self as git_utils
 import json
 import logging
 import logging.config
-from newutils import (
-    git_self as git_utils,
-)
 from newutils.vulnerabilities import (
     get_advisories,
     ignore_advisories,

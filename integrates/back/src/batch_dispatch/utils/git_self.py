@@ -26,10 +26,8 @@ from git.exc import (
 from git.repo.base import (
     Repo,
 )
+import git_self as git_utils
 import logging
-from newutils import (
-    git_self as git_utils,
-)
 from settings.logger import (
     LOGGING,
 )

@@ -22,7 +22,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "stakeholders",
         "subscriptions",
         "validations",
-        "git_self",
         "organizations",
         "vulnerabilities",
         "templates",

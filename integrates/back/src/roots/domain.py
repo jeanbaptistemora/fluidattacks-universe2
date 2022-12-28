@@ -106,6 +106,10 @@ from db_model.roots.types import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+import git_self
+from git_self import (
+    ssh_ls_remote,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -122,10 +126,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     validations as validation_utils,
-)
-import newutils.git_self
-from newutils.git_self import (
-    ssh_ls_remote,
 )
 from notifications import (
     domain as notifications_domain,
@@ -1891,13 +1891,13 @@ async def _ls_remote_root(root: GitRoot, cred: Credentials) -> Optional[str]:
             repo_url=root.state.url, credential_key=cred.state.secret.key
         )
     elif isinstance(cred.state.secret, HttpsSecret):
-        last_commit = await newutils.git_self.https_ls_remote(
+        last_commit = await git_self.https_ls_remote(
             repo_url=root.state.url,
             user=cred.state.secret.user,
             password=cred.state.secret.password,
         )
     elif isinstance(cred.state.secret, HttpsPatSecret):
-        last_commit = await newutils.git_self.https_ls_remote(
+        last_commit = await git_self.https_ls_remote(
             repo_url=root.state.url,
             token=cred.state.secret.token,
         )

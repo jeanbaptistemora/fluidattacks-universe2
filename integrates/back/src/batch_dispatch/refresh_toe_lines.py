@@ -47,11 +47,11 @@ from git.objects.blob import (
 from git.repo import (
     Repo,
 )
+import git_self as git_utils
 import logging
 import logging.config
 from newutils import (
     files as files_utils,
-    git_self as git_utils,
 )
 import os
 from settings import (

@@ -12,10 +12,8 @@ from batch_dispatch import (
 from dataloaders import (
     get_new_context,
 )
+import git_self
 import glob
-from newutils import (
-    git_self,
-)
 import os
 import shutil
 import sys
