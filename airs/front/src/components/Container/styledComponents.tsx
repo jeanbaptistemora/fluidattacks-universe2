@@ -19,6 +19,7 @@ const aligns: Record<TAlign, string> = {
 
 const directions: Record<TDirection, string> = {
   column: "column",
+  reverse: "row-reverse",
   row: "row",
   unset: "unset",
 };

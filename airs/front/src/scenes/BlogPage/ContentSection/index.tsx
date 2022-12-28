@@ -43,17 +43,18 @@ const ContentSection: React.FC<IContentProps> = ({
     <Container ph={4} pv={5}>
       <Container
         center={true}
+        direction={"reverse"}
         display={"flex"}
         maxWidth={"1440px"}
         wrap={"wrap"}
       >
-        <Container width={"15%"} widthSm={"100%"}>
-          <ShareSection slug={slug} />
-        </Container>
         <Container width={"85%"} widthSm={"100%"}>
           <Container center={true} maxWidth={"1000px"}>
             <div className={"new-internal"}>{renderAst(htmlAst)}</div>
           </Container>
+        </Container>
+        <Container width={"15%"} widthSm={"100%"}>
+          <ShareSection slug={slug} />
         </Container>
       </Container>
     </Container>

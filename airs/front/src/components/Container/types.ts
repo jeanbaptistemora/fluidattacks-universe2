@@ -1,7 +1,7 @@
 type Nums0To4 = 0 | 1 | 2 | 3 | 4;
 type Nums0To7 = Nums0To4 | 5 | 6 | 7;
 type TAlign = "center" | "end" | "start" | "stretch" | "unset";
-type TDirection = "column" | "row" | "unset";
+type TDirection = "column" | "reverse" | "row" | "unset";
 type TDisplay = "block" | "flex" | "ib" | "inline" | "none";
 type TJustify = "around" | "between" | "center" | "end" | "start" | "unset";
 type TWrap = "nowrap" | "unset" | "wrap";
