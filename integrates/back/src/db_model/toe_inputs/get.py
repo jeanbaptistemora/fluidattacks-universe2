@@ -38,6 +38,7 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
+    Union,
 )
 
 
@@ -90,7 +91,7 @@ class ToeInputLoader(DataLoader):
 
 async def _get_historic_toe_input(
     request: ToeInputRequest,
-) -> tuple[ToeInput, ...]:
+) -> Union[tuple[ToeInput, ...], None]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_historic_metadata"],
         values={
@@ -112,7 +113,7 @@ async def _get_historic_toe_input(
         table=TABLE,
     )
     if not response.items:
-        raise ToeInputNotFound()
+        return None
     return tuple(
         format_toe_input(request.group_name, item) for item in response.items
     )
@@ -122,7 +123,7 @@ class ToeInputHistoricLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
-    ) -> tuple[tuple[ToeInput, ...], ...]:
+    ) -> tuple[Union[tuple[ToeInput, ...], None], ...]:
         return await collect(
             tuple(_get_historic_toe_input(request) for request in requests)
         )

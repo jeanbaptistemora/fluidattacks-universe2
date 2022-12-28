@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    ToeInputNotFound,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -175,29 +178,34 @@ async def test_get_by_group() -> None:
             root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         )
     )
-    assert historic_toe_inputs == (
-        ToeInput(
-            component="https://test.com/test2/test.aspx",
-            entry_point="-",
-            group_name=group_name,
-            state=ToeInputState(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
+    if historic_toe_inputs:
+        assert historic_toe_inputs == (
+            ToeInput(
+                component="https://test.com/test2/test.aspx",
+                entry_point="-",
+                group_name=group_name,
+                state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    be_present=True,
+                    be_present_until=None,
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    modified_by="test2@test.com",
+                    modified_date=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-11T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test2@test.com",
+                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
-                attacked_by="test2@test.com",
-                be_present=True,
-                be_present_until=None,
-                first_attack_at=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
-                has_vulnerabilities=False,
-                modified_by="test2@test.com",
-                modified_date=datetime.fromisoformat(
-                    "2021-02-11T05:00:00+00:00"
-                ),
-                seen_at=datetime.fromisoformat("2020-01-11T05:00:00+00:00"),
-                seen_first_time_by="test2@test.com",
-                unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             ),
-        ),
-    )
+        )
+    else:
+        raise ToeInputNotFound()
