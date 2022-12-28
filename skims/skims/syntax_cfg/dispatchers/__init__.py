@@ -96,6 +96,7 @@ DISPATCHERS: Dispatchers = (
             "NewExpression",
             "Object",
             "ObjectCreation",
+            "ParenthesizedExpression",
             "PostfixUnaryExpression",
             "PropertyDeclaration",
             "ReservedWord",
