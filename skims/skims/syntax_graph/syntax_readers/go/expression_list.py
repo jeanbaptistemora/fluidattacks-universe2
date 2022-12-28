@@ -1,16 +1,26 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.syntax_nodes.parameter_list import (
+    build_parameter_list_node,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast,
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    match = match_ast(args.ast_graph, args.n_id, ":")
-    type_id = match["__0__"]
+    graph = args.ast_graph
+    c_ids = adj_ast(graph, args.n_id)
 
-    return args.generic(args.fork_n_id(str(type_id)))
+    return build_parameter_list_node(
+        args,
+        c_ids=(
+            _id
+            for _id in c_ids
+            if graph.nodes[_id]["label_type"] not in {",", ":"}
+        ),
+    )
