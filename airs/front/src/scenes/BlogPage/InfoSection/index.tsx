@@ -24,9 +24,10 @@ const InfoSection: React.FC<IInfoProps> = ({
         pv={3}
       >
         <Container align={"center"} display={"flex"}>
-          <Container height={"54px"} mr={3} width={"54px"}>
+          <Container align={"center"} display={"flex"} width={"54px"}>
             <CloudImage
               alt={writer}
+              isProfile={true}
               src={`airs/blogs/authors/${writer}`}
               styles={"w-100 h-100"}
             />
@@ -36,7 +37,7 @@ const InfoSection: React.FC<IInfoProps> = ({
             hoverColor={"#bf0b1a"}
             href={`/blog/authors/${stringToUri(author)}`}
           >
-            <Text color={"#2e2e38"} sizeSm={"xs"}>
+            <Text color={"#2e2e38"} ml={3} sizeSm={"xs"}>
               {author}
             </Text>
           </AirsLink>

@@ -184,7 +184,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
       shadow={true}
       wrap={"wrap"}
     >
-      <Container width={"60%"} widthMd={"100%"}>
+      <Container width={"70%"} widthMd={"100%"}>
         <Title
           color={variants[variant].color}
           level={2}
@@ -202,7 +202,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
       <Container
         display={"flex"}
         justify={"center"}
-        width={"40%"}
+        width={"30%"}
         widthMd={"100%"}
       >
         <Container pt={3} width={"auto"} widthSm={"100%"}>
@@ -210,6 +210,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
             <Button
               display={"block"}
               onClick={matomoFreeTrialEvent}
+              size={"lg"}
               variant={"primary"}
             >
               {button1Text}
