@@ -12950,10 +12950,11 @@
     non_compliant: |
       The Cache control header is insecurely configured
       ```http
+
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
-      Cache-Control: no-cache
+      Cache-Control: max-age=604800, stale-if-error=86400
       ```
     compliant: |
       The Cache control header is correctly configured
@@ -12961,7 +12962,7 @@
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
-      Cache-Control: max-age=604800, stale-if-error=86400
+      Cache-Control: no-cache
       ```
   remediation_time: '30'
   score:
