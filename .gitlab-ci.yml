@@ -174,7 +174,6 @@ common_forces:
 common_sonarcloud_check:
   <<: *common_in_dev_and_prod
   interruptible: true
-  allow_failure: true
   stage: external
   needs: []
   image:
