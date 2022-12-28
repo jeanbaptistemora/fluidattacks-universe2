@@ -472,6 +472,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "update_evidence_description",
         "activate_root",
         "submit_group_machine_execution",
+        "send_sales_mail_to_get_squad_plan",
         "send_vulnerability_notification",
         "update_credentials",
         "remove_credentials",
