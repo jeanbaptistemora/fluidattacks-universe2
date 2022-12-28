@@ -525,6 +525,27 @@ def validate_int_range(
             raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
 
 
+def validate_int_range_deco(
+    field: str, lower_bound: int, upper_bound: int, inclusive: bool
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            value = cast(int, kwargs.get(field))
+            if inclusive:
+                if not lower_bound <= value <= upper_bound:
+                    raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+            else:
+                if not lower_bound < value < upper_bound:
+                    raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_start_letter(value: str) -> None:
     if not value[0].isalpha():
         raise InvalidReportFilter("Password should start with a letter")

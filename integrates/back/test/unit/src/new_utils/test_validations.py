@@ -27,6 +27,7 @@ from newutils.validations import (
     validate_group_name,
     validate_group_name_deco,
     validate_int_range,
+    validate_int_range_deco,
     validate_sanitized_csv_input,
     validate_symbols,
 )
@@ -256,6 +257,25 @@ def test_validate_int_range(
         assert validate_int_range(
             value, lower_bound, upper_bound, inclusive  # type: ignore
         )
+
+
+def test_validate_int_range_deco() -> None:
+    @validate_int_range_deco(
+        "int_value", lower_bound=11, upper_bound=12, inclusive=True
+    )
+    def decorated_func(int_value: int) -> int:
+        return int_value
+
+    assert decorated_func(int_value=12)
+    with pytest.raises(NumberOutOfRange):
+
+        @validate_int_range_deco(
+            "int_value", lower_bound=11, upper_bound=12, inclusive=False
+        )
+        def decorated_func_fail(int_value: int) -> int:
+            return int_value
+
+        decorated_func_fail(int_value=12)
 
 
 @pytest.mark.parametrize(
