@@ -21,6 +21,8 @@ from schedulers.common import (
     info,
 )
 
+INACTIVITY_DAYS = 90
+
 
 async def remove_stakeholder(
     email: str,
@@ -39,7 +41,7 @@ async def remove_stakeholder(
 async def remove_inactive_stakeholders() -> None:
     """
     Remove stakeholders if only have access to imamura,
-    and there are no logins in the last 60 days.
+    and there are no logins in the defined period.
     """
     modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
@@ -56,7 +58,7 @@ async def remove_inactive_stakeholders() -> None:
             and (
                 datetime_utils.get_plus_delta(
                     stakeholder.last_login_date,
-                    days=60,
+                    days=INACTIVITY_DAYS,
                 )
                 < datetime_utils.get_utc_now()
             )

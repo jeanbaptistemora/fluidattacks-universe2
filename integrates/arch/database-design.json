@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Dec 21, 2022, 11:21 AM",
+    "DateLastModified": "Dec 28, 2022, 11:40 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1365,7 +1365,7 @@
                 "S": "delete"
               },
               "last_login_date": {
-                "S": "2020-10-29T18:40:37+00:00"
+                "S": "2020-09-30T18:40:37+00:00"
               },
               "tours": {
                 "M": {
@@ -2888,7 +2888,7 @@
                 "S": "no delete"
               },
               "last_login_date": {
-                "S": "2020-11-02T18:40:37+00:00"
+                "S": "2020-10-03T18:40:37+00:00"
               },
               "tours": {
                 "M": {
