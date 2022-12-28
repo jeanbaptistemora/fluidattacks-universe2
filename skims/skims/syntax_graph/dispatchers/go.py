@@ -12,7 +12,6 @@ from syntax_graph.syntax_readers.go import (
     import_declaration as go_import_declaration,
     int_literal as go_int_literal,
     literal_value as go_literal_value,
-    newline as go_newline,
     package_clause as go_package_clause,
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
@@ -95,12 +94,6 @@ GO_DISPATCHERS: Dispatchers = (
             "literal_value",
         },
         syntax_reader=go_literal_value.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "\n",
-        },
-        syntax_reader=go_newline.reader,
     ),
     Dispatcher(
         applicable_types={
