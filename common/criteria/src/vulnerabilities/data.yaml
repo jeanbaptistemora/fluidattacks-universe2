@@ -38913,7 +38913,7 @@
         exploit_code_maturity: P
         remediation_level: U
         report_confidence: C
-    requirements: ['029', '173']
+    requirements: ['173']
     metadata:
       en:
         details: __empty__
