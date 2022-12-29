@@ -265,51 +265,6 @@ async def test_get_roots() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_git_root() -> None:
-    query = """
-      mutation {
-        updateGitRoot(
-          branch: "develop"
-          environment: "staging"
-          gitignore: []
-          groupName: "unittesting"
-          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          includesHealthCheck: false
-          url: "https://gitlab.com/fluidattacks/integrates"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert result["data"]["updateGitRoot"]["success"]
-
-
-async def test_update_git_root_nonexistent() -> None:
-    query = """
-      mutation {
-        updateGitRoot(
-          branch: ""
-          environment: "Test"
-          gitignore: []
-          groupName: "unittesting"
-          id: "some-thing"
-          includesHealthCheck: false
-          url: ""
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "root not found" in result["errors"][0]["message"]  # NOSONAR
-
-
-@pytest.mark.changes_db
 async def test_update_git_environments() -> None:
     query = """
       mutation {
