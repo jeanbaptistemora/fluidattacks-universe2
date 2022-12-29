@@ -50,6 +50,8 @@ type Group {
     after: String
     "The maximum amount of executions to return"
     first: Int
+    "DateTime to filter from specific date"
+    fromDate: DateTime
     "Root nickname"
     gitRepo: String
     "Search query for execution attributes"
