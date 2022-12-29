@@ -273,7 +273,9 @@ ENUMS: Tuple[EnumType, ...] = (
         {
             "CLOSED": "CLOSED",
             "OPEN": "OPEN",
+            "REJECTED": "REJECTED",
             "SAFE": "SAFE",
+            "SUBMITTED": "SUBMITTED",
             "VULNERABLE": "VULNERABLE",
         },
     ),

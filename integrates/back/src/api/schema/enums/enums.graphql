@@ -546,8 +546,12 @@ enum VulnerabilityState {
       This field will be removed after 2023/06/20. Use `VULNERABLE` instead.
       """
     )
+  "Rejected"
+  REJECTED
   "Safe"
   SAFE
+  "Submitted"
+  SUBMITTED
   "Vulnerable"
   VULNERABLE
 }
