@@ -3,9 +3,6 @@ from .constants import (
     EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
 )
-from .enums import (
-    VulnerabilityStateStatus,
-)
 from .types import (
     Vulnerability,
     VulnerabilityHistoric,
@@ -122,9 +119,7 @@ async def update_assigned_index(
             facet=TABLE.facets["vulnerability_metadata"],
             values={"finding_id": finding_id, "id": vulnerability_id},
         )
-        base_condition = Attr(key_structure.partition_key).exists() & Attr(
-            "state.status"
-        ).ne(VulnerabilityStateStatus.DELETED.value)
+        base_condition = Attr(key_structure.partition_key).exists()
         gsi_3_key = keys.build_key(
             facet=ASSIGNED_INDEX_METADATA,
             values={
