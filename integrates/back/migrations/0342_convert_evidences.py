@@ -1,8 +1,11 @@
 # pylint: disable=invalid-name
 """
 try to convert evidences in S3 from gif to webm
-First Execution Time:     2022-12-28 at 05:38:17 UTC
-First Finalization Time:  2022-12-28 at 07:56:51 UTC
+First Execution Time:      2022-12-28 at 05:38:17 UTC
+First Finalization Time:   2022-12-28 at 07:56:51 UTC
+Second Execution Time:     2022-12-28 at 22:53:18 UTC
+Second Finalization Time:  2022-12-29 at 07:50:13 UTC
+
 """
 from aioextensions import (
     collect,
@@ -400,7 +403,10 @@ async def update_event_evidences(
     evidences: EventEvidences,
     organization_name: str,
 ) -> None:
-    if evidences.image_1 is not None:
+    if (
+        evidences.image_1 is not None
+        and evidences.image_1.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -410,7 +416,10 @@ async def update_event_evidences(
             organization_name=organization_name,
             modified_date=evidences.image_1.modified_date,
         )
-    if evidences.image_2 is not None:
+    if (
+        evidences.image_2 is not None
+        and evidences.image_2.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -420,7 +429,10 @@ async def update_event_evidences(
             organization_name=organization_name,
             modified_date=evidences.image_2.modified_date,
         )
-    if evidences.image_3 is not None:
+    if (
+        evidences.image_3 is not None
+        and evidences.image_3.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -430,7 +442,10 @@ async def update_event_evidences(
             organization_name=organization_name,
             modified_date=evidences.image_3.modified_date,
         )
-    if evidences.image_4 is not None:
+    if (
+        evidences.image_4 is not None
+        and evidences.image_4.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -440,7 +455,10 @@ async def update_event_evidences(
             organization_name=organization_name,
             modified_date=evidences.image_4.modified_date,
         )
-    if evidences.image_5 is not None:
+    if (
+        evidences.image_5 is not None
+        and evidences.image_5.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -450,7 +468,10 @@ async def update_event_evidences(
             organization_name=organization_name,
             modified_date=evidences.image_5.modified_date,
         )
-    if evidences.image_6 is not None:
+    if (
+        evidences.image_6 is not None
+        and evidences.image_6.file_name.lower().endswith(".gif")
+    ):
         await _update_event_evidences(
             loaders=loaders,
             group_name=group_name,
@@ -489,6 +510,7 @@ async def process_group(
             )
             for finding in group_findings
             if finding.evidences.animation is not None
+            and finding.evidences.animation.url.lower().endswith(".gif")
         ),
         workers=1,
     )
@@ -505,6 +527,7 @@ async def process_group(
             )
             for finding in group_findings
             if finding.evidences.exploitation is not None
+            and finding.evidences.exploitation.url.lower().endswith(".gif")
         ),
         workers=1,
     )
