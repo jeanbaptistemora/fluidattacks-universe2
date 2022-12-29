@@ -532,4 +532,119 @@ describe("eventsView", (): void => {
     });
     jest.clearAllMocks();
   });
+
+  it("should handle error in request verification", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENTS,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              events: [
+                {
+                  closingDate: "-",
+                  detail: "Test description",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "SOLVED",
+                  eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+                  groupName: "unittesting",
+                  id: "463457733",
+                  root: null,
+                },
+                {
+                  closingDate: "-",
+                  detail: "Test description",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "CREATED",
+                  eventType: "NETWORK_ACCESS_ISSUES",
+                  groupName: "unittesting",
+                  id: "12314123",
+                  root: null,
+                },
+              ],
+              name: "unittesting",
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: REQUEST_EVENT_VERIFICATION_MUTATION,
+          variables: {
+            comments: "The solution test",
+            eventId: "463457733",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Exception - The event has already been closed"),
+          ],
+        },
+      },
+    ];
+
+    // eslint-disable-next-line
+    const mockedPermissions = new PureAbility<string>([  // NOSONAR
+      { action: "api_mutations_request_event_verification_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("cell", { name: "Network access issues" })
+      ).toBeInTheDocument();
+    });
+
+    const rowUnSlv = screen.getByRole("row", {
+      name: /12314123 2018-10-17 00:00:00 test description network access issues unsolved -/iu,
+    });
+    await userEvent.click(within(rowUnSlv).getByRole("checkbox"));
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("checkbox", { checked: true })[0]
+      ).toBeInTheDocument();
+    });
+
+    const rowSolv = screen.getByRole("row", {
+      name: /463457733 2018-10-17 00:00:00 Test description Authorization for a special attack solved -/iu,
+    });
+    await userEvent.click(within(rowSolv).getByRole("checkbox"));
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("checkbox", { checked: true })[0]
+      ).toBeInTheDocument();
+    });
+
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: /group.events.remediationmodal.btn.text/iu,
+      })
+    );
+
+    expect(msgError).toHaveBeenCalledWith("group.events.selectedError");
+
+    jest.clearAllMocks();
+  });
 });
