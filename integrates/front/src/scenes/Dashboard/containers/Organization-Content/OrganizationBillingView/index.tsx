@@ -33,7 +33,6 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
     GET_ORGANIZATION_BILLING,
     {
       context: { skipGlobalErrorHandler: true },
-      errorPolicy: "ignore",
       fetchPolicy: "network-only",
       onCompleted: (paramData: IGetOrganizationBilling): void => {
         if (_.isEmpty(paramData.organization.groups)) {
