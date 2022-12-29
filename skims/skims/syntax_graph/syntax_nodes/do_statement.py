@@ -7,7 +7,7 @@ from syntax_graph.types import (
 
 
 def build_do_statement_node(
-    args: SyntaxGraphArgs, block: str, conditional: str
+    args: SyntaxGraphArgs, block: NId, conditional: NId
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

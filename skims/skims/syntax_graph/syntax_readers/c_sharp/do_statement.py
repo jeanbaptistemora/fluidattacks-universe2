@@ -24,6 +24,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
         for _id in c_ids
         if graph.nodes[_id]["label_type"] in C_SHARP_STATEMENT
     ].pop()
+    if graph.nodes[body_id]["label_type"] == "expression_statement":
+        body_id = adj_ast(graph, body_id)[0]
+
     condition_node = [
         _id
         for _id in c_ids
