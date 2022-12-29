@@ -12,21 +12,25 @@ const GET_ORG_GROUPS: DocumentNode = gql`
   }
 `;
 
-const GET_GROUP_VULNS: DocumentNode = gql`
-  query GetGroupVulns($group: String!) {
+const GET_VULNERABLE_GROUP_VULNS: DocumentNode = gql`
+  query GetGroupVulns($after: String, $first: Int, $group: String!) {
     group(groupName: $group) {
       name
-      vulnerabilities {
+      vulnerabilities(after: $after, first: $first, stateStatus: "VULNERABLE") {
         edges {
           node {
-            currentState
             state
             zeroRisk
           }
         }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        total
       }
     }
   }
 `;
 
-export { GET_ORG_GROUPS, GET_GROUP_VULNS };
+export { GET_ORG_GROUPS, GET_VULNERABLE_GROUP_VULNS };

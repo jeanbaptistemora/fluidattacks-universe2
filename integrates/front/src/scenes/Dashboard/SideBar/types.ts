@@ -20,6 +20,11 @@ interface IGroupTabVulns {
     name: string;
     vulnerabilities: {
       edges: INodeData[];
+      pageInfo: {
+        endCursor: string;
+        hasNextPage: boolean;
+      };
+      total: number | undefined;
     };
   };
 }
