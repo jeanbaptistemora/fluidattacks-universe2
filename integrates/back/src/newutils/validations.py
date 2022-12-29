@@ -682,6 +682,42 @@ def validate_sequence(value: str) -> None:
         )
 
 
+def validate_sequence_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            value = str(kwargs.get(field))
+            if has_sequence(value):
+                raise InvalidReportFilter(
+                    "Password should not include sequentials characters"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_symbols(value: str) -> None:
     if not re.search(r"[!\";#\$%&'\(\)\*\+,-./:<=>\?@\[\]^_`\{\|\}~]", value):
         raise InvalidReportFilter("Password should include symbols characters")
+
+
+def validate_symbols_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            value = str(kwargs.get(field))
+            if not re.search(
+                r"[!\";#\$%&'\(\)\*\+,-./:<=>\?@\[\]^_`\{\|\}~]", value
+            ):
+                raise InvalidReportFilter(
+                    "Password should include symbols characters"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper

@@ -30,7 +30,9 @@ from newutils.validations import (
     validate_int_range_deco,
     validate_sanitized_csv_input,
     validate_sanitized_csv_input_deco,
+    validate_sequence_deco,
     validate_symbols,
+    validate_symbols_deco,
 )
 import pytest
 from typing import (
@@ -315,7 +317,34 @@ def test_validate_sanitized_csv_input(field: str) -> None:
         assert validate_sanitized_csv_input(field)  # type: ignore
 
 
-def test_validate_sanitized_csv_input_deco() -> None:
+@pytest.mark.parametrize(
+    "field1, field2, field3",
+    [
+        {
+            '"=invalidField"',
+            "'not_check",
+            "'+invalidField",
+        },
+        {
+            ",-invalidField",
+            "not_check",
+            ";@invalidField",
+        },
+        {
+            "-invalidField",
+            "not_check",
+            "@invalidField",
+        },
+        {
+            "\\ninvalidField",
+            "not_check",
+            '"=invalidField"',
+        },
+    ],
+)
+def test_validate_sanitized_csv_input_deco(
+    field1: str, field2: str, field3: str
+) -> None:
     @validate_sanitized_csv_input_deco(field_names=["field1", "field3"])
     def decorated_func(field1: str, field2: str, field3: str) -> str:
         return field1 + field2 + field3
@@ -327,9 +356,9 @@ def test_validate_sanitized_csv_input_deco() -> None:
     )
     with pytest.raises(UnsanitizedInputFound):
         decorated_func(
-            field1='"=invalidField"',
-            field2="not_check",
-            field3=",-invalidField",
+            field1=field1,
+            field2=field2,
+            field3=field3,
         )
 
 
@@ -360,6 +389,16 @@ def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
     assert has_sequence(value, length) == should_fail
 
 
+def test_validate_sequence_deco() -> None:
+    @validate_sequence_deco("value")
+    def decorated_func(value: str) -> str:
+        return value
+
+    assert decorated_func(value="a1221b")
+    with pytest.raises(InvalidReportFilter):
+        decorated_func(value="aabcc")
+
+
 @pytest.mark.parametrize(
     ["value", "should_fail"],
     [
@@ -388,3 +427,37 @@ def test_validate_symbols(value: str, should_fail: bool) -> None:
             assert validate_symbols(value)  # type: ignore
     else:
         assert validate_symbols(value) is None  # type: ignore
+
+
+@pytest.mark.parametrize(
+    "value,should_fail",
+    [
+        ("a123b", True),
+        ("a'123b", False),
+        ("a~876b", False),
+        ("a87:6b", False),
+        ("aa;bcc", False),
+        ("aa<bcc", False),
+        ("ayx%wc", False),
+        ("ay>xwc", False),
+        ("aDEFc", True),
+        ("aDE=Fc", False),
+        ("aQP@Oc", False),
+        ("aQP-Oc", False),
+        ("a12]21b", False),
+        ("a123+321b", False),
+        ("a34^55431b", False),
+        ('a1"357b', False),
+        ("a97?53b", False),
+    ],
+)
+def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
+    @validate_symbols_deco("value")
+    def decorated_func(value: str) -> str:
+        return value
+
+    if should_fail:
+        with pytest.raises(InvalidReportFilter):
+            decorated_func(value=value)
+    else:
+        assert decorated_func(value=value)
