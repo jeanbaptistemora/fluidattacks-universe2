@@ -5,17 +5,14 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.organizations.types import (
-    Organization,
+from db_model.stakeholders import (
+    get_all_stakeholders,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
 )
 from newutils import (
     datetime as datetime_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from remove_stakeholder.domain import (
     remove_stakeholder_all_organizations,
@@ -61,11 +58,7 @@ async def remove_inactive_stakeholders() -> None:
     """
     loaders: Dataloaders = get_new_context()
     modified_by = "integrates@fluidattacks.com"
-    org_name = "imamura"
-    organization: Organization = await loaders.organization.load(org_name)
-    all_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await orgs_domain.get_stakeholders(loaders, organization.id)
+    all_stakeholders: tuple[Stakeholder, ...] = await get_all_stakeholders()
     info("Stakeholders to process", extra={"item": len(all_stakeholders)})
     await collect(
         tuple(
