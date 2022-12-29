@@ -199,6 +199,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       Assignees: false,
       Locations: false,
       Treatment: false,
+      age: false,
+      closingPercentage: false,
       description: false,
       reattack: false,
       releaseDate: false,
@@ -252,16 +254,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Type",
     },
     {
-      accessorKey: "age",
-      header: "Age",
-    },
-    {
-      accessorKey: "lastVulnerability",
-      cell: (cell: ICellHelper<IFindingAttr>): string =>
-        t("group.findings.description.value", { count: cell.getValue() }),
-      header: "Last report",
-    },
-    {
       accessorKey: "state",
       cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
         formatState(cell.getValue()),
@@ -274,6 +266,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorKey: "openVulnerabilities",
       header: "Open Vulnerabilities",
+    },
+    {
+      accessorKey: "lastVulnerability",
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        t("group.findings.description.value", { count: cell.getValue() }),
+      header: "Last report",
+    },
+    {
+      accessorKey: "age",
+      header: "Age",
     },
     {
       accessorKey: "closingPercentage",
