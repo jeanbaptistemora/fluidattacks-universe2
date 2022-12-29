@@ -136,7 +136,7 @@ const validTextField: Validator = (value: string): string | undefined => {
     const textMatch: RegExpMatchArray | null =
       // We use them for control character pattern matching.
       // eslint-disable-next-line no-control-regex
-      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s(){}[\],./:;@&_$%'#*=?!+-]/u.exec(
+      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s(){}[\],./:;@&_$%'#*=¿?¡!+-]/u.exec(
         value
       );
     if (!_.isNull(textMatch)) {
