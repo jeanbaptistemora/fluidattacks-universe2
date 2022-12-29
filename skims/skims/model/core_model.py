@@ -3973,6 +3973,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    GO_INSECURE_QUERY_FLOAT = MethodInfo(
+        file_name="go",
+        name="go_insecure_query_float",
+        module="lib_root",
+        finding=FindingEnum.F127,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     SET_COOKIE_HTTPONLY = MethodInfo(
         file_name="analyze_headers",
         name="set_cookie_httponly",
