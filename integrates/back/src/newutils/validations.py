@@ -273,9 +273,42 @@ def validate_finding_id(finding_id: str) -> None:
         raise InvalidField("finding id")
 
 
+def validate_finding_id_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not re.match(
+                r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"
+                r"[0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\d+",
+                field_content,
+            ):
+                raise InvalidField("finding id")
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_group_language(language: str) -> None:
     if language.upper() not in {"EN", "ES"}:
         raise InvalidField("group language")
+
+
+def validate_group_language_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            language = str(kwargs.get(field))
+            if language.upper() not in {"EN", "ES"}:
+                raise InvalidField("group language")
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_group_name(group_name: str) -> None:

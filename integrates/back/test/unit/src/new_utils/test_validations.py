@@ -24,6 +24,8 @@ from newutils.validations import (
     validate_file_exists_deco,
     validate_file_name,
     validate_file_name_deco,
+    validate_finding_id_deco,
+    validate_group_language_deco,
     validate_group_name,
     validate_group_name_deco,
     validate_int_range,
@@ -461,3 +463,38 @@ def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
             decorated_func(value=value)
     else:
         assert decorated_func(value=value)
+
+
+def test_validate_finding_id_deco() -> None:
+    @validate_finding_id_deco("finding_id")
+    def decorated_func(finding_id: str) -> str:
+        return finding_id
+
+    assert decorated_func(finding_id="12345678-1234-1234-1234-1234567890ab")
+
+    with pytest.raises(InvalidField):
+        decorated_func(finding_id="invalid_finding_id")
+        decorated_func(finding_id="12345678-1234-1234-1234-1234567890az")
+        decorated_func(finding_id="12345678-1234-1234-1234-1234567890a")
+
+
+@pytest.mark.parametrize(
+    "language, should_fail",
+    [
+        ("en", False),
+        ("ES", False),
+        ("fr", True),
+        ("", True),
+        (123, True),
+    ],
+)
+def test_validate_group_language(language: str, should_fail: bool) -> None:
+    @validate_group_language_deco("value")
+    def decorated_func(value: str) -> str:
+        return value
+
+    if should_fail:
+        with pytest.raises(InvalidField):
+            decorated_func(value=language)
+    else:
+        assert decorated_func(value=language)
