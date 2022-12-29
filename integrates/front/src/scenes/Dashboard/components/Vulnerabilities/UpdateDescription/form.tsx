@@ -73,7 +73,7 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
-import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
+import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
 import { Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
@@ -343,9 +343,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           },
         },
         {
-          query: GET_FINDING_LOCATIONS,
+          query: GET_GROUP_VULNERABILITIES,
           variables: {
-            findingId: vulnerabilities[0].findingId,
+            first: 1200,
+            groupName: vulnerabilities[0].groupName,
           },
         },
         GET_ME_VULNERABILITIES_ASSIGNED,

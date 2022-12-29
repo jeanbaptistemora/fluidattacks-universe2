@@ -6,12 +6,11 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_GROUP_VULNERABILITIES } from "./queries";
-
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView";
 import {
   GET_FINDINGS,
+  GET_GROUP_VULNERABILITIES,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";

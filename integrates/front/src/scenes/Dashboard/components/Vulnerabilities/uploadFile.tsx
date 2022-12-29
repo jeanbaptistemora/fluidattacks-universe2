@@ -23,7 +23,7 @@ import type {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
-import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
+import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -33,6 +33,7 @@ import { composeValidators, isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
   findingId: string;
+  groupName: string;
   refetchData: () => void;
 }
 
@@ -44,6 +45,7 @@ interface IErrorInfoAttr {
 
 const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
+  groupName,
   refetchData,
 }: IUploadVulnProps): JSX.Element => {
   const { t } = useTranslation();
@@ -184,9 +186,10 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           },
         },
         {
-          query: GET_FINDING_LOCATIONS,
+          query: GET_GROUP_VULNERABILITIES,
           variables: {
-            findingId,
+            first: 1200,
+            groupName,
           },
         },
       ],

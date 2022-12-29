@@ -461,6 +461,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <Can do={"api_mutations_upload_file_mutate"}>
             <UploadVulnerabilities
               findingId={findingId}
+              groupName={groupName}
               refetchData={refetchVulnsData}
             />
           </Can>

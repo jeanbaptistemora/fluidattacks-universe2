@@ -78,7 +78,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
       CONFIRM_VULNERABILITIES_ZERO_RISK,
-      confirmZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
+      confirmZeroRiskProps(refetchData, handleCloseModal, findingId)
     );
     const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
       REJECT_VULNERABILITIES_ZERO_RISK,

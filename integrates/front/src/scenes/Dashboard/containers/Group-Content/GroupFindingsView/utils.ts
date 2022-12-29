@@ -1,14 +1,13 @@
 import type { ExecutionResult } from "graphql";
 import _ from "lodash";
 
-import type { IVulnerabilitiesResume } from "./loaders/VulnerabilitiesLoader/types";
-
 import type { IRemoveFindingResultAttr } from "../../Finding-Content/types";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
   IFindingAttr,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,
+  IVulnerabilitiesResume,
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";

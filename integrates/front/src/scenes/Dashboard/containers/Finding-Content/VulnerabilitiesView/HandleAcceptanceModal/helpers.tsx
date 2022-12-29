@@ -8,7 +8,6 @@ import type {
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 
-import { GET_FINDING_LOCATIONS } from "../../../Group-Content/GroupFindingsView/loaders/VulnerabilitiesLoader/queries";
 import { GET_FINDING_HEADER } from "../../queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import {
@@ -22,6 +21,7 @@ import type {
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
+import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -100,7 +100,6 @@ const acceptanceProps = (
 const confirmZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  groupName: string,
   findingId?: string
 ): MutationHookOptions => {
   return {
@@ -135,7 +134,6 @@ const confirmZeroRiskProps = (
               query: GET_FINDING_AND_GROUP_INFO,
               variables: {
                 findingId,
-                groupName,
               },
             },
             {
@@ -186,7 +184,6 @@ const rejectZeroRiskProps = (
               query: GET_FINDING_AND_GROUP_INFO,
               variables: {
                 findingId,
-                groupName,
               },
             },
             {
@@ -196,9 +193,10 @@ const rejectZeroRiskProps = (
               },
             },
             {
-              query: GET_FINDING_LOCATIONS,
+              query: GET_GROUP_VULNERABILITIES,
               variables: {
-                findingId,
+                first: 1200,
+                groupName,
               },
             },
           ],
