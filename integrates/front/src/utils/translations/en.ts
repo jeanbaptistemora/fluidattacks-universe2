@@ -342,11 +342,15 @@ export const enTranslations: ResourceKey = {
       contactSales: {
         accept: "I accept the ",
         and: "and",
+        confirmDescription:
+          "Soon a member of our sales team will contact " +
+          "you to show you all the benefits of the Continuous Hacking ",
+        confirmSubtitle: "Your data was sent successfully.",
         description:
           "We'd love to chat with you. Please complete the following fields:",
         privacyPolicy: "Privacy policy",
         termsOfUse: "Terms of use",
-        title: "Contact sales to get\nSquad Plan",
+        title: "Contact sales to get Squad Plan",
       },
       machineLanguages: {
         button: "Continue free trial registration",

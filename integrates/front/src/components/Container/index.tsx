@@ -44,6 +44,7 @@ interface IContainerProps {
   positionRight?: string;
   positionTop?: string;
   scroll?: "none" | "x" | "xy" | "y";
+  scrollInvisible?: boolean;
   textAlign?: string;
   width?: string;
   widthMd?: string;
@@ -94,6 +95,7 @@ const Container = styled.div.attrs({
     positionRight = "",
     positionTop = "",
     scroll = "y",
+    scrollInvisible = false,
     textAlign = "",
     width = "auto",
     widthMd = "auto",
@@ -157,18 +159,21 @@ z-index: ${zIndex};
     }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: ${scrollInvisible ? "0px" : "8px"};
 }
 ::-webkit-scrollbar-track {
   background: #b0b0bf;
+  opacity: ${scrollInvisible ? "0" : "1"};
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
   background: #65657b;
+  opacity: ${scrollInvisible ? "0" : "1"};
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #535365;
+  opacity: ${scrollInvisible ? "0" : "1"};
 }`}
 `;
 
