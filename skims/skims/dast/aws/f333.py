@@ -426,6 +426,65 @@ async def has_unencrypted_snapshots(
     return vulns
 
 
+async def has_defined_user_data(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    """
+    Reference:
+    https://www.mitiga.io/blog/identifying-userdata-script-manipulation-
+    accelerates-investigation
+    """
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_instances",
+    )
+    reservations = response.get("Reservations", []) if response else []
+    method = core_model.MethodsEnum.AWS_EC2_HAS_DEFINED_USER_DATA
+    vulns: core_model.Vulnerabilities = ()
+    if reservations:
+        for instances in reservations:
+            locations: List[Location] = []
+            for instance in instances["Instances"]:
+                describe_instance_attribute: Dict[
+                    str, Any
+                ] = await run_boto3_fun(
+                    credentials,
+                    service="ec2",
+                    function="describe_instance_attribute",
+                    parameters={
+                        "Attribute": "userData",
+                        "InstanceId": instance["InstanceId"],
+                    },
+                )
+                user_data = describe_instance_attribute["UserData"]
+                if not user_data:
+                    locations = [
+                        *locations,
+                        Location(
+                            access_patterns=("/UserData",),
+                            arn=(
+                                f"arn:aws:ec2::{instances['OwnerId']}:"
+                                f"instance-id/{instance['InstanceId']}"
+                            ),
+                            values=(user_data,),
+                            description=t(
+                                "lib_path.f333.has_defined_user_data"
+                            ),
+                        ),
+                    ]
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(method),
+                        aws_response=describe_instance_attribute,
+                    ),
+                )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -438,4 +497,5 @@ CHECKS: Tuple[
     has_unencrypted_snapshots,
     has_unused_seggroups,
     has_unencrypted_amis,
+    has_defined_user_data,
 )
