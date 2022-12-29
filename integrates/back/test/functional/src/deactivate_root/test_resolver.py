@@ -60,6 +60,37 @@ async def test_deactivate_root(
     (
         (
             "group2",
+            "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+        ),
+    ),
+)
+async def test_deactivate_root_fail_1(
+    populate: bool,
+    group_name: str,
+    root_id: str,
+) -> None:
+    assert populate
+    result = await get_result(
+        email="admin@gmail.com",
+        group_name=group_name,
+        identifier=root_id,
+        reason="REGISTERED_BY_MISTAKE",
+        other=None,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Access denied or root not found"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("deactivate_root")
+@pytest.mark.parametrize(
+    ("group_name", "root_id"),
+    (
+        (
+            "group2",
             "702b81b3-d741-4699-9173-ecbc30bfb0cb",
         ),
         (
@@ -72,7 +103,7 @@ async def test_deactivate_root(
         ),
     ),
 )
-async def test_deactivate_root_fail(
+async def test_deactivate_root_fail_2(
     populate: bool,
     group_name: str,
     root_id: str,
