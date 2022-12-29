@@ -185,12 +185,12 @@ To illustrate this, let us compare some typical authentication policies:
 
 </div>
 
-| Type                | Minimum length               | Variety                          | Minimal example                        | Time to brute-force                 |
-| ------------------- | ---------------------------- | -------------------------------- | -------------------------------------- | ----------------------------------- |
-| <p> Password   </p> | <p> 8 characters        </p> | <p> upper lower num special </p> | <p> `Pas$w0rd`                    </p> | <p> 9 hours                    </p> |
-| <p> Password   </p> | <p> 14 characters       </p> | <p> upper lower num special </p> | <p> `Pas$w0rddddddd`              </p> | <p> 204 million (e6) years     </p> |
-| <p> Passphrase </p> | <p> 4 words x 4 letters </p> | <p> non-random lower        </p> | <p> `code hacks rule risk`        </p> | <p> 41 quadrillion (e15) years </p> |
-| <p> Passphrase </p> | <p> 4 words x 5 letters </p> | <p> random lower            </p> | <p> `debased heron passes native` </p> | <p> 343 septillion (e24) years </p> |
+| Type       | Minimum length      | Variety                 | Minimal example               | Time to brute-force        |
+| ---------- | ------------------- | ----------------------- | ----------------------------- | -------------------------- |
+| Password   | 8 characters        | upper lower num special | `Pas$w0rd`                    | 9 hours                    |
+| Password   | 14 characters       | upper lower num special | `Pas$w0rddddddd`              | 204 million (e6) years     |
+| Passphrase | 4 words x 4 letters | non-random lower        | `code hacks rule risk`        | 41 quadrillion (e15) years |
+| Passphrase | 4 words x 5 letters | random lower            | `debased heron passes native` | 343 septillion (e24) years |
 
 Just the time to brute-force gives us an idea of the relative strength
 of these sample password policies: the first is essentially useless

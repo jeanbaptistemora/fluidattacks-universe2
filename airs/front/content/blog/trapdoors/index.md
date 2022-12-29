@@ -40,15 +40,15 @@ the input.
 
 Suppose:
 
-|                                                                                          |
-| ---------------------------------------------------------------------------------------- |
-| <p> **P** : Plain text data <br /> **E** : Encrypted data <br /> **K** : Secret key </p> |
+|                                                                                 |
+| ------------------------------------------------------------------------------- |
+| **P** : Plain text data <br /> **E** : Encrypted data <br /> **K** : Secret key |
 
 A `Trapdoor` is a function that encrypts with the properties:
 
-|                                                                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <p> **E** = f(**P**) (Easy to do) <br /> **P** = f<sup>-1</sup>(**E**) (Really hard to do!) <br /> **P** = f<sup>-1</sup>(**E,K**) (Easy to do) </p> |
+|                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **E** = f(**P**) (Easy to do) <br /> **P** = f<sup>-1</sup>(**E**) (Really hard to do!) <br /> **P** = f<sup>-1</sup>(**E,K**) (Easy to do) |
 
 Now, `Trapdoors` are not the same as the well known hash functions, hash
 functions are one-way functions as well, but they are not reversible by
@@ -70,21 +70,21 @@ retrieve the key? they use a type of `Encryption` called `Asymmetric
 Encryption`: It encrypts the data with one public key and decrypts it
 with a different private key
 
-|                                                                               |
-| ----------------------------------------------------------------------------- |
-| <p> **K<sub>p</sub>** : Public key<br /> **K<sub>s</sub>** : Private key </p> |
+|                                                                      |
+| -------------------------------------------------------------------- |
+| **K<sub>p</sub>** : Public key<br /> **K<sub>s</sub>** : Private key |
 
 The data is encrypted with
 
-|                                             |
-| ------------------------------------------- |
-| <p> **E** = f(**P**,**K<sub>p</sub>**) </p> |
+|                                    |
+| ---------------------------------- |
+| **E** = f(**P**,**K<sub>p</sub>**) |
 
 And decrypted with
 
-|                                                          |
-| -------------------------------------------------------- |
-| <p> **P** = f<sup>-1</sup>(**E**,**K<sub>p</sub>**) </p> |
+|                                                 |
+| ----------------------------------------------- |
+| **P** = f<sup>-1</sup>(**E**,**K<sub>p</sub>**) |
 
 This `Encryption` is slow and it’s not commonly used in data
 transmission. It’s only used between parties to agree on a shared key
@@ -100,9 +100,9 @@ Rivest, Shamir, Adleman, also know as `RSA` algorithm
 Encryption` and it’s based on a `Trapdoor` function called *modular
 exponentiation* :
 
-|                                                                  |
-| ---------------------------------------------------------------- |
-| <p> **E** = **P**<sup>**K**<sub>**P**</sub></sup> mod **N** </p> |
+|                                                         |
+| ------------------------------------------------------- |
+| **E** = **P**<sup>**K**<sub>**P**</sub></sup> mod **N** |
 
 In this case knowing **P** from **E** is impossible, you need to know a
 secret **K**<sub>**S**</sub> in order to compute it.
@@ -130,15 +130,15 @@ to encrypt a message, the algorithm can be summarized like this :
 
 A message ***m*** is encrypted into ***c*** by
 
-|                                                          |
-| -------------------------------------------------------- |
-| <p> ***c*** = ***m***<sup>***e***</sup> mod ***n*** </p> |
+|                                                 |
+| ----------------------------------------------- |
+| ***c*** = ***m***<sup>***e***</sup> mod ***n*** |
 
 And decrypted by
 
-|                                                            |
-| ---------------------------------------------------------- |
-| <p> ***m*** = ***c***<sup>***d***</sup> mod ***n*** </supmod> |
+|                                                           |
+| --------------------------------------------------------- |
+| ***m*** = ***c***<sup>***d***</sup> mod ***n*** </supmod> |
 
 Thus, anyone can know the public key value ***e*** to encrypt but not
 the private key value ***d*** used to decrypt. What about ***n*** ?

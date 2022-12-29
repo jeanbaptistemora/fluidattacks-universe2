@@ -118,12 +118,12 @@ Let’s see how our contestants performed:
 
 </div>
 
-| Tool               | Detected         | % Not Detected         | Time              |
-| ------------------ | ---------------- | ---------------------- | ----------------- |
-| <p> W3af      </p> | <p> 28      </p> | <p> 83.5%         </p> | <p> 00:02:30 </p> |
-| <p> Wapiti    </p> | <p> 26      </p> | <p> 84.7%         </p> | <p> 00:02:00 </p> |
-| <p> ZAP-Short </p> | <p> 42      </p> | <p> 75.3%         </p> | <p> 00:19:00 </p> |
-| <p> ZAP-Full  </p> | <p> 59      </p> | <p> 65.3%         </p> | <p> 01:30:00 </p> |
+| Tool      | Detected | % Not Detected | Time     |
+| --------- | -------- | -------------- | -------- |
+| W3af      | 28       | 83.5%          | 00:02:30 |
+| Wapiti    | 26       | 84.7%          | 00:02:00 |
+| ZAP-Short | 42       | 75.3%          | 00:19:00 |
+| ZAP-Full  | 59       | 65.3%          | 01:30:00 |
 
 ZAP-Short refers to the ZAP tool with only the XSS and SQLi plugins
 enabled. ZAP-Full refers to the same tool with all of its plugins

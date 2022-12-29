@@ -128,15 +128,15 @@ summarize them here for the sake of completeness:
 
 </div>
 
-| Paper                                                                                                                          | Mined elements                   | Target                              |
-| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------- | ----------------------------------- |
-| <p> [Livshits and Zimmermann (2005)](http://www.doc.ic.ac.uk/~livshits/papers/pdf/dynamine_ext.pdf)                       </p> | <p> Commit logs             </p> | <p> App-specific patterns      </p> |
-| <p> [Li and Zhou (2005)](https://www.cs.purdue.edu/homes/xyzhang/fall07/Papers/PRMiner.pdf)                               </p> | <p> Source code             </p> | <p> Implicit coding rules      </p> |
-| <p> [Wasylowski et al. (2007)](https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf) </p> | <p> Function call sequences </p> | <p> Object usage models        </p> |
-| <p> [Acharya et al. (2007)](https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf)                                 </p> | <p> API usage traces      </p> | <p> API usage orderings      </p> |
-| <p> [Chang et al. (2008)](https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W)                     </p> | <p> Neglected conditions    </p> | <p> Implicit conditional rules </p> |
-| <p> [Thummalapenta et al (2009)](https://link.springer.com/article/10.1007/s10515-011-0086-z)                             </p> | <p> Programming rules       </p> | <p> Alternative patterns       </p> |
-| <p> [Gruska et al (2010)](https://www.st.cs.uni-saarland.de/publications/files/gruska-issta-2010.pdf)                     </p> | <p> Function calls          </p> | <p> Cross-project anomalies    </p> |
+| Paper                                                                                                                 | Mined elements          | Target                     |
+| --------------------------------------------------------------------------------------------------------------------- | ----------------------- | -------------------------- |
+| [Livshits and Zimmermann (2005)](http://www.doc.ic.ac.uk/~livshits/papers/pdf/dynamine_ext.pdf)                       | Commit logs             | App-specific patterns      |
+| [Li and Zhou (2005)](https://www.cs.purdue.edu/homes/xyzhang/fall07/Papers/PRMiner.pdf)                               | Source code             | Implicit coding rules      |
+| [Wasylowski et al. (2007)](https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf) | Function call sequences | Object usage models        |
+| [Acharya et al. (2007)](https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf)                                 | API usage traces        | API usage orderings        |
+| [Chang et al. (2008)](https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W)                     | Neglected conditions    | Implicit conditional rules |
+| [Thummalapenta et al (2009)](https://link.springer.com/article/10.1007/s10515-011-0086-z)                             | Programming rules       | Alternative patterns       |
+| [Gruska et al (2010)](https://www.st.cs.uni-saarland.de/publications/files/gruska-issta-2010.pdf)                     | Function calls          | Cross-project anomalies    |
 
 In general terms, anomaly detection approaches have the following
 limitations:

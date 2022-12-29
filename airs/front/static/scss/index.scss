@@ -427,6 +427,47 @@ body {
   ::marker {
     font-size: 1rem !important;
   }
+
+  table {
+    border-collapse: collapse;
+    border-radius: 0.5rem;
+    border-spacing: 0;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1rem;
+    text-align: left;
+    width: max-content;
+
+    thead {
+      border-bottom: solid 2px #535365;
+    }
+
+    thead th {
+      color: #2e2e38;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 1rem;
+    }
+
+    tbody tr {
+      background-color: #fff;
+      position: relative;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f4f4f6;
+    }
+
+    tbody td {
+      border-bottom: solid 1px #b0b0bf;
+      color: #535365;
+      padding: 1rem;
+    }
+  }
 }
 
 .bs-product-image { filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.1)); }

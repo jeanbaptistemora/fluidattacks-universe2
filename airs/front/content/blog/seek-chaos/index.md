@@ -62,11 +62,11 @@ related to this concept using a triad: `FRAGILE` - `ROBUST` -
 
 </div>
 
-|                                   |                                                                                   |                                                                           |                                                |
-| --------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------- |
-| <p> **Case**                 </p> | <p> **FRAGILE**                                                              </p> | <p> **ROBUST**                                                       </p> | <p> **ANTIFRAGILE**                       </p> |
-| <p> Errors                   </p> | <p> Hates mistakes                                                           </p> | <p> Mistakes are just information                                    </p> | <p> Loves mistakes (since they are small) </p> |
-| <p> Dichotomy event-exposure </p> | <p> Studying events, measuring their risks, statistical properties of events </p> | <p> Studying exposure to events, statistical properties of exposures </p> | <p> Modifying exposure to events          </p> |
+|                          |                                                                          |                                                                  |                                       |
+| ------------------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------- | ------------------------------------- |
+| **Case**                 | **FRAGILE**                                                              | **ROBUST**                                                       | **ANTIFRAGILE**                       |
+| Errors                   | Hates mistakes                                                           | Mistakes are just information                                    | Loves mistakes (since they are small) |
+| Dichotomy event-exposure | Studying events, measuring their risks, statistical properties of events | Studying exposure to events, statistical properties of exposures | Modifying exposure to events          |
 
 How can we foster antifragility in our cybersecurity efforts? We will
 discuss two ways: first, by creating “troubles” and inject them into
