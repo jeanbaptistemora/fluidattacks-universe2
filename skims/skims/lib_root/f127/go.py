@@ -33,7 +33,7 @@ def get_eval_result(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
         if (
             evaluation
             and evaluation.danger
-            and evaluation.triggers != {"isinfcheck", "isnancheck"}
+            and evaluation.triggers == {"userconnection"}
         ):
             return True
     return False
@@ -45,7 +45,6 @@ def go_insecure_query_float(
 ) -> Vulnerabilities:
     method = MethodsEnum.GO_INSECURE_QUERY_FLOAT
     danger_methods = {
-        "DBQuerySameFile",
         "Exec",
         "ExecContext",
         "Query",
