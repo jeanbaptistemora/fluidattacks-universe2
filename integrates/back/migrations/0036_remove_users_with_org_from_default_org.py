@@ -1,6 +1,6 @@
 # type: ignore
 
-# pylint: disable=invalid-name,no-value-for-parameter
+# pylint: disable=invalid-name
 """
 This migration will clean IMAMURA from users
 that already have another org.

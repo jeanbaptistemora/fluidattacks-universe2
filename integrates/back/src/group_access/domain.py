@@ -269,8 +269,6 @@ async def exists(loaders: Dataloaders, group_name: str, email: str) -> bool:
 async def remove_access(
     loaders: Dataloaders, email: str, group_name: str
 ) -> None:
-    await group_access_model.remove(email=email, group_name=group_name)
-
     if email and group_name:
         me_vulnerabilities: tuple[
             Vulnerability, ...
@@ -319,6 +317,8 @@ async def remove_access(
                 for draft in group_drafts
             )
         )
+
+    await group_access_model.remove(email=email, group_name=group_name)
 
 
 async def update(

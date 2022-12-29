@@ -656,12 +656,12 @@ async def remove_credentials(
 
 
 async def remove_access(
-    loaders: Dataloaders, organization_id: str, email: str, modified_by: str
+    organization_id: str, email: str, modified_by: str
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
-    await org_access_model.remove(email=email, organization_id=organization_id)
     org_group_names = await get_group_names(loaders, organization_id)
     await collect(
         tuple(
@@ -669,11 +669,6 @@ async def remove_access(
             for group in org_group_names
         )
     )
-
-    loaders = get_new_context()
-    has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
-    if not has_orgs:
-        await stakeholders_domain.remove(email)
     user_credentials: tuple[
         Credentials, ...
     ] = await loaders.user_credentials.load(email)
@@ -688,6 +683,12 @@ async def remove_access(
             for credential in user_credentials
         )
     )
+    await org_access_model.remove(email=email, organization_id=organization_id)
+
+    loaders = get_new_context()
+    has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
+    if not has_orgs:
+        await stakeholders_domain.remove(email)
 
 
 async def remove_organization(
@@ -698,7 +699,7 @@ async def remove_organization(
     modified_by: str,
 ) -> None:
     await collect(
-        remove_access(loaders, organization_id, email, modified_by)
+        remove_access(organization_id, email, modified_by)
         for email in await get_stakeholders_emails(loaders, organization_id)
     )
     # The state is updated to DELETED, prior to removal from db, as Streams
@@ -728,7 +729,6 @@ async def remove_organization(
 
 
 async def reject_register_for_organization_invitation(
-    loaders: Dataloaders,
     organization_access: OrganizationAccess,
 ) -> None:
     invitation = organization_access.invitation
@@ -737,7 +737,7 @@ async def reject_register_for_organization_invitation(
 
     organization_id = organization_access.organization_id
     user_email = organization_access.email
-    await remove_access(loaders, organization_id, user_email, user_email)
+    await remove_access(organization_id, user_email, user_email)
 
 
 async def update_credentials(

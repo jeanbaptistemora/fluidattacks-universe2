@@ -1380,7 +1380,7 @@ async def remove_stakeholder(
     )
     if has_org_access and not has_groups_in_org:
         await orgs_domain.remove_access(
-            loaders, organization_id, email_to_revoke, modified_by
+            organization_id, email_to_revoke, modified_by
         )
 
     loaders = get_new_context()

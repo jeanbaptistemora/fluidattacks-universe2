@@ -1,6 +1,6 @@
 # type: ignore
 
-# pylint: disable=invalid-name,no-value-for-parameter
+# pylint: disable=invalid-name
 """
 This migration aims to remove default organization access
 to user with access to a group in any other organization

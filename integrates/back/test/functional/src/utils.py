@@ -54,7 +54,7 @@ async def confirm_deletion(
     *,
     loaders: Dataloaders,
     email: str,
-) -> bool:
+) -> None:
     access_with_deletion = await get_confirm_deletion(
         loaders=loaders, email=email
     )
@@ -64,11 +64,7 @@ async def confirm_deletion(
             url_token=access_with_deletion.confirm_deletion.url_token,
         )
     if user_email == email:
-        return await complete_deletion(  # type: ignore
-            loaders=get_new_context(), email=user_email
-        )
-
-    return False
+        await complete_deletion(email=user_email)
 
 
 async def reject_register(

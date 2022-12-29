@@ -1,10 +1,6 @@
 from aioextensions import (
     collect,
 )
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
 from db_model.stakeholders import (
     get_all_stakeholders,
 )
@@ -25,7 +21,6 @@ INACTIVITY_DAYS = 90
 
 
 async def process_stakeholder(
-    loaders: Dataloaders,
     modified_by: str,
     stakeholder: Stakeholder,
 ) -> None:
@@ -39,7 +34,6 @@ async def process_stakeholder(
         return
 
     await remove_stakeholder_all_organizations(
-        loaders=loaders,
         email=stakeholder.email,
         modified_by=modified_by,
     )
@@ -56,14 +50,12 @@ async def remove_inactive_stakeholders() -> None:
     """
     Remove stakeholders for inactivity (no logins) in the defined period.
     """
-    loaders: Dataloaders = get_new_context()
     modified_by = "integrates@fluidattacks.com"
     all_stakeholders: tuple[Stakeholder, ...] = await get_all_stakeholders()
     info("Stakeholders to process", extra={"item": len(all_stakeholders)})
     await collect(
         tuple(
             process_stakeholder(
-                loaders=loaders,
                 modified_by=modified_by,
                 stakeholder=stakeholder,
             )

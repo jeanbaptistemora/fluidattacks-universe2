@@ -191,7 +191,7 @@ async def test_remove_user() -> None:
         == "user"
     )
 
-    await orgs_domain.remove_access(loaders, org_id, user, modified_by)
+    await orgs_domain.remove_access(org_id, user, modified_by)
     loaders = get_new_context()
     updated_group_users = (
         await group_access_domain.get_group_stakeholders_emails(loaders, group)
@@ -202,7 +202,7 @@ async def test_remove_user() -> None:
 
     with pytest.raises(StakeholderNotInOrganization):
         await orgs_domain.remove_access(
-            loaders, org_id, "madeupuser@gmail.com", modified_by
+            org_id, "madeupuser@gmail.com", modified_by
         )
 
 

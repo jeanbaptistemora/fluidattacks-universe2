@@ -11,6 +11,7 @@ from custom_exceptions import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from db_model import (
     group_access as group_access_model,
@@ -81,24 +82,9 @@ mail_confirm_deletion = retry_on_exceptions(
 
 
 async def remove_stakeholder_all_organizations(
-    *, loaders: Dataloaders, email: str, modified_by: str
+    *, email: str, modified_by: str
 ) -> None:
-    organizations: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.stakeholder_organizations_access.load(email)
-
-    organizations_ids: list[str] = [
-        org.organization_id for org in organizations
-    ]
-    await collect(
-        tuple(
-            orgs_domain.remove_access(
-                loaders, organization_id, email, modified_by
-            )
-            for organization_id in organizations_ids
-        )
-    )
-
+    loaders: Dataloaders = get_new_context()
     subscriptions: tuple[
         Subscription
     ] = await loaders.stakeholder_subscriptions.load(email)
@@ -131,13 +117,27 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
+    loaders = get_new_context()
+    organizations: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.stakeholder_organizations_access.load(email)
+
+    organizations_ids: list[str] = [
+        org.organization_id for org in organizations
+    ]
+    await collect(
+        tuple(
+            orgs_domain.remove_access(organization_id, email, modified_by)
+            for organization_id in organizations_ids
+        )
+    )
+
     await stakeholders_domain.remove(email)
 
 
-async def complete_deletion(*, loaders: Dataloaders, email: str) -> None:
+async def complete_deletion(*, email: str) -> None:
     await group_access_model.remove(email=email, group_name="confirm_deletion")
     await remove_stakeholder_all_organizations(
-        loaders=loaders,
         email=email,
         modified_by=email,
     )

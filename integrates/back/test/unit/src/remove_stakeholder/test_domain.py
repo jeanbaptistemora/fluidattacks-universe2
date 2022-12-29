@@ -122,7 +122,7 @@ async def test_confirm_deletion_mail() -> None:
         await get_confirm_deletion(loaders=get_new_context(), email=email)
     )
 
-    await complete_deletion(loaders=get_new_context(), email=email)
+    await complete_deletion(email=email)
 
     assert not bool(
         await get_confirm_deletion(loaders=get_new_context(), email=email)
@@ -174,6 +174,6 @@ async def test_remove_stakeholder() -> None:
     assert stakeholder.role == "user"
 
     await remove_stakeholder_all_organizations(
-        loaders=get_new_context(), email=email, modified_by=modified_by
+        email=email, modified_by=modified_by
     )
     assert await loaders.stakeholder_subscriptions.load(email) == ()

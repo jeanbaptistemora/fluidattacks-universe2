@@ -193,7 +193,7 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
             )
             if user_email:
                 await remove_stakeholder_domain.complete_deletion(
-                    loaders=loaders, email=user_email
+                    email=user_email
                 )
                 response = await templates.confirm_deletion(request=request)
             else:
@@ -289,7 +289,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
             )
             await (
                 orgs_domain.reject_register_for_organization_invitation(
-                    loaders, organization_access
+                    organization_access
                 )
             )
             organization: Organization = await loaders.organization.load(

@@ -43,7 +43,6 @@ async def mutate(
     )
 
     await orgs_domain.remove_access(
-        info.context.loaders,
         organization_id,
         user_email.lower(),
         requester_email,
