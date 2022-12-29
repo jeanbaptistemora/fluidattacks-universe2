@@ -3,6 +3,7 @@ from syntax_graph.syntax_readers.go import (
     assignment_statement as go_assignment_statement,
     binary_expression as go_binary_expression,
     block as go_block,
+    boolean_literal as go_boolean_literal,
     call_expression as go_call_expression,
     comment as go_comment,
     composite_literal as go_composite_literal,
@@ -12,6 +13,7 @@ from syntax_graph.syntax_readers.go import (
     identifier as go_identifier,
     if_statement as go_if_statement,
     import_declaration as go_import_declaration,
+    index_expression as go_index_expression,
     int_literal as go_int_literal,
     literal_value as go_literal_value,
     nil as go_nil,
@@ -24,6 +26,7 @@ from syntax_graph.syntax_readers.go import (
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
+    type_conversion as go_type_conversion,
     type_declaration as go_type_declaration,
     unary_expression as go_unary_expression,
     var_declaration as go_var_declaration,
@@ -58,6 +61,13 @@ GO_DISPATCHERS: Dispatchers = (
             "binary_expression",
         },
         syntax_reader=go_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "false",
+            "true",
+        },
+        syntax_reader=go_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -124,6 +134,12 @@ GO_DISPATCHERS: Dispatchers = (
             "import_declaration",
         },
         syntax_reader=go_import_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "index_expression",
+        },
+        syntax_reader=go_index_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -197,6 +213,12 @@ GO_DISPATCHERS: Dispatchers = (
             "type_declaration",
         },
         syntax_reader=go_type_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_conversion_expression",
+        },
+        syntax_reader=go_type_conversion.reader,
     ),
     Dispatcher(
         applicable_types={
