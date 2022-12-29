@@ -17,7 +17,8 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     declarator_id = match_ast_d(args.ast_graph, args.n_id, "var_spec")
-
+    if not declarator_id:
+        declarator_id = match_ast_d(args.ast_graph, args.n_id, "const_spec")
     var_id = args.ast_graph.nodes[declarator_id]["label_field_name"]
     var_name = node_to_str(args.ast_graph, var_id)
 

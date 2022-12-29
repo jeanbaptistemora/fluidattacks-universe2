@@ -7,6 +7,7 @@ from syntax_graph.syntax_readers.go import (
     comment as go_comment,
     composite_literal as go_composite_literal,
     expression_list as go_expression_list,
+    for_statement as go_for_statement,
     function_declaration as go_function_declaration,
     identifier as go_identifier,
     if_statement as go_if_statement,
@@ -18,6 +19,7 @@ from syntax_graph.syntax_readers.go import (
     parameter_declaration as go_parameter_declaration,
     parameter_list as go_parameter_list,
     qualified_type as go_qualified_type,
+    reserved_words as go_reserved_words,
     return_statement as go_return_statement,
     selector_expression as go_selector_expression,
     source_file as go_source_file,
@@ -80,6 +82,12 @@ GO_DISPATCHERS: Dispatchers = (
             "expression_list",
         },
         syntax_reader=go_expression_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "for_statement",
+        },
+        syntax_reader=go_for_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -155,6 +163,12 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "defer_statement",
+        },
+        syntax_reader=go_reserved_words.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "return_statement",
         },
         syntax_reader=go_return_statement.reader,
@@ -192,6 +206,7 @@ GO_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "const_declaration",
             "var_declaration",
         },
         syntax_reader=go_var_declaration.reader,
