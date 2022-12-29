@@ -32,6 +32,18 @@ async def get_result(
                 currentState
                 cvssVersion
                 description
+                draftsConnection {{
+                    edges {{
+                        node {{
+                            id
+                            state
+                        }}
+                    }}
+                    pageInfo {{
+                        endCursor
+                        hasNextPage
+                    }}
+                }}
                 evidence {{
                     animation {{
                         date

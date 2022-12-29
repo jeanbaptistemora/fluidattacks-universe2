@@ -214,6 +214,34 @@ async def test_get_finding(populate: bool, email: str) -> None:
         == min_time_to_remediate
     )
     assert result["data"]["finding"]["where"] == where
+    assert result["data"]["finding"]["draftsConnection"] == {
+        "edges": [
+            {
+                "node": {
+                    "id": "b99d5450-2fdc-44e7-9e1f-01a7e288d317",
+                    "state": "REJECTED",
+                }
+            },
+            {
+                "node": {
+                    "id": "3bb9de0a-9232-4280-b730-b0607f6455e3",
+                    "state": "SUBMITTED",
+                }
+            },
+        ],
+        "pageInfo": {
+            "endCursor": (
+                "eyJwayI6ICJWVUxOIzNiYjlkZTBhLTkyMzItNDI4MC1iNzM"
+                "wLWIwNjA3ZjY0NTVlMyIsICJzayI6ICJGSU4jM2M0NzUzODQtODM0Yy00N2"
+                "IwLWFjNzEtYTQxYTAyMmU0MDFjIiwgInBrXzYiOiAiRklOIzNjNDc1Mzg0L"
+                "TgzNGMtNDdiMC1hYzcxLWE0MWEwMjJlNDAxYyIsICJza182IjogIlZVTE4jR"
+                "EVMRVRFRCNmYWxzZSNSRUxFQVNFRCNmYWxzZSNaUiNmYWxzZSNTVEFURSNzd"
+                "WJtaXR0ZWQjVkVSSUYjbm9uZSJ9"
+            ),
+            "hasNextPage": False,
+        },
+    }
+
     assert result["data"]["finding"]["vulnerabilitiesConnection"] == {
         "edges": [
             {

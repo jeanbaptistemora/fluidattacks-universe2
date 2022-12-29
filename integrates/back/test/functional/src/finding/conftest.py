@@ -243,6 +243,72 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     hacker_email="test1@gmail.com",
+                    id="3bb9de0a-9232-4280-b730-b0607f6455e3",
+                    state=VulnerabilityState(
+                        modified_by="test1@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        specific="11111",
+                        status=VulnerabilityStateStatus.SUBMITTED,
+                        where="192.168.1.20",
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                ),
+            },
+            {
+                "vulnerability": Vulnerability(
+                    created_by="test1@gmail.com",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
+                    hacker_email="test1@gmail.com",
+                    id="b99d5450-2fdc-44e7-9e1f-01a7e288d317",
+                    state=VulnerabilityState(
+                        modified_by="test1@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        specific="22222",
+                        status=VulnerabilityStateStatus.REJECTED,
+                        where="192.168.1.20",
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                ),
+            },
+            {
+                "vulnerability": Vulnerability(
+                    created_by="test1@gmail.com",
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
+                    hacker_email="test1@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     state=VulnerabilityState(
                         modified_by="test1@gmail.com",
