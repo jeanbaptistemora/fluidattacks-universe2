@@ -14,6 +14,13 @@ type Finding {
   cvssVersion: String!
   "Brief explanation of the vulnerability and how it works"
   description: String!
+  "List of unreleased vulnerabilities within the Finding"
+  draftsConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+  ): VulnerabilitiesConnection!
   "Evidences of the Finding"
   evidence: FindingEvidence!
   "Name of the Group where the Finding is in"

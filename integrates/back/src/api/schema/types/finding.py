@@ -4,6 +4,7 @@ from api.resolvers.finding import (
     consulting,
     current_state,
     cvss_version,
+    drafts_connection,
     evidence,
     group_name,
     hacker,
@@ -42,6 +43,7 @@ FINDING.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
 FINDING.set_field("consulting", consulting.resolve)
 FINDING.set_field("currentState", current_state.resolve)
 FINDING.set_field("cvssVersion", cvss_version.resolve)
+FINDING.set_field("draftsConnection", drafts_connection.resolve)
 FINDING.set_field("evidence", evidence.resolve)
 FINDING.set_field("groupName", group_name.resolve)
 FINDING.set_field("hacker", hacker.resolve)

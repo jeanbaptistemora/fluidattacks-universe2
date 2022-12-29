@@ -81,6 +81,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_validate_git_access_mutate",
             "api_mutations_verify_vulnerabilities_request_mutate",
             "api_resolvers_finding_consulting_resolve",
+            "api_resolvers_finding_drafts_connection_resolve",
             "api_resolvers_finding_hacker_resolve",
             "api_resolvers_finding_historic_state_resolve",
             "api_resolvers_finding_observations_resolve",
