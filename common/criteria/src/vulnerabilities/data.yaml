@@ -32261,7 +32261,7 @@
     title: Insufficient data authenticity validation - Checksum verification
     description: >
       The application does not properly validate the
-      integrity of resources uploaded from external servers.
+      integrity of resources loaded from external servers.
     impact: >
       Use third-party resources without verifying
       that the integrity has not been compromised.
@@ -32289,29 +32289,17 @@
   examples:
     non_compliant: |
       The application does not perform server side validation of the input data
-      ```javascript
-      app.post('/editProfile', isLoggedIn, function(req, res, next){
-        User.update({ _id: req.user.id}, req.body, function(err, user){
-          //Using data from a third party without validating
-          user.facebookProfileUrl = req.body.Url;
-          user.facebookHeader = downloadData(req.body.url, "header");
-          res.redirect('/profile/');
-        }
-      });
+      ```docker
+      
+      curl -OL ${JRE_URL} \
+       
       ```
     compliant: |
       All inputs are correctly validated on the server side before being used
-      ```javascript
-      app.post('/editProfile', isLoggedIn, function(req, res, next){
-        User.update({ _id: req.user.id}, req.body, function(err, user){
-          user.facebookProfileUrl = req.body.Url;
-          headerUpdate = downloadData(req.body.url, "header");
-          if isValidHeader(headerUpdate){
-            user.facebookHeader = headerUpdate;
-          }
-          res.redirect('/profile/');
-        }
-      });
+      ```docker
+      
+      curl -OL ${JRE_URL} \
+      && echo ${JRE_CKSUM} | sha256sum -c
       ```
   remediation_time: '15'
   score:
@@ -38918,13 +38906,13 @@
         privileges_required: N
         user_interaction: N
         scope: C
-        confidentiality: L
+        confidentiality: H
         integrity: L
         availability: L
       temporal:
         exploit_code_maturity: P
         remediation_level: U
-        report_confidence: R
+        report_confidence: C
     requirements: ['029', '173']
     metadata:
       en:
