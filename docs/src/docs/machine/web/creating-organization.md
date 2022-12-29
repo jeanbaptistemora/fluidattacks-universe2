@@ -45,7 +45,7 @@ Give it a name, then click on **Confirm**
 and your organization will be
 created.
 
-![Add New Organization Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1664803645/docs/web/add_new_org.png)
+![Add New Organization Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1672320747/docs/web/adding_new_org.png)
 
 The organization drop-down menu
 helps you navigate through your
