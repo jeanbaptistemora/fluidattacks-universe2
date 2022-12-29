@@ -1,16 +1,17 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.syntax_nodes.reserved_word import (
+    build_reserved_word_node,
+)
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from utils.graph import (
-    match_ast,
+from utils.graph.text_nodes import (
+    node_to_str,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    match = match_ast(args.ast_graph, args.n_id)
-    type_id = match["__0__"]
-
-    return args.generic(args.fork_n_id(str(type_id)))
+    type_name = node_to_str(args.ast_graph, args.n_id)
+    return build_reserved_word_node(args, type_name)

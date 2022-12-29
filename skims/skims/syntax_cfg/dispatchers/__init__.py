@@ -100,6 +100,7 @@ DISPATCHERS: Dispatchers = (
             "PostfixUnaryExpression",
             "PropertyDeclaration",
             "ReservedWord",
+            "RestPattern",
             "Resource",
             "Selector",
             "SymbolLookup",
