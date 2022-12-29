@@ -29,10 +29,12 @@ from newutils.validations import (
     validate_int_range,
     validate_int_range_deco,
     validate_sanitized_csv_input,
+    validate_sanitized_csv_input_deco,
     validate_symbols,
 )
 import pytest
 from typing import (
+    NamedTuple,
     Optional,
     Tuple,
 )
@@ -71,6 +73,16 @@ def test_validate_email_address_deco() -> None:
         return email
 
     assert decorated_func(email="test@unittesting.com")
+
+    class Email(NamedTuple):
+        address: str
+
+    @validate_email_address_deco("email_test.address")
+    def decorated_func_obj(email_test: Email) -> Email:
+        return email_test
+
+    email = Email(address="test@unittesting.com")
+    assert decorated_func_obj(email_test=email)
     with pytest.raises(InvalidField):
 
         decorated_func(email="testunittesting.com")
@@ -301,6 +313,24 @@ def test_validate_sanitized_csv_input(field: str) -> None:
     )
     with pytest.raises(UnsanitizedInputFound):
         assert validate_sanitized_csv_input(field)  # type: ignore
+
+
+def test_validate_sanitized_csv_input_deco() -> None:
+    @validate_sanitized_csv_input_deco(field_names=["field1", "field3"])
+    def decorated_func(field1: str, field2: str, field3: str) -> str:
+        return field1 + field2 + field3
+
+    assert decorated_func(
+        field1="validfield@",
+        field2="not_check",
+        field3="valid field",
+    )
+    with pytest.raises(UnsanitizedInputFound):
+        decorated_func(
+            field1='"=invalidField"',
+            field2="not_check",
+            field3=",-invalidField",
+        )
 
 
 @pytest.mark.parametrize(

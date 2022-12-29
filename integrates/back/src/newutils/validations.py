@@ -65,6 +65,10 @@ def validate_email_address_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = getattr(obj, attr_name)
             if "+" in field_content:
                 raise InvalidField("email address")
             try:
@@ -496,6 +500,53 @@ def validate_sanitized_csv_input(*fields: str) -> None:
                     for separator in separators
                 ):
                     raise UnsanitizedInputFound()
+
+
+def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
+    def decorator(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def wrapper(**kwargs: str) -> None:
+            """Checks for the presence of any character that could be
+            interpreted as the start of a formula by a spreadsheet editor
+            according to
+            https://owasp.org/www-community/attacks/CSV_Injection"""
+            forbidden_characters: Tuple[str, ...] = (
+                "-",
+                "=",
+                "+",
+                "@",
+                "\t",
+                "\r",
+                "\n",
+                "\\",
+            )
+            separators: Tuple[str, ...] = ('"', "'", ",", ";")
+            fields_to_validate = [
+                str(kwargs.get(field)) for field in field_names
+            ]
+            fields_union = [field.split() for field in fields_to_validate]
+            fields_flat = list(itertools.chain(*fields_union))
+            for field in fields_flat:
+                for character in forbidden_characters:
+                    # match characters at the beginning of string
+                    if re.match(re.escape(character), field):
+                        raise UnsanitizedInputFound()
+                    # check for field separator and quotes
+                    char_locations: List[int] = [
+                        match.start()
+                        for match in re.finditer((re.escape(character)), field)
+                    ]
+                    for location in char_locations:
+                        if any(
+                            separator in field[location - 1]
+                            for separator in separators
+                        ):
+                            raise UnsanitizedInputFound()
+            return func(**kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 def validate_commit_hash(commit_hash: str) -> None:
