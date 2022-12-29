@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
+const IconContainer = styled.div`
+  align-items: center;
+  color: #fff;
+  display: flex;
+  font-size: 1.25rem;
+  justify-content: center;
+`;
+
 const StickyContainer = styled.div`
   position: sticky;
   top: 105px;
 `;
 
-const CircleContainer = styled.div`
-  border-radius: 100%;
-  width: auto;
-`;
-
-export { CircleContainer, StickyContainer };
+export { IconContainer, StickyContainer };

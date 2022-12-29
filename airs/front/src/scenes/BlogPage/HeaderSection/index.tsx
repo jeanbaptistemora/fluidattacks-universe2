@@ -34,9 +34,13 @@ const HeaderSection: React.FC<IHeaderProps> = ({
             {description}
           </Text>
         ) : undefined}
-      </Container>
-      <Container center={true} pt={5} width={"1440px"} widthSm={"100%"}>
-        <img alt={`solution ${title}`} className={"w-100 h-100"} src={image} />
+        <Container pt={5} width={"100%"}>
+          <img
+            alt={`solution ${title}`}
+            className={"w-100 h-100"}
+            src={image}
+          />
+        </Container>
       </Container>
     </Container>
   );

@@ -6,7 +6,7 @@ import {
   TwitterShareButton,
 } from "react-share";
 
-import { StickyContainer } from "./styledComponents";
+import { IconContainer, StickyContainer } from "./styledComponents";
 
 import { Container } from "../../../../components/Container";
 import { Text } from "../../../../components/Typography";
@@ -43,9 +43,9 @@ const ShareSection: React.FC<IShareProps> = ({ slug }): JSX.Element => {
               justify={"center"}
               width={"54px"}
             >
-              <Text color={"#fff"} size={"big"} textAlign={"center"}>
+              <IconContainer>
                 <FaFacebookF />
-              </Text>
+              </IconContainer>
             </Container>
           </FacebookShareButton>
         </Container>
@@ -63,9 +63,9 @@ const ShareSection: React.FC<IShareProps> = ({ slug }): JSX.Element => {
               justify={"center"}
               width={"54px"}
             >
-              <Text color={"#fff"} size={"big"} textAlign={"center"}>
+              <IconContainer>
                 <FaLinkedinIn />
-              </Text>
+              </IconContainer>
             </Container>
           </LinkedinShareButton>
         </Container>
@@ -83,9 +83,9 @@ const ShareSection: React.FC<IShareProps> = ({ slug }): JSX.Element => {
               justify={"center"}
               width={"54px"}
             >
-              <Text color={"#fff"} size={"big"} textAlign={"center"}>
+              <IconContainer>
                 <FaTwitter />
-              </Text>
+              </IconContainer>
             </Container>
           </TwitterShareButton>
         </Container>
