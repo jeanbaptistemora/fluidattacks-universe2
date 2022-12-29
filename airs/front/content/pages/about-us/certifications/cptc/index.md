@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cptc
 alt: Logo C)PTC
 certification: yes
-certificationid: 27
+certificationid: 30
 ---
 
 [C)PTC](https://www.mile2.com/cptc_outline/)

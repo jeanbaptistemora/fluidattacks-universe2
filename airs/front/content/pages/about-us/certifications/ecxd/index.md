@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ecxd
 alt: Logo eCXD
 certification: yes
-certificationid: 11
+certificationid: 14
 ---
 
 [eCXD](https://elearnsecurity.com/product/ecxd-certification/)

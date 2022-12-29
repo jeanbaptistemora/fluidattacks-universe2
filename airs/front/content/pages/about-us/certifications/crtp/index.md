@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-crtp
 alt: Logo CRTP
 certification: yes
-certificationid: 21
+certificationid: 24
 ---
 
 [CRTP](https://www.pentesteracademy.com/activedirectorylab)

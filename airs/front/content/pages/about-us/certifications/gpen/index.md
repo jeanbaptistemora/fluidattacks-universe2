@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-gpen
 alt: Logo GPEN
 certification: yes
-certificationid: 7
+certificationid: 10
 ---
 
 [GPEN](https://www.giac.org/certifications/penetration-tester-gpen/)

@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ejpt
 alt: Logo eJPT
 certification: yes
-certificationid: 17
+certificationid: 20
 ---
 
 [eJPT](https://elearnsecurity.com/product/ejpt-certification/)

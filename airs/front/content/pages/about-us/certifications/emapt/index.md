@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-emapt
 alt: Logo eMAPT
 certification: yes
-certificationid: 13
+certificationid: 16
 ---
 
 [eMAPT](https://elearnsecurity.com/product/emapt-certification/)

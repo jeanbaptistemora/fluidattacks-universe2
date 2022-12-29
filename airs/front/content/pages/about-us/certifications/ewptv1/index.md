@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-ewptv1
 alt: Logo eWPTv1
 certification: yes
-certificationid: 14
+certificationid: 17
 ---
 
 [eWPTv1](https://elearnsecurity.com/product/ewpt-certification/)
