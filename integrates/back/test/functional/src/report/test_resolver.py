@@ -3,6 +3,7 @@ from . import (
     get_result_closing_date,
     get_result_states,
     get_result_treatments,
+    run,
 )
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
@@ -82,6 +83,37 @@ async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(ReportAlreadyRequested())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
+        ["hacker@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
+    ],
+)
+async def test_get_report_second_time(populate: bool, email: str) -> None:
+    assert populate
+    group: str = "group1"
+    assert (
+        await run(
+            entity=group,
+            additional_info="PDF",
+            subject=email,
+        )
+        == 0
+    )
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name=group,
+    )
+    assert "success" in result["data"]["report"]
+    assert result["data"]["report"]["success"]
 
 
 @pytest.mark.asyncio

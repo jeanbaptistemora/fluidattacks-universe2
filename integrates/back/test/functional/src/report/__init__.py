@@ -1,14 +1,56 @@
 # pylint: disable=import-error
+import asyncio
 from back.test.functional.src.utils import (
     get_graphql_result,
+)
+from batch.dal import (
+    get_actions,
+)
+from batch.types import (
+    BatchProcessing,
 )
 from dataloaders import (
     get_new_context,
 )
+import os
+import subprocess
 from typing import (
     Any,
+    List,
     Optional,
 )
+
+
+async def _get_batch_job(
+    *, entity: str, additional_info: str, subject: str
+) -> BatchProcessing:
+    all_actions = await get_actions()
+    return next(
+        (
+            action
+            for action in all_actions
+            if action.entity == entity
+            and additional_info in action.additional_info
+            and subject in action.subject
+        )
+    )
+
+
+async def run(*, entity: str, additional_info: str, subject: str) -> int:
+    batch_action = await _get_batch_job(
+        entity=entity, additional_info=additional_info, subject=subject
+    )
+    cmd_args: List[str] = [
+        "test",
+        batch_action.key,
+    ]
+    process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
+        os.environ["BATCH_BIN"],
+        *cmd_args,
+        stdin=subprocess.DEVNULL,
+    )
+
+    return await process.wait()
 
 
 async def get_result(
