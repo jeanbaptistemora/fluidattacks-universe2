@@ -59,5 +59,12 @@ describe("update Affected Modal", (): void => {
     expect(
       screen.queryByText("group.events.form.affectedReattacks.title")
     ).toBeInTheDocument();
+
+    expect(screen.queryByRole("combobox")).toBeInTheDocument();
+    expect(
+      screen.queryByText("038. Business information leak")
+    ).toBeInTheDocument();
+
+    expect(screen.getByRole("button", { name: /confirm/iu })).toBeDisabled();
   });
 });

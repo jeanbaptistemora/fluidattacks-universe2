@@ -17,6 +17,20 @@ import {
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
+const mockHistoryPush: jest.Mock = jest.fn();
+jest.mock("react-router", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router");
+
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
+
 jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
     jest.requireActual("../../../../../utils/notifications");
@@ -65,7 +79,7 @@ describe("eventsView", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should render events table", async (): Promise<void> => {
+  it("should render events table and go to event", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocks: readonly MockedResponse[] = [
@@ -114,6 +128,15 @@ describe("eventsView", (): void => {
       ).toBeInTheDocument();
       expect(screen.getByRole("cell", { name: "Solved" })).toBeInTheDocument();
     });
+
+    await userEvent.click(
+      screen.getByRole("cell", { name: "Authorization for a special attack" })
+    );
+
+    expect(mockHistoryPush).toHaveBeenCalledWith(
+      "/groups/unittesting/events/463457733/description"
+    );
+
     jest.clearAllMocks();
   });
 
