@@ -223,6 +223,54 @@
               }
             }
           ]
+        },
+        {
+          "message": {
+            "text": "Using axios in the version 0.19.2 con ['CVE-2020-28168', 'CVE-2021-3749', 'GHSA-4w2v-q235-vp99', 'GHSA-cph5-m8f7-6c5x'] in nickname/package.json",
+            "properties": {
+              "dependency_name": "axios",
+              "dependency_version": "^0.19.2",
+              "cve": [
+                "CVE-2020-28168",
+                "CVE-2021-3749",
+                "GHSA-4w2v-q235-vp99",
+                "GHSA-cph5-m8f7-6c5x"
+              ]
+            }
+          },
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "package.json"
+                },
+                "region": {
+                  "snippet": {
+                    "text": ""
+                  },
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "kind": "lines",
+            "method_developer": "machine@fluidattacks.com",
+            "source_method": "npm.npm_package_json",
+            "stream": "skims",
+            "technique": "SCA"
+          },
+          "ruleId": "011",
+          "taxa": [
+            {
+              "id": "262",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
         }
       ],
       "taxonomies": [
@@ -314,6 +362,23 @@
               "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/117#details",
               "id": "117",
               "name": "Unverifiable files",
+              "properties": {
+                "auto_approve": true
+              }
+            },
+            {
+              "id": "011",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "The system uses the version of a software or dependency with known vulnerabilities.\n"
+              },
+              "help": {
+                "text": "Update the affected software to the versions recommended by the vendor.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/011#details",
+              "name": "Use of software with known vulnerabilities",
               "properties": {
                 "auto_approve": true
               }

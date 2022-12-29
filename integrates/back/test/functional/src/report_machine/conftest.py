@@ -848,6 +848,37 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                 ),
             ),
+            ToeLines(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
+                attacked_by="machine@fluidattacks.com",
+                attacked_lines=30,
+                be_present=True,
+                be_present_until=None,
+                comments="",
+                filename="package.json",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                loc=180,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+                sorts_risk_level=-1,
+                state=ToeLinesState(
+                    modified_by="machine@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
+                ),
+            ),
         ),
     }
     return await db.populate({**generic_data["db_data"], **data})

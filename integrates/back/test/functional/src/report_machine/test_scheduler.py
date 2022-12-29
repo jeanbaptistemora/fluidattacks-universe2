@@ -268,6 +268,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         )
         assert len(integrates_vulnerabilities) == 1
 
+        id_1 = integrates_vulnerabilities[0].id
         where_1 = integrates_vulnerabilities[0].state.where
         await process_execution("group1_4d3275db-5715-4258-a2d5-dc80c441b062")
         loaders.finding_vulnerabilities.clear(finding_011.id)
@@ -280,8 +281,10 @@ async def test_duplicated_reports(populate: bool) -> None:
         )
         assert len(integrates_vulnerabilities_2) == 1
 
+        id_2 = integrates_vulnerabilities_2[0].id
         where_2 = integrates_vulnerabilities_2[0].state.where
         assert where_1 == where_2
+        assert id_1 == id_2
 
 
 @pytest.mark.asyncio
@@ -315,6 +318,9 @@ async def test_approval(populate: bool) -> None:
         f_117: Optional[Finding] = next(
             (fin for fin in findings if fin.title.startswith("117")), None
         )
+        f_011: Optional[Finding] = next(
+            (fin for fin in findings if fin.title.startswith("011")), None
+        )
         f_237: Optional[Finding] = next(
             (fin for fin in findings if fin.title.startswith("237")), None
         )
@@ -342,14 +348,17 @@ async def test_approval(populate: bool) -> None:
             (fin for fin in findings if fin.title.startswith("237")), None
         )
         assert f_117 is not None
+        assert f_011 is not None
         assert f_237 is not None
 
         f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
+        f_011_vulns = await loaders.finding_vulnerabilities.load(f_011.id)
         f_237_vulns: tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities.load(f_237.id)
         assert len(f_117_vulns) == 3
         assert len(f_237_vulns) == 3
+        assert len(f_011_vulns) == 2
 
         assert f_117.approval is None
         assert f_237.approval is not None
