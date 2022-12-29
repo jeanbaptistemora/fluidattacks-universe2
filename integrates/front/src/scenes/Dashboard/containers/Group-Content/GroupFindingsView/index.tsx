@@ -378,7 +378,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               const treatmentAssignmentEmails = new Set(
                 [
                   ...current.treatmentAssignmentEmails,
-                  vulnerability.currentState === "open"
+                  vulnerability.state === "VULNERABLE"
                     ? (vulnerability.treatmentAssigned as string)
                     : "",
                 ].filter(Boolean)

@@ -94,9 +94,9 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
       vulnerabilities(after: $after, first: $first) {
         edges {
           node {
-            currentState
             findingId
             id
+            state
             treatmentAssigned
             where
           }

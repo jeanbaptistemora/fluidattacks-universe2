@@ -121,6 +121,9 @@ describe("groupFindingsView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            businessId: "14441323",
+            businessName: "Testing Company and Sons",
+            description: "Integrates unit test group",
             findings: [
               {
                 __typename: "Finding",
@@ -152,7 +155,9 @@ describe("groupFindingsView", (): void => {
                 verified: false,
               },
             ],
+            hasMachine: true,
             name: "TEST",
+            userRole: "admin",
           },
         },
       },
@@ -162,7 +167,7 @@ describe("groupFindingsView", (): void => {
     {
       request: {
         query: GET_GROUP_VULNERABILITIES,
-        variables: { first: 10, groupName: "TEST" },
+        variables: { first: 1200, groupName: "TEST" },
       },
       result: {
         data: {
@@ -170,14 +175,19 @@ describe("groupFindingsView", (): void => {
             __typename: "Group",
             name: "TEST",
             vulnerabilities: {
-              edges: {
-                node: {
-                  findingId: "438679960",
-                  id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-                  treatmentAssigned: "test@fluidattacks.com",
-                  where: "This is a test where",
+              edges: [
+                {
+                  __typename: "VulnerabilityEdge",
+                  node: {
+                    __typename: "Vulnerability",
+                    findingId: "438679960",
+                    id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+                    state: "VULNERABLE",
+                    treatmentAssigned: "test1@fluidattacks.com",
+                    where: "This is a test where",
+                  },
                 },
-              },
+              ],
               pageInfo: {
                 endCursor: "test-cursor=",
                 hasNextPage: false,
@@ -327,7 +337,7 @@ describe("groupFindingsView", (): void => {
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <MockedProvider
           addTypename={true}
-          mocks={[...mocksFindings, ...mocksLocations]}
+          mocks={[...mocksLocations, ...mocksFindings]}
         >
           <Route
             component={GroupFindingsView}
@@ -345,6 +355,9 @@ describe("groupFindingsView", (): void => {
 
     expect(screen.queryByText("Where")).not.toBeInTheDocument();
     expect(screen.queryByText("Reattack")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("test1@fluidattacks.com")
+    ).not.toBeInTheDocument();
 
     await userEvent.click(screen.getByText("group.findings.tableSet.btn.text"));
 
@@ -357,6 +370,16 @@ describe("groupFindingsView", (): void => {
     await userEvent.click(
       screen.getByRole("checkbox", { checked: false, name: "reattack" })
     );
+    await userEvent.click(
+      screen.getByRole("checkbox", {
+        checked: false,
+        name: "Assignees",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByText("test1@fluidattacks.com")).toBeInTheDocument();
+    });
     await userEvent.type(
       screen.getByText("group.findings.tableSet.modalTitle"),
       "{Escape}"
@@ -388,5 +411,6 @@ describe("groupFindingsView", (): void => {
     expect(screen.getByText("2.9")).toBeInTheDocument();
     expect(screen.getByText("6")).toBeInTheDocument();
     expect(screen.getByText("Pending")).toBeInTheDocument();
+    expect(screen.getByText("Assignees")).toBeInTheDocument();
   });
 });

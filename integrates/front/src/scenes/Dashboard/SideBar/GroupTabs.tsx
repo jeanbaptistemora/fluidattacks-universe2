@@ -26,7 +26,7 @@ const GroupTabs: FC = (): JSX.Element => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(t("groupAlerts.errorTextsad"));
           Logger.warning(
-            "An error occurred loading organization groups",
+            "An error occurred loading sidebar group vulnerabilities",
             error
           );
         });

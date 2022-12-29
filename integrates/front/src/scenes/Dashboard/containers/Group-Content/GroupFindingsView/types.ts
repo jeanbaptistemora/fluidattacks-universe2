@@ -81,9 +81,9 @@ interface IRequestGroupReportResult {
 }
 
 interface IVulnerability {
-  currentState: "closed" | "open";
   findingId: string;
   id: string;
+  state: string;
   treatmentAssigned: string | null;
   where: string;
 }
