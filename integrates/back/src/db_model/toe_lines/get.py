@@ -37,6 +37,7 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
+    Union,
 )
 
 
@@ -143,7 +144,7 @@ class GroupToeLinesLoader(DataLoader):
 
 async def _get_toe_lines_by_root(
     request: RootToeLinesRequest,
-) -> ToeLinesConnection:
+) -> Union[ToeLinesConnection, None]:
     if request.be_present is None:
         facet = TABLE.facets["toe_lines_metadata"]
         primary_key = keys.build_key(
@@ -180,8 +181,8 @@ async def _get_toe_lines_by_root(
             paginate=request.paginate,
             table=TABLE,
         )
-    except ValidationException as exc:
-        raise InvalidBePresentFilterCursor() from exc
+    except ValidationException:
+        return None
 
     return ToeLinesConnection(
         edges=tuple(
@@ -196,8 +197,8 @@ class RootToeLinesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeLinesRequest]
-    ) -> tuple[ToeLinesConnection, ...]:
-        return await collect(tuple(map(_get_toe_lines_by_root, requests)))
+    ) -> tuple[Union[ToeLinesConnection, None], ...]:
+        return await collect(map(_get_toe_lines_by_root, requests))
 
     async def load_nodes(
         self, request: RootToeLinesRequest
