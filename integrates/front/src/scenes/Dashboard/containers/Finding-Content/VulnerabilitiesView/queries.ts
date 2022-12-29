@@ -72,6 +72,33 @@ const GET_FINDING_NZR_VULNS: DocumentNode = gql`
   ${VULNS_FRAGMENT}
 `;
 
+const GET_FINDING_VULN_DRAFTS: DocumentNode = gql`
+  query GetFindingVulnDrafts(
+    $after: String
+    $canRetrieveDrafts: Boolean!
+    $findingId: String!
+    $first: Int
+  ) {
+    finding(identifier: $findingId) {
+      __typename
+      id
+      draftsConnection(after: $after, first: $first)
+        @include(if: $canRetrieveDrafts) {
+        edges {
+          node {
+            ...vulnFields
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+  ${VULNS_FRAGMENT}
+`;
+
 const GET_FINDING_ZR_VULNS: DocumentNode = gql`
   query GetFindingZrVulns(
     $after: String
@@ -111,6 +138,7 @@ export {
   VULNS_FRAGMENT,
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
+  GET_FINDING_VULN_DRAFTS,
   GET_FINDING_ZR_VULNS,
   SEND_VULNERABILITY_NOTIFICATION,
 };
