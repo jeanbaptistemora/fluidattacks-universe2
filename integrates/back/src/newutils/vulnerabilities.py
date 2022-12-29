@@ -547,11 +547,11 @@ def get_treatment_from_org_finding_policy(
 
 
 def _get_vuln_state_action(
-    historic_state: Tuple[VulnerabilityState, ...],
-) -> List[Action]:
-    actions: List[Action] = [
+    historic_state: tuple[VulnerabilityState, ...],
+) -> list[Action]:
+    actions: list[Action] = [
         Action(
-            action=get_current_state_converted(state.status.value),
+            action=state.status.value,
             date=str(state.modified_date.date()),
             justification="",
             assigned="",
@@ -563,8 +563,8 @@ def _get_vuln_state_action(
 
 
 def get_state_actions(
-    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
-) -> List[Action]:
+    vulns_state: tuple[tuple[VulnerabilityState, ...], ...],
+) -> list[Action]:
     states_actions = list(
         itertools.chain.from_iterable(
             _get_vuln_state_action(historic_state)

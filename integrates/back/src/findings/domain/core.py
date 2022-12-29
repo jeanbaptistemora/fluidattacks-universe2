@@ -448,8 +448,8 @@ def get_tracking_vulnerabilities(
     return [
         Tracking(
             cycle=index,
-            open=action.times if action.action == "OPEN" else 0,
-            closed=action.times if action.action == "CLOSED" else 0,
+            open=action.times if action.action == "VULNERABLE" else 0,
+            closed=action.times if action.action == "SAFE" else 0,
             date=action.date,
             accepted=action.times if action.action == "ACCEPTED" else 0,
             accepted_undefined=(
@@ -457,8 +457,8 @@ def get_tracking_vulnerabilities(
             ),
             assigned=action.assigned,
             justification=action.justification,
-            safe=action.times if action.action == "CLOSED" else 0,
-            vulnerable=action.times if action.action == "OPEN" else 0,
+            safe=action.times if action.action == "SAFE" else 0,
+            vulnerable=action.times if action.action == "VULNERABLE" else 0,
         )
         for index, action in enumerate(tracking_actions)
     ]
