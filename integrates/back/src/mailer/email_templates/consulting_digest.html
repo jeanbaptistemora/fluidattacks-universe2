@@ -1,49 +1,49 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Consulting Report') }}
+      {{ banner_share('Consulting Report') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello, {{ name }}:</h2>
         <p>Below is a brief report of the latest consulting comments in your
-          subscribed groups:
+          subscribed groups on {{ date }}:
         </p>
-        {% for group_name, group_data in groups_data.items() %}
-        <br />
-        <h4>
-          <strong>
-            <a
-              href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/consulting"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-            {{ group_name.upper() }}
-            </a>
-          </strong>
-        </h4>
-        <br />
-        <p>
+        <div class="data-container">
+          {% for group_name, group_data in groups_data.items() %}
+          <h4>
+            <strong>
+              <a
+                href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/consulting"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+              {{ group_name.upper() }}
+              </a>
+            </strong>
+          </h4>
           {%- if group_data["group_comments"] -%}
-          <strong>Group Consulting:</strong>
           <ul>
-            {% for group_comment in group_data["group_comments"] %}
             <li>
-              <strong>
-                {{ group_comment["date"] }} {{ group_comment["name"] -}}:
-              </strong>
-              <br />
-              <em>{{ group_comment["comment"] }}</em>
-            </li>
+              <strong>Group Consulting</strong>
+              <ul>
+            {% for group_comment in group_data["group_comments"] %}
+                <li>
+                  <strong>
+                    {{ group_comment["date"] }} {{ group_comment["name"] -}}:
+                  </strong>
+                  <br />
+                  <em>{{ group_comment["comment"] }}</em>
+                </li>
             {% endfor %}
+              </ul>
+            </li>
           </ul>
           {% endif %}
           {%- if group_data["event_comments"].keys() %}
-          <strong>Event Consulting:</strong>
-          <ul>
             {% for event_id, event_data in group_data["event_comments"].items() %}
+          <ul>
             <li>
               <strong>
                 <a
@@ -51,7 +51,7 @@
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                Event#{{ event_id -}}:
+                Event#{{ event_id -}}
                 </a>
               </strong>
               <ul>
@@ -66,13 +66,12 @@
               {% endfor %}
               </ul>
             </li>
-            {% endfor %}
           </ul>
+            {% endfor %}
           {% endif %}
           {%- if group_data["finding_comments"].keys() %}
-          <strong>Finding Consulting:</strong>
-          <ul>
             {% for finding_type, finding_data in group_data["finding_comments"].items() %}
+          <ul>
             <li>
               <strong>
                 <a
@@ -80,7 +79,7 @@
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {{ finding_type -}}:
+                  {{ finding_type -}}
                 </a>
               </strong>
               <ul>
@@ -95,17 +94,14 @@
               {% endfor %}
               </ul>
             </li>
-            {% endfor %}
           </ul>
+            {% endfor %}
           {% endif %}
-        </p>
-        {% endfor %}
-        <p>
-          Regards,<br />
-          Fluid Attacks Team
-        </p>
+          {% endfor %}
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
