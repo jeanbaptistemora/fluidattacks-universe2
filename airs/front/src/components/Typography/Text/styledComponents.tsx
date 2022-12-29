@@ -62,7 +62,7 @@ const StyledText = styled.p.attrs<ITextProps>(
     hColor = color,
     display = "block",
     fontStyle = "no",
-    textAlign = "start",
+    textAlign = "unset",
     size = "medium",
     sizeMd,
     sizeSm,

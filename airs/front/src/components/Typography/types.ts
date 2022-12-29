@@ -19,7 +19,7 @@ interface ITypographyProps {
   sizeMd?: TSize;
   sizeSm?: TSize;
   fontStyle?: TStyle;
-  textAlign?: "center" | "end" | "start";
+  textAlign?: "center" | "end" | "start" | "unset";
 }
 
 interface ISize {
