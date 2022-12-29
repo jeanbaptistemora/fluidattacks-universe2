@@ -393,9 +393,8 @@ def main(  # NOSONAR
 
     # Do the heavy lifting (structura)
     prepare_env()
-
+    LOG.info("Processing stream...")
     for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
-        LOG.info("Processing stream...")
         with contextlib.suppress(JSONDecodeError):
             stream_stru = loads(stream)
             _type = stream_stru.get("type")
@@ -407,6 +406,7 @@ def main(  # NOSONAR
         catalog(_schemas_dir)
 
     # Parse everything to singer
+    LOG.info("to singer transform...")
     for schema in os.listdir(_schemas_dir):
         dump_schema(schema, _schemas_dir)
         if stream_records:
