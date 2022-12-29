@@ -11,7 +11,7 @@
       when: never
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|forces)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /deployContainerImage/forcesDev
   stage: deploy-app
@@ -132,7 +132,7 @@
       when: never
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates|forces)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /integrates/back/deploy/dev
   stage: deploy-app

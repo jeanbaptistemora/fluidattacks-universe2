@@ -66,7 +66,7 @@
     gitlabCi.rules.notTriggers
     # Integrates and forces only need ephemeral in dev
     gitlabBranchNotTrunk
-    (gitlabCi.rules.titleMatching "^(all|integrates|forces)")
+    (gitlabCi.rules.titleMatching "^(all|integrates)")
   ];
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;

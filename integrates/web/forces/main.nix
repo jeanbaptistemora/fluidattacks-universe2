@@ -12,7 +12,6 @@ makeScript {
   };
   searchPaths = {
     bin = [
-      inputs.nixpkgs.coreutils
       inputs.nixpkgs.kubectl
       outputs."/forces"
     ];

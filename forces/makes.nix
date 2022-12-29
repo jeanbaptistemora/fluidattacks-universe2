@@ -4,9 +4,6 @@
   outputs,
   ...
 }: {
-  imports = [
-    ./pipeline/makes.nix
-  ];
   dev = {
     forces = {
       source = [

@@ -2,7 +2,6 @@
 include:
   - local: airs/gitlab-ci.yaml
   - local: common/gitlab-ci.yaml
-  - local: forces/gitlab-ci.yaml
   - local: integrates/gitlab-ci.yaml
   - local: melts/gitlab-ci.yaml
   - local: observes/gitlab-ci.yaml
