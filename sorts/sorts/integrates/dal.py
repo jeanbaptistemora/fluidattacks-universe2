@@ -105,7 +105,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
                 ) {
                     edges {
                         node {
-                            currentState
+                            state
                             vulnerabilityType
                             where
                         }
@@ -137,7 +137,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
             vulnerabilities.extend(
                 [
                     Vulnerability(
-                        current_state=vuln_edge["node"]["currentState"],
+                        current_state=vuln_edge["node"]["state"],
                         kind=VulnerabilityKindEnum(
                             vuln_edge["node"]["vulnerabilityType"]
                         ),

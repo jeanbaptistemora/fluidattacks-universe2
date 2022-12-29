@@ -51,7 +51,7 @@ def get_unique_vuln_files(group: str) -> List[str]:
         for vuln in get_vulnerable_lines(group)
         if (
             vuln.kind.value == VulnerabilityKindEnum.LINES.value
-            and vuln.current_state == "open"
+            and vuln.current_state == "VULNERABLE"
         )
     ]
     unique_vuln_files: Set[str] = set(open_vulnerability_files)
