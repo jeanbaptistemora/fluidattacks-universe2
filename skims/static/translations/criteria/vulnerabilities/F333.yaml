@@ -16,6 +16,9 @@ lib_path.f333.has_unused_secgroups:
 lib_path.f333.has_unencrypted_amis:
   en: EC2 has unencrypted AMI's
   es: EC2 tiene AMI's sin encriptar
+lib_path.f333.has_defined_user_data:
+  en: EC2::instance has defined userData attribute.
+  es: EC2::instance tiene definido el atributo userData
 lib_path.f333.has_unencrypted_snapshots:
   en: EC2 has publicly shared amis
   es: EC2 tiene amis publicamentente compartidas

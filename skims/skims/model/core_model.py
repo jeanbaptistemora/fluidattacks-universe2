@@ -2429,6 +2429,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EC2_HAS_DEFINED_USER_DATA = MethodInfo(
+        file_name="aws",
+        name="has_defined_user_data",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_EC2_HAS_UNUSED_KEY_PAIRS = MethodInfo(
         file_name="aws",
         name="has_unused_ec2_key_pairs",
