@@ -33,6 +33,7 @@ import { HandleAcceptanceModal } from "scenes/Dashboard/containers/Finding-Conte
 import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
+  GET_FINDING_VULN_DRAFTS,
   GET_FINDING_ZR_VULNS,
   SEND_VULNERABILITY_NOTIFICATION,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
@@ -59,6 +60,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canRetrieveDrafts: boolean = permissions.can(
+    "api_resolvers_finding_drafts_connection_resolve"
+  );
   const canRetrieveZeroRisk: boolean = permissions.can(
     "api_resolvers_finding_zero_risk_connection_resolve"
   );
@@ -158,6 +162,40 @@ export const VulnsView: React.FC = (): JSX.Element => {
     [vulnerabilitiesConnection]
   );
   const {
+    data: vulnDraftsData,
+    fetchMore: vulnDraftsFetchMore,
+    refetch: vulnDraftsRefetch,
+  } = useQuery<{
+    finding: { draftsConnection: IVulnerabilitiesConnection | undefined };
+  }>(GET_FINDING_VULN_DRAFTS, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred loading finding vulnerability drafts",
+          error
+        );
+      });
+    },
+    variables: {
+      canRetrieveDrafts,
+      findingId,
+      first: 100,
+    },
+  });
+  const vulnDraftsConnection =
+    vulnDraftsData === undefined
+      ? undefined
+      : vulnDraftsData.finding.draftsConnection;
+  const vulnDraftsPageInfo =
+    vulnDraftsConnection === undefined
+      ? undefined
+      : vulnDraftsConnection.pageInfo;
+  const vulnDraftsEdges: IVulnerabilityEdge[] =
+    vulnDraftsConnection === undefined ? [] : vulnDraftsConnection.edges;
+  const {
     data: zrVulnsData,
     fetchMore: zrFetchMore,
     refetch: zrRefetch,
@@ -192,6 +230,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const unformattedVulns: IVulnRowAttr[] = zrVulnsEdges
     .concat(nzrVulnsEdges)
+    .concat(vulnDraftsEdges)
     .map(
       (vulnerabilityEdge: IVulnerabilityEdge): IVulnRowAttr =>
         vulnerabilityEdge.node
@@ -339,6 +378,15 @@ export const VulnsView: React.FC = (): JSX.Element => {
     }
   }, [nzrVulnsPageInfo, nzrFetchMore]);
   useEffect((): void => {
+    if (!_.isUndefined(vulnDraftsPageInfo)) {
+      if (vulnDraftsPageInfo.hasNextPage) {
+        void vulnDraftsFetchMore({
+          variables: { after: vulnDraftsPageInfo.endCursor, first: 1200 },
+        });
+      }
+    }
+  }, [vulnDraftsPageInfo, vulnDraftsFetchMore]);
+  useEffect((): void => {
     if (!_.isUndefined(zrVulnsPageInfo)) {
       if (zrVulnsPageInfo.hasNextPage) {
         void zrFetchMore({
@@ -402,6 +450,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   function refetchVulnsData(): void {
     void nzrRefetch();
+    void vulnDraftsRefetch();
     void zrRefetch();
   }
 
