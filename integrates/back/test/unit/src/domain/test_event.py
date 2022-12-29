@@ -6,7 +6,6 @@ from back.test.unit.src.utils import (
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
-    InvalidCommentParent,
     InvalidFileName,
     InvalidFileSize,
     InvalidFileType,
@@ -79,72 +78,6 @@ async def test_solve_event() -> None:
             hacker_email="unittesting@fluidattacks.com",
             reason=None,  # type: ignore
             other=None,
-        )
-
-
-@pytest.mark.changes_db
-async def test_add_comment() -> None:
-    event_id = "538745942"
-    user_email = "integratesmanager@gmail.com"
-    comment_id = str(round(time() * 1000))
-    parent_comment = "0"
-    today = datetime_utils.get_utc_now()
-    comment_data = EventComment(
-        event_id=event_id,
-        parent_id=parent_comment,
-        creation_date=today,
-        content="comment test",
-        id=comment_id,
-        email=user_email,
-        full_name="integrates manager",
-    )
-    await events_domain.add_comment(
-        get_new_context(), comment_data, user_email, event_id, parent_comment
-    )
-    loaders = get_new_context()
-    event_comments: tuple[
-        EventComment, ...
-    ] = await loaders.event_comments.load(event_id)
-    assert event_comments[-1].id == comment_id
-    assert event_comments[-1].event_id == event_id
-    assert event_comments[-1].content == "comment test"
-
-    new_comment_data = EventComment(
-        event_id=event_id,
-        parent_id=comment_id,
-        creation_date=today,
-        content="comment test 2",
-        id=str(round(time() * 1000)),
-        email=user_email,
-        full_name="integrates manager",
-    )
-    await events_domain.add_comment(
-        get_new_context(),
-        new_comment_data,
-        user_email,
-        event_id,
-        parent_comment=str(comment_id),
-    )
-    new_loaders = get_new_context()
-    new_event_comments: list[
-        EventComment
-    ] = await new_loaders.event_comments.load(event_id)
-    assert new_event_comments[-1].id == new_comment_data.id
-    assert new_event_comments[-1].event_id == event_id
-    assert new_event_comments[-1].content == "comment test 2"
-    assert new_event_comments[-1].parent_id == comment_id
-
-    with pytest.raises(InvalidCommentParent):
-        inv_comment_data = new_comment_data._replace(
-            parent_id=str(int(comment_id) + 1),
-            id=str(round(time() * 1000)),
-        )
-        assert await events_domain.add_comment(  # type: ignore
-            get_new_context(),
-            inv_comment_data,
-            user_email,
-            event_id,
-            parent_comment=str(int(comment_id) + 1),
         )
 
 

@@ -3,13 +3,20 @@ from back.test.unit.src.utils import (
     get_mock_response,
     get_mocked_path,
 )
+from custom_exceptions import (
+    InvalidCommentParent,
+)
 from dataloaders import (
     get_new_context,
 )
 from datetime import (
     datetime,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from events.domain import (
+    add_comment,
     add_event,
 )
 import json
@@ -29,6 +36,89 @@ from unittest.mock import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+# pylint: disable=too-many-arguments
+@pytest.mark.parametrize(
+    ["comment_data", "group"],
+    [
+        [
+            EventComment(
+                event_id="538745942",
+                parent_id="0",
+                creation_date=datetime.fromisoformat(
+                    "2022-12-29 14:14:19.182591+00:00"
+                ),
+                content="comment test",
+                id="1672323259183",
+                email="integratesmanager@gmail.com",
+                full_name="John Doe",
+            ),
+            "unittesting",
+        ],
+    ],
+)
+@patch(get_mocked_path("loaders.event_comments.load"), new_callable=AsyncMock)
+@patch(get_mocked_path("event_comments_domain.add"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("authz.validate_handle_comment_scope"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
+async def test_add_comment(
+    mock_event_loader: AsyncMock,
+    mock_authz_validate_handle_comment_scope: AsyncMock,
+    mock_event_comments_domain_add: AsyncMock,
+    mock_event_comments_loader: AsyncMock,
+    comment_data: EventComment,
+    group: str,
+) -> None:
+    mock_event_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event.load"),
+        json.dumps([comment_data.event_id]),
+    )
+    mock_authz_validate_handle_comment_scope.return_value = get_mock_response(
+        get_mocked_path("authz.validate_handle_comment_scope"),
+        json.dumps(
+            [
+                comment_data.content,
+                comment_data.email,
+                group,
+                comment_data.parent_id,
+            ]
+        ),
+    )
+    mock_event_comments_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event_comments.load"),
+        json.dumps([comment_data.event_id]),
+    )
+    mock_event_comments_domain_add.return_value = get_mock_response(
+        get_mocked_path("event_comments_domain.add"),
+        json.dumps([comment_data], default=str),
+    )
+    loaders = get_new_context()
+
+    await add_comment(
+        loaders,
+        comment_data,
+        comment_data.email,
+        comment_data.event_id,
+        comment_data.parent_id,
+    )
+
+    with pytest.raises(InvalidCommentParent):
+        await add_comment(
+            loaders,
+            comment_data,
+            comment_data.email,
+            comment_data.event_id,
+            parent_comment=str(int(comment_data.parent_id) + 1),
+        )
+
+    assert mock_event_loader.called is True
+    assert mock_authz_validate_handle_comment_scope.called is True
+    assert mock_event_comments_loader.called is True
+    assert mock_event_comments_domain_add.called is True
 
 
 # pylint: disable=too-many-arguments

@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from dataloaders import (
     apply_context_attrs,
 )
@@ -11,6 +12,19 @@ from db_model import (
 from db_model.enums import (
     GitCloningStatus,
     Source,
+)
+from db_model.event_comments.types import (
+    EventComment,
+)
+from db_model.events.enums import (
+    EventStateStatus,
+    EventType,
+)
+from db_model.events.types import (
+    Event,
+    EventEvidences,
+    EventState,
+    EventUnreliableIndicators,
 )
 from db_model.group_access.types import (
     GroupAccess,
@@ -105,6 +119,7 @@ mocked_paths: Dict[str, str] = {
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
+    "event_comments_domain.add": "event_comments.domain.add",
     "events_model.add": "db_model.events.add",
     "events_model.update_state": "db_model.events.update_state",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
@@ -114,6 +129,8 @@ mocked_paths: Dict[str, str] = {
     "get_user_level_role": "authz.policy.get_user_level_role",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
     "group_comments_model.add": "db_model.group_comments.add",
+    "loaders.event.load": "db_model.events.get.EventLoader.load",
+    "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501
     "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501
@@ -137,6 +154,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittest@fluidattacks.com"]': "admin",
     },
     "authz.validate_handle_comment_scope": {
+        '["comment test", "integratesmanager@gmail.com",'
+        ' "unittesting", "0"]': None,
+        '["comment test", "integratesmanager@gmail.com",'
+        ' "unittesting", "1"]': None,
         '["Test comment", "unittest@fluidattacks.com",'
         ' "unittesting", "0"]': None,
     },
@@ -144,9 +165,61 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittesting", "unittesting@fluidattacks.com", '
         '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
     },
+    "db_model.events.get.EventLoader.load": {
+        '["538745942"]': Event(
+            client="test",
+            created_by="unittest@fluidattacks.com",
+            created_date=datetime.fromisoformat("2019-09-19T15:43:43+00:00"),
+            description="Esta eventualidad fue levantada para "
+            "poder realizar pruebas de unittesting",
+            event_date=datetime.fromisoformat("2019-09-19T13:09:00+00:00"),
+            evidences=EventEvidences(
+                file_1=None,
+                image_1=None,
+                image_2=None,
+                image_3=None,
+                image_4=None,
+                image_5=None,
+                image_6=None,
+            ),
+            group_name="unittesting",
+            hacker="unittest@fluidattacks.com",
+            id="538745942",
+            state=EventState(
+                modified_by="unittest@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-09-19T15:43:43+00:00"
+                ),
+                status=EventStateStatus.CREATED,
+                comment_id=None,
+                other=None,
+                reason=None,
+            ),
+            type=EventType.AUTHORIZATION_SPECIAL_ATTACK,
+            root_id=None,
+            unreliable_indicators=EventUnreliableIndicators(
+                unreliable_solving_date=None
+            ),
+        )
+    },
     "db_model.events.update_state": {
         '["unittesting", "unittesting@fluidattacks.com", '
         '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
+    },
+    "db_model.event_comments.get.EventCommentsLoader.load": {
+        '["538745942"]': (
+            EventComment(
+                event_id="538745942",
+                id="1672323259183",
+                parent_id="0",
+                creation_date=datetime.fromisoformat(
+                    "2022-12-29 14:14:19.182591+00:00"
+                ),
+                content="comment test",
+                email="integratesmanager@gmail.com",
+                full_name="John Doe",
+            ),
+        )
     },
     "db_model.groups.get.GroupLoader.load": {
         '["unittesting"]': Group(
@@ -851,6 +924,11 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "events.domain.validate_evidence": {
         '["unittesting", "test-anim.webm"]': None,
         '["unittesting", "test-file-records.csv"]': None,
+    },
+    "event_comments.domain.add": {
+        '[["538745942", "1672323259183", "0", '
+        '"2022-12-29 14:14:19.182591+00:00", '
+        '"comment test", "integratesmanager@gmail.com", "John Doe"]]': None,
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
