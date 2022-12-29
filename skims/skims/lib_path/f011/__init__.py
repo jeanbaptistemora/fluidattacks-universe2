@@ -2,6 +2,9 @@ import bs4
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
+from lib_path.f011.composer import (
+    composer_json,
+)
 from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
@@ -33,6 +36,11 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_composer_json(content: str, path: str) -> Vulnerabilities:
+    return composer_json(content, path)
 
 
 @SHIELD_BLOCKING
