@@ -12,6 +12,7 @@ from aioextensions import (
 import contextlib
 import csv
 from custom_exceptions import (
+    InvalidBePresentFilterCursor,
     RepeatedToeInput,
     RepeatedToePort,
 )
@@ -94,25 +95,28 @@ async def merge_roots(
     toe_inputs = await loaders.root_toe_inputs.load_nodes(
         RootToeInputsRequest(group_name=ip_root.group_name, root_id=ip_root.id)
     )
-    await collect(
-        add_toe_input(
-            toe_input=toe_input._replace(
-                state=toe_input.state._replace(
-                    unreliable_root_id=root_to_keep.id
+    if toe_inputs:
+        await collect(
+            add_toe_input(
+                toe_input=toe_input._replace(
+                    state=toe_input.state._replace(
+                        unreliable_root_id=root_to_keep.id
+                    )
                 )
             )
+            for toe_input in toe_inputs
         )
-        for toe_input in toe_inputs
-    )
-    await collect(
-        toe_inputs_model.remove(
-            entry_point=toe_input.entry_point,
-            component=toe_input.component,
-            group_name=toe_input.group_name,
-            root_id=toe_input.state.unreliable_root_id,
+        await collect(
+            toe_inputs_model.remove(
+                entry_point=toe_input.entry_point,
+                component=toe_input.component,
+                group_name=toe_input.group_name,
+                root_id=toe_input.state.unreliable_root_id,
+            )
+            for toe_input in toe_inputs
         )
-        for toe_input in toe_inputs
-    )
+    else:
+        raise InvalidBePresentFilterCursor()
 
     toe_ports = await loaders.root_toe_ports.load_nodes(
         RootToePortsRequest(group_name=ip_root.group_name, root_id=ip_root.id)

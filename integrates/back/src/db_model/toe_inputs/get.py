@@ -196,7 +196,7 @@ class GroupToeInputsLoader(DataLoader):
 
 async def _get_toe_inputs_by_root(
     request: RootToeInputsRequest,
-) -> ToeInputsConnection:
+) -> Union[ToeInputsConnection, None]:
     if request.be_present is None:
         facet = TABLE.facets["toe_input_metadata"]
         primary_key = keys.build_key(
@@ -235,8 +235,8 @@ async def _get_toe_inputs_by_root(
             paginate=request.paginate,
             table=TABLE,
         )
-    except ValidationException as exc:
-        raise InvalidBePresentFilterCursor() from exc
+    except ValidationException:
+        return None
     return ToeInputsConnection(
         edges=tuple(
             format_toe_input_edge(request.group_name, index, item, TABLE)
@@ -250,7 +250,7 @@ class RootToeInputsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeInputsRequest]
-    ) -> tuple[ToeInputsConnection, ...]:
+    ) -> tuple[Union[ToeInputsConnection, None], ...]:
         return await collect(tuple(map(_get_toe_inputs_by_root, requests)))
 
     async def load_nodes(

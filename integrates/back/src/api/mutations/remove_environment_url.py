@@ -10,6 +10,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    InvalidBePresentFilterCursor,
+)
 from db_model.toe_inputs.types import (
     RootToeInputsRequest,
     ToeInput,
@@ -40,6 +43,7 @@ from toe.inputs.types import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -66,8 +70,8 @@ async def mutate(
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     try:
-        inputs_to_update: tuple[
-            ToeInput, ...
+        inputs_to_update: Optional[
+            tuple[ToeInput, ...]
         ] = await info.context.loaders.root_toe_inputs.load_nodes(
             RootToeInputsRequest(
                 be_present=True,
@@ -76,24 +80,29 @@ async def mutate(
             )
         )
 
-        await collect(
-            tuple(
-                toe_inputs_domain.update(
-                    current_value=current_value,
-                    attributes=ToeInputAttributesToUpdate(
-                        be_present=False,
-                    ),
-                    modified_by=user_email,
+        if inputs_to_update:
+            await collect(
+                tuple(
+                    toe_inputs_domain.update(
+                        current_value=current_value,
+                        attributes=ToeInputAttributesToUpdate(
+                            be_present=False,
+                        ),
+                        modified_by=user_email,
+                    )
+                    for current_value in inputs_to_update
+                    if current_value.component.startswith(url)
                 )
-                for current_value in inputs_to_update
-                if current_value.component.startswith(url)
             )
-        )
 
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Updated toe input in {(root_id, url_id)} successfully",
-        )
+            logs_utils.cloudwatch_log(
+                info.context,
+                f"""Security: Updated toe input in {(root_id, url_id)}
+                successfully""",
+            )
+        else:
+            raise InvalidBePresentFilterCursor()
+
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
