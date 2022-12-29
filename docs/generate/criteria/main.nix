@@ -31,8 +31,8 @@
   vulnerabilities = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/universe/-/raw/122e4284210886bd8bcec220b44cc2faba9ccf9a/common/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "sha256-eb2fgK10tfl2G1rz0S6yklMv4qTL13aPt8mYB7W6y8g=";
+        url = "https://gitlab.com/fluidattacks/universe/-/raw/d49440f4c5db4944ed99dcd02a1d64a9f14865ba/common/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "sha256-pqDrgbPKw9x9uBixRDrAROhezqkrzYWLM3wxbil3ejA=";
       }
     )
   );
