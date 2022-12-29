@@ -437,6 +437,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
         const labels: Record<string, string> = {
           closed: t("searchFindings.tabVuln.closed"),
           open: t("searchFindings.tabVuln.open"),
+          rejected: t("searchFindings.tabVuln.rejected"),
+          submitted: t("searchFindings.tabVuln.submitted"),
         };
 
         return statusFormatter(labels[cell.getValue<string>()]);

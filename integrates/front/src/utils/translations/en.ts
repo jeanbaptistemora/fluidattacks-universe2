@@ -3795,6 +3795,7 @@ export const enTranslations: ResourceKey = {
       notApplicable: "n/a",
       onHold: "On Hold",
       open: "Vulnerable",
+      rejected: "Rejected",
       requested: "Requested",
       safe: "Safe",
       searchTag: "Search Tag",
@@ -3802,6 +3803,7 @@ export const enTranslations: ResourceKey = {
       status: "Status",
       statusTooltip:
         "Filter vulnerabilities based on their open / closed status (It limits the total results)",
+      submitted: "Submitted",
       tabTitle: "Locations",
       tagTooltip: "Filter vulnerabilities based on their tag",
       tooltip: "Open / Closed vulnerabilities",
