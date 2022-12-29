@@ -38864,3 +38864,68 @@
   metadata:
     en:
       details: __empty__
+'429':
+    en:
+      title: Universal cross-site scripting (UXSS)
+      description: >
+        Universal cross-site scripting exploits client-side vulnerabilities, either
+        through the browser or the extensions that the user enables, leading to the
+        possibility of cross-side scripting exploitation or the execution of malicious 
+        code.
+      impact: >
+        - Persistently inject malicious JavaScript code.
+        - hijack any session that belongs open in the compromised browser.
+        - Execute malicious code.
+      recommendation: >
+        Keep your browsers and extensions up to date. Although this is not a definitive
+        solution to the specific vulnerability, always use and install only what is necessary.
+      threat: >
+        Unauthenticated attacker from the Internet with access to the victim's browser.
+    es:
+      title: Universal cross-site scripting (UXSS)
+      description: >
+        Universal cross-site scripting explota las vulnerabilidades del lado del cliente, 
+        bien sea por el navegador o las extenciones que el usuario habilite ocacionando la
+        posibilidad de explotacion de un cross-side-scripting o llegar a ejecutar codigo 
+        malicioso.
+      impact: >
+        - Inyectar código JavaScript malicioso de forma persistente.
+        - Apropiarse de cualquier sesión que pertenezca abierta en el navegador comprometido.
+        - Ejecución de código malicioso.
+      recommendation: >
+        Mantenga sus navegadores y extensiones actualizadas. Aunque esto no sea una
+        solución definitiva a la vulnerabilidad en específico, siempre use e instale únicamente 
+        lo necesario.
+      threat: >
+        Atacante no autenticado desde Internet con acceso al navegador de la víctima.
+    category: Unexpected Injection
+    examples:
+      non_compliant: |
+        
+        ```
+        N/A
+        ```
+      compliant: |
+        
+        ```
+        N/A
+        ```
+    remediation_time: '600'
+    score:
+      base:
+        attack_vector: N
+        attack_complexity: H
+        privileges_required: N
+        user_interaction: N
+        scope: C
+        confidentiality: L
+        integrity: L
+        availability: L
+      temporal:
+        exploit_code_maturity: P
+        remediation_level: U
+        report_confidence: R
+    requirements: ['029', '173']
+    metadata:
+      en:
+        details: __empty__
