@@ -2437,6 +2437,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EC2_HAS_INSTANCES_USING_UNAPPROVED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_instances_using_unapproved_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_EC2_HAS_UNUSED_KEY_PAIRS = MethodInfo(
         file_name="aws",
         name="has_unused_ec2_key_pairs",
