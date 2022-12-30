@@ -1,7 +1,3 @@
-from lib_root.utilities.go import (
-    yield_shard_member_access,
-    yield_shard_object_creation,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -20,18 +16,31 @@ from sast.query import (
 from typing import (
     Iterable,
 )
+import utils.graph as g
 
 
 def go_insecure_hash(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    insecure_ciphers = {"md4", "md5", "ripemd160", "sha1"}
+    danger_methods = {"md4", "md5", "ripemd160", "sha1"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.GO):
-            for node in yield_shard_object_creation(shard, insecure_ciphers):
-                yield shard, node
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.matching_nodes(
+                graph,
+                label_type="MemberAccess",
+            ):
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["member"] in danger_methods
+                    and n_attrs["expression"] == "New"
+                ):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_hash.description",
@@ -45,18 +54,23 @@ def go_insecure_cipher(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    insecure_ciphers = {
-        "des",
-        "NewTripleDESCipher",
+    danger_methods = {
+        "des.NewTripleDESCipher",
     }
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.GO):
-            for node in [
-                *yield_shard_member_access(shard, insecure_ciphers),
-                *yield_shard_object_creation(shard, insecure_ciphers),
-            ]:
-                yield shard, node
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.matching_nodes(
+                graph,
+                label_type="MethodInvocation",
+            ):
+                n_attrs = graph.nodes[n_id]
+                if n_attrs["expression"] in danger_methods:
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
