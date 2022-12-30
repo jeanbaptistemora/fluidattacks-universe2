@@ -26,6 +26,8 @@ from syntax_graph.syntax_readers.go import (
     selector_expression as go_selector_expression,
     source_file as go_source_file,
     string_literal as go_string_literal,
+    switch_body as go_switch_body,
+    switch_statement as go_switch_statement,
     type_conversion as go_type_conversion,
     type_declaration as go_type_declaration,
     unary_expression as go_unary_expression,
@@ -213,6 +215,19 @@ GO_DISPATCHERS: Dispatchers = (
             "type_declaration",
         },
         syntax_reader=go_type_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch",
+        },
+        syntax_reader=go_switch_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "expression_switch_statement",
+            "type_switch_statement",
+        },
+        syntax_reader=go_switch_statement.reader,
     ),
     Dispatcher(
         applicable_types={

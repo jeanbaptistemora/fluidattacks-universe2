@@ -10,6 +10,9 @@ from syntax_graph.types import (
 from utils.graph import (
     adj_ast,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
@@ -32,6 +35,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
     ):
         val_id = childs[0]
 
-    op_id = as_attrs.get("label_field_operator")
+    op_name = None
+    if op_id := as_attrs.get("label_field_operator"):
+        op_name = node_to_str(graph, op_id)
 
-    return build_assignment_node(args, var_id, val_id, op_id)
+    return build_assignment_node(args, var_id, val_id, op_name)
