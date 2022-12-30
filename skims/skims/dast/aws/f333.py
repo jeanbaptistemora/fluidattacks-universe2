@@ -485,6 +485,61 @@ async def has_defined_user_data(
     return vulns
 
 
+async def has_instances_using_unapproved_amis(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="ec2",
+        function="describe_instances",
+    )
+    reservations = response.get("Reservations", []) if response else []
+    method = core_model.MethodsEnum.AWS_EC2_HAS_INSTANCES_USING_UNAPPROVED_AMIS
+    vulns: core_model.Vulnerabilities = ()
+    if reservations:
+        for instances in reservations:
+            locations: List[Location] = []
+            for instance in instances["Instances"]:
+                describe_images: Dict[str, Any] = await run_boto3_fun(
+                    credentials,
+                    service="ec2",
+                    function="describe_images",
+                    parameters={
+                        "ImageIds": [instance["ImageId"]],
+                    },
+                )
+                images = describe_images.get("Images", [])
+                if (
+                    images
+                    and "ImageOwnerAlias" in images[0].keys()
+                    and images[0]["ImageOwnerAlias"] != "amazon"
+                ):
+                    locations = [
+                        Location(
+                            access_patterns=("/Images/0/ImageOwnerAlias",),
+                            arn=(
+                                f"arn:aws:ec2::{instances['OwnerId']}:"
+                                f"instance-id/{instance['InstanceId']}"
+                            ),
+                            values=(images[0]["ImageOwnerAlias"],),
+                            description=t(
+                                "lib_path.f333."
+                                "has_instances_using_unapproved_amis"
+                            ),
+                        ),
+                    ]
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(method),
+                        aws_response=describe_images,
+                    ),
+                )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -498,4 +553,5 @@ CHECKS: Tuple[
     has_unused_seggroups,
     has_unencrypted_amis,
     has_defined_user_data,
+    has_instances_using_unapproved_amis,
 )
