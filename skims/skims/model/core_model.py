@@ -4318,22 +4318,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TS_REFLECTED_XSS = MethodInfo(
-        file_name="typescript",
-        name="ts_reflected_xss",
-        module="lib_root",
-        finding=FindingEnum.F192,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_REFLECTED_XSS = MethodInfo(
-        file_name="javascript",
-        name="js_reflected_xss",
-        module="lib_root",
-        finding=FindingEnum.F192,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     TS_REGEX_INJETCION = MethodInfo(
         file_name="typescript",
         name="ts_regex_injection",
