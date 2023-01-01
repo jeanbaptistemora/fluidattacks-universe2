@@ -195,7 +195,7 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
     };
 
-    observesDynamoParallel = parrallel_job 15 (scheduled_job {
+    observesDynamoParallel = parrallel_job 30 (scheduled_job {
       name = "dynamo_etl_parallel";
       size = "observes_nano";
       attempts = 1;

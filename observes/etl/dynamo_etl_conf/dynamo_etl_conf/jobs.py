@@ -34,7 +34,7 @@ class Executor:
     def core(self) -> Cmd[None]:
         args = [
             self._etl_parallel,
-            "15",  # total_segments: MUST coincide with batch parallel conf
+            "30",  # total_segments: MUST coincide with batch parallel conf
             "auto",
         ]
         # [!] REMEMBER: adjust centralizer range according to total_segments
