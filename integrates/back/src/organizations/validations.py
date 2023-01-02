@@ -6,6 +6,7 @@ from dataloaders import (
 )
 from db_model.credentials.types import (
     Credentials,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -42,7 +43,8 @@ async def validate_credentials_oauth(
         for credential in org_credentials
         if credential.state.type is CredentialType.OAUTH
         and isinstance(
-            credential.state.secret, (OauthGithubSecret, OauthGitlabSecret)
+            credential.state.secret,
+            (OauthBitbucketSecret, OauthGithubSecret, OauthGitlabSecret),
         )
         and credential.owner.lower() == user_email.lower()
     }

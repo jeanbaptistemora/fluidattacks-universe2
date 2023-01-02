@@ -9,6 +9,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -29,6 +30,7 @@ def format_secret(
 ) -> Union[
     HttpsPatSecret,
     HttpsSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -43,6 +45,9 @@ def format_secret(
         )
     if credential_type is CredentialType.OAUTH and "access_token" in item:
         return OauthGithubSecret(access_token=item["access_token"])
+
+    if credential_type is CredentialType.OAUTH and "brefresh_token" in item:
+        return OauthBitbucketSecret(brefresh_token=item["brefresh_token"])
 
     if credential_type is CredentialType.OAUTH and "refresh_token" in item:
         return OauthGitlabSecret(refresh_token=item["refresh_token"])

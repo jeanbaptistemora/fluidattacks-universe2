@@ -54,6 +54,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -776,6 +777,7 @@ async def update_credentials(
     secret: Union[
         HttpsSecret,
         HttpsPatSecret,
+        OauthBitbucketSecret,
         OauthGithubSecret,
         OauthGitlabSecret,
         SshSecret,

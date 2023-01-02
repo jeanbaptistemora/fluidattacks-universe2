@@ -24,6 +24,10 @@ class OauthGitlabSecret(NamedTuple):
     refresh_token: str
 
 
+class OauthBitbucketSecret(NamedTuple):
+    brefresh_token: str
+
+
 class OauthGithubSecret(NamedTuple):
     access_token: str
 
@@ -41,6 +45,7 @@ class CredentialsState(NamedTuple):
     secret: Union[
         HttpsSecret,
         HttpsPatSecret,
+        OauthBitbucketSecret,
         OauthGithubSecret,
         OauthGitlabSecret,
         SshSecret,
