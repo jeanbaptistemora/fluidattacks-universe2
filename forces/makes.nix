@@ -77,7 +77,7 @@
     };
     forcesProd = {
       vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
-      manifest = "/forces/secrets-prod.yaml";
+      manifest = "/integrates/secrets/production.yaml";
     };
   };
 }
