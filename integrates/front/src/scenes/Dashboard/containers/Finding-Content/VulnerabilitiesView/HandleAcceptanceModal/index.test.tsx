@@ -87,6 +87,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "1",
         historicTreatment: [
           {
@@ -191,6 +192,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "1",
         historicTreatment: [
           {
@@ -326,6 +328,8 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
+
         findingId: "422286126",
         historicTreatment: [
           {
@@ -487,6 +491,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "422286126",
         historicTreatment: [
           {
@@ -655,6 +660,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "422286126",
         historicTreatment: [
           {
@@ -828,6 +834,7 @@ describe("handle vulns acceptance modal", (): void => {
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "422286126",
         historicTreatment: [
           {
@@ -935,6 +942,7 @@ describe("handle vulns acceptance modal", (): void => {
     ]);
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "422286126",
         historicTreatment: [
           {
@@ -1048,6 +1056,7 @@ describe("handle vulns acceptance modal", (): void => {
     ]);
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
+        currentState: "open",
         findingId: "422286126",
         historicTreatment: [
           {

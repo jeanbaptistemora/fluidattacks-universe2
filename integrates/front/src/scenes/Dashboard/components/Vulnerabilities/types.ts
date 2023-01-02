@@ -9,7 +9,7 @@ import type {
 import type { IFinding } from "scenes/Dashboard/containers/Group-Content/GroupVulnerabilitiesView/types";
 
 interface IVulnRowAttr {
-  currentState: "closed" | "open";
+  currentState: "closed" | "open" | "rejected" | "submitted";
   currentStateCapitalized: "Closed" | "Open";
   externalBugTrackingSystem: string | null;
   findingId: string;
@@ -63,7 +63,7 @@ interface IDownloadVulnerabilitiesResultAttr {
 }
 
 interface IVulnDataTypeAttr {
-  currentState: "closed" | "open";
+  currentState: "closed" | "open" | "rejected" | "submitted";
   externalBugTrackingSystem: string | null;
   findingId: string;
   groupName: string;
