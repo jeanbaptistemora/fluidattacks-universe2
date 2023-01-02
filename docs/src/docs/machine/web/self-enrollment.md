@@ -14,7 +14,7 @@ of our Continuous Hacking Machine
 Plan (automated testing service),
 in which they will have the
 opportunity to explore our
-[Attacks Resistance Management (ARM)](/machine/web/arm)
+[Attack Resistance Management (ARM)](/machine/web/arm)
 platform.
 Here is a short step-by-step guide
 to enroll in this free trial.

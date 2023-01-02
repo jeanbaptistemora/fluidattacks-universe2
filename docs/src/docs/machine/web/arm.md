@@ -1,11 +1,11 @@
 ---
 id: arm
-title: Attacks Resistance Management
-sidebar_label: Attacks Resistance Management
+title: Attack Resistance Management
+sidebar_label: Attack Resistance Management
 slug: /machine/web/arm
 ---
 
-`Fluid Attacks'` Attacks Resistance Management (ARM)
+`Fluid Attacks'` Attack Resistance Management (ARM)
 comes with all functions you need
 to manage all your applications
 and vulnerabilities effectively.

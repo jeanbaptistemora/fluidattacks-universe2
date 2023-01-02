@@ -133,7 +133,7 @@ this notification is User Manager.
 
 ### Root updates (root moved)
 
-Our Attacks Resistance Management
+Our Attack Resistance Management
 platform makes it possible to
 correct errors such as having
 created a root in the wrong group.
@@ -152,7 +152,7 @@ where from and where to.
 
 ### Root updates (root deactivated)
 
-Our Attacks Resistance Management
+Our Attack Resistance Management
 platform allows you to deactivate
 a root when it does
 not exist anymore,

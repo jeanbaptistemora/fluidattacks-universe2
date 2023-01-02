@@ -5,7 +5,7 @@ sidebar_label: Policies
 slug: /machine/web/organization/policies
 ---
 
-On the [Attacks Resistance Management (ARM)](https://app.fluidattacks.com),
+On the [Attack Resistance Management (ARM)](https://app.fluidattacks.com),
 you can set various policies for
 acceptance of vulnerabilities in
 your organization to help you control
