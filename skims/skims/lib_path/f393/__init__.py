@@ -1,6 +1,9 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
+from lib_path.f393.composer import (
+    composer_json_dev,
+)
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
@@ -16,6 +19,11 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_composer_json_dev(content: str, path: str) -> Vulnerabilities:
+    return composer_json_dev(content, path)
 
 
 @SHIELD_BLOCKING
