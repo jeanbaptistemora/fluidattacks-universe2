@@ -7,6 +7,9 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_VERIFIED_FINDING_INFO } from "./AffectedReattackAccordion/queries";
+import { GET_FINDING_VULNS_TO_REATTACK } from "./AffectedReattackAccordion/VulnerabilitiesToReattackTable/queries";
+
 import { GET_ROOTS } from "../GroupScopeView/queries";
 import { GroupEventsView } from "scenes/Dashboard/containers/Group-Content/GroupEventsView";
 import {
@@ -592,8 +595,7 @@ describe("eventsView", (): void => {
       },
     ];
 
-    // eslint-disable-next-line
-    const mockedPermissions = new PureAbility<string>([  // NOSONAR
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_request_event_verification_mutate" },
     ]);
     render(
@@ -644,6 +646,155 @@ describe("eventsView", (): void => {
     );
 
     expect(msgError).toHaveBeenCalledWith("group.events.selectedError");
+
+    jest.clearAllMocks();
+  });
+
+  it("should render update affected reattacks modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENTS,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              events: [
+                {
+                  closingDate: "-",
+                  detail: "Test description solved",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "SOLVED",
+                  eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+                  groupName: "unittesting",
+                  id: "463457733",
+                  root: null,
+                },
+                {
+                  closingDate: "-",
+                  detail: "Test description unsolved",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "CREATED",
+                  eventType: "NETWORK_ACCESS_ISSUES",
+                  groupName: "unittesting",
+                  id: "12314123",
+                  root: null,
+                },
+              ],
+              name: "unittesting",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_VERIFIED_FINDING_INFO,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              findings: [
+                {
+                  id: "test-finding-id",
+                  title: "038. Business information leak",
+                  verified: false,
+                },
+                {
+                  id: "test-finding-id",
+                  title: "083. XML injection (XXE)",
+                  verified: true,
+                },
+              ],
+              name: "unittesting",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_FINDING_VULNS_TO_REATTACK,
+          variables: {
+            findingId: "test-finding-id",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              id: "test-finding-id",
+              vulnerabilitiesToReattackConnection: {
+                edges: [
+                  {
+                    node: {
+                      findingId: "test-finding-id",
+                      id: "test-vuln-id",
+                      specific: "1111",
+                      where: "vulnerable entrance",
+                    },
+                  },
+                ],
+                pageInfo: {
+                  endCursor: "cursor",
+                  hasNextPage: false,
+                },
+              },
+            },
+          },
+        },
+      },
+    ];
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_request_vulnerabilities_hold_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
+        <MockedProvider addTypename={false} mocks={mockedQueries}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("cell", { name: "Network access issues" })
+      ).toBeInTheDocument();
+    });
+
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", {
+          name: "group.events.form.affectedReattacks.btn.text",
+        })
+      ).toBeInTheDocument();
+    });
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "group.events.form.affectedReattacks.btn.text",
+      })
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.events.form.affectedReattacks.title")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("combobox", { name: "eventId" })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("038. Business information leak")
+      ).toBeInTheDocument();
+    });
 
     jest.clearAllMocks();
   });
