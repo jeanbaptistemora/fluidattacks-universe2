@@ -18,8 +18,8 @@ _Transform_ that into a relational model,
 and _Upload_ the results to a Data Warehouse.
 This process is usually known as an ETL.
 Once the data is in the Warehouse,
-Observes creates dashboards and info-graphics
-that End Users consume.
+data can be consumed for creating dashboards
+and info-graphics that End Users consume.
 
 Observes also provides a few services
 outside of the Data Warehouse architecture,
