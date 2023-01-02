@@ -42,6 +42,23 @@ const getRequestedZeroRiskVulns: (
     []
   );
 
+const getSubmittedVulns: (
+  vulnerabilities: IVulnerabilitiesAttr[]
+) => IVulnDataAttr[] = (
+  vulnerabilities: IVulnerabilitiesAttr[]
+): IVulnDataAttr[] =>
+  vulnerabilities.reduce(
+    (
+      submittedVulns: IVulnDataAttr[],
+      vuln: IVulnerabilitiesAttr
+    ): IVulnDataAttr[] => {
+      return vuln.currentState === "submitted"
+        ? [...submittedVulns, { acceptance: "", ...vuln }]
+        : submittedVulns;
+    },
+    []
+  );
+
 function isPendingToAcceptance(
   vulnerabilities: IVulnerabilitiesAttr[]
 ): boolean {
@@ -53,5 +70,6 @@ function isPendingToAcceptance(
 export {
   getVulnsPendingOfAcceptance,
   getRequestedZeroRiskVulns,
+  getSubmittedVulns,
   isPendingToAcceptance,
 };
