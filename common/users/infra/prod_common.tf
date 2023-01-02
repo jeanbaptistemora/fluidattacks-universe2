@@ -55,6 +55,7 @@ locals {
             "serverlessrepo:*",
             "servicequotas:*",
             "sns:*",
+            "sso:*",
             "sqs:*",
             "ssm:*",
             "sts:*",

@@ -56,7 +56,7 @@ resource "cloudflare_record" "fluidsignal_main" {
   zone_id = cloudflare_zone.fluidsignal_com.id
   name    = cloudflare_zone.fluidsignal_com.zone
   type    = "CNAME"
-  value   = "fluidattacks.com"
+  value   = cloudflare_zone.fluidattacks_com.zone
   proxied = true
 }
 

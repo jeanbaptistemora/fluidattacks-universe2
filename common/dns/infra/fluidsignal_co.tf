@@ -1,9 +1,9 @@
-resource "cloudflare_zone" "fluidattacks_co" {
-  zone = "fluidattacks.co"
+resource "cloudflare_zone" "fluidsignal_co" {
+  zone = "fluidsignal.co"
 }
 
-resource "cloudflare_zone_settings_override" "fluidattacks_co" {
-  zone_id = cloudflare_zone.fluidattacks_co.id
+resource "cloudflare_zone_settings_override" "fluidsignal_co" {
+  zone_id = cloudflare_zone.fluidsignal_co.id
 
   settings {
     always_online            = "on"
@@ -39,15 +39,15 @@ resource "cloudflare_zone_settings_override" "fluidattacks_co" {
   }
 }
 
-resource "cloudflare_zone_dnssec" "fluidattacks_co" {
-  zone_id = cloudflare_zone.fluidattacks_co.id
+resource "cloudflare_zone_dnssec" "fluidsignal_co" {
+  zone_id = cloudflare_zone.fluidsignal_co.id
 }
 
 # CNAME Records
 
-resource "cloudflare_record" "fluidattacks_co_main" {
-  zone_id = cloudflare_zone.fluidattacks_co.id
-  name    = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_main" {
+  zone_id = cloudflare_zone.fluidsignal_co.id
+  name    = cloudflare_zone.fluidsignal_co.zone
   type    = "CNAME"
   value   = cloudflare_zone.fluidattacks_com.zone
   proxied = true
@@ -55,22 +55,22 @@ resource "cloudflare_record" "fluidattacks_co_main" {
 
 # Bucket to avoid domain takeover
 # https://community.cloudflare.com/t/cloudflare-s3-bucket-with-different-name-bucket-and-domain/193301
-resource "aws_s3_bucket" "fluidattacks_co" {
-  bucket = "fluidattacks.co"
+resource "aws_s3_bucket" "fluidsignal_co" {
+  bucket = "fluidsignal.co"
 }
-resource "aws_s3_bucket_acl" "fluidattacks_co_acl" {
-  bucket = aws_s3_bucket.fluidattacks_co.id
+resource "aws_s3_bucket_acl" "fluidsignal_co_acl" {
+  bucket = aws_s3_bucket.fluidsignal_co.id
   acl    = "private"
 }
 
-resource "aws_s3_bucket_versioning" "fluidattacks_co_versioning" {
-  bucket = aws_s3_bucket.fluidattacks_co.id
+resource "aws_s3_bucket_versioning" "fluidsignal_co_versioning" {
+  bucket = aws_s3_bucket.fluidsignal_co.id
   versioning_configuration {
     status = "Suspended"
   }
 }
-resource "aws_s3_bucket_server_side_encryption_configuration" "fluidattacks_co" {
-  bucket = aws_s3_bucket.fluidattacks_co.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "fluidsignal_co" {
+  bucket = aws_s3_bucket.fluidsignal_co.id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -82,9 +82,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "fluidattacks_co" 
 
 # MX Records
 
-resource "cloudflare_record" "fluidattacks_co_google_1" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  name     = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_google_1" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  name     = cloudflare_zone.fluidsignal_co.zone
   type     = "MX"
   value    = "aspmx.l.google.com"
   ttl      = 1
@@ -92,9 +92,9 @@ resource "cloudflare_record" "fluidattacks_co_google_1" {
   priority = 1
 }
 
-resource "cloudflare_record" "fluidattacks_co_google_2" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  name     = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_google_2" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  name     = cloudflare_zone.fluidsignal_co.zone
   type     = "MX"
   value    = "alt1.aspmx.l.google.com"
   ttl      = 1
@@ -102,9 +102,9 @@ resource "cloudflare_record" "fluidattacks_co_google_2" {
   priority = 5
 }
 
-resource "cloudflare_record" "fluidattacks_co_google_3" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  name     = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_google_3" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  name     = cloudflare_zone.fluidsignal_co.zone
   type     = "MX"
   value    = "alt2.aspmx.l.google.com"
   ttl      = 1
@@ -112,9 +112,9 @@ resource "cloudflare_record" "fluidattacks_co_google_3" {
   priority = 5
 }
 
-resource "cloudflare_record" "fluidattacks_co_google_4" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  name     = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_google_4" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  name     = cloudflare_zone.fluidsignal_co.zone
   type     = "MX"
   value    = "alt3.aspmx.l.google.com"
   ttl      = 1
@@ -122,9 +122,9 @@ resource "cloudflare_record" "fluidattacks_co_google_4" {
   priority = 10
 }
 
-resource "cloudflare_record" "fluidattacks_co_google_5" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  name     = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_google_5" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  name     = cloudflare_zone.fluidsignal_co.zone
   type     = "MX"
   value    = "alt4.aspmx.l.google.com"
   ttl      = 1
@@ -134,18 +134,18 @@ resource "cloudflare_record" "fluidattacks_co_google_5" {
 
 # TXT Records
 
-resource "cloudflare_record" "fluidattacks_co_spf_allowed" {
-  zone_id = cloudflare_zone.fluidattacks_co.id
-  name    = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_spf_allowed" {
+  zone_id = cloudflare_zone.fluidsignal_co.id
+  name    = cloudflare_zone.fluidsignal_co.zone
   type    = "TXT"
   value   = "v=spf1 include:_spf.google.com -all"
   ttl     = 1
   proxied = false
 }
 
-resource "cloudflare_record" "fluidattacks_co_verify_google" {
-  zone_id = cloudflare_zone.fluidattacks_co.id
-  name    = cloudflare_zone.fluidattacks_co.zone
+resource "cloudflare_record" "fluidsignal_co_verify_google" {
+  zone_id = cloudflare_zone.fluidsignal_co.id
+  name    = cloudflare_zone.fluidsignal_co.zone
   type    = "TXT"
   value   = "google-site-verification=O1DzXi3E6LIG3nOgpYkkLDU6rELFVMDoO-HPYllLXPw"
   ttl     = 1
@@ -154,9 +154,9 @@ resource "cloudflare_record" "fluidattacks_co_verify_google" {
 
 # Page Rules
 
-resource "cloudflare_page_rule" "fluidattacks_co_to_fluidattacks_com" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  target   = "https://${cloudflare_zone.fluidattacks_co.zone}/*"
+resource "cloudflare_page_rule" "fluidsignal_co_to_fluidattacks_com" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  target   = "https://${cloudflare_zone.fluidsignal_co.zone}/*"
   status   = "active"
   priority = 1
 
@@ -168,15 +168,15 @@ resource "cloudflare_page_rule" "fluidattacks_co_to_fluidattacks_com" {
   }
 }
 
-resource "cloudflare_page_rule" "www_fluidattacks_co_to_fluidattacks_com" {
-  zone_id  = cloudflare_zone.fluidattacks_co.id
-  target   = "https://www.${cloudflare_zone.fluidattacks_co.zone}/*"
+resource "cloudflare_page_rule" "www_fluidsignal_co_to_fluidattacks_com" {
+  zone_id  = cloudflare_zone.fluidsignal_co.id
+  target   = "https://www.${cloudflare_zone.fluidsignal_co.zone}/*"
   status   = "active"
   priority = 2
 
   actions {
     forwarding_url {
-      url         = "https://${cloudflare_zone.fluidattacks_co.zone}/$1"
+      url         = "https://${cloudflare_zone.fluidsignal_co.zone}/$1"
       status_code = 301
     }
   }
