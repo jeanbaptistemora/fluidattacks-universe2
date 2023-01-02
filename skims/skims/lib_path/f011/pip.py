@@ -20,7 +20,10 @@ def pip_requirements_txt(content: str, path: str) -> Iterator[DependencyType]:
         if line:
             for parse_dependency in requirements.parse(line):
                 product = parse_dependency.name
-                version = parse_dependency.specs[0][1]
+                if len(parse_dependency.specs) == 1:
+                    version = parse_dependency.specs[0][1]
+                else:
+                    continue
 
                 yield format_pkg_dep(
                     product, version, line_number, line_number
