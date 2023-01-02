@@ -32,8 +32,7 @@ an estimated time of 3 to 5 minutes to complete. To begin, please click
 ## 3\. Openings
 
 The goal of this stage is for you to understand the roles you can have
-in `Fluid Attacks`, or in openings handled by Autonomic Mind, a `Fluid Attacks`
-spin-off in charge of the recruitment process.
+in `Fluid Attacks`.
 This is mandatory and requires an estimated effort of 3 to 5 minutes.
 To begin, please click [here](openings/).
 
@@ -94,6 +93,8 @@ To begin, please follow these detailed
     requires an estimated effort of 40 to 45 minutes. Before doing this,
     you must first complete the previous stage. To begin, please write
     us an email at <careers@fluidattacks.com>.
+    (This item will be evaluated depending on the position
+    the candidate is applying for.)
 
 ## 8\. Challenges
 
@@ -122,7 +123,7 @@ To begin, please follow these detailed
 
 1. **Video Interview:** The goal of this stage is to show your interest
     and desire to be a part of `Fluid Attacks` through a video
-    interview. It requires an estimated effort of 25 to 30 minutes.
+    interview. It requires an estimated effort of 45 to 60 minutes.
     Before doing this, you must first complete the previous stage. To
     begin, please write us an email at <careers@fluidattacks.com>.
 
@@ -153,27 +154,18 @@ To begin, please follow these detailed
 
 Our company is focused on information security and for this reason we
 may require you to take a polygraph test during the selection process.
-This step is optional and requires an average effort of `2` hours.
+This step is mandatory and requires an average effort of `2` hours.
 Before doing this, you must complete the previous stage. To begin,
 please write us an email at <careers@fluidattacks.com> and we will
 provide further information about the test.
 
-## 13\. Audition
-
-The goal of this stage is for you to show your ability to express
-yourself by presenting a topic of our choice to an audience of minimum 3
-and maximum 30 people. This is optional and requires an estimated effort
-of 4 hours to prepare, plus a 20-minute presentation. Before doing this,
-you do not need to complete the previous stage. To begin, please write
-us an email at <careers@fluidattacks.com>.
-
-## 14\. Offer
+## 13\. Offer
 
 If you reach this stage in the process, we will send you a job offer via
 email detailing the terms and conditions of the offer we have for you.
 If you have any doubts, you must state them in the same email thread.
 
-## 15\. Hiring
+## 14\. Hiring
 
 Once we come to an agreement regarding the offer, we will email you with
 a list of documents you must provide to complete this stage.
