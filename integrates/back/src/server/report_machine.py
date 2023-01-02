@@ -453,7 +453,7 @@ def _get_path_from_sarif_vulnerability(
             == "python.pip_incomplete_dependencies_list"
         )
         and (message_properties := vulnerability["message"].get("properties"))
-        and (vulnerability["ruleId"] == "079")
+        and (vulnerability["ruleId"] == "120")
     ):
         what = " ".join(
             (
@@ -471,7 +471,7 @@ def _get_path_from_sarif_vulnerability(
 
 
 def _get_vulns_with_reattack(  # NOSONAR
-    stream: dict[str, Any],
+    stream: Dict[str, Any],
     integrates_vulnerabilities: Tuple[Vulnerability, ...],
     state: str,
 ) -> Tuple[Vulnerability, ...]:
@@ -661,7 +661,7 @@ def _machine_vulns_to_close(
 
 
 async def ensure_toe_inputs(
-    loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
+    loaders: Dataloaders, group_name: str, root_id: str, stream: Dict[str, Any]
 ) -> None:
     vulns_for_toe: List[Dict[str, Any]] = [
         vuln
@@ -720,9 +720,9 @@ async def persist_vulnerabilities(
     group_name: str,
     git_root: GitRoot,
     finding: Finding,
-    stream: dict[str, Any],
+    stream: Dict[str, Any],
     organization_name: str,
-) -> Optional[set[str]]:
+) -> Optional[Set[str]]:
     finding_policy = await policies_domain.get_finding_policy_by_name(
         loaders=loaders,
         organization_name=organization_name,
@@ -759,7 +759,7 @@ async def persist_vulnerabilities(
 async def upload_evidences(
     loaders: Dataloaders,
     finding: Finding,
-    machine_vulnerabilities: list[dict[str, Any]],
+    machine_vulnerabilities: List[Dict[str, Any]],
 ) -> bool:
     success: bool = True
     evidence_ids = [("evidence_route_5", "evidence_route_5")]
@@ -902,7 +902,7 @@ async def upload_snippet(
     loaders: Dataloaders,
     root: GitRoot,
     vuln_id: str,
-    sarif_vulns: list[Any],
+    sarif_vulns: List[Any],
 ) -> None:
     current_vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     if current_vuln.state.status != VulnerabilityStateStatus.VULNERABLE:
@@ -946,12 +946,12 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     group_name: str,
     vulnerability_id: str,
-    criteria_vulnerability: dict[str, Any],
-    criteria_requirements: dict[str, Any],
+    criteria_vulnerability: Dict[str, Any],
+    criteria_requirements: Dict[str, Any],
     language: str,
     git_root: GitRoot,
-    sarif_log: dict[str, Any],
-    execution_config: dict[str, Any],
+    sarif_log: Dict[str, Any],
+    execution_config: Dict[str, Any],
     organization_name: str,
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
@@ -1064,7 +1064,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 async def get_current_execution(
     root_id: str,
     batch_job_id: str,
-    findings_executed: Optional[list[MachineFindingResult]] = None,
+    findings_executed: Optional[List[MachineFindingResult]] = None,
     commit: Optional[str] = None,
 ) -> Optional[RootMachineExecution]:
 
@@ -1088,7 +1088,7 @@ async def get_current_execution(
     return result[0]
 
 
-def _match_execution_id(execution_id: str) -> Optional[dict[str, str]]:
+def _match_execution_id(execution_id: str) -> Optional[Dict[str, str]]:
     pattern = (
         r"(?P<group_name>[a-z]*)_(?P<job_id>[0-9a-z-]{36})_"
         r"(?P<root_nickname>(.?)*)_([0-9a-z]{8})"
@@ -1102,7 +1102,7 @@ def _match_execution_id(execution_id: str) -> Optional[dict[str, str]]:
 async def _start_machine_execution(
     loaders: Dataloaders,
     execution_id: str,
-    findings_executed: Optional[list[MachineFindingResult]] = None,
+    findings_executed: Optional[List[MachineFindingResult]] = None,
     commit: Optional[str] = None,
 ) -> None:
 
@@ -1179,8 +1179,8 @@ async def _finish_machine_execution(
 
 async def process_execution(
     execution_id: str,
-    criteria_vulns: Optional[dict[str, Any]] = None,
-    criteria_reqs: Optional[dict[str, Any]] = None,
+    criteria_vulns: Optional[Dict[str, Any]] = None,
+    criteria_reqs: Optional[Dict[str, Any]] = None,
     config_path: Optional[str] = None,
     sarif_path: Optional[str] = None,
 ) -> bool:
@@ -1212,7 +1212,7 @@ async def process_execution(
     results = await get_sarif_log(execution_id, sarif_path)
     if not results:
         LOGGER.warning(
-            "Cloud not find execution result",
+            "Could not find execution result",
             extra={"extra": {"execution_id": execution_id}},
         )
         return False

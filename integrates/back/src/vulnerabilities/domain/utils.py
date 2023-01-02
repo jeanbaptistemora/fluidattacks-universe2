@@ -177,20 +177,20 @@ async def get_valid_assigned(
 async def get_root_nicknames_for_skims(
     loaders: Dataloaders,
     group: str,
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Set[str]:
     # If a vuln is linked to a root, return it
     # otherwise return all roots, the vuln must belong to one of them
     root_nicknames: Set[str] = set()
 
-    root_ids: tuple[str, ...] = tuple(
+    root_ids: Tuple[str, ...] = tuple(
         vulnerability.root_id
         for vulnerability in vulnerabilities
         if vulnerability.root_id
     )
     if len(vulnerabilities) == len(root_ids):
         non_duplicate_root_ids: set[str] = set(root_ids)
-        roots: tuple[Root, ...] = await loaders.group_roots.load(group)
+        roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
         root_nicknames.update(
             root.state.nickname
             for root in roots
