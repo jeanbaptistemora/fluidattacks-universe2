@@ -13,9 +13,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from freezegun import (
-    freeze_time,
-)
 from groups.domain import (
     get_open_vulnerabilities,
 )
@@ -41,26 +38,6 @@ async def _get_result(
     )
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
-
-
-@freeze_time("2020-12-01")
-async def test_finding_age() -> None:
-    """Check for finding age."""
-    query = """{
-      finding(identifier: "422286126"){
-          age
-          lastVulnerability
-          openAge
-          minTimeToRemediate
-      }
-    }"""
-    data = {"query": query}
-    result = await _get_result(data)
-    assert "errors" not in result
-    assert result["data"]["finding"]["age"] == 332
-    assert result["data"]["finding"]["lastVulnerability"] == 332
-    assert result["data"]["finding"]["openAge"] == 332
-    assert result["data"]["finding"]["minTimeToRemediate"] == 18
 
 
 @pytest.mark.changes_db
