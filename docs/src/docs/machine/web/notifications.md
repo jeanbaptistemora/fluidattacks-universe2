@@ -82,6 +82,10 @@ you last logged in to the ARM.
 
 ![Inactivity Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1664548872/docs/web/notifications/inactivity_alert.png)
 
+> **Note:** Regardless of their role,
+> all stakeholders are automatically
+> removed after 90 days of inactivity.
+
 ### Access granted
 
 To be a part of a specific
@@ -277,7 +281,7 @@ If you are a user manager or
 customer manager on our Attacks
 Resistance Management platform,
 you will receive emails
-notifying  any updates to your
+notifying any updates to your
 organization’s acceptance policies.
 The message will include the
 name of the organization whose

@@ -139,6 +139,10 @@ to restore your account afterward.
 
 ![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1665498032/docs/web/delete_account.png)
 
+> **Note:** Regardless of their role,
+> all stakeholders are automatically
+> removed after 90 days of inactivity.
+
 Lastly, the **Log out**
 option will allow you to end
 your session on the ARM.
