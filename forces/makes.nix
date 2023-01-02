@@ -73,7 +73,7 @@
   secretsForEnvFromSops = {
     forcesDev = {
       vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
-      manifest = "/forces/secrets-dev.yaml";
+      manifest = "/integrates/secrets/development.yaml";
     };
     forcesProd = {
       vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
