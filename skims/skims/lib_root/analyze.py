@@ -41,6 +41,7 @@ from lib_root import (
     f100,
     f107,
     f112,
+    f127,
     f128,
     f134,
     f135,
@@ -82,9 +83,6 @@ import os
 import reactivex
 from reactivex import (
     operators as ops,
-)
-from sast import (
-    query as sast_query,
 )
 from sast.parse import (
     get_graph_db,
@@ -132,6 +130,7 @@ QUERIES: graph_model.Queries = (
     *f100.QUERIES,
     *f107.QUERIES,
     *f112.QUERIES,
+    *f127.QUERIES,
     *f128.QUERIES,
     *f134.QUERIES,
     *f135.QUERIES,
@@ -158,7 +157,6 @@ QUERIES: graph_model.Queries = (
     *f414.QUERIES,
     *f416.QUERIES,
     *f423.QUERIES,
-    *sast_query.QUERIES,
 )
 
 

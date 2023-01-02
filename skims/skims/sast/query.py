@@ -251,13 +251,3 @@ def query(
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(chain.from_iterable(query_lazy(shard_db, graph_db, method)))
-
-
-def query_f127(
-    shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-) -> core_model.Vulnerabilities:
-    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F127)
-
-
-QUERIES: graph_model.Queries = ((core_model.FindingEnum.F127, query_f127),)
