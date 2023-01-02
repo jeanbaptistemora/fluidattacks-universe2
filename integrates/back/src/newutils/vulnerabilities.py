@@ -193,6 +193,16 @@ def filter_closed_vulns(
     )
 
 
+def filter_released_vulns(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Tuple[Vulnerability, ...]:
+    return tuple(
+        vuln
+        for vuln in vulnerabilities
+        if vuln.state.status in RELEASED_FILTER_STATUSES
+    )
+
+
 def filter_non_confirmed_zero_risk(
     vulnerabilities: Tuple[Vulnerability, ...],
 ) -> Tuple[Vulnerability, ...]:
