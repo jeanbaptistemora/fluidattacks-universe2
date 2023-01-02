@@ -15,7 +15,6 @@ from lib_path.f325.conf_files import (
 )
 from lib_path.f325.terraform import (
     tfm_iam_has_wildcard_resource_on_write_action,
-    tfm_iam_role_is_over_privileged,
     tfm_kms_key_has_master_keys_exposed_to_everyone,
 )
 from model.core_model import (
@@ -92,15 +91,6 @@ def run_tfm_kms_key_has_master_keys_exposed_to_everyone(
 
 
 @SHIELD_BLOCKING
-def run_tfm_iam_role_is_over_privileged(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_role_is_over_privileged(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_json_principal_wildcard(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -153,7 +143,6 @@ def analyze(
                 for fun in (
                     run_tfm_kms_key_has_master_keys_exposed_to_everyone,
                     run_tfm_iam_has_wildcard_resource_on_write_action,
-                    run_tfm_iam_role_is_over_privileged,
                 )
             ),
         )

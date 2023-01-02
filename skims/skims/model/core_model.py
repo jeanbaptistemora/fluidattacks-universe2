@@ -4762,7 +4762,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_iam_role_is_over_privileged",
         module="lib_path",
-        finding=FindingEnum.F325,
+        finding=FindingEnum.F165,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
