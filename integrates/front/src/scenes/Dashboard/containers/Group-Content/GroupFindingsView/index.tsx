@@ -248,100 +248,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [t]
   );
 
-  const tableColumns: ColumnDef<IFindingAttr>[] = [
-    {
-      accessorKey: "title",
-      header: "Type",
-    },
-    {
-      accessorKey: "state",
-      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
-        formatState(cell.getValue()),
-      header: "Status",
-    },
-    {
-      accessorKey: "severityScore",
-      header: "Severity",
-    },
-    {
-      accessorKey: "openVulnerabilities",
-      header: "Open Vulnerabilities",
-    },
-    {
-      accessorKey: "lastVulnerability",
-      cell: (cell: ICellHelper<IFindingAttr>): string =>
-        t("group.findings.description.value", { count: cell.getValue() }),
-      header: "Last report",
-    },
-    {
-      accessorKey: "age",
-      header: "Age",
-    },
-    {
-      accessorKey: "closingPercentage",
-      cell: (cell: ICellHelper<IFindingAttr>): string =>
-        formatPercentage(cell.getValue()),
-      header: t("group.findings.closingPercentage"),
-    },
-    {
-      accessorFn: (row: IFindingAttr): string | undefined =>
-        row.locationsInfo.locations,
-      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
-        locationsFormatter(cell.row.original.locationsInfo),
-      header: "Locations",
-    },
-    {
-      accessorKey: "reattack",
-      header: "Reattack",
-    },
-    {
-      accessorFn: (row: IFindingAttr): string[] =>
-        Array.from(row.locationsInfo.treatmentAssignmentEmails.values()),
-      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
-        assigneesFormatter(
-          Array.from(
-            cell.row.original.locationsInfo.treatmentAssignmentEmails.values()
-          )
-        ),
-      header: "Assignees",
-    },
-    {
-      accessorKey: "releaseDate",
-      header: "Release Date",
-    },
-    {
-      accessorFn: (row: IFindingAttr): string[] => {
-        const treatment = row.treatmentSummary;
-        const treatmentNew = treatment.new > 0 ? "Untreated" : "";
-        const treatmentAccUndef =
-          treatment.acceptedUndefined > 0 ? "Permanently Accepted" : "";
-        const treatmentInProgress =
-          treatment.inProgress > 0 ? "In Progress" : "";
-        const treatmentAccepted =
-          treatment.accepted > 0 ? "Temporarily Accepted" : "";
-
-        return [
-          treatmentNew,
-          treatmentInProgress,
-          treatmentAccepted,
-          treatmentAccUndef,
-        ].filter(Boolean);
-      },
-      cell: (cell: ICellHelper<IFindingAttr>): string => {
-        const treatment = cell.row.original.treatmentSummary;
-
-        return `Untreated: ${treatment.new}, In Progress: ${treatment.inProgress},
-        Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
-        ${treatment.acceptedUndefined}`;
-      },
-      header: "Treatment",
-    },
-    {
-      accessorKey: "description",
-      header: "Description",
-    },
-  ];
-
   const { data, refetch } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     fetchPolicy: "cache-first",
     onError: handleQryErrors,
@@ -422,6 +328,117 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   );
 
   const filteredFindings = useFilters(findings, filters);
+
+  const groupCVSSF = findings
+    .filter((find): boolean => find.state === "open")
+    .reduce(
+      (sum, finding): number => sum + 4 ** (finding.severityScore - 4),
+      0
+    );
+
+  const tableColumns: ColumnDef<IFindingAttr>[] = [
+    {
+      accessorKey: "title",
+      header: "Type",
+    },
+    {
+      accessorKey: "state",
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        formatState(cell.getValue()),
+      header: "Status",
+    },
+    {
+      accessorKey: "severityScore",
+      header: "Severity",
+    },
+    {
+      accessorFn: (row: IFindingAttr): number => {
+        if (row.state === "closed") return 0;
+
+        return 4 ** (row.severityScore - 4) / groupCVSSF;
+      },
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        formatPercentage(cell.getValue()),
+      header: "% Risk Exposure",
+    },
+    {
+      accessorKey: "openVulnerabilities",
+      header: "Open Vulnerabilities",
+    },
+    {
+      accessorKey: "lastVulnerability",
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        t("group.findings.description.value", { count: cell.getValue() }),
+      header: "Last report",
+    },
+    {
+      accessorKey: "age",
+      header: "Age",
+    },
+    {
+      accessorKey: "closingPercentage",
+      cell: (cell: ICellHelper<IFindingAttr>): string =>
+        formatPercentage(cell.getValue()),
+      header: t("group.findings.closingPercentage"),
+    },
+    {
+      accessorFn: (row: IFindingAttr): string | undefined =>
+        row.locationsInfo.locations,
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        locationsFormatter(cell.row.original.locationsInfo),
+      header: "Locations",
+    },
+    {
+      accessorKey: "reattack",
+      header: "Reattack",
+    },
+    {
+      accessorFn: (row: IFindingAttr): string[] =>
+        Array.from(row.locationsInfo.treatmentAssignmentEmails.values()),
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        assigneesFormatter(
+          Array.from(
+            cell.row.original.locationsInfo.treatmentAssignmentEmails.values()
+          )
+        ),
+      header: "Assignees",
+    },
+    {
+      accessorKey: "releaseDate",
+      header: "Release Date",
+    },
+    {
+      accessorFn: (row: IFindingAttr): string[] => {
+        const treatment = row.treatmentSummary;
+        const treatmentNew = treatment.new > 0 ? "Untreated" : "";
+        const treatmentAccUndef =
+          treatment.acceptedUndefined > 0 ? "Permanently Accepted" : "";
+        const treatmentInProgress =
+          treatment.inProgress > 0 ? "In Progress" : "";
+        const treatmentAccepted =
+          treatment.accepted > 0 ? "Temporarily Accepted" : "";
+
+        return [
+          treatmentNew,
+          treatmentInProgress,
+          treatmentAccepted,
+          treatmentAccUndef,
+        ].filter(Boolean);
+      },
+      cell: (cell: ICellHelper<IFindingAttr>): string => {
+        const treatment = cell.row.original.treatmentSummary;
+
+        return `Untreated: ${treatment.new}, In Progress: ${treatment.inProgress},
+        Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
+        ${treatment.acceptedUndefined}`;
+      },
+      header: "Treatment",
+    },
+    {
+      accessorKey: "description",
+      header: "Description",
+    },
+  ];
 
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,
