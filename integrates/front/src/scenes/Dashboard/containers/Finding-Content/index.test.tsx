@@ -177,7 +177,7 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
     // eslint-disable-next-line
-    const mockedPermissions = new PureAbility<string>([  // NOSONAR
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
       { action: "api_resolvers_finding_hacker_resolve" },
     ]);
@@ -188,8 +188,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -216,8 +215,7 @@ describe("FindingContent", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-    // eslint-disable-next-line
-    const mockedPermissions = new PureAbility<string>([  //NOSONAR
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_submit_draft_mutate" },
       { action: "api_resolvers_finding_hacker_resolve" },
     ]);
@@ -227,8 +225,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -267,8 +264,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -307,8 +303,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -380,8 +375,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -442,8 +436,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -503,8 +496,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -576,8 +568,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -648,8 +639,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -720,8 +710,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -791,8 +780,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])
@@ -863,8 +851,7 @@ describe("FindingContent", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <authzGroupContext.Provider
               value={
-                // eslint-disable-next-line
-                new PureAbility([  //NOSONAR
+                new PureAbility([
                   { action: "can_report_vulnerabilities" },
                   { action: "api_resolvers_finding_hacker_resolve" },
                 ])

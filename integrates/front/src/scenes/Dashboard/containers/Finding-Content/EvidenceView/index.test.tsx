@@ -97,8 +97,7 @@ describe("FindingEvidenceView", (): void => {
   it("should render remove image", async (): Promise<void> => {
     expect.hasAssertions();
 
-    // eslint-disable-next-line
-    const mockedPermissions = new PureAbility<string>([  // NOSONAR
+    const mockedPermissions = new PureAbility<string>([
       { action: "api_mutations_update_evidence_mutate" },
     ]);
     const mocksMutation: readonly MockedResponse[] = [
