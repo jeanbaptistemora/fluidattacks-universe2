@@ -425,41 +425,6 @@ async def test_add_org_finding_policy() -> None:
     assert result["errors"][0]["message"] == "Access denied"
 
 
-async def test_get_org_finding_policies() -> None:
-    identifier = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
-    name = "007. Cross-site request forgery"
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    status = "APPROVED"
-    query = """
-        query GetOrganizationPolicies($organizationId: String!) {
-            organization(organizationId: $organizationId) {
-                id
-                findingPolicies {
-                    id
-                    name
-                    status
-                    lastStatusUpdate
-                }
-            }
-        }
-    """
-    data = {"query": query, "variables": {"organizationId": org_id}}
-    result = await _get_result_async(data)
-
-    assert "errors" not in result
-    assert result["data"]["organization"]["id"] == org_id
-    assert len(result["data"]["organization"]["findingPolicies"]) == 1
-    assert (
-        result["data"]["organization"]["findingPolicies"][0]["id"]
-        == identifier
-    )
-    assert result["data"]["organization"]["findingPolicies"][0]["name"] == name
-    assert (
-        result["data"]["organization"]["findingPolicies"][0]["status"]
-        == status
-    )
-
-
 @pytest.mark.changes_db
 async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"

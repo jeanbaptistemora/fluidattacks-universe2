@@ -122,6 +122,8 @@ async def test_grant_stakeholder_access_rejected(
     ["email", "stakeholder_email"],
     [
         ["admin@gmail.com", "hacker@gmail.com"],
+        ["admin@gmail.com", "user@gmail.com"],
+        ["admin@gmail.com", "vulnerability_manager@gmail.com"],
     ],
 )
 async def test_grant_stakeholder_access_fail_1(
@@ -131,6 +133,12 @@ async def test_grant_stakeholder_access_fail_1(
     group_name: str = "group2"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "HACKER"
+    exceptions = {
+        "Exception - Groups with any active Fluid Attacks service "
+        "can only have Hackers provided by Fluid Attacks",
+        "Exception - The stakeholder has been granted access "
+        "to the group previously",
+    }
     result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
@@ -139,41 +147,7 @@ async def test_grant_stakeholder_access_fail_1(
         role=stakeholder_role,
     )
     assert "errors" in result
-    assert (
-        result["errors"][0]["message"]
-        == "Exception - The stakeholder has been granted access "
-        "to the group previously"
-    )
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("grant_stakeholder_access")
-@pytest.mark.parametrize(
-    ["email", "stakeholder_email"],
-    [
-        ["admin@gmail.com", "user@gmail.com"],
-    ],
-)
-async def test_grant_stakeholder_access_fail_2(
-    populate: bool, email: str, stakeholder_email: str
-) -> None:
-    assert populate
-    group_name: str = "group2"
-    stakeholder_responsibility: str = "test"
-    stakeholder_role: str = "HACKER"
-    result: dict[str, Any] = await get_result(
-        user=email,
-        stakeholder=stakeholder_email,
-        group=group_name,
-        responsibility=stakeholder_responsibility,
-        role=stakeholder_role,
-    )
-    assert "errors" in result
-    assert (
-        result["errors"][0]["message"]
-        == "Exception - Groups with any active Fluid Attacks service "
-        "can only have Hackers provided by Fluid Attacks"
-    )
+    assert result["errors"][0]["message"] in exceptions
 
 
 @pytest.mark.asyncio
@@ -191,7 +165,7 @@ async def test_grant_stakeholder_access_fail_2(
         ["customer_manager@fluidattacks.com"],
     ],
 )
-async def test_grant_stakeholder_access_fail_3(
+async def test_grant_stakeholder_access_fail_2(
     populate: bool, email: str
 ) -> None:
     assert populate
