@@ -66,7 +66,7 @@
   };
   secretsForAwsFromGitlab = {
     prodForces = {
-      roleArn = "arn:aws:iam::205810638802:role/prod_forces";
+      roleArn = "arn:aws:iam::205810638802:role/prod_integrates";
       duration = 3600;
     };
   };
