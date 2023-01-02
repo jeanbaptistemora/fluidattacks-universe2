@@ -124,4 +124,9 @@ def must_range_filter(**kwargs: datetime) -> List[Dict[str, Any]]:
             {"execution_date": {"gte": str(from_date.date())}}
         )
 
+    if to_date := kwargs.get("toDate"):
+        must_range_filters.append(
+            {"execution_date": {"lte": str(to_date.date())}}
+        )
+
     return must_range_filters
