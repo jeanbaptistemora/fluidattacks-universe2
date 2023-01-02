@@ -122,6 +122,7 @@ mocked_paths: Dict[str, str] = {
     "event_comments_domain.add": "event_comments.domain.add",
     "events_model.add": "db_model.events.add",
     "events_model.update_state": "db_model.events.update_state",
+    "events_model.update_evidence": "db_model.events.update_evidence",
     "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501
@@ -137,6 +138,8 @@ mocked_paths: Dict[str, str] = {
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501
+    "replace_different_format": "events.domain.replace_different_format",
+    "save_evidence": "events.domain.save_evidence",
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501
     "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
@@ -166,6 +169,40 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
     },
     "db_model.events.get.EventLoader.load": {
+        '["418900978"]': Event(
+            client="Test client",
+            created_by="unittest@fluidattacks.com",
+            created_date=datetime.fromisoformat("2020-01-02T19:40:05+00:00"),
+            description="Oneshot event test",
+            event_date=datetime.fromisoformat("2020-01-02T12:00:00+00:00"),
+            evidences=EventEvidences(
+                file_1=None,
+                image_1=None,
+                image_2=None,
+                image_3=None,
+                image_4=None,
+                image_5=None,
+                image_6=None,
+            ),
+            group_name="oneshottest",
+            hacker="unittest@fluidattacks.com",
+            id="418900978",
+            state=EventState(
+                modified_by="unittest@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-01-02T19:40:05+00:00"
+                ),
+                status=EventStateStatus.CREATED,
+                comment_id=None,
+                other=None,
+                reason=None,
+            ),
+            type=EventType.OTHER,
+            root_id=None,
+            unreliable_indicators=EventUnreliableIndicators(
+                unreliable_solving_date=None
+            ),
+        ),
         '["538745942"]': Event(
             client="test",
             created_by="unittest@fluidattacks.com",
@@ -200,7 +237,13 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             unreliable_indicators=EventUnreliableIndicators(
                 unreliable_solving_date=None
             ),
-        )
+        ),
+    },
+    "db_model.events.update_evidence": {
+        '["418900978", "test-file-records.csv", '
+        '"2022-12-29 14:14:19.182591+00:00", "FILE_1"]': None,
+        '["538745942", "test-file-records.csv", '
+        '"2022-12-29 14:14:19.182591+00:00", "FILE_1"]': None,
     },
     "db_model.events.update_state": {
         '["unittesting", "unittesting@fluidattacks.com", '
@@ -916,6 +959,14 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         ],
         '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501
+    },
+    "events.domain.replace_different_format": {
+        '["418900978", "FILE_1"]': None,
+        '["538745942", "FILE_1"]': None,
+    },
+    "events.domain.save_evidence": {
+        '["418900978", "test-file-records.csv"]': None,
+        '["538745942", "test-file-records.csv"]': None,
     },
     "events.domain.update_evidence": {
         '["test-anim.webm"]': None,

@@ -81,33 +81,6 @@ async def test_solve_event() -> None:
         )
 
 
-@pytest.mark.changes_db
-async def test_update_evidence() -> None:
-    loaders: Dataloaders = get_new_context()
-    event_id = "418900978"
-    evidence_type = EventEvidenceId.FILE_1
-    filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "./mock/test-file-records.csv")
-    with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(
-            "test-file-records.csv", test_file, "text/csv"
-        )
-        await events_domain.update_evidence(
-            loaders,
-            event_id,
-            evidence_type,
-            uploaded_file,
-            datetime_utils.get_now(),
-        )
-
-    loaders.event.clear(event_id)
-    event_updated: Event = await loaders.event.load(event_id)
-    assert (
-        event_updated.evidences.file_1.file_name  # type: ignore
-        == "oneshottest_418900978_evidence_file_1.csv"
-    )
-
-
 async def test_update_evidence_invalid_id() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "=malicious-code-here"

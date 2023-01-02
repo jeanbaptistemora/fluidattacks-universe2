@@ -7,6 +7,7 @@ from custom_exceptions import (
     InvalidCommentParent,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -15,9 +16,13 @@ from datetime import (
 from db_model.event_comments.types import (
     EventComment,
 )
+from db_model.events.enums import (
+    EventEvidenceId,
+)
 from events.domain import (
     add_comment,
     add_event,
+    update_evidence,
 )
 import json
 import os
@@ -293,3 +298,71 @@ async def test_add_event_file_image(
     assert mock_root_loader.called is True
     assert mock_validate_evidence.called is True
     assert mock_update_evidence.called is True
+
+
+# pylint: disable=too-many-arguments
+@pytest.mark.parametrize(
+    ["event_id", "evidence_type", "file_name", "update_date"],
+    [
+        [
+            "418900978",
+            EventEvidenceId.FILE_1,
+            "test-file-records.csv",
+            datetime.fromisoformat("2022-12-29 14:14:19.182591+00:00"),
+        ],
+        [
+            "538745942",
+            EventEvidenceId.FILE_1,
+            "test-file-records.csv",
+            datetime.fromisoformat("2022-12-29 14:14:19.182591+00:00"),
+        ],
+    ],
+)
+@patch(get_mocked_path("replace_different_format"), new_callable=AsyncMock)
+@patch(get_mocked_path("events_model.update_evidence"), new_callable=AsyncMock)
+@patch(get_mocked_path("save_evidence"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
+async def test_update_evidence(
+    mock_event_loader: AsyncMock,
+    mock_save_evidence: AsyncMock,
+    mock_events_model_update_evidence: AsyncMock,
+    mock_replace_different_format: AsyncMock,
+    event_id: str,
+    evidence_type: EventEvidenceId,
+    file_name: str,
+    update_date: datetime,
+) -> None:
+    mock_event_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event.load"),
+        json.dumps([event_id]),
+    )
+    mock_save_evidence.return_value = get_mock_response(
+        get_mocked_path("save_evidence"),
+        json.dumps([event_id, file_name]),
+    )
+    mock_events_model_update_evidence.return_value = get_mock_response(
+        get_mocked_path("events_model.update_evidence"),
+        json.dumps(
+            [event_id, file_name, update_date, evidence_type], default=str
+        ),
+    )
+    mock_replace_different_format.return_value = get_mock_response(
+        get_mocked_path("replace_different_format"),
+        json.dumps([event_id, evidence_type]),
+    )
+    loaders: Dataloaders = get_new_context()
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/" + file_name)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(file_name, test_file, "text/csv")
+        await update_evidence(
+            loaders,
+            event_id,
+            evidence_type,
+            uploaded_file,
+            update_date,
+        )
+    assert mock_event_loader.called is True
+    assert mock_save_evidence.called is True
+    assert mock_events_model_update_evidence.called is True
+    assert mock_replace_different_format.called is True
