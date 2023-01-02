@@ -6,6 +6,9 @@ from model.core_model import (
     MethodsEnum,
     Platform,
 )
+from parse_json import (
+    loads_blocking as json_loads_blocking,
+)
 from typing import (
     Iterator,
 )
@@ -16,4 +19,13 @@ from typing import (
 def composer_json(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
-    return iter([({}, {})])
+    content_json = json_loads_blocking(content, default={})
+
+    dependencies: Iterator[DependencyType] = (
+        (product, version)
+        for key in content_json
+        if key["item"] == "require"
+        for product, version in content_json[key].items()
+    )
+
+    return dependencies
