@@ -1,6 +1,7 @@
 from custom_exceptions import (
     ErrorFileNameAlreadyExists,
     InvalidChar,
+    InvalidCommitHash,
     InvalidField,
     InvalidFieldChange,
     InvalidFieldLength,
@@ -19,6 +20,7 @@ from newutils.validations import (
     has_sequence,
     validate_alphanumeric_field,
     validate_alphanumeric_field_deco,
+    validate_commit_hash_deco,
     validate_email_address,
     validate_email_address_deco,
     validate_field_length,
@@ -34,12 +36,15 @@ from newutils.validations import (
     validate_group_language_deco,
     validate_group_name,
     validate_group_name_deco,
+    validate_include_lowercase_deco,
+    validate_include_number_deco,
     validate_int_range,
     validate_int_range_deco,
     validate_sanitized_csv_input,
     validate_sanitized_csv_input_deco,
     validate_sequence_deco,
     validate_space_field_deco,
+    validate_start_letter_deco,
     validate_string_length_between_deco,
     validate_symbols,
     validate_symbols_deco,
@@ -561,3 +566,58 @@ def test_validate_title_change_deco() -> None:
             new_title_field="new_title",
             status_field=FindingStateStatus.APPROVED,
         )
+
+
+def test_validate_commit_hash_deco() -> None:
+    @validate_commit_hash_deco(
+        "comm",
+    )
+    def decorated_func(comm: str) -> str:
+        return comm
+
+    decorated_func(comm="da39a3ee5e6b4b0d3255bfef95601890afd80709")
+    decorated_func(
+        comm="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    )
+
+    with pytest.raises(InvalidCommitHash):
+        decorated_func(comm="invalid Hash")
+
+
+def test_validate_start_letter_deco() -> None:
+    @validate_start_letter_deco(
+        "field",
+    )
+    def decorated_func(field: str) -> str:
+        return field
+
+    decorated_func(field="abc123")
+
+    with pytest.raises(InvalidReportFilter):
+        decorated_func(field="123abc")
+
+
+def test_validate_include_number_deco() -> None:
+    @validate_include_number_deco(
+        "field",
+    )
+    def decorated_func(field: str) -> str:
+        return field
+
+    decorated_func(field="abc123")
+
+    with pytest.raises(InvalidReportFilter):
+        decorated_func(field="abcdef")
+
+
+def test_validate_include_lowercase_deco() -> None:
+    @validate_include_lowercase_deco(
+        "field",
+    )
+    def decorated_func(field: str) -> str:
+        return field
+
+    decorated_func(field="abc123")
+
+    with pytest.raises(InvalidReportFilter):
+        decorated_func(field="ABC123")

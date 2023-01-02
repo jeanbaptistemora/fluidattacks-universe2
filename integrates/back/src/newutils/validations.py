@@ -661,6 +661,32 @@ def validate_commit_hash(commit_hash: str) -> None:
         raise InvalidCommitHash()
 
 
+def validate_commit_hash_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            commit_hash = str(kwargs.get(field))
+            if not (
+                # validate SHA-1
+                re.match(
+                    r"^[A-Fa-f0-9]{40}$",
+                    commit_hash,
+                )
+                # validate SHA-256
+                or re.match(
+                    r"^[A-Fa-f0-9]{64}$",
+                    commit_hash,
+                )
+            ):
+                raise InvalidCommitHash()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_int_range(
     value: int, lower_bound: int, upper_bound: int, inclusive: bool = True
 ) -> None:
@@ -698,6 +724,23 @@ def validate_start_letter(value: str) -> None:
         raise InvalidReportFilter("Password should start with a letter")
 
 
+def validate_start_letter_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not field_content[0].isalpha():
+                raise InvalidReportFilter(
+                    "Password should start with a letter"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_include_number(value: str) -> None:
     if not re.search(r"\d", value):
         raise InvalidReportFilter(
@@ -705,11 +748,45 @@ def validate_include_number(value: str) -> None:
         )
 
 
+def validate_include_number_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not re.search(r"\d", field_content):
+                raise InvalidReportFilter(
+                    "Password should include at least one number"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_include_lowercase(value: str) -> None:
     if not any(val.islower() for val in value):
         raise InvalidReportFilter(
             "Password should include lowercase characters"
         )
+
+
+def validate_include_lowercase_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not any(val.islower() for val in field_content):
+                raise InvalidReportFilter(
+                    "Password should include lowercase characters"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def validate_include_uppercase(value: str) -> None:
