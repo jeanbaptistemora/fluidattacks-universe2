@@ -7,6 +7,7 @@ from code_etl.arm import (
 )
 from code_etl.client import (
     Client,
+    new_client as code_client,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -22,7 +23,6 @@ from code_etl.upload_repo.extractor import (
 )
 from fa_purity.cmd import (
     Cmd,
-    unsafe_unwrap,
 )
 from fa_purity.frozen import (
     FrozenList,
@@ -48,9 +48,6 @@ import logging
 from pathlib import (
     Path,
 )
-from pathos.threading import (  # type: ignore[import]
-    ThreadPool,
-)
 from redshift_client.sql_client import (
     new_client,
 )
@@ -60,9 +57,6 @@ from redshift_client.sql_client.connection import (
     DatabaseId,
     DbConnection,
     IsolationLvl,
-)
-from typing import (
-    Tuple,
 )
 
 LOG = logging.getLogger(__name__)
@@ -126,7 +120,7 @@ def _upload_repos(
     info = Cmd.from_cmd(lambda: LOG.info("Uploading repos data"))
 
     def _new_client(path: Path) -> Cmd[Client]:
-        return new_client(connection, LOG.getChild(str(path))).map(Client.new)
+        return new_client(connection, LOG.getChild(str(path))).map(code_client)
 
     cmds = from_flist(repo_paths).map(
         lambda p: _new_client(p).bind(

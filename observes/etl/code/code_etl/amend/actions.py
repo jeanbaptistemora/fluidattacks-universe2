@@ -7,6 +7,7 @@ from code_etl.amend.core import (
 from code_etl.client import (
     Client,
     CommitStampDiff,
+    new_client as code_client,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -81,8 +82,8 @@ def _start(
 ) -> Cmd[None]:
     sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
     sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
-    client = sql_client_1.map(Client.new)
-    client2 = sql_client_2.map(Client.new)
+    client = sql_client_1.map(code_client)
+    client2 = sql_client_2.map(code_client)
     return client.bind(
         lambda c1: client2.bind(
             lambda c2: amend_users(c1, c2, namespace, mailmap)

@@ -2,7 +2,7 @@ from code_etl import (
     _utils,
 )
 from code_etl.client import (
-    Client,
+    new_client as code_client,
     Tables,
 )
 from fa_purity import (
@@ -35,7 +35,7 @@ def init_tables(
     )
 
     def _main(connection: DbConnection) -> Cmd[None]:
-        client = new_client(connection, LOG).map(Client.new)
+        client = new_client(connection, LOG).map(code_client)
         return client.bind(lambda c: c.init_table(table)) + connection.commit()
 
     return _utils.wrap_connection(new_connection, _main)
