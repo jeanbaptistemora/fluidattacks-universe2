@@ -5,23 +5,6 @@ from model.graph_model import (
     SyntaxStepObjectInstantiation,
     SyntaxStepSymbolLookup,
 )
-from sast_symbolic_evaluation.cases.method_invocation.constants import (
-    BY_OBJ_NO_TYPE_ARGS_PROPAG,
-)
-from sast_symbolic_evaluation.cases.method_invocation.go import (
-    attempt_go_parse_float,
-)
-from sast_symbolic_evaluation.cases.method_invocation.java import (
-    list_add as java_list_add,
-    list_remove as java_list_remove,
-)
-from sast_symbolic_evaluation.cases.method_invocation.javascript import (
-    list_concat as javascript_list_concat,
-    list_get as javascript_list_get,
-    list_pop as javascript_list_pop,
-    list_push as javascript_list_push,
-    list_shift as javascript_list_shift,
-)
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
     lookup_method,
@@ -50,21 +33,7 @@ def evaluate(args: EvaluatorArgs) -> None:
 
 
 def evaluate_go(args: EvaluatorArgs) -> None:
-    # pylint: disable=expression-not-assigned
-    (attempt_go_parse_float(args) or attempt_the_old_way(args))
-
-
-def attempt_by_args_propagation_no_type(
-    args: EvaluatorArgs,
-    method: str,
-) -> bool:
-    _, method_path = split_on_first_dot(method)
-    if method_path in BY_OBJ_NO_TYPE_ARGS_PROPAG.get(
-        args.finding.name, {}
-    ) and any(dep.meta.danger for dep in args.dependencies):
-        args.syntax_step.meta.danger = True
-        return True
-    return False
+    attempt_the_old_way(args)
 
 
 def attempt_the_old_way(args: EvaluatorArgs) -> bool:
@@ -80,8 +49,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
     # pylint: disable=expression-not-assigned
     (
-        attempt_by_args_propagation_no_type(args, method)
-        or analyze_method_invocation_local(args, method)
+        analyze_method_invocation_local(args, method)
         or analyze_method_invocation_external(args, method, method_var_decl)
     )
 
@@ -197,8 +165,6 @@ def analyze_method_invocation_values(
             analyze_method_invocation_values_dict(args, dcl, method_path)
         if isinstance(dcl.meta.value, str):
             analyze_method_invocation_values_str(args, dcl, method_path)
-        if isinstance(dcl.meta.value, list):
-            analyze_method_invocation_values_list(args, dcl, method_path)
     elif _method := lookup_method(args, method) or (
         _method := lookup_method(
             args,
@@ -256,21 +222,3 @@ def analyze_method_invocation_values_str(
     if method_path == "charAt":
         index = int(args.dependencies[0].meta.value)
         args.syntax_step.meta.value = dcl.meta.value[index]
-
-
-def analyze_method_invocation_values_list(
-    args: EvaluatorArgs,
-    dcl: SyntaxStep,
-    method_path: str,
-) -> None:
-    methods = {
-        "add": java_list_add,
-        "remove": java_list_remove,
-        "get": javascript_list_get,
-        "pop": javascript_list_pop,
-        "shift": javascript_list_shift,
-        "push": javascript_list_push,
-        "concat": javascript_list_concat,
-    }
-    if method := methods.get(method_path):
-        method(args, dcl)

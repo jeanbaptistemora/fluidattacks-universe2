@@ -2,7 +2,6 @@ from model import (
     graph_model,
 )
 from sast_symbolic_evaluation.cases.method_invocation import (
-    analyze_method_invocation,
     analyze_method_invocation_values,
 )
 from sast_symbolic_evaluation.types import (
@@ -115,22 +114,18 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
 
         if base_var.meta.danger:
             args.syntax_step.meta.danger = True
-        else:
-            analyze_method_invocation(args, method)
 
         return True
 
     if isinstance(base_var, graph_model.SyntaxStepThis):
         method = "this" + args.syntax_step.method
         analyze_method_invocation_values(args, method)
-        analyze_method_invocation(args, method)
 
         return True
 
     if isinstance(base_var, graph_model.SyntaxStepMemberAccessExpression):
         base_var_str = node_to_str(args.shard.graph, base_var.meta.n_id)
         method = f"{base_var_str}.{args.syntax_step.method}"
-        analyze_method_invocation(args, method)
         analyze_method_invocation_values(args, method)
         return True
 
@@ -141,7 +136,6 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
             method = var.var + "." + args.syntax_step.method
         else:
             method = base_var.symbol + "." + args.syntax_step.method
-        analyze_method_invocation(args, method)
         analyze_method_invocation_values(args, method)
         return True
 
@@ -158,7 +152,6 @@ def attempt_as_object_instantiation(args: EvaluatorArgs) -> bool:
 
     if isinstance(parent, graph_model.SyntaxStepObjectInstantiation):
         method = parent.object_type + args.syntax_step.method
-        analyze_method_invocation(args, method)
         analyze_method_invocation_values(args, method)
         return True
 

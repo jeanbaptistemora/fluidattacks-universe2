@@ -3973,14 +3973,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    QUERY_F127 = MethodInfo(
-        file_name="query",
-        name="query_f127",
-        module="sast",
-        finding=FindingEnum.F127,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
     GO_INSECURE_QUERY_FLOAT = MethodInfo(
         file_name="go",
         name="go_insecure_query_float",
