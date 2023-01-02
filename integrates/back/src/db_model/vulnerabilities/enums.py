@@ -16,7 +16,6 @@ class VulnerabilityType(str, Enum):
 
 class VulnerabilityStateStatus(str, Enum):
     SAFE: str = "SAFE"
-    CREATED: str = "CREATED"
     DELETED: str = "DELETED"
     MASKED: str = "MASKED"
     VULNERABLE: str = "VULNERABLE"

@@ -125,7 +125,6 @@ def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
 
 def must_not_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_not_filters: list[dict[str, Any]] = [
-        {"state.status": VulnerabilityStateStatus.CREATED},
         {"state.status": VulnerabilityStateStatus.DELETED},
         {"state.status": VulnerabilityStateStatus.MASKED},
         {"state.status": VulnerabilityStateStatus.REJECTED},
