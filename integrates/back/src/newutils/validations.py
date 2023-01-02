@@ -422,6 +422,20 @@ def validate_space_field(field: str) -> None:
         raise InvalidSpacesField
 
 
+def validate_space_field_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not re.search(r"\S", field_content):
+                raise InvalidSpacesField
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_string_length_between(
     string: str,
     inclusive_lower_bound: int,
@@ -429,6 +443,28 @@ def validate_string_length_between(
 ) -> None:
     if not inclusive_lower_bound <= len(string) <= inclusive_upper_bound:
         raise InvalidFieldLength()
+
+
+def validate_string_length_between_deco(
+    field: str,
+    inclusive_lower_bound: int,
+    inclusive_upper_bound: int,
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            string = str(kwargs.get(field))
+            if (
+                not inclusive_lower_bound
+                <= len(string)
+                <= inclusive_upper_bound
+            ):
+                raise InvalidFieldLength()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_alphanumeric_field(field: str) -> bool:
@@ -469,6 +505,33 @@ def validate_finding_title_change_policy(
             ),
         )
     return True
+
+
+def validate_finding_title_change_policy_deco(
+    old_title_field: str, new_title_field: str, status_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            old_title = str(kwargs.get(old_title_field))
+            new_title = str(kwargs.get(new_title_field))
+            status = cast(FindingStateStatus, kwargs.get(status_field))
+            if (
+                old_title != new_title
+                and status == FindingStateStatus.APPROVED
+            ):
+                raise InvalidFieldChange(
+                    fields=["title"],
+                    reason=(
+                        "The title of a Finding cannot be edited after "
+                        "it has been approved"
+                    ),
+                )
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_no_duplicate_drafts(

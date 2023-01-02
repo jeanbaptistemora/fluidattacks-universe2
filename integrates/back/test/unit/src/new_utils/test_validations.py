@@ -2,10 +2,15 @@ from custom_exceptions import (
     ErrorFileNameAlreadyExists,
     InvalidChar,
     InvalidField,
+    InvalidFieldChange,
     InvalidFieldLength,
     InvalidReportFilter,
+    InvalidSpacesField,
     NumberOutOfRange,
     UnsanitizedInputFound,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
 )
 from db_model.groups.types import (
     GroupFile,
@@ -25,6 +30,7 @@ from newutils.validations import (
     validate_file_name,
     validate_file_name_deco,
     validate_finding_id_deco,
+    validate_finding_title_change_policy_deco,
     validate_group_language_deco,
     validate_group_name,
     validate_group_name_deco,
@@ -33,6 +39,8 @@ from newutils.validations import (
     validate_sanitized_csv_input,
     validate_sanitized_csv_input_deco,
     validate_sequence_deco,
+    validate_space_field_deco,
+    validate_string_length_between_deco,
     validate_symbols,
     validate_symbols_deco,
 )
@@ -498,3 +506,58 @@ def test_validate_group_language(language: str, should_fail: bool) -> None:
             decorated_func(value=language)
     else:
         assert decorated_func(value=language)
+
+
+def test_validate_space_field_deco() -> None:
+    @validate_space_field_deco("field")
+    def decorated_func(field: str) -> str:
+        return field
+
+    # Test valid input
+    assert decorated_func(field="test")
+
+    # Test invalid input
+    with pytest.raises(InvalidSpacesField):
+        decorated_func(field="  ")
+
+
+def test_validate_string_length_between_deco() -> None:
+    @validate_string_length_between_deco(
+        "field", inclusive_lower_bound=4, inclusive_upper_bound=8
+    )
+    def decorated_func(field: str) -> str:
+        return field
+
+    # Test valid input
+    assert decorated_func(field="field")
+
+    # Test invalid input
+    with pytest.raises(InvalidFieldLength):
+        decorated_func(field="longerfield")
+
+
+def test_validate_title_change_deco() -> None:
+    @validate_finding_title_change_policy_deco(
+        "old_title_field",
+        "new_title_field",
+        "status_field",
+    )
+    def decorated_func(
+        old_title_field: str, new_title_field: str, status_field: str
+    ) -> str:
+        return old_title_field + new_title_field + status_field
+
+    # Test valid input
+    assert decorated_func(
+        old_title_field="old_title",
+        new_title_field="new_title",
+        status_field=FindingStateStatus.CREATED,
+    )
+
+    # Test invalid input
+    with pytest.raises(InvalidFieldChange):
+        decorated_func(
+            old_title_field="old_title",
+            new_title_field="new_title",
+            status_field=FindingStateStatus.APPROVED,
+        )
