@@ -86,7 +86,7 @@ async def mutate(
                 vuln.verification
                 and vuln.verification.status
                 == VulnerabilityVerificationStatus.REQUESTED
-                and vuln.state.status != VulnerabilityStateStatus.SAFE
+                and vuln.state.status is VulnerabilityStateStatus.VULNERABLE
             )
         ]
         treatment_changed_vulns = [
@@ -131,7 +131,7 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Requested a zero risk vuln in finding " f"{finding_id}",
+            f"Security: Requested a zero risk vuln in finding {finding_id}",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
