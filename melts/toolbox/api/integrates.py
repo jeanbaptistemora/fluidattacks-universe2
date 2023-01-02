@@ -83,7 +83,25 @@ def get_paginated_fields(
             field_edges = field_connection["edges"]
             has_next_page = field_page_info["hasNextPage"]
             end_cursor = field_page_info["endCursor"]
-            result.extend([vuln_edge["node"] for vuln_edge in field_edges])
+            result.extend(
+                [
+                    {
+                        **vuln_edge["node"],
+                        "currentState": {
+                            "SAFE": "closed",
+                            "VULNERABLE": "open",
+                        }
+                        .get(
+                            str(vuln_edge["node"]["state"]),
+                            str(vuln_edge["node"]["state"]),
+                        )
+                        .lower(),
+                    }
+                    if "state" in vuln_edge["node"]
+                    else vuln_edge["node"]
+                    for vuln_edge in field_edges
+                ]
+            )
 
         if not has_next_page:
             break
@@ -316,15 +334,15 @@ class Queries:
 
         vulns_query: str = """
             query MeltsGetVulnerabilities(
-                    $finding_id: String!, $withVulns: Boolean!
+                    $identifier: String!, $withVulns: Boolean!
                 ) {
-                finding(identifier: $finding_id) {
+                finding(identifier: $identifier) {
                     id
                     vulnerabilitiesConnection @include(if: $withVulns) {
                         edges {
                             node {
                                 lastStateDate
-                                currentState
+                                state
                                 hacker
                                 source
                                 lastTreatmentDate
@@ -354,13 +372,14 @@ class Queries:
         )
 
         # Filling vulnerability info
-        response.data["finding"]["vulnerabilities"] = get_paginated_fields(
-            api_token=api_token,
-            paginated_field="vulnerabilities",
-            parent_field="finding",
-            params=params,
-            query=vulns_query,
-        )
+        if with_vulns:
+            response.data["finding"]["vulnerabilities"] = get_paginated_fields(
+                api_token=api_token,
+                paginated_field="vulnerabilitiesConnection",
+                parent_field="finding",
+                params=params,
+                query=vulns_query,
+            )
 
         return response
 
