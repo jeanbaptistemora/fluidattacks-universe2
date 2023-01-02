@@ -8,6 +8,9 @@ from syntax_graph.types import (
     MissingCaseHandling,
     SyntaxGraphArgs,
 )
+from typing import (
+    Dict,
+)
 from utils.graph import (
     match_ast,
 )
@@ -22,6 +25,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if len(match) == 3 and match["using"] and match[";"]:
         expression_id = match["__0__"]
         expression = node_to_str(args.ast_graph, str(expression_id))
-        return build_import_statement_node(args, expression)
+        node_attrs: Dict[str, str] = {
+            "expression": expression,
+        }
+        return build_import_statement_node(args, node_attrs)
 
     raise MissingCaseHandling(f"Bad using handling in {args.n_id}")

@@ -7,6 +7,9 @@ from syntax_graph.syntax_nodes.import_statement import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Dict,
+)
 from utils.graph import (
     match_ast,
 )
@@ -21,4 +24,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
         import_text = node_to_str(args.ast_graph, childs_id["__1__"])
     else:
         import_text = node_to_str(args.ast_graph, args.n_id)
-    return build_import_statement_node(args, import_text)
+
+    node_attrs: Dict[str, str] = {
+        "expression": import_text,
+    }
+    return build_import_statement_node(args, node_attrs)
