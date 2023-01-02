@@ -54,6 +54,67 @@ async def test_get_forces_executions(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_get_forces_executions_by_filter_date(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", from_date="2020-02-05T00:00:00+00:00"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions[0]["node"]["date"] == "2020-02-05T00:00:00+00:00"
+
+    result = await get_result(
+        user=email, group="group1", to_date="2020-02-05T00:00:00+00:00"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions[0]["node"]["date"] == "2020-02-05T00:00:00+00:00"
+
+    result = await get_result(
+        user=email,
+        group="group1",
+        from_date="2019-02-05T00:00:00+00:00",
+        to_date="2021-02-05T00:00:00+00:00",
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions[0]["node"]["date"] == "2020-02-05T00:00:00+00:00"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_should_not_get_forces_executions_by_filter_date(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result = await get_result(
+        user=email, group="group1", from_date="2021-02-05T00:00:00+00:00"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions == []
+
+    result = await get_result(
+        user=email, group="group1", to_date="2019-02-05T00:00:00+00:00"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions == []
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
         ["service_forces@gmail.com"],
     ],
 )
