@@ -349,7 +349,9 @@ async def get_newest_vulnerability_report_date(
     vulns: tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
-    report_dates = vulns_utils.get_report_dates(vulns)
+    report_dates = vulns_utils.get_report_dates(
+        vulns_utils.filter_released_vulns(vulns)
+    )
 
     return max(report_dates) if report_dates else None
 
