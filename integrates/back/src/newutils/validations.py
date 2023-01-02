@@ -796,6 +796,23 @@ def validate_include_uppercase(value: str) -> None:
         )
 
 
+def validate_include_uppercase_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            field_content = str(kwargs.get(field))
+            if not any(val.isupper() for val in field_content):
+                raise InvalidReportFilter(
+                    "Password should include uppercase characters"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def sequence_increasing(
     char: str, current_ord: int, sequence: list[int], is_increasing: bool
 ) -> list[int]:

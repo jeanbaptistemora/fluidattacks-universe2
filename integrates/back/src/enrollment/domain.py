@@ -45,7 +45,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.validations import (
-    validate_email_address,
+    validate_email_address_deco,
 )
 from settings import (
     LOGGING,
@@ -64,14 +64,13 @@ mail_free_trial_start = retry_on_exceptions(
 )(send_mail_free_trial_start)
 
 
+@validate_email_address_deco("user_email")
 async def add_enrollment(
     *,
     loaders: Dataloaders,
     user_email: str,
     full_name: str,
 ) -> None:
-    validate_email_address(user_email)
-
     if not user_email:
         raise InvalidParameter()
 

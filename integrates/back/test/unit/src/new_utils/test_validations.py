@@ -38,6 +38,7 @@ from newutils.validations import (
     validate_group_name_deco,
     validate_include_lowercase_deco,
     validate_include_number_deco,
+    validate_include_uppercase_deco,
     validate_int_range,
     validate_int_range_deco,
     validate_sanitized_csv_input,
@@ -621,3 +622,16 @@ def test_validate_include_lowercase_deco() -> None:
 
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="ABC123")
+
+
+def test_validate_include_uppercase_deco() -> None:
+    @validate_include_uppercase_deco(
+        "field",
+    )
+    def decorated_func(field: str) -> str:
+        return field
+
+    decorated_func(field="aBc123")
+
+    with pytest.raises(InvalidReportFilter):
+        decorated_func(field="abc123")
