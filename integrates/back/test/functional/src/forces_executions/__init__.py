@@ -10,48 +10,74 @@ from typing import (
 )
 
 
+def get_query() -> str:
+    return """
+      query(
+        $first: Int
+        $fromDate: DateTime
+        $groupName: String!
+        $search: String
+        $toDate: DateTime
+      ) {
+        group(groupName: $groupName) {
+          executionsConnections(
+            first: $first,
+            fromDate: $fromDate,
+            search: $search,
+            toDate: $toDate
+          ) {
+            edges {
+              node {
+                groupName
+                gracePeriod
+                date
+                exitCode
+                gitBranch
+                gitCommit
+                gitOrigin
+                gitRepo
+                executionId
+                kind
+                severityThreshold
+                strictness
+                vulnerabilities {
+                  numOfAcceptedVulnerabilities
+                  numOfOpenVulnerabilities
+                  numOfClosedVulnerabilities
+                }
+              }
+            }
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
+          }
+          name
+        }
+      }
+    """
+
+
 async def get_result(
     *,
     user: str,
+    from_date: str = "",
     group: str,
+    search: str = "",
+    to_date: str = "",
 ) -> dict[str, Any]:
-    firts = 50
+    first = 50
+    query: str = get_query()
 
-    query: str = f"""query {{
-    group(groupName: "{group}") {{
-      executionsConnections(after: "", first: {firts}, search: "") {{
-        edges {{
-          node {{
-            groupName
-            gracePeriod
-            date
-            exitCode
-            gitBranch
-            gitCommit
-            gitOrigin
-            gitRepo
-            executionId
-            kind
-            severityThreshold
-            strictness
-            vulnerabilities {{
-              numOfAcceptedVulnerabilities
-              numOfOpenVulnerabilities
-              numOfClosedVulnerabilities
-            }}
-          }}
-        }}
-        pageInfo {{
-          endCursor
-          hasNextPage
-        }}
-      }}
-      name
-    }}
-  }}"""
-
-    data: dict[str, str] = {
+    data: dict[str, Any] = {
         "query": query,
+        "variables": {
+            "first": first,
+            "fromDate": from_date,
+            "groupName": group,
+            "search": search,
+            "toDate": to_date,
+        },
     }
     return await get_graphql_result(
         data,
