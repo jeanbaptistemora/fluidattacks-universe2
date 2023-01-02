@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 import authz
 from authz.validations import (
     validate_role_fluid_reqs,
@@ -11,12 +14,18 @@ from custom_exceptions import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from datetime import (
     datetime,
 )
 from db_model import (
+    findings as findings_model,
     stakeholders as stakeholders_model,
+    vulnerabilities as vulns_model,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
@@ -34,6 +43,9 @@ from db_model.stakeholders.types import (
     StakeholderPhone,
     StakeholderState,
     StakeholderTours,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from group_access import (
     domain as group_access_domain,
@@ -80,6 +92,34 @@ async def acknowledge_concurrent_session(email: str) -> None:
 
 
 async def remove(email: str) -> None:
+    loaders: Dataloaders = get_new_context()
+    me_vulnerabilities: tuple[
+        Vulnerability, ...
+    ] = await loaders.me_vulnerabilities.load(email)
+    await collect(
+        tuple(
+            vulns_model.update_assigned_index(
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=None,
+            )
+            for vulnerability in me_vulnerabilities
+        ),
+        workers=8,
+    )
+    me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
+    await collect(
+        tuple(
+            findings_model.update_me_draft_index(
+                finding_id=draft.id,
+                group_name=draft.group_name,
+                user_email="",
+            )
+            for draft in me_drafts
+        ),
+        workers=8,
+    )
+
     await stakeholders_model.remove(email=email)
 
 

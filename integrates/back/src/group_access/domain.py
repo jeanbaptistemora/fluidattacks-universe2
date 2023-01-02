@@ -269,54 +269,55 @@ async def exists(loaders: Dataloaders, group_name: str, email: str) -> bool:
 async def remove_access(
     loaders: Dataloaders, email: str, group_name: str
 ) -> None:
-    if email and group_name:
-        me_vulnerabilities: tuple[
-            Vulnerability, ...
-        ] = await loaders.me_vulnerabilities.load(email)
-        me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
-        all_findings: tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load(group_name)
+    all_findings: tuple[
+        Finding, ...
+    ] = await loaders.group_drafts_and_findings.load(group_name)
 
-        drafts = filter_non_state_status_findings(
-            all_findings,
-            {
-                FindingStateStatus.APPROVED,
-                FindingStateStatus.DELETED,
-                FindingStateStatus.MASKED,
-            },
-        )
+    me_vulnerabilities: tuple[
+        Vulnerability, ...
+    ] = await loaders.me_vulnerabilities.load(email)
+    findings_ids: set[str] = {finding.id for finding in all_findings}
+    group_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+        vulnerability
+        for vulnerability in me_vulnerabilities
+        if vulnerability.finding_id in findings_ids
+    )
+    await collect(
+        tuple(
+            update_assigned_index(
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=None,
+            )
+            for vulnerability in group_vulnerabilities
+        ),
+        workers=8,
+    )
 
-        findings_ids: set[str] = {finding.id for finding in all_findings}
-        drafts_ids: set[str] = {draft.id for draft in drafts}
-        group_vulnerabilities: tuple[Vulnerability, ...] = tuple(
-            vulnerability
-            for vulnerability in me_vulnerabilities
-            if vulnerability.finding_id in findings_ids
-        )
-        group_drafts: tuple[Finding, ...] = tuple(
-            draft for draft in me_drafts if draft.id in drafts_ids
-        )
-        await collect(
-            tuple(
-                update_assigned_index(
-                    finding_id=vulnerability.finding_id,
-                    vulnerability_id=vulnerability.id,
-                    entry=None,
-                )
-                for vulnerability in group_vulnerabilities
+    drafts = filter_non_state_status_findings(
+        all_findings,
+        {
+            FindingStateStatus.APPROVED,
+            FindingStateStatus.DELETED,
+            FindingStateStatus.MASKED,
+        },
+    )
+    me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
+    drafts_ids: set[str] = {draft.id for draft in drafts}
+    group_drafts: tuple[Finding, ...] = tuple(
+        draft for draft in me_drafts if draft.id in drafts_ids
+    )
+    await collect(
+        tuple(
+            update_me_draft_index(
+                finding_id=draft.id,
+                group_name=draft.group_name,
+                user_email="",
             )
-        )
-        await collect(
-            tuple(
-                update_me_draft_index(
-                    finding_id=draft.id,
-                    group_name=draft.group_name,
-                    user_email="",
-                )
-                for draft in group_drafts
-            )
-        )
+            for draft in group_drafts
+        ),
+        workers=8,
+    )
 
     await group_access_model.remove(email=email, group_name=group_name)
 
