@@ -39,6 +39,7 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
+    Union,
 )
 
 
@@ -181,7 +182,7 @@ class GroupToePortsLoader(DataLoader):
 
 async def _get_toe_ports_by_root(
     request: RootToePortsRequest,
-) -> ToePortsConnection:
+) -> Union[ToePortsConnection, None]:
     if request.be_present is None:
         facet = TABLE.facets["toe_port_metadata"]
         primary_key = keys.build_key(
@@ -220,8 +221,8 @@ async def _get_toe_ports_by_root(
             paginate=request.paginate,
             table=TABLE,
         )
-    except ValidationException as exc:
-        raise InvalidBePresentFilterCursor() from exc
+    except ValidationException:
+        return None
     return ToePortsConnection(
         edges=tuple(
             format_toe_port_edge(index, item, TABLE) for item in response.items
@@ -234,7 +235,7 @@ class RootToePortsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToePortsRequest]
-    ) -> Iterable[ToePortsConnection]:
+    ) -> Iterable[Union[ToePortsConnection, None]]:
         return await collect(tuple(map(_get_toe_ports_by_root, requests)))
 
     async def load_nodes(
