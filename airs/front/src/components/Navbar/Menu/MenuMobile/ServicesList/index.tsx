@@ -39,15 +39,6 @@ const ServicesList: React.FC = (): JSX.Element => {
                 name={"Continuous Hacking"}
               />
             </InnerListItem>
-            <InnerListItem>
-              <BodyLink
-                link={"/services/one-shot-hacking/"}
-                name={"One-Shot Hacking"}
-              />
-            </InnerListItem>
-            <InnerListItem>
-              <BodyLink link={"/services/comparative/"} name={"Comparative"} />
-            </InnerListItem>
           </InnerContentList>
         </InnerListContainer>
       </ListItem>

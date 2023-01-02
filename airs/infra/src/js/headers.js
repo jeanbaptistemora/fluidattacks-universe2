@@ -1095,7 +1095,9 @@ const redirectMap = new Map([
   ["/blog/pars-orationis-secura/results.txt/","https://fluidattacks.com/blog/pars-orationis-secura/results.txt"],
   ["/blog/pars-orationis-secura/sqli-parser.py/","https://fluidattacks.com/blog/pars-orationis-secura/sqli-parser.py"],
   ["/blog/pars-orationis-secura/redux-sqli-7.php/","https://fluidattacks.com/blog/pars-orationis-secura/redux-sqli-7.php"],
-  ["/blog/pars-orationis-secura/test-cases.lst/","https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst"],
+  ["/blog/pars-orationis-secura/test-cases.lst/", "https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst"],
+  ["/services/one-shot-hacking/", "https://fluidattacks.com/services/continuous-hacking/"],
+  ["/services/comparative/", "https://fluidattacks.com/services/continuous-hacking/"],
 ]);
 
 addEventListener('fetch', event => {

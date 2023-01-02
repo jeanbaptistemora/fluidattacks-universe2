@@ -25,11 +25,6 @@ const MenuDesktop: React.FC = (): JSX.Element => (
               link={"/services/continuous-hacking/"}
               name={"Continuous Hacking"}
             />
-            <BodyLink
-              link={"/services/one-shot-hacking/"}
-              name={"One-Shot Hacking"}
-            />
-            <BodyLink link={"/services/comparative/"} name={"Comparative"} />
 
             <HeadLink link={"/resources/"} margin={"mt4"} name={"Resources"} />
             <BodyLink

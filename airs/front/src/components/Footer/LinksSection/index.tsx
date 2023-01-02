@@ -19,12 +19,6 @@ const LinksSection: React.FC = (): JSX.Element => (
         name={"Continuous Hacking"}
       />{" "}
       <br />
-      <BodyLink
-        link={"/services/one-shot-hacking/"}
-        name={"One-shot Hacking"}
-      />{" "}
-      <br />
-      <BodyLink link={"/services/comparative/"} name={"Comparative"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/solutions/"} name={"Solutions"} /> <br />
