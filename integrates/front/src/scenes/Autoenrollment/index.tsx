@@ -10,9 +10,10 @@ import { useTranslation } from "react-i18next";
 
 import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
+import { LanguagesButton } from "./components/LanguagesButton";
 import { Sidebar } from "./components/Sidebar";
 import { Standby } from "./components/Standby";
-import { Container, DashboardContent } from "./styles";
+import { ContainerAutoenrollment, DashboardContent } from "./styles";
 import { isPersonalEmail } from "./utils";
 
 import { Announce } from "components/Announce";
@@ -407,15 +408,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     ),
     repository: (
       <Fragment>
-        <Text bright={0} mb={1} mt={5} ta={"center"} tone={"red"}>
+        <Text bright={0} mb={3} mt={5} ta={"center"} tone={"red"}>
           {t("autoenrollment.step1")}
         </Text>
-        <Text fw={7} mb={1} size={"medium"} ta={"center"}>
+        <Text fw={7} mb={2} size={"medium"} ta={"center"}>
           {t("autoenrollment.addRepository")}
         </Text>
-        <Text mb={4} ta={"center"}>
-          {t("autoenrollment.canAddMore")}
-        </Text>
+        <Text ta={"center"}>{t("autoenrollment.canAddMore")}</Text>
+        <LanguagesButton />
         <Row justify={"center"}>
           <Col lg={40} md={60} sm={90}>
             <Card>
@@ -449,10 +449,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   };
 
   return (
-    <Container>
+    <ContainerAutoenrollment>
       <Sidebar />
       <DashboardContent id={"dashboard"}>{pages[page]}</DashboardContent>
-    </Container>
+    </ContainerAutoenrollment>
   );
 };
 

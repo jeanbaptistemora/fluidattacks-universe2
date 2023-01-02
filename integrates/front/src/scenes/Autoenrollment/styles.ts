@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div.attrs({
+const ContainerAutoenrollment = styled.div.attrs({
   className: "flex flex-row h-100",
 })`
   background-color: #e9e9ed;
@@ -24,4 +24,4 @@ const DashboardContent = styled.div.attrs({
   scrollbar-width: none;
 `;
 
-export { Container, DashboardContent };
+export { ContainerAutoenrollment, DashboardContent };
