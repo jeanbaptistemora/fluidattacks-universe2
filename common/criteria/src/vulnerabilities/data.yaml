@@ -8802,33 +8802,25 @@
   category: System Manipulation
   examples:
     non_compliant: |
-      Some of the logs use unsanitized input
-      ```c {3,7,15}
-      using System;
-      using Microsoft.AspNetCore.Mvc;
-
-      public class Log4NetNoncompliantController : Controller {
-        public void LogSomething(HttpRequest id) {
-          private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
-          _logger.Info(id);
-          var logger = new DBLogger();
-          logger.Log(id);
-          var log = new FileLogger();
-          log.Debug(id);
+      Some of the logs use unsanitized input.
+      Java code example
+      ```java
+      public class Test{
+        public void insecure(HttpServletRequest req, HttpServletResponse resp) {
+          String param1 = req.getParameter("param");
+          Logger.info("Param1: " + param1); // Insecure
         }
       }
       ```
     compliant: |
-      System logs should use correctly sanitize input
-      ```c {3,7,15}
-      using System;
-      using Microsoft.AspNetCore.Mvc;
-
-      public class Log4NetNoncompliantController : Controller {
-        public void LogSomething(HttpRequest id) {
-          private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
-          id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
-          sec_log.Info(id);
+      System logs should use correctly sanitized input.
+      Java code example
+      ```java
+      public class Test{
+        public void safe(HttpServletRequest req) {
+          String param2 = req.getParameter("param2");
+          param2 = param2.replaceAll("[\n\r\t]", "_"); //Sanitize parameter
+          logger.info("Param1: " + param2); //Safe
         }
       }
       ```
@@ -32290,14 +32282,14 @@
     non_compliant: |
       The application does not perform server side validation of the input data
       ```docker
-      
+
       curl -OL ${JRE_URL} \
-       
+
       ```
     compliant: |
       All inputs are correctly validated on the server side before being used
       ```docker
-      
+
       curl -OL ${JRE_URL} \
       && echo ${JRE_CKSUM} | sha256sum -c
       ```
@@ -38516,10 +38508,10 @@
       details: __empty__
 '425':
   en:
-    title: Server side cross-site scripting 
+    title: Server side cross-site scripting
     description: >
-      It is possible to inject JavaScript into application fields, with the goal of having the 
-      server execute malicious code before rendering user input. This allows a remote attacker 
+      It is possible to inject JavaScript into application fields, with the goal of having the
+      server execute malicious code before rendering user input. This allows a remote attacker
       to compromise internal server files, make requests on behalf of the server or perform
       a port scan.
     impact: >
@@ -38559,7 +38551,7 @@
               //Validates inputs and throw error when they are not included in the allowed and pre defined lists values
             }
         }
-  
+
         class ContactForm extends sfFormX {
           public function configure(InputsMeta $inputs){
             //Bind the form to the input list of the @controller.@method
@@ -38573,16 +38565,16 @@
             $this->widgetSchema->setNameFormat('contact[%s]');
           }
         }
-  
+
         ```
   remediation_time: '45'
   es:
     title: Server side cross-site scripting
     description: >
-      Es posible inyectar JavaScript en los campos de la aplicación, con el objetivo de que el 
-      servidor ejecute el código malicioso antes de renderizar la entrada del usuario. Esto 
-      permite a un atacante remoto comprometer archivos internos del servidor, realizar 
-      peticiones a nombre del servidor o realizar un escaneo de puertos. 
+      Es posible inyectar JavaScript en los campos de la aplicación, con el objetivo de que el
+      servidor ejecute el código malicioso antes de renderizar la entrada del usuario. Esto
+      permite a un atacante remoto comprometer archivos internos del servidor, realizar
+      peticiones a nombre del servidor o realizar un escaneo de puertos.
     impact: >
       - Extraer información del servidor.
       - Ejecutar acciones en el servido o a nombre de el.
@@ -38692,8 +38684,8 @@
   en:
     title: Use of an insecure channel - Docker
     description: >
-      The EXPOSE instruction informs Docker that the container listens on the specified 
-      network ports at runtime. Inform only the ports that your application needs and 
+      The EXPOSE instruction informs Docker that the container listens on the specified
+      network ports at runtime. Inform only the ports that your application needs and
       avoid exposing ports such as HTTP (80).
     impact: >
       Capture confidential information and credentials in plain text.
@@ -38728,7 +38720,7 @@
     non_compliant: |
       Some insecure channels are used to deploy the application
       ```Dockerfile
-      
+
       FROM node:14-alpine AS development
       ENV NODE_ENV development
       WORKDIR /app
@@ -38737,7 +38729,7 @@
       COPY . .
       EXPOSE 80
       CMD [ "node", "app.js" ]
-      
+
       ```
     compliant: |
       Use secure channels to deploy the application
@@ -38751,7 +38743,7 @@
       COPY . .
       EXPOSE 443
       CMD [ "node", "app.js" ]
-      
+
       ```
   remediation_time: '15'
   score:
@@ -38785,7 +38777,7 @@
         that make use of it.
     recommendation: >
       - Verify the identified files and adjust their content to their
-       corresponding extension. 
+       corresponding extension.
     threat: >
       Attacker authenticated from the Internet with access to the source code.
   es:
@@ -38800,16 +38792,16 @@
         que hacen uso de el..
     recommendation: >
       Verificar los archivos identificados y ajustar su contenido a su
-        correspondiente extensión. 
+        correspondiente extensión.
     threat: >
       Atacante autenticado desde Internet con acceso al código fuente.
   category: Functionality Abuse
   examples:
     non_compliant: |
-      Inappropriate use of comments in json file.  
+      Inappropriate use of comments in json file.
       ```json
       [
-      //This is a comment to be adjusted in production. 
+      //This is a comment to be adjusted in production.
         {
           "name": "example document",
           "int": 123,
@@ -38820,7 +38812,7 @@
       ]
       ```
     compliant: |
-      Use of comments in json file.  
+      Use of comments in json file.
       ```json
       [
         {
@@ -38858,7 +38850,7 @@
       description: >
         Universal cross-site scripting exploits client-side vulnerabilities, either
         through the browser or the extensions that the user enables, leading to the
-        possibility of cross-side scripting exploitation or the execution of malicious 
+        possibility of cross-side scripting exploitation or the execution of malicious
         code.
       impact: >
         - Persistently inject malicious JavaScript code.
@@ -38872,9 +38864,9 @@
     es:
       title: Universal cross-site scripting (UXSS)
       description: >
-        Universal cross-site scripting explota las vulnerabilidades del lado del cliente, 
+        Universal cross-site scripting explota las vulnerabilidades del lado del cliente,
         bien sea por el navegador o las extenciones que el usuario habilite ocacionando la
-        posibilidad de explotacion de un cross-side-scripting o llegar a ejecutar codigo 
+        posibilidad de explotacion de un cross-side-scripting o llegar a ejecutar codigo
         malicioso.
       impact: >
         - Inyectar código JavaScript malicioso de forma persistente.
@@ -38882,19 +38874,19 @@
         - Ejecución de código malicioso.
       recommendation: >
         Mantenga sus navegadores y extensiones actualizadas. Aunque esto no sea una
-        solución definitiva a la vulnerabilidad en específico, siempre use e instale únicamente 
+        solución definitiva a la vulnerabilidad en específico, siempre use e instale únicamente
         lo necesario.
       threat: >
         Atacante no autenticado desde Internet con acceso al navegador de la víctima.
     category: Unexpected Injection
     examples:
       non_compliant: |
-        
+
         ```
         N/A
         ```
       compliant: |
-        
+
         ```
         N/A
         ```
