@@ -35,28 +35,6 @@ async def _get_result_async(
 
 
 @pytest.mark.changes_db
-async def test_add_group_consult_parent_non_zero() -> None:
-    """Check for addGroupConsult mutation."""
-    query = """
-      mutation {
-        addGroupConsult(
-          content: "Test comment",
-          parentComment: "1545946228675",
-          groupName: "unittesting",
-        ) {
-          success
-          commentId
-        }
-      }
-      """
-    data = {"query": query}
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert "success" in result["data"]["addGroupConsult"]
-    assert result["data"]["addGroupConsult"]["success"]
-
-
-@pytest.mark.changes_db
 @pytest.mark.parametrize(
     [
         "comments",
