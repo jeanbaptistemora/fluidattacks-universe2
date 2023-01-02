@@ -72,6 +72,7 @@ async def remove_group_toe_ports(
             )
             for item in response.items
         ),
+        workers=8,
     )
     await operations.batch_delete_item(
         keys=tuple(

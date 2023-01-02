@@ -63,17 +63,6 @@ async def remove_group_toe_inputs(
         facets=(TABLE.facets["toe_input_metadata"],),
         table=TABLE,
     )
-    await operations.batch_delete_item(
-        keys=tuple(
-            PrimaryKey(
-                partition_key=item["pk"],
-                sort_key=item["sk"],
-            )
-            for item in response.items
-        ),
-        table=TABLE,
-    )
-
     await collect(
         tuple(
             remove_historic_toe_inputs(
@@ -84,7 +73,17 @@ async def remove_group_toe_inputs(
             )
             for item in response.items
         ),
-        workers=32,
+        workers=8,
+    )
+    await operations.batch_delete_item(
+        keys=tuple(
+            PrimaryKey(
+                partition_key=item["pk"],
+                sort_key=item["sk"],
+            )
+            for item in response.items
+        ),
+        table=TABLE,
     )
 
 
