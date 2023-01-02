@@ -5,15 +5,25 @@ First Execution Time:      2022-12-28 at 05:38:17 UTC
 First Finalization Time:   2022-12-28 at 07:56:51 UTC
 Second Execution Time:     2022-12-28 at 22:53:18 UTC
 Second Finalization Time:  2022-12-29 at 07:50:13 UTC
+Third Execution Time:      2022-12-30 at 15:05:22 UTC
+Third Finalization Time:   2022-12-30 at 23:40:54 UTC
+Fourth Execution Time:     2022-12-31 at 00:45:54 UTC
+Fourth Finalization Time:  2022-12-31 at 09:38:27 UTC
+Fifth Execution Time:      2022-12-31 at 17:35:04 UTC
+Fifth Finalization Time:   2022-12-31 at 20:29:51 UTC
 
 """
 from aioextensions import (
     collect,
     run,
 )
+import aiohttp
 import asyncio
 from contextlib import (
     suppress,
+)
+from custom_exceptions import (
+    InvalidFileSize,
 )
 from dataloaders import (
     Dataloaders,
@@ -51,6 +61,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from events.domain import (
     replace_different_format as replace_event_different_format,
     save_evidence as save_event_evidence,
@@ -78,8 +91,9 @@ from organizations import (
     domain as orgs_domain,
 )
 import os
-from s3 import (
-    operations as s3_ops,
+from s3.operations import (
+    download_file,
+    list_files,
 )
 from settings import (
     LOGGING,
@@ -96,6 +110,15 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
+
+download_evidence_file = retry_on_exceptions(
+    exceptions=(
+        aiohttp.ClientError,
+        aiohttp.ClientPayloadError,
+    ),
+    max_attempts=5,
+    sleep_seconds=float("1.1"),
+)(download_file)
 
 
 async def _update_event_evidence(
@@ -214,7 +237,7 @@ async def update_finding_evidence(
         "-b:v",
         "0",
         "-crf",
-        "15",
+        "20",
         os.path.join(os.getcwd(), new_file_path),
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -235,14 +258,27 @@ async def update_finding_evidence(
         )
         with open(new_file_path, "rb") as webm_file:
             uploaded_file = UploadFile(filename, webm_file, "video/webm")
-            await _update_finding_evidence(
-                loaders=loaders,
-                finding_id=finding_id,
-                evidence_id=evidence_id,
-                modified_date=modified_date,
-                file_object=uploaded_file,
-                validate_name=True,
-            )
+            try:
+                await _update_finding_evidence(
+                    loaders=loaders,
+                    finding_id=finding_id,
+                    evidence_id=evidence_id,
+                    modified_date=modified_date,
+                    file_object=uploaded_file,
+                    validate_name=True,
+                )
+            except InvalidFileSize as exc:
+                LOGGER.error(
+                    "Error saving finding evidence",
+                    extra={
+                        "extra": {
+                            "error": exc,
+                            "group_name": group_name,
+                            "finding_id": finding_id,
+                            "full_path": full_path,
+                        }
+                    },
+                )
         return
 
     LOGGER.error(
@@ -282,7 +318,7 @@ async def update_event_evidence(
         "-b:v",
         "0",
         "-crf",
-        "15",
+        "20",
         os.path.join(os.getcwd(), new_file_path),
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
@@ -303,13 +339,26 @@ async def update_event_evidence(
         )
         with open(new_file_path, "rb") as webm_file:
             uploaded_file = UploadFile(filename, webm_file, "video/webm")
-            await _update_event_evidence(
-                loaders=loaders,
-                event_id=event_id,
-                evidence_id=EventEvidenceId[evidence_id],
-                file=uploaded_file,
-                update_date=modified_date,
-            )
+            try:
+                await _update_event_evidence(
+                    loaders=loaders,
+                    event_id=event_id,
+                    evidence_id=EventEvidenceId[evidence_id],
+                    file=uploaded_file,
+                    update_date=modified_date,
+                )
+            except InvalidFileSize as exc:
+                LOGGER.error(
+                    "Error saving event evidence",
+                    extra={
+                        "extra": {
+                            "error": exc,
+                            "group_name": group_name,
+                            "event_id": event_id,
+                            "full_path": full_path,
+                        }
+                    },
+                )
         return
 
     LOGGER.error(
@@ -336,17 +385,35 @@ async def update_finding_evidences(
     modified_date: datetime,
 ) -> None:
     evidences_path: str = f"evidences/{group_name.lower()}/{finding_id}/{url}"
-    evidences = list(await s3_ops.list_files(evidences_path))
+    evidences = list(await list_files(evidences_path))
     if evidences:
         for evidence in evidences:
             with suppress(OSError):
                 os.makedirs(
                     os.path.join(os.getcwd(), evidences_path.rsplit("/", 1)[0])
                 )
-            await s3_ops.download_file(
-                evidence,
-                evidences_path,
-            )
+            try:
+                await download_evidence_file(
+                    evidence,
+                    evidences_path,
+                )
+            except (
+                aiohttp.ClientError,
+                aiohttp.ClientPayloadError,
+            ) as exc:
+                LOGGER.error(
+                    "Error downloading finding evidence",
+                    extra={
+                        "extra": {
+                            "error": exc,
+                            "group_name": group_name,
+                            "finding_id": finding_id,
+                            "full_path": evidences_path,
+                        }
+                    },
+                )
+                return
+
             mime_type = magic.from_file(evidences_path, mime=True)
             if mime_type == "image/gif":
                 await update_finding_evidence(
@@ -371,17 +438,35 @@ async def _update_event_evidences(
     modified_date: datetime,
 ) -> None:
     evidences_path: str = f"evidences/{group_name.lower()}/{event_id}/{url}"
-    evidences = list(await s3_ops.list_files(evidences_path))
+    evidences = list(await list_files(evidences_path))
     if evidences:
         for evidence in evidences:
             with suppress(OSError):
                 os.makedirs(
                     os.path.join(os.getcwd(), evidences_path.rsplit("/", 1)[0])
                 )
-            await s3_ops.download_file(
-                evidence,
-                evidences_path,
-            )
+            try:
+                await download_evidence_file(
+                    evidence,
+                    evidences_path,
+                )
+            except (
+                aiohttp.ClientError,
+                aiohttp.ClientPayloadError,
+            ) as exc:
+                LOGGER.error(
+                    "Error downloading event evidence",
+                    extra={
+                        "extra": {
+                            "error": exc,
+                            "group_name": group_name,
+                            "event_id": event_id,
+                            "full_path": evidences_path,
+                        }
+                    },
+                )
+                return
+
             mime_type = magic.from_file(evidences_path, mime=True)
             if mime_type == "image/gif":
                 await update_event_evidence(
@@ -510,7 +595,11 @@ async def process_group(
             )
             for finding in group_findings
             if finding.evidences.animation is not None
-            and finding.evidences.animation.url.lower().endswith(".gif")
+            and not (
+                finding.evidences.animation.url.lower().endswith(".png")
+                or finding.evidences.animation.url.lower().endswith(".webm")
+                or finding.evidences.animation.url.lower().endswith(".jpg")
+            )
         ),
         workers=1,
     )
@@ -527,7 +616,11 @@ async def process_group(
             )
             for finding in group_findings
             if finding.evidences.exploitation is not None
-            and finding.evidences.exploitation.url.lower().endswith(".gif")
+            and not (
+                finding.evidences.exploitation.url.lower().endswith(".png")
+                or finding.evidences.exploitation.url.lower().endswith(".webm")
+                or finding.evidences.exploitation.url.lower().endswith(".jpg")
+            )
         ),
         workers=1,
     )
