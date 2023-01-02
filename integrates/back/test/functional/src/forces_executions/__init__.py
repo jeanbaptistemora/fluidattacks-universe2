@@ -18,13 +18,15 @@ def get_query() -> str:
         $groupName: String!
         $search: String
         $toDate: DateTime
+        $type: String
       ) {
         group(groupName: $groupName) {
           executionsConnections(
             first: $first,
             fromDate: $fromDate,
             search: $search,
-            toDate: $toDate
+            toDate: $toDate,
+            type: $type
           ) {
             edges {
               node {
@@ -65,6 +67,7 @@ async def get_result(
     group: str,
     search: str = "",
     to_date: str = "",
+    kind: str = "",
 ) -> dict[str, Any]:
     first = 50
     query: str = get_query()
@@ -77,6 +80,7 @@ async def get_result(
             "groupName": group,
             "search": search,
             "toDate": to_date,
+            "type": kind,
         },
     }
     return await get_graphql_result(

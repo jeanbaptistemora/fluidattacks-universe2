@@ -126,3 +126,43 @@ async def test_get_forces_executions_fail(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_get_forces_executions_by_kind(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", kind="dynamic"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions[0]["node"]["kind"] == "dynamic"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_should_not_get_forces_executions_by_kind(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", kind="not exist"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions == []
