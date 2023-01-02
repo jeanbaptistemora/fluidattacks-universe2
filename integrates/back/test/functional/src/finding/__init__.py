@@ -125,6 +125,7 @@ async def get_result(
                 severityScore
                 sorts
                 state
+                status
                 threat
                 title
                 tracking {{

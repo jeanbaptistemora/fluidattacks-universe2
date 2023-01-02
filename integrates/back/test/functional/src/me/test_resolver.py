@@ -314,6 +314,42 @@ async def test_get_me_assigned(
     )
     assert "errors" not in result
     assert len(result["data"]["me"]["vulnerabilitiesAssigned"]) == length
+    assert len(result["data"]["me"]["findingReattacks"]) == 2
+    assert result["data"]["me"]["findingReattacks"][0]["id"] == "475041521"
+    assert (
+        result["data"]["me"]["findingReattacks"][1]["id"]
+        == "3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+    assert result["data"]["me"]["findingReattacks"][0]["groupName"] == "group1"
+    assert result["data"]["me"]["findingReattacks"][1]["groupName"] == "group1"
+    assert (
+        result["data"]["me"]["findingReattacks"][0]["verificationSummary"][
+            "requested"
+        ]
+        == 2
+    )
+    assert (
+        result["data"]["me"]["findingReattacks"][1]["verificationSummary"][
+            "requested"
+        ]
+        == 1
+    )
+    assert (
+        len(
+            result["data"]["me"]["findingReattacks"][0][
+                "vulnerabilitiesToReattackConnection"
+            ]["edges"]
+        )
+        == 0
+    )
+    assert (
+        len(
+            result["data"]["me"]["findingReattacks"][1][
+                "vulnerabilitiesToReattackConnection"
+            ]["edges"]
+        )
+        == 0
+    )
 
 
 @pytest.mark.asyncio

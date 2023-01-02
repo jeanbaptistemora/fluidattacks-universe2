@@ -99,6 +99,20 @@ async def get_vulnerabilities(
     query: str = """
         query GetMeAssignedVulnerabilities {
             me {
+                findingReattacks {
+                    groupName
+                    id
+                    verificationSummary {
+                        requested
+                    }
+                    vulnerabilitiesToReattackConnection {
+                        edges {
+                            node {
+                                lastRequestedReattackDate
+                            }
+                        }
+                    }
+                }
                 vulnerabilitiesAssigned {
                     id
                     historicTreatment {

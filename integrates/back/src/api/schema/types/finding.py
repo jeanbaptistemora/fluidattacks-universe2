@@ -22,6 +22,7 @@ from api.resolvers.finding import (
     severity,
     severity_score,
     sorts,
+    state,
     status,
     tracking,
     treatment_summary,
@@ -61,7 +62,8 @@ FINDING.set_field("reportDate", report_date.resolve)
 FINDING.set_field("severity", severity.resolve)
 FINDING.set_field("severityScore", severity_score.resolve)
 FINDING.set_field("sorts", sorts.resolve)
-FINDING.set_field("state", status.resolve)
+FINDING.set_field("state", state.resolve)
+FINDING.set_field("status", status.resolve)
 FINDING.set_field("tracking", tracking.resolve)
 FINDING.set_field("treatmentSummary", treatment_summary.resolve)
 FINDING.set_field("verificationSummary", verification_summary.resolve)

@@ -77,6 +77,13 @@ type Finding {
   sorts: Sorts
   "State with metadata of the Finding"
   state: String!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/07/02. Use `status` instead.
+      """
+    )
+  "State with metadata of the Finding"
+  status: String!
   "Actor and scenery where the vulnerability can be exploited"
   threat: String!
   "Finding number and name"

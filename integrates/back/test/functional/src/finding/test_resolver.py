@@ -200,6 +200,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["severityScore"] == severity_score
     assert result["data"]["finding"]["sorts"] == "NO"
     assert result["data"]["finding"]["state"] == state
+    assert result["data"]["finding"]["status"] == "VULNERABLE"
     assert result["data"]["finding"]["threat"] == threat
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking

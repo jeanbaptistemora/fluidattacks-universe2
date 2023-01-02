@@ -313,6 +313,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "verification_summary",
         "vulnerabilities_connection",
         "severity",
+        "state",
         "status",
         "age",
         "cvss_version",

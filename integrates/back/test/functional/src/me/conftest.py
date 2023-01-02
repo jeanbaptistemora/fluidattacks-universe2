@@ -36,6 +36,7 @@ from db_model.findings.types import (  # type: ignore
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -242,6 +243,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         datetime.fromisoformat("2018-04-01T05:45:00+00:00")
                     ),
                     unreliable_status=FindingStatus.OPEN,
+                    unreliable_verification_summary=FindingVerificationSummary(
+                        requested=2, on_hold=0, verified=0
+                    ),
                     unreliable_where="192.168.1.2",
                 ),
             },
@@ -328,6 +332,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         datetime.fromisoformat("2018-04-01T05:45:00+00:00")
                     ),
                     unreliable_status=FindingStatus.OPEN,
+                    unreliable_verification_summary=FindingVerificationSummary(
+                        requested=1, on_hold=0, verified=0
+                    ),
                     unreliable_where="192.168.1.2",
                 ),
             },

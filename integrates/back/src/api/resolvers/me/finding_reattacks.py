@@ -35,10 +35,15 @@ async def resolve(
         "unreliable_indicators.unreliable_verification_summary.requested": 0
     }
     results = await search(
-        must_filters=[
+        should_filters=[
             {"unreliable_indicators.unreliable_status": "OPEN"},
+            {"unreliable_indicators.unreliable_status": "VULNERABLE"},
         ],
-        must_not_filters=[not_zero_requested],
+        must_not_filters=[
+            not_zero_requested,
+            {"unreliable_indicators.unreliable_status": "CLOSED"},
+            {"unreliable_indicators.unreliable_status": "SAFE"},
+        ],
         index="findings",
         limit=100,
     )
