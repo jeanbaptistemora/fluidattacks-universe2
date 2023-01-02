@@ -1,10 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
 import { OrganizationOverview } from ".";
 import { GET_ORGANIZATION_BILLING } from "../queries";
+import { authzPermissionsContext } from "utils/authz/config";
+
+const mockedPermissions = new PureAbility<string>([
+  { action: "api_resolvers_billing_prices_resolve" },
+]);
 
 describe("OrganizationOverview", (): void => {
   it("should return a function", (): void => {
@@ -43,16 +49,18 @@ describe("OrganizationOverview", (): void => {
     ];
 
     render(
-      <MockedProvider addTypename={false} mocks={mockedQueries}>
-        <OrganizationOverview
-          costsTotal={1}
-          numberAuthorsMachine={1}
-          numberAuthorsSquad={1}
-          numberGroupsMachine={1}
-          numberGroupsSquad={1}
-          organizationName={"org-test"}
-        />
-      </MockedProvider>
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider addTypename={false} mocks={mockedQueries}>
+          <OrganizationOverview
+            costsTotal={1}
+            numberAuthorsMachine={1}
+            numberAuthorsSquad={1}
+            numberGroupsMachine={1}
+            numberGroupsSquad={1}
+            organizationName={"org-test"}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
     await waitFor((): void => {
       expect(

@@ -7,6 +7,7 @@ import { InfoDropdown } from "components/InfoDropdown";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
+import { Can } from "utils/authz/Can";
 
 interface IOrganizationOverviewProps {
   costsTotal: number;
@@ -41,7 +42,7 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
           </InfoDropdown>
         </Text>
         <Row>
-          <Col lg={20} md={50} sm={100}>
+          <Col>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberGroupsMachine.content",
@@ -55,7 +56,7 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={20} md={50} sm={100}>
+          <Col>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberGroupsSquad.content",
@@ -69,7 +70,7 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={20} md={50} sm={100}>
+          <Col>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberAuthorsMachine.content",
@@ -83,7 +84,7 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={20} md={50} sm={100}>
+          <Col>
             <OverviewCard
               content={t(
                 "organization.tabs.billing.overview.numberAuthorsSquad.content",
@@ -97,16 +98,18 @@ export const OrganizationOverview: React.FC<IOrganizationOverviewProps> = ({
               )}
             />
           </Col>
-          <Col lg={20} md={50} sm={100}>
-            <OverviewCard
-              content={t(
-                "organization.tabs.billing.overview.costsTotal.content",
-                { costsTotal }
-              )}
-              info={t("organization.tabs.billing.overview.costsTotal.info")}
-              title={t("organization.tabs.billing.overview.costsTotal.title")}
-            />
-          </Col>
+          <Can do={"api_resolvers_billing_prices_resolve"}>
+            <Col>
+              <OverviewCard
+                content={t(
+                  "organization.tabs.billing.overview.costsTotal.content",
+                  { costsTotal }
+                )}
+                info={t("organization.tabs.billing.overview.costsTotal.info")}
+                title={t("organization.tabs.billing.overview.costsTotal.title")}
+              />
+            </Col>
+          </Can>
         </Row>
       </Row>
     </React.StrictMode>
