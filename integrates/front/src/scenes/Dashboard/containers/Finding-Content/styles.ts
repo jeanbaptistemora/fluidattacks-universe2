@@ -5,7 +5,7 @@ const ButtonCol = styled.div.attrs({
 })``;
 
 const TitleContainer = styled.div.attrs({ className: "flex flex-wrap pa3" })`
-  background-color: #f4f4f6;
+  background-color: inherit;
 `;
 
 const Title = styled.h1.attrs({ className: "ma0 pa0" })``;
