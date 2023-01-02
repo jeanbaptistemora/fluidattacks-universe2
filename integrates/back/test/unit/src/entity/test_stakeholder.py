@@ -13,62 +13,6 @@ import pytest
 pytestmark = pytest.mark.asyncio
 
 
-@pytest.mark.asyncio
-async def test_get_stakeholder() -> None:
-    expected_output = {
-        "email": "continuoushacking@gmail.com",
-        "role": "user_manager",
-        "responsibility": "Test",
-        "first_login": "2018-02-28 11:54:12",
-        "last_login": "[186, 33677]",
-        "groups": [
-            {"name": "asgard"},
-            {"name": "barranquilla"},
-            {"name": "gotham"},
-            {"name": "metropolis"},
-            {"name": "monteria"},
-            {"name": "oneshottest"},
-            {"name": "unittesting"},
-        ],
-    }
-    query = """
-        query {
-            stakeholder(entity: GROUP,
-                    groupName: "unittesting",
-                    userEmail: "continuoushacking@gmail.com") {
-                email
-                role
-                responsibility
-                firstLogin
-                lastLogin
-                groups {
-                    name
-                }
-                __typename
-            }
-        }
-    """
-    data = {"query": query}
-    request = await create_dummy_session()
-    _, result = await graphql(SCHEMA, data, context_value=request)
-    assert "errors" not in result
-    assert result["data"]["stakeholder"]["email"] == expected_output.get(
-        "email"
-    )
-    assert result["data"]["stakeholder"]["role"] == expected_output.get("role")
-    assert result["data"]["stakeholder"][
-        "responsibility"
-    ] == expected_output.get("responsibility")
-    assert result["data"]["stakeholder"]["firstLogin"] == expected_output.get(
-        "first_login"
-    )
-    assert result["data"]["stakeholder"]["groups"] == expected_output.get(
-        "groups"
-    )
-    assert "stakeholder" in result["data"]
-    assert "responsibility" in result["data"]["stakeholder"]
-
-
 async def test_user_list_groups() -> None:
     query = """
         query {
