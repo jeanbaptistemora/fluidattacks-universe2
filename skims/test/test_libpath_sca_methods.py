@@ -2,6 +2,9 @@ from lib_path.common import (
     DependencyType,
     format_pkg_dep,
 )
+from lib_path.f011.composer import (
+    composer_json,
+)
 from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
@@ -220,6 +223,43 @@ def test_maven_pom_xml() -> None:
                 assertion = not assertion
                 break
             equal_props: bool = version == item and line_num == line_d
+            if not equal_props:
+                assertion = not assertion
+                break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_composer_json() -> None:
+    patt_dep_info: Pattern[str] = re.compile(
+        r'"(?P<pkg_name>.*?)": "(?P<version>.*?)"'
+    )
+    path: str = "skims/test/data/lib_path/f011/composer.json"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    content: List[str] = file_contents.splitlines()
+    generator_dep = composer_json.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    for line_num in range(16, 36):
+        if dep_info := patt_dep_info.search(content[line_num]):
+            pkg_name: str = dep_info.group("pkg_name")
+            version: str = dep_info.group("version")
+
+            try:
+                next_dep = next(generator_dep)
+                pkg_item = itemgetter("item")(next_dep[0])
+                item_ver = itemgetter("item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            equal_props: bool = pkg_item == pkg_name and version == item_ver
             if not equal_props:
                 assertion = not assertion
                 break
