@@ -5,7 +5,7 @@ sidebar_label: Transparent Use of Cookies
 slug: /about/security/privacy/transparent-use-cookies
 ---
 
-Both [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+Both [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 and [our website](https://fluidattacks.com/)
 use a [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)
 module that informs users

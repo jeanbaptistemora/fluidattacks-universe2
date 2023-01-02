@@ -7,7 +7,7 @@ slug: /about/sla
 
 - [Availability](/about/sla/availability):
   **99%** of the time,
-  the ARM (Attacks Resistance Management) will be available via the internet
+  the ARM (Attack Resistance Management) will be available via the internet
   for its registered users.
 
 - [Accuracy](/about/sla/accuracy):

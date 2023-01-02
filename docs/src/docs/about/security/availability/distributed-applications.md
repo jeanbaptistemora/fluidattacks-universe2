@@ -5,7 +5,7 @@ sidebar_label: Distributed Applications
 slug: /about/security/availability/distributed-applications
 ---
 
-[Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+[Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 is hosted in an application cluster
 with autoscaling policies
 and distributed replicas.

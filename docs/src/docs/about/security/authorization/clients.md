@@ -5,7 +5,7 @@ sidebar_label: For Clients
 slug: /about/security/authorization/clients
 ---
 
-Our [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+Our [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 has a set of necessary
 [roles](/criteria/requirements/096)
 for every hacking project.
@@ -40,7 +40,7 @@ These can be divided into three levels:
 - Role at Group level.
 
 Remember that all users using the
-[Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+[Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 can execute actions given
 according to each role,
 if you want to see the

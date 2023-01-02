@@ -7,7 +7,7 @@ slug: /about/security/transparency/status-page
 
 We continuously monitor our main systems:
 
-- [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+- [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 - [GraphQL API](https://app.fluidattacks.com/api)
 - [Website](https://fluidattacks.com/)
 

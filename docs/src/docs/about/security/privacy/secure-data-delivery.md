@@ -22,7 +22,7 @@ and other sensitive documents.
 
 ## Signed URLs
 
-[Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+[Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 can create signed download URLs
 with an expiration date
 when downloading reports,

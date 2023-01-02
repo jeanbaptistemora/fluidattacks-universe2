@@ -5,7 +5,7 @@ sidebar_label: For Clients
 slug: /about/security/authentication/clients
 ---
 
-The [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+The [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
 only uses [SSO](https://en.wikipedia.org/wiki/Single_sign-on)
 with Bitbucket,
 Google and Microsoft Accounts.

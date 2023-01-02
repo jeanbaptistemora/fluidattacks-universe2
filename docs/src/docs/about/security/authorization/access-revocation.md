@@ -19,7 +19,7 @@ for access revocation:
   users lose access to all company applications
   and client data.
   This includes
-  [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/),
+  [Attack Resistance Management (ARM)](https://app.fluidattacks.com/),
   mail, etc.
 
 1. **Removing Git repository access:**

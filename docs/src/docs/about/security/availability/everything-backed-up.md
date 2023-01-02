@@ -22,7 +22,7 @@ for example:
   giving us full traceability
   and recoverability.
 
-- [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+- [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
   database has daily, weekly, quarterly
   and annual full backup schedules.
   The daily backups last one week,

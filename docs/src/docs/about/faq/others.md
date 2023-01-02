@@ -19,7 +19,7 @@ in order to schedule availability.
 ## Does the Squad Plan generate reports?
 
 Through our [ARM](https://fluidattacks.com/categories/arm/)
-(Attacks Resistance Management),
+(Attack Resistance Management),
 we generate and deliver a technical report
 available in Excel and/or PDF format
 during the execution of the project contract.

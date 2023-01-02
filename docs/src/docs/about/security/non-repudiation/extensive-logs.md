@@ -10,8 +10,8 @@ for a non-repudiation policy to be successful.
 Currently,
 we store logs for:
 
-- **Attacks Resistance Management's logging system:**
-  [Attacks Resistance Management (ARM)](https://app.fluidattacks.com/)
+- **Attack Resistance Management's logging system:**
+  [Attack Resistance Management (ARM)](https://app.fluidattacks.com/)
   stores a historical status of projects,
   findings, vulnerabilities,
   and other critical components.
