@@ -20,6 +20,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.events.types import (
+    Event,
+    GroupEventsRequest,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -46,10 +50,15 @@ async def process_group(
     ] = await loaders.group_drafts_and_findings.load(group_name)
     finding_ids = [finding.id for finding in group_findings]
 
+    group_events: tuple[Event, ...] = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group_name)
+    )
+    event_ids = [event.id for event in group_events]
+
     evidences_without_finding = [
         evidence
         for evidence in evidence_file_names
-        if evidence.split("/")[2] not in finding_ids
+        if evidence.split("/")[2] not in set(finding_ids + event_ids)
     ]
     if not evidences_without_finding:
         return
