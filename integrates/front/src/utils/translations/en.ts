@@ -2683,7 +2683,7 @@ export const enTranslations: ResourceKey = {
       openVulns: {
         label: "Open vulnerabilities",
         tooltip:
-          "The number of locations in your system that still have this type of vulnerability open.",
+          "The number of locations in your system that still have vulnerable status.",
       },
       severity: {
         label: "Severity",
@@ -2721,10 +2721,10 @@ export const enTranslations: ResourceKey = {
         },
         stateTooltip: {
           closed:
-            "The <strong>closed</strong> status means that " +
+            "The <strong>safe</strong> status means that " +
             "you remediated this type of vulnerability at each location where we reported it.",
           open:
-            "The <strong>open</strong> status means that " +
+            "The <strong>vulnerable</strong> status means that " +
             "you have not remediated this type of vulnerability in at least one of the locations where it has been reported.",
         },
         tooltip: "",
@@ -3659,7 +3659,8 @@ export const enTranslations: ResourceKey = {
       status: "Status",
       tabTitle: "Tracking",
       tooltip:
-        "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
+        "Evolution of the finding over time: historical records, " +
+        "vulnerable/safe vulnerabilities status , " +
         "and temporarily/permanently accepted treatments",
       treatment: "Treatment",
       vulnerabilitiesAcceptedTreatment:
@@ -3806,11 +3807,11 @@ export const enTranslations: ResourceKey = {
       searchText: "Search Text",
       status: "Status",
       statusTooltip:
-        "Filter vulnerabilities based on their open / closed status (It limits the total results)",
+        "Filter vulnerabilities based on their vulnerable / safe status (It limits the total results)",
       submitted: "Submitted",
       tabTitle: "Locations",
       tagTooltip: "Filter vulnerabilities based on their tag",
-      tooltip: "Open / Closed vulnerabilities",
+      tooltip: "Vulnerable / Safe vulnerabilities",
       treatmentStatus:
         "Filter vulnerabilities based on permanently accepted treatment acceptances",
       verified: "Verified",
