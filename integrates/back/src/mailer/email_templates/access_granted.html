@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share, go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Access Granted') }}
+      {{ banner_share('Access Granted') }}
       <div class="main-content">
-        <p>Good news!</p>
+        <h2>Good news!</h2>
         <p>You have been invited by
           <strong><a
               href="mailto:{{ responsible }}"
@@ -20,14 +19,16 @@
           to use our <strong>Attacks Resistance Management platform (ARM)</strong>.
           Please confirm your access and check vulnerabilities in:
         </p>
-        <p>
-          {% if group_description %}
-            <strong>Group:</strong> {{ group }}<br>
-            <strong>Description:</strong> {{ group_description }}
-          {% else %}
-            <strong>Organization:</strong> {{ group }}
-          {% endif %}
-        </p>
+        <div class="data-container">
+          <p>
+            {% if group_description %}
+              <strong>Group:</strong> {{ group }}<br>
+              <strong>Description:</strong> {{ group_description }}
+            {% else %}
+              <strong>Organization:</strong> {{ group }}
+            {% endif %}
+          </p>
+        </div>
         <p>
           This invitation is valid for seven calendar days from now.
           By clicking on <strong>Confirm access</strong>,
@@ -37,30 +38,21 @@
             target="_blank"
             rel="noopener noreferrer"
             style="color: #ff3435;"
-          >
-            Privacy Policy
-          </a>.
+          >Privacy Policy</a>.
           If you click on <strong>Reject access</strong>
           or do not confirm the invitation before the deadline,
           it will be removed from our systems.
           You will need a new invitation,
           which you will have to accept in order to gain access to our ARM.
         </p>
-        <p>Regards,<br>
-          Fluid Attacks Team</p>
-          <table aria-label="Confirmation Links" style="margin: 0 auto;">
-            <tr>
-              <th scope="col">
-                {{ go_to_button('Confirm access', confirm_access_url, 'primary-button') }}
-              </th>
-              <th scope="col">
-                {{ go_to_button('Reject access', reject_access_url, 'secondary-button') }}
-              </th>
-            </tr>
-          </table>
-        <br />
+        <p>
+          <br/>
+          {{ go_to_button('Confirm access', confirm_access_url, 'primary-button') }}
+          {{ go_to_button('Reject access', reject_access_url, 'secondary-button') }}
+        </p>
+      <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

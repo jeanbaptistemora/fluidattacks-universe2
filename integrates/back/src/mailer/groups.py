@@ -336,10 +336,7 @@ async def send_mail_access_granted(
         email_to,
         context,
         GENERAL_TAG,
-        (
-            f'[ARM] Access granted to [{context["group"]}] '
-            "in ARM by Fluid Attacks"
-        ),
+        f'[Fluid Attacks] Access granted to [{context["group"]}]',
         "access_granted",
         is_access_granted=True,
     )
