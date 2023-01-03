@@ -3425,7 +3425,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_dns_access
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
   20 |
   21 |           - Effect: Allow
@@ -3451,7 +3451,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
   38 |               ""Effect"": ""Allow"",
   39 |               ""Principal"": {
@@ -3477,7 +3477,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    1 | ---
    2 | Resources:
@@ -3503,7 +3503,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -3529,7 +3529,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    3 |   AWS_IAM_Role_1:
    4 |     Type: AWS::IAM::Role
@@ -3555,7 +3555,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,14,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    4 |     Type: AWS::IAM::Role
    5 |     Properties:
@@ -3581,7 +3581,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,18,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    8 |             Version: '2012-10-17'
    9 |             Statement:
@@ -3607,7 +3607,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,20,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   10 |               - Action:
   11 |                   - ec2:*
@@ -3633,7 +3633,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,43,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
@@ -3659,7 +3659,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
@@ -3685,7 +3685,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
@@ -3711,7 +3711,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
@@ -3737,7 +3737,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    3 |     ""AWS_IAM_Role_1"": {
    4 |       ""Type"": ""AWS::IAM::Role"",
@@ -3763,7 +3763,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    4 |       ""Type"": ""AWS::IAM::Role"",
    5 |       ""Properties"": {
@@ -3789,7 +3789,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    5 |       ""Properties"": {
    6 |         ""Policies"": [
@@ -3815,7 +3815,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    7 |           {
    8 |             ""PolicyDocument"": {
@@ -3841,7 +3841,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,24,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   14 |                     ""autoscaling:*"",
   15 |                     ""eks:*""
@@ -3867,7 +3867,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,28,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   18 |                   ""Effect"": ""Allow""
   19 |                 },
@@ -3893,7 +3893,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   47 |                   ""ec2.amazonaws.com""
   48 |                 ]
@@ -3919,7 +3919,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   48 |                 ]
   49 |               },
@@ -3945,7 +3945,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   49 |               },
   50 |               ""Action"": [
@@ -3971,7 +3971,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,68,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   56 |               ""Action"": [
   57 |                 ""ec2:*"",
@@ -3997,7 +3997,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4023,7 +4023,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,47,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4049,7 +4049,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,46,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4075,7 +4075,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,69,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
   59 |         },
   60 |         ""Path"": ""/"",
@@ -4101,7 +4101,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,70,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
   60 |         ""Path"": ""/"",
   61 |         ""Policies"": [
@@ -4127,7 +4127,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,82,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
   72 |               ]
   73 |             }
@@ -4153,7 +4153,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
   13 |         }
   14 |       }
@@ -4179,7 +4179,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileg
      ^ Col 0
 ",terraform.tfm_iam_role_is_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,53,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4205,7 +4205,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,47,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4231,7 +4231,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   34 |             Principal:
   35 |               Service:
@@ -4257,7 +4257,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   59 |         },
   60 |         ""Path"": ""/"",
@@ -4283,7 +4283,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   60 |         ""Path"": ""/"",
   61 |         ""Policies"": [
@@ -4309,7 +4309,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,82,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   72 |               ]
   73 |             }
@@ -4335,7 +4335,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,76,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    66 |                 - ec2.amazonaws.com
    67 |             Action:
@@ -4361,7 +4361,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,77,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    67 |             Action:
    68 |               - sts:AssumeRole
@@ -4387,7 +4387,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,91,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    81 |             Statement:
    82 |               - Effect: Deny
@@ -4413,7 +4413,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,104,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    86 |           PolicyDocument:
    87 |             Version: '2012-10-17'
@@ -4439,7 +4439,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,98,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    86 |           PolicyDocument:
    87 |             Version: '2012-10-17'
@@ -4465,7 +4465,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,116,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   106 |         },
   107 |         ""Path"": ""/"",
@@ -4491,7 +4491,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,117,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   107 |         ""Path"": ""/"",
   108 |         ""Policies"": [
@@ -4517,7 +4517,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,143,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   133 |             }
   134 |           },
@@ -4543,7 +4543,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,156,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   146 |             }
   147 |           },
@@ -4569,7 +4569,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,168,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   158 |               ]
   159 |             }
@@ -4595,7 +4595,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
       ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   12 |                 - ec2.amazonaws.com
   13 |             Action:
@@ -4621,7 +4621,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,29,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   13 |             Action:
   14 |               - sts:AssumeRole
@@ -4647,7 +4647,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   13 |             Action:
   14 |               - sts:AssumeRole
@@ -4673,7 +4673,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,31,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   21 |         },
   22 |         ""Path"": ""/"",
@@ -4699,7 +4699,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,32,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   22 |         ""Path"": ""/"",
   23 |         ""Policies"": [
@@ -4725,7 +4725,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,44,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   34 |               ]
   35 |             }
