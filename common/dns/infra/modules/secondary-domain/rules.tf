@@ -2,7 +2,7 @@
 
 resource "cloudflare_page_rule" "main_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.main.id
-  target   = "https://${cloudflare_zone.main.zone}/*"
+  target   = "${cloudflare_zone.main.zone}/*"
   status   = "active"
   priority = 1
 
@@ -16,7 +16,7 @@ resource "cloudflare_page_rule" "main_to_fluidattacks_com" {
 
 resource "cloudflare_page_rule" "www_main_to_main" {
   zone_id  = cloudflare_zone.main.id
-  target   = "https://www.${cloudflare_zone.main.zone}/*"
+  target   = "www.${cloudflare_zone.main.zone}/*"
   status   = "active"
   priority = 2
 
