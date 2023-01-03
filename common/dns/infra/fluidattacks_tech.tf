@@ -84,6 +84,15 @@ resource "cloudflare_record" "rebrandly" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "announcekit" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = "news.${cloudflare_zone.fluidattacks_tech.zone}"
+  type    = "CNAME"
+  value   = "cname.announcekit.app"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "gd_domainconnect" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = "_domainconnect.${cloudflare_zone.fluidattacks_tech.zone}"

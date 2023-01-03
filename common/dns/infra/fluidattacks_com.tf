@@ -250,7 +250,7 @@ resource "cloudflare_record" "news" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "news.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "cname.announcekit.app"
+  value   = "news.${cloudflare_zone.fluidattacks_tech.zone}"
   proxied = true
   ttl     = 1
 }
@@ -463,6 +463,20 @@ resource "cloudflare_page_rule" "redirect_landing" {
   actions {
     forwarding_url {
       url         = "https://try.${cloudflare_zone.fluidattacks_com.zone}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_news" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "news.${cloudflare_zone.fluidattacks_com.zone}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    forwarding_url {
+      url         = "https://news.${cloudflare_zone.fluidattacks_tech.zone}/$1"
       status_code = 301
     }
   }
