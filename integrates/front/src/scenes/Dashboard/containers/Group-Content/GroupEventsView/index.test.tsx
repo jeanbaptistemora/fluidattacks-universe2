@@ -418,7 +418,7 @@ describe("eventsView", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should handle error, type of file adding event", async (): Promise<void> => {
+  it("should handle error adding event in file", async (): Promise<void> => {
     expect.hasAssertions();
 
     const images = [
@@ -547,6 +547,7 @@ describe("eventsView", (): void => {
           errors: [
             new GraphQLError("Exception - Invalid File Type: EVENT_IMAGE"),
             new GraphQLError("Exception - Invalid File Type: EVENT_FILE"),
+            new GraphQLError("Exception - Invalid characters"),
           ],
         },
       },
@@ -609,7 +610,7 @@ describe("eventsView", (): void => {
     await userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
 
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledTimes(2);
+      expect(msgError).toHaveBeenCalledTimes(3);
     });
     jest.clearAllMocks();
   });
