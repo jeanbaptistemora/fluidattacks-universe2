@@ -12,3 +12,6 @@ src.lib_path.f363.insecure_generate_secret_string:
     - Debe contener numeros y puntuación
     - Debe tener mas de 14 caracteres
     - No debe excluir ciertos caracteres
+src.lib_path.f363.not_requires_uppercase:
+  en: Account/PasswordPolicy must require uppercase chars
+  es: PasswordPolicy requiere de caracteres en mayusculas
