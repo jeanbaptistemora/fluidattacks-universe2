@@ -61,7 +61,10 @@ async def test_add_customer_manager_good() -> None:
     assert not await orgs_domain.has_access(loaders, org_id, user)
 
     await orgs_domain.add_stakeholder(
-        loaders, org_id, user, "customer_manager"
+        loaders=loaders,
+        organization_id=org_id,
+        email=user,
+        role="customer_manager",
     )
     assert (
         await authz.get_organization_level_role(

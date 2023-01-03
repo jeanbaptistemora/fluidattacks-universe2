@@ -111,11 +111,11 @@ async def mutate(
     )
     if stakeholder_role in allowed_roles_to_grant:
         await orgs_domain.invite_to_organization(
-            loaders,
-            stakeholder_email,
-            stakeholder_role,
-            organization_name,
-            requester_email,
+            loaders=loaders,
+            email=stakeholder_email,
+            role=stakeholder_role,
+            organization_name=organization_name,
+            modified_by=requester_email,
         )
     else:
         LOGGER.error(

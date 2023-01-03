@@ -58,7 +58,10 @@ async def test_add_customer_manager_fail() -> None:
 
     try:
         await orgs_domain.add_stakeholder(
-            loaders, org_id, user, "customer_manager"
+            loaders=loaders,
+            organization_id=org_id,
+            email=user,
+            role="customer_manager",
         )
     except InvalidUserProvided as ex:
         assert (

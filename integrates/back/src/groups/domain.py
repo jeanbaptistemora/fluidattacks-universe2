@@ -223,7 +223,10 @@ async def complete_register_for_group_invitation(
     if not await orgs_domain.has_access(loaders, organization_id, email):
         coroutines.append(
             orgs_domain.add_stakeholder(
-                loaders, organization_id, email, "user"
+                loaders=loaders,
+                organization_id=organization_id,
+                email=email,
+                role="user",
             )
         )
     coroutines.append(

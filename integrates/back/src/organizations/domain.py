@@ -6,6 +6,7 @@ from aioextensions import (
 import authz
 from authz.validations import (
     validate_role_fluid_reqs,
+    validate_role_fluid_reqs_deco,
 )
 import bugsnag
 from context import (
@@ -121,6 +122,7 @@ from newutils.organization_access import (
 )
 from newutils.validations import (
     validate_email_address,
+    validate_email_address_deco,
     validate_field_length,
     validate_include_lowercase,
     validate_include_number,
@@ -240,11 +242,11 @@ async def add_group_access(
     )
 
 
+@validate_role_fluid_reqs_deco("email", "role")
 async def add_stakeholder(
     loaders: Dataloaders, organization_id: str, email: str, role: str
 ) -> None:
     # Check for customer manager granting requirements
-    validate_role_fluid_reqs(email, role)
     await org_access_model.update_metadata(
         organization_id=organization_id,
         email=email,
@@ -263,19 +265,19 @@ async def add_stakeholder(
         )
 
 
+@validate_email_address_deco("email")
 async def add_without_group(
     email: str,
     role: str,
     is_register_after_complete: bool = False,
 ) -> None:
-    if validate_email_address(email):
-        await stakeholders_domain.update(
-            email=email,
-            metadata=StakeholderMetadataToUpdate(
-                is_registered=is_register_after_complete,
-            ),
-        )
-        await authz.grant_user_level_role(email, role)
+    await stakeholders_domain.update(
+        email=email,
+        metadata=StakeholderMetadataToUpdate(
+            is_registered=is_register_after_complete,
+        ),
+    )
+    await authz.grant_user_level_role(email, role)
 
 
 async def update_state(
@@ -303,7 +305,12 @@ async def complete_register_for_organization_invitation(
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
-    await add_stakeholder(loaders, organization_id, email, role)
+    await add_stakeholder(
+        loaders=loaders,
+        organization_id=organization_id,
+        email=email,
+        role=role,
+    )
     await update_organization_access(
         organization_id,
         email,
@@ -315,8 +322,8 @@ async def complete_register_for_organization_invitation(
     )
     if not await stakeholders_domain.exists(loaders, email):
         await add_without_group(
-            email,
-            "user",
+            email=email,
+            role="user",
             is_register_after_complete=True,
         )
     enrollment: Enrollment = await loaders.enrollment.load(email)
@@ -471,7 +478,12 @@ async def add_organization(
             if stakeholders_domain.is_fluid_staff(email)
             else "user_manager"
         )
-        await add_stakeholder(loaders, organization.id, email, user_role)
+        await add_stakeholder(
+            loaders=loaders,
+            organization_id=organization.id,
+            email=email,
+            role=user_role,
+        )
     return organization
 
 
