@@ -46,7 +46,6 @@ describe("Organization billing groups view", (): void => {
           <Route path={"/orgs/:organizationName/billing"}>
             <authzPermissionsContext.Provider value={mockedInternalPermissions}>
               <OrganizationGroups
-                billingPortal={""}
                 groups={[
                   {
                     billing: {
@@ -110,7 +109,6 @@ describe("Organization billing groups view", (): void => {
           <Route path={"/orgs/:organizationName/billing"}>
             <authzPermissionsContext.Provider value={mockedExternalPermissions}>
               <OrganizationGroups
-                billingPortal={""}
                 groups={[
                   {
                     billing: {
@@ -205,7 +203,6 @@ describe("Organization billing groups view", (): void => {
           <Route path={"/orgs/:organizationName/billing"}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <OrganizationGroups
-                billingPortal={""}
                 groups={[
                   {
                     billing: {

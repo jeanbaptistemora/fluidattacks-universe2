@@ -2,15 +2,11 @@ import type { ApolloQueryResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Table } from "components/Table";
@@ -27,20 +23,17 @@ import type {
   IGroupAttr,
   IPaymentMethodAttr,
 } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/types";
-import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IOrganizationGroupsProps {
-  billingPortal: string;
   groups: IGroupAttr[];
   onUpdate: () => Promise<ApolloQueryResult<IGetOrganizationBilling>>;
   paymentMethods: IPaymentMethodAttr[];
 }
 
 export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
-  billingPortal,
   groups,
   onUpdate,
   paymentMethods,
@@ -293,17 +286,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       <Table
         columns={tableColumns}
         data={filteredDataset}
-        extraButtons={
-          <Can do={"api_resolvers_organization_billing_resolve"}>
-            <ExternalLink href={billingPortal}>
-              <Button variant={"primary"}>
-                <FontAwesomeIcon icon={faFileInvoiceDollar} />
-                &nbsp;
-                {t("organization.tabs.billing.portal.title")}
-              </Button>
-            </ExternalLink>
-          </Can>
-        }
         filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblGroups"}
       />

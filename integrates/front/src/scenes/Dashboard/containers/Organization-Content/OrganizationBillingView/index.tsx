@@ -55,8 +55,6 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   );
   const authors: IOrganizationAuthorAttr[] =
     data === undefined ? [] : data.organization.billing.authors;
-  const billingPortal: string =
-    data === undefined ? "" : data.organization.billing.portal;
   const costsTotal: number =
     data === undefined ? 0 : data.organization.billing.costsTotal;
   const groups: IGroupAttr[] =
@@ -89,7 +87,6 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
         organizationName={organizationName}
       />
       <OrganizationGroups
-        billingPortal={billingPortal}
         groups={groups}
         onUpdate={refetch}
         paymentMethods={paymentMethods}

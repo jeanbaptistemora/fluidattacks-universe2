@@ -60,7 +60,6 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
             modifiedDate
           }
         }
-        portal
       }
       groups {
         name
