@@ -4,9 +4,6 @@ from copy import (
 from ctx import (
     CTX,
 )
-from itertools import (
-    chain,
-)
 from lib_sast.types import (
     ShardDb,
 )
@@ -18,18 +15,8 @@ from more_itertools import (
     mark_ends,
     padnone,
 )
-from os.path import (
-    dirname,
-)
 from sast_symbolic_evaluation.cases import (
     no_op,
-    object_instantiation,
-    prefix_expression,
-    return_,
-    subscript_expression,
-    symbol_lookup,
-    template_string,
-    ternary,
 )
 from sast_symbolic_evaluation.types import (
     Evaluator,
@@ -43,7 +30,6 @@ from sast_syntax_readers.utils_generic import (
 )
 from typing import (
     Dict,
-    List,
     Optional,
     Tuple,
     Union,
@@ -146,14 +132,6 @@ def eval_method(
 
 EVALUATORS: Dict[object, Evaluator] = {
     g_m.SyntaxStepNoOp: no_op.evaluate,
-    g_m.SyntaxStepObjectInstantiation: object_instantiation.evaluate,
-    g_m.SyntaxStepPrefixExpression: prefix_expression.evaluate,
-    g_m.SyntaxStepReturn: return_.evaluate,
-    g_m.SyntaxStepSymbolLookup: symbol_lookup.evaluate,
-    g_m.SyntaxStepTernary: ternary.evaluate,
-    g_m.SyntaxStepThis: no_op.evaluate,
-    g_m.SyntaxStepTemplateString: template_string.evaluate,
-    g_m.SyntaxStepSubscriptExpression: subscript_expression.evaluate,
 }
 
 
@@ -273,152 +251,9 @@ def get_possible_syntax_steps_from_path(
     return syntax_steps
 
 
-def get_possible_syntax_steps_from_path_str_multiple_files(
-    shard_db: ShardDb,
-    graph_db: g_m.GraphDB,
-    finding: core_model.FindingEnum,
-    shard: g_m.GraphShard,
-    path_str: str,
-) -> g_m.SyntaxSteps:
-    syntax_steps: g_m.SyntaxSteps = []
-
-    # The paths have syntax 'node-node-node--shard--node-node...'
-    # Split the syntax to know which nodes and which shard we are currently
-    # interested in
-    path_split: List[str] = path_str.split("--")
-    switch_shard_map: Dict[int, str] = {}
-    if len(path_split) > 1:
-        switch_shard_map = {
-            len(path_split[idx - 1].split("-")): val
-            for idx, val in enumerate(path_split)
-            if idx % 2 != 0
-        }
-    path: Tuple[str, ...] = tuple(
-        chain.from_iterable(
-            [
-                val.split("-")
-                for idx, val in enumerate(path_split)
-                if idx % 2 == 0
-            ]
-        )
-    )
-    path_next = padnone(path)
-    next(path_next)
-
-    for idx, (n_id, n_id_next) in enumerate(zip(path, path_next)):
-        if idx in switch_shard_map:
-            shard_idx = graph_db.shards_by_path[switch_shard_map[idx]]
-            shard = graph_db.shards[shard_idx]
-        try:
-            eval_syntax_steps(
-                shard_db=shard_db,
-                graph_db=graph_db,
-                finding=finding,
-                overriden_syntax_steps=[],
-                shard=shard,
-                syntax_steps=syntax_steps,
-                n_id=n_id,
-                n_id_next=n_id_next,  # type: ignore
-                current_instance=None,
-            )
-        except ImpossiblePath:
-            return []
-        except StopEvaluation as exc:
-            log_exception_blocking("debug", exc)
-            return syntax_steps
-
-    return syntax_steps
-
-
 PossibleSyntaxStepsForUntrustedNId = Dict[str, g_m.SyntaxSteps]
 PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
-
-
-def get_possible_syntax_steps_from_multiple_go_files(
-    shard_db: ShardDb,
-    graph_db: g_m.GraphDB,
-    shard: g_m.GraphShard,
-    n_id: g_m.NId,
-    finding: core_model.FindingEnum,
-) -> PossibleSyntaxStepsForUntrustedNId:
-
-    # Filter imported packages or modules from the same package that
-    # have sink functions related to the finding in question
-    imports = shard.metadata.go.imports if shard.metadata.go else []
-    functions_of_interest: Dict[str, Tuple[int, List[g_m.SinkFunctions]]] = {
-        _shard.metadata.go.package: (
-            idx,
-            _shard.metadata.go.sink_functions[finding.name],
-        )
-        for idx, _shard in enumerate(graph_db.shards)
-        if (
-            _shard != shard
-            and _shard.metadata.go
-            and (
-                _shard.metadata.go.package in imports
-                or dirname(shard.path) == dirname(_shard.path)
-            )
-            and finding.name in _shard.metadata.go.sink_functions
-        )
-    }
-    # Build the way the functions are called in the analyzed code
-    current_package = str(
-        shard.metadata.go.package if shard.metadata.go else None
-    )
-    calls_of_interest: Dict[str, Tuple[int, g_m.SinkFunctions]] = {
-        f"{pkg}.{fn.name}" if pkg != current_package else fn.name: (_shard, fn)
-        for pkg, (_shard, fns) in functions_of_interest.items()
-        for fn in fns
-    }
-
-    graph = shard.graph
-    syntax = shard.syntax
-    cfg_p_id = g.lookup_first_cfg_parent(graph, n_id)
-    fn_calls_n_ids = tuple(
-        c_id
-        for c_id in g.filter_nodes(
-            graph,
-            (cfg_p_id,) + g.adj_cfg(graph, cfg_p_id, depth=-1),
-            g.pred_has_labels(label_type="call_expression"),
-        )
-        # This condition is temporal until all syntax cases are supported
-        if c_id in syntax
-    )
-    # Link the node where the function is called with the shard and information
-    # where the function is declared
-    methods_called: Dict[str, Tuple[int, g_m.SinkFunctions]] = {
-        fn_call_n_id: calls_of_interest[syntax_step.method]
-        for fn_call_n_id in fn_calls_n_ids
-        for syntax_step in syntax[fn_call_n_id]
-        if (
-            syntax_step.type == "SyntaxStepMethodInvocation"
-            and syntax_step.method in calls_of_interest
-        )
-    }
-
-    # Calculate the paths that the CFG follows
-    paths = tuple(
-        "-".join(path + (f"-{graph_db.shards[shard_idx].path}-",) + ext_path)
-        for c_id, (shard_idx, fn) in methods_called.items()
-        for path in g.paths(graph, cfg_p_id, c_id, label_cfg="CFG")
-        for ext_path in g.paths(
-            graph_db.shards[shard_idx].graph,
-            fn.n_id,
-            fn.s_id,
-            label_cfg="CFG",
-        )
-    )
-    return {
-        path: get_possible_syntax_steps_from_path_str_multiple_files(
-            shard_db,
-            graph_db,
-            finding=finding,
-            shard=shard,
-            path_str=path,
-        )
-        for path in paths
-    }
 
 
 def get_possible_syntax_steps_for_n_id(
@@ -460,17 +295,6 @@ def get_possible_syntax_steps_for_n_id(
             finding=finding,
         )
     }
-
-    if shard.metadata.language == g_m.GraphShardMetadataLanguage.GO:
-        syntax_steps_map.update(
-            get_possible_syntax_steps_from_multiple_go_files(
-                shard_db=shard_db,
-                graph_db=graph_db,
-                shard=shard,
-                n_id=n_id,
-                finding=finding,
-            )
-        )
 
     return syntax_steps_map
 
