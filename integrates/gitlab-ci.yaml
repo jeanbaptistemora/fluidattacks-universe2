@@ -4244,7 +4244,6 @@
   needs:
     - /integrates/back/test/unit__changes_db
     - /integrates/back/test/unit__not_changes_db
-    - /integrates/front/test
     - /integrates/coverage/combine__1
     - /integrates/coverage/combine__2
     - /integrates/coverage/combine__3

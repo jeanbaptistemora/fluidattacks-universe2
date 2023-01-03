@@ -318,7 +318,6 @@ in {
                   [
                     "/integrates/back/test/unit__changes_db"
                     "/integrates/back/test/unit__not_changes_db"
-                    "/integrates/front/test"
                   ]
                   ++ (
                     builtins.map
