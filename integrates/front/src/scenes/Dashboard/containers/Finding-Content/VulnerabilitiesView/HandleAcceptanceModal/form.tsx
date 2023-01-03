@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import { onTreatmentChangeHelper } from "./helpers";
 import { JustificationField } from "./JustificationField";
+import { SubmittedTable } from "./SubmittedTable";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskTable } from "./ZeroRiskTable";
 
@@ -76,6 +77,15 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
             <ZeroRiskTable
               acceptanceVulns={acceptanceVulnerabilities}
               isConfirmRejectZeroRiskSelected={isConfirmRejectZeroRiskSelected}
+              setAcceptanceVulns={setAcceptanceVulns}
+            />
+          </Col100>
+        </Row>
+        <Row>
+          <Col100>
+            <SubmittedTable
+              acceptanceVulns={acceptanceVulnerabilities}
+              isOpenRejectLocationSelected={isOpenRejectLocationSelected}
               setAcceptanceVulns={setAcceptanceVulns}
             />
           </Col100>
