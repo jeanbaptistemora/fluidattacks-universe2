@@ -72,6 +72,7 @@ export const HelpModal: FC<IHelpModalProps> = ({
       ) {
         openPopupWidget({
           prefill: {
+            customAnswers: { a1: groupName },
             email: userEmail,
             name: userName,
           },
@@ -81,7 +82,7 @@ export const HelpModal: FC<IHelpModalProps> = ({
         setIsUpgradeOpen(true);
       }
     }
-  }, [data, userEmail, userName]);
+  }, [data, groupName, userEmail, userName]);
 
   return (
     <StrictMode>
