@@ -22,17 +22,7 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
-    List,
 )
-
-
-def _has_admin_access(managed_policies: List[Any]) -> bool:
-    if managed_policies:
-        for man_pol in managed_policies:
-            # IAM role should not have AdministratorAccess policy
-            if "AdministratorAccess" in str(man_pol):
-                return True
-    return False
 
 
 def _check_assume_role_policies(assume_role_policy: Attribute) -> bool:
@@ -49,10 +39,6 @@ def _tfm_iam_role_is_over_privileged_iter_vulns(
     role_iterator: Iterator[AWSIamRole],
 ) -> Iterator[Any]:
     for res in role_iterator:
-        managed_policies = get_attribute(res.data, "managed_policy_arns")
-        if managed_policies and _has_admin_access(managed_policies.val):
-            yield managed_policies
-
         assume_role_policy = get_attribute(res.data, "assume_role_policy")
         if assume_role_policy and _check_assume_role_policies(
             assume_role_policy

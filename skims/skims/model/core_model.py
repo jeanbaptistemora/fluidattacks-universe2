@@ -2876,6 +2876,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_ADMIN_MANAGED_POLICIES = MethodInfo(
+        file_name="terraform",
+        name="terraform_iam_excessive_privileges",
+        module="lib_path",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_BUCKET_ALLOWS_PUBLIC = MethodInfo(
         file_name="terraform",
         name="tfm_bucket_policy_allows_public_access",

@@ -4152,56 +4152,30 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   92 | }
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,28,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
+F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
 - Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
  in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
-  18 |
-  19 |   managed_policy_arns = [
-  20 |     ""arn:aws:iam::aws:policy/service-role/AWSIoTLogging"",
-  21 |     ""arn:aws:iam::aws:policy/AWSAgentlessDiscoveryService""
-  22 |   ]
-  23 | }
-  24 |
-  25 | resource ""aws_iam_role"" ""vuln_role_1"" {
-  26 |   name = ""vuln_role_1""
-  27 |
-> 28 |   assume_role_policy = jsonencode({
-  29 |     Version = ""2012-10-17""
-  30 |     Statement = [
-  31 |       {
-  32 |         Action = ""sts:AssumeRole""
-  33 |         Effect = ""Allow""
-  34 |         NotPrincipal = {
-  35 |           Servive = ""ec2.amazonaws.com""
-  36 |         }
-  37 |       },
-  38 |     ]
-     ^ Col 0
-",terraform.tfm_iam_role_is_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,41,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
-- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
- in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
-  24 |
-  25 | resource ""aws_iam_role"" ""vuln_role_1"" {
-  26 |   name = ""vuln_role_1""
-  27 |
-  28 |   assume_role_policy = jsonencode({
-  29 |     Version = ""2012-10-17""
-  30 |     Statement = [
-  31 |       {
-  32 |         Action = ""sts:AssumeRole""
-  33 |         Effect = ""Allow""
-  34 |         NotPrincipal = {
-  35 |           Servive = ""ec2.amazonaws.com""
-  36 |         }
-  37 |       },
-  38 |     ]
-  39 |   })
-  40 |
-> 41 |   managed_policy_arns = [
-  42 |     ""arn:aws:iam::aws:policy/AdministratorAccess""
-  43 |   ]
-  44 | }
+  13 |         }
+  14 |       }
+  15 |     ]
+  16 |   }
+  17 |   EOF
+  18 | }
+  19 |
+  20 | resource ""aws_iam_role"" ""vuln_role_1"" {
+  21 |   name = ""vuln_role_1""
+  22 |
+> 23 |   assume_role_policy = jsonencode({
+  24 |     Version = ""2012-10-17""
+  25 |     Statement = [
+  26 |       {
+  27 |         Action = ""sts:AssumeRole""
+  28 |         Effect = ""Allow""
+  29 |         NotPrincipal = {
+  30 |           Servive = ""ec2.amazonaws.com""
+  31 |         }
+  32 |       },
+  33 |     ]
      ^ Col 0
 ",terraform.tfm_iam_role_is_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,53,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured:
@@ -15177,6 +15151,24 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   52 |   }
      ^ Col 0
 ",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_privileges.tf,12,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_privileges.tf","
+   1 | resource ""aws_iam_role"" ""safe_role_1"" {
+   2 |   name = ""safe_role_1""
+   3 |   managed_policy_arns = [
+   4 |     ""arn:aws:iam::aws:policy/service-role/AWSIoTLogging"",
+   5 |     ""arn:aws:iam::aws:policy/AWSAgentlessDiscoveryService""
+   6 |   ]
+   7 | }
+   8 |
+   9 | resource ""aws_iam_role"" ""vuln_role_1"" {
+  10 |   name = ""vuln_role_1""
+  11 |
+> 12 |   managed_policy_arns = [
+  13 |     ""arn:aws:iam::aws:policy/AdministratorAccess""
+  14 |   ]
+  15 | }
+     ^ Col 0
+",terraform.terraform_iam_excessive_privileges
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
   27 |       }
   28 |     ]
