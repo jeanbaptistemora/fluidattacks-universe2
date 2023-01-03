@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 export const GET_TODO_REATTACKS: DocumentNode = gql`
-  query GetTodoReattacksOPEN {
+  query GetTodoReattacksVulnerable {
     me {
       findingReattacks {
         groupName

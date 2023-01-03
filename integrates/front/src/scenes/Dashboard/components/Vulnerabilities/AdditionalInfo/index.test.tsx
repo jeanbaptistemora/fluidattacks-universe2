@@ -31,7 +31,6 @@ describe("AdditionalInfo", (): void => {
   const mockVuln: IVulnRowAttr = {
     assigned: "assigned-user-4",
     currentState: "closed",
-    currentStateCapitalized: "Closed",
     externalBugTrackingSystem: null,
     findingId: "438679960",
     groupName: "test",

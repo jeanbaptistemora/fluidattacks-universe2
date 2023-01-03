@@ -101,7 +101,6 @@ describe("GroupVulnerabilitiesView", (): void => {
             node: {
               assigned: "",
               currentState: "open",
-              currentStateCapitalized: "Open",
               externalBugTrackingSystem: null,
               finding: {
                 id: "438679960",
@@ -151,7 +150,6 @@ describe("GroupVulnerabilitiesView", (): void => {
             node: {
               assigned: "",
               currentState: "closed",
-              currentStateCapitalized: "Closed",
               externalBugTrackingSystem: null,
               findingId: "438679960",
               groupName: "unittesting",
@@ -196,7 +194,6 @@ describe("GroupVulnerabilitiesView", (): void => {
             node: {
               assigned: "",
               currentState: "open",
-              currentStateCapitalized: "Open",
               externalBugTrackingSystem: null,
               findingId: "438679960",
               groupName: "unittesting",
@@ -487,7 +484,6 @@ describe("GroupVulnerabilitiesView", (): void => {
                     node: {
                       assigned: "",
                       currentState: "open",
-                      currentStateCapitalized: "Open",
                       externalBugTrackingSystem: null,
                       finding: {
                         id: "438679961",

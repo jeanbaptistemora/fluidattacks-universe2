@@ -10,7 +10,6 @@ import type { IFinding } from "scenes/Dashboard/containers/Group-Content/GroupVu
 
 interface IVulnRowAttr {
   currentState: "closed" | "open" | "rejected" | "submitted";
-  currentStateCapitalized: "Closed" | "Open";
   externalBugTrackingSystem: string | null;
   findingId: string;
   groupName: string;

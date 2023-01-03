@@ -66,7 +66,6 @@ describe("VulnComponent", (): void => {
     {
       assigned: "",
       currentState: "open",
-      currentStateCapitalized: "Open",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",
@@ -109,7 +108,6 @@ describe("VulnComponent", (): void => {
     {
       assigned: "",
       currentState: "closed",
-      currentStateCapitalized: "Closed",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",
@@ -154,7 +152,6 @@ describe("VulnComponent", (): void => {
     {
       assigned: "assigned-user-4",
       currentState: "open",
-      currentStateCapitalized: "Open",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",

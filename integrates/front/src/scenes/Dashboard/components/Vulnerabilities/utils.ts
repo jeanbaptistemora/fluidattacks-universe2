@@ -156,9 +156,6 @@ const formatVulnerabilities: (
     return {
       ...vulnerability,
       assigned: isVulnOpen ? (vulnerability.treatmentAssigned as string) : "-",
-      currentStateCapitalized: _.capitalize(
-        vulnerability.currentState
-      ) as IVulnRowAttr["currentStateCapitalized"],
       lastTreatmentDate: isVulnOpen
         ? vulnerability.lastTreatmentDate.split(" ")[0]
         : "-",
