@@ -418,6 +418,202 @@ describe("eventsView", (): void => {
     jest.clearAllMocks();
   });
 
+  it("should handle error, type of file adding event", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const images = [
+      new File(
+        ["okada-unittesting-0192837465"],
+        "okada-unittesting-0192837465.txt",
+        { type: "text/plain" }
+      ),
+    ];
+    const file = new File(
+      ["okada-unittesting-56789abcde"],
+      "okada-unittesting-56789abcde.img",
+      {
+        type: "image/png",
+      }
+    );
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENTS,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              events: [
+                {
+                  closingDate: "-",
+                  detail: "Test description",
+                  eventDate: "2018-10-17 00:00:00",
+                  eventStatus: "SOLVED",
+                  eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+                  groupName: "unittesting",
+                  id: "463457733",
+                  root: {
+                    __typename: "GitRoot",
+                    branch: "master",
+                    cloningStatus: {
+                      __typename: "GitRootCloningStatus",
+                      message: "root created",
+                      status: "UNKNOWN",
+                    },
+                    credentials: {
+                      __typename: "Credentials",
+                      id: "",
+                      name: "",
+                      type: "",
+                    },
+                    environment: "production",
+                    environmentUrls: [],
+                    gitEnvironmentUrls: [],
+                    gitignore: ["bower_components/*", "node_modules/*"],
+                    id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                    includesHealthCheck: true,
+                    nickname: "universe",
+                    state: "ACTIVE",
+                    url: "https://gitlab.com/fluidattacks/universe",
+                    useVpn: false,
+                  },
+                },
+              ],
+              name: "unittesting",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_ROOTS,
+          variables: { groupName: "unittesting" },
+        },
+        result: {
+          data: {
+            group: {
+              __typename: "Group",
+              codeLanguages: null,
+              name: "unittesting",
+              roots: [
+                {
+                  __typename: "GitRoot",
+                  branch: "master",
+                  cloningStatus: {
+                    __typename: "GitRootCloningStatus",
+                    message: "root created",
+                    status: "UNKNOWN",
+                  },
+                  credentials: {
+                    __typename: "Credentials",
+                    id: "",
+                    name: "",
+                    type: "",
+                  },
+                  environment: "production",
+                  environmentUrls: [],
+                  gitEnvironmentUrls: [],
+                  gitignore: ["bower_components/*", "node_modules/*"],
+                  id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                  includesHealthCheck: true,
+                  nickname: "universe",
+                  state: "ACTIVE",
+                  url: "https://gitlab.com/fluidattacks/universe",
+                  useVpn: false,
+                },
+              ],
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: ADD_EVENT_MUTATION,
+          variables: {
+            detail: "detail test",
+            eventDate: "2021-09-07T00:00:00Z",
+            eventType: "CLONING_ISSUES",
+            groupName: "unittesting",
+            rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Exception - Invalid File Type: EVENT_IMAGE"),
+            new GraphQLError("Exception - Invalid File Type: EVENT_FILE"),
+          ],
+        },
+      },
+    ];
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_add_event_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["orgs/okada/groups/unittesting/events"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"orgs/:organizationName/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.btn.text")).toBeInTheDocument();
+    });
+    await userEvent.click(screen.getByText("group.events.btn.text"));
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.new")).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole("button", { name: /confirm/iu })).toBeDisabled();
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "rootNickname" }),
+      "universe"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "detail" }),
+      "detail test"
+    );
+
+    // 09/07/2021 12:00 AM
+    await userEvent.type(
+      screen.getByPlaceholderText("mm/dd/yyyy hh:mm (a|p)m"),
+      "090720211200A"
+    );
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "eventType" }),
+      ["group.events.type.cloningIssues"]
+    );
+    await userEvent.upload(screen.getByTestId("images"), images);
+    await userEvent.upload(screen.getByTestId("files"), file);
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", { name: /confirm/iu })
+      ).not.toBeDisabled();
+    });
+    await userEvent.click(screen.getByRole("button", { name: /confirm/iu }));
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(2);
+    });
+    jest.clearAllMocks();
+  });
+
   it("should request verification", async (): Promise<void> => {
     expect.hasAssertions();
 
@@ -718,6 +914,7 @@ describe("eventsView", (): void => {
           },
         },
       },
+
       {
         request: {
           query: GET_FINDING_VULNS_TO_REATTACK,
