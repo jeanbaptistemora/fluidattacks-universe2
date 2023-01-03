@@ -38909,3 +38909,121 @@
     metadata:
       en:
         details: __empty__
+'430':
+    en:
+      title: Serverless - one dedicated IAM role per function
+      description: >
+        Avoid sharing IAM roles with multiple Lambda functions. As permissions are added to
+        the role, these are shared across all functions using this role. By using one
+        dedicated IAM role per function, you can control permissions more intentionally.
+      impact: >
+        Execute actions that should be restricted to other groups or roles.
+      recommendation: >
+        Every Lambda function should have a 1:1 relationship with an IAM role. Even if some
+        functions have the same policy initially, always separate the IAM roles to ensure least
+        privilege policies.
+      threat: >
+        Authenticated attacker from the Internet with access to a misconfigured role.
+    es:
+      title: Serverless - one dedicated IAM role per function
+      description: >
+        Evite compartir roles de IAM con varias funciones de Lambda. A medida que se agregan
+        permisos al rol, estos se comparten entre todas las funciones que usan este rol. Al
+        usar un rol de IAM dedicado por función, puede controlar los permisos de manera más
+        intencional.
+      impact: >
+        Ejecutar acciones que deberían estar restringidas a otros grupos o roles.
+      recommendation: >
+        Cada función de Lambda debe tener una relación 1:1 con un rol de IAM. Incluso si algunas
+        funciones tienen la misma política inicialmente, siempre separe los roles de IAM para 
+        garantizar políticas de privilegios mínimos.
+      threat: >
+        Atacante desde Internet con acceso a cualquiera de los roles mal configurados.
+    category: Unexpected Injection
+    examples:
+      non_compliant: |
+        
+        ``` yaml
+          iamRoleStatements:
+            - Effect: Allow
+              Action:
+                - dynamodb:DescribeTable
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:DeleteItem
+              Resource: "arn:aws:dynamodb:us-east-1:*:*"
+            - Effect: "Allow"
+              Action:
+                - xray:PutTelemetryRecords
+                - xray:PutTraceSegments
+              Resource: "*"
+        ```
+      compliant: |
+        
+        ```
+            createFunctionRole:
+              Type: AWS::IAM::Role
+              Properties:
+                RoleName: ${self:service}-${self:custom.stage}-create-${self:custom.region}-lambdaRole
+                AssumeRolePolicyDocument:
+                  Version: '2012-10-17'
+                  Statement:
+                    - Effect: Allow
+                      Principal:
+                        Service:
+                          - lambda.amazonaws.com
+                      Action: sts:AssumeRole
+                Policies:
+                 - PolicyName: inlinePolicy
+                   PolicyDocument:
+                      Version: '2012-10-17'
+                      Statement:
+                        - Effect: Allow
+                          Action:
+                            - logs:PutLogEvents
+                          Resource: 
+                            - 'Fn::Join':
+                            - ':'
+                            -
+                            - 'arn:aws:logs'
+                            - Ref: 'AWS::Region'
+                            - Ref: 'AWS::AccountId'
+                            - log-group:/aws/lambda/${self:service}-${self:custom.stage}-create:*
+                        - Effect: "Allow"
+                          Action:
+                          - xray:PutTraceSegments
+                          Resource: "*"
+                        - Effect: Allow
+                          Action:
+                          - dynamodb:PutItem
+                          Resource: 
+                          - 'Fn::Join':
+                          - ':'
+                          -
+                          - 'arn:aws:dynamodb'
+                          - Ref: 'AWS::Region'
+                          - Ref: 'AWS::AccountId'
+                         
+        ```
+    remediation_time: '30'
+    score:
+      base:
+        attack_vector: N
+        attack_complexity: H
+        privileges_required: N
+        user_interaction: N
+        scope: C
+        confidentiality: L
+        integrity: L
+        availability: L
+      temporal:
+        exploit_code_maturity: U
+        remediation_level: U
+        report_confidence: R
+    requirements: ['095', '096', '186']
+    metadata:
+      en:
+        details: __empty__
