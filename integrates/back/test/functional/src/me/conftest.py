@@ -52,12 +52,14 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
+    VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityUnreliableIndicators,
+    VulnerabilityVerification,
 )
 from decimal import (
     Decimal,
@@ -226,6 +228,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
                             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                            "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
                             "uuid2",
                         },
                     )
@@ -244,7 +247,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_verification_summary=FindingVerificationSummary(
-                        requested=2, on_hold=0, verified=0
+                        requested=3, on_hold=0, verified=0
                     ),
                     unreliable_where="192.168.1.2",
                 ),
@@ -360,6 +363,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityStateStatus.VULNERABLE,
                         where="192.168.1.20",
                     ),
+                    verification=VulnerabilityVerification(
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-01T00:45:11+00:00"
+                        ),
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
                     treatment=VulnerabilityTreatment(
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:14+00:00"
@@ -374,8 +383,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_last_reattack_requester=generic_data[
+                            "global_vars"
+                        ]["admin_email"],
+                        unreliable_last_requested_reattack_date=(
+                            datetime.fromisoformat("2020-01-01T00:45:12+00:00")
+                        ),
+                        unreliable_reattack_cycles=1,
                         unreliable_source=Source.ASM,
-                        unreliable_treatment_changes=0,
+                        unreliable_treatment_changes=1,
                     ),
                 ),
             },

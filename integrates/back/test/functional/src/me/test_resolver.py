@@ -314,6 +314,10 @@ async def test_get_me_assigned(
     )
     assert "errors" not in result
     assert len(result["data"]["me"]["vulnerabilitiesAssigned"]) == length
+    assert len(result["data"]["me"]["reattacks"]["edges"]) == 1
+    assert result["data"]["me"]["reattacks"]["edges"][0]["node"] == {
+        "lastRequestedReattackDate": "2019-12-31 19:45:12"
+    }
     assert len(result["data"]["me"]["findingReattacks"]) == 2
     assert result["data"]["me"]["findingReattacks"][0]["id"] == "475041521"
     assert (
@@ -326,7 +330,7 @@ async def test_get_me_assigned(
         result["data"]["me"]["findingReattacks"][0]["verificationSummary"][
             "requested"
         ]
-        == 2
+        == 3
     )
     assert (
         result["data"]["me"]["findingReattacks"][1]["verificationSummary"][
@@ -340,7 +344,7 @@ async def test_get_me_assigned(
                 "vulnerabilitiesToReattackConnection"
             ]["edges"]
         )
-        == 0
+        == 1
     )
     assert (
         len(

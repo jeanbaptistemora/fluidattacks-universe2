@@ -29,9 +29,15 @@ async def resolve(
 
     results = await search(
         must_filters=[
+            {"verification.status": "REQUESTED"},
+        ],
+        should_filters=[
             {"state.status": "OPEN"},
             {"state.status": "VULNERABLE"},
-            {"verification.status": "REQUESTED"},
+        ],
+        must_not_filters=[
+            {"state.status": "CLOSED"},
+            {"state.status": "SAFE"},
         ],
         index="vulnerabilities",
         limit=100,

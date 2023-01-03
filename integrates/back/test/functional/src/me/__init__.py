@@ -113,6 +113,13 @@ async def get_vulnerabilities(
                         }
                     }
                 }
+                reattacks {
+                    edges {
+                        node {
+                            lastRequestedReattackDate
+                        }
+                    }
+                }
                 vulnerabilitiesAssigned {
                     id
                     historicTreatment {
