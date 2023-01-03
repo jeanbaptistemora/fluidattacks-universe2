@@ -137,8 +137,7 @@ following:
 - [Continuous hacking](../../services/continuous-hacking/), a service
   to continuously check and improve robustness of defenses.
 
-- [One-shot hacking](../../services/one-shot-hacking/), if a precise
-  audit is needed.
+- One-shot hacking, if a precise audit is needed.
 
 Our customers rely on our Attack Resistance Management platform,
 the platform to keep track of weaknesses. They don’t have

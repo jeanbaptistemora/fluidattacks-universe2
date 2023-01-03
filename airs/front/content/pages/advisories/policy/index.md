@@ -15,7 +15,7 @@ vulnerabilities found by our Offensive Team.
 
 This Policy does not apply to vulnerabilities found for customers as
 part of the [Continuous Hacking](../../services/continuous-hacking) and
-[One-Shot Hacking](../../services/one-shot-hacking) services, unless
+One-Shot Hacking services, unless
 there is explicit approval, as they are covered by a Non-Disclosure
 Agreement.
 
@@ -63,11 +63,9 @@ finds a new unpublished vulnerability, we will proceed as follows:
     vulnerability and with any applicable proof of concept.
 
 2. If the vulnerability is found through our [Continuous
-    Hacking](../../services/continuous-hacking) or [One-Shot
-    Hacking](../../services/one-shot-hacking) services, it will be
-    reported only to the affected customer via our Attack Resistance
-    Management platform (ARM).
-    Moreover,
+    Hacking](../../services/continuous-hacking) or One-Shot
+    Hacking services, it will be reported only to the affected
+    customer via our Attack Resistance Management platform (ARM). Moreover,
     if this vulnerability affects a third-party product,
     we will proceed to ask for the customer's consent
     to send the report to the product vendor.

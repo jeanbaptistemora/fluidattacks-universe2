@@ -114,8 +114,8 @@ it…​**
 Security, as part of the development process, is essential to `Fluid Attacks`.
 We are proud to be working with this approach for several
 years now. Our [Continuous Hacking](../../services/continuous-hacking/)
-and [One-shot Hacking](../../services/one-shot-hacking/) services rely
-on IaC to support our customers consistently and faster.
+and One-shot Hacking services rely on IaC to support our customers consistently
+and faster.
 
 We turned into cybersecurity specifics, and like with the other people
 we have spoken with, we asked Ricardo about his opinion on machine

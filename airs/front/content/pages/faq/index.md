@@ -747,7 +747,7 @@ During the execution of a project, the following scenarios can occur:
 
 60\. What options for retesting are available?
 
-[One-shot Hacking](../../services/one-shot-hacking) includes one retest.
+One-shot Hacking includes one retest.
 [Continuous Hacking](../../services/continuous-hacking/) includes
 infinite retests during the subscription time.
 

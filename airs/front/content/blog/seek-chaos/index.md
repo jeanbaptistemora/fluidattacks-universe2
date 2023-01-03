@@ -228,7 +228,7 @@ applications and `IT` infrastructure:
 - [Continuous hacking](../../services/continuous-hacking). Think of it
   as a constant source of stressors.
 
-- [One-shot hacking](../../services/one-shot-hacking/). This is like a
+- One-shot hacking. This is like a
   one-shot stressor focused on your most valuable information assets
   (or on the target you want).
 

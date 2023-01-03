@@ -115,7 +115,7 @@ start and stop doing?**
 
 Indeed, `Fluid Attacks` has a DevOps approach. Want to know more?
 Visit our [Continuous Hacking](../../services/continuous-hacking/) and
-[One-shot Hacking](../../services/one-shot-hacking/) services.
+One-shot Hacking services.
 
 **Why do you think companies that know their weaknesses,** **do not fix
 them or do it too late?**

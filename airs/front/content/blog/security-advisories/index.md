@@ -175,8 +175,7 @@ and start looking for vulnerabilities.
 
 ## Does Fluid Attacks divulge issues found in your system?
 
-Our [One-Shot Hacking](../../services/one-shot-hacking/)
-and [Continuous Hacking](../../services/continuous-hacking/)
+Our One-Shot Hacking and [Continuous Hacking](../../services/continuous-hacking/)
 [Squad Plan](../../plans/) services
 employ highly certified [ethical hackers](../../solutions/ethical-hacking/)
 to find vulnerabilities in our clients' systems.
