@@ -71,7 +71,7 @@ based on the impact of the vulnerability.
 
 1. At the release date:
    the fix is deployed,
-   and the vulnerability is announced at [Fluid Attacks News](https://news.atfluid.com/),
+   and the vulnerability is announced at [Fluid Attacks News](https://news.fluidattacks.tech/),
    and through e-mail to the affected users if appropriate.
 
 1. The researcher is contacted and asked if they wish for credit.

@@ -10,7 +10,7 @@ and keep stakeholders informed,
 we report all news and incidents
 related to our software
 on our
-[News site](https://news.atfluid.com/?label=15603).
+[News site](https://news.fluidattacks.tech/?label=15603).
 
 Each incident report contains the following items:
 

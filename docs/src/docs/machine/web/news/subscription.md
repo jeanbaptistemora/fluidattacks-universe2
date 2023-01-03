@@ -15,7 +15,7 @@ our channel.
 The first way is through our URL.
 
 - First, you need to our URL
-  [https://news.atfluid.com/](https://news.atfluid.com/)
+  [https://news.fluidattacks.tech/](https://news.fluidattacks.tech/)
 
 ![Subscription Final Product](https://res.cloudinary.com/fluid-attacks/image/upload/v1671631843/docs/web/news/subscription/main_page.png)
 
@@ -49,7 +49,7 @@ The second way to subscribe is through are ARM.
 - Click on the “megaphone icon”
   on the top right.
   Hovering your courser
-  over the  “megaphone icon” will say:
+  over the “megaphone icon” will say:
   “Latest updates about ARM”.
 
 ![Subscription Icons](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_megaphone.png)
