@@ -638,7 +638,7 @@ def _machine_vulns_to_close(
             path_is_include(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln.state.where, vuln.type, True
+                        vuln.state.where, vuln.type
                     )[1]
                 ).split(" ", maxsplit=1)[0],
                 [
@@ -908,7 +908,7 @@ async def upload_snippet(
     if current_vuln.state.status != VulnerabilityStateStatus.VULNERABLE:
         return
 
-    current_hash = get_hash_from_typed(current_vuln, ignore_cve=True)
+    current_hash = get_hash_from_typed(current_vuln)
     for vuln in sarif_vulns:
         if vuln["properties"]["kind"] == "lines":
             _hash = get_hash(

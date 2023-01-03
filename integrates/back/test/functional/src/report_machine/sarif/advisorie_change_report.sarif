@@ -36,13 +36,14 @@
             "results": [
                 {
                     "message": {
-                        "text": "Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['CVE-2019-17495', 'SNYK-JAVA-IOSPRINGFOX-1075064'] in universe/skims/test/data/lib_path/f011/build.gradle",
+                        "text": "Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['CVE-2019-17495', 'SNYK-JAVA-IOSPRINGFOX-1075064', 'CVE-2019-TEST'] in universe/skims/test/data/lib_path/f011/build.gradle",
                         "properties": {
                             "dependency_name": "io.springfox:springfox-swagger-ui",
                             "dependency_version": "2.6.1",
                             "cve": [
                                 "CVE-2019-17495",
-                                "SNYK-JAVA-IOSPRINGFOX-1075064"
+                                "SNYK-JAVA-IOSPRINGFOX-1075064",
+                                "CVE-2019-TEST"
                             ]
                         }
                     },
