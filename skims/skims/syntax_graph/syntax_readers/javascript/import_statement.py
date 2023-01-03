@@ -1,4 +1,5 @@
 from model.graph_model import (
+    Graph,
     NId,
 )
 from syntax_graph.syntax_nodes.import_statement import (
@@ -18,7 +19,7 @@ from utils.graph.text_nodes import (
 )
 
 
-def get_import_text(args: SyntaxGraphArgs) -> str:
+def import_label_text(args: SyntaxGraphArgs) -> str:
     node = args.ast_graph.nodes[args.n_id]
     source_id = node.get("label_field_source")
     if source_id:
@@ -28,38 +29,39 @@ def get_import_text(args: SyntaxGraphArgs) -> str:
     return import_text
 
 
+def get_named_imports_attrs(graph: Graph, n_id: NId) -> Dict[str, str]:
+    named_attrs: Dict[str, str] = {}
+    for specifier_n_id in g.match_ast_group_d(graph, n_id, "import_specifier"):
+        if (
+            name_n_id := graph.nodes[specifier_n_id].get("label_field_name")
+        ) and (identifier := graph.nodes[name_n_id].get("label_text")):
+            named_attrs.update({"identifier": identifier})
+
+        if (
+            alias_n_id := graph.nodes[specifier_n_id].get("label_field_alias")
+        ) and (alias := graph.nodes[alias_n_id].get("label_text")):
+            named_attrs.update({"label_alias": alias})
+    return named_attrs
+
+
 def reader(args: SyntaxGraphArgs) -> NId:
-    import_text = get_import_text(args)
+    graph: Graph = args.ast_graph
     node_attrs: Dict[str, str] = {
-        "expression": import_text,
+        "expression": import_label_text(args),
     }
-    if import_clause_n_id := g.match_ast_d(
-        args.ast_graph, args.n_id, "import_clause"
-    ):
+    if import_clause_n_id := g.match_ast_d(graph, args.n_id, "import_clause"):
         if named_imports_n_id := g.match_ast_d(
-            args.ast_graph, import_clause_n_id, "named_imports"
+            graph, import_clause_n_id, "named_imports"
         ):
-            for specifier_n_id in g.match_ast_group_d(
-                args.ast_graph, named_imports_n_id, "import_specifier"
-            ):
-                name_n_id = args.ast_graph.nodes[specifier_n_id].get(
-                    "label_field_name"
-                )
-                alias_n_id = args.ast_graph.nodes[specifier_n_id].get(
-                    "label_field_alias"
-                )
-                if name_n_id:
-                    identifier = args.ast_graph.nodes[name_n_id].get(
-                        "label_text"
-                    )
-                    node_attrs.update({"identifier": identifier})
-                if alias_n_id:
-                    alias = args.ast_graph.nodes[alias_n_id].get("label_text")
-                    node_attrs.update({"label_alias": alias})
-        elif identifier_n_id := g.match_ast_d(
-            args.ast_graph, import_clause_n_id, "identifier"
-        ):
-            identifier = args.ast_graph.nodes[identifier_n_id]["label_text"]
+            node_attrs.update(
+                get_named_imports_attrs(graph, named_imports_n_id)
+            )
+        elif (
+            identifier_n_id := g.match_ast_d(
+                graph, import_clause_n_id, "identifier"
+            )
+        ) and (identifier := graph.nodes[identifier_n_id].get("label_text")):
+
             node_attrs.update({"identifier": identifier})
 
     return build_import_statement_node(args, node_attrs)
