@@ -22,26 +22,16 @@ from os.path import (
     dirname,
 )
 from sast_symbolic_evaluation.cases import (
-    array_access,
-    array_initialization,
-    array_instantiation,
-    assignment,
-    attribute_access,
-    binary_expression,
-    cast_expression,
-    declaration,
     if_,
     instanceof_expression,
     lambda_expression,
     literal,
-    loop,
     member_access_expression,
     method_declaration,
     method_invocation,
     method_invocation_chain,
     no_op,
     object_instantiation,
-    parenthesized_expression,
     prefix_expression,
     return_,
     subscript_expression,
@@ -50,7 +40,6 @@ from sast_symbolic_evaluation.cases import (
     symbol_lookup,
     template_string,
     ternary,
-    unary_expression,
 )
 from sast_symbolic_evaluation.types import (
     Evaluator,
@@ -166,18 +155,6 @@ def eval_method(
 
 
 EVALUATORS: Dict[object, Evaluator] = {
-    g_m.SyntaxStepAssignment: assignment.evaluate,
-    g_m.SyntaxStepArrayAccess: array_access.evaluate,
-    g_m.SyntaxStepArrayInitialization: array_initialization.evaluate,
-    g_m.SyntaxStepArrayInstantiation: array_instantiation.evaluate,
-    g_m.SyntaxStepAttributeAccess: attribute_access.evaluate,
-    g_m.SyntaxStepBinaryExpression: binary_expression.evaluate,
-    g_m.SyntaxStepCastExpression: cast_expression.evaluate,
-    g_m.SyntaxStepCatchClause: no_op.evaluate,
-    g_m.SyntaxStepUnaryExpression: unary_expression.evaluate,
-    g_m.SyntaxStepParenthesizedExpression: (parenthesized_expression.evaluate),
-    g_m.SyntaxStepDeclaration: declaration.evaluate,
-    g_m.SyntaxStepLoop: loop.evaluate,
     g_m.SyntaxStepIf: if_.evaluate,
     g_m.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
     g_m.SyntaxStepMemberAccessExpression: (member_access_expression.evaluate),
