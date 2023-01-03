@@ -5,8 +5,6 @@ from dynamodb.types import (
     Facet,
 )
 
-HISTORIC_TOE_INPUT_PREFIX = "STATE#"
-
 GSI_2_FACET = Facet(
     attrs=TABLE.facets["toe_input_metadata"].attrs,
     pk_alias="GROUP#group_name",

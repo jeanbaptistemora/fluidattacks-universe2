@@ -1,6 +1,5 @@
 from .constants import (
     GSI_2_FACET,
-    HISTORIC_TOE_INPUT_PREFIX,
 )
 from .types import (
     GroupToeInputsRequest,
@@ -105,9 +104,7 @@ async def _get_historic_toe_input(
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(
-                HISTORIC_TOE_INPUT_PREFIX
-            )
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(TABLE.facets["toe_input_historic_metadata"],),
         table=TABLE,

@@ -1,1 +1,0 @@
-STATES_PREFIX = "STATE#"

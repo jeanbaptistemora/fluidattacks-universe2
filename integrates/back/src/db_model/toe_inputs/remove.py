@@ -1,6 +1,3 @@
-from .constants import (
-    HISTORIC_TOE_INPUT_PREFIX,
-)
 from aioextensions import (
     collect,
 )
@@ -90,7 +87,7 @@ async def remove_group_toe_inputs(
 async def remove_historic_toe_inputs(
     component: str, entry_point: str, group_name: str, root_id: str
 ) -> None:
-    historic_toe_input_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_historic_metadata"],
         values={
             "component": component,
@@ -102,12 +99,8 @@ async def remove_historic_toe_inputs(
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(
-                historic_toe_input_key.partition_key
-            )
-            & Key(key_structure.sort_key).begins_with(
-                HISTORIC_TOE_INPUT_PREFIX
-            )
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(TABLE.facets["toe_input_historic_metadata"],),
         table=TABLE,

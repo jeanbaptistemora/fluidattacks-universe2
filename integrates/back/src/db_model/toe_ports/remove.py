@@ -89,7 +89,7 @@ async def remove_group_toe_ports(
 async def remove_historic_toe_ports(
     address: str, port: str, group_name: str, root_id: str
 ) -> None:
-    historic_toe_port_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["toe_port_historic_state"],
         values={
             "address": address,
@@ -101,10 +101,8 @@ async def remove_historic_toe_ports(
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(
-                historic_toe_port_key.partition_key
-            )
-            & Key(key_structure.sort_key).begins_with("STATE#")
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(TABLE.facets["toe_port_historic_state"],),
         table=TABLE,

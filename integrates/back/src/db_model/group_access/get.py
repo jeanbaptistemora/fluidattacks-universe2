@@ -20,9 +20,6 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
-from db_model.group_access.constants import (
-    STATES_PREFIX,
-)
 from dynamodb import (
     keys,
     operations,
@@ -81,7 +78,7 @@ async def _get_historic_group_access(
     key_structure = TABLE.primary_key
     condition_expression = Key(key_structure.partition_key).eq(
         historic_key.partition_key
-    ) & Key(key_structure.sort_key).begins_with(STATES_PREFIX)
+    ) & Key(key_structure.sort_key).begins_with(historic_key.sort_key)
     response = await operations.query(
         condition_expression=condition_expression,
         facets=(TABLE.facets["group_historic_access"],),

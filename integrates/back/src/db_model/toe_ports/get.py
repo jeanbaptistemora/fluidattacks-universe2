@@ -100,7 +100,7 @@ async def _get_historic_state(
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with("STATE#")
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(TABLE.facets["toe_port_historic_state"],),
         table=TABLE,
