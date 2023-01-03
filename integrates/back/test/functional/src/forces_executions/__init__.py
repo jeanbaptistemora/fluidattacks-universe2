@@ -15,6 +15,7 @@ def get_query() -> str:
       query(
         $first: Int
         $fromDate: DateTime
+        $gitRepo: String
         $groupName: String!
         $search: String
         $toDate: DateTime
@@ -24,6 +25,7 @@ def get_query() -> str:
           executionsConnections(
             first: $first,
             fromDate: $fromDate,
+            gitRepo: $gitRepo,
             search: $search,
             toDate: $toDate,
             type: $type
@@ -65,6 +67,7 @@ async def get_result(
     user: str,
     from_date: str = "",
     group: str,
+    repo: str = "",
     search: str = "",
     to_date: str = "",
     kind: str = "",
@@ -77,6 +80,7 @@ async def get_result(
         "variables": {
             "first": first,
             "fromDate": from_date,
+            "gitRepo": repo,
             "groupName": group,
             "search": search,
             "toDate": to_date,

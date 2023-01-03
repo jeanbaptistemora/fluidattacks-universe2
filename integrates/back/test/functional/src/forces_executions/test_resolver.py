@@ -166,3 +166,43 @@ async def test_should_not_get_forces_executions_by_kind(
     )
     executions = result["data"]["group"]["executionsConnections"]["edges"]
     assert executions == []
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_get_forces_executions_by_repo(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", repo="Repository"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions[0]["node"]["gitRepo"] == "Repository"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_should_not_get_forces_executions_by_repo(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", repo="not exist"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions == []
