@@ -15,7 +15,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
     <Button size={"sm"}>
       <AnnounceKit
         user={{ email: userEmail, id: userEmail }}
-        widget={"https://news.atfluid.com/widgets/v2/ZmEGk"}
+        widget={"https://news.fluidattacks.tech/widgets/v2/ZmEGk"}
         widgetStyle={{ left: "24px", position: "absolute", top: "6px" }}
       >
         <Text size={"medium"}>

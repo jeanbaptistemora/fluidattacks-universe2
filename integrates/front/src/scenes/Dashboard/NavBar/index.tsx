@@ -80,7 +80,7 @@ const DashboardNavBar: FC<IDashboardNavBarProps> = ({
       <Button icon={faBullhorn} size={"md"}>
         <AnnounceKit
           user={{ email: userEmail, id: userEmail }}
-          widget={"https://news.atfluid.com/widgets/v2/ZmEGk"}
+          widget={"https://news.fluidattacks.tech/widgets/v2/ZmEGk"}
           widgetStyle={{ left: "-14px", position: "absolute", top: "20px" }}
         >
           {t("components.navBar.news")}
