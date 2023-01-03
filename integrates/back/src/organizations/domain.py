@@ -121,7 +121,6 @@ from newutils.organization_access import (
     format_invitation_state,
 )
 from newutils.validations import (
-    validate_email_address,
     validate_email_address_deco,
     validate_field_length,
     validate_include_lowercase,
@@ -560,6 +559,8 @@ async def has_access(
         return False
 
 
+@validate_email_address_deco("email")
+@validate_role_fluid_reqs_deco("email", "role")
 async def invite_to_organization(
     loaders: Dataloaders,
     email: str,
@@ -567,55 +568,48 @@ async def invite_to_organization(
     organization_name: str,
     modified_by: str,
 ) -> None:
-    if validate_email_address(email) and validate_role_fluid_reqs(email, role):
-        expiration_time = datetime_utils.get_as_epoch(
-            datetime_utils.get_now_plus_delta(weeks=1)
-        )
-        organization: Organization = await loaders.organization.load(
-            organization_name
-        )
-        organization_id = organization.id
-        url_token = sessions_domain.encode_token(
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime_utils.get_now_plus_delta(weeks=1)
+    )
+    organization: Organization = await loaders.organization.load(
+        organization_name
+    )
+    organization_id = organization.id
+    url_token = sessions_domain.encode_token(
+        expiration_time=expiration_time,
+        payload={
+            "organization_id": organization_id,
+            "user_email": email,
+        },
+        subject="starlette_session",
+    )
+    await org_access_model.update_metadata(
+        email=email,
+        organization_id=organization_id,
+        metadata=OrganizationAccessMetadataToUpdate(
             expiration_time=expiration_time,
-            payload={
-                "organization_id": organization_id,
-                "user_email": email,
-            },
-            subject="starlette_session",
-        )
-        await org_access_model.update_metadata(
-            email=email,
-            organization_id=organization_id,
-            metadata=OrganizationAccessMetadataToUpdate(
-                expiration_time=expiration_time,
-                has_access=False,
-                invitation=OrganizationInvitation(
-                    is_used=False,
-                    role=role,
-                    url_token=url_token,
-                ),
+            has_access=False,
+            invitation=OrganizationInvitation(
+                is_used=False,
+                role=role,
+                url_token=url_token,
             ),
-        )
-        confirm_access_url = (
-            f"{BASE_URL}/confirm_access_organization/{url_token}"
-        )
-        reject_access_url = (
-            f"{BASE_URL}/reject_access_organization/{url_token}"
-        )
-        mail_to = [email]
-        email_context: dict[str, Any] = {
-            "admin": email,
-            "group": organization_name,
-            "responsible": modified_by,
-            "confirm_access_url": confirm_access_url,
-            "reject_access_url": reject_access_url,
-            "user_role": role.replace("_", " "),
-        }
-        schedule(
-            groups_mail.send_mail_access_granted(
-                loaders, mail_to, email_context
-            )
-        )
+        ),
+    )
+    confirm_access_url = f"{BASE_URL}/confirm_access_organization/{url_token}"
+    reject_access_url = f"{BASE_URL}/reject_access_organization/{url_token}"
+    mail_to = [email]
+    email_context: dict[str, Any] = {
+        "admin": email,
+        "group": organization_name,
+        "responsible": modified_by,
+        "confirm_access_url": confirm_access_url,
+        "reject_access_url": reject_access_url,
+        "user_role": role.replace("_", " "),
+    }
+    schedule(
+        groups_mail.send_mail_access_granted(loaders, mail_to, email_context)
+    )
 
 
 async def iterate_organizations() -> AsyncIterator[Organization]:
