@@ -222,7 +222,7 @@ async def get_stakeholders_email_by_preferences(
     )
     stakeholders_data: tuple[
         Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(email_list)
+    ] = await loaders.stakeholder_with_fallback.load_many(email_list)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders_data

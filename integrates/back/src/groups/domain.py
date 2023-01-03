@@ -689,6 +689,12 @@ async def update_group(
         )
         return
 
+    await remove_group(
+        loaders=loaders,
+        group_name=group_name,
+        justification=justification,
+        email=email,
+    )
     await notifications_domain.delete_group(
         loaders=loaders,
         deletion_date=datetime_utils.get_utc_now(),
@@ -696,12 +702,6 @@ async def update_group(
         requester_email=email,
         reason=justification.value,
         comments=comments,
-    )
-    await remove_group(
-        loaders=loaders,
-        group_name=group_name,
-        justification=justification,
-        email=email,
     )
 
 
