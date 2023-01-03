@@ -58,6 +58,8 @@ type Group {
     gitRepo: String
     "Search query for execution attributes"
     search: String
+    "Execution mode"
+    strictness: String
     "Type of execution"
     type: String
 

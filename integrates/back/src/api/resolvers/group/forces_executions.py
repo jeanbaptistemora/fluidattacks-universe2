@@ -104,6 +104,9 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     if execution_type := kwargs.get("type"):
         must_filters.append({"kind": str(execution_type).upper()})
 
+    if strictness := kwargs.get("strictness"):
+        must_filters.append({"strictness": str(strictness).upper()})
+
     return must_filters
 
 
