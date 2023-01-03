@@ -1,3 +1,6 @@
+from ._utils import (
+    log_info,
+)
 from fa_purity import (
     Cmd,
     Maybe,
@@ -22,16 +25,9 @@ from redshift_client.schema.client import (
 )
 from typing import (
     FrozenSet,
-    TypeVar,
 )
 
-_T = TypeVar("_T")
 LOG = logging.getLogger(__name__)
-
-
-def _print(item: _T, msg: str) -> _T:
-    LOG.info(msg)
-    return item
 
 
 def _exist(client: SchemaClient, schema: SchemaId) -> Cmd[Maybe[SchemaId]]:
@@ -53,8 +49,9 @@ def merge_parts(
         .transform(lambda p: until_empty(from_piter(p)))
     )
     return consume(
-        schemas.map(lambda s: _print(s, f"Moving {s} -> {target}")).map(
-            lambda s: client.move(s, target)
+        schemas.map(
+            lambda s: log_info(LOG, "Moving %s -> %s", str(s), str(target))
+            + client.move(s, target)
         )
     )
 
@@ -72,12 +69,15 @@ def merge_dynamo_tables(
         )
         .transform(lambda p: from_piter(p))
     )
-    nothing = Cmd.from_cmd(lambda: None)
     return consume(
         schemas.map(
-            lambda r: r.map(lambda s: _print(s, f"Migrating {s} -> {target}"))
-            .map(lambda s: client.migrate(s, target))
-            .alt(lambda s: _print(nothing, f"Ignoring non-existent {s}"))
+            lambda r: r.map(
+                lambda s: log_info(
+                    LOG, "Migrating %s -> %s", str(s), str(target)
+                )
+                + client.migrate(s, target)
+            )
+            .alt(lambda s: log_info(LOG, "Ignoring non-existent %s", str(s)))
             .to_union()
         )
     )

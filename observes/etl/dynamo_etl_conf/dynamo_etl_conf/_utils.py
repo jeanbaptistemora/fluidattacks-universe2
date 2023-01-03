@@ -1,4 +1,10 @@
+from fa_purity import (
+    Cmd,
+)
 import logging
+from logging import (
+    Logger,
+)
 import sys
 
 
@@ -13,3 +19,7 @@ def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
     logger.setLevel(min_lvl)
     logger.addHandler(logger_handler)
     return logger
+
+
+def log_info(log: Logger, msg: str, *args: str) -> Cmd[None]:
+    return Cmd.from_cmd(lambda: log.info(msg, args))
