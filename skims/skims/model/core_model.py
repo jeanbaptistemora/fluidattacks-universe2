@@ -1684,6 +1684,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    COMPOSER_LOCK = MethodInfo(
+        file_name="composer",
+        name="composer_lock",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     GEM_GEMFILE = MethodInfo(
         file_name="gem",
         name="gem_gemfile",
