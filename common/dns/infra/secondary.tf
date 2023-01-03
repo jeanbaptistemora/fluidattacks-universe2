@@ -3,6 +3,7 @@ module "secondary_domains" {
 
   for_each = toset(
     [
+      "atfluid.com",
       "fluid.com.co",
       "fluid.la",
       "fluidattacks.co",
