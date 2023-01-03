@@ -6,6 +6,7 @@ module "secondary_domains" {
       "atfluid.com",
       "fluid.com.co",
       "fluid.la",
+      "fluidattacks.app",
       "fluidattacks.co",
       "fluidattacks.com.co",
       "fluidattacks.info",
