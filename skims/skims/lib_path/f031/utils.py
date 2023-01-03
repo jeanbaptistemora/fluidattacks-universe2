@@ -96,7 +96,7 @@ def open_passrole_iterate_vulnerabilities(
             if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
             else stmt.data
         )
-        if stmt_raw["Effect"] == "Allow":
+        if stmt_raw.get("Effect", "") == "Allow":
             actions = stmt_raw.get("Action", [])
             resources = stmt_raw.get("Resource", [])
             if isinstance(stmt, Node) and actions and resources:
@@ -139,7 +139,7 @@ def negative_statement_iterate_vulnerabilities(
             if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
             else stmt.data
         )
-        if stmt_raw["Effect"] != "Allow":
+        if stmt_raw.get("Effect", "") != "Allow":
             continue
 
         if isinstance(stmt, Node):
@@ -167,7 +167,7 @@ def permissive_policy_iterate_vulnerabilities(
             else stmt.data
         )
         if not (
-            stmt_raw["Effect"] == "Allow"
+            stmt_raw.get("Effect", "") == "Allow"
             and "Principal" not in stmt_raw
             and "Condition" not in stmt_raw
         ):
