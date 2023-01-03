@@ -16,7 +16,6 @@ from dataloaders import (
 )
 from db_model.enums import (
     Source,
-    StateRemovalJustification,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -25,6 +24,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -191,7 +191,7 @@ async def main() -> None:
                         loaders,
                         finding.id,
                         vuln.id,
-                        StateRemovalJustification.DUPLICATED,
+                        VulnerabilityStateJustification.DUPLICATED,
                         "acuberos@fluidattacks.com",
                         True,
                     )

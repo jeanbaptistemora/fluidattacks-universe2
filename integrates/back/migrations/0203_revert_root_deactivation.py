@@ -20,10 +20,8 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.enums import (
-    StateRemovalJustification,
-)
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -96,7 +94,8 @@ async def process_root(loaders: Dataloaders, root_id: str) -> None:
             process_vuln(loaders, vuln)
             for vuln in vulns
             if vuln.state.status == VulnerabilityStateStatus.SAFE
-            and vuln.state.justification == StateRemovalJustification.EXCLUSION
+            and vuln.state.justification
+            == VulnerabilityStateJustification.EXCLUSION
         ),
         workers=100,
     )

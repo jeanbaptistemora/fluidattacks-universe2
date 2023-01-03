@@ -60,6 +60,7 @@ from db_model.roots.types import (
     Root,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -212,7 +213,12 @@ async def remove_finding(
     )
     await remove_all_evidences(finding.id, finding.group_name)
     await comments_domain.remove_comments(finding_id=finding_id)
-    await remove_vulnerabilities(loaders, finding_id, justification, email)
+    await remove_vulnerabilities(
+        loaders,
+        finding_id,
+        VulnerabilityStateJustification[justification.value],
+        email,
+    )
 
     if (
         not email.endswith(authz.FLUID_IDENTIFIER)
@@ -238,7 +244,7 @@ async def remove_finding(
 async def remove_vulnerabilities(
     loaders: Dataloaders,
     finding_id: str,
-    justification: StateRemovalJustification,
+    justification: VulnerabilityStateJustification,
     user_email: str,
 ) -> None:
     vulnerabilities: tuple[

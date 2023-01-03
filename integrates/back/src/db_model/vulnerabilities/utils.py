@@ -1,5 +1,6 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
+    VulnerabilityStateJustification,
     VulnerabilityStateStatus,
     VulnerabilityToolImpact,
     VulnerabilityTreatmentStatus,
@@ -27,7 +28,6 @@ from datetime import (
 )
 from db_model.enums import (
     Source,
-    StateRemovalJustification,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -205,7 +205,7 @@ def format_state(item: Item) -> VulnerabilityState:
     tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
         commit=item.get("commit"),
-        justification=StateRemovalJustification[item["justification"]]
+        justification=VulnerabilityStateJustification[item["justification"]]
         if item.get("justification")
         else None,
         modified_by=item["modified_by"],

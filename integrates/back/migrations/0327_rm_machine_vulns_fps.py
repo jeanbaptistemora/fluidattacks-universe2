@@ -12,8 +12,8 @@ from aioextensions import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.enums import (
-    StateRemovalJustification,
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -83,7 +83,7 @@ async def main() -> None:
                         loaders,
                         finding.id,
                         vuln.id,
-                        StateRemovalJustification.REPORTING_ERROR,
+                        VulnerabilityStateJustification.REPORTING_ERROR,
                         "jecheverri@fluidattacks.com",
                         True,
                     )

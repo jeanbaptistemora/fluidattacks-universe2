@@ -19,6 +19,9 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -94,7 +97,7 @@ async def main() -> None:
                             loaders,
                             finding.id,
                             vuln.id,
-                            StateRemovalJustification.REPORTING_ERROR,
+                            VulnerabilityStateJustification.REPORTING_ERROR,
                             "flagos@fluidattacks.com",
                             True,
                         )

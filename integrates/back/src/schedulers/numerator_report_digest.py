@@ -20,9 +20,6 @@ from datetime import (
     date,
     datetime,
 )
-from db_model.enums import (
-    StateRemovalJustification,
-)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -47,6 +44,7 @@ from db_model.toe_ports.types import (
     ToePortsConnection,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -266,7 +264,7 @@ async def _draft_content(
             elif (
                 draft.state.status == FindingStateStatus.REJECTED
                 and vuln.state.justification
-                != StateRemovalJustification.EXCLUSION
+                != VulnerabilityStateJustification.EXCLUSION
             ):
                 _common_generate_count_report(
                     content=content,

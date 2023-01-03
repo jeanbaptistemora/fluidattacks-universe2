@@ -21,9 +21,6 @@ from db_model import (
     utils as db_model_utils,
     vulnerabilities as vulns_model,
 )
-from db_model.enums import (
-    StateRemovalJustification,
-)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -48,6 +45,7 @@ from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateJustification,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -241,7 +239,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
     vulnerability_id: str,
-    justification: StateRemovalJustification,
+    justification: VulnerabilityStateJustification,
     email: str,
     include_closed_vuln: bool = False,
 ) -> None:
@@ -971,7 +969,7 @@ async def close_by_exclusion(
                 source=vulnerability.state.source,
                 specific=vulnerability.state.specific,
                 status=VulnerabilityStateStatus.SAFE,
-                justification=StateRemovalJustification.EXCLUSION,
+                justification=VulnerabilityStateJustification.EXCLUSION,
                 where=vulnerability.state.where,
             ),
         )
