@@ -22,21 +22,11 @@ from os.path import (
     dirname,
 )
 from sast_symbolic_evaluation.cases import (
-    if_,
-    instanceof_expression,
-    lambda_expression,
-    literal,
-    member_access_expression,
-    method_declaration,
-    method_invocation,
-    method_invocation_chain,
     no_op,
     object_instantiation,
     prefix_expression,
     return_,
     subscript_expression,
-    switch_label,
-    switch_label_case,
     symbol_lookup,
     template_string,
     ternary,
@@ -155,16 +145,6 @@ def eval_method(
 
 
 EVALUATORS: Dict[object, Evaluator] = {
-    g_m.SyntaxStepIf: if_.evaluate,
-    g_m.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
-    g_m.SyntaxStepMemberAccessExpression: (member_access_expression.evaluate),
-    g_m.SyntaxStepMethodDeclaration: method_declaration.evaluate,
-    g_m.SyntaxStepSwitch: switch_label.evaluate,
-    g_m.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
-    g_m.SyntaxStepSwitchLabelDefault: no_op.evaluate,
-    g_m.SyntaxStepLiteral: literal.evaluate,
-    g_m.SyntaxStepMethodInvocation: method_invocation.evaluate,
-    g_m.SyntaxStepMethodInvocationChain: (method_invocation_chain.evaluate),
     g_m.SyntaxStepNoOp: no_op.evaluate,
     g_m.SyntaxStepObjectInstantiation: object_instantiation.evaluate,
     g_m.SyntaxStepPrefixExpression: prefix_expression.evaluate,
@@ -172,7 +152,6 @@ EVALUATORS: Dict[object, Evaluator] = {
     g_m.SyntaxStepSymbolLookup: symbol_lookup.evaluate,
     g_m.SyntaxStepTernary: ternary.evaluate,
     g_m.SyntaxStepThis: no_op.evaluate,
-    g_m.SyntaxStepLambdaExpression: lambda_expression.evaluate,
     g_m.SyntaxStepTemplateString: template_string.evaluate,
     g_m.SyntaxStepSubscriptExpression: subscript_expression.evaluate,
 }
