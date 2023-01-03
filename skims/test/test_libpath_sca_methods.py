@@ -250,7 +250,7 @@ def test_composer_json() -> None:
         file_contents, path
     )
     assertion: bool = True
-    for line_num in range(16, 36):
+    for line_num in range(16, 39):
         if dep_info := patt_dep_info.search(content[line_num]):
             pkg_name: str = dep_info.group("pkg_name")
             version: str = dep_info.group("version")
@@ -287,7 +287,7 @@ def test_composer_json_dev() -> None:
         file_contents, path
     )
     assertion: bool = True
-    for line_num in range(38, 41):
+    for line_num in range(41, 44):
         if dep_info := patt_dep_info.search(content[line_num]):
             pkg_name: str = dep_info.group("pkg_name")
             version: str = dep_info.group("version")
