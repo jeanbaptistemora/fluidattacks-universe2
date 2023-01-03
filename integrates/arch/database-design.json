@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 02, 2023, 09:44 AM",
+    "DateLastModified": "Jan 03, 2023, 02:53 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1045,6 +1045,10 @@
         {
           "AttributeName": "covered_authors",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "other_justification",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -38386,7 +38390,8 @@
             "specific",
             "justification",
             "tool",
-            "snippet"
+            "snippet",
+            "other_justification"
           ],
           "DataAccess": {
             "MySql": {}

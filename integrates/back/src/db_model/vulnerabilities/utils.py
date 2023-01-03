@@ -210,6 +210,7 @@ def format_state(item: Item) -> VulnerabilityState:
         else None,
         modified_by=item["modified_by"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
+        other_justification=item.get("other_justification"),
         source=Source[item["source"]],
         specific=item["specific"],
         status=VulnerabilityStateStatus[
