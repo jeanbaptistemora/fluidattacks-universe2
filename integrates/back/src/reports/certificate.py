@@ -237,7 +237,7 @@ class CertificateCreator(CreatorPdf):
     ) -> None:
         """Create the template to render and apply the context."""
         await self.fill_context(findings, group_name, description, loaders)
-        self.out_name = f"{str(uuid.uuid4())[:6]}.pdf"
+        self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env = jinja2.Environment(

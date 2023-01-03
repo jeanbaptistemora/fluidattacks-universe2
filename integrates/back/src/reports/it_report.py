@@ -95,7 +95,6 @@ from typing import (
     Optional,
     Union,
 )
-import uuid
 
 logging.config.dictConfig(LOGGING)
 
@@ -514,8 +513,12 @@ class ITReport:
         self.row += 1
 
     def save(self) -> None:
-        name = str(uuid.uuid4())
-        self.result_filename = f"{name[:6]}.xlsx"
+        today_date = datetime_utils.get_as_str(
+            datetime_utils.get_now(), date_format="%Y-%m-%dT%H-%M-%S"
+        )
+        self.result_filename = (
+            f"{self.group_name}-vulnerabilities-{today_date}.xlsx"
+        )
         self.workbook.save(self.result_filename)
 
     def set_cvss_metrics_cell(self, row: Finding) -> None:

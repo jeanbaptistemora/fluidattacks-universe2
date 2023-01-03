@@ -776,7 +776,7 @@ class CreatorPdf:
             self.user_email,
             loaders,
         )
-        self.out_name = f"{str(uuid.uuid4())[:6]}.pdf"
+        self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
         template_env: jinja2.Environment = jinja2.Environment(

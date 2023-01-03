@@ -148,7 +148,7 @@ def _get_zip_file(*, source_contents: List[str]) -> str:
 
     # Impossible to predict with this uuid4
     with tempfile.NamedTemporaryFile() as temp_file:
-        target = temp_file.name + f"_{str(uuid4())[:6]}.7z"
+        target = temp_file.name + f"_{uuid4()}.7z"
 
     subprocess.run(  # nosec
         [
