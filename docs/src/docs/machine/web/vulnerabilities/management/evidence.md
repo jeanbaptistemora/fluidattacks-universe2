@@ -12,7 +12,9 @@ existence and exploitation of
 the corresponding type of
 vulnerability.
 We present such evidence in pictures,
-videos or GIFs when we identify
+with ***.png** and **.jpg** extension and
+videos with **WebM** extension
+helping us to understand to identify
 this type of vulnerability for
 the first time in your system.
 This evidence changes each time

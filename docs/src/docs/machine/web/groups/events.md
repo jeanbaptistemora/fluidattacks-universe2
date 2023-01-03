@@ -183,8 +183,10 @@ of components affected.
 ![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1671735482/docs/web/groups/events/description_tab.png)
 
 In **Evidence**,
-you find images,
-videos or GIFs justifying
+you find images with .png and
+.jpg extension and videos
+with the WebM extension,
+helping us to understand
 the reported event.
 
 ![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1671735595/docs/web/groups/events/evidence_view.png)
