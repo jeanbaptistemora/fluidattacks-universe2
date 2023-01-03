@@ -319,6 +319,14 @@
       "title": "080. Business information leak - Customers or providers"
     }
   },
+  "F081": {
+    "EN": {
+      "title": "081. Lack of multi-factor authentication"
+    },
+    "ES": {
+      "title": "081. Lack of multi-factor authentication"
+    }
+  },
   "F082": {
     "EN": {
       "title": "082. Insecurely deleted files"
