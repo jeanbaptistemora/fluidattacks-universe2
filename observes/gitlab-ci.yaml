@@ -1207,28 +1207,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/service/job-last-success/check/arch:
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
-  script:
-    - m . /observes/service/job-last-success/check/arch
-  stage: lint-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /observes/service/job-last-success/check/tests:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

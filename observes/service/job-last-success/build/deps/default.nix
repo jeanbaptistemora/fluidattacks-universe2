@@ -11,9 +11,7 @@
     nixpkgs."${python_version}Packages"
     // {
       types-psycopg2 = import ./psycopg2/stubs.nix lib;
-      import-linter = import ./import-linter {
-        inherit lib python_pkgs;
-      };
+      arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       redshift-client = nixpkgs.redshift-client."${python_version}".pkg;
       utils-logger = nixpkgs.utils-logger."${python_version}".pkg;

@@ -6,6 +6,16 @@ fetchNixpkgs: projectPath: observesIndex: let
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
 
+  arch-lint = let
+    src = builtins.fetchGit {
+      url = "https://gitlab.com/dmurciaatfluid/arch_lint";
+      ref = "refs/tags/v2.3.0";
+    };
+  in
+    import src {
+      inherit src nixpkgs;
+    };
+
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
@@ -43,7 +53,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     };
   };
 
-  extras = {inherit fa-purity redshift-client utils-logger;};
+  extras = {inherit arch-lint fa-purity redshift-client utils-logger;};
   out = import ./. {
     inherit python_version;
     nixpkgs = nixpkgs // extras;
