@@ -17,6 +17,12 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+import functools
+from typing import (
+    Any,
+    Callable,
+    cast,
+)
 
 # Constants
 FLUIDATTACKS_EMAIL_SUFFIX = "@fluidattacks.com"
@@ -49,6 +55,46 @@ def validate_fluidattacks_staff_on_group(
     return True
 
 
+def validate_fluidattacks_staff_on_group_deco(
+    group_field: str, email_field: str, role_field: str
+) -> Callable:
+    """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
+
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            group = cast(Group, kwargs.get(group_field))
+            email = str(kwargs.get(email_field))
+            role = str(kwargs.get(role_field))
+
+            enforcer = get_group_service_attributes_enforcer(group)
+            is_user_at_fluidattacks: bool = email.endswith(
+                FLUIDATTACKS_EMAIL_SUFFIX
+            )
+            user_has_hacker_role: bool = (
+                role in get_group_level_roles_with_tag("drills", email)
+            )
+
+            group_must_only_have_fluidattacks_hackers: bool = enforcer(
+                "must_only_have_fluidattacks_hackers"
+            )
+            if (
+                group_must_only_have_fluidattacks_hackers
+                and user_has_hacker_role
+                and not is_user_at_fluidattacks
+            ):
+                raise UnexpectedUserRole(
+                    "Groups with any active Fluid Attacks service can "
+                    "only have Hackers provided by Fluid Attacks"
+                )
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 async def validate_handle_comment_scope(
     loaders: Dataloaders,
     content: str,
@@ -73,3 +119,28 @@ def validate_role_fluid_reqs(email: str, role: str) -> bool:
     ):
         return True
     raise InvalidUserProvided()
+
+
+def validate_role_fluid_reqs_deco(
+    email_field: str, role_field: str
+) -> Callable:
+    """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
+
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            email = str(kwargs.get(email_field))
+            role = str(kwargs.get(role_field))
+
+            restricted_roles = {"customer_manager"}
+            if role not in restricted_roles or (
+                role in restricted_roles
+                and email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
+            ):
+                res = func(*args, **kwargs)
+                return res
+            raise InvalidUserProvided()
+
+        return decorated
+
+    return wrapper
