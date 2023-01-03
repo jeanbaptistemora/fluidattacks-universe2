@@ -1,6 +1,3 @@
-from datetime import (
-    datetime,
-)
 from db_model.forces.types import (
     ExecutionEdge,
     ExecutionsConnection,
@@ -119,8 +116,8 @@ def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     return must_match_filters
 
 
-def must_range_filter(**kwargs: datetime) -> List[Dict[str, Any]]:
-    must_range_filters = []
+def must_range_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+    must_range_filters: List[Dict[str, Any]] = []
 
     if from_date := kwargs.get("fromDate"):
         must_range_filters.append(
@@ -130,6 +127,15 @@ def must_range_filter(**kwargs: datetime) -> List[Dict[str, Any]]:
     if to_date := kwargs.get("toDate"):
         must_range_filters.append(
             {"execution_date": {"lte": str(to_date.date())}}
+        )
+
+    if status := kwargs.get("status"):
+        must_range_filters.append(
+            {
+                "vulnerabilities.num_of_open_vulnerabilities": {"gt": 0}
+                if status == "vulnerable"
+                else {"lte": 0}
+            }
         )
 
     return must_range_filters
