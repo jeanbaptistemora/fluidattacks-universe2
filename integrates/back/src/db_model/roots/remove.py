@@ -109,8 +109,76 @@ async def _remove_all_environment_urls(
     )
 
 
+async def _remove_root_historic_state(*, root_id: str) -> None:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_state"],
+        values={
+            "uuid": root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    condition_expression = Key(key_structure.partition_key).eq(
+        primary_key.partition_key
+    ) & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+    response = await operations.query(
+        condition_expression=condition_expression,
+        facets=(
+            TABLE.facets["git_root_historic_state"],
+            TABLE.facets["ip_root_historic_state"],
+            TABLE.facets["url_root_historic_state"],
+        ),
+        table=TABLE,
+    )
+    if not response.items:
+        return
+    keys_to_delete = set(
+        PrimaryKey(
+            partition_key=item[TABLE.primary_key.partition_key],
+            sort_key=item[TABLE.primary_key.sort_key],
+        )
+        for item in response.items
+    )
+    await operations.batch_delete_item(
+        keys=tuple(keys_to_delete),
+        table=TABLE,
+    )
+
+
+async def _remove_root_historic_cloning(*, root_id: str) -> None:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_cloning"],
+        values={
+            "uuid": root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    condition_expression = Key(key_structure.partition_key).eq(
+        primary_key.partition_key
+    ) & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+    response = await operations.query(
+        condition_expression=condition_expression,
+        facets=(TABLE.facets["git_root_historic_cloning"],),
+        table=TABLE,
+    )
+    if not response.items:
+        return
+    keys_to_delete = set(
+        PrimaryKey(
+            partition_key=item[TABLE.primary_key.partition_key],
+            sort_key=item[TABLE.primary_key.sort_key],
+        )
+        for item in response.items
+    )
+    await operations.batch_delete_item(
+        keys=tuple(keys_to_delete),
+        table=TABLE,
+    )
+
+
 async def remove(*, root_id: str) -> None:
     await _remove_all_environment_urls(root_id=root_id)
+    await _remove_root_historic_state(root_id=root_id)
+    await _remove_root_historic_cloning(root_id=root_id)
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={
@@ -124,15 +192,10 @@ async def remove(*, root_id: str) -> None:
     response = await operations.query(
         condition_expression=condition_expression,
         facets=(
-            TABLE.facets["git_root_historic_cloning"],
-            TABLE.facets["git_root_historic_state"],
             TABLE.facets["git_root_metadata"],
-            TABLE.facets["ip_root_historic_state"],
             TABLE.facets["ip_root_metadata"],
             TABLE.facets["machine_git_root_execution"],
-            TABLE.facets["root_environment_url"],
             TABLE.facets["root_secret"],
-            TABLE.facets["url_root_historic_state"],
             TABLE.facets["url_root_metadata"],
         ),
         table=TABLE,
