@@ -138,6 +138,8 @@ from group_access import (
 from group_comments import (
     domain as group_comments_domain,
 )
+import logging
+import logging.config
 from mailer import (
     groups as groups_mail,
 )
@@ -169,6 +171,9 @@ from roots import (
 from sessions import (
     domain as sessions_domain,
 )
+from settings import (
+    LOGGING,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -177,6 +182,9 @@ from typing import (
     Awaitable,
     Optional,
 )
+
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 
 
 async def _has_repeated_tags(
@@ -1282,7 +1290,7 @@ async def remove_all_stakeholders(
     )
 
 
-async def remove_all_roots(
+async def _remove_all_roots(
     *,
     loaders: Dataloaders,
     email: str,
@@ -1297,7 +1305,21 @@ async def remove_all_roots(
                 root=root,
             )
             for root in await loaders.group_roots.load(group_name)
-        )
+        ),
+        workers=4,
+    )
+
+
+async def _remove_all_toe(
+    *,
+    group_name: str,
+) -> None:
+    await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
+    await toe_lines_model.remove_group_toe_lines(group_name=group_name)
+    await toe_ports_model.remove_group_toe_ports(group_name=group_name)
+    LOGGER.info(
+        "Group's toe removed",
+        extra={"extra": {"group_name": group_name}},
     )
 
 
@@ -1327,14 +1349,12 @@ async def remove_resources(
     )
     await group_comments_domain.remove_comments(group_name)
     await mask_files(loaders, group_name)
-    await remove_all_roots(
+    await _remove_all_roots(
         loaders=loaders,
         email=email,
         group_name=group_name,
     )
-    await toe_inputs_model.remove_group_toe_inputs(group_name=group_name)
-    await toe_lines_model.remove_group_toe_lines(group_name=group_name)
-    await toe_ports_model.remove_group_toe_ports(group_name=group_name)
+    await _remove_all_toe(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
     await groups_model.remove(group_name=group_name)
 

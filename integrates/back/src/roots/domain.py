@@ -1861,6 +1861,15 @@ async def remove_root(
         email=email,
     )
     await roots_model.remove(root_id=root.id)
+    LOGGER.info(
+        "Root removed",
+        extra={
+            "extra": {
+                "root_id": root.id,
+                "group_name": root.group_name,
+            }
+        },
+    )
 
 
 async def get_unsolved_events_by_root(

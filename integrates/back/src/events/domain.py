@@ -344,6 +344,15 @@ async def remove_event(event_id: str, group_name: str) -> None:
         ]
     )
     await events_model.remove(event_id=event_id)
+    LOGGER.info(
+        "Event removed",
+        extra={
+            "extra": {
+                "event_id": event_id,
+                "group_name": group_name,
+            }
+        },
+    )
 
 
 async def remove_evidence(
