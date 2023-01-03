@@ -14,10 +14,11 @@ from forces.apis.integrates import (
 )
 from forces.utils.env import (
     ENDPOINT,
-    LOCAL_ENDPOINT,
+    guess_environment,
 )
 from forces.utils.logs import (
     blocking_log,
+    log_to_remote,
 )
 from typing import (
     Any,
@@ -51,7 +52,7 @@ async def session(
             # A local integrates uses self-signed certificates,
             # but other than that the certificate should be valid,
             # particularly in production.
-            verify_ssl=(ENDPOINT != LOCAL_ENDPOINT),
+            verify_ssl=(guess_environment() == "production"),
         ),
         headers={
             "authorization": f"Bearer {api_token}",
@@ -82,32 +83,60 @@ async def execute(
             if response.status == 429 and (
                 seconds := response.headers.get("retry-after")
             ):
-                await asyncio.sleep(int(seconds) + 1)
-                raise ApiError(
-                    *[
-                        dict(
-                            status=getattr(response, "status", "unknown"),
-                            reason=getattr(response, "reason", "unknown"),
-                            ok=getattr(response, "ok", False),
-                        )
-                    ]
+                blocking_log(
+                    "warning",
+                    (
+                        "API rate limit reached. Retrying in "
+                        f"{int(seconds) + 1} seconds.."
+                    ),
                 )
+                await log_to_remote(
+                    ApiError(
+                        *[
+                            dict(
+                                status=getattr(response, "status", "unknown"),
+                                reason=getattr(response, "reason", "unknown"),
+                                ok=getattr(response, "ok", False),
+                            )
+                        ]
+                    ),
+                )
+                await asyncio.sleep(int(seconds) + 1)
             result = await response.json()
         except ClientResponseError as client_error:
             if response.status == 429 and (
                 seconds := response.headers.get("retry-after")
             ):
+                blocking_log(
+                    "warning",
+                    (
+                        "API rate limit reached. Retrying in "
+                        f"{int(seconds) + 1} seconds.."
+                    ),
+                )
+                await log_to_remote(
+                    ApiError(
+                        *[
+                            dict(
+                                status=getattr(response, "status", "unknown"),
+                                reason=getattr(response, "reason", "unknown"),
+                                ok=getattr(response, "ok", False),
+                            )
+                        ]
+                    ),
+                )
                 await asyncio.sleep(int(seconds) + 1)
-            raise ApiError(
-                *[
-                    dict(
-                        status=getattr(response, "status", "unknown"),
-                        reason=getattr(response, "reason", "unknown"),
-                        message=getattr(response, "reason", "unknown"),
-                        ok=getattr(response, "ok", False),
-                    )
-                ]
-            ) from client_error
+            else:
+                raise ApiError(
+                    *[
+                        dict(
+                            status=getattr(response, "status", "unknown"),
+                            reason=getattr(response, "reason", "unknown"),
+                            message=getattr(response, "reason", "unknown"),
+                            ok=getattr(response, "ok", False),
+                        )
+                    ]
+                ) from client_error
         if "errors" in result.keys():
             raise ApiError(*result["errors"])
 
