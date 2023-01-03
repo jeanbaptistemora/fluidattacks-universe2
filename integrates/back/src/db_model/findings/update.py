@@ -3,18 +3,6 @@ from .enums import (
     FindingEvidenceName,
     FindingStateStatus,
 )
-from .types import (
-    Finding20Severity,
-    Finding31Severity,
-    FindingEvidence,
-    FindingEvidences,
-    FindingEvidenceToUpdate,
-    FindingMetadataToUpdate,
-    FindingState,
-    FindingUnreliableIndicators,
-    FindingUnreliableIndicatorsToUpdate,
-    FindingVerification,
-)
 from .utils import (
     format_evidence_item,
     format_evidences_item,
@@ -22,10 +10,14 @@ from .utils import (
     format_unreliable_indicators_item,
     format_unreliable_indicators_to_update_item,
     format_verification_item,
+    get_finding_current_state_converted,
 )
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
+)
+from contextlib import (
+    suppress,
 )
 from custom_exceptions import (
     EmptyHistoric,
@@ -38,6 +30,18 @@ from db_model import (
 )
 from db_model.findings.constants import (
     ME_DRAFTS_INDEX_METADATA,
+)
+from db_model.findings.types import (
+    Finding20Severity,
+    Finding31Severity,
+    FindingEvidence,
+    FindingEvidences,
+    FindingEvidenceToUpdate,
+    FindingMetadataToUpdate,
+    FindingState,
+    FindingUnreliableIndicators,
+    FindingUnreliableIndicatorsToUpdate,
+    FindingVerification,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -350,9 +354,25 @@ async def update_unreliable_indicators(
         )
         for indicator_name in unreliable_indicators_item
     )
+    alt_conditions = (
+        (
+            Attr(indicator_name).not_exists()
+            | Attr(indicator_name).eq(
+                get_finding_current_state_converted(
+                    current_value_item[indicator_name]
+                )
+                if indicator_name == "unreliable_indicators.unreliable_status"
+                else current_value_item[indicator_name]
+            )
+        )
+        for indicator_name in unreliable_indicators_item
+    )
     condition_expression = Attr(key_structure.partition_key).exists()
+    alt_condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
         condition_expression &= condition
+    for condition in alt_conditions:
+        alt_condition_expression &= condition
     try:
         await operations.update_item(
             condition_expression=condition_expression,
@@ -361,6 +381,15 @@ async def update_unreliable_indicators(
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
+        with suppress(ConditionalCheckFailedException):
+            await operations.update_item(
+                condition_expression=alt_condition_expression,
+                item=unreliable_indicators_item,
+                key=metadata_key,
+                table=TABLE,
+            )
+            return
+
         raise IndicatorAlreadyUpdated() from ex
 
 

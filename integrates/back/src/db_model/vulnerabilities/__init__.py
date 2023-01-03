@@ -13,9 +13,13 @@ from .update import (
     update_treatment,
     update_unreliable_indicators,
 )
+from .utils import (
+    get_inverted_state_converted,
+)
 
 __all__ = [
     "add",
+    "get_inverted_state_converted",
     "remove",
     "update_assigned_index",
     "update_event_index",

@@ -320,9 +320,17 @@ async def test_get_me_assigned(
     }
     assert len(result["data"]["me"]["findingReattacks"]) == 2
     assert result["data"]["me"]["findingReattacks"][0]["id"] == "475041521"
+    assert result["data"]["me"]["findingReattacks"][0]["state"] == "open"
+    assert (
+        result["data"]["me"]["findingReattacks"][0]["status"] == "VULNERABLE"
+    )
     assert (
         result["data"]["me"]["findingReattacks"][1]["id"]
         == "3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+    assert result["data"]["me"]["findingReattacks"][1]["state"] == "open"
+    assert (
+        result["data"]["me"]["findingReattacks"][1]["status"] == "VULNERABLE"
     )
     assert result["data"]["me"]["findingReattacks"][0]["groupName"] == "group1"
     assert result["data"]["me"]["findingReattacks"][1]["groupName"] == "group1"

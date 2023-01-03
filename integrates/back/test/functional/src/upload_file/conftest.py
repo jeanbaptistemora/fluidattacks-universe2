@@ -281,7 +281,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_oldest_vulnerability_report_date=(
                         datetime.fromisoformat("2018-04-08T00:43:11+00:00")
                     ),
-                    unreliable_status=FindingStatus.OPEN,
+                    unreliable_status=FindingStatus.VULNERABLE,
                     unreliable_where=(
                         "192.168.1.44, 192.168.1.45, 192.168.1.46"
                     ),

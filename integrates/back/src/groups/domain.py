@@ -996,7 +996,7 @@ async def get_open_findings(loaders: Dataloaders, group_name: str) -> int:
         ),
         workers=32,
     )
-    return finding_status.count("open")
+    return finding_status.count("VULNERABLE")
 
 
 async def get_open_vulnerabilities(

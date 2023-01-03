@@ -48,8 +48,8 @@ class FindingStateStatus(str, Enum):
 
 
 class FindingStatus(str, Enum):
-    CLOSED: str = "CLOSED"
-    OPEN: str = "OPEN"
+    SAFE: str = "SAFE"
+    VULNERABLE: str = "VULNERABLE"
 
 
 class FindingVerificationStatus(str, Enum):

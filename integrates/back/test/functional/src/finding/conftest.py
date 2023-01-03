@@ -219,7 +219,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_oldest_vulnerability_report_date=(
                         datetime.fromisoformat("2018-04-01T05:45:00+00:00")
                     ),
-                    unreliable_status=FindingStatus.OPEN,
+                    unreliable_status=FindingStatus.VULNERABLE,
                     unreliable_treatment_summary=FindingTreatmentSummary(
                         accepted=1,
                         accepted_undefined=2,

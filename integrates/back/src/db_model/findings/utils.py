@@ -6,7 +6,14 @@ from .enums import (
     FindingStatus,
     FindingVerificationStatus,
 )
-from .types import (
+from datetime import (
+    datetime,
+)
+from db_model.enums import (
+    Source,
+    StateRemovalJustification,
+)
+from db_model.findings.types import (
     DraftRejection,
     Finding,
     Finding20Severity,
@@ -19,13 +26,6 @@ from .types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
     FindingVerificationSummary,
-)
-from datetime import (
-    datetime,
-)
-from db_model.enums import (
-    Source,
-    StateRemovalJustification,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -40,6 +40,26 @@ from typing import (
     Optional,
     Union,
 )
+
+
+def get_finding_current_state_converted(state: str) -> str:
+    if state in {"SAFE", "VULNERABLE"}:
+        translation: dict[str, str] = {
+            "SAFE": "CLOSED",
+            "VULNERABLE": "OPEN",
+        }
+        return translation[state]
+    return state
+
+
+def get_finding_inverted_state_converted(state: str) -> str:
+    if state in {"CLOSED", "OPEN"}:
+        translation: dict[str, str] = {
+            "CLOSED": "SAFE",
+            "OPEN": "VULNERABLE",
+        }
+        return translation[state]
+    return state
 
 
 def filter_non_state_status_findings(
@@ -348,7 +368,11 @@ def format_unreliable_indicators(
         unreliable_open_vulnerabilities=int(
             indicators_item["unreliable_open_vulnerabilities"]
         ),
-        unreliable_status=FindingStatus[indicators_item["unreliable_status"]],
+        unreliable_status=FindingStatus[
+            get_finding_inverted_state_converted(
+                str(indicators_item["unreliable_status"]).upper()
+            )
+        ],
         unreliable_where=indicators_item["unreliable_where"],
         unreliable_treatment_summary=format_treatment_summary(
             indicators_item["unreliable_treatment_summary"]

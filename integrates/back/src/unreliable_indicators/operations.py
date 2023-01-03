@@ -146,7 +146,9 @@ def _format_unreliable_status(
 ) -> Optional[FindingStatus]:
     unreliable_status = None
     if status:
-        unreliable_status = FindingStatus[status.upper()]
+        unreliable_status = FindingStatus[
+            vulns_model.get_inverted_state_converted(status.upper())
+        ]
     return unreliable_status
 
 

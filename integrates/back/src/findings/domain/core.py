@@ -429,7 +429,7 @@ async def get_status(loaders: Dataloaders, finding_id: str) -> str:
     open_vulns: tuple[Vulnerability, ...] = vulns_utils.filter_open_vulns(
         vulns
     )
-    return "open" if open_vulns else "closed"
+    return "VULNERABLE" if open_vulns else "SAFE"
 
 
 def get_tracking_vulnerabilities(

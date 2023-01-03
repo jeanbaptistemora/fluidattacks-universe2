@@ -813,7 +813,7 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                     "2019-01-15T15:43:39+00:00"
                 ),
                 unreliable_open_vulnerabilities=1,
-                unreliable_status=FindingStatus.OPEN,
+                unreliable_status=FindingStatus.VULNERABLE,
                 unreliable_treatment_summary=FindingTreatmentSummary(
                     accepted=1, accepted_undefined=0, in_progress=0, new=0
                 ),
@@ -989,7 +989,7 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                     "2020-01-03T17:46:10+00:00"
                 ),
                 unreliable_open_vulnerabilities=1,
-                unreliable_status=FindingStatus.OPEN,
+                unreliable_status=FindingStatus.VULNERABLE,
                 unreliable_treatment_summary=FindingTreatmentSummary(
                     accepted=0, accepted_undefined=0, in_progress=1, new=0
                 ),

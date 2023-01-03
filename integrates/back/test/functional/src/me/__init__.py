@@ -102,6 +102,8 @@ async def get_vulnerabilities(
                 findingReattacks {
                     groupName
                     id
+                    state
+                    status
                     verificationSummary {
                         requested
                     }
