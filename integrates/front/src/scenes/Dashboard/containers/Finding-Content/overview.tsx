@@ -1,105 +1,55 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
-import { InfoDropdown } from "components/InfoDropdown";
+import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
-import { OverviewCard } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/Overview/Card";
 
-interface IOrganizationGroupOverviewProps {
-  coveredAuthors: number;
-  coveredRepositories: number;
-  missedAuthors: number;
-  missedRepositories: number;
-  organizationName: string;
+interface IFindingOverviewProps {
+  discoveryDate: string;
+  estRemediationTime: string;
+  openVulns: number;
+  severity: number;
+  status: string;
 }
 
-const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
-  coveredAuthors,
-  coveredRepositories,
-  missedAuthors,
-  missedRepositories,
-  organizationName,
-}: IOrganizationGroupOverviewProps): JSX.Element => {
-  const { t } = useTranslation();
+const OrganizationGroupOverview: React.FC<IFindingOverviewProps> = ({
+  discoveryDate,
+  estRemediationTime,
+  openVulns,
+  severity,
+  status,
+}: IFindingOverviewProps): JSX.Element => {
+  // Const { t } = useTranslation();
 
   return (
     <React.StrictMode>
       <Row>
-        <Text fw={7} mb={3} mt={2} size={"big"}>
-          {t("organization.tabs.groups.overview.title.text")}{" "}
-          <InfoDropdown>
-            <Text size={"small"} ta={"center"}>
-              {t("organization.tabs.groups.overview.title.info", {
-                organizationName,
-              })}
-            </Text>
-          </InfoDropdown>
-        </Text>
         <Row>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
-              <OverviewCard
-                content={t(
-                  "organization.tabs.groups.overview.coveredAuthors.content",
-                  { coveredAuthors }
-                )}
-                info={t(
-                  "organization.tabs.groups.overview.coveredAuthors.info"
-                )}
-                title={t(
-                  "organization.tabs.groups.overview.coveredAuthors.title"
-                )}
-              />
-            </Link>
+            <Card title={"Remediate this vulnerability"}>
+              <Text>{"placeholder 20% vuln (CVSSF)"}</Text>
+            </Card>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
-              <OverviewCard
-                content={t(
-                  "organization.tabs.groups.overview.coveredRepositories.content",
-                  { coveredRepositories }
-                )}
-                info={t(
-                  "organization.tabs.groups.overview.coveredRepositories.info"
-                )}
-                title={t(
-                  "organization.tabs.groups.overview.coveredRepositories.title"
-                )}
-              />
-            </Link>
+            <Card title={`${status} ${severity}`}>
+              <Text>{"status and severity"}</Text>
+            </Card>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
-              <OverviewCard
-                content={t(
-                  "organization.tabs.groups.overview.missedAuthors.content",
-                  { missedAuthors }
-                )}
-                info={t("organization.tabs.groups.overview.missedAuthors.info")}
-                title={t(
-                  "organization.tabs.groups.overview.missedAuthors.title"
-                )}
-              />
-            </Link>
+            <Card title={`${openVulns}`}>
+              <Text>{"status and severity"}</Text>
+            </Card>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
-              <OverviewCard
-                content={t(
-                  "organization.tabs.groups.overview.missedRepositories.content",
-                  { missedRepositories }
-                )}
-                info={t(
-                  "organization.tabs.groups.overview.missedRepositories.info"
-                )}
-                title={t(
-                  "organization.tabs.groups.overview.missedRepositories.title"
-                )}
-              />
-            </Link>
+            <Card title={discoveryDate}>
+              <Text>{"First Reported"}</Text>
+            </Card>
+          </Col>
+          <Col lg={25} md={50} sm={100}>
+            <Card title={estRemediationTime}>
+              <Text>{"Remediation time"}</Text>
+            </Card>
           </Col>
         </Row>
       </Row>
