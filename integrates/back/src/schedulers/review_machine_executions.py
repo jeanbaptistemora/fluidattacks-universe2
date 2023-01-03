@@ -120,13 +120,13 @@ async def main() -> None:
             [
                 put_action_to_batch(
                     action_name=Action.EXECUTE_MACHINE.value,
-                    vcpus=8,
-                    queue=SkimsBatchQueue.LARGE,
+                    vcpus=4,
+                    queue=SkimsBatchQueue.MEDIUM,
                     entity=action.entity,
                     attempt_duration_seconds=86400,
                     action_dynamo_pk=action.key,
                     product_name=Product.SKIMS.value,
-                    memory=15400,
+                    memory=8192,
                 )
                 for action in actions_dict.values()
             ]

@@ -242,7 +242,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
     group_name: str,
     dataloaders: Dataloaders,
     finding_codes: Union[Tuple[str, ...], List[str]],
-    queue: SkimsBatchQueue = SkimsBatchQueue.MEDIUM,
+    queue: SkimsBatchQueue = SkimsBatchQueue.SMALL,
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
     clone_before: bool = False,
     **kwargs: Any,
@@ -295,7 +295,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
 
             queue_result = await put_action(
                 action=Action.EXECUTE_MACHINE,
-                vcpus=4,
+                vcpus=2,
                 product_name=Product.SKIMS,
                 queue=queue,
                 entity=group_name,
@@ -307,7 +307,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
                 ),
                 attempt_duration_seconds=43200,
                 subject="integrates@fluidattacks.com",
-                memory=7200,
+                memory=4026,
                 **kwargs,
             )
 
