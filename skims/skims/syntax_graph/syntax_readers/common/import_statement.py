@@ -29,6 +29,16 @@ def import_label_text(args: SyntaxGraphArgs) -> str:
     return import_text
 
 
+def get_namespace_import(graph: Graph, n_id: NId) -> Dict[str, str]:
+    named_attrs: Dict[str, str] = {}
+    if (identifier_n_id := g.match_ast_d(graph, n_id, "identifier")) and (
+        identifier := graph.nodes[identifier_n_id].get("label_text")
+    ):
+        named_attrs.update({"identifier": identifier})
+
+    return named_attrs
+
+
 def get_named_imports_attrs(graph: Graph, n_id: NId) -> Dict[str, str]:
     named_attrs: Dict[str, str] = {}
     for specifier_n_id in g.match_ast_group_d(graph, n_id, "import_specifier"):
@@ -50,6 +60,12 @@ def js_ts_reader(args: SyntaxGraphArgs) -> NId:
         "expression": import_label_text(args),
     }
     if import_clause_n_id := g.match_ast_d(graph, args.n_id, "import_clause"):
+        if namespace_import_n_id := g.match_ast_d(
+            graph, import_clause_n_id, "namespace_import"
+        ):
+            node_attrs.update(
+                get_namespace_import(graph, namespace_import_n_id)
+            )
         if named_imports_n_id := g.match_ast_d(
             graph, import_clause_n_id, "named_imports"
         ):
@@ -61,7 +77,6 @@ def js_ts_reader(args: SyntaxGraphArgs) -> NId:
                 graph, import_clause_n_id, "identifier"
             )
         ) and (identifier := graph.nodes[identifier_n_id].get("label_text")):
-
             node_attrs.update({"identifier": identifier})
 
     return build_import_statement_node(args, node_attrs)
