@@ -487,11 +487,6 @@ async def remove_group(
             ]
         )
 
-    await remove_all_stakeholders(
-        loaders=loaders,
-        group_name=group_name,
-        modified_by=email,
-    )
     await groups_model.update_state(
         group_name=group_name,
         organization_id=group.organization_id,
@@ -1332,6 +1327,11 @@ async def remove_resources(
     group_name: str,
     email: str,
 ) -> None:
+    await remove_all_stakeholders(
+        loaders=loaders,
+        group_name=group_name,
+        modified_by=email,
+    )
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
@@ -1405,6 +1405,15 @@ async def remove_stakeholder(
         await orgs_domain.remove_access(
             organization_id, email_to_revoke, modified_by
         )
+    LOGGER.info(
+        "Stakeholder removed from group",
+        extra={
+            "extra": {
+                "email": email_to_revoke,
+                "group_name": group_name,
+            }
+        },
+    )
 
     loaders = get_new_context()
     stakeholder_groups_names = await get_groups_by_stakeholder(

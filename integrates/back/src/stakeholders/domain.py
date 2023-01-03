@@ -50,6 +50,8 @@ from db_model.vulnerabilities.types import (
 from group_access import (
     domain as group_access_domain,
 )
+import logging
+import logging.config
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
@@ -62,6 +64,9 @@ from newutils.validations import (
 from sessions import (
     domain as sessions_domain,
     utils as sessions_utils,
+)
+from settings import (
+    LOGGING,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -79,6 +84,9 @@ from verify import (
 from verify.enums import (
     Channel,
 )
+
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 
 
 async def acknowledge_concurrent_session(email: str) -> None:
@@ -121,6 +129,10 @@ async def remove(email: str) -> None:
     )
 
     await stakeholders_model.remove(email=email)
+    LOGGER.info(
+        "Stakeholder removed from db",
+        extra={"extra": {"email": email}},
+    )
 
 
 async def update_information(

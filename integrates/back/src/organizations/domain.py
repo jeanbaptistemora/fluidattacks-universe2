@@ -110,6 +110,8 @@ from group_access import (
 from jwcrypto.jwt import (
     JWTExpired,
 )
+import logging
+import logging.config
 from mailer import (
     groups as groups_mail,
 )
@@ -143,6 +145,9 @@ import re
 from sessions import (
     domain as sessions_domain,
 )
+from settings import (
+    LOGGING,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -155,9 +160,12 @@ from typing import (
 )
 import uuid
 
+logging.config.dictConfig(LOGGING)
+
 # Constants
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
+LOGGER = logging.getLogger(__name__)
 
 
 async def add_credentials(
@@ -691,6 +699,15 @@ async def remove_access(
         )
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
+    LOGGER.info(
+        "Stakeholder removed from organization",
+        extra={
+            "extra": {
+                "email": email,
+                "organization_id": organization_id,
+            }
+        },
+    )
 
     loaders = get_new_context()
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
