@@ -47,48 +47,6 @@ def _any_to_list(_input):
     return res
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def has_mfa_disabled(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Search users with password enabled and without MFA.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    users = aws.credentials_report(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        retry=retry,
-    )
-
-    msg_open: str = "Users have password enabled with MFA"
-    msg_closed: str = "Users do not have password enabled or MFA"
-
-    vulns, safes = [], []
-
-    for user in users:
-        user_arn = user["arn"]
-        user_has_mfa: bool = user["mfa_active"] == "false"
-        user_has_pass: bool = user["password_enabled"] == "true"
-
-        (vulns if user_has_pass and not user_has_mfa else safes).append(
-            (user_arn, "Must have MFA")
-        )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="users",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def have_old_creds_enabled(
