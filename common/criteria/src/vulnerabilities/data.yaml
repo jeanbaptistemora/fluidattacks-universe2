@@ -8812,6 +8812,23 @@
         }
       }
       ```
+      C-sharp code example
+      ```c
+      public class LogInjectionController : Controller
+      {
+        public void LogSomething(HttpRequest id)
+        {
+          //insecure
+          var logger = new DBLogger();
+          logger.Log(id);
+
+          //secure
+          private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+          id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+          sec_log.Info(id_safe);
+        }
+      }
+      ```
     compliant: |
       System logs should use correctly sanitized input.
       Java code example
@@ -8821,6 +8838,19 @@
           String param2 = req.getParameter("param2");
           param2 = param2.replaceAll("[\n\r\t]", "_"); //Sanitize parameter
           logger.info("Param1: " + param2); //Safe
+        }
+      }
+      ```
+      C-sharp code example
+      ```c
+      public class LogInjectionController : Controller
+      {
+        public void LogSomething(HttpRequest id)
+        {
+          //secure
+          private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+          id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+          sec_log.Info(id_safe);
         }
       }
       ```
