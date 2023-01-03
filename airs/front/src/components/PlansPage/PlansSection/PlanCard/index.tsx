@@ -52,7 +52,11 @@ const PlanCard: React.FC<IPlansCard> = ({
           </Title>
         </CardTitleContainer>
         <CardItemsContainer>
-          <Paragraph fColor={"#5c5c70"} fSize={"20"}>
+          <Paragraph
+            fColor={"#5c5c70"}
+            fSize={"20"}
+            marginBottom={isMachine ? "1.3" : "0"}
+          >
             {description}
           </Paragraph>
           {isMachine ? (
