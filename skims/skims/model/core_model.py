@@ -2276,6 +2276,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_HAS_MFA_DISABLED = MethodInfo(
+        file_name="aws",
+        name="has_mfa_disabled",
+        module="dast",
+        finding=FindingEnum.F081,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_UNENCRYPTED_BUCKETS = MethodInfo(
         file_name="aws",
         name="unencrypted_buckets",
