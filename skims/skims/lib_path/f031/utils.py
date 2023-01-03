@@ -45,7 +45,11 @@ def bucket_policy_allows_public_access_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
+            else stmt.data
+        )
         effect = stmt_raw.get("Effect", "")
         principal = stmt_raw.get("Principal", "")
         actions = stmt_raw.get("Action", [])
@@ -87,7 +91,11 @@ def open_passrole_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
+            else stmt.data
+        )
         if stmt_raw["Effect"] == "Allow":
             actions = stmt_raw.get("Action", [])
             resources = stmt_raw.get("Resource", [])
@@ -126,7 +134,11 @@ def negative_statement_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
+            else stmt.data
+        )
         if stmt_raw["Effect"] != "Allow":
             continue
 
@@ -149,7 +161,11 @@ def permissive_policy_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
+            else stmt.data
+        )
         if not (
             stmt_raw["Effect"] == "Allow"
             and "Principal" not in stmt_raw
