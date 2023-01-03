@@ -2484,6 +2484,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_NOT_REQUIRES_UPPERCASE = MethodInfo(
+        file_name="aws",
+        name="not_requires_uppercase",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_KMS_IS_KEY_ROTATION_DISABLED = MethodInfo(
         file_name="aws",
         name="kms_key_is_key_rotation_absent_or_disabled",
