@@ -20,6 +20,9 @@ from db_model import (
 from db_model.credentials.oauth import (
     OAUTH as ROAUTH,
 )
+from db_model.credentials.oauth.bitbucket import (
+    get_bitbucket_refresh_token,
+)
 from db_model.credentials.oauth.github import (
     get_access_token,
 )
@@ -29,6 +32,7 @@ from db_model.credentials.oauth.gitlab import (
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -207,6 +211,85 @@ async def oauth_github(request: Request) -> RedirectResponse:
             name=name,
             secret=OauthGithubSecret(
                 access_token=token,
+            ),
+            type=CredentialType.OAUTH,
+            is_pat=False,
+            azure_organization=None,
+        ),
+    )
+
+    await collect(
+        (
+            validate_credentials_name_in_organization(
+                loaders, credential.organization_id, credential.state.name
+            ),
+            validate_credentials_oauth(
+                loaders, credential.organization_id, credential.owner
+            ),
+        )
+    )
+    await credentials_model.add(credential=credential)
+    response = RedirectResponse(url="/home")
+
+    return response
+
+
+async def do_bitbucket_oauth(request: Request) -> Response:
+    organization_id: str = request.query_params["subject"]
+    user_info = await get_jwt_content(request)
+    email: str = user_info["user_email"]
+    if not await has_access(
+        loaders=get_new_context(),
+        email=email,
+        organization_id=organization_id,
+    ):
+        raise PermissionError("Access denied")
+
+    redirect_uri = get_redirect_url(request, "oauth_bitbucket")
+    params = {"subject": organization_id}
+    url = f"{redirect_uri}?{urlencode(params)}"
+    bitbucket = ROAUTH.create_client("bitbucket_repository")
+
+    return await bitbucket.authorize_redirect(request, url)
+
+
+async def oauth_bitbucket(request: Request) -> RedirectResponse:
+    try:
+        user_info = await get_jwt_content(request)
+        email: str = user_info["user_email"]
+        organization_id: str = request.query_params["subject"]
+        code: str = request.query_params["code"]
+        if not await has_access(
+            loaders=get_new_context(),
+            email=email,
+            organization_id=organization_id,
+        ):
+            raise PermissionError("Access denied")
+        redirect = get_redirect_url(request, "oauth_bitbucket")
+        token: Optional[str] = await get_bitbucket_refresh_token(
+            code=code,
+            subject=organization_id,
+            redirect_uri=redirect,
+        )
+        if not token:
+            raise OAuthError()
+    except (ConnectTimeout, MismatchingStateError, OAuthError) as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        response = RedirectResponse(url="/home")
+        return response
+
+    loaders: Dataloaders = get_new_context()
+    name = f'BitBucket OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    credential = Credentials(
+        id=(str(uuid.uuid4())),
+        organization_id=organization_id,
+        owner=user_info["user_email"],
+        state=CredentialsState(
+            modified_by=user_info["user_email"],
+            modified_date=get_utc_now(),
+            name=name,
+            secret=OauthBitbucketSecret(
+                brefresh_token=token,
             ),
             type=CredentialType.OAUTH,
             is_pat=False,
