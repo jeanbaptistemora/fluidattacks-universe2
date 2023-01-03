@@ -3,6 +3,13 @@
 
 resource "aws_s3_bucket" "main" {
   bucket = var.domain
+
+  tags = {
+    "Name"               = var.domain
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
 }
 
 resource "aws_s3_bucket_acl" "main" {
