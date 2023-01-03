@@ -12,6 +12,7 @@ import { GET_FINDING_HEADER } from "../../queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import {
   getRequestedZeroRiskVulns,
+  getSubmittedVulns,
   getVulnsPendingOfAcceptance,
 } from "../utils";
 import type {
@@ -30,7 +31,8 @@ const onTreatmentChangeHelper = (
   isAcceptedUndefinedSelected: boolean,
   vulns: IVulnerabilitiesAttr[],
   setAcceptanceVulns: (pendingVulnsToHandleAcceptance: IVulnDataAttr[]) => void,
-  isConfirmRejectZeroRiskSelected: boolean
+  isConfirmRejectZeroRiskSelected: boolean,
+  isOpenRejectLocationSelected: boolean
 ): void => {
   if (isAcceptedUndefinedSelected) {
     const pendingVulnsToHandleAcceptance: IVulnDataAttr[] =
@@ -40,6 +42,9 @@ const onTreatmentChangeHelper = (
     const requestedZeroRiskVulns: IVulnDataAttr[] =
       getRequestedZeroRiskVulns(vulns);
     setAcceptanceVulns([...requestedZeroRiskVulns]);
+  } else if (isOpenRejectLocationSelected) {
+    const submittedVulns: IVulnDataAttr[] = getSubmittedVulns(vulns);
+    setAcceptanceVulns([...submittedVulns]);
   } else {
     setAcceptanceVulns([]);
   }
