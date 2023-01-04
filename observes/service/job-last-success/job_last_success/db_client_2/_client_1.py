@@ -10,6 +10,7 @@ from datetime import (
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     FrozenList,
     Result,
     ResultE,
@@ -70,16 +71,24 @@ def _assert_bool(raw: RowData) -> ResultE[bool]:
 class _Client1:
     _sql: SqlClient
     _schema: str
+    _table: str
+    _name_column: str
+
+    @property
+    def _common_identifiers(self) -> FrozenDict[str, str]:
+        identifiers = {
+            "schema": self._schema,
+            "table": self._table,
+            "name_column": self._name_column,
+        }
+        return freeze(identifiers)
 
     def get_job(self, job_name: str) -> Cmd[JobLastSuccess]:
         statement = """
-            SELECT job_name, sync_date FROM {schema}.last_sync_jobs
-            WHERE job_name=%(job_name)s
+            SELECT {name_column}, sync_date FROM {schema}.{table}
+            WHERE {name_column}=%(job_name)s
         """
-        identifiers = {
-            "schema": self._schema,
-        }
-        query = Query.dynamic_query(statement, freeze(identifiers))
+        query = Query.dynamic_query(statement, self._common_identifiers)
         args: Dict[str, PrimitiveVal] = {
             "job_name": job_name,
         }
@@ -92,14 +101,11 @@ class _Client1:
     def job_exist(self, job_name: str) -> Cmd[bool]:
         statement = """
             SELECT EXISTS (
-                SELECT 1 FROM {schema}.last_sync_jobs
-                WHERE job_name=%(job_name)s
+                SELECT 1 FROM {schema}.{table}
+                WHERE {name_column}=%(job_name)s
             )
         """
-        identifiers = {
-            "schema": self._schema,
-        }
-        query = Query.dynamic_query(statement, freeze(identifiers))
+        query = Query.dynamic_query(statement, self._common_identifiers)
         args: Dict[str, PrimitiveVal] = {
             "job_name": job_name,
         }
@@ -111,14 +117,11 @@ class _Client1:
 
     def _new_timestamp_job(self, job_name: str) -> Cmd[None]:
         statement = """
-            INSERT INTO {schema}.last_sync_jobs
-            (job_name, sync_date) VALUES
+            INSERT INTO {schema}.{table}
+            ({name_column}, sync_date) VALUES
             (%(job_name)s, getdate())
         """
-        identifiers = {
-            "schema": self._schema,
-        }
-        query = Query.dynamic_query(statement, freeze(identifiers))
+        query = Query.dynamic_query(statement, self._common_identifiers)
         args: Dict[str, PrimitiveVal] = {
             "job_name": job_name,
         }
@@ -126,13 +129,10 @@ class _Client1:
 
     def _update_job(self, job_name: str) -> Cmd[None]:
         statement = """
-            UPDATE {schema}.last_sync_jobs
-            set sync_date=getdate() WHERE job_name=%(job_name)s
+            UPDATE {schema}.{table}
+            set sync_date=getdate() WHERE {name_column}=%(job_name)s
         """
-        identifiers = {
-            "schema": self._schema,
-        }
-        query = Query.dynamic_query(statement, freeze(identifiers))
+        query = Query.dynamic_query(statement, self._common_identifiers)
         args: Dict[str, PrimitiveVal] = {
             "job_name": job_name,
         }
@@ -146,6 +146,14 @@ class _Client1:
         )
 
 
-def new_client(_sql: SqlClient, _schema: str) -> Client:
-    client = _Client1(_sql, _schema)
+SCHEMA = "repos-s3-sync"
+
+
+def new_job_client(_sql: SqlClient) -> Client:
+    client = _Client1(_sql, SCHEMA, "last_sync_jobs", "job_name")
+    return Client.new(client.get_job, client.upsert)
+
+
+def new_compound_job_client(_sql: SqlClient, table: str) -> Client:
+    client = _Client1(_sql, SCHEMA, table, "group_name")
     return Client.new(client.get_job, client.upsert)
