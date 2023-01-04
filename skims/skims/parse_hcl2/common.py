@@ -61,13 +61,10 @@ def iterate_resources(
                 expected_source,
                 *expected_kinds,
             )
-    elif (
-        isinstance(  # pylint: disable=too-many-boolean-expressions
-            model, Block
-        )
-        and (
-            len(model.namespace) == 1 and model.namespace[0] == expected_source
-        )
+    elif (  # pylint: disable=too-many-boolean-expressions
+        isinstance(model, Block) and hasattr(model, "namespace")
+    ) and (
+        (len(model.namespace) == 1 and model.namespace[0] == expected_source)
         or (
             len(model.namespace) == 3
             and model.namespace[0] == expected_source
