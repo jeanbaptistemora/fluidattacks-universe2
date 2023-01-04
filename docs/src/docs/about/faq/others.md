@@ -35,7 +35,7 @@ communication takes place
 between developers and hackers
 on a day-to-day basis
 via ARM.
-In [One-Shot Hacking](https://fluidattacks.com/services/one-shot-hacking/),
+In One-Shot Hacking,
 communication is handled
 through the project manager (PM)
 as a single point of contact (SPOC).
