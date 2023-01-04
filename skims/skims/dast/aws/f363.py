@@ -117,6 +117,38 @@ async def not_requires_symbols(
     return vulns
 
 
+async def not_requires_numbers(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_password_policy"
+    )
+    user = await run_boto3_fun(credentials, service="iam", function="get_user")
+    vulns: core_model.Vulnerabilities = ()
+    password_policy = response.get("PasswordPolicy", [])
+    if not password_policy["RequireNumbers"]:
+        locations = [
+            Location(
+                access_patterns=("/RequireNumbers",),
+                arn=(f"{user['User']['Arn']}"),
+                values=(password_policy["RequireNumbers"],),
+                description=("src.lib_path.f363.not_requires_numbers"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_IAM_NOT_REQUIRES_NUMBERS),
+                aws_response=password_policy,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -124,4 +156,5 @@ CHECKS: Tuple[
     not_requires_uppercase,
     not_requires_lowercase,
     not_requires_symbols,
+    not_requires_numbers,
 )
