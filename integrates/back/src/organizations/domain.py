@@ -5,7 +5,6 @@ from aioextensions import (
 )
 import authz
 from authz.validations import (
-    validate_role_fluid_reqs,
     validate_role_fluid_reqs_deco,
 )
 import bugsnag
@@ -880,12 +879,37 @@ async def update_invited_stakeholder(
     organization_id: str,
     role: str,
 ) -> None:
-    if validate_role_fluid_reqs(email, role):
-        invitation = invitation._replace(role=role)
-        await update_organization_access(
+    invitation = invitation._replace(role=role)
+    await update_organization_access(
+        organization_id,
+        email,
+        OrganizationAccessMetadataToUpdate(invitation=invitation),
+    )
+
+
+@validate_role_fluid_reqs_deco("user_email", "new_role")
+async def update_stakeholder_role(
+    loaders: Dataloaders,
+    user_email: str,
+    organization_id: str,
+    organization_access: OrganizationAccess,
+    new_role: str,
+) -> None:
+    if organization_access.invitation:
+        await update_invited_stakeholder(
+            user_email,
+            organization_access.invitation,
             organization_id,
-            email,
-            OrganizationAccessMetadataToUpdate(invitation=invitation),
+            new_role,
+        )
+        if organization_access.invitation.is_used:
+            await authz.grant_organization_level_role(
+                loaders, user_email, organization_id, new_role
+            )
+    else:
+        # For some users without invitation
+        await authz.grant_organization_level_role(
+            loaders, user_email, organization_id, new_role
         )
 
 

@@ -4,10 +4,6 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-import authz
-from authz.validations import (
-    validate_role_fluid_reqs,
-)
 from custom_exceptions import (
     StakeholderNotFound,
     StakeholderNotInOrganization,
@@ -82,23 +78,13 @@ async def mutate(
             )
         )
         # Validate role requirements before changing anything
-        validate_role_fluid_reqs(user_email, new_role)
-        if organization_access.invitation:
-            await orgs_domain.update_invited_stakeholder(
-                user_email,
-                organization_access.invitation,
-                organization_id,
-                new_role,
-            )
-            if organization_access.invitation.is_used:
-                await authz.grant_organization_level_role(
-                    loaders, user_email, organization_id, new_role
-                )
-        else:
-            # For some users without invitation
-            await authz.grant_organization_level_role(
-                loaders, user_email, organization_id, new_role
-            )
+        orgs_domain.update_stakeholder_role(
+            loaders=loaders,
+            user_email=user_email,
+            organization_id=organization_id,
+            organization_access=organization_access,
+            new_role=new_role,
+        )
     except StakeholderNotInOrganization as ex:
         raise StakeholderNotFound() from ex
 
