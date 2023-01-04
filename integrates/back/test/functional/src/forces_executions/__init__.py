@@ -18,6 +18,7 @@ def get_query() -> str:
         $gitRepo: String
         $groupName: String!
         $search: String
+        $status: String
         $strictness: String
         $toDate: DateTime
         $type: String
@@ -28,6 +29,7 @@ def get_query() -> str:
             fromDate: $fromDate,
             gitRepo: $gitRepo,
             search: $search,
+            status: $status,
             strictness: $strictness,
             toDate: $toDate,
             type: $type
@@ -71,6 +73,7 @@ async def get_result(
     group: str,
     repo: str = "",
     search: str = "",
+    status: str = "",
     strictness: str = "",
     to_date: str = "",
     kind: str = "",
@@ -86,6 +89,7 @@ async def get_result(
             "gitRepo": repo,
             "groupName": group,
             "search": search,
+            "status": status,
             "strictness": strictness,
             "toDate": to_date,
             "type": kind,
