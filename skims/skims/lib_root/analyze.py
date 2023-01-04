@@ -1,8 +1,12 @@
+from concurrent.futures import (
+    Future,
+    wait,
+)
 from concurrent.futures.process import (
     ProcessPoolExecutor,
 )
 from contextlib import (
-    ExitStack,
+    suppress,
 )
 from ctx import (
     CTX,
@@ -80,10 +84,6 @@ from model.core_model import (
     Vulnerability,
 )
 import os
-import reactivex
-from reactivex import (
-    operators as ops,
-)
 from sast.parse import (
     get_graph_db,
 )
@@ -93,10 +93,6 @@ from state.ephemeral import (
 from typing import (
     Dict,
     Tuple,
-)
-from utils.logs import (
-    log_blocking,
-    log_exception_blocking,
 )
 
 QUERIES: graph_model.Queries = (
@@ -160,25 +156,14 @@ QUERIES: graph_model.Queries = (
 )
 
 
-def _handle_result(
+def _store_results_callback(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
-    result: Vulnerability,
+    future: Future,
 ) -> None:
-    stores[result.finding].store(result)
-
-
-def _handle_exception(
-    exception: Exception, _observable: reactivex.Observable
-) -> reactivex.Observable:
-    log_exception_blocking("error", exception)
-    return reactivex.of(None)
-
-
-def _get_graph_db(
-    paths: Tuple[str, ...], total_files: int, index: int
-) -> graph_model.GraphDB:
-    log_blocking("info", "Processing shard %s/%s", index, total_files)
-    return get_graph_db(paths)
+    with suppress(Exception):
+        results: Tuple[Vulnerability, ...] = future.result()
+        for result in results:
+            stores[result.finding].store(result)
 
 
 def analyze(
@@ -191,51 +176,26 @@ def analyze(
         for finding, query in QUERIES
         if finding in CTX.config.checks
     )
-    total_paths = len(paths.ok_paths)
-    context_stack = ExitStack()
-    context_stack_1 = ExitStack()
-    executor = context_stack.enter_context(
-        ProcessPoolExecutor(max_workers=os.cpu_count())
-    )
-    executor_1 = context_stack_1.enter_context(
-        ProcessPoolExecutor(max_workers=os.cpu_count())
-    )
-    reactivex.from_iterable(paths.ok_paths).pipe(
-        ops.map(lambda path: (path,)),  # type: ignore
-        ops.flat_map_indexed(
-            lambda paths, index: reactivex.from_future(  # type: ignore
-                executor.submit(  # type: ignore
-                    _get_graph_db,
-                    paths,
-                    total_paths,
-                    index,
+    has_failed = False
+    with ProcessPoolExecutor(
+        max_workers=os.cpu_count(),
+    ) as worker:
+        for path in paths.ok_paths:
+            _graph = get_graph_db(paths=(path,))
+            futures = []
+            for _, query in queries:
+                future = worker.submit(query, None, _graph)
+                future.add_done_callback(
+                    partial(_store_results_callback, stores)
                 )
-            ).pipe(
-                ops.catch(_handle_exception),  # type: ignore
-            )
-        ),
-        ops.filter(lambda x: x is not None),  # type: ignore
-        ops.flat_map(
-            lambda graph: reactivex.from_iterable(  # type: ignore
-                ((query, graph) for _, query in queries)
-            )
-        ),
-        ops.flat_map(
-            lambda item: reactivex.from_future(  # type: ignore
-                executor_1.submit(item[0], None, item[1])  # type: ignore
-            ).pipe(
-                ops.catch(_handle_exception),  # type: ignore
-            )
-        ),
-        ops.filter(lambda x: x is not None),  # type: ignore
-        ops.flat_map(
-            lambda results: reactivex.from_iterable(  # type: ignore
-                result for result in results  # type: ignore
-            ).pipe(ops.catch(_handle_exception))
-        ),
-    ).subscribe(
-        on_next=partial(_handle_result, stores),
-        on_error=lambda e: log_blocking("exception", e),
-    )
-    context_stack.close()
-    context_stack_1.close()
+                futures.append(future)
+            _, f_failed = wait(futures, 60)
+            if f_failed and not has_failed:
+                has_failed = True
+        if has_failed:
+            for (
+                process
+            ) in (
+                worker._processes.values()  # pylint: disable=protected-access
+            ):
+                process.kill()
