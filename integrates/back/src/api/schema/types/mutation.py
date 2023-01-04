@@ -28,6 +28,7 @@ from api.mutations import (
     add_toe_port,
     add_url_root,
     approve_draft,
+    approve_vulnerabilities,
     confirm_vulnerabilities_zero_risk,
     deactivate_organization_finding_policy,
     deactivate_root,
@@ -45,6 +46,7 @@ from api.mutations import (
     refresh_toe_lines,
     reject_draft,
     reject_event_solution,
+    reject_vulnerabilities,
     reject_vulnerabilities_zero_risk,
     remove_credentials,
     remove_environment_url,
@@ -162,6 +164,7 @@ MUTATION.set_field("addToeLines", add_toe_lines.mutate)
 MUTATION.set_field("addToePort", add_toe_port.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("approveDraft", approve_draft.mutate)
+MUTATION.set_field("approveVulnerabilities", approve_vulnerabilities.mutate)
 MUTATION.set_field(
     "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
 )
@@ -196,6 +199,7 @@ MUTATION.set_field("moveRoot", move_root.mutate)
 MUTATION.set_field("refreshToeLines", refresh_toe_lines.mutate)
 MUTATION.set_field("rejectDraft", reject_draft.mutate)
 MUTATION.set_field("rejectEventSolution", reject_event_solution.mutate)
+MUTATION.set_field("rejectVulnerabilities", reject_vulnerabilities.mutate)
 MUTATION.set_field(
     "rejectVulnerabilitiesZeroRisk",
     reject_vulnerabilities_zero_risk.mutate,

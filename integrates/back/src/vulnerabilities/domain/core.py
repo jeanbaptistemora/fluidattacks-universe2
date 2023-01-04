@@ -528,7 +528,7 @@ async def mask_vulnerability(
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
 
-async def open_vulnerabilities(
+async def approve_vulnerabilities(
     *,
     loaders: Dataloaders,
     vuln_ids: set[str],
@@ -550,7 +550,7 @@ async def open_vulnerabilities(
                 entry=vulnerability.state._replace(
                     modified_by=modified_by,
                     modified_date=datetime_utils.get_utc_now(),
-                    status=VulnerabilityStateStatus.REJECTED,
+                    status=VulnerabilityStateStatus.VULNERABLE,
                 ),
             )
             for vulnerability in vulnerabilities

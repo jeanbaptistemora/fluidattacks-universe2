@@ -443,6 +443,14 @@ type Mutation {
     draftId: String!
   ): ApproveDraftPayload!
 
+  "Approves the provided vulnerabilities"
+  approveVulnerabilities(
+    "Identifier of Finding containing the vulnerabilities"
+    findingId: String!
+    "List of open Vulnerabilities"
+    vulnerabilities: [String!]!
+  ): SimplePayload!
+
   "Confirms the provided vulnerabilities as zero risk"
   confirmVulnerabilitiesZeroRisk(
     "Identifier of the Finding to be commented"

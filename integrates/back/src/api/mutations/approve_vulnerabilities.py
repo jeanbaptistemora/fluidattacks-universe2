@@ -7,9 +7,6 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -24,9 +21,6 @@ from newutils import (
 )
 from sessions import (
     domain as sessions_domain,
-)
-from typing import (
-    Any,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -50,19 +44,15 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerabilities: list[str],
-    justification: str,
-    **kwargs: Any,
 ) -> SimplePayload:
     try:
         user_data = await sessions_domain.get_jwt_content(info.context)
         stakeholder_email = user_data["user_email"]
-        await vulns_domain.reject_vulnerabilities(
+        await vulns_domain.approve_vulnerabilities(
             loaders=info.context.loaders,
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,
             modified_by=stakeholder_email,
-            justification=VulnerabilityStateJustification[justification],
-            other_justification=kwargs.get("other_justification"),
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.reject_vulnerabilities,
@@ -70,12 +60,12 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Rejected vulnerabilities in finding {finding_id}",
+            f"Security: Approve vulnerabilities in finding {finding_id}",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Attempted to reject vulnerabilities in finding "
+            "Security: Attempted to approve vulnerabilities in finding "
             f"{finding_id}",
         )
         raise
