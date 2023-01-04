@@ -1,5 +1,6 @@
 import type { TSize } from "../Typography/types";
 
+type THeroVariant = "center" | "right";
 interface IHeroProps {
   bgColor: string;
   button1Link: string;
@@ -13,6 +14,7 @@ interface IHeroProps {
   size?: TSize;
   sizeMd?: TSize;
   sizeSm?: TSize;
+  variant?: THeroVariant;
 }
 
 export type { IHeroProps };
