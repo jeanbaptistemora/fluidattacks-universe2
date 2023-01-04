@@ -18,10 +18,12 @@ from training.training_script.utils import (
     get_previous_training_results,
     load_training_data,
     save_model_to_s3,
+    split_training_data,
     train_combination,
     update_results_csv,
 )
 from typing import (
+    Any,
     Dict,
     List,
     Tuple,
@@ -145,14 +147,15 @@ def main() -> None:
     )
     display_model_hyperparameters(model_name, hyperparameters_to_tune)
     model_class: ModelType = MODELS[model_name]
-    model_parameters = {
+    model_parameters: Dict[str, Any] = {"random_state": 42}
+    model_defaults = {
         **MODELS_DEFAULTS.get(model_class, {}),
         **hyperparameters_to_tune,
     }
+    model_parameters.update(model_defaults)
     model: ModelType = model_class(**model_parameters)
 
     results_filename: str = f"{model_name}_tune_results.csv"
-    previous_results = get_previous_training_results(results_filename)
 
     # Start training process
     hyperparameters_to_tune_list = ", ".join(
@@ -162,11 +165,24 @@ def main() -> None:
         model,
         model_features,
         args.train,
-        previous_results,
+        get_previous_training_results(results_filename),
         hyperparameters_to_tune_list,
     )
 
     update_results_csv(results_filename, training_output)
+
+    training_data: DataFrame = load_training_data(args.train)
+    shuffled_training_data = training_data.sample(
+        frac=1, random_state=42
+    ).reset_index(drop=True)
+    train_x, train_y = split_training_data(
+        shuffled_training_data, model_features
+    )
+    model.fit(train_x, train_y)
+    model.feature_names = list(model_features)
+    model.precision = training_output[-1][2]
+    model.recall = training_output[-1][3]
+
     save_model(
         model,
         float(training_output[-1][4]),

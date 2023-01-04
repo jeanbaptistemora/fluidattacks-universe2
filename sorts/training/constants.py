@@ -7,10 +7,6 @@ from sagemaker.tuner import (
     ContinuousParameter,
     IntegerParameter,
 )
-
-from sklearn.experimental import (  # noqa  # isort: split
-    enable_hist_gradient_boosting,
-)
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
