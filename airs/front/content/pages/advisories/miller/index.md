@@ -5,9 +5,9 @@ authors: Carlos Bello
 writer: cbello
 codename: miller
 product: RushBet 2022.23.1-b490616d (UXSS)
-date: 2022-11-30 10:00 COT
+date: 2023-01-10 12:00 COT
 cveid: CVE-2022-4235
-severity: 7.1
+severity: 6.0
 description: RushBet 2022.23.1-b490616d    -    Universal XSS (UXSS)
 keywords: Fluid Attacks, Security, Vulnerabilities, Rushbet, UXSS
 banner: advisories-bg
@@ -25,26 +25,26 @@ encrypted: yes
 | **Product**           | RushBet                                                            |
 | **Affected versions** | Version 2022.23.1-b490616d                                         |
 | **State**             | Public                                                             |
-| **Release date**      | 2022-11-30                                                         |
+| **Release date**      | 2023-01-10                                                         |
 
 ## Vulnerability
 
 |                       |                                                                                                                             |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------|
 | **Kind**              | Universal XSS                                                                                                               |
-| **Rule**              | [000. Universal XSS (UXSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/000)                                     |
+| **Rule**              | [429. Universal XSS (UXSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/429)                                     |
 | **Remote**            | Yes                                                                                                                         |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:H                                                                                |
-| **CVSSv3 Base Score** | 7.1                                                                                                                         |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:N                                                                                |
+| **CVSSv3 Base Score** | 6.0                                                                                                                         |
 | **Exploit available** | Yes                                                                                                                         |
 | **CVE ID(s)**         | [CVE-2022-4235](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-4235)                                               |
 
 ## Description
 
 RushBet version 2022.23.1-b490616d allows a remote attacker to steal
-customer accounts via a malicious application. This is possible because
-the application exposes an activity and does not properly validate the
-data it receives.
+customer accounts via use of a malicious application. This is possible
+because the application exposes an activity and does not properly validate
+the data it receives.
 
 ## Vulnerability
 
@@ -92,7 +92,11 @@ be executed, thus hacking his account.
 
 ## Evidence of exploitation
 
-![POC-Account-Takeover-Rushbet](https://user-images.githubusercontent.com/51862990/204822560-80c8fce0-82ec-4a23-bec5-9da689ffea4f.mp4)
+<video width="817" height="590" controls>
+    <source src="https://user-images.githubusercontent.com/51862990/
+    204822560-80c8fce0-82ec-4a23-bec5-9da689ffea4f.mp4" type="video/mp4">
+    <p>POC-Account-Takeover-Rushbet</p>
+</video>
 
 ![PII-Account-Takeover-Rushbet](https://user-images.githubusercontent.com/51862990/204819582-d5f0b34a-0ec4-4413-ac40-bc06affd3ed1.png)
 
@@ -110,7 +114,7 @@ We have reserved the CVE-2022-4235 to refer to this issue from now on.
 
 ## Mitigation
 
-An updated version of Badaso is available at the vendor page.
+An updated version of RushBet is available at the vendor page.
 
 ## Credits
 
@@ -127,8 +131,8 @@ Offensive Team.
 <time-lapse
   discovered="2022-11-29"
   contacted="2022-11-30"
-  replied="2022-11-30"
-  confirmed=""
-  patched=""
-  disclosure="">
+  replied="2022-12-03"
+  confirmed="2022-12-03"
+  patched="2022-12-14"
+  disclosure="2023-01-10">
 </time-lapse>
