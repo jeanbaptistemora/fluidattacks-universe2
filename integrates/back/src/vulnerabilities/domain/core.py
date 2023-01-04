@@ -528,6 +528,36 @@ async def mask_vulnerability(
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
 
+async def open_vulnerabilities(
+    *,
+    loaders: Dataloaders,
+    vuln_ids: set[str],
+    finding_id: str,
+    modified_by: str,
+) -> None:
+    vulnerabilities = await get_by_finding_and_vuln_ids(
+        loaders, finding_id, vuln_ids
+    )
+    for vulnerability in vulnerabilities:
+        vulns_utils.validate_submitted(vulnerability)
+
+    await collect(
+        tuple(
+            vulns_model.update_historic_entry(
+                current_value=vulnerability,
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=vulnerability.state._replace(
+                    modified_by=modified_by,
+                    modified_date=datetime_utils.get_utc_now(),
+                    status=VulnerabilityStateStatus.REJECTED,
+                ),
+            )
+            for vulnerability in vulnerabilities
+        )
+    )
+
+
 async def reject_vulnerabilities(
     *,
     loaders: Dataloaders,
