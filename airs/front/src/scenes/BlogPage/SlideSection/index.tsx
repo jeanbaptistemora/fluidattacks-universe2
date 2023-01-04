@@ -60,8 +60,10 @@ const SlideSection: React.FC<ISlideSectionProps> = ({
   return (
     <CardSlideShow
       btnText={"Read post"}
-      containerDescription={"Recommended blog posts"}
-      containerTitle={"You might be interested in the following related posts."}
+      containerDescription={
+        "You might be interested in the following related posts."
+      }
+      containerTitle={"Recommended blog posts"}
       data={blogsList}
     />
   );
