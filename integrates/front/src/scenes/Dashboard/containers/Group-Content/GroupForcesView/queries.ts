@@ -5,11 +5,27 @@ const GET_FORCES_EXECUTIONS: DocumentNode = gql`
   query GetForcesExecutions(
     $after: String
     $first: Int
+    $fromDate: DateTime
+    $gitRepo: String
     $groupName: String!
     $search: String
+    $status: String
+    $strictness: String
+    $toDate: DateTime
+    $type: String
   ) {
     group(groupName: $groupName) {
-      executionsConnections(after: $after, first: $first, search: $search) {
+      executionsConnections(
+        after: $after
+        first: $first
+        fromDate: $fromDate
+        gitRepo: $gitRepo
+        search: $search
+        status: $status
+        strictness: $strictness
+        toDate: $toDate
+        type: $type
+      ) {
         edges {
           node {
             groupName
