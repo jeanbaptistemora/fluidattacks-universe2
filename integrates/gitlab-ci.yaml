@@ -1884,6 +1884,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__reject_vulnerabilities:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'reject_vulnerabilities'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__reject_vulnerabilities_zero_risk:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4361,6 +4390,7 @@
     - /integrates/back/test/functional__refresh_toe_ports
     - /integrates/back/test/functional__reject_draft
     - /integrates/back/test/functional__reject_event_solution
+    - /integrates/back/test/functional__reject_vulnerabilities
     - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
     - /integrates/back/test/functional__remove_credentials
     - /integrates/back/test/functional__remove_event_evidence
@@ -4383,7 +4413,6 @@
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
     - /integrates/back/test/functional__requeue_actions
     - /integrates/back/test/functional__resources
-    - /integrates/back/test/functional__send_trial_engagement_notification
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4412,6 +4441,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__send_trial_engagement_notification
     - /integrates/back/test/functional__solve_event
     - /integrates/back/test/functional__stakeholder
     - /integrates/back/test/functional__submit_draft
@@ -4451,7 +4481,6 @@
     - /integrates/back/test/functional__update_severity
     - /integrates/back/test/functional__update_stakeholder_phone
     - /integrates/back/test/functional__update_toe_input
-    - /integrates/back/test/functional__update_toe_lines_attacked_lines
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4480,6 +4509,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_toe_lines_attacked_lines
     - /integrates/back/test/functional__update_toe_lines_sorts
     - /integrates/back/test/functional__update_toe_port
     - /integrates/back/test/functional__update_toe_vulnerabilities
