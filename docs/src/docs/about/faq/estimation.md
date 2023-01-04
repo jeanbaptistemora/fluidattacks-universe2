@@ -15,57 +15,6 @@ Therefore, we require the
 following information depending
 on the plan you choose.
 
-### One-Shot Hacking (per project)
-
-- How many ports are included
-  within the scope?
-
-  1. On-premises or cloud infrastructure
-  1. Number of Internet-connected servers to evaluate
-  1. Number of servers on internal network to evaluate
-  1. Number of wired network devices to
-     evaluate (e.g., switches, routers, firewalls)
-  1. Number of wireless network devices to evaluate
-     (e.g., SSIDs, switches, routers, firewalls)
-
-- How many application entry points
-  are included within the scope?
-
-  1. Application name
-  1. Application type (i.e., mobile, web or desktop)
-  1. Total input fields
-  1. Requires authentication
-  1. Testing method (i.e.,
-     [black](/about/glossary#black-box),
-     gray or
-     [white-box](/about/glossary#white-box))
-  1. Internet-connected application or
-     internal network application
-  1. Special installations by the client (e.g., specific
-     browser version browser extensions, digital certificates)
-
-  > **NOTE:**
-  > In this scenario, we evaluate the application
-  > without knowledge of its internal workings
-  > and without credentials.
-  > **Gray-box testing:** This scenario includes
-  > black-box testing plus an internal evaluation
-  > of the application that requires the client
-  > to provide access credentials.
-  > **White-box testing:** This scenario includes
-  > black and gray-box testing plus evaluation
-  > of the source code.
-
-- How many Lines of Code (LOC) are
-  included within the scope?
-
-We recommend using Tokei to carry
-on the [quantification of LOC](/about/faq/estimation#quantification-of-loc).
-
-Preferably, access credentials are
-provided (e.g., access credentials
-of a standard user with low-level privileges).
-
 ### Continuous Hacking with Machine Plan
 
 - How many applications or groups
