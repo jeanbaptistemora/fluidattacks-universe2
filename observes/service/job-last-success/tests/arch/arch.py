@@ -17,6 +17,7 @@ _T = TypeVar("_T")
 _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
     "job_last_success": (
         "cli",
+        "core",
         ("db_client", "db_client_2"),
         ("conf", "_logger"),
     ),

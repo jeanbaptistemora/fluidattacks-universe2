@@ -50,3 +50,6 @@ class Client:
 
     def get_job(self, job_name: str) -> Cmd[JobLastSuccess]:
         return self._get_job.inner(job_name)
+
+    def upsert(self, job_name: str) -> Cmd[None]:
+        return self._upsert.inner(job_name)
