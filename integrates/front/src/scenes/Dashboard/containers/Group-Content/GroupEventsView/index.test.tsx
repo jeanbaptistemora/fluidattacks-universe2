@@ -56,6 +56,17 @@ describe("eventsView", (): void => {
         errors: [new GraphQLError("Access denied")],
       },
     },
+    {
+      request: {
+        query: GET_VERIFIED_FINDING_INFO,
+        variables: {
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        errors: [new GraphQLError("Access denied")],
+      },
+    },
   ];
 
   it("should return a function", (): void => {
@@ -820,20 +831,15 @@ describe("eventsView", (): void => {
       name: /12314123 2018-10-17 00:00:00 test description network access issues unsolved -/iu,
     });
     await userEvent.click(within(rowUnSlv).getByRole("checkbox"));
-    await waitFor((): void => {
-      expect(
-        screen.queryAllByRole("checkbox", { checked: true })[0]
-      ).toBeInTheDocument();
-    });
 
     const rowSolv = screen.getByRole("row", {
       name: /463457733 2018-10-17 00:00:00 Test description Authorization for a special attack solved -/iu,
     });
     await userEvent.click(within(rowSolv).getByRole("checkbox"));
     await waitFor((): void => {
-      expect(
-        screen.queryAllByRole("checkbox", { checked: true })[0]
-      ).toBeInTheDocument();
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        3
+      );
     });
 
     await userEvent.click(
@@ -842,7 +848,13 @@ describe("eventsView", (): void => {
       })
     );
 
-    expect(msgError).toHaveBeenCalledWith("group.events.selectedError");
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("group.events.selectedError");
+    });
+
+    expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+      2
+    );
 
     jest.clearAllMocks();
   });
@@ -915,7 +927,6 @@ describe("eventsView", (): void => {
           },
         },
       },
-
       {
         request: {
           query: GET_FINDING_VULNS_TO_REATTACK,
@@ -992,6 +1003,31 @@ describe("eventsView", (): void => {
       expect(
         screen.getByText("038. Business information leak")
       ).toBeInTheDocument();
+    });
+
+    jest.clearAllMocks();
+  });
+
+  it("should render a error in update affected reattacks modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_request_vulnerabilities_hold_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
+        <MockedProvider addTypename={false} mocks={mockError}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupEventsView}
+              path={"/groups/:groupName/events"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
 
     jest.clearAllMocks();
