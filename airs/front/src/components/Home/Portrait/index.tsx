@@ -5,7 +5,7 @@
 /* eslint @typescript-eslint/no-explicit-any: 0*/
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
 import {
@@ -42,13 +42,13 @@ const Portrait: React.FC = (): JSX.Element => {
 
   const playerRef = useRef<any>();
 
-  const onPlayOver = (): void => {
+  const onPlayOver = useCallback((): void => {
     setOverButton(true);
-  };
+  }, []);
 
-  const onPlayLeave = (): void => {
+  const onPlayLeave = useCallback((): void => {
     setOverButton(false);
-  };
+  }, []);
 
   const opts = {
     playerVars: {
@@ -57,14 +57,14 @@ const Portrait: React.FC = (): JSX.Element => {
     },
   };
 
-  const activateVideo = (): void => {
+  const activateVideo = useCallback((): void => {
     setPlay(!play);
     playerRef.current.internalPlayer.playVideo();
-  };
+  }, [play]);
 
-  const hideVideo = (): void => {
+  const hideVideo = useCallback((): void => {
     setPlay(!play);
-  };
+  }, [play]);
 
   return (
     <MainCoverHome>
