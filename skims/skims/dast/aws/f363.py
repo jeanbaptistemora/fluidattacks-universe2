@@ -85,10 +85,43 @@ async def not_requires_lowercase(
     return vulns
 
 
+async def not_requires_symbols(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_password_policy"
+    )
+    user = await run_boto3_fun(credentials, service="iam", function="get_user")
+    vulns: core_model.Vulnerabilities = ()
+    password_policy = response.get("PasswordPolicy", [])
+    if not password_policy["RequireSymbols"]:
+        locations = [
+            Location(
+                access_patterns=("/RequireSymbols",),
+                arn=(f"{user['User']['Arn']}"),
+                values=(password_policy["RequireSymbols"],),
+                description=("src.lib_path.f363.not_requires_symbols"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_IAM_NOT_REQUIRES_SYMBOLS),
+                aws_response=password_policy,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     not_requires_uppercase,
     not_requires_lowercase,
+    not_requires_symbols,
 )
