@@ -22,6 +22,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     conditional_access_expression as c_sharp_conditional_access_expression,
     conditional_expression as c_sharp_conditional_expression,
     constructor_declaration as c_sharp_constructor_declaration,
+    continue_statement as c_sharp_continue_statement,
     declaration_block as c_sharp_declaration_block,
     do_statement as c_sharp_do_statement,
     element_access_expression as c_sharp_element_access_expression,
@@ -224,6 +225,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "constructor_declaration",
         },
         syntax_reader=c_sharp_constructor_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "continue_statement",
+        },
+        syntax_reader=c_sharp_continue_statement.reader,
     ),
     Dispatcher(
         applicable_types={

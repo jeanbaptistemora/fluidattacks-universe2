@@ -36,21 +36,20 @@ from utils.encodings import (
         ),
         (
             (
-                "skims/test/data/lib_root/f063/java_path_traversal.java",
-                "skims/test/data/lib_root/f160/java_create_temp_file.java",
+                "skims/test/data/sast/test_cfg.cs",
+                "skims/test/data/sast/test_cfg.dart",
+                "skims/test/data/sast/test_cfg.go",
+                "skims/test/data/sast/test_cfg.kt",
             ),
-            "findings",
+            "cfg",
         ),
         (
             (
-                "skims/test/data/sast/TestCFG.java",
+                "skims/test/data/sast/test_cfg.java",
                 "skims/test/data/sast/test_cfg.js",
-                "skims/test/data/sast/test_cfg.go",
-                "skims/test/data/sast/test_cfg.kt",
                 "skims/test/data/sast/test_cfg.ts",
-                "skims/test/data/sast/test_cfg.dart",
             ),
-            "cfg",
+            "cfg_2",
         ),
         (
             (
