@@ -15,3 +15,6 @@ src.lib_path.f363.insecure_generate_secret_string:
 src.lib_path.f363.not_requires_uppercase:
   en: Account/PasswordPolicy must require uppercase chars
   es: PasswordPolicy requiere de caracteres en mayusculas
+src.lib_path.f363.not_requires_lowercase:
+  en: Account/PasswordPolicy must require lowercase chars
+  es: PasswordPolicy requiere de caracteres en minusculas
