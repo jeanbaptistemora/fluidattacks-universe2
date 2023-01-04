@@ -1,3 +1,5 @@
+import { faSquareCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -5,6 +7,7 @@ import { CVSSFContainer } from "./styles";
 
 import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
+import { Gap } from "components/Layout/Gap";
 import { Row } from "components/Layout/Row";
 import type { ITagProps } from "components/Tag";
 import { Tag } from "components/Tag";
@@ -84,15 +87,38 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
         <Row>
           <Col lg={20} md={50} sm={100}>
             <CVSSFContainer variant={"red"}>
-              <Card title={"Remediate this vulnerability"}>
-                <Tag variant={color}>{severity}</Tag>
-                <Text>{"placeholder 20% vuln (CVSSF)"}</Text>
+              <Card>
+                <Text
+                  bright={0}
+                  fw={9}
+                  size={"small"}
+                  ta={"start"}
+                  tone={"red"}
+                >
+                  {"Remediate this vulnerability"}
+                </Text>
+                <br />
+                {/* eslint-disable-next-line react/forbid-component-props */}
+                <Gap style={{ border: "transparent" }}>
+                  <FontAwesomeIcon
+                    color={"#bf0b1a"}
+                    icon={faSquareCaretDown}
+                    size={"2x"}
+                  />
+                  <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
+                    {"20%"}
+                  </Text>
+                  <Text disp={"inline"} size={"small"} ta={"start"}>
+                    {"Total Risk Exposure (CVSSF)"}
+                  </Text>
+                </Gap>
               </Card>
             </CVSSFContainer>
           </Col>
           <Col lg={20} md={50} sm={100}>
             <Card title={`${status} ${severity}`}>
               <Text>{"status and severity"}</Text>
+              <Tag variant={color}>{severity}</Tag>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
