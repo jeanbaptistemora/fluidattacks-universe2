@@ -307,7 +307,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
                 ),
                 attempt_duration_seconds=43200,
                 subject="integrates@fluidattacks.com",
-                memory=4026,
+                memory=3700,
                 **kwargs,
             )
 
