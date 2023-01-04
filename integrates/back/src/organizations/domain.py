@@ -123,14 +123,14 @@ from newutils.organization_access import (
 )
 from newutils.validations import (
     validate_email_address_deco,
-    validate_field_length,
-    validate_include_lowercase,
-    validate_include_number,
-    validate_include_uppercase,
-    validate_sequence,
-    validate_space_field,
-    validate_start_letter,
-    validate_symbols,
+    validate_field_length_deco,
+    validate_include_lowercase_deco,
+    validate_include_number_deco,
+    validate_include_uppercase_deco,
+    validate_sequence_deco,
+    validate_space_field_deco,
+    validate_start_letter_deco,
+    validate_symbols_deco,
 )
 from organizations import (
     utils as orgs_utils,
@@ -179,33 +179,11 @@ async def add_credentials(
         )
     elif attributes.token is not None:
         token: str = attributes.token
-        validate_space_field(token)
-        secret = HttpsPatSecret(token=token)
+        secret = create_pat_secret(token=token)
     else:
         user: str = attributes.user or ""
         password: str = attributes.password or ""
-        validate_space_field(user)
-        validate_space_field(password)
-        validate_start_letter(password)
-        validate_include_number(password)
-        validate_include_lowercase(password)
-        validate_include_uppercase(password)
-        validate_sequence(password)
-        validate_field_length(
-            password,
-            limit=40,
-            is_greater_than_limit=True,
-        )
-        validate_field_length(
-            password,
-            limit=100,
-            is_greater_than_limit=False,
-        )
-        validate_symbols(password)
-        secret = HttpsSecret(
-            user=user,
-            password=password,
-        )
+        secret = create_https_secret(user=user, password=password)
 
     credential = Credentials(
         id=(str(uuid.uuid4())),
@@ -340,6 +318,27 @@ async def complete_register_for_organization_invitation(
                 enrolled=True,
             )
         )
+
+
+@validate_space_field_deco("user")
+@validate_space_field_deco("password")
+@validate_start_letter_deco("password")
+@validate_include_number_deco("password")
+@validate_include_lowercase_deco("password")
+@validate_include_uppercase_deco("password")
+@validate_sequence_deco("password")
+@validate_field_length_deco("password", limit=40, is_greater_than_limit=True)
+@validate_field_length_deco("password", limit=100, is_greater_than_limit=False)
+@validate_symbols_deco("password")
+def create_https_secret(user: str, password: str) -> HttpsSecret:
+
+    return HttpsSecret(user=user, password=password)
+
+
+@validate_space_field_deco("token")
+def create_pat_secret(token: str) -> HttpsPatSecret:
+
+    return HttpsPatSecret(token=token)
 
 
 async def get_access_by_url_token(
@@ -817,25 +816,7 @@ async def update_credentials(
     ):
         user: str = attributes.user
         password: str = attributes.password or ""
-        validate_space_field(user)
-        validate_space_field(password)
-        validate_start_letter(password)
-        validate_include_number(password)
-        validate_include_lowercase(password)
-        validate_include_uppercase(password)
-        validate_sequence(password)
-        validate_field_length(
-            password,
-            limit=40,
-            is_greater_than_limit=True,
-        )
-        validate_field_length(
-            password,
-            limit=100,
-            is_greater_than_limit=False,
-        )
-        validate_symbols(password)
-        secret = HttpsSecret(user=user, password=password)
+        secret = create_https_secret(user=user, password=password)
         force_update_owner = True
     elif credentials_type is CredentialType.SSH and attributes.key is not None:
         secret = SshSecret(
