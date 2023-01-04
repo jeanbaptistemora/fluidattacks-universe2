@@ -208,46 +208,6 @@ def root_has_access_keys(
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_requires_uppercase(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if password policy requires uppercase letters.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    policy = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="get_account_password_policy",
-        param="PasswordPolicy",
-        retry=retry,
-    )
-
-    msg_open: str = "Password policy does not require uppercase letters"
-    msg_closed: str = "Password policy requires uppercase letters"
-
-    vulns, safes = [], []
-
-    (vulns if not policy["RequireUppercaseCharacters"] else safes).append(
-        ("Account/PasswordPolicy", "Must require uppercase chars")
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="password policies",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def not_requires_lowercase(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
