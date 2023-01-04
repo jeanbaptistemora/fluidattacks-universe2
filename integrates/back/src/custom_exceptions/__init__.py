@@ -1781,3 +1781,9 @@ class VulnerabilityHasNotBeenReleased(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The vulnerability has not been released"
         super(VulnerabilityHasNotBeenReleased, self).__init__(msg)
+
+
+class VulnerabilityHasNotBeenSubmitted(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The vulnerability has not been submitted"
+        super(VulnerabilityHasNotBeenSubmitted, self).__init__(msg)

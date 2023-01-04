@@ -20,6 +20,7 @@ from custom_exceptions import (
     ToePortNotFound,
     VulnAlreadyClosed,
     VulnerabilityHasNotBeenReleased,
+    VulnerabilityHasNotBeenSubmitted,
     VulnerabilityPathDoesNotExistInToeLines,
     VulnerabilityPortFieldDoNotExistInToePorts,
     VulnerabilityUrlFieldDoNotExistInToeInputs,
@@ -752,6 +753,14 @@ def validate_released(
     """Validate if the vulnerability is in a released status."""
     if vulnerability.state.status not in RELEASED_FILTER_STATUSES:
         raise VulnerabilityHasNotBeenReleased()
+
+
+def validate_submitted(
+    vulnerability: Vulnerability,
+) -> None:
+    """Validate if the vulnerability has been submitted."""
+    if vulnerability.state.status is not VulnerabilityStateStatus.SUBMITTED:
+        raise VulnerabilityHasNotBeenSubmitted()
 
 
 def validate_zero_risk_requested(
