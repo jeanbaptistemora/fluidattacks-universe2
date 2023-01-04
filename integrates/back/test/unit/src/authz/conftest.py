@@ -250,14 +250,14 @@ data: Dict[str, List[Any]] = dict(
 )
 
 
-@pytest.fixture(name="dynamo_resource", scope="module")
+@pytest.fixture(name="dynamo_resource")
 async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(autouse=True)
 def create_tables(
     dynamodb_tables_args: dict, dynamo_resource: ServiceResource
 ) -> None:

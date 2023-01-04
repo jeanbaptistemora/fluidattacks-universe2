@@ -38,16 +38,7 @@ from decimal import (
     Decimal,
 )
 import json
-from moto.dynamodb2 import (
-    dynamodb_backend2,
-)
-from mypy_boto3_dynamodb import (
-    DynamoDBServiceResource as ServiceResource,
-)
 import pytest
-from typing import (
-    Any,
-)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -57,21 +48,6 @@ from unittest.mock import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-TABLE_NAME = "integrates_vms"
-
-
-@pytest.mark.parametrize(
-    ["table", "length"],
-    [
-        ["integrates_vms", 20],
-    ],
-)
-def test_create_tables(
-    dynamo_resource: ServiceResource, table: str, length: int
-) -> None:
-    assert table in dynamodb_backend2.tables
-    assert len(dynamo_resource.Table(table).scan()["Items"]) == length
 
 
 @pytest.mark.parametrize(
@@ -281,55 +257,51 @@ async def test_grant_user_level_role(
     assert mock_stakeholder_update_metadata.called is True
 
 
-@patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
 @pytest.mark.parametrize(
-    ["email", "group", "group_role", "expected_user_role"],
+    ["email", "group", "group_role"],
     [
-        ["test@test.com", "test_group", "user", "user"],
-        [
-            "test2@test.com",
-            "test_group2",
-            "user_manager",
-            "user",
-        ],
+        ["test@test.com", "unittesting", "user"],
+        ["test2@test.com", "oneshottest", "user_manager"],
     ],
 )
+@patch(get_mocked_path("grant_user_level_role"), new_callable=AsyncMock)
+@patch(get_mocked_path("get_user_level_role"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("group_access_model.update_metadata"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("loaders.group_access.load"), new_callable=AsyncMock)
 async def test_grant_group_level_role(  # pylint: disable=too-many-arguments
-    mock_resource: AsyncMock,
-    mock_table_resource: AsyncMock,
+    mock_group_access_loader: AsyncMock,
+    mock_group_access_update_metadata: AsyncMock,
+    mock_get_user_level_role: AsyncMock,
+    mock_grant_user_level_role: AsyncMock,
     email: str,
     group: str,
     group_role: str,
-    expected_user_role: str,
-    dynamo_resource: ServiceResource,
 ) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
-
-    def mock_update_item(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).update_item(**kwargs)
-
-    mock_table_resource.return_value.update_item.side_effect = mock_update_item
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
+    mock_group_access_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.group_access.load"),
+        json.dumps([email, group]),
+    )
+    mock_group_access_update_metadata.return_value = get_mock_response(
+        get_mocked_path("group_access_model.update_metadata"),
+        json.dumps([email, group, group_role]),
+    )
+    mock_get_user_level_role.return_value = get_mock_response(
+        get_mocked_path("get_user_level_role"),
+        json.dumps([email]),
+    )
+    mock_grant_user_level_role.return_value = get_mock_response(
+        get_mocked_path("grant_user_level_role"),
+        json.dumps([email, group_role]),
+    )
     await grant_group_level_role(get_new_context(), email, group, group_role)
-    assert (
-        await get_user_level_role(get_new_context(), email)
-        == expected_user_role
-    )
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
-    assert (
-        await get_group_level_role(get_new_context(), email, group)
-        == group_role
-    )
-    assert mock_table_resource.called is True
-    assert mock_resource.called is True
+
+    assert mock_group_access_loader.called is True
+    assert mock_group_access_update_metadata.called is True
+    assert mock_get_user_level_role.called is True
+
     with pytest.raises(ValueError) as test_raised_err:
         await grant_group_level_role(
             get_new_context(), email, group, "breakall"

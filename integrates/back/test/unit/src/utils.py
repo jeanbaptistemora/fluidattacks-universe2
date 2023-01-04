@@ -128,6 +128,7 @@ mocked_paths: Dict[str, str] = {
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
     "get_user_level_role": "authz.policy.get_user_level_role",
+    "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
     "group_comments_model.add": "db_model.group_comments.add",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
@@ -152,9 +153,15 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "authz.policy.get_user_level_role": {
         '["integrateshacker@fluidattacks.com"]': "hacker",
         '["integratesuser@gmail.com"]': "user_manager",
+        '["test@test.com"]': None,
+        '["test2@test.com"]': "user",
         '["test_admin@gmail.com"]': "admin",
         '["test_email@gmail.com"]': "",
         '["unittest@fluidattacks.com"]': "admin",
+    },
+    "authz.policy.grant_user_level_role": {
+        '["test@test.com", "user"]': None,
+        '["test2@test.com", "user_manager"]': None,
     },
     "authz.validate_handle_comment_scope": {
         '["comment test", "integratesmanager@gmail.com",'
@@ -361,6 +368,28 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             responsibility=None,
             role="user_manager",
         ),
+        '["test@test.com", "unittesting"]': GroupAccess(
+            email="test@test.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility=None,
+            role=None,
+        ),
+        '["test2@test.com", "oneshottest"]': GroupAccess(
+            email="test2@test.com",
+            group_name="unittesting",
+            state=GroupAccessState(modified_date=None),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility=None,
+            role=None,
+        ),
         '["test_admin@gmail.com", "unittesting", "admin"]': GroupAccess(
             email="test_admin@gmail.com",
             group_name="unittesting",
@@ -398,6 +427,8 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.group_access.update_metadata": {
         '["integrateshacker@fluidattacks.com", "unittesting"]': None,
         '["integratesuser@gmail.com", "unittesting"]': None,
+        '["test@test.com", "unittesting", "user"]': None,
+        '["test2@test.com", "oneshottest", "user_manager"]': None,
     },
     "db_model.group_comments.add": {
         '[["unittesting", "1672083646257", "0", "2022-04-06 16:46:23+00:00",'
