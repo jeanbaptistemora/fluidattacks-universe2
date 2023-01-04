@@ -18,14 +18,14 @@ from typing import (
 @pytest.mark.parametrize(
     ["email", "stakeholder_email"],
     [
-        ["admin@gmail.com", "hacker@gmail.com"],
+        ["admin@gmail.com", "hacker1@gmail.com"],
     ],
 )
 async def test_grant_stakeholder_access_confirmed(
     populate: bool, email: str, stakeholder_email: str
 ) -> None:
     assert populate
-    group_name: str = "group2"
+    group_name: str = "group13"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(
@@ -53,6 +53,7 @@ async def test_grant_stakeholder_access_confirmed(
             assert stakeholder["invitationState"] == "PENDING"
 
     await complete_register(stakeholder_email, group_name)
+
     stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
         user=email, group=group_name
     )
@@ -77,7 +78,7 @@ async def test_grant_stakeholder_access_rejected(
     populate: bool, email: str, stakeholder_email: str
 ) -> None:
     assert populate
-    group_name: str = "group2"
+    group_name: str = "group13"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(
@@ -121,7 +122,7 @@ async def test_grant_stakeholder_access_rejected(
 @pytest.mark.parametrize(
     ["email", "stakeholder_email"],
     [
-        ["admin@gmail.com", "hacker@gmail.com"],
+        ["admin@gmail.com", "hacker1@gmail.com"],
         ["admin@gmail.com", "user@gmail.com"],
         ["admin@gmail.com", "vulnerability_manager@gmail.com"],
     ],
@@ -130,7 +131,7 @@ async def test_grant_stakeholder_access_fail_1(
     populate: bool, email: str, stakeholder_email: str
 ) -> None:
     assert populate
-    group_name: str = "group2"
+    group_name: str = "group13"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "HACKER"
     exceptions = {
@@ -155,7 +156,7 @@ async def test_grant_stakeholder_access_fail_1(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["hacker@gmail.com"],
+        ["hacker1@gmail.com"],
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
@@ -169,8 +170,8 @@ async def test_grant_stakeholder_access_fail_2(
     populate: bool, email: str
 ) -> None:
     assert populate
-    group_name: str = "group2"
-    stakeholder_email: str = "hacker@gmail.com"
+    group_name: str = "group13"
+    stakeholder_email: str = "hacker1@gmail.com"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(

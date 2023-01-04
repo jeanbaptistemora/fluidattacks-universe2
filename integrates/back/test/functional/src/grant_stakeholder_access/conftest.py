@@ -40,7 +40,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     description="-",
                     language=GroupLanguage.EN,
-                    name="group2",
+                    name="group13",
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
