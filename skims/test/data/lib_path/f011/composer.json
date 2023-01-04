@@ -38,6 +38,8 @@
         "yzalis/identicon": "^1.2"
     },
     "require-dev": {
+        "backdrop/backdrop": "1.21.0",
+        "feehi/feehicms": "^1.0",
         "phpunit/phpunit": "^5.0|^6.0",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"

@@ -287,7 +287,7 @@ def test_composer_json_dev() -> None:
         file_contents, path
     )
     assertion: bool = True
-    for line_num in range(41, 44):
+    for line_num in range(41, 46):
         if dep_info := patt_dep_info.search(content[line_num]):
             pkg_name: str = dep_info.group("pkg_name")
             version: str = dep_info.group("version")
