@@ -1,43 +1,44 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
       <div class="main-content">
-        <p>{{ name }},</p>
+        <h2>{{ name }},</h2>
         <p>
           You’re a few steps away from enjoying a 21-day <strong>Continuous Hacking</strong>
           free trial with us! <strong>No credit card required</strong>.
         </p>
+        <div class="data-container">
+          <ul class="big-list-icon">
+            <li>
+              Automatic SAST, DAST and SCA
+            </li>
+            <li>
+              Continuous vulnerability reporting
+            </li>
+            <li>
+              Vulnerability management in our <strong>Attack Resistance Management (ARM)</strong>
+              Platform (+ GraphQL API)
+            </li>
+            <li>
+              Control and speed up vulnerability remediation
+            </li>
+            <li>
+              Integration with your CI/CD for stricter control.
+            </li>
+          </ul>
+        </div>
         {{ go_to_button('Finish Free Trial Sign up', 'https://app.fluidattacks.com/', 'primary-button') }}
-        <ul class="big-list-icon">
-          <li>
-            Automatic SAST, DAST and SCA
-          </li>
-          <li>
-            Continuous vulnerability reporting
-          </li>
-          <li>
-            Vulnerability management in our <strong>Attack Resistance Management (ARM)</strong>
-            Platform (+ GraphQL API)
-          </li>
-          <li>
-            Control and speed up vulnerability remediation
-          </li>
-          <li>
-            Integration with your CI/CD for stricter control.
-          </li>
-        </ul>
         <p>
           <strong>Questions or comments?</strong> You can always contact us at
           <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
         </p>
         <p>We look forward to having you!</p>
-        <p><strong>Fluid Attacks Team</strong></p>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
