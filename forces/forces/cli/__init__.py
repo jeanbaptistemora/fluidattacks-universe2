@@ -15,6 +15,10 @@ from forces.model import (
 from forces.utils.bugs import (
     configure_bugsnag,
 )
+from forces.utils.env import (
+    ENDPOINT,
+    guess_environment,
+)
 from forces.utils.function import (
     shield,
 )
@@ -31,6 +35,7 @@ from forces.utils.strict_mode import (
 from io import (
     TextIOWrapper,
 )
+import os
 import re
 import sys
 import textwrap
@@ -200,6 +205,14 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
 
     configure_bugsnag(group=group or "")
     show_banner()
+    if guess_environment() == "development":
+        await log("info", "The agent is running in dev mode")
+        await log(
+            "info",
+            "The API_ENDPOINT set in the environment is "
+            f"{os.environ.get('API_ENDPOINT')}",
+        )
+        await log("info", f"The agent is pointing to {ENDPOINT}")
 
     strictness = "strict" if strict else "lax"
     await log(
