@@ -18,8 +18,9 @@ from typing import (
 
 
 def _docker_compose_read_only(template: Node) -> Iterator[Tuple[int, int]]:
-    if (
+    if (  # pylint: disable=too-many-boolean-expressions
         isinstance(template, Node)
+        and (hasattr(template.inner, "get"))
         and (template_services := template.inner.get("services"))
         and isinstance(template_services, Node)
         and isinstance(template_services.data, dict)

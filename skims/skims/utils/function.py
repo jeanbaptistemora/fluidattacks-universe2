@@ -102,7 +102,7 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
 def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
     cur_node = node
     for key in keys:
-        if key in cur_node.inner:
+        if hasattr(cur_node, "inner") and key in cur_node.inner:
             with suppress(TypeError):
                 cur_node = cur_node.inner[key]
         else:

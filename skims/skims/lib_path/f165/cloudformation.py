@@ -98,7 +98,11 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
     for policy in policies.data if policies else []:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
         for stmt in statements.data if statements else []:
-            if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
+            if (
+                hasattr(stmt.inner, "get")
+                and (effect := stmt.inner.get("Effect"))
+                and effect.raw != "Allow"
+            ):
                 continue
 
             yield from _yield_nodes_from_stmt(stmt, file_ext)
@@ -109,7 +113,11 @@ def _check_assume_role_policies(
 ) -> Iterator[Node]:
     statements = assume_role_policy.inner.get("Statement")
     for stmt in statements.data if statements else []:
-        if (effect := stmt.inner.get("Effect")) and effect.raw != "Allow":
+        if (
+            hasattr(stmt.inner, "get")
+            and (effect := stmt.inner.get("Effect"))
+            and effect.raw != "Allow"
+        ):
             continue
 
         if not_actions := stmt.inner.get("NotAction"):
