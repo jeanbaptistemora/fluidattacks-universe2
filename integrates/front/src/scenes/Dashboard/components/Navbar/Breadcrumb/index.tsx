@@ -109,6 +109,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           Logger.warning("An error occurred fetching portfolios", error);
         });
       },
+      skip: lastOrganization.name === "",
       variables: {
         organizationId: lastOrganization.name.toLowerCase(),
       },
