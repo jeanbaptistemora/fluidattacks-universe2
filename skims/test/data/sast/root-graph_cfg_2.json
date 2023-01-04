@@ -64313,6 +64313,7 @@
           "19": {
             "expression": "\"module-name\"",
             "identifier": "export1",
+            "import_type": "named_import",
             "label_type": "Import"
           },
           "1901": {
@@ -64358,6 +64359,7 @@
           "2": {
             "expression": "\"module-name\"",
             "identifier": "defaultExport",
+            "import_type": "default_import",
             "label_type": "Import"
           },
           "205": {
@@ -64553,6 +64555,7 @@
           "30": {
             "expression": "\"module-name\"",
             "identifier": "export1",
+            "import_type": "named_import",
             "label_alias": "alias1",
             "label_type": "Import"
           },
@@ -64841,6 +64844,7 @@
           "43": {
             "expression": "\"module-name\"",
             "identifier": "export2",
+            "import_type": "named_import",
             "label_type": "Import"
           },
           "432": {
@@ -65124,7 +65128,7 @@
           "57": {
             "expression": "\"module-name\"",
             "identifier": "alias3",
-            "label_alias": "alias2",
+            "import_type": "named_import",
             "label_type": "Import"
           },
           "572": {
@@ -65491,6 +65495,7 @@
           "76": {
             "expression": "\"module-name\"",
             "identifier": "export2",
+            "import_type": "named_import",
             "label_type": "Import"
           },
           "761": {
@@ -65783,6 +65788,7 @@
           "9": {
             "expression": "\"module-name\"",
             "identifier": "name",
+            "import_type": "namespace_import",
             "label_type": "Import"
           },
           "902": {
@@ -65826,7 +65832,8 @@
           },
           "92": {
             "expression": "\"module-name\"",
-            "identifier": "defaultExport",
+            "identifier": "name",
+            "import_type": "namespace_import",
             "label_type": "Import"
           },
           "921": {
