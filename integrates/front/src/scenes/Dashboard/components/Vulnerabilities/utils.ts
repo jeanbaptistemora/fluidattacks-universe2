@@ -18,84 +18,6 @@ import { translate } from "utils/translations/translate";
 
 const CRITERIA_ID_SLICE: number = 3;
 
-const getVulnerabilitiesIds: (vulnerabilities: IVulnRowAttr[]) => string[] = (
-  vulnerabilities: IVulnRowAttr[]
-): string[] =>
-  vulnerabilities.map(
-    (vulnerability: IVulnRowAttr): string => vulnerability.id
-  );
-
-const getNonSelectableVulnerabilitiesOnEdit: (
-  vulnerabilities: IVulnRowAttr[]
-) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
-  vulnerabilities.reduce(
-    (
-      nonSelectableVulnerabilities: number[],
-      vulnerabilitiy: IVulnRowAttr,
-      currentVulnerabilityIndex: number
-    ): number[] =>
-      vulnerabilitiy.state === "VULNERABLE"
-        ? nonSelectableVulnerabilities
-        : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
-    []
-  );
-
-const getNonSelectableVulnerabilitiesOnReattack: (
-  vulnerabilities: IVulnRowAttr[]
-) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
-  vulnerabilities.reduce(
-    (
-      nonSelectableVulnerabilities: number[],
-      vulnerability: IVulnRowAttr,
-      currentVulnerabilityIndex: number
-    ): number[] =>
-      vulnerability.remediated ||
-      vulnerability.state === "SAFE" ||
-      vulnerability.verification?.toLowerCase() === "on_hold"
-        ? [...nonSelectableVulnerabilities, currentVulnerabilityIndex]
-        : nonSelectableVulnerabilities,
-    []
-  );
-
-const getNonSelectableVulnerabilitiesOnVerify: (
-  vulnerabilities: IVulnRowAttr[]
-) => number[] = (vulnerabilities: IVulnRowAttr[]): number[] =>
-  vulnerabilities.reduce(
-    (
-      nonSelectableVulnerabilities: number[],
-      vulnerabilitiy: IVulnRowAttr,
-      currentVulnerabilityIndex: number
-    ): number[] =>
-      vulnerabilitiy.remediated && vulnerabilitiy.state === "VULNERABLE"
-        ? nonSelectableVulnerabilities
-        : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
-    []
-  );
-
-const getVulnerabilitiesIndex: (
-  selectedVulnerabilities: IVulnRowAttr[],
-  allVulnerabilities: IVulnRowAttr[]
-) => number[] = (
-  selectedVulnerabilities: IVulnRowAttr[],
-  allVulnerabilities: IVulnRowAttr[]
-): number[] => {
-  const selectVulnIds: string[] = getVulnerabilitiesIds(
-    selectedVulnerabilities
-  );
-
-  return allVulnerabilities.reduce(
-    (
-      selectedVulnsIndex: number[],
-      currentVulnerability: IVulnRowAttr,
-      currentVulnerabilityIndex: number
-    ): number[] =>
-      selectVulnIds.includes(currentVulnerability.id)
-        ? [...selectedVulnsIndex, currentVulnerabilityIndex]
-        : selectedVulnsIndex,
-    []
-  );
-};
-
 const requirementsTitle = ({
   findingTitle,
   requirementsData,
@@ -304,12 +226,7 @@ export {
   formatHistoricTreatment,
   formatVulnerabilities,
   formatVulnerabilitiesTreatment,
-  getNonSelectableVulnerabilitiesOnEdit,
-  getNonSelectableVulnerabilitiesOnReattack,
   getNonSelectableVulnerabilitiesOnReattackIds,
-  getNonSelectableVulnerabilitiesOnVerify,
   getNonSelectableVulnerabilitiesOnVerifyIds,
   getVulnerabilityById,
-  getVulnerabilitiesIds,
-  getVulnerabilitiesIndex,
 };

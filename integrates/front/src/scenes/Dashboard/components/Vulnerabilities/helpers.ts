@@ -4,17 +4,8 @@ import type { UseTranslationResponse } from "react-i18next";
 import type { IErrorInfoAttr } from "./uploadFile";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
-import type {
-  IVulnDataTypeAttr,
-  IVulnRowAttr,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
-import {
-  getNonSelectableVulnerabilitiesOnEdit,
-  getNonSelectableVulnerabilitiesOnReattack,
-  getNonSelectableVulnerabilitiesOnVerify,
-  getVulnerabilitiesIds,
-  getVulnerabilityById,
-} from "scenes/Dashboard/components/Vulnerabilities/utils";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { getVulnerabilityById } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -98,45 +89,6 @@ const errorMessageHelper = (message: string): void => {
   }
 };
 
-function setNonSelectable(
-  vulns: IVulnRowAttr[],
-  requestingReattack: boolean,
-  verifyingRequest: boolean,
-  nonValidOnReattackVulnerabilities: IVulnRowAttr[] | undefined
-): number[] {
-  const nonSelectable: number[] = getNonSelectableVulnerabilitiesOnEdit(vulns);
-  const nonValidIds =
-    nonValidOnReattackVulnerabilities === undefined
-      ? []
-      : nonValidOnReattackVulnerabilities.map(
-          (vulnerability: IVulnRowAttr): string => vulnerability.id
-        );
-  if (requestingReattack) {
-    return [
-      ...getNonSelectableVulnerabilitiesOnReattack(vulns),
-      ...nonSelectable,
-      ...vulns.reduce(
-        (
-          previous: number[],
-          vuln: IVulnRowAttr,
-          currentIndex: number
-        ): number[] =>
-          nonValidIds.includes(vuln.id)
-            ? [...previous, currentIndex]
-            : previous,
-        []
-      ),
-    ];
-  } else if (verifyingRequest) {
-    return [
-      ...getNonSelectableVulnerabilitiesOnVerify(vulns),
-      ...nonSelectable,
-    ];
-  }
-
-  return nonSelectable;
-}
-
 const onRemoveVulnResultHelper = (
   removeVulnResult: IRemoveVulnAttr,
   t: UseTranslationResponse<"translation">["t"]
@@ -149,39 +101,6 @@ const onRemoveVulnResultHelper = (
   } else {
     msgError(t("deleteVulns.notSuccess"));
   }
-};
-
-const onSelectVariousVulnerabilitiesHelper = (
-  isSelect: boolean,
-  vulnerabilitiesSelected: IVulnRowAttr[],
-  selectedVulnerabilities: IVulnRowAttr[],
-  setSelectedVulnerabilities: (
-    value: React.SetStateAction<IVulnRowAttr[]>
-  ) => void
-): string[] => {
-  if (isSelect) {
-    const vulnsToSet: IVulnRowAttr[] = Array.from(
-      new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
-    );
-    setSelectedVulnerabilities(vulnsToSet);
-
-    return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
-  }
-  const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
-    vulnerabilitiesSelected
-  );
-  setSelectedVulnerabilities(
-    Array.from(
-      new Set(
-        selectedVulnerabilities.filter(
-          (selectedVulnerability: IVulnDataTypeAttr): boolean =>
-            !vulnerabilitiesIds.includes(selectedVulnerability.id)
-        )
-      )
-    )
-  );
-
-  return selectedVulnerabilities.map((vuln: IVulnRowAttr): string => vuln.id);
 };
 
 const handleDeleteVulnerabilityHelper = (
@@ -219,7 +138,5 @@ export {
   errorMessageHelper,
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  onSelectVariousVulnerabilitiesHelper,
   setColumnHelper,
-  setNonSelectable,
 };
