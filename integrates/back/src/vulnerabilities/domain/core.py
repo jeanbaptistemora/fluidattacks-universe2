@@ -528,6 +528,46 @@ async def mask_vulnerability(
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
 
+async def reject_vulnerabilities(
+    *,
+    loaders: Dataloaders,
+    vuln_ids: set[str],
+    finding_id: str,
+    modified_by: str,
+    justification: Optional[VulnerabilityStateJustification],
+    other_justification: Optional[str],
+) -> None:
+    if justification is None and other_justification is None:
+        InvalidParameter("justification")
+    if justification is not None and other_justification is not None:
+        InvalidParameter("other_justification")
+    if other_justification is not None:
+        vulns_utils.validate_justification_length(other_justification)
+    vulnerabilities = await get_by_finding_and_vuln_ids(
+        loaders, finding_id, vuln_ids
+    )
+    for vulnerability in vulnerabilities:
+        vulns_utils.validate_submitted(vulnerability)
+
+    await collect(
+        tuple(
+            vulns_model.update_historic_entry(
+                current_value=vulnerability,
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=vulnerability.state._replace(
+                    modified_by=modified_by,
+                    modified_date=datetime_utils.get_utc_now(),
+                    status=VulnerabilityStateStatus.REJECTED,
+                    justification=justification,
+                    other_justification=other_justification,
+                ),
+            )
+            for vulnerability in vulnerabilities
+        )
+    )
+
+
 async def reject_vulnerabilities_zero_risk(
     *,
     loaders: Dataloaders,
