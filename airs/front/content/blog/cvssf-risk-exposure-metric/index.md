@@ -258,4 +258,4 @@ of Continuous Hacking Machine Plan today.
 
 > **Note:**
 > For a summarized presentation of our CVSSF metric,
-> download the [white paper](https://try.fluidattacks.com/report/cvssf/).
+> download the [white paper](https://try.fluidattacks.tech/report/cvssf/).

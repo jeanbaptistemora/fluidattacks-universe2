@@ -301,7 +301,7 @@ as soon as they get their hands on the longed-for quantum computers.
 
 Concerned about your organization's cybersecurity?
 We invite you to download and review `Fluid Attacks'` latest annual report,
-[State of Attacks 2022](https://try.fluidattacks.com/report/state-of-attacks-2022/).
+[State of Attacks 2022](https://try.fluidattacks.tech/report/state-of-attacks-2022/).
 Benchmark against our figures
 how you are handling security in your organization.
 Want to improve?

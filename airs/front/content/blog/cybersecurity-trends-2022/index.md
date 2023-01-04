@@ -285,7 +285,7 @@ that takes the CVSS base score as a basis
 and further augments it significantly and exponentially
 as the base score increases,
 attempting to depict more accurately what our hackers see in practice.
-This gives us a risk exposure measure we call [CVSSF](https://try.fluidattacks.com/report/cvssf/).
+This gives us a risk exposure measure we call [CVSSF](https://try.fluidattacks.tech/report/cvssf/).
 As a result,
 visibility becomes greater the riskier vulnerabilities get.
 Our clients get the CVSSF of each detected vulnerability
