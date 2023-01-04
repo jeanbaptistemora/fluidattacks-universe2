@@ -162,7 +162,7 @@ with additional exploits.
 ## Where does ARM run?
 
 Our [ARM](https://fluidattacks.com/categories/arm/)
-(Attacks Resistance Management) platform
+(Attack Resistance Management) platform
 runs in the cloud.
 
 ## Do you manage the access credentials to ARM?
@@ -205,7 +205,7 @@ for source code analysis.
 
 ## What retesting options are available?
 
-[One-Shot Hacking](https://fluidattacks.com/services/one-shot-hacking)
+One-Shot Hacking
 includes one retest.
 The Squad Plan
 ([Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/))
