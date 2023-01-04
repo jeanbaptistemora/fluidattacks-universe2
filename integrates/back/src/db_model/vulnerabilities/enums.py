@@ -15,12 +15,19 @@ class VulnerabilityType(str, Enum):
 
 
 class VulnerabilityStateJustification(str, Enum):
+    CONSISTENCY: str = "CONSISTENCY"
     DUPLICATED: str = "DUPLICATED"
+    EVIDENCE: str = "EVIDENCE"
     EXCLUSION: str = "EXCLUSION"
     FALSE_POSITIVE: str = "FALSE_POSITIVE"
+    NAMING: str = "NAMING"
     NO_JUSTIFICATION: str = "NO_JUSTIFICATION"
     NOT_REQUIRED: str = "NOT_REQUIRED"
+    OMISSION: str = "OMISSION"
+    OTHER: str = "OTHER"
     REPORTING_ERROR: str = "REPORTING_ERROR"
+    SCORING: str = "SCORING"
+    WRITING: str = "WRITING"
 
 
 class VulnerabilityStateStatus(str, Enum):
