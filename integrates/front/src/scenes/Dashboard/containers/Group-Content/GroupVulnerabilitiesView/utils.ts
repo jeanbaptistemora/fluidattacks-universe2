@@ -1,17 +1,9 @@
-import type { IGroupVulnerabilities, IVulnerability } from "./types";
+import type { IGroupVulnerabilities } from "./types";
 
 import type { IHistoricTreatment } from "../../Finding-Content/DescriptionView/types";
 import type { IVulnerabilitiesAttr } from "../../Finding-Content/VulnerabilitiesView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
-
-const filterByTreatment = (
-  treatment: string
-): ((vulnerability: IVulnerability) => boolean) => {
-  return (vulnerability: IVulnerability): boolean => {
-    return vulnerability.treatment === treatment;
-  };
-};
 
 const formatVulnAttribute: (state: string) => string = (
   state: string
@@ -51,9 +43,4 @@ function isPendingToAcceptance(
   return vulnerabilitiesZeroRisk.length > 0;
 }
 
-export {
-  filterByTreatment,
-  formatVulnAttribute,
-  formatVulnerability,
-  isPendingToAcceptance,
-};
+export { formatVulnAttribute, formatVulnerability, isPendingToAcceptance };

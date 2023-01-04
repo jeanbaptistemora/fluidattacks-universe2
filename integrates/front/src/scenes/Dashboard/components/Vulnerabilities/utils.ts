@@ -229,53 +229,11 @@ const formatVulnerabilitiesTreatment: (
     };
   });
 
-function filterAssigned(
-  vulnerabilities: IVulnRowAttr[],
-  assigned: string
-): IVulnRowAttr[] {
-  if (_.isEmpty(assigned)) {
-    return vulnerabilities;
-  }
-
-  return vulnerabilities.filter(
-    (vulnerability: IVulnRowAttr): boolean =>
-      vulnerability.state === "VULNERABLE" &&
-      vulnerability.treatmentAssigned === assigned
-  );
-}
-
 function filterZeroRisk(vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] {
   return vulnerabilities.filter(
     (vuln: IVulnRowAttr): boolean =>
       _.isEmpty(vuln.zeroRisk) || vuln.zeroRisk === "Rejected"
   );
-}
-
-function filterTreatment(
-  vulnerabilities: IVulnRowAttr[],
-  treatment: string
-): IVulnRowAttr[] {
-  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
-    _.isEmpty(treatment)
-      ? true
-      : vuln.treatment === treatment && vuln.state === "VULNERABLE"
-  );
-}
-
-function filterTreatmentCurrentStatus(
-  vulnerabilities: IVulnRowAttr[],
-  currentState: string
-): IVulnRowAttr[] {
-  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean => {
-    const isPendingToApproval: string = (
-      vuln.treatment === "ACCEPTED_UNDEFINED" &&
-      vuln.treatmentAcceptanceStatus !== "APPROVED"
-    ).toString();
-
-    return _.isEmpty(currentState)
-      ? true
-      : isPendingToApproval === currentState;
-  });
 }
 
 function getNonSelectableVulnerabilitiesOnReattackIds(
@@ -341,10 +299,7 @@ const getVulnerabilityById: (
 };
 
 export {
-  filterAssigned,
-  filterTreatment,
   filterOutVulnerabilities,
-  filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatHistoricTreatment,
   formatVulnerabilities,
