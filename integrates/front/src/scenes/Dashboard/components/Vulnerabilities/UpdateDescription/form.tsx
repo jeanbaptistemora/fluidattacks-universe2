@@ -117,7 +117,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const areSelectedClosedVulnerabilities = vulnerabilities.some(
     (vulnerability: IVulnDataTypeAttr): boolean =>
-      vulnerability.currentState === "closed"
+      vulnerability.state === "SAFE"
   );
   const [isRunning, setIsRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);

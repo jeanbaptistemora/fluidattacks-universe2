@@ -45,7 +45,6 @@ describe("Update Description component", (): void => {
   const vulns: IVulnDataTypeAttr[] = [
     {
       assigned: "",
-      currentState: "open",
       externalBugTrackingSystem: null,
       findingId: "1",
       groupName: "",
@@ -61,6 +60,7 @@ describe("Update Description component", (): void => {
       severity: "2",
       source: "asm",
       specific: "",
+      state: "VULNERABLE",
       tag: "one",
       where: "",
     },
@@ -118,7 +118,6 @@ describe("Update Description component", (): void => {
               edges: [
                 {
                   node: {
-                    currentState: "open",
                     externalBugTrackingSystem: null,
                     findingId: "422286126",
                     id: "",
@@ -126,6 +125,7 @@ describe("Update Description component", (): void => {
                     reportDate: "",
                     severity: null,
                     specific: "",
+                    state: "VULNERABLE",
                     tag: "",
                     verification: null,
                     vulnerabilityType: "",
@@ -189,7 +189,6 @@ describe("Update Description component", (): void => {
     const vulnerabilities: IVulnDataTypeAttr[] = [
       {
         assigned: "",
-        currentState: "open",
         externalBugTrackingSystem: null,
         findingId: "1",
         groupName: "",
@@ -198,12 +197,12 @@ describe("Update Description component", (): void => {
         severity: null,
         source: "asm",
         specific: "",
+        state: "VULNERABLE",
         tag: "one",
         where: "",
       },
       {
         assigned: "",
-        currentState: "open",
         externalBugTrackingSystem: null,
         findingId: "1",
         groupName: "",
@@ -212,6 +211,7 @@ describe("Update Description component", (): void => {
         severity: null,
         source: "asm",
         specific: "",
+        state: "VULNERABLE",
         tag: "one",
         where: "",
       },
@@ -507,7 +507,6 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         assigned: "",
-        currentState: "open",
         externalBugTrackingSystem: null,
         findingId: "422286126",
         groupName: "testgroupname",
@@ -516,12 +515,12 @@ describe("Update Description component", (): void => {
         severity: null,
         source: "asm",
         specific: "",
+        state: "VULNERABLE",
         tag: "one",
         where: "",
       },
       {
         assigned: "",
-        currentState: "open",
         externalBugTrackingSystem: null,
         findingId: "422286126",
         groupName: "testgroupname",
@@ -530,6 +529,7 @@ describe("Update Description component", (): void => {
         severity: null,
         source: "asm",
         specific: "",
+        state: "VULNERABLE",
         tag: "one",
         where: "",
       },
@@ -639,7 +639,6 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         assigned: "",
-        currentState: "open",
         externalBugTrackingSystem: null,
         findingId: "422286126",
         groupName: "testgroupname",
@@ -648,6 +647,7 @@ describe("Update Description component", (): void => {
         severity: null,
         source: "asm",
         specific: "",
+        state: "VULNERABLE",
         tag: "one",
         where: "",
       },

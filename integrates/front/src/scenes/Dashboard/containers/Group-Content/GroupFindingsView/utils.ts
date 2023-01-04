@@ -39,6 +39,8 @@ const formatState: (state: string) => JSX.Element = (
   state: string
 ): JSX.Element => {
   const stateParameters: Record<string, string> = {
+    SAFE: "searchFindings.header.status.stateLabel.closed",
+    VULNERABLE: "searchFindings.header.status.stateLabel.open",
     closed: "searchFindings.header.status.stateLabel.closed",
     open: "searchFindings.header.status.stateLabel.open",
   };

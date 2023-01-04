@@ -30,7 +30,6 @@ describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
   const mockVuln: IVulnRowAttr = {
     assigned: "assigned-user-4",
-    currentState: "closed",
     externalBugTrackingSystem: null,
     findingId: "438679960",
     groupName: "test",
@@ -58,6 +57,7 @@ describe("AdditionalInfo", (): void => {
     snippet: null,
     source: "asm",
     specific: "specific-3",
+    state: "SAFE",
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",

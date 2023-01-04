@@ -17,7 +17,7 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
         reattack: cell.row.original.verification as string,
         source: cell.row.original.vulnerabilityType,
         specific: cell.row.original.specific,
-        status: cell.row.original.currentState,
+        status: cell.row.original.state,
         treatment: cell.row.original.treatment,
         where: cell.getValue(),
       }),
@@ -83,16 +83,16 @@ const tableFilters: IFilter<IVulnRowAttr>[] = [
   },
   {
     id: "currentState",
-    key: "currentState",
+    key: "state",
     label: "Status",
     selectOptions: [
       {
         header: translate.t("searchFindings.header.status.stateLabel.open"),
-        value: "open",
+        value: "VULNERABLE",
       },
       {
         header: translate.t("searchFindings.header.status.stateLabel.closed"),
-        value: "closed",
+        value: "SAFE",
       },
     ],
     type: "select",

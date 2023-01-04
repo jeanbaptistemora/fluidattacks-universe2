@@ -25,7 +25,7 @@ describe("VulnComponent", (): void => {
       enableColumnFilter: false,
     },
     {
-      accessorKey: "currentState",
+      accessorKey: "state",
       cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element =>
         statusFormatter(cell.getValue()),
       meta: { filterType: "select" },
@@ -65,7 +65,6 @@ describe("VulnComponent", (): void => {
   const mocks: IVulnRowAttr[] = [
     {
       assigned: "",
-      currentState: "open",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",
@@ -91,6 +90,7 @@ describe("VulnComponent", (): void => {
       snippet: null,
       source: "asm",
       specific: "specific-1",
+      state: "VULNERABLE",
       stream: null,
       tag: "tag-1, tag-2",
       treatment: "",
@@ -107,7 +107,6 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "",
-      currentState: "closed",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",
@@ -135,6 +134,7 @@ describe("VulnComponent", (): void => {
       snippet: null,
       source: "asm",
       specific: "specific-2",
+      state: "SAFE",
       stream: null,
       tag: "tag-5, tag-6",
       treatment: "",
@@ -151,7 +151,6 @@ describe("VulnComponent", (): void => {
     },
     {
       assigned: "assigned-user-4",
-      currentState: "open",
       externalBugTrackingSystem: null,
       findingId: "438679960",
       groupName: "test",
@@ -179,6 +178,7 @@ describe("VulnComponent", (): void => {
       snippet: null,
       source: "asm",
       specific: "specific-3",
+      state: "VULNERABLE",
       stream: null,
       tag: "tag-7, tag-8",
       treatment: "IN PROGRESS",

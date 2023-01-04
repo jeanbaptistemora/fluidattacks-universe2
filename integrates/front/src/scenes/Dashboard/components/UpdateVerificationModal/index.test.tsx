@@ -148,11 +148,11 @@ describe("update verification component", (): void => {
           setVerifyState={jest.fn()}
           vulns={[
             {
-              currentState: "open",
               findingId: "",
               groupName: "",
               id: "test",
               specific: "",
+              state: "VULNERABLE",
               where: "",
             },
           ]}
@@ -218,11 +218,11 @@ describe("update verification component", (): void => {
           setVerifyState={jest.fn()}
           vulns={[
             {
-              currentState: "open",
               findingId: "",
               groupName: "",
               id: "test_error",
               specific: "",
+              state: "VULNERABLE",
               where: "",
             },
           ]}
@@ -304,11 +304,11 @@ describe("update verification component", (): void => {
           setVerifyState={handleVerifyState}
           vulns={[
             {
-              currentState: "open",
               findingId: "",
               groupName: "",
               id: "test",
               specific: "",
+              state: "VULNERABLE",
               where: "",
             },
           ]}
@@ -372,11 +372,11 @@ describe("update verification component", (): void => {
           setVerifyState={handleVerifyState}
           vulns={[
             {
-              currentState: "open",
               findingId: "",
               groupName: "",
               id: "test_error",
               specific: "",
+              state: "VULNERABLE",
               where: "",
             },
           ]}

@@ -12,8 +12,8 @@ export const changeVulnStateFormatter = (
 
   return (
     <Switch
-      checked={!("currentState" in row) || row.currentState !== "closed"}
-      label={{ off: "closed", on: "open" }}
+      checked={!("state" in row) || row.state !== "SAFE"}
+      label={{ off: "Safe", on: "Vulnerable" }}
       onChange={handleOnChange}
     />
   );

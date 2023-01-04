@@ -3,7 +3,6 @@ import type { DocumentNode } from "graphql";
 
 const VULNS_FRAGMENT: DocumentNode = gql`
   fragment vulnFields on Vulnerability {
-    currentState
     state
     externalBugTrackingSystem
     findingId

@@ -9,7 +9,6 @@ import type {
 import type { IFinding } from "scenes/Dashboard/containers/Group-Content/GroupVulnerabilitiesView/types";
 
 interface IVulnRowAttr {
-  currentState: "closed" | "open" | "rejected" | "submitted";
   externalBugTrackingSystem: string | null;
   findingId: string;
   groupName: string;
@@ -25,6 +24,7 @@ interface IVulnRowAttr {
   snippet: ISnippet | null;
   source: string;
   specific: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   stream: string | null;
   tag: string;
   treatment: string;
@@ -62,7 +62,6 @@ interface IDownloadVulnerabilitiesResultAttr {
 }
 
 interface IVulnDataTypeAttr {
-  currentState: "closed" | "open" | "rejected" | "submitted";
   externalBugTrackingSystem: string | null;
   findingId: string;
   groupName: string;
@@ -71,6 +70,7 @@ interface IVulnDataTypeAttr {
   severity: string | null;
   source: string;
   specific: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   tag: string;
   assigned: string;
   where: string;

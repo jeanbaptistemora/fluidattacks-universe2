@@ -223,7 +223,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   function enabledRows(row: Row<IVulnRowAttr>): boolean {
     if (
       (isVerifyingRequest || isRequestingReattack) &&
-      row.original.currentState === "closed"
+      row.original.state === "SAFE"
     ) {
       return false;
     }

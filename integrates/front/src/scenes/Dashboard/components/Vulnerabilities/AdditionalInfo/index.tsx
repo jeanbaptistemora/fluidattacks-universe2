@@ -152,7 +152,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
-  const isVulnOpen: boolean = vulnerability.currentState === "open";
+  const isVulnOpen: boolean = vulnerability.state === "VULNERABLE";
   const currentExpiration: string =
     isVulnOpen &&
     data.vulnerability.treatment === "ACCEPTED" &&

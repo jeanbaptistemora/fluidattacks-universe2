@@ -52,7 +52,7 @@ const getSubmittedVulns: (
       submittedVulns: IVulnDataAttr[],
       vuln: IVulnerabilitiesAttr
     ): IVulnDataAttr[] => {
-      return vuln.currentState === "submitted"
+      return vuln.state === "SUBMITTED"
         ? [...submittedVulns, { acceptance: "", ...vuln }]
         : submittedVulns;
     },

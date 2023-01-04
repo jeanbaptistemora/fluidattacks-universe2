@@ -8,11 +8,11 @@ interface IFinding {
 }
 
 interface IVulnerability {
-  currentState: string;
   finding: IFinding;
   id: string;
   reportDate: string;
   specific: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   treatment: string;
   verification: string;
   where: string;

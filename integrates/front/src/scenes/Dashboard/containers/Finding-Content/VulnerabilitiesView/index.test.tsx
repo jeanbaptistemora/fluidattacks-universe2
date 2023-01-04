@@ -52,7 +52,6 @@ describe("VulnerabilitiesView", (): void => {
               {
                 node: {
                   __typename: "Vulnerability",
-                  currentState: "open",
                   externalBugTrackingSystem: null,
                   findingId: "422286126",
                   historicTreatment: [
@@ -73,6 +72,7 @@ describe("VulnerabilitiesView", (): void => {
                   reportDate: "2019-07-05 09:56:40",
                   severity: "",
                   specific: "specific-1",
+                  state: "VULNERABLE",
                   stream: "home > blog > articulo",
                   tag: "tag-1, tag-2",
                   treatment: "IN_PROGRESS",
@@ -91,7 +91,6 @@ describe("VulnerabilitiesView", (): void => {
               {
                 node: {
                   __typename: "Vulnerability",
-                  currentState: "open",
                   externalBugTrackingSystem: null,
                   findingId: "422286126",
                   historicTreatment: [
@@ -113,6 +112,7 @@ describe("VulnerabilitiesView", (): void => {
                   rootNickname: "https:",
                   severity: "",
                   specific: "specific-3",
+                  state: "VULNERABLE",
                   stream: null,
                   tag: "tag-3",
                   treatment: "IN_PROGRESS",
@@ -155,7 +155,6 @@ describe("VulnerabilitiesView", (): void => {
               {
                 node: {
                   __typename: "Vulnerability",
-                  currentState: "open",
                   externalBugTrackingSystem: null,
                   findingId: "422286126",
                   historicTreatment: [
@@ -177,6 +176,7 @@ describe("VulnerabilitiesView", (): void => {
                   rootNickname: "https:",
                   severity: "",
                   specific: "specific-2",
+                  state: "VULNERABLE",
                   stream: null,
                   tag: "tag-3",
                   treatment: "IN_PROGRESS",

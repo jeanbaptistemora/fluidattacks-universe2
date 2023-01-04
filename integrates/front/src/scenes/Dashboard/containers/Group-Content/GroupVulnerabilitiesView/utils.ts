@@ -5,14 +5,6 @@ import type { IVulnerabilitiesAttr } from "../../Finding-Content/Vulnerabilities
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { formatHistoricTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 
-const filterByState = (
-  state: string
-): ((vulnerability: IVulnerability) => boolean) => {
-  return (vulnerability: IVulnerability): boolean => {
-    return vulnerability.currentState === state;
-  };
-};
-
 const filterByTreatment = (
   treatment: string
 ): ((vulnerability: IVulnerability) => boolean) => {
@@ -60,7 +52,6 @@ function isPendingToAcceptance(
 }
 
 export {
-  filterByState,
   filterByTreatment,
   formatVulnAttribute,
   formatVulnerability,

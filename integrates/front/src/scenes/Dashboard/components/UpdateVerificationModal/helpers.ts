@@ -191,12 +191,12 @@ const handleSubmitHelper = async (
       async (): Promise<VerifyVulnerabilitiesResult[]> => {
         const openVulnsId: string[] = chunkedVulnerabilitiesList.reduce(
           (acc: string[], vuln: IVulnData): string[] =>
-            vuln.currentState === "open" ? [...acc, vuln.id] : acc,
+            vuln.state === "VULNERABLE" ? [...acc, vuln.id] : acc,
           []
         );
         const closedVulnsId: string[] = chunkedVulnerabilitiesList.reduce(
           (acc: string[], vuln: IVulnData): string[] =>
-            vuln.currentState === "closed" ? [...acc, vuln.id] : acc,
+            vuln.state === "SAFE" ? [...acc, vuln.id] : acc,
           []
         );
 

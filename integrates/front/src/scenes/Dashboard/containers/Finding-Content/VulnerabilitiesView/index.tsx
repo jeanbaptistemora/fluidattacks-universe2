@@ -256,14 +256,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const [filters, setFilters] = useState<IFilter<IVulnRowAttr>[]>([
     {
       id: "currentState",
-      key: "currentState",
+      key: "state",
       label: t("searchFindings.tabVuln.vulnTable.status"),
       selectOptions: [
-        { header: t("searchFindings.tabVuln.open"), value: "open" },
-        { header: t("searchFindings.tabVuln.closed"), value: "closed" },
+        { header: t("searchFindings.tabVuln.open"), value: "VULNERABLE" },
+        { header: t("searchFindings.tabVuln.closed"), value: "SAFE" },
       ],
       type: "select",
-      value: "open",
+      value: "VULNERABLE",
     },
     {
       id: "reportDate",
@@ -368,6 +368,22 @@ export const VulnsView: React.FC = (): JSX.Element => {
     });
     setIsNotify(false);
   }
+  useEffect((): void => {
+    setFilterVal((currentFilter: IPermanentData[]): IPermanentData[] => {
+      return currentFilter.map((filter: IPermanentData): IPermanentData => {
+        const stateParameters: Record<string, string> = {
+          CLOSED: "SAFE",
+          OPEN: "VULNERABLE",
+        };
+        const value: string = filter.value?.toString().toUpperCase() ?? "";
+
+        return filter.id === "currentState" && value in stateParameters
+          ? { ...filter, value: stateParameters[value] }
+          : filter;
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
       if (nzrVulnsPageInfo.hasNextPage) {
@@ -482,13 +498,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabVuln.vulnTable.specific"),
     },
     {
-      accessorKey: "currentState",
+      accessorKey: "state",
       cell: (cell): JSX.Element => {
         const labels: Record<string, string> = {
-          closed: t("searchFindings.tabVuln.closed"),
-          open: t("searchFindings.tabVuln.open"),
-          rejected: t("searchFindings.tabVuln.rejected"),
-          submitted: t("searchFindings.tabVuln.submitted"),
+          REJECTED: t("searchFindings.tabVuln.rejected"),
+          SAFE: t("searchFindings.tabVuln.closed"),
+          SUBMITTED: t("searchFindings.tabVuln.submitted"),
+          VULNERABLE: t("searchFindings.tabVuln.open"),
         };
 
         return statusFormatter(labels[cell.getValue<string>()]);

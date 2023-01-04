@@ -3,7 +3,6 @@ import type { DocumentNode } from "graphql";
 
 const VULNS_FRAGMENT: DocumentNode = gql`
   fragment vulnFields on Vulnerability {
-    currentState
     externalBugTrackingSystem
     findingId
     id
@@ -19,6 +18,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     }
     source
     specific
+    state
     stream
     tag
     treatment

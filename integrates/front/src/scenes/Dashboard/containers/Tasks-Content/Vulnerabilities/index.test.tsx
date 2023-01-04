@@ -33,7 +33,6 @@ describe("todoVulnerabilitiesView", (): void => {
           vulnerabilitiesAssigned: [
             {
               __typename: "Vulnerability",
-              currentState: "open",
               externalBugTrackingSystem: null,
               findingId: "422286126",
               groupName: "group1",
@@ -45,6 +44,7 @@ describe("todoVulnerabilitiesView", (): void => {
               severity: "",
               source: "asm",
               specific: "specific-1",
+              state: "VULNERABLE",
               stream: "home > blog > articulo",
               tag: "tag-1, tag-2",
               treatment: "ACCEPTED",
@@ -60,7 +60,6 @@ describe("todoVulnerabilitiesView", (): void => {
             },
             {
               __typename: "Vulnerability",
-              currentState: "open",
               externalBugTrackingSystem: null,
               findingId: "422286126",
               groupName: "group2",
@@ -73,6 +72,7 @@ describe("todoVulnerabilitiesView", (): void => {
               severity: "",
               source: "asm",
               specific: "specific-3",
+              state: "VULNERABLE",
               stream: null,
               tag: "tag-3",
               treatment: "IN_PROGRESS",

@@ -16,11 +16,11 @@ interface IGetFindingVulnInfoAttr {
 }
 
 interface IVulnerabilitiesAttr {
-  currentState: "closed" | "open" | "rejected" | "submitted";
   findingId: string;
   historicTreatment: IHistoricTreatment[];
   id: string;
   specific: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   where: string;
   zeroRisk: string | null;
 }

@@ -34,7 +34,7 @@ const getNonSelectableVulnerabilitiesOnEdit: (
       vulnerabilitiy: IVulnRowAttr,
       currentVulnerabilityIndex: number
     ): number[] =>
-      vulnerabilitiy.currentState === "open"
+      vulnerabilitiy.state === "VULNERABLE"
         ? nonSelectableVulnerabilities
         : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
     []
@@ -50,7 +50,7 @@ const getNonSelectableVulnerabilitiesOnReattack: (
       currentVulnerabilityIndex: number
     ): number[] =>
       vulnerability.remediated ||
-      vulnerability.currentState === "closed" ||
+      vulnerability.state === "SAFE" ||
       vulnerability.verification?.toLowerCase() === "on_hold"
         ? [...nonSelectableVulnerabilities, currentVulnerabilityIndex]
         : nonSelectableVulnerabilities,
@@ -66,7 +66,7 @@ const getNonSelectableVulnerabilitiesOnVerify: (
       vulnerabilitiy: IVulnRowAttr,
       currentVulnerabilityIndex: number
     ): number[] =>
-      vulnerabilitiy.remediated && vulnerabilitiy.currentState === "open"
+      vulnerabilitiy.remediated && vulnerabilitiy.state === "VULNERABLE"
         ? nonSelectableVulnerabilities
         : [...nonSelectableVulnerabilities, currentVulnerabilityIndex],
     []
@@ -128,7 +128,7 @@ const formatVulnerabilities: (
     const isPendingToApproval: boolean =
       vulnerability.treatment === "ACCEPTED_UNDEFINED" &&
       vulnerability.treatmentAcceptanceStatus !== "APPROVED";
-    const isVulnOpen: boolean = vulnerability.currentState === "open";
+    const isVulnOpen: boolean = vulnerability.state === "VULNERABLE";
     const treatmentLabel: string =
       translate.t(formatDropdownField(vulnerability.treatment)) +
       (isPendingToApproval
@@ -136,7 +136,7 @@ const formatVulnerabilities: (
         : "");
     const verification: string =
       vulnerability.verification === "Verified"
-        ? `${vulnerability.verification} (${vulnerability.currentState})`
+        ? `${vulnerability.verification} (${vulnerability.state.toLowerCase()})`
         : (vulnerability.verification as string);
     const shouldDisplayVerification: boolean =
       !_.isEmpty(vulnerability.lastVerificationDate) &&
@@ -239,7 +239,7 @@ function filterAssigned(
 
   return vulnerabilities.filter(
     (vulnerability: IVulnRowAttr): boolean =>
-      vulnerability.currentState === "open" &&
+      vulnerability.state === "VULNERABLE" &&
       vulnerability.treatmentAssigned === assigned
   );
 }
@@ -258,16 +258,7 @@ function filterTreatment(
   return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
     _.isEmpty(treatment)
       ? true
-      : vuln.treatment === treatment && vuln.currentState === "open"
-  );
-}
-
-function filterCurrentStatus(
-  vulnerabilities: IVulnRowAttr[],
-  currentState: string
-): IVulnRowAttr[] {
-  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
-    _.isEmpty(currentState) ? true : vuln.currentState === currentState
+      : vuln.treatment === treatment && vuln.state === "VULNERABLE"
   );
 }
 
@@ -296,7 +287,7 @@ function getNonSelectableVulnerabilitiesOnReattackIds(
       vulnerability: IVulnRowAttr
     ): string[] =>
       vulnerability.remediated ||
-      vulnerability.currentState === "closed" ||
+      vulnerability.state === "SAFE" ||
       vulnerability.verification?.toLowerCase() === "on_hold"
         ? [...nonSelectableVulnerabilities, vulnerability.id]
         : nonSelectableVulnerabilities,
@@ -312,7 +303,7 @@ function getNonSelectableVulnerabilitiesOnVerifyIds(
       nonSelectableVulnerabilities: string[],
       vulnerability: IVulnRowAttr
     ): string[] =>
-      vulnerability.remediated && vulnerability.currentState === "open"
+      vulnerability.remediated && vulnerability.state === "VULNERABLE"
         ? nonSelectableVulnerabilities
         : [...nonSelectableVulnerabilities, vulnerability.id],
     []
@@ -352,7 +343,6 @@ const getVulnerabilityById: (
 export {
   filterAssigned,
   filterTreatment,
-  filterCurrentStatus,
   filterOutVulnerabilities,
   filterTreatmentCurrentStatus,
   filterZeroRisk,

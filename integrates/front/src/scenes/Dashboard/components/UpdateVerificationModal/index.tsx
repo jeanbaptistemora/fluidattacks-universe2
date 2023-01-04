@@ -31,11 +31,11 @@ import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
 
 interface IVulnData {
-  currentState: string;
   findingId: string;
   groupName: string;
   id: string;
   specific: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   where: string;
 }
 interface IUpdateVerificationModal {
@@ -154,7 +154,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
       const newVulnList: IVulnData[] = vulnerabilitiesList.map(
         (vuln: IVulnData): IVulnData => ({
           ...vuln,
-          currentState: currentValue ? "closed" : "open",
+          state: currentValue ? "SAFE" : "VULNERABLE",
         })
       );
       setVulnerabilitiesList([...newVulnList]);
@@ -172,7 +172,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
           vuln.id === vulnInfo.id
             ? {
                 ...vuln,
-                currentState: vuln.currentState === "open" ? "closed" : "open",
+                state: vuln.state === "VULNERABLE" ? "SAFE" : "VULNERABLE",
               }
             : vuln
       );
@@ -189,7 +189,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
         header: "Specific",
       },
       {
-        accessorKey: "currentState",
+        accessorKey: "state",
         cell: (cell): JSX.Element =>
           changeVulnStateFormatter(
             cell.row.original as unknown as Record<string, string>,
@@ -217,7 +217,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
             &nbsp;
             <Switch
               checked={isOpen}
-              label={{ off: "closed", on: "open" }}
+              label={{ off: "Safe", on: "Vulnerable" }}
               onChange={handleOnChange}
             />
           </div>

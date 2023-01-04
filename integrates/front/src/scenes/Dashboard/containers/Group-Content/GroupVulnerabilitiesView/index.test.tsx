@@ -100,7 +100,6 @@ describe("GroupVulnerabilitiesView", (): void => {
           {
             node: {
               assigned: "",
-              currentState: "open",
               externalBugTrackingSystem: null,
               finding: {
                 id: "438679960",
@@ -131,6 +130,7 @@ describe("GroupVulnerabilitiesView", (): void => {
               snippet: null,
               source: "asm",
               specific: "specific-1",
+              state: "VULNERABLE",
               stream: null,
               tag: "tag-1, tag-2",
               treatment: "",
@@ -149,7 +149,6 @@ describe("GroupVulnerabilitiesView", (): void => {
           {
             node: {
               assigned: "",
-              currentState: "closed",
               externalBugTrackingSystem: null,
               findingId: "438679960",
               groupName: "unittesting",
@@ -175,6 +174,7 @@ describe("GroupVulnerabilitiesView", (): void => {
               snippet: null,
               source: "asm",
               specific: "specific-2",
+              state: "SAFE",
               stream: null,
               tag: "tag-3, tag-4",
               treatment: "",
@@ -193,7 +193,6 @@ describe("GroupVulnerabilitiesView", (): void => {
           {
             node: {
               assigned: "",
-              currentState: "open",
               externalBugTrackingSystem: null,
               findingId: "438679960",
               groupName: "unittesting",
@@ -219,6 +218,7 @@ describe("GroupVulnerabilitiesView", (): void => {
               snippet: null,
               source: "asm",
               specific: "specific-3",
+              state: "VULNERABLE",
               stream: null,
               tag: "tag-5, tag-6",
               treatment: "IN_PROGRESS",
@@ -483,7 +483,6 @@ describe("GroupVulnerabilitiesView", (): void => {
                   {
                     node: {
                       assigned: "",
-                      currentState: "open",
                       externalBugTrackingSystem: null,
                       finding: {
                         id: "438679961",
@@ -514,6 +513,7 @@ describe("GroupVulnerabilitiesView", (): void => {
                       snippet: null,
                       source: "asm",
                       specific: "specific-4",
+                      state: "VULNERABLE",
                       stream: null,
                       tag: "tag-1, tag-2",
                       treatment: "",
