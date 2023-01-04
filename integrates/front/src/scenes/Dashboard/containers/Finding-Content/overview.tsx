@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { CVSSFContainer } from "./styles";
+
 import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
@@ -16,7 +18,7 @@ interface IFindingOverviewProps {
   status: string;
 }
 
-const OrganizationGroupOverview: React.FC<IFindingOverviewProps> = ({
+const FindingOverview: React.FC<IFindingOverviewProps> = ({
   discoveryDate,
   estRemediationTime,
   openVulns,
@@ -81,10 +83,12 @@ const OrganizationGroupOverview: React.FC<IFindingOverviewProps> = ({
       <Row>
         <Row>
           <Col lg={20} md={50} sm={100}>
-            <Card title={"Remediate this vulnerability"}>
-              <Tag variant={color}>{severity}</Tag>
-              <Text>{"placeholder 20% vuln (CVSSF)"}</Text>
-            </Card>
+            <CVSSFContainer variant={"red"}>
+              <Card title={"Remediate this vulnerability"}>
+                <Tag variant={color}>{severity}</Tag>
+                <Text>{"placeholder 20% vuln (CVSSF)"}</Text>
+              </Card>
+            </CVSSFContainer>
           </Col>
           <Col lg={20} md={50} sm={100}>
             <Card title={`${status} ${severity}`}>
@@ -112,4 +116,4 @@ const OrganizationGroupOverview: React.FC<IFindingOverviewProps> = ({
   );
 };
 
-export { OrganizationGroupOverview };
+export { FindingOverview };
