@@ -1,5 +1,5 @@
 /* eslint react/forbid-component-props: 0 */
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { InformativeBannerItems } from "./InformativeBannerItems";
 import { InformativeBannerContainer } from "./styles/styledComponents";
@@ -21,16 +21,16 @@ const InformativeBanner: React.FC<IProps> = ({
 }: IProps): JSX.Element => {
   const [isClose, setIsClose] = useState(false);
 
-  function close(): void {
+  const handleClose = useCallback((): void => {
     setIsClose(!isClose);
-  }
+  }, [isClose]);
 
   return (
     <InformativeBannerContainer bgColor={bgColor} isClose={isClose}>
       <InformativeBannerItems
         /* eslint-disable-next-line react/jsx-no-bind */
         buttonText={buttonText}
-        close={close}
+        close={handleClose}
         subtitle={subtitle}
         title={title}
         url={url}

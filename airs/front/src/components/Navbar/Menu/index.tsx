@@ -3,7 +3,7 @@
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-no-bind:0 */
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { RiMenuFill } from "react-icons/ri";
 
 import { MenuDesktop } from "./MenuDesktop";
@@ -23,18 +23,19 @@ import {
 
 const Menu: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
-  function toggle(): void {
+
+  const toggleOpen = useCallback((): void => {
     setIsOpen(!isOpen);
     if (isOpen) {
       document.body.setAttribute("style", "overflow-y: auto;");
     } else {
       document.body.setAttribute("style", "overflow-y: hidden;");
     }
-  }
+  }, [isOpen]);
 
   return (
     <React.Fragment>
-      <MenuButton onClick={toggle}>
+      <MenuButton onClick={toggleOpen}>
         <div className={"lower"}>
           <span className={"pointer dib h2-l"} id={"openbtn"}>
             <RiMenuFill className={"f2 c-fluid-bk"} />
@@ -47,14 +48,14 @@ const Menu: React.FC = (): JSX.Element => {
           id={"mySidenavXl"}
         >
           <CenteredMaxWidthContainer>
-            <MenuDesktopTopBar close={toggle} />
+            <MenuDesktopTopBar close={toggleOpen} />
             <MenuDesktop />
           </CenteredMaxWidthContainer>
         </MenuDesktopInnerContainer>
       </MenuDesktopContainer>
       <MenuMobileContainer>
         <MenuMobileInnerContainer style={{ width: isOpen ? "100%" : "0" }}>
-          <MenuMobile close={toggle} />
+          <MenuMobile close={toggleOpen} />
         </MenuMobileInnerContainer>
       </MenuMobileContainer>
     </React.Fragment>
