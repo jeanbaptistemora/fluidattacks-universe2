@@ -92,9 +92,9 @@ be executed, thus hacking his account.
 
 ## Evidence of exploitation
 
-<video width="817" height="590" controls>
-    <source src="https://user-images.githubusercontent.com/51862990/
-    204822560-80c8fce0-82ec-4a23-bec5-9da689ffea4f.mp4" type="video/mp4">
+<video width="835" height="505" controls>
+    <source src="https://rb.gy/mlmsrv"
+    type="video/mp4">
     <p>POC-Account-Takeover-Rushbet</p>
 </video>
 
