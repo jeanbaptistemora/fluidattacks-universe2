@@ -203,6 +203,16 @@ in {
           functionalTests)
         ++ [
           {
+            output = "/forces/test";
+            gitlabExtra =
+              gitlabTestDevAndProd
+              // {
+                variables = {
+                  MAKES_NON_ROOT = 1;
+                };
+              };
+          }
+          {
             args = ["changes_db"];
             output = "/integrates/back/test/unit";
             gitlabExtra =
@@ -453,20 +463,6 @@ in {
                   "/integrates/front/deploy/dev"
                 ];
                 parallel = 5;
-                retry = 2;
-              };
-          }
-          {
-            output = "/forces/test";
-            gitlabExtra =
-              gitlabPostDeployDev
-              // {
-                needs = [
-                  "/integrates/back/deploy/dev"
-                ];
-                variables = {
-                  API_ENDPOINT = "https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api";
-                };
                 retry = 2;
               };
           }

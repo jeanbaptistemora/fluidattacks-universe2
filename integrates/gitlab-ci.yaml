@@ -64,12 +64,8 @@
 /forces/test:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
-  needs:
-    - /integrates/back/deploy/dev
-  retry: 2
+  needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -79,13 +75,13 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
     - m . /forces/test
-  stage: post-deploy
+  stage: test-code
   tags:
     - small
   variables:
-    API_ENDPOINT: https://$CI_COMMIT_REF_NAME.app.fluidattacks.com/api
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/authz-matrix:
   after_script:
     - cp ~/.makes/provenance-* .

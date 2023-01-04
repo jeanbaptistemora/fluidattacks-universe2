@@ -1,8 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  export INTEGRATES_FORCES_API_TOKEN
-  export API_ENDPOINT
+  export API_ENDPOINT="https://localhost:8001/api"
 
   local args_pytest=(
     --cov-branch
@@ -15,15 +14,13 @@ function main {
     --no-cov-on-fail
     --verbose
   )
-  aws_login "dev" "3600" \
-    && if test -n "${CI:-}"; then
-      aws_eks_update_kubeconfig 'common' 'us-east-1' \
-        && kubectl rollout status \
-          "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-          -n "dev" \
-          --timeout="15m"
-    fi \
+  : \
+    && aws_login "dev" "3600" \
+    && source __argIntegratesBackEnv__/template dev \
     && sops_export_vars __argSecretsFile__ "TEST_FORCES_TOKEN" \
+    && DAEMON=true integrates-db \
+    && DAEMON=true integrates-back dev \
+    && echo "[INFO] Running forces tests..." \
     && pushd forces/ \
     && source __argForcesRuntime__/template \
     && pytest "${args_pytest[@]}" \

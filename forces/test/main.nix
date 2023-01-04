@@ -2,24 +2,25 @@
   makeScript,
   outputs,
   projectPath,
-  inputs,
   ...
 }:
 makeScript {
   name = "forces-test";
   replace = {
     __argForcesRuntime__ = outputs."/forces/config/runtime";
+    __argIntegratesBackEnv__ = outputs."/integrates/back/env";
     __argSecretsFile__ = projectPath "/integrates/secrets/development.yaml";
   };
   searchPaths = {
     source = [
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
       outputs."/forces/config/development"
       outputs."/forces/config/runtime"
-      outputs."/common/utils/sops"
-      outputs."/common/utils/aws"
     ];
     bin = [
-      inputs.nixpkgs.kubectl
+      outputs."/integrates/back"
+      outputs."/integrates/db"
     ];
   };
   entrypoint = ./entrypoint.sh;
