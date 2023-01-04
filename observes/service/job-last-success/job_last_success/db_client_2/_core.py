@@ -36,11 +36,16 @@ class JobLastSuccess:
 @dataclass(frozen=True)
 class Client:
     _get_job: _Patch[Callable[[str], Cmd[JobLastSuccess]]]
+    _upsert: _Patch[Callable[[str], Cmd[None]]]
 
     @staticmethod
-    def new(get_job: Callable[[str], Cmd[JobLastSuccess]]) -> Client:
+    def new(
+        get_job: Callable[[str], Cmd[JobLastSuccess]],
+        upsert: Callable[[str], Cmd[None]],
+    ) -> Client:
         return Client(
             _Patch(get_job),
+            _Patch(upsert),
         )
 
     def get_job(self, job_name: str) -> Cmd[JobLastSuccess]:
