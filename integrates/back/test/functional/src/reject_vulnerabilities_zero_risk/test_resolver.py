@@ -49,6 +49,7 @@ async def test_reject_vulnerabilities_zero_risk(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
+    assert "success" in result["data"]["rejectVulnerabilitiesZeroRisk"]
     assert result["data"]["rejectVulnerabilitiesZeroRisk"]["success"]
 
     loaders.vulnerability.clear(vuln_id)
