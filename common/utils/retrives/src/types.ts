@@ -7,4 +7,9 @@ interface Organization {
   groups: Group[];
 }
 
-export { Group, Organization };
+interface GitRoot {
+  nickname: string;
+  downloadUrl?: string;
+}
+
+export { Group, Organization, GitRoot };

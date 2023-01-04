@@ -14,4 +14,16 @@ const GET_GROUPS: DocumentNode = gql`
   }
 `;
 
-export { GET_GROUPS };
+const GET_GIT_ROOTS = gql`
+  query MeltsGetGitRoots($groupName: String!) {
+    group(groupName: $groupName) {
+      roots {
+        ... on GitRoot {
+          nickname
+          downloadUrl
+        }
+      }
+    }
+  }
+`;
+export { GET_GROUPS, GET_GIT_ROOTS };

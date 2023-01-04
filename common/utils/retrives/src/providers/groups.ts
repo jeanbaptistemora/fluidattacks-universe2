@@ -2,9 +2,10 @@ import * as vscode from "vscode";
 import { GET_GROUPS } from "../queries";
 import { getClient } from "../utils/apollo";
 import { Organization } from "../types";
+import { getGitRoots, GitRootTreeItem } from "./gitRoots";
 
 type EventGroup = Group | undefined | void;
-
+type TreeItems = Group[] | GitRootTreeItem[];
 export class GroupsProvider implements vscode.TreeDataProvider<Group> {
   private _onDidChangeTreeData: vscode.EventEmitter<EventGroup> =
     new vscode.EventEmitter<EventGroup>();
@@ -19,9 +20,9 @@ export class GroupsProvider implements vscode.TreeDataProvider<Group> {
     return element;
   }
 
-  getChildren(element?: Group): Thenable<Group[]> {
+  getChildren(element?: Group): Thenable<TreeItems> {
     if (element) {
-      return Promise.resolve([]);
+      return Promise.resolve(getGitRoots(element.label));
     } else {
       return Promise.resolve(this.getGroups());
     }

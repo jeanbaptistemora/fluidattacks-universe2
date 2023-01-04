@@ -42,7 +42,21 @@
           }
         }
       }
-    ]
+    ],
+    "commands": [
+      {
+				"command": "retrieves.clone",
+				"title": "Clone"
+			}
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+					"command": "retrieves.clone",
+					"when": "view == user_groups && viewItem == gitRoot"
+				}
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
