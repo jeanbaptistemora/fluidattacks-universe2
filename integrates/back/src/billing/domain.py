@@ -587,8 +587,6 @@ async def create_payment_method(
 ) -> bool:
     """Create a payment method and associate it to the customer"""
     await validate_legal_document(rut, tax_id)
-    # Create customer if it does not exist
-    customer = await create_billing_customer(org, user_email)
 
     # create other payment methods
     if card_number == "":
@@ -617,7 +615,6 @@ async def create_payment_method(
         else:
             org = org._replace(
                 payment_methods=[other_payment],
-                billing_customer=customer.id,
             )
         await organizations_model.update_metadata(
             metadata=OrganizationMetadataToUpdate(
@@ -649,6 +646,9 @@ async def create_payment_method(
             rut=rut,
             tax_id=tax_id,
         )
+
+    # Create customer if it does not exist
+    customer = await create_billing_customer(org, user_email)
 
     # create credit card payment method
     result: bool = False
@@ -707,10 +707,6 @@ async def update_payment_method(
     email: str,
     state: str,
 ) -> bool:
-    # Raise exception if stripe customer does not exist
-    if org.billing_customer is None:
-        raise InvalidBillingCustomer()
-
     # Raise exception if payment method does not belong to organization
     payment_methods: list[PaymentMethod] = await customer_payment_methods(
         org=org,
@@ -763,6 +759,10 @@ async def update_payment_method(
             organization_name=org.name,
         )
         return True
+
+    # Raise exception if stripe customer does not exist
+    if org.billing_customer is None:
+        raise InvalidBillingCustomer()
 
     result: bool = await dal.update_payment_method(
         payment_method_id=payment_method_id,
