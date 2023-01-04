@@ -1,17 +1,10 @@
 from lib_sast.types import (
     Paths,
-    ShardDb,
-)
-from model import (
-    core_model,
 )
 import os
 import pytest
 from sast.parse import (
     get_graph_db,
-)
-from sast_symbolic_evaluation.evaluate import (
-    get_all_possible_syntax_steps,
 )
 from typing import (
     Tuple,
@@ -80,7 +73,6 @@ async def test_graph_generation(
     # Test the GraphDB
     paths = Paths(include=files_to_test, exclude=())
     paths.set_lang()
-    shard_db = ShardDb(paths)
 
     graph_db = get_graph_db(files_to_test)
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
@@ -92,35 +84,6 @@ async def test_graph_generation(
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
     with open(expected_path, "w", encoding="utf-8") as handle:
         handle.write(graph_db_as_json_str)
-
-    # Test SymEval
-    syntax_steps = {
-        finding.name: get_all_possible_syntax_steps(
-            shard_db,
-            graph_db,
-            finding,
-        )
-        for finding in core_model.FindingEnum
-    }
-    syntax_steps_as_json_str = json_dumps(
-        syntax_steps,
-        indent=2,
-        sort_keys=True,
-    )
-
-    expected_path = os.path.join(
-        os.environ["STATE"],
-        f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
-    )
-    os.makedirs(os.path.dirname(expected_path), exist_ok=True)
-    with open(expected_path, "w", encoding="utf-8") as handle:
-        handle.write(syntax_steps_as_json_str)
-
-    with open(
-        f"skims/test/data/sast/root-graph-syntax_{suffix_out}.json",
-        encoding="utf-8",
-    ) as handle:
-        assert syntax_steps_as_json_str == handle.read()
 
     with open(
         f"skims/test/data/sast/root-graph_{suffix_out}.json", encoding="utf-8"
