@@ -12,7 +12,7 @@ existence and exploitation of
 the corresponding type of
 vulnerability.
 We present such evidence in pictures,
-with ***.png** and **.jpg** extension and
+with **.png** and **.jpg** extension and
 videos with **WebM** extension
 helping us to understand to identify
 this type of vulnerability for
