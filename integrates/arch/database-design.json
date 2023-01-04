@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 03, 2023, 02:53 PM",
+    "DateLastModified": "Jan 04, 2023, 01:43 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -25942,7 +25942,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -26229,7 +26229,7 @@
                     "N": "1"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -26476,7 +26476,7 @@
                     "N": "1"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -26750,7 +26750,7 @@
                     "N": "4"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -27110,7 +27110,7 @@
                     "N": "1"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -27426,7 +27426,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -27668,7 +27668,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -27896,7 +27896,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -28190,7 +28190,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -28443,7 +28443,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -28671,7 +28671,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -28913,7 +28913,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -29155,7 +29155,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -29394,7 +29394,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -29625,7 +29625,7 @@
                     "N": "1"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -30114,7 +30114,7 @@
                     "N": "1"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
