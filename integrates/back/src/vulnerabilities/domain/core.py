@@ -564,12 +564,18 @@ async def reject_vulnerabilities(
     vuln_ids: set[str],
     finding_id: str,
     modified_by: str,
-    justification: Optional[VulnerabilityStateJustification],
+    justification: VulnerabilityStateJustification,
     other_justification: Optional[str],
 ) -> None:
-    if justification is None and other_justification is None:
+    if (
+        justification is VulnerabilityStateJustification.OTHER
+        and other_justification
+    ):
         InvalidParameter("justification")
-    if justification is not None and other_justification is not None:
+    if (
+        justification is VulnerabilityStateJustification.OTHER
+        and not other_justification
+    ):
         InvalidParameter("other_justification")
     if other_justification is not None:
         vulns_utils.validate_justification_length(other_justification)

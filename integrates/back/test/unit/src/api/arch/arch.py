@@ -458,6 +458,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "remove_vulnerability",
         "refresh_toe_lines",
         "update_vulnerabilities_treatment",
+        "reject_vulnerabilities",
         "reject_vulnerabilities_zero_risk",
         "finish_machine_execution",
         "add_draft",

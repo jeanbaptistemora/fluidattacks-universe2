@@ -604,6 +604,18 @@ type Mutation {
     eventId: String!
   ): SimplePayload!
 
+  "Rejects the provided vulnerabilities from being considered as opened"
+  rejectVulnerabilities(
+    "Identifier of Finding containing the vulnerabilities"
+    findingId: String!
+    "Justification for the rejection"
+    justification: VulnerabilityRejectionJustification!
+    "Other justification for the rejection"
+    otherJustification: String
+    "List of rejected Vulnerabilities"
+    vulnerabilities: [String!]!
+  ): SimplePayload!
+
   "Rejects the provided vulnerabilities from being considered as zero risk"
   rejectVulnerabilitiesZeroRisk(
     "Identifier of Finding containing the vulnerabilities"

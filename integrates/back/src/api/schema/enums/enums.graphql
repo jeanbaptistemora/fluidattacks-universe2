@@ -590,6 +590,27 @@ enum VulnerabilityTreatment {
   NEW
 }
 
+"Justification to reject a vulnerability"
+enum VulnerabilityRejectionJustification {
+  """
+  There are consistency issues with the vulnerabilities, the severity or
+  the evidence
+  """
+  CONSISTENCY
+  "The evidence is insufficient"
+  EVIDENCE
+  "The vulnerabilities should be submitted under another Finding type"
+  NAMING
+  "More data should be gathered before submission"
+  OMISSION
+  "Other justification"
+  OTHER
+  "Faulty severity scoring"
+  SCORING
+  "The writing could be improved"
+  WRITING
+}
+
 "Vulnerability zero risk status"
 enum VulnerabilityZeroRiskStatus {
   "Confirmed"
