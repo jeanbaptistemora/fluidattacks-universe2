@@ -1304,7 +1304,7 @@ async def _remove_all_roots(
             )
             for root in await loaders.group_roots.load(group_name)
         ),
-        workers=4,
+        workers=1,
     )
 
 

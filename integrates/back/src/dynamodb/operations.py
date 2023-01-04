@@ -108,13 +108,13 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
 
 
 async def batch_delete_item(
-    *, keys: Tuple[PrimaryKey, ...], table: Table
+    *, keys: tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
     table_resource = await get_table_resource(table)
 
-    async with table_resource.batch_writer() as batch_writer:
-        try:
+    async def _delete_chunk(chunk_keys: list[PrimaryKey]) -> None:
+        async with table_resource.batch_writer() as batch_writer:
             await collect(
                 tuple(
                     batch_writer.delete_item(
@@ -125,11 +125,15 @@ async def batch_delete_item(
                             key_structure.sort_key: primary_key.sort_key,
                         }
                     )
-                    for primary_key in keys
+                    for primary_key in chunk_keys
                 )
             )
-        except ClientError as error:
-            handle_error(error=error)
+
+    try:
+        for keys_chunk in chunked(keys, 100):
+            await _delete_chunk(keys_chunk)
+    except ClientError as error:
+        handle_error(error=error)
 
 
 async def batch_get_item(
