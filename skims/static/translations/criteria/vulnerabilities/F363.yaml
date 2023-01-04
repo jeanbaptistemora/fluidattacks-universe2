@@ -18,3 +18,6 @@ src.lib_path.f363.not_requires_uppercase:
 src.lib_path.f363.not_requires_lowercase:
   en: Account/PasswordPolicy must require lowercase chars
   es: PasswordPolicy requiere de caracteres en minusculas
+src.lib_path.f363.not_requires_symbols:
+  en: Account/PasswordPolicy must require symbols chars
+  es: PasswordPolicy requiere de caracteres simbolicos
