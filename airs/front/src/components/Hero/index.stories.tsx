@@ -17,7 +17,6 @@ const Template: Story<React.PropsWithChildren<IHeroProps>> = (
 
 const Default = Template.bind({});
 Default.args = {
-  bgColor: "#2e2e38",
   button1Link: "/test/",
   button1Text: "Go to test",
   button2Link: "/other-test/",

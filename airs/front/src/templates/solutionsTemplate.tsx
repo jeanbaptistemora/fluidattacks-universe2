@@ -111,7 +111,6 @@ const SolutionsIndex: React.FC<IQueryData> = ({
           />
           <PageArticle bgColor={"#ffffff"}>
             <Hero
-              bgColor={"#f4f4f6"}
               button1Link={"/free-trial/"}
               button1Text={"Start free trial"}
               button2Link={"/contact-us/"}

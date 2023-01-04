@@ -2,7 +2,7 @@
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import React, { useCallback } from "react";
 
-import type { IHeroProps } from "./types";
+import type { IHeroProps, IHeroTone, THeroTone } from "./types";
 
 import { AirsLink } from "../AirsLink";
 import { Button } from "../Button";
@@ -11,7 +11,6 @@ import { Container } from "../Container";
 import { Text, Title } from "../Typography";
 
 const Hero: React.FC<IHeroProps> = ({
-  bgColor,
   button1Link,
   button1Text,
   button2Link,
@@ -23,6 +22,7 @@ const Hero: React.FC<IHeroProps> = ({
   sizeMd,
   sizeSm,
   title,
+  tone = "light",
   variant = "center",
 }): JSX.Element => {
   const { trackEvent } = useMatomo();
@@ -34,9 +34,26 @@ const Hero: React.FC<IHeroProps> = ({
     });
   }, [matomoAction, trackEvent]);
 
+  const tones: Record<THeroTone, IHeroTone> = {
+    dark: {
+      bgColor: "#2e2e38",
+      button1: "primary",
+      button2: "darkTertiary",
+      paragraphColor: "#b0b0bf",
+      titleColor: "#fafafa",
+    },
+    light: {
+      bgColor: "#f4f4f6",
+      button1: "primary",
+      button2: "tertiary",
+      paragraphColor: "#65657b",
+      titleColor: "#2e2e38",
+    },
+  };
+
   if (variant === "center") {
     return (
-      <Container bgColor={bgColor} ph={4} pv={5}>
+      <Container bgColor={tones[tone].bgColor} ph={4} pv={5}>
         <Container
           align={"center"}
           center={true}
@@ -47,7 +64,7 @@ const Hero: React.FC<IHeroProps> = ({
         >
           <Container width={"50%"} widthMd={"100%"}>
             <Title
-              color={"#2e2e38"}
+              color={tones[tone].titleColor}
               level={1}
               mb={3}
               size={size}
@@ -56,7 +73,7 @@ const Hero: React.FC<IHeroProps> = ({
             >
               {title}
             </Title>
-            <Text color={"#65657b"} size={"big"}>
+            <Text color={tones[tone].paragraphColor} size={"big"}>
               {paragraph}
             </Text>
             <Container
@@ -72,7 +89,7 @@ const Hero: React.FC<IHeroProps> = ({
                   <Button
                     display={"block"}
                     onClick={matomoFreeTrialEvent}
-                    variant={"primary"}
+                    variant={tones[tone].button1}
                   >
                     {button1Text}
                   </Button>
@@ -80,7 +97,7 @@ const Hero: React.FC<IHeroProps> = ({
               </Container>
               <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
                 <AirsLink href={button2Link}>
-                  <Button display={"block"} variant={"tertiary"}>
+                  <Button display={"block"} variant={tones[tone].button2}>
                     {button2Text}
                   </Button>
                 </AirsLink>
@@ -101,7 +118,12 @@ const Hero: React.FC<IHeroProps> = ({
   }
 
   return (
-    <Container bgColor={bgColor} display={"flex"} justify={"end"} pv={5}>
+    <Container
+      bgColor={tones[tone].bgColor}
+      display={"flex"}
+      justify={"end"}
+      pv={5}
+    >
       <Container
         align={"center"}
         display={"flex"}
@@ -112,7 +134,7 @@ const Hero: React.FC<IHeroProps> = ({
       >
         <Container width={"50%"} widthMd={"100%"}>
           <Title
-            color={"#2e2e38"}
+            color={tones[tone].titleColor}
             level={1}
             mb={3}
             size={size}
@@ -121,7 +143,7 @@ const Hero: React.FC<IHeroProps> = ({
           >
             {title}
           </Title>
-          <Text color={"#65657b"} size={"big"}>
+          <Text color={tones[tone].paragraphColor} size={"big"}>
             {paragraph}
           </Text>
           <Container
@@ -137,7 +159,7 @@ const Hero: React.FC<IHeroProps> = ({
                 <Button
                   display={"block"}
                   onClick={matomoFreeTrialEvent}
-                  variant={"primary"}
+                  variant={tones[tone].button1}
                 >
                   {button1Text}
                 </Button>
@@ -145,7 +167,7 @@ const Hero: React.FC<IHeroProps> = ({
             </Container>
             <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
               <AirsLink href={button2Link}>
-                <Button display={"block"} variant={"tertiary"}>
+                <Button display={"block"} variant={tones[tone].button2}>
                   {button2Text}
                 </Button>
               </AirsLink>
