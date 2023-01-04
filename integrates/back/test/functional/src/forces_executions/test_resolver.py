@@ -246,3 +246,27 @@ async def test_should_not_get_forces_executions_by_strictness(
     )
     executions = result["data"]["group"]["executionsConnections"]["edges"]
     assert executions == []
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("forces_executions")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_get_forces_executions_by_status(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, group="group1", status="vulnerable"
+    )
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert len(executions) > 0
+
+    result = await get_result(user=email, group="group1", status="safe")
+    executions = result["data"]["group"]["executionsConnections"]["edges"]
+    assert executions == []
