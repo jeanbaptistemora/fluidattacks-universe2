@@ -5,7 +5,12 @@ from decimal import (
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
 DEFAULT_VULNERABILITY_GRACE_PERIOD = int(0)
+DEFAULT_INACTIVITY_PERIOD = int(90)
 POLICIES_FORMATTED = {
+    "inactivity_period": (
+        "Number of days to remove a stakeholder from the organization "
+        "due to inactivity"
+    ),
     "max_acceptance_days": (
         "Maximum number of calendar days a finding "
         "can be temporarily accepted"

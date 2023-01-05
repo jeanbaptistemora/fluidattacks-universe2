@@ -58,6 +58,9 @@ def format_policies_to_update(
     policies_data: dict[str, Any],
 ) -> PoliciesToUpdate:
     return PoliciesToUpdate(
+        inactivity_period=int(policies_data["inactivity_period"])
+        if policies_data.get("inactivity_period") is not None
+        else None,
         max_acceptance_days=int(policies_data["max_acceptance_days"])
         if policies_data.get("max_acceptance_days") is not None
         else None,

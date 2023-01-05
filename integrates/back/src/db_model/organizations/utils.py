@@ -97,6 +97,9 @@ def format_payment_methods(
 
 def format_policies(policies: Item) -> Policies:
     return Policies(
+        inactivity_period=int(policies["inactivity_period"])
+        if "inactivity_period" in policies
+        else None,
         max_acceptance_days=int(policies["max_acceptance_days"])
         if "max_acceptance_days" in policies
         else None,

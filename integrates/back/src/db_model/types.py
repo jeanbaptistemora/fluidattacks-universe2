@@ -1,4 +1,5 @@
 from .constants import (
+    DEFAULT_INACTIVITY_PERIOD,
     DEFAULT_MAX_SEVERITY,
     DEFAULT_MIN_SEVERITY,
 )
@@ -22,6 +23,7 @@ class CodeLanguage(NamedTuple):
 class Policies(NamedTuple):
     modified_date: datetime
     modified_by: str
+    inactivity_period: Optional[int] = DEFAULT_INACTIVITY_PERIOD
     max_acceptance_days: Optional[int] = None
     max_acceptance_severity: Optional[Decimal] = DEFAULT_MAX_SEVERITY
     max_number_acceptances: Optional[int] = None
@@ -31,6 +33,7 @@ class Policies(NamedTuple):
 
 
 class PoliciesToUpdate(NamedTuple):
+    inactivity_period: Optional[int] = None
     max_acceptance_days: Optional[int] = None
     max_acceptance_severity: Optional[Decimal] = None
     max_number_acceptances: Optional[int] = None
