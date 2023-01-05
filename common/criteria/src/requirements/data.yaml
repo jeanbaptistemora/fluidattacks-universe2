@@ -1,5 +1,5 @@
 ---
-'023':
+"023":
   en:
     title: Terminate inactive user sessions
     summary: >
@@ -96,7 +96,7 @@
     - sig.M_1_5
     - sig.U_1_2_4
   metadata: {}
-'024':
+"024":
   en:
     title: Transfer information using session objects
     summary: >
@@ -130,7 +130,7 @@
     - owaspscp.9
     - owaspmasvs.V4_2
   metadata: {}
-'025':
+"025":
   en:
     title: Manage concurrent sessions
     summary: >
@@ -199,7 +199,7 @@
     - owaspscp.3
     - owaspscp.4
   metadata: {}
-'026':
+"026":
   en:
     title: Encrypt client-side session information
     summary: >
@@ -243,7 +243,7 @@
     - cwe.13
     - asvs.4_1_2
   metadata: {}
-'027':
+"027":
   en:
     title: Allow session lockout
     summary: >
@@ -274,7 +274,7 @@
     - owasprisks.P8
     - owaspscp.4
   metadata: {}
-'028':
+"028":
   en:
     title: Allow users to log out
     summary: >
@@ -335,7 +335,7 @@
     - sig.H_3_1_17
     - asvs.3_3_3
   metadata: {}
-'029':
+"029":
   en:
     title: Cookies with security attributes
     summary: >
@@ -446,7 +446,7 @@
     - asvs.3_4_5
     - asvs.13_2_3
   metadata: {}
-'030':
+"030":
   en:
     title: Avoid object reutilization
     summary: >
@@ -543,8 +543,9 @@
     - cwe.384
     - asvs.3_2_1
     - asvs.4_2_2
+    - owaspapisp.API1
   metadata: {}
-'031':
+"031":
   en:
     title: Discard user session data
     summary: >
@@ -617,7 +618,7 @@
     - asvs.4_2_2
     - owaspmasvs.V6_10
   metadata: {}
-'032':
+"032":
   en:
     title: Avoid session ID leakages
     summary: >
@@ -709,7 +710,7 @@
     - owaspmasvs.V6_2
     - cwe.6
   metadata: {}
-'033':
+"033":
   en:
     title: Restrict administrative access
     summary: >
@@ -799,8 +800,9 @@
     - swiftcsc.1_2
     - pci.2_2_7
     - sig.U_1_9_20
+    - owaspapisp.API1
   metadata: {}
-'034':
+"034":
   en:
     title: Manage user accounts
     summary: >
@@ -838,7 +840,7 @@
     - pci.2_2_2
     - pci.8_2_4
   metadata: {}
-'035':
+"035":
   en:
     title: Manage privilege modifications
     summary: >
@@ -927,8 +929,9 @@
     - swiftcsc.5_1
     - c2m2.9_5_h
     - pci.7_2_3
+    - owaspapisp.API1
   metadata: {}
-'036':
+"036":
   en:
     title: Do not deploy temporary files
     summary: >
@@ -947,7 +950,8 @@
       El sistema no debe desplegar
       archivos temporales
       en ambientes de producción.
-    description: . Los archivos temporales, a escala de producción, pueden tener un
+    description:
+      . Los archivos temporales, a escala de producción, pueden tener un
       impacto enormemente negativo. Limpiar estos archivos, sin importar dónde se
       encuentren, es una buena práctica.
   category: Files
@@ -962,7 +966,7 @@
     - iso27002.8_25
     - cwe.377
   metadata: {}
-'037':
+"037":
   en:
     title: Parameters without sensitive data
     summary: >
@@ -1018,7 +1022,7 @@
     - owaspscp.9
     - asvs.3_1_1
   metadata: {}
-'039':
+"039":
   en:
     title: Define maximum file size
     summary: >
@@ -1071,7 +1075,7 @@
     - asvs.11_1_4
     - asvs.12_1_2
   metadata: {}
-'040':
+"040":
   en:
     title: Compare file format and extension
     summary: >
@@ -1108,7 +1112,7 @@
     - asvs.12_5_1
     - asvs.12_5_2
   metadata: {}
-'041':
+"041":
   en:
     title: Scan files for malicious code
     summary: >
@@ -1160,7 +1164,7 @@
     - asvs.10_2_1
     - asvs.10_2_6
   metadata: {}
-'042':
+"042":
   en:
     title: Validate file format
     summary: >
@@ -1186,7 +1190,7 @@
     - asvs.12_1_2
     - asvs.12_5_2
   metadata: {}
-'043':
+"043":
   en:
     title: Define an explicit content type
     summary: >
@@ -1217,7 +1221,7 @@
     - asvs.12_5_2
     - asvs.14_4_2
   metadata: {}
-'044':
+"044":
   en:
     title: Define an explicit charset
     summary: >
@@ -1246,7 +1250,7 @@
     - misrac.3_2
     - asvs.5_3_2
   metadata: {}
-'045':
+"045":
   en:
     title: Remove metadata when sharing files
     summary: >
@@ -1281,7 +1285,7 @@
     - ptes.5_3_1
     - siglite.SL_79
   metadata: {}
-'046':
+"046":
   en:
     title: Manage the integrity of critical files
     summary: >
@@ -1325,7 +1329,7 @@
     - nistssdf.PS_3_1
     - issaf.Y_3_4
   metadata: {}
-'048':
+"048":
   en:
     title: Components with minimal dependencies
     summary: >
@@ -1348,7 +1352,7 @@
     - nistssdf.PW_4_1
     - osamm.SA_3
   metadata: {}
-'050':
+"050":
   en:
     title: Control calls to interpreted code
     summary: >
@@ -1400,7 +1404,7 @@
     - nistssdf.PW_6_1
     - asvs.5_2_8
   metadata: {}
-'051':
+"051":
   en:
     title: Store source code in a repository
     summary: >
@@ -1430,7 +1434,7 @@
     - sig.I_1_16
     - asvs.14_1_1
   metadata: {}
-'062':
+"062":
   en:
     title: Define standard configurations
     summary: >
@@ -1576,7 +1580,7 @@
     - asvs.14_5_1
     - owaspmasvs.V8_5
   metadata: {}
-'072':
+"072":
   en:
     title: Set maximum response time
     summary: >
@@ -1636,7 +1640,7 @@
     - asvs.11_1_3
     - asvs.11_1_4
   metadata: {}
-'075':
+"075":
   en:
     title: Record exceptional events in logs
     summary: >
@@ -1785,7 +1789,7 @@
     - asvs.7_4_2
     - asvs.8_1_4
   metadata: {}
-'077':
+"077":
   en:
     title: Avoid disclosing technical information
     summary: >
@@ -1859,7 +1863,7 @@
     - asvs.14_3_3
     - pci.1_4_5
   metadata: {}
-'078':
+"078":
   en:
     title: Disable debugging events
     summary: >
@@ -1894,7 +1898,7 @@
     - asvs.14_3_2
     - cwe.11
   metadata: {}
-'079':
+"079":
   en:
     title: Record exact occurrence time of events
     summary: >
@@ -1954,7 +1958,7 @@
     - c2m2.5_2_c
     - asvs.7_4_2
   metadata: {}
-'080':
+"080":
   en:
     title: Prevent log modification
     summary: >
@@ -2030,7 +2034,7 @@
     - sig.U_1_9_9
     - asvs.7_3_1
   metadata: {}
-'083':
+"083":
   en:
     title: Avoid logging sensitive data
     summary: >
@@ -2105,7 +2109,7 @@
     - asvs.7_1_1
     - asvs.7_2_4
   metadata: {}
-'084':
+"084":
   en:
     title: Allow transaction history queries
     summary: >
@@ -2154,7 +2158,7 @@
     - hitrust.09_y
     - hitrust.13_f
   metadata: {}
-'085':
+"085":
   en:
     title: Allow session history queries
     summary: >
@@ -2210,7 +2214,7 @@
     - owaspscp.7
     - pci.10_2_1_3
   metadata: {}
-'088':
+"088":
   en:
     title: Request client certificates
     summary: >
@@ -2249,7 +2253,7 @@
     - ptes.6_7
     - asvs.10_3_1
   metadata: {}
-'089':
+"089":
   en:
     title: Limit validity of certificates
     summary: >
@@ -2278,7 +2282,7 @@
     - bsafss.EN_3-2
     - sig.I_3_2_4_2
   metadata: {}
-'090':
+"090":
   en:
     title: Use valid certificates
     summary: >
@@ -2311,7 +2315,7 @@
     - asvs.10_3_1
     - sig.I_3_2_4_2
   metadata: {}
-'091':
+"091":
   en:
     title: Use internally signed certificates
     summary: >
@@ -2342,7 +2346,7 @@
     - osamm.OE_3
     - asvs.9_2_1
   metadata: {}
-'092':
+"092":
   en:
     title: Use externally signed certificates
     summary: >
@@ -2374,7 +2378,7 @@
     - osamm.OE_3
     - asvs.9_2_1
   metadata: {}
-'093':
+"093":
   en:
     title: Use consistent certificates
     summary: >
@@ -2413,7 +2417,7 @@
     - asvs.10_3_1
     - sig.I_3_2_4_2
   metadata: {}
-'095':
+"095":
   en:
     title: Define users with privileges
     summary: >
@@ -2527,8 +2531,9 @@
     - sig.I_3_2_10
     - sig.P_8_2
     - sig.U_1_6_1
+    - owaspapisp.API1
   metadata: {}
-'096':
+"096":
   en:
     title: Set user's required privileges
     summary: >
@@ -2644,14 +2649,15 @@
     - asvs.4_1_1
     - asvs.4_1_2
   metadata: {}
-'114':
+"114":
   en:
     title: Deny access with inactive credentials
     summary: >
       The system must not allow users
       to authenticate with expired,
       revoked or blocked credentials.
-    description: . Inactive credentials pose a security risk to organizations. Each
+    description:
+      . Inactive credentials pose a security risk to organizations. Each
       one of these accounts offers a malicious actor an opportunity to gain access
       to resources.
   es:
@@ -2661,7 +2667,8 @@
       a los usuarios autenticarse
       con credenciales caducadas,
       revocadas o bloqueadas.
-    description: . Las credenciales inactivas suponen un riesgo de seguridad para
+    description:
+      . Las credenciales inactivas suponen un riesgo de seguridad para
       las organizaciones. Cada una de estas cuentas ofrece a un actor malicioso la
       oportunidad de acceder a los recursos.
   category: Authorization
@@ -2692,7 +2699,7 @@
     - cwe25.287
     - siglite.SL_45
   metadata: {}
-'115':
+"115":
   en:
     title: Filter malicious emails
     summary: >
@@ -2727,7 +2734,7 @@
     - sig.D_6_5
     - asvs.5_2_3
   metadata: {}
-'116':
+"116":
   en:
     title: Disable images of unknown origin
     summary: >
@@ -2753,7 +2760,7 @@
     - iec62443.RDF-5_3
     - sig.U_1_10_5
   metadata: {}
-'117':
+"117":
   en:
     title: Do not interpret HTML code
     summary: >
@@ -2779,7 +2786,7 @@
     - owasp10.A3
     - owaspmasvs.V2_5
   metadata: {}
-'118':
+"118":
   en:
     title: Inspect attachments
     summary: >
@@ -2826,7 +2833,7 @@
     - sig.D_4_4_4
     - asvs.5_2_3
   metadata: {}
-'119':
+"119":
   en:
     title: Hide recipients
     summary: >
@@ -2851,7 +2858,7 @@
     - gdpr.5_1f
     - sans25.200
   metadata: {}
-'121':
+"121":
   en:
     title: Guarantee uniqueness of emails
     summary: >
@@ -2883,7 +2890,7 @@
     - nist80053.IA-2
     - ptes.3_4_1_5_2
   metadata: {}
-'122':
+"122":
   en:
     title: Validate credential ownership
     summary: >
@@ -2930,7 +2937,7 @@
     - cwe25.287
     - asvs.4_3_1
   metadata: {}
-'123':
+"123":
   en:
     title: Restrict the reading of emails
     summary: >
@@ -2987,7 +2994,7 @@
     - cmmc.AC_L1-3_1_22
     - issaf.T_19_1
   metadata: {}
-'126':
+"126":
   en:
     title: Set a password regeneration mechanism
     summary: >
@@ -3045,7 +3052,7 @@
     - asvs.2_5_1
     - asvs.2_6_3
   metadata: {}
-'127':
+"127":
   en:
     title: Store hashed passwords
     summary: >
@@ -3115,7 +3122,7 @@
     - sig.H_3_3_1
     - sig.U_1_9_16
   metadata: {}
-'128':
+"128":
   en:
     title: Define unique data source
     summary: >
@@ -3137,7 +3144,7 @@
     - cwe.346
     - padss.10_2_2
   metadata: {}
-'129':
+"129":
   en:
     title: Validate previous passwords
     summary: >
@@ -3173,7 +3180,7 @@
     - siglite.SL_72
     - cwe.521
   metadata: {}
-'130':
+"130":
   en:
     title: Limit password lifespan
     summary: >
@@ -3222,7 +3229,7 @@
     - sig.H_3_1_15
     - sig.U_1_9_12
   metadata: {}
-'131':
+"131":
   en:
     title: Deny multiple password changing attempts
     summary: >
@@ -3259,7 +3266,7 @@
     - siglite.SL_72
     - asvs.2_6_1
   metadata: {}
-'132':
+"132":
   en:
     title: Passphrases with at least 4 words
     summary: >
@@ -3331,7 +3338,7 @@
     - asvs.2_1_8
     - asvs.2_1_9
   metadata: {}
-'133':
+"133":
   en:
     title: Passwords with at least 20 characters
     summary: >
@@ -3388,7 +3395,7 @@
     - asvs.2_1_8
     - asvs.2_1_9
   metadata: {}
-'134':
+"134":
   en:
     title: Store passwords with salt
     summary: >
@@ -3426,7 +3433,7 @@
     - c2m2.4_1_d
     - asvs.2_10_3
   metadata: {}
-'135':
+"135":
   en:
     title: Passwords with random salt
     summary: >
@@ -3460,7 +3467,7 @@
     - asvs.2_4_2
     - asvs.2_4_5
   metadata: {}
-'136':
+"136":
   en:
     title: Force temporary password change
     summary: >
@@ -3506,7 +3513,7 @@
     - sig.H_3_1_8
     - sig.U_1_9_13
   metadata: {}
-'137':
+"137":
   en:
     title: Change temporary passwords of third parties
     summary: >
@@ -3561,7 +3568,7 @@
     - nist800171.5_9
     - sig.H_3_1_8
   metadata: {}
-'138':
+"138":
   en:
     title: Define lifespan for temporary passwords
     summary: >
@@ -3614,7 +3621,7 @@
     - cwe25.287
     - asvs.2_3_1
   metadata: {}
-'139':
+"139":
   en:
     title: Set minimum OTP length
     summary: >
@@ -3661,7 +3668,7 @@
     - cwe.522
     - cwe.640
   metadata: {}
-'140':
+"140":
   en:
     title: Define OTP lifespan
     summary: >
@@ -3719,7 +3726,7 @@
     - pci.8_3_5
     - sig.U_1_9_13
   metadata: {}
-'141':
+"141":
   en:
     title: Force re-authentication
     summary: >
@@ -3762,7 +3769,7 @@
     - asvs.3_3_3
     - asvs.4_2_2
   metadata: {}
-'142':
+"142":
   en:
     title: Change system default credentials
     summary: >
@@ -3846,7 +3853,7 @@
     - asvs.2_5_4
     - asvs.2_10_2
   metadata: {}
-'143':
+"143":
   en:
     title: Unique access credentials
     summary: >
@@ -3881,7 +3888,7 @@
     - sig.H_2
     - sig.U_1_9_18
   metadata: {}
-'144':
+"144":
   en:
     title: Remove inactive accounts periodically
     summary: >
@@ -3921,7 +3928,7 @@
     - pci.8_2_6
     - sig.H_2_3
   metadata: {}
-'145':
+"145":
   en:
     title: Protect system cryptographic keys
     summary: >
@@ -4015,7 +4022,7 @@
     - asvs.1_6_4
     - asvs.6_4_1
   metadata: {}
-'146':
+"146":
   en:
     title: Remove cryptographic keys from RAM
     summary: >
@@ -4049,7 +4056,7 @@
     - c2m2.9_5_e
     - pci.3_7_3
   metadata: {}
-'147':
+"147":
   en:
     title: Use pre-existent mechanisms
     summary: >
@@ -4129,7 +4136,7 @@
     - pci.9_4_3
     - asvs.2_8_3
   metadata: {}
-'148':
+"148":
   en:
     title: Set minimum size of asymmetric encryption
     summary: >
@@ -4166,7 +4173,7 @@
     - asvs.6_2_1
     - asvs.6_2_7
   metadata: {}
-'149':
+"149":
   en:
     title: Set minimum size of symmetric encryption
     summary: >
@@ -4201,7 +4208,7 @@
     - asvs.6_2_1
     - asvs.6_2_7
   metadata: {}
-'150':
+"150":
   en:
     title: Set minimum size for hash functions
     summary: >
@@ -4235,7 +4242,7 @@
     - asvs.6_2_1
     - asvs.6_2_7
   metadata: {}
-'151':
+"151":
   en:
     title: Separate keys for encryption and signatures
     summary: >
@@ -4268,7 +4275,7 @@
     - c2m2.9_5_e
     - pci.3_6_1_2
   metadata: {}
-'152':
+"152":
   en:
     title: Reuse database connections
     summary: >
@@ -4293,7 +4300,7 @@
     - issaf.T_6_6
     - owaspscp.11
   metadata: {}
-'153':
+"153":
   en:
     title: Out of band transactions
     summary: >
@@ -4384,7 +4391,7 @@
     - asvs.4_3_1
     - owaspmasvs.V4_9
   metadata: {}
-'154':
+"154":
   en:
     title: Eliminate backdoors
     summary: >
@@ -4476,7 +4483,7 @@
     - sig.I_2_1
     - sig.I_2_6
   metadata: {}
-'155':
+"155":
   en:
     title: Application free of malicious code
     summary: >
@@ -4573,7 +4580,7 @@
     - asvs.10_2_1
     - asvs.10_2_6
   metadata: {}
-'156':
+"156":
   en:
     title: Source code without sensitive information
     summary: >
@@ -4650,7 +4657,7 @@
     - asvs.2_10_4
     - asvs.6_4_2
   metadata: {}
-'157':
+"157":
   en:
     title: Use the strict mode
     summary: >
@@ -4697,7 +4704,7 @@
     - asvs.5_5_2
     - asvs.14_1_2
   metadata: {}
-'158':
+"158":
   en:
     title: Use a secure programming language
     summary: >
@@ -4761,7 +4768,7 @@
     - sig.I_2_1
     - asvs.14_1_2
   metadata: {}
-'159':
+"159":
   en:
     title: Obfuscate code
     summary: >
@@ -4803,7 +4810,7 @@
     - sig.I_1_19_3
     - sig.I_2_1
   metadata: {}
-'160':
+"160":
   en:
     title: Encode system outputs
     summary: >
@@ -4890,7 +4897,7 @@
     - asvs.1_5_4
     - asvs.5_3_1
   metadata: {}
-'161':
+"161":
   en:
     title: Define secure default options
     summary: >
@@ -5005,7 +5012,7 @@
     - cwe.453
     - owaspmasvs.V7_9
   metadata: {}
-'162':
+"162":
   en:
     title: Avoid duplicate code
     summary: >
@@ -5036,7 +5043,7 @@
     - siglite.SL_89
     - sig.I_2_1
   metadata: {}
-'164':
+"164":
   en:
     title: Use optimized structures
     summary: >
@@ -5077,7 +5084,7 @@
     - cwe.1325
     - asvs.14_1_2
   metadata: {}
-'167':
+"167":
   en:
     title: Close unused resources
     summary: >
@@ -5117,7 +5124,7 @@
     - sig.M_1_2
     - sig.U_1_2_1
   metadata: {}
-'168':
+"168":
   en:
     title: Initialize variables explicitly
     summary: >
@@ -5147,7 +5154,7 @@
     - osamm.IR_3
     - c2m2.9_4_d
   metadata: {}
-'169':
+"169":
   en:
     title: Use parameterized queries
     summary: >
@@ -5202,7 +5209,7 @@
     - pci.6_2_4
     - asvs.5_3_5
   metadata: {}
-'171':
+"171":
   en:
     title: Remove commented-out code
     summary: >
@@ -5239,7 +5246,7 @@
     - pci.6_5_6
     - sig.I_3_2_7
   metadata: {}
-'172':
+"172":
   en:
     title: Encrypt connection strings
     summary: >
@@ -5312,7 +5319,7 @@
     - swiftcsc.6_3
     - sig.D_6_9_1
   metadata: {}
-'173':
+"173":
   en:
     title: Discard unsafe inputs
     summary: >
@@ -5573,7 +5580,7 @@
     - asvs.13_3_1
     - asvs.14_5_1
   metadata: {}
-'174':
+"174":
   en:
     title: Transactions without a distinguishable pattern
     summary: >
@@ -5612,7 +5619,7 @@
     - pci.6_2_4
     - asvs.13_2_3
   metadata: {}
-'175':
+"175":
   en:
     title: Protect pages from clickjacking
     summary: >
@@ -5673,7 +5680,7 @@
     - mvsp.2_3
     - pci.6_4_1
   metadata: {}
-'176':
+"176":
   en:
     title: Restrict system objects
     summary: >
@@ -5815,8 +5822,9 @@
     - asvs.4_3_1
     - asvs.9_2_3
     - asvs.12_3_2
+    - owaspapisp.API1
   metadata: {}
-'177':
+"177":
   en:
     title: Avoid caching and temporary files
     summary: >
@@ -5890,7 +5898,7 @@
     - owaspscp.8
     - asvs.8_1_2
   metadata: {}
-'178':
+"178":
   en:
     title: Use digital signatures
     summary: >
@@ -5963,7 +5971,7 @@
     - asvs.10_3_1
     - asvs.10_3_2
   metadata: {}
-'180':
+"180":
   en:
     title: Use mock data
     summary: >
@@ -6029,7 +6037,7 @@
     - nistssdf.PW_1_1
     - pci.6_5_5
   metadata: {}
-'181':
+"181":
   en:
     title: Transmit data using secure protocols
     summary: >
@@ -6161,7 +6169,7 @@
     - asvs.9_1_2
     - asvs.13_2_6
   metadata: {}
-'183':
+"183":
   en:
     title: Delete sensitive data securely
     summary: >
@@ -6245,7 +6253,7 @@
     - sig.I_1_19_2
     - sig.P_1_3_1
   metadata: {}
-'184':
+"184":
   en:
     title: Obfuscate application data
     summary: >
@@ -6278,7 +6286,7 @@
     - swiftcsc.5_4
     - owaspmasvs.V8_12
   metadata: {}
-'185':
+"185":
   en:
     title: Encrypt sensitive information
     summary: >
@@ -6388,7 +6396,7 @@
     - sig.H_3_3
     - cwe.13
   metadata: {}
-'186':
+"186":
   en:
     title: Use the principle of least privilege
     summary: >
@@ -6489,7 +6497,7 @@
     - asvs.1_2_2
     - owaspmasvs.V6_1
   metadata: {}
-'189':
+"189":
   en:
     title: Specify the purpose of data collection
     summary: >
@@ -6575,7 +6583,7 @@
     - siglite.SL_154
     - sig.P_1_5_3
   metadata: {}
-'205':
+"205":
   en:
     title: Configure PIN
     summary: >
@@ -6620,7 +6628,7 @@
     - sig.H_3_1_19
     - sig.M_1_25
   metadata: {}
-'206':
+"206":
   en:
     title: Configure communication protocols
     summary: >
@@ -6668,7 +6676,7 @@
     - siglite.SL_142
     - sig.M_1_25
   metadata: {}
-'209':
+"209":
   en:
     title: Manage passwords in cache
     summary: >
@@ -6698,7 +6706,7 @@
     - owaspmasvs.V4_5
     - cwe.524
   metadata: {}
-'210':
+"210":
   en:
     title: Delete information from mobile devices
     summary: >
@@ -6741,7 +6749,7 @@
     - siglite.SL_142
     - sig.M_1_25
   metadata: {}
-'213':
+"213":
   en:
     title: Allow geographic location
     summary: >
@@ -6776,7 +6784,7 @@
     - nist800171.1_18
     - sig.M_1_25
   metadata: {}
-'214':
+"214":
   en:
     title: Allow data destruction
     summary: >
@@ -6810,7 +6818,7 @@
     - siglite.SL_142
     - sig.M_1_25
   metadata: {}
-'221':
+"221":
   en:
     title: Disconnect unnecessary input devices
     summary: >
@@ -6845,7 +6853,7 @@
     - osstmm3.11_9_3
     - c2m2.9_3_d
   metadata: {}
-'222':
+"222":
   en:
     title: Deny access to the host machine
     summary: >
@@ -6871,7 +6879,7 @@
     - bsafss.TC_1-6
     - swiftcsc.1_3
   metadata: {}
-'223':
+"223":
   en:
     title: Uniform distribution in random numbers
     summary: >
@@ -6941,7 +6949,7 @@
     - asvs.6_3_3
     - asvs.6_3_2
   metadata: {}
-'224':
+"224":
   en:
     title: Use secure cryptographic mechanisms
     summary: >
@@ -7070,7 +7078,7 @@
     - asvs.6_2_8
     - asvs.6_3_2
   metadata: {}
-'225':
+"225":
   en:
     title: Proper authentication responses
     summary: >
@@ -7144,7 +7152,7 @@
     - nist800171.1_9
     - nist800171.5_11
   metadata: {}
-'226':
+"226":
   en:
     title: Avoid account lockouts
     summary: >
@@ -7174,7 +7182,7 @@
     - mitre.M1036
     - cmmc.AC_L2-3_1_8
   metadata: {}
-'227':
+"227":
   en:
     title: Display access notification
     summary: >
@@ -7248,7 +7256,7 @@
     - wasc.W_01
     - issaf.H_14_7
   metadata: {}
-'228':
+"228":
   en:
     title: Authenticate using standard protocols
     summary: >
@@ -7288,7 +7296,7 @@
     - asvs.1_2_2
     - asvs.13_3_2
   metadata: {}
-'229':
+"229":
   en:
     title: Request access credentials
     summary: >
@@ -7395,7 +7403,7 @@
     - sig.H_3
     - asvs.4_3_1
   metadata: {}
-'231':
+"231":
   en:
     title: Implement a biometric verification component
     summary: >
@@ -7482,7 +7490,7 @@
     - asvs.2_3_2
     - asvs.4_3_1
   metadata: {}
-'232':
+"232":
   en:
     title: Require equipment identity
     summary: >
@@ -7523,7 +7531,7 @@
     - sig.D_1_1_2
     - asvs.2_8_2
   metadata: {}
-'235':
+"235":
   en:
     title: Define credential interface
     summary: >
@@ -7554,7 +7562,7 @@
     - asvs.14_1_5
     - cwe.1262
   metadata: {}
-'236':
+"236":
   en:
     title: Establish authentication time
     summary: >
@@ -7579,7 +7587,7 @@
     - bsafss.IA_1-1
     - cwe.287
   metadata: {}
-'237':
+"237":
   en:
     title: Ascertain human interaction
     summary: >
@@ -7661,7 +7669,7 @@
     - asvs.2_2_1
     - asvs.5_1_2
   metadata: {}
-'238':
+"238":
   en:
     title: Establish safe recovery
     summary: >
@@ -7734,7 +7742,7 @@
     - sig.H_3_7
     - asvs.2_6_3
   metadata: {}
-'247':
+"247":
   en:
     title: Hide SSID on private networks
     summary: >
@@ -7760,7 +7768,7 @@
     - mitre.M1031
     - issaf.L_3_1
   metadata: {}
-'248':
+"248":
   en:
     title: SSID without dictionary words
     summary: >
@@ -7787,7 +7795,7 @@
     - issaf.L_4_3
     - ptes.6_7_6_2
   metadata: {}
-'249':
+"249":
   en:
     title: Locate access points
     summary: >
@@ -7840,7 +7848,7 @@
     - siglite.SL_151
     - sig.N_1_4
   metadata: {}
-'250':
+"250":
   en:
     title: Manage access points
     summary: >
@@ -7886,7 +7894,7 @@
     - c2m2.9_2_c
     - sig.N_1_4
   metadata: {}
-'251':
+"251":
   en:
     title: Change access point IP
     summary: >
@@ -7915,7 +7923,7 @@
     - c2m2.9_2_c
     - pci.2_3_1
   metadata: {}
-'252':
+"252":
   en:
     title: Configure key encryption
     summary: >
@@ -7958,7 +7966,7 @@
     - sig.N_1_12
     - cwe.1262
   metadata: {}
-'253':
+"253":
   en:
     title: Restrict network access
     summary: >
@@ -8007,7 +8015,7 @@
     - pci.9_2_3
     - siglite.SL_148
   metadata: {}
-'254':
+"254":
   en:
     title: Change SSID name
     summary: >
@@ -8038,7 +8046,7 @@
     - nist800115.4_4_1
     - pci.2_3_1
   metadata: {}
-'255':
+"255":
   en:
     title: Allow access only to the necessary ports
     summary: >
@@ -8097,7 +8105,7 @@
     - sig.I_3_2_5_1
     - sig.N_1_11
   metadata: {}
-'257':
+"257":
   en:
     title: Access based on user credentials
     summary: >
@@ -8144,7 +8152,7 @@
     - osstmm3.8_5_2
     - c2m2.9_2_k
   metadata: {}
-'258':
+"258":
   en:
     title: Filter website content
     summary: >
@@ -8182,7 +8190,7 @@
     - c2m2.9_2_g
     - sig.N_1_3
   metadata: {}
-'259':
+"259":
   en:
     title: Segment the organization network
     summary: >
@@ -8222,7 +8230,7 @@
     - sig.D_9_2
     - sig.N_1_7
   metadata: {}
-'260':
+"260":
   en:
     title: Use alternative emails
     summary: >
@@ -8247,7 +8255,7 @@
   references:
     - nist80053.PL-4_1
   metadata: {}
-'261':
+"261":
   en:
     title: Avoid exposing sensitive information
     summary: >
@@ -8321,7 +8329,7 @@
     - pci.1_4_5
     - pci.6_5_5
   metadata: {}
-'262':
+"262":
   en:
     title: Verify third-party components
     summary: >
@@ -8435,7 +8443,7 @@
     - asvs.1_14_6
     - asvs.14_2_5
   metadata: {}
-'264':
+"264":
   en:
     title: Request authentication
     summary: >
@@ -8532,7 +8540,7 @@
     - asvs.9_2_3
     - asvs.13_4_1
   metadata: {}
-'265':
+"265":
   en:
     title: Restrict access to critical processes
     summary: >
@@ -8623,8 +8631,9 @@
     - asvs.5_3_8
     - pci.1_4_3
     - asvs.12_3_5
+    - owaspapisp.API1
   metadata: {}
-'266':
+"266":
   en:
     title: Disable insecure functionalities
     summary: >
@@ -8806,7 +8815,7 @@
     - owaspmasvs.V7_9
     - owaspmasvs.V8_5
   metadata: {}
-'273':
+"273":
   en:
     title: Define a fixed security suite
     summary: >
@@ -8879,7 +8888,7 @@
     - sig.D_6_6
     - owaspmasvs.V8_5
   metadata: {}
-'280':
+"280":
   en:
     title: Restrict service root directory
     summary: >
@@ -8908,7 +8917,7 @@
     - sans25.22
     - hitrust.01_v
   metadata: {}
-'284':
+"284":
   en:
     title: Define maximum number of connections
     summary: >
@@ -8941,7 +8950,7 @@
     - nist800171.1_20
     - c2m2.9_3_d
   metadata: {}
-'300':
+"300":
   en:
     title: Mask sensitive data
     summary: >
@@ -9017,7 +9026,7 @@
     - sig.I_1_19_3
     - sig.P_5_3
   metadata: {}
-'301':
+"301":
   en:
     title: Notify configuration changes
     summary: >
@@ -9092,7 +9101,7 @@
     - siglite.SL_90
     - sig.G_2_10_2
   metadata: {}
-'302':
+"302":
   en:
     title: Declare dependencies explicitly
     summary: >
@@ -9185,7 +9194,7 @@
     - siglite.SL_110
     - sig.I_2_1
   metadata: {}
-'305':
+"305":
   en:
     title: Prioritize token usage
     summary: >
@@ -9218,7 +9227,7 @@
     - owaspscp.4
     - swiftcsc.5_2
   metadata: {}
-'310':
+"310":
   en:
     title: Request user consent
     summary: >
@@ -9315,7 +9324,7 @@
     - siglite.SL_154
     - sig.P_3_1
   metadata: {}
-'311':
+"311":
   en:
     title: Demonstrate user consent
     summary: >
@@ -9376,7 +9385,7 @@
     - hitrust.13_a
     - lgpd.8-2
   metadata: {}
-'312':
+"312":
   en:
     title: Allow user consent revocation
     summary: >
@@ -9450,7 +9459,7 @@
     - owasprisks.P4
     - sig.P_6
   metadata: {}
-'313':
+"313":
   en:
     title: Inform inability to identify users
     summary: >
@@ -9520,7 +9529,7 @@
     - nistssdf.RV_2_2
     - owasprisks.P3
   metadata: {}
-'314':
+"314":
   en:
     title: Provide processing confirmation
     summary: >
@@ -9595,7 +9604,7 @@
     - sig.P_2
     - sig.P_2_4
   metadata: {}
-'315':
+"315":
   en:
     title: Provide processed data information
     summary: >
@@ -9730,7 +9739,7 @@
     - sig.P_7_1
     - sig.P_8_5
   metadata: {}
-'316':
+"316":
   en:
     title: Allow rectification requests
     summary: >
@@ -9793,7 +9802,7 @@
     - owasprisks.P9
     - sig.P_6
   metadata: {}
-'317':
+"317":
   en:
     title: Allow erasure requests
     summary: >
@@ -9860,7 +9869,7 @@
     - asvs.8_3_2
     - sig.P_6
   metadata: {}
-'318':
+"318":
   en:
     title: Notify third parties of changes
     summary: >
@@ -9938,7 +9947,7 @@
     - owasprisks.P7
     - sig.A_4_1_8
   metadata: {}
-'319':
+"319":
   en:
     title: Make authentication options equally secure
     summary: >
@@ -9999,7 +10008,7 @@
     - sig.I_1_20
     - asvs.4_3_1
   metadata: {}
-'320':
+"320":
   en:
     title: Avoid client-side control enforcement
     summary: >
@@ -10098,7 +10107,7 @@
     - asvs.5_4_2
     - asvs.14_5_1
   metadata: {}
-'321':
+"321":
   en:
     title: Avoid deserializing untrusted data
     summary: >
@@ -10174,7 +10183,7 @@
     - asvs.5_5_3
     - asvs.5_5_4
   metadata: {}
-'322':
+"322":
   en:
     title: Avoid excessive logging
     summary: >
@@ -10251,7 +10260,7 @@
     - asvs.7_1_4
     - sig.U_1_4
   metadata: {}
-'323':
+"323":
   en:
     title: Exclude unverifiable files
     summary: >
@@ -10320,7 +10329,7 @@
     - issaf.P_6_16
     - asvs.8_3_5
   metadata: {}
-'324':
+"324":
   en:
     title: Control redirects
     summary: >
@@ -10384,7 +10393,7 @@
     - asvs.5_2_6
     - asvs.12_6_1
   metadata: {}
-'325':
+"325":
   en:
     title: Protect WSDL files
     summary: >
@@ -10443,7 +10452,7 @@
     - fedramp.AC-22
     - nistssdf.PS_3_1
   metadata: {}
-'326':
+"326":
   en:
     title: Detect rooted devices
     summary: >
@@ -10505,7 +10514,7 @@
     - issaf.S_5_8
     - cwe.693
   metadata: {}
-'327':
+"327":
   en:
     title: Set a rate limit
     summary: >
@@ -10599,7 +10608,7 @@
     - asvs.11_1_3
     - asvs.11_1_4
   metadata: {}
-'328':
+"328":
   en:
     title: Request MFA for critical systems
     summary: >
@@ -10642,7 +10651,7 @@
     - sig.U_1_9_27
     - asvs.4_3_1
   metadata: {}
-'329':
+"329":
   en:
     title: Keep client-side storage without sensitive data
     summary: >
@@ -10730,7 +10739,7 @@
     - c2m2.9_5_b
     - siglite.SL_131
   metadata: {}
-'330':
+"330":
   en:
     title: Verify Subresource Integrity
     summary: >
@@ -10798,7 +10807,7 @@
     - siglite.SL_110
     - asvs.14_2_3
   metadata: {}
-'331':
+"331":
   en:
     title: Guarantee legal compliance
     summary: >
@@ -10862,7 +10871,7 @@
     - sig.L_1
     - asvs.1_1_1
   metadata: {}
-'332':
+"332":
   en:
     title: Prevent the use of breached passwords
     summary: >
@@ -10922,7 +10931,7 @@
     - asvs.2_1_7
     - siglite.SL_72
   metadata: {}
-'333':
+"333":
   en:
     title: Store salt values separately
     summary: >
@@ -10975,7 +10984,7 @@
     - nist800115.5_1
     - swiftcsc.4_1
   metadata: {}
-'334':
+"334":
   en:
     title: Avoid knowledge-based authentication
     summary: >
@@ -11041,7 +11050,7 @@
     - siglite.SL_72
     - sig.H_2_1
   metadata: {}
-'335':
+"335":
   en:
     title: Define out of band token lifespan
     summary: >
@@ -11118,7 +11127,7 @@
     - asvs.2_7_2
     - asvs.2_7_3
   metadata: {}
-'336':
+"336":
   en:
     title: Disable insecure TLS versions
     summary: >
@@ -11210,7 +11219,7 @@
     - asvs.9_1_2
     - asvs.13_2_6
   metadata: {}
-'337':
+"337":
   en:
     title: Make critical logic flows thread safe
     summary: >
@@ -11290,7 +11299,7 @@
     - asvs.11_1_1
     - sig.L_2_1
   metadata: {}
-'338':
+"338":
   en:
     title: Implement perfect forward secrecy
     summary: >
@@ -11391,7 +11400,7 @@
     - sig.N_1_15_4
     - sig.U_1_9_15
   metadata: {}
-'339':
+"339":
   en:
     title: Avoid storing sensitive files in the web root
     summary: >
@@ -11448,7 +11457,7 @@
     - owaspscp.12
     - asvs.12_4_1
   metadata: {}
-'340':
+"340":
   en:
     title: Use octet stream downloads
     summary: >
@@ -11527,7 +11536,7 @@
     - asvs.12_2_1
     - asvs.12_3_6
   metadata: {}
-'341':
+"341":
   en:
     title: Use the principle of deny by default
     summary: >
@@ -11599,7 +11608,7 @@
     - asvs.4_1_1
     - owaspmasvs.V7_7
   metadata: {}
-'342':
+"342":
   en:
     title: Validate request parameters
     summary: >
@@ -11694,7 +11703,7 @@
     - asvs.5_3_6
     - asvs.13_2_2
   metadata: {}
-'343':
+"343":
   en:
     title: Respect the Do Not Track header
     summary: >
@@ -11750,7 +11759,7 @@
     - pci.6_4_1
     - cwe.36
   metadata: {}
-'344':
+"344":
   en:
     title: Avoid dynamic code execution
     summary: >
@@ -11822,7 +11831,7 @@
     - sig.I_2_1
     - asvs.5_5_4
   metadata: {}
-'345':
+"345":
   en:
     title: Establish protections against overflows
     summary: >
@@ -11924,7 +11933,7 @@
     - siglite.SL_89
     - sig.I_2_1
   metadata: {}
-'346':
+"346":
   en:
     title: Use initialization vectors once
     summary: >
@@ -11986,7 +11995,7 @@
     - asvs.6_2_3
     - asvs.6_2_6
   metadata: {}
-'347':
+"347":
   en:
     title: Invalidate previous OTPs
     summary: >
@@ -12032,7 +12041,7 @@
     - asvs.2_8_4
     - pci.8_3_5
   metadata: {}
-'348':
+"348":
   en:
     title: Use consistent encoding
     summary: >
@@ -12115,7 +12124,7 @@
     - asvs.12_3_3
     - asvs.13_1_1
   metadata: {}
-'349':
+"349":
   en:
     title: Include HTTP security headers
     summary: >
@@ -12198,7 +12207,7 @@
     - asvs.14_4_7
     - asvs.14_5_1
   metadata: {}
-'350':
+"350":
   en:
     title: Enable memory protection mechanisms
     summary: >
@@ -12230,7 +12239,7 @@
     - owaspmasvs.V8_6
     - owaspmasvs.V8_7
   metadata: {}
-'351':
+"351":
   en:
     title: Assign unique keys to each device
     summary: >
@@ -12271,7 +12280,7 @@
     - pci.3_6_1_1
     - siglite.SL_31
   metadata: {}
-'352':
+"352":
   en:
     title: Enable trusted execution
     summary: >
@@ -12311,7 +12320,7 @@
     - nistssdf.PW_6_1
     - owaspmasvs.V8_7
   metadata: {}
-'353':
+"353":
   en:
     title: Schedule firmware updates
     summary: >
@@ -12358,7 +12367,7 @@
     - c2m2.9_3_l
     - pci.6_3_3
   metadata: {}
-'354':
+"354":
   en:
     title: Prevent firmware downgrades
     summary: >
@@ -12386,7 +12395,7 @@
     - nist800171.1_18
     - c2m2.9_3_l
   metadata: {}
-'355':
+"355":
   en:
     title: Serve files with specific extensions
     summary: >
@@ -12439,7 +12448,7 @@
     - agile.11
     - issaf.T_6_5
   metadata: {}
-'356':
+"356":
   en:
     title: Verify sub-domain names
     summary: >
@@ -12473,7 +12482,7 @@
     - iso27002.8_20
     - c2m2.9_2_g
   metadata: {}
-'357':
+"357":
   en:
     title: Use stateless session tokens
     summary: >
@@ -12514,7 +12523,7 @@
     - asvs.3_5_2
     - asvs.3_5_3
   metadata: {}
-'358':
+"358":
   en:
     title: Notify upcoming expiration dates
     summary: >
@@ -12538,7 +12547,7 @@
     - iec62443.IAC-1_12
     - owasprisks.P8
   metadata: {}
-'359':
+"359":
   en:
     title: Avoid using generic exceptions
     summary: >
@@ -12587,7 +12596,7 @@
     - cwe25.476
     - asvs.4_1_5
   metadata: {}
-'360':
+"360":
   en:
     title: Remove unnecessary sensitive information
     summary: >
@@ -12677,7 +12686,7 @@
     - cwe.226
     - cwe.1272
   metadata: {}
-'361':
+"361":
   en:
     title: Replace cryptographic keys
     summary: >
@@ -12742,7 +12751,7 @@
     - c2m2.9_5_e
     - pci.3_6_1_1
   metadata: {}
-'362':
+"362":
   en:
     title: Assign MFA mechanisms to a single account
     summary: >
@@ -12817,7 +12826,7 @@
     - siglite.SL_75
     - siglite.SL_76
   metadata: {}
-'363':
+"363":
   en:
     title: Synchronize system clocks
     summary: >
@@ -12882,7 +12891,7 @@
     - pci.10_6_1
     - sig.G_4
   metadata: {}
-'364':
+"364":
   en:
     title: Provide extended validation (EV) certificates
     summary: >
@@ -12915,7 +12924,7 @@
     - iso27002.8_26
     - bsafss.EN_3-3
   metadata: {}
-'365':
+"365":
   en:
     title: Avoid exposing technical information
     summary: >
@@ -12944,7 +12953,7 @@
     - iec62443.DC-4_1
     - nist800115.7_4_1
   metadata: {}
-'366':
+"366":
   en:
     title: Associate type to variables
     summary: >
@@ -12970,7 +12979,7 @@
     - siglite.SL_89
     - sig.I_2_1
   metadata: {}
-'367':
+"367":
   en:
     title: Proper generation of temporary passwords
     summary: >
@@ -12999,7 +13008,7 @@
     - asvs.2_3_1
     - sig.H_3_1_9
   metadata: {}
-'368':
+"368":
   en:
     title: Use of indistinguishable response time
     summary: >
@@ -13023,7 +13032,7 @@
     - cwe.208
     - nist800171.5_4
   metadata: {}
-'369':
+"369":
   en:
     title: Set a maximum lifetime in sessions
     summary: >
@@ -13056,7 +13065,7 @@
     - owasprisks.P8
     - owaspscp.4
   metadata: {}
-'370':
+"370":
   en:
     title: Use OAEP padding with RSA
     summary: >
@@ -13084,7 +13093,7 @@
     - iec62443.DC-4_3
     - cwe.780
   metadata: {}
-'371':
+"371":
   en:
     title: Use GCM Padding with AES
     summary: >
@@ -13109,7 +13118,7 @@
     - iso27002.8_24
     - iec62443.DC-4_3
   metadata: {}
-'372':
+"372":
   en:
     title: Proper Use of Initialization Vector (IV)
     summary: >
@@ -13138,7 +13147,7 @@
     - fedramp.SC-12_2
     - iso27002.8_24
   metadata: {}
-'373':
+"373":
   en:
     title: Use certificate pinning
     summary: >
@@ -13178,7 +13187,7 @@
     - ptes.7_4_2_7
     - c2m2.9_3_b
   metadata: {}
-'374':
+"374":
   en:
     title: Use of isolation methods in running applications
     summary: >
@@ -13217,7 +13226,7 @@
     - siglite.SL_88
     - asvs.5_2_8
   metadata: {}
-'375':
+"375":
   en:
     title: Remove sensitive data from client-side applications
     summary: >
@@ -13267,7 +13276,7 @@
     - siglite.SL_131
     - asvs.8_2_1
   metadata: {}
-'376':
+"376":
   en:
     title: Register severity level
     summary: >
@@ -13324,7 +13333,7 @@
     - siglite.SL_85
     - sig.U_1_4
   metadata: {}
-'377':
+"377":
   en:
     title: Store logs based on valid regulation
     summary: >
@@ -13381,7 +13390,7 @@
     - c2m2.6_1_c
     - asvs.2_8_5
   metadata: {}
-'378':
+"378":
   en:
     title: Use of log management system
     summary: >
@@ -13436,7 +13445,7 @@
     - asvs.7_4_3
     - asvs.8_1_4
   metadata: {}
-'379':
+"379":
   en:
     title: Keep low McCabe ciclomatic complexity
     summary: >
@@ -13494,7 +13503,7 @@
     - mitre.M1013
     - nistssdf.PW_5_1
   metadata: {}
-'380':
+"380":
   en:
     title: Define a password management tool
     summary: >
@@ -13530,7 +13539,7 @@
     - asvs.6_4_1
     - asvs.6_4_2
   metadata: {}
-'381':
+"381":
   en:
     title: Use of absolute paths
     summary: >
