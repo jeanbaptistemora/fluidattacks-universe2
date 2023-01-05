@@ -5,6 +5,7 @@ from ctx import (
     CRITERIA_REQUIREMENTS,
     CRITERIA_VULNERABILITIES,
 )
+import hashlib
 from model import (
     core_model,
 )
@@ -297,6 +298,23 @@ def _get_sarif(
                         else {}
                     ),
                 },
+            )
+            result.guid = int.from_bytes(
+                hashlib.sha256(
+                    bytes(
+                        (
+                            result.locations[
+                                0
+                            ].physical_location.artifact_location.uri
+                            + result.locations[
+                                0
+                            ].physical_location.region.start_line
+                            + rule_id
+                            + vulnerability.skims_metadata.source_method
+                        )
+                    )
+                ).digest()[:8],
+                "little",
             )
 
             # append rule if not is present
