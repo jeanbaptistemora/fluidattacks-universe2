@@ -24,3 +24,6 @@ src.lib_path.f363.not_requires_symbols:
 src.lib_path.f363.not_requires_numbers:
   en: Account/PasswordPolicy must require numbers.
   es: PasswordPolicy requiere el uso de numeros
+src.lib_path.f363.min_password_len_unsafe:
+  en: Account/PasswordPolicy minimun password length unsafe.
+  es: PasswordPolicy el largo minimo de la contraseña es inseguro

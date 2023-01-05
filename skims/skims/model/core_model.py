@@ -2516,6 +2516,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_MIN_PASSWORD_LEN_UNSAFE = MethodInfo(
+        file_name="aws",
+        name="min_password_len_unsafe",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_KMS_IS_KEY_ROTATION_DISABLED = MethodInfo(
         file_name="aws",
         name="kms_key_is_key_rotation_absent_or_disabled",
