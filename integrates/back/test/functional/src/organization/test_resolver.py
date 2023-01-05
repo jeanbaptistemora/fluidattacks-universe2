@@ -207,6 +207,7 @@ async def test_get_organization_ver_1(
     ]
     assert "errors" not in result
     assert result["data"]["organization"]["id"] == org_id
+    assert result["data"]["organization"]["inactivityPeriod"] == 180
     assert result["data"]["organization"]["maxAcceptanceDays"] == 90
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 7
     assert result["data"]["organization"]["maxNumberAcceptances"] == 4
@@ -410,6 +411,7 @@ async def test_get_organization_ver_2(
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
     assert result["data"]["organization"]["id"] == org_id
+    assert result["data"]["organization"]["inactivityPeriod"] == 180
     assert result["data"]["organization"]["maxAcceptanceDays"] == 90
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 7
     assert result["data"]["organization"]["maxNumberAcceptances"] == 4
@@ -447,6 +449,7 @@ async def test_get_organization_default_values(
     ]
     assert "errors" not in result
     assert result["data"]["organization"]["id"] == org_id
+    assert result["data"]["organization"]["inactivityPeriod"] == 90
     assert result["data"]["organization"]["maxAcceptanceDays"] is None
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 10.0
     assert result["data"]["organization"]["maxNumberAcceptances"] is None

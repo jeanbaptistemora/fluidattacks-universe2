@@ -135,6 +135,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="orgtest",
                     policies=Policies(
+                        inactivity_period=180,
                         modified_by=generic_data["global_vars"]["user_email"],
                         modified_date=datetime.fromisoformat(
                             "2019-11-22T20:07:57+00:00"

@@ -26,6 +26,7 @@ async def get_result(
                 missedAuthors
                 missedCommits
                 missedRepositories
+                inactivityPeriod
                 maxAcceptanceDays
                 maxAcceptanceSeverity
                 maxNumberAcceptances
