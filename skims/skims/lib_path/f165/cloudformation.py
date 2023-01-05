@@ -60,7 +60,11 @@ def get_wildcard_nodes_for_resources(
                 actions.data if isinstance(actions.raw, List) else [actions],
             )
         )
-        if False in is_action_in_exceptions and pattern.match(res.raw):
+        if (
+            isinstance(res.raw, str)
+            and False in is_action_in_exceptions
+            and pattern.match(res.raw)
+        ):
             yield res
 
 
