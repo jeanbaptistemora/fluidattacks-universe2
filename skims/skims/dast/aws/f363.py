@@ -149,6 +149,38 @@ async def not_requires_numbers(
     return vulns
 
 
+async def min_password_len_unsafe(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    min_length: int = 14
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_password_policy"
+    )
+    user = await run_boto3_fun(credentials, service="iam", function="get_user")
+    vulns: core_model.Vulnerabilities = ()
+    password_policy = response.get("PasswordPolicy", [])
+    if password_policy["MinimumPasswordLength"] < min_length:
+        locations = [
+            Location(
+                access_patterns=("/MinimumPasswordLength",),
+                arn=(f"{user['User']['Arn']}"),
+                values=(password_policy["MinimumPasswordLength"],),
+                description=("src.lib_path.f363.min_password_len_unsafe"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_MIN_PASSWORD_LEN_UNSAFE),
+                aws_response=password_policy,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -157,4 +189,5 @@ CHECKS: Tuple[
     not_requires_lowercase,
     not_requires_symbols,
     not_requires_numbers,
+    min_password_len_unsafe,
 )
