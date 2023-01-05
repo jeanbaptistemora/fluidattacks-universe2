@@ -274,7 +274,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                       ? undefined
                       : t("organization.tabs.groups.newGroup.new.tooltip")
                   }
-                  variant={"primary"}
+                  variant={"tertiary"}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;
