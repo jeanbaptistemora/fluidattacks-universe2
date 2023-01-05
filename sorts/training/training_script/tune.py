@@ -15,7 +15,6 @@ from training.constants import (
 )
 from training.training_script.utils import (
     get_current_model_features,
-    get_previous_training_results,
     load_training_data,
     save_model_to_s3,
     split_training_data,
@@ -35,16 +34,13 @@ def train_model(
     model: ModelType,
     model_features: Tuple[str, ...],
     training_dir: str,
-    previous_results: List[List[str]],
     tuned_hyperparameters: str,
 ) -> List[List[str]]:
     training_data: DataFrame = load_training_data(training_dir)
     shuffled_training_data = training_data.sample(
         frac=1, random_state=42
     ).reset_index(drop=True)
-    training_output: List[List[str]] = (
-        previous_results if previous_results else [RESULT_HEADERS]
-    )
+    training_output: List[List[str]] = [RESULT_HEADERS]
     training_combination_output: List[str] = train_combination(
         model, shuffled_training_data, model_features, tuned_hyperparameters
     )
@@ -165,7 +161,6 @@ def main() -> None:
         model,
         model_features,
         args.train,
-        get_previous_training_results(results_filename),
         hyperparameters_to_tune_list,
     )
 

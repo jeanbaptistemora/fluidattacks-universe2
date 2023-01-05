@@ -19,6 +19,12 @@ from training.constants import (
     MODEL_HYPERPARAMETERS,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
+from training.redshift import (
+    db as redshift,
+)
+from training.training_script.utils import (
+    get_previous_training_results,
+)
 
 
 def deploy_hyperparameter_tuning_job() -> None:
@@ -46,6 +52,21 @@ def deploy_hyperparameter_tuning_job() -> None:
     )
 
     tuner.fit({"train": DATASET_PATH})
+
+    results_filename: str = f"{model}_tune_results.csv"
+    previous_results = get_previous_training_results(results_filename)
+    for result in previous_results[1:]:
+        combination_train_results = dict(
+            model=result[0],
+            features=result[1],
+            precision=result[2],
+            recall=result[3],
+            f_score=result[4],
+            overfit=result[6],
+            tuned_parameters=result[7],
+            training_time=result[8],
+        )
+        redshift.insert("training", combination_train_results)
 
     # Here we get the best hyperparameters combination.
     # We can evaluate them and make desitions from here.
