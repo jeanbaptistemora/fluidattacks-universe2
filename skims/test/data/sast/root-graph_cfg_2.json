@@ -61646,6 +61646,14 @@
               "label_ast": "AST"
             }
           },
+          "43": {
+            "48": {
+              "label_ast": "AST"
+            },
+            "51": {
+              "label_ast": "AST"
+            }
+          },
           "436": {
             "437": {
               "label_ast": "AST"
@@ -61894,6 +61902,17 @@
             },
             "581": {
               "label_cfg": "CFG"
+            }
+          },
+          "57": {
+            "62": {
+              "label_ast": "AST"
+            },
+            "65": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
             }
           },
           "574": {
@@ -62234,6 +62253,17 @@
               "label_cfg": "CFG"
             }
           },
+          "76": {
+            "79": {
+              "label_ast": "AST"
+            },
+            "83": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            }
+          },
           "763": {
             "765": {
               "label_ast": "AST",
@@ -62534,6 +62564,14 @@
               "label_ast": "AST"
             }
           },
+          "92": {
+            "95": {
+              "label_ast": "AST"
+            },
+            "97": {
+              "label_ast": "AST"
+            }
+          },
           "925": {
             "926": {
               "label_ast": "AST"
@@ -62757,6 +62795,7 @@
           },
           "104": {
             "expression": "\"module-name\"",
+            "import_type": "side_effect_import",
             "label_type": "Import"
           },
           "1040": {
@@ -64842,9 +64881,7 @@
             "symbol": "err"
           },
           "43": {
-            "expression": "\"module-name\"",
-            "identifier": "export2",
-            "import_type": "named_import",
+            "import_type": "multiple_import",
             "label_type": "Import"
           },
           "432": {
@@ -64956,6 +64993,12 @@
             "value": "' '",
             "value_type": "string"
           },
+          "48": {
+            "expression": "\"module-name\"",
+            "identifier": "export1",
+            "import_type": "named_import",
+            "label_type": "Import"
+          },
           "483": {
             "label_type": "ParenthesizedExpression"
           },
@@ -65029,6 +65072,12 @@
           "509": {
             "comment": "// async for",
             "label_type": "Comment"
+          },
+          "51": {
+            "expression": "\"module-name\"",
+            "identifier": "export2",
+            "import_type": "named_import",
+            "label_type": "Import"
           },
           "510": {
             "block_id": "519",
@@ -65126,9 +65175,7 @@
             "true_id": "574"
           },
           "57": {
-            "expression": "\"module-name\"",
-            "identifier": "alias3",
-            "import_type": "named_import",
+            "import_type": "multiple_import",
             "label_type": "Import"
           },
           "572": {
@@ -65200,6 +65247,12 @@
             "expression_id": "621",
             "label_type": "AwaitExpression"
           },
+          "62": {
+            "expression": "\"module-name\"",
+            "identifier": "export1",
+            "import_type": "named_import",
+            "label_type": "Import"
+          },
           "621": {
             "arguments_id": "623",
             "expression": "fetch",
@@ -65267,6 +65320,13 @@
           "649": {
             "label_type": "SymbolLookup",
             "symbol": "response"
+          },
+          "65": {
+            "expression": "\"module-name\"",
+            "identifier": "export2",
+            "import_type": "named_import",
+            "label_alias": "alias2",
+            "label_type": "Import"
           },
           "651": {
             "label_type": "SymbolLookup",
@@ -65371,6 +65431,12 @@
           },
           "698": {
             "label_type": "Object"
+          },
+          "70": {
+            "expression": "\"module-name\"",
+            "identifier": "alias3",
+            "import_type": "named_import",
+            "label_type": "Import"
           },
           "700": {
             "key_id": "701",
@@ -65493,9 +65559,7 @@
             "symbol": "prop"
           },
           "76": {
-            "expression": "\"module-name\"",
-            "identifier": "export2",
-            "import_type": "named_import",
+            "import_type": "multiple_import",
             "label_type": "Import"
           },
           "761": {
@@ -65567,6 +65631,12 @@
             "label_type": "Literal",
             "value": "`obj.${prop} = ${obj[prop]}`",
             "value_type": "string"
+          },
+          "79": {
+            "expression": "\"module-name\"",
+            "identifier": "defaultExport",
+            "import_type": "default_import",
+            "label_type": "Import"
           },
           "794": {
             "comment": "// Output:",
@@ -65646,6 +65716,12 @@
             "label_type": "MemberAccess",
             "member": "console"
           },
+          "83": {
+            "expression": "\"module-name\"",
+            "identifier": "export1",
+            "import_type": "named_import",
+            "label_type": "Import"
+          },
           "830": {
             "label_type": "SymbolLookup",
             "symbol": "console"
@@ -65702,6 +65778,12 @@
           "857": {
             "label_type": "SymbolLookup",
             "symbol": "i"
+          },
+          "86": {
+            "expression": "\"module-name\"",
+            "identifier": "export2",
+            "import_type": "named_import",
+            "label_type": "Import"
           },
           "860": {
             "label_type": "StatementBlock"
@@ -65831,9 +65913,7 @@
             "value_id": "921"
           },
           "92": {
-            "expression": "\"module-name\"",
-            "identifier": "name",
-            "import_type": "namespace_import",
+            "import_type": "multiple_import",
             "label_type": "Import"
           },
           "921": {
@@ -65904,6 +65984,12 @@
             "value": "\"Bananas\"",
             "value_type": "string"
           },
+          "95": {
+            "expression": "\"module-name\"",
+            "identifier": "defaultExport",
+            "import_type": "default_import",
+            "label_type": "Import"
+          },
           "951": {
             "block_id": "957",
             "label_type": "SwitchStatement",
@@ -65945,6 +66031,12 @@
           },
           "969": {
             "label_type": "ArgumentList"
+          },
+          "97": {
+            "expression": "\"module-name\"",
+            "identifier": "name",
+            "import_type": "namespace_import",
+            "label_type": "Import"
           },
           "971": {
             "label_type": "Literal",

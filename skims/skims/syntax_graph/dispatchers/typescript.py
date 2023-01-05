@@ -19,6 +19,7 @@ from syntax_graph.syntax_readers.javascript import (
     for_statement as javascript_for_statement,
     identifier as javascript_identifier,
     if_statement as javascript_if_statement,
+    import_statement as javascript_import_statement,
     jsx_attribute as javascript_jsx_attribute,
     jsx_element as javascript_jsx_element,
     member_expression as javascript_member_expression,
@@ -59,7 +60,6 @@ from syntax_graph.syntax_readers.typescript import (
     function_signature as typescript_function_signature,
     function_type as typescript_function_type,
     generic_type as typescript_generic_type,
-    import_statement as typescript_import_statement,
     index_signature as typescript_index_signature,
     interface_declaration as typescript_interface_declaration,
     internal_module as typescript_internal_module,
@@ -293,7 +293,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "import_statement",
         },
-        syntax_reader=typescript_import_statement.reader,
+        syntax_reader=javascript_import_statement.reader,
     ),
     Dispatcher(
         applicable_types={
