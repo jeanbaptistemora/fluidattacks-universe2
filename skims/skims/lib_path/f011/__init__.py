@@ -4,6 +4,7 @@ from lib_path.common import (
 )
 from lib_path.f011.composer import (
     composer_json,
+    composer_lock,
 )
 from lib_path.f011.gem import (
     gem_gemfile,
@@ -41,6 +42,11 @@ from typing import (
 @SHIELD_BLOCKING
 def run_composer_json(content: str, path: str) -> Vulnerabilities:
     return composer_json(content, path)
+
+
+@SHIELD_BLOCKING
+def run_composer_lock(content: str, path: str) -> Vulnerabilities:
+    return composer_lock(content, path)
 
 
 @SHIELD_BLOCKING
