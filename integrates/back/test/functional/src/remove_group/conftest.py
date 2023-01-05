@@ -5,6 +5,10 @@ from back.test import (
 from datetime import (
     datetime,
 )
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.enums import (
     Source,
 )
@@ -60,6 +64,19 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "companies": [
+            Company(
+                domain="gmail.com",
+                trial=Trial(
+                    completed=True,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+        ],
         "groups": [
             {
                 "group": Group(

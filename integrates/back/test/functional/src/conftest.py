@@ -5,6 +5,10 @@ from asyncio import (
 from datetime import (
     datetime,
 )
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.enrollment.types import (
     Enrollment,
 )
@@ -115,6 +119,19 @@ def generic_data(  # pylint: disable=too-many-locals
             "R359": "R359. Avoid using generic exceptions.",
         },
         "db_data": {
+            "companies": [
+                Company(
+                    domain="gmail.com",
+                    trial=Trial(
+                        completed=True,
+                        extension_date=None,
+                        extension_days=0,
+                        start_date=datetime.fromisoformat(
+                            "2022-10-25T15:58:31.280182"
+                        ),
+                    ),
+                ),
+            ],
             "enrollments": (
                 Enrollment(
                     email=admin_email,
