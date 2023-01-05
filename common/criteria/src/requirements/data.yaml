@@ -709,6 +709,7 @@
     - owaspscp.3
     - owaspmasvs.V6_2
     - cwe.6
+    - owaspapisp.API3
   metadata: {}
 "033":
   en:
@@ -6168,6 +6169,7 @@
     - asvs.6_2_7
     - asvs.9_1_2
     - asvs.13_2_6
+    - owaspapisp.API3
   metadata: {}
 "183":
   en:
@@ -8330,6 +8332,7 @@
     - asvs.13_1_3
     - pci.1_4_5
     - pci.6_5_5
+    - owaspapisp.API3
   metadata: {}
 "262":
   en:
@@ -9028,6 +9031,7 @@
     - sig.H_3_4
     - sig.I_1_19_3
     - sig.P_5_3
+    - owaspapisp.API3
   metadata: {}
 "301":
   en:
@@ -13278,6 +13282,7 @@
     - owaspmasvs.V8_11
     - siglite.SL_131
     - asvs.8_2_1
+    - owaspapisp.API3
   metadata: {}
 "376":
   en:
