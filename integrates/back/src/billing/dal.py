@@ -74,7 +74,9 @@ async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
             billing_buffer,
         )
     except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
+        # Do not send object not found to bugsnag
+        if ex.response["Error"]["Code"] != "404":
+            LOGGER.exception(ex, extra=dict(extra=locals()))
     else:
         billing_buffer.seek(0)
 
