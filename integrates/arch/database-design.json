@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 04, 2023, 01:43 PM",
+    "DateLastModified": "Jan 05, 2023, 10:41 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -29886,7 +29886,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "CLOSED"
+                    "S": "SAFE"
                   }
                 }
               },
@@ -30394,7 +30394,7 @@
                     "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "OPEN"
+                    "S": "VULNERABLE"
                   }
                 }
               },
