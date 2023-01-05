@@ -7,11 +7,11 @@
 makeScript {
   searchPaths = {
     bin = [
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
       outputs."${inputs.observesIndex.tap.mandrill.bin}"
     ];
     source = [
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/common/utils/sops"
       outputs."/observes/common/db-creds"
     ];

@@ -1,7 +1,7 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
@@ -9,11 +9,12 @@
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-service-job-last-success-bin";
+  makeScript {
+    name = "job-last-success";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = "job-last-success \"\${@}\"";
   }
