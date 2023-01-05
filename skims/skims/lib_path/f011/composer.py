@@ -29,3 +29,15 @@ def composer_json(  # NOSONAR
     )
 
     return dependencies
+
+
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_LOCK)
+def composer_lock(  # NOSONAR
+    content: str, path: str
+) -> Iterator[DependencyType]:
+    content_json = json_loads_blocking(content, default={})
+
+    for key in content_json:
+        if key["item"] == "packages":
+            yield key["item"]
