@@ -1,6 +1,6 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
     VulnerabilityToolImpact,
     VulnerabilityTreatmentStatus,
@@ -43,7 +43,7 @@ class VulnerabilityState(NamedTuple):
     status: VulnerabilityStateStatus
     where: str
     commit: Optional[str] = None
-    justification: Optional[VulnerabilityStateJustification] = None
+    justification: Optional[VulnerabilityStateReason] = None
     other_justification: Optional[str] = None
     tool: Optional[VulnerabilityTool] = None
     snippet: Optional[Snippet] = None

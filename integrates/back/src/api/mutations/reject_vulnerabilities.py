@@ -8,7 +8,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
 )
 from decorators import (
     concurrent_decorators,
@@ -61,7 +61,7 @@ async def mutate(
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,
             modified_by=stakeholder_email,
-            justification=VulnerabilityStateJustification[justification],
+            justification=VulnerabilityStateReason[justification],
             other_justification=kwargs.get("other_justification"),
         )
         await update_unreliable_indicators_by_deps(

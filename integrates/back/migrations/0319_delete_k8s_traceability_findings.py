@@ -27,7 +27,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -92,7 +92,7 @@ async def main() -> None:
                             loaders,
                             finding.id,
                             vuln.id,
-                            VulnerabilityStateJustification.REPORTING_ERROR,
+                            VulnerabilityStateReason.REPORTING_ERROR,
                             "acuberos@fluidattacks.com",
                             True,
                         )

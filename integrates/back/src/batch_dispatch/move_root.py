@@ -67,7 +67,7 @@ from db_model.utils import (
     get_datetime_with_offset,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -357,8 +357,7 @@ async def _process_finding(
                 VulnerabilityStateStatus.DELETED,
                 VulnerabilityStateStatus.MASKED,
             }
-            and vuln.state.justification
-            != VulnerabilityStateJustification.EXCLUSION
+            and vuln.state.justification != VulnerabilityStateReason.EXCLUSION
         ),
         workers=100,
     )

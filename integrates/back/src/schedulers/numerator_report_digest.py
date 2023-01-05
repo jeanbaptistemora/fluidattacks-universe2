@@ -44,7 +44,7 @@ from db_model.toe_ports.types import (
     ToePortsConnection,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -264,7 +264,7 @@ async def _draft_content(
             elif (
                 draft.state.status == FindingStateStatus.REJECTED
                 and vuln.state.justification
-                != VulnerabilityStateJustification.EXCLUSION
+                != VulnerabilityStateReason.EXCLUSION
             ):
                 _common_generate_count_report(
                     content=content,

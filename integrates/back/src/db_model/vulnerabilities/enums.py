@@ -14,7 +14,7 @@ class VulnerabilityType(str, Enum):
     PORTS: str = "PORTS"
 
 
-class VulnerabilityStateJustification(str, Enum):
+class VulnerabilityStateReason(str, Enum):
     CONSISTENCY: str = "CONSISTENCY"
     DUPLICATED: str = "DUPLICATED"
     EVIDENCE: str = "EVIDENCE"

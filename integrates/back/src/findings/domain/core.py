@@ -60,7 +60,7 @@ from db_model.roots.types import (
     Root,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -216,7 +216,7 @@ async def remove_finding(
     await remove_vulnerabilities(
         loaders,
         finding_id,
-        VulnerabilityStateJustification[justification.value],
+        VulnerabilityStateReason[justification.value],
         email,
     )
 
@@ -244,7 +244,7 @@ async def remove_finding(
 async def remove_vulnerabilities(
     loaders: Dataloaders,
     finding_id: str,
-    justification: VulnerabilityStateJustification,
+    justification: VulnerabilityStateReason,
     user_email: str,
 ) -> None:
     vulnerabilities: tuple[

@@ -33,7 +33,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
@@ -201,9 +201,7 @@ async def process_group(  # pylint: disable=too-many-locals
                         loaders,
                         finding.id,
                         vuln.id,
-                        justification=(
-                            VulnerabilityStateJustification.DUPLICATED
-                        ),
+                        justification=(VulnerabilityStateReason.DUPLICATED),
                         email="drestrepo@fluidattacks.com",
                         source=Source.MACHINE,
                     )

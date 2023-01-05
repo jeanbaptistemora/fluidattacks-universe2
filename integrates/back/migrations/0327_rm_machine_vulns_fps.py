@@ -13,7 +13,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -83,7 +83,7 @@ async def main() -> None:
                         loaders,
                         finding.id,
                         vuln.id,
-                        VulnerabilityStateJustification.REPORTING_ERROR,
+                        VulnerabilityStateReason.REPORTING_ERROR,
                         "jecheverri@fluidattacks.com",
                         True,
                     )

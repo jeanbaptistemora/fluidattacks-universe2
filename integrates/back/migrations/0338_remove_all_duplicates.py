@@ -31,7 +31,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -158,7 +158,7 @@ async def process_group(group: str) -> None:
                         loaders,
                         vuln.finding_id,
                         vuln.id,
-                        VulnerabilityStateJustification.DUPLICATED,
+                        VulnerabilityStateReason.DUPLICATED,
                         "drestrepo@fluidattacks.com",
                         True,
                     )
@@ -199,7 +199,7 @@ async def process_group(group: str) -> None:
                         loaders,
                         vuln.finding_id,
                         vuln.id,
-                        VulnerabilityStateJustification.DUPLICATED,
+                        VulnerabilityStateReason.DUPLICATED,
                         "drestrepo@fluidattacks.com",
                         include_closed_vuln=True,
                     )

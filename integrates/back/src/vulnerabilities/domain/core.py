@@ -45,7 +45,7 @@ from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
@@ -239,7 +239,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
     vulnerability_id: str,
-    justification: VulnerabilityStateJustification,
+    justification: VulnerabilityStateReason,
     email: str,
     include_closed_vuln: bool = False,
 ) -> None:
@@ -564,16 +564,13 @@ async def reject_vulnerabilities(
     vuln_ids: set[str],
     finding_id: str,
     modified_by: str,
-    justification: VulnerabilityStateJustification,
+    justification: VulnerabilityStateReason,
     other_justification: Optional[str],
 ) -> None:
-    if (
-        justification is VulnerabilityStateJustification.OTHER
-        and other_justification
-    ):
+    if justification is VulnerabilityStateReason.OTHER and other_justification:
         InvalidParameter("justification")
     if (
-        justification is VulnerabilityStateJustification.OTHER
+        justification is VulnerabilityStateReason.OTHER
         and not other_justification
     ):
         InvalidParameter("other_justification")
@@ -1045,7 +1042,7 @@ async def close_by_exclusion(
                 source=vulnerability.state.source,
                 specific=vulnerability.state.specific,
                 status=VulnerabilityStateStatus.SAFE,
-                justification=VulnerabilityStateJustification.EXCLUSION,
+                justification=VulnerabilityStateReason.EXCLUSION,
                 where=vulnerability.state.where,
             ),
         )

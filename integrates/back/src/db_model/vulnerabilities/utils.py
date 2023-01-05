@@ -1,6 +1,6 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityStateJustification,
+    VulnerabilityStateReason,
     VulnerabilityStateStatus,
     VulnerabilityToolImpact,
     VulnerabilityTreatmentStatus,
@@ -205,7 +205,7 @@ def format_state(item: Item) -> VulnerabilityState:
     tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
         commit=item.get("commit"),
-        justification=VulnerabilityStateJustification[item["justification"]]
+        justification=VulnerabilityStateReason[item["justification"]]
         if item.get("justification")
         else None,
         modified_by=item["modified_by"],
