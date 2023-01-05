@@ -12,6 +12,7 @@ from azure.devops.connection import (
     Connection,
 )
 from azure.devops.exceptions import (
+    AzureDevOpsClientRequestError,
     AzureDevOpsServiceError,
 )
 from azure.devops.v6_0.git.git_client import (
@@ -75,7 +76,11 @@ def _get_repositories(
     try:
         git_client: GitClient = connection.clients.get_git_client()
         repositories: list[GitRepository] = git_client.get_repositories()
-    except (AzureDevOpsAuthenticationError, AzureDevOpsServiceError) as exc:
+    except (
+        AzureDevOpsClientRequestError,
+        AzureDevOpsAuthenticationError,
+        AzureDevOpsServiceError,
+    ) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
         return tuple()
     else:
@@ -128,7 +133,11 @@ def _get_repositories_commits(
             repository_id=repository_id,
             project=project_name,
         )
-    except (AzureDevOpsAuthenticationError, AzureDevOpsServiceError) as exc:
+    except (
+        AzureDevOpsAuthenticationError,
+        AzureDevOpsClientRequestError,
+        AzureDevOpsServiceError,
+    ) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
         return tuple()
     else:
@@ -179,7 +188,11 @@ def _get_repositories_stats(
             repository_id=repository_id,
             project=project_name,
         )
-    except (AzureDevOpsAuthenticationError, AzureDevOpsServiceError) as exc:
+    except (
+        AzureDevOpsAuthenticationError,
+        AzureDevOpsServiceError,
+        AzureDevOpsClientRequestError,
+    ) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
         return None
     else:
