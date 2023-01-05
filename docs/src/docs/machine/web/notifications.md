@@ -497,7 +497,7 @@ for vulnerability scanning of these.
 
 ![Add repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1666783857/docs/web/notifications/add_repositories.png)
 
-## Add stakeholders
+### Add stakeholders
 
 If you are a user who completed the ARM
 [free trial registration](/machine/web/self-enrollment)
