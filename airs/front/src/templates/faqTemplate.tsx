@@ -15,7 +15,7 @@ import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { SetStateAction } from "react";
 
 import { Layout } from "../components/Layout";
@@ -64,10 +64,11 @@ const FaqIndex: React.FC<IQueryData> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleShowMorePosts = (): void => {
+  const handleShowMorePosts = useCallback((): void => {
     loopWithSlice(0, next + questionsPerPage);
     setNext(next + questionsPerPage);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [next]);
 
   return (
     <React.Fragment>

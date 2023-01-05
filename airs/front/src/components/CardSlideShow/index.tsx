@@ -1,6 +1,6 @@
 /* eslint fp/no-mutation:0 */
 /* eslint react/jsx-no-bind:0 */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import { SlideContainer } from "./styledComponents";
@@ -43,15 +43,15 @@ const CardSlideShow: React.FC<ICardSlideShowProps> = ({
   const cards = data;
   const maxScroll = cardWidth * cards.length;
 
-  const scrollLeft: () => void = (): void => {
+  const scrollLeft: () => void = useCallback((): void => {
     setScroll(scroll < cardWidth ? 0 : scroll - cardWidth);
-  };
+  }, [cardWidth, scroll]);
 
-  const scrollRight: () => void = (): void => {
+  const scrollRight: () => void = useCallback((): void => {
     setScroll(
       scroll > currentWidth - cardWidth ? currentWidth : scroll + cardWidth
     );
-  };
+  }, [cardWidth, currentWidth, scroll]);
 
   useEffect((): void => {
     const changeScroll: (element: React.RefObject<HTMLDivElement>) => void = (
