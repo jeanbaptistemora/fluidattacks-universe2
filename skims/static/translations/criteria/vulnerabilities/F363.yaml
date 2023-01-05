@@ -27,3 +27,6 @@ src.lib_path.f363.not_requires_numbers:
 src.lib_path.f363.min_password_len_unsafe:
   en: Account/PasswordPolicy minimun password length unsafe.
   es: PasswordPolicy el largo minimo de la contraseña es inseguro
+src.lib_path.f363.password_reuse_unsafe:
+  en: Account/PasswordPolicy Password policy allows reusing passwords.
+  es: PasswordPolicy permite el reuso de contraseñas.
