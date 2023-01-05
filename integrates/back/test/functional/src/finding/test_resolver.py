@@ -142,6 +142,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         "acceptedUndefined": 2,
         "inProgress": 3,
         "new": 4,
+        "untreated": 4,
     }
     verification_summary: dict[str, int] = {
         "requested": 1,

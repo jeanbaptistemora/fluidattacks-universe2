@@ -145,6 +145,7 @@ async def get_result(
                     acceptedUndefined
                     inProgress
                     new
+                    untreated
                 }}
                 verificationSummary {{
                     requested

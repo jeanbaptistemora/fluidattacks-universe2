@@ -8,4 +8,11 @@ type TreatmentSummary {
   inProgress: Int!
   "Number of vulnerabilities in new status"
   new: Int!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/07/05. Use `untreated` instead.
+      """
+    )
+  "Number of untread vulnerabilities"
+  untreated: Int!
 }

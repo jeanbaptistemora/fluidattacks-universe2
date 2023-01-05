@@ -8,18 +8,6 @@ from .enums import (
     VulnerabilityVerificationStatus,
     VulnerabilityZeroRiskStatus,
 )
-from .types import (
-    Vulnerability,
-    VulnerabilityEdge,
-    VulnerabilityHistoricEntry,
-    VulnerabilityState,
-    VulnerabilityTool,
-    VulnerabilityTreatment,
-    VulnerabilityUnreliableIndicators,
-    VulnerabilityUnreliableIndicatorsToUpdate,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
-)
 from custom_exceptions import (
     VulnerabilityEntryNotFound,
 )
@@ -37,6 +25,18 @@ from db_model.vulnerabilities.constants import (
     RELEASED_FILTER_STATUSES,
     ZR_FILTER_STATUSES,
     ZR_INDEX_METADATA,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityEdge,
+    VulnerabilityHistoricEntry,
+    VulnerabilityState,
+    VulnerabilityTool,
+    VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
+    VulnerabilityUnreliableIndicatorsToUpdate,
+    VulnerabilityVerification,
+    VulnerabilityZeroRisk,
 )
 from dynamodb import (
     keys,
@@ -57,6 +57,20 @@ from typing import (
     Any,
     Optional,
 )
+
+
+def get_current_treatment_converted(treatment: str) -> str:
+    if treatment == "UNTREATED":
+        return "NEW"
+
+    return treatment
+
+
+def get_inverted_treatment_converted(treatment: str) -> str:
+    if treatment == "NEW":
+        return "UNTREATED"
+
+    return treatment
 
 
 def get_current_state_converted(state: str) -> str:

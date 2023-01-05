@@ -3,6 +3,9 @@ from . import (
     get_result,
     get_stakeholders,
 )
+from asyncio import (
+    sleep,
+)
 from back.test.functional.src.utils import (
     complete_register,
     reject_register,
@@ -54,6 +57,7 @@ async def test_grant_stakeholder_access_confirmed(
 
     await complete_register(stakeholder_email, group_name)
 
+    await sleep(5)
     stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
         user=email, group=group_name
     )

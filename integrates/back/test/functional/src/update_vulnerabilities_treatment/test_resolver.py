@@ -43,7 +43,14 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
 @pytest.mark.parametrize(
-    ("email", "vulnerability", "treatment", "assigned", "acceptance_date"),
+    (
+        "email",
+        "vulnerability",
+        "treatment",
+        "assigned",
+        "acceptance_date",
+        "current",
+    ),
     (
         (
             "user@gmail.com",
@@ -51,6 +58,7 @@ from typing import (
             "IN_PROGRESS",
             "user@gmail.com",
             "",
+            "NEW",
         ),
         (
             "user_manager@gmail.com",
@@ -58,6 +66,7 @@ from typing import (
             "ACCEPTED_UNDEFINED",
             "user@gmail.com",
             "",
+            "ACCEPTED_UNDEFINED",
         ),
         (
             "user_manager@fluidattacks.com",
@@ -65,6 +74,7 @@ from typing import (
             "ACCEPTED",
             "user@gmail.com",
             "2021-03-31 19:45:11",
+            "ACCEPTED_UNDEFINED",
         ),
         (
             "vulnerability_manager@gmail.com",
@@ -72,6 +82,7 @@ from typing import (
             "ACCEPTED",
             "user@gmail.com",
             "2021-03-31 19:45:11",
+            "ACCEPTED_UNDEFINED",
         ),
         (
             "user_manager@fluidattacks.com",
@@ -79,6 +90,7 @@ from typing import (
             "ACCEPTED",
             "user@fluidattacks.com",
             "2021-03-31 19:45:11",
+            "ACCEPTED",
         ),
     ),
 )
@@ -90,10 +102,21 @@ async def test_update_vulnerabilities_treatment(
     treatment: str,
     assigned: str,
     acceptance_date: str,
+    current: str,
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: dict[str, Any] = await put_mutation(
+    vulnerability_response: dict = await get_vulnerability(
+        user=email, vulnerability_id=vulnerability
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["treatment"]
+        == current
+    )
+
+    result: dict = await put_mutation(
         user=email,
         finding=finding_id,
         vulnerability=vulnerability,
@@ -104,7 +127,8 @@ async def test_update_vulnerabilities_treatment(
     await sleep(5)
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
-    vulnerability_response: dict[str, Any] = await get_vulnerability(
+
+    vulnerability_response = await get_vulnerability(
         user=email, vulnerability_id=vulnerability
     )
     assert (
