@@ -372,10 +372,9 @@ it from the application.
 
 29\. What communication does Fluid Attacks provide? When? How?
 
-For Continuous Hacking, communication takes place between developers and
-hackers on a day-to-day basis via `ARM`. In One-shot Hacking,
-communication is handled through the project manager (`PM`) as a single
-point of contact (`SPOC`).
+For Continuous Hacking,
+communication takes place between developers and hackers
+on a day-to-day basis via our `ARM` platform.
 
 </div>
 
@@ -747,7 +746,6 @@ During the execution of a project, the following scenarios can occur:
 
 60\. What options for retesting are available?
 
-One-shot Hacking includes one retest.
 [Continuous Hacking](../../services/continuous-hacking/) includes
 infinite retests during the subscription time.
 

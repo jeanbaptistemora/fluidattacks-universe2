@@ -104,9 +104,12 @@ They cannot afford, for instance, outages of their `IaaS` provider.
 > So next time an instance fails at 3 am on a Sunday, we won’t even
 > notice.”
 
-By being exposed to these outages, `Netflix` assesses how proper the
-countermeasures are to keep services running. If they are not, they
-devise improvements to avoid these outages when they happen for real.
+By being exposed to these outages,
+Netflix assesses how proper the countermeasures are
+to keep services running.
+If they are not,
+they devise improvements
+to avoid these outages when they happen for real.
 
 > “By pseudo-randomly rebooting their own hosts, they could suss out any
 > weaknesses and validate that their automated remediation worked
@@ -221,22 +224,20 @@ company. See how `BIT` has been featured:
 
 ## Becoming antifragile: Fluid Attacks can help
 
-Want to start becoming antifragile in your cybersecurity efforts? We can
-help. Check out our services. We inject a mix of *“troubles”* into your
-applications and `IT` infrastructure:
+Want to start becoming antifragile in your cybersecurity efforts?
+We can help.
+Check out our service.
+We inject a mix of "troubles"
+into your applications and IT infrastructure
+through our [Continuous Hacking](../../services/continuous-hacking).
+Think of it as a constant source of stressors.
 
-- [Continuous hacking](../../services/continuous-hacking). Think of it
-  as a constant source of stressors.
-
-- One-shot hacking. This is like a
-  one-shot stressor focused on your most valuable information assets
-  (or on the target you want).
-
-We are able to create some monkeys and even gorillas to shake your `IT`
+We are able to create some monkeys and even gorillas to shake your IT
 assets, making offensive testing your best line of protection. That way,
 you can learn how to better prepare for potential incidents and outthink
 attackers\! And don’t worry: we do it in a controlled way.
 
 We also invite you to take a look at our Attack Resistance Management platform,
-a platform to keep track of weaknesses. Think of it as a platform that
-helps you to learn how to become antifragile in cybersecurity.
+a tool to keep track of weaknesses.
+Think of it as a platform that helps you to learn
+how to become antifragile in cybersecurity.

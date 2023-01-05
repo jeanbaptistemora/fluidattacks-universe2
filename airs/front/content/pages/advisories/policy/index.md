@@ -13,11 +13,10 @@ This disclosure policy ("Policy") describes how `Fluid Attacks` ("Fluid
 Attacks", "we", "us" or "our") discloses third-party product
 vulnerabilities found by our Offensive Team.
 
-This Policy does not apply to vulnerabilities found for customers as
-part of the [Continuous Hacking](../../services/continuous-hacking) and
-One-Shot Hacking services, unless
-there is explicit approval, as they are covered by a Non-Disclosure
-Agreement.
+This Policy does not apply to vulnerabilities found for customers
+as part of the [Continuous Hacking](../../services/continuous-hacking) service,
+unless there is explicit approval,
+as they are covered by a Non-Disclosure Agreement.
 
 ## Goal
 

@@ -20,7 +20,7 @@ source: https://unsplash.com/photos/pMnw5BSZYsA
 <div class ="blog-questions">
 
 We continue our conversation with Ricardo. We threw him a question that
-was the source of interesting debates at `Fluid Attacks` some time ago.
+was the source of interesting debates at Fluid Attacks some time ago.
 
 **Should a company invest in security awareness training?**
 
@@ -38,7 +38,7 @@ was the source of interesting debates at `Fluid Attacks` some time ago.
     training interactive. For example, by putting people to solve
     challenges, making the training process look like a game."
 
-`Fluid Attacks` keeps learning through challenges, as Ricardo mentioned,
+Fluid Attacks keeps learning through challenges, as Ricardo mentioned,
 starting at the hiring process. Take a look at our products, like
 asserts and [**Criteria**](https://docs.fluidattacks.com/criteria/).
 
@@ -101,21 +101,22 @@ start and stop doing?**
 
 **What cybersecurity providers are doing well? What is not so great?**
 
-1. "I can only say `Fluid Attacks` is doing great stuff, by reinventing
+1. "I can only say Fluid Attacks is doing great stuff, by reinventing
     themselves. They started talking about IaC around four years ago
     mentioning the importance of organizations shifting towards it.
     Benefits are so clear that it’s unthinkable for me taking a
     different path. Here in Australia IaC is unnegotiable, it brings
     speed to service delivery, to development, to infrastructure
-    deployment. `Fluid Attacks` is helping companies to automate the
+    deployment. Fluid Attacks is helping companies to automate the
     detection of weaknesses, working together with development, IT,
     and DevOps teams to infuse security the way I mentioned before. If
     a cybersecurity firm is not into IaC, they will soon lose the
     interesting customers."
 
-Indeed, `Fluid Attacks` has a DevOps approach. Want to know more?
-Visit our [Continuous Hacking](../../services/continuous-hacking/) and
-One-shot Hacking services.
+Indeed,
+Fluid Attacks has a DevOps approach.
+Want to know more?
+Visit our [Continuous Hacking service page](../../services/continuous-hacking/).
 
 **Why do you think companies that know their weaknesses,** **do not fix
 them or do it too late?**
