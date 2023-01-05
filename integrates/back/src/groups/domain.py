@@ -155,10 +155,10 @@ from newutils import (
 from newutils.validations import (
     validate_alphanumeric_field_deco,
     validate_email_address_deco,
-    validate_field_length,
     validate_field_length_deco,
     validate_fields,
-    validate_group_name,
+    validate_fields_deco,
+    validate_group_name_deco,
     validate_string_length_between,
 )
 from notifications import (
@@ -186,6 +186,7 @@ from typing import (
     Callable,
     Optional,
     Tuple,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -299,6 +300,44 @@ async def reject_register_for_group_invitation(
     )
 
 
+def validate_group_services_config_deco(
+    has_machine_field: str,
+    has_squad_field: str,
+    has_arm_field: Union[str, bool],
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            has_machine = bool(kwargs.get(has_machine_field))
+            has_squad = bool(kwargs.get(has_squad_field))
+            has_arm = has_arm_field
+            if isinstance(has_arm_field, str):
+                has_arm = bool(kwargs.get(has_arm_field))
+            if has_squad:
+                if not has_arm:
+                    raise InvalidGroupServicesConfig(
+                        "Squad is only available when ASM is too"
+                    )
+                if not has_machine:
+                    raise InvalidGroupServicesConfig(
+                        "Squad is only available when Machine is too"
+                    )
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+@validate_group_name_deco("group_name")
+@validate_fields_deco(["description"])
+@validate_field_length_deco("group_name", 20)
+@validate_field_length_deco("description", 200)
+@validate_group_services_config_deco(
+    "has_machine",
+    "has_squad",
+    has_arm_field=True,
+)
 async def add_group(
     *,
     loaders: Dataloaders,
@@ -314,15 +353,6 @@ async def add_group(
     subscription: GroupSubscriptionType = GroupSubscriptionType.CONTINUOUS,
     tier: GroupTier = GroupTier.FREE,
 ) -> None:
-    validate_group_name(group_name)
-    validate_fields([description])
-    validate_field_length(group_name, 20)
-    validate_field_length(description, 200)
-    validate_group_services_config(
-        has_machine,
-        has_squad,
-        has_arm=True,
-    )
 
     if not description.strip() or not group_name.strip():
         raise InvalidParameter()
@@ -1779,33 +1809,6 @@ def validate_group_services_config(
             raise InvalidGroupServicesConfig(
                 "Squad is only available when Machine is too"
             )
-
-
-def validate_group_services_config_deco(
-    has_machine_field: str,
-    has_squad_field: str,
-    has_arm_field: str,
-) -> Callable:
-    def wrapper(func: Callable) -> Callable:
-        @functools.wraps(func)
-        def decorated(*args: Any, **kwargs: Any) -> Any:
-            has_machine = bool(kwargs.get(has_machine_field))
-            has_squad = bool(kwargs.get(has_squad_field))
-            has_arm = bool(kwargs.get(has_arm_field))
-            if has_squad:
-                if not has_arm:
-                    raise InvalidGroupServicesConfig(
-                        "Squad is only available when ASM is too"
-                    )
-                if not has_machine:
-                    raise InvalidGroupServicesConfig(
-                        "Squad is only available when Machine is too"
-                    )
-            return func(*args, **kwargs)
-
-        return decorated
-
-    return wrapper
 
 
 async def validate_group_tags(
