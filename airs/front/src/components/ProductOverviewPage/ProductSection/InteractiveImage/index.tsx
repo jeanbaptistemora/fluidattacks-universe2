@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Container } from "./styledComponents";
 
@@ -20,9 +20,9 @@ const InteractiveImage: React.FC<IInteractiveProps> = ({
 }: IInteractiveProps): JSX.Element => {
   const [isTouch, setIsTouch] = useState(false);
 
-  function onClick(): void {
+  const onClick = useCallback((): void => {
     setIsTouch(!isTouch);
-  }
+  }, [isTouch]);
 
   return (
     <Container>

@@ -1,7 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint fp/no-mutation:0 */
 /* eslint react/jsx-no-bind:0 */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -76,15 +76,15 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   const [currentWidth, setCurrentWidth] = useState(0);
   const [scroll, setScroll] = useState(0);
 
-  const scrollLeft: () => void = (): void => {
+  const scrollLeft: () => void = useCallback((): void => {
     setScroll(scroll < cardWidth ? 0 : scroll - cardWidth);
-  };
+  }, [scroll]);
 
-  const scrollRight: () => void = (): void => {
+  const scrollRight: () => void = useCallback((): void => {
     setScroll(
       scroll > currentWidth - cardWidth ? currentWidth : scroll + cardWidth
     );
-  };
+  }, [scroll, currentWidth]);
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
