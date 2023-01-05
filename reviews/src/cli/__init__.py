@@ -13,7 +13,7 @@ def reviews(config_path: str) -> None:
 
 
 if __name__ == "__main__":
-    # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
+    # pylint: disable=no-value-for-parameter
     reviews(
         prog_name="reviews",
     )

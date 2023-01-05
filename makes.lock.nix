@@ -2,6 +2,6 @@
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
     ref = "refs/heads/main";
-    rev = "7a802fdd918c4d6e8ba6cdccc091079f0b42fd49";
+    rev = "bd2848c799aac0f04e211f16547dad41c6e3190e";
   };
 }

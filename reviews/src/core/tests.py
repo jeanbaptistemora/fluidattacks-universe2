@@ -153,7 +153,7 @@ def pr_user_syntax(*, data: TestData) -> bool:
             "(avoid accents and ñ). \n"
             "For example: Aureliano Buendia. \n"
             "You can change your gitlab user name here: \n"
-            "https://gitlab.com/profile",
+            "https://gitlab.com/-/profile",
             author,
         )
     return success or not should_fail

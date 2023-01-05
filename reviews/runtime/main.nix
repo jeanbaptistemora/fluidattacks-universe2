@@ -1,6 +1,6 @@
 {
-  inputs,
   makePythonPypiEnvironment,
+  makePythonVersion,
   makeTemplate,
   projectPath,
   ...
@@ -11,7 +11,7 @@ makeTemplate {
   };
   name = "reviews-runtime";
   searchPaths = {
-    bin = [inputs.nixpkgs.python310];
+    bin = [(makePythonVersion "3.11")];
     pythonPackage = [(projectPath "/reviews/src")];
     source = [
       (makePythonPypiEnvironment {
