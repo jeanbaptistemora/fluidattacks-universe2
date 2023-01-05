@@ -211,7 +211,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
     is_access_granted: bool = False,
     email_cc: Optional[list[str]] = None,
 ) -> None:
-    test_group_list = FI_TEST_PROJECTS.split(",")
+    test_group_list = FI_TEST_PROJECTS.split(",") if FI_TEST_PROJECTS else []
     await collect(
         tuple(
             send_mail_async(
