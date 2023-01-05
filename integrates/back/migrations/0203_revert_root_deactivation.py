@@ -1,4 +1,5 @@
 # pylint: disable=invalid-name
+# type: ignore
 """
 This migration reverts a root deactivation by restoring vuln states.
 

@@ -94,7 +94,7 @@ pytestmark = [
                             source=Source.ASM,
                             specific="8888",
                             status=VulnerabilityStateStatus.VULNERABLE,
-                            justification=None,
+                            reasons=None,
                             tool=VulnerabilityTool(
                                 name="tool-1",
                                 impact=VulnerabilityToolImpact.INDIRECT,
@@ -167,7 +167,7 @@ pytestmark = [
                             source=Source.ASM,
                             specific="12",
                             status=VulnerabilityStateStatus.VULNERABLE,
-                            justification=None,
+                            reasons=None,
                             tool=VulnerabilityTool(
                                 name="tool-2",
                                 impact=VulnerabilityToolImpact.INDIRECT,
@@ -296,7 +296,7 @@ async def test_group_vulnerabilities() -> None:
                 status=VulnerabilityStateStatus.VULNERABLE,
                 where="test/data/lib_path/f060/csharp.cs",
                 commit="ea871ee",
-                justification=None,
+                reasons=None,
                 tool=VulnerabilityTool(
                     name="tool-2", impact=VulnerabilityToolImpact.INDIRECT
                 ),
@@ -343,7 +343,7 @@ async def test_group_vulnerabilities() -> None:
                 status=VulnerabilityStateStatus.VULNERABLE,
                 where="https://example.com",
                 commit=None,
-                justification=None,
+                reasons=None,
                 tool=VulnerabilityTool(
                     name="tool-2", impact=VulnerabilityToolImpact.INDIRECT
                 ),

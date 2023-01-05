@@ -358,7 +358,7 @@ async def _process_finding(
                 VulnerabilityStateStatus.MASKED,
             }
             and (
-                vuln.state.justification != VulnerabilityStateReason.EXCLUSION
+                vuln.state.reasons is None
                 or (
                     vuln.state.reasons
                     and VulnerabilityStateReason.EXCLUSION

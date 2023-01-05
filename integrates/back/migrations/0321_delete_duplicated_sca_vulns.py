@@ -212,7 +212,9 @@ async def main() -> None:
                             status=VulnerabilityStateStatus.VULNERABLE,
                             where=vuln.state.where,
                             commit=vuln.state.commit,
-                            justification=vuln.state.justification,
+                            justification=(
+                                vuln.state.justification  # type: ignore
+                            ),
                             tool=vuln.state.tool,
                             snippet=vuln.state.snippet,
                         ),

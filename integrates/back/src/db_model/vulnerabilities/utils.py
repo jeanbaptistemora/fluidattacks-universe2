@@ -219,9 +219,6 @@ def format_state(item: Item) -> VulnerabilityState:
     tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
         commit=item.get("commit"),
-        justification=VulnerabilityStateReason[item["justification"]]
-        if item.get("justification")
-        else None,
         modified_by=item["modified_by"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
         other_justification=item.get("other_justification"),

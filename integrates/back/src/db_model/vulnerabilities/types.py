@@ -45,7 +45,6 @@ class VulnerabilityState(NamedTuple):
     status: VulnerabilityStateStatus
     where: str
     commit: Optional[str] = None
-    justification: Optional[VulnerabilityStateReason] = None
     reasons: Optional[list[VulnerabilityStateReason]] = None
     other_justification: Optional[str] = None
     tool: Optional[VulnerabilityTool] = None

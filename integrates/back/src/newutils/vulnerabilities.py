@@ -799,8 +799,6 @@ def format_vulnerability_state_item(
         "state": formatted_status,
         "status": str(state.status.value),
     }
-    if state.justification:
-        item["justification"] = state.justification.value
     if state.reasons:
         item["justification"] = state.reasons[0].value
 

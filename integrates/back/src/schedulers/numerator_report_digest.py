@@ -261,10 +261,13 @@ async def _draft_content(
                     users_email=users_email,
                 )
 
-            elif (
-                draft.state.status == FindingStateStatus.REJECTED
-                and vuln.state.justification
-                != VulnerabilityStateReason.EXCLUSION
+            elif draft.state.status == FindingStateStatus.REJECTED and (
+                vuln.state.reasons is None
+                or (
+                    vuln.state.reasons
+                    and VulnerabilityStateReason.EXCLUSION
+                    not in vuln.state.reasons
+                )
             ):
                 _common_generate_count_report(
                     content=content,
