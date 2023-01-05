@@ -109,7 +109,7 @@ def validate_fields_deco(fields: Iterable[str]) -> Callable:
             regex = rf'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
 
             for key, value in kwargs.items():
-                if key in fields:
+                if key in fields and value:
                     check_field(str(value), regex)
 
             res = func(*args, **kwargs)

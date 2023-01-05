@@ -156,10 +156,9 @@ from newutils.validations import (
     validate_alphanumeric_field_deco,
     validate_email_address_deco,
     validate_field_length_deco,
-    validate_fields,
     validate_fields_deco,
     validate_group_name_deco,
-    validate_string_length_between,
+    validate_string_length_between_deco,
 )
 from notifications import (
     domain as notifications_domain,
@@ -551,6 +550,8 @@ async def remove_group(
         )
 
 
+@validate_fields_deco(["comments"])
+@validate_string_length_between_deco("comments", 0, 250)
 async def update_group_managed(
     *,
     loaders: Dataloaders,
@@ -559,8 +560,6 @@ async def update_group_managed(
     group_name: str,
     managed: GroupManaged,
 ) -> None:
-    validate_fields([comments])
-    validate_string_length_between(comments, 0, 250)
     group: Group = await loaders.group.load(group_name)
 
     if managed != group.state.managed:
@@ -606,6 +605,8 @@ async def update_group_managed(
             )
 
 
+@validate_fields_deco(["comments"])
+@validate_string_length_between_deco("comments", 0, 250)
 async def update_group_payment_id(
     *,
     group: Group,
@@ -615,8 +616,6 @@ async def update_group_payment_id(
     payment_id: str,
     managed: GroupManaged,
 ) -> None:
-    validate_fields([comments])
-    validate_string_length_between(comments, 0, 250)
     if payment_id != group.state.payment_id:
         await update_state(
             group_name=group_name,
@@ -639,6 +638,9 @@ async def update_group_payment_id(
         )
 
 
+@validate_fields_deco(["comments"])
+@validate_string_length_between_deco("comments", 0, 250)
+@validate_group_services_config_deco("has_machine", "has_squad", "has_arm")
 async def update_group(
     *,
     loaders: Dataloaders,
@@ -653,13 +655,6 @@ async def update_group(
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
 ) -> None:
-    validate_fields([comments])
-    validate_string_length_between(comments, 0, 250)
-    validate_group_services_config(
-        has_machine,
-        has_squad,
-        has_arm,
-    )
 
     group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization.load(
