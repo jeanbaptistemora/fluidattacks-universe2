@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 05, 2023, 10:41 AM",
+    "DateLastModified": "Jan 05, 2023, 12:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -89,6 +89,10 @@
         {
           "AttributeName": "reason",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "reasons",
+          "AttributeType": "L"
         },
         {
           "AttributeName": "modified_date",
@@ -38391,6 +38395,7 @@
             "justification",
             "tool",
             "snippet",
+            "reasons",
             "other_justification"
           ],
           "DataAccess": {
