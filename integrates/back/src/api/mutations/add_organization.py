@@ -10,6 +10,9 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
+from newutils import (
+    analytics,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -51,6 +54,13 @@ async def mutate(
         organization.name,
         organization.id,
         user_email,
+    )
+
+    await analytics.mixpanel_track(
+        user_email,
+        "NewOrganization",
+        OrganizationId=organization.id,
+        OrganizationName=organization.name,
     )
 
     return AddOrganizationPayload(success=True, organization=organization)

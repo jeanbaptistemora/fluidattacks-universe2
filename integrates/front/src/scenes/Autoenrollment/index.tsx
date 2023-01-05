@@ -133,14 +133,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const [addOrganization] = useMutation<IAddOrganizationResult>(
     ADD_ORGANIZATION,
     {
-      onCompleted: (result): void => {
-        if (result.addOrganization.success) {
-          mixpanel.track("NewOrganization", {
-            OrganizationId: result.addOrganization.organization.id,
-            OrganizationName: result.addOrganization.organization.name,
-          });
-        }
-      },
       onError: (error): void => {
         error.graphQLErrors.forEach(({ message }): void => {
           if (message === "Access denied") {

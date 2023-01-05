@@ -48,11 +48,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       onCompleted: (result: IAddOrganizationMtProps): void => {
         if (result.addOrganization.success) {
           onClose();
-          const { id, name } = result.addOrganization.organization;
-          mixpanel.track("NewOrganization", {
-            OrganizationId: id,
-            OrganizationName: name,
-          });
+          const { name } = result.addOrganization.organization;
           msgSuccess(t(`${tPath}success`, { name }), t(`${tPath}successTitle`));
           push(`/orgs/${name.toLowerCase()}/`);
         }
