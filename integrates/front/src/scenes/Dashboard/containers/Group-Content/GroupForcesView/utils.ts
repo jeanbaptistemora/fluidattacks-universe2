@@ -89,9 +89,19 @@ const formatExecutionFilters: (state: string) => string = (
   return execFormat[state];
 };
 
+const unformatKind: (kind: string) => string = (kind: string): string => {
+  const unformat: Record<string, string> = {
+    dast: "dynamic",
+    sast: "static",
+  };
+
+  return unformat[kind.toLowerCase()];
+};
+
 export {
   toTitleCase,
   formatFoundVulnerabilities,
   formatExecutions,
   formatExecutionFilters,
+  unformatKind,
 };
