@@ -181,6 +181,39 @@ async def min_password_len_unsafe(
     return vulns
 
 
+async def password_reuse_unsafe(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_password_policy"
+    )
+    user = await run_boto3_fun(credentials, service="iam", function="get_user")
+    vulns: core_model.Vulnerabilities = ()
+    password_policy = response.get("PasswordPolicy", [])
+    password_reuse: int = password_policy.get("PasswordReusePrevention", 0)
+    min_reuse = 24
+    if password_reuse < min_reuse:
+        locations = [
+            Location(
+                access_patterns=("/PasswordReusePrevention",),
+                arn=(f"{user['User']['Arn']}"),
+                values=(password_policy["PasswordReusePrevention"],),
+                description=("src.lib_path.f363.password_reuse_unsafe"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_IAM_PASSWORD_REUSE_UNSAFE),
+                aws_response=password_policy,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -190,4 +223,5 @@ CHECKS: Tuple[
     not_requires_symbols,
     not_requires_numbers,
     min_password_len_unsafe,
+    password_reuse_unsafe,
 )
