@@ -50,6 +50,9 @@ function job_code_upload {
               amend-authors \
               --namespace "${group}" \
               --mailmap '.groups-mailmap' \
+            && success-indicators compound-job \
+              --job 'code_upload' \
+              --child "${group}" \
             && if [[ ${migrated_groups[*]} =~ ${group} ]]; then
               echo "[INFO] Migrated group procedure" \
                 && echo "[ERROR] Not defined" \

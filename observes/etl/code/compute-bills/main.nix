@@ -8,6 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       outputs."${inputs.observesIndex.etl.code.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
     ];
     source = [
       outputs."/common/utils/aws"

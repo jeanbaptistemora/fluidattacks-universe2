@@ -7,6 +7,7 @@ SINGLE_JOBS = frozenset(
         "announcekit",
         "bugsnag",
         "checkly",
+        "compute_bills",
         "delighted",
         "formstack",
         "mailchimp",
@@ -24,6 +25,7 @@ COMPOUND_JOBS = frozenset(
     [
         "dynamo",
         "mirror",
+        "code_upload",
     ]
 )
 

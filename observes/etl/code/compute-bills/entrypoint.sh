@@ -33,6 +33,8 @@ function job_compute_bills {
       "$(date +%Y)" \
       "$(date +%m)" \
       "${INTEGRATES_API_TOKEN}" \
+    && success-indicators single-job \
+      --job 'compute_bills' \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_month}" \
     && aws_s3_sync "${folder}" "${bucket_month}" \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_day}" \
