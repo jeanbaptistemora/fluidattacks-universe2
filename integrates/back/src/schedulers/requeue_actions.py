@@ -178,6 +178,12 @@ async def requeue_actions() -> bool:
     for action in actions_to_requeue:
         if action.batch_job_id:
             kwargs = {}
+            product = (
+                Product.INTEGRATES
+                if action.action_name != Action.EXECUTE_MACHINE.value
+                else Product.SKIMS
+            )
+            queue = batch_dal.to_queue(action.queue, product)
             if action.batch_job_id in batch_jobs_dict:
                 try:
                     vcpus = batch_jobs_dict[action.batch_job_id]["container"][
@@ -190,11 +196,7 @@ async def requeue_actions() -> bool:
                 except KeyError:
                     if action.action_name == Action.EXECUTE_MACHINE.value:
                         kwargs = {"memory": 7200, "vcpus": 4}
-            product = (
-                Product.INTEGRATES
-                if action.action_name != Action.EXECUTE_MACHINE.value
-                else Product.SKIMS
-            )
+                        queue = batch_dal.SkimsBatchQueue("integrates_large")
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,
@@ -205,7 +207,7 @@ async def requeue_actions() -> bool:
                     ),
                     action_dynamo_pk=action.key,
                     entity=action.entity,
-                    queue=batch_dal.to_queue(action.queue, product),
+                    queue=queue,
                     product_name=product.value,
                     **kwargs,
                 )
