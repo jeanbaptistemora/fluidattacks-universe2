@@ -357,7 +357,14 @@ async def _process_finding(
                 VulnerabilityStateStatus.DELETED,
                 VulnerabilityStateStatus.MASKED,
             }
-            and vuln.state.justification != VulnerabilityStateReason.EXCLUSION
+            and (
+                vuln.state.justification != VulnerabilityStateReason.EXCLUSION
+                or (
+                    vuln.state.reasons
+                    and VulnerabilityStateReason.EXCLUSION
+                    not in vuln.state.reasons
+                )
+            )
         ),
         workers=100,
     )

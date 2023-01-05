@@ -593,6 +593,7 @@ async def reject_vulnerabilities(
                     modified_date=datetime_utils.get_utc_now(),
                     status=VulnerabilityStateStatus.REJECTED,
                     justification=justification,
+                    reasons=[justification],
                     other_justification=other_justification,
                 ),
             )
@@ -896,6 +897,7 @@ async def update_metadata_and_state(
                 source=new_state.source,
                 status=vulnerability.state.status,
                 justification=vulnerability.state.justification,
+                reasons=vulnerability.state.reasons,
                 tool=vulnerability.state.tool,
                 commit=vulnerability.state.commit,
                 where=vulnerability.state.where,
@@ -1043,6 +1045,7 @@ async def close_by_exclusion(
                 specific=vulnerability.state.specific,
                 status=VulnerabilityStateStatus.SAFE,
                 justification=VulnerabilityStateReason.EXCLUSION,
+                reasons=[VulnerabilityStateReason.EXCLUSION],
                 where=vulnerability.state.where,
             ),
         )
