@@ -6,7 +6,7 @@
 /* eslint @typescript-eslint/no-unnecessary-condition:0 */
 import algoliasearch from "algoliasearch/lite";
 import type { SearchClient } from "algoliasearch/lite";
-import React, { createRef, useMemo, useState } from "react";
+import React, { createRef, useCallback, useMemo, useState } from "react";
 import type { RefObject, SetStateAction } from "react";
 import { InstantSearch } from "react-instantsearch-dom";
 import { ThemeProvider } from "styled-components";
@@ -49,20 +49,23 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
     setHasFocus(false)
   );
 
+  const handleSearchState = useCallback(({ query }: IQueryProps): void => {
+    setQueryValue(query);
+  }, []);
+
+  const handleOnFocus = useCallback((): void => {
+    setHasFocus(true);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <StyledSearchRoot ref={rootRef as RefObject<HTMLDivElement>}>
         <InstantSearch
           indexName={indices[0].name}
-          onSearchStateChange={({ query }: IQueryProps): void =>
-            setQueryValue(query)
-          }
+          onSearchStateChange={handleSearchState}
           searchClient={searchClient}
         >
-          <StyledSearchBox
-            className={""}
-            onFocus={(): void => setHasFocus(true)}
-          />
+          <StyledSearchBox className={""} onFocus={handleOnFocus} />
           <StyledSearchResult
             className={"scroll-touch bs-btm-h-10 bn"}
             indices={indices}
