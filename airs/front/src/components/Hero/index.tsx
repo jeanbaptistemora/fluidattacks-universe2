@@ -36,7 +36,7 @@ const Hero: React.FC<IHeroProps> = ({
 
   const tones: Record<THeroTone, IHeroTone> = {
     dark: {
-      bgColor: "#2e2e38",
+      bgColor: "#25252d",
       button1: "primary",
       button2: "darkTertiary",
       paragraphColor: "#b0b0bf",
@@ -118,21 +118,23 @@ const Hero: React.FC<IHeroProps> = ({
   }
 
   return (
-    <Container
-      bgColor={tones[tone].bgColor}
-      display={"flex"}
-      justify={"end"}
-      pv={5}
-    >
+    <Container bgColor={tones[tone].bgColor} display={"flex"} justify={"end"}>
       <Container
         align={"center"}
         display={"flex"}
         justify={"end"}
-        maxWidth={"1440px"}
+        maxWidth={"1920px"}
         mr={0}
         wrap={"wrap"}
       >
-        <Container width={"50%"} widthMd={"100%"}>
+        <Container
+          ph={4}
+          phMd={4}
+          phSm={4}
+          pv={5}
+          width={"40%"}
+          widthMd={"100%"}
+        >
           <Title
             color={tones[tone].titleColor}
             level={1}
@@ -176,8 +178,8 @@ const Hero: React.FC<IHeroProps> = ({
         </Container>
         <Container
           display={"flex"}
-          justify={"center"}
-          width={"50%"}
+          justify={"end"}
+          width={"60%"}
           widthMd={"100%"}
         >
           <CloudImage alt={title} src={image} />

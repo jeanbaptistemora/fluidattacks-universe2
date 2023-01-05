@@ -704,6 +704,17 @@ const pageTexts: ResourceKey = {
       "Search for vulnerabilities in your application " +
       "for FREE (21-day trial). No credit card required.",
   },
+  home: {
+    clients: {
+      title: "We are helping hundreds of companies build secure applications",
+    },
+    hero: {
+      paragraph:
+        "We offer multiple techniques in a single solution to secure " +
+        "your technology throughout the software development lifecycle.",
+      title: "Deploy secure applications without delaying your time-to-market",
+    },
+  },
   internalForm: {
     subTitle:
       "Fill out the form and one of our consultants will be in touch shortly.",
