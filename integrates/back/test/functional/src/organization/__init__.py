@@ -20,6 +20,12 @@ async def get_result(
         query {{
             organization(organizationId: "{org}") {{
                 id
+                 company {{
+                    domain
+                    trial {{
+                        completed
+                    }}
+                }}
                 coveredAuthors
                 coveredCommits
                 coveredRepositories
