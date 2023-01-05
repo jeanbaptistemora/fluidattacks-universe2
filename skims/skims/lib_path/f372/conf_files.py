@@ -22,6 +22,7 @@ def _json_https_flag_missing(
         isinstance(template, Node)
         and (hasattr(template.inner, "get"))
         and (scripts := getattr(template.inner.get("scripts"), "data", None))
+        and (hasattr(scripts, "values"))
     ):
         for script in scripts.values():
             if "http-server" in script.data and not any(

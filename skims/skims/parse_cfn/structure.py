@@ -24,7 +24,11 @@ def iterate_resources(
         return
 
     if template_resources := template.inner.get("Resources", None):
-        for resource_name, resource_config in template_resources.data.items():
+        for resource_name, resource_config in (
+            template_resources.data.items()
+            if hasattr(template_resources.data, "items")
+            else []
+        ):
             if (
                 resource_config.data_type == Type.OBJECT
                 and "Properties" in resource_config.inner

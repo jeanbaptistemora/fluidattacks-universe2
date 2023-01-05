@@ -86,7 +86,10 @@ def yield_statements_from_policy_document(
         elif isinstance(statement.inner, list):
             yield from map(patch_statement, statement.data)
     else:
-        statement = document.get("Statement", [])  # type: ignore
+        if hasattr(document, "get"):
+            statement = document.get("Statement", [])  # type: ignore
+        else:
+            statement = []
 
         if isinstance(statement, dict):
             yield patch_statement(statement)
