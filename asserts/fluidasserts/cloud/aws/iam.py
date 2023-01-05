@@ -206,54 +206,6 @@ def root_has_access_keys(
     )
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def min_password_len_unsafe(
-    key_id: str,
-    secret: str,
-    session_token: str = None,
-    min_len=14,
-    retry: bool = True,
-) -> tuple:
-    """
-    Check if password policy requires passwords greater than 14 chars.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param min_len: Minimum length required. Default 14
-    """
-    policy = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="get_account_password_policy",
-        param="PasswordPolicy",
-        retry=retry,
-    )
-
-    msg_open: str = "Password policy does not require long enough passwords"
-    msg_closed: str = "Password policy requires long enough passwords"
-
-    vulns, safes = [], []
-
-    (vulns if policy["MinimumPasswordLength"] < min_len else safes).append(
-        (
-            "Account/PasswordPolicy/MinimumPasswordLength",
-            f"Must be at least {min_len} chars long",
-        )
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="password policies",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def password_reuse_unsafe(
