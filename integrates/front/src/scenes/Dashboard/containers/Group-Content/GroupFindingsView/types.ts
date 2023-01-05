@@ -54,12 +54,6 @@ interface IFindingAttr {
   verified: boolean;
 }
 
-interface IRequestGroupReportResult {
-  requestGroupReport: {
-    success: boolean;
-  };
-}
-
 interface IVulnerability {
   findingId: string;
   id: string;
@@ -91,7 +85,6 @@ export type {
   IGroupVulnerabilities,
   IFindingAttr,
   ILocationsInfoAttr,
-  IRequestGroupReportResult,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,
   IVulnerability,
