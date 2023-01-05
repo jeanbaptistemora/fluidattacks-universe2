@@ -208,56 +208,6 @@ def root_has_access_keys(
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def password_reuse_unsafe(
-    key_id: str,
-    secret: str,
-    session_token: str = None,
-    min_reuse=24,
-    retry: bool = True,
-) -> tuple:
-    """
-    Check if password policy avoids reuse of the last 24 passwords.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param min_len: Minimum reuse required. Default 24
-    """
-    policy = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="get_account_password_policy",
-        param="PasswordPolicy",
-        retry=retry,
-    )
-
-    msg_open: str = "Password policy allows reusing passwords"
-    msg_closed: str = "Password policy avoids reusing passwords"
-
-    vulns, safes = [], []
-
-    password_reuse: int = policy.get("PasswordReusePrevention", 0)
-
-    (vulns if password_reuse < min_reuse else safes).append(
-        (
-            "Account/PasswordPolicy/PasswordReusePrevention",
-            f"Must be at least {min_reuse}",
-        )
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="password policies",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def password_expiration_unsafe(
     key_id: str,
     secret: str,
