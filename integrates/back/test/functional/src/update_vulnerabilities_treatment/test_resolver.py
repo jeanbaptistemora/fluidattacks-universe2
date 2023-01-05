@@ -28,6 +28,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.utils import (
+    get_inverted_treatment_converted,
+)
 from findings.domain.core import (
     get_severity_score,
 )
@@ -109,12 +112,16 @@ async def test_update_vulnerabilities_treatment(
     vulnerability_response: dict = await get_vulnerability(
         user=email, vulnerability_id=vulnerability
     )
+
     assert (
         vulnerability_response["data"]["vulnerability"]["historicTreatment"][
             -1
         ]["treatment"]
         == current
     )
+    assert vulnerability_response["data"]["vulnerability"][
+        "historicTreatmentStatus"
+    ][-1]["treatment"] == get_inverted_treatment_converted(current)
 
     result: dict = await put_mutation(
         user=email,
@@ -143,6 +150,15 @@ async def test_update_vulnerabilities_treatment(
         ]["treatment"]
         == treatment
     )
+    assert (
+        vulnerability_response["data"]["vulnerability"][
+            "historicTreatmentStatus"
+        ][-1]["assigned"]
+        == assigned
+    )
+    assert vulnerability_response["data"]["vulnerability"][
+        "historicTreatmentStatus"
+    ][-1]["treatment"] == get_inverted_treatment_converted(treatment)
 
     result = await get_vulnerabilities_assigned(user=assigned)
     vuln_ids = [

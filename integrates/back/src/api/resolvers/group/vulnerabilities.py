@@ -29,6 +29,7 @@ from typing import (
 )
 
 LOGGER = logging.getLogger(__name__)
+TREATMENTS = ["ACCEPTED", "ACCEPTED_UNDEFINED", "IN_PROGRESS"]
 
 
 async def resolve(
@@ -102,9 +103,6 @@ def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
 def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     must_filters = []
 
-    if treatment := kwargs.get("treatment"):
-        must_filters.append({"treatment.status": str(treatment).upper()})
-
     if vulnerability_type := kwargs.get("type"):
         must_filters.append({"type": str(vulnerability_type).upper()})
 
@@ -131,6 +129,22 @@ def must_not_filter(**kwargs: Any) -> list[dict[str, Any]]:
         {"state.status": VulnerabilityStateStatus.SUBMITTED},
         {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED},
     ]
+    if treatment := kwargs.get("treatment"):
+        if str(treatment).upper() in {"NEW", "UNTREATED"}:
+            must_not_filters.extend(
+                [{"treatment.status": treat} for treat in TREATMENTS]
+            )
+        else:
+            must_not_filters.append({"treatment.status": "NEW"})
+            must_not_filters.append({"treatment.status": "UNTREATED"})
+            must_not_filters.extend(
+                [
+                    {"treatment.status": treat}
+                    for treat in TREATMENTS
+                    if treat != str(treatment).upper()
+                ]
+            )
+
     if state := kwargs.get("stateStatus"):
         if str(state).upper() in {"OPEN", "VULNERABLE"}:
             must_not_filters.append({"state.status": "CLOSED"})
@@ -152,5 +166,12 @@ def should_filter(**kwargs: Any) -> List[Dict[str, Any]]:
         else:
             should_filters.append({"state.status": "CLOSED"})
             should_filters.append({"state.status": "SAFE"})
+
+    if treatment := kwargs.get("treatment"):
+        if str(treatment).upper() in {"NEW", "UNTREATED"}:
+            should_filters.append({"treatment.status": "NEW"})
+            should_filters.append({"treatment.status": "UNTREATED"})
+        else:
+            should_filters.append({"treatment.status": str(treatment).upper()})
 
     return should_filters

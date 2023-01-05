@@ -588,6 +588,13 @@ enum VulnerabilityTreatment {
   IN_PROGRESS
   "No treatment has been given yet"
   NEW
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/07/05. Use `UNTREATED` instead.
+      """
+    )
+  "No treatment has been given yet"
+  UNTREATED
 }
 
 "Justification to reject a vulnerability"

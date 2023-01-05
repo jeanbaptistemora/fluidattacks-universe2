@@ -69,6 +69,10 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
+from db_model.vulnerabilities.utils import (
+    get_current_treatment_converted,
+    get_inverted_treatment_converted,
+)
 from decimal import (
     Decimal,
     ROUND_CEILING,
@@ -805,10 +809,13 @@ def format_vulnerability_state_item(
 
 def format_vulnerability_treatment_item(
     treatment: VulnerabilityTreatment,
+    should_convert: bool = False,
 ) -> Item:
     item = {
         "date": datetime_utils.get_as_str(treatment.modified_date),
-        "treatment": treatment.status.value,
+        "treatment": get_inverted_treatment_converted(treatment.status.value)
+        if should_convert
+        else get_current_treatment_converted(treatment.status.value),
     }
     if treatment.accepted_until:
         item["acceptance_date"] = datetime_utils.get_as_str(

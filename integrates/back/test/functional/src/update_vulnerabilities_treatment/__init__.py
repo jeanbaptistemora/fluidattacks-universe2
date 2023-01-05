@@ -70,6 +70,11 @@ async def get_vulnerability(
                     date
                     treatment
                 }
+                historicTreatmentStatus{
+                    assigned
+                    date
+                    treatment
+                }
                 id
             }
         }
