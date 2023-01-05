@@ -1,5 +1,6 @@
 import { faSquareCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -57,7 +58,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
   const SEVERITY_THRESHOLD_HIGH: number = 6.9;
   const SEVERITY_THRESHOLD_MED: number = 3.9;
   const SEVERITY_THRESHOLD_LOW: number = 0.1;
-
+  //
   function setSeverityLevel(): [
     "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE",
     string
@@ -106,19 +107,28 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                     size={"2x"}
                   />
                   <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
-                    {"20%"}
-                  </Text>
-                  <Text disp={"inline"} size={"small"} ta={"start"}>
-                    {"Total Risk Exposure (CVSSF)"}
+                    {"20% "}
+                    <Text disp={"inline"} size={"small"} ta={"start"}>
+                      {"Total Risk Exposure (CVSSF)"}
+                    </Text>
                   </Text>
                 </Gap>
               </Card>
             </CVSSFContainer>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card title={`${status} ${severity}`}>
+            <Card>
+              <Row>
+                <Col>
+                  <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
+                    {_.capitalize(status)}
+                  </Text>
+                </Col>
+                <Col>
+                  <Tag variant={color}>{severity}</Tag>
+                </Col>
+              </Row>
               <Text>{"status and severity"}</Text>
-              <Tag variant={color}>{severity}</Tag>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
