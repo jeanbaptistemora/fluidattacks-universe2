@@ -20,7 +20,7 @@ def composer_json(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
-
+    print(content_json)
     dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
@@ -37,7 +37,15 @@ def composer_lock(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
-
     for key in content_json:
         if key["item"] == "packages":
-            yield key["item"]
+            for line in content_json[key]["item"]:
+                cont = 0
+                info = []
+                for product in line.values():
+                    if cont >= 2:
+                        cont = 0
+                        break
+                    cont += 1
+                    info.append(product)
+                yield tuple(info)  # type: ignore
