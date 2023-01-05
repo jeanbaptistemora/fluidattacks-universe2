@@ -1,6 +1,6 @@
 /* eslint react/jsx-no-bind: 0 */
 /* eslint react/forbid-component-props: 0 */
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { ResourcesCard } from "./ResourceCard";
 import { ResourcesMenuElements } from "./ResourcesMenuButtons";
@@ -234,17 +234,21 @@ const ResourcesPage: React.FC<IProps> = ({
 
   const [filteredData, setFilteredData] = useState(data);
 
-  const filterData = (type: string): void => {
-    if (type === "all-card") {
-      setFilteredData(data);
-    } else {
-      setFilteredData(
-        data.filter(
-          (resourcesCards): boolean => resourcesCards.cardType === type
-        )
-      );
-    }
-  };
+  const filterData = useCallback(
+    (type: string): void => {
+      if (type === "all-card") {
+        setFilteredData(data);
+      } else {
+        setFilteredData(
+          data.filter(
+            (resourcesCards): boolean => resourcesCards.cardType === type
+          )
+        );
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <PageArticle bgColor={"#dddde3"}>

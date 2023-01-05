@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 import { Container } from "../../../../components/Container";
@@ -11,7 +11,8 @@ interface IFaqProps {
 const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
   const [description, setDescription] = useState("none");
   const [icon, setIcon] = useState("plus");
-  function showDescription(): void {
+
+  const showDescription = useCallback((): void => {
     if (description === "none") {
       setDescription("block");
     } else {
@@ -22,7 +23,7 @@ const SolutionFaq: React.FC<IFaqProps> = ({ children, title }): JSX.Element => {
     } else {
       setIcon("plus");
     }
-  }
+  }, [description, icon]);
 
   return (
     <Container borderBottomColor={"#dddde3"} onClick={showDescription}>
