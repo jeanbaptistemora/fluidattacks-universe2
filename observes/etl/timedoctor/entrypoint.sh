@@ -38,7 +38,6 @@ function job_timedoctor {
       --schema-name 'timedoctor' \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'timedoctor_etl'
 }
 

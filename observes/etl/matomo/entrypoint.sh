@@ -24,7 +24,6 @@ function job_matomo {
       --schema-name 'matomo' \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'matomo'
 }
 

@@ -18,7 +18,7 @@ description = "job last success reporter"
 dynamic = ["version"]
 
 [project.scripts]
-job-last-success = 'job_last_success.cli:main'
+job-last-success = 'job_last_success.cli_2:main'
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

@@ -13,7 +13,6 @@ function main {
       "${zoho_creds}" \
       "${db_creds}" \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job "${job_name}"
 }
 

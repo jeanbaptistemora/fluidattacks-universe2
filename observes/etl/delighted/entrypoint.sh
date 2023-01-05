@@ -27,7 +27,6 @@ function start_etl {
       --schema-name 'delighted' \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'delighted'
 }
 

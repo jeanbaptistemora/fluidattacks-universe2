@@ -44,7 +44,6 @@ function job_timedoctor_backup {
     && aws s3 cp wl.singer "s3://${bucket}/${cont_folder}/${wl_file}" \
     && aws s3 cp ca.singer "s3://${bucket}/${cont_folder}/${ca_file}" \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'timedoctor_backup'
 }
 

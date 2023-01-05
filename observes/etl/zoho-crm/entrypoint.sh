@@ -22,7 +22,6 @@ function start_etl {
       --old-ver \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job "${job_name}"
 }
 

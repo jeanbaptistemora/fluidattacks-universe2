@@ -68,7 +68,6 @@ function dynamodb_etl {
       --schema-name "${schema}" \
       < "${singer_file}" \
     && job-last-success compound-job \
-      --auth "${db_creds}" \
       --job "dynamo" \
       --child "${schema#dynamodb_}"
 }

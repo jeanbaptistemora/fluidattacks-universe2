@@ -33,7 +33,6 @@ function start_etl {
       --persistent-tables "check_results,check_results_api,check_results_browser,check_results_browser_pages" \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'checkly' \
     && rm .singer
 }

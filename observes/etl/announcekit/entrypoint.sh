@@ -29,7 +29,6 @@ function start_etl {
       --schema-name 'announcekit' \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'announcekit'
 }
 

@@ -35,7 +35,6 @@ function job_mixpanel_integrates {
       --old-ver \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'mixpanel_integrates'
 }
 

@@ -35,7 +35,6 @@ function start_etl {
       --schema-name 'mailchimp' \
       < .singer \
     && job-last-success single-job \
-      --auth "${db_creds}" \
       --job 'mailchimp'
 }
 
