@@ -1495,7 +1495,7 @@ nist80063:
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
   metadata: {}
 owaspapisp:
-  title: OWASP API SP
+  title: OWASP API Security Project
   en:
     summary: >
       API Security focuses on strategies and solutions
