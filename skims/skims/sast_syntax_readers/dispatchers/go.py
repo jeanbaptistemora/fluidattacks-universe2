@@ -8,13 +8,6 @@ from sast_syntax_readers.common import (
     parenthesized_expression as common_parenthesized_expression,
     unary_expression as common_unary_expression,
 )
-from sast_syntax_readers.go import (
-    assignment_statement as go_assignment_statement,
-    call_expression as go_call_expression,
-    function_declaration as go_function_declaration,
-    return_statement as go_return_statement,
-    variable_declaration as go_variable_declaration,
-)
 from sast_syntax_readers.types import (
     Dispatcher,
     Dispatchers,
@@ -23,29 +16,9 @@ from sast_syntax_readers.types import (
 GO_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_node_label_types={
-            "assignment_statement",
-        },
-        syntax_reader=go_assignment_statement.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
             "binary_expression",
         },
         syntax_reader=common_binary_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "call_expression",
-        },
-        syntax_reader=go_call_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "const_declaration",
-            "short_var_declaration",
-            "var_declaration",
-        },
-        syntax_reader=go_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_node_label_types={
@@ -54,13 +27,6 @@ GO_DISPATCHERS: Dispatchers = (
             "simple_identifier",
         },
         syntax_reader=common_identifier.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "function_declaration",
-            "method_declaration",
-        },
-        syntax_reader=go_function_declaration.reader,
     ),
     Dispatcher(
         applicable_node_label_types={
@@ -73,12 +39,6 @@ GO_DISPATCHERS: Dispatchers = (
             "parenthesized_expression",
         },
         syntax_reader=common_parenthesized_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "return_statement",
-        },
-        syntax_reader=go_return_statement.reader,
     ),
     Dispatcher(
         applicable_node_label_types={

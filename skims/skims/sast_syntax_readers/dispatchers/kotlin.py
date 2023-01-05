@@ -5,14 +5,6 @@ from sast_syntax_readers.common import (
 from sast_syntax_readers.java import (
     this as java_this,
 )
-from sast_syntax_readers.kotlin import (
-    assignment as kotlin_assignment,
-    call_expression as kotlin_call_expression,
-    if_expression as kotlin_if_expression,
-    navigation_expression as kotlin_navigation_expression,
-    object_declaration as kotlin_object_declaration,
-    property_declaration as kotlin_property_declaration,
-)
 from sast_syntax_readers.types import (
     Dispatcher,
     Dispatchers,
@@ -21,48 +13,11 @@ from sast_syntax_readers.types import (
 KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_node_label_types={
-            "assignment",
-        },
-        syntax_reader=kotlin_assignment.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "call_expression",
-        },
-        syntax_reader=kotlin_call_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "class_declaration",
-            "function_declaration",
-        },
-        syntax_reader=kotlin_object_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
             "field_access",
             "identifier",
             "simple_identifier",
         },
         syntax_reader=common_identifier.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "if_expression",
-        },
-        syntax_reader=kotlin_if_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "navigation_expression",
-        },
-        syntax_reader=kotlin_navigation_expression.reader,
-    ),
-    Dispatcher(
-        applicable_node_label_types={
-            "property_declaration",
-        },
-        syntax_reader=kotlin_property_declaration.reader,
     ),
     Dispatcher(
         applicable_node_label_types={
