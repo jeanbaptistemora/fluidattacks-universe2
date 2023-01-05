@@ -5,7 +5,8 @@ from aioextensions import (
 )
 import authz
 from authz.validations import (
-    validate_role_fluid_reqs,
+    validate_fluidattacks_staff_on_group_deco,
+    validate_role_fluid_reqs_deco,
 )
 from batch import (
     dal as batch_dal,
@@ -151,9 +152,10 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from newutils.validations import (
-    validate_alphanumeric_field,
-    validate_email_address,
+    validate_alphanumeric_field_deco,
+    validate_email_address_deco,
     validate_field_length,
+    validate_field_length_deco,
     validate_fields,
     validate_group_name,
     validate_string_length_between,
@@ -181,6 +183,7 @@ from typing import (
     Any,
     Awaitable,
     Optional,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -1022,6 +1025,10 @@ async def get_open_vulnerabilities(
     return last_approved_status.count(VulnerabilityStateStatus.VULNERABLE)
 
 
+@validate_field_length_deco("responsibility", 50)
+@validate_alphanumeric_field_deco("responsibility")
+@validate_email_address_deco("email")
+@validate_role_fluid_reqs_deco("email", "role")
 async def invite_to_group(
     *,
     loaders: Dataloaders,
@@ -1032,26 +1039,13 @@ async def invite_to_group(
     modified_by: str,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
-    if (
-        not validate_field_length(responsibility, 50)
-        or not validate_alphanumeric_field(responsibility)
-        or not validate_email_address(email)
-        or not validate_role_fluid_reqs(email, role)
-        or not authz.validate_fluidattacks_staff_on_group(group, email, role)
-    ):
-        return
 
-    expiration_time = datetime_utils.get_as_epoch(
-        datetime_utils.get_now_plus_delta(weeks=1)
+    expiration_time, url_token = generate_invitation_token(
+        group=group,
+        email=email,
+        role=role,
     )
-    url_token = sessions_domain.encode_token(
-        expiration_time=expiration_time,
-        payload={
-            "group_name": group_name,
-            "user_email": email,
-        },
-        subject="starlette_session",
-    )
+
     await group_access_domain.update(
         loaders=loaders,
         email=email,
@@ -1085,6 +1079,25 @@ async def invite_to_group(
     schedule(
         groups_mail.send_mail_access_granted(loaders, mail_to, email_context)
     )
+
+
+@validate_fluidattacks_staff_on_group_deco("group", "email", "role")
+def generate_invitation_token(
+    group: Group, email: str, role: str
+) -> Tuple[int, str]:
+    if role:
+        expiration_time = datetime_utils.get_as_epoch(
+            datetime_utils.get_now_plus_delta(weeks=1)
+        )
+        url_token = sessions_domain.encode_token(
+            expiration_time=expiration_time,
+            payload={
+                "group_name": group.name,
+                "user_email": email,
+            },
+            subject="starlette_session",
+        )
+    return expiration_time, url_token
 
 
 async def exists(
