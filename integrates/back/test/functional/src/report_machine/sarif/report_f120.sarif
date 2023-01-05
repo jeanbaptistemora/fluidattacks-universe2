@@ -10,7 +10,7 @@
                     ],
                     "rules": [
                         {
-                            "id": "079",
+                            "id": "120",
                             "defaultConfiguration": {
                                 "level": "error"
                             },
@@ -20,7 +20,7 @@
                             "help": {
                                 "text": "All dependencies must be declared and must referenced with a dependency manager (npm, pip, maven). This allows to standardize projects construction and packaging.\n"
                             },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/079#details",
+                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/120#details",
                             "name": "Non-upgradable dependencies",
                             "properties": {
                                 "auto_approve": "true"
@@ -38,7 +38,7 @@
                     "message": {
                         "text": "The dependency is not explicitly declared in your requirements.txt in universe/skims/test/data/lib_path/f011/requirements.txt",
                         "properties": {
-                            "dependency_name": "decorator"
+                            "dependency_name": "urllib3"
                         }
                     },
                     "kind": "open",
@@ -51,7 +51,7 @@
                                 },
                                 "region": {
                                     "snippet": {
-                                        "text": "  1 | aioextensions==21.7.2261349\n  2 | apk-signer==1.1.1\n  3 | apturl==0.5.2\n  4 | asn1crypto==1.4.0\n  5 | Pillow==6.0.0\n    ^ Col 0"
+                                        "text": "  1 | boto3\n  2 | jmespath\n  3 | python-dateutil\n  4 | s3transfer\n  5 | six\n    ^ Col 0"
                                     },
                                     "startLine": 0
                                 }
@@ -65,7 +65,48 @@
                         "stream": "skims",
                         "technique": "BSAST"
                     },
-                    "ruleId": "079",
+                    "ruleId": "120",
+                    "taxa": [
+                        {
+                            "id": "302",
+                            "toolComponent": {
+                                "name": "criteria"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "message": {
+                        "text": "The dependency is not explicitly declared in your requirements.txt in universe/skims/test/data/lib_path/f011/requirements.txt",
+                        "properties": {
+                            "dependency_name": "botocore"
+                        }
+                    },
+                    "kind": "open",
+                    "level": "error",
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "skims/test/data/lib_path/f011/requirements.txt"
+                                },
+                                "region": {
+                                    "snippet": {
+                                        "text": "  1 | boto3\n  2 | jmespath\n  3 | python-dateutil\n  4 | s3transfer\n  5 | six\n    ^ Col 0"
+                                    },
+                                    "startLine": 0
+                                }
+                            }
+                        }
+                    ],
+                    "properties": {
+                        "kind": "lines",
+                        "method_developer": "lsaavedra@fluidattacks.com",
+                        "source_method": "python.pip_incomplete_dependencies_list",
+                        "stream": "skims",
+                        "technique": "BSAST"
+                    },
+                    "ruleId": "120",
                     "taxa": [
                         {
                             "id": "302",
@@ -84,7 +125,7 @@
                         "nonLocalizedData"
                     ],
                     "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
-                    "isComprehensive": "false",
+                    "isComprehensive": false,
                     "organization": "Fluidattcks",
                     "shortDescription": {
                         "text": "The fluidattcks security requirements"

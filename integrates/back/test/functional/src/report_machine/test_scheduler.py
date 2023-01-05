@@ -128,10 +128,10 @@ async def test_persist_result(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report_machine")
-async def test_report_f079(populate: bool) -> None:
+async def test_report_f120(populate: bool) -> None:
     assert populate
     with open(
-        "back/test/functional/src/report_machine/sarif/report_f079.sarif", "rb"
+        "back/test/functional/src/report_machine/sarif/report_f120.sarif", "rb"
     ) as sarif:
         sarif_report = json.load(sarif)
 
@@ -159,15 +159,15 @@ async def test_report_f079(populate: bool) -> None:
             group_findings: Tuple[
                 Finding, ...
             ] = await loaders.group_drafts_and_findings.load("group1")
-            finding_f079: Optional[Finding] = next(
+            finding_f120: Optional[Finding] = next(
                 (
                     finding
                     for finding in group_findings
-                    if finding.title.startswith("079")
+                    if finding.title.startswith("120")
                 ),
                 None,
             )
-            assert finding_f079 is None
+            assert finding_f120 is None
 
             await process_execution("group1_1234345")
 
@@ -175,36 +175,50 @@ async def test_report_f079(populate: bool) -> None:
             group_findings = await loaders.group_drafts_and_findings.load(
                 "group1"
             )
-            finding_f079 = next(
+            finding_f120 = next(
                 (
                     finding
                     for finding in group_findings
-                    if finding.title.startswith("079")
+                    if finding.title.startswith("120")
                 ),
                 None,
             )
-            assert finding_f079 is not None
-            assert finding_f079.submission is not None
-            assert finding_f079.approval is not None
+            assert finding_f120 is not None
+            assert finding_f120.submission is not None
+            assert finding_f120.approval is not None
             assert (
-                finding_f079.submission.status == FindingStateStatus.SUBMITTED
+                finding_f120.submission.status == FindingStateStatus.SUBMITTED
             )
-            assert finding_f079.approval.status == FindingStateStatus.APPROVED
+            assert finding_f120.approval.status == FindingStateStatus.APPROVED
             assert (
-                finding_f079.submission.modified_date
-                != finding_f079.approval.modified_date
+                finding_f120.submission.modified_date
+                != finding_f120.approval.modified_date
             )
 
             integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
                 vuln
                 for vuln in await loaders.finding_vulnerabilities.load(
-                    finding_f079.id
+                    finding_f120.id
                 )
                 if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
                 and vuln.state.source == Source.MACHINE
             )
 
-            assert len(integrates_vulnerabilities) == 1
+            assert len(integrates_vulnerabilities) == 2
+
+            status_1 = integrates_vulnerabilities[0].state.status
+            where_1 = integrates_vulnerabilities[0].state.where
+
+            assert status_1 == VulnerabilityStateStatus.VULNERABLE
+            location_1 = (
+                "skims/test/data/lib_path/f011/requirements.txt"
+                " (missing dependency: urllib3)"
+            )
+            location_2 = (
+                "skims/test/data/lib_path/f011/requirements.txt"
+                " (missing dependency: botocore)"
+            )
+            assert where_1 in {location_1, location_2}
 
 
 @pytest.mark.asyncio
