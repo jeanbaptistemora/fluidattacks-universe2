@@ -109,11 +109,39 @@ const unformatStrictness: (strictness: string) => string = (
   return unformat[strictness.toLowerCase()];
 };
 
+const unformatFilterValues: (
+  title: string,
+  value: string,
+  rangeValues?: [string, string]
+) => Record<string, string> = (
+  title: string,
+  value: string,
+  rangeValues?: [string, string]
+): Record<string, string> => {
+  const unformat = (): Record<string, string> => {
+    if (title === "date" && rangeValues)
+      return {
+        fromDate: rangeValues[0],
+        toDate: rangeValues[1],
+      };
+    const titleFormat = formatExecutionFilters(title);
+
+    if (title === "kind") return { [titleFormat]: unformatKind(value) };
+
+    return title === "strictness"
+      ? { [titleFormat]: unformatStrictness(value) }
+      : {
+          [titleFormat]: value,
+        };
+  };
+
+  return unformat();
+};
+
 export {
   toTitleCase,
   formatFoundVulnerabilities,
   formatExecutions,
   formatExecutionFilters,
-  unformatKind,
-  unformatStrictness,
+  unformatFilterValues,
 };
