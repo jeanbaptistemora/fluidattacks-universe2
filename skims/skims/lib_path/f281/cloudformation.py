@@ -35,7 +35,11 @@ def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
         if not statements:
             continue
         for statement in statements.data:
-            effect = statement.raw.get("Effect", "")
+            effect = (
+                statement.raw.get("Effect")
+                if hasattr(statement.raw, "get")
+                else ""
+            )
             secure_transport = get_node_by_keys(
                 statement, ["Condition", "Bool", "aws:SecureTransport"]
             )

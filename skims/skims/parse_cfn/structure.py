@@ -40,6 +40,7 @@ def iterate_resources(
                 for expected_resource_kind in expected_resource_kinds:
                     if (
                         not exact
+                        and hasattr(resource_kind.inner, "startswith")
                         and resource_kind.inner.startswith(
                             expected_resource_kind
                         )

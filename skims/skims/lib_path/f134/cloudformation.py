@@ -26,7 +26,7 @@ from typing import (
 def wildcard_in_node(node: Node) -> Tuple[bool, int, int]:
     for rules in node.data:
         for origin in rules.inner.get("AllowedOrigins").data:
-            if origin.data == "*":
+            if hasattr(origin, "data") and origin.data == "*":
                 return True, origin.start_line, origin.start_column
     return False, 0, 0
 

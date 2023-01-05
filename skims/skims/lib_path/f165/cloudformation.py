@@ -111,7 +111,11 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
 def _check_assume_role_policies(
     assume_role_policy: Node, file_ext: str
 ) -> Iterator[Node]:
-    statements = assume_role_policy.inner.get("Statement")
+    statements = (
+        assume_role_policy.inner.get("Statement")
+        if hasattr(assume_role_policy.inner, "get")
+        else None
+    )
     for stmt in statements.data if statements else []:
         if (
             hasattr(stmt.inner, "get")
