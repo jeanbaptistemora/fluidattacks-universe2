@@ -426,9 +426,13 @@ async def _create_draft(
 def _get_path_from_sarif_vulnerability(
     vulnerability: Dict[str, Any], ignore_cve: bool = False
 ) -> str:
-    what = vulnerability["locations"][0]["physicalLocation"][
-        "artifactLocation"
-    ]["uri"]
+    if vulnerability["properties"]["kind"] == "inputs":
+        what = _get_input_url(vulnerability)
+    else:
+        what = vulnerability["locations"][0]["physicalLocation"][
+            "artifactLocation"
+        ]["uri"]
+
     if (
         (properties := vulnerability.get("properties"))
         and (technique_value := properties.get("technique"))
@@ -503,7 +507,9 @@ def _get_vulns_with_reattack(  # NOSONAR
     return result
 
 
-def _get_input_url(vuln: Dict[str, Any], repo_nickname: str) -> str:
+def _get_input_url(
+    vuln: Dict[str, Any], repo_nickname: Optional[str] = None
+) -> str:
     url: str
     if vuln["properties"].get("has_redirect", False):
         url = vuln["properties"]["original_url"]
@@ -514,7 +520,9 @@ def _get_input_url(vuln: Dict[str, Any], repo_nickname: str) -> str:
     while url.endswith("/"):
         url = url.rstrip("/")
 
-    return f"{url} ({repo_nickname})"
+    if repo_nickname:
+        return f"{url} ({repo_nickname})"
+    return url
 
 
 def _build_vulnerabilities_stream_from_sarif(

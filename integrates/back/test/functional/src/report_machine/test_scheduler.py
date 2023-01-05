@@ -511,3 +511,81 @@ async def test_report_inputs(populate: bool) -> None:
 
         with pytest.raises(InvalidRootComponent):
             await process_execution("group1_")
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report_machine")
+async def test_has_redirect_url_report(populate: bool) -> None:
+    assert populate
+    with open(
+        "back/test/functional/src/report_machine/sarif/report_f043.sarif",
+        "rb",
+    ) as sarif_1:
+        sarif_report_1 = json.load(sarif_1)
+
+    sarif_report_2 = sarif_report_1
+
+    with mock.patch(
+        "server.report_machine.get_config",
+        side_effect=mock.AsyncMock(
+            return_value={
+                "namespace": "nickname",
+                "language": "EN",
+                "path": {"include": [], "exclude": []},
+                "dast": {
+                    "include": "https://myoriginalurl.com",
+                },
+                "apk": {"include": [], "exclude": []},
+            },
+        ),
+    ), mock.patch(
+        "server.report_machine.get_sarif_log",
+        side_effect=mock.AsyncMock(
+            side_effect=[sarif_report_1, sarif_report_2],
+        ),
+    ):
+        await process_execution("group1_")
+
+        loaders = get_new_context()
+        group_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_drafts_and_findings.load("group1")
+        finding_043: Optional[Finding] = next(
+            (finding for finding in group_findings if "043" in finding.title),
+            None,
+        )
+        assert finding_043 is not None
+
+        integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+            vuln
+            for vuln in await loaders.finding_vulnerabilities.load(
+                finding_043.id
+            )
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
+            and vuln.state.source == Source.MACHINE
+        )
+        assert len(integrates_vulnerabilities) == 1
+        id_1 = integrates_vulnerabilities[0].id
+
+        status_1 = integrates_vulnerabilities[0].state.status
+        where_1 = integrates_vulnerabilities[0].state.where
+
+        assert status_1 == VulnerabilityStateStatus.VULNERABLE
+        assert where_1 == "http://localhost:48000 (nickname)"
+
+        await process_execution("group1_")
+        loaders.finding_vulnerabilities.clear(finding_043.id)
+        integrates_vulnerabilities_2: Tuple[Vulnerability, ...] = tuple(
+            vuln
+            for vuln in await loaders.finding_vulnerabilities.load(
+                finding_043.id
+            )
+            if vuln.state.source == Source.MACHINE
+        )
+        assert len(integrates_vulnerabilities_2) == 1
+
+        id_2 = integrates_vulnerabilities_2[0].id
+        status_2 = integrates_vulnerabilities_2[0].state.status
+
+        assert id_2 == id_1
+        assert status_2 == VulnerabilityStateStatus.VULNERABLE

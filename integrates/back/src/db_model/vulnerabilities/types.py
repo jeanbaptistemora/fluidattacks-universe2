@@ -24,8 +24,10 @@ from serializers import (
     Snippet,
 )
 from typing import (
+    List,
     NamedTuple,
     Optional,
+    Tuple,
     Union,
 )
 
@@ -100,8 +102,8 @@ class Vulnerability(NamedTuple):
     root_id: Optional[str] = None
     skims_method: Optional[str] = None
     skims_technique: Optional[str] = None
-    stream: Optional[list[str]] = None
-    tags: Optional[list[str]] = None
+    stream: Optional[List[str]] = None
+    tags: Optional[List[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()
@@ -116,7 +118,7 @@ class VulnerabilityEdge(NamedTuple):
 
 
 class VulnerabilitiesConnection(NamedTuple):
-    edges: tuple[VulnerabilityEdge, ...]
+    edges: Tuple[VulnerabilityEdge, ...]
     page_info: PageInfo
     total: Optional[int] = None
 
@@ -132,16 +134,16 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     skims_technique: Optional[str] = None
     developer: Optional[str] = None
     root_id: Optional[str] = None
-    stream: Optional[list[str]] = None
-    tags: Optional[list[str]] = None
+    stream: Optional[List[str]] = None
+    tags: Optional[List[str]] = None
     type: Optional[VulnerabilityType] = None
 
 
 VulnerabilityHistoric = Union[
-    tuple[VulnerabilityState, ...],
-    tuple[VulnerabilityTreatment, ...],
-    tuple[VulnerabilityVerification, ...],
-    tuple[VulnerabilityZeroRisk, ...],
+    Tuple[VulnerabilityState, ...],
+    Tuple[VulnerabilityTreatment, ...],
+    Tuple[VulnerabilityVerification, ...],
+    Tuple[VulnerabilityZeroRisk, ...],
 ]
 
 VulnerabilityHistoricEntry = Union[

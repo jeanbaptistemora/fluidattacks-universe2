@@ -253,7 +253,7 @@ def _format_tool_item(
 
 
 async def format_vulnerabilities(
-    group_name: str, loaders: Any, vulnerabilities: tuple[Vulnerability, ...]
+    group_name: str, loaders: Any, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, Union[str, Item]]]]:
     finding: Dict[str, List[Dict[str, Union[str, Item]]]] = {
         "ports": [],
@@ -439,8 +439,8 @@ def get_ranges(numberlist: List[int]) -> str:
 
 
 def get_report_dates(
-    vulns: tuple[Vulnerability, ...],
-) -> tuple[datetime, ...]:
+    vulns: Tuple[Vulnerability, ...],
+) -> Tuple[datetime, ...]:
     """Get report dates for vulnerabilities."""
     return tuple(vuln.created_date for vuln in vulns)
 
@@ -558,8 +558,8 @@ def get_treatment_from_org_finding_policy(
 
 
 def _get_vuln_state_action(
-    historic_state: tuple[VulnerabilityState, ...],
-) -> list[Action]:
+    historic_state: Tuple[VulnerabilityState, ...],
+) -> List[Action]:
     actions: list[Action] = [
         Action(
             action=state.status.value,
@@ -574,8 +574,8 @@ def _get_vuln_state_action(
 
 
 def get_state_actions(
-    vulns_state: tuple[tuple[VulnerabilityState, ...], ...],
-) -> list[Action]:
+    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
+) -> List[Action]:
     states_actions = list(
         itertools.chain.from_iterable(
             _get_vuln_state_action(historic_state)
