@@ -980,7 +980,6 @@ async def send_mail_policies(
     organization_data: Organization = await loaders.organization.load(
         organization_id
     )
-
     policies_content: dict[str, Any] = {}
     for key, val in new_policies.items():
         old_value = organization_data.policies._asdict().get(key)
@@ -989,6 +988,8 @@ async def send_mail_policies(
                 "from": old_value,
                 "to": val,
             }
+    if not policies_content:
+        return
 
     email_context: dict[str, Any] = {
         "entity_name": organization_name,
@@ -997,11 +998,9 @@ async def send_mail_policies(
         "responsible": responsible,
         "date": modified_date,
     }
-
     org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
         loaders, organization_id
     )
-
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in org_stakeholders
@@ -1013,13 +1012,11 @@ async def send_mail_policies(
         )
         in ["customer_manager", "user_manager"]
     ]
-
-    if policies_content:
-        await groups_mail.send_mail_updated_policies(
-            loaders=loaders,
-            email_to=stakeholders_emails,
-            context=email_context,
-        )
+    await groups_mail.send_mail_updated_policies(
+        loaders=loaders,
+        email_to=stakeholders_emails,
+        context=email_context,
+    )
 
 
 async def validate_acceptance_severity_range(

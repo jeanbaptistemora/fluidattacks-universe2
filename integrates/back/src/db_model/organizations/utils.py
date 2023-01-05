@@ -123,14 +123,15 @@ def format_policies_item(
     policies: PoliciesToUpdate,
 ) -> Item:
     item = {
-        "modified_by": modified_by,
-        "modified_date": get_as_utc_iso_format(modified_date),
+        "inactivity_period": policies.inactivity_period,
         "max_acceptance_days": policies.max_acceptance_days,
         "max_acceptance_severity": policies.max_acceptance_severity,
+        "max_number_acceptances": policies.max_number_acceptances,
         "min_acceptance_severity": policies.min_acceptance_severity,
         "min_breaking_severity": policies.min_breaking_severity,
+        "modified_by": modified_by,
+        "modified_date": get_as_utc_iso_format(modified_date),
         "vulnerability_grace_period": policies.vulnerability_grace_period,
-        "max_number_acceptances": policies.max_number_acceptances,
     }
 
     return {key: value for key, value in item.items() if value is not None}
