@@ -306,9 +306,11 @@ def _get_sarif(
                             result.locations[
                                 0
                             ].physical_location.artifact_location.uri
-                            + result.locations[
-                                0
-                            ].physical_location.region.start_line
+                            + str(
+                                result.locations[
+                                    0
+                                ].physical_location.region.start_line
+                            )
                             + rule_id
                             + vulnerability.skims_metadata.source_method
                         )

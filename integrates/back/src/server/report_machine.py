@@ -542,6 +542,7 @@ def _build_vulnerabilities_stream_from_sarif(
                 "skims_technique": vuln["properties"]["technique"],
                 "developer": vuln["properties"]["method_developer"],
                 "source": "MACHINE",
+                "hash": vuln.get("guid", 0),
             }
             for vuln in vulnerabilities
             if vuln["properties"]["kind"] == "inputs"
@@ -561,6 +562,7 @@ def _build_vulnerabilities_stream_from_sarif(
                 "skims_technique": vuln["properties"]["technique"],
                 "developer": vuln["properties"]["method_developer"],
                 "source": "MACHINE",
+                "hash": vuln.get("guid", 0),
             }
             for vuln in vulnerabilities
             if vuln["properties"]["kind"] == "lines"
@@ -646,7 +648,9 @@ def _machine_vulns_to_close(
             path_is_include(
                 (
                     get_path_from_integrates_vulnerability(
-                        vuln.state.where, vuln.type
+                        vuln.state.where,
+                        vuln.type,
+                        ignore_cve=vuln.type == VulnerabilityType.LINES,
                     )[1]
                 ).split(" ", maxsplit=1)[0],
                 [
