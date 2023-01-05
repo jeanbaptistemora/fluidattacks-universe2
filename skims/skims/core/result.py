@@ -313,7 +313,8 @@ def _get_sarif(
                             )
                             + rule_id
                             + vulnerability.skims_metadata.source_method
-                        )
+                        ),
+                        "utf-8",
                     )
                 ).digest()[:8],
                 "little",
