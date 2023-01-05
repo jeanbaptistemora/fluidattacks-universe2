@@ -17,7 +17,7 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       releaseDate
       requirements
       sorts @include(if: $canRetrieveSorts)
-      state
+      status
       threat
       title
     }

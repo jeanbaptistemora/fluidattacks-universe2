@@ -12,7 +12,6 @@ import { Indicator, Indicators } from "components/Indicators";
 import type { ITagProps } from "components/Tag";
 import { Tag } from "components/Tag";
 import { Tooltip } from "components/Tooltip";
-import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
 import { translate } from "utils/translations/translate";
@@ -22,7 +21,7 @@ interface IFindingHeaderProps {
   estRemediationTime: string;
   openVulns: number;
   severity: number;
-  status: "closed" | "default" | "open";
+  status: "SAFE" | "VULNERABLE";
 }
 
 const severityConfigs: Record<
@@ -52,13 +51,12 @@ const statusConfigs: Record<
   string,
   { icon: string; text: string; tooltip: string }
 > = {
-  closed: {
+  SAFE: {
     icon: okIcon,
     text: translate.t("searchFindings.header.status.stateLabel.closed"),
     tooltip: translate.t("searchFindings.header.status.stateTooltip.closed"),
   },
-  default: { icon: defaultIcon, text: "", tooltip: "" },
-  open: {
+  VULNERABLE: {
     icon: failIcon,
     text: translate.t("searchFindings.header.status.stateLabel.open"),
     tooltip: translate.t("searchFindings.header.status.stateTooltip.open"),

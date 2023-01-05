@@ -86,7 +86,7 @@ interface IVulnComponentProps {
   enableColumnFilters?: boolean;
   extraButtons?: JSX.Element;
   filters?: JSX.Element;
-  findingState?: "closed" | "open";
+  findingState?: "SAFE" | "VULNERABLE";
   hideSelectVulnerability?: boolean;
   isFindingReleased?: boolean;
   isEditing: boolean;

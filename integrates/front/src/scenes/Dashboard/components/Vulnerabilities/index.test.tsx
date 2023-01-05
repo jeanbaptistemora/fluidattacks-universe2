@@ -210,7 +210,7 @@ describe("VulnComponent", (): void => {
         <VulnComponent
           columns={columns}
           extraButtons={<div />}
-          findingState={"open"}
+          findingState={"VULNERABLE"}
           isEditing={true}
           isFindingReleased={true}
           isRequestingReattack={false}
@@ -235,7 +235,7 @@ describe("VulnComponent", (): void => {
         <VulnComponent
           columns={columns}
           extraButtons={<div />}
-          findingState={"open"}
+          findingState={"VULNERABLE"}
           isEditing={false}
           isFindingReleased={true}
           isRequestingReattack={true}
@@ -265,7 +265,7 @@ describe("VulnComponent", (): void => {
         <VulnComponent
           columns={columns}
           extraButtons={<div />}
-          findingState={"open"}
+          findingState={"VULNERABLE"}
           isEditing={true}
           isFindingReleased={false}
           isRequestingReattack={false}

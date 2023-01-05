@@ -63,7 +63,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   enableColumnFilters = true,
   extraButtons = undefined,
   filters = undefined,
-  findingState = "open",
+  findingState = "VULNERABLE",
   hideSelectVulnerability,
   isEditing,
   isFindingReleased = true,
@@ -287,7 +287,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         onSearch={onSearch}
         rowSelectionSetter={
           isFindingReleased &&
-          !(hideSelectVulnerability === true || findingState === "closed")
+          !(hideSelectVulnerability === true || findingState === "SAFE")
             ? setSelectedVulnerabilities
             : undefined
         }

@@ -8,7 +8,7 @@ interface IHeaderQueryResult {
     openVulns: number;
     releaseDate: string | null;
     severityScore: number;
-    state: "closed" | "default" | "open";
+    status: "SAFE" | "VULNERABLE";
     title: string;
   };
 }

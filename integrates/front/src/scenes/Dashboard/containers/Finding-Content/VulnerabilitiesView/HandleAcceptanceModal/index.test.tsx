@@ -74,7 +74,7 @@ describe("handle vulns acceptance modal", (): void => {
               id: "1",
               releaseDate: "",
               remediated: false,
-              state: "false",
+              status: "VULNERABLE",
               verified: false,
             },
             group: {
@@ -294,7 +294,7 @@ describe("handle vulns acceptance modal", (): void => {
             releaseDate: null,
             reportDate: null,
             severityScore: 1,
-            state: "default",
+            status: "VULNERABLE",
             title: "",
             tracking: [],
           },
@@ -315,7 +315,7 @@ describe("handle vulns acceptance modal", (): void => {
             finding: {
               findingId: "422286126",
               remediated: false,
-              state: "false",
+              status: "VULNERABLE",
               verified: false,
             },
             group: {
@@ -455,7 +455,7 @@ describe("handle vulns acceptance modal", (): void => {
             releaseDate: null,
             reportDate: null,
             severityScore: 1,
-            state: "default",
+            status: "VULNERABLE",
             title: "",
             tracking: [],
           },
@@ -477,7 +477,7 @@ describe("handle vulns acceptance modal", (): void => {
               findingId: "422286126",
               releaseDate: "",
               remediated: false,
-              state: "false",
+              status: "VULNERABLE",
               verified: false,
             },
             group: {
@@ -625,7 +625,7 @@ describe("handle vulns acceptance modal", (): void => {
             releaseDate: null,
             reportDate: null,
             severityScore: 1,
-            state: "default",
+            status: "VULNERABLE",
             title: "",
             tracking: [],
           },
@@ -646,7 +646,7 @@ describe("handle vulns acceptance modal", (): void => {
             finding: {
               findingId: "422286126",
               remediated: false,
-              state: "false",
+              status: "VULNERABLE",
               verified: false,
             },
             group: {
@@ -799,7 +799,7 @@ describe("handle vulns acceptance modal", (): void => {
             releaseDate: null,
             reportDate: null,
             severityScore: 1,
-            state: "default",
+            status: "VULNERABLE",
             title: "",
             tracking: [],
           },
@@ -820,7 +820,7 @@ describe("handle vulns acceptance modal", (): void => {
             finding: {
               findingId: "422286126",
               remediated: false,
-              state: "false",
+              status: "VULNERABLE",
               verified: false,
             },
             group: {

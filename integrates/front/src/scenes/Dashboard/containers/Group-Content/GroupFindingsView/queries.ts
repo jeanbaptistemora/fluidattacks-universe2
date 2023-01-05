@@ -14,7 +14,7 @@ const GET_FINDINGS: DocumentNode = gql`
         severityScore
         openAge
         openVulnerabilities
-        state
+        status
         minTimeToRemediate
         isExploitable
         releaseDate

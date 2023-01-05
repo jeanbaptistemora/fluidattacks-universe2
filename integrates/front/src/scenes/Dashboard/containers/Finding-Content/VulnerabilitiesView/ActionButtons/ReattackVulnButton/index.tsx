@@ -15,7 +15,7 @@ interface IReattackVulnButtonProps {
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
-  state: "closed" | "open";
+  status: "SAFE" | "VULNERABLE";
   onRequestReattack: () => void;
   openModal: () => void;
 }
@@ -27,14 +27,14 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   isReattackRequestedInAllVuln,
   isRequestingReattack,
   isVerifying,
-  state,
+  status,
   onRequestReattack,
   openModal,
 }: IReattackVulnButtonProps): JSX.Element => {
   const { t } = useTranslation();
 
   const shouldRenderRequestVerifyBtn: boolean =
-    isFindingReleased && state === "open" && !(isEditing || isVerifying);
+    isFindingReleased && status === "VULNERABLE" && !(isEditing || isVerifying);
 
   const tooltipMessage = useMemo((): string => {
     if (isRequestingReattack) {

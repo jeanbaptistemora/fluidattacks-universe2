@@ -51,7 +51,7 @@ describe("groupFindingsView", (): void => {
                 openVulnerabilities: 6,
                 releaseDate: null,
                 severityScore: 2.9,
-                state: "open",
+                status: "VULNERABLE",
                 title: "038. Business information leak",
                 treatment: ["IN PROGRESS"],
                 treatmentSummary: {
@@ -137,7 +137,7 @@ describe("groupFindingsView", (): void => {
                 openVulnerabilities: 6,
                 releaseDate: null,
                 severityScore: 2.9,
-                state: "open",
+                status: "VULNERABLE",
                 title: "038. Business information leak",
                 treatment: ["IN PROGRESS"],
                 treatmentSummary: {

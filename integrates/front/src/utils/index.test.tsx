@@ -10,11 +10,7 @@ import {
   isWithInAWeek,
 } from "utils/date";
 import { getEnvironment } from "utils/environment";
-import {
-  formatDate,
-  formatDuration,
-  formatTreatment,
-} from "utils/formatHelpers";
+import { formatDate, formatDuration } from "utils/formatHelpers";
 import {
   alphaNumeric,
   excludeFormat,
@@ -1018,26 +1014,6 @@ describe("Window mock to development", (): void => {
 });
 
 describe("formatHelpers", (): void => {
-  it("Should return correct treatment", (): void => {
-    expect.hasAssertions();
-
-    const findingState = "open";
-    const treatment = "ACCEPTED";
-    const checkFormat = formatTreatment(treatment, findingState);
-
-    expect(checkFormat).toBe("Temporarily accepted");
-  });
-
-  it("Should return empty treatment", (): void => {
-    expect.hasAssertions();
-
-    const findingState = "close";
-    const treatment = "ACCEPTED";
-    const checkFormat = formatTreatment(treatment, findingState);
-
-    expect(checkFormat).toBe("-");
-  });
-
   it("Should return incorrect date value", (): void => {
     expect.hasAssertions();
 

@@ -46,32 +46,12 @@ interface IFindingAttr {
   reattack: string;
   releaseDate: string | null;
   severityScore: number;
-  state: string;
+  status: "SAFE" | "VULNERABLE";
   title: string;
   treatment: string;
   treatmentSummary: ITreatmentSummaryAttr;
   verificationSummary: IVerificationSummaryAttr;
   verified: boolean;
-}
-
-interface IFindingData {
-  age: number;
-  description: string;
-  id: string;
-  isExploitable: boolean;
-  lastVulnerability: number;
-  openAge: number;
-  openVulnerabilities: number;
-  name: string;
-  releaseDate: string | null;
-  severityScore: number;
-  state: string;
-  title: string;
-  treatment: string;
-  treatmentSummary: ITreatmentSummaryAttr;
-  verificationSummary: IVerificationSummaryAttr;
-  verified: boolean;
-  where: string;
 }
 
 interface IRequestGroupReportResult {
@@ -110,7 +90,6 @@ export type {
   IGroupFindingsAttr,
   IGroupVulnerabilities,
   IFindingAttr,
-  IFindingData,
   ILocationsInfoAttr,
   IRequestGroupReportResult,
   ITreatmentSummaryAttr,

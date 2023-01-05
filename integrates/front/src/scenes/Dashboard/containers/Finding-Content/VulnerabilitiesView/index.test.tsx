@@ -30,7 +30,7 @@ describe("VulnerabilitiesView", (): void => {
           id: "422286126",
           releaseDate: "2019-07-05 08:56:40",
           remediated: false,
-          state: "open",
+          status: "VULNERABLE",
           verified: false,
         },
       },

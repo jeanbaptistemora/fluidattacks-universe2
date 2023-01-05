@@ -315,7 +315,7 @@ const FindingContent: React.FC = (): JSX.Element => {
                   estRemediationTime={calculateEstRemediationTime()}
                   openVulns={headerData.finding.openVulns}
                   severity={headerData.finding.severityScore}
-                  status={headerData.finding.state}
+                  status={headerData.finding.status}
                 />
                 <Tabs>
                   {featurePreview ? undefined : (

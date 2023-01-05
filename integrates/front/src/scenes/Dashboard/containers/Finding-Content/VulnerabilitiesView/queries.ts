@@ -40,7 +40,7 @@ const GET_FINDING_AND_GROUP_INFO: DocumentNode = gql`
       id
       remediated
       releaseDate
-      state
+      status
       verified
     }
   }

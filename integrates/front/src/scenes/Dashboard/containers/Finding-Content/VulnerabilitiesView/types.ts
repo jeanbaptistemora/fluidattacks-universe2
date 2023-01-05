@@ -1,20 +1,6 @@
 import type { IHistoricTreatment } from "../DescriptionView/types";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
-interface IFindingAttr {
-  id: string;
-  remediated: boolean;
-  releaseDate: string;
-  state: "closed" | "open";
-  verified: boolean;
-  vulnerabilities: IVulnRowAttr[];
-  zeroRisk?: IVulnRowAttr[];
-}
-
-interface IGetFindingVulnInfoAttr {
-  finding: IFindingAttr;
-}
-
 interface IVulnerabilitiesAttr {
   findingId: string;
   historicTreatment: IHistoricTreatment[];
@@ -37,7 +23,7 @@ interface IFindingInfoAttr {
   id: string;
   remediated: boolean;
   releaseDate: string;
-  state: "closed" | "open";
+  status: "SAFE" | "VULNERABLE";
   verified: boolean;
 }
 
@@ -70,8 +56,6 @@ interface ISendNotificationResultAttr {
 }
 
 export type {
-  IFindingAttr,
-  IGetFindingVulnInfoAttr,
   IGetFindingAndGroupInfo,
   IGetFindingVulns,
   IFindingInfoAttr,

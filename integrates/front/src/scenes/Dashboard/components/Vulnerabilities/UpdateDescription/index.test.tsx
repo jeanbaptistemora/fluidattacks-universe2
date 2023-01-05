@@ -78,7 +78,7 @@ describe("Update Description component", (): void => {
           finding: {
             id: "422286126",
             remediated: false,
-            state: "open",
+            status: "VULNERABLE",
             verified: false,
           },
         },
@@ -161,7 +161,7 @@ describe("Update Description component", (): void => {
           releaseDate: null,
           reportDate: null,
           severityScore: 1,
-          state: "default",
+          status: "VULNERABLE",
           title: "",
           tracking: [],
         },

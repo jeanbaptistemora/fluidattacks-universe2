@@ -539,7 +539,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
                 />
               </ButtonToolbarRow>
             }
-            findingState={"open"}
+            findingState={"VULNERABLE"}
             isEditing={false}
             isFindingReleased={true}
             isRequestingReattack={isReattacking}

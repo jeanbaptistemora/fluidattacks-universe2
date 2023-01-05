@@ -48,7 +48,7 @@ describe("ActionButtons", (): void => {
             onVerify={jest.fn()}
             openHandleAcceptance={jest.fn()}
             openModal={jest.fn()}
-            state={"open"}
+            status={"VULNERABLE"}
           />
         </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
@@ -84,7 +84,7 @@ describe("ActionButtons", (): void => {
             onVerify={jest.fn()}
             openHandleAcceptance={jest.fn()}
             openModal={jest.fn()}
-            state={"open"}
+            status={"VULNERABLE"}
           />
         </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
@@ -127,7 +127,7 @@ describe("ActionButtons", (): void => {
             onVerify={jest.fn()}
             openHandleAcceptance={jest.fn()}
             openModal={jest.fn()}
-            state={"open"}
+            status={"VULNERABLE"}
           />
         </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
@@ -163,7 +163,7 @@ describe("ActionButtons", (): void => {
             onVerify={jest.fn()}
             openHandleAcceptance={jest.fn()}
             openModal={jest.fn()}
-            state={"open"}
+            status={"VULNERABLE"}
           />
         </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
@@ -207,7 +207,7 @@ describe("ActionButtons", (): void => {
             onVerify={jest.fn()}
             openHandleAcceptance={jest.fn()}
             openModal={jest.fn()}
-            state={"open"}
+            status={"VULNERABLE"}
           />
         </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>

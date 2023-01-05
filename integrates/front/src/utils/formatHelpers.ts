@@ -1,7 +1,5 @@
 import { isValidElement } from "react";
 
-import { translate } from "utils/translations/translate";
-
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
@@ -54,40 +52,6 @@ const formatDropdownField: (field: string) => string = (
   };
 
   return translationParameters[field];
-};
-
-const formatTreatment: (treatment: string, findingState: string) => string = (
-  treatment: string,
-  findingState: string
-): string => {
-  const treatmentParameters: Record<string, string> = {
-    "-": "-",
-    ACCEPTED:
-      findingState === "open"
-        ? "searchFindings.tabDescription.treatment.accepted"
-        : "-",
-    ACCEPTED_UNDEFINED:
-      findingState === "open"
-        ? "searchFindings.tabDescription.treatment.acceptedUndefined"
-        : "-",
-    "ACCEPTED_UNDEFINED pending":
-      findingState === "open"
-        ? translate.t(
-            "searchFindings.tabDescription.treatment.acceptedUndefined"
-          ) +
-          translate.t("searchFindings.tabDescription.treatment.pendingApproval")
-        : "-",
-    "IN PROGRESS":
-      findingState === "open"
-        ? "searchFindings.tabDescription.treatment.inProgress"
-        : "-",
-    NEW:
-      findingState === "open"
-        ? "searchFindings.tabDescription.treatment.new"
-        : "-",
-  };
-
-  return translate.t(treatmentParameters[treatment]);
 };
 
 const formatDate: (date: number | string) => string = (
@@ -183,5 +147,4 @@ export {
   formatDate,
   formatDropdownField,
   formatDuration,
-  formatTreatment,
 };

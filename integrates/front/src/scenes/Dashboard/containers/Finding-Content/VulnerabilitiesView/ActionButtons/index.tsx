@@ -21,7 +21,7 @@ interface IActionButtonsProps {
   isRequestingReattack: boolean;
   isVerified?: boolean;
   isVerifying: boolean;
-  state?: "closed" | "open";
+  status?: "SAFE" | "VULNERABLE";
   onEdit: () => void;
   onNotify?: () => void;
   onRequestReattack: () => void;
@@ -40,7 +40,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isRequestingReattack,
   isVerified = false,
   isVerifying,
-  state = "open",
+  status = "VULNERABLE",
   onEdit,
   onNotify,
   onRequestReattack,
@@ -69,7 +69,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
-      {state === "open" && onNotify && (
+      {status === "VULNERABLE" && onNotify && (
         <NotifyButton
           isDisabled={false}
           isFindingReleased={isFindingReleased}
@@ -98,7 +98,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
             isVerifying={isVerifying}
             onRequestReattack={onRequestReattack}
             openModal={openModal}
-            state={state}
+            status={status}
           />
         </Have>
       </Have>

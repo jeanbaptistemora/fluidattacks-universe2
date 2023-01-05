@@ -63,7 +63,7 @@ describe("FindingContent", (): void => {
           releaseDate: "2018-12-04 09:04:13",
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
-          state: "open",
+          status: "VULNERABLE",
           title: "050. Guessed weak credentials",
           tracking: [
             {
@@ -98,7 +98,7 @@ describe("FindingContent", (): void => {
           releaseDate: null,
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
-          state: "open",
+          status: "VULNERABLE",
           title: "050. Guessed weak credentials",
           tracking: [
             {
@@ -134,7 +134,7 @@ describe("FindingContent", (): void => {
           releaseDate: null,
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
-          state: "open",
+          status: "VULNERABLE",
           title: "050. Guessed weak credentials",
           tracking: [
             {

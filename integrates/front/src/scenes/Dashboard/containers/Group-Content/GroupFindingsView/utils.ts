@@ -55,13 +55,13 @@ const formatStatus: (status: string) => JSX.Element = (
 };
 
 const formatTreatmentSummary: (
-  state: string,
+  state: "SAFE" | "VULNERABLE",
   treatmentSummary: ITreatmentSummaryAttr
 ) => string = (
-  state: string,
+  state: "SAFE" | "VULNERABLE",
   treatmentSummary: ITreatmentSummaryAttr
 ): string =>
-  state === "open"
+  state === "VULNERABLE"
     ? `
 ${translate.t("searchFindings.tabDescription.treatment.new")}: ${
         treatmentSummary.new
@@ -82,7 +82,7 @@ const formatClosingPercentage = (finding: IFindingAttr): number => {
   const { closedVulnerabilities, openVulnerabilities }: IFindingAttr = finding;
 
   if (openVulnerabilities + closedVulnerabilities === 0) {
-    return finding.state === "closed" ? 1.0 : 0;
+    return finding.status === "SAFE" ? 1.0 : 0;
   }
 
   return closedVulnerabilities / (openVulnerabilities + closedVulnerabilities);
@@ -107,7 +107,7 @@ const formatFindings = (
       },
       reattack: formatReattack(finding.verificationSummary),
       treatment: formatTreatmentSummary(
-        finding.state,
+        finding.status,
         finding.treatmentSummary
       ),
     })

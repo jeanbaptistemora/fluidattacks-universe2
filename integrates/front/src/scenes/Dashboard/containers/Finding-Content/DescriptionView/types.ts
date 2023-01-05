@@ -18,7 +18,7 @@ interface IFinding {
   releaseDate: string | null;
   requirements: string;
   sorts: string;
-  state: "closed" | "open";
+  status: "SAFE" | "VULNERABLE";
   threat: string;
   title: string;
 }

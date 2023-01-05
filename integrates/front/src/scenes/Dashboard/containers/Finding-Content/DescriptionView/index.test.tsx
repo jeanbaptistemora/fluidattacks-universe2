@@ -107,7 +107,7 @@ describe("Finding Description", (): void => {
     releaseDate: null,
     requirements: "REQ.0265. System must restrict access",
     sorts: "No",
-    state: "open",
+    status: "VULNERABLE",
     threat: "External attack",
     title: "004. Remote command execution",
   };

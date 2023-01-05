@@ -12,7 +12,7 @@ const GET_FINDING_HEADER: DocumentNode = gql`
       openVulns: openVulnerabilities
       releaseDate
       severityScore
-      state
+      status
       hacker @include(if: $canRetrieveHacker)
       title
       minTimeToRemediate

@@ -578,7 +578,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     onVerify={toggleVerify}
                     openHandleAcceptance={toggleHandleAcceptanceModal}
                     openModal={toggleModal}
-                    state={data.finding.state}
+                    status={data.finding.status}
                   />
                 }
                 filters={
@@ -589,7 +589,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     setFilters={setFilters}
                   />
                 }
-                findingState={data.finding.state}
+                findingState={data.finding.status}
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
                 isRequestingReattack={isRequestingVerify}

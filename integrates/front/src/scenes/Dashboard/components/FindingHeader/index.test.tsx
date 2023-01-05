@@ -18,7 +18,7 @@ describe("FindingHeader", (): void => {
         estRemediationTime={"42.1"}
         openVulns={9}
         severity={2}
-        status={"open"}
+        status={"VULNERABLE"}
       />
     );
 

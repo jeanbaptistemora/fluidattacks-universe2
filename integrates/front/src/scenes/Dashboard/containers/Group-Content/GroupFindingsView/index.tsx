@@ -88,16 +88,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       id: "state",
-      key: "state",
+      key: "status",
       label: "Status",
       selectOptions: [
         {
           header: t("searchFindings.header.status.stateLabel.open"),
-          value: "open",
+          value: "VULNERABLE",
         },
         {
           header: t("searchFindings.header.status.stateLabel.closed"),
-          value: "closed",
+          value: "SAFE",
         },
       ],
       type: "select",
@@ -264,6 +264,47 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   );
 
   useEffect((): void => {
+    setFilterVal((currentFilter: IPermanentData[]): IPermanentData[] => {
+      return currentFilter.map((filter: IPermanentData): IPermanentData => {
+        const stateParameters: Record<string, string> = {
+          CLOSED: "SAFE",
+          OPEN: "VULNERABLE",
+        };
+        const value: string = filter.value?.toString().toUpperCase() ?? "";
+
+        return filter.id === "state" && value in stateParameters
+          ? { ...filter, value: stateParameters[value] }
+          : filter;
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect((): void => {
+    setFilters(
+      (currentFilters: IFilter<IFindingAttr>[]): IFilter<IFindingAttr>[] => {
+        return currentFilters.map(
+          (filter: IFilter<IFindingAttr>): IFilter<IFindingAttr> => {
+            const stateParameters: Record<string, string> = {
+              CLOSED: "SAFE",
+              OPEN: "VULNERABLE",
+            };
+            const value: string = filter.value?.toString().toUpperCase() ?? "";
+
+            return filter.id === "state" && value in stateParameters
+              ? {
+                  ...filter,
+                  value: stateParameters[value],
+                }
+              : filter;
+          }
+        );
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect((): void => {
     if (!_.isUndefined(vulnData)) {
       const { edges } = vulnData.group.vulnerabilities;
 
@@ -330,7 +371,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const filteredFindings = useFilters(findings, filters);
 
   const groupCVSSF = findings
-    .filter((find): boolean => find.state === "open")
+    .filter((find): boolean => find.status === "VULNERABLE")
     .reduce(
       (sum, finding): number => sum + 4 ** (finding.severityScore - 4),
       0
@@ -342,7 +383,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Type",
     },
     {
-      accessorKey: "state",
+      accessorKey: "status",
       cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
         formatState(cell.getValue()),
       header: "Status",
@@ -353,7 +394,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorFn: (row: IFindingAttr): number => {
-        if (row.state === "closed") return 0;
+        if (row.status === "SAFE") return 0;
 
         return 4 ** (row.severityScore - 4) / groupCVSSF;
       },

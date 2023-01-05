@@ -10,7 +10,7 @@ interface IDescriptionProps {
   isExploitable: boolean;
   lastVulnerability: number;
   openAge: number;
-  state: string;
+  status: "SAFE" | "VULNERABLE";
   treatment: string;
   verificationSummary: IVerificationSummaryAttr;
 }
@@ -20,14 +20,14 @@ const Description = ({
   isExploitable,
   lastVulnerability,
   openAge,
-  state,
+  status,
   treatment,
   verificationSummary,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
   const [treatmentNew, inProgress, temporallyAccepted, permanentlyAccepted] =
     treatment.split(",").map((line): string => line.trim());
-  const isOpen = state === "open";
+  const isOpen = status === "VULNERABLE";
 
   return (
     <div>
@@ -108,7 +108,7 @@ export const renderDescription = ({
   isExploitable,
   lastVulnerability,
   openAge,
-  state,
+  status,
   treatment,
   verificationSummary,
 }: IDescriptionProps): JSX.Element => (
@@ -117,7 +117,7 @@ export const renderDescription = ({
     isExploitable={isExploitable}
     lastVulnerability={lastVulnerability}
     openAge={openAge}
-    state={state}
+    status={status}
     treatment={treatment}
     verificationSummary={verificationSummary}
   />
