@@ -76,4 +76,22 @@ const formatExecutions: (executions: { node: IExecution }[]) => IExecution[] = (
   });
 };
 
-export { toTitleCase, formatFoundVulnerabilities, formatExecutions };
+const formatExecutionFilters: (state: string) => string = (
+  state: string
+): string => {
+  const execFormat: Record<string, string> = {
+    gitRepo: "gitRepo",
+    kind: "type",
+    status: "status",
+    strictness: "strictness",
+  };
+
+  return execFormat[state];
+};
+
+export {
+  toTitleCase,
+  formatFoundVulnerabilities,
+  formatExecutions,
+  formatExecutionFilters,
+};
