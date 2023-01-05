@@ -1229,6 +1229,11 @@ type Mutation {
 
   "Updates the Organization's common policies"
   updateOrganizationPolicies(
+    """
+    Number of days to remove a stakeholder from the organization
+    due to inactivity
+    """
+    inactivityPeriod: Int
     "Maximum number of calendar days a finding can be temporally accepted"
     maxAcceptanceDays: Int
     "Maximum CVSS 3.1 score in which a finding can be temporally accepted"

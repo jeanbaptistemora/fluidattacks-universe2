@@ -1,0 +1,21 @@
+from db_model.constants import (
+    DEFAULT_INACTIVITY_PERIOD,
+)
+from db_model.organizations.types import (
+    Organization,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+
+
+async def resolve(
+    parent: Organization,
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> int:
+    return (
+        parent.policies.inactivity_period
+        if parent.policies.inactivity_period is not None
+        else DEFAULT_INACTIVITY_PERIOD
+    )

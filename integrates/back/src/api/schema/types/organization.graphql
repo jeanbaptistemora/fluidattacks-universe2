@@ -40,6 +40,11 @@ type Organization {
   groups: [Group]
   "Identifier of the organization"
   id: String!
+  """
+  Number of days to remove a stakeholder from the organization
+  due to inactivity
+  """
+  inactivityPeriod: Int!
   "Repositories integration within the organization"
   integrationRepositories: [IntegrationRepositories]
     @deprecated(

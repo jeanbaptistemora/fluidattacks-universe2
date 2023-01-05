@@ -9,6 +9,7 @@ from api.resolvers.organization import (
     credentials,
     finding_policies,
     groups,
+    inactivity_period,
     integration_repositories,
     integration_repositories_connection,
     max_acceptance_days,
@@ -42,6 +43,7 @@ ORGANIZATION.set_field("credentials", credentials.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)
 ORGANIZATION.set_field("groups", groups.resolve)
 ORGANIZATION.set_field("id", organization_id.resolve)
+ORGANIZATION.set_field("inactivityPeriod", inactivity_period.resolve)
 ORGANIZATION.set_field(
     "integrationRepositories", integration_repositories.resolve
 )

@@ -152,6 +152,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "finding_policies",
         "groups",
         "analytics",
+        "inactivity_period",
     ),
     "api.resolvers.tag": (
         "groups",
