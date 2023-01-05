@@ -98,10 +98,22 @@ const unformatKind: (kind: string) => string = (kind: string): string => {
   return unformat[kind.toLowerCase()];
 };
 
+const unformatStrictness: (strictness: string) => string = (
+  strictness: string
+): string => {
+  const unformat: Record<string, string> = {
+    strict: "",
+    tolerant: "lax",
+  };
+
+  return unformat[strictness.toLowerCase()];
+};
+
 export {
   toTitleCase,
   formatFoundVulnerabilities,
   formatExecutions,
   formatExecutionFilters,
   unformatKind,
+  unformatStrictness,
 };
