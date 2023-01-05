@@ -10,7 +10,6 @@
   python_pkgs =
     nixpkgs."${python_version}Packages"
     // {
-      types-psycopg2 = import ./psycopg2/stubs.nix lib;
       arch-lint = nixpkgs.arch-lint."${python_version}".pkg;
       fa-purity = nixpkgs.fa-purity."${python_version}".pkg;
       redshift-client = nixpkgs.redshift-client."${python_version}".pkg;

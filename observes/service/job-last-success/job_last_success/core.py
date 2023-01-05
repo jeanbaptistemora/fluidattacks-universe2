@@ -1,40 +1,20 @@
-from .db_client_2 import (
+from .db_client import (
     new_compound_job_client,
     new_job_client,
 )
-import click
 from fa_purity import (
     Cmd,
-    FrozenDict,
-    JsonObj,
-    Maybe,
-)
-from fa_purity.cmd import (
-    unsafe_unwrap,
 )
 from fa_purity.cmd.core import (
     CmdUnwrapper,
 )
-from fa_purity.json.value.transform import (
-    Unfolder,
-)
-from job_last_success import (
-    db_client,
-)
 from job_last_success.conf import (
-    COMPOUND_JOBS,
     COMPOUND_JOBS_TABLES,
-    SINGLE_JOBS,
 )
-import json
 import logging
 from redshift_client.sql_client import (
     DbConnection,
     new_client,
-    SqlClient,
-)
-from redshift_client.sql_client.connection import (
-    connect,
 )
 from typing import (
     Callable,

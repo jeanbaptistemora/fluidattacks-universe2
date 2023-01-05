@@ -7,9 +7,7 @@
   runtime_deps = with python_pkgs; [
     click
     fa-purity
-    psycopg2
     redshift-client
-    types-psycopg2
     utils-logger
   ];
   build_deps = with python_pkgs; [flit-core];

@@ -10,7 +10,6 @@ requires-python = ">=3.8"
 dependencies = [
     "click >=8.1.3, <9.0.0",
     "fa-purity >=1.27.0, <2.0.0",
-    "psycopg2 >=2.9.1, <3.0.0",
     "redshift-client >=1.2.0, <2.0.0",
     "utils-logger-2 >=1.0.0, <2.0.0",
 ]
@@ -18,7 +17,7 @@ description = "job last success reporter"
 dynamic = ["version"]
 
 [project.scripts]
-job-last-success = 'job_last_success.cli_2:main'
+job-last-success = 'job_last_success.cli:main'
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]
