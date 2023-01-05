@@ -7,7 +7,6 @@ SINGLE_JOBS = frozenset(
         "announcekit",
         "bugsnag",
         "checkly",
-        "new_checkly",
         "delighted",
         "formstack",
         "mailchimp",

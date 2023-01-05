@@ -71,9 +71,11 @@ def update_single_job(connection: DbConnection, job: str) -> Cmd[None]:
     )
 
 
-def update_compound_job(connection: DbConnection, job: str) -> Cmd[None]:
+def update_compound_job(
+    connection: DbConnection, job: str, child: str
+) -> Cmd[None]:
     return new_client(connection, LOG).bind(
         lambda sql: new_compound_job_client(
             sql, COMPOUND_JOBS_TABLES[job]
-        ).upsert(job)
+        ).upsert(child)
     )

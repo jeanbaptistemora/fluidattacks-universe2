@@ -16,12 +16,13 @@ from typing import (
 _T = TypeVar("_T")
 _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
     "job_last_success": (
-        "cli",
+        ("cli", "cli_2"),
         "core",
         ("db_client", "db_client_2"),
         ("conf", "_logger"),
     ),
     "job_last_success.db_client_2": ("_client_1", "_core"),
+    "job_last_success.cli_2": ("_sub_cmds", "_core"),
 }
 
 
