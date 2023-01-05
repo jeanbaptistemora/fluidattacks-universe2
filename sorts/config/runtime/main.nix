@@ -43,8 +43,8 @@ in
         (makeTemplate {
           replace = {
             __argSortsModel__ = inputs.nixpkgs.fetchurl {
-              sha256 = "6QCH+jt8k8eGtu9ahSrsiypEwOAW86o42WvP+OSIbYE=";
-              url = "https://sorts.s3.amazonaws.com/training-output/model.joblib?versionId=clsGZtxBJtqYdGgJsK9JOnaHpiBaD6to";
+              sha256 = "QBA/cajDSBVIpInvZdsyrZcAcJF1ml4R5VllypFBfHA=";
+              url = "https://sorts.s3.amazonaws.com/training-output/model.joblib";
             };
             __argSrcSortsStatic__ = projectPath "/sorts/static";
           };
