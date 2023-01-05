@@ -5580,6 +5580,7 @@
     - asvs.12_6_1
     - asvs.13_3_1
     - asvs.14_5_1
+    - owaspapisp.API4
   metadata: {}
 "174":
   en:
@@ -10113,6 +10114,7 @@
     - asvs.5_3_6
     - asvs.5_4_2
     - asvs.14_5_1
+    - owaspapisp.API4
   metadata: {}
 "321":
   en:
@@ -11709,6 +11711,7 @@
     - asvs.5_3_5
     - asvs.5_3_6
     - asvs.13_2_2
+    - owaspapisp.API4
   metadata: {}
 "343":
   en:
