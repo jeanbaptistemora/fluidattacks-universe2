@@ -17,7 +17,7 @@ from arch_lint.private import (
     check_private,
 )
 
-root = FullPathModule.assert_module("job_last_success")
+root = FullPathModule.assert_module("success_indicators")
 local_graph = ImportGraph.from_modules(root, False)
 ext_graph = ImportGraph.from_modules(root, True)
 

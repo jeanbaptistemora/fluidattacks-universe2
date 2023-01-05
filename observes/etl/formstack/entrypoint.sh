@@ -29,7 +29,7 @@ function start_etl {
       --schema-name 'formstack' \
       --old-ver \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'formstack'
 }
 

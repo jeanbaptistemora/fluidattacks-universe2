@@ -21,7 +21,7 @@ function start_etl {
       --drop-schema \
       --old-ver \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job "${job_name}"
 }
 

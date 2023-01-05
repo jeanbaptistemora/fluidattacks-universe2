@@ -32,7 +32,7 @@ function start_etl {
       --s3-state "${state_folder}/${state_file}" \
       --persistent-tables "check_results,check_results_api,check_results_browser,check_results_browser_pages" \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'checkly' \
     && rm .singer
 }

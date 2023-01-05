@@ -12,7 +12,7 @@ function main {
     && tap-zoho-crm create-jobs \
       "${zoho_creds}" \
       "${db_creds}" \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job "${job_name}"
 }
 

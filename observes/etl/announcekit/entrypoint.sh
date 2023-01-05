@@ -28,7 +28,7 @@ function start_etl {
       --drop-schema \
       --schema-name 'announcekit' \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'announcekit'
 }
 

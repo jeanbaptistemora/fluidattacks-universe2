@@ -23,7 +23,7 @@ def set_logger(root_name: str, version: str) -> Cmd[None]:
             lambda env: BugsnagConf(
                 "service",
                 version,
-                "./observes/service/job_last_success",
+                "./observes/service/success_indicators",
                 False,
                 key,
                 env,

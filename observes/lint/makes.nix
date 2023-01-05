@@ -26,7 +26,7 @@ in {
                 inputs.observesIndex.etl.code.root
                 inputs.observesIndex.service.scheduler.root
                 inputs.observesIndex.service.batch_stability.root
-                inputs.observesIndex.service.job_last_success.root
+                inputs.observesIndex.service.success_indicators.root
               ]
               ++ (
                 extract_roots inputs.observesIndex.tap

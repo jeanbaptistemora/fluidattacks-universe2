@@ -23,7 +23,7 @@ function job_matomo {
       --drop-schema \
       --schema-name 'matomo' \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'matomo'
 }
 

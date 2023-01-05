@@ -8,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
       outputs."${inputs.observesIndex.tap.matomo.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
     ];

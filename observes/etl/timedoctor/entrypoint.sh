@@ -37,7 +37,7 @@ function job_timedoctor {
       --drop-schema \
       --schema-name 'timedoctor' \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'timedoctor_etl'
 }
 

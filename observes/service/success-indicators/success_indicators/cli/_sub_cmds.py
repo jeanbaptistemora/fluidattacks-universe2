@@ -6,18 +6,18 @@ import click
 from fa_purity import (
     Cmd,
 )
-from job_last_success import (
-    core,
-)
-from job_last_success.conf import (
-    COMPOUND_JOBS,
-    SINGLE_JOBS,
-)
 from redshift_client.sql_client import (
     DbConnection,
 )
 from redshift_client.sql_client.connection import (
     IsolationLvl,
+)
+from success_indicators import (
+    core,
+)
+from success_indicators.conf import (
+    COMPOUND_JOBS,
+    SINGLE_JOBS,
 )
 from typing import (
     NoReturn,

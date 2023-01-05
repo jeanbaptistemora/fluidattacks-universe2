@@ -34,7 +34,7 @@ function job_mixpanel_integrates {
       --schema-name "mixpanel_integrates" \
       --old-ver \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'mixpanel_integrates'
 }
 

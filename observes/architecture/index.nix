@@ -47,7 +47,7 @@ in {
       // {
         root = "${servicePath}/db-migration/src";
       };
-    job_last_success = standard_3 "${servicePath}/job-last-success";
+    success_indicators = standard_3 "${servicePath}/success-indicators";
     scheduler = standard_3 "${servicePath}/jobs-scheduler";
   };
   etl = {

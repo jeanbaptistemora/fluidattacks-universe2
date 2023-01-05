@@ -67,7 +67,7 @@ function dynamodb_etl {
       --drop-schema \
       --schema-name "${schema}" \
       < "${singer_file}" \
-    && job-last-success compound-job \
+    && success-indicators compound-job \
       --job "dynamo" \
       --child "${schema#dynamodb_}"
 }

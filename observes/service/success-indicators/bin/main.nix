@@ -1,19 +1,20 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
-  root = projectPath inputs.observesIndex.service.job_last_success.root;
+  root = projectPath inputs.observesIndex.service.success_indicators.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  env = pkg.env.runtime;
+  env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-service-job-last-success-env-runtime";
+  makeScript {
+    name = "success-indicators";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = "success-indicators \"\${@}\"";
   }

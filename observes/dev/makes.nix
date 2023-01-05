@@ -8,7 +8,7 @@
     observesAsmDal = common.asm_dal;
     observesBatchStability = service.batch_stability;
     observesServiceDbMigration = service.db_migration;
-    observesServiceJobLastSuccess = service.job_last_success;
+    observesServiceSuccessIndicators = service.success_indicators;
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
     observesTapBugsnag = tap.bugsnag;

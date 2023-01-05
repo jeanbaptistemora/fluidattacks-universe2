@@ -7,7 +7,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
       outputs."${inputs.observesIndex.tap.formstack.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
     ];

@@ -8,13 +8,13 @@ from fa_purity import (
 from fa_purity.cmd.core import (
     CmdUnwrapper,
 )
-from job_last_success.conf import (
-    COMPOUND_JOBS_TABLES,
-)
 import logging
 from redshift_client.sql_client import (
     DbConnection,
     new_client,
+)
+from success_indicators.conf import (
+    COMPOUND_JOBS_TABLES,
 )
 from typing import (
     Callable,

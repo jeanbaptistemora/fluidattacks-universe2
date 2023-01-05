@@ -1,5 +1,5 @@
 [project]
-name = "job_last_success"
+name = "success_indicators"
 authors = [
     {name = "Product Team", email = "development@fluidattacks.com"},
 ]
@@ -17,7 +17,7 @@ description = "job last success reporter"
 dynamic = ["version"]
 
 [project.scripts]
-job-last-success = 'job_last_success.cli:main'
+success-indicators = 'success_indicators.cli:main'
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

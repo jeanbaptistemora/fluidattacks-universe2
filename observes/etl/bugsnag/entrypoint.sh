@@ -26,7 +26,7 @@ function start_etl {
       --drop-schema \
       --schema-name 'bugsnag' \
       < .singer \
-    && job-last-success single-job \
+    && success-indicators single-job \
       --job 'bugsnag'
 }
 

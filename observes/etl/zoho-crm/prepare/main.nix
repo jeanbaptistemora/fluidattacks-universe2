@@ -7,7 +7,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
       outputs."${inputs.observesIndex.tap.zoho_crm.bin}"
     ];
   };

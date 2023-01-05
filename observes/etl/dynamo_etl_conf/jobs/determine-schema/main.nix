@@ -11,7 +11,7 @@ makeScript {
       outputs."${inputs.observesIndex.tap.json.bin}"
     ];
     source = [
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
       outputs."/common/utils/aws"
       outputs."/observes/common/db-creds"
     ];

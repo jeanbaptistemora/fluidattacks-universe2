@@ -5,14 +5,14 @@
   projectPath,
   ...
 }: let
-  root = projectPath inputs.observesIndex.service.job_last_success.root;
+  root = projectPath inputs.observesIndex.service.success_indicators.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  check = pkg.check.types;
+  check = pkg.check.tests;
 in
   makeScript {
     searchPaths = {
       bin = [check];
     };
-    name = "observes-service-job-last-success-check-types";
+    name = "observes-service-success-indicators-check-tests";
     entrypoint = "";
   }

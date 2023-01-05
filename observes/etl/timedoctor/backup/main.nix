@@ -10,7 +10,7 @@ makeScript {
       inputs.nixpkgs.awscli
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
+      outputs."${inputs.observesIndex.service.success_indicators.bin}"
       outputs."${inputs.observesIndex.tap.timedoctor.bin}"
     ];
     source = [

@@ -57,7 +57,7 @@
     etl.dynamo
     service.batch_stability
     service.scheduler
-    service.job_last_success
+    service.success_indicators
     tap.checkly
     tap.dynamo
     tap.gitlab
