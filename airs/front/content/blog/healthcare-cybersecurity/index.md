@@ -148,17 +148,14 @@ steps further:
   how your system’s flaws can be combined to configure attack vectors
   others cannot identify.
 
-- We are also capable of assessing valuable `IT` and information
-  assets [in one shot](../../services/one-shot-hacking/). Again, we
-  rely on *"smart"* checklists.
-
-- We automate almost everything we already know. asserts is the
-  product we have to assess how customers' systems are, quickly. It is
-  like using a smart checklist, fed by all of our knowledge and
-  experience.
+- We automate almost everything we already know.
+  Asserts is the product we have to assess how customers' systems are,
+  quickly.
+  It is like using a smart checklist,
+  fed by all of our knowledge and experience.
 
 - All that we do gets stored, described, and tracked in our Attack
-  Resistance Management platform (`ARM`). ARM makes it easier for
+  Resistance Management (ARM) platform. ARM makes it easier for
   our customers to keep track of their security weaknesses as well
   as their fixes performed.
 

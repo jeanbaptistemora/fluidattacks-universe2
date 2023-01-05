@@ -157,13 +157,13 @@ soon.
     leakage of sensitive user data is becoming more problematic as time
     passes on.”
 
-`IoT` weaknesses and leakage of sensitive information are well under our
-scope. We provide [Continuous
-hacking](../../services/continuous-hacking/), as well as [One-shot
-hacking](../../services/one-shot-hacking/). If you have `IoT` devices
-deployed on your premises, we can help you identifying attacks vectors,
-as well as providing ways to increase their security. We can help you to
-protect better your sensitive information.
+IoT weaknesses and leakage of sensitive information are well
+under our scope.
+We provide [Continuous Hacking](../../services/continuous-hacking/).
+If you have IoT devices deployed on your premises,
+we can help you identifying attack vectors,
+as well as providing ways to increase their security.
+We can help you to protect better your sensitive information.
 
 Our services rely on highly-skilled security analysts as well as on
 technology designed to deliver real value to your company. But, we go

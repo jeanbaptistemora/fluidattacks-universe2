@@ -35,10 +35,6 @@ communication takes place
 between developers and hackers
 on a day-to-day basis
 via ARM.
-In One-Shot Hacking,
-communication is handled
-through the project manager (PM)
-as a single point of contact (SPOC).
 
 ## How long does it take you to answer a question in the comment system?
 

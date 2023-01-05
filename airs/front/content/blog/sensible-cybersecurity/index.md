@@ -167,8 +167,8 @@ cybersecurity professionals. We hope you have enjoyed these insights
 from the lens of a CISO. Do you want to share your thoughts? [Do get in
 touch with us\!](../../contact-us/)
 
-And remember our solutions. Take a look at our [Continuous
-Hacking](../../services/continuous-hacking/) and [One-shot
-Hacking](../../services/one-shot-hacking/) services. We can help you
-with detecting improvements in your cybersecurity operations, as we do
-it with Corona.
+And remember our solutions.
+Take a look at our [Continuous Hacking service](../../services/continuous-hacking/).
+We can help you with detecting improvements
+in your cybersecurity operations,
+as we do it with Corona.

@@ -205,10 +205,8 @@ for source code analysis.
 
 ## What retesting options are available?
 
-One-Shot Hacking
-includes one retest.
-The Squad Plan
-([Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/))
+[Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+(Squad Plan)
 includes infinite retests
 during the subscription time.
 

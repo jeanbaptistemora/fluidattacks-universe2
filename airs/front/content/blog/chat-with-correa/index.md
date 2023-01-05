@@ -77,11 +77,12 @@ face?**
     Maersk](https://www.forbes.com/sites/leemathews/2017/08/16/notpetya-ransomware-attack-cost-shipping-giant-maersk-over-200-million/#5aa1017f4f9a),
     the Danish shipping company.
 
-At `Fluid Attacks`, we blend automation with the best talent in
-[ethical hacking](../what-is-ethical-hacking/)
-to find weaknesses in our customer’s systems by means of our
-[Continuous](../../services/continuous-hacking/) and [One-shot
-Hacking](../../services/one-shot-hacking/) services. As Daniel says,
+At Fluid Attacks,
+we blend automation with the best talent in [ethical hacking](../what-is-ethical-hacking/)
+to find weaknesses in our customer's systems
+by means of our [Continuous Hacking](../../services/continuous-hacking/)
+service.
+As Daniel says,
 hacking skills are still not replaceable by machines.
 
 **And the other variant?**

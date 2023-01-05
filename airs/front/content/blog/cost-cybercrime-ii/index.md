@@ -163,18 +163,20 @@ topic for just a bunch of organizations. Quite the opposite:
 cybersecurity is essential to society, as we now rely heavily on
 information technology which offers many benefits in these modern times.
 
-At `Fluid Attacks`, we’re committed to improving the safety of
-organizations by putting some pressure on their mission-critical
-systems. We do this by hacking those systems with a mix of automated
-tools and the expertise of a group of highly skilled security engineers.
-Check our [hacking services](../../services/continuous-hacking/) and our
-[solutions](../../solutions/) (there is one product you can access and
-use `FREE` of charge). Our distinctiveness lies in the approaches we
-offer to organizations, comprised of [continuous
-hacking](../../services/continuous-hacking/) and [one-shot
-hacking](../../services/one-shot-hacking/). We detect weaknesses faster,
-featuring a rich characterization, and we also make it easier for
-clients to fix those defects through our ARM and Asserts.
+At Fluid Attacks,
+we're committed to improving the safety of organizations
+by putting some pressure on their mission-critical systems.
+We do this by hacking those systems with a mix of automated tools
+and the expertise of a group of highly skilled security engineers.
+Check our [Continuous Hacking service](../../services/continuous-hacking/)
+and our [solutions](../../solutions/)
+(there is one product you can access and use *free* of charge).
+Our distinctiveness lies in the approaches
+we offer to organizations.
+We detect weaknesses faster,
+featuring a rich characterization,
+and we also make it easier for clients
+to fix those defects through our ARM and Asserts.
 
 Did you enjoy reading this post? We love to hear from our readers and
 customers. [Do get in touch with us\!](../../contact-us/)

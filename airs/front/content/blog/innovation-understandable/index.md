@@ -169,8 +169,6 @@ and user behaviors.
 Interested in our approach?
 We offer [ethical hacking](../../solutions/ethical-hacking/)
 in combination with automatic scans.
-Take a look at our [Continuous
-Hacking](../../services/continuous-hacking/) and
-[One-shot](../../services/one-shot-hacking/) Hacking services.
+Take a look at our [Continuous Hacking service](../../services/continuous-hacking/).
 
 </div>
