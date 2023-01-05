@@ -17,6 +17,7 @@ from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidAuthorization,
+    InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidParameter,
@@ -164,6 +165,7 @@ logging.config.dictConfig(LOGGING)
 # Constants
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
+MIN_INACTIVITY_PERIOD = int(21)
 LOGGER = logging.getLogger(__name__)
 
 
@@ -1049,6 +1051,13 @@ async def validate_acceptance_severity_range(
         and (min_value > max_value)
     ):
         raise InvalidAcceptanceSeverityRange()
+    return success
+
+
+def validate_inactivity_period(value: int) -> bool:
+    success: bool = True
+    if value < MIN_INACTIVITY_PERIOD:
+        raise InvalidInactivityPeriod(expr=str(MIN_INACTIVITY_PERIOD))
     return success
 
 

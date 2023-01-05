@@ -414,6 +414,23 @@ class IncompleteSeverity(CustomBaseException):
         super(IncompleteSeverity, self).__init__(msg)
 
 
+class InvalidInactivityPeriod(CustomBaseException):
+    """Exception to control correct input in organization settings"""
+
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = (
+                "Exception - Inactivity period should be greater than "
+                f"{expr} days"
+            )
+        else:
+            msg = (
+                "Exception - Inactivity period should be greater than "
+                "the provided value"
+            )
+        super(InvalidInactivityPeriod, self).__init__(msg)
+
+
 class InvalidAcceptanceDays(CustomBaseException):
     """Exception to control correct input in organization settings"""
 
