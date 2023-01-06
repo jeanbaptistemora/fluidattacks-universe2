@@ -133,7 +133,7 @@ def must_range_filter(**kwargs: Any) -> List[Dict[str, Any]]:
         must_range_filters.append(
             {
                 "vulnerabilities.num_of_open_vulnerabilities": {"gt": 0}
-                if status == "vulnerable"
+                if str(status).lower() == "vulnerable"
                 else {"lte": 0}
             }
         )
