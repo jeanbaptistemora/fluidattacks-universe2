@@ -3,7 +3,7 @@ aiogqlc: 3.1.0
 aiohttp: 3.8.3
 bugsnag: 4.3.0
 click: 8.1.3
-GitPython: 3.1.29
+GitPython: 3.1.30
 more-itertools: 9.0.0
 tzdata: "2022.7"
 rich: 13.0.1
