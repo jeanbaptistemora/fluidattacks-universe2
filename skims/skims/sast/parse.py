@@ -2,9 +2,6 @@ from ctx import (
     CTX,
     TREE_SITTER_PARSERS,
 )
-from functools import (
-    partial,
-)
 from itertools import (
     count,
 )
@@ -16,7 +13,6 @@ from model.graph_model import (
     GraphShard,
     GraphShardCacheable,
     GraphShardMetadataLanguage,
-    NAttrs,
 )
 import os
 from sast import (
@@ -51,9 +47,6 @@ from typing import (
     Iterator,
     Optional,
     Tuple,
-)
-from utils import (
-    graph as g,
 )
 from utils.encodings import (
     json_dump,
@@ -322,9 +315,6 @@ def _parse_one_cached(
     metadata = inspectors.get_metadata(graph, language)
     danger_nodes.mark_metadata(graph, metadata, language)
 
-    if language == GraphShardMetadataLanguage.GO:
-        _label_calls_to_declaration(graph)
-
     styles.add(graph)
 
     return GraphShardCacheable(
@@ -333,40 +323,6 @@ def _parse_one_cached(
         syntax=syntax,
         syntax_graph=syntax_graph,
     )
-
-
-def _label_calls_to_declaration(graph: Graph) -> None:
-    """
-    If a function called is declared inside the same graph, add label to the
-    call node with the n_id where the function declaration starts.
-    This allows to go deeper inside the CFG analysis.
-    """
-
-    def _predicate(n_attrs: NAttrs, label: str) -> bool:
-        return g.pred_has_labels(label_type=label)(n_attrs)
-
-    funcs = g.filter_nodes(
-        graph, graph.nodes, partial(_predicate, label="function_declaration")
-    )
-    func_names = {
-        graph.nodes[graph.nodes[f_id]["label_field_name"]]["label_text"]: f_id
-        for f_id in funcs
-    }
-    call_ids = g.filter_nodes(
-        graph, graph.nodes, partial(_predicate, label="call_expression")
-    )
-    are_funcs_in_file = {
-        call_id: func_names.get(
-            graph.nodes[graph.nodes[call_id]["label_field_function"]].get(
-                "label_text", ""
-            )
-        )
-        for call_id in call_ids
-    }
-    for call_id, dlc_id in dict(
-        filter(lambda x: x[1], are_funcs_in_file.items())
-    ).items():
-        graph.nodes[call_id]["label_function_declaration"] = dlc_id
 
 
 def parse_one(

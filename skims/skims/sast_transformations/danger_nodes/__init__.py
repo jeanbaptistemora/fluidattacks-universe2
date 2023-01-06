@@ -9,10 +9,6 @@ from sast_transformations.danger_nodes.c_sharp import (
     mark_metadata as mark_metadata_c_sharp,
     mark_sinks as c_sharp_mark_sinks,
 )
-from sast_transformations.danger_nodes.go import (
-    mark_inputs as go_mark_inputs,
-    mark_sinks as go_mark_sinks,
-)
 from sast_transformations.danger_nodes.java import (
     mark_inputs as java_mark_inputs,
     mark_sinks as java_mark_sinks,
@@ -34,9 +30,6 @@ def mark(
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_mark_inputs(graph, syntax)
         c_sharp_mark_sinks(graph, syntax)
-    elif language == GraphShardMetadataLanguage.GO:
-        go_mark_inputs(graph, syntax)
-        go_mark_sinks(graph, syntax)
     elif language == GraphShardMetadataLanguage.JAVASCRIPT:
         javascript_mark_imputs(graph, syntax)
         javascript_mark_sinks(graph, syntax)

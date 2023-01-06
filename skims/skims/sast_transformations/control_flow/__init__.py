@@ -35,22 +35,6 @@ def c_sharp_add(graph: Graph) -> None:
         generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
 
 
-def go_add(graph: Graph) -> None:
-    def _predicate(n_attrs: NAttrs) -> bool:
-        return g.pred_has_labels(label_type="function_declaration")(
-            n_attrs
-        ) or g.pred_has_labels(label_type="method_declaration")(n_attrs)
-
-    language = GraphShardMetadataLanguage.GO
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
-
-
 def java_add(graph: Graph) -> None:
     def _predicate(n_attrs: NAttrs) -> bool:
         return g.pred_has_labels(label_type="method_declaration",)(
@@ -80,24 +64,6 @@ def javascript_add(graph: Graph) -> None:
             javascript_unnamed_function(args, stack=[])
 
 
-def kotlin_add(graph: Graph) -> None:
-    def _predicate(n_attrs: NAttrs) -> bool:
-        return (
-            g.pred_has_labels(label_type="function_declaration")(n_attrs)
-            or g.pred_has_labels(label_type="class_declaration")(n_attrs)
-            or g.pred_has_labels(label_type="companion_object")(n_attrs)
-        )
-
-    language = GraphShardMetadataLanguage.KOTLIN
-
-    for n_id in g.filter_nodes(
-        graph,
-        graph.nodes,
-        predicate=_predicate,
-    ):
-        generic(args=CfgArgs(generic, graph, n_id, language), stack=[])
-
-
 def add(
     graph: Graph,
     language: GraphShardMetadataLanguage,
@@ -108,7 +74,3 @@ def add(
         javascript_add(graph)
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
-    elif language == GraphShardMetadataLanguage.GO:
-        go_add(graph)
-    elif language == GraphShardMetadataLanguage.KOTLIN:
-        kotlin_add(graph)
