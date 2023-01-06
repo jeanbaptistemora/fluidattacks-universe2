@@ -1,15 +1,14 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
       <div class="main-content">
-        <p>{{ name }},</p>
+        <h2>{{ name }},</h2>
         <p>
           In the past year,
-          <a href="https://try.fluidattacks.com/state-of-attacks-2022/" rel="noopener noreferrer" target="_blank">we found that</a>
+          <a href="https://try.fluidattacks.tech/state-of-attacks-2022/" rel="noopener noreferrer" target="_blank">we found that</a>
           most of the risk exposure we reported
           to our customers came from Manual Penetration Testing..
         </p>
@@ -32,47 +31,51 @@
           a comprehensive <strong>Continuous Hacking</strong> solution
           that meet the needs of today’s businesses.
         </p>
-        <p>
-          <strong>Squad</strong> goes further achieving:
-        </p>
-        <ul class="big-list-icon">
-          <li>
-            Higher risk exposure
-          </li>
-          <li>
-            Higher severity and more types of vulnerabilities
-          </li>
-          <li>
-            Low rates of false positives and false negatives
-          </li>
-        </ul>
-        <p>
-          This is possible as <strong>Squad</strong> includes all Machine capabilities and the following:
-        </p>
-        <ul class="big-list-icon">
-          <li>
-            Manual SAST, DAST and SCA
-          </li>
-          <li>
-            Optimization of vulnerability search with Artificial Intelligence
-          </li>
-          <li>
-            Premium support: Talk to a Hacker and Consulting
-          </li>
-        </ul>
-        <p>
-          Click
-          <a href="https://fluidattacks.com/plans/" rel="noopener noreferrer" target="_blank">here</a>
-          to see features of both plans.
-        </p>
+        <div class="data-container">
+          <p>
+            <strong>Squad</strong> goes further achieving:
+          </p>
+          <ul class="big-list-icon">
+            <li>
+              Higher risk exposure
+            </li>
+            <li>
+              Higher severity and more types of vulnerabilities
+            </li>
+            <li>
+              Low rates of false positives and false negatives
+            </li>
+          </ul>
+          <br/>
+          <p>
+            This is possible as <strong>Squad</strong> includes all Machine capabilities and the following:
+          </p>
+          <ul class="big-list-icon">
+            <li>
+              Manual SAST, DAST and SCA
+            </li>
+            <li>
+              Optimization of vulnerability search with Artificial Intelligence
+            </li>
+            <li>
+              Premium support: Talk to a Hacker and Consulting
+            </li>
+          </ul>
+          <br/>
+          <p>
+            Click
+            <a href="https://fluidattacks.com/plans/" rel="noopener noreferrer" target="_blank">here</a>
+            to see features of both plans.
+          </p>
+        </div>
         <p>
           <strong>Questions or comments?</strong> You can always contact us at
           <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
         </p>
         <p>Thanks for trying Continuous Hacking!</p>
-        <p><strong>Fluid Attacks Team</strong></p>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
