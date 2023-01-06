@@ -32,4 +32,5 @@ COMPOUND_JOBS = frozenset(
 COMPOUND_JOBS_TABLES: Dict[str, str] = {
     "dynamo": "dynamo_tables",
     "mirror": "last_sync_date",
+    "code_upload": "code_upload",
 }
