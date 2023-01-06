@@ -28,13 +28,13 @@ import { Title } from "../../Texts";
 const Portrait: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
 
-  const matomoEvent = (): void => {
+  const matomoEvent = useCallback((): void => {
     trackEvent({ action: "product-overview-click", category: "home" });
-  };
+  }, [trackEvent]);
 
-  const matomoFreeTrialEvent = (): void => {
+  const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({ action: "free-trial-click", category: "home" });
-  };
+  }, [trackEvent]);
 
   const [play, setPlay] = useState(false);
 
