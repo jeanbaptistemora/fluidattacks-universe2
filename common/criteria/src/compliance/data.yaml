@@ -1494,50 +1494,6 @@ nist80063:
       title: Browser cookies
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
   metadata: {}
-owaspapisp:
-  title: OWASP API Security Project
-  en:
-    summary: >
-      API Security focuses on strategies and solutions
-      to understand and mitigate
-      the unique vulnerabilities and security risks
-      of Application Programming Interfaces (APIs).
-      The version used in this section is
-      API Security Top 10 2019.
-  es:
-    summary: __empty__
-  definitions:
-    API1:
-      title: Broken Object Level Authorization
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa1-broken-object-level-authorization.md
-    API2:
-      title: Broken User Authentication
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa2-broken-user-authentication.md
-    API3:
-      title: Excessive Data Exposure
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa3-excessive-data-exposure.md
-    API4:
-      title: Lack of Resources & Rate Limiting
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa4-lack-of-resources-and-rate-limiting.md
-    API5:
-      title: Broken Function Level Authorization
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa5-broken-function-level-authorization.md
-    API6:
-      title: Mass Assignment
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa6-mass-assignment.md
-    API7:
-      title: Security Misconfiguration
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa7-security-misconfiguration.md
-    API8:
-      title: Injection
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa8-injection.md
-    API9:
-      title: Improper Assets Management
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xa9-improper-assets-management.md
-    API10:
-      title: Insufficient Logging & Monitoring
-      link: https://github.com/OWASP/API-Security/blob/master/2019/en/src/0xaa-insufficient-logging-monitoring.md
-  metadata: {}
 asvs:
   title: OWASP ASVS
   en:
@@ -7710,4 +7666,48 @@ sig:
     U_1_10_5:
       title: Server security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
+  metadata: {}
+owaspapisp:
+  title: OWASP API Security Project
+  en:
+    summary: >
+      API Security focuses on strategies and solutions
+      to understand and mitigate
+      the unique vulnerabilities and security risks
+      of Application Programming Interfaces (APIs).
+      The version used in this section is
+      API Security Top 9 2019.
+  es:
+    summary: __empty__
+  definitions:
+    API1:
+      title: Broken Object Level Authorization
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa1-broken-object-level-authorization.md
+    API2:
+      title: Broken User Authentication
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa2-broken-user-authentication.md
+    API3:
+      title: Excessive Data Exposure
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa3-excessive-data-exposure.md
+    API4:
+      title: Lack of Resources & Rate Limiting
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa4-lack-of-resources-and-rate-limiting.md
+    API5:
+      title: Broken Function Level Authorization
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa5-broken-function-level-authorization.md
+    API6:
+      title: Mass Assignment
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa6-mass-assignment.md
+    API7:
+      title: Security Misconfiguration
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa7-security-misconfiguration.md
+    API8:
+      title: Injection
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa8-injection.md
+    API9:
+      title: Improper Assets Management
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xa9-improper-assets-management.md
+    API10:
+      title: Insufficient Logging & Monitoring
+      link: https://github.com/OWASP/API-Security/blob/master/2018/en/src/0xaa-insufficient-logging-monitoring.md
   metadata: {}
