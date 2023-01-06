@@ -270,7 +270,7 @@ async def test_get_updated_manager_mail_content() -> None:
         "unittesting", loaders, grouped_vulns
     )
     test_data = get_updated_manager_mail_content(vulns_data)
-    expected_output = "test/data/lib_path/f060/csharp.cs (12)\nhttps://example.com (phone)\n"  # noqa
+    expected_output = "test/data/lib_path/f060/csharp.cs (12)\nhttps://example.com (phone)\n"  # noqa: E501 pylint: disable=line-too-long
     assert test_data == expected_output
 
 

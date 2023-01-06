@@ -240,5 +240,5 @@ _dag: dict[str, tuple[Union[tuple[str, ...], str], ...]] = {
 def project_dag() -> DagMap:
     result = DagMap.new(_dag)
     if isinstance(result, Exception):
-        raise result  # pylint: disable=raising-bad-type
+        raise result
     return result

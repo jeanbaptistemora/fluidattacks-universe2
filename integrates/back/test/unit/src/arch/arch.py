@@ -63,5 +63,5 @@ _dag: Tuple[FrozenSet[str], ...] = (
 def project_dag() -> DAG:
     result = DAG.new(_dag)
     if isinstance(result, Exception):
-        raise result  # pylint: disable=raising-non-exception
+        raise result
     return result
