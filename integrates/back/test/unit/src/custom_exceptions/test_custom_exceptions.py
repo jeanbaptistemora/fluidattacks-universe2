@@ -244,9 +244,10 @@ async def test_send_mail_devsecops_agent_fail(
             False,
             GroupTier.FREE,
         ],
-    ],  # pylint: disable=too-many-arguments
+    ],
 )
 async def test_update_group_attrs_fail(
+    # pylint: disable=too-many-arguments
     mock_table_resource: AsyncMock,
     group_name: str,
     service: GroupService,

@@ -123,9 +123,9 @@ mocked_paths: Dict[str, str] = {
     "events_model.add": "db_model.events.add",
     "events_model.update_state": "db_model.events.update_state",
     "events_model.update_evidence": "db_model.events.update_evidence",
-    "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501 pylint: disable=line-too-long
+    "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
-    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501
+    "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501 pylint: disable=line-too-long
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",

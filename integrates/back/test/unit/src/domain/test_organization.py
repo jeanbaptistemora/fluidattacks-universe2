@@ -356,7 +356,7 @@ async def test_iterate_organizations() -> None:
     }
     async for organization in orgs_domain.iterate_organizations():
         assert expected_organizations.pop(organization.id) == organization.name
-    assert expected_organizations == {}
+    assert not expected_organizations
 
 
 async def test_iterate_organizations_and_groups() -> None:
@@ -396,7 +396,7 @@ async def test_iterate_organizations_and_groups() -> None:
         assert sorted(groups) == sorted(
             expected_organizations_and_groups.pop(org_id)[org_name]
         )
-    assert expected_organizations_and_groups == {}
+    assert not expected_organizations_and_groups
 
 
 async def test_get_all_active_group() -> None:

@@ -332,9 +332,10 @@ async def test_is_valid() -> None:
             True,
             GroupTier.ONESHOT,
         ],
-    ],  # pylint: disable=too-many-arguments
+    ],
 )
 async def test_update_group(
+    # pylint: disable=too-many-arguments
     group_name: str,
     service: GroupService,
     subscription: GroupSubscriptionType,

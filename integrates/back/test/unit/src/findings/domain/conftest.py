@@ -803,13 +803,13 @@ findings: Dict[str, Tuple[Finding, ...]] = {
             threat="Test.",
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=1,
-                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2019-01-15T16:04:14+00:00"
                 ),
-                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2019-01-15T15:43:39+00:00"
                 ),
-                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2019-01-15T15:43:39+00:00"
                 ),
                 unreliable_open_vulnerabilities=1,
@@ -979,13 +979,13 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 maliciosus.",
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=0,
-                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2020-01-03T17:46:10+00:00"
                 ),
-                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2020-01-03T17:46:10+00:00"
                 ),
-                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501
+                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                     "2020-01-03T17:46:10+00:00"
                 ),
                 unreliable_open_vulnerabilities=1,
