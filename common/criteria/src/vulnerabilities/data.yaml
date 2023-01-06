@@ -30715,7 +30715,7 @@
       and It is always the same for payment links.
       An attacker can create a button with the
       content of a request and trick a user running
-      a transaction to receive the Nequi push
+      a transaction to receive the app push
       notification and complete the request.
     impact: >
       Spoof an authenticated user in the application
@@ -30736,7 +30736,7 @@
       Un atacante puede crear un botón con el contenido
       de una solicitud y engañar a un usuario que
       ejecuta una transacción para recibir la notificación
-      push de Nequi y completar la solicitud.
+      push de la aplicación y completar la solicitud.
     impact: >
       Suplantar a un usuario autentificado en la
       aplicación mediante un enlace modificado para
@@ -34001,11 +34001,8 @@
   en:
     title: Security controls bypass or absence - Tampering Protection
     description: >
-      When adding a new payment, the application
-      validates that an invalid number is not used
-      or that there are no outstanding bills in the system.
-      However, it is possible to modify the response
-      to continue with the process of adding a new payment.
+      The application has no control to ensure that a third party has not modified and recompiled the
+      application, allowing to modify and evade validations such as the detection of a root user on the device.
     impact: >
       Elude application validations.
     recommendation: >
@@ -34047,11 +34044,9 @@
   es:
     title: Security controls bypass or absence - Tampering Protection
     description: >
-      Al agregar un nuevo pago, la aplicación valida
-      que no se use un número inválido o sin boletas
-      pendientes en el sistema.
-      Sin embargo, es posible modificar la respuesta
-      para continuar con el proceso de agregar un nuevo pago.
+      La aplicación no cuenta con un control que garantice que un tercero no haya modificado y vuelto
+      a compilar la aplicación, permitiendo modificar y evadir validaciones como la detección de un 
+      usuario root en el dispositivo.
     impact: >
       Eludir las validaciones de la aplicación.
     recommendation: >
@@ -39043,12 +39038,12 @@
       base:
         attack_vector: N
         attack_complexity: H
-        privileges_required: N
+        privileges_required: H
         user_interaction: N
-        scope: C
+        scope: U
         confidentiality: L
         integrity: L
-        availability: L
+        availability: N
       temporal:
         exploit_code_maturity: U
         remediation_level: U
