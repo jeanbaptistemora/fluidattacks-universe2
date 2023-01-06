@@ -1330,6 +1330,7 @@
     - nistssdf.PS_2_1
     - nistssdf.PS_3_1
     - issaf.Y_3_4
+    - owaspapisp.API10
   metadata: {}
 "048":
   en:
@@ -1793,6 +1794,7 @@
     - asvs.7_2_2
     - asvs.7_4_2
     - asvs.8_1_4
+    - owaspapisp.API10
   metadata: {}
 "077":
   en:
@@ -2113,6 +2115,7 @@
     - owaspmasvs.V2_3
     - asvs.7_1_1
     - asvs.7_2_4
+    - owaspapisp.API10
   metadata: {}
 "084":
   en:
@@ -2218,6 +2221,7 @@
     - mvsp.2_7
     - owaspscp.7
     - pci.10_2_1_3
+    - owaspapisp.API10
   metadata: {}
 "088":
   en:
@@ -10286,6 +10290,7 @@
     - nist800115.3_2
     - asvs.7_1_4
     - sig.U_1_4
+    - owaspapisp.API10
   metadata: {}
 "323":
   en:
@@ -13361,6 +13366,7 @@
     - c2m2.5_2_d
     - siglite.SL_85
     - sig.U_1_4
+    - owaspapisp.API10
   metadata: {}
 "377":
   en:
@@ -13418,6 +13424,7 @@
     - asvs.7_1_2
     - c2m2.6_1_c
     - asvs.2_8_5
+    - owaspapisp.API10
   metadata: {}
 "378":
   en:
@@ -13473,6 +13480,7 @@
     - asvs.7_2_2
     - asvs.7_4_3
     - asvs.8_1_4
+    - owaspapisp.API10
   metadata: {}
 "379":
   en:
