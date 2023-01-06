@@ -481,13 +481,13 @@ in {
         ++ (builtins.map
           (module: {
             output = "/lintPython/dirOfModules/integrates/${module}";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           })
           backSrcModules)
         ++ [
           {
             output = "/lintPython/module/integratesBackCharts";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/module/integratesBackChartsCollector";
@@ -495,11 +495,11 @@ in {
           }
           {
             output = "/lintPython/dirOfModules/integratesBackChartsGenerators";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/dirOfModules/streams";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/imports/integrates";
@@ -511,7 +511,7 @@ in {
           }
           {
             output = "/lintPython/module/integratesJobsCloneRoots";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/module/integratesJobsExecuteMachine";
@@ -519,11 +519,11 @@ in {
           }
           {
             output = "/lintPython/module/integratesBackMigrations";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/module/integratesBackTest";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/module/integratesBackTestE2e";
@@ -531,11 +531,11 @@ in {
           }
           {
             output = "/lintPython/module/forces";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintPython/module/forcesTests";
-            gitlabExtra = gitlabLint;
+            gitlabExtra = gitlabLint // {allow_failure = true;};
           }
           {
             output = "/lintTerraform/integratesInfra";

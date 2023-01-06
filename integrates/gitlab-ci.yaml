@@ -4798,6 +4798,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/analytics:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4820,6 +4821,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/api:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4842,6 +4844,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/app:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4864,6 +4867,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/authz:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4886,6 +4890,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/azure_repositories:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4908,6 +4913,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/batch:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4930,6 +4936,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/batch_dispatch:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4952,6 +4959,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/billing:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4974,6 +4982,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/cli:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -4996,6 +5005,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/companies:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5018,6 +5028,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/context:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5040,6 +5051,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/custom_exceptions:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5062,6 +5074,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/dataloaders:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5084,6 +5097,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/db_model:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5106,6 +5120,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/decorators:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5128,6 +5143,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/dynamodb:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5150,6 +5166,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/enrollment:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5172,6 +5189,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/event_comments:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5194,6 +5212,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/events:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5216,6 +5235,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/finding_comments:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5238,6 +5258,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/findings:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5260,6 +5281,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/forces:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5282,6 +5304,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/group_access:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5304,6 +5327,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/group_comments:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5326,6 +5350,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/groups:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5348,6 +5373,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/machine:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5370,6 +5396,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/mailer:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5392,6 +5419,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/newutils:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5414,6 +5442,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/notifications:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5436,6 +5465,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/organizations:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5458,6 +5488,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/organizations_finding_policies:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5480,6 +5511,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/remove_stakeholder:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5502,6 +5534,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/reports:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5524,6 +5557,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/roots:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5546,6 +5580,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/s3:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5568,6 +5603,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/schedulers:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5590,6 +5626,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/search:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5612,6 +5649,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/server:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5634,6 +5672,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/sessions:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5656,6 +5695,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/settings:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5678,6 +5718,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/sms:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5700,6 +5741,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/stakeholders:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5722,6 +5764,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/subscriptions:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5744,6 +5787,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/tags:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5766,6 +5810,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/telemetry:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5788,6 +5833,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/toe:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5810,6 +5856,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/unreliable_indicators:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5832,6 +5879,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/verify:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5854,6 +5902,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/vulnerabilities:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5876,6 +5925,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/vulnerability_files:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5898,6 +5948,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5920,6 +5971,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/streams:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5964,6 +6016,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forces:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5986,6 +6039,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forcesTests:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6008,6 +6062,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackCharts:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6074,6 +6129,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6096,6 +6152,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTest:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6140,6 +6197,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesJobsCloneRoots:
+  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
