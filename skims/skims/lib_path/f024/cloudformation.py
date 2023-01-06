@@ -59,7 +59,7 @@ def _cfn_iter_vulnerable_admin_ports(
 
     for rule in rules_iterator:
         unrestricted_ip = False
-        rule_raw = rule.raw
+        rule_raw = rule.raw if hasattr(rule, "raw") else {}
         try:
             port_range = set(
                 range(
@@ -118,8 +118,8 @@ def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
         from_port = ec2_res.inner.get("FromPort")
         to_port = ec2_res.inner.get("ToPort")
         if (
-            from_port
-            and to_port
+            hasattr(from_port, "raw")
+            and hasattr(to_port, "raw")
             and int(from_port.raw) != int(to_port.raw)
             and abs(int(to_port.raw) - int(from_port.raw)) >= 5
         ):
@@ -132,7 +132,8 @@ def _groups_without_egress_iter_vulnerabilities(
     yield from (
         group
         for group in groups_iterators
-        if not group.raw.get("SecurityGroupEgress", None)
+        if hasattr(group, "raw")
+        and not group.raw.get("SecurityGroupEgress", None)
     )
 
 
@@ -187,8 +188,13 @@ def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
-        cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
-            "CidrIpv6", None
+        cidr = (
+            (
+                ec2_res.raw.get("CidrIp", None)
+                or ec2_res.raw.get("CidrIpv6", None)
+            )
+            if hasattr(ec2_res, "raw")
+            else None
         )
         is_public_cidr = cidr in (
             "::/0",
@@ -206,8 +212,13 @@ def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
-        cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
-            "CidrIpv6", None
+        cidr = (
+            (
+                ec2_res.raw.get("CidrIp", None)
+                or ec2_res.raw.get("CidrIpv6", None)
+            )
+            if hasattr(ec2_res, "raw")
+            else None
         )
         is_public_cidr = cidr in (
             "::/0",
@@ -225,8 +236,13 @@ def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
-        cidr = ec2_res.raw.get("CidrIp", None) or ec2_res.raw.get(
-            "CidrIpv6", None
+        cidr = (
+            (
+                ec2_res.raw.get("CidrIp", None)
+                or ec2_res.raw.get("CidrIpv6", None)
+            )
+            if hasattr(ec2_res, "raw")
+            else None
         )
         is_public_cidr = cidr in (
             "::/0",
