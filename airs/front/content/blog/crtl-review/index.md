@@ -148,6 +148,12 @@ valuable material, given the fact that you have
 lifetime access to the course and related
 updates to its contents.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ## Lab
 
 The *RTO-2* course comes with a companion lab

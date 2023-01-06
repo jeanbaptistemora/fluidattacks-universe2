@@ -136,6 +136,12 @@ In it,
 contestants are challenged to exploit zero-day vulnerabilities
 in widely used software and mobile devices.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ### 5 - TyphoonCon (since 2018)
 
 [TyphoonCon](https://typhooncon.com/)

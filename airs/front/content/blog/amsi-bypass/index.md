@@ -152,6 +152,12 @@ to bypass the anti-malware checking instructions altogether
 and force it always to return `0x80070057`?
 Let’s check it\!
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 First, let’s examine the instructions using WinDBG:
 
 <div class="imgblock">

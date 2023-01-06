@@ -199,6 +199,12 @@ instruction on our shellcode `inc eax` and make `EAX = 0xdeadbeef`. That
 means that we need to find an address to a `pop eax` instruction
 followed by a `retn`.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 <div class="imgblock">
 
 ![POP EAX](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/popeax1_ikidee.gif)

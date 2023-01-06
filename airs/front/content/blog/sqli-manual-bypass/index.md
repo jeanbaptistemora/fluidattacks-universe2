@@ -176,6 +176,12 @@ DOWNLOADED: 9224 - FOUND: 4
 As we can see, there is an admin site to which we do not have access and
 a normal site where our test cases are.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## SQLi bypass attacks
 
 There are three test cases; the first one is the simplest. It filters

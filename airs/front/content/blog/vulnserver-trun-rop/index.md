@@ -299,6 +299,12 @@ where our shellcode was placed as executable and we could make `EAX
 However, that was not a valid execution because we had to use the
 debugger to change some values.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## ROP it all
 
 We need to use `ROP` to setup that values. The easiest way is to put the

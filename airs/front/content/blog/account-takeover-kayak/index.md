@@ -144,6 +144,12 @@ Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate
 ```
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## Account takeover POC
 
 Below is a video demonstration of the exploitation

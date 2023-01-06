@@ -522,6 +522,12 @@ PS C:\Users\aroldan> python3 .\enummodules.py
 
 Much better!
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ### Find the address in memory of AmsiScanBuffer
 
 As we saw in our [previous post](../amsi-bypass/),

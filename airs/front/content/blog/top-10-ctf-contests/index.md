@@ -231,6 +231,12 @@ and third place USD 1,024.
 The organizers also distributed USD 3,000
 to the top five Taiwanese teams in the event.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ### 5. Google CTF (80.89)
 
 Well,
