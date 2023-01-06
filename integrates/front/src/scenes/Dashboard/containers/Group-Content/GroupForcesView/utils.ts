@@ -103,7 +103,7 @@ const unformatStrictness: (strictness: string) => string = (
   strictness: string
 ): string => {
   const unformat: Record<string, string> = {
-    strict: "",
+    strict: "strict",
     tolerant: "lax",
   };
 
