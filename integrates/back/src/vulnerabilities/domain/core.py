@@ -1208,7 +1208,6 @@ async def update_description(  # noqa: MC0001 # NOSONAR
         )
         await vulns_utils.validate_vulnerability_in_toe(
             loaders,
-            vulnerability.group_name,
             vulnerability._replace(
                 state=vulnerability.state._replace(
                     commit=updated_commit,

@@ -1,3 +1,5 @@
+# pylint:disable=too-many-lines
+
 from . import (
     datetime as datetime_utils,
 )
@@ -25,6 +27,9 @@ from custom_exceptions import (
     VulnerabilityPortFieldDoNotExistInToePorts,
     VulnerabilityUrlFieldDoNotExistInToeInputs,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     date as datetype,
     datetime,
@@ -38,12 +43,15 @@ from db_model.roots.types import (
     Root,
 )
 from db_model.toe_inputs.types import (
+    ToeInput,
     ToeInputRequest,
 )
 from db_model.toe_lines.types import (
+    ToeLines,
     ToeLinesRequest,
 )
 from db_model.toe_ports.types import (
+    ToePort,
     ToePortRequest,
 )
 from db_model.utils import (
@@ -870,86 +878,149 @@ def is_machine_vuln(vuln: Vulnerability) -> bool:
     )
 
 
-async def validate_vulnerability_in_toe(  # noqa # NOSONAR
-    loaders: Any,
-    group_name: str,
+async def validate_vulnerability_in_toe_lines(
+    loaders: Dataloaders,
+    vulnerability: Vulnerability,
+    where: str,
+    index: int,
+    raises: bool = True,
+) -> Optional[ToeLines]:
+    if vulnerability.root_id:
+        try:
+            toe_lines: ToeLines = await loaders.toe_lines.load(
+                ToeLinesRequest(
+                    filename=where,
+                    group_name=vulnerability.group_name,
+                    root_id=vulnerability.root_id,
+                )
+            )
+        except ToeLinesNotFound as exc:
+            if raises:
+                raise VulnerabilityPathDoesNotExistInToeLines(
+                    index=f"{index}"
+                ) from exc
+            return None
+
+        if not 0 <= int(vulnerability.state.specific) <= toe_lines.loc:
+            if raises:
+                raise LineDoesNotExistInTheLinesOfCodeRange(
+                    line=vulnerability.state.specific, index=f"{index}"
+                )
+            return None
+
+        return toe_lines
+    return None
+
+
+async def validate_vulnerability_in_toe_inputs(
+    loaders: Dataloaders,
+    vulnerability: Vulnerability,
+    where: str,
+    index: int,
+    raises: bool = True,
+) -> Optional[ToeInput]:
+    if vulnerability.root_id:
+        specific = html.unescape(vulnerability.state.specific)
+        if match_specific := re.match(
+            r"(?P<specific>.*)\s\(.*\)(\s\[.*\])?$", specific
+        ):
+            specific = match_specific.groupdict()["specific"]
+
+        try:
+            toe_input: ToeInput = await loaders.toe_input.load(
+                ToeInputRequest(
+                    component=where,
+                    entry_point=""
+                    if is_machine_vuln(vulnerability)
+                    else specific,
+                    group_name=vulnerability.group_name,
+                    root_id=vulnerability.root_id,
+                )
+            )
+        except ToeInputNotFound as exc:
+            if vulnerability.skims_technique not in {"APK"}:
+                if raises:
+                    raise VulnerabilityUrlFieldDoNotExistInToeInputs(
+                        index=f"{index}"
+                    ) from exc  # noqa
+                return None
+
+        return toe_input
+    return None
+
+
+async def validate_vulnerability_in_toe_ports(
+    loaders: Dataloaders,
+    vulnerability: Vulnerability,
+    where: str,
+    index: int,
+    raises: bool = True,
+) -> Optional[ToePort]:
+    if vulnerability.root_id:
+        try:
+            toe_port: ToePort = await loaders.toe_port.load(
+                ToePortRequest(
+                    address=where,
+                    port=vulnerability.state.specific,
+                    group_name=vulnerability.group_name,
+                    root_id=vulnerability.root_id,
+                )
+            )
+        except ToePortNotFound as exc:
+            if raises:
+                raise VulnerabilityPortFieldDoNotExistInToePorts(
+                    index=f"{index}"
+                ) from exc
+            return None
+
+        return toe_port
+    return None
+
+
+async def validate_vulnerability_in_toe(
+    loaders: Dataloaders,
     vulnerability: Vulnerability,
     index: int,
     raises: bool = True,
 ) -> Optional[Vulnerability]:
-    if vulnerability.root_id:
-        where = html.unescape(vulnerability.state.where)
-        # There are cases, like SCA vulns, where the `where` attribute
-        # has additional information `filename (package) [CVE]`
-        where = ignore_advisories(where)
+    where = html.unescape(vulnerability.state.where)
+    # There are cases, like SCA vulns, where the `where` attribute
+    # has additional information `filename (package) [CVE]`
+    where = ignore_advisories(where)
+    toe_lines: Optional[ToeLines] = None
+    toe_input: Optional[ToeInput] = None
+    toe_port: Optional[ToePort] = None
 
-        if vulnerability.type == VulnerabilityType.LINES:
-            try:
-                toe_lines = await loaders.toe_lines.load(
-                    ToeLinesRequest(
-                        filename=where,
-                        group_name=group_name,
-                        root_id=vulnerability.root_id,
-                    )
-                )
-            except ToeLinesNotFound as exc:
-                if raises:
-                    raise VulnerabilityPathDoesNotExistInToeLines(
-                        index=f"{index}"
-                    ) from exc
-                return None
+    if vulnerability.type == VulnerabilityType.LINES:
+        toe_lines = await validate_vulnerability_in_toe_lines(
+            loaders=loaders,
+            vulnerability=vulnerability,
+            where=where,
+            index=index,
+            raises=raises,
+        )
 
-            if not 0 <= int(vulnerability.state.specific) <= toe_lines.loc:
-                if raises:
-                    raise LineDoesNotExistInTheLinesOfCodeRange(
-                        line=vulnerability.state.specific, index=f"{index}"
-                    )
-                return None
+    if vulnerability.type == VulnerabilityType.INPUTS:
+        toe_input = await validate_vulnerability_in_toe_inputs(
+            loaders=loaders,
+            vulnerability=vulnerability,
+            where=where,
+            index=index,
+            raises=raises,
+        )
 
-        if vulnerability.type == VulnerabilityType.INPUTS:
-            specific = html.unescape(vulnerability.state.specific)
-            if match_specific := re.match(
-                r"(?P<specific>.*)\s\(.*\)(\s\[.*\])?$", specific
-            ):
-                specific = match_specific.groupdict()["specific"]
+    if vulnerability.type == VulnerabilityType.PORTS:
+        toe_port = await validate_vulnerability_in_toe_ports(
+            loaders=loaders,
+            vulnerability=vulnerability,
+            where=where,
+            index=index,
+            raises=raises,
+        )
 
-            try:
-                await loaders.toe_input.load(
-                    ToeInputRequest(
-                        component=where,
-                        entry_point=""
-                        if is_machine_vuln(vulnerability)
-                        else specific,
-                        group_name=group_name,
-                        root_id=vulnerability.root_id,
-                    )
-                )
-            except ToeInputNotFound as exc:
-                if vulnerability.skims_technique not in {"APK"}:
-                    if raises:
-                        raise VulnerabilityUrlFieldDoNotExistInToeInputs(
-                            index=f"{index}"
-                        ) from exc  # noqa
-                    return None
-
-        if vulnerability.type == VulnerabilityType.PORTS:
-            try:
-                await loaders.toe_port.load(
-                    ToePortRequest(
-                        address=where,
-                        port=vulnerability.state.specific,
-                        group_name=group_name,
-                        root_id=vulnerability.root_id,
-                    )
-                )
-            except ToePortNotFound as exc:
-                if raises:
-                    raise VulnerabilityPortFieldDoNotExistInToePorts(
-                        index=f"{index}"
-                    ) from exc
-                return None
-
+    if any([toe_lines, toe_input, toe_port]):
         return vulnerability
+
     return None
 
 

@@ -69,7 +69,6 @@ async def rebase(
     )
     await validate_vulnerability_in_toe(
         loaders,
-        current_vuln.group_name,
         current_vuln._replace(
             state=current_vuln.state._replace(
                 specific=vulnerability_specific,
