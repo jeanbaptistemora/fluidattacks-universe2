@@ -153,7 +153,7 @@ def _cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
     for iam_res in iam_iterator:
         policies = (
             iam_res.inner["Policies"].data
-            if "Policies" in iam_res.raw
+            if hasattr(iam_res, "raw") and "Policies" in iam_res.raw
             else [iam_res]
         )
         for policy in policies:

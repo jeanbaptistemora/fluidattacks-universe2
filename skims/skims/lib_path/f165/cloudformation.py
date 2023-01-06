@@ -52,7 +52,9 @@ def get_wildcard_nodes_for_resources(
         "ec2:DescribeKeyPairs",
     }
     for res in (
-        resources.data if isinstance(resources.raw, List) else [resources]
+        resources.data
+        if hasattr(resources, "raw") and isinstance(resources.raw, List)
+        else [resources]
     ):
         is_action_in_exceptions = list(
             map(

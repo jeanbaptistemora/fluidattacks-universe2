@@ -54,6 +54,7 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
             )
             if (
                 isinstance(min_prot_ver, Node)
+                and hasattr(min_prot_ver, "raw")
                 and min_prot_ver.raw in VULNERABLE_MIN_PROT_VERSIONS
             ):
                 yield min_prot_ver

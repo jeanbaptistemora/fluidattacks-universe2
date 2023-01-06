@@ -35,7 +35,11 @@ def _cfn_bucket_policy_has_server_side_encryption_disabled_iter_vulns(
         if not statements:
             continue
         for statement in statements.data:
-            effect = statement.raw.get("Effect", "")
+            effect = (
+                statement.raw.get("Effect", "")
+                if hasattr(statement, "raw") and hasattr(statement.raw, "get")
+                else ""
+            )
             sse = get_node_by_keys(
                 statement,
                 ["Condition", "Null", "s3:x-amz-server-side-encryption"],

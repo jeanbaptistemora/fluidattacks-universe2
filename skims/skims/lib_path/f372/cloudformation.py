@@ -65,8 +65,11 @@ def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for t_group in t_groups_iterator:
         unsafe_protos = ("HTTP",)
-        protocol = t_group.raw.get("Protocol", "HTTP")
-        t_type = t_group.raw.get("TargetType", "")
+        protocol = "HTTP"
+        t_type = ""
+        if hasattr(t_group, "raw"):
+            protocol = t_group.raw.get("Protocol", "HTTP")
+            t_type = t_group.raw.get("TargetType", "")
         is_proto_required = t_type != "lambda"
         if is_proto_required and protocol in unsafe_protos:
             proto_node = get_node_by_keys(t_group, ["Protocol"])
