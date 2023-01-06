@@ -1,8 +1,16 @@
 = {{group_name}}
 :doctype: book
 
+{%if unfulfilled_standards|length == 0 %}
+=== Congratulations
+Currently, the group complies with all the standards validated by Fluid
+Attacks in your organization.
+{% else %}
 === Unfulfilled Standards
-The group does not comply with the following standards since the group has related unfulfilled requirements.
+The group does not comply with the following standards since the group has
+related unfulfilled requirements.
+{% endif %}
+
 
 {% for unfulfilled_standard in unfulfilled_standards %}
 ==== {{unfulfilled_standard.title}}
