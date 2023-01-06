@@ -206,56 +206,6 @@ def root_has_access_keys(
     )
 
 
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def password_expiration_unsafe(
-    key_id: str,
-    secret: str,
-    session_token: str = None,
-    max_days=90,
-    retry: bool = True,
-) -> tuple:
-    """
-    Check if password policy expires the passwords within 90 days or less.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param max_days: Max expiration days. Default 90
-    """
-    policy = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="get_account_password_policy",
-        param="PasswordPolicy",
-        retry=retry,
-    )
-
-    msg_open: str = "Password policy allows reusing passwords"
-    msg_closed: str = "Password policy avoids reusing passwords"
-
-    vulns, safes = [], []
-
-    pasword_max_age: int = policy.get("MaxPasswordAge", max_days + 1)
-
-    (vulns if pasword_max_age > max_days else safes).append(
-        (
-            "Account/PasswordPolicy/MaxPasswordAge",
-            f"Must be at less than {max_days} days",
-        )
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="password policies",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def root_without_mfa(
