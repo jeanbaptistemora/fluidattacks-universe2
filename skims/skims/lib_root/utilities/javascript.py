@@ -5,6 +5,9 @@ from model.graph_model import (
     Graph,
     NId,
 )
+from typing import (
+    Optional,
+)
 from utils import (
     graph as g,
 )
@@ -45,3 +48,16 @@ def file_imports_module(graph: Graph, module_name: str) -> bool:
             ) or _requires_module(graph, n_id, module_name):
                 return True
     return False
+
+
+def get_namespace_alias(graph: Graph, module_name: str) -> Optional[str]:
+    if (
+        namespace_import_n_ids := g.matching_nodes(
+            graph,
+            label_type="Import",
+            import_type="namespace_import",
+            expression='"' + module_name + '"',
+        )
+    ) and (alias := graph.nodes[namespace_import_n_ids[0]].get("identifier")):
+        return alias
+    return None
