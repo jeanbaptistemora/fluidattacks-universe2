@@ -7,6 +7,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
+    InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
     InvalidSeverity,
@@ -17,6 +18,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.constants import (
+    DEFAULT_INACTIVITY_PERIOD,
 )
 from db_model.groups.types import (
     Group,
@@ -41,6 +45,7 @@ from organizations import (
 )
 from organizations.domain import (
     iterate_organizations_and_groups,
+    MIN_INACTIVITY_PERIOD,
 )
 import pytest
 from typing import (
@@ -216,21 +221,29 @@ async def test_update_policies() -> None:
     email = "org_testuser1@gmail.com"
     loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(org_id)
+    inactivity_period = organization.policies.inactivity_period
     max_acceptance_days = organization.policies.max_acceptance_days
     max_acceptance_severity = organization.policies.max_acceptance_severity
     max_number_acceptances = organization.policies.max_number_acceptances
     min_acceptance_severity = organization.policies.min_acceptance_severity
+    vulnerability_grace_period = (
+        organization.policies.vulnerability_grace_period
+    )
 
+    assert inactivity_period == DEFAULT_INACTIVITY_PERIOD
     assert max_acceptance_days is None
     assert max_acceptance_severity == Decimal("6.9")
     assert max_number_acceptances is None
     assert min_acceptance_severity == Decimal("3.4")
+    assert vulnerability_grace_period is None
 
     new_values = PoliciesToUpdate(
+        inactivity_period=MIN_INACTIVITY_PERIOD,
         max_acceptance_days=20,
         max_acceptance_severity=Decimal("8.3"),
         max_number_acceptances=3,
         min_acceptance_severity=Decimal("2.2"),
+        vulnerability_grace_period=17,
     )
     await orgs_domain.update_policies(
         get_new_context(), org_id, org_name, email, new_values
@@ -238,15 +251,27 @@ async def test_update_policies() -> None:
 
     loaders = get_new_context()
     updated_org: Organization = await loaders.organization.load(org_id)
+    inactivity_period = updated_org.policies.inactivity_period
     max_acceptance_days = updated_org.policies.max_acceptance_days
     max_acceptance_severity = updated_org.policies.max_acceptance_severity
     max_number_acceptances = updated_org.policies.max_number_acceptances
     min_acceptance_severity = updated_org.policies.min_acceptance_severity
+    vulnerability_grace_period = (
+        updated_org.policies.vulnerability_grace_period
+    )
 
+    assert inactivity_period == MIN_INACTIVITY_PERIOD
     assert max_acceptance_days == Decimal("20")
     assert max_acceptance_severity == Decimal("8.3")
     assert max_number_acceptances == Decimal("3")
     assert min_acceptance_severity == Decimal("2.2")
+    assert vulnerability_grace_period == Decimal("17")
+
+    new_values = PoliciesToUpdate(inactivity_period=20)
+    with pytest.raises(InvalidInactivityPeriod):
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, "", new_values
+        )
 
     new_values = PoliciesToUpdate(max_acceptance_days=-10)
     with pytest.raises(InvalidAcceptanceDays):
@@ -295,6 +320,9 @@ async def test_update_policies() -> None:
 
 
 async def test_validate_negative_values() -> None:
+    with pytest.raises(InvalidInactivityPeriod):
+        orgs_domain.validate_inactivity_period(-1)
+
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_max_acceptance_severity(Decimal("-1"))
 
