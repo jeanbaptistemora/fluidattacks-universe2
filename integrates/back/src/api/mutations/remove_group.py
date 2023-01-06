@@ -34,6 +34,8 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
 )
@@ -43,6 +45,8 @@ from sessions import (
 from typing import (
     Any,
 )
+
+LOGGER = logging.getLogger(__name__)
 
 
 @convert_kwargs_to_snake_case
@@ -88,12 +92,17 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Unauthorized role attempted "
-            f"to remove {group_name} group",
+            f"to remove group {group_name}",
         )
         raise
-    except APP_EXCEPTIONS:
+    except APP_EXCEPTIONS as ex:
+        LOGGER.exception(
+            "Error - could not remove group",
+            extra={"extra": {"group_name": group_name, "ex": ex, **kwargs}},
+        )
         logs_utils.cloudwatch_log(
-            info.context, f"Security: Attempted to remove group {group_name}"
+            info.context,
+            f"Security: Attempted to remove group {group_name}, msg: {ex}",
         )
         raise
 
