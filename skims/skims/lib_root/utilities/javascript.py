@@ -31,9 +31,10 @@ def _requires_module(graph: Graph, n_id: NId, module_name: str) -> bool:
 
 def file_imports_module(graph: Graph, module_name: str) -> bool:
     for fl_id in g.matching_nodes(graph, label_type="File"):
-        import_ids = g.match_ast_group_d(graph, fl_id, "Import")
+        import_ids = g.match_ast_group(graph, fl_id, "Import", depth=2)[
+            "Import"
+        ]
         require_ids = g.match_ast_group_d(graph, fl_id, "VariableDeclaration")
-
         for n_id in chain(import_ids, require_ids):
             n_attrs = graph.nodes[n_id]
             m_name = n_attrs.get("expression")
