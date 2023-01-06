@@ -763,6 +763,14 @@ async def create_other_payment_method(
     """Create other payment method and associate it to the organization"""
     validations.validate_field_length(business_name, 60)
     validations.validate_fields([business_name])
+    if rut:
+        validations.validate_sanitized_csv_input(
+            rut.filename, rut.content_type
+        )
+    if tax_id:
+        validations.validate_sanitized_csv_input(
+            tax_id.filename, tax_id.content_type
+        )
     await validate_legal_document(rut, tax_id)
 
     other_payment_id = str(uuid.uuid4())
