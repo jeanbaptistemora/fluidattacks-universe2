@@ -1881,10 +1881,13 @@ async def get_oldest_finding_date(
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
+    findings_indicators = [
+        finding.unreliable_indicators for finding in findings
+    ]
     ages: list[datetime] = [
-        finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
-        for finding in findings
-        if finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
+        finding_indicators.unreliable_oldest_vulnerability_report_date
+        for finding_indicators in findings_indicators
+        if finding_indicators.unreliable_oldest_vulnerability_report_date
     ]
     if ages:
         return min(ages)

@@ -752,7 +752,7 @@ def get_by_time_range(
 
 def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> datetime:
     """Get date of the last vulnerabilities."""
-    last_date = max([vuln.state.modified_date for vuln in vulns])
+    last_date = max(vuln.state.modified_date for vuln in vulns)
     day_week = last_date.weekday()
     first_day = datetime_utils.get_minus_delta(last_date, days=day_week)
 
@@ -762,7 +762,7 @@ def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> datetime:
 def get_last_vulnerabilities_date(
     vulns: tuple[Vulnerability, ...],
 ) -> datetime:
-    last_date = max([vuln.state.modified_date for vuln in vulns])
+    last_date = max(vuln.state.modified_date for vuln in vulns)
     day_month: int = int(last_date.strftime("%d"))
     first_day_delta = datetime_utils.get_minus_delta(
         last_date, days=day_month - 1
@@ -800,9 +800,7 @@ def get_first_week_dates(
 def get_first_dates(
     historic_states: tuple[tuple[VulnerabilityState, ...], ...]
 ) -> tuple[datetime, datetime]:
-    first_date = min(
-        [historic[0].modified_date for historic in historic_states]
-    )
+    first_date = min(historic[0].modified_date for historic in historic_states)
     day_month: int = int(first_date.strftime("%d"))
     first_day_delta = datetime_utils.get_minus_delta(
         first_date, days=day_month - 1

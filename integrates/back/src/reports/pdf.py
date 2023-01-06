@@ -760,7 +760,7 @@ class CreatorPdf:
             loaders, self.user_email, out_name, self.group_name
         )
 
-    async def tech(  # noqa pylint: disable=too-many-arguments
+    async def tech(  # noqa
         self,
         findings: Tuple[Finding, ...],
         finding_evidences_set: Dict[str, List[Dict[str, str]]],

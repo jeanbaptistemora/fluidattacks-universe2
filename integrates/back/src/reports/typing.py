@@ -17,7 +17,7 @@ from vulnerabilities.types import (
 
 
 # XLS reports types definitions
-class ColumnConfig(NamedTuple):  # pylint: disable=too-few-public-methods
+class ColumnConfig(NamedTuple):
     label: str
     width: int = -1
 
@@ -153,7 +153,7 @@ class GroupVulnsReportHeader(GenericHeader):
 # PDF report types definitions
 
 
-class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
+class PdfFindingInfo(NamedTuple):
     attack_vector_description: str
     closed_vulnerabilities: int
     description: str
@@ -172,7 +172,7 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     where: str
 
 
-class CertFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
+class CertFindingInfo(NamedTuple):
     closed_vulnerabilities: int
     open_vulnerabilities: int
     severity_score: Decimal
@@ -180,23 +180,19 @@ class CertFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     title: str
 
 
-class UnfulfilledRequirementInfo(
-    NamedTuple
-):  # pylint: disable=too-few-public-methods
+class UnfulfilledRequirementInfo(NamedTuple):
     description: str
     id: str
     title: str
 
 
-class UnfulfilledStandardInfo(
-    NamedTuple
-):  # pylint: disable=too-few-public-methods
+class UnfulfilledStandardInfo(NamedTuple):
     title: str
     summary: str
     unfulfilled_requirements: list[UnfulfilledRequirementInfo]
 
 
-class WordlistItem(NamedTuple):  # pylint: disable=too-few-public-methods
+class WordlistItem(NamedTuple):
     key: str
     label: Union[str, List[str]]
 

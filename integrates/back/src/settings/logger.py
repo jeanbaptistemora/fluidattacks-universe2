@@ -157,7 +157,7 @@ if FI_ENVIRONMENT == "production":
             "revision": f"{CI_COMMIT_SHA}/integrates/back/packages",
         },
     }
-    requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD))
+    requests.post(URL, headers=HEADERS, data=json.dumps(PAYLOAD), timeout=3)
 
 
 def customize_bugsnag_error_reports(notification: Any) -> bool:

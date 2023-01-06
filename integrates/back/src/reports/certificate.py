@@ -187,7 +187,7 @@ class CertificateCreator(CreatorPdf):
         super().__init__(lang, doctype, tempdir, group, user)
         self.proj_tpl = f"templates/pdf/certificate_{lang}.adoc"
 
-    async def fill_context(  # noqa pylint: disable=too-many-arguments,too-many-locals
+    async def fill_context(  # noqa
         self,
         findings: tuple[Finding, ...],
         group_name: str,
@@ -228,7 +228,7 @@ class CertificateCreator(CreatorPdf):
             "words": words,
         }
 
-    async def cert(  # noqa pylint: disable=too-many-arguments
+    async def cert(  # noqa
         self,
         findings: tuple[Finding, ...],
         group_name: str,

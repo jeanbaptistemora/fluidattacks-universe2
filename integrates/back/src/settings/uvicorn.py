@@ -4,9 +4,7 @@ from uvicorn import (
 )
 
 
-class IntegratesWorker(  # pylint: disable=too-few-public-methods
-    workers.UvicornWorker
-):
+class IntegratesWorker(workers.UvicornWorker):
 
     CONFIG_KWARGS = {
         "interface": "asgi3",
