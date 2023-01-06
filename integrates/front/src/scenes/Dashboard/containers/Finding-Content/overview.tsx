@@ -1,4 +1,7 @@
-import { faSquareCaretDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeartPulse,
+  faSquareCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
@@ -10,9 +13,11 @@ import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Gap } from "components/Layout/Gap";
 import { Row } from "components/Layout/Row";
-import type { ITagProps } from "components/Tag";
-import { Tag } from "components/Tag";
 import { Text } from "components/Text";
+import { Tooltip } from "components/Tooltip";
+import { VulnTag } from "components/VulnTag";
+import failIcon from "resources/fail.svg";
+import okIcon from "resources/ok.svg";
 
 interface IFindingOverviewProps {
   discoveryDate: string;
@@ -31,70 +36,46 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
 }: IFindingOverviewProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const severityConfigs: Record<
+  const statusConfigs: Record<
     string,
-    { color: ITagProps["variant"]; text: string }
+    { icon: string; text: string; tooltip: string }
   > = {
-    CRITICAL: {
-      color: "red",
-      text: t("searchFindings.criticalSeverity"),
+    SAFE: {
+      icon: okIcon,
+      text: t("searchFindings.header.status.stateLabel.closed"),
+      tooltip: t("searchFindings.header.status.stateTooltip.closed"),
     },
-    HIGH: {
-      color: "red",
-      text: t("searchFindings.highSeverity"),
-    },
-    LOW: { color: "gray", text: t("searchFindings.lowSeverity") },
-    MED: {
-      color: "orange",
-      text: t("searchFindings.mediumSeverity"),
-    },
-    NONE: {
-      color: "gray",
-      text: t("searchFindings.noneSeverity"),
+    VULNERABLE: {
+      icon: failIcon,
+      text: t("searchFindings.header.status.stateLabel.open"),
+      tooltip: t("searchFindings.header.status.stateTooltip.open"),
     },
   };
+  const { text: statusText, tooltip: statusTooltip } = statusConfigs[status];
 
-  const SEVERITY_THRESHOLD_CRITICAL: number = 9;
-  const SEVERITY_THRESHOLD_HIGH: number = 6.9;
-  const SEVERITY_THRESHOLD_MED: number = 3.9;
-  const SEVERITY_THRESHOLD_LOW: number = 0.1;
-  //
-  function setSeverityLevel(): [
-    "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE",
-    string
-  ] {
-    if (severity >= SEVERITY_THRESHOLD_CRITICAL) {
-      return ["CRITICAL", t("searchFindings.header.severity.level.critical")];
-    }
-    if (severity > SEVERITY_THRESHOLD_HIGH) {
-      return ["HIGH", t("searchFindings.header.severity.level.high")];
-    }
-    if (severity > SEVERITY_THRESHOLD_MED) {
-      return ["MED", t("searchFindings.header.severity.level.medium")];
-    }
-    if (severity >= SEVERITY_THRESHOLD_LOW) {
-      return ["LOW", t("searchFindings.header.severity.level.low")];
-    }
+  const cvssfColor =
+    statusText === t("searchFindings.header.status.stateLabel.closed")
+      ? "green"
+      : "red";
 
-    return ["NONE", t("searchFindings.header.severity.level.none")];
-  }
-
-  const [severityLevel] = setSeverityLevel();
-  const { color } = severityConfigs[severityLevel];
+  const cvssfTextColor =
+    statusText === t("searchFindings.header.status.stateLabel.closed")
+      ? "dark"
+      : "red";
 
   return (
     <React.StrictMode>
       <Row>
         <Row>
           <Col lg={20} md={50} sm={100}>
-            <CVSSFContainer variant={"red"}>
-              <Card>
+            <CVSSFContainer variant={cvssfColor}>
+              <Card float={true}>
                 <Text
                   bright={0}
                   fw={9}
                   size={"small"}
                   ta={"start"}
-                  tone={"red"}
+                  tone={cvssfTextColor}
                 >
                   {"Remediate this vulnerability"}
                 </Text>
@@ -117,32 +98,50 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
             </CVSSFContainer>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card>
+            <Card float={true}>
               <Row>
                 <Col>
-                  <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
-                    {_.capitalize(status)}
-                  </Text>
+                  <Tooltip
+                    id={"statusTooltip"}
+                    tip={
+                      t("searchFindings.header.status.tooltip") + statusTooltip
+                    }
+                  >
+                    <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
+                      {_.capitalize(status)}
+                    </Text>
+                  </Tooltip>
                 </Col>
                 <Col>
-                  <Tag variant={color}>{severity}</Tag>
+                  <Text disp={"inline"} size={"medium"} ta={"end"}>
+                    <VulnTag value={severity} />
+                  </Text>
                 </Col>
               </Row>
+              <Row>
+                <Gap>
+                  <FontAwesomeIcon
+                    color={"#2e2e38"}
+                    icon={faHeartPulse}
+                    size={"lg"}
+                  />
+                  <Text size={"small"}>{"status and severity"}</Text>
+                </Gap>
+              </Row>
+            </Card>
+          </Col>
+          <Col lg={20} md={50} sm={100}>
+            <Card float={true} title={`${openVulns}`}>
               <Text>{"status and severity"}</Text>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card title={`${openVulns}`}>
-              <Text>{"status and severity"}</Text>
-            </Card>
-          </Col>
-          <Col lg={20} md={50} sm={100}>
-            <Card title={discoveryDate}>
+            <Card float={true} title={discoveryDate}>
               <Text>{"First Reported"}</Text>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card title={estRemediationTime}>
+            <Card float={true} title={estRemediationTime}>
               <Text>{"Remediation time"}</Text>
             </Card>
           </Col>
