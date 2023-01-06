@@ -53,7 +53,7 @@ def generate_refresh_token(credentials: Credentials) -> Dict[str, str]:
         "client_secret": credentials.client_secret,
         "code": grant_token_code,
     }
-    response = requests.post(url=endpoint, data=data)
+    response = requests.post(url=endpoint, data=data, timeout=60)
     return dict(response.json())
 
 
@@ -61,7 +61,7 @@ def revoke_refresh_token() -> Dict[str, str]:
     endpoint = f"{ACCOUNTS_URL}/oauth/v2/token/revoke"
     refresh_token = getpass("Refresh token to revoke:")
     params = {"token": refresh_token}
-    response = requests.post(url=endpoint, params=params)
+    response = requests.post(url=endpoint, params=params, timeout=60)
     LOG.debug("revoke_refresh_token: %s", response)
     return dict(response.json())
 
@@ -75,7 +75,7 @@ def generate_token(credentials: Credentials) -> Dict[str, Any]:
         "client_secret": credentials.client_secret,
         "grant_type": "refresh_token",
     }
-    response = requests.post(url=endpoint, params=params)
+    response = requests.post(url=endpoint, params=params, timeout=60)
     data = response.json()
     LOG.debug("generate_token response: %s, %s", response, response.json())
     if data.get("error"):

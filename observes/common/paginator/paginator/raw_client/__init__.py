@@ -105,11 +105,17 @@ class RawClient:
     def get(
         self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
-        request = lambda: self.try_get(endpoint, params, **kargs)
-        return insistent_call(request, self.handler.unwrap, self.max_retries)
+        return insistent_call(
+            lambda: self.try_get(endpoint, params, **kargs),
+            self.handler.unwrap,
+            self.max_retries,
+        )
 
     def post(
         self, endpoint: str, json: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
-        request = lambda: self.try_post(endpoint, json, **kargs)
-        return insistent_call(request, self.handler.unwrap, self.max_retries)
+        return insistent_call(
+            lambda: self.try_post(endpoint, json, **kargs),
+            self.handler.unwrap,
+            self.max_retries,
+        )

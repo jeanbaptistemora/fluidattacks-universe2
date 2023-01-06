@@ -83,7 +83,7 @@ def get_request_response(user_token: str, resource: str) -> JSON:
     retry = 0
 
     def request() -> Any:
-        return requests.get(resource, headers=headers)
+        return requests.get(resource, headers=headers, timeout=60)
 
     while retry < max_retries:
         json_obj = request().json()

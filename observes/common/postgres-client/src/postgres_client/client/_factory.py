@@ -47,7 +47,6 @@ class ClientFactory(Immutable):
         self = object.__new__(cls)
         return self
 
-    # pylint: disable=no-self-use
     def from_creds(self, db_id: DatabaseID, cred: Credentials) -> Client:
         db_connection = connect(db_id, cred)
         db_cursor = Cursor.new(db_connection)
@@ -57,7 +56,6 @@ class ClientFactory(Immutable):
     def from_conf(self, auth_file: IO[str]) -> Client:
         return self.from_creds(*_extract_conf_info(auth_file))
 
-    # pylint: disable=no-self-use
     def test_client(self, connection: DbConn) -> Client:
         db_connection = DbConnection.from_raw(connection)
         db_cursor = Cursor.from_raw(connection.cursor())

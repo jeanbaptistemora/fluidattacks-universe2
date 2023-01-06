@@ -80,7 +80,7 @@ def get_request_response(resource: str) -> Tuple[int, Any]:
         "Accept": "application/json",
         "Content-Type": "application/json",
     }
-    response = requests.get(resource, headers=headers)
+    response = requests.get(resource, headers=headers, timeout=60)
 
     return (response.status_code, response.json())
 

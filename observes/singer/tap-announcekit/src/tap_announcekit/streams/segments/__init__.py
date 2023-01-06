@@ -43,7 +43,7 @@ class SegmentStreams:
         encoder = SegmentFieldEncoder(self._name)
         data = io_transform.chain(
             ids.map(factory.get_segments).map(
-                lambda i: i.map(lambda l: from_flist(l))
+                lambda i: i.map(lambda x: from_flist(x))
             )
         )
         records = data.map(lambda i: i.map(encoder.to_singer))
@@ -58,7 +58,7 @@ class SegmentStreams:
         encoder = SegmentProfileEncoder(self._name)
         data = io_transform.chain(
             ids.map(factory.get_profiles).map(
-                lambda i: i.map(lambda l: from_flist(l))
+                lambda i: i.map(lambda x: from_flist(x))
             )
         )
         records = data.map(lambda i: i.map(encoder.to_singer))

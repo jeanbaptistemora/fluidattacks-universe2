@@ -33,7 +33,9 @@ def create_bulk_read_job(token: str, module: ModuleName, page: int) -> BulkJob:
         endpoint = API_ENDPOINT
         headers = {"Authorization": f"Zoho-oauthtoken {token}"}
         data = {"query": {"module": module.value, "page": page}}
-        response = requests.post(url=endpoint, json=data, headers=headers)
+        response = requests.post(
+            url=endpoint, json=data, headers=headers, timeout=60
+        )
         response_json = response.json()
         LOG.debug("response json: %s", str(response_json))
         r_data = response_json["data"][0]["details"]
@@ -54,7 +56,7 @@ def get_bulk_job(token: str, job_id: str) -> BulkJob:
     LOG.info("API: Get bulk job #%s", job_id)
     endpoint = f"{API_ENDPOINT}/{job_id}"
     headers = {"Authorization": f"Zoho-oauthtoken {token}"}
-    response = requests.get(url=endpoint, headers=headers)
+    response = requests.get(url=endpoint, headers=headers, timeout=60)
     response_json = response.json()
     LOG.debug("response json: %s", str(response_json))
     r_data = response_json["data"][0]
@@ -88,7 +90,7 @@ def download_result(token: str, job_id: str) -> BulkData:
         LOG.info("API: Download bulk job #%s", job_id)
         endpoint = f"{API_ENDPOINT}/{job_id}/result"
         headers = {"Authorization": f"Zoho-oauthtoken {token}"}
-        response = requests.get(url=endpoint, headers=headers)
+        response = requests.get(url=endpoint, headers=headers, timeout=60)
         tmp_zipdir = tempfile.mkdtemp()
         file_zip = tempfile.NamedTemporaryFile(mode="wb+")
         file_unzip = tempfile.NamedTemporaryFile(mode="w+")

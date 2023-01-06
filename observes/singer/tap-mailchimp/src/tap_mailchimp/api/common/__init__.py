@@ -24,7 +24,7 @@ from typing import (
 
 LOG = logging.getLogger(__name__)
 MAX_PER_PAGE = 1000
-IdType = TypeVar("IdType")
+_T = TypeVar("_T")
 
 
 class NoneTotal(Exception):
@@ -34,8 +34,8 @@ class NoneTotal(Exception):
 def list_items(
     raw_list: Callable[[PageId], JsonObj],
     items_list_key: str,
-    id_builder: Callable[[JsonObj], IdType],
-) -> Iterator[IdType]:
+    id_builder: Callable[[JsonObj], _T],
+) -> Iterator[_T]:
     getter: Callable[
         [PageId], ApiData
     ] = lambda page: api_data.create_api_data(raw_list(page))
@@ -47,7 +47,7 @@ def list_items(
     pages = paginator.new_page_range(range(total_pages), chunk_size)
     results: Iterator[ApiData] = paginator.get_pages(pages, getter)
 
-    def extract_aud_ids(data: ApiData) -> Iterator[IdType]:
+    def extract_aud_ids(data: ApiData) -> Iterator[_T]:
         return iter(
             id_builder(item.to_json())
             for item in data.data[items_list_key].to_list()
@@ -59,8 +59,8 @@ def list_items(
 def list_unsupported_pagination(
     raw_list: Callable[[], JsonObj],
     items_list_key: str,
-    id_builder: Callable[[JsonObj], IdType],
-) -> Iterator[IdType]:
+    id_builder: Callable[[JsonObj], _T],
+) -> Iterator[_T]:
     result = api_data.create_api_data(raw_list())
     if result.total_items is None:
         raise NoneTotal()

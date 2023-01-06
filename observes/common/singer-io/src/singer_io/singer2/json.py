@@ -50,7 +50,6 @@ class CustomJsonEncoder(JSONEncoder):
 
 @dataclass(frozen=True)
 class JsonEmitter:
-    # pylint: disable=no-self-use
     target: IO_FILE[str] = sys.stdout
 
     def to_str(self, json_obj: JsonObj, **kargs: Any) -> str:

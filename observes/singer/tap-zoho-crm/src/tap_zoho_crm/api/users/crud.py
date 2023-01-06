@@ -37,6 +37,7 @@ def get_users(
     response = requests.get(
         url=endpoint,
         headers=headers,
+        timeout=60,
         params=params,  # type: ignore
     )
     response_json = JsonFactory.from_dict(response.json())
