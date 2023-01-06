@@ -209,19 +209,17 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     sum_of_days: Decimal = (
         Decimal(
             sum(
-                [
-                    get_diff(
-                        start=vulnerability.created_date,
-                        end=current_date,
-                    )
-                    if vulnerability.state.status
-                    == VulnerabilityStateStatus.VULNERABLE
-                    else get_diff(
-                        start=vulnerability.created_date,
-                        end=vulnerability.state.modified_date,
-                    )
-                    for vulnerability in filtered_non_reattack_vulnerabilities
-                ]
+                get_diff(
+                    start=vulnerability.created_date,
+                    end=current_date,
+                )
+                if vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
+                else get_diff(
+                    start=vulnerability.created_date,
+                    end=vulnerability.state.modified_date,
+                )
+                for vulnerability in filtered_non_reattack_vulnerabilities
             )
             / len(filtered_non_reattack_vulnerabilities)
         )
