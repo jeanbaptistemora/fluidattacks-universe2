@@ -59,7 +59,7 @@
           outputs."/forces/config/development"
           outputs."/forces/config/runtime"
         ];
-        python = "3.10";
+        python = "3.11";
         src = "/forces/test";
       };
     };
