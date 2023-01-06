@@ -422,7 +422,7 @@ async def upload_cloned_repo_to_s3_tar(
         return False
     with open(zip_output_path, "rb") as object_file:
         object_text = object_file.read()
-        response = requests.put(upload_url, data=object_text, timeout=3)
+        response = requests.put(upload_url, data=object_text, timeout=1800)
         response.raise_for_status()
         success = True
     os.remove(zip_output_path)
