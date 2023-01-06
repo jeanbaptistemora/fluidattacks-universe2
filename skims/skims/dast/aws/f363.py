@@ -214,6 +214,40 @@ async def password_reuse_unsafe(
     return vulns
 
 
+async def password_expiration_unsafe(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_password_policy"
+    )
+    user = await run_boto3_fun(credentials, service="iam", function="get_user")
+    vulns: core_model.Vulnerabilities = ()
+    method = core_model.MethodsEnum.AWS_IAM_PASSWORD_EXPIRATION_UNSAFE
+    password_policy = response.get("PasswordPolicy", [])
+    max_days = 90
+    pasword_max_age: int = password_policy.get("MaxPasswordAge", max_days + 1)
+    if pasword_max_age > max_days:
+        locations = [
+            Location(
+                access_patterns=("/MaxPasswordAge",),
+                arn=(f"{user['User']['Arn']}"),
+                values=(password_policy["MaxPasswordAge"],),
+                description=("src.lib_path.f363.password_expiration_unsafe"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=method,
+                aws_response=password_policy,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -224,4 +258,5 @@ CHECKS: Tuple[
     not_requires_numbers,
     min_password_len_unsafe,
     password_reuse_unsafe,
+    password_expiration_unsafe,
 )
