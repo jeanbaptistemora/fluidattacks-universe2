@@ -45,8 +45,17 @@ const DeleteGroup: React.FC = (): JSX.Element => {
             void removeGroupMutationStatus.client.refetchQueries({
               include: [GET_ROOTS, GET_GROUP_DATA],
             });
+          } else if (
+            message ===
+            "Exception - The action is not allowed during the free trial"
+          ) {
+            msgError(
+              t(
+                `searchFindings.servicesTable.deleteGroup.alerts.trialRestrictionError`
+              )
+            );
           } else {
-            Logger.warning("An error occurred deleting group", error);
+            Logger.error("An error occurred deleting group", error);
             msgError(t("groupAlerts.errorTextsad"));
           }
         });

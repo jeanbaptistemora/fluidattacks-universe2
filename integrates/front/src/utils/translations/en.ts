@@ -2777,6 +2777,8 @@ export const enTranslations: ResourceKey = {
         alerts: {
           pendingActionsError:
             "Some actions on the group have not been completed. Please try to delete the group later.",
+          trialRestrictionError:
+            "The action is not allowed during the free trial. Please contact your manager for more details.",
         },
         deleteGroup: "Delete this group",
         reason: {
