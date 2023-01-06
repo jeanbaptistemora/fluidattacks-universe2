@@ -4,22 +4,21 @@ from .constants import (
 from .types import (
     ToeInput,
     ToeInputMetadataToUpdate,
+    ToeInputState,
 )
 from .utils import (
     format_toe_input_item,
+    format_toe_input_metadata_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
+    InvalidParameter,
     ToeInputAlreadyUpdated,
-)
-from datetime import (
-    datetime,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
-    serialize,
 )
 from dynamodb import (
     keys,
@@ -34,15 +33,21 @@ from dynamodb.model import (
 from dynamodb.types import (
     Item,
 )
-import simplejson as json
 
 
-async def update_metadata(
-    *, current_value: ToeInput, metadata: ToeInputMetadataToUpdate
+async def update_state(
+    *,
+    current_value: ToeInput,
+    new_state: ToeInputState,
+    metadata: ToeInputMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_input_metadata"]
+    if new_state.modified_date is None:
+        raise InvalidParameter("modified_date")
+    if new_state.modified_by is None:
+        raise InvalidParameter("modified_by")
     metadata_key = keys.build_key(
         facet=facet,
         values={
@@ -69,32 +74,7 @@ async def update_metadata(
         gsi_2_index,
         current_value,
     )
-    metadata_item: Item = {
-        key: get_as_utc_iso_format(value)
-        if isinstance(value, datetime)
-        else value
-        for key, value in metadata._asdict().items()
-        if value is not None
-        and key
-        not in {
-            "clean_attacked_at",
-            "clean_be_present_until",
-            "clean_first_attack_at",
-            "clean_seen_at",
-            "state",
-        }
-    }
-    metadata_item["state"] = json.loads(
-        json.dumps(metadata.state, default=serialize)
-    )
-    if metadata.clean_attacked_at:
-        metadata_item["attacked_at"] = ""
-    if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = ""
-    if metadata.clean_first_attack_at:
-        metadata_item["first_attack_at"] = ""
-    if metadata.clean_seen_at:
-        metadata_item["seen_at"] = ""
+    metadata_item: Item = format_toe_input_metadata_item(new_state, metadata)
 
     if "be_present" in metadata_item:
         gsi_2_key = keys.build_key(
@@ -135,8 +115,8 @@ async def update_metadata(
             "group_name": current_value.group_name,
             "root_id": current_value.state.unreliable_root_id,
             # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date)
-            if metadata.state.modified_date
+            "iso8601utc": get_as_utc_iso_format(new_state.modified_date)
+            if new_state.modified_date
             else "",
         },
     )

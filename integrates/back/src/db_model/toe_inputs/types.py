@@ -69,16 +69,6 @@ class RootToeInputsRequest(NamedTuple):
 
 
 class ToeInputMetadataToUpdate(NamedTuple):
-    state: ToeInputState
-    attacked_at: Optional[datetime] = None
-    attacked_by: Optional[str] = None
-    be_present: Optional[bool] = None
-    be_present_until: Optional[datetime] = None
-    first_attack_at: Optional[datetime] = None
-    has_vulnerabilities: Optional[bool] = None
-    seen_at: Optional[datetime] = None
-    seen_first_time_by: Optional[str] = None
-    unreliable_root_id: Optional[str] = None
     clean_attacked_at: bool = False
     clean_be_present_until: bool = False
     clean_first_attack_at: bool = False

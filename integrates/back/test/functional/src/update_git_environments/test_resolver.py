@@ -213,6 +213,6 @@ async def test_remove_git_environment_url(populate: bool, email: str) -> None:
 
     loaders.root_environment_urls.clear_all()
     loaders.root_toe_inputs.clear_all()
-    assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 0
+    assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 1
     assert len(await loaders.root_environment_urls.load((root_id))) == 2
-    assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 1
+    assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 0

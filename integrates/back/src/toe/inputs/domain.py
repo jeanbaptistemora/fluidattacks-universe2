@@ -197,54 +197,47 @@ async def update(
         else None
     )
 
+    new_state = ToeInputState(
+        attacked_at=attributes.attacked_at
+        if attributes.attacked_at is not None
+        else current_value.state.attacked_at,
+        attacked_by=attributes.attacked_by
+        if attributes.attacked_by is not None
+        else current_value.state.attacked_by,
+        be_present=attributes.be_present
+        if attributes.be_present is not None
+        else current_value.state.be_present,
+        be_present_until=be_present_until
+        if be_present_until is not None
+        else current_value.state.be_present_until,
+        first_attack_at=first_attack_at
+        if first_attack_at is not None
+        else current_value.state.first_attack_at,
+        has_vulnerabilities=has_vulnerabilities
+        if has_vulnerabilities is not None
+        else current_value.state.has_vulnerabilities,
+        modified_by=modified_by,
+        modified_date=datetime_utils.get_utc_now(),
+        seen_at=attributes.seen_at
+        if attributes.seen_at is not None
+        else current_value.state.seen_at,
+        seen_first_time_by=attributes.seen_first_time_by
+        if attributes.seen_first_time_by is not None
+        else current_value.state.seen_first_time_by,
+        unreliable_root_id=attributes.unreliable_root_id
+        if attributes.unreliable_root_id is not None
+        else current_value.state.unreliable_root_id,
+    )
     metadata = ToeInputMetadataToUpdate(
-        attacked_at=attributes.attacked_at,
-        attacked_by=attributes.attacked_by,
-        be_present=attributes.be_present,
-        be_present_until=be_present_until,
-        first_attack_at=first_attack_at,
-        has_vulnerabilities=has_vulnerabilities,
-        seen_at=attributes.seen_at,
-        seen_first_time_by=attributes.seen_first_time_by,
-        state=ToeInputState(
-            attacked_at=attributes.attacked_at
-            if attributes.attacked_at is not None
-            else current_value.state.attacked_at,
-            attacked_by=attributes.attacked_by
-            if attributes.attacked_by is not None
-            else current_value.state.attacked_by,
-            be_present=attributes.be_present
-            if attributes.be_present is not None
-            else current_value.state.be_present,
-            be_present_until=be_present_until
-            if be_present_until is not None
-            else current_value.state.be_present_until,
-            first_attack_at=first_attack_at
-            if first_attack_at is not None
-            else current_value.state.first_attack_at,
-            has_vulnerabilities=has_vulnerabilities
-            if has_vulnerabilities is not None
-            else current_value.state.has_vulnerabilities,
-            modified_by=modified_by,
-            modified_date=datetime_utils.get_utc_now(),
-            seen_at=attributes.seen_at
-            if attributes.seen_at is not None
-            else current_value.state.seen_at,
-            seen_first_time_by=attributes.seen_first_time_by
-            if attributes.seen_first_time_by is not None
-            else current_value.state.seen_first_time_by,
-            unreliable_root_id=attributes.unreliable_root_id
-            if attributes.unreliable_root_id is not None
-            else current_value.state.unreliable_root_id,
-        ),
-        unreliable_root_id=attributes.unreliable_root_id,
         clean_attacked_at=attributes.clean_attacked_at,
         clean_be_present_until=attributes.be_present is not None
         and be_present_until is None,
         clean_first_attack_at=attributes.clean_first_attack_at,
         clean_seen_at=attributes.clean_seen_at,
     )
-    await toe_inputs_model.update_metadata(
+
+    await toe_inputs_model.update_state(
         current_value=current_value,
+        new_state=new_state,
         metadata=metadata,
     )

@@ -1,6 +1,7 @@
 from .types import (
     ToeInput,
     ToeInputEdge,
+    ToeInputMetadataToUpdate,
     ToeInputState,
 )
 from datetime import (
@@ -11,6 +12,7 @@ from db_model import (
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb.types import (
     Index,
@@ -21,6 +23,7 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
+import simplejson as json
 from typing import (
     Optional,
 )
@@ -134,3 +137,24 @@ def format_toe_input_item(
             "unreliable_root_id": toe_input.state.unreliable_root_id,
         },
     }
+
+
+def format_toe_input_metadata_item(
+    state: ToeInputState, metadata: ToeInputMetadataToUpdate
+) -> Item:
+    metadata_item: Item = {}
+    metadata_item["state"] = json.loads(json.dumps(state, default=serialize))
+    if metadata.clean_attacked_at:
+        metadata_item["attacked_at"] = ""
+        metadata_item["state"]["attacked_at"] = ""
+    if metadata.clean_be_present_until:
+        metadata_item["be_present_until"] = ""
+        metadata_item["state"]["be_present_until"] = ""
+    if metadata.clean_first_attack_at:
+        metadata_item["first_attack_at"] = ""
+        metadata_item["state"]["first_attack_at"] = ""
+    if metadata.clean_seen_at:
+        metadata_item["seen_at"] = ""
+        metadata_item["state"]["seen_at"] = ""
+
+    return metadata_item

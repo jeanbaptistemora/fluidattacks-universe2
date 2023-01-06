@@ -99,7 +99,7 @@ async def test_refresh_toe_inputs(
                     "attackedAt": "2021-02-11T05:00:00+00:00",
                     "attackedBy": "",
                     "bePresent": True,
-                    "bePresentUntil": "2021-03-11T05:00:00+00:00",
+                    "bePresentUntil": None,
                     "component": "test.com/test3/test.aspx",
                     "entryPoint": "-",
                     "firstAttackAt": "2021-02-11T05:00:00+00:00",

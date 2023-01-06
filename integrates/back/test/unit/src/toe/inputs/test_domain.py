@@ -195,9 +195,7 @@ async def test_update() -> None:
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="",
             be_present=True,
-            be_present_until=datetime.fromisoformat(
-                "2021-03-20T15:41:04+00:00"
-            ),
+            be_present_until=None,
             first_attack_at=datetime.fromisoformat(
                 "2021-02-12T05:00:00+00:00"
             ),

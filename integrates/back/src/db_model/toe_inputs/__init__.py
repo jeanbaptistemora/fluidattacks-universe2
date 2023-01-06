@@ -6,12 +6,12 @@ from .remove import (
     remove_group_toe_inputs,
 )
 from .update import (
-    update_metadata,
+    update_state,
 )
 
 __all__ = [
     "add",
     "remove",
     "remove_group_toe_inputs",
-    "update_metadata",
+    "update_state",
 ]
