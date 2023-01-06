@@ -98,7 +98,8 @@ UNAVAILABLE_FINDING_MSG = (
 )
 
 # Typing
-TVar = TypeVar("TVar")
+TVar = TypeVar("TVar")  # pylint: disable=invalid-name
+# pylint: disable=invalid-name
 TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
@@ -519,13 +520,14 @@ def require_report_vulnerabilities(func: TVar) -> TVar:
     return REQUIRE_REPORT_VULNERABILITIES(func)
 
 
-def require_corporate_email(func: Callable[..., Any]) -> TVar:
+def require_corporate_email(func: TVar) -> TVar:
     """
     Verifies the domain on the email address does not belong to a free email
     service
     """
+    _func = cast(Callable[..., Any], func)
 
-    @functools.wraps(func)
+    @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
         user_data = await sessions_domain.get_jwt_content(context)
@@ -533,7 +535,7 @@ def require_corporate_email(func: Callable[..., Any]) -> TVar:
         if await is_personal_email(user_data["user_email"]):
             raise OnlyCorporateEmails()
 
-        return await func(*args, **kwargs)
+        return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)
 
