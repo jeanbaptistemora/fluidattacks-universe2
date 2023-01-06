@@ -693,6 +693,61 @@ async def create_payment_method(
     return result
 
 
+async def create_credit_card_payment_method(
+    *,
+    org: Organization,
+    user_email: str,
+    card_number: str,
+    card_expiration_month: str,
+    card_expiration_year: str,
+    card_cvc: str,
+    make_default: bool,
+) -> bool:
+    """Create a credit card payment method and associate it to the customer"""
+
+    # Create customer if it does not exist
+    customer = await create_billing_customer(org, user_email)
+
+    result: bool = False
+    # get actual payment methods
+    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+        org=org,
+        limit=1000,
+    )
+    try:
+        created: PaymentMethod = await dal.create_payment_method(
+            card_number=card_number,
+            card_expiration_month=card_expiration_month,
+            card_expiration_year=card_expiration_year,
+            card_cvc=card_cvc,
+            default=make_default,
+        )
+
+        # Raise exception if payment method already exists for customer
+        if created.fingerprint in [
+            payment_method.fingerprint for payment_method in payment_methods
+        ]:
+            raise PaymentMethodAlreadyExists()
+
+        # Attach payment method to customer
+        result = await dal.attach_payment_method(
+            payment_method_id=created.id,
+            org_billing_customer=customer.id,
+        )
+    except CardError as ex:
+        raise CouldNotCreatePaymentMethod() from ex
+
+    # If payment method is the first one registered or selected as default,
+    # then make it default
+    if not customer.default_payment_method or make_default:
+        await dal.update_default_payment_method(
+            payment_method_id=created.id,
+            org_billing_customer=customer.id,
+        )
+
+    return result
+
+
 async def update_payment_method(
     *,
     org: Organization,
