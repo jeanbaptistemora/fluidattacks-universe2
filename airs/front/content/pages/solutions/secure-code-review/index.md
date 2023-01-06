@@ -163,6 +163,6 @@ and many others.
     the remediation of vulnerabilities. Don't miss out on the benefits,
     and ask us about our 21-day free trial for a taste
     of our Secure Code Review solution."
-  title="Get started with Fluid Attacks' Secure Code Review right now"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
 />
 </div>

@@ -139,6 +139,6 @@ employees and security staff do not know this.
     If first you'd like a taste of our automated security testing,
     check out the 21-day free trial and upgrade
     to include Red Teaming at any time."
-  title="Get started with Fluid Attacks' Red Teaming right now"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
 />
 </div>

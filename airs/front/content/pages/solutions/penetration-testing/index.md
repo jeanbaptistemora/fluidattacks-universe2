@@ -172,6 +172,7 @@ of real attack scenarios.
     Penetration Testing solution. If first you'd like a taste
     of our automated security testing, check out the 21-day free trial
     and upgrade to include Penetration Testing at any time."
-  title="Get started with Fluid Attacks' Penetration Testing right now"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+    right now"
 />
 </div>

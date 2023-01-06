@@ -186,6 +186,6 @@ than those found using only automated tools.
     and ask us about our Ethical Hacking solution. If first you'd like
     a taste of our automated security testing, check out the 21-day
     free trial and upgrade to include Ethical Hacking at any time."
-  title="Get started with Fluid Attacks' Ethical Hacking right now"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
 />
 </div>

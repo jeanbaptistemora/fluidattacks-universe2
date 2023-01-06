@@ -122,6 +122,12 @@ as well as recommendations to fix the issues.
 This is all shown on a single pane of glass:
 our [Attack Resistance Management (ARM) platform](../../product-overview/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' BAS solution right now"
+/>
+
 ## Why do we need breach and attack simulation?
 
 What are the implications of vulnerable systems?

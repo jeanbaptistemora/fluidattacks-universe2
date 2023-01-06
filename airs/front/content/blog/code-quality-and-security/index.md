@@ -208,6 +208,12 @@ This is why it's increasingly necessary that
 security also appears as a key property
 in relation to code quality.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ## Developing high-quality code
 
 Pressure to go fast to production

@@ -207,6 +207,12 @@ they were able to practice recognizing and reporting the false positives
 provided by the tool
 in its list of identified errors.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ### Third step
 
 This step is oriented to the **prioritization of vulnerabilities**.

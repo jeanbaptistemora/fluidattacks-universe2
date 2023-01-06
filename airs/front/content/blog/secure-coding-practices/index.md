@@ -173,6 +173,12 @@ about which assets and operations would be attractive to threat actors.
 They should be aware of potential threats and risk levels
 and keep in mind and practice preventive measures.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ### Input validation
 
 The mere use of the developed application or software,

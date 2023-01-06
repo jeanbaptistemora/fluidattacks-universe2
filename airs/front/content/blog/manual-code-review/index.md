@@ -182,6 +182,12 @@ as in many cases it is as good,
 or better,
 than other methods of detecting security issues."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ## Zeroed in on manual code review
 
 The manual code review can be carried out by colleagues of the developers,

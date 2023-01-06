@@ -168,6 +168,12 @@ For secure coding practices,
 we recommend you review the [OWASP Code Review Guide](https://owasp.org/www-pdf-archive/OWASP_Code_Review_Guide_v2.pdf)
 with your development team.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ## What are the benefits of secure code review?
 
 Secure code review is part of a preventive approach,
