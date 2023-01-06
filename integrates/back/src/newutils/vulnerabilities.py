@@ -372,11 +372,9 @@ def get_mean_remediate_vulnerabilities_cvssf(
             )
     total_cvssf: Decimal = Decimal(
         sum(
-            [
-                finding_cvssf[vuln.finding_id]
-                for vuln, open_date in zip(vulns, open_vuln_dates)
-                if open_date
-            ]
+            finding_cvssf[vuln.finding_id]
+            for vuln, open_date in zip(vulns, open_vuln_dates)
+            if open_date
         )
     )
     if total_cvssf:
@@ -872,7 +870,7 @@ def is_machine_vuln(vuln: Vulnerability) -> bool:
     )
 
 
-async def validate_vulnerability_in_toe(  # noqa: MC0001 # NOSONAR
+async def validate_vulnerability_in_toe(  # noqa # NOSONAR
     loaders: Any,
     group_name: str,
     vulnerability: Vulnerability,
