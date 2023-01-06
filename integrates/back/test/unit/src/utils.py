@@ -445,6 +445,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     "2019-11-22T20:07:57+00:00"
                 ),
                 modified_by="integratesmanager@gmail.com",
+                inactivity_period=90,
                 max_acceptance_days=60,
                 max_acceptance_severity=Decimal("10.0"),
                 max_number_acceptances=2,

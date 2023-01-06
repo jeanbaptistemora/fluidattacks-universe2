@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 05, 2023, 05:12 PM",
+    "DateLastModified": "Jan 06, 2023, 11:42 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -6554,6 +6554,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
@@ -6618,6 +6621,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "min_acceptance_severity": {
                     "N": "1"
                   },
@@ -6685,6 +6691,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "max_number_acceptances": {
                     "N": "4"
                   },
@@ -6755,6 +6764,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
@@ -6819,6 +6831,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "max_number_acceptances": {
                     "N": "1"
                   },
@@ -6889,6 +6904,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
@@ -6950,6 +6968,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
@@ -7011,6 +7032,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "max_number_acceptances": {
                     "N": "3"
                   },
@@ -7081,6 +7105,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
@@ -7145,6 +7172,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "max_number_acceptances": {
                     "N": "2"
                   },
@@ -7272,6 +7302,9 @@
               },
               "policies": {
                 "M": {
+                  "inactivity_period": {
+                    "N": "90"
+                  },
                   "modified_by": {
                     "S": "unknown"
                   },
