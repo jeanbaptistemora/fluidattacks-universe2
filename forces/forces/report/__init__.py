@@ -90,10 +90,10 @@ def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
                     state if put_state_label else None,
                     vuln_sum,
                     style_summary(
-                        state,
-                        attrgetter(f"{state.value}.{vuln_sum.lower()}")(
-                            summary
-                        ),
+                        state,  # type: ignore
+                        attrgetter(
+                            f"{state.value}.{vuln_sum.lower()}"  # type: ignore
+                        )(summary),
                     ),
                     end_section=vuln_sum == "total",
                 )
@@ -104,7 +104,10 @@ def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
             summary_table.add_row(
                 state,
                 style_summary(
-                    state, attrgetter(f"{state.value}.total")(summary)
+                    state,  # type: ignore
+                    attrgetter(f"{state.value}.total")(  # type: ignore
+                        summary
+                    ),
                 ),
                 end_section=True,
             )

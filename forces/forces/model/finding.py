@@ -2,7 +2,7 @@ from decimal import (
     Decimal,
 )
 from enum import (
-    Enum,
+    StrEnum,
 )
 from forces.model.vulnerability import (
     Vulnerability,
@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-class FindingState(str, Enum):
+class FindingState(StrEnum):
     VULNERABLE: str = "vulnerable"
     SAFE: str = "safe"
 

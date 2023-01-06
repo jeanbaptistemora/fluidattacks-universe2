@@ -2,7 +2,7 @@ from decimal import (
     Decimal,
 )
 from enum import (
-    Enum,
+    StrEnum,
 )
 from io import (
     TextIOWrapper,
@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-class KindEnum(str, Enum):
+class KindEnum(StrEnum):
     """DAST / SAST vulnerabilities mode"""
 
     ALL: str = "all"

@@ -7,7 +7,7 @@ from contextvars import (
     ContextVar,
 )
 from enum import (
-    Enum,
+    StrEnum,
 )
 from forces.utils.bugs import (
     META as BUGS_META,
@@ -32,7 +32,7 @@ from typing import (
 )
 
 
-class LogInterface(Enum):
+class LogInterface(StrEnum):
     ALL = "ALL"
     CONSOLE = "CONSOLE"
     LOGGER = "LOGGER"

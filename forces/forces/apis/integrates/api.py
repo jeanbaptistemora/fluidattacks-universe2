@@ -285,11 +285,11 @@ async def upload_report(  # pylint: disable=too-many-arguments
         vuln for find in report.findings for vuln in find.vulnerabilities
     ]:
         vuln_state: dict[str, float | str] = {
-            "kind": str(vuln.type.value),
+            "kind": vuln.type.value,
             "who": vuln.specific,
             "where": vuln.where,
             "state": {"safe": "closed", "vulnerable": "open"}
-            .get(str(vuln.state.value), str(vuln.state.value))
+            .get(vuln.state.value, vuln.state.value)
             .upper(),
             "exploitability": vuln.exploitability,
         }
