@@ -73,7 +73,7 @@ async def _get_toe_lines(
 
 
 class ToeLinesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeLinesRequest]
     ) -> tuple[ToeLines, ...]:
@@ -129,7 +129,7 @@ async def _get_toe_lines_by_group(
 
 
 class GroupToeLinesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeLinesRequest]
     ) -> tuple[ToeLinesConnection, ...]:
@@ -194,7 +194,7 @@ async def _get_toe_lines_by_root(
 
 
 class RootToeLinesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeLinesRequest]
     ) -> tuple[Union[ToeLinesConnection, None], ...]:

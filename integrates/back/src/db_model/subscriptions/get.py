@@ -106,7 +106,7 @@ async def _get_historic_subscription(
 
 
 class StakeholderSubscriptionsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[tuple[Subscription, ...], ...]:
@@ -116,7 +116,7 @@ class StakeholderSubscriptionsLoader(DataLoader):
 
 
 class StakeholderHistoricSubscriptionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         requests: Iterable[tuple[str, SubscriptionEntity, str]],

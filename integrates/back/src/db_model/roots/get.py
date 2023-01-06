@@ -80,7 +80,7 @@ async def _get_roots(*, root_ids: list[tuple[str, str]]) -> tuple[Root, ...]:
 
 
 class RootLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[tuple[str, str]]
     ) -> tuple[Root, ...]:
@@ -117,7 +117,7 @@ async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:
 
 
 class GroupRootsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: list[str]
     ) -> tuple[tuple[Root, ...], ...]:
@@ -155,7 +155,7 @@ async def _get_organization_roots(
 
 
 class OrganizationRootsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_names: list[str]
     ) -> tuple[tuple[Root, ...], ...]:
@@ -218,7 +218,7 @@ async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
 
 
 class RootHistoricStatesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
     ) -> tuple[tuple[RootState, ...], ...]:
@@ -228,7 +228,7 @@ class RootHistoricStatesLoader(DataLoader):
 
 
 class RootHistoricCloningLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
     ) -> tuple[tuple[GitRootCloning, ...], ...]:
@@ -357,7 +357,7 @@ async def get_machine_executions_by_job_id(
 
 
 class RootMachineExecutionsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
     ) -> tuple[tuple[RootMachineExecution, ...], ...]:
@@ -582,7 +582,7 @@ async def get_git_environment_url_by_id(
 
 
 class RootSecretsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
     ) -> tuple[tuple[Secret, ...], ...]:
@@ -592,7 +592,7 @@ class RootSecretsLoader(DataLoader):
 
 
 class GitEnvironmentSecretsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, urls_ids: list[str]
     ) -> tuple[tuple[Secret, ...], ...]:
@@ -608,7 +608,7 @@ class RootEnvironmentUrlsLoader(DataLoader):
         unchained_data = await self.load_many(root_ids)
         return tuple(chain.from_iterable(unchained_data))
 
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
     ) -> tuple[tuple[RootEnvironmentUrl, ...], ...]:

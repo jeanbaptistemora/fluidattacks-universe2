@@ -166,7 +166,7 @@ async def _get_organization_unreliable_indicators(
 
 
 class OrganizationUnreliableIndicatorsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
     ) -> tuple[OrganizationUnreliableIndicators, ...]:

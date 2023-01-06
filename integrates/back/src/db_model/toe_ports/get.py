@@ -77,7 +77,7 @@ async def _get_toe_ports(
 
 
 class ToePortLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToePortRequest]
     ) -> Iterable[ToePort]:
@@ -109,7 +109,7 @@ async def _get_historic_state(
 
 
 class ToePortHistoricStateLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToePortRequest]
     ) -> tuple[tuple[ToePortState, ...], ...]:
@@ -167,7 +167,7 @@ async def _get_toe_ports_by_group(
 
 
 class GroupToePortsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToePortsRequest]
     ) -> Iterable[ToePortsConnection]:
@@ -232,7 +232,7 @@ async def _get_toe_ports_by_root(
 
 
 class RootToePortsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToePortsRequest]
     ) -> Iterable[Union[ToePortsConnection, None]]:

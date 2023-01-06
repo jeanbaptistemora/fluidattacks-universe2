@@ -81,7 +81,7 @@ async def _get_toe_inputs(
 
 
 class ToeInputLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
     ) -> Iterable[ToeInput]:
@@ -117,7 +117,7 @@ async def _get_historic_toe_input(
 
 
 class ToeInputHistoricLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
     ) -> tuple[Union[tuple[ToeInput, ...], None], ...]:
@@ -178,7 +178,7 @@ async def _get_toe_inputs_by_group(
 
 
 class GroupToeInputsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeInputsRequest]
     ) -> tuple[ToeInputsConnection, ...]:
@@ -244,7 +244,7 @@ async def _get_toe_inputs_by_root(
 
 
 class RootToeInputsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeInputsRequest]
     ) -> tuple[Union[ToeInputsConnection, None], ...]:

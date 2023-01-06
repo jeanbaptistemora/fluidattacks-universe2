@@ -122,7 +122,7 @@ class OrganizationPortfoliosLoader(DataLoader):
 
 
 class PortfolioLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[PortfolioRequest]
     ) -> Union[tuple[Portfolio, ...], None]:

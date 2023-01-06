@@ -142,7 +142,7 @@ async def _get_stakeholders_with_fallback(
 
 
 class StakeholderLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[Stakeholder, ...]:

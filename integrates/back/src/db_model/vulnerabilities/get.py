@@ -313,7 +313,7 @@ async def _get_affected_reattacks(
 
 
 class AssignedVulnerabilitiesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: tuple[str, ...]
     ) -> tuple[tuple[Vulnerability, ...], ...]:
@@ -347,7 +347,7 @@ class FindingVulnerabilitiesLoader(DataLoader):
 
 
 class FindingVulnerabilitiesDraftConnectionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
@@ -417,7 +417,7 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
 
 
 class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
@@ -448,7 +448,7 @@ class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
 
 
 class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
@@ -463,7 +463,7 @@ class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
 
 
 class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: tuple[FindingVulnerabilitiesRequest, ...]
     ) -> tuple[VulnerabilitiesConnection, ...]:
@@ -489,7 +489,7 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
 
 
 class RootVulnerabilitiesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[Vulnerability, ...], ...]:
@@ -499,7 +499,7 @@ class RootVulnerabilitiesLoader(DataLoader):
 
 
 class EventVulnerabilitiesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[Vulnerability, ...], ...]:
@@ -509,7 +509,7 @@ class EventVulnerabilitiesLoader(DataLoader):
 
 
 class VulnerabilityLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[Vulnerability, ...]:
@@ -525,7 +525,7 @@ class VulnerabilityHistoricStateLoader(DataLoader):
         unchained_data = await self.load_many(ids)
         return tuple(chain.from_iterable(unchained_data))
 
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[VulnerabilityState, ...], ...]:
@@ -535,7 +535,7 @@ class VulnerabilityHistoricStateLoader(DataLoader):
 
 
 class VulnerabilityHistoricTreatmentLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
@@ -546,7 +546,7 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
 
 
 class VulnerabilityHistoricVerificationLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[VulnerabilityVerification, ...], ...]:
@@ -559,7 +559,7 @@ class VulnerabilityHistoricVerificationLoader(DataLoader):
 
 
 class VulnerabilityHistoricZeroRiskLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: tuple[str, ...]
     ) -> tuple[tuple[VulnerabilityZeroRisk, ...], ...]:
