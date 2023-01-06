@@ -2649,6 +2649,7 @@
     - sig.D_4_4_1
     - asvs.4_1_1
     - asvs.4_1_2
+    - owaspapisp.API5
   metadata: {}
 "114":
   en:
@@ -5825,6 +5826,7 @@
     - asvs.9_2_3
     - asvs.12_3_2
     - owaspapisp.API1
+    - owaspapisp.API5
   metadata: {}
 "177":
   en:
@@ -8546,6 +8548,7 @@
     - asvs.9_2_3
     - asvs.13_4_1
     - owaspapisp.API2
+    - owaspapisp.API5
   metadata: {}
 "265":
   en:
@@ -10115,6 +10118,7 @@
     - asvs.5_4_2
     - asvs.14_5_1
     - owaspapisp.API4
+    - owaspapisp.API5
   metadata: {}
 "321":
   en:
