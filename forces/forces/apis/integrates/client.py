@@ -27,7 +27,7 @@ from typing import (
 )
 
 # Context
-TVar = TypeVar("TVar")
+TVar = TypeVar("TVar")  # pylint: disable=invalid-name
 
 
 class ApiError(Exception):

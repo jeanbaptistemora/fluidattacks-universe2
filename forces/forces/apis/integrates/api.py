@@ -31,6 +31,7 @@ from typing import (
 )
 
 # Constants
+# pylint: disable=invalid-name
 TFun = TypeVar("TFun", bound=Callable[..., Any])
 SHIELD: Callable[[TFun], TFun] = shield(
     retries=8 if guess_environment() == "production" else 1,

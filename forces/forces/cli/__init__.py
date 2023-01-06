@@ -120,7 +120,8 @@ def show_banner() -> None:
     build in strict mode. This setting overrides the global minimum breaking
     severity set by your organization in ARM""",
     type=click.FloatRange(min=0.0, max=10.0),
-)  # pylint: disable=too-many-arguments
+)
+# pylint: disable=too-many-arguments
 def main(
     token: str,
     verbose: int,
@@ -248,6 +249,5 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
 
 
 if __name__ == "__main__":
-    main(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
-        prog_name="forces"
-    )
+    # pylint: disable=no-value-for-parameter
+    main(prog_name="forces")
