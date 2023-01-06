@@ -99,12 +99,14 @@ def format_assigned(
     )
 
     return AssignedFormatted(
-        accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
-        accepted_undefined=treatment[
-            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        ],
-        closed_vulnerabilities=status[VulnerabilityStateStatus.SAFE],
-        open_vulnerabilities=status[VulnerabilityStateStatus.VULNERABLE],
+        accepted=Decimal(treatment[VulnerabilityTreatmentStatus.ACCEPTED]),
+        accepted_undefined=Decimal(
+            treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
+        ),
+        closed_vulnerabilities=Decimal(status[VulnerabilityStateStatus.SAFE]),
+        open_vulnerabilities=Decimal(
+            status[VulnerabilityStateStatus.VULNERABLE]
+        ),
         remaining_open_vulnerabilities=remaining_open
         if remaining_open > Decimal("0.0")
         else Decimal("0.0"),

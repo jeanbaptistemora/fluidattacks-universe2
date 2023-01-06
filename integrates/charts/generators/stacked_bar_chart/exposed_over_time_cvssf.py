@@ -14,7 +14,7 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     get_max_axis,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -108,11 +108,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],  # type: ignore
-                    medium=medium["y"],  # type: ignore
-                    high=high["y"],  # type: ignore
-                    critical=critical["y"],  # type: ignore
-                    data_date=translate_date(low["x"]),
+                    low=Decimal(low["y"]),
+                    medium=Decimal(medium["y"]),
+                    high=Decimal(high["y"]),
+                    critical=Decimal(critical["y"]),
+                    data_date=translate_date(str(low["x"])),
                 )
             )
 
@@ -130,11 +130,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_monthly.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],  # type: ignore
-                    medium=medium["y"],  # type: ignore
-                    high=high["y"],  # type: ignore
-                    critical=critical["y"],  # type: ignore
-                    data_date=get_min_date_unformatted(low["x"]),
+                    low=Decimal(low["y"]),
+                    medium=Decimal(medium["y"]),
+                    high=Decimal(high["y"]),
+                    critical=Decimal(critical["y"]),
+                    data_date=get_min_date_unformatted(str(low["x"])),
                 )
             )
 
@@ -152,11 +152,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_yearly.append(
                 GroupDocumentCvssfData(
-                    low=low["y"],  # type: ignore
-                    medium=medium["y"],  # type: ignore
-                    high=high["y"],  # type: ignore
-                    critical=critical["y"],  # type: ignore
-                    data_date=get_min_date_formatted(low["x"]),
+                    low=Decimal(low["y"]),
+                    medium=Decimal(medium["y"]),
+                    high=Decimal(high["y"]),
+                    critical=Decimal(critical["y"]),
+                    data_date=get_min_date_formatted(str(low["x"])),
                 )
             )
 
@@ -171,7 +171,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         if group_indicators.exposed_over_time_month_cvssf
         else []
     )
-    monthly = {
+    monthly: dict[str, dict[datetime, Decimal]] = {
         "date": {datum.data_date: Decimal("0.0") for datum in data_monthly},
         "Exposure": {
             datum.data_date: Decimal(
@@ -180,7 +180,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
             for datum in data_monthly
         },
     }
-    yearly = {
+    yearly: dict[str, dict[datetime, Decimal]] = {
         "date": {datum.data_date: Decimal("0.0") for datum in data_yearly},
         "Exposure": {
             datum.data_date: Decimal(
@@ -218,7 +218,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 async def get_many_groups_document(
     groups: tuple[str, ...],
     loaders: Dataloaders,
-) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
+) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
     group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
@@ -232,7 +232,7 @@ async def get_many_groups_document(
 
 def format_document(
     data_document: tuple[
-        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+        tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType
     ],
 ) -> dict:
     all_documents, time_range = data_document
@@ -353,7 +353,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         group_document: RiskOverTime = await get_group_document(group, loaders)
         document = format_document(
-            data_document=get_current_time_range([group_document]),
+            data_document=get_current_time_range(tuple([group_document])),
         )
         utils.json_dump(
             document=document,

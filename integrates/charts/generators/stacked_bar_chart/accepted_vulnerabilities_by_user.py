@@ -189,7 +189,7 @@ def format_vulnerabilities_by_data(
             "Temporarily accepted",
         ],
         values=[
-            [counters[f"{user}/{key}"] for user, _ in all_data]
+            [Decimal(counters[f"{user}/{key}"]) for user, _ in all_data]
             for key, _ in translations.items()
         ],
         categories=[key for key, _ in all_data],

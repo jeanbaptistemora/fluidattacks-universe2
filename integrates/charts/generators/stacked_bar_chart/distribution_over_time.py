@@ -8,7 +8,7 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -36,6 +36,9 @@ from datetime import (
 )
 from db_model.groups.types import (
     GroupUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
 )
 from typing import (
     List,
@@ -74,14 +77,14 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
-                    date=translate_date(accepted["x"]),
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
+                    date=translate_date(str(accepted["x"])),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -98,14 +101,14 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_monthly.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
-                    date=get_min_date_unformatted(closed["x"]),
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
+                    date=get_min_date_unformatted(str(closed["x"])),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -122,14 +125,14 @@ async def get_group_document(  # pylint: disable=too-many-locals
         ):
             data_yearly.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
-                    date=get_min_date_formatted(closed["x"]),
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
+                    date=get_min_date_formatted(str(closed["x"])),
                     total=(
-                        opened["y"]  # type: ignore
-                        + closed["y"]
-                        + accepted["y"]
+                        Decimal(opened["y"])
+                        + Decimal(closed["y"])
+                        + Decimal(accepted["y"])
                     ),
                 )
             )
@@ -144,8 +147,8 @@ async def get_group_document(  # pylint: disable=too-many-locals
         if group_indicators.remediated_over_time_month
         else []
     )
-    monthly = {
-        "date": {datum.date: 0 for datum in data_monthly},
+    monthly: dict[str, dict[datetime, Decimal]] = {
+        "date": {datum.date: Decimal("0") for datum in data_monthly},
         "Closed": {datum.date: datum.closed for datum in data_monthly},
         "Accepted": {datum.date: datum.accepted for datum in data_monthly},
         "Open": {datum.date: datum.opened for datum in data_monthly},
@@ -156,8 +159,8 @@ async def get_group_document(  # pylint: disable=too-many-locals
     semesterly = get_distribution_over_rangetime(
         group_data=monthly, get_time=get_semester
     )
-    yearly = {
-        "date": {datum.date: 0 for datum in data_yearly},
+    yearly: dict[str, dict[datetime, Decimal]] = {
+        "date": {datum.date: Decimal("0") for datum in data_yearly},
         "Closed": {datum.date: datum.closed for datum in data_yearly},
         "Accepted": {datum.date: datum.accepted for datum in data_yearly},
         "Open": {datum.date: datum.opened for datum in data_yearly},
@@ -175,7 +178,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
         semesterly=semesterly,
         yearly=yearly,
         weekly={
-            "date": {datum.date: 0 for datum in data},
+            "date": {datum.date: Decimal("0") for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
             "Accepted": {datum.date: datum.accepted for datum in data},
             "Open": {datum.date: datum.opened for datum in data},
@@ -186,7 +189,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
 async def get_many_groups_document(
     groups: Tuple[str, ...],
     loaders: Dataloaders,
-) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
+) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
     group_documents: Tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, loaders) for group in groups),
         workers=32,
@@ -205,7 +208,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         group_document: RiskOverTime = await get_group_document(group, loaders)
         document = format_distribution_document(
-            data_document=get_current_time_range([group_document]),
+            data_document=get_current_time_range(tuple([group_document])),
             y_label=y_label,
         )
         utils.json_dump(

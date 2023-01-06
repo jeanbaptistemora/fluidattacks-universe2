@@ -23,7 +23,7 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
