@@ -18,7 +18,7 @@ async def get_result(
     finding: str,
     vulnerability: str,
     justification: str,
-    other_justification: Optional[str],
+    other_reason: Optional[str],
 ) -> Dict[str, Any]:
     query: str = """
             mutation RejectVulnerabilities(
@@ -41,7 +41,7 @@ async def get_result(
     variables: dict[str, Any] = {
         "findingId": finding,
         "justification": justification,
-        "otherJustification": other_justification,
+        "otherJustification": other_reason,
         "vulnerabilities": [vulnerability],
     }
     data: dict[str, Any] = {"query": query, "variables": variables}

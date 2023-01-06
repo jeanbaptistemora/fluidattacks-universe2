@@ -568,17 +568,14 @@ async def reject_vulnerabilities(
     finding_id: str,
     modified_by: str,
     justification: VulnerabilityStateReason,
-    other_justification: Optional[str],
+    other_reason: Optional[str],
 ) -> None:
-    if justification is VulnerabilityStateReason.OTHER and other_justification:
+    if justification is VulnerabilityStateReason.OTHER and other_reason:
         InvalidParameter("justification")
-    if (
-        justification is VulnerabilityStateReason.OTHER
-        and not other_justification
-    ):
-        InvalidParameter("other_justification")
-    if other_justification is not None:
-        vulns_utils.validate_justification_length(other_justification)
+    if justification is VulnerabilityStateReason.OTHER and not other_reason:
+        InvalidParameter("other_reason")
+    if other_reason is not None:
+        vulns_utils.validate_justification_length(other_reason)
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
@@ -596,7 +593,7 @@ async def reject_vulnerabilities(
                     modified_date=datetime_utils.get_utc_now(),
                     status=VulnerabilityStateStatus.REJECTED,
                     reasons=[justification],
-                    other_justification=other_justification,
+                    other_reason=other_reason,
                 ),
             )
             for vulnerability in vulnerabilities
@@ -997,7 +994,7 @@ async def verify(
                 else vuln_to_close.state.commit,
                 modified_by=modified_by,
                 modified_date=modified_date,
-                other_justification=vuln_to_close.state.other_justification,
+                other_reason=vuln_to_close.state.other_reason,
                 reasons=vuln_to_close.state.reasons,
                 source=vuln_to_close.state.source,
                 specific=vuln_to_close.state.specific,

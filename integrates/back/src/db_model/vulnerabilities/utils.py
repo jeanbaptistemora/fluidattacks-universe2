@@ -221,7 +221,7 @@ def format_state(item: Item) -> VulnerabilityState:
         commit=item.get("commit"),
         modified_by=item["modified_by"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
-        other_justification=item.get("other_justification"),
+        other_reason=item.get("other_reason"),
         reasons=[
             VulnerabilityStateReason[reason] for reason in item["reasons"]
         ]

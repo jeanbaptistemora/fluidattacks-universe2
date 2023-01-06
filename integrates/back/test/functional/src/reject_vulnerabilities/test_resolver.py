@@ -21,7 +21,7 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("reject_vulnerabilities")
 @pytest.mark.parametrize(
-    ("email", "vuln_id", "justification", "other_justification"),
+    ("email", "vuln_id", "justification", "other_reason"),
     (
         (
             "admin@gmail.com",
@@ -42,7 +42,7 @@ async def test_reject_vulnerabilities(
     email: str,
     vuln_id: str,
     justification: str,
-    other_justification: str,
+    other_reason: str,
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -55,7 +55,7 @@ async def test_reject_vulnerabilities(
         finding=finding_id,
         vulnerability=vuln_id,
         justification=justification,
-        other_justification=other_justification,
+        other_reason=other_reason,
     )
     assert "errors" not in result
     assert result["data"]["rejectVulnerabilities"]["success"]
@@ -69,7 +69,7 @@ async def test_reject_vulnerabilities(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("reject_vulnerabilities")
 @pytest.mark.parametrize(
-    ("email", "vuln_id", "justification", "other_justification"),
+    ("email", "vuln_id", "justification", "other_reason"),
     (
         (
             "hacker@gmail.com",
@@ -120,7 +120,7 @@ async def test_reject_vulnerabilities_fail(
     email: str,
     vuln_id: str,
     justification: str,
-    other_justification: str,
+    other_reason: str,
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -129,7 +129,7 @@ async def test_reject_vulnerabilities_fail(
         finding=finding_id,
         vulnerability=vuln_id,
         justification=justification,
-        other_justification=other_justification,
+        other_reason=other_reason,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

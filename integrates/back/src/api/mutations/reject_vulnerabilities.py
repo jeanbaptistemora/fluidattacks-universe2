@@ -62,7 +62,7 @@ async def mutate(
             finding_id=finding_id,
             modified_by=stakeholder_email,
             justification=VulnerabilityStateReason[justification],
-            other_justification=kwargs.get("other_justification"),
+            other_reason=kwargs.get("other_reason"),
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.reject_vulnerabilities,
