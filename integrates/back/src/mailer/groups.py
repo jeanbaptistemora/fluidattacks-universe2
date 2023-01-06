@@ -345,13 +345,17 @@ async def send_mail_access_granted(
 async def send_mail_group_alert(
     loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
 ) -> None:
+    subject = (
+        f'[{context["group"]}] group deletion attempt'
+        if context["attempt"]
+        else f'Group [{context["group"]}] has been [{context["state"]}]'
+    )
     await send_mails_async(
         loaders,
         email_to,
         context,
         GENERAL_TAG,
-        f'[ARM] Group [{context["group"]}] has been [{context["state"]}] '
-        + f'from [{context["organization"]}]',
+        f'[ARM] {subject} from [{context["organization"]}]',
         "group_alert",
     )
 

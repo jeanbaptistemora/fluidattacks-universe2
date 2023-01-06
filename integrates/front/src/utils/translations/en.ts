@@ -2572,7 +2572,9 @@ export const enTranslations: ResourceKey = {
       GROUP: "GROUP",
       GROUP_INFORMATION: {
         name: "Group information",
-        tooltip: "Get notifications when a group's information changed.",
+        tooltip:
+          "Get a notification when the information of one of " +
+          "your groups changes or a group is deleted.",
       },
       GROUP_REPORT: {
         name: "GROUP_REPORT",

@@ -12,15 +12,15 @@
 </div>
 {% endmacro %}
 
-{% macro banner(icon) %}
-<div class="body-title">
-  <img
-    alt="Banner custom icon"
-    class="title-icon-container"
-    src="{{ icon }}"
-  />
-  <span class="title-text"> {{ caller() }} </span>
-</div>
+{% macro banner(icon) -%}
+      <div class="body-title">
+        <img
+          alt="Banner custom icon"
+          class="title-icon-container"
+          src="{{ icon }}"
+        />
+        <span class="title-text"> {{ caller() }} </span>
+      </div>
 {% endmacro %}
 
 {% macro banner_bell(text) %}

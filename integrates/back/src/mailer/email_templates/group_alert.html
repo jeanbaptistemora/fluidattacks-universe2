@@ -1,16 +1,21 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Group Alert') }}
+      {{ banner_share('Group Alert') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello, {{ name }}:</h2>
         <p>
+          {% if attempt %}
+          An attempt to delete the <strong>{{ group }}</strong> group
+          from <strong>{{ organization }}</strong> has been started
+          {% else %}
           The group <strong>{{ group }}</strong> has been {{ state }}
-          from <strong>{{ organization }}</strong> by
+          from <strong>{{ organization }}</strong>
+          {% endif %}
+          by
           <strong><a
             href="mailto:{{ responsible }}"
             target="_blank"
@@ -20,21 +25,20 @@
             {{ responsible -}}
           </a></strong>:
         </p>
-        <p>
-          <strong>Date:</strong> {{ date }}<br>
-          <strong>Type:</strong> {{ subscription.capitalize() }}<br>
-          <strong>Reason:</strong> {{ reason }}<br>
-          {% if comments %}
-            <strong>Comment:</strong> {{ comments }}<br>
-          {% endif %}
-        </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <br />
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ date }}<br/><br/>
+            <strong>Type:</strong><br/>{{ subscription.capitalize() }}<br/><br/>
+            <strong>Reason:</strong><br/>{{ reason }}
+            {%- if comments -%}
+            <br/><br/>
+            <strong>Comment:</strong><br/>{{ comments }}
+            {% endif %}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
