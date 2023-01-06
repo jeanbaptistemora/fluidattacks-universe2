@@ -1221,6 +1221,7 @@
     - asvs.12_3_4
     - asvs.12_5_2
     - asvs.14_4_2
+    - owaspapisp.API7
   metadata: {}
 "044":
   en:
@@ -1581,6 +1582,7 @@
     - asvs.14_5_1
     - owaspmasvs.V8_5
     - owaspapisp.API6
+    - owaspapisp.API7
   metadata: {}
 "072":
   en:
@@ -3268,6 +3270,7 @@
     - owaspmasvs.V4_5
     - siglite.SL_72
     - asvs.2_6_1
+    - owaspapisp.API7
   metadata: {}
 "132":
   en:
@@ -3435,6 +3438,7 @@
     - asvs.2_4_1
     - c2m2.4_1_d
     - asvs.2_10_3
+    - owaspapisp.API7
   metadata: {}
 "135":
   en:
@@ -8827,6 +8831,7 @@
     - owaspmasvs.V7_9
     - owaspmasvs.V8_5
     - owaspapisp.API6
+    - owaspapisp.API7
   metadata: {}
 "273":
   en:
