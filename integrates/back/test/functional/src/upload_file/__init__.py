@@ -11,6 +11,7 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -88,17 +89,22 @@ async def get_group_vulnerabilities(
     *,
     user: str,
     group_name: str,
+    state_status: Optional[str] = None,
+    treatment_status: Optional[str] = None,
 ) -> dict:
     query: str = """
         query GetGroupVulnerabilities(
             $after: String
             $first: Int
             $groupName: String!
+            $stateStatus: String
+            $treatment: String
         ) {
             group(groupName: $groupName) {
                 name
                 vulnerabilities(
-                    stateStatus: "open",
+                    stateStatus: $stateStatus,
+                    treatment: $treatment,
                     after: $after,
                     first: $first
                 ) {
@@ -120,7 +126,12 @@ async def get_group_vulnerabilities(
 
     data: dict = {
         "query": query,
-        "variables": {"first": 100, "groupName": group_name},
+        "variables": {
+            "first": 100,
+            "groupName": group_name,
+            "stateStatus": state_status,
+            "treatment": treatment_status,
+        },
     }
 
     return await get_graphql_result(

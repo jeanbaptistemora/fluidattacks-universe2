@@ -247,6 +247,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     group_vulns = await get_group_vulnerabilities(
         user=email,
         group_name="group1",
+        state_status="VULNERABLE",
     )
     assert "errors" not in group_vulns
     assert (

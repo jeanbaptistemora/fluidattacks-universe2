@@ -1,5 +1,9 @@
+# pylint: disable=import-error
 from . import (
     get_result,
+)
+from back.test.functional.src.upload_file import (
+    get_group_vulnerabilities,
 )
 from dataloaders import (
     Dataloaders,
@@ -15,6 +19,10 @@ import pytest
 from typing import (
     Any,
 )
+
+
+def _get_key(item: dict) -> str:
+    return item["node"]["where"]
 
 
 @pytest.mark.asyncio
@@ -222,3 +230,90 @@ async def test_get_group_policies_inheritance(
             result["data"]["group"]["vulnerabilityGracePeriod"]
             == group.policies.vulnerability_grace_period
         )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["user@gmail.com"],
+    ],
+)
+async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
+    assert populate
+    group_vulns: dict = await get_group_vulnerabilities(
+        user=email, group_name="group1", treatment_status="NEW"
+    )
+    assert "errors" not in group_vulns
+    assert sorted(
+        group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+        key=_get_key,
+    ) == [
+        {
+            "node": {
+                "currentState": "open",
+                "state": "VULNERABLE",
+                "where": "192.168.1.20",
+            }
+        }
+    ]
+
+    group_vulns = await get_group_vulnerabilities(
+        user=email, group_name="group1", treatment_status="IN_PROGRESS"
+    )
+    assert "errors" not in group_vulns
+    assert (
+        sorted(
+            group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+            key=_get_key,
+        )
+        == []
+    )
+
+    group_vulns = await get_group_vulnerabilities(
+        user=email, group_name="group1", treatment_status="ACCEPTED"
+    )
+    assert "errors" not in group_vulns
+    assert sorted(
+        group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+        key=_get_key,
+    ) == sorted(
+        [
+            {
+                "node": {
+                    "currentState": "closed",
+                    "state": "SAFE",
+                    "where": "192.168.1.1",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "192.168.1.2",
+                }
+            },
+            {
+                "node": {
+                    "currentState": "open",
+                    "state": "VULNERABLE",
+                    "where": "192.168.1.3",
+                }
+            },
+        ],
+        key=_get_key,
+    )
+
+    group_vulns = await get_group_vulnerabilities(
+        user=email, group_name="group1", treatment_status="ACCEPTED_UNDEFINED"
+    )
+    assert "errors" not in group_vulns
+    assert (
+        sorted(
+            group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+            key=_get_key,
+        )
+        == []
+    )
