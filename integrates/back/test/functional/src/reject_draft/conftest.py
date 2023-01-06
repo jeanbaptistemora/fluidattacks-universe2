@@ -78,8 +78,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack"
-                    " vector",
+                    attack_vector_description="This is an updated attack vector",
                 ),
                 "historic_state": [
                     FindingState(
@@ -163,8 +162,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack"
-                    " vector",
+                    attack_vector_description="This is an updated attack vector",
                 ),
                 "historic_state": [
                     FindingState(
