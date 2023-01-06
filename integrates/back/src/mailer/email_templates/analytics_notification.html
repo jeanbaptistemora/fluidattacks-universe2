@@ -1,28 +1,29 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
       <div class="main-content">
-        <p>{{ name }},</p>
+        <h2>{{ name }},</h2>
         <p>
           You can find several visualizations and figures relevant
           for proper cybersecurity management in the analytics sections
           in our <strong>ARM Platform</strong>. You can find these in several levels:
         </p>
-        <ul class="big-list-icon">
-          <li>
-            Organization
-          </li>
-          <li>
-            Group
-          </li>
-          <li>
-            Portfolio
-          </li>
-        </ul>
+        <div class="data-container">
+          <ul class="big-list-icon">
+            <li>
+              Organization
+            </li>
+            <li>
+              Group
+            </li>
+            <li>
+              Portfolio
+            </li>
+          </ul>
+        </div>
         <p>
           Below, you can see two examples of the
           information provided in these sections:
@@ -64,9 +65,9 @@
           <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
         </p>
         <p>Thanks for trying Continuous Hacking!</p>
-        <p><strong>Fluid Attacks Team</strong></p>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

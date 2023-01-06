@@ -1,12 +1,11 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
       <div class="main-content">
-        <p><strong>{{ name }}</strong>,</p>
+        <h2><strong>{{ name }}</strong>,</h2>
         <p>
           We have several support channels you can use whenever you need help
           or you want to make a suggestion.
@@ -54,9 +53,9 @@
           to know more about this plan.
         </p>
         <p>Keep adding value to your business with Continuous Hacking!</p>
-        <p><strong>Fluid Attacks Team</strong></p>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
