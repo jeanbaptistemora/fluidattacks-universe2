@@ -5,7 +5,7 @@ from aiobotocore import (
 from botocore.exceptions import (
     ClientError,
 )
-from opentelemetry import (  # type: ignore
+from opentelemetry import (
     context,
     trace,
 )
@@ -20,7 +20,7 @@ from opentelemetry.instrumentation.botocore import (  # type: ignore
 from opentelemetry.instrumentation.utils import (
     unwrap,
 )
-from opentelemetry.semconv.trace import (  # type: ignore
+from opentelemetry.semconv.trace import (
     SpanAttributes,
 )
 from typing import (

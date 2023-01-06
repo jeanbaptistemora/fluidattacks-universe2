@@ -2,24 +2,24 @@ from context import (
     FI_ENVIRONMENT,
     FI_NEW_RELIC_LICENSE_KEY,
 )
-from opentelemetry import (  # type: ignore
+from opentelemetry import (
     metrics,
     trace,
 )
-from opentelemetry.exporter.otlp.proto.grpc import (  # type: ignore
+from opentelemetry.exporter.otlp.proto.grpc import (
     metric_exporter,
     trace_exporter,
 )
-from opentelemetry.exporter.otlp.proto.grpc.exporter import (
+from opentelemetry.exporter.otlp.proto.grpc.exporter import (  # type: ignore
     Compression,
 )
-from opentelemetry.instrumentation.aiohttp_client import (  # type: ignore
+from opentelemetry.instrumentation.aiohttp_client import (
     AioHttpClientInstrumentor,
 )
-from opentelemetry.instrumentation.requests import (  # type: ignore
+from opentelemetry.instrumentation.requests import (
     RequestsInstrumentor,
 )
-from opentelemetry.instrumentation.starlette import (  # type: ignore
+from opentelemetry.instrumentation.starlette import (
     StarletteInstrumentor,
 )
 from opentelemetry.sdk.metrics import (  # type: ignore
@@ -28,15 +28,15 @@ from opentelemetry.sdk.metrics import (  # type: ignore
 from opentelemetry.sdk.metrics.export import (  # type: ignore
     PeriodicExportingMetricReader,
 )
-from opentelemetry.sdk.resources import (  # type: ignore
+from opentelemetry.sdk.resources import (
     DEPLOYMENT_ENVIRONMENT,
     Resource,
     SERVICE_NAME,
 )
-from opentelemetry.sdk.trace import (  # type: ignore
+from opentelemetry.sdk.trace import (
     TracerProvider,
 )
-from opentelemetry.sdk.trace.export import (  # type: ignore
+from opentelemetry.sdk.trace.export import (
     BatchSpanProcessor,
 )
 from starlette.applications import (
