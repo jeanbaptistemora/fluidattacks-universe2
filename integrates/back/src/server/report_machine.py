@@ -533,7 +533,7 @@ def _build_vulnerabilities_stream_from_sarif(
     return {
         "inputs": [
             {
-                "field": f"{vuln['locations'][0]['physicalLocation']['region']['startLine']}",  # noqa
+                "field": f"{vuln['locations'][0]['physicalLocation']['region']['startLine']}",  # noqa: E501 pylint: disable=line-too-long
                 "repo_nickname": repo_nickname,
                 "state": "open",
                 "stream": vuln["properties"]["stream"],
@@ -1203,7 +1203,7 @@ async def process_execution(
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(execution_id, config_path)
     try:
-        git_root = next(  # noqa  # pylint: disabled=unused-variable
+        git_root = next(
             root
             for root in await loaders.group_roots.load(group_name)
             if isinstance(root, GitRoot)
