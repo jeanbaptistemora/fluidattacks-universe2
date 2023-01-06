@@ -1,11 +1,9 @@
 aioextensions: 21.7.2261349
 aiogqlc: 3.1.0
 aiohttp: 3.8.3
-bugsnag: 4.2.1
+bugsnag: 4.3.0
 click: 8.1.3
 GitPython: 3.1.29
-more-itertools: 8.14.0
-oyaml: "0.9"
-python-dateutil: 2.8.2
+more-itertools: 9.0.0
 tzdata: "2022.7"
-rich: 12.5.1
+rich: 13.0.1
