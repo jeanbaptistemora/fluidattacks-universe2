@@ -1,15 +1,15 @@
 {% macro go_to_button(text, url, type) -%}
-<div class="flex justify-center">
-  <a
-    class="main-button {{ type }}"
-    title="{{ text }}"
-    href="{{ url }}"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    {{ text }}
-  </a>
-</div>
+        <div class="flex justify-center">
+          <a
+            class="main-button {{ type }}"
+            title="{{ text }}"
+            href="{{ url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ text }}
+          </a>
+        </div>
 {% endmacro %}
 
 {% macro banner(icon) -%}
