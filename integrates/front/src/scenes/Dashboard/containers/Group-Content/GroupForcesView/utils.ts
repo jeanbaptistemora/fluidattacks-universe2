@@ -1,5 +1,6 @@
 import _ from "lodash";
 
+import type { IFilter } from "components/Filter";
 import type {
   IExecution,
   IFoundVulnerabilities,
@@ -110,28 +111,25 @@ const unformatStrictness: (strictness: string) => string = (
 };
 
 const unformatFilterValues: (
-  title: string,
-  value: string,
-  rangeValues?: [string, string]
+  value: IFilter<IExecution>
 ) => Record<string, string> = (
-  title: string,
-  value: string,
-  rangeValues?: [string, string]
+  value: IFilter<IExecution>
 ): Record<string, string> => {
   const unformat = (): Record<string, string> => {
-    if (title === "date" && rangeValues)
+    if (value.id === "date")
       return {
-        fromDate: rangeValues[0],
-        toDate: rangeValues[1],
+        fromDate: value.rangeValues?.[0] ?? "",
+        toDate: value.rangeValues?.[1] ?? "",
       };
-    const titleFormat = formatExecutionFilters(title);
+    const titleFormat = formatExecutionFilters(value.id);
 
-    if (title === "kind") return { [titleFormat]: unformatKind(value) };
+    if (value.id === "kind")
+      return { [titleFormat]: unformatKind(value.value ?? "") };
 
-    return title === "strictness"
-      ? { [titleFormat]: unformatStrictness(value) }
+    return value.id === "strictness"
+      ? { [titleFormat]: unformatStrictness(value.value ?? "") }
       : {
-          [titleFormat]: value,
+          [titleFormat]: value.value ?? "",
         };
   };
 
