@@ -100,9 +100,13 @@ async def _get_vulns(
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
     ],
-)  # pylint: disable=too-many-locals
+)
 @freeze_time("2022-02-09")
-async def test_upload_file(populate: bool, email: str) -> None:
+async def test_upload_file(
+    # pylint: disable=too-many-locals
+    populate: bool,
+    email: str,
+) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"

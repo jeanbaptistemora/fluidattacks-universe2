@@ -1,4 +1,4 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
 )
@@ -47,7 +47,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="060. Insecure service configuration - Host verification",
+                    title="060. Insecure service configuration - Host verification",  # noqa: E501 pylint: disable=line-too-long
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email="test1@gmail.com",
@@ -77,7 +77,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",  # noqa: E501 pylint: disable=line-too-long
                 ),
                 "historic_state": [
                     FindingState(
@@ -105,13 +105,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2020-12-26T05:45:00+00:00"
                     ),
-                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2020-02-24T05:45:00+00:00"
                     ),
-                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2018-04-01T05:45:00+00:00"
                     ),
                     unreliable_status=FindingStatus.VULNERABLE,
@@ -161,7 +161,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",  # noqa: E501 pylint: disable=line-too-long
                 ),
                 "historic_state": [
                     FindingState(
@@ -189,13 +189,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2020-12-26T05:45:00+00:00"
                     ),
-                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2020-02-24T05:45:00+00:00"
                     ),
-                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(
+                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
                         "2018-04-01T05:45:00+00:00"
                     ),
                     unreliable_status=FindingStatus.VULNERABLE,
