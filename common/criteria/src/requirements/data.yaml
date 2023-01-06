@@ -1405,6 +1405,7 @@
     - iso27002.8_26
     - nistssdf.PW_6_1
     - asvs.5_2_8
+    - owaspapisp.API9
   metadata: {}
 "051":
   en:
@@ -8459,6 +8460,7 @@
     - siglite.SL_154
     - asvs.1_14_6
     - asvs.14_2_5
+    - owaspapisp.API9
   metadata: {}
 "264":
   en:
@@ -8835,6 +8837,7 @@
     - owaspmasvs.V8_5
     - owaspapisp.API6
     - owaspapisp.API7
+    - owaspapisp.API9
   metadata: {}
 "273":
   en:
