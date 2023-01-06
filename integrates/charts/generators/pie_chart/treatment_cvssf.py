@@ -102,11 +102,11 @@ async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
 
     return Treatment(
         acceptedUndefined=sum(
-            [group.acceptedUndefined for group in groups_data]
+            group.acceptedUndefined for group in groups_data
         ),
-        accepted=sum([group.accepted for group in groups_data]),
-        inProgress=sum([group.inProgress for group in groups_data]),
-        undefined=sum([group.undefined for group in groups_data]),
+        accepted=sum(group.accepted for group in groups_data),
+        inProgress=sum(group.inProgress for group in groups_data),
+        undefined=sum(group.undefined for group in groups_data),
     )
 
 

@@ -85,7 +85,7 @@ async def get_data_one_group(
         open_range.append((start, stop))
 
     open_event_days: int = sum(
-        [(range[1] - range[0]).days for range in open_range]
+        (range[1] - range[0]).days for range in open_range
     )
 
     return EventsAvailability(

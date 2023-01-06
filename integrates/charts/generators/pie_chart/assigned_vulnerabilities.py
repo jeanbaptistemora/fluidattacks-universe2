@@ -49,29 +49,25 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
 
     return AssignedVulnerabilities(
         assigned=sum(
-            [
-                1
-                for vulnerability in vulnerabilities
-                if vulnerability.state.status
-                == VulnerabilityStateStatus.VULNERABLE
-                and vulnerability.treatment
-                and vulnerability.treatment.assigned
-            ]
+            1
+            for vulnerability in vulnerabilities
+            if vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
+            and vulnerability.treatment
+            and vulnerability.treatment.assigned
         ),
         not_assigned=sum(
-            [
-                1
-                for vulnerability in vulnerabilities
-                if vulnerability.state.status
-                == VulnerabilityStateStatus.VULNERABLE
-                and (
-                    (
-                        vulnerability.treatment
-                        and not vulnerability.treatment.assigned
-                    )
-                    or vulnerability.treatment is None
+            1
+            for vulnerability in vulnerabilities
+            if vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
+            and (
+                (
+                    vulnerability.treatment
+                    and not vulnerability.treatment.assigned
                 )
-            ]
+                or vulnerability.treatment is None
+            )
         ),
     )
 
@@ -84,8 +80,8 @@ async def get_data_many_groups(
     )
 
     return AssignedVulnerabilities(
-        assigned=sum([group.assigned for group in groups_data]),
-        not_assigned=sum([group.not_assigned for group in groups_data]),
+        assigned=sum(group.assigned for group in groups_data),
+        not_assigned=sum(group.not_assigned for group in groups_data),
     )
 
 

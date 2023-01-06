@@ -33,7 +33,7 @@ MAX_GROUPS_DISPLAYED = 4
 
 
 def slice_groups(
-    groups_data: list[PortfoliosGroupsInfo], total_value: Decimal
+    groups_data: tuple[PortfoliosGroupsInfo, ...], total_value: Decimal
 ) -> list[PortfoliosGroupsInfo]:
     groups_data_sorted = sorted(
         groups_data, key=attrgetter("value"), reverse=True
@@ -45,7 +45,7 @@ def slice_groups(
             PortfoliosGroupsInfo(
                 group_name="others",
                 value=total_value
-                - sum([group.value for group in groups_data_sliced]),
+                - sum(group.value for group in groups_data_sliced),
             )
         ]
 

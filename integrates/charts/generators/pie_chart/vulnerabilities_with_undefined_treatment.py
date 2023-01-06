@@ -23,6 +23,9 @@ from dataloaders import (
 from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
+from decimal import (
+    Decimal,
+)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -36,7 +39,7 @@ async def get_data_group(
     total_treatment = indicators.treatment_summary
     return PortfoliosGroupsInfo(
         group_name=group_name,
-        value=total_treatment.new if total_treatment else 0,
+        value=Decimal(total_treatment.new if total_treatment else 0),
     )
 
 
@@ -49,10 +52,12 @@ async def get_data_groups(
         workers=32,
     )
     accepted_undefined_vulnerabilities = sum(
-        [group.value for group in groups_data]
+        group.value for group in groups_data
     )
 
-    return slice_groups(groups_data, accepted_undefined_vulnerabilities)
+    return slice_groups(
+        groups_data, Decimal(accepted_undefined_vulnerabilities)
+    )
 
 
 async def generate_all() -> None:
