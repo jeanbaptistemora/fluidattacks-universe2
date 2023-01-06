@@ -15,6 +15,7 @@ async def get_result(
     user: str,
     organization_id: str,
     organization_name: str,
+    inactivity_period: int,
     max_acceptance_days: int,
     max_acceptance_severity: float,
     max_number_acceptances: int,
@@ -24,6 +25,7 @@ async def get_result(
 ) -> dict[str, Any]:
     query: str = """
         mutation UpdateOrganizationPolicies(
+            $inactivityPeriod: Int
             $maxAcceptanceDays: Int
             $maxAcceptanceSeverity: Float
             $maxNumberAcceptances: Int
@@ -34,6 +36,7 @@ async def get_result(
             $organizationName: String!
         ) {
             updateOrganizationPolicies(
+                inactivityPeriod: $inactivityPeriod
                 maxAcceptanceDays: $maxAcceptanceDays
                 maxAcceptanceSeverity: $maxAcceptanceSeverity
                 maxNumberAcceptances: $maxNumberAcceptances
@@ -51,6 +54,7 @@ async def get_result(
     data: dict[str, Any] = {
         "query": query,
         "variables": {
+            "inactivityPeriod": inactivity_period,
             "maxAcceptanceDays": max_acceptance_days,
             "maxAcceptanceSeverity": max_acceptance_severity,
             "maxNumberAcceptances": max_number_acceptances,

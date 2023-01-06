@@ -1,18 +1,11 @@
 from . import (
     get_result,
 )
+from back.test.functional.src.organization import (
+    get_result as get_organization,
+)
 from custom_exceptions import (
     StakeholderNotInOrganization,
-)
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
-from db_model.organizations.types import (
-    Organization,
-)
-from decimal import (
-    Decimal,
 )
 import pytest
 from typing import (
@@ -39,6 +32,7 @@ async def test_update_organization_policies(
         user=email,
         organization_id=org_id,
         organization_name=org_name,
+        inactivity_period=270,
         max_acceptance_days=5,
         max_acceptance_severity=8.2,
         max_number_acceptances=3,
@@ -49,14 +43,19 @@ async def test_update_organization_policies(
     assert "errors" not in result
     assert result["data"]["updateOrganizationPolicies"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization.load(org_id)
-    assert organization.policies.max_acceptance_days == 5
-    assert organization.policies.max_acceptance_severity == Decimal("8.2")
-    assert organization.policies.max_number_acceptances == 3
-    assert organization.policies.min_acceptance_severity == Decimal("0.0")
-    assert organization.policies.min_breaking_severity == Decimal("5.7")
-    assert organization.policies.vulnerability_grace_period == 1000
+    organization = await get_organization(user=email, org=org_id)
+    assert "errors" not in organization
+    assert organization["data"]["organization"]["id"] == org_id
+    assert organization["data"]["organization"]["inactivityPeriod"] == 270
+    assert organization["data"]["organization"]["maxAcceptanceDays"] == 5
+    assert organization["data"]["organization"]["maxAcceptanceSeverity"] == 8.2
+    assert organization["data"]["organization"]["maxNumberAcceptances"] == 3
+    assert organization["data"]["organization"]["minAcceptanceSeverity"] == 0.0
+    assert organization["data"]["organization"]["minBreakingSeverity"] == 5.7
+    assert (
+        organization["data"]["organization"]["vulnerabilityGracePeriod"]
+        == 1000
+    )
 
 
 @pytest.mark.asyncio
@@ -80,6 +79,7 @@ async def test_update_organization_policies_fail(
         user=email,
         organization_id=org_id,
         organization_name=org_name,
+        inactivity_period=90,
         max_acceptance_days=5,
         max_acceptance_severity=8.2,
         max_number_acceptances=3,
