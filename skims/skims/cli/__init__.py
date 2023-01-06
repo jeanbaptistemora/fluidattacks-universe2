@@ -129,6 +129,6 @@ def cli_scan_wrapped(
 
 
 if __name__ == "__main__":
-    cli(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
+    cli(  # pylint: disable=no-value-for-parameter
         prog_name="skims",
     )

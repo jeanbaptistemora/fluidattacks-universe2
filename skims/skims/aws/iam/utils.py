@@ -87,7 +87,7 @@ def yield_statements_from_policy_document(
             yield from map(patch_statement, statement.data)
     else:
         if hasattr(document, "get"):
-            statement = document.get("Statement", [])  # type: ignore
+            statement = document.get("Statement", [])
         else:
             statement = []
 

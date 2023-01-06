@@ -69,7 +69,7 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     for pkg_obj in affected:
         package: Dict[str, Any] = pkg_obj.get("package") or {}
         ecosystem: str = str(package.get("ecosystem"))
-        if (platform := ecosystem.lower()) not in PLATFORMS.keys():
+        if (platform := ecosystem.lower()) not in PLATFORMS:
             continue
         pkg_name: str = str(package.get("name")).lower()
         ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []

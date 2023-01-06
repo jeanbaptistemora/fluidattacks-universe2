@@ -307,11 +307,13 @@ def get_apk_context(path: str) -> APKContext:
     apk_manifest: Optional[BeautifulSoup] = None
     analysis: Optional[Analysis] = None
     if path.endswith("AndroidManifest.xml"):
+        # pylint: disable=c-extension-no-member
         apk_manifest_data = lxml.etree.parse(path)  # nosec
 
         if apk_manifest_data:
             apk_manifest = BeautifulSoup(
                 BeautifulSoup(
+                    # pylint: disable=c-extension-no-member
                     lxml.etree.tostring(apk_manifest_data),
                     features="html.parser",
                 ).prettify(),
@@ -325,6 +327,7 @@ def get_apk_context(path: str) -> APKContext:
                 apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
                 apk_manifest = BeautifulSoup(
                     BeautifulSoup(
+                        # pylint: disable=c-extension-no-member
                         lxml.etree.tostring(apk_manifest_data),
                         features="html.parser",
                     ).prettify(),

@@ -127,8 +127,6 @@ def analyze(  # noqa: MC0001
     path: str,
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
-    # pylint: disable=too-many-return-statements
-
     if file_extension == "xml" and _is_pom_xml(content_generator()):
         return (run_maven_pom_xml(content_generator(), path),)
 
@@ -144,6 +142,18 @@ def analyze(  # noqa: MC0001
     if file_extension == "csproj":
         return (run_nuget_csproj(content_generator(), path),)
 
+    return analyze_2(content_generator, file_name, file_extension, path)
+
+
+@SHIELD_BLOCKING
+def analyze_2(  # noqa: MC0001
+    content_generator: Callable[[], str],
+    file_name: str,
+    file_extension: str,
+    path: str,
+    **_: None,
+) -> Tuple[Vulnerabilities, ...]:
+    # pylint: disable=too-many-return-statements
     if (file_name, file_extension) == ("packages", "config"):
         return (run_nuget_pkgs_config(content_generator(), path),)
 

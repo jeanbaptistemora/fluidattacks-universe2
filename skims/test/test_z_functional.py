@@ -41,7 +41,8 @@ def skims(*args: str) -> Tuple[int, str, str]:
             configure()
             cli.main(args=list(args), prog_name="skims")
         except SystemExit as exc:  # NOSONAR
-            code = exc.code
+            if isinstance(exc.code, int):
+                code = exc.code
     try:
         return code, out_buffer.getvalue(), err_buffer.getvalue()
     finally:

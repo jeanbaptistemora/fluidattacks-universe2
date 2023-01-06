@@ -28,7 +28,7 @@ def ssl_id2ssl_name(ssl_id: SSLVersionId) -> str:
 
 
 class SnippetConstructor:
-    # pylint: disable=unused-argument, no-self-use
+    # pylint: disable=unused-argument
     def get_server(
         self, ssl_vulnerability: SSLVulnerability  # NOSONAR
     ) -> str:

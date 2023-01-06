@@ -223,9 +223,9 @@ def _get_sarif(
                             "https://docs.fluidattacks.com/"
                             "criteria/requirements/"
                         ),
-                        organization="Fluidattcks",
+                        organization="Fluidattacks",
                         short_description=sarif_om.MultiformatMessageString(
-                            text="The fluidattcks security requirements"
+                            text="The fluidattacks security requirements"
                         ),
                         taxa=[],
                         is_comprehensive=False,

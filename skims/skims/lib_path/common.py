@@ -85,7 +85,7 @@ from zone import (
 )
 
 # Constants
-TFun = TypeVar("TFun", bound=Callable[..., Any])
+Tfun = TypeVar("Tfun", bound=Callable[..., Any])
 DependencyType = Tuple[frozendict, frozendict]
 
 # Reusable Components
@@ -110,11 +110,27 @@ DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar="\\")
 NUMBER: Word = Word("0123456789abcdefABCDEFxX.")
 VAR_NAME_JAVA: ParserElement = Word(alphas + "$_", alphanums + "$_")
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, ".", True)
-TRUE_OPTIONS: Set[Union[str, bool, int]] = {"true", "True", True, "1", 1}
-FALSE_OPTIONS: Set[Union[str, bool, int]] = {"false", "False", False, "0", 0}
+TRUE_OPTIONS: Set[
+    Union[str, bool, int]
+] = {  # NOSONAR # pylint: disable=duplicate-value
+    "true",
+    "True",
+    True,  # NOSONAR
+    "1",
+    1,
+}
+FALSE_OPTIONS: Set[
+    Union[str, bool, int]
+] = {  # NOSONAR # pylint: disable=duplicate-value
+    "false",
+    "False",
+    False,  # NOSONAR
+    "0",
+    0,
+}
 
-SHIELD: Callable[[TFun], TFun] = shield(on_error_return=())
-SHIELD_BLOCKING: Callable[[TFun], TFun] = shield_blocking(on_error_return=())
+SHIELD: Callable[[Tfun], Tfun] = shield(on_error_return=())
+SHIELD_BLOCKING: Callable[[Tfun], Tfun] = shield_blocking(on_error_return=())
 
 # Lint config
 # pylint: disable=too-many-arguments
@@ -540,9 +556,9 @@ def format_pkg_dep(
 
 def pkg_deps_to_vulns(
     platform: core_model.Platform, method: core_model.MethodsEnum
-) -> Callable[[TFun], Callable[[str, str], core_model.Vulnerabilities]]:
+) -> Callable[[Tfun], Callable[[str, str], core_model.Vulnerabilities]]:
     def resolve_deps(
-        resolve_dependencies: TFun,
+        resolve_dependencies: Tfun,
     ) -> Callable[[str, str], core_model.Vulnerabilities]:
         @wraps(resolve_dependencies)
         def resolve_vulns(

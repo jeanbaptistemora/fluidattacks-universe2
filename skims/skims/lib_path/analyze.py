@@ -223,7 +223,9 @@ def analyze_one_path(  # noqa: MC0001
         path,
     )
 
-    file_content_generator = lambda: file_content  # noqa
+    def file_content_generator() -> str:
+        return file_content
+
     file_raw_content_generator = generate_file_raw_content_blocking(
         path, size=MAX_READ
     )

@@ -35730,7 +35730,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.
    58 |       activestorage (= 7.0.2.3)
       ^ Col 0
 ",gem.gem_gemfile_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v7.0.2.3) [GHSA-3hhc-qp5v-9p2j],73,937,skims,011. Use of software with known vulnerabilities,Use of activerecord at version 7.0.2.3 with ['GHSA-3hhc-qp5v-9p2j'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v7.0.2.3) [CVE-2022-32224, GHSA-3hhc-qp5v-9p2j]",73,937,skims,011. Use of software with known vulnerabilities,"Use of activerecord at version 7.0.2.3 with ['CVE-2022-32224', 'GHSA-3hhc-qp5v-9p2j'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    63 |       activesupport (= 7.0.2.3)
    64 |       builder (~> 3.1)
    65 |       erubi (~> 1.4)

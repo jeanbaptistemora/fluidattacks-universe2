@@ -50,7 +50,6 @@ class ShardDb:
         self.shards: Dict[str, GraphShard] = {}
 
     def get_memory_usage(self) -> float:
-        # pylint: disable=no-self-use
         return psutil.virtual_memory().percent
 
     def make_space(self) -> None:

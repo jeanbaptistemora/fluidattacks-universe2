@@ -15,7 +15,7 @@ from typing import (
     Union,
 )
 
-TDefault = TypeVar("TDefault", covariant=True)
+Tdefault_co = TypeVar("Tdefault_co", covariant=True)
 
 
 def get_block_attribute(block: Block, key: str) -> Optional[Attribute]:
@@ -100,8 +100,8 @@ def get_argument(
 def get_attribute(
     body: List[Union[Attribute, Block]],
     key: str,
-    default: Optional[TDefault] = None,
-) -> Union[Optional[TDefault], Attribute]:
+    default: Optional[Tdefault_co] = None,
+) -> Union[Optional[Tdefault_co], Attribute]:
     for item in body:
         if isinstance(item, Block):
             continue

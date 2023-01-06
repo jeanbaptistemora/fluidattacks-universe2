@@ -10,10 +10,10 @@ from typing import (
 )
 
 # Constants
-TFun = TypeVar("TFun", bound=Callable[..., Any])
+Tfun = TypeVar("Tfun", bound=Callable[..., Any])
 
 
-def never_concurrent(function: TFun) -> TFun:
+def never_concurrent(function: Tfun) -> Tfun:
     """Ensure the decorated function runs at max once at any point in time.
 
     :param function: Function to decorate
@@ -28,4 +28,4 @@ def never_concurrent(function: TFun) -> TFun:
         async with lock:
             return await function(*args, **kwargs)
 
-    return cast(TFun, wrapper)
+    return cast(Tfun, wrapper)

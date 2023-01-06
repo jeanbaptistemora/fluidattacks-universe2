@@ -50,7 +50,7 @@ from utils.system import (
 # Constants
 RAISE = object()
 RATE_LIMIT_ENABLED: bool = guess_environment() == "production"
-TFun = TypeVar("TFun", bound=Callable[..., Any])
+Tfun = TypeVar("Tfun", bound=Callable[..., Any])
 
 
 class RetryAndFinallyReturn(Exception):
@@ -153,11 +153,11 @@ def shield(
     ),
     retries: int = 1,
     sleep_between_retries: int = 0,
-) -> Callable[[TFun], TFun]:
+) -> Callable[[Tfun], Tfun]:
     if retries < 1:
         raise ValueError("retries must be >= 1")
 
-    def decorator(function: TFun) -> TFun:
+    def decorator(function: Tfun) -> Tfun:
         @functools.wraps(function)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             function_id = get_id(function)
@@ -194,7 +194,7 @@ def shield(
                     await log("info", "retry #%s: %s", number, function_id)
                     await sleep(sleep_between_retries)
 
-        return cast(TFun, wrapper)
+        return cast(Tfun, wrapper)
 
     return decorator
 
@@ -208,11 +208,11 @@ def shield_blocking(
     ),
     retries: int = 1,
     sleep_between_retries: int = 0,
-) -> Callable[[TFun], TFun]:
+) -> Callable[[Tfun], Tfun]:
     if retries < 1:
         raise ValueError("retries must be >= 1")
 
-    def decorator(function: TFun) -> TFun:
+    def decorator(function: Tfun) -> Tfun:
         @functools.wraps(function)
         def wrapper(  # pylint: disable=inconsistent-return-statements
             *args: Any, **kwargs: Any
@@ -251,6 +251,6 @@ def shield_blocking(
                     log_blocking("info", "retry #%s: %s", number, function_id)
                     sleep_blocking(sleep_between_retries)
 
-        return cast(TFun, wrapper)
+        return cast(Tfun, wrapper)
 
     return decorator

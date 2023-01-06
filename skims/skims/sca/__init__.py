@@ -83,19 +83,16 @@ async def get_advisories_from_dynamodb(
         )
         advisories: Dict[str, str] = {}
         for advisory in remote_ads:
+            updated_adv = {
+                advisory.associated_advisory: advisory.vulnerable_version
+            }
             if advisory.associated_advisory.startswith("GMS"):
                 continue
             if advisory.associated_advisory in advisories:
                 if advisory.source == PATCH_SRC:
-                    advisories.update(
-                        {
-                            advisory.associated_advisory: advisory.vulnerable_version  # noqa
-                        }
-                    )
+                    advisories.update(updated_adv)
             else:
-                advisories.update(
-                    {advisory.associated_advisory: advisory.vulnerable_version}
-                )
+                advisories.update(updated_adv)
         return advisories.items()
     except Exception:  # pylint: disable=broad-except
         return None
