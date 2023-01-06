@@ -61,3 +61,26 @@ def get_namespace_alias(graph: Graph, module_name: str) -> Optional[str]:
     ) and (alias := graph.nodes[namespace_import_n_ids[0]].get("identifier")):
         return alias
     return None
+
+
+def get_default_alias(graph: Graph, module_name: str) -> Optional[str]:
+    if (
+        default_import_n_ids := g.matching_nodes(
+            graph,
+            label_type="Import",
+            expression='"' + module_name + '"',
+            import_type="default_import",
+        )
+    ) and (alias := graph.nodes[default_import_n_ids[0]].get("identifier")):
+        return alias
+    if (
+        default_named_n_ids := g.matching_nodes(
+            graph,
+            label_type="Import",
+            expression='"' + module_name + '"',
+            import_type="named_import",
+            identifier="default",
+        )
+    ) and (alias := graph.nodes[default_named_n_ids[0]].get("label_alias")):
+        return alias
+    return None
