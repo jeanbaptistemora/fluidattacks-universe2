@@ -66,14 +66,22 @@ async def get_vulnerability(
             vulnerability(uuid: $vulnerabilityId) {
                 currentState
                 historicTreatment{
+                    acceptanceDate
+                    acceptanceStatus
+                    justification
                     assigned
                     date
                     treatment
+                    user
                 }
                 historicTreatmentStatus{
+                    acceptanceDate
+                    acceptanceStatus
+                    justification
                     assigned
                     date
                     treatment
+                    user
                 }
                 id
             }

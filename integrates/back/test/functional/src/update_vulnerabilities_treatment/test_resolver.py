@@ -58,7 +58,16 @@ from typing import (
         (
             "user@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
-            "IN_PROGRESS",
+            {
+                "acceptanceDate": None,
+                "acceptanceStatus": None,
+                "justification": (
+                    "test of update vulns treatment justification"
+                ),
+                "date": "",
+                "treatment": "IN_PROGRESS",
+                "user": "user@gmail.com",
+            },
             "user@gmail.com",
             "",
             "NEW",
@@ -66,7 +75,16 @@ from typing import (
         (
             "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-            "ACCEPTED_UNDEFINED",
+            {
+                "acceptanceDate": None,
+                "acceptanceStatus": "SUBMITTED",
+                "justification": (
+                    "test of update vulns treatment justification"
+                ),
+                "date": "",
+                "treatment": "ACCEPTED_UNDEFINED",
+                "user": "user_manager@gmail.com",
+            },
             "user@gmail.com",
             "",
             "ACCEPTED_UNDEFINED",
@@ -74,7 +92,15 @@ from typing import (
         (
             "user_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdc10",
-            "ACCEPTED",
+            {
+                "acceptanceStatus": None,
+                "justification": (
+                    "test of update vulns treatment justification"
+                ),
+                "date": "",
+                "treatment": "ACCEPTED",
+                "user": "user_manager@fluidattacks.com",
+            },
             "user@gmail.com",
             "2021-03-31 19:45:11",
             "ACCEPTED_UNDEFINED",
@@ -82,7 +108,15 @@ from typing import (
         (
             "vulnerability_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdc11",
-            "ACCEPTED",
+            {
+                "acceptanceStatus": None,
+                "justification": (
+                    "test of update vulns treatment justification"
+                ),
+                "date": "",
+                "treatment": "ACCEPTED",
+                "user": "vulnerability_manager@gmail.com",
+            },
             "user@gmail.com",
             "2021-03-31 19:45:11",
             "ACCEPTED_UNDEFINED",
@@ -90,7 +124,15 @@ from typing import (
         (
             "user_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdc11",
-            "ACCEPTED",
+            {
+                "acceptanceStatus": None,
+                "justification": (
+                    "test of update vulns treatment justification"
+                ),
+                "date": "",
+                "treatment": "ACCEPTED",
+                "user": "user_manager@fluidattacks.com",
+            },
             "user@fluidattacks.com",
             "2021-03-31 19:45:11",
             "ACCEPTED",
@@ -102,7 +144,7 @@ async def test_update_vulnerabilities_treatment(
     populate: bool,
     email: str,
     vulnerability: str,
-    treatment: str,
+    treatment: dict,
     assigned: str,
     acceptance_date: str,
     current: str,
@@ -127,7 +169,7 @@ async def test_update_vulnerabilities_treatment(
         user=email,
         finding=finding_id,
         vulnerability=vulnerability,
-        treatment=treatment,
+        treatment=treatment["treatment"],
         assigned=assigned,
         acceptance_date=acceptance_date,
     )
@@ -138,6 +180,7 @@ async def test_update_vulnerabilities_treatment(
     vulnerability_response = await get_vulnerability(
         user=email, vulnerability_id=vulnerability
     )
+
     assert (
         vulnerability_response["data"]["vulnerability"]["historicTreatment"][
             -1
@@ -147,8 +190,26 @@ async def test_update_vulnerabilities_treatment(
     assert (
         vulnerability_response["data"]["vulnerability"]["historicTreatment"][
             -1
+        ]["acceptanceStatus"]
+        == treatment["acceptanceStatus"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["justification"]
+        == treatment["justification"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
+        ]["user"]
+        == treatment["user"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
+            -1
         ]["treatment"]
-        == treatment
+        == treatment["treatment"]
     )
     assert (
         vulnerability_response["data"]["vulnerability"][
@@ -158,7 +219,27 @@ async def test_update_vulnerabilities_treatment(
     )
     assert vulnerability_response["data"]["vulnerability"][
         "historicTreatmentStatus"
-    ][-1]["treatment"] == get_inverted_treatment_converted(treatment)
+    ][-1]["treatment"] == get_inverted_treatment_converted(
+        treatment["treatment"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"][
+            "historicTreatmentStatus"
+        ][-1]["acceptanceStatus"]
+        == treatment["acceptanceStatus"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"][
+            "historicTreatmentStatus"
+        ][-1]["justification"]
+        == treatment["justification"]
+    )
+    assert (
+        vulnerability_response["data"]["vulnerability"][
+            "historicTreatmentStatus"
+        ][-1]["user"]
+        == treatment["user"]
+    )
 
     result = await get_vulnerabilities_assigned(user=assigned)
     vuln_ids = [
