@@ -110,6 +110,12 @@ modify web pages and files,
 shut down servers,
 and more.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 Another issue is the security of infrastructure as code files.
 The cloud brings teams the benefit
 of being able to write infrastructure

@@ -120,6 +120,12 @@ Azure offers the service Azure Key Vault to store API keys,
 certificates, tokens, passwords and other secrets,
 and Azure Active Directory (Azure AD) to manage identity and access control.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 When it comes to assessing risk,
 two domains in the MCSB deserve special attention:
 **posture and vulnerability management** and **DevOps security**.

@@ -180,6 +180,12 @@ Below are the three most popular assessment methods
 that can be executed repeatedly during development
 to increase efficiency and security.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ### Static application security testing (SAST)
 
 SAST analyzes the application source code.

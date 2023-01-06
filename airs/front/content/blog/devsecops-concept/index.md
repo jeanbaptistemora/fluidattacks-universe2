@@ -326,6 +326,12 @@ We've dedicated a blog post about this role
 that even mentions how to become a DevSecOps engineer.
 Be sure to [check it out](../what-does-a-devsecops-engineer-do/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## DevSecOps best practices
 
 It's vital to show a commitment to security

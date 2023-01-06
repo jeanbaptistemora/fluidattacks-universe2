@@ -165,6 +165,12 @@ along with a summed-up version of the best practices in each:
   Identifying, characterizing, reporting on
   and mitigating security vulnerabilities.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 With the purpose of supporting these capabilities,
 there are AWS DevSecOps tools
 (e.g., AWS code scanning and vulnerability management tools)

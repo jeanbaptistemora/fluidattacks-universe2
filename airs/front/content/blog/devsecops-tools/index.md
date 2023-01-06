@@ -135,6 +135,12 @@ on fixing the vulnerabilities we report
 and learn how not to introduce them again in the source code,
 they all start to become security developers.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ### Software composition analysis (SCA)
 
 [Software composition analysis](../../categories/sca/)

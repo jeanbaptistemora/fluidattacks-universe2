@@ -190,6 +190,12 @@ cybersecurity threats,
 software
 and best practices.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## DevSecOps engineer's responsibilities in organizations
 
 The skills listed above can give you a pretty good idea

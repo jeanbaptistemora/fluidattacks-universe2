@@ -248,6 +248,12 @@ Still, a fast release of secure and high-quality products
 can generate profits in the long term,
 and the prevention of cyberattacks can avoid further elevated costs.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## DevSecOps strategy: best implementation techniques
 
 In accordance with the principles or basic steps mentioned above,
