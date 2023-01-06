@@ -4903,6 +4903,7 @@
     - bsafss.LO_2-4
     - asvs.1_5_4
     - asvs.5_3_1
+    - owaspapisp.API8
   metadata: {}
 "161":
   en:
@@ -5215,6 +5216,7 @@
     - asvs.5_3_4
     - pci.6_2_4
     - asvs.5_3_5
+    - owaspapisp.API8
   metadata: {}
 "171":
   en:
@@ -5587,6 +5589,7 @@
     - asvs.13_3_1
     - asvs.14_5_1
     - owaspapisp.API4
+    - owaspapisp.API8
   metadata: {}
 "174":
   en:
