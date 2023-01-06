@@ -226,6 +226,7 @@ async def test_update_policies() -> None:
     max_acceptance_severity = organization.policies.max_acceptance_severity
     max_number_acceptances = organization.policies.max_number_acceptances
     min_acceptance_severity = organization.policies.min_acceptance_severity
+    min_breaking_severity = organization.policies.min_breaking_severity
     vulnerability_grace_period = (
         organization.policies.vulnerability_grace_period
     )
@@ -235,6 +236,7 @@ async def test_update_policies() -> None:
     assert max_acceptance_severity == Decimal("6.9")
     assert max_number_acceptances is None
     assert min_acceptance_severity == Decimal("3.4")
+    assert min_breaking_severity == Decimal("0.0")
     assert vulnerability_grace_period is None
 
     new_values = PoliciesToUpdate(
@@ -243,6 +245,7 @@ async def test_update_policies() -> None:
         max_acceptance_severity=Decimal("8.3"),
         max_number_acceptances=3,
         min_acceptance_severity=Decimal("2.2"),
+        min_breaking_severity=Decimal("3.4"),
         vulnerability_grace_period=17,
     )
     await orgs_domain.update_policies(
@@ -256,6 +259,7 @@ async def test_update_policies() -> None:
     max_acceptance_severity = updated_org.policies.max_acceptance_severity
     max_number_acceptances = updated_org.policies.max_number_acceptances
     min_acceptance_severity = updated_org.policies.min_acceptance_severity
+    min_breaking_severity = updated_org.policies.min_breaking_severity
     vulnerability_grace_period = (
         updated_org.policies.vulnerability_grace_period
     )
@@ -265,6 +269,7 @@ async def test_update_policies() -> None:
     assert max_acceptance_severity == Decimal("8.3")
     assert max_number_acceptances == Decimal("3")
     assert min_acceptance_severity == Decimal("2.2")
+    assert min_breaking_severity == Decimal("3.4")
     assert vulnerability_grace_period == Decimal("17")
 
     new_values = PoliciesToUpdate(inactivity_period=20)
