@@ -748,6 +748,78 @@ async def create_credit_card_payment_method(
     return result
 
 
+async def create_other_payment_method(
+    *,
+    org: Organization,
+    user_email: str,
+    business_name: str,
+    city: str,
+    country: str,
+    email: str,
+    state: str,
+    rut: Optional[UploadFile] = None,
+    tax_id: Optional[UploadFile] = None,
+) -> bool:
+    """Create other payment method and associate it to the organization"""
+    validations.validate_field_length(business_name, 60)
+    validations.validate_fields([business_name])
+    await validate_legal_document(rut, tax_id)
+
+    other_payment_id = str(uuid.uuid4())
+    other_payment = OrganizationPaymentMethods(
+        business_name=business_name,
+        city=city,
+        country=country,
+        documents=OrganizationDocuments(),
+        email=email,
+        id=other_payment_id,
+        state=state,
+    )
+
+    # Raise exception if payment method already exists for organization
+    if org.payment_methods:
+        if business_name in [
+            payment_method.business_name
+            for payment_method in org.payment_methods
+        ]:
+            raise PaymentMethodAlreadyExists()
+        org.payment_methods.append(other_payment)
+    else:
+        org = org._replace(
+            payment_methods=[other_payment],
+        )
+    await organizations_model.update_metadata(
+        metadata=OrganizationMetadataToUpdate(
+            payment_methods=org.payment_methods
+        ),
+        organization_id=org.id,
+        organization_name=org.name,
+    )
+    await notifications_domain.request_other_payment_methods(
+        business_legal_name=business_name,
+        city=city,
+        country=country,
+        efactura_email=email,
+        rut=rut,
+        tax_id=tax_id,
+        user_email=user_email,
+    )
+    return await update_documents(
+        org=org,
+        payment_method_id=other_payment_id,
+        card_expiration_month="",
+        card_expiration_year="",
+        make_default=False,
+        business_name=business_name,
+        city=city,
+        country=country,
+        email=email,
+        state=state,
+        rut=rut,
+        tax_id=tax_id,
+    )
+
+
 async def update_payment_method(
     *,
     org: Organization,
