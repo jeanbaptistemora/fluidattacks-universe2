@@ -114,6 +114,7 @@ def _notify_client(vuln_id: str, group: str, event: HookEvent) -> None:
                 "event": event.value,
                 "id_vulnerability": vuln_id,
             },
+            timeout=3,
         )
         LOGGER.info(
             "[POC] Notified event `%s` for vulnerability %s",
@@ -150,7 +151,9 @@ def process_google_chat(records: tuple[Record, ...]) -> None:
             ]
         )
 
-        requests.post(FI_GOOGLE_CHAT_WEBHOOK_URL, json={"text": text})
+        requests.post(
+            FI_GOOGLE_CHAT_WEBHOOK_URL, json={"text": text}, timeout=3
+        )
 
 
 def process_poc(records: tuple[Record, ...]) -> None:
