@@ -1,4 +1,3 @@
-import type { IHistoricTreatment } from "../../Finding-Content/DescriptionView/types";
 import type { IVulnRowAttr as IVulnerabilityAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
 interface IFinding {
@@ -18,10 +17,6 @@ interface IVulnerability {
   where: string;
 }
 
-interface IVulnerabilitiesHistoricResume {
-  historicTreatment: IHistoricTreatment[];
-}
-
 interface IGroupVulnerabilities {
   group: {
     name: string;
@@ -36,9 +31,4 @@ interface IGroupVulnerabilities {
   };
 }
 
-export type {
-  IFinding,
-  IGroupVulnerabilities,
-  IVulnerabilitiesHistoricResume,
-  IVulnerability,
-};
+export type { IFinding, IGroupVulnerabilities, IVulnerability };

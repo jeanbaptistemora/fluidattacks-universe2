@@ -4,7 +4,8 @@ import type { DocumentNode } from "graphql";
 const GET_VULN_TREATMENT: DocumentNode = gql`
   query GetVulnTreatment($vulnId: String!) {
     vulnerability(uuid: $vulnId) {
-      historicTreatment {
+      id
+      historicTreatmentStatus {
         acceptanceDate
         acceptanceStatus
         assigned

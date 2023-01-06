@@ -49,6 +49,7 @@ const formatDropdownField: (field: string) => string = (
     NEW: "searchFindings.tabDescription.treatment.new",
     REJECTED: "searchFindings.tabDescription.treatment.rejected",
     SOURCE_CODE: "searchFindings.tabDescription.ambit.sourcecode",
+    UNTREATED: "searchFindings.tabDescription.treatment.new",
   };
 
   return translationParameters[field];

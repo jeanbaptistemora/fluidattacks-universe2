@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card } from "components/Card";
@@ -39,59 +39,66 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
     },
   });
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.StrictMode />;
-  }
+  const reversedHistoricTreatment = useMemo((): IHistoricTreatment[] => {
+    if (_.isUndefined(data) || _.isEmpty(data)) {
+      return [];
+    }
 
-  const { historicTreatment } = data.vulnerability;
-  const reversedHistoricTreatment = historicTreatment
-    .reduce(
-      (
-        currentValue: IHistoricTreatment[],
-        treatment: IHistoricTreatment,
-        index: number,
-        array: IHistoricTreatment[]
-      ): IHistoricTreatment[] => {
-        const isAcceptedUndefined: boolean =
-          treatment.treatment === "ACCEPTED_UNDEFINED";
+    return data.vulnerability.historicTreatmentStatus
+      .reduce(
+        (
+          currentValue: IHistoricTreatment[],
+          treatment: IHistoricTreatment,
+          index: number,
+          array: IHistoricTreatment[]
+        ): IHistoricTreatment[] => {
+          const isAcceptedUndefined: boolean =
+            treatment.treatment === "ACCEPTED_UNDEFINED";
 
-        if (
-          (index === 0 ||
-            (index < array.length - 1 &&
-              treatment.treatment !== array[index + 1].treatment)) &&
-          !isAcceptedUndefined
-        ) {
-          return [...currentValue, treatment];
-        }
-        if (isAcceptedUndefined && treatment.acceptanceStatus === "APPROVED") {
-          return [
-            ...currentValue,
-            { ...treatment, acceptanceDate: array[index - 1].date },
-          ];
-        }
-        if (isAcceptedUndefined && treatment.acceptanceStatus === "REJECTED") {
-          return [...currentValue, treatment];
-        }
+          if (
+            (index === 0 ||
+              (index < array.length - 1 &&
+                treatment.treatment !== array[index + 1].treatment)) &&
+            !isAcceptedUndefined
+          ) {
+            return [...currentValue, treatment];
+          }
+          if (
+            isAcceptedUndefined &&
+            treatment.acceptanceStatus === "APPROVED"
+          ) {
+            return [
+              ...currentValue,
+              { ...treatment, acceptanceDate: array[index - 1].date },
+            ];
+          }
+          if (
+            isAcceptedUndefined &&
+            treatment.acceptanceStatus === "REJECTED"
+          ) {
+            return [...currentValue, treatment];
+          }
 
-        if (
-          !isAcceptedUndefined ||
-          index === array.length - 1 ||
-          treatment.treatment !== array[index + 1].treatment
-        ) {
-          return [...currentValue, treatment];
-        }
+          if (
+            !isAcceptedUndefined ||
+            index === array.length - 1 ||
+            treatment.treatment !== array[index + 1].treatment
+          ) {
+            return [...currentValue, treatment];
+          }
 
-        return currentValue;
-      },
-      []
-    )
-    .reduce(
-      (
-        previousValue: IHistoricTreatment[],
-        current: IHistoricTreatment
-      ): IHistoricTreatment[] => [current, ...previousValue],
-      []
-    );
+          return currentValue;
+        },
+        []
+      )
+      .reduce(
+        (
+          previousValue: IHistoricTreatment[],
+          current: IHistoricTreatment
+        ): IHistoricTreatment[] => [current, ...previousValue],
+        []
+      );
+  }, [data]);
 
   return (
     <React.StrictMode>
@@ -123,7 +130,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
                   </h3>
                   <p>
                     {assignedUser === undefined ||
-                    treatment.treatment === "NEW" ? undefined : (
+                    treatment.treatment === "UNTREATED" ? undefined : (
                       <span>
                         {t("searchFindings.tabTracking.assigned")}
                         &nbsp;{assignedUser}

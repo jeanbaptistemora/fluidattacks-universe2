@@ -89,6 +89,7 @@ describe("AdditionalInfo", (): void => {
           commitHash: null,
           cycles: "1",
           efficacy: "0",
+          id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
           lastReattackRequester: "",
           lastRequestedReattackDate: null,
           lastStateDate: "2020-09-05 03:23:23",

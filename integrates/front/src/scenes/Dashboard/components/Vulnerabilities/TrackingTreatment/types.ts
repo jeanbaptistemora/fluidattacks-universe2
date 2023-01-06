@@ -1,7 +1,7 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 
 interface IVulnTreatmentAttr {
-  historicTreatment: IHistoricTreatment[];
+  historicTreatmentStatus: IHistoricTreatment[];
 }
 
 interface IGetVulnTreatmentAttr {

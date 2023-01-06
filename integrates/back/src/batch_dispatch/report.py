@@ -45,6 +45,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     Optional,
 )
 
@@ -181,7 +182,14 @@ async def send_report(  # NOSONAR # pylint: disable=too-many-locals
         )
 
 
-def get_filter_message(  # noqa: MC0001
+def _get_filter_message(value: Optional[Any], text: str) -> str:
+    if value is not None:
+        return text
+
+    return ""
+
+
+def get_filter_message(
     *,
     report_type: str,
     states: set[VulnerabilityStateStatus],
@@ -229,22 +237,28 @@ def get_filter_message(  # noqa: MC0001
         message += f" Treatments: {treatments}."
     if verifications:
         message += f" Verifications: {verifications}."
-    if closing_date:
-        message += f" Closing date: {closing_date}."
+    message += _get_filter_message(
+        closing_date, f" Closing date: {closing_date}."
+    )
     if finding_title:
         message += f" Finding type code: {finding_title}."
     if age is not None:
         message += f" Age in days: {age}."
-    if min_severity is not None:
-        message += f" Minimum CVSS 3.1 score: {min_severity}."
-    if max_severity is not None:
-        message += f" Maximum CVSS 3.1 score: {max_severity}."
-    if last_report is not None:
-        message += f" Last Report in days: {last_report}."
-    if min_release_date:
-        message += f" Minimum release date: {min_release_date}."
-    if max_release_date:
-        message += f" Maximum release date: {max_release_date}."
+    message += _get_filter_message(
+        min_severity, f" Minimum CVSS 3.1 score: {min_severity}."
+    )
+    message += _get_filter_message(
+        max_severity, f" Maximum CVSS 3.1 score: {max_severity}."
+    )
+    message += _get_filter_message(
+        last_report, f" Last Report in days: {last_report}."
+    )
+    message += _get_filter_message(
+        min_release_date, f" Minimum release date: {min_release_date}."
+    )
+    message += _get_filter_message(
+        max_release_date, f" Maximum release date: {max_release_date}."
+    )
     if location:
         message += f" Location: {location}."
 

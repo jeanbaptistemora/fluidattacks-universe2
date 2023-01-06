@@ -18,7 +18,7 @@ describe("TrackingTreatment", (): void => {
       assigned: "",
       date: "2019-01-17 10:06:04",
       justification: "",
-      treatment: "NEW",
+      treatment: "UNTREATED",
       user: "",
     },
     {
@@ -70,7 +70,8 @@ describe("TrackingTreatment", (): void => {
       data: {
         vulnerability: {
           __typename: "Vulnerability",
-          historicTreatment: [...historicTreatment],
+          historicTreatmentStatus: [...historicTreatment],
+          id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
         },
       },
     },
@@ -88,7 +89,7 @@ describe("TrackingTreatment", (): void => {
       data: {
         vulnerability: {
           __typename: "Vulnerability",
-          historicTreatment: [
+          historicTreatmentStatus: [
             ...historicTreatment.slice(0, 2),
             {
               acceptanceDate: "",
@@ -105,10 +106,11 @@ describe("TrackingTreatment", (): void => {
               assigned: "",
               date: "2020-02-18 18:36:25",
               justification: "",
-              treatment: "NEW",
+              treatment: "UNTREATED",
               user: "",
             },
           ],
+          id: "af7a48b8-d8fc-41da-9282-d424fff563f0",
         },
       },
     },
