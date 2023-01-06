@@ -47,6 +47,9 @@ from db_model.companies.types import (
     Company,
 )
 from db_model.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+    MIN_INACTIVITY_PERIOD,
     POLICIES_FORMATTED,
 )
 from db_model.credentials.types import (
@@ -163,9 +166,6 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 # Constants
-DEFAULT_MAX_SEVERITY = Decimal("10.0")
-DEFAULT_MIN_SEVERITY = Decimal("0.0")
-MIN_INACTIVITY_PERIOD = int(21)
 LOGGER = logging.getLogger(__name__)
 
 

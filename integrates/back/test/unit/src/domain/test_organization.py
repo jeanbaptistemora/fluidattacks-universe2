@@ -21,6 +21,7 @@ from dataloaders import (
 )
 from db_model.constants import (
     DEFAULT_INACTIVITY_PERIOD,
+    MIN_INACTIVITY_PERIOD,
 )
 from db_model.groups.types import (
     Group,
@@ -45,7 +46,6 @@ from organizations import (
 )
 from organizations.domain import (
     iterate_organizations_and_groups,
-    MIN_INACTIVITY_PERIOD,
 )
 import pytest
 from typing import (

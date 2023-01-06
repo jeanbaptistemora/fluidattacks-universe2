@@ -1,3 +1,6 @@
+from db_model.constants import (
+    DEFAULT_MAX_SEVERITY,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -7,8 +10,6 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-
-DEFAULT_MAX_SEVERITY = Decimal("10.0")
 
 
 async def resolve(
