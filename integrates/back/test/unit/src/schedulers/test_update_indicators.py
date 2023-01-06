@@ -138,16 +138,14 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
             )
         )
     test_data = sum(
-        [
-            get_accepted_vulns(
-                historic_state, historic_treatment, severity, last_day
-            ).vulnerabilities
-            for historic_state, historic_treatment, severity in zip(
-                historic_states,
-                historic_treatments,
-                vulnerabilities_severity,
-            )
-        ]
+        get_accepted_vulns(
+            historic_state, historic_treatment, severity, last_day
+        ).vulnerabilities
+        for historic_state, historic_treatment, severity in zip(
+            historic_states,
+            historic_treatments,
+            vulnerabilities_severity,
+        )
     )
     expected_output = 1
     assert test_data == expected_output

@@ -216,6 +216,7 @@ async def test_remove_user() -> None:
 
 @pytest.mark.changes_db
 async def test_update_policies() -> None:
+    # pylint: disable=too-many-statements
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
     email = "org_testuser1@gmail.com"
