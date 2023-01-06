@@ -9,6 +9,10 @@ from typing import (
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "api": ("extensions", "schema", "resolvers", "mutations", "validations"),
+    "api.extensions": (
+        "constants",
+        "opentelemetry",
+    ),
     "api.resolvers": (
         "vulnerability",
         "group_compliance",

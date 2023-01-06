@@ -1,6 +1,9 @@
 from api import (
     Operation,
 )
+from api.extensions.constants import (
+    VALID_ATTR_VALUE_TYPES,
+)
 from ariadne.contrib.tracing.utils import (
     format_path,
     should_trace,
@@ -15,11 +18,8 @@ from graphql import (
 from graphql.pyutils import (
     is_awaitable,
 )
-from opentelemetry import (  # type: ignore
+from opentelemetry import (
     trace,
-)
-from opentelemetry.attributes import (  # type: ignore
-    _VALID_ATTR_VALUE_TYPES,
 )
 from typing import (
     Any,
@@ -50,7 +50,7 @@ class FastExtension(Extension):
 def format_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
     return {
         key: (
-            str(value) if type(value) not in _VALID_ATTR_VALUE_TYPES else value
+            str(value) if type(value) not in VALID_ATTR_VALUE_TYPES else value
         )
         for key, value in attributes.items()
     }

@@ -15,16 +15,16 @@ from typing import (
 )
 
 GENERIC_SCALAR = ScalarType("GenericScalar")
-TVar = TypeVar("TVar")
+T = TypeVar("T")
 
 
 @GENERIC_SCALAR.serializer
-def serialize_genericscalar(value: TVar) -> TVar:
+def serialize_genericscalar(value: T) -> T:
     return value
 
 
 @GENERIC_SCALAR.value_parser
-def parse_genericscalar_value(value: TVar) -> TVar:
+def parse_genericscalar_value(value: T) -> T:
     return value
 
 
