@@ -2532,6 +2532,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_PASSWORD_EXPIRATION_UNSAFE = MethodInfo(
+        file_name="aws",
+        name="password_expiration_unsafe",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_KMS_IS_KEY_ROTATION_DISABLED = MethodInfo(
         file_name="aws",
         name="kms_key_is_key_rotation_absent_or_disabled",
