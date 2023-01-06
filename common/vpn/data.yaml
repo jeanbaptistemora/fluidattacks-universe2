@@ -241,8 +241,6 @@ VPN_DATA_RAW:
               name: ENC[AES256_GCM,data:u0IdmQyg7gj2mw==,iv:etwKO7MzzHHPx4M6S7LHX+y8zg9seR4E+aJ64hfPBQY=,tag:R8KsBVLzT2wjdThBH6B3Uw==,type:str]
       routes:
         - ENC[AES256_GCM,data:VBAlGY9sEQ7QL4DUugY=,iv:0IshRA9n1TOlgwOKYoEHAm0jcMCScoyfhNo06EETnvA=,tag:12Je7np4ndD6k1BZIDIOrA==,type:str]
-        - ENC[AES256_GCM,data:d/U/IUfnUTD8Xw3d5Q==,iv:KfQpPnx91WUex7Gg8jREvSQeDBILmB7Jb6+Ycws9kRE=,tag:Z0UsFhBZ5Eyzk1y/GxLlnw==,type:str]
-        - ENC[AES256_GCM,data:g7nn9pGWMdnXpUaLAg==,iv:tMRVjAwK6fXicLbVRh86jMXHuZgTGnjSDeALcFNEZLw=,tag:MFOdXIYqPXj2Nrr1Rtm1kg==,type:str]
 sops:
     kms:
         - arn: arn:aws:kms:us-east-1:205810638802:alias/common_vpn
@@ -253,8 +251,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-12-14T22:02:50Z"
-    mac: ENC[AES256_GCM,data:79Hg4fLG80eOCpTw0arWO7yn0LV89DiN3tFTn6GkfcU+mH3qcUdx3Pg66OeQd0KxzXWHynC1g36TbunvaMtGRt7F9beH7Nru4aeKYnQFfTzwguEyDvzQMyB028hrca+8/ZhJMpgbEUixUzV0quA6XVj5/z28rccQWCQzFyPtOlU=,iv:ZTJDowYGsJJBTXsNJ1Wvuwn9c/j8A91wZTbCHpqEiyI=,tag:PjcX9Wp8wW5JpIRLs9oimw==,type:str]
+    lastmodified: "2023-01-06T22:29:09Z"
+    mac: ENC[AES256_GCM,data:Hyw54RcXV+sxEpfWBDdyUf2xPXnjPL4hqCza1bpCsEVKyeFt0T/Z7HyoO8mvWeXk/udEBrrc0Qv7shkDRcr/7RE7ZeeT6Bc6WPwdNJOiQiUIgIGOMJBXozBa6FnhCGFtEAeL8HlEU/eNzwTgnAaAlVIXaHhoLd897B0fYY3wbWY=,iv:oH1w1dVuKPGKJJpYC2lgZo6gQw6hLQYMVst13gsM6hg=,tag:ojgQNflWlZGgvM5vVdSK6Q==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
