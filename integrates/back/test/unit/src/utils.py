@@ -116,32 +116,32 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
-    "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501
+    "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
     "event_comments_domain.add": "event_comments.domain.add",
     "events_model.add": "db_model.events.add",
     "events_model.update_state": "db_model.events.update_state",
     "events_model.update_evidence": "db_model.events.update_evidence",
-    "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501
+    "findings_storage.download_evidence": "findings.storage.download_evidence",  # noqa: E501 pylint: disable=line-too-long
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501
-    "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501
+    "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501 pylint: disable=line-too-long
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",
-    "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501
+    "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
-    "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501
+    "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
-    "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501
-    "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501
+    "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
-    "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501
-    "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501
+    "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
-    "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501
+    "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
@@ -616,7 +616,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
     },
-    "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained": {  # noqa: E501
+    "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained": {  # noqa: E501 pylint: disable=line-too-long
         '["463558592", "422286126"]': tuple(
             (
                 Vulnerability(
@@ -966,7 +966,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '52110"]': True,
     },
     "dynamodb.operations_legacy.query": {
-        '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501
+        '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long
             dict(
                 additional_info=json.dumps(
                     dict(
@@ -983,13 +983,13 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
                 subject="unittesting@fluidattacks.com",
                 action_name="report",
-                pk="ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",  # noqa: E501
+                pk="ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",  # noqa: E501 pylint: disable=line-too-long
                 time="1616116348",
                 entity="unittesting",
                 queue="small",
             )
         ],
-        '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501
+        '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501 pylint: disable=line-too-long
     },
     "events.domain.replace_different_format": {
         '["418900978", "FILE_1"]': None,
