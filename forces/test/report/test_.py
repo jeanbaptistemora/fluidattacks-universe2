@@ -70,7 +70,7 @@ async def test_generate_report(
     assert report.summary.accepted.total == 4
     assert (
         report.summary.total
-        == sum([len(finding.vulnerabilities) for finding in report.findings])
+        == sum(len(finding.vulnerabilities) for finding in report.findings)
         == 36
     )
 
