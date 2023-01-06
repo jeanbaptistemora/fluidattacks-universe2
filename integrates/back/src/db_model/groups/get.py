@@ -130,7 +130,7 @@ async def _get_organization_groups(
 
 
 class GroupLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[Group, ...]:
@@ -142,7 +142,7 @@ class GroupLoader(DataLoader):
 
 
 class GroupHistoricStateLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[tuple[GroupState, ...], ...]:
@@ -155,7 +155,7 @@ class GroupHistoricStateLoader(DataLoader):
 
 
 class GroupUnreliableIndicatorsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[GroupUnreliableIndicators, ...]:

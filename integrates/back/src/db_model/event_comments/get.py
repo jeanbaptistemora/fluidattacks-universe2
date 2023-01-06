@@ -47,7 +47,7 @@ async def _get_comments(*, event_id: str) -> tuple[EventComment, ...]:
 
 
 class EventCommentsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, events_ids: Iterable[str]
     ) -> tuple[tuple[EventComment, ...], ...]:

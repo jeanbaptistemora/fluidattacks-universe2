@@ -143,7 +143,7 @@ async def _get_stakeholder_organizations_access(
 
 
 class OrganizationAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[OrganizationAccessRequest]
     ) -> tuple[OrganizationAccess, ...]:

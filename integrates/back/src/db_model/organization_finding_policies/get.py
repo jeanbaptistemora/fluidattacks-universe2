@@ -101,7 +101,7 @@ async def _get_organization_finding_policies(
 
 
 class OrganizationFindingPolicyLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[OrgFindingPolicyRequest]
     ) -> tuple[OrgFindingPolicy, ...]:

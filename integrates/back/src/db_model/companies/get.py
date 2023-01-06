@@ -32,7 +32,7 @@ async def _get_companies(domains: list[str]) -> tuple[Company, ...]:
 
 
 class CompanyLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, domains: list[str]
     ) -> tuple[Optional[Company], ...]:

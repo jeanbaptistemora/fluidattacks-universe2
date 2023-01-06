@@ -47,7 +47,7 @@ async def _get_comments(*, group_name: str) -> tuple[GroupComment, ...]:
 
 
 class GroupCommentsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[tuple[GroupComment, ...], ...]:

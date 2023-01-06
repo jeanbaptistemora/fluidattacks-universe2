@@ -117,7 +117,7 @@ class GroupDraftsAndFindingsLoader(DataLoader):
         unchained_data = await self.load_many(group_names)
         return tuple(chain.from_iterable(unchained_data))
 
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[tuple[Finding, ...], ...]:
@@ -127,7 +127,7 @@ class GroupDraftsAndFindingsLoader(DataLoader):
 
 
 class MeDraftsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[Finding, ...]:
@@ -198,7 +198,7 @@ class GroupFindingsLoader(DataLoader):
 
 
 class FindingLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
     ) -> tuple[Finding, ...]:
@@ -231,7 +231,7 @@ class FindingHistoricVerificationLoader(DataLoader):
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
     ) -> tuple[tuple[FindingVerification], ...]:
@@ -267,7 +267,7 @@ class FindingHistoricStateLoader(DataLoader):
         unchained_data = await self.load_many(finding_ids)
         return tuple(chain.from_iterable(unchained_data))
 
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
     ) -> tuple[tuple[FindingState], ...]:

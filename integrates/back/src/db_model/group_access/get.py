@@ -163,7 +163,7 @@ async def _get_stakeholder_groups_access(
 
 
 class GroupAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupAccessRequest]
     ) -> tuple[GroupAccess, ...]:
@@ -171,7 +171,7 @@ class GroupAccessLoader(DataLoader):
 
 
 class GroupHistoricAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupAccessRequest]
     ) -> tuple[tuple[GroupAccess, ...], ...]:

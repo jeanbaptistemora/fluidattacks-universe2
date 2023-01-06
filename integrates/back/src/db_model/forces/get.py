@@ -99,7 +99,7 @@ async def _get_executions(
 
 
 class ForcesExecutionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ForcesExecutionRequest]
     ) -> Union[tuple[ForcesExecution, ...], None]:
@@ -107,7 +107,7 @@ class ForcesExecutionLoader(DataLoader):
 
 
 class GroupForcesExecutionsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupForcesExecutionsRequest]
     ) -> tuple[tuple[ForcesExecution, ...], ...]:

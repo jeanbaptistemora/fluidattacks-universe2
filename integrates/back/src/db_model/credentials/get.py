@@ -61,7 +61,7 @@ async def _get_credentials(
 
 
 class CredentialsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[CredentialsRequest]
     ) -> tuple[Credentials, ...]:
@@ -94,7 +94,7 @@ async def _get_organization_credentials(
 
 
 class OrganizationCredentialsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
     ) -> tuple[tuple[Credentials, ...], ...]:
@@ -125,7 +125,7 @@ async def _get_user_credentials(*, user_email: str) -> tuple[Credentials, ...]:
 
 
 class UserCredentialsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, user_emails: Iterable[str]
     ) -> tuple[tuple[Credentials, ...], ...]:

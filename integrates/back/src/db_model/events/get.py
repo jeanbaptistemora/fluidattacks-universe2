@@ -125,7 +125,7 @@ async def _get_historic_state(
 
 
 class EventsHistoricStateLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, event_ids: Iterable[str]
     ) -> tuple[tuple[EventState, ...], ...]:
@@ -138,7 +138,7 @@ class EventsHistoricStateLoader(DataLoader):
 
 
 class EventLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         event_keys: Iterable[str],

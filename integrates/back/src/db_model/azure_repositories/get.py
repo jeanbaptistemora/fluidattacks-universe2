@@ -200,7 +200,7 @@ def _get_repositories_stats(
 
 
 class OrganizationRepositoriesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         credentials: tuple[Credentials, ...],
@@ -209,7 +209,7 @@ class OrganizationRepositoriesLoader(DataLoader):
 
 
 class OrganizationRepositoriesCommitsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         repositories: tuple[CredentialsGitRepositoryCommit, ...],

@@ -112,7 +112,7 @@ async def _get_organization_unreliable_integration_repositories(
 
 
 class OrganizationUnreliableRepositoriesLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: Iterable[tuple[str, str, str]]
     ) -> tuple[tuple[OrganizationIntegrationRepository, ...], ...]:
@@ -129,7 +129,7 @@ class OrganizationUnreliableRepositoriesLoader(DataLoader):
 
 
 class OrganizationUnreliableRepositoriesConnectionLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: tuple[OrganizationIntegrationRepositoryRequest, ...]
     ) -> tuple[OrganizationIntegrationRepositoryConnection, ...]:

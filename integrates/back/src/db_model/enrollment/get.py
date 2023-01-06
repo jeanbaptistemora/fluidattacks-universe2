@@ -49,7 +49,7 @@ async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
 
 
 class EnrollmentLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[Enrollment, ...]:
