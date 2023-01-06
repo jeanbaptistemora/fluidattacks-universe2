@@ -14,9 +14,13 @@ import pytest
     [
         ["admin@fluidattacks.com"],
     ],
-)  # pylint: disable=too-many-statements, too-many-locals
+)
 @freeze_time("2021-03-31")
-async def test_get_finding(populate: bool, email: str) -> None:
+async def test_get_finding(
+    # pylint: disable=too-many-statements, too-many-locals
+    populate: bool,
+    email: str,
+) -> None:
     assert populate
     identifier: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"

@@ -1,4 +1,4 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
 )
@@ -65,49 +65,56 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence1",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         evidence2=FindingEvidence(
                             description="evidence2",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence2",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         evidence3=FindingEvidence(
                             description="evidence3",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence3",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence3",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         evidence4=FindingEvidence(
                             description="evidence4",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence4",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence4",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence5",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence5",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         exploitation=FindingEvidence(
                             description="exploitation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-exploitation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-exploitation",
                             modified_date=datetime.fromisoformat(
                                 "2010-11-19T13:37:10+00:00"
                             ),
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-animation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-animation",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),

@@ -127,7 +127,7 @@ def test_model_integrity_roles(
                 "admin": {
                     "actions": {
                         "api_resolvers_query_list_user_groups_resolve",
-                        "api_resolvers_query_vulnerabilities_to_reattack_resolve",  # noqa: E501
+                        "api_resolvers_query_vulnerabilities_to_reattack_resolve",  # noqa: E501 pylint: disable=line-too-long
                         "api_resolvers_query_groups_with_forces_resolve",
                         "api_resolvers_query_groups_resolve",
                         "api_mutations_add_organization_mutate",
