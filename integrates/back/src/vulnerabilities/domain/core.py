@@ -21,6 +21,9 @@ from db_model import (
     utils as db_model_utils,
     vulnerabilities as vulns_model,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -1143,37 +1146,16 @@ async def update_description(  # noqa: MC0001 # NOSONAR
         vulnerability_id
     )
 
-    if description.commit is not None:
-        if vulnerability.type is not VulnerabilityType.LINES:
-            raise InvalidParameter("commit")
-        validate_commit_hash(description.commit)
-        updated_commit: Optional[str] = description.commit
-    else:
-        updated_commit = vulnerability.state.commit
-
-    if description.specific is not None:
-        validations_utils.validate_sanitized_csv_input(description.specific)
-        if vulnerability.type is VulnerabilityType.LINES:
-            validate_lines_specific(description.specific)
-        if vulnerability.type is VulnerabilityType.PORTS:
-            validate_ports_specific(description.specific)
-        updated_specific = description.specific
-    else:
-        updated_specific = vulnerability.state.specific
-
-    if description.source is not None:
-        validate_source(description.source)
-        updated_source = description.source
-    else:
-        updated_source = vulnerability.state.source
-
-    if description.where is not None:
-        if vulnerability.type is VulnerabilityType.LINES:
-            validate_path(description.where)
-        validate_where(description.where)
-        updated_where = description.where
-    else:
-        updated_where = vulnerability.state.where
+    updated_commit = validate_and_get_updated_commit(
+        vulnerability, description
+    )
+    updated_specific = validate_and_get_updated_specific(
+        vulnerability, description
+    )
+    updated_source = validate_and_get_updated_source(
+        vulnerability, description
+    )
+    updated_where = validate_and_get_updated_where(vulnerability, description)
 
     if any([description.specific is not None, description.where is not None]):
         vulnerabilities_connection: VulnerabilitiesConnection = (
@@ -1238,3 +1220,47 @@ async def update_description(  # noqa: MC0001 # NOSONAR
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
         )
+
+
+def validate_and_get_updated_commit(
+    vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
+) -> Optional[str]:
+    if description.commit is not None:
+        if vulnerability.type is not VulnerabilityType.LINES:
+            raise InvalidParameter("commit")
+        validate_commit_hash(description.commit)
+        return description.commit
+    return vulnerability.state.commit
+
+
+def validate_and_get_updated_specific(
+    vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
+) -> str:
+    if description.specific is not None:
+        validations_utils.validate_sanitized_csv_input(description.specific)
+        if vulnerability.type is VulnerabilityType.LINES:
+            validate_lines_specific(description.specific)
+        if vulnerability.type is VulnerabilityType.PORTS:
+            validate_ports_specific(description.specific)
+        return description.specific
+    return vulnerability.state.specific
+
+
+def validate_and_get_updated_source(
+    vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
+) -> Source:
+    if description.source is not None:
+        validate_source(description.source)
+        return description.source
+    return vulnerability.state.source
+
+
+def validate_and_get_updated_where(
+    vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
+) -> str:
+    if description.where is not None:
+        if vulnerability.type is VulnerabilityType.LINES:
+            validate_path(description.where)
+        validate_where(description.where)
+        return description.where
+    return vulnerability.state.where
