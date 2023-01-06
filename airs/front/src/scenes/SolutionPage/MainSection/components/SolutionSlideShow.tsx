@@ -54,6 +54,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/tribe-of-hackers-2/",
       "/blog/what-is-red-team-in-cyber-security/",
       "/blog/red-team-exercise/",
+      "/blog/bas-vs-pentesting-vs-red-teaming/",
       "/blog/what-is-breach-attack-simulation/",
     ],
     devsecops: [
