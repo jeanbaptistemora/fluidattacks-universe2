@@ -151,6 +151,6 @@ async def is_trial(
     company: Company = await loaders.company.load(domain)
     in_trial = company and not company.trial.completed
 
-    if (not in_trial or organization.payment_methods) and company:
+    if not in_trial or organization.payment_methods:
         return False
     return True
