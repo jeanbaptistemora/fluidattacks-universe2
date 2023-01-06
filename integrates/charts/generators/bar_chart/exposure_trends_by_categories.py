@@ -5,7 +5,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.bar_chart import (  # type: ignore
+from charts.generators.bar_chart import (
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (

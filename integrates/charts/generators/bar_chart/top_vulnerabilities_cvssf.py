@@ -44,6 +44,7 @@ from itertools import (
     groupby,
 )
 from typing import (
+    Any,
     Counter,
     Union,
 )
@@ -115,12 +116,12 @@ def format_data(counters: Counter[str]) -> tuple[dict, utils.CsvData]:
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         key=lambda x: get_finding_name([x[0]]),
     ):
-        merged_data.append([axis, sum([value for _, value in columns])])
+        merged_data.append([axis, sum(value for _, value in columns)])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
     limited_merged_data = merged_data[:LIMIT]
 
-    json_data = dict(
+    json_data: dict[str, Any] = dict(
         data=dict(
             columns=[
                 [
@@ -171,11 +172,11 @@ def format_data(counters: Counter[str]) -> tuple[dict, utils.CsvData]:
         exposureTrendsByCategories=True,
         keepToltipColor=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in limited_merged_data]
+            [(str(key), Decimal(value)) for key, value in limited_merged_data]
         ),
         maxValueLog=format_max_value(
             [
-                (key, utils.format_cvssf_log(Decimal(value)))
+                (str(key), utils.format_cvssf_log(Decimal(value)))
                 for key, value in limited_merged_data
             ]
         ),
@@ -186,11 +187,11 @@ def format_data(counters: Counter[str]) -> tuple[dict, utils.CsvData]:
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[
             utils.format_cvssf(Decimal(value)) for _, value in merged_data
         ],
-        categories=[group for group, _ in merged_data],
+        categories=[str(group) for group, _ in merged_data],
     )
 
     return (json_data, csv_data)

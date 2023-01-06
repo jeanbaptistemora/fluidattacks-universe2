@@ -104,7 +104,7 @@ def format_data(
         group for group in all_data[:LIMIT] if group.value > Decimal("0.0")
     ]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Open exposure"]
@@ -159,7 +159,7 @@ def format_data(
         keepToltipColor=True,
     )
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[utils.format_cvssf(group.value) for group in all_data],
         categories=[group.group_name for group in all_data],
     )

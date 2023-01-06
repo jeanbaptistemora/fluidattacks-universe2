@@ -48,7 +48,7 @@ def format_data(
 ) -> tuple[dict, utils.CsvData]:
     limited_data = [group for group in data[:LIMIT] if group.value > 0]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Pending CVSSF"]
@@ -104,7 +104,7 @@ def format_data(
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[utils.format_cvssf(group.value) for group in data],
         categories=[group.group_name for group in data],
     )

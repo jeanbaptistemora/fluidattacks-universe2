@@ -248,7 +248,7 @@ def get_mean_organizations(*, organizations: list[Benchmarking]) -> Decimal:
 
 def get_best_mttr(*, subjects: list[Benchmarking]) -> Decimal:
     return (
-        Decimal(min([subject.mttr for subject in subjects])).to_integral_exact(
+        Decimal(min(subject.mttr for subject in subjects)).to_integral_exact(
             rounding=ROUND_CEILING
         )
         if subjects
@@ -265,7 +265,7 @@ def get_worst_mttr(
 
     return (
         Decimal(
-            max([subject.mttr for subject in valid_subjects])
+            max(subject.mttr for subject in valid_subjects)
         ).to_integral_exact(rounding=ROUND_CEILING)
         if valid_subjects
         else oldest_open_age

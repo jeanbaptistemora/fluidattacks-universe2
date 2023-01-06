@@ -83,7 +83,7 @@ def format_data(
 ) -> tuple[dict, utils.CsvData]:
     limited_data = [group for group in data[:LIMIT] if group.value > 0]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Unsolved Events"] + [group.value for group in limited_data],
@@ -116,12 +116,14 @@ def format_data(
             ),
         ),
         barChartYTickFormat=True,
-        maxValue=format_max_value(limited_data),
+        maxValue=format_max_value(
+            [(group.group_name, group.value) for group in limited_data]
+        ),
         exposureTrendsByCategories=True,
         keepToltipColor=True,
     )
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[group.value for group in data],
         categories=[group.group_name for group in data],
     )

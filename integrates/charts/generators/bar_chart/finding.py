@@ -45,7 +45,7 @@ async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
-        value=findings_found,
+        value=Decimal(findings_found),
     )
 
 
@@ -64,7 +64,7 @@ def format_data(
         group for group in all_data[:LIMIT] if group.value > Decimal("0.0")
     ]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Types of Vulnerabilities"] + [group.value for group in data],
@@ -95,11 +95,13 @@ def format_data(
             ),
         ),
         barChartYTickFormat=True,
-        maxValue=format_max_value(data),
+        maxValue=format_max_value(
+            [(group.group_name, group.value) for group in data]
+        ),
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[group.value for group in all_data],
         categories=[group.group_name for group in all_data],
     )

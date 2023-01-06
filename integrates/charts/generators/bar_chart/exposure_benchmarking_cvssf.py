@@ -5,7 +5,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.bar_chart import (  # type: ignore
+from charts.generators.bar_chart import (
     format_csv_data,
 )
 from charts.generators.bar_chart.mttr_benchmarking_cvssf import (
@@ -104,7 +104,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
     )
 
     group_document: RiskOverTime = await get_group_document(group, loaders)
-    document = get_current_time_range([group_document])[0][0]
+    document = get_current_time_range(tuple([group_document]))[0][0]
     values: list[Decimal] = [
         Decimal(document[name][date]).quantize(Decimal("0.1"))
         for date in tuple(document["date"])[-12:]
@@ -132,7 +132,7 @@ async def get_data_many_groups(
     )
 
     exposure: Decimal = (
-        Decimal(sum([group_data.mttr for group_data in groups_data])).quantize(
+        Decimal(sum(group_data.mttr for group_data in groups_data)).quantize(
             Decimal("0.1")
         )
         if groups_data
@@ -162,7 +162,7 @@ def get_average_entities(*, entities: list[Benchmarking]) -> Decimal:
 
 def get_best_exposure(*, subjects: list[Benchmarking]) -> Decimal:
     return (
-        Decimal(min([subject.mttr for subject in subjects])).quantize(
+        Decimal(min(subject.mttr for subject in subjects)).quantize(
             Decimal("0.1")
         )
         if subjects
@@ -173,7 +173,7 @@ def get_best_exposure(*, subjects: list[Benchmarking]) -> Decimal:
 def get_worst_exposure(*, subjects: list[Benchmarking]) -> Decimal:
 
     return (
-        Decimal(max([subject.mttr for subject in subjects])).quantize(
+        Decimal(max(subject.mttr for subject in subjects)).quantize(
             Decimal("0.1")
         )
         if subjects

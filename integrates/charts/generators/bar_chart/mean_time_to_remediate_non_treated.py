@@ -26,9 +26,7 @@ from groups.domain import (
     get_mean_remediate_non_treated_severity,
 )
 from typing import (
-    List,
     Optional,
-    Tuple,
 )
 
 
@@ -62,9 +60,11 @@ async def get_data_one_group(
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
+    groups: tuple[str, ...],
+    loaders: Dataloaders,
+    min_date: Optional[date] = None,
 ) -> Remediate:
-    groups_data: Tuple[Remediate, ...] = await collect(
+    groups_data: tuple[Remediate, ...] = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
             for group in groups

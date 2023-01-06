@@ -86,12 +86,12 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         lambda x: get_finding_name([x[0]]),
     ):
-        merged_data.append([axis, max([value for _, value in columns])])
+        merged_data.append([axis, max(value for _, value in columns)])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
     limited_merged_data = merged_data[:LIMIT]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 [
@@ -134,16 +134,16 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in limited_merged_data]
+            [(str(key), Decimal(value)) for key, value in limited_merged_data]
         ),
         exposureTrendsByCategories=True,
         keepToltipColor=True,
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
-        values=[value for _, value in merged_data],
-        categories=[group for group, _ in merged_data],
+        header_value=str(json_data["data"]["columns"][0][0]),
+        values=[Decimal(value) for _, value in merged_data],
+        categories=[str(group) for group, _ in merged_data],
         header_title="Type",
     )
 

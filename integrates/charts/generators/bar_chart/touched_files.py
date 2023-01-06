@@ -161,7 +161,7 @@ def format_data(*, counters: Counter[str]) -> tuple[dict, CsvData]:
     )
     csv_data = format_data_csv(
         header_value="Number of vulnerabilities",
-        values=[value for _, value in merged_data],
+        values=[Decimal(value) for _, value in merged_data],
         categories=[name for name, _ in merged_data],
         header_title="File path",
     )

@@ -33,6 +33,9 @@ from db_model.events.types import (
     Event,
     GroupEventsRequest,
 )
+from decimal import (
+    Decimal,
+)
 from newutils.datetime import (
     get_utc_now,
 )
@@ -102,7 +105,7 @@ def format_data(
 ) -> tuple[dict, CsvData]:
     limited_data = [group for group in data if group.days > 0][:LIMIT]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 [legend] + [str(group.days) for group in limited_data],
@@ -146,12 +149,14 @@ def format_data(
         exposureTrendsByCategories=True,
         keepToltipColor=True,
         barChartYTickFormat=True,
-        maxValue=format_max_value(limited_data),
+        maxValue=format_max_value(
+            [(ldata.name, Decimal(ldata.days)) for ldata in limited_data]
+        ),
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
-        values=[group.days for group in data],
+        header_value=str(json_data["data"]["columns"][0][0]),
+        values=[Decimal(group.days) for group in data],
         categories=[group.name for group in data],
         header_title=x_label if x_label else "Group name",
     )
