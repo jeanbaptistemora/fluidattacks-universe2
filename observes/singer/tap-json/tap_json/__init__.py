@@ -25,7 +25,6 @@ from pathlib import (
     Path,
 )
 import re
-import select
 import sys
 from tap_json.env import (
     prepare_env,
@@ -394,27 +393,15 @@ def main(  # NOSONAR
 
     # Do the heavy lifting (structura)
     prepare_env()
-
-    if select.select(
-        [
-            sys.stdin,
-        ],
-        [],
-        [],
-        0.0,
-    )[0]:
-        LOG.info("Processing stream...")
-        for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
-            LOG.info("stream: %s", stream)
-            with contextlib.suppress(JSONDecodeError):
-                stream_stru = loads(stream)
-                _type = stream_stru.get("type")
-                if _type is None or _type == "RECORD":
-                    linearize(stream_stru["stream"], stream_stru["record"])
-                elif _type == "STATE":
-                    write(STATE_DIR, "states", stream)
-    else:
-        LOG.warning("No input")
+    LOG.info("Processing stream...")
+    for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
+        with contextlib.suppress(JSONDecodeError):
+            stream_stru = loads(stream)
+            _type = stream_stru.get("type")
+            if _type is None or _type == "RECORD":
+                linearize(stream_stru["stream"], stream_stru["record"])
+            elif _type == "STATE":
+                write(STATE_DIR, "states", stream)
     if not use_cache:
         catalog(_schemas_dir)
 

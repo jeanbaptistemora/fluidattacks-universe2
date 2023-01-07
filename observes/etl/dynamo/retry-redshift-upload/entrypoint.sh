@@ -24,10 +24,12 @@ function dynamodb_etl {
     && echo "[INFO] Getting schemas cache at ${cache_bucket_folder}" \
     && aws_s3_sync "${cache_bucket_folder}" "${schemas}" \
     && echo '[INFO] Running Last ETL phase' \
+    && echo '{"type": "STATE", "value": {}}' > .input \
     && tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
       --schema-folder "${schemas}" \
       --schema-cache \
+      < .input \
       > .singer \
     && target-redshift from-s3 \
       --schema-name "dynamodb_integrates_vms_part_${segment}" \
@@ -35,7 +37,7 @@ function dynamodb_etl {
       --prefix "dynamodb/part_${segment}/" \
       --role 'arn:aws:iam::205810638802:role/redshift-role' \
       < .singer \
-    && rm -f .singer
+    && rm .singer
 }
 
 dynamodb_etl "${@}"
