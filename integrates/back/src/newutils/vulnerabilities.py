@@ -168,7 +168,7 @@ def filter_no_treatment_vulns(
         vuln
         for vuln in vulnerabilities
         if vuln.treatment
-        and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+        and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
     )
 
 
@@ -652,7 +652,7 @@ def get_treatment_changes(
         first_treatment = historic_treatment[0]
         return (
             len(historic_treatment) - 1
-            if first_treatment.status == VulnerabilityTreatmentStatus.NEW
+            if first_treatment.status == VulnerabilityTreatmentStatus.UNTREATED
             else len(historic_treatment)
         )
     return 0

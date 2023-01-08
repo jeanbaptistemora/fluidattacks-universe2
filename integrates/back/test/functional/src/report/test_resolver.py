@@ -165,7 +165,7 @@ async def test_get_report_treatments(
         ],
         [
             "user_manager@gmail.com",
-            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["ACCEPTED", "IN_PROGRESS", "UNTREATED"],
             ["OPEN"],
             ["REQUESTED"],
         ],
@@ -177,7 +177,7 @@ async def test_get_report_treatments(
         ],
         [
             "hacker@gmail.com",
-            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["ACCEPTED", "IN_PROGRESS", "UNTREATED"],
             ["OPEN"],
             ["REQUESTED"],
         ],

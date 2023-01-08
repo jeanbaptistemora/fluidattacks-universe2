@@ -346,7 +346,7 @@ async def _add_new_treatment(
         vuln
         for vuln in vulns
         if vuln.treatment is not None
-        if vuln.treatment.status != VulnerabilityTreatmentStatus.NEW
+        if vuln.treatment.status != VulnerabilityTreatmentStatus.UNTREATED
     ]
     await collect(
         [
@@ -356,7 +356,7 @@ async def _add_new_treatment(
                 vulnerability_id=vuln.id,
                 treatment=VulnerabilityTreatment(
                     modified_date=modified_date,
-                    status=VulnerabilityTreatmentStatus.NEW,
+                    status=VulnerabilityTreatmentStatus.UNTREATED,
                     modified_by=email,
                 ),
             )

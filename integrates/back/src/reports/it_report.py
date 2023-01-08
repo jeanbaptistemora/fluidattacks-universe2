@@ -646,7 +646,7 @@ class ITReport:
             (
                 treatment
                 for treatment in treatments
-                if treatment.status != VulnerabilityTreatmentStatus.NEW
+                if treatment.status != VulnerabilityTreatmentStatus.UNTREATED
             ),
             None,
         )
@@ -657,7 +657,7 @@ class ITReport:
             return "Permanently accepted"
         if treatment == VulnerabilityTreatmentStatus.ACCEPTED:
             return "Temporarily accepted"
-        if treatment == VulnerabilityTreatmentStatus.NEW:
+        if treatment == VulnerabilityTreatmentStatus.UNTREATED:
             return "Untreated"
         return treatment.value.capitalize().replace("_", " ")
 

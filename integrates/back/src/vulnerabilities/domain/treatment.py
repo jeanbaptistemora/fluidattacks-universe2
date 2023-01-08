@@ -44,6 +44,9 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
 )
+from db_model.vulnerabilities.utils import (
+    get_inverted_treatment_converted,
+)
 from decimal import (
     Decimal,
 )
@@ -215,7 +218,9 @@ async def add_vulnerability_treatment(
     user_email: str,
 ) -> None:
     new_status = VulnerabilityTreatmentStatus[
-        updated_values["treatment"].replace(" ", "_").upper()
+        get_inverted_treatment_converted(
+            updated_values["treatment"].replace(" ", "_").upper()
+        )
     ]
     treatment_to_add = VulnerabilityTreatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
@@ -268,7 +273,7 @@ async def get_treatment_changes(
         first_treatment = historic[0]
         return (
             len(historic) - 1
-            if first_treatment.status == VulnerabilityTreatmentStatus.NEW
+            if first_treatment.status == VulnerabilityTreatmentStatus.UNTREATED
             else len(historic)
         )
     return 0
@@ -310,7 +315,7 @@ async def _handle_vulnerability_acceptance(
                 new_treatment,
                 VulnerabilityTreatment(
                     modified_date=new_treatment.modified_date,
-                    status=VulnerabilityTreatmentStatus.NEW,
+                    status=VulnerabilityTreatmentStatus.UNTREATED,
                     modified_by=new_treatment.modified_by,
                 ),
             )
@@ -551,7 +556,7 @@ async def update_vulnerabilities_treatment(
         )
 
     validations.validate_fields(list(updated_values.values()))
-    if updated_values["treatment"] != "NEW":
+    if updated_values["treatment"] not in {"NEW", "UNTREATED"}:
         validations.validate_fields([updated_values["justification"]])
         validations.validate_field_length(
             updated_values["justification"], 10000

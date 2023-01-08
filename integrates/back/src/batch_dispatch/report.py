@@ -21,6 +21,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
+from db_model.vulnerabilities.utils import (
+    get_inverted_treatment_converted,
+)
 from decimal import (
     Decimal,
 )
@@ -275,7 +278,9 @@ async def report(  # pylint: disable=too-many-locals
     additional_info: dict = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
     treatments = {
-        VulnerabilityTreatmentStatus[treatment]
+        VulnerabilityTreatmentStatus[
+            get_inverted_treatment_converted(treatment)
+        ]
         for treatment in additional_info["treatments"]
     }
     states = {

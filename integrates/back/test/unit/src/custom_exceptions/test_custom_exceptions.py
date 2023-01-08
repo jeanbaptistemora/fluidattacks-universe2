@@ -303,7 +303,7 @@ async def test_validate_past_acceptance_days(
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.NEW,
+            status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
     severity = 3
@@ -339,7 +339,7 @@ async def test_validate_acceptance_severity(
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.NEW,
+            status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
     severity = 8.5
@@ -410,7 +410,7 @@ async def test_validate_number_acceptances(
         ),
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.NEW,
+            status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
     severity = 3

@@ -100,7 +100,8 @@ async def process_group(group: str) -> None:
                 [
                     x
                     for x in vulns
-                    if x.treatment.status != VulnerabilityTreatmentStatus.NEW
+                    if x.treatment.status
+                    != VulnerabilityTreatmentStatus.UNTREATED
                 ],
                 key=lambda x: x.treatment.modified_date.timestamp(),
                 reverse=True,
@@ -109,7 +110,8 @@ async def process_group(group: str) -> None:
                 [
                     x
                     for x in vulns
-                    if x.treatment.status == VulnerabilityTreatmentStatus.NEW
+                    if x.treatment.status
+                    == VulnerabilityTreatmentStatus.UNTREATED
                 ],
                 key=lambda x: x.state.modified_date,
             ),

@@ -81,7 +81,7 @@ async def process_group(group: str) -> None:
         for vuln in vulns
         if vuln.state.source == Source.MACHINE
         and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-        and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+        and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
         and vuln.treatment.modified_by in ("machine@fluidattacks.com", None)
     }
     duplicates = []

@@ -155,14 +155,14 @@ async def process_group(  # pylint: disable=too-many-locals
             get_hash_from_typed(vuln)
             for vuln in open_duplicates
             if vuln.treatment
-            and vuln.treatment.status != VulnerabilityTreatmentStatus.NEW
+            and vuln.treatment.status != VulnerabilityTreatmentStatus.UNTREATED
         ]
         closed_duplicates = [
             vuln
             for vuln in vulns
             if vuln.state.status == VulnerabilityStateStatus.SAFE
             and vuln.treatment
-            and vuln.treatment.status != VulnerabilityTreatmentStatus.NEW
+            and vuln.treatment.status != VulnerabilityTreatmentStatus.UNTREATED
             and get_hash_from_typed(vuln) in duplicated_hashes
             and get_hash_from_typed(vuln) in open_duplicates_hashes
             and get_hash_from_typed(vuln)
@@ -179,7 +179,7 @@ async def process_group(  # pylint: disable=too-many-locals
             and get_hash_from_typed(vuln) in closed_duplicates_hashes
             and get_hash_from_typed(vuln) in open_duplicates_hashes
             and vuln.treatment
-            and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+            and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
         ]
         for vuln in closed_duplicates:
             states: Tuple[

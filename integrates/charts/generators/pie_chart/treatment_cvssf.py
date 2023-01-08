@@ -91,7 +91,7 @@ async def get_data_one_group(group: str) -> Treatment:
         ],
         accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
         inProgress=treatment[VulnerabilityTreatmentStatus.IN_PROGRESS],
-        undefined=treatment[VulnerabilityTreatmentStatus.NEW],
+        undefined=treatment[VulnerabilityTreatmentStatus.UNTREATED],
     )
 
 

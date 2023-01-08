@@ -38,7 +38,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.utils import (
-    get_current_treatment_converted,
+    get_inverted_treatment_converted,
 )
 from decimal import (
     Decimal,
@@ -327,7 +327,7 @@ async def resolve(  # pylint: disable=too-many-locals
     treatments: set[VulnerabilityTreatmentStatus] = (
         {
             VulnerabilityTreatmentStatus[
-                get_current_treatment_converted(treatment)
+                get_inverted_treatment_converted(treatment)
             ]
             for treatment in kwargs["treatments"]
         }

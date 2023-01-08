@@ -91,7 +91,7 @@ def get_new_open_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
         if (
             vuln.state.status == VulnerabilityStateStatus.VULNERABLE
             and vuln.treatment
-            and vuln.treatment.status == VulnerabilityTreatmentStatus.NEW
+            and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
             and (
                 vuln.zero_risk is None
                 or vuln.zero_risk.status
@@ -167,7 +167,8 @@ def get_open_with_treatment_duplicates(
             key=lambda x: (
                 -(
                     x.treatment is not None
-                    and x.treatment.status != VulnerabilityTreatmentStatus.NEW
+                    and x.treatment.status
+                    != VulnerabilityTreatmentStatus.UNTREATED
                 ),
                 x.created_date,
             ),
@@ -176,7 +177,7 @@ def get_open_with_treatment_duplicates(
             (original_vuln := any_treatment[0])
             and original_vuln.treatment is not None
             and original_vuln.treatment.status
-            != VulnerabilityTreatmentStatus.NEW
+            != VulnerabilityTreatmentStatus.UNTREATED
         ):
             original_vuln_idx = vulns.index(original_vuln)
             open_with_treatment_duplicates.update(

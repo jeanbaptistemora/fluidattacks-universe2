@@ -317,3 +317,20 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
         )
         == []
     )
+
+    group_vulns = await get_group_vulnerabilities(
+        user=email, group_name="group1", treatment_status="UNTREATED"
+    )
+    assert "errors" not in group_vulns
+    assert sorted(
+        group_vulns["data"]["group"]["vulnerabilities"]["edges"],
+        key=_get_key,
+    ) == [
+        {
+            "node": {
+                "currentState": "open",
+                "state": "VULNERABLE",
+                "where": "192.168.1.20",
+            }
+        }
+    ]

@@ -218,7 +218,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     VulnerabilityTreatment(
                         assigned="user@gmail.com",
@@ -267,7 +267,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     VulnerabilityTreatment(
                         assigned="user@gmail.com",
@@ -316,7 +316,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     VulnerabilityTreatment(
                         assigned="user@gmail.com",
@@ -365,7 +365,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     VulnerabilityTreatment(
                         assigned="user@gmail.com",

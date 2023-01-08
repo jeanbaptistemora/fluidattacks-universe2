@@ -199,7 +199,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -232,7 +232,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -265,7 +265,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -298,7 +298,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
@@ -331,7 +331,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(

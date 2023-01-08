@@ -45,7 +45,7 @@ from vulnerabilities import (
 async def _reset_expired_accepted_vuln(
     loaders: Dataloaders, vuln_id: str
 ) -> None:
-    updated_values = {"treatment": "NEW"}
+    updated_values = {"treatment": "UNTREATED"}
     loaders.vulnerability.clear(vuln_id)
     vuln_to_update: Vulnerability = await loaders.vulnerability.load(vuln_id)
     if vuln_to_update.treatment and vuln_to_update.treatment.modified_by:

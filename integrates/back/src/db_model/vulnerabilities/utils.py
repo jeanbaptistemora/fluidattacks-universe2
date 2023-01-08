@@ -258,7 +258,9 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         assigned=item.get("assigned"),
         modified_by=item.get("modified_by"),
         modified_date=datetime.fromisoformat(item["modified_date"]),
-        status=VulnerabilityTreatmentStatus[item["status"]],
+        status=VulnerabilityTreatmentStatus[
+            get_inverted_treatment_converted(item["status"])
+        ],
     )
 
 

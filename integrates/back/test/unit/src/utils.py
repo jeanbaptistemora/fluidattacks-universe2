@@ -718,7 +718,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                         modified_date=datetime.fromisoformat(
                             "2019-01-15T15:43:39+00:00"
                         ),
-                        status=VulnerabilityTreatmentStatus.NEW,
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
                         acceptance_status=None,
                         accepted_until=None,
                         justification=None,
