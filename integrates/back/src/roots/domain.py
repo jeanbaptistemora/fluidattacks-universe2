@@ -715,6 +715,11 @@ async def _update_git_root_credentials(  # noqa: MC0001
     return root.state.credential_id
 
 
+def _validate_git_root_url(root: GitRoot, gitignore: list[str]) -> None:
+    if not validations.is_exclude_valid(gitignore, root.state.url):
+        raise InvalidRootExclusion()
+
+
 async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     loaders: Dataloaders,
     user_email: str,
@@ -737,6 +742,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+
     if not kwargs["environment"]:
         raise InvalidParameter("environment")
 
@@ -786,8 +792,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         group_name, "update_git_root_filter"
     ):
         raise PermissionDenied()
-    if not validations.is_exclude_valid(gitignore, root.state.url):
-        raise InvalidRootExclusion()
+    _validate_git_root_url(root, gitignore)
 
     credentials: Optional[dict[str, str]] = kwargs.get("credentials")
     credential_id = await _update_git_root_credentials(

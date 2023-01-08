@@ -196,7 +196,7 @@ async def requeue_actions() -> bool:
                 except KeyError:
                     if action.action_name == Action.EXECUTE_MACHINE.value:
                         kwargs = {"memory": 7200, "vcpus": 4}
-                        queue = batch_dal.SkimsBatchQueue("integrates_large")
+                        queue = batch_dal.SkimsBatchQueue.LARGE
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,

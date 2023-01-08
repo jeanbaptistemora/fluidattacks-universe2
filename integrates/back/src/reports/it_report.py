@@ -249,6 +249,18 @@ class ITReport:
             findings_ids
         )
 
+    def _get_filtered_findings(
+        self, data: tuple[Finding, ...]
+    ) -> tuple[Finding, ...]:
+        if self.max_release_date:
+            return tuple(
+                finding
+                for finding in data
+                if finding.approval
+                and finding.approval.modified_date <= self.max_release_date
+            )
+        return data
+
     @staticmethod
     def _get_first_report_days(finding: Finding) -> int:
         unreliable_indicators = finding.unreliable_indicators
@@ -288,7 +300,7 @@ class ITReport:
         filter_max_severity = data
         filter_last_report = data
         filter_min_release_date = data
-        filter_max_release_date = data
+        filter_max_release_date = self._get_filtered_findings(data)
         if self.finding_title:
             filter_finding_title = tuple(
                 finding
@@ -325,13 +337,6 @@ class ITReport:
                 for finding in data
                 if finding.approval
                 and finding.approval.modified_date >= self.min_release_date
-            )
-        if self.max_release_date:
-            filter_max_release_date = tuple(
-                finding
-                for finding in data
-                if finding.approval
-                and finding.approval.modified_date <= self.max_release_date
             )
 
         filtered_findings_ids: set[str] = set.intersection(
