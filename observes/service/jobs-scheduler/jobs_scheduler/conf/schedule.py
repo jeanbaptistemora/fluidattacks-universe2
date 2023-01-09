@@ -24,9 +24,9 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
         weekly(ANY, 0, frozenset([Days.SAT])).unwrap(): (
             Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE,
         ),
-        work_days(ANY, 0).unwrap(): (Job.DYNAMO_INTEGRATES_MAIN,),
         behind_work_days(ANY, 23): (Job.MAILCHIMP_ETL, Job.MANDRILL_ETL),
         work_days(ANY, 0).unwrap(): (
+            Job.DYNAMO_INTEGRATES_MAIN,
             Job.MIRROR,
             Job.REPORT_CANCELLED,
         ),
