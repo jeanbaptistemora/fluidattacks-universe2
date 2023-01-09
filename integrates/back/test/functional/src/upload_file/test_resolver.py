@@ -214,6 +214,8 @@ async def test_upload_file(
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "NEW",
+                    "treatmentStatus": "UNTREATED",
                     "where": "universe/path/to/file1.ext",
                 }
             },
@@ -221,6 +223,8 @@ async def test_upload_file(
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "NEW",
+                    "treatmentStatus": "UNTREATED",
                     "where": "universe/test/1",
                 }
             },
@@ -228,6 +232,8 @@ async def test_upload_file(
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "NEW",
+                    "treatmentStatus": "UNTREATED",
                     "where": "192.168.1.44",
                 }
             },
@@ -235,6 +241,8 @@ async def test_upload_file(
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "NEW",
+                    "treatmentStatus": "UNTREATED",
                     "where": "https://example.com",
                 }
             },
@@ -242,6 +250,8 @@ async def test_upload_file(
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "NEW",
+                    "treatmentStatus": "UNTREATED",
                     "where": "192.168.1.46",
                 }
             },

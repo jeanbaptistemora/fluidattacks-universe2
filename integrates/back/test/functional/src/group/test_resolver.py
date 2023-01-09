@@ -255,6 +255,8 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
             "node": {
                 "currentState": "open",
                 "state": "VULNERABLE",
+                "treatment": "NEW",
+                "treatmentStatus": "UNTREATED",
                 "where": "192.168.1.20",
             }
         }
@@ -285,6 +287,8 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
                 "node": {
                     "currentState": "closed",
                     "state": "SAFE",
+                    "treatment": "ACCEPTED",
+                    "treatmentStatus": "ACCEPTED",
                     "where": "192.168.1.1",
                 }
             },
@@ -292,6 +296,8 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "ACCEPTED",
+                    "treatmentStatus": "ACCEPTED",
                     "where": "192.168.1.2",
                 }
             },
@@ -299,6 +305,8 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
                 "node": {
                     "currentState": "open",
                     "state": "VULNERABLE",
+                    "treatment": "ACCEPTED",
+                    "treatmentStatus": "ACCEPTED",
                     "where": "192.168.1.3",
                 }
             },
@@ -330,6 +338,8 @@ async def test_get_group_vulnerabilities(populate: bool, email: str) -> None:
             "node": {
                 "currentState": "open",
                 "state": "VULNERABLE",
+                "treatment": "NEW",
+                "treatmentStatus": "UNTREATED",
                 "where": "192.168.1.20",
             }
         }

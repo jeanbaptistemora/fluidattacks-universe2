@@ -232,6 +232,10 @@ async def test_deactivate_org_finding_policy() -> None:
                                 user
                                 treatment
                             }
+                            historicTreatmentStatus {
+                                user
+                                treatment
+                            }
                         }
                     }
                 }
@@ -245,6 +249,10 @@ async def test_deactivate_org_finding_policy() -> None:
     assert (
         vulns["edges"][0]["node"]["historicTreatment"][-1]["treatment"]
         == "NEW"
+    )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatmentStatus"][-1]["treatment"]
+        == "UNTREATED"
     )
     assert vulns["edges"][0]["node"]["tag"] == ""
 
@@ -334,6 +342,14 @@ async def test_deactivate_org_finding_policy() -> None:
         vulns["edges"][0]["node"]["historicTreatment"][-1]["user"]
         == approver_user
     )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatmentStatus"][-1]["treatment"]
+        == "ACCEPTED_UNDEFINED"
+    )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatmentStatus"][-1]["user"]
+        == approver_user
+    )
     assert vulns["edges"][0]["node"]["tag"] == ""
 
     deactivate_mutation = """
@@ -385,6 +401,14 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert (
         vulns["edges"][0]["node"]["historicTreatment"][-1]["user"]
+        == approver_user
+    )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatmentStatus"][-1]["treatment"]
+        == "UNTREATED"
+    )
+    assert (
+        vulns["edges"][0]["node"]["historicTreatmentStatus"][-1]["user"]
         == approver_user
     )
     assert vulns["edges"][0]["node"]["tag"] == ""

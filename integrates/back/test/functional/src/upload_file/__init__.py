@@ -112,6 +112,8 @@ async def get_group_vulnerabilities(
                         node {
                             currentState
                             state
+                            treatment
+                            treatmentStatus
                             where
                         }
                     }
