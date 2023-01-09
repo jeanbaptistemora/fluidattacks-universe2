@@ -520,7 +520,7 @@ async def test_get_treatment_summary(dynamo_resource: ServiceResource) -> None:
         accepted=0,
         accepted_undefined=0,
         in_progress=0,
-        new=1,
+        untreated=1,
     )
     assert expected_output == oldest_findings
 

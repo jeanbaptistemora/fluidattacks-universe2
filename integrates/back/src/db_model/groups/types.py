@@ -47,7 +47,7 @@ class GroupTreatmentSummary(NamedTuple):
     accepted: int = 0
     accepted_undefined: int = 0
     in_progress: int = 0
-    new: int = 0
+    untreated: int = 0
 
 
 class UnfulfilledStandard(NamedTuple):

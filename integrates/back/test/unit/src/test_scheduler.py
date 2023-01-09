@@ -79,7 +79,7 @@ async def test_update_group_indicators() -> None:
     assert test_data.mean_remediate_low_severity == Decimal("801")
     assert test_data.mean_remediate_medium_severity == Decimal("749")
     assert test_data.treatment_summary == GroupTreatmentSummary(
-        accepted=2, accepted_undefined=1, in_progress=1, new=25
+        accepted=2, accepted_undefined=1, in_progress=1, untreated=25
     )
 
     over_time = [

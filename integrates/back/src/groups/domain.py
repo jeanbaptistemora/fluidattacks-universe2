@@ -1880,7 +1880,7 @@ async def get_treatment_summary(
         in_progress=treatment_counter[
             VulnerabilityTreatmentStatus.IN_PROGRESS
         ],
-        new=treatment_counter[VulnerabilityTreatmentStatus.UNTREATED],
+        untreated=treatment_counter[VulnerabilityTreatmentStatus.UNTREATED],
     )
 
 

@@ -260,9 +260,9 @@ async def format_finding(
         formated_treatments.append(
             f'{words["treat_status_rem"]}: {treatments.in_progress}'
         )
-    if treatments.new > 0:
+    if treatments.untreated > 0:
         formated_treatments.append(
-            f'{words["treat_status_wor"]}: {treatments.new}'
+            f'{words["treat_status_wor"]}: {treatments.untreated}'
         )
 
     if open_vulnerabilities > 0:

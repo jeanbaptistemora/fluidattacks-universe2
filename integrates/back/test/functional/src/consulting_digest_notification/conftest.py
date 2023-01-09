@@ -373,7 +373,7 @@ async def populate() -> bool:
                         accepted=1,
                         accepted_undefined=2,
                         in_progress=3,
-                        new=4,
+                        untreated=4,
                     ),
                     unreliable_verification_summary=FindingVerificationSummary(
                         requested=1, on_hold=2, verified=3

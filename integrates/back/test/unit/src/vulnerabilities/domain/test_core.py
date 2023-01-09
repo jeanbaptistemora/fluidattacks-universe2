@@ -257,7 +257,7 @@ async def test_get_treatments(finding_id: str, expected: List[int]) -> None:
     assert treatments.accepted == expected[0]
     assert treatments.accepted_undefined == expected[1]
     assert treatments.in_progress == expected[2]
-    assert treatments.new == expected[3]
+    assert treatments.untreated == expected[3]
 
 
 @pytest.mark.changes_db

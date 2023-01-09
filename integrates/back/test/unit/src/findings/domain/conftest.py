@@ -143,7 +143,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("1"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("1"),
-                    new=Decimal("0"),
+                    untreated=Decimal("0"),
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("0"),
                 ),
@@ -280,7 +280,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("1"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("0"),
-                    new=Decimal("0"),
+                    untreated=Decimal("0"),
                     in_progress=Decimal("1"),
                     accepted_undefined=Decimal("0"),
                 ),
@@ -424,7 +424,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("1"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("0"),
-                    new=Decimal("1"),
+                    untreated=Decimal("1"),
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("0"),
                 ),
@@ -815,7 +815,10 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 unreliable_open_vulnerabilities=1,
                 unreliable_status=FindingStatus.VULNERABLE,
                 unreliable_treatment_summary=FindingTreatmentSummary(
-                    accepted=1, accepted_undefined=0, in_progress=0, new=0
+                    accepted=1,
+                    accepted_undefined=0,
+                    in_progress=0,
+                    untreated=0,
                 ),
                 unreliable_verification_summary=FindingVerificationSummary(
                     requested=0, on_hold=0, verified=0
@@ -991,7 +994,10 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 unreliable_open_vulnerabilities=1,
                 unreliable_status=FindingStatus.VULNERABLE,
                 unreliable_treatment_summary=FindingTreatmentSummary(
-                    accepted=0, accepted_undefined=0, in_progress=1, new=0
+                    accepted=0,
+                    accepted_undefined=0,
+                    in_progress=1,
+                    untreated=0,
                 ),
                 unreliable_verification_summary=FindingVerificationSummary(
                     requested=0, on_hold=0, verified=0

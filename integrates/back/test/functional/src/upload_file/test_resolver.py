@@ -337,7 +337,7 @@ async def test_upload_file(
         unreliable_open_vulnerabilities=5,
         unreliable_status=FindingStatus.VULNERABLE,
         unreliable_treatment_summary=FindingTreatmentSummary(
-            accepted=0, accepted_undefined=0, in_progress=0, new=5
+            accepted=0, accepted_undefined=0, in_progress=0, untreated=5
         ),
         unreliable_verification_summary=FindingVerificationSummary(
             requested=0, on_hold=0, verified=1

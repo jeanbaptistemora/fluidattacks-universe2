@@ -62,6 +62,26 @@ def get_finding_inverted_state_converted(state: str) -> str:
     return state
 
 
+def get_finding_current_treatment_converted(
+    summary: dict[str, int]
+) -> dict[str, int]:
+
+    return {
+        ("new" if key == "untreated" else key): value
+        for key, value in summary.items()
+    }
+
+
+def get_finding_inverted_treatment_converted(
+    summary: dict[str, int]
+) -> dict[str, int]:
+
+    return {
+        ("untreated" if key == "new" else key): value
+        for key, value in summary.items()
+    }
+
+
 def filter_non_state_status_findings(
     findings: tuple[Finding, ...], status: set[FindingStateStatus]
 ) -> tuple[Finding, ...]:
@@ -198,7 +218,7 @@ def format_treatment_summary_item(
         "accepted": treatment_summary.accepted,
         "accepted_undefined": treatment_summary.accepted_undefined,
         "in_progress": treatment_summary.in_progress,
-        "new": treatment_summary.new,
+        "untreated": treatment_summary.untreated,
     }
 
 
@@ -209,7 +229,11 @@ def format_treatment_summary(
         accepted=int(treatment_summary_item["accepted"]),
         accepted_undefined=int(treatment_summary_item["accepted_undefined"]),
         in_progress=int(treatment_summary_item["in_progress"]),
-        new=int(treatment_summary_item["new"]),
+        untreated=int(
+            treatment_summary_item.get(
+                "new", treatment_summary_item.get("untreated", 0)
+            )
+        ),
     )
 
 

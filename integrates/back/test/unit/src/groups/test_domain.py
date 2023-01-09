@@ -282,7 +282,7 @@ async def test_get_treatment_summary() -> None:
         accepted=2,
         accepted_undefined=1,
         in_progress=1,
-        new=25,
+        untreated=25,
     )
     assert test_data == expected_output
 

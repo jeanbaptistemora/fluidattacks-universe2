@@ -25,7 +25,7 @@ class Treatments(NamedTuple):
     accepted: int
     accepted_undefined: int
     in_progress: int
-    new: int
+    untreated: int
 
 
 class Verifications(NamedTuple):

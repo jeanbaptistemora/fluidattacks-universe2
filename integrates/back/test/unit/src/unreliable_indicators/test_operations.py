@@ -67,7 +67,7 @@ async def test_update_unreliable_indicators_by_deps() -> None:
             accepted=0,
             accepted_undefined=0,
             in_progress=1,
-            new=0,
+            untreated=0,
         ),
         unreliable_where="test/data/lib_path/f060/csharp.cs",
     )

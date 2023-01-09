@@ -329,7 +329,9 @@ def format_treatment_summary(
         accepted=int(treatment_data["accepted"]),
         accepted_undefined=int(treatment_data["accepted_undefined"]),
         in_progress=int(treatment_data["in_progress"]),
-        new=int(treatment_data["new"]),
+        untreated=int(
+            treatment_data.get("new", treatment_data.get("untreated", 0))
+        ),
     )
 
 
@@ -340,7 +342,7 @@ def format_treatment_summary_item(
         "accepted": treatment_data.accepted,
         "accepted_undefined": treatment_data.accepted_undefined,
         "in_progress": treatment_data.in_progress,
-        "new": treatment_data.new,
+        "untreated": treatment_data.untreated,
     }
 
 

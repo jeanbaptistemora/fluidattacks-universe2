@@ -110,7 +110,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("24"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("0"),
-                    new=Decimal("24"),
+                    untreated=Decimal("24"),
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("0"),
                 ),
@@ -254,7 +254,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("1"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("0"),
-                    new=Decimal("0"),
+                    untreated=Decimal("0"),
                     in_progress=Decimal("1"),
                     accepted_undefined=Decimal("0"),
                 ),
@@ -400,7 +400,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_open_vulnerabilities=Decimal("1"),
                 unreliable_treatment_summary=dict(
                     accepted=Decimal("0"),
-                    new=Decimal("0"),
+                    untreated=Decimal("0"),
                     in_progress=Decimal("0"),
                     accepted_undefined=Decimal("1"),
                 ),

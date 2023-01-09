@@ -161,7 +161,7 @@ def _format_unreliable_treatment_summary(
             accepted=treatment_summary.accepted,
             accepted_undefined=treatment_summary.accepted_undefined,
             in_progress=treatment_summary.in_progress,
-            new=treatment_summary.new,
+            untreated=treatment_summary.untreated,
         )
     return unreliable_treatment_summary
 

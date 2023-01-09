@@ -26,10 +26,14 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.types import (
+    GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
 from decimal import (
     Decimal,
+)
+from typing import (
+    Optional,
 )
 
 
@@ -42,7 +46,7 @@ async def get_data_one_group(
         await loaders.group_unreliable_indicators.load(group_name)
     )
     open_vulnerabilities: int = indicators.open_vulnerabilities or 0
-    treatment = indicators.treatment_summary
+    treatment: Optional[GroupTreatmentSummary] = indicators.treatment_summary
     if treatment:
         accepted_vulnerabilities: int = (
             treatment.accepted_undefined + treatment.accepted
