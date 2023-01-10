@@ -21,6 +21,7 @@ from typing import (
     Any,
     Iterator,
     List,
+    Optional,
     Pattern,
     Union,
 )
@@ -115,8 +116,16 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
             yield from _yield_nodes_from_stmt(stmt, file_ext)
 
 
+def not_principal(stmt: Any, vuln_type: Optional[str]) -> Any:
+    if (
+        not_princ := stmt.inner.get("NotPrincipal")
+    ) and vuln_type == "NOT_PRINCIPAL":
+        return not_princ
+    return None
+
+
 def _check_assume_role_policies(
-    assume_role_policy: Node, file_ext: str
+    assume_role_policy: Node, file_ext: str, vuln_type: Optional[str]
 ) -> Iterator[Node]:
     statements = (
         assume_role_policy.inner.get("Statement")
@@ -138,7 +147,7 @@ def _check_assume_role_policies(
                 line=get_line_by_extension(not_actions.start_line, file_ext),
             ) if isinstance(not_actions.raw, List) else not_actions
 
-        if not_princ := stmt.inner.get("NotPrincipal"):
+        if not_princ := not_principal(stmt, vuln_type):
             yield AWSIamManagedPolicy(  # type: ignore
                 column=not_princ.start_column,
                 data=not_princ.data,
@@ -159,7 +168,7 @@ def _cfn_iam_is_role_over_privileged_iter_vulns(
 
         if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
             yield from _check_assume_role_policies(
-                assume_role_policy, file_ext
+                assume_role_policy, file_ext, None
             )
 
 
@@ -180,37 +189,15 @@ def cfn_iam_is_role_over_privileged(
     )
 
 
-def _check_not_principal(
-    assume_role_policy: Node, file_ext: str
-) -> Iterator[Node]:
-    statements = (
-        assume_role_policy.inner.get("Statement")
-        if hasattr(assume_role_policy.inner, "get")
-        else None
-    )
-    for stmt in statements.data if statements else []:
-        if (
-            hasattr(stmt.inner, "get")
-            and (effect := stmt.inner.get("Effect"))
-            and effect.raw != "Allow"
-        ):
-            continue
-
-        if not_princ := stmt.inner.get("NotPrincipal"):
-            yield AWSIamManagedPolicy(  # type: ignore
-                column=not_princ.start_column,
-                data=not_princ.data,
-                line=get_line_by_extension(not_princ.start_line, file_ext),
-            )
-
-
 def _not_principal_trust_policy(
     file_ext: str,
     iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
-            yield from _check_not_principal(assume_role_policy, file_ext)
+            yield from _check_assume_role_policies(
+                assume_role_policy, file_ext, "NOT_PRINCIPAL"
+            )
 
 
 def cfn_iam_allow_not_principal_trust_policy(
@@ -228,5 +215,5 @@ def cfn_iam_allow_not_principal_trust_policy(
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED,
+        method=MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL,
     )
