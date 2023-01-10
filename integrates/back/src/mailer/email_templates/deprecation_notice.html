@@ -1,29 +1,22 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_news %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_plane %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_news('API Deprecation Notice') }}
+      {{ banner_plane('API Deprecation Notice') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           The following API elements are nearing the end of
           their six-month lifespan to become deprecated.
           Therefore, we will <strong>remove</strong> them from our API next month:
         </p>
+        <div class="data-container">
         {% for object, fields in deprecations.items() %}
-        <div class="row">
-          <div class="column left" style="width: 35%; text-align: left;">
-            <strong>From {{ object }}:</strong>
-          </div>
-          <div class="column right" style="width: 65%; text-align: center;">
-            {{ fields }}
-          </div>
-        </div>
+          <strong>From {{ object }}:</strong><br/>{{ fields }}<br/><br/>
         {% endfor %}
-        <br>
+        </div>
         <p>
           If your product currently consumes any of the above API elements
           in its queries, we encourage you to
@@ -32,16 +25,12 @@
           For more information, you can check the
           <a href="https://app.fluidattacks.com/api"
             target="_blank" rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             ARM API docs</a>.
         </p>
-        <p></p>
-        <p>Regards,<br>
-          Fluid Attacks Team</p>
-        <br />
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
