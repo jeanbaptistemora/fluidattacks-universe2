@@ -1670,7 +1670,7 @@ export const enTranslations: ResourceKey = {
         "of Title VIII of the Colombian Penal Code, and article 16 " +
         "and subsequent articles of Law 256 of 1996.",
       privacy:
-        "By using the Fluid Attacks' Attacks Resistance Management platform, you agree to our ",
+        "By using the Fluid Attacks' Attack Resistance Management platform, you agree to our ",
       privacyLinkText: "Privacy Policy",
     },
     rememberCbo: {

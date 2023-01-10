@@ -6,7 +6,7 @@ slug: /development/products/integrates
 ---
 
 Integrates is the Product responsible
-for the [Attacks Resistance Management platform (ARM)](/machine/web/arm)
+for the [Attack Resistance Management platform (ARM)](/machine/web/arm)
 and its [API](/machine/api).
 
 ## Public Oath

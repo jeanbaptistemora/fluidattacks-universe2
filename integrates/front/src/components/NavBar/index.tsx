@@ -25,7 +25,7 @@ const NavBar: FC<INavBarProps> = ({
     <NavBox id={"navbar"}>
       <NavHeader>
         <Text disp={"inline-block"} fw={7} mr={2} tone={"light"}>
-          {"Attacks Resistance Management"}
+          {"Attack Resistance Management"}
         </Text>
         <Tooltip
           disp={"inline-block"}
