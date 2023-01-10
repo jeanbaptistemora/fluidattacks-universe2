@@ -23,7 +23,7 @@ import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
 import {
   ADD_CREDIT_CARD_PAYMENT_METHOD,
-  ADD_PAYMENT_METHOD,
+  ADD_OTHER_PAYMENT_METHOD,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
   UPDATE_PAYMENT_METHOD,
@@ -139,7 +139,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         },
       }
     );
-    const [addPaymentMethod] = useMutation(ADD_PAYMENT_METHOD, {
+    const [addOtherPaymentMethod] = useMutation(ADD_OTHER_PAYMENT_METHOD, {
       onCompleted: (): void => {
         onUpdate();
         closeAddModal();
@@ -150,19 +150,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          if (
-            error.message ===
-            "Exception - Provided payment method could not be created"
-          ) {
-            msgError(
-              t(
-                "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
-              )
-            );
-          } else {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't create payment method", error);
-          }
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't create payment method", error);
         });
       },
     });
@@ -219,25 +208,15 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         state: string;
         taxIdList: FileList | undefined;
       }): Promise<void> => {
-        const cardCvc = "";
-        const cardExpirationMonth = "";
-        const cardExpirationYear = "";
-        const cardNumber = "";
-        const makeDefault = false;
         const rut = handleFileListUpload(rutList);
         const taxId = handleFileListUpload(taxIdList);
         mixpanel.track("AddPaymentMethod", { method: "Wired" });
-        await addPaymentMethod({
+        await addOtherPaymentMethod({
           variables: {
             businessName,
-            cardCvc,
-            cardExpirationMonth,
-            cardExpirationYear,
-            cardNumber,
             city,
             country,
             email,
-            makeDefault,
             organizationId,
             rut,
             state,
@@ -245,7 +224,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           },
         });
       },
-      [addPaymentMethod, organizationId]
+      [addOtherPaymentMethod, organizationId]
     );
 
     // Remove payment method
@@ -601,7 +580,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           data={otherMetodData}
           extraButtons={
             <Fragment>
-              <Can do={"api_mutations_add_payment_method_mutate"}>
+              <Can do={"api_mutations_add_other_payment_method_mutate"}>
                 <Button
                   id={"addOtherMethod"}
                   onClick={openAddOtherMethodModal}
