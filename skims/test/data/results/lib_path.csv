@@ -36472,7 +36472,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    47 |       <groupId>org.apache.tomcat.embed</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.2.19.RELEASE) [GHSA-4wrc-f8pq-fpqp],73,937,skims,011. Use of software with known vulnerabilities,Use of org.springframework:spring-web at version 5.2.19.RELEASE with ['GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml,"
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.2.19.RELEASE) [CVE-2016-1000027, GHSA-4wrc-f8pq-fpqp]",73,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework:spring-web at version 5.2.19.RELEASE with ['CVE-2016-1000027', 'GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    63 |     </dependency>
    64 |     <dependency>
    65 |       <groupId>org.springframework</groupId>
@@ -36496,7 +36496,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml
    83 |       <groupId>org.springframework.security</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.3.2) [CVE-2021-22118, GHSA-4wrc-f8pq-fpqp]",67,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework:spring-web at version 5.3.2 with ['CVE-2021-22118', 'GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework:spring-web v5.3.2) [CVE-2016-1000027, CVE-2021-22118, GHSA-4wrc-f8pq-fpqp]",67,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework:spring-web at version 5.3.2 with ['CVE-2016-1000027', 'CVE-2021-22118', 'GHSA-4wrc-f8pq-fpqp'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    57 |     </dependency>
    58 |     <dependency>
    59 |       <groupId>com.newrelic.agent.java</groupId>

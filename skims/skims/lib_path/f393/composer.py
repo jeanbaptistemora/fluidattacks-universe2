@@ -32,7 +32,7 @@ def composer_json_dev(  # NOSONAR
 
 
 # pylint: disable=unused-argument
-@pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_LOCK)
+@pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_LOCK_DEV)
 def composer_lock_dev(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
