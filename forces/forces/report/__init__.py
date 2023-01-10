@@ -119,6 +119,7 @@ def format_vuln_table(
 ) -> Table:
     """
     Helper method to create the nested vulns table\n
+    @param `config`: Forces config
     @param `vulns`: A list of dicts with each vuln's data
     """
     vuln_table = Table(
