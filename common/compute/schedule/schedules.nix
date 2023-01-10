@@ -728,7 +728,7 @@
     ];
 
     schedule_expression = "cron(0 0 ? * * *)";
-    size = "integrates_nano";
+    size = "integrates_small";
     awsRole = "prod_integrates";
     attempts = 3;
     timeout = 86400;
