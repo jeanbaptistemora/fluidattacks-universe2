@@ -35,6 +35,9 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
+from schedulers.common import (
+    info,
+)
 from typing import (
     Optional,
 )
@@ -96,7 +99,9 @@ async def _process_vulnerability(
 @retry_on_exceptions(
     exceptions=(ReadTimeoutError, ConnectTimeoutError),
 )
-async def _process_finding(loaders: Dataloaders, finding_id: str) -> None:
+async def _process_finding(
+    loaders: Dataloaders, finding_id: str, group_name: str
+) -> None:
     vulnerabilities = await loaders.finding_vulnerabilities.load(finding_id)
     results = await collect(
         tuple(
@@ -114,12 +119,22 @@ async def _process_finding(loaders: Dataloaders, finding_id: str) -> None:
         finding_ids=[finding_id],
         vulnerability_ids=list(updated_vulnerability_ids),
     )
+    info(
+        "Finding processed",
+        extra={
+            "finding_id": group_name,
+            "group_name": group_name,
+            "updated_vulnerability_ids": updated_vulnerability_ids,
+        },
+    )
 
 
 @retry_on_exceptions(
     exceptions=(ReadTimeoutError, ConnectTimeoutError),
 )
-async def _process_group(loaders: Dataloaders, group_name: str) -> None:
+async def _process_group(
+    loaders: Dataloaders, group_name: str, progress: float
+) -> None:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
@@ -130,15 +145,29 @@ async def _process_group(loaders: Dataloaders, group_name: str) -> None:
         ),
         workers=4,
     )
+    info(
+        "Group processed",
+        extra={
+            "name": group_name,
+            "findings": len(group_findings),
+            "progress": {round(progress, 2)},
+        },
+    )
 
 
 async def reset_expired_accepted_findings() -> None:
     """Update treatment if acceptance date expires."""
     loaders: Dataloaders = get_new_context()
-    group_names = await orgs_domain.get_all_active_group_names(loaders)
+    group_names = sorted(await orgs_domain.get_all_active_group_names(loaders))
+    info("Groups to process", extra={"item": len(group_names)})
     await collect(
         tuple(
-            _process_group(loaders, group_name) for group_name in group_names
+            _process_group(
+                loaders=loaders,
+                group_name=group_name,
+                progress=count / len(group_names),
+            )
+            for count, group_name in enumerate(group_names)
         ),
         workers=1,
     )
