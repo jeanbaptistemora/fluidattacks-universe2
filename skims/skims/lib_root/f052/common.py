@@ -1,5 +1,5 @@
 from lib_root.utilities.javascript import (
-    file_imports_module,
+    get_default_alias,
 )
 from model.core_model import (
     MethodsEnum,
@@ -178,9 +178,9 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
 
 def insecure_hash_library(graph: Graph) -> List[NId]:
     vuln_nodes: List[NId] = []
-    if file_imports_module(graph, "js-sha1"):
+    if dangerous_name := get_default_alias(graph, "js-sha1"):
         for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
             method_expression = graph.nodes[n_id]["expression"]
-            if method_expression.split(".")[0] == "sha1":
+            if method_expression.split(".")[0] == dangerous_name:
                 vuln_nodes.append(n_id)
     return vuln_nodes
