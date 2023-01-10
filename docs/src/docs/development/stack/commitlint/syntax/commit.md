@@ -62,13 +62,10 @@ for the integrates repository:
    hack   // ctf-hacking challenge solution only for training repo
    ```
 
-1. **[product]** variable has to be
-   one of the following:
+1. **[product]** variable has to be:
 
    ```markup
-   forces // Changes in forces
-   integrates // Changes in Integrates
-   all // Changes that affect both integrates and forces
+   integrates // Changes that affect both integrates and forces
    ```
 
 1. A **Commit title**
