@@ -27,6 +27,9 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
+from typing import (
+    Optional,
+)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -39,61 +42,61 @@ from vulnerabilities import (
 
 
 @retry_on_exceptions(exceptions=(VulnNotFound,), sleep_seconds=2.0)
-async def _reset_expired_accepted_vuln(
-    loaders: Dataloaders, vuln_id: str
-) -> None:
-    updated_values = {"treatment": "UNTREATED"}
-    loaders.vulnerability.clear(vuln_id)
-    vuln_to_update: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    if vuln_to_update.treatment and vuln_to_update.treatment.modified_by:
-        await vulns_domain.add_vulnerability_treatment(
-            finding_id=vuln_to_update.finding_id,
-            updated_values=updated_values,
-            vuln=vuln_to_update,
-            user_email=vuln_to_update.treatment.modified_by,
+async def _process_vulnerability(
+    vulnerability: Vulnerability,
+) -> Optional[str]:
+    today = datetime_utils.get_utc_now()
+    is_accepted_expired = (
+        vulnerability.treatment.accepted_until < today
+        if vulnerability.treatment and vulnerability.treatment.accepted_until
+        else False
+    )
+    is_undefined_accepted_expired = (
+        vulnerability.treatment
+        and vulnerability.treatment.status
+        == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        and vulnerability.treatment.acceptance_status
+        == VulnerabilityAcceptanceStatus.SUBMITTED
+        and datetime_utils.get_plus_delta(
+            vulnerability.treatment.modified_date,
+            days=5,
         )
+        <= today
+    )
+    if (
+        vulnerability.treatment
+        and vulnerability.treatment.modified_by
+        and (is_accepted_expired or is_undefined_accepted_expired)
+    ):
+        await vulns_domain.add_vulnerability_treatment(
+            finding_id=vulnerability.finding_id,
+            updated_values={"treatment": "UNTREATED"},
+            vuln=vulnerability,
+            user_email=vulnerability.treatment.modified_by,
+        )
+        return vulnerability.id
+
+    return None
 
 
 async def _process_finding(loaders: Dataloaders, finding_id: str) -> None:
-    today = datetime_utils.get_utc_now()
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding_id)
-    updated_vuln_ids: set[str] = set()
+    vulnerabilities = await loaders.finding_vulnerabilities.load(finding_id)
+    results = await collect(
+        tuple(
+            _process_vulnerability(vulnerability)
+            for vulnerability in vulnerabilities
+        ),
+        workers=4,
+    )
+    updated_vulnerability_ids = [id for id in results if id]
+    if not updated_vulnerability_ids:
+        return
 
-    for vulnerability in vulnerabilities:
-        is_accepted_expired = (
-            vulnerability.treatment.accepted_until < today
-            if vulnerability.treatment
-            and vulnerability.treatment.accepted_until
-            else False
-        )
-        is_undefined_accepted_expired = (
-            vulnerability.treatment
-            and vulnerability.treatment.status
-            == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-            and vulnerability.treatment.acceptance_status
-            == VulnerabilityAcceptanceStatus.SUBMITTED
-            and datetime_utils.get_plus_delta(
-                vulnerability.treatment.modified_date,
-                days=5,
-            )
-            <= today
-        )
-        if (
-            vulnerability.treatment
-            and vulnerability.treatment.modified_by
-            and (is_accepted_expired or is_undefined_accepted_expired)
-        ):
-            await _reset_expired_accepted_vuln(loaders, vulnerability.id)
-            updated_vuln_ids.add(vulnerability.id)
-
-    if updated_vuln_ids:
-        await update_unreliable_indicators_by_deps(
-            EntityDependency.reset_expired_accepted_findings,
-            finding_ids=[finding_id],
-            vulnerability_ids=list(updated_vuln_ids),
-        )
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.reset_expired_accepted_findings,
+        finding_ids=[finding_id],
+        vulnerability_ids=list(updated_vulnerability_ids),
+    )
 
 
 async def _process_group(loaders: Dataloaders, group_name: str) -> None:
@@ -117,7 +120,7 @@ async def reset_expired_accepted_findings() -> None:
         tuple(
             _process_group(loaders, group_name) for group_name in group_names
         ),
-        workers=4,
+        workers=1,
     )
 
 
