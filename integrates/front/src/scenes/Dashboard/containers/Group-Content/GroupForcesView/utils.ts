@@ -112,24 +112,25 @@ const unformatStrictness: (strictness: string) => string = (
 
 const unformatFilterValues: (
   value: IFilter<IExecution>
-) => Record<string, string> = (
+) => Record<string, unknown> = (
   value: IFilter<IExecution>
-): Record<string, string> => {
-  const unformat = (): Record<string, string> => {
+): Record<string, unknown> => {
+  const unformat = (): Record<string, unknown> => {
     if (value.id === "date")
       return {
-        fromDate: value.rangeValues?.[0] ?? "",
-        toDate: value.rangeValues?.[1] ?? "",
+        fromDate: value.rangeValues?.[0],
+        toDate: value.rangeValues?.[1],
       };
     const titleFormat = formatExecutionFilters(value.id);
+    if (_.isUndefined(value.value)) return { [titleFormat]: undefined };
 
     if (value.id === "kind")
-      return { [titleFormat]: unformatKind(value.value ?? "") };
+      return { [titleFormat]: unformatKind(value.value) };
 
     return value.id === "strictness"
-      ? { [titleFormat]: unformatStrictness(value.value ?? "") }
+      ? { [titleFormat]: unformatStrictness(value.value) }
       : {
-          [titleFormat]: value.value ?? "",
+          [titleFormat]: value.value,
         };
   };
 
