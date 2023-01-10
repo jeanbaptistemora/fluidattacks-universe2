@@ -67,7 +67,7 @@ def _cfn_iter_vulnerable_admin_ports(
                     int(rule_raw["ToPort"]) + 1,
                 )
             )
-        except (KeyError, ValueError):
+        except (KeyError, TypeError, ValueError):
             continue
 
         with suppress(AddressValueError, KeyError):

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSCloudfrontDistribution,
 )
+from lark import (
+    Tree,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -75,6 +78,7 @@ def _tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
                         key="origin_ssl_protocols",
                     )
                 )
+                and not isinstance(ssl_prot.val, Tree)
                 and len(
                     set(ssl_prot.val).intersection(
                         VULNERABLE_ORIGIN_SSL_PROTOCOLS

@@ -11,6 +11,9 @@ from aws.model import (
     AWSIamPolicyStatement,
     AWSS3BucketPolicy,
 )
+from lark import (
+    Tree,
+)
 from metaloaders.model import (
     Node,
 )
@@ -87,6 +90,19 @@ def get_node_open_pass_vulns(
         )
 
 
+def aux_open_passrole_iterate_vulnerabilities(
+    resources: list, actions: list
+) -> bool:
+    if not isinstance(resources, Tree) and all(
+        (
+            any(map(match_iam_passrole, actions)),
+            any(map(is_resource_permissive, resources)),
+        )
+    ):
+        return True
+    return False
+
+
 def open_passrole_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
@@ -101,14 +117,8 @@ def open_passrole_iterate_vulnerabilities(
             resources = stmt_raw.get("Resource", [])
             if isinstance(stmt, Node) and actions and resources:
                 yield from get_node_open_pass_vulns(stmt)
-            else:
-                if all(
-                    (
-                        any(map(match_iam_passrole, actions)),
-                        any(map(is_resource_permissive, resources)),
-                    )
-                ):
-                    yield stmt
+            elif aux_open_passrole_iterate_vulnerabilities(resources, actions):
+                yield stmt
 
 
 def get_node_negative_stmt_vulns(
