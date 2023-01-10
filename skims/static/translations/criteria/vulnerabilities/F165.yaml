@@ -22,3 +22,11 @@ src.lib_path.f165.iam_is_role_over_privileged:
     - No debe permitir Allow + NotAction en permisos de confianza
     - No debe permitir Allow + NotAction
     - No debe permitir Allow + NotResource
+
+src.lib_path.f165.iam_allow_not_principal_trust_policy:
+  en: >
+    IAM Role is miss configured:
+    - Should not allow Allow+NotPrincipal in its trust policy
+  es: >
+    El Role de IAM está mal configurado:
+    - No debe permitir Allow + NotPrincipal en su política de confianza
