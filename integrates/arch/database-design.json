@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 06, 2023, 01:25 PM",
+    "DateLastModified": "Jan 10, 2023, 11:46 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1373,7 +1373,7 @@
                 "S": "delete"
               },
               "last_login_date": {
-                "S": "2020-09-30T18:40:37+00:00"
+                "S": "2020-10-01T18:40:37+00:00"
               },
               "tours": {
                 "M": {
@@ -1392,22 +1392,22 @@
                 "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#deleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura1@fluidattacks.com"
               },
               "pk_2": {
                 "S": "USER#all"
               },
               "pk": {
-                "S": "USER#deleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura1@fluidattacks.com"
               },
               "first_name": {
                 "S": "imamura"
               },
               "email": {
-                "S": "deleteimamura@fluidattacks.com"
+                "S": "inactive_imamura1@fluidattacks.com"
               },
               "sk_2": {
-                "S": "USER#deleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura1@fluidattacks.com"
               }
             },
             {
@@ -2896,7 +2896,7 @@
                 "S": "no delete"
               },
               "last_login_date": {
-                "S": "2020-10-03T18:40:37+00:00"
+                "S": "2020-10-02T18:40:37+00:00"
               },
               "tours": {
                 "M": {
@@ -2915,22 +2915,22 @@
                 "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura2@fluidattacks.com"
               },
               "pk_2": {
                 "S": "USER#all"
               },
               "pk": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura2@fluidattacks.com"
               },
               "first_name": {
                 "S": "imamura"
               },
               "email": {
-                "S": "nodeleteimamura@fluidattacks.com"
+                "S": "inactive_imamura2@fluidattacks.com"
               },
               "sk_2": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura2@fluidattacks.com"
               }
             },
             {
@@ -3471,10 +3471,10 @@
                 "S": "admin"
               },
               "pk": {
-                "S": "USER#deleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura1@fluidattacks.com"
               },
               "email": {
-                "S": "deleteimamura@fluidattacks.com"
+                "S": "inactive_imamura1@fluidattacks.com"
               },
               "organization_id": {
                 "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
@@ -4284,10 +4284,10 @@
                 "S": "user"
               },
               "pk": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura2@fluidattacks.com"
               },
               "email": {
-                "S": "nodeleteimamura@fluidattacks.com"
+                "S": "inactive_imamura2@fluidattacks.com"
               },
               "organization_id": {
                 "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
@@ -4734,7 +4734,7 @@
                 "S": "deleteimamura"
               },
               "responsibility": {
-                "S": "delete"
+                "S": "to be deleted by inactivity, first attempt"
               },
               "invitation": {
                 "M": {
@@ -4745,7 +4745,7 @@
                     "S": "hacker"
                   },
                   "responsibility": {
-                    "S": "delete"
+                    "S": "to be deleted by inactivity, first attempt"
                   },
                   "is_used": {
                     "BOOL": true
@@ -4759,10 +4759,10 @@
                 "BOOL": true
               },
               "pk": {
-                "S": "USER#deleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura1@fluidattacks.com"
               },
               "email": {
-                "S": "deleteimamura@fluidattacks.com"
+                "S": "inactive_imamura1@fluidattacks.com"
               },
               "state": {
                 "M": {
@@ -5981,7 +5981,7 @@
                 "S": "deleteimamura"
               },
               "responsibility": {
-                "S": "no delete"
+                "S": "to be deleted by inactivity, second attempt"
               },
               "invitation": {
                 "M": {
@@ -5992,7 +5992,7 @@
                     "S": "hacker"
                   },
                   "responsibility": {
-                    "S": " no delete"
+                    "S": "to be deleted by inactivity, second attempt"
                   },
                   "is_used": {
                     "BOOL": true
@@ -6006,10 +6006,10 @@
                 "BOOL": true
               },
               "pk": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
+                "S": "USER#inactive_imamura2@fluidattacks.com"
               },
               "email": {
-                "S": "nodeleteimamura@fluidattacks.com"
+                "S": "inactive_imamura2@fluidattacks.com"
               },
               "state": {
                 "M": {

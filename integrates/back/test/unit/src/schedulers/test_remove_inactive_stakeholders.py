@@ -11,6 +11,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.types import (
+    PoliciesToUpdate,
+)
 from freezegun import (
     freeze_time,
 )
@@ -41,19 +44,17 @@ async def test_remove_inactive_stakeholders() -> None:
         stakeholder.email for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == [
-        "deleteimamura@fluidattacks.com",  # NOSONAR
-        "nodeleteimamura@fluidattacks.com",  # NOSONAR
+        "inactive_imamura1@fluidattacks.com",  # NOSONAR
+        "inactive_imamura2@fluidattacks.com",  # NOSONAR
     ]
-    remove_stakeholder = await loaders.stakeholder.load(
-        "deleteimamura@fluidattacks.com"
+    inactive_stakeholder1 = await loaders.stakeholder.load(
+        "inactive_imamura1@fluidattacks.com"
     )
-    remove_stakeholder_exists = bool(remove_stakeholder)
-    assert remove_stakeholder_exists
-    noremove_stakeholder = await loaders.stakeholder.load(
-        "nodeleteimamura@fluidattacks.com"
+    assert inactive_stakeholder1
+    inactive_stakeholder2 = await loaders.stakeholder.load(
+        "inactive_imamura2@fluidattacks.com"
     )
-    noremove_stakeholder_exists = bool(noremove_stakeholder)
-    assert noremove_stakeholder_exists
+    assert inactive_stakeholder2
 
     await remove_inactive_stakeholders.main()
 
@@ -62,11 +63,26 @@ async def test_remove_inactive_stakeholders() -> None:
     org_stakeholders_emails = [
         stakeholder.email for stakeholder in org_stakeholders
     ]
-    assert org_stakeholders_emails == ["nodeleteimamura@fluidattacks.com"]
+    assert org_stakeholders_emails == ["inactive_imamura2@fluidattacks.com"]
     with pytest.raises(StakeholderNotFound):
-        await loaders.stakeholder.load("deleteimamura@fluidattacks.com")
-    noremove_stakeholder = await loaders.stakeholder.load(
-        "nodeleteimamura@fluidattacks.com"
+        await loaders.stakeholder.load("inactive_imamura1@fluidattacks.com")
+    inactive_stakeholder2 = await loaders.stakeholder.load(
+        "inactive_imamura2@fluidattacks.com"
     )
-    noremove_stakeholder_exists = bool(noremove_stakeholder)
-    assert noremove_stakeholder_exists
+    assert inactive_stakeholder2
+
+    await orgs_domain.update_policies(
+        loaders=get_new_context(),
+        organization_id=org_id,
+        organization_name=org_name,
+        user_email="integrates@fluidattacks.com",
+        policies_to_update=PoliciesToUpdate(
+            inactivity_period=89,
+        ),
+    )
+    await remove_inactive_stakeholders.main()
+    loaders = get_new_context()
+    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
+    assert not org_stakeholders
+    with pytest.raises(StakeholderNotFound):
+        await loaders.stakeholder.load("inactive_imamura2@fluidattacks.com")
