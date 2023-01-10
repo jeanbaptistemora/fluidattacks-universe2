@@ -1,6 +1,9 @@
 import {
+  faCalendarDay,
+  faClock,
   faHeartPulse,
   faSquareCaretDown,
+  faUnlock,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
@@ -63,6 +66,11 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
       ? "dark"
       : "red";
 
+  const remediatedLabel =
+    statusText === t("searchFindings.header.status.stateLabel.closed")
+      ? t("searchFindings.header.riskExposure.remediated")
+      : t("searchFindings.header.riskExposure.unremediated");
+
   return (
     <React.StrictMode>
       <Row>
@@ -77,7 +85,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                   ta={"start"}
                   tone={cvssfTextColor}
                 >
-                  {"Remediate this vulnerability"}
+                  {remediatedLabel}
                 </Text>
                 <br />
                 {/* eslint-disable-next-line react/forbid-component-props */}
@@ -90,7 +98,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                   <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
                     {"20% "}
                     <Text disp={"inline"} size={"small"} ta={"start"}>
-                      {"Total Risk Exposure (CVSSF)"}
+                      {t("searchFindings.header.riskExposure.label")}
                     </Text>
                   </Text>
                 </Gap>
@@ -125,24 +133,43 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                     icon={faHeartPulse}
                     size={"lg"}
                   />
-                  <Text size={"small"}>{"status and severity"}</Text>
+                  <Text>{t("searchFindings.header.status.label")}</Text>
                 </Gap>
               </Row>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
             <Card float={true} title={`${openVulns}`}>
-              <Text>{"status and severity"}</Text>
+              <Gap>
+                <FontAwesomeIcon
+                  color={"#2e2e38"}
+                  icon={faUnlock}
+                  size={"lg"}
+                />
+                <Text>{t("searchFindings.header.openVulns.label")}</Text>
+              </Gap>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
             <Card float={true} title={discoveryDate}>
-              <Text>{"First Reported"}</Text>
+              <Gap>
+                <FontAwesomeIcon
+                  color={"#2e2e38"}
+                  icon={faCalendarDay}
+                  size={"lg"}
+                />
+                <Text>{t("searchFindings.header.discoveryDate.label")}</Text>
+              </Gap>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
             <Card float={true} title={estRemediationTime}>
-              <Text>{"Remediation time"}</Text>
+              <Gap>
+                <FontAwesomeIcon color={"#2e2e38"} icon={faClock} size={"lg"} />
+                <Text>
+                  {t("searchFindings.header.estRemediationTime.label")}
+                </Text>
+              </Gap>
             </Card>
           </Col>
         </Row>

@@ -2687,6 +2687,11 @@ export const enTranslations: ResourceKey = {
         tooltip:
           "The number of locations in your system that still have vulnerable status.",
       },
+      riskExposure: {
+        label: "Total Risk Exposure (CVSSF)",
+        remediated: "Vulnerability Remediated",
+        unremediated: "Remediate this vulnerability",
+      },
       severity: {
         label: "Severity",
         level: {
