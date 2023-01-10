@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share, go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Confirm Deletion') }}
+      {{ banner_share('Confirm Deletion') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           Just a moment ago, you chose to remove your
           ARM account. Clicking on <strong>Confirm deletion</strong>
@@ -15,20 +14,10 @@
           If you do not do it before the deadline,
           you will need to repeat the procedure from the ARM.
         </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <table aria-label="Delete Confirmation Link" style="margin: 0 auto;">
-          <tr>
-            <th scope="col">
-              {{ go_to_button('Confirm deletion', confirm_deletion_url, 'primary-button') }}
-            </th>
-          </tr>
-        </table>
-        <br />
+        {{ go_to_button('Confirm deletion', confirm_deletion_url, 'primary-button') }}
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

@@ -1,29 +1,26 @@
-{% extends "layouts/common.html" %} {% block layout %}
-<div class="container">
-  {% include 'layouts/components/dark_logo_header.html' %} {% include
-  'layouts/components/arm_banner.html' %}
+{% extends "layouts_new/common.html" %}
+  {% block layout %}
+    <div class="container">
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-  <div class="main-content">
-    <strong>
-      <p style="display: flex; align-items: center; justify-content: center">
-        Hi, you have a new lead from the 'contact sale' form of the free trial
-        onboarding.
-      </p>
-    </strong>
-    <p>
-      The following user is interested in learning more about all the benefits
-      of getting the Squad plan.
-    </p>
-    <br />
-
-    <ul>
-      <li><strong>Email:</strong> {{ lead_email }}</li>
-      <br />
-      <li><strong>Name:</strong> {{ lead_name }}</li>
-      <br />
-      <li><strong>Number:</strong> {{ national_number }}</li>
-    </ul>
-  </div>
-  {% include 'layouts/components/footer.html' %}
-</div>
+      <div class="main-content">
+        <h2 style="display: flex; align-items: center; justify-content: center">
+          Hi, you have a new lead from the 'contact sale' form of the free trial
+          onboarding.
+        </h2>
+        <p>
+          The following user is interested in learning more about all the benefits
+          of getting the Squad plan.
+        </p>
+        <div class="data-container">
+          <p>
+            <strong>Email:</strong><br/>{{ lead_email }}<br/><br/>
+            <strong>Name:</strong><br/>{{ lead_name }}<br/><br/>
+            <strong>Phone:</strong><br/>{{ national_number }}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
+      </div>
+      {% include 'layouts_new/components/footer.html' %}
+    </div>
 {% endblock %}
