@@ -310,4 +310,22 @@ describe("ForcesView", (): void => {
     expect(screen.getByRole("option", { name: "DAST" })).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "SAST" })).toBeInTheDocument();
   });
+
+  it("should have git repo filter", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    expect(
+      screen.getByRole("textbox", { name: "gitRepo" })
+    ).toBeInTheDocument();
+  });
 });
