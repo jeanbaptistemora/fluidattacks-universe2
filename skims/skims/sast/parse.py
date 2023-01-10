@@ -311,9 +311,7 @@ def _parse_one_cached(
     control_flow.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
-
     metadata = inspectors.get_metadata(graph, language)
-    danger_nodes.mark_metadata(graph, metadata, language)
 
     styles.add(graph)
 

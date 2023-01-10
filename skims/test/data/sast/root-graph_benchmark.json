@@ -3522,7 +3522,6 @@
             "label_field_name": "190",
             "label_field_object": "188",
             "label_l": 42,
-            "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
           },
           "188": {
@@ -3836,7 +3835,6 @@
             "label_c": 21,
             "label_field_name": "235",
             "label_field_type": "234",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 48,
             "label_type": "formal_parameter"
           },
@@ -5117,7 +5115,6 @@
             "label_field_name": "430",
             "label_field_object": "422",
             "label_l": 74,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "422": {
@@ -5711,7 +5708,6 @@
             "label_field_name": "518",
             "label_field_object": "510",
             "label_l": 80,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "51": {
@@ -6387,7 +6383,6 @@
             "label_c": 20,
             "label_field_name": "74",
             "label_field_type": "73",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -12018,7 +12013,6 @@
             "label_c": 24,
             "label_field_name": "110",
             "label_field_type": "109",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -12902,7 +12896,6 @@
             "label_field_name": "241",
             "label_field_object": "239",
             "label_l": 59,
-            "label_sink_type": "F112",
             "label_type": "method_invocation"
           },
           "239": {
@@ -13182,7 +13175,6 @@
             "label_field_name": "289",
             "label_field_object": "281",
             "label_l": 64,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "281": {
@@ -13667,7 +13659,6 @@
             "label_c": 23,
             "label_field_name": "74",
             "label_field_type": "73",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 35,
             "label_type": "formal_parameter"
           },
@@ -19008,7 +18999,6 @@
             "label_c": 21,
             "label_field_name": "110",
             "label_field_type": "109",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 40,
             "label_type": "formal_parameter"
           },
@@ -21595,7 +21585,6 @@
             "label_field_name": "497",
             "label_field_object": "489",
             "label_l": 83,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "489": {
@@ -22130,7 +22119,6 @@
             "label_field_name": "576",
             "label_field_object": "568",
             "label_l": 93,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "568": {
@@ -22253,7 +22241,6 @@
             "label_field_name": "588",
             "label_field_object": "586",
             "label_l": 94,
-            "label_sink_type": "F034,F042",
             "label_type": "method_invocation"
           },
           "586": {
@@ -22320,7 +22307,6 @@
             "label_field_name": "604",
             "label_field_object": "596",
             "label_l": 95,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "596": {
@@ -22630,7 +22616,6 @@
             "label_field_name": "648",
             "label_field_object": "640",
             "label_l": 101,
-            "label_sink_type": "F008",
             "label_type": "method_invocation"
           },
           "64": {
@@ -22785,7 +22770,6 @@
             "label_c": 20,
             "label_field_name": "74",
             "label_field_type": "73",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 35,
             "label_type": "formal_parameter"
           },

@@ -2949,7 +2949,6 @@
             "label_field_arguments": "250",
             "label_field_function": "246",
             "label_l": 51,
-            "label_sink_type": "F001",
             "label_type": "invocation_expression"
           },
           "246": {
@@ -4111,7 +4110,6 @@
             "label_c": 30,
             "label_field_name": "63",
             "label_field_type": "62",
-            "label_input_type": "F001,F004,F008,F021,F063,F100,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -12716,7 +12714,6 @@
             "label_c": 41,
             "label_field_name": "1039",
             "label_field_type": "1038",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 152,
             "label_type": "parameter"
           },
@@ -13799,7 +13796,6 @@
             "label_c": 38,
             "label_field_name": "209",
             "label_field_type": "208",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -13847,7 +13843,6 @@
             "label_c": 52,
             "label_field_name": "216",
             "label_field_type": "215",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -15250,7 +15245,6 @@
             "label_c": 44,
             "label_field_name": "430",
             "label_field_type": "429",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 58,
             "label_type": "parameter"
           },
@@ -15809,7 +15803,6 @@
             "label_c": 41,
             "label_field_name": "520",
             "label_field_type": "519",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 72,
             "label_type": "parameter"
           },
@@ -16728,7 +16721,6 @@
             "label_c": 41,
             "label_field_name": "656",
             "label_field_type": "655",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 93,
             "label_type": "parameter"
           },
@@ -16754,7 +16746,6 @@
             "label_c": 49,
             "label_field_name": "665",
             "label_field_type": "664",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 93,
             "label_type": "parameter"
           },
@@ -29100,7 +29091,6 @@
             "label_c": 45,
             "label_field_name": "194",
             "label_field_type": "193",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 31,
             "label_type": "parameter"
           },
@@ -29753,7 +29743,6 @@
             "label_c": 45,
             "label_field_name": "31",
             "label_field_type": "30",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 7,
             "label_type": "parameter"
           },
@@ -29898,7 +29887,6 @@
             "label_c": 34,
             "label_field_name": "312",
             "label_field_type": "311",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 51,
             "label_type": "parameter"
           },
@@ -30987,7 +30975,6 @@
             "label_c": 37,
             "label_field_name": "477",
             "label_field_type": "476",
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 77,
             "label_type": "parameter"
           },
@@ -36902,7 +36889,6 @@
             "label_field_arguments": "122",
             "label_field_function": "118",
             "label_l": 9,
-            "label_sink_type": "F052",
             "label_type": "invocation_expression"
           },
           "118": {
@@ -37145,7 +37131,6 @@
             "label_field_arguments": "160",
             "label_field_function": "156",
             "label_l": 12,
-            "label_sink_type": "F052",
             "label_type": "invocation_expression"
           },
           "156": {
@@ -37445,7 +37430,6 @@
             "label_field_arguments": "205",
             "label_field_function": "201",
             "label_l": 15,
-            "label_sink_type": "F008",
             "label_type": "invocation_expression"
           },
           "201": {
@@ -37716,7 +37700,6 @@
           },
           "51": {
             "label_c": 36,
-            "label_input_type": "F052",
             "label_l": 6,
             "label_type": "array_creation_expression"
           },

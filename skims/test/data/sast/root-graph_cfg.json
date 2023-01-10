@@ -5364,7 +5364,6 @@
             "label_field_arguments": "122",
             "label_field_function": "118",
             "label_l": 9,
-            "label_sink_type": "F052",
             "label_type": "invocation_expression"
           },
           "118": {
@@ -5524,7 +5523,6 @@
             "label_c": 28,
             "label_field_name": "143",
             "label_field_type": "142",
-            "label_input_type": "F001,F004,F008,F021,F063,F100,F107",
             "label_l": 13,
             "label_type": "parameter"
           },
@@ -7984,7 +7982,6 @@
           },
           "51": {
             "label_c": 35,
-            "label_input_type": "F052",
             "label_l": 7,
             "label_type": "array_creation_expression"
           },

@@ -1,12 +1,10 @@
 from model.graph_model import (
     Graph,
-    GraphShardMetadata,
     GraphShardMetadataLanguage,
     GraphSyntax,
 )
 from sast_transformations.danger_nodes.c_sharp import (
     mark_inputs as c_sharp_mark_inputs,
-    mark_metadata as mark_metadata_c_sharp,
     mark_sinks as c_sharp_mark_sinks,
 )
 from sast_transformations.danger_nodes.java import (
@@ -33,12 +31,3 @@ def mark(
     elif language == GraphShardMetadataLanguage.JAVASCRIPT:
         javascript_mark_imputs(graph, syntax)
         javascript_mark_sinks(graph, syntax)
-
-
-def mark_metadata(
-    graph: Graph,
-    metadata: GraphShardMetadata,
-    language: GraphShardMetadataLanguage,
-) -> None:
-    if language == GraphShardMetadataLanguage.CSHARP:
-        mark_metadata_c_sharp(graph, metadata)

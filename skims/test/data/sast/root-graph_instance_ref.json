@@ -5042,7 +5042,6 @@
             "label_field_name": "168",
             "label_field_object": "160",
             "label_l": 22,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "16": {
@@ -5228,7 +5227,6 @@
             "label_c": 9,
             "label_field_declarator": "189",
             "label_field_type": "188",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 26,
             "label_type": "local_variable_declaration"
           },
@@ -5718,7 +5716,6 @@
             "label_field_name": "267",
             "label_field_object": "259",
             "label_l": 34,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "259": {
@@ -5907,7 +5904,6 @@
             "label_c": 9,
             "label_field_declarator": "288",
             "label_field_type": "287",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 38,
             "label_type": "local_variable_declaration"
           },
@@ -6291,7 +6287,6 @@
             "label_field_name": "350",
             "label_field_object": "342",
             "label_l": 44,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "342": {
@@ -6502,7 +6497,6 @@
             "label_c": 9,
             "label_field_declarator": "375",
             "label_field_type": "374",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 48,
             "label_type": "local_variable_declaration"
           },
@@ -6923,7 +6917,6 @@
             "label_field_name": "443",
             "label_field_object": "435",
             "label_l": 55,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "435": {
@@ -7149,7 +7142,6 @@
             "label_c": 9,
             "label_field_declarator": "470",
             "label_field_type": "469",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 59,
             "label_type": "local_variable_declaration"
           },
@@ -7401,7 +7393,6 @@
             "label_field_name": "513",
             "label_field_object": "505",
             "label_l": 63,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "505": {
@@ -7588,7 +7579,6 @@
             "label_c": 9,
             "label_field_declarator": "534",
             "label_field_type": "533",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -8013,7 +8003,6 @@
             "label_field_name": "604",
             "label_field_object": "596",
             "label_l": 76,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "596": {
@@ -8209,7 +8198,6 @@
             "label_c": 9,
             "label_field_declarator": "625",
             "label_field_type": "624",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 80,
             "label_type": "local_variable_declaration"
           },
@@ -8693,7 +8681,6 @@
             "label_field_name": "703",
             "label_field_object": "695",
             "label_l": 88,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "695": {
@@ -8884,7 +8871,6 @@
             "label_c": 9,
             "label_field_declarator": "724",
             "label_field_type": "723",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 92,
             "label_type": "local_variable_declaration"
           },
@@ -9206,7 +9192,6 @@
             "label_c": 9,
             "label_field_declarator": "79",
             "label_field_type": "78",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 10,
             "label_type": "local_variable_declaration"
           },
@@ -9256,7 +9241,6 @@
             "label_field_name": "786",
             "label_field_object": "778",
             "label_l": 98,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "778": {
@@ -9450,7 +9434,6 @@
             "label_c": 9,
             "label_field_declarator": "807",
             "label_field_type": "806",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 102,
             "label_type": "local_variable_declaration"
           },
@@ -9735,7 +9718,6 @@
             "label_field_name": "856",
             "label_field_object": "848",
             "label_l": 107,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "848": {
@@ -9964,7 +9946,6 @@
             "label_c": 9,
             "label_field_declarator": "883",
             "label_field_type": "882",
-            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 111,
             "label_type": "local_variable_declaration"
           },
@@ -10335,7 +10316,6 @@
             "label_field_name": "944",
             "label_field_object": "936",
             "label_l": 117,
-            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "936": {
