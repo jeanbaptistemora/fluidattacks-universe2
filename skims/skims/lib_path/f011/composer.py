@@ -20,7 +20,6 @@ def composer_json(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
-    print(content_json)
     dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
