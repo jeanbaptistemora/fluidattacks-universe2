@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
@@ -21,18 +21,21 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
   const { groupName, isOpen, onClose, onSubmit } = props;
   const { t } = useTranslation();
 
-  function formValidations(values: { confirmation: string }): {
+  const formValidations: (values: { confirmation: string }) => {
     confirmation?: string;
-  } {
-    return values.confirmation === groupName
-      ? {}
-      : {
-          confirmation: t(
-            "searchFindings.servicesTable.errors.expectedGroupName",
-            { groupName }
-          ),
-        };
-  }
+  } = useCallback(
+    (values: { confirmation: string }): { confirmation?: string } => {
+      return values.confirmation === groupName
+        ? {}
+        : {
+            confirmation: t(
+              "searchFindings.servicesTable.errors.expectedGroupName",
+              { groupName }
+            ),
+          };
+    },
+    [groupName, t]
+  );
 
   return (
     <React.StrictMode>
