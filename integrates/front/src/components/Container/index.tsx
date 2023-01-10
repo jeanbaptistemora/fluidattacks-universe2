@@ -18,6 +18,7 @@ interface IContainerProps {
   border?: string;
   boxShadow?: string;
   boxSizing?: string;
+  br?: string;
   display?: TDisplay;
   fontFamily?: string;
   height?: string;
@@ -69,6 +70,7 @@ const Container = styled.div.attrs({
     border = "",
     boxShadow = "",
     boxSizing = "",
+    br = "0",
     display = "block",
     fontFamily = "Roboto, sans-serif",
     height = "max-content",
@@ -114,6 +116,7 @@ border-top-left-radius: ${borderTl};
 border-top-right-radius: ${borderTR};
 border-bottom-right-radius: ${borderBR};
 border-bottom-left-radius: ${borderBL};
+border-radius: ${br};
 box-shadow: ${boxShadow};
 box-sizing: ${boxSizing};
 display: ${display};

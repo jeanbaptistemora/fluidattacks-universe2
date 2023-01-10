@@ -22,6 +22,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { renderDescription } from "./description";
 import { assigneesFormatter } from "./formatters/assigneesFormatter";
 import { locationsFormatter } from "./formatters/locationsFormatter";
+import { severityFormatter } from "./formatters/severityFormatter";
 import { GET_GROUP_VULNERABILITIES } from "./queries";
 import type {
   IGroupVulnerabilities,
@@ -390,6 +391,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorKey: "severityScore",
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element =>
+        severityFormatter(cell.getValue()),
       header: "Severity",
     },
     {
