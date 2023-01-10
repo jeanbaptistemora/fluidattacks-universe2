@@ -2,59 +2,62 @@ import React from "react";
 
 import { Container } from "../Container";
 import { Text } from "../Text";
+import type { TColor } from "../Text";
 
-type TVariant = "critical" | "high" | "low" | "medium";
+type TVariant = "darkRed" | "orange" | "red" | "yellow";
 
 interface ITagScoreProps {
-  score: number;
+  textL: string;
+  textR: string;
   variant: TVariant;
 }
 
 interface IVariant {
   bgColor: string;
   border: string;
-  text: string;
+  tone: TColor;
 }
 
 const variants: Record<TVariant, IVariant> = {
-  critical: {
+  darkRed: {
     bgColor: "#b3000f",
     border: "1px solid #b3000f",
-    text: "Critical",
+    tone: "light",
   },
-  high: {
-    bgColor: "#f2182a",
-    border: "1px solid #f2182a",
-    text: "High",
-  },
-  low: {
-    bgColor: "#ffce00",
-    border: "1px solid #ffce00",
-    text: "Low",
-  },
-  medium: {
+  orange: {
     bgColor: "#fc9117",
     border: "1px solid #fc9117",
-    text: "Medium",
+    tone: "dark",
+  },
+  red: {
+    bgColor: "#f2182a",
+    border: "1px solid #f2182a",
+    tone: "light",
+  },
+  yellow: {
+    bgColor: "#ffce00",
+    border: "1px solid #ffce00",
+    tone: "dark",
   },
 };
 
-const ScoreTag: React.FC<ITagScoreProps> = ({
-  score,
+const Pill: React.FC<ITagScoreProps> = ({
+  textL,
+  textR,
   variant,
 }): JSX.Element => {
-  const { bgColor, border, text } = variants[variant];
+  const { bgColor, border, tone } = variants[variant];
 
   return (
     <Container border={border} br={"5px"} display={"flex"}>
       <Container pb={"2px"} pl={"6px"} pr={"6px"} pt={"2px"}>
-        <Text>{score}</Text>
+        <Text>{textL}</Text>
       </Container>
       <Container bgColor={bgColor} pb={"2px"} pl={"6px"} pr={"6px"} pt={"2px"}>
-        <Text tone={"light"}>{text}</Text>
+        <Text tone={tone}>{textR}</Text>
       </Container>
     </Container>
   );
 };
 
-export { ScoreTag };
+export { Pill };

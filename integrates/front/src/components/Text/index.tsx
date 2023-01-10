@@ -125,5 +125,5 @@ const Text = styled.p.attrs(
   `}
 `;
 
-export type { ITextProps };
+export type { ITextProps, TColor };
 export { Text, colors };
