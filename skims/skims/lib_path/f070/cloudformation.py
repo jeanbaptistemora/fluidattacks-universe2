@@ -56,7 +56,7 @@ def _cfn_elb2_target_group_insecure_port_iterate_vulnerabilities(
                 data=target_group.data,
                 line=get_line_by_extension(target_group.start_line, file_ext),
             )
-        elif int(port.raw) != 443:
+        elif not isinstance(port.raw, dict) and int(port.raw) != 443:
             yield port
 
 

@@ -33,7 +33,10 @@ def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for red_res in rds_iterator:
         storage_encrypted = red_res.raw.get("StorageEncrypted", False)
-        if storage_encrypted not in TRUE_OPTIONS:
+        if (
+            not isinstance(storage_encrypted, dict)
+            and storage_encrypted not in TRUE_OPTIONS
+        ):
             st_enc_node = get_node_by_keys(red_res, ["StorageEncrypted"])
             if isinstance(st_enc_node, Node):
                 yield st_enc_node

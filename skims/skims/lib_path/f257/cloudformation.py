@@ -40,7 +40,10 @@ def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
             dis_api_term = ec2_res_data.inner.get(  # type: ignore
                 "DisableApiTermination"
             )
-            if dis_api_term.raw in FALSE_OPTIONS:
+            if (
+                not isinstance(dis_api_term.raw, dict)
+                and dis_api_term.raw in FALSE_OPTIONS
+            ):
                 yield dis_api_term
 
 

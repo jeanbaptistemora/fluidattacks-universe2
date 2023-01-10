@@ -52,7 +52,10 @@ def _cfn_ec2_associate_public_ip_address_iter_vulns(
                 aso_public_add := net_interface.inner.get(
                     "AssociatePublicIpAddress"
                 )
-            ) and aso_public_add.raw in TRUE_OPTIONS:
+            ) and (
+                not isinstance(aso_public_add.raw, dict)
+                and aso_public_add.raw in TRUE_OPTIONS
+            ):
                 yield aso_public_add
 
 
