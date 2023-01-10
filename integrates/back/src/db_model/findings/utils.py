@@ -42,16 +42,6 @@ from typing import (
 )
 
 
-def get_finding_current_state_converted(state: str) -> str:
-    if state in {"SAFE", "VULNERABLE"}:
-        translation: dict[str, str] = {
-            "SAFE": "CLOSED",
-            "VULNERABLE": "OPEN",
-        }
-        return translation[state]
-    return state
-
-
 def get_finding_inverted_state_converted(state: str) -> str:
     if state in {"CLOSED", "OPEN"}:
         translation: dict[str, str] = {
@@ -68,16 +58,6 @@ def get_finding_current_treatment_converted(
 
     return {
         ("new" if key == "untreated" else key): value
-        for key, value in summary.items()
-    }
-
-
-def get_finding_inverted_treatment_converted(
-    summary: dict[str, int]
-) -> dict[str, int]:
-
-    return {
-        ("untreated" if key == "new" else key): value
         for key, value in summary.items()
     }
 
@@ -225,6 +205,7 @@ def format_treatment_summary_item(
 def format_treatment_summary(
     treatment_summary_item: Item,
 ) -> FindingTreatmentSummary:
+
     return FindingTreatmentSummary(
         accepted=int(treatment_summary_item["accepted"]),
         accepted_undefined=int(treatment_summary_item["accepted_undefined"]),

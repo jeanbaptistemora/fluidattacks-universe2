@@ -339,9 +339,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             justification="",
             safe=0,
             vulnerable=1,
-            effectiveness=None,
-            new=None,
-            in_progress=None,
         ),
         Tracking(
             cycle=1,
@@ -354,9 +351,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             justification="",
             safe=1,
             vulnerable=0,
-            effectiveness=None,
-            new=None,
-            in_progress=None,
         ),
         Tracking(
             cycle=2,
