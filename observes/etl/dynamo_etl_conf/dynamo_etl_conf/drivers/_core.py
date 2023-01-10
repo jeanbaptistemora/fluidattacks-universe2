@@ -1,9 +1,6 @@
 from ._bins import (
     BinPaths,
 )
-from dataclasses import (
-    dataclass,
-)
 from dynamo_etl_conf._run import (
     external_run,
 )
@@ -22,6 +19,15 @@ def determine_schema(
         BinPaths.DETERMINE_SCHEMAS.value,
         " ".join(tables),
         str(segments),
+        cache_bucket,
+    )
+    return external_run(args)
+
+
+def prepare_loading(loading_schema: str, cache_bucket: str) -> Cmd[None]:
+    args = (
+        BinPaths.PREPARE_LOADING.value,
+        loading_schema,
         cache_bucket,
     )
     return external_run(args)

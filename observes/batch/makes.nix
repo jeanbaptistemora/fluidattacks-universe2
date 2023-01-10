@@ -208,7 +208,7 @@ in {
       size = "observes_nano";
       attempts = 1;
       timeout = 1800;
-      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/prepare"];
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo_etl_conf/jobs/prepare"];
     };
 
     observesDynamoV3EtlBig = scheduled_job {
